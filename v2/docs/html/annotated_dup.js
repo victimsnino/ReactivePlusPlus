@@ -19,17 +19,14 @@ var annotated_dup =
         [ "create_strategy", "structrpp_1_1details_1_1create__strategy.html", null ],
         [ "empty_strategy", "structrpp_1_1details_1_1empty__strategy.html", null ],
         [ "error_strategy", "structrpp_1_1details_1_1error__strategy.html", null ],
-        [ "external_disposable_strategy", "classrpp_1_1details_1_1external__disposable__strategy.html", null ],
         [ "fake_strategy", "structrpp_1_1details_1_1fake__strategy.html", null ],
         [ "from_callable_invoke", "structrpp_1_1details_1_1from__callable__invoke.html", null ],
         [ "from_iterable_schedulable", "structrpp_1_1details_1_1from__iterable__schedulable.html", null ],
         [ "from_iterable_strategy", "structrpp_1_1details_1_1from__iterable__strategy.html", null ],
-        [ "local_disposable_strategy", "classrpp_1_1details_1_1local__disposable__strategy.html", null ],
         [ "never_strategy", "structrpp_1_1details_1_1never__strategy.html", null ],
         [ "none_disposable_strategy", "structrpp_1_1details_1_1none__disposable__strategy.html", null ],
         [ "observer_impl", "classrpp_1_1details_1_1observer__impl.html", "classrpp_1_1details_1_1observer__impl" ],
         [ "shared_container", "classrpp_1_1details_1_1shared__container.html", null ],
-        [ "upstream_disposable", "classrpp_1_1details_1_1upstream__disposable.html", null ],
         [ "with_disposable", "structrpp_1_1details_1_1with__disposable.html", null ]
       ] ],
       [ "memory_model", null, [

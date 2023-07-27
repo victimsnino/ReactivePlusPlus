@@ -93,58 +93,66 @@
 \DoxyCodeLine{00089\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1schedulers_1_1details_1_1schedulables__queue}{schedulables\_queue}}}
 \DoxyCodeLine{00090\ \{}
 \DoxyCodeLine{00091\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00092\ \ \ \ \ \textcolor{keyword}{template}<\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer}{rpp::constraint::observer}}\ TObs,\ \textcolor{keyword}{typename}...\ Args,\ \mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1schedulable__fn}{constraint::schedulable\_fn}}<TObs,\ Args...>\ Fn>}
-\DoxyCodeLine{00093\ \ \ \ \ \textcolor{keywordtype}{void}\ emplace(\textcolor{keyword}{const}\ time\_point\&\ timepoint,\ Fn\&\&\ fn,\ TObs\&\&\ obs,\ Args\&\&...\ args)}
-\DoxyCodeLine{00094\ \ \ \ \ \{}
-\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }schedulable\_type\ =\ \mbox{\hyperlink{classrpp_1_1schedulers_1_1details_1_1specific__schedulable}{specific\_schedulable<std::decay\_t<Fn>}},\ std::decay\_t<TObs>,\ std::decay\_t<Args>...>;}
-\DoxyCodeLine{00096\ }
-\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ emplace\_impl(std::make\_shared<schedulable\_type>(timepoint,\ std::forward<Fn>(fn),\ std::forward<TObs>(obs),\ std::forward<Args>(args)...));}
-\DoxyCodeLine{00098\ \ \ \ \ \}}
+\DoxyCodeLine{00092\ \ \ \ \ \mbox{\hyperlink{classrpp_1_1schedulers_1_1details_1_1schedulables__queue}{schedulables\_queue}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00093\ \ \ \ \ \mbox{\hyperlink{classrpp_1_1schedulers_1_1details_1_1schedulables__queue}{schedulables\_queue}}(std::shared\_ptr<std::condition\_variable\_any>\ cv)\ :\ m\_cv\{std::move(cv)\}\ \{\}}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00095\ \ \ \ \ \textcolor{keyword}{template}<\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer}{rpp::constraint::observer}}\ TObs,\ \textcolor{keyword}{typename}...\ Args,\ \mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1schedulable__fn}{constraint::schedulable\_fn}}<TObs,\ Args...>\ Fn>}
+\DoxyCodeLine{00096\ \ \ \ \ \textcolor{keywordtype}{void}\ emplace(\textcolor{keyword}{const}\ time\_point\&\ timepoint,\ Fn\&\&\ fn,\ TObs\&\&\ obs,\ Args\&\&...\ args)}
+\DoxyCodeLine{00097\ \ \ \ \ \{}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }schedulable\_type\ =\ \mbox{\hyperlink{classrpp_1_1schedulers_1_1details_1_1specific__schedulable}{specific\_schedulable<std::decay\_t<Fn>}},\ std::decay\_t<TObs>,\ std::decay\_t<Args>...>;}
 \DoxyCodeLine{00099\ }
-\DoxyCodeLine{00100\ \ \ \ \ \textcolor{keywordtype}{void}\ emplace(\textcolor{keyword}{const}\ time\_point\&\ timepoint,\ std::shared\_ptr<schedulable\_base>\&\&\ schedulable)}
-\DoxyCodeLine{00101\ \ \ \ \ \{}
-\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!schedulable)}
-\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ emplace\_impl(std::make\_shared<schedulable\_type>(timepoint,\ std::forward<Fn>(fn),\ std::forward<TObs>(obs),\ std::forward<Args>(args)...));}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (m\_cv)}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \ \ \ \ m\_cv-\/>notify\_all();}
+\DoxyCodeLine{00103\ \ \ \ \ \}}
 \DoxyCodeLine{00104\ }
-\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ schedulable-\/>set\_timepoint(timepoint);}
-\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ emplace\_impl(std::move(schedulable));}
-\DoxyCodeLine{00107\ \ \ \ \ \}}
-\DoxyCodeLine{00108\ }
-\DoxyCodeLine{00109\ \ \ \ \ \textcolor{keywordtype}{bool}\ is\_empty()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ !m\_head;\ \}}
-\DoxyCodeLine{00110\ }
-\DoxyCodeLine{00111\ \ \ \ \ std::shared\_ptr<schedulable\_base>\ pop()}
-\DoxyCodeLine{00112\ \ \ \ \ \{}
-\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::exchange(m\_head,\ m\_head-\/>get\_next());}
+\DoxyCodeLine{00105\ \ \ \ \ \textcolor{keywordtype}{void}\ emplace(\textcolor{keyword}{const}\ time\_point\&\ timepoint,\ std::shared\_ptr<schedulable\_base>\&\&\ schedulable)}
+\DoxyCodeLine{00106\ \ \ \ \ \{}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!schedulable)}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ schedulable-\/>set\_timepoint(timepoint);}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ emplace\_impl(std::move(schedulable));}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (m\_cv)}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \ \ \ \ m\_cv-\/>notify\_all();}
 \DoxyCodeLine{00114\ \ \ \ \ \}}
 \DoxyCodeLine{00115\ }
-\DoxyCodeLine{00116\ \ \ \ \ \textcolor{keyword}{const}\ std::shared\_ptr<schedulable\_base>\&\ top()\textcolor{keyword}{\ const}}
-\DoxyCodeLine{00117\ \textcolor{keyword}{\ \ \ \ }\{}
-\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ m\_head;}
-\DoxyCodeLine{00119\ \ \ \ \ \}}
-\DoxyCodeLine{00120\ }
-\DoxyCodeLine{00121\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00122\ \ \ \ \ \textcolor{keywordtype}{void}\ emplace\_impl(std::shared\_ptr<schedulable\_base>\&\&\ schedulable)}
-\DoxyCodeLine{00123\ \ \ \ \ \{}
-\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!m\_head\ ||\ schedulable-\/>get\_timepoint()\ <\ m\_head-\/>get\_timepoint())}
-\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \ \ \ \ schedulable-\/>set\_next(std::move(m\_head));}
-\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \ \ \ \ m\_head\ =\ std::move(schedulable);}
-\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
-\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00130\ }
-\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrpp_1_1schedulers_1_1details_1_1schedulable__base}{schedulable\_base}}*\ current\ =\ m\_head.get();}
-\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ next\ =\ current-\/>get\_next())}
-\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (schedulable-\/>get\_timepoint()\ <\ next-\/>get\_timepoint())}
-\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
-\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \ \ \ \ current\ =\ next.get();}
-\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00138\ }
-\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ current-\/>update\_next(std::move(schedulable));}
-\DoxyCodeLine{00140\ \ \ \ \ \}}
-\DoxyCodeLine{00141\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00142\ \ \ \ \ std::shared\_ptr<schedulable\_base>\ m\_head\{\};}
-\DoxyCodeLine{00143\ \};}
-\DoxyCodeLine{00144\ \}}
+\DoxyCodeLine{00116\ \ \ \ \ \textcolor{keywordtype}{bool}\ is\_empty()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ !m\_head;\ \}}
+\DoxyCodeLine{00117\ }
+\DoxyCodeLine{00118\ \ \ \ \ std::shared\_ptr<schedulable\_base>\ pop()}
+\DoxyCodeLine{00119\ \ \ \ \ \{}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::exchange(m\_head,\ m\_head-\/>get\_next());}
+\DoxyCodeLine{00121\ \ \ \ \ \}}
+\DoxyCodeLine{00122\ }
+\DoxyCodeLine{00123\ \ \ \ \ \textcolor{keyword}{const}\ std::shared\_ptr<schedulable\_base>\&\ top()\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00124\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ m\_head;}
+\DoxyCodeLine{00126\ \ \ \ \ \}}
+\DoxyCodeLine{00127\ }
+\DoxyCodeLine{00128\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00129\ \ \ \ \ \textcolor{keywordtype}{void}\ emplace\_impl(std::shared\_ptr<schedulable\_base>\&\&\ schedulable)}
+\DoxyCodeLine{00130\ \ \ \ \ \{}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!m\_head\ ||\ schedulable-\/>get\_timepoint()\ <\ m\_head-\/>get\_timepoint())}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \ \ \ \ schedulable-\/>set\_next(std::move(m\_head));}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \ \ \ \ m\_head\ =\ std::move(schedulable);}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00137\ }
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrpp_1_1schedulers_1_1details_1_1schedulable__base}{schedulable\_base}}*\ current\ =\ m\_head.get();}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ next\ =\ current-\/>get\_next())}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (schedulable-\/>get\_timepoint()\ <\ next-\/>get\_timepoint())}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \ \ \ \ current\ =\ next.get();}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00145\ }
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ current-\/>update\_next(std::move(schedulable));}
+\DoxyCodeLine{00147\ \ \ \ \ \}}
+\DoxyCodeLine{00148\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00149\ \ \ \ \ std::shared\_ptr<schedulable\_base>\ \ \ \ \ \ \ \ \ \ \ \ m\_head\{\};}
+\DoxyCodeLine{00150\ \ \ \ \ std::shared\_ptr<std::condition\_variable\_any>\ m\_cv\{\};}
+\DoxyCodeLine{00151\ \};}
+\DoxyCodeLine{00152\ \}}
 
 \end{DoxyCode}

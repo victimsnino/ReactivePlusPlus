@@ -5,9 +5,8 @@ var searchData=
   ['empty_5fstrategy_2',['empty_strategy',['../structrpp_1_1details_1_1empty__strategy.html',1,'rpp::details']]],
   ['error_3',['error',['../group__creational__operators.html#ga4fe060f48695cc3fadfbdb10f77f8acb',1,'rpp::source']]],
   ['error_5fstrategy_4',['error_strategy',['../structrpp_1_1details_1_1error__strategy.html',1,'rpp::details']]],
-  ['external_5fdisposable_5fstrategy_5',['external_disposable_strategy',['../classrpp_1_1details_1_1external__disposable__strategy.html',1,'rpp::details']]],
-  ['extract_5fobservable_5ftype_6',['extract_observable_type',['../structrpp_1_1utils_1_1details_1_1extract__observable__type.html',1,'rpp::utils::details']]],
-  ['extract_5fobservable_5ftype_3c_20rpp_3a_3aobservable_3c_20tt_2c_20strategy_20_3e_20_3e_7',['extract_observable_type&lt; rpp::observable&lt; TT, Strategy &gt; &gt;',['../structrpp_1_1utils_1_1details_1_1extract__observable__type_3_01rpp_1_1observable_3_01_t_t_00_01_strategy_01_4_01_4.html',1,'rpp::utils::details']]],
-  ['extract_5fobserver_5ftype_8',['extract_observer_type',['../structrpp_1_1utils_1_1details_1_1extract__observer__type.html',1,'rpp::utils::details']]],
-  ['extract_5fobserver_5ftype_3c_20rpp_3a_3aobserver_3c_20tt_2c_20strategy_20_3e_20_3e_9',['extract_observer_type&lt; rpp::observer&lt; TT, Strategy &gt; &gt;',['../structrpp_1_1utils_1_1details_1_1extract__observer__type_3_01rpp_1_1observer_3_01_t_t_00_01_strategy_01_4_01_4.html',1,'rpp::utils::details']]]
+  ['extract_5fobservable_5ftype_5',['extract_observable_type',['../structrpp_1_1utils_1_1details_1_1extract__observable__type.html',1,'rpp::utils::details']]],
+  ['extract_5fobservable_5ftype_3c_20rpp_3a_3aobservable_3c_20tt_2c_20strategy_20_3e_20_3e_6',['extract_observable_type&lt; rpp::observable&lt; TT, Strategy &gt; &gt;',['../structrpp_1_1utils_1_1details_1_1extract__observable__type_3_01rpp_1_1observable_3_01_t_t_00_01_strategy_01_4_01_4.html',1,'rpp::utils::details']]],
+  ['extract_5fobserver_5ftype_7',['extract_observer_type',['../structrpp_1_1utils_1_1details_1_1extract__observer__type.html',1,'rpp::utils::details']]],
+  ['extract_5fobserver_5ftype_3c_20rpp_3a_3aobserver_3c_20tt_2c_20strategy_20_3e_20_3e_8',['extract_observer_type&lt; rpp::observer&lt; TT, Strategy &gt; &gt;',['../structrpp_1_1utils_1_1details_1_1extract__observer__type_3_01rpp_1_1observer_3_01_t_t_00_01_strategy_01_4_01_4.html',1,'rpp::utils::details']]]
 ];

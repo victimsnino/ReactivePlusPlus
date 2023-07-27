@@ -63,42 +63,47 @@
 \DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \ \ \ locked-\/>dispose();}
 \DoxyCodeLine{00060\ \ \ \ \ \}}
 \DoxyCodeLine{00061\ }
-\DoxyCodeLine{00062\ \ \ \ \ \textcolor{keywordtype}{void}\ add(std::shared\_ptr<interface\_disposable>\ other)\ \textcolor{keyword}{const}\ \textcolor{keyword}{requires}\ std::same\_as<TDisposable,\ composite\_disposable>}
+\DoxyCodeLine{00062\ \ \ \ \ \textcolor{keywordtype}{void}\ add(\mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{disposable\_wrapper}}\ other)\ \textcolor{keyword}{const}\ \textcolor{keyword}{requires}\ std::same\_as<TDisposable,\ composite\_disposable>}
 \DoxyCodeLine{00063\ \ \ \ \ \{}
 \DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ locked\ =\ get\_original())}
 \DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \ \ \ \ locked-\/>add(std::move(other));}
-\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (other)}
-\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \ \ \ \ other-\/>dispose();}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \ \ \ \ other.dispose();}
 \DoxyCodeLine{00068\ \ \ \ \ \}}
 \DoxyCodeLine{00069\ }
-\DoxyCodeLine{00070\ \ \ \ \ std::shared\_ptr<TDisposable>\ get\_original()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00070\ \ \ \ \ \textcolor{keywordtype}{void}\ add(disposable\_ptr\ disposable)\ \textcolor{keyword}{const}\ \textcolor{keyword}{requires}\ std::same\_as<TDisposable,\ composite\_disposable>}
 \DoxyCodeLine{00071\ \ \ \ \ \{}
-\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ ptr\_ptr\ =\ std::get\_if<std::shared\_ptr<TDisposable>>(\&m\_disposable))}
-\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *ptr\_ptr;}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ add(\mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{disposable\_wrapper}}\{std::move(disposable)\});}
+\DoxyCodeLine{00073\ \ \ \ \ \}}
 \DoxyCodeLine{00074\ }
-\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ ptr\_ptr\ =\ std::get\_if<std::weak\_ptr<TDisposable>>(\&m\_disposable))}
-\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ptr\_ptr-\/>lock();}
-\DoxyCodeLine{00077\ }
-\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{nullptr};}
-\DoxyCodeLine{00079\ \ \ \ \ \}}
-\DoxyCodeLine{00080\ }
-\DoxyCodeLine{00081\ \ \ \ \ \textcolor{keyword}{operator}\ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{disposable\_wrapper\_impl<interface\_disposable>}}()\textcolor{keyword}{\ const}}
-\DoxyCodeLine{00082\ \textcolor{keyword}{\ \ \ \ }\{}
-\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ ptr\_ptr\ =\ std::get\_if<std::shared\_ptr<TDisposable>>(\&m\_disposable))}
-\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ disposable\_wrapper::from\_shared(*ptr\_ptr);}
+\DoxyCodeLine{00075\ \ \ \ \ std::shared\_ptr<TDisposable>\ get\_original()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00076\ \ \ \ \ \{}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ ptr\_ptr\ =\ std::get\_if<std::shared\_ptr<TDisposable>>(\&m\_disposable))}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *ptr\_ptr;}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ ptr\_ptr\ =\ std::get\_if<std::weak\_ptr<TDisposable>>(\&m\_disposable))}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ptr\_ptr-\/>lock();}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00084\ \ \ \ \ \}}
 \DoxyCodeLine{00085\ }
-\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ ptr\_ptr\ =\ std::get\_if<std::weak\_ptr<TDisposable>>(\&m\_disposable))}
-\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ disposable\_wrapper::from\_weak(*ptr\_ptr);}
-\DoxyCodeLine{00088\ }
-\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{disposable\_wrapper}}\{\};}
-\DoxyCodeLine{00090\ \ \ \ \ \}}
-\DoxyCodeLine{00091\ }
-\DoxyCodeLine{00092\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00093\ \ \ \ \ std::variant<std::shared\_ptr<TDisposable>,\ std::weak\_ptr<TDisposable>>\ m\_disposable;}
-\DoxyCodeLine{00094\ \};}
-\DoxyCodeLine{00095\ }
-\DoxyCodeLine{00096\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ TDisposable>}
-\DoxyCodeLine{00097\ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{disposable\_wrapper\_impl}}(\textcolor{keyword}{const}\ std::shared\_ptr<TDisposable>\&)\ -\/>\ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{disposable\_wrapper\_impl<TDisposable>}};}
-\DoxyCodeLine{00098\ \}}
+\DoxyCodeLine{00086\ \ \ \ \ \textcolor{keyword}{operator}\ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{disposable\_wrapper\_impl<interface\_disposable>}}()\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00087\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ ptr\_ptr\ =\ std::get\_if<std::shared\_ptr<TDisposable>>(\&m\_disposable))}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ disposable\_wrapper::from\_shared(*ptr\_ptr);}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ ptr\_ptr\ =\ std::get\_if<std::weak\_ptr<TDisposable>>(\&m\_disposable))}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ disposable\_wrapper::from\_weak(*ptr\_ptr);}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{disposable\_wrapper}}\{\};}
+\DoxyCodeLine{00095\ \ \ \ \ \}}
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00097\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00098\ \ \ \ \ std::variant<std::shared\_ptr<TDisposable>,\ std::weak\_ptr<TDisposable>>\ m\_disposable;}
+\DoxyCodeLine{00099\ \};}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00101\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ TDisposable>}
+\DoxyCodeLine{00102\ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{disposable\_wrapper\_impl}}(\textcolor{keyword}{const}\ std::shared\_ptr<TDisposable>\&)\ -\/>\ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{disposable\_wrapper\_impl<TDisposable>}};}
+\DoxyCodeLine{00103\ \}}
 
 \end{DoxyCode}

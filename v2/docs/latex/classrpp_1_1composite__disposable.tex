@@ -12,15 +12,18 @@ Inheritance diagram for rpp\+::composite\+\_\+disposable\+:\begin{figure}[H]
 \Hypertarget{classrpp_1_1composite__disposable_acabdfd2e741f94cdd0b8438eba3e887e}\label{classrpp_1_1composite__disposable_acabdfd2e741f94cdd0b8438eba3e887e} 
 {\bfseries composite\+\_\+disposable} (const \mbox{\hyperlink{classrpp_1_1composite__disposable}{composite\+\_\+disposable}} \&)=delete
 \item 
-\Hypertarget{classrpp_1_1composite__disposable_afdf550a555916e938a8670deb9971c4e}\label{classrpp_1_1composite__disposable_afdf550a555916e938a8670deb9971c4e} 
-{\bfseries composite\+\_\+disposable} (\mbox{\hyperlink{classrpp_1_1composite__disposable}{composite\+\_\+disposable}} \&\&)=delete
+\Hypertarget{classrpp_1_1composite__disposable_ac449794291c1b8a885e8b74c25a672e4}\label{classrpp_1_1composite__disposable_ac449794291c1b8a885e8b74c25a672e4} 
+{\bfseries composite\+\_\+disposable} (\mbox{\hyperlink{classrpp_1_1composite__disposable}{composite\+\_\+disposable}} \&\&other) noexcept
 \item 
 bool \mbox{\hyperlink{classrpp_1_1composite__disposable_a748deb894f9f98ea238e919e62859262}{is\+\_\+disposed}} () const noexcept final
 \item 
 void \mbox{\hyperlink{classrpp_1_1composite__disposable_acf263ceb2c51a97f435d730f33ec293c}{dispose}} () final
 \item 
-\Hypertarget{classrpp_1_1composite__disposable_a787051c4ba7d9592bcb20fdce7cd0314}\label{classrpp_1_1composite__disposable_a787051c4ba7d9592bcb20fdce7cd0314} 
-void {\bfseries add} (std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{structrpp_1_1interface__disposable}{interface\+\_\+disposable}} $>$ disposable)
+\Hypertarget{classrpp_1_1composite__disposable_af2919b16fa7ff40245555cc85bd49cc0}\label{classrpp_1_1composite__disposable_af2919b16fa7ff40245555cc85bd49cc0} 
+void {\bfseries add} (\mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{disposable\+\_\+wrapper}} disposable)
+\item 
+\Hypertarget{classrpp_1_1composite__disposable_af6117a40fce74f8afe42212f9afd6b2e}\label{classrpp_1_1composite__disposable_af6117a40fce74f8afe42212f9afd6b2e} 
+void {\bfseries add} (disposable\+\_\+ptr disposable)
 \item 
 \Hypertarget{classrpp_1_1composite__disposable_ac595e28b743de448e2a028f386d0fb94}\label{classrpp_1_1composite__disposable_ac595e28b743de448e2a028f386d0fb94} 
 {\footnotesize template$<$std\+::invocable Fn$>$ }\\void {\bfseries add} (Fn \&\&invocable)

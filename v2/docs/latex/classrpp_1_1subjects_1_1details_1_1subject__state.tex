@@ -26,13 +26,15 @@ void {\bfseries on\+\_\+completed} ()
 \item 
 {\bfseries composite\+\_\+disposable} (const \mbox{\hyperlink{classrpp_1_1composite__disposable}{composite\+\_\+disposable}} \&)=delete
 \item 
-{\bfseries composite\+\_\+disposable} (\mbox{\hyperlink{classrpp_1_1composite__disposable}{composite\+\_\+disposable}} \&\&)=delete
+{\bfseries composite\+\_\+disposable} (\mbox{\hyperlink{classrpp_1_1composite__disposable}{composite\+\_\+disposable}} \&\&other) noexcept
 \item 
 bool \mbox{\hyperlink{classrpp_1_1composite__disposable_a748deb894f9f98ea238e919e62859262}{is\+\_\+disposed}} () const noexcept final
 \item 
 void \mbox{\hyperlink{classrpp_1_1composite__disposable_acf263ceb2c51a97f435d730f33ec293c}{dispose}} () final
 \item 
-void {\bfseries add} (std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{structrpp_1_1interface__disposable}{interface\+\_\+disposable}} $>$ disposable)
+void {\bfseries add} (\mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{disposable\+\_\+wrapper}} disposable)
+\item 
+void {\bfseries add} (disposable\+\_\+ptr disposable)
 \item 
 {\footnotesize template$<$std\+::invocable Fn$>$ }\\void {\bfseries add} (Fn \&\&invocable)
 \end{DoxyCompactItemize}

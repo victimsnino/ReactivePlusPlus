@@ -121,10 +121,6 @@ var hierarchy =
       [ "rpp::utils::details::extract_observable_type< rpp::observable< TT, Strategy > >", "structrpp_1_1utils_1_1details_1_1extract__observable__type_3_01rpp_1_1observable_3_01_t_t_00_01_strategy_01_4_01_4.html", null ],
       [ "rpp::utils::details::extract_observer_type< rpp::observer< TT, Strategy > >", "structrpp_1_1utils_1_1details_1_1extract__observer__type_3_01rpp_1_1observer_3_01_t_t_00_01_strategy_01_4_01_4.html", null ]
     ] ],
-    [ "rpp::details::upstream_disposable", "classrpp_1_1details_1_1upstream__disposable.html", [
-      [ "rpp::details::external_disposable_strategy", "classrpp_1_1details_1_1external__disposable__strategy.html", null ],
-      [ "rpp::details::local_disposable_strategy", "classrpp_1_1details_1_1local__disposable__strategy.html", null ]
-    ] ],
     [ "rpp::memory_model::use_shared", "structrpp_1_1memory__model_1_1use__shared.html", null ],
     [ "rpp::memory_model::use_stack", "structrpp_1_1memory__model_1_1use__stack.html", null ],
     [ "rpp::details::with_disposable< S >", "structrpp_1_1details_1_1with__disposable.html", null ],
