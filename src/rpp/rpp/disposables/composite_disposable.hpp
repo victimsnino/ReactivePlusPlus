@@ -12,6 +12,7 @@
 
 #include <rpp/disposables/fwd.hpp>
 #include <rpp/disposables/interface_disposable.hpp>
+#include <rpp/disposables/disposable_wrapper.hpp>
 
 #include <atomic>
 #include <memory>
@@ -25,7 +26,10 @@ public:
     composite_disposable() = default;
 
     composite_disposable(const composite_disposable&) = delete;
-    composite_disposable(composite_disposable&&)      = delete;
+    composite_disposable(composite_disposable&& other) noexcept
+        : m_disposables{std::move(other.m_disposables)}
+        , m_current_state(other.m_current_state.exchange(State::Disposed, std::memory_order_relaxed))
+    {}
 
     bool is_disposed() const noexcept final
     {
@@ -42,7 +46,7 @@ public:
                 dispose_impl();
 
                 for (const auto& d : m_disposables)
-                    d->dispose();
+                    d.dispose();
 
                 m_disposables.clear();
                 return;
@@ -53,9 +57,9 @@ public:
         }
     }
 
-    void add(std::shared_ptr<interface_disposable> disposable)
+    void add(disposable_wrapper disposable)
     {
-        if (!disposable || disposable.get() == this || disposable->is_disposed())
+        if (disposable.is_disposed() || disposable.get_original().get() == this)
             return;
 
         while (true)
@@ -70,10 +74,15 @@ public:
 
             if (expected == State::Disposed)
             {
-                disposable->dispose();
+                disposable.dispose();
                 return;
             }
         }
+    }
+
+    void add(disposable_ptr disposable)
+    {
+        add(disposable_wrapper{std::move(disposable)});
     }
 
     template<std::invocable Fn>
@@ -93,7 +102,7 @@ private:
         Disposed // permanent state after dispose
     };
 
-    std::atomic<State>                                 m_current_state{};
-    std::vector<std::shared_ptr<interface_disposable>> m_disposables{};
+    std::vector<disposable_wrapper> m_disposables{};
+    std::atomic<State>              m_current_state{};
 };
 } // namespace rpp

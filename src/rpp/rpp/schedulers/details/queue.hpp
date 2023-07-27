@@ -89,12 +89,17 @@ private:
 class schedulables_queue
 {
 public:
+    schedulables_queue() = default;
+    schedulables_queue(std::shared_ptr<std::condition_variable_any> cv) : m_cv{std::move(cv)} {}
+
     template<rpp::constraint::observer TObs, typename... Args, constraint::schedulable_fn<TObs, Args...> Fn>
     void emplace(const time_point& timepoint, Fn&& fn, TObs&& obs, Args&&... args)
     {
         using schedulable_type = specific_schedulable<std::decay_t<Fn>, std::decay_t<TObs>, std::decay_t<Args>...>;
 
         emplace_impl(std::make_shared<schedulable_type>(timepoint, std::forward<Fn>(fn), std::forward<TObs>(obs), std::forward<Args>(args)...));
+        if (m_cv)
+            m_cv->notify_all();
     }
 
     void emplace(const time_point& timepoint, std::shared_ptr<schedulable_base>&& schedulable)
@@ -104,6 +109,8 @@ public:
 
         schedulable->set_timepoint(timepoint);
         emplace_impl(std::move(schedulable));
+        if (m_cv)
+            m_cv->notify_all();
     }
 
     bool is_empty() const { return !m_head; }
@@ -139,6 +146,7 @@ private:
         current->update_next(std::move(schedulable));
     }
 private:
-    std::shared_ptr<schedulable_base> m_head{};
+    std::shared_ptr<schedulable_base>            m_head{};
+    std::shared_ptr<std::condition_variable_any> m_cv{};
 };
 }

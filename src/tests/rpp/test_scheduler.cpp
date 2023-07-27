@@ -15,6 +15,9 @@
 #include <snitch/snitch.hpp>
 #include <rpp/schedulers.hpp>
 #include <rpp/observers/lambda_observer.hpp>
+#include <rpp/sources/just.hpp>
+#include <rpp/operators/as_blocking.hpp>
+#include <rpp/operators/subscribe_on.hpp>
 
 #include <chrono>
 #include <future>
@@ -338,10 +341,18 @@ TEMPLATE_TEST_CASE("queue_based scheduler", "", rpp::schedulers::current_thread,
     size_t call_count{};
 
     std::promise<std::string> thread_of_schedule_promise{};
+
+    auto done = std::make_shared<std::atomic_bool>();
+
     worker->schedule([&](const auto&)
     {
         thread_of_schedule_promise.set_value(get_thread_id_as_string(std::this_thread::get_id()));
-        return rpp::schedulers::optional_duration{};;
+        if constexpr (std::same_as<TestType, rpp::schedulers::new_thread>)
+            thread_local rpp::utils::finally_action a{[done] { done->store(true); }};
+        else
+            done->store(true);
+
+        return rpp::schedulers::optional_duration{};
     }, obs.value());
 
     auto thread_of_execution = thread_of_schedule_promise.get_future().get();
@@ -356,17 +367,11 @@ TEMPLATE_TEST_CASE("queue_based scheduler", "", rpp::schedulers::current_thread,
 
     auto wait_till_finished = [&]
     {
-        auto disposable = std::weak_ptr{worker->get_disposable().get_original()};
         worker.reset();
         obs.reset();
         d.reset();
-        while(true)
-        {
-            std::this_thread::yield();
-            const auto locked = disposable.lock();
-            if (!locked || locked->is_disposed())
-                break;
-        }
+
+        while(!done->load()){};
     };
 
     SECTION("scheduler schedules and re-schedules action immediately")
@@ -703,4 +708,16 @@ TEST_CASE("new_thread utilized current_thread")
 
     CHECK(inner_schedule_executed);
     CHECK(mock.get_on_error_count() == 0);
+}
+
+TEST_CASE("new_thread works till end")
+{
+    auto mock = mock_observer_strategy<int>{};
+
+    rpp::source::just(1,2,3,4,5,6,7,8,9,10)
+    | rpp::operators::subscribe_on(rpp::schedulers::new_thread{})
+    | rpp::operators::as_blocking()
+    | rpp::operators::subscribe(mock.get_observer());
+
+    CHECK(mock.get_received_values().size() == 10);
 }
