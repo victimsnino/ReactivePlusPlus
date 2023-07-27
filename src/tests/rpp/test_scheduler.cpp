@@ -344,21 +344,14 @@ TEMPLATE_TEST_CASE("queue_based scheduler", "", rpp::schedulers::current_thread,
 
     bool done{};
     std::mutex mutex{};
-    std::unique_lock lock{mutex};
-
-    auto thread_done = [&]
-    {
-        done = true;
-        lock.unlock();
-    };
 
     worker->schedule([&](const auto&)
     {
         thread_of_schedule_promise.set_value(get_thread_id_as_string(std::this_thread::get_id()));
         if constexpr (std::same_as<TestType, rpp::schedulers::new_thread>)
-            thread_local rpp::utils::finally_action a{thread_done};
+            thread_local rpp::utils::finally_action a{[&done, lock = std::unique_lock{mutex}] { done = true; }};
         else
-            thread_done();
+            done = true;
 
         return rpp::schedulers::optional_duration{};
     }, obs.value());
