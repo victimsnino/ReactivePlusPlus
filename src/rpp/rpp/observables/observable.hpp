@@ -82,16 +82,11 @@ public:
         rpp::source::just(1) 
         | rpp::operators::repeat() 
         | rpp::operators::subscribe_on(rpp::schedulers::new_thread{}) 
-        | rpp::operators::subscribe(
-                disposable,
-                [](int) { std::cout << "NEW VALUE" << std::endl; },
-                [](const std::exception_ptr&) {},
-                []() { std::cout << "FINISHED" << std::endl; });
+        | rpp::operators::subscribe(disposable, rpp::make_lambda_observer([](int) { std::cout << "NEW VALUE" << std::endl; }));
 
         std::this_thread::sleep_for(std::chrono::seconds(1));
         disposable->dispose();
         std::this_thread::sleep_for(std::chrono::seconds(1));
-
        ```
      */
     template<constraint::observer_strategy<Type> ObserverStrategy>
@@ -124,6 +119,19 @@ public:
      *
      * @param d is disposable to be attached to observer. If disposable is nullptr or disposed -> no any subscription happens
      * @return composite_disposable_wrapper is disposable to be able to dispose observer when it needed
+     *
+     * @par Example
+     * ```cpp
+        auto disposable = std::make_shared<rpp::composite_disposable>();
+        rpp::source::just(1) 
+        | rpp::operators::repeat() 
+        | rpp::operators::subscribe_on(rpp::schedulers::new_thread{}) 
+        | rpp::operators::subscribe(disposable, [](int) { std::cout << "NEW VALUE" << std::endl; });
+
+        std::this_thread::sleep_for(std::chrono::seconds(1));
+        disposable->dispose();
+        std::this_thread::sleep_for(std::chrono::seconds(1));
+       ```
      */
     template<std::invocable<Type>                      OnNext,
              std::invocable<const std::exception_ptr&> OnError     = rpp::utils::rethrow_error_t,
