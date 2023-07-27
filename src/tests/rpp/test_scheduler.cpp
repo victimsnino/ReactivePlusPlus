@@ -370,8 +370,8 @@ TEMPLATE_TEST_CASE("queue_based scheduler", "", rpp::schedulers::current_thread,
         worker.reset();
         obs.reset();
         d.reset();
-        
-        done.get_future().get();
+
+        done.get_future().wait();
     };
 
     SECTION("scheduler schedules and re-schedules action immediately")
@@ -714,8 +714,8 @@ TEST_CASE("new_thread works till end")
 {
     auto mock = mock_observer_strategy<int>{};
 
-    rpp::source::just(1,2,3,4,5,6,7,8,9,10) 
-    | rpp::operators::subscribe_on(rpp::schedulers::new_thread{}) 
+    rpp::source::just(1,2,3,4,5,6,7,8,9,10)
+    | rpp::operators::subscribe_on(rpp::schedulers::new_thread{})
     | rpp::operators::as_blocking()
     | rpp::operators::subscribe(mock.get_observer());
 
