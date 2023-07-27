@@ -31,6 +31,9 @@ endif()
 # ==================== RXCPP =======================
 if (RPP_BUILD_RXCPP AND RPP_BUILD_BENCHMARKS)
   set(RXCPP_DISABLE_TESTS_AND_EXAMPLES 1)
+
+  set(CMAKE_WARN_DEPRECATED 0)
+
   Include(FetchContent)
 
   FetchContent_Declare(
@@ -41,6 +44,8 @@ if (RPP_BUILD_RXCPP AND RPP_BUILD_BENCHMARKS)
   )
 
   FetchContent_MakeAvailable(RxCpp)
+
+  set(CMAKE_WARN_DEPRECATED 1)
 
   set_target_properties(rxcpp PROPERTIES INTERFACE_SYSTEM_INCLUDE_DIRECTORIES $<TARGET_PROPERTY:rxcpp,INTERFACE_INCLUDE_DIRECTORIES>)
   set_target_properties(rxcpp PROPERTIES CXX_CLANG_TIDY "")

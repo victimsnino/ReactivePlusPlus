@@ -183,8 +183,14 @@ TEST_CASE("set_upstream can be called multiple times")
         auto d1 = std::make_shared<rpp::composite_disposable>();
         observer.set_upstream(rpp::disposable_wrapper{d1});
         CHECK(d1->is_disposed() == observer.is_disposed());
-        observer.set_upstream(rpp::disposable_wrapper{std::make_shared<rpp::composite_disposable>()});
+        auto d2 = std::make_shared<rpp::composite_disposable>();
+        observer.set_upstream(rpp::disposable_wrapper{d2});
+        CHECK(d1->is_disposed() == observer.is_disposed());
+        CHECK(d2->is_disposed() == observer.is_disposed());
+
+        observer.on_completed();
         CHECK(d1->is_disposed());
+        CHECK(d2->is_disposed());
     };
 
     SECTION("observer")
