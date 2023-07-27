@@ -342,15 +342,23 @@ TEMPLATE_TEST_CASE("queue_based scheduler", "", rpp::schedulers::current_thread,
 
     std::promise<std::string> thread_of_schedule_promise{};
 
-    std::promise<void> done{};
+    bool done{};
+    std::mutex mutex{};
+    std::unique_lock lock{mutex};
+
+    auto thread_done = [&]
+    {
+        done = true;
+        lock.unlock();
+    };
 
     worker->schedule([&](const auto&)
     {
         thread_of_schedule_promise.set_value(get_thread_id_as_string(std::this_thread::get_id()));
         if constexpr (std::same_as<TestType, rpp::schedulers::new_thread>)
-            done.set_value_at_thread_exit();
+            thread_local rpp::utils::finally_action a{thread_done};
         else
-            done.set_value();
+            thread_done();
 
         return rpp::schedulers::optional_duration{};
     }, obs.value());
@@ -371,8 +379,8 @@ TEMPLATE_TEST_CASE("queue_based scheduler", "", rpp::schedulers::current_thread,
         obs.reset();
         d.reset();
 
-        done.get_future().wait();
-        std::atomic_thread_fence(std::memory_order_seq_cst);
+        std::unique_lock lock{mutex};
+        REQUIRE(done);
     };
 
     SECTION("scheduler schedules and re-schedules action immediately")
