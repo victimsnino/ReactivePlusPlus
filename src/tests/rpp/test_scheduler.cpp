@@ -372,6 +372,7 @@ TEMPLATE_TEST_CASE("queue_based scheduler", "", rpp::schedulers::current_thread,
         d.reset();
 
         done.get_future().wait();
+        std::atomic_thread_fence(std::memory_order_seq_cst);
     };
 
     SECTION("scheduler schedules and re-schedules action immediately")
