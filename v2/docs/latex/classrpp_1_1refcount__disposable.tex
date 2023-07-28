@@ -1,5 +1,14 @@
 \doxysection{rpp\+::refcount\+\_\+disposable Class Reference}
 \hypertarget{classrpp_1_1refcount__disposable}{}\label{classrpp_1_1refcount__disposable}\index{rpp::refcount\_disposable@{rpp::refcount\_disposable}}
+
+
+Disposable with counter inside. Each {\ttfamily add\+\_\+ref} increments counter, while each {\ttfamily \doxylink{classrpp_1_1refcount__disposable_aca0f28bcaedd9938ab22b09eebb2adb1}{dispose()}} call decrements. In case of reaching zero disposes underlying disposables @warn Don\textquotesingle{}t use it as disposable of observer due to {\ttfamily \doxylink{classrpp_1_1refcount__disposable_a7ee21e190b2a1e3b527fc46823109c04}{is\+\_\+disposed()}} would be false till counter reaches zero, so, observer can be also not {\ttfamily \doxylink{classrpp_1_1refcount__disposable_a7ee21e190b2a1e3b527fc46823109c04}{is\+\_\+disposed()}} during this time.  
+
+
+
+
+{\ttfamily \#include $<$refcount\+\_\+disposable.\+hpp$>$}
+
 Inheritance diagram for rpp\+::refcount\+\_\+disposable\+:\begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -22,20 +31,23 @@ Inheritance diagram for rpp\+::refcount\+\_\+disposable\+:\begin{figure}[H]
 {\bfseries refcount\+\_\+disposable} (\mbox{\hyperlink{classrpp_1_1refcount__disposable}{refcount\+\_\+disposable}} \&\&) noexcept=delete
 \item 
 bool \mbox{\hyperlink{classrpp_1_1refcount__disposable_a7ee21e190b2a1e3b527fc46823109c04}{is\+\_\+disposed}} () const noexcept override
-\item 
+\begin{DoxyCompactList}\small\item\em Check if this disposable is just disposed @warn This function must be thread-\/safe. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classrpp_1_1refcount__disposable_aca0f28bcaedd9938ab22b09eebb2adb1}{dispose}} () override
-\item 
+\begin{DoxyCompactList}\small\item\em Dispose disposable and free any underlying resources and etc. @warn This function must be thread-\/safe. \end{DoxyCompactList}\item 
 \Hypertarget{classrpp_1_1refcount__disposable_a73031f0bf91b9225602309d86f60d90d}\label{classrpp_1_1refcount__disposable_a73031f0bf91b9225602309d86f60d90d} 
 void {\bfseries add\+\_\+ref} ()
 \end{DoxyCompactItemize}
 \begin{DoxyCompactItemize}
 \item 
-\Hypertarget{structrpp_1_1interface__disposable_a0348da95fe5929a3861e80b6651c347f}\label{structrpp_1_1interface__disposable_a0348da95fe5929a3861e80b6651c347f} 
-virtual bool {\bfseries is\+\_\+disposed} () const noexcept=0
-\item 
-\Hypertarget{structrpp_1_1interface__disposable_a47d5a3e76f8f0e774b07f7743eb0634a}\label{structrpp_1_1interface__disposable_a47d5a3e76f8f0e774b07f7743eb0634a} 
-virtual void {\bfseries dispose} ()=0
-\end{DoxyCompactItemize}
+virtual bool \mbox{\hyperlink{structrpp_1_1interface__disposable_a0348da95fe5929a3861e80b6651c347f}{is\+\_\+disposed}} () const noexcept=0
+\begin{DoxyCompactList}\small\item\em Check if this disposable is just disposed @warn This function must be thread-\/safe. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{structrpp_1_1interface__disposable_a47d5a3e76f8f0e774b07f7743eb0634a}{dispose}} ()=0
+\begin{DoxyCompactList}\small\item\em Dispose disposable and free any underlying resources and etc. @warn This function must be thread-\/safe. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Disposable with counter inside. Each {\ttfamily add\+\_\+ref} increments counter, while each {\ttfamily \doxylink{classrpp_1_1refcount__disposable_aca0f28bcaedd9938ab22b09eebb2adb1}{dispose()}} call decrements. In case of reaching zero disposes underlying disposables @warn Don\textquotesingle{}t use it as disposable of observer due to {\ttfamily \doxylink{classrpp_1_1refcount__disposable_a7ee21e190b2a1e3b527fc46823109c04}{is\+\_\+disposed()}} would be false till counter reaches zero, so, observer can be also not {\ttfamily \doxylink{classrpp_1_1refcount__disposable_a7ee21e190b2a1e3b527fc46823109c04}{is\+\_\+disposed()}} during this time. 
+
 
 
 \doxysubsection{Member Function Documentation}
@@ -47,7 +59,11 @@ virtual void {\bfseries dispose} ()=0
 
 
 
-Implements \mbox{\hyperlink{structrpp_1_1interface__disposable}{rpp\+::interface\+\_\+disposable}}.
+Dispose disposable and free any underlying resources and etc. @warn This function must be thread-\/safe. 
+
+
+
+Implements \mbox{\hyperlink{structrpp_1_1interface__disposable_a47d5a3e76f8f0e774b07f7743eb0634a}{rpp\+::interface\+\_\+disposable}}.
 
 \Hypertarget{classrpp_1_1refcount__disposable_a7ee21e190b2a1e3b527fc46823109c04}\label{classrpp_1_1refcount__disposable_a7ee21e190b2a1e3b527fc46823109c04} 
 \index{rpp::refcount\_disposable@{rpp::refcount\_disposable}!is\_disposed@{is\_disposed}}
@@ -57,7 +73,11 @@ Implements \mbox{\hyperlink{structrpp_1_1interface__disposable}{rpp\+::interface
 
 
 
-Implements \mbox{\hyperlink{structrpp_1_1interface__disposable}{rpp\+::interface\+\_\+disposable}}.
+Check if this disposable is just disposed @warn This function must be thread-\/safe. 
+
+
+
+Implements \mbox{\hyperlink{structrpp_1_1interface__disposable_a0348da95fe5929a3861e80b6651c347f}{rpp\+::interface\+\_\+disposable}}.
 
 
 

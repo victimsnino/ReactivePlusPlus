@@ -109,8 +109,8 @@ Inheritance diagram for rpp::details::base_disposable:</div>
  <div class="center">
   <img src="classrpp_1_1details_1_1base__disposable.png" usemap="#rpp::details::base_5Fdisposable_map" alt=""/>
   <map id="rpp::details::base_5Fdisposable_map" name="rpp::details::base_5Fdisposable_map">
-<area href="structrpp_1_1interface__disposable.html" alt="rpp::interface_disposable" shape="rect" coords="0,0,190,24"/>
-<area href="classrpp_1_1callback__disposable.html" alt="rpp::callback_disposable&lt; Fn &gt;" shape="rect" coords="0,112,190,136"/>
+<area href="structrpp_1_1interface__disposable.html" title="Interface of disposable." alt="rpp::interface_disposable" shape="rect" coords="0,0,190,24"/>
+<area href="classrpp_1_1callback__disposable.html" title="Disposable invokes underlying callable on disposing." alt="rpp::callback_disposable&lt; Fn &gt;" shape="rect" coords="0,112,190,136"/>
   </map>
 </div></div>
 <table class="memberdecls">
@@ -123,14 +123,16 @@ Public Member Functions</h2></td></tr>
 &#160;</td><td class="memItemRight" valign="bottom"><b>base_disposable</b> (<a class="el" href="classrpp_1_1details_1_1base__disposable.html">base_disposable</a> &amp;&amp;) noexcept=delete</td></tr>
 <tr class="separator:a54080ea27a1c380813e996b251361aa5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a09179df9b71e2c76a362026ae3e7ee59"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrpp_1_1details_1_1base__disposable.html#a09179df9b71e2c76a362026ae3e7ee59">is_disposed</a> () const noexcept final</td></tr>
+<tr class="memdesc:a09179df9b71e2c76a362026ae3e7ee59"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if this disposable is just disposed @warn This function must be thread-safe.  <br /></td></tr>
 <tr class="separator:a09179df9b71e2c76a362026ae3e7ee59"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a81449c292421aa65d6dd64f4e1f585dc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrpp_1_1details_1_1base__disposable.html#a81449c292421aa65d6dd64f4e1f585dc">dispose</a> () final</td></tr>
+<tr class="memdesc:a81449c292421aa65d6dd64f4e1f585dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dispose disposable and free any underlying resources and etc. @warn This function must be thread-safe.  <br /></td></tr>
 <tr class="separator:a81449c292421aa65d6dd64f4e1f585dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0348da95fe5929a3861e80b6651c347f"><td class="memItemLeft" align="right" valign="top"><a id="a0348da95fe5929a3861e80b6651c347f" name="a0348da95fe5929a3861e80b6651c347f"></a>
-virtual bool&#160;</td><td class="memItemRight" valign="bottom"><b>is_disposed</b> () const noexcept=0</td></tr>
+<tr class="memitem:a0348da95fe5929a3861e80b6651c347f"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structrpp_1_1interface__disposable.html#a0348da95fe5929a3861e80b6651c347f">is_disposed</a> () const noexcept=0</td></tr>
+<tr class="memdesc:a0348da95fe5929a3861e80b6651c347f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if this disposable is just disposed @warn This function must be thread-safe.  <br /></td></tr>
 <tr class="separator:a0348da95fe5929a3861e80b6651c347f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a47d5a3e76f8f0e774b07f7743eb0634a"><td class="memItemLeft" align="right" valign="top"><a id="a47d5a3e76f8f0e774b07f7743eb0634a" name="a47d5a3e76f8f0e774b07f7743eb0634a"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>dispose</b> ()=0</td></tr>
+<tr class="memitem:a47d5a3e76f8f0e774b07f7743eb0634a"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structrpp_1_1interface__disposable.html#a47d5a3e76f8f0e774b07f7743eb0634a">dispose</a> ()=0</td></tr>
+<tr class="memdesc:a47d5a3e76f8f0e774b07f7743eb0634a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dispose disposable and free any underlying resources and etc. @warn This function must be thread-safe.  <br /></td></tr>
 <tr class="separator:a47d5a3e76f8f0e774b07f7743eb0634a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
@@ -163,7 +165,9 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>dispose_impl<
 </table>
 </div><div class="memdoc">
 
-<p>Implements <a class="el" href="structrpp_1_1interface__disposable.html">rpp::interface_disposable</a>.</p>
+<p>Dispose disposable and free any underlying resources and etc. @warn This function must be thread-safe. </p>
+
+<p>Implements <a class="el" href="structrpp_1_1interface__disposable.html#a47d5a3e76f8f0e774b07f7743eb0634a">rpp::interface_disposable</a>.</p>
 
 </div>
 </div>
@@ -190,7 +194,9 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>dispose_impl<
 </table>
 </div><div class="memdoc">
 
-<p>Implements <a class="el" href="structrpp_1_1interface__disposable.html">rpp::interface_disposable</a>.</p>
+<p>Check if this disposable is just disposed @warn This function must be thread-safe. </p>
+
+<p>Implements <a class="el" href="structrpp_1_1interface__disposable.html#a0348da95fe5929a3861e80b6651c347f">rpp::interface_disposable</a>.</p>
 
 </div>
 </div>

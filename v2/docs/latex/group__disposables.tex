@@ -1,0 +1,26 @@
+\doxysubsection{Disposables}
+\hypertarget{group__disposables}{}\label{group__disposables}\index{Disposables@{Disposables}}
+
+
+Disposable owns some resource and provides ability to {\ttfamily dispose()} it\+: destroy/remove/disconnect and etc.  
+
+
+\doxysubsubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classrpp_1_1callback__disposable}{rpp\+::callback\+\_\+disposable$<$ Fn $>$}}
+\begin{DoxyCompactList}\small\item\em Disposable invokes underlying callable on disposing. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classrpp_1_1composite__disposable}{rpp\+::composite\+\_\+disposable}}
+\begin{DoxyCompactList}\small\item\em Disposable which can keep some other sub-\/disposables. When this root disposable is disposed, then all sub-\/disposables would be disposed too. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp\+::disposable\+\_\+wrapper\+\_\+impl$<$ TDisposable $>$}}
+\begin{DoxyCompactList}\small\item\em Wrapper over disposable\+\_\+ptr to prevent manual checking over nullptr/is\+\_\+disposed() \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structrpp_1_1interface__disposable}{rpp\+::interface\+\_\+disposable}}
+\begin{DoxyCompactList}\small\item\em Interface of disposable. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classrpp_1_1refcount__disposable}{rpp\+::refcount\+\_\+disposable}}
+\begin{DoxyCompactList}\small\item\em Disposable with counter inside. Each {\ttfamily add\+\_\+ref} increments counter, while each {\ttfamily \doxylink{classrpp_1_1refcount__disposable_aca0f28bcaedd9938ab22b09eebb2adb1}{dispose()}} call decrements. In case of reaching zero disposes underlying disposables @warn Don\textquotesingle{}t use it as disposable of observer due to {\ttfamily \doxylink{classrpp_1_1refcount__disposable_a7ee21e190b2a1e3b527fc46823109c04}{is\+\_\+disposed()}} would be false till counter reaches zero, so, observer can be also not {\ttfamily \doxylink{classrpp_1_1refcount__disposable_a7ee21e190b2a1e3b527fc46823109c04}{is\+\_\+disposed()}} during this time. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsubsection{Detailed Description}
+Disposable owns some resource and provides ability to {\ttfamily dispose()} it\+: destroy/remove/disconnect and etc. 
+
+In RPP it used as \"{}reverse subscription\"{}\+: observable sets disposable to observer via {\ttfamily set\+\_\+upstream(disposable)} with meaning \"{}if you want to cancel me -\/$>$ dispose this disposable\"{} 

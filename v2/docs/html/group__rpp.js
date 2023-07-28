@@ -1,5 +1,6 @@
 var group__rpp =
 [
+    [ "Disposables", "group__disposables.html", "group__disposables" ],
     [ "Observables", "group__observables.html", "group__observables" ],
     [ "Observers", "group__observers.html", "group__observers" ],
     [ "Operators", "group__operators.html", "group__operators" ],

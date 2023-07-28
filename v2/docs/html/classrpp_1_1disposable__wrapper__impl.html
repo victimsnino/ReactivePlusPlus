@@ -101,9 +101,14 @@ $(document).ready(function(){initNavTree('classrpp_1_1disposable__wrapper__impl.
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="classrpp_1_1disposable__wrapper__impl-members.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">rpp::disposable_wrapper_impl&lt; TDisposable &gt; Class Template Reference</div></div>
+  <div class="headertitle"><div class="title">rpp::disposable_wrapper_impl&lt; TDisposable &gt; Class Template Reference<div class="ingroups"><a class="el" href="group__rpp.html">RPP</a> &raquo; <a class="el" href="group__disposables.html">Disposables</a></div></div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Wrapper over disposable_ptr to prevent manual checking over nullptr/is_disposed()  
+ <a href="classrpp_1_1disposable__wrapper__impl.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="disposable__wrapper_8hpp_source.html">disposable_wrapper.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -138,7 +143,11 @@ static <a class="el" href="classrpp_1_1disposable__wrapper__impl.html">disposabl
 static <a class="el" href="classrpp_1_1disposable__wrapper__impl.html">disposable_wrapper_impl</a>&#160;</td><td class="memItemRight" valign="bottom"><b>from_weak</b> (std::weak_ptr&lt; TDisposable &gt; disposable)</td></tr>
 <tr class="separator:a467ab5dbb21272a64678f7e5d712fba4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<hr/>The documentation for this class was generated from the following file:<ul>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><div class="compoundTemplParams">template&lt;rpp::constraint::decayed_type TDisposable&gt;<br />
+class rpp::disposable_wrapper_impl&lt; TDisposable &gt;</div><p>Wrapper over disposable_ptr to prevent manual checking over nullptr/is_disposed() </p>
+<p>Can keep weak_ptr in case of not owning disposable </p>
+</div><hr/>The documentation for this class was generated from the following file:<ul>
 <li>src/rpp/rpp/disposables/<a class="el" href="disposable__wrapper_8hpp_source.html">disposable_wrapper.hpp</a></li>
 </ul>
 </div><!-- contents -->

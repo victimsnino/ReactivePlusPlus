@@ -118,15 +118,18 @@ $(document).ready(function(){initNavTree('interface__disposable_8hpp_source.html
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>{</div>
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="keyword">using </span>disposable_ptr = std::shared_ptr&lt;interface_disposable&gt;;</div>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno"><a class="line" href="structrpp_1_1interface__disposable.html">   20</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structrpp_1_1interface__disposable.html">interface_disposable</a></div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>{</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    <span class="keyword">virtual</span> <a class="code hl_struct" href="structrpp_1_1interface__disposable.html">~interface_disposable</a>() <span class="keyword">noexcept</span> = <span class="keywordflow">default</span>;</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> is_disposed() <span class="keyword">const</span> <span class="keyword">noexcept</span> = 0;</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> dispose()                    = 0;</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>};</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>}</div>
-<div class="ttc" id="astructrpp_1_1interface__disposable_html"><div class="ttname"><a href="structrpp_1_1interface__disposable.html">rpp::interface_disposable</a></div><div class="ttdef"><b>Definition</b> interface_disposable.hpp:21</div></div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="structrpp_1_1interface__disposable.html">   25</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structrpp_1_1interface__disposable.html">interface_disposable</a></div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>{</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    <span class="keyword">virtual</span> <a class="code hl_struct" href="structrpp_1_1interface__disposable.html">~interface_disposable</a>() <span class="keyword">noexcept</span> = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="structrpp_1_1interface__disposable.html#a0348da95fe5929a3861e80b6651c347f">   33</a></span>    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="structrpp_1_1interface__disposable.html#a0348da95fe5929a3861e80b6651c347f">is_disposed</a>() const noexcept = 0;</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno"><a class="line" href="structrpp_1_1interface__disposable.html#a47d5a3e76f8f0e774b07f7743eb0634a">   39</a></span>    virtual <span class="keywordtype">void</span> <a class="code hl_function" href="structrpp_1_1interface__disposable.html#a47d5a3e76f8f0e774b07f7743eb0634a">dispose</a>()                    = 0;</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>};</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>}</div>
+<div class="ttc" id="astructrpp_1_1interface__disposable_html"><div class="ttname"><a href="structrpp_1_1interface__disposable.html">rpp::interface_disposable</a></div><div class="ttdoc">Interface of disposable.</div><div class="ttdef"><b>Definition</b> interface_disposable.hpp:26</div></div>
+<div class="ttc" id="astructrpp_1_1interface__disposable_html_a0348da95fe5929a3861e80b6651c347f"><div class="ttname"><a href="structrpp_1_1interface__disposable.html#a0348da95fe5929a3861e80b6651c347f">rpp::interface_disposable::is_disposed</a></div><div class="ttdeci">virtual bool is_disposed() const noexcept=0</div><div class="ttdoc">Check if this disposable is just disposed @warn This function must be thread-safe.</div></div>
+<div class="ttc" id="astructrpp_1_1interface__disposable_html_a47d5a3e76f8f0e774b07f7743eb0634a"><div class="ttname"><a href="structrpp_1_1interface__disposable.html#a47d5a3e76f8f0e774b07f7743eb0634a">rpp::interface_disposable::dispose</a></div><div class="ttdeci">virtual void dispose()=0</div><div class="ttdoc">Dispose disposable and free any underlying resources and etc. @warn This function must be thread-safe...</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

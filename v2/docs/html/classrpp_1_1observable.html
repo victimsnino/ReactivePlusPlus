@@ -128,25 +128,17 @@ requires (!constraint::variadic_decayed_same_as&lt;<a class="el" href="classrpp_
 <tr class="memitem:aa2621e98393f224a7689c6e08003c027"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrpp_1_1observable.html#aa2621e98393f224a7689c6e08003c027">subscribe</a> (<a class="el" href="group__observers.html#gaccd025034d57327e6a31b2106619197b">dynamic_observer</a>&lt; Type &gt; <a class="el" href="classrpp_1_1observer.html">observer</a>) const</td></tr>
 <tr class="memdesc:aa2621e98393f224a7689c6e08003c027"><td class="mdescLeft">&#160;</td><td class="mdescRight">Subscribe passed observer to emissions from this observable.  <br /></td></tr>
 <tr class="separator:aa2621e98393f224a7689c6e08003c027"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a18fd127e66c6fab482886fb4e4fdc75b"><td class="memTemplParams" colspan="2">template&lt;constraint::observer_strategy&lt; Type &gt; ObserverStrategy&gt; </td></tr>
-<tr class="memitem:a18fd127e66c6fab482886fb4e4fdc75b"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classrpp_1_1disposable__wrapper__impl.html">composite_disposable_wrapper</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classrpp_1_1observable.html#a18fd127e66c6fab482886fb4e4fdc75b">subscribe</a> (const <a class="el" href="classrpp_1_1disposable__wrapper__impl.html">composite_disposable_wrapper</a> &amp;d, <a class="el" href="classrpp_1_1observer.html">observer</a>&lt; Type, ObserverStrategy &gt; &amp;&amp;obs) const</td></tr>
-<tr class="memdesc:a18fd127e66c6fab482886fb4e4fdc75b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Subscribe passed observer to emissions from this observable.  <br /></td></tr>
-<tr class="separator:a18fd127e66c6fab482886fb4e4fdc75b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af2de791d83ffb2944c69839a08453c61"><td class="memTemplParams" colspan="2"><a id="af2de791d83ffb2944c69839a08453c61" name="af2de791d83ffb2944c69839a08453c61"></a>
-template&lt;std::invocable&lt; Type &gt; OnNext, std::invocable&lt; const std::exception_ptr &amp; &gt; OnError = rpp::utils::rethrow_error_t, std::invocable&lt;&gt; OnCompleted = rpp::utils::empty_function_t&lt;&gt;&gt; </td></tr>
-<tr class="memitem:af2de791d83ffb2944c69839a08453c61"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>subscribe</b> (OnNext &amp;&amp;on_next, OnError &amp;&amp;on_error={}, OnCompleted &amp;&amp;on_completed={}) const</td></tr>
-<tr class="memdesc:af2de791d83ffb2944c69839a08453c61"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct <a class="el" href="group__observers.html#gad7a2b4cbca14301bec3f5a5f59146c94" title="Observer specialized with passed callbacks. Most easiesest way to construct observer &quot;on the fly&quot; via...">rpp::lambda_observer</a> on the fly and subscribe it to emissions from this observable. <br /></td></tr>
-<tr class="separator:af2de791d83ffb2944c69839a08453c61"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ace715f6f4dbbee4f7b0000fd32f75c8c"><td class="memTemplParams" colspan="2">template&lt;std::invocable&lt; Type &gt; OnNext, std::invocable&lt; const std::exception_ptr &amp; &gt; OnError = rpp::utils::rethrow_error_t, std::invocable&lt;&gt; OnCompleted = rpp::utils::empty_function_t&lt;&gt;&gt; </td></tr>
 <tr class="memitem:ace715f6f4dbbee4f7b0000fd32f75c8c"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classrpp_1_1disposable__wrapper__impl.html">composite_disposable_wrapper</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classrpp_1_1observable.html#ace715f6f4dbbee4f7b0000fd32f75c8c">subscribe</a> (const <a class="el" href="classrpp_1_1disposable__wrapper__impl.html">composite_disposable_wrapper</a> &amp;d, OnNext &amp;&amp;on_next, OnError &amp;&amp;on_error={}, OnCompleted &amp;&amp;on_completed={}) const</td></tr>
-<tr class="memdesc:ace715f6f4dbbee4f7b0000fd32f75c8c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct <a class="el" href="group__observers.html#gad7a2b4cbca14301bec3f5a5f59146c94" title="Observer specialized with passed callbacks. Most easiesest way to construct observer &quot;on the fly&quot; via...">rpp::lambda_observer</a> on the fly and subscribe it to emissions from this observable.  <br /></td></tr>
+<tr class="memdesc:ace715f6f4dbbee4f7b0000fd32f75c8c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Subscribe passed observer to emissions from this observable.  <br /></td></tr>
 <tr class="separator:ace715f6f4dbbee4f7b0000fd32f75c8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab820514612d4314b99528525db6afd4f"><td class="memItemLeft" align="right" valign="top"><a id="ab820514612d4314b99528525db6afd4f" name="ab820514612d4314b99528525db6afd4f"></a>
 auto&#160;</td><td class="memItemRight" valign="bottom"><b>as_dynamic</b> () const &amp;</td></tr>
-<tr class="memdesc:ab820514612d4314b99528525db6afd4f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert observable to type-erased versio. <br /></td></tr>
+<tr class="memdesc:ab820514612d4314b99528525db6afd4f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert observable to type-erased version. <br /></td></tr>
 <tr class="separator:ab820514612d4314b99528525db6afd4f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7f3a86ce4541938d7e4c7c73f883b30b"><td class="memItemLeft" align="right" valign="top"><a id="a7f3a86ce4541938d7e4c7c73f883b30b" name="a7f3a86ce4541938d7e4c7c73f883b30b"></a>
 auto&#160;</td><td class="memItemRight" valign="bottom"><b>as_dynamic</b> () &amp;&amp;</td></tr>
+<tr class="memdesc:a7f3a86ce4541938d7e4c7c73f883b30b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert observable to type-erased version. <br /></td></tr>
 <tr class="separator:a7f3a86ce4541938d7e4c7c73f883b30b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a49b71120ba6733e2aba8975304de7e11"><td class="memTemplParams" colspan="2"><a id="a49b71120ba6733e2aba8975304de7e11" name="a49b71120ba6733e2aba8975304de7e11"></a>
 template&lt;constraint::operators_v2&lt; Type &gt; Op&gt; </td></tr>
@@ -184,7 +176,9 @@ template&lt;typename Op &gt; </td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><div class="compoundTemplParams">template&lt;constraint::decayed_type Type, constraint::observable_strategy&lt; Type &gt; Strategy&gt;<br />
 class rpp::observable&lt; Type, Strategy &gt;</div><p>Base class for any observable used in RPP. It handles core callbacks of observable. </p>
-<p>Observable provides ony core function: subscribe - it accepts observer (or any way to construct it) and then invokes underlying Strategy to emit emissions somehow. </p><dl class="section warning"><dt>Warning</dt><dd>Actually observable "doesn't emit nothing", it only <b>invokes Strategy!</b> Strategy COULD emit emissions immediately OR place observer to some queue or something like this to obtain emissions later (for example subjects)</dd></dl>
+<p>Observable provides only one core function: subscribe - it accepts observer (or any way to construct it) and then invokes underlying Strategy to emit emissions somehow. </p><dl class="section warning"><dt>Warning</dt><dd>Actually observable "doesn't emit nothing", it only <b>invokes Strategy!</b> Strategy COULD emit emissions immediately OR place observer to some queue or something like this to obtain emissions later (for example subjects) </dd>
+<dd>
+Expected that observable's strategy would work with observer in serialized way</dd></dl>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
     <tr><td class="paramname">Type</td><td>of value this observable would provide. Only observers of same type can be subscribed to this observable. </td></tr>
@@ -193,58 +187,8 @@ class rpp::observable&lt; Type, Strategy &gt;</div><p>Base class for any observa
   </dd>
 </dl>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a18fd127e66c6fab482886fb4e4fdc75b" name="a18fd127e66c6fab482886fb4e4fdc75b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a18fd127e66c6fab482886fb4e4fdc75b">&#9670;&#160;</a></span>subscribe() <span class="overload">[1/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;constraint::decayed_type Type, constraint::observable_strategy&lt; Type &gt; Strategy&gt; </div>
-<div class="memtemplate">
-template&lt;constraint::observer_strategy&lt; Type &gt; ObserverStrategy&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classrpp_1_1disposable__wrapper__impl.html">composite_disposable_wrapper</a> <a class="el" href="classrpp_1_1observable.html">rpp::observable</a>&lt; Type, Strategy &gt;::subscribe </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="classrpp_1_1disposable__wrapper__impl.html">composite_disposable_wrapper</a> &amp;&#160;</td>
-          <td class="paramname"><em>d</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="classrpp_1_1observer.html">observer</a>&lt; Type, ObserverStrategy &gt; &amp;&amp;&#160;</td>
-          <td class="paramname"><em>obs</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Subscribe passed observer to emissions from this observable. </p>
-<p>This overloading attaches passed disposable to observer and return it to provide ability to dispose observer early if needed. </p><dl class="section warning"><dt>Warning</dt><dd>This overloading has some performance penalties, use it only when you really need to use disposable</dd></dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">d</td><td>is disposable to be attached to observer. If disposable is nullptr or disposed -&gt; no any subscription happens </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>composite_disposable_wrapper is disposable to be able to dispose observer when it needed </dd></dl>
-
-</div>
-</div>
 <a id="ace715f6f4dbbee4f7b0000fd32f75c8c" name="ace715f6f4dbbee4f7b0000fd32f75c8c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ace715f6f4dbbee4f7b0000fd32f75c8c">&#9670;&#160;</a></span>subscribe() <span class="overload">[2/4]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ace715f6f4dbbee4f7b0000fd32f75c8c">&#9670;&#160;</a></span>subscribe() <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -293,20 +237,58 @@ template&lt;std::invocable&lt; Type &gt; OnNext, std::invocable&lt; const std::e
 </table>
 </div><div class="memdoc">
 
-<p>Construct <a class="el" href="group__observers.html#gad7a2b4cbca14301bec3f5a5f59146c94" title="Observer specialized with passed callbacks. Most easiesest way to construct observer &quot;on the fly&quot; via...">rpp::lambda_observer</a> on the fly and subscribe it to emissions from this observable. </p>
-<p>This overloading attaches passed disposable to observer and return it to provide ability to dispose observer early if needed. </p><dl class="section warning"><dt>Warning</dt><dd>This overloading has some performance penalties, use it only when you really need to use disposable</dd></dl>
+<p>Subscribe passed observer to emissions from this observable. </p>
+<p>This overloading attaches passed disposable to observer and return it to provide ability to dispose/disconnect observer early if needed. </p><dl class="section warning"><dt>Warning</dt><dd>This overloading has some performance penalties, use it only when you really need to use disposable</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">d</td><td>is disposable to be attached to observer. If disposable is nullptr or disposed -&gt; no any subscription happens </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>composite_disposable_wrapper is disposable to be able to dispose observer when it needed </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>composite_disposable_wrapper is disposable to be able to dispose observer when it needed</dd></dl>
+<dl class="section user"><dt>Example</dt><dd><div class="fragment"><div class="line"><span class="keyword">auto</span> disposable = std::make_shared&lt;rpp::composite_disposable&gt;();</div>
+<div class="line"><a class="code hl_function" href="group__creational__operators.html#gae60bdb9b493443d2786b0eee8bfe17ab">rpp::source::just</a>(1) </div>
+<div class="line">| <a class="code hl_function" href="group__utility__operators.html#ga41ef49dc75a3eadb0eb3fda7c3692c40">rpp::operators::repeat</a>() </div>
+<div class="line">| <a class="code hl_function" href="group__utility__operators.html#gace728cfbf71720901cb6f310edabf8b0">rpp::operators::subscribe_on</a>(<a class="code hl_class" href="classrpp_1_1schedulers_1_1new__thread.html">rpp::schedulers::new_thread</a>{}) </div>
+<div class="line">| <a class="code hl_function" href="group__utility__operators.html#ga149309d4b2e0f1201f1ab42597ace8ac">rpp::operators::subscribe</a>(disposable, <a class="code hl_function" href="group__observers.html#gae17f62f64102925f4cd2eb29c4c27028">rpp::make_lambda_observer</a>([](<span class="keywordtype">int</span>) { std::cout &lt;&lt; <span class="stringliteral">&quot;NEW VALUE&quot;</span> &lt;&lt; std::endl; }));</div>
+<div class="line"> </div>
+<div class="line">std::this_thread::sleep_for(std::chrono::seconds(1));</div>
+<div class="line">disposable-&gt;dispose();</div>
+<div class="line">std::this_thread::sleep_for(std::chrono::seconds(1));</div>
+<div class="ttc" id="aclassrpp_1_1schedulers_1_1new__thread_html"><div class="ttname"><a href="classrpp_1_1schedulers_1_1new__thread.html">rpp::schedulers::new_thread</a></div><div class="ttdoc">Scheduler which schedules invoking of schedulables to another thread via queueing tasks with priority...</div><div class="ttdef"><b>Definition</b> new_thread.hpp:32</div></div>
+<div class="ttc" id="agroup__creational__operators_html_gae60bdb9b493443d2786b0eee8bfe17ab"><div class="ttname"><a href="group__creational__operators.html#gae60bdb9b493443d2786b0eee8bfe17ab">rpp::source::just</a></div><div class="ttdeci">auto just(const TScheduler &amp;scheduler, T &amp;&amp;item, Ts &amp;&amp;...items)</div><div class="ttdoc">Creates rpp::observable that emits a particular items and completes.</div><div class="ttdef"><b>Definition</b> from.hpp:195</div></div>
+<div class="ttc" id="agroup__observers_html_gae17f62f64102925f4cd2eb29c4c27028"><div class="ttname"><a href="group__observers.html#gae17f62f64102925f4cd2eb29c4c27028">rpp::make_lambda_observer</a></div><div class="ttdeci">auto make_lambda_observer(OnNext &amp;&amp;on_next, OnError &amp;&amp;on_error={}, OnCompleted &amp;&amp;on_completed={}) -&gt; lambda_observer&lt; Type, std::decay_t&lt; OnNext &gt;, std::decay_t&lt; OnError &gt;, std::decay_t&lt; OnCompleted &gt; &gt;</div><div class="ttdoc">Constructs observer specialized with passed callbacks. Most easiesest way to construct observer &quot;on t...</div><div class="ttdef"><b>Definition</b> lambda_observer.hpp:41</div></div>
+<div class="ttc" id="agroup__utility__operators_html_ga149309d4b2e0f1201f1ab42597ace8ac"><div class="ttname"><a href="group__utility__operators.html#ga149309d4b2e0f1201f1ab42597ace8ac">rpp::operators::subscribe</a></div><div class="ttdeci">auto subscribe(observer&lt; Type, ObserverStrategy &gt; &amp;&amp;observer)</div><div class="ttdoc">Subscribes passed observer to emissions from this observable.</div><div class="ttdef"><b>Definition</b> subscribe.hpp:152</div></div>
+<div class="ttc" id="agroup__utility__operators_html_ga41ef49dc75a3eadb0eb3fda7c3692c40"><div class="ttname"><a href="group__utility__operators.html#ga41ef49dc75a3eadb0eb3fda7c3692c40">rpp::operators::repeat</a></div><div class="ttdeci">auto repeat()</div><div class="ttdoc">Repeats the Observabe's sequence of emissions infinite amount of times via re-subscribing on it durin...</div><div class="ttdef"><b>Definition</b> repeat.hpp:85</div></div>
+<div class="ttc" id="agroup__utility__operators_html_gace728cfbf71720901cb6f310edabf8b0"><div class="ttname"><a href="group__utility__operators.html#gace728cfbf71720901cb6f310edabf8b0">rpp::operators::subscribe_on</a></div><div class="ttdeci">auto subscribe_on(Scheduler &amp;&amp;scheduler)</div><div class="ttdoc">OnSubscribe function for this observable will be scheduled via provided scheduler.</div><div class="ttdef"><b>Definition</b> subscribe_on.hpp:70</div></div>
+</div><!-- fragment --> */ template&lt;constraint::observer_strategy&lt;Type&gt; ObserverStrategy&gt; composite_disposable_wrapper subscribe(const composite_disposable_wrapper&amp; d, observer&lt;Type, ObserverStrategy&gt;&amp;&amp; obs) const { if (!d.is_disposed()) m_strategy.subscribe(observer&lt;Type, rpp::details::with_disposable&lt;observer&lt;Type, ObserverStrategy&gt;&gt;&gt;{d, std::move(obs)}); return d; }</dd></dl>
+<p>/**</p>
+<p>Construct <a class="el" href="group__observers.html#gad7a2b4cbca14301bec3f5a5f59146c94" title="Observer specialized with passed callbacks. Most easiesest way to construct observer &quot;on the fly&quot; via...">rpp::lambda_observer</a> on the fly and subscribe it to emissions from this observable */ template&lt;std::invocable&lt;Type&gt; OnNext, std::invocable&lt;const std::exception_ptr&amp;&gt; OnError = rpp::utils::rethrow_error_t, std::invocable&lt;&gt; OnCompleted = rpp::utils::empty_function_t&lt;&gt;&gt; void subscribe(OnNext&amp;&amp; on_next, OnError&amp;&amp; on_error = {}, OnCompleted&amp;&amp; on_completed = {}) const { subscribe(make_lambda_observer&lt;Type&gt;(std::forward&lt;OnNext&gt;(on_next), std::forward&lt;OnError&gt;(on_error), std::forward&lt;OnCompleted&gt;(on_completed))); }</p>
+<p>/**</p>
+<p>Construct <a class="el" href="group__observers.html#gad7a2b4cbca14301bec3f5a5f59146c94" title="Observer specialized with passed callbacks. Most easiesest way to construct observer &quot;on the fly&quot; via...">rpp::lambda_observer</a> on the fly and subscribe it to emissions from this observable</p>
+<p>This overloading attaches passed disposable to observer and return it to provide ability to dispose/disconnect observer early if needed. </p><dl class="section warning"><dt>Warning</dt><dd>This overloading has some performance penalties, use it only when you really need to use disposable</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">d</td><td>is disposable to be attached to observer. If disposable is nullptr or disposed -&gt; no any subscription happens </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>composite_disposable_wrapper is disposable to be able to dispose observer when it needed</dd></dl>
+<dl class="section user"><dt>Example</dt><dd><div class="fragment"><div class="line"><span class="keyword">auto</span> disposable = std::make_shared&lt;rpp::composite_disposable&gt;();</div>
+<div class="line"><a class="code hl_function" href="group__creational__operators.html#gae60bdb9b493443d2786b0eee8bfe17ab">rpp::source::just</a>(1) </div>
+<div class="line">| <a class="code hl_function" href="group__utility__operators.html#ga41ef49dc75a3eadb0eb3fda7c3692c40">rpp::operators::repeat</a>() </div>
+<div class="line">| <a class="code hl_function" href="group__utility__operators.html#gace728cfbf71720901cb6f310edabf8b0">rpp::operators::subscribe_on</a>(<a class="code hl_class" href="classrpp_1_1schedulers_1_1new__thread.html">rpp::schedulers::new_thread</a>{}) </div>
+<div class="line">| <a class="code hl_function" href="group__utility__operators.html#ga149309d4b2e0f1201f1ab42597ace8ac">rpp::operators::subscribe</a>(disposable, [](<span class="keywordtype">int</span>) { std::cout &lt;&lt; <span class="stringliteral">&quot;NEW VALUE&quot;</span> &lt;&lt; std::endl; });</div>
+<div class="line"> </div>
+<div class="line">std::this_thread::sleep_for(std::chrono::seconds(1));</div>
+<div class="line">disposable-&gt;dispose();</div>
+<div class="line">std::this_thread::sleep_for(std::chrono::seconds(1));</div>
+</div><!-- fragment --> </dd></dl>
 
 </div>
 </div>
 <a id="aa2621e98393f224a7689c6e08003c027" name="aa2621e98393f224a7689c6e08003c027"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa2621e98393f224a7689c6e08003c027">&#9670;&#160;</a></span>subscribe() <span class="overload">[3/4]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aa2621e98393f224a7689c6e08003c027">&#9670;&#160;</a></span>subscribe() <span class="overload">[2/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -337,7 +319,7 @@ template&lt;constraint::decayed_type Type, constraint::observable_strategy&lt; T
 </div>
 </div>
 <a id="a193b0e08c516912c04afd8379ec27182" name="a193b0e08c516912c04afd8379ec27182"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a193b0e08c516912c04afd8379ec27182">&#9670;&#160;</a></span>subscribe() <span class="overload">[4/4]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a193b0e08c516912c04afd8379ec27182">&#9670;&#160;</a></span>subscribe() <span class="overload">[3/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">

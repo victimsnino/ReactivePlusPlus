@@ -1,5 +1,14 @@
 \doxysection{rpp\+::composite\+\_\+disposable Class Reference}
 \hypertarget{classrpp_1_1composite__disposable}{}\label{classrpp_1_1composite__disposable}\index{rpp::composite\_disposable@{rpp::composite\_disposable}}
+
+
+Disposable which can keep some other sub-\/disposables. When this root disposable is disposed, then all sub-\/disposables would be disposed too.  
+
+
+
+
+{\ttfamily \#include $<$composite\+\_\+disposable.\+hpp$>$}
+
 Inheritance diagram for rpp\+::composite\+\_\+disposable\+:\begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -16,9 +25,9 @@ Inheritance diagram for rpp\+::composite\+\_\+disposable\+:\begin{figure}[H]
 {\bfseries composite\+\_\+disposable} (\mbox{\hyperlink{classrpp_1_1composite__disposable}{composite\+\_\+disposable}} \&\&other) noexcept
 \item 
 bool \mbox{\hyperlink{classrpp_1_1composite__disposable_a748deb894f9f98ea238e919e62859262}{is\+\_\+disposed}} () const noexcept final
-\item 
+\begin{DoxyCompactList}\small\item\em Check if this disposable is just disposed @warn This function must be thread-\/safe. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classrpp_1_1composite__disposable_acf263ceb2c51a97f435d730f33ec293c}{dispose}} () final
-\item 
+\begin{DoxyCompactList}\small\item\em Dispose disposable and free any underlying resources and etc. @warn This function must be thread-\/safe. \end{DoxyCompactList}\item 
 \Hypertarget{classrpp_1_1composite__disposable_af2919b16fa7ff40245555cc85bd49cc0}\label{classrpp_1_1composite__disposable_af2919b16fa7ff40245555cc85bd49cc0} 
 void {\bfseries add} (\mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{disposable\+\_\+wrapper}} disposable)
 \item 
@@ -30,18 +39,21 @@ void {\bfseries add} (disposable\+\_\+ptr disposable)
 \end{DoxyCompactItemize}
 \begin{DoxyCompactItemize}
 \item 
-\Hypertarget{structrpp_1_1interface__disposable_a0348da95fe5929a3861e80b6651c347f}\label{structrpp_1_1interface__disposable_a0348da95fe5929a3861e80b6651c347f} 
-virtual bool {\bfseries is\+\_\+disposed} () const noexcept=0
-\item 
-\Hypertarget{structrpp_1_1interface__disposable_a47d5a3e76f8f0e774b07f7743eb0634a}\label{structrpp_1_1interface__disposable_a47d5a3e76f8f0e774b07f7743eb0634a} 
-virtual void {\bfseries dispose} ()=0
-\end{DoxyCompactItemize}
+virtual bool \mbox{\hyperlink{structrpp_1_1interface__disposable_a0348da95fe5929a3861e80b6651c347f}{is\+\_\+disposed}} () const noexcept=0
+\begin{DoxyCompactList}\small\item\em Check if this disposable is just disposed @warn This function must be thread-\/safe. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{structrpp_1_1interface__disposable_a47d5a3e76f8f0e774b07f7743eb0634a}{dispose}} ()=0
+\begin{DoxyCompactList}\small\item\em Dispose disposable and free any underlying resources and etc. @warn This function must be thread-\/safe. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsubsection*{Protected Member Functions}
 \begin{DoxyCompactItemize}
 \item 
 \Hypertarget{classrpp_1_1composite__disposable_a3123d1e2853ec578fb8040cbadf0b391}\label{classrpp_1_1composite__disposable_a3123d1e2853ec578fb8040cbadf0b391} 
 virtual void {\bfseries dispose\+\_\+impl} ()
 \end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Disposable which can keep some other sub-\/disposables. When this root disposable is disposed, then all sub-\/disposables would be disposed too. 
+
 
 
 \doxysubsection{Member Function Documentation}
@@ -53,7 +65,11 @@ virtual void {\bfseries dispose\+\_\+impl} ()
 
 
 
-Implements \mbox{\hyperlink{structrpp_1_1interface__disposable}{rpp\+::interface\+\_\+disposable}}.
+Dispose disposable and free any underlying resources and etc. @warn This function must be thread-\/safe. 
+
+
+
+Implements \mbox{\hyperlink{structrpp_1_1interface__disposable_a47d5a3e76f8f0e774b07f7743eb0634a}{rpp\+::interface\+\_\+disposable}}.
 
 \Hypertarget{classrpp_1_1composite__disposable_a748deb894f9f98ea238e919e62859262}\label{classrpp_1_1composite__disposable_a748deb894f9f98ea238e919e62859262} 
 \index{rpp::composite\_disposable@{rpp::composite\_disposable}!is\_disposed@{is\_disposed}}
@@ -63,7 +79,11 @@ Implements \mbox{\hyperlink{structrpp_1_1interface__disposable}{rpp\+::interface
 
 
 
-Implements \mbox{\hyperlink{structrpp_1_1interface__disposable}{rpp\+::interface\+\_\+disposable}}.
+Check if this disposable is just disposed @warn This function must be thread-\/safe. 
+
+
+
+Implements \mbox{\hyperlink{structrpp_1_1interface__disposable_a0348da95fe5929a3861e80b6651c347f}{rpp\+::interface\+\_\+disposable}}.
 
 
 

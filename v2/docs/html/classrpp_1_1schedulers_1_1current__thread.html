@@ -132,9 +132,57 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>new_thread</b></td><
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Schedules execution of schedulables via queueing tasks to the caller thread with priority to time_point and order. </p>
-<dl class="section warning"><dt>Warning</dt><dd>Caller thread is thread where "schedule" called.</dd></dl>
-<dl class="section user"><dt>Example</dt><dd><div class="fragment"></div><!-- fragment --> </dd></dl>
-<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="from_8cpp-example.html#_a2">from.cpp</a>, and <a class="el" href="just_8cpp-example.html#_a2">just.cpp</a>.</dd>
+<dl class="section warning"><dt>Warning</dt><dd>Caller thread is thread where <code>schedule</code> called.</dd></dl>
+<p>When this scheduler passed to some operators, then caller thread is thread where scheduling of some action happens. In most cases it is where <code>on_next</code> was called.</p>
+<dl class="section user"><dt>Why do we need it?</dt><dd>This scheduler used to prevent recursion calls and making planar linear execution of schedulables. For example: <div class="fragment"><div class="line"><span class="keyword">auto</span> <a class="code hl_class" href="classrpp_1_1schedulers_1_1worker.html">worker</a> = rpp::schedulers::current_thread::create_worker();</div>
+<div class="line"><a class="code hl_class" href="classrpp_1_1schedulers_1_1worker.html">worker</a>.schedule([&amp;<a class="code hl_class" href="classrpp_1_1schedulers_1_1worker.html">worker</a>](<span class="keyword">const</span> <span class="keyword">auto</span>&amp; <a class="code hl_class" href="classrpp_1_1observer.html">observer</a>)</div>
+<div class="line">{</div>
+<div class="line">    std::cout &lt;&lt; <span class="stringliteral">&quot;Task 1 starts&quot;</span> &lt;&lt; std::endl;</div>
+<div class="line"> </div>
+<div class="line">    <a class="code hl_class" href="classrpp_1_1schedulers_1_1worker.html">worker</a>.schedule([&amp;<a class="code hl_class" href="classrpp_1_1schedulers_1_1worker.html">worker</a>](<span class="keyword">const</span> <span class="keyword">auto</span>&amp; <a class="code hl_class" href="classrpp_1_1observer.html">observer</a>)</div>
+<div class="line">    {</div>
+<div class="line">        std::cout &lt;&lt; <span class="stringliteral">&quot;Task 2 starts&quot;</span> &lt;&lt; std::endl;</div>
+<div class="line">        <a class="code hl_class" href="classrpp_1_1schedulers_1_1worker.html">worker</a>.schedule([](<span class="keyword">const</span> <span class="keyword">auto</span>&amp;)</div>
+<div class="line">        {</div>
+<div class="line">            std::cout &lt;&lt; <span class="stringliteral">&quot;Task 4&quot;</span> &lt;&lt; std::endl;</div>
+<div class="line">            <span class="keywordflow">return</span> rpp::schedulers::optional_duration{};</div>
+<div class="line">        }, <a class="code hl_class" href="classrpp_1_1observer.html">observer</a>);</div>
+<div class="line">        std::cout &lt;&lt; <span class="stringliteral">&quot;Task 2 ends&quot;</span> &lt;&lt; std::endl;</div>
+<div class="line">        <span class="keywordflow">return</span> rpp::schedulers::optional_duration{};</div>
+<div class="line">    }, observer);</div>
+<div class="line"> </div>
+<div class="line">    worker.schedule([](<span class="keyword">const</span> <span class="keyword">auto</span>&amp;)</div>
+<div class="line">    {</div>
+<div class="line">        std::cout &lt;&lt; <span class="stringliteral">&quot;Task 3&quot;</span> &lt;&lt; std::endl;</div>
+<div class="line">        <span class="keywordflow">return</span> rpp::schedulers::optional_duration{};</div>
+<div class="line">    }, observer);</div>
+<div class="line"> </div>
+<div class="line">    std::cout &lt;&lt; <span class="stringliteral">&quot;Task 1 ends&quot;</span> &lt;&lt; std::endl;</div>
+<div class="line">    <span class="keywordflow">return</span> rpp::schedulers::optional_duration{};</div>
+<div class="line">}, observer);</div>
+<div class="ttc" id="aclassrpp_1_1observer_html"><div class="ttname"><a href="classrpp_1_1observer.html">rpp::observer</a></div><div class="ttdoc">Base class for any observer used in RPP. It handles core callbacks of observers. Objects of this clas...</div><div class="ttdef"><b>Definition</b> observer.hpp:166</div></div>
+<div class="ttc" id="aclassrpp_1_1schedulers_1_1worker_html"><div class="ttname"><a href="classrpp_1_1schedulers_1_1worker.html">rpp::schedulers::worker</a></div><div class="ttdef"><b>Definition</b> worker.hpp:23</div></div>
+</div><!-- fragment --> Would lead to:<ul>
+<li>"Task 1 starts"</li>
+<li>"Task 1 ends"</li>
+<li>"Task 2 starts"</li>
+<li>"Task 2 ends"</li>
+<li>"Task 3"</li>
+<li>"Task 4"</li>
+</ul>
+</dd></dl>
+<dl class="section user"><dt>How to use it properly?</dt><dd>To have any visible impact you need to use it at least <b>twice</b> during same observable. For example, <code><a class="el" href="group__creational__operators.html#gae60bdb9b493443d2786b0eee8bfe17ab" title="Creates rpp::observable that emits a particular items and completes.">rpp::source::just</a></code> source uses it as default scheduler as well as <code><a class="el" href="group__utility__operators.html#gace728cfbf71720901cb6f310edabf8b0" title="OnSubscribe function for this observable will be scheduled via provided scheduler.">rpp::operators::subscribe_on</a></code> operator.</dd></dl>
+<p>For example, this one </p><div class="fragment"><div class="line"><a class="code hl_function" href="group__creational__operators.html#gae60bdb9b493443d2786b0eee8bfe17ab">rpp::source::just</a>(1, 2, 3) </div>
+<div class="line"> | <a class="code hl_function" href="group__combining__operators.html#ga063bcb64ac3afbedca8b257d3558f2dd">rpp::operators::merge_with</a>(<a class="code hl_function" href="group__creational__operators.html#gae60bdb9b493443d2786b0eee8bfe17ab">rpp::source::just</a>(4, 5, 6)) </div>
+<div class="line"> | <a class="code hl_function" href="group__utility__operators.html#ga149309d4b2e0f1201f1ab42597ace8ac">rpp::operators::subscribe</a>([](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; v &lt;&lt; <span class="stringliteral">&quot; &quot;</span>; });</div>
+<div class="ttc" id="agroup__combining__operators_html_ga063bcb64ac3afbedca8b257d3558f2dd"><div class="ttname"><a href="group__combining__operators.html#ga063bcb64ac3afbedca8b257d3558f2dd">rpp::operators::merge_with</a></div><div class="ttdeci">auto merge_with(TObservable &amp;&amp;observable, TObservables &amp;&amp;...observables)</div><div class="ttdoc">Combines submissions from current observable with other observables into one.</div><div class="ttdef"><b>Definition</b> merge.hpp:243</div></div>
+<div class="ttc" id="agroup__creational__operators_html_gae60bdb9b493443d2786b0eee8bfe17ab"><div class="ttname"><a href="group__creational__operators.html#gae60bdb9b493443d2786b0eee8bfe17ab">rpp::source::just</a></div><div class="ttdeci">auto just(const TScheduler &amp;scheduler, T &amp;&amp;item, Ts &amp;&amp;...items)</div><div class="ttdoc">Creates rpp::observable that emits a particular items and completes.</div><div class="ttdef"><b>Definition</b> from.hpp:195</div></div>
+<div class="ttc" id="agroup__utility__operators_html_ga149309d4b2e0f1201f1ab42597ace8ac"><div class="ttname"><a href="group__utility__operators.html#ga149309d4b2e0f1201f1ab42597ace8ac">rpp::operators::subscribe</a></div><div class="ttdeci">auto subscribe(observer&lt; Type, ObserverStrategy &gt; &amp;&amp;observer)</div><div class="ttdoc">Subscribes passed observer to emissions from this observable.</div><div class="ttdef"><b>Definition</b> subscribe.hpp:152</div></div>
+</div><!-- fragment --><p> Procedes output <code>1 4 2 5 3 6</code> due to <code>merge_with</code> takes ownership over this scheduler during subscription, both sources schedule their first emissions into scheduler, then <code>merge_with</code> frees scheduler and it starts to proceed scheduled actions. As a result it continues interleaving of values. In case of usingg <code>rpp::schedulers::immediate</code> it would be: </p><div class="fragment"><div class="line"><a class="code hl_function" href="group__creational__operators.html#gae60bdb9b493443d2786b0eee8bfe17ab">rpp::source::just</a>(rpp::schedulers::immediate{}, 1, 2, 3) </div>
+<div class="line"> | <a class="code hl_function" href="group__combining__operators.html#ga063bcb64ac3afbedca8b257d3558f2dd">rpp::operators::merge_with</a>(<a class="code hl_function" href="group__creational__operators.html#gae60bdb9b493443d2786b0eee8bfe17ab">rpp::source::just</a>(rpp::schedulers::immediate{}, 4, 5, 6)) </div>
+<div class="line"> | <a class="code hl_function" href="group__utility__operators.html#ga149309d4b2e0f1201f1ab42597ace8ac">rpp::operators::subscribe</a>([](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; v &lt;&lt; <span class="stringliteral">&quot; &quot;</span>; });</div>
+</div><!-- fragment --><p> With output <code>1 2 3 4 5 6</code> </p>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="from_8cpp-example.html#_a1">from.cpp</a>, and <a class="el" href="just_8cpp-example.html#_a1">just.cpp</a>.</dd>
 </dl>
 </div><hr/>The documentation for this class was generated from the following file:<ul>
 <li>src/rpp/rpp/schedulers/<a class="el" href="current__thread_8hpp_source.html">current_thread.hpp</a></li>

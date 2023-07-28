@@ -1,5 +1,14 @@
 \doxysection{rpp\+::disposable\+\_\+wrapper\+\_\+impl\texorpdfstring{$<$}{<} TDisposable \texorpdfstring{$>$}{>} Class Template Reference}
 \hypertarget{classrpp_1_1disposable__wrapper__impl}{}\label{classrpp_1_1disposable__wrapper__impl}\index{rpp::disposable\_wrapper\_impl$<$ TDisposable $>$@{rpp::disposable\_wrapper\_impl$<$ TDisposable $>$}}
+
+
+Wrapper over disposable\+\_\+ptr to prevent manual checking over nullptr/is\+\_\+disposed()  
+
+
+
+
+{\ttfamily \#include $<$disposable\+\_\+wrapper.\+hpp$>$}
+
 \doxysubsubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -34,6 +43,13 @@ static \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{disposable\+\_\+w
 static \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{disposable\+\_\+wrapper\+\_\+impl}} {\bfseries from\+\_\+weak} (std\+::weak\+\_\+ptr$<$ TDisposable $>$ disposable)
 \end{DoxyCompactItemize}
 
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$rpp\+::constraint\+::decayed\+\_\+type TDisposable$>$\newline
+class rpp\+::disposable\+\_\+wrapper\+\_\+impl$<$ TDisposable $>$}
+Wrapper over disposable\+\_\+ptr to prevent manual checking over nullptr/is\+\_\+disposed() 
+
+Can keep weak\+\_\+ptr in case of not owning disposable 
 
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
