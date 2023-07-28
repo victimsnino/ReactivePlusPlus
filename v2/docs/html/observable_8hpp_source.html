@@ -149,103 +149,103 @@ $(document).ready(function(){initNavTree('observable_8hpp_source.html',''); init
 <div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>        subscribe&lt;details::observers::dynamic_strategy&lt;Type&gt;&gt;(std::move(<a class="code hl_class" href="classrpp_1_1observer.html">observer</a>));</div>
 <div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    }</div>
 <div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span> </div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>    <span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::observer_strategy&lt;Type&gt; ObserverStrategy&gt;</div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    <a class="code hl_class" href="classrpp_1_1disposable__wrapper__impl.html">composite_disposable_wrapper</a> <a class="code hl_function" href="classrpp_1_1observable.html#a193b0e08c516912c04afd8379ec27182">subscribe</a>(<span class="keyword">const</span> <a class="code hl_class" href="classrpp_1_1disposable__wrapper__impl.html">composite_disposable_wrapper</a>&amp; d, <a class="code hl_class" href="classrpp_1_1observer.html">observer&lt;Type, ObserverStrategy&gt;</a>&amp;&amp; obs)<span class="keyword"> const</span></div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span><span class="keyword">    </span>{   <span class="keywordflow">if</span> (!d.is_disposed())</div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>            m_strategy.subscribe(<a class="code hl_class" href="classrpp_1_1observer.html">observer</a>&lt;Type, <a class="code hl_struct" href="structrpp_1_1details_1_1with__disposable.html">rpp::details::with_disposable</a>&lt;<a class="code hl_class" href="classrpp_1_1observer.html">observer&lt;Type, ObserverStrategy&gt;</a>&gt;&gt;{d, std::move(obs)});</div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>        <span class="keywordflow">return</span> d;</div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    }</div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span> </div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>    <span class="keyword">template</span>&lt;std::invocable&lt;Type&gt; OnNext,</div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>             std::invocable&lt;const std::exception_ptr&amp;&gt; OnError = rpp::utils::rethrow_error_t,</div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>             std::invocable&lt;&gt; OnCompleted = rpp::utils::empty_function_t&lt;&gt;&gt;</div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classrpp_1_1observable.html#a193b0e08c516912c04afd8379ec27182">subscribe</a>(OnNext&amp;&amp;      on_next,</div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>                   OnError&amp;&amp;     on_error = {},</div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>                   OnCompleted&amp;&amp; on_completed = {}) <span class="keyword">const</span></div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>    {</div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>        <a class="code hl_function" href="classrpp_1_1observable.html#a193b0e08c516912c04afd8379ec27182">subscribe</a>(make_lambda_observer&lt;Type&gt;(std::forward&lt;OnNext&gt;(on_next),</div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>                                             std::forward&lt;OnError&gt;(on_error),</div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>                                             std::forward&lt;OnCompleted&gt;(on_completed)));</div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>    }</div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span> </div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    <span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::observer_strategy&lt;Type&gt; ObserverStrategy&gt;</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>    <a class="code hl_class" href="classrpp_1_1disposable__wrapper__impl.html">composite_disposable_wrapper</a> <a class="code hl_function" href="classrpp_1_1observable.html#a193b0e08c516912c04afd8379ec27182">subscribe</a>(<span class="keyword">const</span> <a class="code hl_class" href="classrpp_1_1disposable__wrapper__impl.html">composite_disposable_wrapper</a>&amp; d, <a class="code hl_class" href="classrpp_1_1observer.html">observer&lt;Type, ObserverStrategy&gt;</a>&amp;&amp; obs)<span class="keyword"> const</span></div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span><span class="keyword">    </span>{   <span class="keywordflow">if</span> (!d.is_disposed())</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>            m_strategy.subscribe(<a class="code hl_class" href="classrpp_1_1observer.html">observer</a>&lt;Type, <a class="code hl_struct" href="structrpp_1_1details_1_1with__disposable.html">rpp::details::with_disposable</a>&lt;<a class="code hl_class" href="classrpp_1_1observer.html">observer&lt;Type, ObserverStrategy&gt;</a>&gt;&gt;{d, std::move(obs)});</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>        <span class="keywordflow">return</span> d;</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>    }</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span> </div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>    <span class="keyword">template</span>&lt;std::invocable&lt;Type&gt; OnNext,</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>             std::invocable&lt;const std::exception_ptr&amp;&gt; OnError = rpp::utils::rethrow_error_t,</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>             std::invocable&lt;&gt; OnCompleted = rpp::utils::empty_function_t&lt;&gt;&gt;</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classrpp_1_1observable.html#a193b0e08c516912c04afd8379ec27182">subscribe</a>(OnNext&amp;&amp;      on_next,</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>                   OnError&amp;&amp;     on_error = {},</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>                   OnCompleted&amp;&amp; on_completed = {}) <span class="keyword">const</span></div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>    {</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>        <a class="code hl_function" href="classrpp_1_1observable.html#a193b0e08c516912c04afd8379ec27182">subscribe</a>(make_lambda_observer&lt;Type&gt;(std::forward&lt;OnNext&gt;(on_next),</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>                                             std::forward&lt;OnError&gt;(on_error),</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>                                             std::forward&lt;OnCompleted&gt;(on_completed)));</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>    }</div>
 <div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span> </div>
-<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>    <span class="keyword">template</span>&lt;std::invocable&lt;Type&gt;                      OnNext,</div>
-<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>             std::invocable&lt;const std::exception_ptr&amp;&gt; OnError     = rpp::utils::rethrow_error_t,</div>
-<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>             std::invocable&lt;&gt;                          OnCompleted = rpp::utils::empty_function_t&lt;&gt;&gt;</div>
-<div class="line"><a id="l00139" name="l00139"></a><span class="lineno"><a class="line" href="classrpp_1_1observable.html#ace715f6f4dbbee4f7b0000fd32f75c8c">  139</a></span>    <a class="code hl_class" href="classrpp_1_1disposable__wrapper__impl.html">composite_disposable_wrapper</a> <a class="code hl_function" href="classrpp_1_1observable.html#ace715f6f4dbbee4f7b0000fd32f75c8c">subscribe</a>(<span class="keyword">const</span> <a class="code hl_class" href="classrpp_1_1disposable__wrapper__impl.html">composite_disposable_wrapper</a>&amp; d, OnNext&amp;&amp; on_next, OnError&amp;&amp; on_error = {}, OnCompleted&amp;&amp; on_completed = {}) <span class="keyword">const</span></div>
-<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>    {</div>
-<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>        <span class="keywordflow">if</span> (!d.is_disposed())</div>
-<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>            m_strategy.subscribe(make_lambda_observer&lt;Type&gt;(d,</div>
-<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>                                                std::forward&lt;OnNext&gt;(on_next),</div>
-<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>                                                std::forward&lt;OnError&gt;(on_error),</div>
-<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>                                                std::forward&lt;OnCompleted&gt;(on_completed)));</div>
-<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>        <span class="keywordflow">return</span> d;</div>
-<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>    }</div>
-<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span> </div>
-<div class="line"><a id="l00152" name="l00152"></a><span class="lineno"><a class="line" href="classrpp_1_1observable.html#ab820514612d4314b99528525db6afd4f">  152</a></span>    <span class="keyword">auto</span> <a class="code hl_function" href="classrpp_1_1observable.html#ab820514612d4314b99528525db6afd4f">as_dynamic</a>() const&amp; { <span class="keywordflow">return</span> <a class="code hl_class" href="classrpp_1_1observable.html">rpp::dynamic_observable&lt;Type&gt;</a>{*<span class="keyword">this</span>}; }</div>
-<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span> </div>
-<div class="line"><a id="l00157" name="l00157"></a><span class="lineno"><a class="line" href="classrpp_1_1observable.html#a7f3a86ce4541938d7e4c7c73f883b30b">  157</a></span>    <span class="keyword">auto</span> <a class="code hl_function" href="classrpp_1_1observable.html#a7f3a86ce4541938d7e4c7c73f883b30b">as_dynamic</a>() &amp;&amp; { <span class="keywordflow">return</span> <a class="code hl_class" href="classrpp_1_1observable.html">rpp::dynamic_observable&lt;Type&gt;</a>{std::move(*<span class="keyword">this</span>)}; }</div>
-<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span> </div>
-<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>    <span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::operators_v2&lt;Type&gt; Op&gt;</div>
-<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>    <span class="keyword">auto</span> operator|(Op&amp;&amp; op) <span class="keyword">const</span> &amp;</div>
-<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>    {</div>
-<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>        <span class="keywordflow">return</span> <a class="code hl_class" href="classrpp_1_1observable.html">observable&lt;typename std::decay_t&lt;Op&gt;::template</a> ResultValue&lt;Type&gt;, make_chain_observable_t&lt;std::decay_t&lt;Op&gt;, Strategy&gt;&gt;{std::forward&lt;Op&gt;(op), m_strategy};</div>
-<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>    }</div>
-<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span> </div>
-<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>    <span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::operators_v2&lt;Type&gt; Op&gt;</div>
-<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>    <span class="keyword">auto</span> operator|(Op&amp;&amp; op) &amp;&amp;</div>
-<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>    {</div>
-<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>        <span class="keywordflow">return</span> observable&lt;typename std::decay_t&lt;Op&gt;::template ResultValue&lt;Type&gt;, make_chain_observable_t&lt;std::decay_t&lt;Op&gt;, Strategy&gt;&gt;{std::forward&lt;Op&gt;(op), std::move(m_strategy)};</div>
-<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>    }</div>
-<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span> </div>
-<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>    <span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::operators&lt;const observable&lt;Type, Strategy&gt;&amp;&gt; Op&gt;</div>
-<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>    <span class="keyword">auto</span> operator|(Op&amp;&amp; op) <span class="keyword">const</span> &amp;</div>
-<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>    {</div>
-<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>        <span class="keywordflow">return</span> std::forward&lt;Op&gt;(op)(*this);</div>
-<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>    }</div>
-<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span> </div>
-<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>    <span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::operators&lt;observable&lt;Type, Strategy&gt;&amp;&amp;&gt; Op&gt;</div>
-<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>    <span class="keyword">auto</span> operator|(Op&amp;&amp; op) &amp;&amp;</div>
-<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>    {</div>
-<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>        <span class="keywordflow">return</span> std::forward&lt;Op&gt;(op)(std::move(*<span class="keyword">this</span>));</div>
-<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span>    }</div>
-<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span> </div>
-<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span>...Args&gt;</div>
-<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>    <span class="keyword">auto</span> operator|(<span class="keyword">const</span> <a class="code hl_class" href="classrpp_1_1operators_1_1details_1_1subscribe__t.html">rpp::operators::details::subscribe_t&lt;Args...&gt;</a>&amp; op)<span class="keyword"> const</span></div>
-<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span><span class="keyword">    </span>{</div>
-<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>        <span class="keywordflow">return</span> op(*<span class="keyword">this</span>);</div>
-<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>    }</div>
-<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span> </div>
-<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span>...Args&gt;</div>
-<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>    <span class="keyword">auto</span> operator|(<a class="code hl_class" href="classrpp_1_1operators_1_1details_1_1subscribe__t.html">rpp::operators::details::subscribe_t&lt;Args...&gt;</a>&amp;&amp; op)<span class="keyword"> const</span></div>
-<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span><span class="keyword">    </span>{</div>
-<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>        <span class="keywordflow">return</span> std::move(op)(*this);</div>
-<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>    }</div>
-<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span> </div>
-<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> Op&gt;</div>
-<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>    <span class="keyword">auto</span> pipe(Op&amp;&amp; op) <span class="keyword">const</span> &amp;</div>
-<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>    {</div>
-<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>        <span class="keywordflow">return</span> *<span class="keyword">this</span> | std::forward&lt;Op&gt;(op);</div>
-<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>    }</div>
-<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span> </div>
-<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> Op&gt;</div>
-<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>    <span class="keyword">auto</span> pipe(Op&amp;&amp; op) &amp;&amp;</div>
-<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>    {</div>
-<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span>        <span class="keywordflow">return</span> std::move(*<span class="keyword">this</span>) | std::forward&lt;Op&gt;(op);</div>
-<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>    }</div>
-<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span> </div>
-<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span>    RPP_NO_UNIQUE_ADDRESS Strategy m_strategy;</div>
-<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span>};</div>
-<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span>}</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span> </div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>    <span class="keyword">template</span>&lt;std::invocable&lt;Type&gt;                      OnNext,</div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>             std::invocable&lt;const std::exception_ptr&amp;&gt; OnError     = rpp::utils::rethrow_error_t,</div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>             std::invocable&lt;&gt;                          OnCompleted = rpp::utils::empty_function_t&lt;&gt;&gt;</div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno"><a class="line" href="classrpp_1_1observable.html#ace715f6f4dbbee4f7b0000fd32f75c8c">  141</a></span>    <a class="code hl_class" href="classrpp_1_1disposable__wrapper__impl.html">composite_disposable_wrapper</a> <a class="code hl_function" href="classrpp_1_1observable.html#ace715f6f4dbbee4f7b0000fd32f75c8c">subscribe</a>(<span class="keyword">const</span> <a class="code hl_class" href="classrpp_1_1disposable__wrapper__impl.html">composite_disposable_wrapper</a>&amp; d, OnNext&amp;&amp; on_next, OnError&amp;&amp; on_error = {}, OnCompleted&amp;&amp; on_completed = {}) <span class="keyword">const</span></div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>    {</div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>        <span class="keywordflow">if</span> (!d.is_disposed())</div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>            m_strategy.subscribe(make_lambda_observer&lt;Type&gt;(d,</div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>                                                std::forward&lt;OnNext&gt;(on_next),</div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>                                                std::forward&lt;OnError&gt;(on_error),</div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>                                                std::forward&lt;OnCompleted&gt;(on_completed)));</div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>        <span class="keywordflow">return</span> d;</div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>    }</div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span> </div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno"><a class="line" href="classrpp_1_1observable.html#ab820514612d4314b99528525db6afd4f">  154</a></span>    <span class="keyword">auto</span> <a class="code hl_function" href="classrpp_1_1observable.html#ab820514612d4314b99528525db6afd4f">as_dynamic</a>() const&amp; { <span class="keywordflow">return</span> <a class="code hl_class" href="classrpp_1_1observable.html">rpp::dynamic_observable&lt;Type&gt;</a>{*<span class="keyword">this</span>}; }</div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span> </div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno"><a class="line" href="classrpp_1_1observable.html#a7f3a86ce4541938d7e4c7c73f883b30b">  159</a></span>    <span class="keyword">auto</span> <a class="code hl_function" href="classrpp_1_1observable.html#a7f3a86ce4541938d7e4c7c73f883b30b">as_dynamic</a>() &amp;&amp; { <span class="keywordflow">return</span> <a class="code hl_class" href="classrpp_1_1observable.html">rpp::dynamic_observable&lt;Type&gt;</a>{std::move(*<span class="keyword">this</span>)}; }</div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span> </div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>    <span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::operators_v2&lt;Type&gt; Op&gt;</div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>    <span class="keyword">auto</span> operator|(Op&amp;&amp; op) <span class="keyword">const</span> &amp;</div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>    {</div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>        <span class="keywordflow">return</span> <a class="code hl_class" href="classrpp_1_1observable.html">observable&lt;typename std::decay_t&lt;Op&gt;::template</a> ResultValue&lt;Type&gt;, make_chain_observable_t&lt;std::decay_t&lt;Op&gt;, Strategy&gt;&gt;{std::forward&lt;Op&gt;(op), m_strategy};</div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>    }</div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span> </div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>    <span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::operators_v2&lt;Type&gt; Op&gt;</div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>    <span class="keyword">auto</span> operator|(Op&amp;&amp; op) &amp;&amp;</div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>    {</div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>        <span class="keywordflow">return</span> observable&lt;typename std::decay_t&lt;Op&gt;::template ResultValue&lt;Type&gt;, make_chain_observable_t&lt;std::decay_t&lt;Op&gt;, Strategy&gt;&gt;{std::forward&lt;Op&gt;(op), std::move(m_strategy)};</div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>    }</div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span> </div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>    <span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::operators&lt;const observable&lt;Type, Strategy&gt;&amp;&gt; Op&gt;</div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>    <span class="keyword">auto</span> operator|(Op&amp;&amp; op) <span class="keyword">const</span> &amp;</div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>    {</div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>        <span class="keywordflow">return</span> std::forward&lt;Op&gt;(op)(*this);</div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>    }</div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span> </div>
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>    <span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::operators&lt;observable&lt;Type, Strategy&gt;&amp;&amp;&gt; Op&gt;</div>
+<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>    <span class="keyword">auto</span> operator|(Op&amp;&amp; op) &amp;&amp;</div>
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span>    {</div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>        <span class="keywordflow">return</span> std::forward&lt;Op&gt;(op)(std::move(*<span class="keyword">this</span>));</div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span>    }</div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span> </div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span>...Args&gt;</div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>    <span class="keyword">auto</span> operator|(<span class="keyword">const</span> <a class="code hl_class" href="classrpp_1_1operators_1_1details_1_1subscribe__t.html">rpp::operators::details::subscribe_t&lt;Args...&gt;</a>&amp; op)<span class="keyword"> const</span></div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span><span class="keyword">    </span>{</div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>        <span class="keywordflow">return</span> op(*<span class="keyword">this</span>);</div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>    }</div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span> </div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span>...Args&gt;</div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>    <span class="keyword">auto</span> operator|(<a class="code hl_class" href="classrpp_1_1operators_1_1details_1_1subscribe__t.html">rpp::operators::details::subscribe_t&lt;Args...&gt;</a>&amp;&amp; op)<span class="keyword"> const</span></div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span><span class="keyword">    </span>{</div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>        <span class="keywordflow">return</span> std::move(op)(*this);</div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span>    }</div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span> </div>
+<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> Op&gt;</div>
+<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>    <span class="keyword">auto</span> pipe(Op&amp;&amp; op) <span class="keyword">const</span> &amp;</div>
+<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>    {</div>
+<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>        <span class="keywordflow">return</span> *<span class="keyword">this</span> | std::forward&lt;Op&gt;(op);</div>
+<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>    }</div>
+<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span> </div>
+<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> Op&gt;</div>
+<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span>    <span class="keyword">auto</span> pipe(Op&amp;&amp; op) &amp;&amp;</div>
+<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>    {</div>
+<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span>        <span class="keywordflow">return</span> std::move(*<span class="keyword">this</span>) | std::forward&lt;Op&gt;(op);</div>
+<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span>    }</div>
+<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span> </div>
+<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span>    RPP_NO_UNIQUE_ADDRESS Strategy m_strategy;</div>
+<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span>};</div>
+<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span>}</div>
 <div class="ttc" id="aclassrpp_1_1details_1_1observer__impl_html_ab4d6f3e513e55f94547c8fa4d042f0cb"><div class="ttname"><a href="classrpp_1_1details_1_1observer__impl.html#ab4d6f3e513e55f94547c8fa4d042f0cb">rpp::details::observer_impl::is_disposed</a></div><div class="ttdeci">bool is_disposed() const noexcept</div><div class="ttdoc">Observable calls this method to check if observer interested or not in emissions.</div><div class="ttdef"><b>Definition</b> observer.hpp:76</div></div>
 <div class="ttc" id="aclassrpp_1_1disposable__wrapper__impl_html"><div class="ttname"><a href="classrpp_1_1disposable__wrapper__impl.html">rpp::disposable_wrapper_impl&lt; composite_disposable &gt;</a></div></div>
 <div class="ttc" id="aclassrpp_1_1observable_html"><div class="ttname"><a href="classrpp_1_1observable.html">rpp::observable</a></div><div class="ttdoc">Base class for any observable used in RPP. It handles core callbacks of observable.</div><div class="ttdef"><b>Definition</b> observable.hpp:40</div></div>
 <div class="ttc" id="aclassrpp_1_1observable_html_a193b0e08c516912c04afd8379ec27182"><div class="ttname"><a href="classrpp_1_1observable.html#a193b0e08c516912c04afd8379ec27182">rpp::observable::subscribe</a></div><div class="ttdeci">void subscribe(observer&lt; Type, ObserverStrategy &gt; &amp;&amp;observer) const</div><div class="ttdoc">Subscribes passed observer to emissions from this observable.</div><div class="ttdef"><b>Definition</b> observable.hpp:56</div></div>
-<div class="ttc" id="aclassrpp_1_1observable_html_a7f3a86ce4541938d7e4c7c73f883b30b"><div class="ttname"><a href="classrpp_1_1observable.html#a7f3a86ce4541938d7e4c7c73f883b30b">rpp::observable::as_dynamic</a></div><div class="ttdeci">auto as_dynamic() &amp;&amp;</div><div class="ttdoc">Convert observable to type-erased version.</div><div class="ttdef"><b>Definition</b> observable.hpp:157</div></div>
+<div class="ttc" id="aclassrpp_1_1observable_html_a7f3a86ce4541938d7e4c7c73f883b30b"><div class="ttname"><a href="classrpp_1_1observable.html#a7f3a86ce4541938d7e4c7c73f883b30b">rpp::observable::as_dynamic</a></div><div class="ttdeci">auto as_dynamic() &amp;&amp;</div><div class="ttdoc">Convert observable to type-erased version.</div><div class="ttdef"><b>Definition</b> observable.hpp:159</div></div>
 <div class="ttc" id="aclassrpp_1_1observable_html_aa2621e98393f224a7689c6e08003c027"><div class="ttname"><a href="classrpp_1_1observable.html#aa2621e98393f224a7689c6e08003c027">rpp::observable::subscribe</a></div><div class="ttdeci">void subscribe(dynamic_observer&lt; Type &gt; observer) const</div><div class="ttdoc">Subscribe passed observer to emissions from this observable.</div><div class="ttdef"><b>Definition</b> observable.hpp:66</div></div>
-<div class="ttc" id="aclassrpp_1_1observable_html_ab820514612d4314b99528525db6afd4f"><div class="ttname"><a href="classrpp_1_1observable.html#ab820514612d4314b99528525db6afd4f">rpp::observable::as_dynamic</a></div><div class="ttdeci">auto as_dynamic() const &amp;</div><div class="ttdoc">Convert observable to type-erased version.</div><div class="ttdef"><b>Definition</b> observable.hpp:152</div></div>
-<div class="ttc" id="aclassrpp_1_1observable_html_ace715f6f4dbbee4f7b0000fd32f75c8c"><div class="ttname"><a href="classrpp_1_1observable.html#ace715f6f4dbbee4f7b0000fd32f75c8c">rpp::observable::subscribe</a></div><div class="ttdeci">composite_disposable_wrapper subscribe(const composite_disposable_wrapper &amp;d, OnNext &amp;&amp;on_next, OnError &amp;&amp;on_error={}, OnCompleted &amp;&amp;on_completed={}) const</div><div class="ttdoc">Subscribe passed observer to emissions from this observable.</div><div class="ttdef"><b>Definition</b> observable.hpp:139</div></div>
+<div class="ttc" id="aclassrpp_1_1observable_html_ab820514612d4314b99528525db6afd4f"><div class="ttname"><a href="classrpp_1_1observable.html#ab820514612d4314b99528525db6afd4f">rpp::observable::as_dynamic</a></div><div class="ttdeci">auto as_dynamic() const &amp;</div><div class="ttdoc">Convert observable to type-erased version.</div><div class="ttdef"><b>Definition</b> observable.hpp:154</div></div>
+<div class="ttc" id="aclassrpp_1_1observable_html_ace715f6f4dbbee4f7b0000fd32f75c8c"><div class="ttname"><a href="classrpp_1_1observable.html#ace715f6f4dbbee4f7b0000fd32f75c8c">rpp::observable::subscribe</a></div><div class="ttdeci">composite_disposable_wrapper subscribe(const composite_disposable_wrapper &amp;d, OnNext &amp;&amp;on_next, OnError &amp;&amp;on_error={}, OnCompleted &amp;&amp;on_completed={}) const</div><div class="ttdoc">Subscribe passed observer to emissions from this observable.</div><div class="ttdef"><b>Definition</b> observable.hpp:141</div></div>
 <div class="ttc" id="aclassrpp_1_1observer_html"><div class="ttname"><a href="classrpp_1_1observer.html">rpp::observer</a></div><div class="ttdoc">Base class for any observer used in RPP. It handles core callbacks of observers. Objects of this clas...</div><div class="ttdef"><b>Definition</b> observer.hpp:166</div></div>
 <div class="ttc" id="aclassrpp_1_1operators_1_1details_1_1subscribe__t_html"><div class="ttname"><a href="classrpp_1_1operators_1_1details_1_1subscribe__t.html">rpp::operators::details::subscribe_t</a></div><div class="ttdef"><b>Definition</b> subscribe.hpp:25</div></div>
 <div class="ttc" id="astructrpp_1_1details_1_1with__disposable_html"><div class="ttname"><a href="structrpp_1_1details_1_1with__disposable.html">rpp::details::with_disposable</a></div><div class="ttdef"><b>Definition</b> fwd.hpp:60</div></div>

@@ -117,8 +117,10 @@ composite\+\_\+disposable\+\_\+wrapper is disposable to be able to dispose obser
 \DoxyCodeLine{std::this\_thread::sleep\_for(std::chrono::seconds(1));}
 
 \end{DoxyCode}
- \texorpdfstring{$\ast$}{*}/ template\texorpdfstring{$<$}{<}constraint\+::observer\+\_\+strategy$<$\+Type$>$ Observer\+Strategy\texorpdfstring{$>$}{>} composite\+\_\+disposable\+\_\+wrapper subscribe(const composite\+\_\+disposable\+\_\+wrapper\& d, observer$<$\+Type, Observer\+Strategy$>$\&\& obs) const \{ if (!d.is\+\_\+disposed()) m\+\_\+strategy.\+subscribe(observer$<$\+Type, rpp\+::details\+::with\+\_\+disposable$<$observer$<$\+Type, Observer\+Strategy$>$$>$$>$\{d, std\+::move(obs)\}); return d; \}
+
 \end{DoxyParagraph}
+\texorpdfstring{$\ast$}{*}/ template\texorpdfstring{$<$}{<}constraint\+::observer\+\_\+strategy$<$\+Type$>$ Observer\+Strategy\texorpdfstring{$>$}{>} composite\+\_\+disposable\+\_\+wrapper subscribe(const composite\+\_\+disposable\+\_\+wrapper\& d, observer$<$\+Type, Observer\+Strategy$>$\&\& obs) const \{ if (!d.is\+\_\+disposed()) m\+\_\+strategy.\+subscribe(observer$<$\+Type, rpp\+::details\+::with\+\_\+disposable$<$observer$<$\+Type, Observer\+Strategy$>$$>$$>$\{d, std\+::move(obs)\}); return d; \}
+
 /\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}
 
 Construct \doxylink{group__observers_gad7a2b4cbca14301bec3f5a5f59146c94}{rpp\+::lambda\+\_\+observer} on the fly and subscribe it to emissions from this observable \texorpdfstring{$\ast$}{*}/ template\texorpdfstring{$<$}{<}std\+::invocable$<$\+Type$>$ On\+Next, std\+::invocable$<$const std\+::exception\+\_\+ptr\&$>$ On\+Error = rpp\+::utils\+::rethrow\+\_\+error\+\_\+t, std\+::invocable$<$$>$ On\+Completed = rpp\+::utils\+::empty\+\_\+function\+\_\+t$<$$>$\texorpdfstring{$>$}{>} void subscribe(On\+Next\&\& on\+\_\+next, On\+Error\&\& on\+\_\+error = \{\}, On\+Completed\&\& on\+\_\+completed = \{\}) const \{ subscribe(make\+\_\+lambda\+\_\+observer$<$\+Type$>$(std\+::forward$<$\+On\+Next$>$(on\+\_\+next), std\+::forward$<$\+On\+Error$>$(on\+\_\+error), std\+::forward$<$\+On\+Completed$>$(on\+\_\+completed))); \}
