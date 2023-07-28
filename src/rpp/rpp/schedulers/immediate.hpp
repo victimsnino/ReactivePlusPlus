@@ -48,6 +48,7 @@ namespace rpp::schedulers
        std::cout << "Task 1 ends" << std::endl;
        return rpp::schedulers::optional_duration{};
    }, obse
+   ```
  *
  * Would lead to:
  * - "Task 1 starts"
