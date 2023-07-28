@@ -191,7 +191,7 @@ namespace rpp::operators
  *
  * @warning According to observable contract (https://reactivex.io/documentation/contract.html) emissions from any observable should be serialized, so, resulting observable uses mutex to satisfy this requirement
  *
- * @warning During on subscribe operator takes ownership over rpp::schdulers::current_thread to allow mixing of underlying emissions
+ * @warning During on subscribe operator takes ownership over rpp::schedulers::current_thread to allow mixing of underlying emissions
  *
  * @marble merge
      {
@@ -227,7 +227,7 @@ inline auto merge()
  *
  * @warning According to observable contract (https://reactivex.io/documentation/contract.html) emissions from any observable should be serialized, so, resulting observable uses mutex to satisfy this requirement
  *
- * @warning During on subscribe operator takes ownership over rpp::schdulers::current_thread to allow mixing of underlying emissions
+ * @warning During on subscribe operator takes ownership over rpp::schedulers::current_thread to allow mixing of underlying emissions
  *
  * @marble merge_with
      {
