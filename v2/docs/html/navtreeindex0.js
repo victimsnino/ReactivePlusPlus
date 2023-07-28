@@ -58,9 +58,11 @@ var NAVTREEINDEX0 =
 "classrpp_1_1schedulers_1_1details_1_1schedulable__base.html":[3,0,0,3,1,0],
 "classrpp_1_1schedulers_1_1details_1_1schedulables__queue.html":[3,0,0,3,1,1],
 "classrpp_1_1schedulers_1_1details_1_1specific__schedulable.html":[3,0,0,3,1,2],
-"classrpp_1_1schedulers_1_1new__thread.html":[1,0,4,1],
-"classrpp_1_1schedulers_1_1new__thread_1_1worker__strategy.html":[1,0,4,1,0],
-"classrpp_1_1schedulers_1_1worker.html":[3,0,0,3,4],
+"classrpp_1_1schedulers_1_1immediate.html":[1,0,4,1],
+"classrpp_1_1schedulers_1_1immediate_1_1worker__strategy.html":[1,0,4,1,0],
+"classrpp_1_1schedulers_1_1new__thread.html":[1,0,4,2],
+"classrpp_1_1schedulers_1_1new__thread_1_1worker__strategy.html":[1,0,4,2,0],
+"classrpp_1_1schedulers_1_1worker.html":[3,0,0,3,5],
 "classrpp_1_1subjects_1_1details_1_1base__subject.html":[3,0,0,4,0,0],
 "classrpp_1_1subjects_1_1details_1_1publish__strategy.html":[3,0,0,4,0,3],
 "classrpp_1_1subjects_1_1details_1_1subject__state.html":[3,0,0,4,0,4],
@@ -247,7 +249,5 @@ var NAVTREEINDEX0 =
 "structrpp_1_1interface__disposable.html#a47d5a3e76f8f0e774b07f7743eb0634a":[1,0,0,3,0],
 "structrpp_1_1make__chain__observable.html":[3,0,0,10],
 "structrpp_1_1make__chain__observable_3_01_new_00_01observable__chain__strategy_3_01_args_8_8_8_01_4_01_4.html":[3,0,0,11],
-"structrpp_1_1memory__model_1_1use__shared.html":[3,0,0,1,0],
-"structrpp_1_1memory__model_1_1use__stack.html":[3,0,0,1,1],
-"structrpp_1_1operators_1_1details_1_1as__blocking__t.html":[3,0,0,2,0,0]
+"structrpp_1_1memory__model_1_1use__shared.html":[3,0,0,1,0]
 };

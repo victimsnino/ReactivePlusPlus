@@ -40,6 +40,7 @@ var hierarchy =
     [ "rpp::details::from_iterable_schedulable", "structrpp_1_1details_1_1from__iterable__schedulable.html", null ],
     [ "rpp::details::from_iterable_strategy< PackedContainer, TScheduler >", "structrpp_1_1details_1_1from__iterable__strategy.html", null ],
     [ "rpp::operators::details::identity_subscribe_strategy< Strategy >", "structrpp_1_1operators_1_1details_1_1identity__subscribe__strategy.html", null ],
+    [ "rpp::schedulers::immediate", "classrpp_1_1schedulers_1_1immediate.html", null ],
     [ "rpp::operators::details::infinite_repeat_t", "structrpp_1_1operators_1_1details_1_1infinite__repeat__t.html", null ],
     [ "rpp::interface_disposable", "structrpp_1_1interface__disposable.html", [
       [ "rpp::composite_disposable", "classrpp_1_1composite__disposable.html", [
@@ -125,5 +126,6 @@ var hierarchy =
     [ "rpp::details::with_disposable< S >", "structrpp_1_1details_1_1with__disposable.html", null ],
     [ "rpp::schedulers::worker< Strategy >", "classrpp_1_1schedulers_1_1worker.html", null ],
     [ "rpp::schedulers::current_thread::worker_strategy", "classrpp_1_1schedulers_1_1current__thread_1_1worker__strategy.html", null ],
+    [ "rpp::schedulers::immediate::worker_strategy", "classrpp_1_1schedulers_1_1immediate_1_1worker__strategy.html", null ],
     [ "rpp::schedulers::new_thread::worker_strategy", "classrpp_1_1schedulers_1_1new__thread_1_1worker__strategy.html", null ]
 ];

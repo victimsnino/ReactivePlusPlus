@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.7"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ReactivePlusPlus: just.cpp</title>
+<title>ReactivePlusPlus: Member List</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -70,7 +70,7 @@ var searchBox = new SearchBox("searchBox", "search/",'.html');
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(document).ready(function(){initNavTree('just_8cpp-example.html',''); initResizable(); });
+$(document).ready(function(){initNavTree('classrpp_1_1schedulers_1_1immediate_1_1worker__strategy.html',''); initResizable(); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -96,32 +96,15 @@ $(document).ready(function(){initNavTree('just_8cpp-example.html',''); initResiz
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">just.cpp</div></div>
+  <div class="headertitle"><div class="title">rpp::schedulers::immediate::worker_strategy Member List</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><span class="preprocessor">#include &lt;rpp/rpp.hpp&gt;</span></div>
-<div class="line"> </div>
-<div class="line"><span class="preprocessor">#include &lt;iostream&gt;</span></div>
-<div class="line"><span class="preprocessor">#include &lt;array&gt;</span></div>
-<div class="line"> </div>
-<div class="line"><span class="keywordtype">int</span> main() <span class="comment">// NOLINT</span></div>
-<div class="line">{</div>
-<div class="line">    <a id="a0" name="a0"></a><a class="code hl_function" href="group__creational__operators.html#gae60bdb9b493443d2786b0eee8bfe17ab">rpp::source::just</a>(42, 53, 10, 1).subscribe([](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; v &lt;&lt; std::endl; });</div>
-<div class="line">    <span class="comment">// Output: 42 53 10 1</span></div>
-<div class="line"><span class="comment"></span> </div>
-<div class="line">    std::array&lt;int, 100&gt; expensive_to_copy_1{};</div>
-<div class="line">    std::array&lt;int, 100&gt; expensive_to_copy_2{};</div>
-<div class="line">    rpp::source::just&lt;rpp::memory_model::use_shared&gt;(expensive_to_copy_1, expensive_to_copy_2).subscribe([](<span class="keyword">const</span> <span class="keyword">auto</span>&amp;){});</div>
-<div class="line"> </div>
-<div class="line">    <span class="comment">// //! [just scheduler]</span></div>
-<div class="line">    <a class="code hl_function" href="group__creational__operators.html#gae60bdb9b493443d2786b0eee8bfe17ab">rpp::source::just</a>(<a id="_a1" name="_a1"></a><a class="code hl_class" href="classrpp_1_1schedulers_1_1immediate.html">rpp::schedulers::immediate</a>{}, 42, 53).subscribe([](<span class="keyword">const</span> <span class="keyword">auto</span>&amp;){});</div>
-<div class="line">    <a class="code hl_function" href="group__creational__operators.html#gae60bdb9b493443d2786b0eee8bfe17ab">rpp::source::just</a>(<a id="_a2" name="_a2"></a><a class="code hl_class" href="classrpp_1_1schedulers_1_1current__thread.html">rpp::schedulers::current_thread</a>{}, 42, 53).subscribe([](<span class="keyword">const</span> <span class="keyword">auto</span>&amp;){});</div>
-<div class="line">    <span class="comment">// //! [just scheduler]</span></div>
-<div class="line">}</div>
-<div class="ttc" id="aclassrpp_1_1schedulers_1_1current__thread_html"><div class="ttname"><a href="classrpp_1_1schedulers_1_1current__thread.html">rpp::schedulers::current_thread</a></div><div class="ttdoc">Schedules execution of schedulables via queueing tasks to the caller thread with priority to time_poi...</div><div class="ttdef"><b>Definition</b> current_thread.hpp:86</div></div>
-<div class="ttc" id="aclassrpp_1_1schedulers_1_1immediate_html"><div class="ttname"><a href="classrpp_1_1schedulers_1_1immediate.html">rpp::schedulers::immediate</a></div><div class="ttdoc">immediately calls provided schedulable or waits for time_point (in the caller-thread)</div><div class="ttdef"><b>Definition</b> immediate.hpp:64</div></div>
-<div class="ttc" id="agroup__creational__operators_html_gae60bdb9b493443d2786b0eee8bfe17ab"><div class="ttname"><a href="group__creational__operators.html#gae60bdb9b493443d2786b0eee8bfe17ab">rpp::source::just</a></div><div class="ttdeci">auto just(const TScheduler &amp;scheduler, T &amp;&amp;item, Ts &amp;&amp;...items)</div><div class="ttdoc">Creates rpp::observable that emits a particular items and completes.</div><div class="ttdef"><b>Definition</b> from.hpp:195</div></div>
-</div><!-- fragment --> </div><!-- contents -->
+
+<p>This is the complete list of members for <a class="el" href="classrpp_1_1schedulers_1_1immediate_1_1worker__strategy.html">rpp::schedulers::immediate::worker_strategy</a>, including all inherited members.</p>
+<table class="directory">
+  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>defer_for</b>(duration duration, Fn &amp;&amp;fn, TObs &amp;&amp;obs, Args &amp;&amp;...args) (defined in <a class="el" href="classrpp_1_1schedulers_1_1immediate_1_1worker__strategy.html">rpp::schedulers::immediate::worker_strategy</a>)</td><td class="entry"><a class="el" href="classrpp_1_1schedulers_1_1immediate_1_1worker__strategy.html">rpp::schedulers::immediate::worker_strategy</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">static</span></td></tr>
+  <tr bgcolor="#f0f0f0" class="odd"><td class="entry"><b>get_disposable</b>() (defined in <a class="el" href="classrpp_1_1schedulers_1_1immediate_1_1worker__strategy.html">rpp::schedulers::immediate::worker_strategy</a>)</td><td class="entry"><a class="el" href="classrpp_1_1schedulers_1_1immediate_1_1worker__strategy.html">rpp::schedulers::immediate::worker_strategy</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">static</span></td></tr>
+</table></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

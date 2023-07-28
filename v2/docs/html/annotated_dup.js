@@ -98,6 +98,7 @@ var annotated_dup =
           [ "specific_schedulable", "classrpp_1_1schedulers_1_1details_1_1specific__schedulable.html", null ]
         ] ],
         [ "current_thread", "classrpp_1_1schedulers_1_1current__thread.html", "classrpp_1_1schedulers_1_1current__thread" ],
+        [ "immediate", "classrpp_1_1schedulers_1_1immediate.html", "classrpp_1_1schedulers_1_1immediate" ],
         [ "new_thread", "classrpp_1_1schedulers_1_1new__thread.html", "classrpp_1_1schedulers_1_1new__thread" ],
         [ "worker", "classrpp_1_1schedulers_1_1worker.html", null ]
       ] ],

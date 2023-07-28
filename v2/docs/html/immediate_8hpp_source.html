@@ -119,30 +119,33 @@ $(document).ready(function(){initNavTree('immediate_8hpp_source.html',''); initR
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="keyword">namespace </span>rpp::schedulers</div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>{</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span><span class="keyword">class </span>immediate final</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>{</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    <span class="keyword">class </span>worker_strategy</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    {</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>        <span class="keyword">template</span>&lt;<a class="code hl_concept" href="conceptrpp_1_1constraint_1_1observer.html">rpp::constraint::observer</a> TObs, <span class="keyword">typename</span>...Args, constraint::schedulable_fn&lt;TObs, Args...&gt; Fn&gt;</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>        <span class="keyword">static</span> <span class="keywordtype">void</span> defer_for(duration duration, Fn&amp;&amp; fn, TObs&amp;&amp; obs, Args&amp;&amp;...args)</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>        {</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>            details::immediate_scheduling_while_condition(duration, rpp::utils::return_true{}, std::forward&lt;Fn&gt;(fn), std::forward&lt;TObs&gt;(obs), std::forward&lt;Args&gt;(args)...);</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>        }</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>        <span class="keyword">static</span> <a class="code hl_class" href="classrpp_1_1disposable__wrapper__impl.html">rpp::disposable_wrapper</a> get_disposable() {<span class="keywordflow">return</span> <a class="code hl_class" href="classrpp_1_1disposable__wrapper__impl.html">rpp::disposable_wrapper</a>{}; }</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    };</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span> </div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    <span class="keyword">static</span> <a class="code hl_class" href="classrpp_1_1schedulers_1_1worker.html">rpp::schedulers::worker&lt;worker_strategy&gt;</a> create_worker()</div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    {</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>        <span class="keywordflow">return</span> <a class="code hl_class" href="classrpp_1_1schedulers_1_1worker.html">rpp::schedulers::worker&lt;worker_strategy&gt;</a>{};</div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    }</div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>};</div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>}</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno"><a class="line" href="classrpp_1_1schedulers_1_1immediate.html">   63</a></span><span class="keyword">class </span><a class="code hl_class" href="classrpp_1_1schedulers_1_1immediate.html">immediate</a> final</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>{</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno"><a class="line" href="classrpp_1_1schedulers_1_1immediate_1_1worker__strategy.html">   66</a></span>    <span class="keyword">class </span><a class="code hl_class" href="classrpp_1_1schedulers_1_1immediate_1_1worker__strategy.html">worker_strategy</a></div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    {</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>        <span class="keyword">template</span>&lt;<a class="code hl_concept" href="conceptrpp_1_1constraint_1_1observer.html">rpp::constraint::observer</a> TObs, <span class="keyword">typename</span>...Args, <a class="code hl_concept" href="conceptrpp_1_1schedulers_1_1constraint_1_1schedulable__fn.html">constraint::schedulable_fn</a>&lt;TObs, Args...&gt; Fn&gt;</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>        <span class="keyword">static</span> <span class="keywordtype">void</span> defer_for(duration duration, Fn&amp;&amp; fn, TObs&amp;&amp; obs, Args&amp;&amp;...args)</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>        {</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>            details::immediate_scheduling_while_condition(duration, rpp::utils::return_true{}, std::forward&lt;Fn&gt;(fn), std::forward&lt;TObs&gt;(obs), std::forward&lt;Args&gt;(args)...);</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>        }</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span> </div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>        <span class="keyword">static</span> <a class="code hl_class" href="classrpp_1_1disposable__wrapper__impl.html">rpp::disposable_wrapper</a> get_disposable() {<span class="keywordflow">return</span> <a class="code hl_class" href="classrpp_1_1disposable__wrapper__impl.html">rpp::disposable_wrapper</a>{}; }</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    };</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span> </div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    <span class="keyword">static</span> <a class="code hl_class" href="classrpp_1_1schedulers_1_1worker.html">rpp::schedulers::worker&lt;worker_strategy&gt;</a> create_worker()</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    {</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>        <span class="keywordflow">return</span> <a class="code hl_class" href="classrpp_1_1schedulers_1_1worker.html">rpp::schedulers::worker&lt;worker_strategy&gt;</a>{};</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    }</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>};</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>}</div>
 <div class="ttc" id="aclassrpp_1_1disposable__wrapper__impl_html"><div class="ttname"><a href="classrpp_1_1disposable__wrapper__impl.html">rpp::disposable_wrapper_impl&lt; interface_disposable &gt;</a></div></div>
+<div class="ttc" id="aclassrpp_1_1schedulers_1_1immediate_1_1worker__strategy_html"><div class="ttname"><a href="classrpp_1_1schedulers_1_1immediate_1_1worker__strategy.html">rpp::schedulers::immediate::worker_strategy</a></div><div class="ttdef"><b>Definition</b> immediate.hpp:67</div></div>
+<div class="ttc" id="aclassrpp_1_1schedulers_1_1immediate_html"><div class="ttname"><a href="classrpp_1_1schedulers_1_1immediate.html">rpp::schedulers::immediate</a></div><div class="ttdoc">immediately calls provided schedulable or waits for time_point (in the caller-thread)</div><div class="ttdef"><b>Definition</b> immediate.hpp:64</div></div>
 <div class="ttc" id="aclassrpp_1_1schedulers_1_1worker_html"><div class="ttname"><a href="classrpp_1_1schedulers_1_1worker.html">rpp::schedulers::worker</a></div><div class="ttdef"><b>Definition</b> worker.hpp:23</div></div>
 <div class="ttc" id="aconceptrpp_1_1constraint_1_1observer_html"><div class="ttname"><a href="conceptrpp_1_1constraint_1_1observer.html">rpp::constraint::observer</a></div><div class="ttdef"><b>Definition</b> fwd.hpp:232</div></div>
+<div class="ttc" id="aconceptrpp_1_1schedulers_1_1constraint_1_1schedulable__fn_html"><div class="ttname"><a href="conceptrpp_1_1schedulers_1_1constraint_1_1schedulable__fn.html">rpp::schedulers::constraint::schedulable_fn</a></div><div class="ttdef"><b>Definition</b> fwd.hpp:33</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
