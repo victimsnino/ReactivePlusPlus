@@ -146,7 +146,7 @@ requires constraint::observables_of_same_type&lt;std::decay_t&lt;TObservable&gt;
 <p>Converts observable of observables of items into observable of items via merging emissions. </p>
 <dl class="section warning"><dt>Warning</dt><dd>According to observable contract (<a href="https://reactivex.io/documentation/contract.html">https://reactivex.io/documentation/contract.html</a>) emissions from any observable should be serialized, so, resulting observable uses mutex to satisfy this requirement</dd>
 <dd>
-During on subscribe operator takes ownership over rpp::schdulers::current_thread to allow mixing of underlying emissions</dd></dl>
+During on subscribe operator takes ownership over <a class="el" href="classrpp_1_1schedulers_1_1current__thread.html" title="Schedules execution of schedulables via queueing tasks to the caller thread with priority to time_poi...">rpp::schedulers::current_thread</a> to allow mixing of underlying emissions</dd></dl>
 <div class="image">
 <object type="image/svg+xml" data="merge.svg" style="pointer-events: none;"></object>
 </div>
@@ -205,7 +205,7 @@ requires constraint::observables_of_same_type&lt;std::decay_t&lt;TObservable&gt;
 <p>Combines submissions from current observable with other observables into one. </p>
 <dl class="section warning"><dt>Warning</dt><dd>According to observable contract (<a href="https://reactivex.io/documentation/contract.html">https://reactivex.io/documentation/contract.html</a>) emissions from any observable should be serialized, so, resulting observable uses mutex to satisfy this requirement</dd>
 <dd>
-During on subscribe operator takes ownership over rpp::schdulers::current_thread to allow mixing of underlying emissions</dd></dl>
+During on subscribe operator takes ownership over <a class="el" href="classrpp_1_1schedulers_1_1current__thread.html" title="Schedules execution of schedulables via queueing tasks to the caller thread with priority to time_poi...">rpp::schedulers::current_thread</a> to allow mixing of underlying emissions</dd></dl>
 <div class="image">
 <object type="image/svg+xml" data="merge_with.svg" style="pointer-events: none;"></object>
 </div>
