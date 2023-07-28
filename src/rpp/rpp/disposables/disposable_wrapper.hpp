@@ -18,6 +18,12 @@
 
 namespace rpp
 {
+/**
+ * @brief Wrapper over disposable_ptr to prevent manual checking over nullptr/is_disposed()
+ * @details Can keep weak_ptr in case of not owning disposable
+ * 
+ * @ingroup disposables
+ */
 template<rpp::constraint::decayed_type TDisposable>
 class disposable_wrapper_impl
 {

@@ -21,10 +21,64 @@ namespace rpp::schedulers
 {
 /**
  * @brief Schedules execution of schedulables via queueing tasks to the caller thread with priority to time_point and order.
- * @warning Caller thread is thread where "schedule" called.
+ * @warning Caller thread is thread where `schedule` called.
  *
- * @par Example
- * @snippet current_thread.cpp current_thread
+ * @details When this scheduler passed to some operators, then caller thread is thread where scheduling of some action happens. In most cases it is where `on_next` was called.
+ *
+ * @par Why do we need it?
+ * This scheduler used to prevent recursion calls and making planar linear execution of schedulables. For example:
+ * ```cpp
+   auto worker = rpp::schedulers::current_thread::create_worker();
+   worker.schedule([&worker](const auto& observer)
+   {
+       std::cout << "Task 1 starts" << std::endl;
+   
+       worker.schedule([&worker](const auto& observer)
+       {
+           std::cout << "Task 2 starts" << std::endl;
+           worker.schedule([](const auto&)
+           {
+               std::cout << "Task 4" << std::endl;
+               return rpp::schedulers::optional_duration{};
+           }, observer);
+           std::cout << "Task 2 ends" << std::endl;
+           return rpp::schedulers::optional_duration{};
+       }, observer);
+   
+       worker.schedule([](const auto&)
+       {
+           std::cout << "Task 3" << std::endl;
+           return rpp::schedulers::optional_duration{};
+       }, observer);
+   
+       std::cout << "Task 1 ends" << std::endl;
+       return rpp::schedulers::optional_duration{};
+   }, observer);
+   ```
+ * Would lead to:
+ * - "Task 1 starts"
+ * - "Task 1 ends"
+ * - "Task 2 starts"
+ * - "Task 2 ends"
+ * - "Task 3"
+ * - "Task 4"
+ * 
+ * @par How to use it properly?
+ * To have any visible impact you need to use it at least **twice** during same observable. For example, `rpp::source::just` source uses it as default scheduler as well as `rpp::operators::subscribe_on` operator.
+ *
+ * For example, this one
+ * ```cpp
+   rpp::source::just(1, 2, 3) 
+    | rpp::operators::merge_with(rpp::source::just(4, 5, 6)) 
+    | rpp::operators::subscribe([](int v) { std::cout << v << " "; });
+   ```
+ * Procedes output `1 4 2 5 3 6` due to `merge_with` takes ownership over this scheduler during subscription, both sources schedule their first emissions into scheduler, then `merge_with` frees scheduler and it starts to proceed scheduled actions. As a result it continues interleaving of values. In case of usingg `rpp::schedulers::immediate` it would be:
+ * ```cpp
+   rpp::source::just(rpp::schedulers::immediate{}, 1, 2, 3) 
+    | rpp::operators::merge_with(rpp::source::just(rpp::schedulers::immediate{}, 4, 5, 6)) 
+    | rpp::operators::subscribe([](int v) { std::cout << v << " "; });
+   ```
+ * With output `1 2 3 4 5 6`
  *
  * @ingroup schedulers
  */

@@ -26,8 +26,9 @@ namespace rpp
 {
 /**
  * @brief Base class for any observable used in RPP. It handles core callbacks of observable.
- * @details Observable provides ony core function: subscribe - it accepts observer (or any way to construct it) and then invokes underlying Strategy to emit emissions somehow.
+ * @details Observable provides only one core function: subscribe - it accepts observer (or any way to construct it) and then invokes underlying Strategy to emit emissions somehow.
  * @warning Actually observable "doesn't emit nothing", it only **invokes Strategy!** Strategy COULD emit emissions immediately OR place observer to some queue or something like this to obtain emissions later (for example subjects)
+ * @warning Expected that observable's strategy would work with observer in serialized way
  *
  * @tparam Type of value this observable would provide. Only observers of same type can be subscribed to this observable.
  * @tparam Strategy used to provide logic over observable's callbacks.
@@ -69,11 +70,24 @@ public:
 
     /**
      * @brief Subscribe passed observer to emissions from this observable.
-     * @details This overloading attaches passed disposable to observer and return it to provide ability to dispose observer early if needed.
+     * @details This overloading attaches passed disposable to observer and return it to provide ability to dispose/disconnect observer early if needed.
      * @warning This overloading has some performance penalties, use it only when you really need to use disposable
      *
      * @param d is disposable to be attached to observer. If disposable is nullptr or disposed -> no any subscription happens
      * @return composite_disposable_wrapper is disposable to be able to dispose observer when it needed
+     *
+     * @par Example
+     * ```cpp
+        auto disposable = std::make_shared<rpp::composite_disposable>();
+        rpp::source::just(1) 
+        | rpp::operators::repeat() 
+        | rpp::operators::subscribe_on(rpp::schedulers::new_thread{}) 
+        | rpp::operators::subscribe(disposable, rpp::make_lambda_observer([](int) { std::cout << "NEW VALUE" << std::endl; }));
+
+        std::this_thread::sleep_for(std::chrono::seconds(1));
+        disposable->dispose();
+        std::this_thread::sleep_for(std::chrono::seconds(1));
+       ```
      */
     template<constraint::observer_strategy<Type> ObserverStrategy>
     composite_disposable_wrapper subscribe(const composite_disposable_wrapper& d, observer<Type, ObserverStrategy>&& obs) const
@@ -100,11 +114,24 @@ public:
 
     /**
      * @brief Construct rpp::lambda_observer on the fly and subscribe it to emissions from this observable
-     * @details This overloading attaches passed disposable to observer and return it to provide ability to dispose observer early if needed.
+     * @details This overloading attaches passed disposable to observer and return it to provide ability to dispose/disconnect observer early if needed.
      * @warning This overloading has some performance penalties, use it only when you really need to use disposable
      *
      * @param d is disposable to be attached to observer. If disposable is nullptr or disposed -> no any subscription happens
      * @return composite_disposable_wrapper is disposable to be able to dispose observer when it needed
+     *
+     * @par Example
+     * ```cpp
+        auto disposable = std::make_shared<rpp::composite_disposable>();
+        rpp::source::just(1) 
+        | rpp::operators::repeat() 
+        | rpp::operators::subscribe_on(rpp::schedulers::new_thread{}) 
+        | rpp::operators::subscribe(disposable, [](int) { std::cout << "NEW VALUE" << std::endl; });
+
+        std::this_thread::sleep_for(std::chrono::seconds(1));
+        disposable->dispose();
+        std::this_thread::sleep_for(std::chrono::seconds(1));
+       ```
      */
     template<std::invocable<Type>                      OnNext,
              std::invocable<const std::exception_ptr&> OnError     = rpp::utils::rethrow_error_t,
@@ -120,9 +147,13 @@ public:
     }
 
     /**
-     * @brief Convert observable to type-erased versio
+     * @brief Convert observable to type-erased version
      */
     auto as_dynamic() const& { return rpp::dynamic_observable<Type>{*this}; }
+
+    /**
+     * @brief Convert observable to type-erased version
+     */
     auto as_dynamic() && { return rpp::dynamic_observable<Type>{std::move(*this)}; }
 
     template<constraint::operators_v2<Type> Op>

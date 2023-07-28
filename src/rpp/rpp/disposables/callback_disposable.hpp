@@ -15,6 +15,11 @@
 
 namespace rpp
 {
+/**
+ * @brief Disposable invokes underlying callable on disposing.
+ * 
+ * @ingroup disposables
+ */
 template<std::invocable Fn>
 class callback_disposable final : public details::base_disposable
 {
