@@ -88,6 +88,7 @@ public:
         disposable->dispose();
         std::this_thread::sleep_for(std::chrono::seconds(1));
        ```
+     *
      */
     template<constraint::observer_strategy<Type> ObserverStrategy>
     composite_disposable_wrapper subscribe(const composite_disposable_wrapper& d, observer<Type, ObserverStrategy>&& obs) const
@@ -132,6 +133,7 @@ public:
         disposable->dispose();
         std::this_thread::sleep_for(std::chrono::seconds(1));
        ```
+     *
      */
     template<std::invocable<Type>                      OnNext,
              std::invocable<const std::exception_ptr&> OnError     = rpp::utils::rethrow_error_t,
