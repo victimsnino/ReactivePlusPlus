@@ -37,11 +37,14 @@ namespace rpp::operators::details
 {
 struct group_by_inner_observer_strategy
 {
-    std::shared_ptr<refcount_disposable> disposable;
+    using DisposableStrategyToUseWithThis = rpp::details::none_disposable_strategy;
+
+    std::weak_ptr<refcount_disposable> disposable;
 
     void set_upstream(const rpp::constraint::observer auto&, const rpp::disposable_wrapper& d) const
     {
-        disposable->add(d.get_original());
+        if (const auto locked = disposable.lock())
+            locked->add(d.get_original());
     }
     
     constexpr static forwarding_on_next_strategy on_next{};
@@ -140,14 +143,17 @@ struct group_by_observable_strategy
     using ValueType = T;
 
     rpp::subjects::publish_subject<T> subj;
-    std::shared_ptr<refcount_disposable> disposable;
+    std::weak_ptr<refcount_disposable> disposable;
 
     template<rpp::constraint::observer_strategy<T> Strategy>
     void subscribe(observer<T, Strategy>&& obs) const
     {
-        obs.set_upstream(rpp::disposable_wrapper::from_weak(disposable->add_ref().get_original()));
-        subj.get_observable()
-            .subscribe(rpp::observer<T, operator_strategy_base<T, observer<T, Strategy>, group_by_inner_observer_strategy>>{std::move(obs), disposable});
+        if (const auto locked = disposable.lock())
+        {
+            obs.set_upstream(rpp::disposable_wrapper::from_weak(locked->add_ref().get_original()));
+            subj.get_observable()
+                .subscribe(rpp::observer<T, operator_strategy_base<T, observer<T, Strategy>, group_by_inner_observer_strategy>>{std::move(obs), disposable});
+        }
     }
 };
 
