@@ -12,7 +12,7 @@ def group_by(data, key_selector):
 git_commit     = str(sys.argv[1])[:8]
 commit_message = sys.argv[2].split("\n")[0] if len(sys.argv) > 2 else "Current PR"
 
-all_commits = subprocess.check_output(["git", "rev-list", "--topo-order", "--abbrev-commit", "HEAD"]).decode().strip().split("\n") + [git_commit]
+all_commits = [git_commit] + subprocess.check_output(["git", "rev-list", "--topo-order", "--abbrev-commit", "HEAD"]).decode().strip().split("\n")
 
 new_data = {}
 
