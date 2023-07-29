@@ -31,11 +31,8 @@ public:
     composite_disposable() = default;
 
     composite_disposable(const composite_disposable&) = delete;
-    composite_disposable(composite_disposable&& other) noexcept
-        : m_disposables{std::move(other.m_disposables)}
-        , m_current_state(other.m_current_state.exchange(State::Disposed, std::memory_order_relaxed))
-    {}
-
+    composite_disposable(composite_disposable&& other) noexcept = delete;
+    
     bool is_disposed() const noexcept final
     {
         return m_current_state.load(std::memory_order_acquire) == State::Disposed;
