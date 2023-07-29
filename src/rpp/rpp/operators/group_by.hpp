@@ -10,7 +10,6 @@
 
 #pragma once
 
-#include "rpp/disposables/fwd.hpp"
 #include <rpp/operators/fwd.hpp>
 #include <rpp/operators/details/strategy.hpp>
 #include <rpp/observables/grouped_observable.hpp>
