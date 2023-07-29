@@ -4,6 +4,8 @@
 #include <iostream>
 #include <map>
 #include <string_view>
+#include <functional>
+#include <tuple>
 
 #include <rpp/rpp.hpp>
 #ifdef RPP_BUILD_RXCPP
@@ -37,426 +39,426 @@ int main(int argc, char* argv[]) // NOLINT
 {
     auto bench = ankerl::nanobench::Bench{}.output(nullptr).warmup(3);
 
-    // BENCHMARK("General")
-    // {
-    //     SECTION("Subscribe empty callbacks to empty observable")
-    //     {
-    //         TEST_RPP([&]()
-    //         {
-    //             rpp::source::create<int>([&](auto&& observer)
-    //             {
-    //                 ankerl::nanobench::doNotOptimizeAway(observer);
-    //             }).subscribe([](int){});
-    //         });
+    BENCHMARK("General")
+    {
+        SECTION("Subscribe empty callbacks to empty observable")
+        {
+            TEST_RPP([&]()
+            {
+                rpp::source::create<int>([&](auto&& observer)
+                {
+                    ankerl::nanobench::doNotOptimizeAway(observer);
+                }).subscribe([](int){});
+            });
 
-    //         TEST_RXCPP([&]()
-    //         {
-    //             rxcpp::observable<>::create<int>([&](auto&& observer)
-    //             {
-    //                 ankerl::nanobench::doNotOptimizeAway(observer);
-    //             }).subscribe([](int){});
-    //         });
-    //     }
+            TEST_RXCPP([&]()
+            {
+                rxcpp::observable<>::create<int>([&](auto&& observer)
+                {
+                    ankerl::nanobench::doNotOptimizeAway(observer);
+                }).subscribe([](int){});
+            });
+        }
 
-    //     SECTION("Subscribe empty callbacks to empty observable via pipe operator")
-    //     {
-    //         TEST_RPP([&]()
-    //         {
-    //             rpp::source::create<int>([&](auto&& observer)
-    //             {
-    //                 ankerl::nanobench::doNotOptimizeAway(observer);
-    //             }) | rpp::operators::subscribe([](int){});
-    //         });
+        SECTION("Subscribe empty callbacks to empty observable via pipe operator")
+        {
+            TEST_RPP([&]()
+            {
+                rpp::source::create<int>([&](auto&& observer)
+                {
+                    ankerl::nanobench::doNotOptimizeAway(observer);
+                }) | rpp::operators::subscribe([](int){});
+            });
 
-    //         TEST_RXCPP([&]()
-    //         {
-    //             rxcpp::observable<>::create<int>([&](auto&& observer)
-    //             {
-    //                 ankerl::nanobench::doNotOptimizeAway(observer);
-    //             }) | rxcpp::operators::subscribe<int>([](int){});
-    //         });
-    //     }
-    // };
+            TEST_RXCPP([&]()
+            {
+                rxcpp::observable<>::create<int>([&](auto&& observer)
+                {
+                    ankerl::nanobench::doNotOptimizeAway(observer);
+                }) | rxcpp::operators::subscribe<int>([](int){});
+            });
+        }
+    };
 
-    // BENCHMARK("Sources")
-    // {
-    //     SECTION("from array of 1 - create + subscribe + immediate")
-    //     {
-    //         std::array<int, 1> vals{123};
-    //         TEST_RPP([&]()
-    //         {
-    //             rpp::source::from_iterable(vals, rpp::schedulers::immediate{}).subscribe([](int v){ ankerl::nanobench::doNotOptimizeAway(v); });
-    //         });
+    BENCHMARK("Sources")
+    {
+        SECTION("from array of 1 - create + subscribe + immediate")
+        {
+            std::array<int, 1> vals{123};
+            TEST_RPP([&]()
+            {
+                rpp::source::from_iterable(vals, rpp::schedulers::immediate{}).subscribe([](int v){ ankerl::nanobench::doNotOptimizeAway(v); });
+            });
 
-    //         TEST_RXCPP([&]()
-    //         {
-    //             rxcpp::observable<>::iterate(vals, rxcpp::identity_immediate()).subscribe([](int v){ ankerl::nanobench::doNotOptimizeAway(v); });
-    //         });
-    //     }
-    //     SECTION("from array of 1 - create + subscribe + current_thread")
-    //     {
-    //         std::array<int, 1> vals{123};
-    //         TEST_RPP([&]()
-    //         {
-    //             rpp::source::from_iterable(vals, rpp::schedulers::current_thread{}).subscribe([](int v){ ankerl::nanobench::doNotOptimizeAway(v); });
-    //         });
+            TEST_RXCPP([&]()
+            {
+                rxcpp::observable<>::iterate(vals, rxcpp::identity_immediate()).subscribe([](int v){ ankerl::nanobench::doNotOptimizeAway(v); });
+            });
+        }
+        SECTION("from array of 1 - create + subscribe + current_thread")
+        {
+            std::array<int, 1> vals{123};
+            TEST_RPP([&]()
+            {
+                rpp::source::from_iterable(vals, rpp::schedulers::current_thread{}).subscribe([](int v){ ankerl::nanobench::doNotOptimizeAway(v); });
+            });
 
-    //         TEST_RXCPP([&]()
-    //         {
-    //             rxcpp::observable<>::iterate(vals, rxcpp::identity_current_thread()).subscribe([](int v){ ankerl::nanobench::doNotOptimizeAway(v); });
-    //         });
-    //     }
-    //     SECTION("concat_as_source of just(1 immediate) create + subscribe")
-    //     {
-    //         TEST_RPP([&]()
-    //         {
-    //             rpp::source::concat(rpp::source::just(rpp::schedulers::immediate{}, 1)).subscribe([](int v){ ankerl::nanobench::doNotOptimizeAway(v); });
-    //         });
+            TEST_RXCPP([&]()
+            {
+                rxcpp::observable<>::iterate(vals, rxcpp::identity_current_thread()).subscribe([](int v){ ankerl::nanobench::doNotOptimizeAway(v); });
+            });
+        }
+        SECTION("concat_as_source of just(1 immediate) create + subscribe")
+        {
+            TEST_RPP([&]()
+            {
+                rpp::source::concat(rpp::source::just(rpp::schedulers::immediate{}, 1)).subscribe([](int v){ ankerl::nanobench::doNotOptimizeAway(v); });
+            });
 
-    //         TEST_RXCPP([&]()
-    //         {
-    //             rxcpp::observable<>::just(rxcpp::observable<>::just(1, rxcpp::identity_immediate()), rxcpp::identity_immediate()) | rxcpp::operators::concat() | rxcpp::operators::subscribe<int>([](int v){ ankerl::nanobench::doNotOptimizeAway(v); });
-    //         });
-    //     }
-    // };
+            TEST_RXCPP([&]()
+            {
+                rxcpp::observable<>::just(rxcpp::observable<>::just(1, rxcpp::identity_immediate()), rxcpp::identity_immediate()) | rxcpp::operators::concat() | rxcpp::operators::subscribe<int>([](int v){ ankerl::nanobench::doNotOptimizeAway(v); });
+            });
+        }
+    };
 
-    // BENCHMARK("Schedulers")
-    // {
-    //     SECTION("immediate scheduler create worker + schedule")
-    //     {
-    //         TEST_RPP([&]()
-    //         {
-    //             rpp::schedulers::immediate::create_worker().schedule([](const auto& v){ ankerl::nanobench::doNotOptimizeAway(v); return rpp::schedulers::optional_duration{}; }, rpp::make_lambda_observer([](int){ }));
-    //         });
-    //         TEST_RXCPP([&]()
-    //         {
-    //             rxcpp::identity_immediate().create_coordinator().get_worker().schedule([](const auto& v){ ankerl::nanobench::doNotOptimizeAway(v); });
-    //         });
-    //     }
-    //     SECTION("current_thread scheduler create worker + schedule")
-    //     {
-    //         TEST_RPP([&]()
-    //         {
-    //             rpp::schedulers::current_thread::create_worker().schedule([](const auto& v){ ankerl::nanobench::doNotOptimizeAway(v); return rpp::schedulers::optional_duration{}; }, rpp::make_lambda_observer([](int){ }));
-    //         });
-    //         TEST_RXCPP([&]()
-    //         {
-    //             rxcpp::identity_current_thread().create_coordinator().get_worker().schedule([](const auto& v){ ankerl::nanobench::doNotOptimizeAway(v); });
-    //         });
-    //     }
-    //     SECTION("current_thread scheduler create worker + schedule + recursive schedule")
-    //     {
-    //         TEST_RPP(
-    //             [&]()
-    //             {
-    //                 const auto worker = rpp::schedulers::current_thread::create_worker();
-    //                 worker.schedule(
-    //                     [&worker](auto&& v)
-    //                     {
-    //                         worker.schedule(
-    //                             [](const auto& v)
-    //                             {
-    //                                 ankerl::nanobench::doNotOptimizeAway(v);
-    //                                 return rpp::schedulers::optional_duration{};
-    //                             },
-    //                             std::move(v));
-    //                         return rpp::schedulers::optional_duration{};
-    //                     },
-    //                     rpp::make_lambda_observer([](int) {}));
-    //             });
-    //         TEST_RXCPP(
-    //             [&]()
-    //             {
-    //                 const auto worker = rxcpp::identity_current_thread()
-    //                     .create_coordinator()
-    //                     .get_worker();
+    BENCHMARK("Schedulers")
+    {
+        SECTION("immediate scheduler create worker + schedule")
+        {
+            TEST_RPP([&]()
+            {
+                rpp::schedulers::immediate::create_worker().schedule([](const auto& v){ ankerl::nanobench::doNotOptimizeAway(v); return rpp::schedulers::optional_duration{}; }, rpp::make_lambda_observer([](int){ }));
+            });
+            TEST_RXCPP([&]()
+            {
+                rxcpp::identity_immediate().create_coordinator().get_worker().schedule([](const auto& v){ ankerl::nanobench::doNotOptimizeAway(v); });
+            });
+        }
+        SECTION("current_thread scheduler create worker + schedule")
+        {
+            TEST_RPP([&]()
+            {
+                rpp::schedulers::current_thread::create_worker().schedule([](const auto& v){ ankerl::nanobench::doNotOptimizeAway(v); return rpp::schedulers::optional_duration{}; }, rpp::make_lambda_observer([](int){ }));
+            });
+            TEST_RXCPP([&]()
+            {
+                rxcpp::identity_current_thread().create_coordinator().get_worker().schedule([](const auto& v){ ankerl::nanobench::doNotOptimizeAway(v); });
+            });
+        }
+        SECTION("current_thread scheduler create worker + schedule + recursive schedule")
+        {
+            TEST_RPP(
+                [&]()
+                {
+                    const auto worker = rpp::schedulers::current_thread::create_worker();
+                    worker.schedule(
+                        [&worker](auto&& v)
+                        {
+                            worker.schedule(
+                                [](const auto& v)
+                                {
+                                    ankerl::nanobench::doNotOptimizeAway(v);
+                                    return rpp::schedulers::optional_duration{};
+                                },
+                                std::move(v));
+                            return rpp::schedulers::optional_duration{};
+                        },
+                        rpp::make_lambda_observer([](int) {}));
+                });
+            TEST_RXCPP(
+                [&]()
+                {
+                    const auto worker = rxcpp::identity_current_thread()
+                        .create_coordinator()
+                        .get_worker();
 
-    //                 worker.schedule([&worker](const auto&)
-    //                                 {
-    //                                     worker.schedule([](const auto& v) { ankerl::nanobench::doNotOptimizeAway(v); });
-    //                                 });
-    //             });
-    //     }
-    // }
+                    worker.schedule([&worker](const auto&)
+                                    {
+                                        worker.schedule([](const auto& v) { ankerl::nanobench::doNotOptimizeAway(v); });
+                                    });
+                });
+        }
+    }
 
-    // BENCHMARK("Combining Operators")
-    // {
-    //     SECTION("create(create(1), create(1)) + merge() + subscribe")
-    //     {
-    //         TEST_RPP([&]()
-    //         {
-    //             auto inner_source = rpp::source::create<int>([](const auto& obs){ obs.on_next(1); });
+    BENCHMARK("Combining Operators")
+    {
+        SECTION("create(create(1), create(1)) + merge() + subscribe")
+        {
+            TEST_RPP([&]()
+            {
+                auto inner_source = rpp::source::create<int>([](const auto& obs){ obs.on_next(1); });
 
-    //             rpp::source::create<decltype(inner_source)>([&](const auto& obs)
-    //             {
-    //                 obs.on_next(inner_source);
-    //                 obs.on_next(inner_source);
-    //             })
-    //             | rpp::operators::merge()
-    //             | rpp::operators::subscribe([](int v){ ankerl::nanobench::doNotOptimizeAway(v); });
-    //         });
+                rpp::source::create<decltype(inner_source)>([&](const auto& obs)
+                {
+                    obs.on_next(inner_source);
+                    obs.on_next(inner_source);
+                })
+                | rpp::operators::merge()
+                | rpp::operators::subscribe([](int v){ ankerl::nanobench::doNotOptimizeAway(v); });
+            });
 
-    //         TEST_RXCPP([&]()
-    //         {
-    //             auto inner_source = rxcpp::observable<>::create<int>([](const auto& obs){obs.on_next(1);});
+            TEST_RXCPP([&]()
+            {
+                auto inner_source = rxcpp::observable<>::create<int>([](const auto& obs){obs.on_next(1);});
 
-    //             rxcpp::observable<>::create<decltype(inner_source)>([&](const auto& obs)
-    //             {
-    //                 obs.on_next(inner_source);
-    //                 obs.on_next(inner_source);
-    //             })
-    //             | rxcpp::operators::merge()
-    //             | rxcpp::operators::subscribe<int>([](int v){ ankerl::nanobench::doNotOptimizeAway(v); });
-    //         });
-    //     }
-    //     SECTION("create(1) + merge_with(create(2)) + subscribe")
-    //     {
-    //         TEST_RPP([&]()
-    //         {
-    //             rpp::source::create<int>([](const auto& obs){ obs.on_next(1); })
-    //             | rpp::operators::merge_with(rpp::source::create<int>([](const auto& obs){ obs.on_next(2); }))
-    //             | rpp::operators::subscribe([](int v){ ankerl::nanobench::doNotOptimizeAway(v); });
-    //         });
+                rxcpp::observable<>::create<decltype(inner_source)>([&](const auto& obs)
+                {
+                    obs.on_next(inner_source);
+                    obs.on_next(inner_source);
+                })
+                | rxcpp::operators::merge()
+                | rxcpp::operators::subscribe<int>([](int v){ ankerl::nanobench::doNotOptimizeAway(v); });
+            });
+        }
+        SECTION("create(1) + merge_with(create(2)) + subscribe")
+        {
+            TEST_RPP([&]()
+            {
+                rpp::source::create<int>([](const auto& obs){ obs.on_next(1); })
+                | rpp::operators::merge_with(rpp::source::create<int>([](const auto& obs){ obs.on_next(2); }))
+                | rpp::operators::subscribe([](int v){ ankerl::nanobench::doNotOptimizeAway(v); });
+            });
 
-    //         TEST_RXCPP([&]()
-    //         {
-    //             rxcpp::observable<>::create<int>([](const auto& obs){obs.on_next(1);})
-    //             | rxcpp::operators::merge(rxcpp::observable<>::create<int>([](const auto& obs){obs.on_next(2);}))
-    //             | rxcpp::operators::subscribe<int>([](int v){ ankerl::nanobench::doNotOptimizeAway(v); });
-    //         });
-    //     }
-    // }
+            TEST_RXCPP([&]()
+            {
+                rxcpp::observable<>::create<int>([](const auto& obs){obs.on_next(1);})
+                | rxcpp::operators::merge(rxcpp::observable<>::create<int>([](const auto& obs){obs.on_next(2);}))
+                | rxcpp::operators::subscribe<int>([](int v){ ankerl::nanobench::doNotOptimizeAway(v); });
+            });
+        }
+    }
 
-    // BENCHMARK("Conditional Operators")
-    // {
-    //     SECTION("create+take_while(false)+subscribe")
-    //     {
-    //         TEST_RPP([&]()
-    //         {
-    //             rpp::source::create<int>([](const auto& obs){ obs.on_next(1); })
-    //                 | rpp::operators::take_while([](int){return false; })
-    //                 | rpp::operators::subscribe([](int v){ ankerl::nanobench::doNotOptimizeAway(v); });
-    //         });
+    BENCHMARK("Conditional Operators")
+    {
+        SECTION("create+take_while(false)+subscribe")
+        {
+            TEST_RPP([&]()
+            {
+                rpp::source::create<int>([](const auto& obs){ obs.on_next(1); })
+                    | rpp::operators::take_while([](int){return false; })
+                    | rpp::operators::subscribe([](int v){ ankerl::nanobench::doNotOptimizeAway(v); });
+            });
 
-    //         TEST_RXCPP([&]()
-    //         {
-    //             rxcpp::observable<>::create<int>([](const auto& obs){obs.on_next(1);})
-    //                 | rxcpp::operators::take_while([](int){return false; })
-    //                 | rxcpp::operators::subscribe<int>([](int v){ ankerl::nanobench::doNotOptimizeAway(v); });
-    //         });
-    //     }
-    //     SECTION("create+take_while(true)+subscribe")
-    //     {
-    //         TEST_RPP([&]()
-    //         {
-    //             rpp::source::create<int>([](const auto& obs){ obs.on_next(1); })
-    //                 | rpp::operators::take_while([](int){return true; })
-    //                 | rpp::operators::subscribe([](int v){ ankerl::nanobench::doNotOptimizeAway(v); });
-    //         });
+            TEST_RXCPP([&]()
+            {
+                rxcpp::observable<>::create<int>([](const auto& obs){obs.on_next(1);})
+                    | rxcpp::operators::take_while([](int){return false; })
+                    | rxcpp::operators::subscribe<int>([](int v){ ankerl::nanobench::doNotOptimizeAway(v); });
+            });
+        }
+        SECTION("create+take_while(true)+subscribe")
+        {
+            TEST_RPP([&]()
+            {
+                rpp::source::create<int>([](const auto& obs){ obs.on_next(1); })
+                    | rpp::operators::take_while([](int){return true; })
+                    | rpp::operators::subscribe([](int v){ ankerl::nanobench::doNotOptimizeAway(v); });
+            });
 
-    //         TEST_RXCPP([&]()
-    //         {
-    //             rxcpp::observable<>::create<int>([](const auto& obs){obs.on_next(1);})
-    //                 | rxcpp::operators::take_while([](int){return true; })
-    //                 | rxcpp::operators::subscribe<int>([](int v){ ankerl::nanobench::doNotOptimizeAway(v); });
-    //         });
-    //     }
-    // };
+            TEST_RXCPP([&]()
+            {
+                rxcpp::observable<>::create<int>([](const auto& obs){obs.on_next(1);})
+                    | rxcpp::operators::take_while([](int){return true; })
+                    | rxcpp::operators::subscribe<int>([](int v){ ankerl::nanobench::doNotOptimizeAway(v); });
+            });
+        }
+    };
 
-    // BENCHMARK("Transforming Operators")
-    // {
-    //     SECTION("create+map(v*2)+subscribe")
-    //     {
-    //         TEST_RPP([&]()
-    //         {
-    //             rpp::source::create<int>([](const auto& obs){ obs.on_next(1); })
-    //                 | rpp::operators::map([](int v){return v*2; })
-    //                 | rpp::operators::subscribe([](int v){ ankerl::nanobench::doNotOptimizeAway(v); });
-    //         });
+    BENCHMARK("Transforming Operators")
+    {
+        SECTION("create+map(v*2)+subscribe")
+        {
+            TEST_RPP([&]()
+            {
+                rpp::source::create<int>([](const auto& obs){ obs.on_next(1); })
+                    | rpp::operators::map([](int v){return v*2; })
+                    | rpp::operators::subscribe([](int v){ ankerl::nanobench::doNotOptimizeAway(v); });
+            });
 
-    //         TEST_RXCPP([&]()
-    //         {
-    //             rxcpp::observable<>::create<int>([](const auto& obs){obs.on_next(1);})
-    //                 | rxcpp::operators::map([](int v){return v*2;})
-    //                 | rxcpp::operators::subscribe<int>([](int v){ ankerl::nanobench::doNotOptimizeAway(v); });
-    //         });
-    //     }
-    //     SECTION("create+scan(10, std::plus)+subscribe")
-    //     {
-    //         TEST_RPP([&]()
-    //         {
-    //             rpp::source::create<int>([](const auto& obs){ obs.on_next(1); })
-    //                 | rpp::operators::scan(10, std::plus<int>{})
-    //                 | rpp::operators::subscribe([](int v){ ankerl::nanobench::doNotOptimizeAway(v); });
-    //         });
+            TEST_RXCPP([&]()
+            {
+                rxcpp::observable<>::create<int>([](const auto& obs){obs.on_next(1);})
+                    | rxcpp::operators::map([](int v){return v*2;})
+                    | rxcpp::operators::subscribe<int>([](int v){ ankerl::nanobench::doNotOptimizeAway(v); });
+            });
+        }
+        SECTION("create+scan(10, std::plus)+subscribe")
+        {
+            TEST_RPP([&]()
+            {
+                rpp::source::create<int>([](const auto& obs){ obs.on_next(1); })
+                    | rpp::operators::scan(10, std::plus<int>{})
+                    | rpp::operators::subscribe([](int v){ ankerl::nanobench::doNotOptimizeAway(v); });
+            });
 
-    //         TEST_RXCPP([&]()
-    //         {
-    //             rxcpp::observable<>::create<int>([](const auto& obs){obs.on_next(1);})
-    //                 | rxcpp::operators::scan(10, std::plus<int>{})
-    //                 | rxcpp::operators::subscribe<int>([](int v){ ankerl::nanobench::doNotOptimizeAway(v); });
-    //         });
-    //     }
-    //     SECTION("create+flat_map(just(v*2))+subscribe")
-    //     {
-    //         TEST_RPP([&]()
-    //         {
-    //             rpp::source::create<int>([](const auto& obs){ obs.on_next(1); })
-    //                 | rpp::operators::flat_map([](int v) {  return rpp::source::create<int>([v](const auto& obs){ obs.on_next(v * 2); }); })
-    //                 | rpp::operators::subscribe([](int v){ ankerl::nanobench::doNotOptimizeAway(v); });
-    //         });
+            TEST_RXCPP([&]()
+            {
+                rxcpp::observable<>::create<int>([](const auto& obs){obs.on_next(1);})
+                    | rxcpp::operators::scan(10, std::plus<int>{})
+                    | rxcpp::operators::subscribe<int>([](int v){ ankerl::nanobench::doNotOptimizeAway(v); });
+            });
+        }
+        SECTION("create+flat_map(just(v*2))+subscribe")
+        {
+            TEST_RPP([&]()
+            {
+                rpp::source::create<int>([](const auto& obs){ obs.on_next(1); })
+                    | rpp::operators::flat_map([](int v) {  return rpp::source::create<int>([v](const auto& obs){ obs.on_next(v * 2); }); })
+                    | rpp::operators::subscribe([](int v){ ankerl::nanobench::doNotOptimizeAway(v); });
+            });
 
-    //         TEST_RXCPP([&]()
-    //         {
-    //             rxcpp::observable<>::create<int>([](const auto& obs){obs.on_next(1);})
-    //                 | rxcpp::operators::flat_map([](int v) { return rxcpp::observable<>::create<int>([v](const auto& obs){ obs.on_next(v * 2); }); })
-    //                 | rxcpp::operators::subscribe<int>([](int v){ ankerl::nanobench::doNotOptimizeAway(v); });
-    //         });
-    //     }
-    // };
+            TEST_RXCPP([&]()
+            {
+                rxcpp::observable<>::create<int>([](const auto& obs){obs.on_next(1);})
+                    | rxcpp::operators::flat_map([](int v) { return rxcpp::observable<>::create<int>([v](const auto& obs){ obs.on_next(v * 2); }); })
+                    | rxcpp::operators::subscribe<int>([](int v){ ankerl::nanobench::doNotOptimizeAway(v); });
+            });
+        }
+    };
 
-    // BENCHMARK("Filtering Operators")
-    // {
-    //     SECTION("create+take(1)+subscribe")
-    //     {
-    //         TEST_RPP([&]()
-    //         {
-    //             rpp::source::create<int>([](const auto& obs){ obs.on_next(1); })
-    //                 | rpp::operators::take(1)
-    //                 | rpp::operators::subscribe([](int v){ ankerl::nanobench::doNotOptimizeAway(v); });
-    //         });
+    BENCHMARK("Filtering Operators")
+    {
+        SECTION("create+take(1)+subscribe")
+        {
+            TEST_RPP([&]()
+            {
+                rpp::source::create<int>([](const auto& obs){ obs.on_next(1); })
+                    | rpp::operators::take(1)
+                    | rpp::operators::subscribe([](int v){ ankerl::nanobench::doNotOptimizeAway(v); });
+            });
 
-    //         TEST_RXCPP([&]()
-    //         {
-    //             rxcpp::observable<>::create<int>([](const auto& obs){obs.on_next(1);})
-    //                 | rxcpp::operators::take(1)
-    //                 | rxcpp::operators::subscribe<int>([](int v){ ankerl::nanobench::doNotOptimizeAway(v); });
-    //         });
-    //     }
-    //     SECTION("create+filter(true)+subscribe")
-    //     {
-    //         TEST_RPP([&]()
-    //         {
-    //             rpp::source::create<int>([](const auto& obs){ obs.on_next(1); })
-    //                 | rpp::operators::filter([](int){return true;})
-    //                 | rpp::operators::subscribe([](int v){ ankerl::nanobench::doNotOptimizeAway(v); });
-    //         });
+            TEST_RXCPP([&]()
+            {
+                rxcpp::observable<>::create<int>([](const auto& obs){obs.on_next(1);})
+                    | rxcpp::operators::take(1)
+                    | rxcpp::operators::subscribe<int>([](int v){ ankerl::nanobench::doNotOptimizeAway(v); });
+            });
+        }
+        SECTION("create+filter(true)+subscribe")
+        {
+            TEST_RPP([&]()
+            {
+                rpp::source::create<int>([](const auto& obs){ obs.on_next(1); })
+                    | rpp::operators::filter([](int){return true;})
+                    | rpp::operators::subscribe([](int v){ ankerl::nanobench::doNotOptimizeAway(v); });
+            });
 
-    //         TEST_RXCPP([&]()
-    //         {
-    //             rxcpp::observable<>::create<int>([](const auto& obs){obs.on_next(1);})
-    //                 | rxcpp::operators::filter([](int){return true;})
-    //                 | rxcpp::operators::subscribe<int>([](int v){ ankerl::nanobench::doNotOptimizeAway(v); });
-    //         });
-    //     }
-    //     SECTION("create(1,2)+first()+subscribe")
-    //     {
-    //         TEST_RPP([&]()
-    //         {
-    //             rpp::source::create<int>([](const auto& obs){ obs.on_next(1); obs.on_next(2); })
-    //                 | rpp::operators::first()
-    //                 | rpp::operators::subscribe([](int v){ ankerl::nanobench::doNotOptimizeAway(v); });
-    //         });
+            TEST_RXCPP([&]()
+            {
+                rxcpp::observable<>::create<int>([](const auto& obs){obs.on_next(1);})
+                    | rxcpp::operators::filter([](int){return true;})
+                    | rxcpp::operators::subscribe<int>([](int v){ ankerl::nanobench::doNotOptimizeAway(v); });
+            });
+        }
+        SECTION("create(1,2)+first()+subscribe")
+        {
+            TEST_RPP([&]()
+            {
+                rpp::source::create<int>([](const auto& obs){ obs.on_next(1); obs.on_next(2); })
+                    | rpp::operators::first()
+                    | rpp::operators::subscribe([](int v){ ankerl::nanobench::doNotOptimizeAway(v); });
+            });
 
-    //         TEST_RXCPP([&]()
-    //         {
-    //             rxcpp::observable<>::create<int>([](const auto& obs){ obs.on_next(1); obs.on_next(2); })
-    //                 | rxcpp::operators::first()
-    //                 | rxcpp::operators::subscribe<int>([](int v){ ankerl::nanobench::doNotOptimizeAway(v); });
-    //         });
-    //     }
-    //     SECTION("create(1,2)+last()+subscribe")
-    //     {
-    //         TEST_RPP([&]()
-    //         {
-    //             rpp::source::create<int>([](const auto& obs){ obs.on_next(1); obs.on_next(2); obs.on_completed(); })
-    //                 | rpp::operators::last()
-    //                 | rpp::operators::subscribe([](int v){ ankerl::nanobench::doNotOptimizeAway(v); });
-    //         });
+            TEST_RXCPP([&]()
+            {
+                rxcpp::observable<>::create<int>([](const auto& obs){ obs.on_next(1); obs.on_next(2); })
+                    | rxcpp::operators::first()
+                    | rxcpp::operators::subscribe<int>([](int v){ ankerl::nanobench::doNotOptimizeAway(v); });
+            });
+        }
+        SECTION("create(1,2)+last()+subscribe")
+        {
+            TEST_RPP([&]()
+            {
+                rpp::source::create<int>([](const auto& obs){ obs.on_next(1); obs.on_next(2); obs.on_completed(); })
+                    | rpp::operators::last()
+                    | rpp::operators::subscribe([](int v){ ankerl::nanobench::doNotOptimizeAway(v); });
+            });
 
-    //         TEST_RXCPP([&]()
-    //         {
-    //             rxcpp::observable<>::create<int>([](const auto& obs){ obs.on_next(1); obs.on_next(2); obs.on_completed(); })
-    //                 | rxcpp::operators::last()
-    //                 | rxcpp::operators::subscribe<int>([](int v){ ankerl::nanobench::doNotOptimizeAway(v); });
-    //         });
-    //     }
-    //     SECTION("create(1,2)+skip(1)+subscribe")
-    //     {
-    //         TEST_RPP([&]()
-    //         {
-    //             rpp::source::create<int>([](const auto& obs){ obs.on_next(1); obs.on_next(2); })
-    //                 | rpp::operators::skip(1)
-    //                 | rpp::operators::subscribe([](int v){ ankerl::nanobench::doNotOptimizeAway(v); });
-    //         });
+            TEST_RXCPP([&]()
+            {
+                rxcpp::observable<>::create<int>([](const auto& obs){ obs.on_next(1); obs.on_next(2); obs.on_completed(); })
+                    | rxcpp::operators::last()
+                    | rxcpp::operators::subscribe<int>([](int v){ ankerl::nanobench::doNotOptimizeAway(v); });
+            });
+        }
+        SECTION("create(1,2)+skip(1)+subscribe")
+        {
+            TEST_RPP([&]()
+            {
+                rpp::source::create<int>([](const auto& obs){ obs.on_next(1); obs.on_next(2); })
+                    | rpp::operators::skip(1)
+                    | rpp::operators::subscribe([](int v){ ankerl::nanobench::doNotOptimizeAway(v); });
+            });
 
-    //         TEST_RXCPP([&]()
-    //         {
-    //             rxcpp::observable<>::create<int>([](const auto& obs){ obs.on_next(1); obs.on_next(2); })
-    //                 | rxcpp::operators::skip(1)
-    //                 | rxcpp::operators::subscribe<int>([](int v){ ankerl::nanobench::doNotOptimizeAway(v); });
-    //         });
-    //     }
-    //     SECTION("create(1,1,2)+distinct_until_changed()+subscribe")
-    //     {
-    //         TEST_RPP([&]()
-    //         {
-    //             rpp::source::create<int>([](const auto& obs){ obs.on_next(1); obs.on_next(1); obs.on_next(2); })
-    //                 | rpp::operators::distinct_until_changed()
-    //                 | rpp::operators::subscribe([](int v){ ankerl::nanobench::doNotOptimizeAway(v); });
-    //         });
+            TEST_RXCPP([&]()
+            {
+                rxcpp::observable<>::create<int>([](const auto& obs){ obs.on_next(1); obs.on_next(2); })
+                    | rxcpp::operators::skip(1)
+                    | rxcpp::operators::subscribe<int>([](int v){ ankerl::nanobench::doNotOptimizeAway(v); });
+            });
+        }
+        SECTION("create(1,1,2)+distinct_until_changed()+subscribe")
+        {
+            TEST_RPP([&]()
+            {
+                rpp::source::create<int>([](const auto& obs){ obs.on_next(1); obs.on_next(1); obs.on_next(2); })
+                    | rpp::operators::distinct_until_changed()
+                    | rpp::operators::subscribe([](int v){ ankerl::nanobench::doNotOptimizeAway(v); });
+            });
 
-    //         TEST_RXCPP([&]()
-    //         {
-    //             rxcpp::observable<>::create<int>([](const auto& obs){ obs.on_next(1); obs.on_next(1); obs.on_next(2); })
-    //                 | rxcpp::operators::distinct_until_changed()
-    //                 | rxcpp::operators::subscribe<int>([](int v){ ankerl::nanobench::doNotOptimizeAway(v); });
-    //         });
-    //     }
-    // };
+            TEST_RXCPP([&]()
+            {
+                rxcpp::observable<>::create<int>([](const auto& obs){ obs.on_next(1); obs.on_next(1); obs.on_next(2); })
+                    | rxcpp::operators::distinct_until_changed()
+                    | rxcpp::operators::subscribe<int>([](int v){ ankerl::nanobench::doNotOptimizeAway(v); });
+            });
+        }
+    };
 
-    // BENCHMARK("Utility Operators")
-    // {
-    //     SECTION("create(1)+subscribe_on(immediate)+subscribe")
-    //     {
-    //         TEST_RPP([&]()
-    //         {
-    //             rpp::source::create<int>([](const auto& obs){ obs.on_next(1); })
-    //                 | rpp::operators::subscribe_on(rpp::schedulers::immediate{})
-    //                 | rpp::operators::subscribe([](int v){ ankerl::nanobench::doNotOptimizeAway(v); });
-    //         });
+    BENCHMARK("Utility Operators")
+    {
+        SECTION("create(1)+subscribe_on(immediate)+subscribe")
+        {
+            TEST_RPP([&]()
+            {
+                rpp::source::create<int>([](const auto& obs){ obs.on_next(1); })
+                    | rpp::operators::subscribe_on(rpp::schedulers::immediate{})
+                    | rpp::operators::subscribe([](int v){ ankerl::nanobench::doNotOptimizeAway(v); });
+            });
 
-    //         TEST_RXCPP([&]()
-    //         {
-    //             rxcpp::observable<>::create<int>([](const auto& obs){obs.on_next(1);})
-    //                 | rxcpp::operators::subscribe_on(rxcpp::identity_immediate())
-    //                 | rxcpp::operators::subscribe<int>([](int v){ ankerl::nanobench::doNotOptimizeAway(v); });
-    //         });
-    //     }
-    // }
+            TEST_RXCPP([&]()
+            {
+                rxcpp::observable<>::create<int>([](const auto& obs){obs.on_next(1);})
+                    | rxcpp::operators::subscribe_on(rxcpp::identity_immediate())
+                    | rxcpp::operators::subscribe<int>([](int v){ ankerl::nanobench::doNotOptimizeAway(v); });
+            });
+        }
+    }
 
-    // BENCHMARK("Subjects")
-    // {
-    //     SECTION("publish_subject with 1 observer - on_next")
-    //     {
-    //         {
-    //             rpp::subjects::publish_subject<int> rpp_subj{};
-    //             rpp_subj.get_observable().subscribe(rpp::make_lambda_observer([](int v){ ankerl::nanobench::doNotOptimizeAway(v); }));
-    //             TEST_RPP([&]()
-    //             {
-    //                 rpp_subj.get_observer().on_next(1);
-    //             });
-    //         }
-    //         {
-    //             rxcpp::subjects::subject<int> rxcpp_subj{};
-    //             rxcpp_subj.get_observable().subscribe(rxcpp::make_subscriber<int>([](int v){ ankerl::nanobench::doNotOptimizeAway(v); }, []{}));
-    //             TEST_RXCPP([&]()
-    //             {
-    //                 rxcpp_subj.get_subscriber().on_next(1);
-    //             });
-    //         }
-    //     }
-    // }
+    BENCHMARK("Subjects")
+    {
+        SECTION("publish_subject with 1 observer - on_next")
+        {
+            {
+                rpp::subjects::publish_subject<int> rpp_subj{};
+                rpp_subj.get_observable().subscribe(rpp::make_lambda_observer([](int v){ ankerl::nanobench::doNotOptimizeAway(v); }));
+                TEST_RPP([&]()
+                {
+                    rpp_subj.get_observer().on_next(1);
+                });
+            }
+            {
+                rxcpp::subjects::subject<int> rxcpp_subj{};
+                rxcpp_subj.get_observable().subscribe(rxcpp::make_subscriber<int>([](int v){ ankerl::nanobench::doNotOptimizeAway(v); }, []{}));
+                TEST_RXCPP([&]()
+                {
+                    rxcpp_subj.get_subscriber().on_next(1);
+                });
+            }
+        }
+    }
 
     BENCHMARK("Scenarios")
     {
