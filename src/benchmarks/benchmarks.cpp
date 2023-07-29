@@ -470,7 +470,7 @@ int main(int argc, char* argv[]) // NOLINT
                     | rpp::operators::take_while([](char v) { return v != '0'; })
                     | rpp::operators::filter(std::not_fn(&::isdigit))
                     | rpp::operators::map(&::toupper)
-                    | rpp::operators::subscribe([](char v) { ankerl::nanobench::doNotOptimizeAway(v); });
+                    | rpp::operators::subscribe([](int v) { ankerl::nanobench::doNotOptimizeAway(v); });
             });
             TEST_RXCPP([&](){
                 rxcpp::observable<>::from('1', 'a', 'W', '2', '0', 'f', 'q')
@@ -478,7 +478,7 @@ int main(int argc, char* argv[]) // NOLINT
                     | rxcpp::operators::take_while([](char v) { return v != '0'; })
                     | rxcpp::operators::filter(std::not_fn(&::isdigit))
                     | rxcpp::operators::map(&::toupper)
-                    | rxcpp::operators::subscribe<int>([](char v) { ankerl::nanobench::doNotOptimizeAway(v); });
+                    | rxcpp::operators::subscribe<int>([](int v) { ankerl::nanobench::doNotOptimizeAway(v); });
             });
         }
     }
