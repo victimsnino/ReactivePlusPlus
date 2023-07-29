@@ -21,7 +21,7 @@ namespace rpp::operators::details
 template<rpp::constraint::decayed_type Type, rpp::constraint::decayed_type EqualityFn>
 struct distinct_until_changed_observer_strategy
 {
-    using DisposableStrategy = rpp::details::none_disposable_strategy;
+    using DisposableStrategyToUseWithThis = rpp::details::none_disposable_strategy;
 
     RPP_NO_UNIQUE_ADDRESS EqualityFn comparator;
     mutable std::optional<Type>      last_value{};

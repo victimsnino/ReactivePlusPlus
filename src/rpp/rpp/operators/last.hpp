@@ -22,7 +22,7 @@ namespace rpp::operators::details
 template<rpp::constraint::decayed_type Type>
 struct last_observer_strategy
 {
-    using DisposableStrategy = rpp::details::none_disposable_strategy;
+    using DisposableStrategyToUseWithThis = rpp::details::none_disposable_strategy;
 
     mutable std::optional<Type> value{};
 

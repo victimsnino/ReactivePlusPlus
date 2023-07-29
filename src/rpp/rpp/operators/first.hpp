@@ -19,7 +19,7 @@ namespace rpp::operators::details
 {
 struct first_observer_strategy
 {
-    using DisposableStrategy = rpp::details::none_disposable_strategy;
+    using DisposableStrategyToUseWithThis = rpp::details::none_disposable_strategy;
 
     template<typename T>
     void on_next(const rpp::constraint::observer auto& obs, T&& v) const

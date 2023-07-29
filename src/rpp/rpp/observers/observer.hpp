@@ -64,8 +64,8 @@ struct none_disposable_strategy
 template<typename T>
 auto* deduce_disposable_strategy()
 {
-    if constexpr (requires {typename T::DisposableStrategy; })
-        return static_cast<typename T::DisposableStrategy*>(nullptr);
+    if constexpr (requires {typename T::DisposableStrategyToUseWithThis; })
+        return static_cast<typename T::DisposableStrategyToUseWithThis*>(nullptr);
     else
         return static_cast<local_disposable_strategy*>(nullptr);
 }
@@ -88,7 +88,8 @@ protected:
     observer_impl(observer_impl&&) noexcept = default;
 
 public:
-    using DisposableStrategy = DisposablesStrategy;
+    using DisposableStrategyToUseWithThis = none_disposable_strategy;
+    
     using on_next_lvalue = void(observer_impl::*)(const Type&) const noexcept;
     using on_next_rvalue = void(observer_impl::*)(Type&&) const noexcept;
     /**

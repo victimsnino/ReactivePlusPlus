@@ -55,7 +55,7 @@ template<rpp::constraint::decayed_type T, rpp::constraint::decayed_type TT, rpp:
 class operator_strategy_base<T, rpp::observer<TT, ObserverStrategy>, Strategy>
 {
 public:
-    using DisposableStrategy = rpp::details::deduce_disposable_strategy_t<Strategy>;
+    using DisposableStrategyToUseWithThis = rpp::details::deduce_disposable_strategy_t<Strategy>;
 
     /**
      * @brief Construct a new operator strategy for passed observer
