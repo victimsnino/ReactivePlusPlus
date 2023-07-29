@@ -23,6 +23,7 @@ var annotated_dup =
         [ "from_callable_invoke", "structrpp_1_1details_1_1from__callable__invoke.html", null ],
         [ "from_iterable_schedulable", "structrpp_1_1details_1_1from__iterable__schedulable.html", null ],
         [ "from_iterable_strategy", "structrpp_1_1details_1_1from__iterable__strategy.html", null ],
+        [ "local_disposable_strategy", "classrpp_1_1details_1_1local__disposable__strategy.html", null ],
         [ "never_strategy", "structrpp_1_1details_1_1never__strategy.html", null ],
         [ "none_disposable_strategy", "structrpp_1_1details_1_1none__disposable__strategy.html", null ],
         [ "observer_impl", "classrpp_1_1details_1_1observer__impl.html", "classrpp_1_1details_1_1observer__impl" ],

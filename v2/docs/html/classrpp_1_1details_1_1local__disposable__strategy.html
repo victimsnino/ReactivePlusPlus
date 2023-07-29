@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.7"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ReactivePlusPlus: rpp::subjects::details::constraint::subject_strategy Concept Reference</title>
+<title>ReactivePlusPlus: rpp::details::local_disposable_strategy Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -70,7 +70,7 @@ var searchBox = new SearchBox("searchBox", "search/",'.html');
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(document).ready(function(){initNavTree('conceptrpp_1_1subjects_1_1details_1_1constraint_1_1subject__strategy.html',''); initResizable(); });
+$(document).ready(function(){initNavTree('classrpp_1_1details_1_1local__disposable__strategy.html',''); initResizable(); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -96,25 +96,34 @@ $(document).ready(function(){initNavTree('conceptrpp_1_1subjects_1_1details_1_1c
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">rpp::subjects::details::constraint::subject_strategy Concept Reference</div></div>
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="classrpp_1_1details_1_1local__disposable__strategy-members.html">List of all members</a>  </div>
+  <div class="headertitle"><div class="title">rpp::details::local_disposable_strategy Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<h2 class="groupheader">Concept definition</h2>
-<div class="fragment"><div class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> Strategy, <span class="keyword">typename</span> T&gt;</div>
-<div class="line"><span class="keyword">concept </span><a class="code hl_concept" href="conceptrpp_1_1subjects_1_1details_1_1constraint_1_1subject__strategy.html">rpp::subjects::details::constraint::subject_strategy</a> =  <span class="keyword">requires</span>(Strategy t, <a class="code hl_class" href="classrpp_1_1observer.html">rpp::details::fake_observer&lt;T&gt;</a>&amp;&amp; obs)</div>
-<div class="line">{</div>
-<div class="line">    {t.get_observer()} -&gt; <a class="code hl_concept" href="conceptrpp_1_1constraint_1_1observer.html">rpp::constraint::observer</a>;</div>
-<div class="line">    t.on_subscribe(std::move(obs));</div>
-<div class="line">}</div>
-<div class="ttc" id="aclassrpp_1_1observer_html"><div class="ttname"><a href="classrpp_1_1observer.html">rpp::observer</a></div><div class="ttdoc">Base class for any observer used in RPP. It handles core callbacks of observers. Objects of this clas...</div><div class="ttdef"><b>Definition</b> observer.hpp:204</div></div>
-<div class="ttc" id="aconceptrpp_1_1constraint_1_1observer_html"><div class="ttname"><a href="conceptrpp_1_1constraint_1_1observer.html">rpp::constraint::observer</a></div><div class="ttdef"><b>Definition</b> fwd.hpp:232</div></div>
-<div class="ttc" id="aconceptrpp_1_1subjects_1_1details_1_1constraint_1_1subject__strategy_html"><div class="ttname"><a href="conceptrpp_1_1subjects_1_1details_1_1constraint_1_1subject__strategy.html">rpp::subjects::details::constraint::subject_strategy</a></div><div class="ttdef"><b>Definition</b> fwd.hpp:20</div></div>
-</div><!-- fragment --></div><!-- contents -->
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a176d8410417f3a3bc0c2537a02f164b1"><td class="memItemLeft" align="right" valign="top"><a id="a176d8410417f3a3bc0c2537a02f164b1" name="a176d8410417f3a3bc0c2537a02f164b1"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>add</b> (const <a class="el" href="classrpp_1_1disposable__wrapper__impl.html">disposable_wrapper</a> &amp;d)</td></tr>
+<tr class="separator:a176d8410417f3a3bc0c2537a02f164b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa9c931eef9c55f1770db994a873f95f3"><td class="memItemLeft" align="right" valign="top"><a id="aa9c931eef9c55f1770db994a873f95f3" name="aa9c931eef9c55f1770db994a873f95f3"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>is_disposed</b> () const noexcept</td></tr>
+<tr class="separator:aa9c931eef9c55f1770db994a873f95f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab92964f78cef046541d2585a384effdb"><td class="memItemLeft" align="right" valign="top"><a id="ab92964f78cef046541d2585a384effdb" name="ab92964f78cef046541d2585a384effdb"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>dispose</b> () const</td></tr>
+<tr class="separator:ab92964f78cef046541d2585a384effdb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<hr/>The documentation for this class was generated from the following file:<ul>
+<li>src/rpp/rpp/observers/<a class="el" href="observer_8hpp_source.html">observer.hpp</a></li>
+</ul>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>rpp</b></li><li class="navelem"><b>subjects</b></li><li class="navelem"><b>details</b></li><li class="navelem"><b>constraint</b></li><li class="navelem"><a class="el" href="conceptrpp_1_1subjects_1_1details_1_1constraint_1_1subject__strategy.html">subject_strategy</a></li>
+    <li class="navelem"><b>rpp</b></li><li class="navelem"><b>details</b></li><li class="navelem"><a class="el" href="classrpp_1_1details_1_1local__disposable__strategy.html">local_disposable_strategy</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.7 </li>
   </ul>
 </div>

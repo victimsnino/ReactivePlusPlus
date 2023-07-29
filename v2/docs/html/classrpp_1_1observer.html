@@ -111,7 +111,7 @@ Inheritance diagram for rpp::observer&lt; Type, Strategy &gt;:</div>
  <div class="center">
   <img src="classrpp_1_1observer.png" usemap="#rpp::observer_3C_20Type_2C_20Strategy_20_3E_map" alt=""/>
   <map id="rpp::observer_3C_20Type_2C_20Strategy_20_3E_map" name="rpp::observer_3C_20Type_2C_20Strategy_20_3E_map">
-<area href="classrpp_1_1details_1_1observer__impl.html" alt="rpp::details::observer_impl&lt; Type, Strategy, details::local_disposable_strategy &gt;" shape="rect" coords="0,0,464,24"/>
+<area href="classrpp_1_1details_1_1observer__impl.html" alt="rpp::details::observer_impl&lt; Type, Strategy, details::deduce_disposable_strategy_t&lt; Strategy &gt; &gt;" shape="rect" coords="0,0,560,24"/>
   </map>
 </div></div>
 <table class="memberdecls">
@@ -132,7 +132,7 @@ requires (!constraint::variadic_decayed_same_as&lt;<a class="el" href="classrpp_
 <a class="el" href="group__observers.html#gaccd025034d57327e6a31b2106619197b">dynamic_observer</a>&lt; Type &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>as_dynamic</b> () &amp;&amp;</td></tr>
 <tr class="memdesc:ab008a79c1c7825554c91dbc6d130ece4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert current observer to type-erased version. Useful if you need to COPY your observer or to store different observers in same container. <br /></td></tr>
 <tr class="separator:ab008a79c1c7825554c91dbc6d130ece4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pub_methods_classrpp_1_1details_1_1observer__impl"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classrpp_1_1details_1_1observer__impl')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classrpp_1_1details_1_1observer__impl.html">rpp::details::observer_impl&lt; Type, Strategy, details::local_disposable_strategy &gt;</a></td></tr>
+<tr class="inherit_header pub_methods_classrpp_1_1details_1_1observer__impl"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classrpp_1_1details_1_1observer__impl')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classrpp_1_1details_1_1observer__impl.html">rpp::details::observer_impl&lt; Type, Strategy, details::deduce_disposable_strategy_t&lt; Strategy &gt; &gt;</a></td></tr>
 <tr class="memitem:ab95f4dd062581fb8432fadcee8abb95d inherit pub_methods_classrpp_1_1details_1_1observer__impl"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrpp_1_1details_1_1observer__impl.html#ab95f4dd062581fb8432fadcee8abb95d">set_upstream</a> (const <a class="el" href="classrpp_1_1disposable__wrapper__impl.html">disposable_wrapper</a> &amp;d)</td></tr>
 <tr class="memdesc:ab95f4dd062581fb8432fadcee8abb95d inherit pub_methods_classrpp_1_1details_1_1observer__impl"><td class="mdescLeft">&#160;</td><td class="mdescRight">Observable calls this method to pass disposable. Observer disposes this disposable WHEN observer wants to unsubscribe.  <br /></td></tr>
 <tr class="separator:ab95f4dd062581fb8432fadcee8abb95d inherit pub_methods_classrpp_1_1details_1_1observer__impl"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -154,16 +154,16 @@ requires (!constraint::variadic_decayed_same_as&lt;<a class="el" href="classrpp_
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="inherited" name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
-<tr class="inherit_header pub_types_classrpp_1_1details_1_1observer__impl"><td colspan="2" onclick="javascript:toggleInherit('pub_types_classrpp_1_1details_1_1observer__impl')"><img src="closed.png" alt="-"/>&#160;Public Types inherited from <a class="el" href="classrpp_1_1details_1_1observer__impl.html">rpp::details::observer_impl&lt; Type, Strategy, details::local_disposable_strategy &gt;</a></td></tr>
+<tr class="inherit_header pub_types_classrpp_1_1details_1_1observer__impl"><td colspan="2" onclick="javascript:toggleInherit('pub_types_classrpp_1_1details_1_1observer__impl')"><img src="closed.png" alt="-"/>&#160;Public Types inherited from <a class="el" href="classrpp_1_1details_1_1observer__impl.html">rpp::details::observer_impl&lt; Type, Strategy, details::deduce_disposable_strategy_t&lt; Strategy &gt; &gt;</a></td></tr>
 <tr class="memitem:a501eb17946928a225ed21fb0ced765f9 inherit pub_types_classrpp_1_1details_1_1observer__impl"><td class="memItemLeft" align="right" valign="top">
 using&#160;</td><td class="memItemRight" valign="bottom"><b>on_next_lvalue</b> = void(observer_impl::*)(const Type &amp;) const noexcept</td></tr>
 <tr class="separator:a501eb17946928a225ed21fb0ced765f9 inherit pub_types_classrpp_1_1details_1_1observer__impl"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9c7284957105708f5e9bb253decbf701 inherit pub_types_classrpp_1_1details_1_1observer__impl"><td class="memItemLeft" align="right" valign="top">
 using&#160;</td><td class="memItemRight" valign="bottom"><b>on_next_rvalue</b> = void(observer_impl::*)(Type &amp;&amp;) const noexcept</td></tr>
 <tr class="separator:a9c7284957105708f5e9bb253decbf701 inherit pub_types_classrpp_1_1details_1_1observer__impl"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pro_methods_classrpp_1_1details_1_1observer__impl"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_classrpp_1_1details_1_1observer__impl')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="classrpp_1_1details_1_1observer__impl.html">rpp::details::observer_impl&lt; Type, Strategy, details::local_disposable_strategy &gt;</a></td></tr>
+<tr class="inherit_header pro_methods_classrpp_1_1details_1_1observer__impl"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_classrpp_1_1details_1_1observer__impl')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="classrpp_1_1details_1_1observer__impl.html">rpp::details::observer_impl&lt; Type, Strategy, details::deduce_disposable_strategy_t&lt; Strategy &gt; &gt;</a></td></tr>
 <tr class="memitem:a2f010efd5f0b78ddde9a8ab205005de4 inherit pro_methods_classrpp_1_1details_1_1observer__impl"><td class="memItemLeft" align="right" valign="top">
-&#160;</td><td class="memItemRight" valign="bottom"><b>observer_impl</b> (<a class="el" href="classrpp_1_1composite__disposable.html">details::local_disposable_strategy</a> &amp;&amp;strategy, Args &amp;&amp;... args)</td></tr>
+&#160;</td><td class="memItemRight" valign="bottom"><b>observer_impl</b> (details::deduce_disposable_strategy_t&lt; Strategy &gt; &amp;&amp;strategy, Args &amp;&amp;... args)</td></tr>
 <tr class="separator:a2f010efd5f0b78ddde9a8ab205005de4 inherit pro_methods_classrpp_1_1details_1_1observer__impl"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1086c5aeaf72f4976434d15225602a37 inherit pro_methods_classrpp_1_1details_1_1observer__impl"><td class="memItemLeft" align="right" valign="top">
 &#160;</td><td class="memItemRight" valign="bottom"><b>observer_impl</b> (const <a class="el" href="classrpp_1_1details_1_1observer__impl.html">observer_impl</a> &amp;)=default</td></tr>
