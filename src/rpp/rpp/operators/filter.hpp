@@ -21,6 +21,8 @@ namespace rpp::operators::details
 template<rpp::constraint::decayed_type Fn>
 struct filter_observer_strategy
 {
+    using DisposableStrategy = rpp::details::none_disposable_strategy;
+
     RPP_NO_UNIQUE_ADDRESS Fn fn;
 
     template<typename T>

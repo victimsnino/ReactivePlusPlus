@@ -1,6 +1,6 @@
+#include <iostream>
 #include <rpp/rpp.hpp>
 
-#include <iostream>
 
 /**
  * \example map.cpp
@@ -8,18 +8,11 @@
 
 int main() // NOLINT
 {
-    //! [Same type]
-    rpp::source::just(42)
-        | rpp::operators::map([](int value) { return value + 10; })
-        | rpp::operators::subscribe([](int v) { std::cout << v << std::endl; });
-    // Output: 52
-    //! [Same type]
-
-    //! [Changed type]
-    rpp::source::just(42)
-            | rpp::operators::map([](int value) { return std::to_string(value) + " VAL"; })
-            | rpp::operators::subscribe([](const std::string& v) { std::cout << v << std::endl; });
-    // Output: 42 VAL
-    //! [Changed type]
+rpp::source::just('1', 'a', 'W', '2', '0', 'f', 'q')
+                    | rpp::operators::repeat()
+                    | rpp::operators::take_while([](char v) { return v != '0'; })
+                    | rpp::operators::filter(std::not_fn(&::isdigit))
+                    | rpp::operators::map(&::toupper)
+                    | rpp::operators::subscribe([](char v) { std::cout << v; });
     return 0;
 }

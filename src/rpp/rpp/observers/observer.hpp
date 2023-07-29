@@ -31,7 +31,7 @@ class local_disposable_strategy
 {
 public:
     local_disposable_strategy() = default;
-    
+
     void add(const disposable_wrapper& d)
     {
         m_upstreams.push_back(d);
@@ -60,6 +60,18 @@ struct none_disposable_strategy
     static bool is_disposed() noexcept { return false; }
     static void dispose() {}
 };
+
+template<typename T>
+auto* deduce_disposable_strategy()
+{
+    if constexpr (requires {typename T::DisposableStrategy; })
+        return static_cast<typename T::DisposableStrategy*>(nullptr);
+    else
+        return static_cast<local_disposable_strategy*>(nullptr);
+}
+
+template<typename T>
+using deduce_disposable_strategy_t = std::remove_pointer_t<decltype(deduce_disposable_strategy<T>())>;
 
 template<constraint::decayed_type Type, constraint::observer_strategy<Type> Strategy, typename DisposablesStrategy>
 class observer_impl
@@ -188,13 +200,13 @@ template<constraint::decayed_type Type, constraint::observer_strategy<Type> Stra
 class observer;
 
 template<constraint::decayed_type Type, constraint::observer_strategy<Type> Strategy>
-class observer final : public details::observer_impl<Type, Strategy, details::local_disposable_strategy>
+class observer final : public details::observer_impl<Type, Strategy, details::deduce_disposable_strategy_t<Strategy>>
 {
 public:
     template<typename ...Args>
         requires (!constraint::variadic_decayed_same_as<observer<Type, Strategy>, Args...> && constraint::is_constructible_from<Strategy, Args&&...>)
     explicit observer(Args&& ...args)
-        : details::observer_impl<Type, Strategy, details::local_disposable_strategy>{details::local_disposable_strategy{}, std::forward<Args>(args)...}
+        : details::observer_impl<Type, Strategy, details::deduce_disposable_strategy_t<Strategy>>{details::deduce_disposable_strategy_t<Strategy>{}, std::forward<Args>(args)...}
     {}
 
     observer(const observer&)     = delete;

@@ -23,6 +23,8 @@ namespace rpp::operators::details
 template<rpp::constraint::decayed_type Seed, rpp::constraint::decayed_type Fn>
 struct scan_observer_strategy
 {
+    using DisposableStrategy = rpp::details::none_disposable_strategy;
+
     RPP_NO_UNIQUE_ADDRESS mutable Seed seed;
     RPP_NO_UNIQUE_ADDRESS Fn fn;
 

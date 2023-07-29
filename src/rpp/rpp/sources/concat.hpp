@@ -27,6 +27,8 @@ struct concat_strategy;
 template<constraint::decayed_type PackedContainer>
 struct concat_source_observer_strategy
 {
+    using DisposableStrategy = rpp::details::none_disposable_strategy;
+
     using ValueType = utils::extract_observable_type_t<utils::iterable_value_t<PackedContainer>>;
 
     RPP_NO_UNIQUE_ADDRESS mutable PackedContainer container;

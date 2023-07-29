@@ -55,13 +55,13 @@ template<rpp::constraint::decayed_type T, rpp::constraint::decayed_type TT, rpp:
 class operator_strategy_base<T, rpp::observer<TT, ObserverStrategy>, Strategy>
 {
 public:
-    using captured_observer = observer<TT, ObserverStrategy>;
+    using DisposableStrategy = rpp::details::deduce_disposable_strategy_t<Strategy>;
 
     /**
      * @brief Construct a new operator strategy for passed observer
      * @warning Passed observer would not be moved inside, only rvalue reference saved inside. Actual move happens ONLY in case of move of this strategy
      */
-    template<rpp::constraint::decayed_same_as<captured_observer> TObserver, typename...Args>
+    template<rpp::constraint::decayed_same_as<rpp::observer<TT, ObserverStrategy>> TObserver, typename...Args>
     operator_strategy_base(TObserver&& observer, Args&&...args)
         : m_observer{std::forward<TObserver>(observer)}
         , m_strategy{std::forward<Args>(args)...}
@@ -86,8 +86,8 @@ public:
     void on_completed() const                          { m_strategy.on_completed(m_observer); }
 
 private:
-    mutable captured_observer      m_observer;
-    RPP_NO_UNIQUE_ADDRESS Strategy m_strategy;
+    mutable rpp::observer<TT, ObserverStrategy> m_observer;
+    RPP_NO_UNIQUE_ADDRESS Strategy              m_strategy;
 };
 
 struct forwarding_on_next_strategy
