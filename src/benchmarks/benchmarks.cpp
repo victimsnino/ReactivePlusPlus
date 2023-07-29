@@ -4,6 +4,8 @@
 #include <iostream>
 #include <map>
 #include <string_view>
+#include <functional>
+#include <tuple>
 
 #include <rpp/rpp.hpp>
 #ifdef RPP_BUILD_RXCPP
@@ -455,6 +457,29 @@ int main(int argc, char* argv[]) // NOLINT
                     rxcpp_subj.get_subscriber().on_next(1);
                 });
             }
+        }
+    }
+
+    BENCHMARK("Scenarios")
+    {
+        SECTION("basic sample")
+        {
+            TEST_RPP([&](){
+                rpp::source::just('1', 'a', 'W', '2', '0', 'f', 'q')
+                    | rpp::operators::repeat()
+                    | rpp::operators::take_while([](char v) { return v != '0'; })
+                    | rpp::operators::filter([](char v) -> bool { return !std::isdigit(v); })
+                    | rpp::operators::map([](char v) -> char { return std::toupper(v); })
+                    | rpp::operators::subscribe([](char v) { ankerl::nanobench::doNotOptimizeAway(v); });
+            });
+            TEST_RXCPP([&](){
+                rxcpp::observable<>::from('1', 'a', 'W', '2', '0', 'f', 'q')
+                    | rxcpp::operators::repeat()
+                    | rxcpp::operators::take_while([](char v) { return v != '0'; })
+                    | rxcpp::operators::filter([](char v) -> bool { return !std::isdigit(v); })
+                    | rxcpp::operators::map([](char v) -> char { return std::toupper(v); })
+                    | rxcpp::operators::subscribe<char>([](char v) { ankerl::nanobench::doNotOptimizeAway(v); });
+            });
         }
     }
 

@@ -19,6 +19,8 @@ namespace rpp::operators::details
 {
 struct skip_observer_strategy
 {
+    using DisposableStrategy = rpp::details::none_disposable_strategy;
+
     mutable size_t count{};
 
     template<typename T>
