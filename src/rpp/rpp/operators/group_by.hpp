@@ -55,6 +55,8 @@ struct group_by_inner_observer_strategy
 template<rpp::constraint::decayed_type T, rpp::constraint::decayed_type KeySelector, rpp::constraint::decayed_type ValueSelector, rpp::constraint::decayed_type KeyComparator>
 struct group_by_observer_strategy
 {
+    using DisposableStrategyToUseWithThis = rpp::details::none_disposable_strategy;
+
     using TKey = utils::decayed_invoke_result_t<KeySelector, T>;
     using Type = utils::decayed_invoke_result_t<ValueSelector, T>;
 
@@ -143,7 +145,7 @@ struct group_by_observable_strategy
     template<rpp::constraint::observer_strategy<T> Strategy>
     void subscribe(observer<T, Strategy>&& obs) const
     {
-        obs.set_upstream(disposable->add_ref());
+        obs.set_upstream(rpp::disposable_wrapper::from_weak(disposable->add_ref().get_original()));
         subj.get_observable()
             .subscribe(rpp::observer<T, operator_strategy_base<T, observer<T, Strategy>, group_by_inner_observer_strategy>>{std::move(obs), disposable});
     }
