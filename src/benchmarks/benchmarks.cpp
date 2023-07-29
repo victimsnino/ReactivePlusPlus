@@ -468,17 +468,17 @@ int main(int argc, char* argv[]) // NOLINT
                 rpp::source::just('1', 'a', 'W', '2', '0', 'f', 'q')
                     | rpp::operators::repeat()
                     | rpp::operators::take_while([](char v) { return v != '0'; })
-                    | rpp::operators::filter(std::not_fn(&::isdigit))
-                    | rpp::operators::map(&::toupper)
-                    | rpp::operators::subscribe([](int v) { ankerl::nanobench::doNotOptimizeAway(v); });
+                    | rpp::operators::filter([](char v) -> bool { return !std::isdigit(v); })
+                    | rpp::operators::map([](char v) -> char { return std::toupper(v); })
+                    | rpp::operators::subscribe([](char v) { ankerl::nanobench::doNotOptimizeAway(v); });
             });
             TEST_RXCPP([&](){
                 rxcpp::observable<>::from('1', 'a', 'W', '2', '0', 'f', 'q')
                     | rxcpp::operators::repeat()
                     | rxcpp::operators::take_while([](char v) { return v != '0'; })
-                    | rxcpp::operators::filter(std::not_fn(&::isdigit))
-                    | rxcpp::operators::map(&::toupper)
-                    | rxcpp::operators::subscribe<int>([](int v) { ankerl::nanobench::doNotOptimizeAway(v); });
+                    | rxcpp::operators::filter([](char v) -> bool { return !std::isdigit(v); })
+                    | rxcpp::operators::map([](char v) -> char { return std::toupper(v); })
+                    | rxcpp::operators::subscribe<char>([](char v) { ankerl::nanobench::doNotOptimizeAway(v); });
             });
         }
     }
