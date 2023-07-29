@@ -88,6 +88,7 @@ protected:
     observer_impl(observer_impl&&) noexcept = default;
 
 public:
+    using DisposableStrategy = DisposablesStrategy;
     using on_next_lvalue = void(observer_impl::*)(const Type&) const noexcept;
     using on_next_rvalue = void(observer_impl::*)(Type&&) const noexcept;
     /**
