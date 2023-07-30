@@ -170,6 +170,35 @@ struct group_by_t : public operators::details::template_operator_observable_stra
 }
 namespace rpp::operators
 {
+/**
+ * @brief Divide original observable into multiple observables where each new observable emits some group of values from original observable.
+ *
+ * @marble group_by
+    {
+         source observable              : +--1-2-3-4-5-6-|
+         operator "group_by(x=>x%2==0)" :
+         {
+                                          ..+1---3---5---|
+                                          ....+2---4---6-|
+         }
+    }
+ *
+ *
+ * @details Actually this operator applies `key_selector` to emission to obtain key, place rpp::grouped_observable to map with corresponding map and then send observable with this key (if not yet). Original values emitted via this grouped_observables
+ *
+ * @param key_selector Function which determines key for provided item
+ * @param value_selector Function which determines value to be emitted to grouped observable
+ * @param comparator Function to provide strict_weak_order between key types
+ *
+ * @warning #include <rpp/operators/group_by.hpp>
+ *
+ * @par Example:
+ * @snippet group_by.cpp group_by
+ * @snippet group_by.cpp group_by selector
+ *
+ * @ingroup transforming_operators
+ * @see https://reactivex.io/documentation/operators/groupby.html
+ */
 template<typename KeySelector,
          typename ValueSelector,
          typename KeyComparator>
