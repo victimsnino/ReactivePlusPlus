@@ -7,8 +7,9 @@ var searchData=
   ['member_5fptr_5fcaller_4',['member_ptr_caller',['../structrpp_1_1details_1_1observers_1_1member__ptr__caller.html',1,'rpp::details::observers']]],
   ['member_5fptr_5fcaller_3c_20f_20_3e_5',['member_ptr_caller&lt; F &gt;',['../structrpp_1_1details_1_1observers_1_1member__ptr__caller_3_01_f_01_4.html',1,'rpp::details::observers']]],
   ['merge_5fdisposable_6',['merge_disposable',['../classrpp_1_1operators_1_1details_1_1merge__disposable.html',1,'rpp::operators::details']]],
-  ['merge_5fobserver_5finner_5fstrategy_7',['merge_observer_inner_strategy',['../structrpp_1_1operators_1_1details_1_1merge__observer__inner__strategy.html',1,'rpp::operators::details']]],
-  ['merge_5fobserver_5fstrategy_8',['merge_observer_strategy',['../structrpp_1_1operators_1_1details_1_1merge__observer__strategy.html',1,'rpp::operators::details']]],
-  ['merge_5ft_9',['merge_t',['../structrpp_1_1operators_1_1details_1_1merge__t.html',1,'rpp::operators::details']]],
-  ['merge_5fwith_5ft_10',['merge_with_t',['../structrpp_1_1operators_1_1details_1_1merge__with__t.html',1,'rpp::operators::details']]]
+  ['merge_5fobserver_5fbase_5fstrategy_7',['merge_observer_base_strategy',['../structrpp_1_1operators_1_1details_1_1merge__observer__base__strategy.html',1,'rpp::operators::details']]],
+  ['merge_5fobserver_5finner_5fstrategy_8',['merge_observer_inner_strategy',['../structrpp_1_1operators_1_1details_1_1merge__observer__inner__strategy.html',1,'rpp::operators::details']]],
+  ['merge_5fobserver_5fstrategy_9',['merge_observer_strategy',['../classrpp_1_1operators_1_1details_1_1merge__observer__strategy.html',1,'rpp::operators::details']]],
+  ['merge_5ft_10',['merge_t',['../structrpp_1_1operators_1_1details_1_1merge__t.html',1,'rpp::operators::details']]],
+  ['merge_5fwith_5ft_11',['merge_with_t',['../structrpp_1_1operators_1_1details_1_1merge__with__t.html',1,'rpp::operators::details']]]
 ];

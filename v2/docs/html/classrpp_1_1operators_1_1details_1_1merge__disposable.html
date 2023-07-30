@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.7"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ReactivePlusPlus: rpp::operators::details::merge_disposable&lt; Lock &gt; Class Template Reference</title>
+<title>ReactivePlusPlus: rpp::operators::details::merge_disposable&lt; TObserver &gt; Class Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -99,31 +99,37 @@ $(document).ready(function(){initNavTree('classrpp_1_1operators_1_1details_1_1me
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="classrpp_1_1operators_1_1details_1_1merge__disposable-members.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">rpp::operators::details::merge_disposable&lt; Lock &gt; Class Template Reference<span class="mlabels"><span class="mlabel">final</span></span></div></div>
+  <div class="headertitle"><div class="title">rpp::operators::details::merge_disposable&lt; TObserver &gt; Class Template Reference<span class="mlabels"><span class="mlabel">final</span></span></div></div>
 </div><!--header-->
 <div class="contents">
 <div class="dynheader">
-Inheritance diagram for rpp::operators::details::merge_disposable&lt; Lock &gt;:</div>
+Inheritance diagram for rpp::operators::details::merge_disposable&lt; TObserver &gt;:</div>
 <div class="dyncontent">
  <div class="center">
-  <img src="classrpp_1_1operators_1_1details_1_1merge__disposable.png" usemap="#rpp::operators::details::merge_5Fdisposable_3C_20Lock_20_3E_map" alt=""/>
-  <map id="rpp::operators::details::merge_5Fdisposable_3C_20Lock_20_3E_map" name="rpp::operators::details::merge_5Fdisposable_3C_20Lock_20_3E_map">
-<area href="classrpp_1_1composite__disposable.html" title="Disposable which can keep some other sub-disposables. When this root disposable is disposed,..." alt="rpp::composite_disposable" shape="rect" coords="0,56,292,80"/>
-<area href="structrpp_1_1interface__disposable.html" title="Interface of disposable." alt="rpp::interface_disposable" shape="rect" coords="0,0,292,24"/>
+  <img src="classrpp_1_1operators_1_1details_1_1merge__disposable.png" usemap="#rpp::operators::details::merge_5Fdisposable_3C_20TObserver_20_3E_map" alt=""/>
+  <map id="rpp::operators::details::merge_5Fdisposable_3C_20TObserver_20_3E_map" name="rpp::operators::details::merge_5Fdisposable_3C_20TObserver_20_3E_map">
+<area href="classrpp_1_1composite__disposable.html" title="Disposable which can keep some other sub-disposables. When this root disposable is disposed,..." alt="rpp::composite_disposable" shape="rect" coords="0,56,326,80"/>
+<area href="structrpp_1_1interface__disposable.html" title="Interface of disposable." alt="rpp::interface_disposable" shape="rect" coords="0,0,326,24"/>
   </map>
 </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:afa7376c1b88103efecf4ad428f65cbb5"><td class="memItemLeft" align="right" valign="top"><a id="afa7376c1b88103efecf4ad428f65cbb5" name="afa7376c1b88103efecf4ad428f65cbb5"></a>
-std::lock_guard&lt; Lock &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>lock_guard</b> ()</td></tr>
-<tr class="separator:afa7376c1b88103efecf4ad428f65cbb5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a831313e9887a4e227aec685daba19279"><td class="memItemLeft" align="right" valign="top"><a id="a831313e9887a4e227aec685daba19279" name="a831313e9887a4e227aec685daba19279"></a>
+<tr class="memitem:a262c1b3f81fb9dd16de7344560ef07e0"><td class="memItemLeft" align="right" valign="top"><a id="a262c1b3f81fb9dd16de7344560ef07e0" name="a262c1b3f81fb9dd16de7344560ef07e0"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>merge_disposable</b> (TObserver &amp;&amp;<a class="el" href="classrpp_1_1observer.html">observer</a>)</td></tr>
+<tr class="separator:a262c1b3f81fb9dd16de7344560ef07e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a81c691de69555760a3e793b602dc9687"><td class="memItemLeft" align="right" valign="top"><a id="a81c691de69555760a3e793b602dc9687" name="a81c691de69555760a3e793b602dc9687"></a>
+std::lock_guard&lt; std::mutex &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>lock_guard</b> ()</td></tr>
+<tr class="separator:a81c691de69555760a3e793b602dc9687"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a69cf1d4eb8406d9986def101234f23bf"><td class="memItemLeft" align="right" valign="top"><a id="a69cf1d4eb8406d9986def101234f23bf" name="a69cf1d4eb8406d9986def101234f23bf"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>increment_on_completed</b> ()</td></tr>
-<tr class="separator:a831313e9887a4e227aec685daba19279"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3b6a546c2937622f0f4b6813dda97b28"><td class="memItemLeft" align="right" valign="top"><a id="a3b6a546c2937622f0f4b6813dda97b28" name="a3b6a546c2937622f0f4b6813dda97b28"></a>
+<tr class="separator:a69cf1d4eb8406d9986def101234f23bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad288fa5420d2be4c80d0a5b42c245c6d"><td class="memItemLeft" align="right" valign="top"><a id="ad288fa5420d2be4c80d0a5b42c245c6d" name="ad288fa5420d2be4c80d0a5b42c245c6d"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>decrement_on_completed</b> ()</td></tr>
-<tr class="separator:a3b6a546c2937622f0f4b6813dda97b28"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="separator:ad288fa5420d2be4c80d0a5b42c245c6d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a01dcf739203efd239ddf46b6f06d93fd"><td class="memItemLeft" align="right" valign="top"><a id="a01dcf739203efd239ddf46b6f06d93fd" name="a01dcf739203efd239ddf46b6f06d93fd"></a>
+TObserver &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>get_observer</b> ()</td></tr>
+<tr class="separator:a01dcf739203efd239ddf46b6f06d93fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classrpp_1_1composite__disposable"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classrpp_1_1composite__disposable')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classrpp_1_1composite__disposable.html">rpp::composite_disposable</a></td></tr>
 <tr class="memitem:acabdfd2e741f94cdd0b8438eba3e887e inherit pub_methods_classrpp_1_1composite__disposable"><td class="memItemLeft" align="right" valign="top">
 &#160;</td><td class="memItemRight" valign="bottom"><b>composite_disposable</b> (const <a class="el" href="classrpp_1_1composite__disposable.html">composite_disposable</a> &amp;)=delete</td></tr>

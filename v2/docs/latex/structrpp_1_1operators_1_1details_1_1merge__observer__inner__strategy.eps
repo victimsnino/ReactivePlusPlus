@@ -5,7 +5,7 @@
 %%For: 
 %Magnification: 1.00
 %%Orientation: Portrait
-%%BoundingBox: 0 0 500 89.820358
+%%BoundingBox: 0 0 500 96.852303
 %%Pages: 0
 %%BeginSetup
 %%EndSetup
@@ -19,13 +19,13 @@
 /marginwidth 10 def
 /distx 20 def
 /disty 40 def
-/boundaspect 5.566667 def  % aspect ratio of the BoundingBox (width/height)
+/boundaspect 5.162500 def  % aspect ratio of the BoundingBox (width/height)
 /boundx 500 def
 /boundy boundx boundaspect div def
 /xspacing 0 def
 /yspacing 0 def
-/rows 3 def
-/cols 2 def
+/rows 2 def
+/cols 1 def
 /scalefactor 0 def
 /boxfont /Times-Roman findfont fontheight scalefont def
 
@@ -173,10 +173,8 @@
 
 boxfont setfont
 1 boundaspect scale
-(rpp::composite_disposable) cw
-(rpp::interface_disposable) cw
-(rpp::operators::details::merge_disposable< TObserver >) cw
-(rpp::subjects::details::subject_state< Type >) cw
+(rpp::operators::details::merge_observer_inner_strategy< TObserver >) cw
+(rpp::operators::details::merge_observer_base_strategy< TObserver >) cw
 /boxwidth boxwidth marginwidth 2 mul add def
 /xspacing boxwidth distx add def
 /yspacing boxheight disty add def
@@ -188,22 +186,12 @@ boundx scalefactor div boundy scalefactor div scale
 
 % ----- classes -----
 
- (rpp::composite_disposable) 0.500000 1.000000 box
- (rpp::interface_disposable) 0.500000 2.000000 box
- (rpp::operators::details::merge_disposable< TObserver >) 0.000000 0.000000 box
- (rpp::subjects::details::subject_state< Type >) 1.000000 0.000000 box
+ (rpp::operators::details::merge_observer_inner_strategy< TObserver >) 0.000000 0.000000 box
+ (rpp::operators::details::merge_observer_base_strategy< TObserver >) 0.000000 1.000000 box
 
 % ----- relations -----
 
 solid
-0 0.500000 1.000000 out
+0 0.000000 0.000000 out
 solid
-1 0.500000 2.000000 in
-solid
-1 0.500000 0.250000 out
-solid
-0.000000 1.000000 1.000000 conn
-solid
-0 0.000000 0.750000 in
-solid
-0 1.000000 0.750000 in
+1 0.000000 1.000000 in
