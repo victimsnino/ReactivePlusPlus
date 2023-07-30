@@ -113,7 +113,7 @@ Inheritance diagram for rpp::refcount_disposable:</div>
  <div class="center">
   <img src="classrpp_1_1refcount__disposable.png" usemap="#rpp::refcount_5Fdisposable_map" alt=""/>
   <map id="rpp::refcount_5Fdisposable_map" name="rpp::refcount_5Fdisposable_map">
-<area href="structrpp_1_1interface__disposable.html" title="Interface of disposable." alt="rpp::interface_disposable" shape="rect" coords="0,0,154,24"/>
+<area href="structrpp_1_1interface__disposable.html" title="Interface of disposable." alt="rpp::interface_disposable" shape="rect" coords="0,0,314,24"/>
   </map>
 </div></div>
 <table class="memberdecls">
@@ -122,9 +122,6 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a4e082ee93ac0fa94965bf322fabbb2b9"><td class="memItemLeft" align="right" valign="top"><a id="a4e082ee93ac0fa94965bf322fabbb2b9" name="a4e082ee93ac0fa94965bf322fabbb2b9"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>refcount_disposable</b> (disposable_ptr target)</td></tr>
 <tr class="separator:a4e082ee93ac0fa94965bf322fabbb2b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac0177dc63fa4fe87694631a6dcf8e2e2"><td class="memItemLeft" align="right" valign="top"><a id="ac0177dc63fa4fe87694631a6dcf8e2e2" name="ac0177dc63fa4fe87694631a6dcf8e2e2"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>refcount_disposable</b> (<a class="el" href="classrpp_1_1disposable__wrapper__impl.html">disposable_wrapper</a> target)</td></tr>
-<tr class="separator:ac0177dc63fa4fe87694631a6dcf8e2e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a80145a5556f11cc5e04282f25a3ea5f6"><td class="memItemLeft" align="right" valign="top"><a id="a80145a5556f11cc5e04282f25a3ea5f6" name="a80145a5556f11cc5e04282f25a3ea5f6"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>refcount_disposable</b> (const <a class="el" href="classrpp_1_1refcount__disposable.html">refcount_disposable</a> &amp;)=delete</td></tr>
 <tr class="separator:a80145a5556f11cc5e04282f25a3ea5f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -137,9 +134,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aca0f28bcaedd9938ab22b09eebb2adb1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrpp_1_1refcount__disposable.html#aca0f28bcaedd9938ab22b09eebb2adb1">dispose</a> () override</td></tr>
 <tr class="memdesc:aca0f28bcaedd9938ab22b09eebb2adb1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dispose disposable and free any underlying resources and etc. @warn This function must be thread-safe.  <br /></td></tr>
 <tr class="separator:aca0f28bcaedd9938ab22b09eebb2adb1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a73031f0bf91b9225602309d86f60d90d"><td class="memItemLeft" align="right" valign="top"><a id="a73031f0bf91b9225602309d86f60d90d" name="a73031f0bf91b9225602309d86f60d90d"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>add_ref</b> ()</td></tr>
-<tr class="separator:a73031f0bf91b9225602309d86f60d90d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a81509db0de0e80593a36d819de8e9c86"><td class="memItemLeft" align="right" valign="top"><a id="a81509db0de0e80593a36d819de8e9c86" name="a81509db0de0e80593a36d819de8e9c86"></a>
+<a class="el" href="classrpp_1_1disposable__wrapper__impl.html">disposable_wrapper</a>&#160;</td><td class="memItemRight" valign="bottom"><b>add_ref</b> ()</td></tr>
+<tr class="separator:a81509db0de0e80593a36d819de8e9c86"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5f8e0ae2521db5fe25281a9651308bef"><td class="memItemLeft" align="right" valign="top"><a id="a5f8e0ae2521db5fe25281a9651308bef" name="a5f8e0ae2521db5fe25281a9651308bef"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>add</b> (disposable_ptr disposable)</td></tr>
+<tr class="separator:a5f8e0ae2521db5fe25281a9651308bef"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0348da95fe5929a3861e80b6651c347f"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structrpp_1_1interface__disposable.html#a0348da95fe5929a3861e80b6651c347f">is_disposed</a> () const noexcept=0</td></tr>
 <tr class="memdesc:a0348da95fe5929a3861e80b6651c347f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if this disposable is just disposed @warn This function must be thread-safe.  <br /></td></tr>
 <tr class="separator:a0348da95fe5929a3861e80b6651c347f"><td class="memSeparator" colspan="2">&#160;</td></tr>

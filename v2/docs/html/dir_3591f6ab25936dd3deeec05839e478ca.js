@@ -7,6 +7,7 @@ var dir_3591f6ab25936dd3deeec05839e478ca =
     [ "first.hpp", "first_8hpp_source.html", null ],
     [ "flat_map.hpp", "flat__map_8hpp_source.html", null ],
     [ "fwd.hpp", "operators_2fwd_8hpp_source.html", null ],
+    [ "group_by.hpp", "group__by_8hpp_source.html", null ],
     [ "last.hpp", "last_8hpp_source.html", null ],
     [ "map.hpp", "map_8hpp_source.html", null ],
     [ "merge.hpp", "merge_8hpp_source.html", null ],

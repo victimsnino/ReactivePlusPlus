@@ -11,6 +11,9 @@ Transforming operators are operators that transform items provided by observable
 {\footnotesize template$<$typename Fn $>$ \newline
 requires (!utils\+::is\+\_\+not\+\_\+template\+\_\+callable$<$Fn$>$ \texorpdfstring{$\vert$}{|}\texorpdfstring{$\vert$}{|} \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp\+::constraint\+::observable}}$<$std\+::invoke\+\_\+result\+\_\+t$<$Fn, utils\+::convertible\+\_\+to\+\_\+any$>$$>$)}\\auto \mbox{\hyperlink{group__transforming__operators_ga9cfd33d5c468e82a7893d92375ce25dc}{rpp\+::operators\+::flat\+\_\+map}} (Fn \&\&callable)
 \begin{DoxyCompactList}\small\item\em Transform the items emitted by an Observable into Observables, then flatten the emissions from those into a single Observable. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename Key\+Selector , typename Value\+Selector  = std\+::identity, typename Key\+Comparator  = rpp\+::utils\+::less$>$ \newline
+requires ( (!utils\+::is\+\_\+not\+\_\+template\+\_\+callable$<$Key\+Selector$>$ \texorpdfstring{$\vert$}{|}\texorpdfstring{$\vert$}{|} !std\+::same\+\_\+as$<$void, std\+::invoke\+\_\+result\+\_\+t$<$Key\+Selector, utils\+::convertible\+\_\+to\+\_\+any$>$$>$) \&\& (!utils\+::is\+\_\+not\+\_\+template\+\_\+callable$<$Value\+Selector$>$ \texorpdfstring{$\vert$}{|}\texorpdfstring{$\vert$}{|} !std\+::same\+\_\+as$<$void, std\+::invoke\+\_\+result\+\_\+t$<$Value\+Selector, utils\+::convertible\+\_\+to\+\_\+any$>$$>$) \&\& (!utils\+::is\+\_\+not\+\_\+template\+\_\+callable$<$Key\+Comparator$>$ \texorpdfstring{$\vert$}{|}\texorpdfstring{$\vert$}{|} std\+::strict\+\_\+weak\+\_\+order$<$Key\+Comparator, utils\+::convertible\+\_\+to\+\_\+any, utils\+::convertible\+\_\+to\+\_\+any$>$) )}\\auto \mbox{\hyperlink{group__transforming__operators_ga22f903e57ab06c599ddecae8cfebc005}{rpp\+::operators\+::group\+\_\+by}} (Key\+Selector \&\&key\+\_\+selector, Value\+Selector \&\&value\+\_\+selector, Key\+Comparator \&\&comparator)
+\begin{DoxyCompactList}\small\item\em Divide original observable into multiple observables where each new observable emits some group of values from original observable. \end{DoxyCompactList}\item 
 {\footnotesize template$<$typename Fn $>$ \newline
 requires (!utils\+::is\+\_\+not\+\_\+template\+\_\+callable$<$Fn$>$ \texorpdfstring{$\vert$}{|}\texorpdfstring{$\vert$}{|} !std\+::same\+\_\+as$<$void, std\+::invoke\+\_\+result\+\_\+t$<$Fn, utils\+::convertible\+\_\+to\+\_\+any$>$$>$)}\\auto \mbox{\hyperlink{group__transforming__operators_gaa1e52694559ad873f33b62ada4c45675}{rpp\+::operators\+::map}} (Fn \&\&callable)
 \begin{DoxyCompactList}\small\item\em Transforms the items emitted by an Observable via applying a function to each item and emitting result. \end{DoxyCompactList}\item 
@@ -58,6 +61,95 @@ Note that flat\+\_\+map merges the emissions of these Observables, so that they 
 \end{DoxyWarning}
 \begin{DoxySeeAlso}{See also}
 \href{https://reactivex.io/documentation/operators/flatmap.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/flatmap.\+html}} 
+\end{DoxySeeAlso}
+\Hypertarget{group__transforming__operators_ga22f903e57ab06c599ddecae8cfebc005}\label{group__transforming__operators_ga22f903e57ab06c599ddecae8cfebc005} 
+\index{Transforming Operators@{Transforming Operators}!group\_by@{group\_by}}
+\index{group\_by@{group\_by}!Transforming Operators@{Transforming Operators}}
+\doxysubsubsubsubsection{\texorpdfstring{group\_by()}{group\_by()}}
+{\footnotesize\ttfamily template$<$typename Key\+Selector , typename Value\+Selector  = std\+::identity, typename Key\+Comparator  = rpp\+::utils\+::less$>$ \newline
+requires ( (!utils\+::is\+\_\+not\+\_\+template\+\_\+callable$<$Key\+Selector$>$ \texorpdfstring{$\vert$}{|}\texorpdfstring{$\vert$}{|} !std\+::same\+\_\+as$<$void, std\+::invoke\+\_\+result\+\_\+t$<$Key\+Selector, utils\+::convertible\+\_\+to\+\_\+any$>$$>$) \&\& (!utils\+::is\+\_\+not\+\_\+template\+\_\+callable$<$Value\+Selector$>$ \texorpdfstring{$\vert$}{|}\texorpdfstring{$\vert$}{|} !std\+::same\+\_\+as$<$void, std\+::invoke\+\_\+result\+\_\+t$<$Value\+Selector, utils\+::convertible\+\_\+to\+\_\+any$>$$>$) \&\& (!utils\+::is\+\_\+not\+\_\+template\+\_\+callable$<$Key\+Comparator$>$ \texorpdfstring{$\vert$}{|}\texorpdfstring{$\vert$}{|} std\+::strict\+\_\+weak\+\_\+order$<$Key\+Comparator, utils\+::convertible\+\_\+to\+\_\+any, utils\+::convertible\+\_\+to\+\_\+any$>$) )\\
+auto rpp\+::operators\+::group\+\_\+by (\begin{DoxyParamCaption}\item[{Key\+Selector \&\&}]{key\+\_\+selector,  }\item[{Value\+Selector \&\&}]{value\+\_\+selector,  }\item[{Key\+Comparator \&\&}]{comparator }\end{DoxyParamCaption})}
+
+
+
+Divide original observable into multiple observables where each new observable emits some group of values from original observable. 
+
+
+
+Actually this operator applies {\ttfamily key\+\_\+selector} to emission to obtain key, place \doxylink{classrpp_1_1grouped__observable}{rpp\+::grouped\+\_\+observable} to map with corresponding map and then send observable with this key (if not yet). Original values emitted via this grouped\+\_\+observables
+
+
+\begin{DoxyParams}{Parameters}
+{\em key\+\_\+selector} & Function which determines key for provided item \\
+\hline
+{\em value\+\_\+selector} & Function which determines value to be emitted to grouped observable \\
+\hline
+{\em comparator} & Function to provide strict\+\_\+weak\+\_\+order between key types\\
+\hline
+\end{DoxyParams}
+\begin{DoxyWarning}{Warning}
+\#include \texorpdfstring{$<$}{<}\doxylink{group__by_8hpp_source}{rpp/operators/group\+\_\+by.\+hpp}\texorpdfstring{$>$}{>}
+\end{DoxyWarning}
+\begin{DoxyParagraph}{Example\+:}
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_gae60bdb9b493443d2786b0eee8bfe17ab}{rpp::source::just}}(1,\ 2,\ 3,\ 4,\ 5,\ 6,\ 7,\ 8)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ rpp::ops::group\_by([](\textcolor{keywordtype}{int}\ \ \ v)\ \{\ \textcolor{keywordflow}{return}\ v\ \%\ 2\ ==\ 0;\ \})}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ rpp::ops::subscribe([](\textcolor{keyword}{auto}\ \mbox{\hyperlink{classrpp_1_1grouped__observable}{grouped\_observable}})}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ key\ =\ \mbox{\hyperlink{classrpp_1_1grouped__observable}{grouped\_observable}}.get\_key();}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}new\ grouped\ observable\ "{}}\ <<\ key\ <<\ std::endl;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrpp_1_1grouped__observable}{grouped\_observable}}.\mbox{\hyperlink{classrpp_1_1observable_a193b0e08c516912c04afd8379ec27182}{subscribe}}([key](\textcolor{keywordtype}{int}\ val)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}key\ ["{}}\ <<\ key\ <<\ \textcolor{stringliteral}{"{}]\ Val:\ "{}}\ <<\ val\ <<\ std::endl;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:\ new\ grouped\ observable\ 0}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ key\ [0]\ Val:\ 1}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ new\ grouped\ observable\ 1}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ key\ [1]\ Val:\ 2}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ key\ [0]\ Val:\ 3}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ key\ [1]\ Val:\ 4}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ key\ [0]\ Val:\ 5}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ key\ [1]\ Val:\ 6}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ key\ [0]\ Val:\ 7}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ key\ [1]\ Val:\ 8}}
+
+\end{DoxyCodeInclude}
+ 
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{struct\ }Person}
+\DoxyCodeLine{\ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ std::string\ name;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ age;}
+\DoxyCodeLine{\ \ \ \ \};}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_gae60bdb9b493443d2786b0eee8bfe17ab}{rpp::source::just}}(Person\{\textcolor{stringliteral}{"{}Kate"{}},\ 18\},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Person\{\textcolor{stringliteral}{"{}Alex"{}},\ 25\},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Person\{\textcolor{stringliteral}{"{}Nick"{}},\ 18\},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Person\{\textcolor{stringliteral}{"{}Jack"{}},\ 25\},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Person\{\textcolor{stringliteral}{"{}Tom"{}},\ 30\},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Person\{\textcolor{stringliteral}{"{}Vanda"{}},\ 18\})}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ rpp::ops::group\_by([](\textcolor{keyword}{const}\ Person\&\ v)\ \{\ \textcolor{keywordflow}{return}\ v.age;\ \},\ [](\textcolor{keyword}{const}\ Person\&\ v)\ \{\ \textcolor{keywordflow}{return}\ v.name;\ \})}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ rpp::ops::subscribe([](\textcolor{keyword}{auto}\ grouped\_observable)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ grouped\_observable.subscribe([age\ =\ grouped\_observable.get\_key()](\textcolor{keyword}{const}\ std::string\&\ name)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Age\ ["{}}\ <<\ age\ <<\ \textcolor{stringliteral}{"{}]\ Name:\ "{}}\ <<\ name\ <<\ std::endl;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:\ Age\ [18]\ Name:\ Kate}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ Age\ [25]\ Name:\ Alex}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ Age\ [18]\ Name:\ Nick}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ Age\ [25]\ Name:\ Jack}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ Age\ [30]\ Name:\ Tom}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ Age\ [18]\ Name:\ Vanda}}
+
+\end{DoxyCodeInclude}
+
+\end{DoxyParagraph}
+\begin{DoxySeeAlso}{See also}
+\href{https://reactivex.io/documentation/operators/groupby.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/groupby.\+html}} 
 \end{DoxySeeAlso}
 \Hypertarget{group__transforming__operators_gaa1e52694559ad873f33b62ada4c45675}\label{group__transforming__operators_gaa1e52694559ad873f33b62ada4c45675} 
 \index{Transforming Operators@{Transforming Operators}!map@{map}}

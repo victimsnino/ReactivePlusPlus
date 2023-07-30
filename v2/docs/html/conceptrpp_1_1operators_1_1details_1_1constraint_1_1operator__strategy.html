@@ -100,14 +100,14 @@ $(document).ready(function(){initNavTree('conceptrpp_1_1operators_1_1details_1_1
 </div><!--header-->
 <div class="contents">
 <h2 class="groupheader">Concept definition</h2>
-<div class="fragment"><div class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> S, <span class="keyword">typename</span> Type&gt;</div>
+<div class="fragment"><div class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> S, <span class="keyword">typename</span> ObservableType, <span class="keyword">typename</span> ObserverType&gt;</div>
 <div class="line"><span class="keyword">concept </span><a class="code hl_concept" href="conceptrpp_1_1operators_1_1details_1_1constraint_1_1operator__strategy.html">rpp::operators::details::constraint::operator_strategy</a> =  <span class="keyword">requires</span>(<span class="keyword">const</span> S&amp; const_strategy,</div>
 <div class="line">                                     S&amp; strategy,</div>
-<div class="line">                                     <span class="keyword">const</span> Type&amp; v,</div>
-<div class="line">                                     Type&amp;&amp; mv,</div>
+<div class="line">                                     <span class="keyword">const</span> ObservableType&amp; v,</div>
+<div class="line">                                     ObservableType&amp;&amp; mv,</div>
 <div class="line">                                     <span class="keyword">const</span> disposable_wrapper disposable,</div>
-<div class="line">                                     <span class="keyword">const</span> <a class="code hl_class" href="classrpp_1_1observer.html">rpp::details::fake_observer&lt;Type&gt;</a>&amp; const_observer,</div>
-<div class="line">                                     <a class="code hl_class" href="classrpp_1_1observer.html">rpp::details::fake_observer&lt;Type&gt;</a>&amp; observer)</div>
+<div class="line">                                     <span class="keyword">const</span> <a class="code hl_class" href="classrpp_1_1observer.html">rpp::details::fake_observer&lt;ObserverType&gt;</a>&amp; const_observer,</div>
+<div class="line">                                     <a class="code hl_class" href="classrpp_1_1observer.html">rpp::details::fake_observer&lt;ObserverType&gt;</a>&amp; observer)</div>
 <div class="line">{</div>
 <div class="line">    const_strategy.on_subscribe(observer);</div>
 <div class="line"> </div>
@@ -117,7 +117,7 @@ $(document).ready(function(){initNavTree('conceptrpp_1_1operators_1_1details_1_1
 <div class="line">    const_strategy.on_completed(<a class="code hl_class" href="classrpp_1_1observer.html">observer</a>);</div>
 <div class="line"> </div>
 <div class="line">    strategy.set_upstream(<a class="code hl_class" href="classrpp_1_1observer.html">observer</a>, disposable);</div>
-<div class="line">    { strategy.is_disposed() } -&gt; std::same_as&lt;bool&gt;;</div>
+<div class="line">    { strategy.is_disposed(const_observer) } -&gt; std::same_as&lt;bool&gt;;</div>
 <div class="line">}</div>
 <div class="ttc" id="aclassrpp_1_1observer_html"><div class="ttname"><a href="classrpp_1_1observer.html">rpp::observer</a></div><div class="ttdoc">Base class for any observer used in RPP. It handles core callbacks of observers. Objects of this clas...</div><div class="ttdef"><b>Definition</b> observer.hpp:206</div></div>
 <div class="ttc" id="aconceptrpp_1_1operators_1_1details_1_1constraint_1_1operator__strategy_html"><div class="ttname"><a href="conceptrpp_1_1operators_1_1details_1_1constraint_1_1operator__strategy.html">rpp::operators::details::constraint::operator_strategy</a></div><div class="ttdef"><b>Definition</b> strategy.hpp:30</div></div>

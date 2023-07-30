@@ -12,7 +12,7 @@ Disposable with counter inside. Each {\ttfamily add\+\_\+ref} increments counter
 Inheritance diagram for rpp\+::refcount\+\_\+disposable\+:\begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[height=2.000000cm]{classrpp_1_1refcount__disposable}
+\includegraphics[height=1.739130cm]{classrpp_1_1refcount__disposable}
 \end{center}
 \end{figure}
 \doxysubsubsection*{Public Member Functions}
@@ -20,9 +20,6 @@ Inheritance diagram for rpp\+::refcount\+\_\+disposable\+:\begin{figure}[H]
 \item 
 \Hypertarget{classrpp_1_1refcount__disposable_a4e082ee93ac0fa94965bf322fabbb2b9}\label{classrpp_1_1refcount__disposable_a4e082ee93ac0fa94965bf322fabbb2b9} 
 {\bfseries refcount\+\_\+disposable} (disposable\+\_\+ptr target)
-\item 
-\Hypertarget{classrpp_1_1refcount__disposable_ac0177dc63fa4fe87694631a6dcf8e2e2}\label{classrpp_1_1refcount__disposable_ac0177dc63fa4fe87694631a6dcf8e2e2} 
-{\bfseries refcount\+\_\+disposable} (\mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{disposable\+\_\+wrapper}} target)
 \item 
 \Hypertarget{classrpp_1_1refcount__disposable_a80145a5556f11cc5e04282f25a3ea5f6}\label{classrpp_1_1refcount__disposable_a80145a5556f11cc5e04282f25a3ea5f6} 
 {\bfseries refcount\+\_\+disposable} (const \mbox{\hyperlink{classrpp_1_1refcount__disposable}{refcount\+\_\+disposable}} \&)=delete
@@ -34,8 +31,11 @@ bool \mbox{\hyperlink{classrpp_1_1refcount__disposable_a7ee21e190b2a1e3b527fc468
 \begin{DoxyCompactList}\small\item\em Check if this disposable is just disposed @warn This function must be thread-\/safe. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classrpp_1_1refcount__disposable_aca0f28bcaedd9938ab22b09eebb2adb1}{dispose}} () override
 \begin{DoxyCompactList}\small\item\em Dispose disposable and free any underlying resources and etc. @warn This function must be thread-\/safe. \end{DoxyCompactList}\item 
-\Hypertarget{classrpp_1_1refcount__disposable_a73031f0bf91b9225602309d86f60d90d}\label{classrpp_1_1refcount__disposable_a73031f0bf91b9225602309d86f60d90d} 
-void {\bfseries add\+\_\+ref} ()
+\Hypertarget{classrpp_1_1refcount__disposable_a81509db0de0e80593a36d819de8e9c86}\label{classrpp_1_1refcount__disposable_a81509db0de0e80593a36d819de8e9c86} 
+\mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{disposable\+\_\+wrapper}} {\bfseries add\+\_\+ref} ()
+\item 
+\Hypertarget{classrpp_1_1refcount__disposable_a5f8e0ae2521db5fe25281a9651308bef}\label{classrpp_1_1refcount__disposable_a5f8e0ae2521db5fe25281a9651308bef} 
+void {\bfseries add} (disposable\+\_\+ptr disposable)
 \end{DoxyCompactItemize}
 \begin{DoxyCompactItemize}
 \item 

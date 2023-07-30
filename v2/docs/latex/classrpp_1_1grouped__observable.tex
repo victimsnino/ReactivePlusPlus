@@ -1,0 +1,83 @@
+\doxysection{rpp\+::grouped\+\_\+observable\texorpdfstring{$<$}{<} Key\+Type, Type, Strategy \texorpdfstring{$>$}{>} Class Template Reference}
+\hypertarget{classrpp_1_1grouped__observable}{}\label{classrpp_1_1grouped__observable}\index{rpp::grouped\_observable$<$ KeyType, Type, Strategy $>$@{rpp::grouped\_observable$<$ KeyType, Type, Strategy $>$}}
+
+
+Extension over raw observable which also has {\ttfamily get\+\_\+key()} member function. Used in {\ttfamily group\+\_\+by} operator to represent grouped observable.  
+
+
+Inheritance diagram for rpp\+::grouped\+\_\+observable\texorpdfstring{$<$}{<} Key\+Type, Type, Strategy \texorpdfstring{$>$}{>}\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classrpp_1_1grouped__observable}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classrpp_1_1grouped__observable_a3e0c3b4c74495337b3698adc994cbd54}\label{classrpp_1_1grouped__observable_a3e0c3b4c74495337b3698adc994cbd54} 
+{\bfseries grouped\+\_\+observable} (Key\+Type key, const Strategy \&strategy)
+\item 
+\Hypertarget{classrpp_1_1grouped__observable_acdc22ce0e529bfa6986b36e074a8f790}\label{classrpp_1_1grouped__observable_acdc22ce0e529bfa6986b36e074a8f790} 
+{\bfseries grouped\+\_\+observable} (Key\+Type key, Strategy \&\&strategy)
+\item 
+\Hypertarget{classrpp_1_1grouped__observable_adc0f35eaa877710275756581427bdd1f}\label{classrpp_1_1grouped__observable_adc0f35eaa877710275756581427bdd1f} 
+const Key\+Type \& {\bfseries get\+\_\+key} () const
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classrpp_1_1observable}{rpp\+::observable$<$ Type, Strategy $>$}}}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename ... Args$>$ \newline
+requires (!constraint\+::variadic\+\_\+decayed\+\_\+same\+\_\+as$<$\mbox{\hyperlink{classrpp_1_1observable}{observable}}$<$Type, Strategy$>$, Args...$>$ \&\& constraint\+::is\+\_\+constructible\+\_\+from$<$Strategy, Args\&\&...$>$)}\\{\bfseries observable} (Args \&\&...args)
+\item 
+{\bfseries observable} (const \mbox{\hyperlink{classrpp_1_1observable}{observable}} \&)=default
+\item 
+{\bfseries observable} (\mbox{\hyperlink{classrpp_1_1observable}{observable}} \&\&) noexcept=default
+\item 
+{\footnotesize template$<$constraint\+::observer\+\_\+strategy$<$ Type $>$ Observer\+Strategy$>$ }\\void \mbox{\hyperlink{classrpp_1_1observable_a193b0e08c516912c04afd8379ec27182}{subscribe}} (\mbox{\hyperlink{classrpp_1_1observer}{observer}}$<$ Type, Observer\+Strategy $>$ \&\&\mbox{\hyperlink{classrpp_1_1observer}{observer}}) const
+\begin{DoxyCompactList}\small\item\em Subscribes passed observer to emissions from this observable. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classrpp_1_1observable_aa2621e98393f224a7689c6e08003c027}{subscribe}} (\mbox{\hyperlink{group__observers_gaccd025034d57327e6a31b2106619197b}{dynamic\+\_\+observer}}$<$ Type $>$ \mbox{\hyperlink{classrpp_1_1observer}{observer}}) const
+\begin{DoxyCompactList}\small\item\em Subscribe passed observer to emissions from this observable. \end{DoxyCompactList}\item 
+{\footnotesize template$<$std\+::invocable$<$ Type $>$ On\+Next, std\+::invocable$<$ const std\+::exception\+\_\+ptr \& $>$ On\+Error = rpp\+::utils\+::rethrow\+\_\+error\+\_\+t, std\+::invocable$<$$>$ On\+Completed = rpp\+::utils\+::empty\+\_\+function\+\_\+t$<$$>$$>$ }\\\mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{composite\+\_\+disposable\+\_\+wrapper}} \mbox{\hyperlink{classrpp_1_1observable_ace715f6f4dbbee4f7b0000fd32f75c8c}{subscribe}} (const \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{composite\+\_\+disposable\+\_\+wrapper}} \&d, On\+Next \&\&on\+\_\+next, On\+Error \&\&on\+\_\+error=\{\}, On\+Completed \&\&on\+\_\+completed=\{\}) const
+\begin{DoxyCompactList}\small\item\em Subscribe passed observer to emissions from this observable. \end{DoxyCompactList}\item 
+auto {\bfseries as\+\_\+dynamic} () const \&
+\begin{DoxyCompactList}\small\item\em Convert observable to type-\/erased version. \end{DoxyCompactList}\item 
+auto {\bfseries as\+\_\+dynamic} () \&\&
+\begin{DoxyCompactList}\small\item\em Convert observable to type-\/erased version. \end{DoxyCompactList}\item 
+{\footnotesize template$<$constraint\+::operators\+\_\+v2$<$ Type $>$ Op$>$ }\\auto {\bfseries operator\texorpdfstring{$\vert$}{|}} (Op \&\&op) const \&
+\item 
+{\footnotesize template$<$constraint\+::operators\+\_\+v2$<$ Type $>$ Op$>$ }\\auto {\bfseries operator\texorpdfstring{$\vert$}{|}} (Op \&\&op) \&\&
+\item 
+{\footnotesize template$<$constraint\+::operators$<$const \mbox{\hyperlink{classrpp_1_1observable}{observable}}$<$ Type, Strategy $>$ \& $>$ Op$>$ }\\auto {\bfseries operator\texorpdfstring{$\vert$}{|}} (Op \&\&op) const \&
+\item 
+{\footnotesize template$<$constraint\+::operators$<$\mbox{\hyperlink{classrpp_1_1observable}{observable}}$<$ Type, Strategy $>$ \&\& $>$ Op$>$ }\\auto {\bfseries operator\texorpdfstring{$\vert$}{|}} (Op \&\&op) \&\&
+\item 
+{\footnotesize template$<$typename... Args$>$ }\\auto {\bfseries operator\texorpdfstring{$\vert$}{|}} (const \mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1subscribe__t}{rpp\+::operators\+::details\+::subscribe\+\_\+t}}$<$ Args... $>$ \&op) const
+\item 
+{\footnotesize template$<$typename... Args$>$ }\\auto {\bfseries operator\texorpdfstring{$\vert$}{|}} (\mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1subscribe__t}{rpp\+::operators\+::details\+::subscribe\+\_\+t}}$<$ Args... $>$ \&\&op) const
+\item 
+{\footnotesize template$<$typename Op $>$ }\\auto {\bfseries pipe} (Op \&\&op) const \&
+\item 
+{\footnotesize template$<$typename Op $>$ }\\auto {\bfseries pipe} (Op \&\&op) \&\&
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$constraint\+::decayed\+\_\+type Key\+Type, constraint\+::decayed\+\_\+type Type, constraint\+::observable\+\_\+strategy$<$ Type $>$ Strategy$>$\newline
+class rpp\+::grouped\+\_\+observable$<$ Key\+Type, Type, Strategy $>$}
+Extension over raw observable which also has {\ttfamily get\+\_\+key()} member function. Used in {\ttfamily group\+\_\+by} operator to represent grouped observable. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Key\+Type} & is type of key \\
+\hline
+{\em Type} & of value this obsevalbe can provide \\
+\hline
+{\em Strategy} & is observable strategy \\
+\hline
+\end{DoxyTemplParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/rpp/rpp/observables/fwd.\+hpp\item 
+src/rpp/rpp/observables/grouped\+\_\+observable.\+hpp\end{DoxyCompactItemize}

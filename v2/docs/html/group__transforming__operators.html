@@ -112,6 +112,11 @@ requires (!utils::is_not_template_callable&lt;Fn&gt; || <a class="el" href="conc
 <tr class="memitem:ga9cfd33d5c468e82a7893d92375ce25dc"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__transforming__operators.html#ga9cfd33d5c468e82a7893d92375ce25dc">rpp::operators::flat_map</a> (Fn &amp;&amp;callable)</td></tr>
 <tr class="memdesc:ga9cfd33d5c468e82a7893d92375ce25dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transform the items emitted by an Observable into Observables, then flatten the emissions from those into a single Observable.  <br /></td></tr>
 <tr class="separator:ga9cfd33d5c468e82a7893d92375ce25dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga22f903e57ab06c599ddecae8cfebc005"><td class="memTemplParams" colspan="2">template&lt;typename KeySelector , typename ValueSelector  = std::identity, typename KeyComparator  = rpp::utils::less&gt; <br />
+requires ( (!utils::is_not_template_callable&lt;KeySelector&gt; || !std::same_as&lt;void, std::invoke_result_t&lt;KeySelector, utils::convertible_to_any&gt;&gt;) &amp;&amp; (!utils::is_not_template_callable&lt;ValueSelector&gt; || !std::same_as&lt;void, std::invoke_result_t&lt;ValueSelector, utils::convertible_to_any&gt;&gt;) &amp;&amp; (!utils::is_not_template_callable&lt;KeyComparator&gt; || std::strict_weak_order&lt;KeyComparator, utils::convertible_to_any, utils::convertible_to_any&gt;) )</td></tr>
+<tr class="memitem:ga22f903e57ab06c599ddecae8cfebc005"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__transforming__operators.html#ga22f903e57ab06c599ddecae8cfebc005">rpp::operators::group_by</a> (KeySelector &amp;&amp;key_selector, ValueSelector &amp;&amp;value_selector, KeyComparator &amp;&amp;comparator)</td></tr>
+<tr class="memdesc:ga22f903e57ab06c599ddecae8cfebc005"><td class="mdescLeft">&#160;</td><td class="mdescRight">Divide original observable into multiple observables where each new observable emits some group of values from original observable.  <br /></td></tr>
+<tr class="separator:ga22f903e57ab06c599ddecae8cfebc005"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaa1e52694559ad873f33b62ada4c45675"><td class="memTemplParams" colspan="2">template&lt;typename Fn &gt; <br />
 requires (!utils::is_not_template_callable&lt;Fn&gt; || !std::same_as&lt;void, std::invoke_result_t&lt;Fn, utils::convertible_to_any&gt;&gt;)</td></tr>
 <tr class="memitem:gaa1e52694559ad873f33b62ada4c45675"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__transforming__operators.html#gaa1e52694559ad873f33b62ada4c45675">rpp::operators::map</a> (Fn &amp;&amp;callable)</td></tr>
@@ -167,6 +172,110 @@ requires (!utils::is_not_template_callable&lt;Fn&gt; || <a class="el" href="conc
 
 </div>
 </div>
+<a id="ga22f903e57ab06c599ddecae8cfebc005" name="ga22f903e57ab06c599ddecae8cfebc005"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga22f903e57ab06c599ddecae8cfebc005">&#9670;&#160;</a></span>group_by()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename KeySelector , typename ValueSelector  = std::identity, typename KeyComparator  = rpp::utils::less&gt; <br />
+requires ( (!utils::is_not_template_callable&lt;KeySelector&gt; || !std::same_as&lt;void, std::invoke_result_t&lt;KeySelector, utils::convertible_to_any&gt;&gt;) &amp;&amp; (!utils::is_not_template_callable&lt;ValueSelector&gt; || !std::same_as&lt;void, std::invoke_result_t&lt;ValueSelector, utils::convertible_to_any&gt;&gt;) &amp;&amp; (!utils::is_not_template_callable&lt;KeyComparator&gt; || std::strict_weak_order&lt;KeyComparator, utils::convertible_to_any, utils::convertible_to_any&gt;) )</div>
+      <table class="memname">
+        <tr>
+          <td class="memname">auto rpp::operators::group_by </td>
+          <td>(</td>
+          <td class="paramtype">KeySelector &amp;&amp;&#160;</td>
+          <td class="paramname"><em>key_selector</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ValueSelector &amp;&amp;&#160;</td>
+          <td class="paramname"><em>value_selector</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">KeyComparator &amp;&amp;&#160;</td>
+          <td class="paramname"><em>comparator</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Divide original observable into multiple observables where each new observable emits some group of values from original observable. </p>
+<div class="image">
+<object type="image/svg+xml" data="group_by.svg" style="pointer-events: none;"></object>
+</div>
+<p>Actually this operator applies <code>key_selector</code> to emission to obtain key, place <a class="el" href="classrpp_1_1grouped__observable.html" title="Extension over raw observable which also has get_key() member function. Used in group_by operator to ...">rpp::grouped_observable</a> to map with corresponding map and then send observable with this key (if not yet). Original values emitted via this grouped_observables</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">key_selector</td><td>Function which determines key for provided item </td></tr>
+    <tr><td class="paramname">value_selector</td><td>Function which determines value to be emitted to grouped observable </td></tr>
+    <tr><td class="paramname">comparator</td><td>Function to provide strict_weak_order between key types</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="group__by_8hpp_source.html">rpp/operators/group_by.hpp</a>&gt;</dd></dl>
+<dl class="section user"><dt>Example:</dt><dd><div class="fragment"><div class="line">    <a class="code hl_function" href="group__creational__operators.html#gae60bdb9b493443d2786b0eee8bfe17ab">rpp::source::just</a>(1, 2, 3, 4, 5, 6, 7, 8)</div>
+<div class="line">        | rpp::ops::group_by([](<span class="keywordtype">int</span>   v) { <span class="keywordflow">return</span> v % 2 == 0; })</div>
+<div class="line">        | rpp::ops::subscribe([](<span class="keyword">auto</span> <a class="code hl_class" href="classrpp_1_1grouped__observable.html">grouped_observable</a>)</div>
+<div class="line">        {</div>
+<div class="line">            <span class="keyword">auto</span> key = <a class="code hl_class" href="classrpp_1_1grouped__observable.html">grouped_observable</a>.get_key();</div>
+<div class="line">            std::cout &lt;&lt; <span class="stringliteral">&quot;new grouped observable &quot;</span> &lt;&lt; key &lt;&lt; std::endl;</div>
+<div class="line">            <a class="code hl_class" href="classrpp_1_1grouped__observable.html">grouped_observable</a>.<a class="code hl_function" href="classrpp_1_1observable.html#a193b0e08c516912c04afd8379ec27182">subscribe</a>([key](<span class="keywordtype">int</span> val)</div>
+<div class="line">            {</div>
+<div class="line">                std::cout &lt;&lt; <span class="stringliteral">&quot;key [&quot;</span> &lt;&lt; key &lt;&lt; <span class="stringliteral">&quot;] Val: &quot;</span> &lt;&lt; val &lt;&lt; std::endl;</div>
+<div class="line">            });</div>
+<div class="line">        });</div>
+<div class="line">    <span class="comment">// Output: new grouped observable 0</span></div>
+<div class="line">    <span class="comment">//         key [0] Val: 1</span></div>
+<div class="line">    <span class="comment">//         new grouped observable 1</span></div>
+<div class="line">    <span class="comment">//         key [1] Val: 2</span></div>
+<div class="line">    <span class="comment">//         key [0] Val: 3</span></div>
+<div class="line">    <span class="comment">//         key [1] Val: 4</span></div>
+<div class="line">    <span class="comment">//         key [0] Val: 5</span></div>
+<div class="line">    <span class="comment">//         key [1] Val: 6</span></div>
+<div class="line">    <span class="comment">//         key [0] Val: 7</span></div>
+<div class="line">    <span class="comment">//         key [1] Val: 8</span></div>
+<div class="ttc" id="aclassrpp_1_1grouped__observable_html"><div class="ttname"><a href="classrpp_1_1grouped__observable.html">rpp::grouped_observable</a></div><div class="ttdoc">Extension over raw observable which also has get_key() member function. Used in group_by operator to ...</div><div class="ttdef"><b>Definition</b> grouped_observable.hpp:18</div></div>
+<div class="ttc" id="aclassrpp_1_1observable_html_a193b0e08c516912c04afd8379ec27182"><div class="ttname"><a href="classrpp_1_1observable.html#a193b0e08c516912c04afd8379ec27182">rpp::observable::subscribe</a></div><div class="ttdeci">void subscribe(observer&lt; Type, ObserverStrategy &gt; &amp;&amp;observer) const</div><div class="ttdoc">Subscribes passed observer to emissions from this observable.</div><div class="ttdef"><b>Definition</b> observable.hpp:56</div></div>
+<div class="ttc" id="agroup__creational__operators_html_gae60bdb9b493443d2786b0eee8bfe17ab"><div class="ttname"><a href="group__creational__operators.html#gae60bdb9b493443d2786b0eee8bfe17ab">rpp::source::just</a></div><div class="ttdeci">auto just(const TScheduler &amp;scheduler, T &amp;&amp;item, Ts &amp;&amp;...items)</div><div class="ttdoc">Creates rpp::observable that emits a particular items and completes.</div><div class="ttdef"><b>Definition</b> from.hpp:195</div></div>
+</div><!-- fragment --> <div class="fragment"><div class="line">    <span class="keyword">struct </span>Person</div>
+<div class="line">    {</div>
+<div class="line">        std::string name;</div>
+<div class="line">        <span class="keywordtype">int</span> age;</div>
+<div class="line">    };</div>
+<div class="line">    <a class="code hl_function" href="group__creational__operators.html#gae60bdb9b493443d2786b0eee8bfe17ab">rpp::source::just</a>(Person{<span class="stringliteral">&quot;Kate&quot;</span>, 18},</div>
+<div class="line">                      Person{<span class="stringliteral">&quot;Alex&quot;</span>, 25},</div>
+<div class="line">                      Person{<span class="stringliteral">&quot;Nick&quot;</span>, 18},</div>
+<div class="line">                      Person{<span class="stringliteral">&quot;Jack&quot;</span>, 25},</div>
+<div class="line">                      Person{<span class="stringliteral">&quot;Tom&quot;</span>, 30},</div>
+<div class="line">                      Person{<span class="stringliteral">&quot;Vanda&quot;</span>, 18})</div>
+<div class="line">        | rpp::ops::group_by([](<span class="keyword">const</span> Person&amp; v) { <span class="keywordflow">return</span> v.age; }, [](<span class="keyword">const</span> Person&amp; v) { <span class="keywordflow">return</span> v.name; })</div>
+<div class="line">        | rpp::ops::subscribe([](<span class="keyword">auto</span> grouped_observable)</div>
+<div class="line">        {</div>
+<div class="line">            grouped_observable.subscribe([age = grouped_observable.get_key()](<span class="keyword">const</span> std::string&amp; name)</div>
+<div class="line">            {</div>
+<div class="line">                std::cout &lt;&lt; <span class="stringliteral">&quot;Age [&quot;</span> &lt;&lt; age &lt;&lt; <span class="stringliteral">&quot;] Name: &quot;</span> &lt;&lt; name &lt;&lt; std::endl;</div>
+<div class="line">            });</div>
+<div class="line">        });</div>
+<div class="line"> </div>
+<div class="line">    <span class="comment">// Output: Age [18] Name: Kate</span></div>
+<div class="line">    <span class="comment">//         Age [25] Name: Alex</span></div>
+<div class="line">    <span class="comment">//         Age [18] Name: Nick</span></div>
+<div class="line">    <span class="comment">//         Age [25] Name: Jack</span></div>
+<div class="line">    <span class="comment">//         Age [30] Name: Tom</span></div>
+<div class="line">    <span class="comment">//         Age [18] Name: Vanda</span></div>
+</div><!-- fragment --></dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/groupby.html">https://reactivex.io/documentation/operators/groupby.html</a> </dd></dl>
+
+</div>
+</div>
 <a id="gaa1e52694559ad873f33b62ada4c45675" name="gaa1e52694559ad873f33b62ada4c45675"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#gaa1e52694559ad873f33b62ada4c45675">&#9670;&#160;</a></span>map()</h2>
 
@@ -208,7 +317,6 @@ requires (!utils::is_not_template_callable&lt;Fn&gt; || !std::same_as&lt;void, s
 <div class="line">        | <a class="code hl_function" href="group__transforming__operators.html#gaa1e52694559ad873f33b62ada4c45675">rpp::operators::map</a>([](<span class="keywordtype">int</span> value) { <span class="keywordflow">return</span> value + 10; })</div>
 <div class="line">        | <a class="code hl_function" href="group__utility__operators.html#ga149309d4b2e0f1201f1ab42597ace8ac">rpp::operators::subscribe</a>([](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; v &lt;&lt; std::endl; });</div>
 <div class="line">    <span class="comment">// Output: 52</span></div>
-<div class="ttc" id="agroup__creational__operators_html_gae60bdb9b493443d2786b0eee8bfe17ab"><div class="ttname"><a href="group__creational__operators.html#gae60bdb9b493443d2786b0eee8bfe17ab">rpp::source::just</a></div><div class="ttdeci">auto just(const TScheduler &amp;scheduler, T &amp;&amp;item, Ts &amp;&amp;...items)</div><div class="ttdoc">Creates rpp::observable that emits a particular items and completes.</div><div class="ttdef"><b>Definition</b> from.hpp:195</div></div>
 <div class="ttc" id="agroup__transforming__operators_html_gaa1e52694559ad873f33b62ada4c45675"><div class="ttname"><a href="group__transforming__operators.html#gaa1e52694559ad873f33b62ada4c45675">rpp::operators::map</a></div><div class="ttdeci">auto map(Fn &amp;&amp;callable)</div><div class="ttdoc">Transforms the items emitted by an Observable via applying a function to each item and emitting resul...</div><div class="ttdef"><b>Definition</b> map.hpp:79</div></div>
 <div class="ttc" id="agroup__utility__operators_html_ga149309d4b2e0f1201f1ab42597ace8ac"><div class="ttname"><a href="group__utility__operators.html#ga149309d4b2e0f1201f1ab42597ace8ac">rpp::operators::subscribe</a></div><div class="ttdeci">auto subscribe(observer&lt; Type, ObserverStrategy &gt; &amp;&amp;observer)</div><div class="ttdoc">Subscribes passed observer to emissions from this observable.</div><div class="ttdef"><b>Definition</b> subscribe.hpp:152</div></div>
 </div><!-- fragment --></dd></dl>
