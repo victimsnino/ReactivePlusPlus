@@ -39,61 +39,15 @@ public:
 private:
     TObserver          m_observer;
     std::mutex         m_mutex{};
-    std::atomic_size_t m_on_completed_needed{};
+    std::atomic_size_t m_on_completed_needed{1};
 };
 
 template<rpp::constraint::observer TObserver>
-struct merge_observer_inner_strategy
+struct merge_observer_base_strategy
 {
-    std::shared_ptr<merge_disposable<TObserver>> disposable;
-
-    void set_upstream(const rpp::disposable_wrapper& d) const
-    {
-        disposable->add(d.get_original());
-    }
-
-    bool is_disposed() const
-    {
-        return disposable->is_disposed() || disposable->get_observer().is_disposed();
-    }
-
-    template<typename T>
-    void on_next(T&& v) const
-    {
-        auto lock = disposable->lock_guard();
-        disposable->get_observer().on_next(std::forward<T>(v));
-    }
-
-    void on_error(const std::exception_ptr& err) const
-    {
-        disposable->dispose();
-
-        auto lock = disposable->lock_guard();
-        disposable->get_observer().on_error(err);
-    }
-
-    void on_completed() const
-    {
-        if (disposable->decrement_on_completed())
-        {
-            disposable->dispose();
-
-            auto lock = disposable->lock_guard();
-            disposable->get_observer().on_completed();
-        }
-    }
-};
-
-template<rpp::constraint::observer TObserver>
-class merge_observer_strategy
-{
-public:
-    explicit merge_observer_strategy(TObserver&& observer)
-        : m_disposable{std::make_shared<merge_disposable<TObserver>>(std::move(observer))}
-    {
-        m_disposable->get_observer().set_upstream(disposable_wrapper::from_weak(m_disposable));
-        m_disposable->increment_on_completed();
-    }
+    merge_observer_base_strategy(std::shared_ptr<merge_disposable<TObserver>> disposable)
+        : m_disposable{std::move(disposable)}
+    {}
 
     void set_upstream(const rpp::disposable_wrapper& d) const
     {
@@ -103,13 +57,6 @@ public:
     bool is_disposed() const
     {
         return m_disposable->is_disposed() || m_disposable->get_observer().is_disposed();
-    }
-
-    template<typename T>
-    void on_next(T&& v) const
-    {
-        m_disposable->increment_on_completed();
-        std::forward<T>(v).subscribe(rpp::observer<rpp::utils::extract_observer_type_t<TObserver>, merge_observer_inner_strategy<TObserver>>{m_disposable});
     }
 
     void on_error(const std::exception_ptr& err) const
@@ -130,8 +77,40 @@ public:
             m_disposable->get_observer().on_completed();
         }
     }
-private:
-    std::shared_ptr<merge_disposable<TObserver>> m_disposable{};
+
+protected:
+    std::shared_ptr<merge_disposable<TObserver>> m_disposable;
+};
+
+template<rpp::constraint::observer TObserver>
+struct merge_observer_inner_strategy final : public merge_observer_base_strategy<TObserver>
+{
+    using merge_observer_base_strategy<TObserver>::merge_observer_base_strategy;
+
+    template<typename T>
+    void on_next(T&& v) const
+    {
+        auto lock = merge_observer_base_strategy<TObserver>::m_disposable->lock_guard();
+        merge_observer_base_strategy<TObserver>::m_disposable->get_observer().on_next(std::forward<T>(v));
+    }
+};
+
+template<rpp::constraint::observer TObserver>
+class merge_observer_strategy final : public merge_observer_base_strategy<TObserver> 
+{
+public:
+    explicit merge_observer_strategy(TObserver&& observer)
+        : merge_observer_base_strategy<TObserver>{std::make_shared<merge_disposable<TObserver>>(std::move(observer))}
+    {
+        merge_observer_base_strategy<TObserver>::m_disposable->get_observer().set_upstream(disposable_wrapper::from_weak(merge_observer_base_strategy<TObserver>::m_disposable));
+    }
+
+    template<typename T>
+    void on_next(T&& v) const
+    {
+        merge_observer_base_strategy<TObserver>::m_disposable->increment_on_completed();
+        std::forward<T>(v).subscribe(rpp::observer<rpp::utils::extract_observer_type_t<TObserver>, merge_observer_inner_strategy<TObserver>>{merge_observer_inner_strategy<TObserver>{merge_observer_base_strategy<TObserver>::m_disposable}});
+    }
 };
 
 struct merge_t
