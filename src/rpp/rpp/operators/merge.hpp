@@ -23,108 +23,93 @@
 
 namespace rpp::operators::details
 {
-template<typename Lock>
+template<rpp::constraint::observer TObserver>
 class merge_disposable final : public composite_disposable
 {
 public:
-    std::lock_guard<Lock> lock_guard() { return std::lock_guard<Lock>{m_lock}; }
+    merge_disposable(TObserver&& observer) : m_observer(std::move(observer)) {}
+
+    std::lock_guard<std::mutex> lock_guard() { return std::lock_guard<std::mutex>{m_mutex}; }
 
     void increment_on_completed() { m_on_completed_needed.fetch_add(1, std::memory_order_relaxed); }
     bool decrement_on_completed() { return m_on_completed_needed.fetch_sub(1, std::memory_order::acq_rel) == 1; }
 
+    TObserver& get_observer() { return m_observer; }
+
 private:
-    Lock               m_lock{};
-    std::atomic_size_t m_on_completed_needed{};
+    TObserver          m_observer;
+    std::mutex         m_mutex{};
+    std::atomic_size_t m_on_completed_needed{1};
 };
 
-struct merge_observer_inner_strategy
+template<rpp::constraint::observer TObserver>
+struct merge_observer_base_strategy
 {
-    std::shared_ptr<merge_disposable<std::mutex>> disposable;
+    merge_observer_base_strategy(std::shared_ptr<merge_disposable<TObserver>> disposable)
+        : m_disposable{std::move(disposable)}
+    {}
 
-    static constexpr empty_on_subscribe on_subscribe{};
-
-    void set_upstream(const rpp::constraint::observer auto&, const rpp::disposable_wrapper& d) const
+    void set_upstream(const rpp::disposable_wrapper& d) const
     {
-        disposable->add(d.get_original());
+        m_disposable->add(d.get_original());
     }
 
-    bool is_disposed(const rpp::constraint::observer auto& obs) const
+    bool is_disposed() const
     {
-        return disposable->is_disposed() || obs.is_disposed();
+        return m_disposable->is_disposed() || m_disposable->get_observer().is_disposed();
+    }
+
+    void on_error(const std::exception_ptr& err) const
+    {
+        m_disposable->dispose();
+
+        auto lock = m_disposable->lock_guard();
+        m_disposable->get_observer().on_error(err);
+    }
+
+    void on_completed() const
+    {
+        if (m_disposable->decrement_on_completed())
+        {
+            m_disposable->dispose();
+
+            auto lock = m_disposable->lock_guard();
+            m_disposable->get_observer().on_completed();
+        }
+    }
+
+protected:
+    std::shared_ptr<merge_disposable<TObserver>> m_disposable;
+};
+
+template<rpp::constraint::observer TObserver>
+struct merge_observer_inner_strategy final : public merge_observer_base_strategy<TObserver>
+{
+    using merge_observer_base_strategy<TObserver>::merge_observer_base_strategy;
+
+    template<typename T>
+    void on_next(T&& v) const
+    {
+        auto lock = merge_observer_base_strategy<TObserver>::m_disposable->lock_guard();
+        merge_observer_base_strategy<TObserver>::m_disposable->get_observer().on_next(std::forward<T>(v));
+    }
+};
+
+template<rpp::constraint::observer TObserver>
+class merge_observer_strategy final : public merge_observer_base_strategy<TObserver> 
+{
+public:
+    explicit merge_observer_strategy(TObserver&& observer)
+        : merge_observer_base_strategy<TObserver>{std::make_shared<merge_disposable<TObserver>>(std::move(observer))}
+    {
+        merge_observer_base_strategy<TObserver>::m_disposable->get_observer().set_upstream(disposable_wrapper::from_weak(merge_observer_base_strategy<TObserver>::m_disposable));
     }
 
     template<typename T>
-    void on_next(const rpp::constraint::observer auto& obs, T&& v) const
+    void on_next(T&& v) const
     {
-        auto lock = disposable->lock_guard();
-        obs.on_next(std::forward<T>(v));
-    }
-
-    void on_error(const rpp::constraint::observer auto & obs, const std::exception_ptr& err) const
-    {
-        disposable->dispose();
-
-        auto lock = disposable->lock_guard();
-        obs.on_error(err);
-    }
-
-    void on_completed(const rpp::constraint::observer auto& obs) const
-    {
-        if (disposable->decrement_on_completed())
-        {
-            disposable->dispose();
-
-            auto lock = disposable->lock_guard();
-            obs.on_completed();
-        }
-    }
-};
-
-template<rpp::constraint::decayed_type Value>
-struct merge_observer_strategy
-{
-    std::shared_ptr<merge_disposable<std::mutex>> disposable = std::make_shared<merge_disposable<std::mutex>>();
-
-    void on_subscribe(rpp::constraint::observer auto& obs) const
-    {
-        disposable->increment_on_completed();
-        obs.set_upstream(disposable_wrapper::from_weak(disposable));
-    }
-
-    void set_upstream(const rpp::constraint::observer auto&, const rpp::disposable_wrapper& d) const
-    {
-        disposable->add(d.get_original());
-    }
-
-    bool is_disposed(const rpp::constraint::observer auto& obs) const
-    {
-        return disposable->is_disposed() || obs.is_disposed();
-    }
-
-    template<rpp::constraint::observer TObs, typename T>
-    void on_next(TObs&& obs, T&& v) const
-    {
-        disposable->increment_on_completed();
-        std::forward<T>(v).subscribe(rpp::observer<Value, operator_strategy_base<Value, std::decay_t<TObs>, merge_observer_inner_strategy>>{std::forward<TObs>(obs), disposable});
-    }
-
-    void on_error(const rpp::constraint::observer auto & obs, const std::exception_ptr& err) const
-    {
-        disposable->dispose();
-
-        auto lock = disposable->lock_guard();
-        obs.on_error(err);
-    }
-
-    void on_completed(const rpp::constraint::observer auto& obs) const
-    {
-        if (disposable->decrement_on_completed())
-        {
-            disposable->dispose();
-
-            auto lock = disposable->lock_guard();
-            obs.on_completed();
-        }
+        merge_observer_base_strategy<TObserver>::m_disposable->increment_on_completed();
+        std::forward<T>(v).subscribe(rpp::observer<rpp::utils::extract_observer_type_t<TObserver>, merge_observer_inner_strategy<TObserver>>{merge_observer_inner_strategy<TObserver>{merge_observer_base_strategy<TObserver>::m_disposable}});
     }
 };
 
@@ -141,9 +126,8 @@ struct merge_t
         auto drain_on_exit = rpp::schedulers::current_thread::own_queue_and_drain_finally_if_not_owned();
 
         using InnerObservable = typename observable_chain_strategy<Strategies...>::ValueType;
-        using Value = rpp::utils::extract_observable_type_t<InnerObservable>;
 
-        strategy.subscribe(rpp::observer<InnerObservable, operator_strategy_base<InnerObservable, rpp::dynamic_observer<Value>, merge_observer_strategy<Value>>>{std::forward<Observer>(observer).as_dynamic()});
+        strategy.subscribe(rpp::observer<InnerObservable, merge_observer_strategy<std::decay_t<Observer>>>{std::forward<Observer>(observer)});
     }
 
 };
@@ -160,26 +144,21 @@ struct merge_with_t
     template<rpp::constraint::observer Observer, typename... Strategies>
     void subscribe(Observer&& observer, const observable_chain_strategy<Strategies...>& observable_strategy) const
     {
-        using Value = typename observable_chain_strategy<Strategies...>::ValueType;
-
-        auto obs_as_dynamic = std::forward<Observer>(observer).as_dynamic();
-
-        merge_observer_strategy<Value> strategy{};
+        merge_observer_strategy<std::decay_t<Observer>> strategy{std::forward<Observer>(observer)};
 
         // Need to take ownership over current_thread in case of inner-observables also uses them
         auto drain_on_exit = rpp::schedulers::current_thread::own_queue_and_drain_finally_if_not_owned();
 
-        strategy.on_subscribe(obs_as_dynamic);
-        strategy.on_next(obs_as_dynamic, observable_strategy);
-        observables.apply(&apply<decltype(obs_as_dynamic), Value>, strategy, obs_as_dynamic);
-        strategy.on_completed(obs_as_dynamic);
+        strategy.on_next(observable_strategy);
+        observables.apply(&apply<std::decay_t<Observer>>, strategy);
+        strategy.on_completed();
     }
 
 private:
-    template<rpp::constraint::observer Observer, typename Value>
-    static void apply(const merge_observer_strategy<Value>& strategy, const Observer& obs_as_dynamic, const TObservables& ...observables)
+    template<rpp::constraint::observer Observer>
+    static void apply(const merge_observer_strategy<Observer>& strategy, const TObservables& ...observables)
     {
-        (strategy.on_next(obs_as_dynamic, observables), ...);
+        (strategy.on_next(observables), ...);
     }
 };
 }
