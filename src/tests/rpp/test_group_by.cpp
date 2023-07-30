@@ -170,92 +170,95 @@ TEST_CASE("group_by keeps subscription till anyone subscribed")
     }
 }
 
-// TEST_CASE("group_by selectors affects types", "[group_by]")
-// {
-//     SECTION("observable")
-//     {
-//         auto obs = rpp::observable::just(1,2,3,1,2,3);
-//         SECTION("subscribe on it via group_by with const key selector")
-//         {
-//             std::vector<int> keys{};
-//             obs.group_by([](int){return 1;}).subscribe([&](const auto& grouped)
-//             {
-//                 keys.push_back(grouped.get_key());
-//             });
+TEST_CASE("group_by selectors affects types", "[group_by]")
+{
+    auto obs = rpp::source::just(1,2,3,1,2,3);
+    SECTION("subscribe on observable via group_by with const key selector")
+    {
+        std::vector<int> keys{};
+        obs | rpp::ops::group_by([](int){return 1;})
+            | rpp::ops::subscribe([&](const auto& grouped)
+        {
+            keys.push_back(grouped.get_key());
+        });
 
-//             SECTION("only one unique key obtained")
-//             {
-//                 REQUIRE(keys == std::vector{1});
-//             }
-//         }
-//         SECTION("subscribe on it via group_by with identity key selector")
-//         {
-//             std::vector<int> keys{};
-//             obs.group_by(std::identity{}).subscribe([&](const auto& grouped)
-//             {
-//                 keys.push_back(grouped.get_key());
-//             });
+        SECTION("only one unique key obtained")
+        {
+            REQUIRE(keys == std::vector{1});
+        }
+    }
+    SECTION("subscribe on observable via group_by with identity key selector")
+    {
+        std::vector<int> keys{};
+        obs | rpp::ops::group_by(std::identity{}) 
+            | rpp::ops::subscribe([&](const auto& grouped)
+        {
+            keys.push_back(grouped.get_key());
+        });
 
-//             SECTION("all values obtained as keys")
-//             {
-//                 REQUIRE(keys == std::vector{1,2,3});
-//             }
-//         }
-//         SECTION("subscribe on it via group_by with value selector")
-//         {
-//             auto mock = mock_observer_strategy<std::string>{};
-//             obs.group_by(std::identity{}, [](int v){return std::to_string(v);}).subscribe([&](const auto& grouped)
-//             {
-//                 grouped.subscribe(mock);
-//             });
+        SECTION("all values obtained as keys")
+        {
+            REQUIRE(keys == std::vector{1,2,3});
+        }
+    }
+    SECTION("subscribe on observable via group_by with value selector")
+    {
+        auto mock = mock_observer_strategy<std::string>{};
+        obs | rpp::ops::group_by(std::identity{}, [](int v){return std::to_string(v);}) 
+            | rpp::ops::subscribe([&](const auto& grouped)
+        {
+            grouped.subscribe(mock.get_observer());
+        });
 
-//             SECTION("grouped observables provides modified values")
-//             {
-//                 using namespace std::string_literals;
+        SECTION("grouped observables provides modified values")
+        {
+            using namespace std::string_literals;
 
-//                 REQUIRE(mock.get_received_values() == std::vector{"1"s, "2"s, "3"s, "1"s, "2"s, "3"s});
-//             }
-//         }
-//         SECTION("subscribe on it via group_by with custom comparator")
-//         {
-//             std::vector<int> keys{};
-//             obs.group_by(std::identity{},
-//                         std::identity{},
-//                         [](int f, int s)
-//                         {
-//                             return f % 2 < s %2;
-//                         }).subscribe([&](const auto& grouped)
-//             {
-//                 keys.push_back(grouped.get_key());
-//             });
+            REQUIRE(mock.get_received_values() == std::vector{"1"s, "2"s, "3"s, "1"s, "2"s, "3"s});
+        }
+    }
+    SECTION("subscribe on observable via group_by with custom comparator")
+    {
+        std::vector<int> keys{};
+        obs | rpp::ops::group_by(std::identity{},
+                    std::identity{},
+                    [](int f, int s)
+                    {
+                        return f % 2 < s %2;
+                    }) 
+            | rpp::ops::subscribe([&](const auto& grouped)
+        {
+            keys.push_back(grouped.get_key());
+        });
 
-//             SECTION("only 2 types of keys interpreted as unique")
-//             {
-//                 REQUIRE(keys == std::vector{1,2});
-//             }
-//         }
-//         auto mock = mock_observer_strategy<rpp::grouped_observable_group_by<int, int>>{};
+        SECTION("only 2 types of keys interpreted as unique")
+        {
+            REQUIRE(keys == std::vector{1,2});
+        }
+    }
+    auto mock = mock_observer_strategy<rpp::grouped_observable_group_by<int, int>>{};
 
-//         SECTION("subscribe on it via group_by with key selector with exception")
-//         {
-//             obs.group_by([](int) -> int {throw std::runtime_error{""};}).subscribe(mock);
-//             SECTION("on_error obtained once")
-//             {
-//                 REQUIRE(mock.get_total_on_next_count() == 0);
-//                 REQUIRE(mock.get_on_error_count() == 1);
-//                 REQUIRE(mock.get_on_completed_count() == 0);
-//             }
-//         }
+    SECTION("subscribe on observable via group_by with key selector with exception")
+    {
+        obs | rpp::ops::group_by([](int) -> int {throw std::runtime_error{""};}) 
+            | rpp::ops::subscribe(mock.get_observer());
+        SECTION("on_error obtained once")
+        {
+            REQUIRE(mock.get_total_on_next_count() == 0);
+            REQUIRE(mock.get_on_error_count() == 1);
+            REQUIRE(mock.get_on_completed_count() == 0);
+        }
+    }
 
-//         SECTION("subscribe on it via group_by with value selector with exception")
-//         {
-//             obs.group_by(std::identity{}, [](int) -> int {throw std::runtime_error{""};}).subscribe(mock);
-//             SECTION("on_error obtained once")
-//             {
-//                 REQUIRE(mock.get_total_on_next_count() == 1);
-//                 REQUIRE(mock.get_on_error_count() == 1);
-//                 REQUIRE(mock.get_on_completed_count() == 0);
-//             }
-//         }
-//     }
-// }
+    SECTION("subscribe on observable via group_by with value selector with exception")
+    {
+        obs | rpp::ops::group_by(std::identity{}, [](int) -> int {throw std::runtime_error{""};}) 
+            | rpp::ops::subscribe(mock.get_observer());
+        SECTION("on_error obtained once")
+        {
+            REQUIRE(mock.get_total_on_next_count() == 1);
+            REQUIRE(mock.get_on_error_count() == 1);
+            REQUIRE(mock.get_on_completed_count() == 0);
+        }
+    }
+}
