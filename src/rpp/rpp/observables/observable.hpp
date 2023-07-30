@@ -36,7 +36,7 @@ namespace rpp
  * @ingroup observables
  */
 template<constraint::decayed_type Type, constraint::observable_strategy<Type> Strategy>
-class observable final
+class observable
 {
 public:
     template<typename ...Args>

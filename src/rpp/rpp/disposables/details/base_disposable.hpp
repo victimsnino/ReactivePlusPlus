@@ -17,7 +17,7 @@
 
 namespace rpp::details
 {
-class base_disposable  : public interface_disposable
+class base_disposable : public interface_disposable
 {
 public:
     base_disposable()                           = default;

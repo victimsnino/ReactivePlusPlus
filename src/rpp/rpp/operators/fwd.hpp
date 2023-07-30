@@ -29,6 +29,17 @@ template<typename Fn>
     requires (!utils::is_not_template_callable<Fn> || std::same_as<bool, std::invoke_result_t<Fn, utils::convertible_to_any>>)
 auto filter(Fn&& predicate);
 
+template<typename KeySelector,
+         typename ValueSelector = std::identity,
+         typename KeyComparator = rpp::utils::less>
+    requires 
+    (
+        (!utils::is_not_template_callable<KeySelector> || !std::same_as<void, std::invoke_result_t<KeySelector, utils::convertible_to_any>>) &&
+        (!utils::is_not_template_callable<ValueSelector> || !std::same_as<void, std::invoke_result_t<ValueSelector, utils::convertible_to_any>>) &&
+        (!utils::is_not_template_callable<KeyComparator> || std::strict_weak_order<KeyComparator, utils::convertible_to_any, utils::convertible_to_any>)
+    )
+auto group_by(KeySelector&& key_selector, ValueSelector&& value_selector = {}, KeyComparator&& comparator = {});
+
 auto last();
 
 template<typename Fn>

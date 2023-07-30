@@ -26,14 +26,14 @@
 
 namespace rpp::operators::details::constraint
 {
-template<typename S, typename Type>
+template<typename S, typename ObservableType, typename ObserverType>
 concept operator_strategy = requires(const S& const_strategy,
                                      S& strategy,
-                                     const Type& v,
-                                     Type&& mv,
+                                     const ObservableType& v,
+                                     ObservableType&& mv,
                                      const disposable_wrapper disposable,
-                                     const rpp::details::fake_observer<Type>& const_observer,
-                                     rpp::details::fake_observer<Type>& observer)
+                                     const rpp::details::fake_observer<ObserverType>& const_observer,
+                                     rpp::details::fake_observer<ObserverType>& observer)
 {
     const_strategy.on_subscribe(observer);
 
@@ -43,15 +43,15 @@ concept operator_strategy = requires(const S& const_strategy,
     const_strategy.on_completed(observer);
 
     strategy.set_upstream(observer, disposable);
-    { strategy.is_disposed() } -> std::same_as<bool>;
+    { strategy.is_disposed(const_observer) } -> std::same_as<bool>;
 };
 }
 namespace rpp::operators::details
 {
-template<rpp::constraint::decayed_type T, rpp::constraint::observer TObs, constraint::operator_strategy<rpp::utils::extract_observer_type_t<TObs>> Strategy>
+template<rpp::constraint::decayed_type T, rpp::constraint::observer TObs, constraint::operator_strategy<T, rpp::utils::extract_observer_type_t<TObs>> Strategy>
 class operator_strategy_base;
 
-template<rpp::constraint::decayed_type T, rpp::constraint::decayed_type TT, rpp::constraint::observer_strategy<TT> ObserverStrategy, constraint::operator_strategy<TT> Strategy>
+template<rpp::constraint::decayed_type T, rpp::constraint::decayed_type TT, rpp::constraint::observer_strategy<TT> ObserverStrategy, constraint::operator_strategy<T, TT> Strategy>
 class operator_strategy_base<T, rpp::observer<TT, ObserverStrategy>, Strategy>
 {
 public:
@@ -78,7 +78,7 @@ public:
     ~operator_strategy_base() noexcept = default;
 
     void set_upstream(const disposable_wrapper& d)     { m_strategy.set_upstream(m_observer, d); }
-    bool is_disposed() const                           { return m_strategy.is_disposed() || m_observer.is_disposed(); }
+    bool is_disposed() const                           { return m_strategy.is_disposed(m_observer); }
 
     void on_next(const T& v) const                     { m_strategy.on_next(m_observer, v); }
     void on_next(T&& v) const                          { m_strategy.on_next(m_observer, std::move(v)); }
@@ -123,7 +123,7 @@ struct forwarding_set_upstream_strategy
 
 struct forwarding_is_disposed_strategy
 {
-    bool operator()() const {return false; }
+    bool operator()(const rpp::constraint::observer auto& obs) const { return obs.is_disposed(); }
 };
 
 struct empty_on_subscribe

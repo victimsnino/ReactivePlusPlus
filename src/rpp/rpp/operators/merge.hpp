@@ -48,9 +48,9 @@ struct merge_observer_inner_strategy
         disposable->add(d.get_original());
     }
 
-    bool is_disposed() const
+    bool is_disposed(const rpp::constraint::observer auto& obs) const
     {
-        return disposable->is_disposed();
+        return disposable->is_disposed() || obs.is_disposed();
     }
 
     template<typename T>
@@ -96,9 +96,9 @@ struct merge_observer_strategy
         disposable->add(d.get_original());
     }
 
-    bool is_disposed() const
+    bool is_disposed(const rpp::constraint::observer auto& obs) const
     {
-        return disposable->is_disposed();
+        return disposable->is_disposed() || obs.is_disposed();
     }
 
     template<rpp::constraint::observer TObs, typename T>

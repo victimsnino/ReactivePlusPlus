@@ -53,4 +53,10 @@ struct return_true
 {
     bool operator()() const {return true;}
 };
+
+struct less
+{
+    template<typename T>
+    bool operator()(const T& l, const T& r) const { return l < r; }
+};
 } // namespace rpp::utils
