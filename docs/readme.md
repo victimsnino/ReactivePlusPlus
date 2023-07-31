@@ -2,6 +2,8 @@
 
 ## Introduction
 
+I'm highly recommend to read this article: [The introduction to Reactive Programming you've been missing](https://gist.github.com/staltz/868e7e9bc2a7b8c1f754)
+
 ### What is Reactive Programming?
 
 **Reactive programming** is a *design paradigm* that focuses on building applications that can efficiently respond to asynchronous **events**.
