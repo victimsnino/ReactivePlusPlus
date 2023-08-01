@@ -64,7 +64,7 @@ namespace rpp::schedulers
  * - "Task 4"
  * 
  * @par How to use it properly?
- * To have any visible impact you need to use it at least **twice** during same observable. For example, `rpp::source::just` source uses it as default scheduler as well as `rpp::operators::subscribe_on` operator.
+ * To have any visible impact you need to use it at least **twice** during same observable. For example, `rpp::source::just` source uses it as default scheduler as well as `rpp::operators::merge` operator (which just "owns" it during subscription).
  *
  * For example, this one
  * ```cpp
