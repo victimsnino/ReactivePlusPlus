@@ -45,8 +45,12 @@ private:
 template<rpp::constraint::observer TObserver>
 struct merge_observer_base_strategy
 {
-    merge_observer_base_strategy(std::shared_ptr<merge_disposable<TObserver>> disposable)
+    merge_observer_base_strategy(std::shared_ptr<merge_disposable<TObserver>>&& disposable)
         : m_disposable{std::move(disposable)}
+    {}
+
+    merge_observer_base_strategy(const std::shared_ptr<merge_disposable<TObserver>>& disposable)
+        : m_disposable{disposable}
     {}
 
     void set_upstream(const rpp::disposable_wrapper& d) const
