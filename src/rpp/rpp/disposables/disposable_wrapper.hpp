@@ -36,9 +36,15 @@ class disposable_wrapper_impl
     }
 
 public:
-    disposable_wrapper_impl(std::shared_ptr<TDisposable> disposable = {})
+    disposable_wrapper_impl(std::shared_ptr<TDisposable>&& disposable = {})
         requires std::derived_from<TDisposable, interface_disposable>
     : m_disposable{std::move(disposable)}
+    {
+    }
+
+    disposable_wrapper_impl(const std::shared_ptr<TDisposable>& disposable)
+        requires std::derived_from<TDisposable, interface_disposable>
+    : m_disposable{disposable}
     {
     }
 

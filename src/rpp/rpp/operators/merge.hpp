@@ -32,7 +32,7 @@ public:
     std::lock_guard<std::mutex> lock_guard() { return std::lock_guard<std::mutex>{m_mutex}; }
 
     void increment_on_completed() { m_on_completed_needed.fetch_add(1, std::memory_order_relaxed); }
-    bool decrement_on_completed() { return m_on_completed_needed.fetch_sub(1, std::memory_order::acq_rel) == 1; }
+    bool decrement_on_completed() { return m_on_completed_needed.fetch_sub(1, std::memory_order_relaxed) == 1; }
 
     TObserver& get_observer() { return m_observer; }
 
@@ -45,8 +45,12 @@ private:
 template<rpp::constraint::observer TObserver>
 struct merge_observer_base_strategy
 {
-    merge_observer_base_strategy(std::shared_ptr<merge_disposable<TObserver>> disposable)
+    merge_observer_base_strategy(std::shared_ptr<merge_disposable<TObserver>>&& disposable)
         : m_disposable{std::move(disposable)}
+    {}
+
+    merge_observer_base_strategy(const std::shared_ptr<merge_disposable<TObserver>>& disposable)
+        : m_disposable{disposable}
     {}
 
     void set_upstream(const rpp::disposable_wrapper& d) const
@@ -71,6 +75,8 @@ struct merge_observer_base_strategy
     {
         if (m_disposable->decrement_on_completed())
         {
+            std::atomic_thread_fence(std::memory_order_acquire);
+            
             m_disposable->dispose();
 
             auto lock = m_disposable->lock_guard();
