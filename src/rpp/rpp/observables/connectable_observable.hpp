@@ -34,7 +34,7 @@ public:
     {
         std::shared_ptr<rpp::composite_disposable> new_disposable{};
 
-        auto current = m_state->disposable;
+        auto current = std::atomic_load(m_state->disposable, std::memory_order_relaxed);
 
         while (!m_subject.get_disposable().is_disposed())
         {
