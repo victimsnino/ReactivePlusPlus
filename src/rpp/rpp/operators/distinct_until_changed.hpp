@@ -81,7 +81,7 @@ namespace rpp::operators
  * @see https://reactivex.io/documentation/operators/distinct.html
  */
 template<typename EqualityFn>
-    requires (!utils::is_not_template_callable<EqualityFn> || std::same_as<bool, std::invoke_result_t<EqualityFn, utils::convertible_to_any, utils::convertible_to_any>>)
+    requires (!utils::is_not_template_callable<EqualityFn> || std::same_as<bool, std::invoke_result_t<EqualityFn, rpp::utils::convertible_to_any, rpp::utils::convertible_to_any>>)
 auto distinct_until_changed(EqualityFn&& equality_fn)
 {
     return details::distinct_until_changed_t<std::decay_t<EqualityFn>>{std::forward<EqualityFn>(equality_fn)};

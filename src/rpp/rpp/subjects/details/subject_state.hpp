@@ -78,7 +78,7 @@ public:
     void on_completed()
     {
         if (const auto observers = exchange_observers_under_lock_if_there(completed{}))
-            rpp::utils::for_each(*observers, utils::static_mem_fn<&dynamic_observer<Type>::on_completed>{});
+            rpp::utils::for_each(*observers, rpp::utils::static_mem_fn<&dynamic_observer<Type>::on_completed>{});
     }
 
 private:
@@ -113,7 +113,7 @@ private:
             std::copy_if(current_subs->cbegin(),
                          current_subs->cend(),
                          std::back_inserter(*subs),
-                         utils::static_not_mem_fn<&dynamic_observer<Type>::is_disposed>{});
+                         rpp::utils::static_not_mem_fn<&dynamic_observer<Type>::is_disposed>{});
         }
         return subs;
     }
@@ -131,7 +131,7 @@ private:
 
     static void process_state_unsafe(const state_t& state, const auto&... actions)
     {
-        std::visit(rpp::utils::overloaded{actions..., utils::empty_function_any_t{}}, state);
+        std::visit(rpp::utils::overloaded{actions..., rpp::utils::empty_function_any_t{}}, state);
     }
 
     shared_observers extract_observers_under_lock_if_there()

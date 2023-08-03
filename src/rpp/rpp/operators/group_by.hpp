@@ -59,8 +59,8 @@ struct group_by_observer_strategy
 {
     using DisposableStrategyToUseWithThis = rpp::details::none_disposable_strategy;
 
-    using TKey = utils::decayed_invoke_result_t<KeySelector, T>;
-    using Type = utils::decayed_invoke_result_t<ValueSelector, T>;
+    using TKey = rpp::utils::decayed_invoke_result_t<KeySelector, T>;
+    using Type = rpp::utils::decayed_invoke_result_t<ValueSelector, T>;
 
     RPP_NO_UNIQUE_ADDRESS KeySelector   key_selector;
     RPP_NO_UNIQUE_ADDRESS ValueSelector value_selector;
@@ -164,8 +164,8 @@ struct group_by_t : public operators::details::template_operator_observable_stra
     template<rpp::constraint::decayed_type T>
         requires std::invocable<KeySelector, T> &&
                  std::invocable<ValueSelector, T> &&
-                 std::strict_weak_order<KeyComparator, utils::decayed_invoke_result_t<KeySelector, T>, utils::decayed_invoke_result_t<KeySelector, T>>
-    using ResultValue = grouped_observable<utils::decayed_invoke_result_t<KeySelector, T>, utils::decayed_invoke_result_t<ValueSelector, T>, group_by_observable_strategy<utils::decayed_invoke_result_t<ValueSelector, T>>>;
+                 std::strict_weak_order<KeyComparator, rpp::utils::decayed_invoke_result_t<KeySelector, T>, rpp::utils::decayed_invoke_result_t<KeySelector, T>>
+    using ResultValue = grouped_observable<utils::decayed_invoke_result_t<KeySelector, T>, rpp::utils::decayed_invoke_result_t<ValueSelector, T>, group_by_observable_strategy<utils::decayed_invoke_result_t<ValueSelector, T>>>;
 };
 }
 namespace rpp::operators
@@ -204,9 +204,9 @@ template<typename KeySelector,
          typename KeyComparator>
     requires
     (
-        (!utils::is_not_template_callable<KeySelector> || !std::same_as<void, std::invoke_result_t<KeySelector, utils::convertible_to_any>>) &&
-        (!utils::is_not_template_callable<ValueSelector> || !std::same_as<void, std::invoke_result_t<ValueSelector, utils::convertible_to_any>>) &&
-        (!utils::is_not_template_callable<KeyComparator> || std::strict_weak_order<KeyComparator, utils::convertible_to_any, utils::convertible_to_any>)
+        (!utils::is_not_template_callable<KeySelector> || !std::same_as<void, std::invoke_result_t<KeySelector, rpp::utils::convertible_to_any>>) &&
+        (!utils::is_not_template_callable<ValueSelector> || !std::same_as<void, std::invoke_result_t<ValueSelector, rpp::utils::convertible_to_any>>) &&
+        (!utils::is_not_template_callable<KeyComparator> || std::strict_weak_order<KeyComparator, rpp::utils::convertible_to_any, rpp::utils::convertible_to_any>)
     )
 auto group_by(KeySelector&& key_selector, ValueSelector&& value_selector, KeyComparator&& comparator)
 {

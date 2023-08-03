@@ -15,10 +15,19 @@
 
 
 #include <algorithm>
-
+#include <memory>
+#include <atomic>
 namespace rpp::utils {
 
 struct none{};
+
+#if defined(__cpp_lib_atomic_shared_ptr) && __cpp_lib_atomic_shared_ptr
+template<typename T>
+using atomic_shared_ptr = std::atomic<std::shared_ptr<T>>;
+#else
+template<typename T>
+using atomic_shared_ptr = std::shared_ptr<T>;
+#endif
 
 template<constraint::iterable T>
 using iterable_value_t = std::iter_value_t<decltype(std::begin(std::declval<T>()))>;

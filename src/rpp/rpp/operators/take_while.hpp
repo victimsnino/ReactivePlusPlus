@@ -75,7 +75,7 @@ namespace rpp::operators
  * @see https://reactivex.io/documentation/operators/takewhile.html
  */
 template<typename Fn>
-    requires (!utils::is_not_template_callable<Fn> || std::same_as<bool, std::invoke_result_t<Fn, utils::convertible_to_any>>)
+    requires (!utils::is_not_template_callable<Fn> || std::same_as<bool, std::invoke_result_t<Fn, rpp::utils::convertible_to_any>>)
 auto take_while(Fn&& predicate)
 {
     return details::take_while_t<std::decay_t<Fn>>{std::forward<Fn>(predicate)};

@@ -50,3 +50,27 @@ namespace rpp::subjects
 template<rpp::constraint::decayed_type Type>
 using publish_subject = details::base_subject<Type, details::publish_strategy<Type>>; 
 }
+
+namespace rpp::subjects::utils
+{
+namespace details
+{
+    template<typename T>
+    struct extract_subject_type : std::false_type{};
+
+    template<typename TT, typename Strategy>
+    struct extract_subject_type<rpp::subjects::details::base_subject<TT, Strategy>> : std::true_type
+    {
+        using type = TT;
+    };
+
+} // namespace details
+template<typename T>
+using extract_subject_type_t = typename details::extract_subject_type<std::decay_t<T>>::type;
+} // namespace rpp::utils
+
+namespace rpp::constraint
+{
+template<typename T>
+concept subject = rpp::subjects::utils::details::extract_subject_type<std::decay_t<T>>::value;
+}
