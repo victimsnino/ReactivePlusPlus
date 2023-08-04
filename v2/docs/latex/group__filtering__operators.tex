@@ -9,10 +9,10 @@ Filtering operators are operators that emit only part of items that satisfies so
 \begin{DoxyCompactItemize}
 \item 
 {\footnotesize template$<$typename Equality\+Fn $>$ \newline
-requires (!utils\+::is\+\_\+not\+\_\+template\+\_\+callable$<$Equality\+Fn$>$ \texorpdfstring{$\vert$}{|}\texorpdfstring{$\vert$}{|} std\+::same\+\_\+as$<$bool, std\+::invoke\+\_\+result\+\_\+t$<$Equality\+Fn, utils\+::convertible\+\_\+to\+\_\+any, utils\+::convertible\+\_\+to\+\_\+any$>$$>$)}\\auto \mbox{\hyperlink{group__filtering__operators_gae2781258c0b1344d77c5bde942ab40bb}{rpp\+::operators\+::distinct\+\_\+until\+\_\+changed}} (Equality\+Fn \&\&equality\+\_\+fn)
+requires (!utils\+::is\+\_\+not\+\_\+template\+\_\+callable$<$Equality\+Fn$>$ \texorpdfstring{$\vert$}{|}\texorpdfstring{$\vert$}{|} std\+::same\+\_\+as$<$bool, std\+::invoke\+\_\+result\+\_\+t$<$Equality\+Fn, rpp\+::utils\+::convertible\+\_\+to\+\_\+any, rpp\+::utils\+::convertible\+\_\+to\+\_\+any$>$$>$)}\\auto \mbox{\hyperlink{group__filtering__operators_gaa8ed11faabd5b31d63d0481f9018fc68}{rpp\+::operators\+::distinct\+\_\+until\+\_\+changed}} (Equality\+Fn \&\&equality\+\_\+fn)
 \begin{DoxyCompactList}\small\item\em Suppress consecutive duplicates of emissions from original observable. \end{DoxyCompactList}\item 
 {\footnotesize template$<$typename Fn $>$ \newline
-requires (!utils\+::is\+\_\+not\+\_\+template\+\_\+callable$<$Fn$>$ \texorpdfstring{$\vert$}{|}\texorpdfstring{$\vert$}{|} std\+::same\+\_\+as$<$bool, std\+::invoke\+\_\+result\+\_\+t$<$Fn, utils\+::convertible\+\_\+to\+\_\+any$>$$>$)}\\auto \mbox{\hyperlink{group__filtering__operators_ga3ddeadf25b1cb3105f628ea11dc3a28a}{rpp\+::operators\+::filter}} (Fn \&\&predicate)
+requires (!utils\+::is\+\_\+not\+\_\+template\+\_\+callable$<$Fn$>$ \texorpdfstring{$\vert$}{|}\texorpdfstring{$\vert$}{|} std\+::same\+\_\+as$<$bool, std\+::invoke\+\_\+result\+\_\+t$<$Fn, rpp\+::utils\+::convertible\+\_\+to\+\_\+any$>$$>$)}\\auto \mbox{\hyperlink{group__filtering__operators_ga3ad579153e7975af6ae4b75f585fb873}{rpp\+::operators\+::filter}} (Fn \&\&predicate)
 \begin{DoxyCompactList}\small\item\em Emit only those items from an Observable that satisfies a provided predicate. \end{DoxyCompactList}\item 
 auto \mbox{\hyperlink{group__filtering__operators_ga5b8f3bf549a8679d41941f7224f7faad}{rpp\+::operators\+::first}} ()
 \begin{DoxyCompactList}\small\item\em Emit only the first item. \end{DoxyCompactList}\item 
@@ -33,12 +33,12 @@ Filtering operators are operators that emit only part of items that satisfies so
 
 
 \doxysubsubsubsection{Function Documentation}
-\Hypertarget{group__filtering__operators_gae2781258c0b1344d77c5bde942ab40bb}\label{group__filtering__operators_gae2781258c0b1344d77c5bde942ab40bb} 
+\Hypertarget{group__filtering__operators_gaa8ed11faabd5b31d63d0481f9018fc68}\label{group__filtering__operators_gaa8ed11faabd5b31d63d0481f9018fc68} 
 \index{Filtering Operators@{Filtering Operators}!distinct\_until\_changed@{distinct\_until\_changed}}
 \index{distinct\_until\_changed@{distinct\_until\_changed}!Filtering Operators@{Filtering Operators}}
 \doxysubsubsubsubsection{\texorpdfstring{distinct\_until\_changed()}{distinct\_until\_changed()}}
 {\footnotesize\ttfamily template$<$typename Equality\+Fn $>$ \newline
-requires (!utils\+::is\+\_\+not\+\_\+template\+\_\+callable$<$Equality\+Fn$>$ \texorpdfstring{$\vert$}{|}\texorpdfstring{$\vert$}{|} std\+::same\+\_\+as$<$bool, std\+::invoke\+\_\+result\+\_\+t$<$Equality\+Fn, utils\+::convertible\+\_\+to\+\_\+any, utils\+::convertible\+\_\+to\+\_\+any$>$$>$)\\
+requires (!utils\+::is\+\_\+not\+\_\+template\+\_\+callable$<$Equality\+Fn$>$ \texorpdfstring{$\vert$}{|}\texorpdfstring{$\vert$}{|} std\+::same\+\_\+as$<$bool, std\+::invoke\+\_\+result\+\_\+t$<$Equality\+Fn, rpp\+::utils\+::convertible\+\_\+to\+\_\+any, rpp\+::utils\+::convertible\+\_\+to\+\_\+any$>$$>$)\\
 auto rpp\+::operators\+::distinct\+\_\+until\+\_\+changed (\begin{DoxyParamCaption}\item[{Equality\+Fn \&\&}]{equality\+\_\+fn }\end{DoxyParamCaption})}
 
 
@@ -69,7 +69,7 @@ Actually this operator has {\ttfamily std\+::optional} with last item and checks
 
 \begin{DoxyCodeInclude}{0}
 \DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_gae60bdb9b493443d2786b0eee8bfe17ab}{rpp::source::just}}(1,\ 1,\ 2,\ 2,\ 3,\ 2,\ 1)}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__filtering__operators_gae2781258c0b1344d77c5bde942ab40bb}{rpp::operators::distinct\_until\_changed}}()}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__filtering__operators_gaa8ed11faabd5b31d63d0481f9018fc68}{rpp::operators::distinct\_until\_changed}}()}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{rpp::operators::subscribe}}([](\textcolor{keywordtype}{int}\ val)\ \{\ std::cout\ <<\ val\ <<\ \textcolor{stringliteral}{"{}\ "{}};\ \});}
 \DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:\ 1\ 2\ 3\ 2\ 1}}
 
@@ -77,7 +77,7 @@ Actually this operator has {\ttfamily std\+::optional} with last item and checks
  
 \begin{DoxyCodeInclude}{0}
 \DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_gae60bdb9b493443d2786b0eee8bfe17ab}{rpp::source::just}}(1,\ 1,\ 2,\ 2,\ 3,\ 2,\ 1)}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__filtering__operators_gae2781258c0b1344d77c5bde942ab40bb}{rpp::operators::distinct\_until\_changed}}([](\textcolor{keywordtype}{int}\ left,\ \textcolor{keywordtype}{int}\ right)\ \{\textcolor{keywordflow}{return}\ left\ !=\ right;\ \})}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__filtering__operators_gaa8ed11faabd5b31d63d0481f9018fc68}{rpp::operators::distinct\_until\_changed}}([](\textcolor{keywordtype}{int}\ left,\ \textcolor{keywordtype}{int}\ right)\ \{\textcolor{keywordflow}{return}\ left\ !=\ right;\ \})}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{rpp::operators::subscribe}}([](\textcolor{keywordtype}{int}\ val)\ \{\ std::cout\ <<\ val\ <<\ \textcolor{stringliteral}{"{}\ "{}};\ \});}
 \DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:\ 1\ 1\ 1}}
 
@@ -90,12 +90,12 @@ Actually this operator has {\ttfamily std\+::optional} with last item and checks
 \begin{Desc}
 \item[Examples]\par
 \mbox{\hyperlink{distinct_until_changed_8cpp-example}{distinct\+\_\+until\+\_\+changed.\+cpp}}.\end{Desc}
-\Hypertarget{group__filtering__operators_ga3ddeadf25b1cb3105f628ea11dc3a28a}\label{group__filtering__operators_ga3ddeadf25b1cb3105f628ea11dc3a28a} 
+\Hypertarget{group__filtering__operators_ga3ad579153e7975af6ae4b75f585fb873}\label{group__filtering__operators_ga3ad579153e7975af6ae4b75f585fb873} 
 \index{Filtering Operators@{Filtering Operators}!filter@{filter}}
 \index{filter@{filter}!Filtering Operators@{Filtering Operators}}
 \doxysubsubsubsubsection{\texorpdfstring{filter()}{filter()}}
 {\footnotesize\ttfamily template$<$typename Fn $>$ \newline
-requires (!utils\+::is\+\_\+not\+\_\+template\+\_\+callable$<$Fn$>$ \texorpdfstring{$\vert$}{|}\texorpdfstring{$\vert$}{|} std\+::same\+\_\+as$<$bool, std\+::invoke\+\_\+result\+\_\+t$<$Fn, utils\+::convertible\+\_\+to\+\_\+any$>$$>$)\\
+requires (!utils\+::is\+\_\+not\+\_\+template\+\_\+callable$<$Fn$>$ \texorpdfstring{$\vert$}{|}\texorpdfstring{$\vert$}{|} std\+::same\+\_\+as$<$bool, std\+::invoke\+\_\+result\+\_\+t$<$Fn, rpp\+::utils\+::convertible\+\_\+to\+\_\+any$>$$>$)\\
 auto rpp\+::operators\+::filter (\begin{DoxyParamCaption}\item[{Fn \&\&}]{predicate }\end{DoxyParamCaption})}
 
 
@@ -125,7 +125,7 @@ Actually this operator just checks if predicate returns true, then forwards emis
 
 \begin{DoxyCodeInclude}{0}
 \DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_gae60bdb9b493443d2786b0eee8bfe17ab}{rpp::source::just}}(0,\ 1,\ 2,\ 3,\ 4,\ 5,\ 6,\ 7,\ 8,\ 9)}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ |\mbox{\hyperlink{group__filtering__operators_ga3ddeadf25b1cb3105f628ea11dc3a28a}{rpp::operators::filter}}([](\textcolor{keywordtype}{int}\ \ \ \ v)\ \{\ \textcolor{keywordflow}{return}\ v\ \%\ 2\ ==\ 0;\ \})}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ |\mbox{\hyperlink{group__filtering__operators_ga3ad579153e7975af6ae4b75f585fb873}{rpp::operators::filter}}([](\textcolor{keywordtype}{int}\ \ \ \ v)\ \{\ \textcolor{keywordflow}{return}\ v\ \%\ 2\ ==\ 0;\ \})}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ |\mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{rpp::operators::subscribe}}([](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ v\ <<\ \textcolor{stringliteral}{"{}\ "{}};\ \});}
 \DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:\ 0\ 2\ 4\ 6\ 8}}
 

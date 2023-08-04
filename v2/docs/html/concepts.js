@@ -11,7 +11,8 @@ var concepts =
         [ "observer_strategy", "conceptrpp_1_1constraint_1_1observer__strategy.html", null ],
         [ "observer", "conceptrpp_1_1constraint_1_1observer.html", null ],
         [ "observer_of_type", "conceptrpp_1_1constraint_1_1observer__of__type.html", null ],
-        [ "on_subscribe", "conceptrpp_1_1constraint_1_1on__subscribe.html", null ]
+        [ "on_subscribe", "conceptrpp_1_1constraint_1_1on__subscribe.html", null ],
+        [ "subject", "conceptrpp_1_1constraint_1_1subject.html", null ]
       ] ],
       [ "operators", null, [
         [ "details", null, [

@@ -1,14 +1,14 @@
 var searchData=
 [
   ['fake_5fstrategy_0',['fake_strategy',['../structrpp_1_1details_1_1fake__strategy.html',1,'rpp::details']]],
-  ['filter_1',['filter',['../group__filtering__operators.html#ga3ddeadf25b1cb3105f628ea11dc3a28a',1,'rpp::operators']]],
+  ['filter_1',['filter',['../group__filtering__operators.html#ga3ad579153e7975af6ae4b75f585fb873',1,'rpp::operators']]],
   ['filter_5fobserver_5fstrategy_2',['filter_observer_strategy',['../structrpp_1_1operators_1_1details_1_1filter__observer__strategy.html',1,'rpp::operators::details']]],
   ['filter_5ft_3',['filter_t',['../structrpp_1_1operators_1_1details_1_1filter__t.html',1,'rpp::operators::details']]],
   ['filtering_20operators_4',['Filtering Operators',['../group__filtering__operators.html',1,'']]],
   ['first_5',['first',['../group__filtering__operators.html#ga5b8f3bf549a8679d41941f7224f7faad',1,'rpp::operators']]],
   ['first_5fobserver_5fstrategy_6',['first_observer_strategy',['../structrpp_1_1operators_1_1details_1_1first__observer__strategy.html',1,'rpp::operators::details']]],
   ['first_5ft_7',['first_t',['../structrpp_1_1operators_1_1details_1_1first__t.html',1,'rpp::operators::details']]],
-  ['flat_5fmap_8',['flat_map',['../group__transforming__operators.html#ga9cfd33d5c468e82a7893d92375ce25dc',1,'rpp::operators']]],
+  ['flat_5fmap_8',['flat_map',['../group__transforming__operators.html#ga633883e796101ceeab821e2a4912bd5e',1,'rpp::operators']]],
   ['flat_5fmap_5ft_9',['flat_map_t',['../structrpp_1_1operators_1_1details_1_1flat__map__t.html',1,'rpp::operators::details']]],
   ['forwarding_5fis_5fdisposed_5fstrategy_10',['forwarding_is_disposed_strategy',['../structrpp_1_1operators_1_1details_1_1forwarding__is__disposed__strategy.html',1,'rpp::operators::details']]],
   ['forwarding_5fon_5fcompleted_5fstrategy_11',['forwarding_on_completed_strategy',['../structrpp_1_1operators_1_1details_1_1forwarding__on__completed__strategy.html',1,'rpp::operators::details']]],

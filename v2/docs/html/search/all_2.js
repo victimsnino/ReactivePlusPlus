@@ -8,8 +8,9 @@ var searchData=
   ['concat_5fsource_5fobserver_5fstrategy_5',['concat_source_observer_strategy',['../structrpp_1_1details_1_1concat__source__observer__strategy.html',1,'rpp::details']]],
   ['concat_5fstrategy_6',['concat_strategy',['../structrpp_1_1details_1_1concat__strategy.html',1,'rpp::details']]],
   ['conditional_20operators_7',['Conditional Operators',['../group__conditional__operators.html',1,'']]],
-  ['create_8',['create',['../group__creational__operators.html#gae68c87e7ae3a505258b733082bf68513',1,'rpp::source']]],
-  ['create_5fstrategy_9',['create_strategy',['../structrpp_1_1details_1_1create__strategy.html',1,'rpp::details']]],
-  ['creational_20operators_10',['Creational Operators',['../group__creational__operators.html',1,'']]],
-  ['current_5fthread_11',['current_thread',['../classrpp_1_1schedulers_1_1current__thread.html',1,'rpp::schedulers']]]
+  ['connectable_5fobservable_8',['connectable_observable',['../classrpp_1_1connectable__observable.html',1,'rpp']]],
+  ['create_9',['create',['../group__creational__operators.html#gae68c87e7ae3a505258b733082bf68513',1,'rpp::source']]],
+  ['create_5fstrategy_10',['create_strategy',['../structrpp_1_1details_1_1create__strategy.html',1,'rpp::details']]],
+  ['creational_20operators_11',['Creational Operators',['../group__creational__operators.html',1,'']]],
+  ['current_5fthread_12',['current_thread',['../classrpp_1_1schedulers_1_1current__thread.html',1,'rpp::schedulers']]]
 ];

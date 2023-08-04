@@ -10,6 +10,9 @@ var hierarchy =
     [ "rpp::details::concat_strategy< PackedContainer >", "structrpp_1_1details_1_1concat__strategy.html", null ],
     [ "rpp::details::create_strategy< Type, OnSubscribe >", "structrpp_1_1details_1_1create__strategy.html", null ],
     [ "rpp::schedulers::current_thread", "classrpp_1_1schedulers_1_1current__thread.html", null ],
+    [ "decltypestd::declval< Subject >get_observable", null, [
+      [ "rpp::connectable_observable< OriginalObservable, Subject >", "classrpp_1_1connectable__observable.html", null ]
+    ] ],
     [ "rpp::disposable_wrapper_impl< TDisposable >", "classrpp_1_1disposable__wrapper__impl.html", null ],
     [ "rpp::disposable_wrapper_impl< composite_disposable >", "classrpp_1_1disposable__wrapper__impl.html", null ],
     [ "rpp::subjects::details::disposed", "structrpp_1_1subjects_1_1details_1_1disposed.html", null ],
@@ -26,6 +29,7 @@ var hierarchy =
     [ "rpp::details::fake_strategy", "structrpp_1_1details_1_1fake__strategy.html", null ],
     [ "std::false_type", null, [
       [ "rpp::schedulers::constraint::details::is_worker< T >", "structrpp_1_1schedulers_1_1constraint_1_1details_1_1is__worker.html", null ],
+      [ "rpp::subjects::utils::details::extract_subject_type< T >", "structrpp_1_1subjects_1_1utils_1_1details_1_1extract__subject__type.html", null ],
       [ "rpp::utils::details::extract_observable_type< T >", "structrpp_1_1utils_1_1details_1_1extract__observable__type.html", null ],
       [ "rpp::utils::details::extract_observer_type< T >", "structrpp_1_1utils_1_1details_1_1extract__observer__type.html", null ]
     ] ],
@@ -128,6 +132,7 @@ var hierarchy =
     [ "rpp::operators::details::template_subscribe_strategy< Strategy >", "structrpp_1_1operators_1_1details_1_1template__subscribe__strategy.html", null ],
     [ "std::true_type", null, [
       [ "rpp::schedulers::constraint::details::is_worker< rpp::schedulers::worker< Strategy > >", "structrpp_1_1schedulers_1_1constraint_1_1details_1_1is__worker_3_01rpp_1_1schedulers_1_1worker_3_01_strategy_01_4_01_4.html", null ],
+      [ "rpp::subjects::utils::details::extract_subject_type< rpp::subjects::details::base_subject< TT, Strategy > >", "structrpp_1_1subjects_1_1utils_1_1details_1_1extract__subject__type_3_01rpp_1_1subjects_1_1detaie00a4443681b018e69b041137386dfb4.html", null ],
       [ "rpp::utils::details::extract_observable_type< rpp::observable< TT, Strategy > >", "structrpp_1_1utils_1_1details_1_1extract__observable__type_3_01rpp_1_1observable_3_01_t_t_00_01_strategy_01_4_01_4.html", null ],
       [ "rpp::utils::details::extract_observer_type< rpp::observer< TT, Strategy > >", "structrpp_1_1utils_1_1details_1_1extract__observer__type_3_01rpp_1_1observer_3_01_t_t_00_01_strategy_01_4_01_4.html", null ]
     ] ],

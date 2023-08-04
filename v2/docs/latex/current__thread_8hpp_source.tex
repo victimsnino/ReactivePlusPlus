@@ -87,14 +87,14 @@
 \DoxyCodeLine{00146\ }
 \DoxyCodeLine{00147\ \textcolor{keyword}{public}:}
 \DoxyCodeLine{00148\ }
-\DoxyCodeLine{00149\ \ \ \ \ \textcolor{keyword}{static}\ utils::finally\_action<void\ (*)()>\ own\_queue\_and\_drain\_finally\_if\_not\_owned()}
+\DoxyCodeLine{00149\ \ \ \ \ \textcolor{keyword}{static}\ rpp::utils::finally\_action<void\ (*)()>\ own\_queue\_and\_drain\_finally\_if\_not\_owned()}
 \DoxyCodeLine{00150\ \ \ \ \ \{}
 \DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ someone\_owns\_queue\ =\ s\_queue.has\_value();}
 \DoxyCodeLine{00152\ }
 \DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!someone\_owns\_queue)}
 \DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ \ \ \ \ s\_queue.emplace();}
 \DoxyCodeLine{00155\ }
-\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ utils::finally\_action\{!someone\_owns\_queue\ ?\ \&drain\_current\_queue\ :\ \&utils::empty\_function<>\};}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ rpp::utils::finally\_action\{!someone\_owns\_queue\ ?\ \&drain\_current\_queue\ :\ \&utils::empty\_function<>\};}
 \DoxyCodeLine{00157\ \ \ \ \ \}}
 \DoxyCodeLine{00158\ }
 \DoxyCodeLine{00159\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1schedulers_1_1current__thread_1_1worker__strategy}{worker\_strategy}}}

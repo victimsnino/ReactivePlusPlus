@@ -107,16 +107,16 @@ $(document).ready(function(){initNavTree('group__filtering__operators.html','');
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:gae2781258c0b1344d77c5bde942ab40bb"><td class="memTemplParams" colspan="2">template&lt;typename EqualityFn &gt; <br />
-requires (!utils::is_not_template_callable&lt;EqualityFn&gt; || std::same_as&lt;bool, std::invoke_result_t&lt;EqualityFn, utils::convertible_to_any, utils::convertible_to_any&gt;&gt;)</td></tr>
-<tr class="memitem:gae2781258c0b1344d77c5bde942ab40bb"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__filtering__operators.html#gae2781258c0b1344d77c5bde942ab40bb">rpp::operators::distinct_until_changed</a> (EqualityFn &amp;&amp;equality_fn)</td></tr>
-<tr class="memdesc:gae2781258c0b1344d77c5bde942ab40bb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Suppress consecutive duplicates of emissions from original observable.  <br /></td></tr>
-<tr class="separator:gae2781258c0b1344d77c5bde942ab40bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga3ddeadf25b1cb3105f628ea11dc3a28a"><td class="memTemplParams" colspan="2">template&lt;typename Fn &gt; <br />
-requires (!utils::is_not_template_callable&lt;Fn&gt; || std::same_as&lt;bool, std::invoke_result_t&lt;Fn, utils::convertible_to_any&gt;&gt;)</td></tr>
-<tr class="memitem:ga3ddeadf25b1cb3105f628ea11dc3a28a"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__filtering__operators.html#ga3ddeadf25b1cb3105f628ea11dc3a28a">rpp::operators::filter</a> (Fn &amp;&amp;predicate)</td></tr>
-<tr class="memdesc:ga3ddeadf25b1cb3105f628ea11dc3a28a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Emit only those items from an Observable that satisfies a provided predicate.  <br /></td></tr>
-<tr class="separator:ga3ddeadf25b1cb3105f628ea11dc3a28a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa8ed11faabd5b31d63d0481f9018fc68"><td class="memTemplParams" colspan="2">template&lt;typename EqualityFn &gt; <br />
+requires (!utils::is_not_template_callable&lt;EqualityFn&gt; || std::same_as&lt;bool, std::invoke_result_t&lt;EqualityFn, rpp::utils::convertible_to_any, rpp::utils::convertible_to_any&gt;&gt;)</td></tr>
+<tr class="memitem:gaa8ed11faabd5b31d63d0481f9018fc68"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__filtering__operators.html#gaa8ed11faabd5b31d63d0481f9018fc68">rpp::operators::distinct_until_changed</a> (EqualityFn &amp;&amp;equality_fn)</td></tr>
+<tr class="memdesc:gaa8ed11faabd5b31d63d0481f9018fc68"><td class="mdescLeft">&#160;</td><td class="mdescRight">Suppress consecutive duplicates of emissions from original observable.  <br /></td></tr>
+<tr class="separator:gaa8ed11faabd5b31d63d0481f9018fc68"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga3ad579153e7975af6ae4b75f585fb873"><td class="memTemplParams" colspan="2">template&lt;typename Fn &gt; <br />
+requires (!utils::is_not_template_callable&lt;Fn&gt; || std::same_as&lt;bool, std::invoke_result_t&lt;Fn, rpp::utils::convertible_to_any&gt;&gt;)</td></tr>
+<tr class="memitem:ga3ad579153e7975af6ae4b75f585fb873"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__filtering__operators.html#ga3ad579153e7975af6ae4b75f585fb873">rpp::operators::filter</a> (Fn &amp;&amp;predicate)</td></tr>
+<tr class="memdesc:ga3ad579153e7975af6ae4b75f585fb873"><td class="mdescLeft">&#160;</td><td class="mdescRight">Emit only those items from an Observable that satisfies a provided predicate.  <br /></td></tr>
+<tr class="separator:ga3ad579153e7975af6ae4b75f585fb873"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga5b8f3bf549a8679d41941f7224f7faad"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__filtering__operators.html#ga5b8f3bf549a8679d41941f7224f7faad">rpp::operators::first</a> ()</td></tr>
 <tr class="memdesc:ga5b8f3bf549a8679d41941f7224f7faad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Emit only the first item.  <br /></td></tr>
 <tr class="separator:ga5b8f3bf549a8679d41941f7224f7faad"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -134,14 +134,14 @@ requires (!utils::is_not_template_callable&lt;Fn&gt; || std::same_as&lt;bool, st
 <p>Filtering operators are operators that emit only part of items that satisfies some condition. </p>
 <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators.html#filtering">https://reactivex.io/documentation/operators.html#filtering</a> </dd></dl>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="gae2781258c0b1344d77c5bde942ab40bb" name="gae2781258c0b1344d77c5bde942ab40bb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gae2781258c0b1344d77c5bde942ab40bb">&#9670;&#160;</a></span>distinct_until_changed()</h2>
+<a id="gaa8ed11faabd5b31d63d0481f9018fc68" name="gaa8ed11faabd5b31d63d0481f9018fc68"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaa8ed11faabd5b31d63d0481f9018fc68">&#9670;&#160;</a></span>distinct_until_changed()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
 template&lt;typename EqualityFn &gt; <br />
-requires (!utils::is_not_template_callable&lt;EqualityFn&gt; || std::same_as&lt;bool, std::invoke_result_t&lt;EqualityFn, utils::convertible_to_any, utils::convertible_to_any&gt;&gt;)</div>
+requires (!utils::is_not_template_callable&lt;EqualityFn&gt; || std::same_as&lt;bool, std::invoke_result_t&lt;EqualityFn, rpp::utils::convertible_to_any, rpp::utils::convertible_to_any&gt;&gt;)</div>
       <table class="memname">
         <tr>
           <td class="memname">auto rpp::operators::distinct_until_changed </td>
@@ -172,14 +172,14 @@ requires (!utils::is_not_template_callable&lt;EqualityFn&gt; || std::same_as&lt;
 </dl>
 <dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="distinct__until__changed_8hpp_source.html">rpp/operators/distinct_until_changed.hpp</a>&gt;</dd></dl>
 <dl class="section user"><dt>Example</dt><dd><div class="fragment"><div class="line">    <a class="code hl_function" href="group__creational__operators.html#gae60bdb9b493443d2786b0eee8bfe17ab">rpp::source::just</a>(1, 1, 2, 2, 3, 2, 1)</div>
-<div class="line">            | <a class="code hl_function" href="group__filtering__operators.html#gae2781258c0b1344d77c5bde942ab40bb">rpp::operators::distinct_until_changed</a>()</div>
+<div class="line">            | <a class="code hl_function" href="group__filtering__operators.html#gaa8ed11faabd5b31d63d0481f9018fc68">rpp::operators::distinct_until_changed</a>()</div>
 <div class="line">            | <a class="code hl_function" href="group__utility__operators.html#ga149309d4b2e0f1201f1ab42597ace8ac">rpp::operators::subscribe</a>([](<span class="keywordtype">int</span> val) { std::cout &lt;&lt; val &lt;&lt; <span class="stringliteral">&quot; &quot;</span>; });</div>
 <div class="line">    <span class="comment">// Output: 1 2 3 2 1</span></div>
 <div class="ttc" id="agroup__creational__operators_html_gae60bdb9b493443d2786b0eee8bfe17ab"><div class="ttname"><a href="group__creational__operators.html#gae60bdb9b493443d2786b0eee8bfe17ab">rpp::source::just</a></div><div class="ttdeci">auto just(const TScheduler &amp;scheduler, T &amp;&amp;item, Ts &amp;&amp;...items)</div><div class="ttdoc">Creates rpp::observable that emits a particular items and completes.</div><div class="ttdef"><b>Definition</b> from.hpp:195</div></div>
-<div class="ttc" id="agroup__filtering__operators_html_gae2781258c0b1344d77c5bde942ab40bb"><div class="ttname"><a href="group__filtering__operators.html#gae2781258c0b1344d77c5bde942ab40bb">rpp::operators::distinct_until_changed</a></div><div class="ttdeci">auto distinct_until_changed(EqualityFn &amp;&amp;equality_fn)</div><div class="ttdoc">Suppress consecutive duplicates of emissions from original observable.</div><div class="ttdef"><b>Definition</b> distinct_until_changed.hpp:81</div></div>
+<div class="ttc" id="agroup__filtering__operators_html_gaa8ed11faabd5b31d63d0481f9018fc68"><div class="ttname"><a href="group__filtering__operators.html#gaa8ed11faabd5b31d63d0481f9018fc68">rpp::operators::distinct_until_changed</a></div><div class="ttdeci">auto distinct_until_changed(EqualityFn &amp;&amp;equality_fn)</div><div class="ttdoc">Suppress consecutive duplicates of emissions from original observable.</div><div class="ttdef"><b>Definition</b> distinct_until_changed.hpp:81</div></div>
 <div class="ttc" id="agroup__utility__operators_html_ga149309d4b2e0f1201f1ab42597ace8ac"><div class="ttname"><a href="group__utility__operators.html#ga149309d4b2e0f1201f1ab42597ace8ac">rpp::operators::subscribe</a></div><div class="ttdeci">auto subscribe(observer&lt; Type, ObserverStrategy &gt; &amp;&amp;observer)</div><div class="ttdoc">Subscribes passed observer to emissions from this observable.</div><div class="ttdef"><b>Definition</b> subscribe.hpp:152</div></div>
 </div><!-- fragment --> <div class="fragment"><div class="line">    <a class="code hl_function" href="group__creational__operators.html#gae60bdb9b493443d2786b0eee8bfe17ab">rpp::source::just</a>(1, 1, 2, 2, 3, 2, 1)</div>
-<div class="line">            | <a class="code hl_function" href="group__filtering__operators.html#gae2781258c0b1344d77c5bde942ab40bb">rpp::operators::distinct_until_changed</a>([](<span class="keywordtype">int</span> left, <span class="keywordtype">int</span> right) {<span class="keywordflow">return</span> left != right; })</div>
+<div class="line">            | <a class="code hl_function" href="group__filtering__operators.html#gaa8ed11faabd5b31d63d0481f9018fc68">rpp::operators::distinct_until_changed</a>([](<span class="keywordtype">int</span> left, <span class="keywordtype">int</span> right) {<span class="keywordflow">return</span> left != right; })</div>
 <div class="line">            | <a class="code hl_function" href="group__utility__operators.html#ga149309d4b2e0f1201f1ab42597ace8ac">rpp::operators::subscribe</a>([](<span class="keywordtype">int</span> val) { std::cout &lt;&lt; val &lt;&lt; <span class="stringliteral">&quot; &quot;</span>; });</div>
 <div class="line">    <span class="comment">// Output: 1 1 1</span></div>
 </div><!-- fragment --></dd></dl>
@@ -189,14 +189,14 @@ requires (!utils::is_not_template_callable&lt;EqualityFn&gt; || std::same_as&lt;
 
 </div>
 </div>
-<a id="ga3ddeadf25b1cb3105f628ea11dc3a28a" name="ga3ddeadf25b1cb3105f628ea11dc3a28a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga3ddeadf25b1cb3105f628ea11dc3a28a">&#9670;&#160;</a></span>filter()</h2>
+<a id="ga3ad579153e7975af6ae4b75f585fb873" name="ga3ad579153e7975af6ae4b75f585fb873"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga3ad579153e7975af6ae4b75f585fb873">&#9670;&#160;</a></span>filter()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
 template&lt;typename Fn &gt; <br />
-requires (!utils::is_not_template_callable&lt;Fn&gt; || std::same_as&lt;bool, std::invoke_result_t&lt;Fn, utils::convertible_to_any&gt;&gt;)</div>
+requires (!utils::is_not_template_callable&lt;Fn&gt; || std::same_as&lt;bool, std::invoke_result_t&lt;Fn, rpp::utils::convertible_to_any&gt;&gt;)</div>
       <table class="memname">
         <tr>
           <td class="memname">auto rpp::operators::filter </td>
@@ -226,10 +226,10 @@ requires (!utils::is_not_template_callable&lt;Fn&gt; || std::same_as&lt;bool, st
 </dl>
 <dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="filter_8hpp_source.html">rpp/operators/filter.hpp</a>&gt;</dd></dl>
 <dl class="section user"><dt>Example:</dt><dd><div class="fragment"><div class="line">    <a class="code hl_function" href="group__creational__operators.html#gae60bdb9b493443d2786b0eee8bfe17ab">rpp::source::just</a>(0, 1, 2, 3, 4, 5, 6, 7, 8, 9)</div>
-<div class="line">            |<a class="code hl_function" href="group__filtering__operators.html#ga3ddeadf25b1cb3105f628ea11dc3a28a">rpp::operators::filter</a>([](<span class="keywordtype">int</span>    v) { <span class="keywordflow">return</span> v % 2 == 0; })</div>
+<div class="line">            |<a class="code hl_function" href="group__filtering__operators.html#ga3ad579153e7975af6ae4b75f585fb873">rpp::operators::filter</a>([](<span class="keywordtype">int</span>    v) { <span class="keywordflow">return</span> v % 2 == 0; })</div>
 <div class="line">            |<a class="code hl_function" href="group__utility__operators.html#ga149309d4b2e0f1201f1ab42597ace8ac">rpp::operators::subscribe</a>([](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; v &lt;&lt; <span class="stringliteral">&quot; &quot;</span>; });</div>
 <div class="line">    <span class="comment">// Output: 0 2 4 6 8</span></div>
-<div class="ttc" id="agroup__filtering__operators_html_ga3ddeadf25b1cb3105f628ea11dc3a28a"><div class="ttname"><a href="group__filtering__operators.html#ga3ddeadf25b1cb3105f628ea11dc3a28a">rpp::operators::filter</a></div><div class="ttdeci">auto filter(Fn &amp;&amp;predicate)</div><div class="ttdoc">Emit only those items from an Observable that satisfies a provided predicate.</div><div class="ttdef"><b>Definition</b> filter.hpp:76</div></div>
+<div class="ttc" id="agroup__filtering__operators_html_ga3ad579153e7975af6ae4b75f585fb873"><div class="ttname"><a href="group__filtering__operators.html#ga3ad579153e7975af6ae4b75f585fb873">rpp::operators::filter</a></div><div class="ttdeci">auto filter(Fn &amp;&amp;predicate)</div><div class="ttdoc">Emit only those items from an Observable that satisfies a provided predicate.</div><div class="ttdef"><b>Definition</b> filter.hpp:76</div></div>
 </div><!-- fragment --></dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/filter.html">https://reactivex.io/documentation/operators/filter.html</a> </dd></dl>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="filter_8cpp-example.html#a1">filter.cpp</a>.</dd>

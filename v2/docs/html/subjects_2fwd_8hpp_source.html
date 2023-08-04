@@ -139,11 +139,37 @@ $(document).ready(function(){initNavTree('subjects_2fwd_8hpp_source.html',''); i
 <div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="keyword">template</span>&lt;rpp::constra<span class="keywordtype">int</span>::decayed_type Type&gt;</div>
 <div class="line"><a id="l00051" name="l00051"></a><span class="lineno"><a class="line" href="group__subjects.html#gaf27df80724e7c0f28ecd1a72429812b0">   51</a></span><span class="keyword">using </span><a class="code hl_class" href="classrpp_1_1subjects_1_1details_1_1base__subject.html">publish_subject</a> = <a class="code hl_class" href="classrpp_1_1subjects_1_1details_1_1base__subject.html">details::base_subject&lt;Type, details::publish_strategy&lt;Type&gt;</a>&gt;; </div>
 <div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>}</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span><span class="keyword">namespace </span>rpp::subjects::utils</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>{</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span><span class="keyword">namespace </span>details</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>{</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno"><a class="line" href="structrpp_1_1subjects_1_1utils_1_1details_1_1extract__subject__type.html">   59</a></span>    <span class="keyword">struct </span><a class="code hl_struct" href="structrpp_1_1subjects_1_1utils_1_1details_1_1extract__subject__type.html">extract_subject_type</a> : std::false_type{};</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> TT, <span class="keyword">typename</span> Strategy&gt;</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno"><a class="line" href="structrpp_1_1subjects_1_1utils_1_1details_1_1extract__subject__type_3_01rpp_1_1subjects_1_1detaie00a4443681b018e69b041137386dfb4.html">   62</a></span>    <span class="keyword">struct </span><a class="code hl_struct" href="structrpp_1_1subjects_1_1utils_1_1details_1_1extract__subject__type.html">extract_subject_type</a>&lt;rpp::<a class="code hl_class" href="classrpp_1_1subjects_1_1details_1_1base__subject.html">subjects::details::base_subject</a>&lt;TT, Strategy&gt;&gt; : std::true_type</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    {</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>        <span class="keyword">using </span>type = TT;</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    };</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>} <span class="comment">// namespace details</span></div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span><span class="keyword">using </span>extract_subject_type_t = <span class="keyword">typename</span> <a class="code hl_struct" href="structrpp_1_1subjects_1_1utils_1_1details_1_1extract__subject__type.html">details::extract_subject_type&lt;std::decay_t&lt;T&gt;</a>&gt;::type;</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>} <span class="comment">// namespace rpp::utils</span></div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span><span class="keyword">namespace </span>rpp::constraint</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>{</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno"><a class="line" href="conceptrpp_1_1constraint_1_1subject.html">   75</a></span><span class="keyword">concept </span><a class="code hl_concept" href="conceptrpp_1_1constraint_1_1subject.html">subject</a> = <a class="code hl_struct" href="structrpp_1_1subjects_1_1utils_1_1details_1_1extract__subject__type.html">rpp::subjects::utils::details::extract_subject_type&lt;std::decay_t&lt;T&gt;</a>&gt;::value;</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>}</div>
 <div class="ttc" id="aclassrpp_1_1observer_html"><div class="ttname"><a href="classrpp_1_1observer.html">rpp::observer</a></div><div class="ttdoc">Base class for any observer used in RPP. It handles core callbacks of observers. Objects of this clas...</div><div class="ttdef"><b>Definition</b> observer.hpp:206</div></div>
 <div class="ttc" id="aclassrpp_1_1subjects_1_1details_1_1base__subject_html"><div class="ttname"><a href="classrpp_1_1subjects_1_1details_1_1base__subject.html">rpp::subjects::details::base_subject</a></div><div class="ttdef"><b>Definition</b> base_subject.hpp:20</div></div>
 <div class="ttc" id="aclassrpp_1_1subjects_1_1details_1_1publish__strategy_html"><div class="ttname"><a href="classrpp_1_1subjects_1_1details_1_1publish__strategy.html">rpp::subjects::details::publish_strategy</a></div><div class="ttdef"><b>Definition</b> publish_subject.hpp:23</div></div>
 <div class="ttc" id="aconceptrpp_1_1constraint_1_1observer_html"><div class="ttname"><a href="conceptrpp_1_1constraint_1_1observer.html">rpp::constraint::observer</a></div><div class="ttdef"><b>Definition</b> fwd.hpp:232</div></div>
+<div class="ttc" id="aconceptrpp_1_1constraint_1_1subject_html"><div class="ttname"><a href="conceptrpp_1_1constraint_1_1subject.html">rpp::constraint::subject</a></div><div class="ttdef"><b>Definition</b> fwd.hpp:75</div></div>
 <div class="ttc" id="aconceptrpp_1_1subjects_1_1details_1_1constraint_1_1subject__strategy_html"><div class="ttname"><a href="conceptrpp_1_1subjects_1_1details_1_1constraint_1_1subject__strategy.html">rpp::subjects::details::constraint::subject_strategy</a></div><div class="ttdef"><b>Definition</b> fwd.hpp:22</div></div>
+<div class="ttc" id="astructrpp_1_1subjects_1_1utils_1_1details_1_1extract__subject__type_html"><div class="ttname"><a href="structrpp_1_1subjects_1_1utils_1_1details_1_1extract__subject__type.html">rpp::subjects::utils::details::extract_subject_type</a></div><div class="ttdef"><b>Definition</b> fwd.hpp:59</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

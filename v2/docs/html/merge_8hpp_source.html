@@ -245,7 +245,7 @@ $(document).ready(function(){initNavTree('merge_8hpp_source.html',''); initResiz
 <div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>    RPP_NO_UNIQUE_ADDRESS rpp::utils::tuple&lt;TObservables...&gt; observables{};</div>
 <div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span> </div>
 <div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>    <span class="keyword">template</span>&lt;rpp::constra<span class="keywordtype">int</span>::decayed_type T&gt;</div>
-<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>        <span class="keyword">requires</span> (std::same_as&lt;T, utils::extract_observable_type_t&lt;TObservables&gt;&gt; &amp;&amp; ...)</div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>        <span class="keyword">requires</span> (std::same_as&lt;T, rpp::utils::extract_observable_type_t&lt;TObservables&gt;&gt; &amp;&amp; ...)</div>
 <div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>    <span class="keyword">using </span>ResultValue = T;</div>
 <div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span> </div>
 <div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>    <span class="keyword">template</span>&lt;<a class="code hl_concept" href="conceptrpp_1_1constraint_1_1observer.html">rpp::constraint::observer</a> Observer, <span class="keyword">typename</span>... Strategies&gt;</div>

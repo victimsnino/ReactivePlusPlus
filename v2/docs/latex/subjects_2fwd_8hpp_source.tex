@@ -42,5 +42,29 @@
 \DoxyCodeLine{00050\ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type\ Type>}
 \DoxyCodeLine{00051\ \textcolor{keyword}{using\ }\mbox{\hyperlink{classrpp_1_1subjects_1_1details_1_1base__subject}{publish\_subject}}\ =\ \mbox{\hyperlink{classrpp_1_1subjects_1_1details_1_1base__subject}{details::base\_subject<Type,\ details::publish\_strategy<Type>}}>;\ }
 \DoxyCodeLine{00052\ \}}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \textcolor{keyword}{namespace\ }rpp::subjects::utils}
+\DoxyCodeLine{00055\ \{}
+\DoxyCodeLine{00056\ \textcolor{keyword}{namespace\ }details}
+\DoxyCodeLine{00057\ \{}
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1subjects_1_1utils_1_1details_1_1extract__subject__type}{extract\_subject\_type}}\ :\ std::false\_type\{\};}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ TT,\ \textcolor{keyword}{typename}\ Strategy>}
+\DoxyCodeLine{00062\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1subjects_1_1utils_1_1details_1_1extract__subject__type}{extract\_subject\_type}}<rpp::\mbox{\hyperlink{classrpp_1_1subjects_1_1details_1_1base__subject}{subjects::details::base\_subject}}<TT,\ Strategy>>\ :\ std::true\_type}
+\DoxyCodeLine{00063\ \ \ \ \ \{}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }type\ =\ TT;}
+\DoxyCodeLine{00065\ \ \ \ \ \};}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \}\ \textcolor{comment}{//\ namespace\ details}}
+\DoxyCodeLine{00068\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00069\ \textcolor{keyword}{using\ }extract\_subject\_type\_t\ =\ \textcolor{keyword}{typename}\ \mbox{\hyperlink{structrpp_1_1subjects_1_1utils_1_1details_1_1extract__subject__type}{details::extract\_subject\_type<std::decay\_t<T>}}>::type;}
+\DoxyCodeLine{00070\ \}\ \textcolor{comment}{//\ namespace\ rpp::utils}}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ \textcolor{keyword}{namespace\ }rpp::constraint}
+\DoxyCodeLine{00073\ \{}
+\DoxyCodeLine{00074\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00075\ \textcolor{keyword}{concept\ }\mbox{\hyperlink{conceptrpp_1_1constraint_1_1subject}{subject}}\ =\ \mbox{\hyperlink{structrpp_1_1subjects_1_1utils_1_1details_1_1extract__subject__type}{rpp::subjects::utils::details::extract\_subject\_type<std::decay\_t<T>}}>::value;}
+\DoxyCodeLine{00076\ \}}
 
 \end{DoxyCode}

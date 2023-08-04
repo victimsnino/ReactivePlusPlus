@@ -18,6 +18,7 @@ var searchData=
   ['schedulable_5ffn_15',['schedulable_fn',['../conceptrpp_1_1schedulers_1_1constraint_1_1schedulable__fn.html',1,'rpp::schedulers::constraint']]],
   ['scheduler_16',['scheduler',['../conceptrpp_1_1schedulers_1_1constraint_1_1scheduler.html',1,'rpp::schedulers::constraint']]],
   ['strategy_17',['strategy',['../conceptrpp_1_1schedulers_1_1constraint_1_1strategy.html',1,'rpp::schedulers::constraint']]],
-  ['subject_5fstrategy_18',['subject_strategy',['../conceptrpp_1_1subjects_1_1details_1_1constraint_1_1subject__strategy.html',1,'rpp::subjects::details::constraint']]],
-  ['worker_19',['worker',['../conceptrpp_1_1schedulers_1_1constraint_1_1worker.html',1,'rpp::schedulers::constraint']]]
+  ['subject_18',['subject',['../conceptrpp_1_1constraint_1_1subject.html',1,'rpp::constraint']]],
+  ['subject_5fstrategy_19',['subject_strategy',['../conceptrpp_1_1subjects_1_1details_1_1constraint_1_1subject__strategy.html',1,'rpp::subjects::details::constraint']]],
+  ['worker_20',['worker',['../conceptrpp_1_1schedulers_1_1constraint_1_1worker.html',1,'rpp::schedulers::constraint']]]
 ];

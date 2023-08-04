@@ -90,7 +90,7 @@
 \DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ ,\ scheduler\{scheduler\}}
 \DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \{\}}
 \DoxyCodeLine{00088\ }
-\DoxyCodeLine{00089\ \ \ \ \ \textcolor{keyword}{using\ }ValueType\ =\ utils::iterable\_value\_t<PackedContainer>;}
+\DoxyCodeLine{00089\ \ \ \ \ \textcolor{keyword}{using\ }ValueType\ =\ rpp::utils::iterable\_value\_t<PackedContainer>;}
 \DoxyCodeLine{00090\ }
 \DoxyCodeLine{00091\ \ \ \ \ RPP\_NO\_UNIQUE\_ADDRESS\ PackedContainer\ container;}
 \DoxyCodeLine{00092\ \ \ \ \ RPP\_NO\_UNIQUE\_ADDRESS\ TScheduler\ \ \ \ \ \ scheduler;}
@@ -141,7 +141,7 @@
 \DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keyword}{constexpr}\ (std::same\_as<utils::decayed\_invoke\_result\_t<Callable>,\ \textcolor{keywordtype}{void}>)}
 \DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ \{}
 \DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \ \ \ \ fn();}
-\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ utils::none\{\};}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ rpp::utils::none\{\};}
 \DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
 \DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \{}
@@ -179,7 +179,7 @@
 \DoxyCodeLine{00253\ \textcolor{keyword}{template}<constraint::memory\_model\ memory\_model\ \textcolor{comment}{/*\ =\ memory\_model::use\_stack\ */},\ std::invocable<>\ Callable>}
 \DoxyCodeLine{00254\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__creational__operators_ga519523490394660d7e8c46d2d5612f75}{from\_callable}}(Callable\&\&\ callable)}
 \DoxyCodeLine{00255\ \{}
-\DoxyCodeLine{00256\ \ \ \ \ \textcolor{keywordflow}{return}\ just<memory\_model>(std::forward<Callable>(callable))\ |\ \mbox{\hyperlink{group__transforming__operators_gaa1e52694559ad873f33b62ada4c45675}{rpp::operators::map}}(details::from\_callable\_invoke\{\});}
+\DoxyCodeLine{00256\ \ \ \ \ \textcolor{keywordflow}{return}\ just<memory\_model>(std::forward<Callable>(callable))\ |\ \mbox{\hyperlink{group__transforming__operators_ga1291dba2d973d4ba1061c9e0e202cb3f}{rpp::operators::map}}(details::from\_callable\_invoke\{\});}
 \DoxyCodeLine{00257\ \}}
 \DoxyCodeLine{00258\ \}}
 

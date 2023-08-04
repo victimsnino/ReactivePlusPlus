@@ -107,26 +107,26 @@ $(document).ready(function(){initNavTree('group__transforming__operators.html','
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ga9cfd33d5c468e82a7893d92375ce25dc"><td class="memTemplParams" colspan="2">template&lt;typename Fn &gt; <br />
-requires (!utils::is_not_template_callable&lt;Fn&gt; || <a class="el" href="conceptrpp_1_1constraint_1_1observable.html">rpp::constraint::observable</a>&lt;std::invoke_result_t&lt;Fn, utils::convertible_to_any&gt;&gt;)</td></tr>
-<tr class="memitem:ga9cfd33d5c468e82a7893d92375ce25dc"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__transforming__operators.html#ga9cfd33d5c468e82a7893d92375ce25dc">rpp::operators::flat_map</a> (Fn &amp;&amp;callable)</td></tr>
-<tr class="memdesc:ga9cfd33d5c468e82a7893d92375ce25dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transform the items emitted by an Observable into Observables, then flatten the emissions from those into a single Observable.  <br /></td></tr>
-<tr class="separator:ga9cfd33d5c468e82a7893d92375ce25dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga22f903e57ab06c599ddecae8cfebc005"><td class="memTemplParams" colspan="2">template&lt;typename KeySelector , typename ValueSelector  = std::identity, typename KeyComparator  = rpp::utils::less&gt; <br />
-requires ( (!utils::is_not_template_callable&lt;KeySelector&gt; || !std::same_as&lt;void, std::invoke_result_t&lt;KeySelector, utils::convertible_to_any&gt;&gt;) &amp;&amp; (!utils::is_not_template_callable&lt;ValueSelector&gt; || !std::same_as&lt;void, std::invoke_result_t&lt;ValueSelector, utils::convertible_to_any&gt;&gt;) &amp;&amp; (!utils::is_not_template_callable&lt;KeyComparator&gt; || std::strict_weak_order&lt;KeyComparator, utils::convertible_to_any, utils::convertible_to_any&gt;) )</td></tr>
-<tr class="memitem:ga22f903e57ab06c599ddecae8cfebc005"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__transforming__operators.html#ga22f903e57ab06c599ddecae8cfebc005">rpp::operators::group_by</a> (KeySelector &amp;&amp;key_selector, ValueSelector &amp;&amp;value_selector, KeyComparator &amp;&amp;comparator)</td></tr>
-<tr class="memdesc:ga22f903e57ab06c599ddecae8cfebc005"><td class="mdescLeft">&#160;</td><td class="mdescRight">Divide original observable into multiple observables where each new observable emits some group of values from original observable.  <br /></td></tr>
-<tr class="separator:ga22f903e57ab06c599ddecae8cfebc005"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaa1e52694559ad873f33b62ada4c45675"><td class="memTemplParams" colspan="2">template&lt;typename Fn &gt; <br />
-requires (!utils::is_not_template_callable&lt;Fn&gt; || !std::same_as&lt;void, std::invoke_result_t&lt;Fn, utils::convertible_to_any&gt;&gt;)</td></tr>
-<tr class="memitem:gaa1e52694559ad873f33b62ada4c45675"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__transforming__operators.html#gaa1e52694559ad873f33b62ada4c45675">rpp::operators::map</a> (Fn &amp;&amp;callable)</td></tr>
-<tr class="memdesc:gaa1e52694559ad873f33b62ada4c45675"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transforms the items emitted by an Observable via applying a function to each item and emitting result.  <br /></td></tr>
-<tr class="separator:gaa1e52694559ad873f33b62ada4c45675"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaf2998543817ac9d789bd2787f3a5e29d"><td class="memTemplParams" colspan="2">template&lt;typename InitialValue , typename Fn &gt; <br />
-requires (!utils::is_not_template_callable&lt;Fn&gt; || std::same_as&lt;std::decay_t&lt;InitialValue&gt;, std::invoke_result_t&lt;Fn, std::decay_t&lt;InitialValue&gt;&amp;&amp;, utils::convertible_to_any&gt;&gt;)</td></tr>
-<tr class="memitem:gaf2998543817ac9d789bd2787f3a5e29d"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__transforming__operators.html#gaf2998543817ac9d789bd2787f3a5e29d">rpp::operators::scan</a> (InitialValue &amp;&amp;initial_value, Fn &amp;&amp;accumulator)</td></tr>
-<tr class="memdesc:gaf2998543817ac9d789bd2787f3a5e29d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Apply accumulator function for each emission from observable and result of accumulator from previous step and emit (and cache) resulting value.  <br /></td></tr>
-<tr class="separator:gaf2998543817ac9d789bd2787f3a5e29d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga633883e796101ceeab821e2a4912bd5e"><td class="memTemplParams" colspan="2">template&lt;typename Fn &gt; <br />
+requires (!utils::is_not_template_callable&lt;Fn&gt; || <a class="el" href="conceptrpp_1_1constraint_1_1observable.html">rpp::constraint::observable</a>&lt;std::invoke_result_t&lt;Fn, rpp::utils::convertible_to_any&gt;&gt;)</td></tr>
+<tr class="memitem:ga633883e796101ceeab821e2a4912bd5e"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__transforming__operators.html#ga633883e796101ceeab821e2a4912bd5e">rpp::operators::flat_map</a> (Fn &amp;&amp;callable)</td></tr>
+<tr class="memdesc:ga633883e796101ceeab821e2a4912bd5e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transform the items emitted by an Observable into Observables, then flatten the emissions from those into a single Observable.  <br /></td></tr>
+<tr class="separator:ga633883e796101ceeab821e2a4912bd5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga136286fed612116e8d8f43511b5ef7dd"><td class="memTemplParams" colspan="2">template&lt;typename KeySelector , typename ValueSelector  = std::identity, typename KeyComparator  = rpp::utils::less&gt; <br />
+requires ( (!utils::is_not_template_callable&lt;KeySelector&gt; || !std::same_as&lt;void, std::invoke_result_t&lt;KeySelector, rpp::utils::convertible_to_any&gt;&gt;) &amp;&amp; (!utils::is_not_template_callable&lt;ValueSelector&gt; || !std::same_as&lt;void, std::invoke_result_t&lt;ValueSelector, rpp::utils::convertible_to_any&gt;&gt;) &amp;&amp; (!utils::is_not_template_callable&lt;KeyComparator&gt; || std::strict_weak_order&lt;KeyComparator, rpp::utils::convertible_to_any, rpp::utils::convertible_to_any&gt;) )</td></tr>
+<tr class="memitem:ga136286fed612116e8d8f43511b5ef7dd"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__transforming__operators.html#ga136286fed612116e8d8f43511b5ef7dd">rpp::operators::group_by</a> (KeySelector &amp;&amp;key_selector, ValueSelector &amp;&amp;value_selector, KeyComparator &amp;&amp;comparator)</td></tr>
+<tr class="memdesc:ga136286fed612116e8d8f43511b5ef7dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Divide original observable into multiple observables where each new observable emits some group of values from original observable.  <br /></td></tr>
+<tr class="separator:ga136286fed612116e8d8f43511b5ef7dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga1291dba2d973d4ba1061c9e0e202cb3f"><td class="memTemplParams" colspan="2">template&lt;typename Fn &gt; <br />
+requires (!utils::is_not_template_callable&lt;Fn&gt; || !std::same_as&lt;void, std::invoke_result_t&lt;Fn, rpp::utils::convertible_to_any&gt;&gt;)</td></tr>
+<tr class="memitem:ga1291dba2d973d4ba1061c9e0e202cb3f"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__transforming__operators.html#ga1291dba2d973d4ba1061c9e0e202cb3f">rpp::operators::map</a> (Fn &amp;&amp;callable)</td></tr>
+<tr class="memdesc:ga1291dba2d973d4ba1061c9e0e202cb3f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transforms the items emitted by an Observable via applying a function to each item and emitting result.  <br /></td></tr>
+<tr class="separator:ga1291dba2d973d4ba1061c9e0e202cb3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf31c7c2738a8ce81801e219b943c9e8f"><td class="memTemplParams" colspan="2">template&lt;typename InitialValue , typename Fn &gt; <br />
+requires (!utils::is_not_template_callable&lt;Fn&gt; || std::same_as&lt;std::decay_t&lt;InitialValue&gt;, std::invoke_result_t&lt;Fn, std::decay_t&lt;InitialValue&gt;&amp;&amp;, rpp::utils::convertible_to_any&gt;&gt;)</td></tr>
+<tr class="memitem:gaf31c7c2738a8ce81801e219b943c9e8f"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__transforming__operators.html#gaf31c7c2738a8ce81801e219b943c9e8f">rpp::operators::scan</a> (InitialValue &amp;&amp;initial_value, Fn &amp;&amp;accumulator)</td></tr>
+<tr class="memdesc:gaf31c7c2738a8ce81801e219b943c9e8f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Apply accumulator function for each emission from observable and result of accumulator from previous step and emit (and cache) resulting value.  <br /></td></tr>
+<tr class="separator:gaf31c7c2738a8ce81801e219b943c9e8f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaced4a6e7bc0556b40b07d7efd97d7ee3"><td class="memTemplParams" colspan="2">template&lt;typename Fn &gt; </td></tr>
 <tr class="memitem:gaced4a6e7bc0556b40b07d7efd97d7ee3"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__transforming__operators.html#gaced4a6e7bc0556b40b07d7efd97d7ee3">rpp::operators::scan</a> (Fn &amp;&amp;accumulator)</td></tr>
 <tr class="memdesc:gaced4a6e7bc0556b40b07d7efd97d7ee3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Apply accumulator function for each emission from observable and result of accumulator from previous step and emit (and cache) resulting value.  <br /></td></tr>
@@ -136,14 +136,14 @@ requires (!utils::is_not_template_callable&lt;Fn&gt; || std::same_as&lt;std::dec
 <p>Transforming operators are operators that transform items provided by observable. </p>
 <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators.html#transforming">https://reactivex.io/documentation/operators.html#transforming</a> </dd></dl>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="ga9cfd33d5c468e82a7893d92375ce25dc" name="ga9cfd33d5c468e82a7893d92375ce25dc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga9cfd33d5c468e82a7893d92375ce25dc">&#9670;&#160;</a></span>flat_map()</h2>
+<a id="ga633883e796101ceeab821e2a4912bd5e" name="ga633883e796101ceeab821e2a4912bd5e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga633883e796101ceeab821e2a4912bd5e">&#9670;&#160;</a></span>flat_map()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
 template&lt;typename Fn &gt; <br />
-requires (!utils::is_not_template_callable&lt;Fn&gt; || <a class="el" href="conceptrpp_1_1constraint_1_1observable.html">rpp::constraint::observable</a>&lt;std::invoke_result_t&lt;Fn, utils::convertible_to_any&gt;&gt;)</div>
+requires (!utils::is_not_template_callable&lt;Fn&gt; || <a class="el" href="conceptrpp_1_1constraint_1_1observable.html">rpp::constraint::observable</a>&lt;std::invoke_result_t&lt;Fn, rpp::utils::convertible_to_any&gt;&gt;)</div>
       <table class="memname">
         <tr>
           <td class="memname">auto rpp::operators::flat_map </td>
@@ -172,14 +172,14 @@ requires (!utils::is_not_template_callable&lt;Fn&gt; || <a class="el" href="conc
 
 </div>
 </div>
-<a id="ga22f903e57ab06c599ddecae8cfebc005" name="ga22f903e57ab06c599ddecae8cfebc005"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga22f903e57ab06c599ddecae8cfebc005">&#9670;&#160;</a></span>group_by()</h2>
+<a id="ga136286fed612116e8d8f43511b5ef7dd" name="ga136286fed612116e8d8f43511b5ef7dd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga136286fed612116e8d8f43511b5ef7dd">&#9670;&#160;</a></span>group_by()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
 template&lt;typename KeySelector , typename ValueSelector  = std::identity, typename KeyComparator  = rpp::utils::less&gt; <br />
-requires ( (!utils::is_not_template_callable&lt;KeySelector&gt; || !std::same_as&lt;void, std::invoke_result_t&lt;KeySelector, utils::convertible_to_any&gt;&gt;) &amp;&amp; (!utils::is_not_template_callable&lt;ValueSelector&gt; || !std::same_as&lt;void, std::invoke_result_t&lt;ValueSelector, utils::convertible_to_any&gt;&gt;) &amp;&amp; (!utils::is_not_template_callable&lt;KeyComparator&gt; || std::strict_weak_order&lt;KeyComparator, utils::convertible_to_any, utils::convertible_to_any&gt;) )</div>
+requires ( (!utils::is_not_template_callable&lt;KeySelector&gt; || !std::same_as&lt;void, std::invoke_result_t&lt;KeySelector, rpp::utils::convertible_to_any&gt;&gt;) &amp;&amp; (!utils::is_not_template_callable&lt;ValueSelector&gt; || !std::same_as&lt;void, std::invoke_result_t&lt;ValueSelector, rpp::utils::convertible_to_any&gt;&gt;) &amp;&amp; (!utils::is_not_template_callable&lt;KeyComparator&gt; || std::strict_weak_order&lt;KeyComparator, rpp::utils::convertible_to_any, rpp::utils::convertible_to_any&gt;) )</div>
       <table class="memname">
         <tr>
           <td class="memname">auto rpp::operators::group_by </td>
@@ -276,14 +276,14 @@ requires ( (!utils::is_not_template_callable&lt;KeySelector&gt; || !std::same_as
 
 </div>
 </div>
-<a id="gaa1e52694559ad873f33b62ada4c45675" name="gaa1e52694559ad873f33b62ada4c45675"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gaa1e52694559ad873f33b62ada4c45675">&#9670;&#160;</a></span>map()</h2>
+<a id="ga1291dba2d973d4ba1061c9e0e202cb3f" name="ga1291dba2d973d4ba1061c9e0e202cb3f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga1291dba2d973d4ba1061c9e0e202cb3f">&#9670;&#160;</a></span>map()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
 template&lt;typename Fn &gt; <br />
-requires (!utils::is_not_template_callable&lt;Fn&gt; || !std::same_as&lt;void, std::invoke_result_t&lt;Fn, utils::convertible_to_any&gt;&gt;)</div>
+requires (!utils::is_not_template_callable&lt;Fn&gt; || !std::same_as&lt;void, std::invoke_result_t&lt;Fn, rpp::utils::convertible_to_any&gt;&gt;)</div>
       <table class="memname">
         <tr>
           <td class="memname">auto rpp::operators::map </td>
@@ -314,14 +314,14 @@ requires (!utils::is_not_template_callable&lt;Fn&gt; || !std::same_as&lt;void, s
 </dl>
 <dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="map_8hpp_source.html">rpp/operators/map.hpp</a>&gt;</dd></dl>
 <dl class="section user"><dt>Example with same type:</dt><dd><div class="fragment"><div class="line">    <a class="code hl_function" href="group__creational__operators.html#gae60bdb9b493443d2786b0eee8bfe17ab">rpp::source::just</a>(42)</div>
-<div class="line">        | <a class="code hl_function" href="group__transforming__operators.html#gaa1e52694559ad873f33b62ada4c45675">rpp::operators::map</a>([](<span class="keywordtype">int</span> value) { <span class="keywordflow">return</span> value + 10; })</div>
+<div class="line">        | <a class="code hl_function" href="group__transforming__operators.html#ga1291dba2d973d4ba1061c9e0e202cb3f">rpp::operators::map</a>([](<span class="keywordtype">int</span> value) { <span class="keywordflow">return</span> value + 10; })</div>
 <div class="line">        | <a class="code hl_function" href="group__utility__operators.html#ga149309d4b2e0f1201f1ab42597ace8ac">rpp::operators::subscribe</a>([](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; v &lt;&lt; std::endl; });</div>
 <div class="line">    <span class="comment">// Output: 52</span></div>
-<div class="ttc" id="agroup__transforming__operators_html_gaa1e52694559ad873f33b62ada4c45675"><div class="ttname"><a href="group__transforming__operators.html#gaa1e52694559ad873f33b62ada4c45675">rpp::operators::map</a></div><div class="ttdeci">auto map(Fn &amp;&amp;callable)</div><div class="ttdoc">Transforms the items emitted by an Observable via applying a function to each item and emitting resul...</div><div class="ttdef"><b>Definition</b> map.hpp:79</div></div>
+<div class="ttc" id="agroup__transforming__operators_html_ga1291dba2d973d4ba1061c9e0e202cb3f"><div class="ttname"><a href="group__transforming__operators.html#ga1291dba2d973d4ba1061c9e0e202cb3f">rpp::operators::map</a></div><div class="ttdeci">auto map(Fn &amp;&amp;callable)</div><div class="ttdoc">Transforms the items emitted by an Observable via applying a function to each item and emitting resul...</div><div class="ttdef"><b>Definition</b> map.hpp:79</div></div>
 <div class="ttc" id="agroup__utility__operators_html_ga149309d4b2e0f1201f1ab42597ace8ac"><div class="ttname"><a href="group__utility__operators.html#ga149309d4b2e0f1201f1ab42597ace8ac">rpp::operators::subscribe</a></div><div class="ttdeci">auto subscribe(observer&lt; Type, ObserverStrategy &gt; &amp;&amp;observer)</div><div class="ttdoc">Subscribes passed observer to emissions from this observable.</div><div class="ttdef"><b>Definition</b> subscribe.hpp:152</div></div>
 </div><!-- fragment --></dd></dl>
 <dl class="section user"><dt>Example with changed type:</dt><dd><div class="fragment"><div class="line">    <a class="code hl_function" href="group__creational__operators.html#gae60bdb9b493443d2786b0eee8bfe17ab">rpp::source::just</a>(42)</div>
-<div class="line">            | <a class="code hl_function" href="group__transforming__operators.html#gaa1e52694559ad873f33b62ada4c45675">rpp::operators::map</a>([](<span class="keywordtype">int</span> value) { <span class="keywordflow">return</span> std::to_string(value) + <span class="stringliteral">&quot; VAL&quot;</span>; })</div>
+<div class="line">            | <a class="code hl_function" href="group__transforming__operators.html#ga1291dba2d973d4ba1061c9e0e202cb3f">rpp::operators::map</a>([](<span class="keywordtype">int</span> value) { <span class="keywordflow">return</span> std::to_string(value) + <span class="stringliteral">&quot; VAL&quot;</span>; })</div>
 <div class="line">            | <a class="code hl_function" href="group__utility__operators.html#ga149309d4b2e0f1201f1ab42597ace8ac">rpp::operators::subscribe</a>([](<span class="keyword">const</span> std::string&amp; v) { std::cout &lt;&lt; v &lt;&lt; std::endl; });</div>
 <div class="line">    <span class="comment">// Output: 42 VAL</span></div>
 </div><!-- fragment --></dd></dl>
@@ -367,23 +367,23 @@ template&lt;typename Fn &gt; </div>
 </dl>
 <dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="scan_8hpp_source.html">rpp/operators/scan.hpp</a>&gt;</dd></dl>
 <dl class="section user"><dt>Example</dt><dd><div class="fragment"><div class="line">    <a class="code hl_function" href="group__creational__operators.html#gae60bdb9b493443d2786b0eee8bfe17ab">rpp::source::just</a>(1,2,3)</div>
-<div class="line">            | <a class="code hl_function" href="group__transforming__operators.html#gaf2998543817ac9d789bd2787f3a5e29d">rpp::operators::scan</a>(std::plus&lt;int&gt;{})</div>
+<div class="line">            | <a class="code hl_function" href="group__transforming__operators.html#gaf31c7c2738a8ce81801e219b943c9e8f">rpp::operators::scan</a>(std::plus&lt;int&gt;{})</div>
 <div class="line">            | <a class="code hl_function" href="group__utility__operators.html#ga149309d4b2e0f1201f1ab42597ace8ac">rpp::operators::subscribe</a>([](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; v &lt;&lt; std::endl; });</div>
 <div class="line">    <span class="comment">// Output: 1 3 6</span></div>
-<div class="ttc" id="agroup__transforming__operators_html_gaf2998543817ac9d789bd2787f3a5e29d"><div class="ttname"><a href="group__transforming__operators.html#gaf2998543817ac9d789bd2787f3a5e29d">rpp::operators::scan</a></div><div class="ttdeci">auto scan(InitialValue &amp;&amp;initial_value, Fn &amp;&amp;accumulator)</div><div class="ttdoc">Apply accumulator function for each emission from observable and result of accumulator from previous ...</div><div class="ttdef"><b>Definition</b> scan.hpp:121</div></div>
+<div class="ttc" id="agroup__transforming__operators_html_gaf31c7c2738a8ce81801e219b943c9e8f"><div class="ttname"><a href="group__transforming__operators.html#gaf31c7c2738a8ce81801e219b943c9e8f">rpp::operators::scan</a></div><div class="ttdeci">auto scan(InitialValue &amp;&amp;initial_value, Fn &amp;&amp;accumulator)</div><div class="ttdoc">Apply accumulator function for each emission from observable and result of accumulator from previous ...</div><div class="ttdef"><b>Definition</b> scan.hpp:121</div></div>
 </div><!-- fragment --></dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/scan.html">https://reactivex.io/documentation/operators/scan.html</a> </dd></dl>
 
 </div>
 </div>
-<a id="gaf2998543817ac9d789bd2787f3a5e29d" name="gaf2998543817ac9d789bd2787f3a5e29d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gaf2998543817ac9d789bd2787f3a5e29d">&#9670;&#160;</a></span>scan() <span class="overload">[2/2]</span></h2>
+<a id="gaf31c7c2738a8ce81801e219b943c9e8f" name="gaf31c7c2738a8ce81801e219b943c9e8f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaf31c7c2738a8ce81801e219b943c9e8f">&#9670;&#160;</a></span>scan() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
 template&lt;typename InitialValue , typename Fn &gt; <br />
-requires (!utils::is_not_template_callable&lt;Fn&gt; || std::same_as&lt;std::decay_t&lt;InitialValue&gt;, std::invoke_result_t&lt;Fn, std::decay_t&lt;InitialValue&gt;&amp;&amp;, utils::convertible_to_any&gt;&gt;)</div>
+requires (!utils::is_not_template_callable&lt;Fn&gt; || std::same_as&lt;std::decay_t&lt;InitialValue&gt;, std::invoke_result_t&lt;Fn, std::decay_t&lt;InitialValue&gt;&amp;&amp;, rpp::utils::convertible_to_any&gt;&gt;)</div>
       <table class="memname">
         <tr>
           <td class="memname">auto rpp::operators::scan </td>
@@ -424,11 +424,11 @@ requires (!utils::is_not_template_callable&lt;Fn&gt; || std::same_as&lt;std::dec
 </dl>
 <dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="scan_8hpp_source.html">rpp/operators/scan.hpp</a>&gt;</dd></dl>
 <dl class="section user"><dt>Example</dt><dd><div class="fragment"><div class="line">    <a class="code hl_function" href="group__creational__operators.html#gae60bdb9b493443d2786b0eee8bfe17ab">rpp::source::just</a>(1,2,3)</div>
-<div class="line">            | <a class="code hl_function" href="group__transforming__operators.html#gaf2998543817ac9d789bd2787f3a5e29d">rpp::operators::scan</a>(10, std::plus&lt;int&gt;{})</div>
+<div class="line">            | <a class="code hl_function" href="group__transforming__operators.html#gaf31c7c2738a8ce81801e219b943c9e8f">rpp::operators::scan</a>(10, std::plus&lt;int&gt;{})</div>
 <div class="line">            | <a class="code hl_function" href="group__utility__operators.html#ga149309d4b2e0f1201f1ab42597ace8ac">rpp::operators::subscribe</a>([](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; v &lt;&lt; std::endl; });</div>
 <div class="line">    <span class="comment">// Output: 10 11 13 16</span></div>
 </div><!-- fragment --> <div class="fragment"><div class="line">    <a class="code hl_function" href="group__creational__operators.html#gae60bdb9b493443d2786b0eee8bfe17ab">rpp::source::just</a>(1,2,3)</div>
-<div class="line">            | <a class="code hl_function" href="group__transforming__operators.html#gaf2998543817ac9d789bd2787f3a5e29d">rpp::operators::scan</a>(std::vector&lt;int&gt;{}, [](std::vector&lt;int&gt;&amp;&amp; seed, <span class="keywordtype">int</span> new_value)</div>
+<div class="line">            | <a class="code hl_function" href="group__transforming__operators.html#gaf31c7c2738a8ce81801e219b943c9e8f">rpp::operators::scan</a>(std::vector&lt;int&gt;{}, [](std::vector&lt;int&gt;&amp;&amp; seed, <span class="keywordtype">int</span> new_value)</div>
 <div class="line">            {</div>
 <div class="line">                seed.push_back(new_value);</div>
 <div class="line">                <span class="keywordflow">return</span> std::move(seed);</div>

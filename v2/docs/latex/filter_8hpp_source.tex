@@ -56,8 +56,8 @@
 \DoxyCodeLine{00052\ \textcolor{keyword}{namespace\ }rpp::operators}
 \DoxyCodeLine{00053\ \{}
 \DoxyCodeLine{00078\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ Fn>}
-\DoxyCodeLine{00079\ \ \ \ \ \textcolor{keyword}{requires}\ (!utils::is\_not\_template\_callable<Fn>\ ||\ std::same\_as<bool,\ std::invoke\_result\_t<Fn,\ utils::convertible\_to\_any>>)}
-\DoxyCodeLine{00080\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__filtering__operators_ga3ddeadf25b1cb3105f628ea11dc3a28a}{filter}}(Fn\&\&\ predicate)}
+\DoxyCodeLine{00079\ \ \ \ \ \textcolor{keyword}{requires}\ (!utils::is\_not\_template\_callable<Fn>\ ||\ std::same\_as<bool,\ std::invoke\_result\_t<Fn,\ rpp::utils::convertible\_to\_any>>)}
+\DoxyCodeLine{00080\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__filtering__operators_ga3ad579153e7975af6ae4b75f585fb873}{filter}}(Fn\&\&\ predicate)}
 \DoxyCodeLine{00081\ \{}
 \DoxyCodeLine{00082\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1filter__t}{details::filter\_t<std::decay\_t<Fn>}}>\{std::forward<Fn>(predicate)\};}
 \DoxyCodeLine{00083\ \}}

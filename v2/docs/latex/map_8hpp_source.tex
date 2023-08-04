@@ -55,8 +55,8 @@
 \DoxyCodeLine{00051\ \textcolor{keyword}{namespace\ }rpp::operators}
 \DoxyCodeLine{00052\ \{}
 \DoxyCodeLine{00081\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ Fn>}
-\DoxyCodeLine{00082\ \ \ \ \ \textcolor{keyword}{requires}\ (!utils::is\_not\_template\_callable<Fn>\ ||\ !std::same\_as<void,\ std::invoke\_result\_t<Fn,\ utils::convertible\_to\_any>>)}
-\DoxyCodeLine{00083\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__transforming__operators_gaa1e52694559ad873f33b62ada4c45675}{map}}(Fn\&\&\ callable)}
+\DoxyCodeLine{00082\ \ \ \ \ \textcolor{keyword}{requires}\ (!utils::is\_not\_template\_callable<Fn>\ ||\ !std::same\_as<void,\ std::invoke\_result\_t<Fn,\ rpp::utils::convertible\_to\_any>>)}
+\DoxyCodeLine{00083\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__transforming__operators_ga1291dba2d973d4ba1061c9e0e202cb3f}{map}}(Fn\&\&\ callable)}
 \DoxyCodeLine{00084\ \{}
 \DoxyCodeLine{00085\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1map__t}{details::map\_t<std::decay\_t<Fn>}}>\{std::forward<Fn>(callable)\};}
 \DoxyCodeLine{00086\ \}}

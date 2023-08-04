@@ -59,8 +59,8 @@
 \DoxyCodeLine{00055\ \textcolor{keyword}{namespace\ }rpp::operators}
 \DoxyCodeLine{00056\ \{}
 \DoxyCodeLine{00083\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ EqualityFn>}
-\DoxyCodeLine{00084\ \ \ \ \ \textcolor{keyword}{requires}\ (!utils::is\_not\_template\_callable<EqualityFn>\ ||\ std::same\_as<bool,\ std::invoke\_result\_t<EqualityFn,\ utils::convertible\_to\_any,\ utils::convertible\_to\_any>>)}
-\DoxyCodeLine{00085\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__filtering__operators_gae2781258c0b1344d77c5bde942ab40bb}{distinct\_until\_changed}}(EqualityFn\&\&\ equality\_fn)}
+\DoxyCodeLine{00084\ \ \ \ \ \textcolor{keyword}{requires}\ (!utils::is\_not\_template\_callable<EqualityFn>\ ||\ std::same\_as<bool,\ std::invoke\_result\_t<EqualityFn,\ rpp::utils::convertible\_to\_any,\ rpp::utils::convertible\_to\_any>>)}
+\DoxyCodeLine{00085\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__filtering__operators_gaa8ed11faabd5b31d63d0481f9018fc68}{distinct\_until\_changed}}(EqualityFn\&\&\ equality\_fn)}
 \DoxyCodeLine{00086\ \{}
 \DoxyCodeLine{00087\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1distinct__until__changed__t}{details::distinct\_until\_changed\_t<std::decay\_t<EqualityFn>}}>\{std::forward<EqualityFn>(equality\_fn)\};}
 \DoxyCodeLine{00088\ \}}

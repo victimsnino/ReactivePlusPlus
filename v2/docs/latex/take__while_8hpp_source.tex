@@ -55,8 +55,8 @@
 \DoxyCodeLine{00051\ \textcolor{keyword}{namespace\ }rpp::operators}
 \DoxyCodeLine{00052\ \{}
 \DoxyCodeLine{00077\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ Fn>}
-\DoxyCodeLine{00078\ \ \ \ \ \textcolor{keyword}{requires}\ (!utils::is\_not\_template\_callable<Fn>\ ||\ std::same\_as<bool,\ std::invoke\_result\_t<Fn,\ utils::convertible\_to\_any>>)}
-\DoxyCodeLine{00079\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__conditional__operators_gad40c85eab44ed3bcb4649137088ebd68}{take\_while}}(Fn\&\&\ predicate)}
+\DoxyCodeLine{00078\ \ \ \ \ \textcolor{keyword}{requires}\ (!utils::is\_not\_template\_callable<Fn>\ ||\ std::same\_as<bool,\ std::invoke\_result\_t<Fn,\ rpp::utils::convertible\_to\_any>>)}
+\DoxyCodeLine{00079\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__conditional__operators_gac65952f7460d8f0e71a93d95810d2061}{take\_while}}(Fn\&\&\ predicate)}
 \DoxyCodeLine{00080\ \{}
 \DoxyCodeLine{00081\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1take__while__t}{details::take\_while\_t<std::decay\_t<Fn>}}>\{std::forward<Fn>(predicate)\};}
 \DoxyCodeLine{00082\ \}}

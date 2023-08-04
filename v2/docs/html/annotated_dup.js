@@ -115,6 +115,12 @@ var annotated_dup =
           [ "disposed", "structrpp_1_1subjects_1_1details_1_1disposed.html", null ],
           [ "publish_strategy", "classrpp_1_1subjects_1_1details_1_1publish__strategy.html", null ],
           [ "subject_state", "classrpp_1_1subjects_1_1details_1_1subject__state.html", null ]
+        ] ],
+        [ "utils", null, [
+          [ "details", null, [
+            [ "extract_subject_type", "structrpp_1_1subjects_1_1utils_1_1details_1_1extract__subject__type.html", null ],
+            [ "extract_subject_type< rpp::subjects::details::base_subject< TT, Strategy > >", "structrpp_1_1subjects_1_1utils_1_1details_1_1extract__subject__type_3_01rpp_1_1subjects_1_1detaie00a4443681b018e69b041137386dfb4.html", null ]
+          ] ]
         ] ]
       ] ],
       [ "utils", null, [
@@ -127,6 +133,7 @@ var annotated_dup =
       ] ],
       [ "callback_disposable", "classrpp_1_1callback__disposable.html", null ],
       [ "composite_disposable", "classrpp_1_1composite__disposable.html", "classrpp_1_1composite__disposable" ],
+      [ "connectable_observable", "classrpp_1_1connectable__observable.html", null ],
       [ "disposable_wrapper_impl", "classrpp_1_1disposable__wrapper__impl.html", null ],
       [ "grouped_observable", "classrpp_1_1grouped__observable.html", null ],
       [ "interface_disposable", "structrpp_1_1interface__disposable.html", "structrpp_1_1interface__disposable" ],

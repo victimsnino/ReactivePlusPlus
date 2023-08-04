@@ -97,14 +97,14 @@
 \DoxyCodeLine{00093\ \textcolor{keyword}{namespace\ }rpp::operators}
 \DoxyCodeLine{00094\ \{}
 \DoxyCodeLine{00123\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ InitialValue,\ \textcolor{keyword}{typename}\ Fn>}
-\DoxyCodeLine{00124\ \ \ \ \ \textcolor{keyword}{requires}\ (!utils::is\_not\_template\_callable<Fn>\ ||\ std::same\_as<std::decay\_t<InitialValue>,\ std::invoke\_result\_t<Fn,\ std::decay\_t<InitialValue>\&\&,\ utils::convertible\_to\_any>>)}
-\DoxyCodeLine{00125\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__transforming__operators_gaf2998543817ac9d789bd2787f3a5e29d}{scan}}(InitialValue\&\&\ initial\_value,\ Fn\&\&\ accumulator)}
+\DoxyCodeLine{00124\ \ \ \ \ \textcolor{keyword}{requires}\ (!utils::is\_not\_template\_callable<Fn>\ ||\ std::same\_as<std::decay\_t<InitialValue>,\ std::invoke\_result\_t<Fn,\ std::decay\_t<InitialValue>\&\&,\ rpp::utils::convertible\_to\_any>>)}
+\DoxyCodeLine{00125\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__transforming__operators_gaf31c7c2738a8ce81801e219b943c9e8f}{scan}}(InitialValue\&\&\ initial\_value,\ Fn\&\&\ accumulator)}
 \DoxyCodeLine{00126\ \{}
 \DoxyCodeLine{00127\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1scan__t}{details::scan\_t<std::decay\_t<InitialValue>}},\ std::decay\_t<Fn>>\{std::forward<InitialValue>(initial\_value),\ std::forward<Fn>(accumulator)\};}
 \DoxyCodeLine{00128\ \}}
 \DoxyCodeLine{00129\ }
 \DoxyCodeLine{00156\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ Fn>}
-\DoxyCodeLine{00157\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__transforming__operators_gaf2998543817ac9d789bd2787f3a5e29d}{scan}}(Fn\&\&\ accumulator)}
+\DoxyCodeLine{00157\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__transforming__operators_gaf31c7c2738a8ce81801e219b943c9e8f}{scan}}(Fn\&\&\ accumulator)}
 \DoxyCodeLine{00158\ \{}
 \DoxyCodeLine{00159\ \ \ \ \ \textcolor{keywordflow}{return}\ details::scan\_no\_seed\_t<std::decay\_t<Fn>>\{std::forward<Fn>(accumulator)\};}
 \DoxyCodeLine{00160\ \}}

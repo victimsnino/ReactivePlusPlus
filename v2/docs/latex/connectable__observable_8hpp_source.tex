@@ -1,0 +1,72 @@
+\doxysection{connectable\+\_\+observable.\+hpp}
+\hypertarget{connectable__observable_8hpp_source}{}\label{connectable__observable_8hpp_source}\index{src/rpp/rpp/observables/connectable\_observable.hpp@{src/rpp/rpp/observables/connectable\_observable.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ReactivePlusPlus\ library}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ Copyright\ Aleksey\ Loginov\ 2023\ -\/\ present.}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ \ Distributed\ under\ the\ Boost\ Software\ License,\ Version\ 1.0.}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ \ \ \ \ (See\ accompanying\ file\ LICENSE\_1\_0.txt\ or\ copy\ at}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ https://www.boost.org/LICENSE\_1\_0.txt)}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ \ Project\ home:\ https://github.com/victimsnino/ReactivePlusPlus}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <rpp/observables/observable.hpp>}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <rpp/subjects/fwd.hpp>}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{keyword}{namespace\ }rpp}
+\DoxyCodeLine{00016\ \{}
+\DoxyCodeLine{00017\ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::observable\ OriginalObservable,\ rpp::constra\textcolor{keywordtype}{int}::subject\ Subject>}
+\DoxyCodeLine{00018\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1connectable__observable}{connectable\_observable}}\ final\ :\ \textcolor{keyword}{public}\ decltype(std::declval<Subject>().get\_observable())}
+\DoxyCodeLine{00019\ \{}
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keyword}{using\ }base\ =\ \textcolor{keyword}{decltype}(std::declval<Subject>().get\_observable());}
+\DoxyCodeLine{00021\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00022\ \ \ \ \ \mbox{\hyperlink{classrpp_1_1connectable__observable}{connectable\_observable}}(\textcolor{keyword}{const}\ OriginalObservable\&\ original\_observable,\ \textcolor{keyword}{const}\ Subject\&\ subject\ =\ Subject\{\})}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ :\ base\{subject.get\_observable()\}}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ ,\ m\_original\_observable\{original\_observable\}}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ ,\ m\_subject\{subject\}\ \{\}}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \ \ \ \ \mbox{\hyperlink{classrpp_1_1connectable__observable}{connectable\_observable}}(OriginalObservable\&\&\ original\_observable,\ \textcolor{keyword}{const}\ Subject\&\ subject\ =\ Subject\{\})}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ :\ base\{subject.get\_observable()\}}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ ,\ m\_original\_observable\{std::move(original\_observable)\}}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ ,\ m\_subject\{subject\}\ \{\}}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \ \ \ \ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp::disposable\_wrapper}}\ connect()\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00034\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ std::shared\_ptr<rpp::composite\_disposable>\ new\_disposable\{\};}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ current\ =\ std::atomic\_load\_explicit(\&m\_state-\/>disposable,\ std::memory\_order\_relaxed);}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (!m\_subject.get\_disposable().is\_disposed())}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (current\ \&\&\ !current-\/>is\_disposed())}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ rpp::disposable\_wrapper::from\_weak(current);}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!new\_disposable)}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ new\_disposable\ =\ std::make\_shared<rpp::composite\_disposable>();}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!std::atomic\_compare\_exchange\_strong(\&m\_state-\/>disposable,\ \&current,\ new\_disposable))}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \ \ \ \ m\_original\_observable.subscribe(new\_disposable,\ m\_subject.get\_observer());}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ rpp::disposable\_wrapper::from\_weak(new\_disposable);}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \{\};}
+\DoxyCodeLine{00055\ \ \ \ \ \}}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00058\ \ \ \ \ OriginalObservable\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ m\_original\_observable;}
+\DoxyCodeLine{00059\ \ \ \ \ Subject\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ m\_subject;}
+\DoxyCodeLine{00060\ \ \ \ \ \textcolor{keyword}{struct\ }state\_t}
+\DoxyCodeLine{00061\ \ \ \ \ \{}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ rpp::utils::atomic\_shared\_ptr<rpp::composite\_disposable>\ disposable\{\};}
+\DoxyCodeLine{00063\ \ \ \ \ \};}
+\DoxyCodeLine{00064\ \ \ \ \ std::shared\_ptr<state\_t>\ m\_state\ =\ std::make\_shared<state\_t>();}
+\DoxyCodeLine{00065\ \};}
+\DoxyCodeLine{00066\ \}}
+
+\end{DoxyCode}

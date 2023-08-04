@@ -107,24 +107,24 @@ $(document).ready(function(){initNavTree('group__conditional__operators.html',''
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:gad40c85eab44ed3bcb4649137088ebd68"><td class="memTemplParams" colspan="2">template&lt;typename Fn &gt; <br />
-requires (!utils::is_not_template_callable&lt;Fn&gt; || std::same_as&lt;bool, std::invoke_result_t&lt;Fn, utils::convertible_to_any&gt;&gt;)</td></tr>
-<tr class="memitem:gad40c85eab44ed3bcb4649137088ebd68"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__conditional__operators.html#gad40c85eab44ed3bcb4649137088ebd68">rpp::operators::take_while</a> (Fn &amp;&amp;predicate)</td></tr>
-<tr class="memdesc:gad40c85eab44ed3bcb4649137088ebd68"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends items from observable while items are satisfy predicate. When condition becomes false -&gt; sends <code>on_completed</code>  <br /></td></tr>
-<tr class="separator:gad40c85eab44ed3bcb4649137088ebd68"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gac65952f7460d8f0e71a93d95810d2061"><td class="memTemplParams" colspan="2">template&lt;typename Fn &gt; <br />
+requires (!utils::is_not_template_callable&lt;Fn&gt; || std::same_as&lt;bool, std::invoke_result_t&lt;Fn, rpp::utils::convertible_to_any&gt;&gt;)</td></tr>
+<tr class="memitem:gac65952f7460d8f0e71a93d95810d2061"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__conditional__operators.html#gac65952f7460d8f0e71a93d95810d2061">rpp::operators::take_while</a> (Fn &amp;&amp;predicate)</td></tr>
+<tr class="memdesc:gac65952f7460d8f0e71a93d95810d2061"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends items from observable while items are satisfy predicate. When condition becomes false -&gt; sends <code>on_completed</code>  <br /></td></tr>
+<tr class="separator:gac65952f7460d8f0e71a93d95810d2061"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p>Conditional operators are operators that emit items based on some condition including condition of items from other observables. </p>
 <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators.html#conditional">https://reactivex.io/documentation/operators.html#conditional</a> </dd></dl>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="gad40c85eab44ed3bcb4649137088ebd68" name="gad40c85eab44ed3bcb4649137088ebd68"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gad40c85eab44ed3bcb4649137088ebd68">&#9670;&#160;</a></span>take_while()</h2>
+<a id="gac65952f7460d8f0e71a93d95810d2061" name="gac65952f7460d8f0e71a93d95810d2061"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gac65952f7460d8f0e71a93d95810d2061">&#9670;&#160;</a></span>take_while()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
 template&lt;typename Fn &gt; <br />
-requires (!utils::is_not_template_callable&lt;Fn&gt; || std::same_as&lt;bool, std::invoke_result_t&lt;Fn, utils::convertible_to_any&gt;&gt;)</div>
+requires (!utils::is_not_template_callable&lt;Fn&gt; || std::same_as&lt;bool, std::invoke_result_t&lt;Fn, rpp::utils::convertible_to_any&gt;&gt;)</div>
       <table class="memname">
         <tr>
           <td class="memname">auto rpp::operators::take_while </td>
@@ -154,10 +154,10 @@ requires (!utils::is_not_template_callable&lt;Fn&gt; || std::same_as&lt;bool, st
 </dl>
 <dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="take__while_8hpp_source.html">rpp/operators/take_while.hpp</a>&gt;</dd></dl>
 <dl class="section user"><dt>Example:</dt><dd><div class="fragment"><div class="line">    <a class="code hl_function" href="group__creational__operators.html#gae60bdb9b493443d2786b0eee8bfe17ab">rpp::source::just</a>(0, 1, 2, 3, 4, 5, 6, 7, 8, 9)</div>
-<div class="line">            | <a class="code hl_function" href="group__conditional__operators.html#gad40c85eab44ed3bcb4649137088ebd68">rpp::operators::take_while</a>([](<span class="keywordtype">int</span> v) { <span class="keywordflow">return</span> v != 5; })</div>
+<div class="line">            | <a class="code hl_function" href="group__conditional__operators.html#gac65952f7460d8f0e71a93d95810d2061">rpp::operators::take_while</a>([](<span class="keywordtype">int</span> v) { <span class="keywordflow">return</span> v != 5; })</div>
 <div class="line">            | <a class="code hl_function" href="group__utility__operators.html#ga149309d4b2e0f1201f1ab42597ace8ac">rpp::operators::subscribe</a>([](<span class="keywordtype">int</span>  v) { std::cout &lt;&lt; v &lt;&lt; <span class="stringliteral">&quot; &quot;</span>; });</div>
 <div class="line">    <span class="comment">// Output: 0 1 2 3 4</span></div>
-<div class="ttc" id="agroup__conditional__operators_html_gad40c85eab44ed3bcb4649137088ebd68"><div class="ttname"><a href="group__conditional__operators.html#gad40c85eab44ed3bcb4649137088ebd68">rpp::operators::take_while</a></div><div class="ttdeci">auto take_while(Fn &amp;&amp;predicate)</div><div class="ttdoc">Sends items from observable while items are satisfy predicate. When condition becomes false -&gt; sends ...</div><div class="ttdef"><b>Definition</b> take_while.hpp:75</div></div>
+<div class="ttc" id="agroup__conditional__operators_html_gac65952f7460d8f0e71a93d95810d2061"><div class="ttname"><a href="group__conditional__operators.html#gac65952f7460d8f0e71a93d95810d2061">rpp::operators::take_while</a></div><div class="ttdeci">auto take_while(Fn &amp;&amp;predicate)</div><div class="ttdoc">Sends items from observable while items are satisfy predicate. When condition becomes false -&gt; sends ...</div><div class="ttdef"><b>Definition</b> take_while.hpp:75</div></div>
 <div class="ttc" id="agroup__creational__operators_html_gae60bdb9b493443d2786b0eee8bfe17ab"><div class="ttname"><a href="group__creational__operators.html#gae60bdb9b493443d2786b0eee8bfe17ab">rpp::source::just</a></div><div class="ttdeci">auto just(const TScheduler &amp;scheduler, T &amp;&amp;item, Ts &amp;&amp;...items)</div><div class="ttdoc">Creates rpp::observable that emits a particular items and completes.</div><div class="ttdef"><b>Definition</b> from.hpp:195</div></div>
 <div class="ttc" id="agroup__utility__operators_html_ga149309d4b2e0f1201f1ab42597ace8ac"><div class="ttname"><a href="group__utility__operators.html#ga149309d4b2e0f1201f1ab42597ace8ac">rpp::operators::subscribe</a></div><div class="ttdeci">auto subscribe(observer&lt; Type, ObserverStrategy &gt; &amp;&amp;observer)</div><div class="ttdoc">Subscribes passed observer to emissions from this observable.</div><div class="ttdef"><b>Definition</b> subscribe.hpp:152</div></div>
 </div><!-- fragment --></dd></dl>

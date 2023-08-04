@@ -82,7 +82,7 @@
 \DoxyCodeLine{00078\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_completed()}
 \DoxyCodeLine{00079\ \ \ \ \ \{}
 \DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ observers\ =\ exchange\_observers\_under\_lock\_if\_there(\mbox{\hyperlink{structrpp_1_1subjects_1_1details_1_1completed}{completed}}\{\}))}
-\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \ \ \ \ rpp::utils::for\_each(*observers,\ utils::static\_mem\_fn<\&\mbox{\hyperlink{classrpp_1_1observer}{dynamic\_observer<Type>::on\_completed}}>\{\});}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \ \ \ \ rpp::utils::for\_each(*observers,\ rpp::utils::static\_mem\_fn<\&\mbox{\hyperlink{classrpp_1_1observer}{dynamic\_observer<Type>::on\_completed}}>\{\});}
 \DoxyCodeLine{00082\ \ \ \ \ \}}
 \DoxyCodeLine{00083\ }
 \DoxyCodeLine{00084\ \textcolor{keyword}{private}:}
@@ -117,7 +117,7 @@
 \DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \ \ \ \ std::copy\_if(current\_subs-\/>cbegin(),}
 \DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ current\_subs-\/>cend(),}
 \DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::back\_inserter(*subs),}
-\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ utils::static\_not\_mem\_fn<\&\mbox{\hyperlink{classrpp_1_1observer}{dynamic\_observer<Type>::is\_disposed}}>\{\});}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ rpp::utils::static\_not\_mem\_fn<\&\mbox{\hyperlink{classrpp_1_1observer}{dynamic\_observer<Type>::is\_disposed}}>\{\});}
 \DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ subs;}
 \DoxyCodeLine{00119\ \ \ \ \ \}}
@@ -135,7 +135,7 @@
 \DoxyCodeLine{00131\ }
 \DoxyCodeLine{00132\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ process\_state\_unsafe(\textcolor{keyword}{const}\ state\_t\&\ state,\ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&...\ actions)}
 \DoxyCodeLine{00133\ \ \ \ \ \{}
-\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ std::visit(rpp::utils::overloaded\{actions...,\ utils::empty\_function\_any\_t\{\}\},\ state);}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ std::visit(rpp::utils::overloaded\{actions...,\ rpp::utils::empty\_function\_any\_t\{\}\},\ state);}
 \DoxyCodeLine{00135\ \ \ \ \ \}}
 \DoxyCodeLine{00136\ }
 \DoxyCodeLine{00137\ \ \ \ \ shared\_observers\ extract\_observers\_under\_lock\_if\_there()}

@@ -9,7 +9,7 @@ Conditional operators are operators that emit items based on some condition incl
 \begin{DoxyCompactItemize}
 \item 
 {\footnotesize template$<$typename Fn $>$ \newline
-requires (!utils\+::is\+\_\+not\+\_\+template\+\_\+callable$<$Fn$>$ \texorpdfstring{$\vert$}{|}\texorpdfstring{$\vert$}{|} std\+::same\+\_\+as$<$bool, std\+::invoke\+\_\+result\+\_\+t$<$Fn, utils\+::convertible\+\_\+to\+\_\+any$>$$>$)}\\auto \mbox{\hyperlink{group__conditional__operators_gad40c85eab44ed3bcb4649137088ebd68}{rpp\+::operators\+::take\+\_\+while}} (Fn \&\&predicate)
+requires (!utils\+::is\+\_\+not\+\_\+template\+\_\+callable$<$Fn$>$ \texorpdfstring{$\vert$}{|}\texorpdfstring{$\vert$}{|} std\+::same\+\_\+as$<$bool, std\+::invoke\+\_\+result\+\_\+t$<$Fn, rpp\+::utils\+::convertible\+\_\+to\+\_\+any$>$$>$)}\\auto \mbox{\hyperlink{group__conditional__operators_gac65952f7460d8f0e71a93d95810d2061}{rpp\+::operators\+::take\+\_\+while}} (Fn \&\&predicate)
 \begin{DoxyCompactList}\small\item\em Sends items from observable while items are satisfy predicate. When condition becomes false -\/\texorpdfstring{$>$}{>} sends {\ttfamily on\+\_\+completed} \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
@@ -22,12 +22,12 @@ Conditional operators are operators that emit items based on some condition incl
 
 
 \doxysubsubsubsection{Function Documentation}
-\Hypertarget{group__conditional__operators_gad40c85eab44ed3bcb4649137088ebd68}\label{group__conditional__operators_gad40c85eab44ed3bcb4649137088ebd68} 
+\Hypertarget{group__conditional__operators_gac65952f7460d8f0e71a93d95810d2061}\label{group__conditional__operators_gac65952f7460d8f0e71a93d95810d2061} 
 \index{Conditional Operators@{Conditional Operators}!take\_while@{take\_while}}
 \index{take\_while@{take\_while}!Conditional Operators@{Conditional Operators}}
 \doxysubsubsubsubsection{\texorpdfstring{take\_while()}{take\_while()}}
 {\footnotesize\ttfamily template$<$typename Fn $>$ \newline
-requires (!utils\+::is\+\_\+not\+\_\+template\+\_\+callable$<$Fn$>$ \texorpdfstring{$\vert$}{|}\texorpdfstring{$\vert$}{|} std\+::same\+\_\+as$<$bool, std\+::invoke\+\_\+result\+\_\+t$<$Fn, utils\+::convertible\+\_\+to\+\_\+any$>$$>$)\\
+requires (!utils\+::is\+\_\+not\+\_\+template\+\_\+callable$<$Fn$>$ \texorpdfstring{$\vert$}{|}\texorpdfstring{$\vert$}{|} std\+::same\+\_\+as$<$bool, std\+::invoke\+\_\+result\+\_\+t$<$Fn, rpp\+::utils\+::convertible\+\_\+to\+\_\+any$>$$>$)\\
 auto rpp\+::operators\+::take\+\_\+while (\begin{DoxyParamCaption}\item[{Fn \&\&}]{predicate }\end{DoxyParamCaption})}
 
 
@@ -57,7 +57,7 @@ Actually this operator just emits values while predicate returns true
 
 \begin{DoxyCodeInclude}{0}
 \DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_gae60bdb9b493443d2786b0eee8bfe17ab}{rpp::source::just}}(0,\ 1,\ 2,\ 3,\ 4,\ 5,\ 6,\ 7,\ 8,\ 9)}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__conditional__operators_gad40c85eab44ed3bcb4649137088ebd68}{rpp::operators::take\_while}}([](\textcolor{keywordtype}{int}\ v)\ \{\ \textcolor{keywordflow}{return}\ v\ !=\ 5;\ \})}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__conditional__operators_gac65952f7460d8f0e71a93d95810d2061}{rpp::operators::take\_while}}([](\textcolor{keywordtype}{int}\ v)\ \{\ \textcolor{keywordflow}{return}\ v\ !=\ 5;\ \})}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{rpp::operators::subscribe}}([](\textcolor{keywordtype}{int}\ \ v)\ \{\ std::cout\ <<\ v\ <<\ \textcolor{stringliteral}{"{}\ "{}};\ \});}
 \DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:\ 0\ 1\ 2\ 3\ 4}}
 
