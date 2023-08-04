@@ -146,14 +146,14 @@ class current_thread
 
 public:
 
-    static utils::finally_action<void (*)()> own_queue_and_drain_finally_if_not_owned()
+    static rpp::utils::finally_action<void (*)()> own_queue_and_drain_finally_if_not_owned()
     {
         const bool someone_owns_queue = s_queue.has_value();
 
         if (!someone_owns_queue)
             s_queue.emplace();
 
-        return utils::finally_action{!someone_owns_queue ? &drain_current_queue : &utils::empty_function<>};
+        return rpp::utils::finally_action{!someone_owns_queue ? &drain_current_queue : &utils::empty_function<>};
     }
 
     class worker_strategy

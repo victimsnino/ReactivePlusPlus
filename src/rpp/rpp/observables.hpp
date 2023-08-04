@@ -22,3 +22,4 @@
 #include <rpp/observables/observable.hpp>
 #include <rpp/observables/dynamic_observable.hpp>
 #include <rpp/observables/blocking_observable.hpp>
+#include <rpp/observables/connectable_observable.hpp>

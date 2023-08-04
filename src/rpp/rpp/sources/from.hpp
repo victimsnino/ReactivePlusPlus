@@ -86,7 +86,7 @@ struct from_iterable_strategy
         , scheduler{scheduler}
         {}
 
-    using ValueType = utils::iterable_value_t<PackedContainer>;
+    using ValueType = rpp::utils::iterable_value_t<PackedContainer>;
 
     RPP_NO_UNIQUE_ADDRESS PackedContainer container;
     RPP_NO_UNIQUE_ADDRESS TScheduler      scheduler;
@@ -137,7 +137,7 @@ struct from_callable_invoke
         if constexpr (std::same_as<utils::decayed_invoke_result_t<Callable>, void>)
         {
             fn();
-            return utils::none{};
+            return rpp::utils::none{};
         }
         else
         {

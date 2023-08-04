@@ -79,7 +79,7 @@ namespace rpp::operators
  * @see https://reactivex.io/documentation/operators/map.html
  */
 template<typename Fn>
-    requires (!utils::is_not_template_callable<Fn> || !std::same_as<void, std::invoke_result_t<Fn, utils::convertible_to_any>>)
+    requires (!utils::is_not_template_callable<Fn> || !std::same_as<void, std::invoke_result_t<Fn, rpp::utils::convertible_to_any>>)
 auto map(Fn&& callable)
 {
     return details::map_t<std::decay_t<Fn>>{std::forward<Fn>(callable)};

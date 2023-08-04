@@ -19,14 +19,14 @@ namespace rpp::operators
 {
 auto as_blocking();
 
-template<typename EqualityFn = utils::equal_to>
-    requires (!utils::is_not_template_callable<EqualityFn> || std::same_as<bool, std::invoke_result_t<EqualityFn, utils::convertible_to_any, utils::convertible_to_any>>)
+template<typename EqualityFn = rpp::utils::equal_to>
+    requires (!utils::is_not_template_callable<EqualityFn> || std::same_as<bool, std::invoke_result_t<EqualityFn, rpp::utils::convertible_to_any, rpp::utils::convertible_to_any>>)
 auto distinct_until_changed(EqualityFn&& equality_fn = {});
 
 auto first();
 
 template<typename Fn>
-    requires (!utils::is_not_template_callable<Fn> || std::same_as<bool, std::invoke_result_t<Fn, utils::convertible_to_any>>)
+    requires (!utils::is_not_template_callable<Fn> || std::same_as<bool, std::invoke_result_t<Fn, rpp::utils::convertible_to_any>>)
 auto filter(Fn&& predicate);
 
 template<typename KeySelector,
@@ -34,20 +34,20 @@ template<typename KeySelector,
          typename KeyComparator = rpp::utils::less>
     requires 
     (
-        (!utils::is_not_template_callable<KeySelector> || !std::same_as<void, std::invoke_result_t<KeySelector, utils::convertible_to_any>>) &&
-        (!utils::is_not_template_callable<ValueSelector> || !std::same_as<void, std::invoke_result_t<ValueSelector, utils::convertible_to_any>>) &&
-        (!utils::is_not_template_callable<KeyComparator> || std::strict_weak_order<KeyComparator, utils::convertible_to_any, utils::convertible_to_any>)
+        (!utils::is_not_template_callable<KeySelector> || !std::same_as<void, std::invoke_result_t<KeySelector, rpp::utils::convertible_to_any>>) &&
+        (!utils::is_not_template_callable<ValueSelector> || !std::same_as<void, std::invoke_result_t<ValueSelector, rpp::utils::convertible_to_any>>) &&
+        (!utils::is_not_template_callable<KeyComparator> || std::strict_weak_order<KeyComparator, rpp::utils::convertible_to_any, rpp::utils::convertible_to_any>)
     )
 auto group_by(KeySelector&& key_selector, ValueSelector&& value_selector = {}, KeyComparator&& comparator = {});
 
 auto last();
 
 template<typename Fn>
-    requires (!utils::is_not_template_callable<Fn> || !std::same_as<void, std::invoke_result_t<Fn, utils::convertible_to_any>>)
+    requires (!utils::is_not_template_callable<Fn> || !std::same_as<void, std::invoke_result_t<Fn, rpp::utils::convertible_to_any>>)
 auto map(Fn&& callable);
 
 template<typename Fn>
-    requires (!utils::is_not_template_callable<Fn> || rpp::constraint::observable<std::invoke_result_t<Fn, utils::convertible_to_any>>)
+    requires (!utils::is_not_template_callable<Fn> || rpp::constraint::observable<std::invoke_result_t<Fn, rpp::utils::convertible_to_any>>)
 auto flat_map(Fn&& callable);
 
 template<rpp::constraint::observable TObservable, rpp::constraint::observable... TObservables>
@@ -59,7 +59,7 @@ auto repeat(size_t count);
 auto repeat();
 
 template<typename InitialValue, typename Fn>
-    requires (!utils::is_not_template_callable<Fn> || std::same_as<std::decay_t<InitialValue>, std::invoke_result_t<Fn, std::decay_t<InitialValue>&&, utils::convertible_to_any>>)
+    requires (!utils::is_not_template_callable<Fn> || std::same_as<std::decay_t<InitialValue>, std::invoke_result_t<Fn, std::decay_t<InitialValue>&&, rpp::utils::convertible_to_any>>)
 auto scan(InitialValue&& initial_value, Fn&& accumulator);
 
 template<typename Fn>
@@ -71,7 +71,7 @@ template<rpp::schedulers::constraint::scheduler Scheduler>
 auto subscribe_on(Scheduler&& scheduler);
 
 template<typename Fn>
-    requires (!utils::is_not_template_callable<Fn> || std::same_as<bool, std::invoke_result_t<Fn, utils::convertible_to_any>>)
+    requires (!utils::is_not_template_callable<Fn> || std::same_as<bool, std::invoke_result_t<Fn, rpp::utils::convertible_to_any>>)
 auto take_while(Fn&& predicate);
 
 auto take(size_t count);

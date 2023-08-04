@@ -27,7 +27,7 @@ struct concat_strategy;
 template<constraint::decayed_type PackedContainer>
 struct concat_source_observer_strategy
 {
-    using ValueType = utils::extract_observable_type_t<utils::iterable_value_t<PackedContainer>>;
+    using ValueType = rpp::utils::extract_observable_type_t<utils::iterable_value_t<PackedContainer>>;
 
     RPP_NO_UNIQUE_ADDRESS mutable PackedContainer container;
     mutable size_t                                index;
@@ -55,7 +55,7 @@ struct concat_strategy
 
     RPP_NO_UNIQUE_ADDRESS PackedContainer container;
 
-    using ValueType = utils::extract_observable_type_t<utils::iterable_value_t<PackedContainer>>;
+    using ValueType = rpp::utils::extract_observable_type_t<utils::iterable_value_t<PackedContainer>>;
 
     template<constraint::observer_strategy<ValueType> Strategy>
     void subscribe(observer<ValueType, Strategy>&& obs) const
