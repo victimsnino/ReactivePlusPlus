@@ -67,17 +67,38 @@ template<constraint::decayed_type KeyType, constraint::decayed_type Type, constr
 class grouped_observable;
 }
 
+namespace rpp::utils::details
+{
+    template<typename TObservable>
+    struct is_observable
+    {
+        template<typename T, typename Strategy>
+        static std::true_type deduce(const rpp::observable<T, Strategy>&);
+
+        static std::false_type deduce(...);
+
+        using type = decltype(deduce(std::declval<std::decay_t<TObservable>>()));
+    };
+
+} // namespace rpp::utils::details
+
+namespace rpp::constraint
+{
+template<typename T>
+concept observable = rpp::utils::details::is_observable<std::decay_t<T>>::type::value;
+}
+
 namespace rpp::utils
 {
 namespace details
 {
-    template<typename T>
-    struct extract_observable_type : std::false_type{};
-
-    template<typename TT, typename Strategy>
-    struct extract_observable_type<rpp::observable<TT, Strategy>> : std::true_type
+    template<rpp::constraint::observable TObservable>
+    struct extract_observable_type
     {
-        using type = TT;
+        template<typename T, typename Strategy>
+        static T deduce(const rpp::observable<T, Strategy>&);
+
+        using type = decltype(deduce(std::declval<std::decay_t<TObservable>>()));
     };
 
 } // namespace details
@@ -87,9 +108,6 @@ using extract_observable_type_t = typename details::extract_observable_type<std:
 
 namespace rpp::constraint
 {
-template<typename T>
-concept observable = rpp::utils::details::extract_observable_type<std::decay_t<T>>::value;
-
 template<typename Op, typename TObs>
 concept operators = requires(const Op& op, TObs obs)
 {

@@ -12,6 +12,7 @@
 
 #include <rpp/observables/fwd.hpp>
 #include <rpp/schedulers/fwd.hpp>
+#include <rpp/subjects/fwd.hpp>
 #include <rpp/utils/constraints.hpp>
 #include <rpp/utils/utils.hpp>
 
@@ -45,6 +46,12 @@ auto last();
 template<typename Fn>
     requires (!utils::is_not_template_callable<Fn> || !std::same_as<void, std::invoke_result_t<Fn, rpp::utils::convertible_to_any>>)
 auto map(Fn&& callable);
+
+template<rpp::constraint::subject Subject>
+auto multicast(Subject&& subject);
+
+template<template<typename> typename Subject = rpp::subjects::publish_subject>
+auto multicast();
 
 template<typename Fn>
     requires (!utils::is_not_template_callable<Fn> || rpp::constraint::observable<std::invoke_result_t<Fn, rpp::utils::convertible_to_any>>)
