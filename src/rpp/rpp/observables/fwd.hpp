@@ -73,8 +73,8 @@ namespace rpp::utils::details
     struct is_observable_t
     {
         template<typename T, typename Strategy>
-        static std::true_type  deduce(const rpp::observable<T, Strategy>*);
-        static std::false_type deduce(...);
+        consteval static std::true_type  deduce(const rpp::observable<T, Strategy>*);
+        consteval static std::false_type deduce(...);
 
         using type = decltype(deduce(std::declval<std::decay_t<TObservable>*>()));
     };
@@ -95,7 +95,7 @@ namespace details
     struct extract_observable_type
     {
         template<typename T, typename Strategy>
-        static T deduce(const rpp::observable<T, Strategy>&);
+        consteval static T deduce(const rpp::observable<T, Strategy>&);
 
         using type = decltype(deduce(std::declval<std::decay_t<TObservable>>()));
     };
