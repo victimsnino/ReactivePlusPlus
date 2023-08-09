@@ -70,14 +70,13 @@ class grouped_observable;
 namespace rpp::utils::details
 {
     template<typename TObservable>
-    struct is_observable
+    struct is_observable_t
     {
         template<typename T, typename Strategy>
-        static std::true_type deduce(const rpp::observable<T, Strategy>&);
-
+        static std::true_type  deduce(const rpp::observable<T, Strategy>*);
         static std::false_type deduce(...);
 
-        using type = decltype(deduce(std::declval<std::decay_t<TObservable>>()));
+        using type = decltype(deduce(std::declval<std::decay_t<TObservable>*>()));
     };
 
 } // namespace rpp::utils::details
@@ -85,7 +84,7 @@ namespace rpp::utils::details
 namespace rpp::constraint
 {
 template<typename T>
-concept observable = rpp::utils::details::is_observable<std::decay_t<T>>::type::value;
+concept observable = rpp::utils::details::is_observable_t<std::decay_t<T>>::type::value;
 }
 
 namespace rpp::utils
