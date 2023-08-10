@@ -26,11 +26,11 @@ var hierarchy =
       [ "rpp::subjects::details::subject_state< Type >", "classrpp_1_1subjects_1_1details_1_1subject__state.html", null ]
     ] ],
     [ "rpp::details::error_strategy< Type >", "structrpp_1_1details_1_1error__strategy.html", null ],
+    [ "rpp::utils::details::extract_observable_type< TObservable >", "structrpp_1_1utils_1_1details_1_1extract__observable__type.html", null ],
     [ "rpp::details::fake_strategy", "structrpp_1_1details_1_1fake__strategy.html", null ],
     [ "std::false_type", null, [
       [ "rpp::schedulers::constraint::details::is_worker< T >", "structrpp_1_1schedulers_1_1constraint_1_1details_1_1is__worker.html", null ],
       [ "rpp::subjects::utils::details::extract_subject_type< T >", "structrpp_1_1subjects_1_1utils_1_1details_1_1extract__subject__type.html", null ],
-      [ "rpp::utils::details::extract_observable_type< T >", "structrpp_1_1utils_1_1details_1_1extract__observable__type.html", null ],
       [ "rpp::utils::details::extract_observer_type< T >", "structrpp_1_1utils_1_1details_1_1extract__observer__type.html", null ]
     ] ],
     [ "rpp::operators::details::filter_observer_strategy< Fn >", "structrpp_1_1operators_1_1details_1_1filter__observer__strategy.html", null ],
@@ -60,6 +60,7 @@ var hierarchy =
       ] ],
       [ "rpp::refcount_disposable", "classrpp_1_1refcount__disposable.html", null ]
     ] ],
+    [ "rpp::utils::details::is_observable_t< TObservable >", "structrpp_1_1utils_1_1details_1_1is__observable__t.html", null ],
     [ "rpp::details::observers::lambda_strategy< Type, OnNext, OnError, OnCompleted >", "structrpp_1_1details_1_1observers_1_1lambda__strategy.html", null ],
     [ "rpp::operators::details::last_observer_strategy< Type >", "structrpp_1_1operators_1_1details_1_1last__observer__strategy.html", null ],
     [ "rpp::details::local_disposable_strategy", "classrpp_1_1details_1_1local__disposable__strategy.html", null ],
@@ -74,6 +75,7 @@ var hierarchy =
     ] ],
     [ "rpp::operators::details::merge_t", "structrpp_1_1operators_1_1details_1_1merge__t.html", null ],
     [ "rpp::operators::details::merge_with_t< TObservables >", "structrpp_1_1operators_1_1details_1_1merge__with__t.html", null ],
+    [ "rpp::operators::details::multicast_t< Subject >", "structrpp_1_1operators_1_1details_1_1multicast__t.html", null ],
     [ "rpp::details::never_strategy< Type >", "structrpp_1_1details_1_1never__strategy.html", null ],
     [ "rpp::schedulers::new_thread", "classrpp_1_1schedulers_1_1new__thread.html", null ],
     [ "rpp::details::none_disposable_strategy", "structrpp_1_1details_1_1none__disposable__strategy.html", null ],
@@ -129,11 +131,11 @@ var hierarchy =
     [ "rpp::operators::details::subscribe_t< rpp::composite_disposable_wrapper, OnNext, OnError, OnCompleted >", "classrpp_1_1operators_1_1details_1_1subscribe__t_3_01rpp_1_1composite__disposable__wrapper_00_015839511ef5aa7d547130d10313f4a820.html", null ],
     [ "rpp::operators::details::take_observer_strategy", "structrpp_1_1operators_1_1details_1_1take__observer__strategy.html", null ],
     [ "rpp::operators::details::take_while_observer_strategy< Fn >", "structrpp_1_1operators_1_1details_1_1take__while__observer__strategy.html", null ],
+    [ "rpp::operators::details::template_multicast_t< Subject >", "structrpp_1_1operators_1_1details_1_1template__multicast__t.html", null ],
     [ "rpp::operators::details::template_subscribe_strategy< Strategy >", "structrpp_1_1operators_1_1details_1_1template__subscribe__strategy.html", null ],
     [ "std::true_type", null, [
       [ "rpp::schedulers::constraint::details::is_worker< rpp::schedulers::worker< Strategy > >", "structrpp_1_1schedulers_1_1constraint_1_1details_1_1is__worker_3_01rpp_1_1schedulers_1_1worker_3_01_strategy_01_4_01_4.html", null ],
       [ "rpp::subjects::utils::details::extract_subject_type< rpp::subjects::details::base_subject< TT, Strategy > >", "structrpp_1_1subjects_1_1utils_1_1details_1_1extract__subject__type_3_01rpp_1_1subjects_1_1detaie00a4443681b018e69b041137386dfb4.html", null ],
-      [ "rpp::utils::details::extract_observable_type< rpp::observable< TT, Strategy > >", "structrpp_1_1utils_1_1details_1_1extract__observable__type_3_01rpp_1_1observable_3_01_t_t_00_01_strategy_01_4_01_4.html", null ],
       [ "rpp::utils::details::extract_observer_type< rpp::observer< TT, Strategy > >", "structrpp_1_1utils_1_1details_1_1extract__observer__type_3_01rpp_1_1observer_3_01_t_t_00_01_strategy_01_4_01_4.html", null ]
     ] ],
     [ "rpp::memory_model::use_shared", "structrpp_1_1memory__model_1_1use__shared.html", null ],

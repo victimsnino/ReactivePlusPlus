@@ -66,6 +66,7 @@ var annotated_dup =
           [ "merge_observer_strategy", "classrpp_1_1operators_1_1details_1_1merge__observer__strategy.html", null ],
           [ "merge_t", "structrpp_1_1operators_1_1details_1_1merge__t.html", null ],
           [ "merge_with_t", "structrpp_1_1operators_1_1details_1_1merge__with__t.html", null ],
+          [ "multicast_t", "structrpp_1_1operators_1_1details_1_1multicast__t.html", null ],
           [ "not_template_subscribe_strategy", "structrpp_1_1operators_1_1details_1_1not__template__subscribe__strategy.html", null ],
           [ "operator_observable_strategy_base", "classrpp_1_1operators_1_1details_1_1operator__observable__strategy__base.html", null ],
           [ "operator_strategy_base", "classrpp_1_1operators_1_1details_1_1operator__strategy__base.html", null ],
@@ -88,6 +89,7 @@ var annotated_dup =
           [ "take_t", "structrpp_1_1operators_1_1details_1_1take__t.html", null ],
           [ "take_while_observer_strategy", "structrpp_1_1operators_1_1details_1_1take__while__observer__strategy.html", null ],
           [ "take_while_t", "structrpp_1_1operators_1_1details_1_1take__while__t.html", null ],
+          [ "template_multicast_t", "structrpp_1_1operators_1_1details_1_1template__multicast__t.html", null ],
           [ "template_subscribe_strategy", "structrpp_1_1operators_1_1details_1_1template__subscribe__strategy.html", null ]
         ] ]
       ] ],
@@ -126,9 +128,9 @@ var annotated_dup =
       [ "utils", null, [
         [ "details", null, [
           [ "extract_observable_type", "structrpp_1_1utils_1_1details_1_1extract__observable__type.html", null ],
-          [ "extract_observable_type< rpp::observable< TT, Strategy > >", "structrpp_1_1utils_1_1details_1_1extract__observable__type_3_01rpp_1_1observable_3_01_t_t_00_01_strategy_01_4_01_4.html", null ],
           [ "extract_observer_type", "structrpp_1_1utils_1_1details_1_1extract__observer__type.html", null ],
-          [ "extract_observer_type< rpp::observer< TT, Strategy > >", "structrpp_1_1utils_1_1details_1_1extract__observer__type_3_01rpp_1_1observer_3_01_t_t_00_01_strategy_01_4_01_4.html", null ]
+          [ "extract_observer_type< rpp::observer< TT, Strategy > >", "structrpp_1_1utils_1_1details_1_1extract__observer__type_3_01rpp_1_1observer_3_01_t_t_00_01_strategy_01_4_01_4.html", null ],
+          [ "is_observable_t", "structrpp_1_1utils_1_1details_1_1is__observable__t.html", null ]
         ] ]
       ] ],
       [ "callback_disposable", "classrpp_1_1callback__disposable.html", null ],

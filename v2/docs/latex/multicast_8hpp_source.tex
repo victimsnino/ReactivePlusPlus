@@ -1,0 +1,66 @@
+\doxysection{multicast.\+hpp}
+\hypertarget{multicast_8hpp_source}{}\label{multicast_8hpp_source}\index{src/rpp/rpp/operators/multicast.hpp@{src/rpp/rpp/operators/multicast.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ReactivePlusPlus\ library}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ Copyright\ Aleksey\ Loginov\ 2023\ -\/\ present.}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ Distributed\ under\ the\ Boost\ Software\ License,\ Version\ 1.0.}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ \ \ \ (See\ accompanying\ file\ LICENSE\_1\_0.txt\ or\ copy\ at}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ https://www.boost.org/LICENSE\_1\_0.txt)}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ Project\ home:\ https://github.com/victimsnino/ReactivePlusPlus}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <rpp/operators/fwd.hpp>}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <rpp/observables/connectable\_observable.hpp>}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{keyword}{namespace\ }rpp::operators::details}
+\DoxyCodeLine{00018\ \{}
+\DoxyCodeLine{00019\ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::subject\ Subject>}
+\DoxyCodeLine{00020\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1multicast__t}{multicast\_t}}\ }
+\DoxyCodeLine{00021\ \{}
+\DoxyCodeLine{00022\ \ \ \ \ RPP\_NO\_UNIQUE\_ADDRESS\ Subject\ m\_subject;}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::observable\ TObservable>}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \textcolor{keyword}{requires}\ std::same\_as<rpp::utils::extract\_observable\_type\_t<TObservable>,\ rpp::subjects::utils::extract\_subject\_type\_t<Subject>>}
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keyword}{auto}\ operator()(TObservable\&\&\ \mbox{\hyperlink{classrpp_1_1observable}{observable}})\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00027\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classrpp_1_1connectable__observable}{rpp::connectable\_observable<std::decay\_t<TObservable>}},\ Subject>\{std::forward<TObservable>(\mbox{\hyperlink{classrpp_1_1observable}{observable}}),\ m\_subject\};}
+\DoxyCodeLine{00029\ \ \ \ \ \}}
+\DoxyCodeLine{00030\ \};}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \textcolor{keyword}{template}<\textcolor{keyword}{template}<\textcolor{keyword}{typename}>\ \textcolor{keyword}{typename}\ Subject>}
+\DoxyCodeLine{00033\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1template__multicast__t}{template\_multicast\_t}}}
+\DoxyCodeLine{00034\ \{}
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::observable\ TObservable>}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \textcolor{keyword}{requires}\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1subject}{rpp::constraint::subject<Subject<rpp::utils::extract\_observable\_type\_t<TObservable>}}>>}
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keyword}{auto}\ operator()(TObservable\&\&\ \mbox{\hyperlink{classrpp_1_1observable}{observable}})\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00038\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classrpp_1_1connectable__observable}{rpp::connectable\_observable<std::decay\_t<TObservable>}},}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Subject<rpp::utils::extract\_observable\_type\_t<TObservable>>>\{std::forward<TObservable>(\mbox{\hyperlink{classrpp_1_1observable}{observable}}),}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Subject<rpp::utils::extract\_observable\_type\_t<TObservable>>\{\}\};}
+\DoxyCodeLine{00042\ \ \ \ \ \}}
+\DoxyCodeLine{00043\ \};}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \}\ \textcolor{comment}{//\ namespace\ rpp::operators::details}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{keyword}{namespace\ }rpp::operators}
+\DoxyCodeLine{00048\ \{}
+\DoxyCodeLine{00063\ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::subject\ Subject>}
+\DoxyCodeLine{00064\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__connectable__operators_gac7b150abbdae0a5084dd3784d9c7babf}{multicast}}(Subject\&\&\ subject)}
+\DoxyCodeLine{00065\ \{}
+\DoxyCodeLine{00066\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1multicast__t}{details::multicast\_t<std::decay\_t<Subject>}}>\{std::forward<Subject>(subject)\};}
+\DoxyCodeLine{00067\ \}}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00083\ \textcolor{keyword}{template}<\textcolor{keyword}{template}<\textcolor{keyword}{typename}>\ \textcolor{keyword}{typename}\ Subject>}
+\DoxyCodeLine{00084\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__connectable__operators_gac7b150abbdae0a5084dd3784d9c7babf}{multicast}}()}
+\DoxyCodeLine{00085\ \{}
+\DoxyCodeLine{00086\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1template__multicast__t}{details::template\_multicast\_t<Subject>}}\{\};}
+\DoxyCodeLine{00087\ \}}
+\DoxyCodeLine{00088\ \}\ \textcolor{comment}{//\ namespace\ rpp::operators}}
+
+\end{DoxyCode}
