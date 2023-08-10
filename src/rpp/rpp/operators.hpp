@@ -80,3 +80,12 @@
 #include <rpp/operators/as_blocking.hpp>
 #include <rpp/operators/repeat.hpp>
 #include <rpp/operators/subscribe_on.hpp>
+
+/**
+ * \defgroup connectable_operators Connectable Operators
+ * \brief Connectable operators are operators that provide extra functionality for multicasting of controlling of subscription
+ * \see https://reactivex.io/documentation/operators.html#connectable
+ * \ingroup operators
+ */
+
+#include <rpp/operators/multicast.hpp>
