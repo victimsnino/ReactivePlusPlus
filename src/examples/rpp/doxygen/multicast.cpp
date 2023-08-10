@@ -4,7 +4,7 @@
 /**
  * @example multicast.cpp
  **/
-int main()
+int main() // NOLINT
 {
     {
         //! [multicast]
