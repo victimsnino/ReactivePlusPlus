@@ -107,6 +107,9 @@ $(document).ready(function(){initNavTree('group__connectable__operators.html',''
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:gadac4721de7506cc9a1c2a4453a6c28cf"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__connectable__operators.html#gadac4721de7506cc9a1c2a4453a6c28cf">rpp::connectable_observable&lt; OriginalObservable, Subject &gt;::ref_count</a> () const</td></tr>
+<tr class="memdesc:gadac4721de7506cc9a1c2a4453a6c28cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Forces <a class="el" href="classrpp_1_1connectable__observable.html">rpp::connectable_observable</a> to behave like common observable.  <br /></td></tr>
+<tr class="separator:gadac4721de7506cc9a1c2a4453a6c28cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gac99bc1fb7cbf8814e0eb2c9b843fc19a"><td class="memTemplParams" colspan="2">template&lt;<a class="el" href="conceptrpp_1_1constraint_1_1subject.html">rpp::constraint::subject</a> Subject&gt; </td></tr>
 <tr class="memitem:gac99bc1fb7cbf8814e0eb2c9b843fc19a"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__connectable__operators.html#gac99bc1fb7cbf8814e0eb2c9b843fc19a">rpp::operators::multicast</a> (Subject &amp;&amp;subject)</td></tr>
 <tr class="memdesc:gac99bc1fb7cbf8814e0eb2c9b843fc19a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts ordinary observable to <a class="el" href="classrpp_1_1connectable__observable.html">rpp::connectable_observable</a> with help of provided subject.  <br /></td></tr>
@@ -164,7 +167,7 @@ template&lt;template&lt; typename &gt; typename Subject = rpp::subjects::publish
 <div class="ttc" id="agroup__creational__operators_html_gae60bdb9b493443d2786b0eee8bfe17ab"><div class="ttname"><a href="group__creational__operators.html#gae60bdb9b493443d2786b0eee8bfe17ab">rpp::source::just</a></div><div class="ttdeci">auto just(const TScheduler &amp;scheduler, T &amp;&amp;item, Ts &amp;&amp;...items)</div><div class="ttdoc">Creates rpp::observable that emits a particular items and completes.</div><div class="ttdef"><b>Definition</b> from.hpp:195</div></div>
 </div><!-- fragment --></dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/publish.html">https://reactivex.io/documentation/operators/publish.html</a> </dd></dl>
-<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="multicast_8cpp-example.html#a2">multicast.cpp</a>.</dd>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="multicast_8cpp-example.html#a2">multicast.cpp</a>, and <a class="el" href="ref_count_8cpp-example.html#a1">ref_count.cpp</a>.</dd>
 </dl>
 
 </div>
@@ -211,6 +214,51 @@ template&lt;<a class="el" href="conceptrpp_1_1constraint_1_1subject.html">rpp::c
 <div class="ttc" id="agroup__connectable__operators_html_gac7b150abbdae0a5084dd3784d9c7babf"><div class="ttname"><a href="group__connectable__operators.html#gac7b150abbdae0a5084dd3784d9c7babf">rpp::operators::multicast</a></div><div class="ttdeci">auto multicast()</div><div class="ttdoc">Converts ordinary observable to rpp::connectable_observable with help of inline instsantiated subject...</div><div class="ttdef"><b>Definition</b> multicast.hpp:84</div></div>
 </div><!-- fragment --></dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/publish.html">https://reactivex.io/documentation/operators/publish.html</a> </dd></dl>
+
+</div>
+</div>
+<a id="gadac4721de7506cc9a1c2a4453a6c28cf" name="gadac4721de7506cc9a1c2a4453a6c28cf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gadac4721de7506cc9a1c2a4453a6c28cf">&#9670;&#160;</a></span>ref_count()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;<a class="el" href="conceptrpp_1_1constraint_1_1observable.html">rpp::constraint::observable</a> OriginalObservable, <a class="el" href="conceptrpp_1_1constraint_1_1subject.html">rpp::constraint::subject</a> Subject&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto <a class="el" href="classrpp_1_1connectable__observable.html">rpp::connectable_observable</a>&lt; OriginalObservable, Subject &gt;::ref_count </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Forces <a class="el" href="classrpp_1_1connectable__observable.html">rpp::connectable_observable</a> to behave like common observable. </p>
+<p>Connects <a class="el" href="classrpp_1_1connectable__observable.html">rpp::connectable_observable</a> on the first subscription and unsubscribes on last unsubscription</p>
+<dl class="section user"><dt>Example</dt><dd><div class="fragment"><div class="line">    <span class="keyword">auto</span> <a class="code hl_class" href="classrpp_1_1observable.html">observable</a> = <a class="code hl_function" href="group__creational__operators.html#gae60bdb9b493443d2786b0eee8bfe17ab">rpp::source::just</a>(1, 2, 3) | <a class="code hl_function" href="group__connectable__operators.html#gac7b150abbdae0a5084dd3784d9c7babf">rpp::operators::multicast</a>();</div>
+<div class="line">    <a class="code hl_class" href="classrpp_1_1observable.html">observable</a>.<a class="code hl_function" href="classrpp_1_1observable.html#a193b0e08c516912c04afd8379ec27182">subscribe</a>([](<span class="keywordtype">int</span> v) {std::cout &lt;&lt; <span class="stringliteral">&quot;#1 &quot;</span> &lt;&lt; v &lt;&lt; std::endl; });</div>
+<div class="line">    <span class="comment">// No Output</span></div>
+<div class="line"> </div>
+<div class="line">    <a class="code hl_class" href="classrpp_1_1observable.html">observable</a>.ref_count().<a class="code hl_function" href="classrpp_1_1observable.html#a193b0e08c516912c04afd8379ec27182">subscribe</a>([](<span class="keywordtype">int</span> v) {std::cout &lt;&lt; <span class="stringliteral">&quot;#2 &quot;</span> &lt;&lt; v &lt;&lt; std::endl; });</div>
+<div class="line">    <span class="comment">// Output:</span></div>
+<div class="line">    <span class="comment">// #1 1</span></div>
+<div class="line">    <span class="comment">// #2 1</span></div>
+<div class="line">    <span class="comment">// #1 2</span></div>
+<div class="line">    <span class="comment">// #2 2</span></div>
+<div class="line">    <span class="comment">// #1 3</span></div>
+<div class="line">    <span class="comment">// #2 3</span></div>
+<div class="line"> </div>
+</div><!-- fragment --></dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/refcount.html">https://reactivex.io/documentation/operators/refcount.html</a> </dd></dl>
 
 </div>
 </div>

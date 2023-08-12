@@ -12,11 +12,13 @@ Wrapper over disposable\+\_\+ptr to prevent manual checking over nullptr/is\+\_\
 \doxysubsubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\Hypertarget{classrpp_1_1disposable__wrapper__impl_ad8c6e98dac72dc684bc13f184eac6736}\label{classrpp_1_1disposable__wrapper__impl_ad8c6e98dac72dc684bc13f184eac6736} 
-{\bfseries disposable\+\_\+wrapper\+\_\+impl} (std\+::shared\+\_\+ptr$<$ TDisposable $>$ \&\&disposable=\{\})
+\Hypertarget{classrpp_1_1disposable__wrapper__impl_a05684f3ff0bdc4cb109f628d596b1908}\label{classrpp_1_1disposable__wrapper__impl_a05684f3ff0bdc4cb109f628d596b1908} 
+{\footnotesize template$<$std\+::derived\+\_\+from$<$ TDisposable $>$ TT = TDisposable$>$ \newline
+requires std\+::derived\+\_\+from$<$TT, \mbox{\hyperlink{structrpp_1_1interface__disposable}{interface\+\_\+disposable}}$>$}\\{\bfseries disposable\+\_\+wrapper\+\_\+impl} (std\+::shared\+\_\+ptr$<$ TT $>$ \&\&disposable=\{\})
 \item 
-\Hypertarget{classrpp_1_1disposable__wrapper__impl_adef1bec4debaaf3043cd04488143e219}\label{classrpp_1_1disposable__wrapper__impl_adef1bec4debaaf3043cd04488143e219} 
-{\bfseries disposable\+\_\+wrapper\+\_\+impl} (const std\+::shared\+\_\+ptr$<$ TDisposable $>$ \&disposable)
+\Hypertarget{classrpp_1_1disposable__wrapper__impl_a926fd44b8094396683a019f75bb80131}\label{classrpp_1_1disposable__wrapper__impl_a926fd44b8094396683a019f75bb80131} 
+{\footnotesize template$<$std\+::derived\+\_\+from$<$ TDisposable $>$ TT = TDisposable$>$ \newline
+requires std\+::derived\+\_\+from$<$TT, \mbox{\hyperlink{structrpp_1_1interface__disposable}{interface\+\_\+disposable}}$>$}\\{\bfseries disposable\+\_\+wrapper\+\_\+impl} (const std\+::shared\+\_\+ptr$<$ TT $>$ \&disposable)
 \item 
 \Hypertarget{classrpp_1_1disposable__wrapper__impl_af932d96b9ebfa7b8eb6d97769219e153}\label{classrpp_1_1disposable__wrapper__impl_af932d96b9ebfa7b8eb6d97769219e153} 
 bool {\bfseries is\+\_\+disposed} () const noexcept
@@ -24,17 +26,17 @@ bool {\bfseries is\+\_\+disposed} () const noexcept
 \Hypertarget{classrpp_1_1disposable__wrapper__impl_a806ad9e19aa17c7436ba5e835100b8f3}\label{classrpp_1_1disposable__wrapper__impl_a806ad9e19aa17c7436ba5e835100b8f3} 
 void {\bfseries dispose} () const
 \item 
-\Hypertarget{classrpp_1_1disposable__wrapper__impl_a93988e8326724bb2c71c2028c25b655a}\label{classrpp_1_1disposable__wrapper__impl_a93988e8326724bb2c71c2028c25b655a} 
+\Hypertarget{classrpp_1_1disposable__wrapper__impl_a854519cba0d174d6faf3c17df32bc964}\label{classrpp_1_1disposable__wrapper__impl_a854519cba0d174d6faf3c17df32bc964} 
 void {\bfseries add} (\mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{disposable\+\_\+wrapper}} other) const
-\item 
-\Hypertarget{classrpp_1_1disposable__wrapper__impl_ab4743b7d5435e631efb8a7d100460cd5}\label{classrpp_1_1disposable__wrapper__impl_ab4743b7d5435e631efb8a7d100460cd5} 
-void {\bfseries add} (disposable\+\_\+ptr disposable) const
 \item 
 \Hypertarget{classrpp_1_1disposable__wrapper__impl_a50ef8df6a3751ade4e7ef802db1dcd81}\label{classrpp_1_1disposable__wrapper__impl_a50ef8df6a3751ade4e7ef802db1dcd81} 
 std\+::shared\+\_\+ptr$<$ TDisposable $>$ {\bfseries get\+\_\+original} () const noexcept
 \item 
 \Hypertarget{classrpp_1_1disposable__wrapper__impl_af1e325d9c8c9665a10edc27c22dcc096}\label{classrpp_1_1disposable__wrapper__impl_af1e325d9c8c9665a10edc27c22dcc096} 
 {\bfseries operator disposable\+\_\+wrapper\+\_\+impl} () const
+\item 
+\Hypertarget{classrpp_1_1disposable__wrapper__impl_a11747d14b99b91996103969843eeb137}\label{classrpp_1_1disposable__wrapper__impl_a11747d14b99b91996103969843eeb137} 
+bool {\bfseries has\+\_\+underlying} () const
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Static Public Member Functions}
 \begin{DoxyCompactItemize}

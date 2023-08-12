@@ -12,7 +12,7 @@ Disposable with counter inside. Each {\ttfamily add\+\_\+ref} increments counter
 Inheritance diagram for rpp\+::refcount\+\_\+disposable\+:\begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[height=1.739130cm]{classrpp_1_1refcount__disposable}
+\includegraphics[height=2.608696cm]{classrpp_1_1refcount__disposable}
 \end{center}
 \end{figure}
 \doxysubsubsection*{Public Member Functions}
@@ -31,11 +31,22 @@ bool \mbox{\hyperlink{classrpp_1_1refcount__disposable_a7ee21e190b2a1e3b527fc468
 \begin{DoxyCompactList}\small\item\em Check if this disposable is just disposed @warn This function must be thread-\/safe. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classrpp_1_1refcount__disposable_aca0f28bcaedd9938ab22b09eebb2adb1}{dispose}} () override
 \begin{DoxyCompactList}\small\item\em Dispose disposable and free any underlying resources and etc. @warn This function must be thread-\/safe. \end{DoxyCompactList}\item 
-\Hypertarget{classrpp_1_1refcount__disposable_a81509db0de0e80593a36d819de8e9c86}\label{classrpp_1_1refcount__disposable_a81509db0de0e80593a36d819de8e9c86} 
-\mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{disposable\+\_\+wrapper}} {\bfseries add\+\_\+ref} ()
+\Hypertarget{classrpp_1_1refcount__disposable_a5a24f91fba302a26cfa05aa08e145086}\label{classrpp_1_1refcount__disposable_a5a24f91fba302a26cfa05aa08e145086} 
+\mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{composite\+\_\+disposable\+\_\+wrapper}} {\bfseries add\+\_\+ref} ()
 \item 
-\Hypertarget{classrpp_1_1refcount__disposable_a5f8e0ae2521db5fe25281a9651308bef}\label{classrpp_1_1refcount__disposable_a5f8e0ae2521db5fe25281a9651308bef} 
-void {\bfseries add} (disposable\+\_\+ptr disposable)
+void \mbox{\hyperlink{classrpp_1_1refcount__disposable_a564afaa73300fcd85de651012862fd8f}{add}} (\mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{disposable\+\_\+wrapper}} disposable) override
+\item 
+virtual void \mbox{\hyperlink{classrpp_1_1refcount__disposable_aeabbd86e2ea58c12cbb13a2d3cf5f726}{add}} (\mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{disposable\+\_\+wrapper}} disposable)=0
+\item 
+\Hypertarget{classrpp_1_1refcount__disposable_a5a466624c0cf774c3fbe2f585eaf813c}\label{classrpp_1_1refcount__disposable_a5a466624c0cf774c3fbe2f585eaf813c} 
+{\footnotesize template$<$std\+::invocable Fn$>$ }\\void {\bfseries add} (Fn \&\&invocable)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{structrpp_1_1interface__composite__disposable}{rpp\+::interface\+\_\+composite\+\_\+disposable}}}
+\begin{DoxyCompactItemize}
+\item 
+virtual void {\bfseries add} (\mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{disposable\+\_\+wrapper}} disposable)=0
+\item 
+{\footnotesize template$<$std\+::invocable Fn$>$ }\\void {\bfseries add} (Fn \&\&invocable)
 \end{DoxyCompactItemize}
 \begin{DoxyCompactItemize}
 \item 
@@ -51,6 +62,26 @@ Disposable with counter inside. Each {\ttfamily add\+\_\+ref} increments counter
 
 
 \doxysubsection{Member Function Documentation}
+\Hypertarget{classrpp_1_1refcount__disposable_a564afaa73300fcd85de651012862fd8f}\label{classrpp_1_1refcount__disposable_a564afaa73300fcd85de651012862fd8f} 
+\index{rpp::refcount\_disposable@{rpp::refcount\_disposable}!add@{add}}
+\index{add@{add}!rpp::refcount\_disposable@{rpp::refcount\_disposable}}
+\doxysubsubsection{\texorpdfstring{add()}{add()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void rpp\+::refcount\+\_\+disposable\+::add (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{disposable\+\_\+wrapper}}}]{disposable }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{structrpp_1_1interface__composite__disposable}{rpp\+::interface\+\_\+composite\+\_\+disposable}}.
+
+\Hypertarget{classrpp_1_1refcount__disposable_aeabbd86e2ea58c12cbb13a2d3cf5f726}\label{classrpp_1_1refcount__disposable_aeabbd86e2ea58c12cbb13a2d3cf5f726} 
+\index{rpp::refcount\_disposable@{rpp::refcount\_disposable}!add@{add}}
+\index{add@{add}!rpp::refcount\_disposable@{rpp::refcount\_disposable}}
+\doxysubsubsection{\texorpdfstring{add()}{add()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily virtual void rpp\+::interface\+\_\+composite\+\_\+disposable\+::add (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{disposable\+\_\+wrapper}}}]{disposable }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{structrpp_1_1interface__composite__disposable}{rpp\+::interface\+\_\+composite\+\_\+disposable}}.
+
 \Hypertarget{classrpp_1_1refcount__disposable_aca0f28bcaedd9938ab22b09eebb2adb1}\label{classrpp_1_1refcount__disposable_aca0f28bcaedd9938ab22b09eebb2adb1} 
 \index{rpp::refcount\_disposable@{rpp::refcount\_disposable}!dispose@{dispose}}
 \index{dispose@{dispose}!rpp::refcount\_disposable@{rpp::refcount\_disposable}}
