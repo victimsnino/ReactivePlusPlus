@@ -98,6 +98,39 @@ public:
     }
 
     /**
+     * @brief Subscribes passed observer to emissions from this observable.
+     * 
+     * @details This overloading attaches disposable to observer and return it to provide ability to dispose/disconnect observer early if needed.
+     * @warning This overloading has some performance penalties, use it only when you really need to use disposable
+     * @return composite_disposable_wrapper is disposable to be able to dispose observer when it needed
+     *
+     * @warning Observer must be moved in to subscribe method. (Not recommended) If you need to copy observer, convert it to dynamic_observer
+     */
+    template<constraint::observer_strategy<Type> ObserverStrategy>
+    [[nodiscard("Use returned disposable or use subscribe(observer) instead")]]
+    composite_disposable_wrapper subscribe_with_disposable(observer<Type, ObserverStrategy>&& observer) const
+    {
+        if (!observer.is_disposed())
+            m_strategy.subscribe(rpp::composite_disposable_wrapper{std::make_shared<rpp::composite_disposable>()}, std::move(observer));
+        return {};
+    }
+
+    /**
+     * @brief Subscribe passed observer to emissions from this observable.
+     *
+     * @details This overloading attaches disposable to observer and return it to provide ability to dispose/disconnect observer early if needed.
+     * @warning This overloading has some performance penalties, use it only when you really need to use disposable
+     * @return composite_disposable_wrapper is disposable to be able to dispose observer when it needed
+     *
+     * @details Special overloading for dynamic observer to enable copy of observer
+     */
+    [[nodiscard("Use returned disposable or use subscribe(observer) instead")]]
+    composite_disposable_wrapper subscribe_with_disposable(dynamic_observer<Type> observer) const
+    {
+        return subscribe<details::observers::dynamic_strategy<Type>>(rpp::composite_disposable_wrapper{std::make_shared<rpp::composite_disposable>()}, std::move(observer));
+    }
+
+    /**
      * @brief Construct rpp::lambda_observer on the fly and subscribe it to emissions from this observable
      */
     template<std::invocable<Type> OnNext,
@@ -110,6 +143,27 @@ public:
         subscribe(make_lambda_observer<Type>(std::forward<OnNext>(on_next),
                                              std::forward<OnError>(on_error),
                                              std::forward<OnCompleted>(on_completed)));
+    }
+
+    /**
+     * @brief Construct rpp::lambda_observer on the fly and subscribe it to emissions from this observable
+     *
+     * @details This overloading attaches disposable to observer and return it to provide ability to dispose/disconnect observer early if needed.
+     * @warning This overloading has some performance penalties, use it only when you really need to use disposable
+     * @return composite_disposable_wrapper is disposable to be able to dispose observer when it needed
+     */
+    template<std::invocable<Type>                      OnNext,
+             std::invocable<const std::exception_ptr&> OnError     = rpp::utils::rethrow_error_t,
+             std::invocable<>                          OnCompleted = rpp::utils::empty_function_t<>>
+    [[nodiscard("Use returned disposable or use subscribe(observer) instead")]]
+    composite_disposable_wrapper subscribe_with_disposable(OnNext&& on_next, OnError&& on_error = {}, OnCompleted&& on_completed = {}) const
+    {
+        auto res = rpp::composite_disposable_wrapper{std::make_shared<rpp::composite_disposable>()};
+        subscribe(make_lambda_observer<Type>(res,
+                                             std::forward<OnNext>(on_next),
+                                             std::forward<OnError>(on_error),
+                                             std::forward<OnCompleted>(on_completed)));
+        return res;
     }
 
 
