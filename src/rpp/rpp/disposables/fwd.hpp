@@ -15,6 +15,7 @@
 namespace rpp
 {
 struct interface_disposable;
+struct interface_composite_disposable;
 
 class composite_disposable;
 
@@ -30,5 +31,5 @@ template<rpp::constraint::decayed_type TDisposable>
 class disposable_wrapper_impl;
 
 using disposable_wrapper = disposable_wrapper_impl<interface_disposable>;
-using composite_disposable_wrapper = disposable_wrapper_impl<composite_disposable>;
+using composite_disposable_wrapper = disposable_wrapper_impl<interface_composite_disposable>;
 } // namespace rpp

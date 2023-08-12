@@ -11,6 +11,56 @@
 
 #include <rpp/observables/observable.hpp>
 #include <rpp/subjects/fwd.hpp>
+#include <rpp/disposables/refcount_disposable.hpp>
+
+#include <mutex>
+
+namespace rpp::details
+{
+template<typename T>
+struct ref_count_on_subscribe_t;
+
+template<rpp::constraint::observable OriginalObservable, rpp::constraint::subject Subject>
+struct ref_count_on_subscribe_t<rpp::connectable_observable<OriginalObservable, Subject>>
+{
+    rpp::connectable_observable<OriginalObservable, Subject> original_observable{};
+    struct state_t
+    {
+        std::mutex                                 mutex{};
+        std::shared_ptr<rpp::refcount_disposable>  disposable{};
+    };
+
+    std::shared_ptr<state_t> m_state = std::make_shared<state_t>();
+
+    using ValueType = rpp::utils::extract_observable_type_t<OriginalObservable>;
+    template<constraint::observer_strategy<ValueType> Strategy>
+    void subscribe(observer<ValueType, Strategy>&& obs) const
+    {
+        const auto [should_connect, disposable] = on_subscribe();
+
+        obs.set_upstream(disposable);
+        original_observable.subscribe(std::move(obs));
+        if (should_connect)
+            original_observable.connect(disposable);
+    }
+
+private:
+    struct on_subscribe_res
+    {
+        bool                              should_connect{};
+        rpp::composite_disposable_wrapper disposable{};
+    };
+
+    on_subscribe_res on_subscribe()  const
+    {
+        std::unique_lock lock(m_state->mutex);
+        if (m_state->disposable && !m_state->disposable->is_disposed())
+            return {.should_connect=false, .disposable=m_state->disposable->add_ref()};
+        m_state->disposable = std::make_shared<rpp::refcount_disposable>();
+        return {.should_connect=true, .disposable=m_state->disposable};
+    }
+};
+}
 
 namespace rpp
 {
@@ -30,28 +80,40 @@ public:
         , m_subject{subject} {}
 
 
-    rpp::disposable_wrapper connect() const
+    rpp::disposable_wrapper connect(rpp::composite_disposable_wrapper wrapper = {}) const
     {
-        std::shared_ptr<rpp::composite_disposable> new_disposable{};
+        std::unique_lock lock(m_state->mutex);
 
-        auto current = std::atomic_load_explicit(&m_state->disposable, std::memory_order_relaxed);
+        if (m_subject.get_disposable().is_disposed())
+            return {};
 
-        while (!m_subject.get_disposable().is_disposed())
-        {
-            if (current && !current->is_disposed())
-                return rpp::disposable_wrapper::from_weak(current);
+        if (!m_state->disposable.is_disposed())
+            return m_state->disposable;
+        
+        if (!wrapper.has_underlying())
+            wrapper = rpp::composite_disposable_wrapper{std::make_shared<rpp::composite_disposable>()};
 
-            if (!new_disposable)
-                new_disposable = std::make_shared<rpp::composite_disposable>();
+        m_state->disposable = wrapper;
+        lock.unlock();
 
-            if (!std::atomic_compare_exchange_strong(&m_state->disposable, &current, new_disposable))
-                continue;
+        m_original_observable.subscribe(wrapper, m_subject.get_observer());
+        return wrapper;
+    }
 
-            m_original_observable.subscribe(new_disposable, m_subject.get_observer());
-            return rpp::disposable_wrapper::from_weak(new_disposable);
-        }
-
-        return {};
+    /**
+    * @brief Forces rpp::connectable_observable to behave like common observable
+    * @details Connects rpp::connectable_observable on the first subscription and unsubscribes on last unsubscription
+    *	
+    * @par Example
+    * @snippet ref_count.cpp ref_count
+    * 
+    * @ingroup connectable_operators
+    * @see https://reactivex.io/documentation/operators/refcount.html
+    */
+    auto ref_count() const
+    {
+        return rpp::observable < rpp::utils::extract_observable_type_t<OriginalObservable>,
+               details::ref_count_on_subscribe_t<connectable_observable<OriginalObservable, Subject>>>{*this};
     }
 
 private:
@@ -59,7 +121,8 @@ private:
     Subject                                                   m_subject;
     struct state_t
     {
-        rpp::utils::atomic_shared_ptr<rpp::composite_disposable> disposable{};
+        std::mutex                        mutex{};
+        rpp::composite_disposable_wrapper disposable{};
     };
     std::shared_ptr<state_t> m_state = std::make_shared<state_t>();
 };

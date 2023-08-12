@@ -10,6 +10,7 @@
 #pragma once
 
 #include <rpp/observers/fwd.hpp>
+#include <rpp/subjects/fwd.hpp>
 #include <rpp/utils/constraints.hpp>
 
 namespace rpp::constraint
@@ -85,6 +86,12 @@ namespace rpp::constraint
 {
 template<typename T>
 concept observable = rpp::utils::details::is_observable_t<std::decay_t<T>>::type::value;
+}
+
+namespace rpp
+{
+template<rpp::constraint::observable OriginalObservable, rpp::constraint::subject Subject>
+class connectable_observable;
 }
 
 namespace rpp::utils
