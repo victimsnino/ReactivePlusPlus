@@ -201,3 +201,141 @@ TEST_CASE("connectable observable")
         }
     }
 }
+
+TEST_CASE("ref_count")
+{
+    auto observer_1 = mock_observer_strategy<int>{};
+    auto observer_2 = mock_observer_strategy<int>{};
+    SECTION("connectable observable from just")
+    {
+        auto observable = rpp::source::just(1) | rpp::ops::multicast();
+
+        SECTION("subscribe on it without ref_count")
+        {
+            observable.subscribe(observer_1.get_observer());
+            SECTION("nothing happens")
+            {
+                CHECK(observer_1.get_total_on_next_count() == 0);
+                CHECK(observer_1.get_on_error_count() == 0);
+                CHECK(observer_1.get_on_completed_count() == 0);
+            }
+            SECTION("subscribe on it another observer with ref_count")
+            {
+                observable.ref_count().subscribe(observer_2.get_observer());
+                SECTION("both observers obtain values")
+                {
+                    auto validate = [](auto observer)
+                    {
+                        CHECK(observer.get_received_values() == std::vector{1});
+                        CHECK(observer.get_total_on_next_count() == 1);
+                        CHECK(observer.get_on_error_count() == 0);
+                        CHECK(observer.get_on_completed_count() == 1);
+                    };
+                    validate(observer_1);
+                    validate(observer_2);
+                }
+            }
+        }
+        
+    }
+    SECTION("connectable observable from subject")
+    {
+        auto subj = rpp::subjects::publish_subject<int>{};
+        auto observable = subj.get_observable() | rpp::ops::multicast();
+
+        SECTION("subscribe on it without ref_count and with ref_count")
+        {
+            observable.subscribe(observer_1.get_observer());
+            auto sub = std::make_shared<rpp::composite_disposable>();
+            observable.ref_count().subscribe(rpp::composite_disposable_wrapper{sub}, observer_2.get_observer());
+            SECTION("send value")
+            {
+                subj.get_observer().on_next(1);
+                SECTION("both observers obtain values")
+                {
+                    auto validate = [](auto observer)
+                    {
+                        CHECK(observer.get_received_values() == std::vector{ 1 });
+                        CHECK(observer.get_total_on_next_count() == 1);
+                        CHECK(observer.get_on_error_count() == 0);
+                        CHECK(observer.get_on_completed_count() == 0);
+                    };
+                    validate(observer_1);
+                    validate(observer_2);
+                }
+            }
+            SECTION("unsubscribe observer with ref_count and send value")
+            {
+                sub->dispose();
+                subj.get_observer().on_next(1);
+                SECTION("no observers obtain values")
+                {
+                    auto validate = [](auto observer)
+                    {
+                        CHECK(observer.get_total_on_next_count() == 0);
+                        CHECK(observer.get_on_error_count() == 0);
+                        CHECK(observer.get_on_completed_count() == 0);
+                    };
+                    validate(observer_1);
+                    validate(observer_2);
+                }
+                SECTION("subscribe via ref_count again and send value")
+                {
+                    sub = std::make_shared<rpp::composite_disposable>();
+                    observable.ref_count().subscribe(rpp::composite_disposable_wrapper{sub},observer_2.get_observer());
+                    subj.get_observer().on_next(1);
+                    SECTION("both observers obtain values")
+                    {
+                        auto validate = [](auto observer)
+                        {
+                            CHECK(observer.get_received_values() == std::vector{ 1 });
+                            CHECK(observer.get_total_on_next_count() == 1);
+                            CHECK(observer.get_on_error_count() == 0);
+                            CHECK(observer.get_on_completed_count() == 0);
+                        };
+                        validate(observer_1);
+                        validate(observer_2);
+                    }
+                }
+            }
+        }
+        SECTION("subscribe both with ref_count")
+        {
+            observable.ref_count().subscribe(observer_1.get_observer());
+            auto sub = std::make_shared<rpp::composite_disposable>();
+            observable.ref_count().subscribe(rpp::composite_disposable_wrapper{sub}, observer_2.get_observer());
+            SECTION("send value")
+            {
+                subj.get_observer().on_next(1);
+                SECTION("both observers obtain values")
+                {
+                    auto validate = [](auto observer)
+                    {
+                        CHECK(observer.get_received_values() == std::vector{ 1 });
+                        CHECK(observer.get_total_on_next_count() == 1);
+                        CHECK(observer.get_on_error_count() == 0);
+                        CHECK(observer.get_on_completed_count() == 0);
+                    };
+                    validate(observer_1);
+                    validate(observer_2);
+                }
+            }
+            SECTION("unsubscribe 1 observer with ref_count and send value")
+            {
+                sub->dispose();
+                subj.get_observer().on_next(1);
+                SECTION("first observer obtains values")
+                {
+                    CHECK(observer_1.get_received_values() == std::vector{ 1 });
+                    CHECK(observer_1.get_total_on_next_count() == 1);
+                    CHECK(observer_1.get_on_error_count() == 0);
+                    CHECK(observer_1.get_on_completed_count() == 0);
+
+                    CHECK(observer_2.get_total_on_next_count() == 0);
+                    CHECK(observer_2.get_on_error_count() == 0);
+                    CHECK(observer_2.get_on_completed_count() == 0);
+                }
+            }
+        }
+    }
+}

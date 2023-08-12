@@ -11,7 +11,7 @@
 #pragma once
 
 #include <rpp/disposables/fwd.hpp>
-#include <rpp/disposables/interface_disposable.hpp>
+#include <rpp/disposables/interface_composite_disposable.hpp>
 #include <rpp/disposables/disposable_wrapper.hpp>
 
 #include <atomic>
@@ -25,7 +25,7 @@ namespace rpp
  * 
  * @ingroup disposables
  */
-class composite_disposable : public interface_disposable
+class composite_disposable : public interface_composite_disposable
 {
 public:
     composite_disposable() = default;
@@ -59,7 +59,9 @@ public:
         }
     }
 
-    void add(disposable_wrapper disposable)
+    using interface_composite_disposable::add;
+    
+    void add(disposable_wrapper disposable) override
     {
         if (disposable.is_disposed() || disposable.get_original().get() == this)
             return;
@@ -80,17 +82,6 @@ public:
                 return;
             }
         }
-    }
-
-    void add(disposable_ptr disposable)
-    {
-        add(disposable_wrapper{std::move(disposable)});
-    }
-
-    template<std::invocable Fn>
-    void add(Fn&& invocable)
-    {
-        add(std::make_shared<rpp::callback_disposable<std::decay_t<Fn>>>(std::forward<Fn>(invocable)));
     }
 
 protected:

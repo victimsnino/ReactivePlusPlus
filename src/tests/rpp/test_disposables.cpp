@@ -27,7 +27,7 @@ struct custom_disposable : public rpp::interface_disposable
 
 TEST_CASE("disposable keeps state")
 {
-    auto d = rpp::disposable_wrapper_impl{std::make_shared<rpp::composite_disposable>()};
+    auto d = rpp::composite_disposable_wrapper{std::make_shared<rpp::composite_disposable>()};
 
     CHECK(!d.is_disposed());
 
@@ -90,7 +90,7 @@ TEST_CASE("disposable keeps state")
 
     SECTION("empty disposable")
     {
-        d = rpp::disposable_wrapper_impl<rpp::composite_disposable>{};
+        d = rpp::composite_disposable_wrapper{};
         CHECK(d.is_disposed());
         d.dispose();
 

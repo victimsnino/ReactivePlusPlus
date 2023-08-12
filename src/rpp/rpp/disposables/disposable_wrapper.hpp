@@ -29,22 +29,25 @@ class disposable_wrapper_impl
 {
     struct weak_tag{};
 
-    explicit disposable_wrapper_impl(weak_tag, std::weak_ptr<TDisposable> disposable)
-        requires std::derived_from<TDisposable, interface_disposable>
+    template<std::derived_from<TDisposable> TT = TDisposable>
+    explicit disposable_wrapper_impl(weak_tag, std::weak_ptr<TT> disposable)
+        requires std::derived_from<TT, interface_disposable>
         : m_disposable{std::move(disposable)}
     {
     }
 
-public:
-    disposable_wrapper_impl(std::shared_ptr<TDisposable>&& disposable = {})
-        requires std::derived_from<TDisposable, interface_disposable>
-    : m_disposable{std::move(disposable)}
+public: 
+    template<std::derived_from<TDisposable> TT = TDisposable>
+    disposable_wrapper_impl(std::shared_ptr<TT>&& disposable = {})
+        requires std::derived_from<TT, interface_disposable>
+    : m_disposable{std::static_pointer_cast<TDisposable>(std::move(disposable))}
     {
     }
 
-    disposable_wrapper_impl(const std::shared_ptr<TDisposable>& disposable)
-        requires std::derived_from<TDisposable, interface_disposable>
-    : m_disposable{disposable}
+    template<std::derived_from<TDisposable> TT = TDisposable>
+    disposable_wrapper_impl(const std::shared_ptr<TT>& disposable)
+        requires std::derived_from<TT, interface_disposable>
+    : m_disposable{std::static_pointer_cast<TDisposable>(disposable)}
     {
     }
 
@@ -71,17 +74,12 @@ public:
             locked->dispose();
     }
 
-    void add(disposable_wrapper other) const requires std::same_as<TDisposable, composite_disposable>
+    void add(disposable_wrapper other) const requires std::derived_from<TDisposable, interface_composite_disposable>
     {
         if (const auto locked = get_original())
             locked->add(std::move(other));
         else
             other.dispose();
-    }
-
-    void add(disposable_ptr disposable) const requires std::same_as<TDisposable, composite_disposable>
-    {
-        add(disposable_wrapper{std::move(disposable)});
     }
 
     std::shared_ptr<TDisposable> get_original() const noexcept
@@ -103,13 +101,15 @@ public:
         if (const auto ptr_ptr = std::get_if<std::weak_ptr<TDisposable>>(&m_disposable))
             return disposable_wrapper::from_weak(*ptr_ptr);
 
-        return disposable_wrapper{};
+        return rpp::disposable_wrapper{};
+    }
+
+    bool has_underlying() const
+    {
+        return std::visit([](const auto& ptr) { return ptr.use_count() != 0; }, m_disposable);
     }
 
 private:
     std::variant<std::shared_ptr<TDisposable>, std::weak_ptr<TDisposable>> m_disposable;
 };
-
-template<typename TDisposable>
-disposable_wrapper_impl(const std::shared_ptr<TDisposable>&) -> disposable_wrapper_impl<TDisposable>;
 }
