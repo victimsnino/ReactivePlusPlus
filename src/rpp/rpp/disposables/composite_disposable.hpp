@@ -59,6 +59,8 @@ public:
         }
     }
 
+    using interface_composite_disposable::add;
+    
     void add(disposable_wrapper disposable) override
     {
         if (disposable.is_disposed() || disposable.get_original().get() == this)
