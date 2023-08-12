@@ -64,6 +64,8 @@ public:
         return composite_disposable_wrapper{};
     }
 
+    using interface_composite_disposable::add;
+    
     void add(disposable_wrapper disposable) override
     {
         m_underlying.add(std::move(disposable));

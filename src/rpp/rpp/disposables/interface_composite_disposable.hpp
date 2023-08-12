@@ -22,11 +22,6 @@ struct interface_composite_disposable : public interface_disposable
 {
     virtual void add(disposable_wrapper disposable) = 0;
 
-    void add(disposable_ptr disposable)
-    {
-        add(disposable_wrapper{std::move(disposable)});
-    }
-
     template<std::invocable Fn>
     void add(Fn&& invocable)
     {
