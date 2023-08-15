@@ -21,8 +21,20 @@
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{comment}{//\ \#2\ 3}}
 \DoxyCodeLine{\textcolor{comment}{}\ \ \ \ \}}
 \DoxyCodeLine{\ \ \ \ \{}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ subject\ =\ \mbox{\hyperlink{classrpp_1_1subjects_1_1details_1_1base__subject}{rpp::subjects::publish\_subject<int>}}\{\};}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ observable\ =\ \mbox{\hyperlink{group__creational__operators_gae60bdb9b493443d2786b0eee8bfe17ab}{rpp::source::just}}(1,\ 2,\ 3)\ |\ rpp::operators::multicast<rpp::subjects::publish\_subject>();}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ observable.subscribe([](\textcolor{keywordtype}{int}\ v)\ \{std::cout\ <<\ \textcolor{stringliteral}{"{}\#1\ "{}}\ <<\ v\ <<\ std::endl;\ \});}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ observable.subscribe([](\textcolor{keywordtype}{int}\ v)\ \{std::cout\ <<\ \textcolor{stringliteral}{"{}\#2\ "{}}\ <<\ v\ <<\ std::endl;\ \});}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ observable.connect();}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{comment}{//\ Output:}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{comment}{//\ \#1\ 1}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{comment}{//\ \#2\ 1}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{comment}{//\ \#1\ 2}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{comment}{//\ \#2\ 2}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{comment}{//\ \#1\ 3}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{comment}{//\ \#2\ 3}}
+\DoxyCodeLine{\textcolor{comment}{}\ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ observable\ =\ \mbox{\hyperlink{group__creational__operators_gae60bdb9b493443d2786b0eee8bfe17ab}{rpp::source::just}}(1,\ 2,\ 3)\ |\ \mbox{\hyperlink{group__connectable__operators_ga42498cc0bc565116e9deece3c3afa66f}{rpp::operators::publish}}();}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ observable.subscribe([](\textcolor{keywordtype}{int}\ v)\ \{std::cout\ <<\ \textcolor{stringliteral}{"{}\#1\ "{}}\ <<\ v\ <<\ std::endl;\ \});}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ observable.subscribe([](\textcolor{keywordtype}{int}\ v)\ \{std::cout\ <<\ \textcolor{stringliteral}{"{}\#2\ "{}}\ <<\ v\ <<\ std::endl;\ \});}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ observable.connect();}

@@ -12,6 +12,7 @@ var dir_3591f6ab25936dd3deeec05839e478ca =
     [ "map.hpp", "map_8hpp_source.html", null ],
     [ "merge.hpp", "merge_8hpp_source.html", null ],
     [ "multicast.hpp", "multicast_8hpp_source.html", null ],
+    [ "publish.hpp", "publish_8hpp_source.html", null ],
     [ "repeat.hpp", "repeat_8hpp_source.html", null ],
     [ "scan.hpp", "scan_8hpp_source.html", null ],
     [ "skip.hpp", "skip_8hpp_source.html", null ],

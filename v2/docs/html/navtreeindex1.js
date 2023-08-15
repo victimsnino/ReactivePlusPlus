@@ -1,5 +1,7 @@
 var NAVTREEINDEX1 =
 {
+"structrpp_1_1details_1_1create__strategy.html":[3,0,0,0,5],
+"structrpp_1_1details_1_1empty__strategy.html":[3,0,0,0,6],
 "structrpp_1_1details_1_1error__strategy.html":[3,0,0,0,7],
 "structrpp_1_1details_1_1fake__strategy.html":[3,0,0,0,8],
 "structrpp_1_1details_1_1from__callable__invoke.html":[3,0,0,0,9],
@@ -81,12 +83,12 @@ var NAVTREEINDEX1 =
 "subject__state_8hpp_source.html":[4,0,0,0,0,6,0,1],
 "subjects_2fwd_8hpp_source.html":[4,0,0,0,0,6,1],
 "subjects_8hpp_source.html":[4,0,0,0,0,17],
-"subscribe_8hpp_source.html":[4,0,0,0,0,3,15],
-"subscribe__on_8hpp_source.html":[4,0,0,0,0,3,16],
+"subscribe_8hpp_source.html":[4,0,0,0,0,3,16],
+"subscribe__on_8hpp_source.html":[4,0,0,0,0,3,17],
 "subscribe_on_8cpp-example.html":[5,16],
 "take_8cpp-example.html":[5,17],
-"take_8hpp_source.html":[4,0,0,0,0,3,17],
-"take__while_8hpp_source.html":[4,0,0,0,0,3,18],
+"take_8hpp_source.html":[4,0,0,0,0,3,18],
+"take__while_8hpp_source.html":[4,0,0,0,0,3,19],
 "take_while_8cpp-example.html":[5,18],
 "utils_8hpp_source.html":[4,0,0,0,0,4,0,1],
 "worker_8hpp_source.html":[4,0,0,0,0,4,0,2]
