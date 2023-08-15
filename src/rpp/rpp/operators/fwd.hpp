@@ -62,6 +62,8 @@ template<rpp::constraint::observable TObservable, rpp::constraint::observable...
 auto merge_with(TObservable&& observable, TObservables&& ...observables);
 auto merge();
 
+inline auto publish();
+
 auto repeat(size_t count);
 auto repeat();
 
