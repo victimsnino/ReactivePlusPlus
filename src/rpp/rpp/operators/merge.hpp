@@ -60,7 +60,7 @@ struct merge_observer_base_strategy
 
     bool is_disposed() const
     {
-        return m_disposable->is_disposed() || m_disposable->get_observer().is_disposed();
+        return m_disposable->is_disposed();
     }
 
     void on_error(const std::exception_ptr& err) const
