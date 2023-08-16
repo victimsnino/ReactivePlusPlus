@@ -13,7 +13,7 @@
 #include <optional>
 #include <mutex>
 
-namespace rpp::operators::details::utils
+namespace rpp::operators::details
 {
 template<typename T>
 struct value_with_mutex
@@ -21,4 +21,4 @@ struct value_with_mutex
     std::optional<T> value{};
     std::mutex       mutex{};
 };
-} // namespace rpp::operators::details::utils
+} // namespace rpp::operators::details

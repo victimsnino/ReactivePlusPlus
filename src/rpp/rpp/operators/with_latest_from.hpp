@@ -32,10 +32,10 @@ struct with_latest_from_disposable final : public composite_disposable
         , selector{selector}
         {}
 
-    Observer                                                observer;
-    std::mutex                                              observer_mutex{};
-    rpp::utils::tuple<utils::value_with_mutex<RestArgs>...> values{};
-    TSelector                                               selector;
+    Observer                                         observer;
+    std::mutex                                       observer_mutex{};
+    rpp::utils::tuple<value_with_mutex<RestArgs>...> values{};
+    TSelector                                        selector;
 };
 
 template<size_t I, rpp::constraint::observer Observer, typename TSelector, rpp::constraint::decayed_type... RestArgs>
@@ -102,7 +102,7 @@ public:
     template<typename T>
     void on_next(T&& v) const 
     {
-        auto result = m_disposable->values.apply([&](const utils::value_with_mutex<rpp::utils::extract_observable_type_t<TObservables>>&... vals) -> std::optional<Result>
+        auto result = m_disposable->values.apply([&](const value_with_mutex<rpp::utils::extract_observable_type_t<TObservables>>&... vals) -> std::optional<Result>
         {
             auto lock = std::scoped_lock{vals.mutex...};
 
