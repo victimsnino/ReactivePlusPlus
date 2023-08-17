@@ -87,6 +87,9 @@ template<typename TSelector, rpp::constraint::observable TObservable, rpp::const
     requires(!utils::is_not_template_callable<TSelector> ||
              std::invocable<TSelector, rpp::utils::convertible_to_any, utils::extract_observable_type_t<TObservable>, utils::extract_observable_type_t<TObservables>...>)
 auto with_latest_from(TSelector&& selector, TObservable&& observable, TObservables&&... observables);
+
+template<rpp::constraint::observable TObservable, rpp::constraint::observable... TObservables>
+auto with_latest_from(TObservable&& observable, TObservables&&... observables);
 } // namespace rpp::operators
 
 namespace rpp
