@@ -17,6 +17,7 @@ namespace rpp::operators::details
 template<typename T>
 struct value_with_mutex
 {
+    value_with_mutex() = default;
     explicit value_with_mutex(const T& v) : value{v} {}
     explicit value_with_mutex(T&& v) : value{std::move(v)} {}
 

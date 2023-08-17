@@ -74,12 +74,14 @@ public:
         return static_cast<tuple_leaf<I, type_at_index_t<I>>*>(this)->get();
     }
 
+private:
+    template<size_t I, typename T>
+    consteval static T type_at_index(const tuple_leaf<I, T>&);
+
+public:
     template<size_t I>
         requires (I < sizeof...(Args))
     using type_at_index_t = decltype(type_at_index<I>(std::declval<tuple_impl>()));
-private:
-    template<size_t I, typename T>
-    static consteval T type_at_index(const tuple_leaf<I, T>&);
 };
 }
 
