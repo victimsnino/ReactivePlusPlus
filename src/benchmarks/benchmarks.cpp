@@ -227,6 +227,22 @@ int main(int argc, char* argv[]) // NOLINT
                 | rxcpp::operators::subscribe<int>([](int v){ ankerl::nanobench::doNotOptimizeAway(v); });
             });
         }
+        SECTION("create(1) + with_latest_from(create(2)) + subscribe")
+        {
+            TEST_RPP([&]()
+            {
+                rpp::source::create<int>([](const auto& obs){ obs.on_next(1); })
+                | rpp::operators::with_latest_from(rpp::source::create<int>([](const auto& obs){ obs.on_next(2); }))
+                | rpp::operators::subscribe([](int v){ ankerl::nanobench::doNotOptimizeAway(v); });
+            });
+
+            TEST_RXCPP([&]()
+            {
+                rxcpp::observable<>::create<int>([](const auto& obs){obs.on_next(1);})
+                | rxcpp::operators::with_latest_from(rxcpp::observable<>::create<int>([](const auto& obs){obs.on_next(2);}))
+                | rxcpp::operators::subscribe<int>([](int v){ ankerl::nanobench::doNotOptimizeAway(v); });
+            });
+        }
     }
 
     BENCHMARK("Conditional Operators")
