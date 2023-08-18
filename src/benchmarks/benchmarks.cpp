@@ -240,7 +240,7 @@ int main(int argc, char* argv[]) // NOLINT
             {
                 rxcpp::observable<>::create<int>([](const auto& obs){obs.on_next(1);})
                 | rxcpp::operators::with_latest_from(rxcpp::observable<>::create<int>([](const auto& obs){obs.on_next(2);}))
-                | rxcpp::operators::subscribe<int>([](const std::tuple<int,int>& v){ ankerl::nanobench::doNotOptimizeAway(v); });
+                | rxcpp::operators::subscribe<std::tuple<int,int>>([](const std::tuple<int,int>& v){ ankerl::nanobench::doNotOptimizeAway(v); });
             });
         }
     }
