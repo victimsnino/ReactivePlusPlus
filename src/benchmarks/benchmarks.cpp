@@ -14,11 +14,11 @@
 
 #define BENCHMARK(NAME)     bench.context("benchmark_title", NAME);
 #define SECTION(NAME)       bench.context("benchmark_name", NAME);
-#define TEST_RPP(ACTION)    bench.context("source", "rpp").run(ACTION);
+#define TEST_RPP(...)    bench.context("source", "rpp").run(__VA_ARGS__)
 #ifdef RPP_BUILD_RXCPP
-    #define TEST_RXCPP(ACTION)  bench.context("source", "rxcpp").run(ACTION);
+    #define TEST_RXCPP(...)  bench.context("source", "rxcpp").run(__VA_ARGS__)
 #else
-    #define TEST_RXCPP(ACTION)
+    #define TEST_RXCPP(...)
 #endif
 
 char const* json() noexcept {
