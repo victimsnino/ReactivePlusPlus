@@ -10,6 +10,14 @@
 #include <rpp/rpp.hpp>
 #ifdef RPP_BUILD_RXCPP
     #include <rxcpp/rx.hpp>
+    namespace rxcpp::util
+    {
+        template<class... T>
+        inline auto surely(const std::tuple<T...>& tpl)
+            -> decltype(rxcpp::util::apply(tpl, rxcpp::util::detail::surely())) {
+            return      rxcpp::util::apply(tpl, rxcpp::util::detail::surely());
+        }
+    }
 #endif
 
 #define BENCHMARK(NAME)     bench.context("benchmark_title", NAME);
