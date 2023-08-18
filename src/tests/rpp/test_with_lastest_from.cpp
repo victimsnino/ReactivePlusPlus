@@ -109,6 +109,16 @@ TEST_CASE("with_latest_from reacts only on main root but sends last value from o
                 CHECK(mock.get_on_completed_count() == 0);
             }
         }
+        SECTION("second errors")
+        {
+            subj_2.get_observer().on_error({});
+            SECTION("error obtained")
+            {
+                CHECK(mock.get_total_on_next_count() == 0);
+                CHECK(mock.get_on_error_count() == 1);
+                CHECK(mock.get_on_completed_count() == 0);
+            }
+        }
         SECTION("first completes")
         {
             subj_1.get_observer().on_completed();
@@ -117,6 +127,16 @@ TEST_CASE("with_latest_from reacts only on main root but sends last value from o
                 CHECK(mock.get_total_on_next_count() == 0);
                 CHECK(mock.get_on_error_count() == 0);
                 CHECK(mock.get_on_completed_count() == 1);
+            }
+        }
+         SECTION("first errors")
+        {
+            subj_1.get_observer().on_error({});
+            SECTION("error obtained")
+            {
+                CHECK(mock.get_total_on_next_count() == 0);
+                CHECK(mock.get_on_error_count() == 1);
+                CHECK(mock.get_on_completed_count() == 0);
             }
         }
     }
