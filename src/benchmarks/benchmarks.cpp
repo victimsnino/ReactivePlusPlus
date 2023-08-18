@@ -10,8 +10,6 @@
 #include <rpp/rpp.hpp>
 #ifdef RPP_BUILD_RXCPP
     #include <rxcpp/rx.hpp>
-    using namespace std;
-    using namespace rxcpp::util;
 #endif
 
 #define BENCHMARK(NAME)     bench.context("benchmark_title", NAME);
@@ -238,12 +236,13 @@ int main(int argc, char* argv[]) // NOLINT
                 | rpp::operators::subscribe([](const std::tuple<int,int>& v){ ankerl::nanobench::doNotOptimizeAway(v); });
             });
 
-            TEST_RXCPP([&]()
-            {
-                rxcpp::observable<>::create<int>([](const auto& obs){obs.on_next(1);})
-                | rxcpp::operators::with_latest_from(rpp::utils::pack_to_tuple{}, rxcpp::observable<>::create<int>([](const auto& obs){obs.on_next(2);}))
-                | rxcpp::operators::subscribe<std::tuple<int,int>>([](const std::tuple<int,int>& v){ ankerl::nanobench::doNotOptimizeAway(v); });
-            });
+            // doesn't work due to tuple issues in rxcpp =C
+            // TEST_RXCPP([&]()
+            // {
+            //     rxcpp::observable<>::create<int>([](const auto& obs){obs.on_next(1);})
+            //     | rxcpp::operators::with_latest_from(rpp::utils::pack_to_tuple{}, rxcpp::observable<>::create<int>([](const auto& obs){obs.on_next(2);}))
+            //     | rxcpp::operators::subscribe<std::tuple<int,int>>([](const std::tuple<int,int>& v){ ankerl::nanobench::doNotOptimizeAway(v); });
+            // });
         }
     }
 
