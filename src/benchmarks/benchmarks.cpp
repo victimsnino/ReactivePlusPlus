@@ -239,7 +239,7 @@ int main(int argc, char* argv[]) // NOLINT
             TEST_RXCPP([&]()
             {
                 rxcpp::observable<>::create<int>([](const auto& obs){obs.on_next(1);})
-                | rxcpp::operators::with_latest_from(rxcpp::observable<>::create<int>([](const auto& obs){obs.on_next(2);}))
+                | rxcpp::operators::with_latest_from(rpp::utils::pack_to_tuple{}, rxcpp::observable<>::create<int>([](const auto& obs){obs.on_next(2);}))
                 | rxcpp::operators::subscribe<std::tuple<int,int>>([](const std::tuple<int,int>& v){ ankerl::nanobench::doNotOptimizeAway(v); });
             });
         }
