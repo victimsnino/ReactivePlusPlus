@@ -90,3 +90,4 @@
  */
 
 #include <rpp/operators/multicast.hpp>
+#include <rpp/operators/publish.hpp>
