@@ -47,7 +47,14 @@
 \DoxyCodeLine{00043\ \ \ \ \ std::scoped\_lock<std::mutex>\ m\_lock;}
 \DoxyCodeLine{00044\ \};}
 \DoxyCodeLine{00045\ }
-\DoxyCodeLine{00046\ }
-\DoxyCodeLine{00047\ \}\ \textcolor{comment}{//\ namespace\ rpp::operators::details}}
+\DoxyCodeLine{00046\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00047\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1with__auto__dispose}{with\_auto\_dispose}}\ :\ \textcolor{keyword}{public}\ T}
+\DoxyCodeLine{00048\ \{}
+\DoxyCodeLine{00049\ \ \ \ \ \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1with__auto__dispose}{\string~with\_auto\_dispose}}()\textcolor{keyword}{\ override}}
+\DoxyCodeLine{00050\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ T::dispose();}
+\DoxyCodeLine{00052\ \ \ \ \ \}}
+\DoxyCodeLine{00053\ \};}
+\DoxyCodeLine{00054\ \}\ \textcolor{comment}{//\ namespace\ rpp::operators::details}}
 
 \end{DoxyCode}

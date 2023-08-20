@@ -2,7 +2,7 @@
 \hypertarget{classrpp_1_1refcount__disposable}{}\label{classrpp_1_1refcount__disposable}\index{rpp::refcount\_disposable@{rpp::refcount\_disposable}}
 
 
-Disposable with counter inside. Each {\ttfamily add\+\_\+ref} increments counter, while each {\ttfamily \doxylink{classrpp_1_1refcount__disposable_aca0f28bcaedd9938ab22b09eebb2adb1}{dispose()}} call decrements. In case of reaching zero disposes underlying disposables @warn Don\textquotesingle{}t use it as disposable of observer due to {\ttfamily \doxylink{classrpp_1_1refcount__disposable_a7ee21e190b2a1e3b527fc46823109c04}{is\+\_\+disposed()}} would be false till counter reaches zero, so, observer can be also not {\ttfamily \doxylink{classrpp_1_1refcount__disposable_a7ee21e190b2a1e3b527fc46823109c04}{is\+\_\+disposed()}} during this time.  
+Disposable with counter inside. Each {\ttfamily add\+\_\+ref} increments counter, while each {\ttfamily \doxylink{classrpp_1_1refcount__disposable_ac8e6be5f044e6c49809bcaa4b2eb446a}{dispose()}} call decrements. In case of reaching zero disposes underlying disposables @warn Don\textquotesingle{}t use it as disposable of observer due to {\ttfamily \doxylink{classrpp_1_1refcount__disposable_ab35fc075f55ebed15f47796a949b18f4}{is\+\_\+disposed()}} would be false till counter reaches zero, so, observer can be also not {\ttfamily \doxylink{classrpp_1_1refcount__disposable_ab35fc075f55ebed15f47796a949b18f4}{is\+\_\+disposed()}} during this time.  
 
 
 
@@ -27,14 +27,14 @@ Inheritance diagram for rpp\+::refcount\+\_\+disposable\+:\begin{figure}[H]
 \Hypertarget{classrpp_1_1refcount__disposable_a06cf8265622b261dadd2d015902888e3}\label{classrpp_1_1refcount__disposable_a06cf8265622b261dadd2d015902888e3} 
 {\bfseries refcount\+\_\+disposable} (\mbox{\hyperlink{classrpp_1_1refcount__disposable}{refcount\+\_\+disposable}} \&\&) noexcept=delete
 \item 
-bool \mbox{\hyperlink{classrpp_1_1refcount__disposable_a7ee21e190b2a1e3b527fc46823109c04}{is\+\_\+disposed}} () const noexcept override
+bool \mbox{\hyperlink{classrpp_1_1refcount__disposable_ab35fc075f55ebed15f47796a949b18f4}{is\+\_\+disposed}} () const noexcept final
 \begin{DoxyCompactList}\small\item\em Check if this disposable is just disposed @warn This function must be thread-\/safe. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{classrpp_1_1refcount__disposable_aca0f28bcaedd9938ab22b09eebb2adb1}{dispose}} () override
+void \mbox{\hyperlink{classrpp_1_1refcount__disposable_ac8e6be5f044e6c49809bcaa4b2eb446a}{dispose}} () final
 \begin{DoxyCompactList}\small\item\em Dispose disposable and free any underlying resources and etc. @warn This function must be thread-\/safe. \end{DoxyCompactList}\item 
 \Hypertarget{classrpp_1_1refcount__disposable_a5a24f91fba302a26cfa05aa08e145086}\label{classrpp_1_1refcount__disposable_a5a24f91fba302a26cfa05aa08e145086} 
 \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{composite\+\_\+disposable\+\_\+wrapper}} {\bfseries add\+\_\+ref} ()
 \item 
-void \mbox{\hyperlink{classrpp_1_1refcount__disposable_a564afaa73300fcd85de651012862fd8f}{add}} (\mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{disposable\+\_\+wrapper}} disposable) override
+void \mbox{\hyperlink{classrpp_1_1refcount__disposable_aa4dfeb5254f24d78af76eb6521235273}{add}} (\mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{disposable\+\_\+wrapper}} disposable) final
 \item 
 virtual void \mbox{\hyperlink{classrpp_1_1refcount__disposable_aeabbd86e2ea58c12cbb13a2d3cf5f726}{add}} (\mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{disposable\+\_\+wrapper}} disposable)=0
 \item 
@@ -57,16 +57,16 @@ virtual void \mbox{\hyperlink{structrpp_1_1interface__disposable_a47d5a3e76f8f0e
 
 
 \doxysubsection{Detailed Description}
-Disposable with counter inside. Each {\ttfamily add\+\_\+ref} increments counter, while each {\ttfamily \doxylink{classrpp_1_1refcount__disposable_aca0f28bcaedd9938ab22b09eebb2adb1}{dispose()}} call decrements. In case of reaching zero disposes underlying disposables @warn Don\textquotesingle{}t use it as disposable of observer due to {\ttfamily \doxylink{classrpp_1_1refcount__disposable_a7ee21e190b2a1e3b527fc46823109c04}{is\+\_\+disposed()}} would be false till counter reaches zero, so, observer can be also not {\ttfamily \doxylink{classrpp_1_1refcount__disposable_a7ee21e190b2a1e3b527fc46823109c04}{is\+\_\+disposed()}} during this time. 
+Disposable with counter inside. Each {\ttfamily add\+\_\+ref} increments counter, while each {\ttfamily \doxylink{classrpp_1_1refcount__disposable_ac8e6be5f044e6c49809bcaa4b2eb446a}{dispose()}} call decrements. In case of reaching zero disposes underlying disposables @warn Don\textquotesingle{}t use it as disposable of observer due to {\ttfamily \doxylink{classrpp_1_1refcount__disposable_ab35fc075f55ebed15f47796a949b18f4}{is\+\_\+disposed()}} would be false till counter reaches zero, so, observer can be also not {\ttfamily \doxylink{classrpp_1_1refcount__disposable_ab35fc075f55ebed15f47796a949b18f4}{is\+\_\+disposed()}} during this time. 
 
 
 
 \doxysubsection{Member Function Documentation}
-\Hypertarget{classrpp_1_1refcount__disposable_a564afaa73300fcd85de651012862fd8f}\label{classrpp_1_1refcount__disposable_a564afaa73300fcd85de651012862fd8f} 
+\Hypertarget{classrpp_1_1refcount__disposable_aa4dfeb5254f24d78af76eb6521235273}\label{classrpp_1_1refcount__disposable_aa4dfeb5254f24d78af76eb6521235273} 
 \index{rpp::refcount\_disposable@{rpp::refcount\_disposable}!add@{add}}
 \index{add@{add}!rpp::refcount\_disposable@{rpp::refcount\_disposable}}
 \doxysubsubsection{\texorpdfstring{add()}{add()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
-{\footnotesize\ttfamily void rpp\+::refcount\+\_\+disposable\+::add (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{disposable\+\_\+wrapper}}}]{disposable }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+{\footnotesize\ttfamily void rpp\+::refcount\+\_\+disposable\+::add (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{disposable\+\_\+wrapper}}}]{disposable }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [final]}, {\ttfamily [virtual]}}
 
 
 
@@ -82,11 +82,11 @@ Implements \mbox{\hyperlink{structrpp_1_1interface__composite__disposable}{rpp\+
 
 Implements \mbox{\hyperlink{structrpp_1_1interface__composite__disposable}{rpp\+::interface\+\_\+composite\+\_\+disposable}}.
 
-\Hypertarget{classrpp_1_1refcount__disposable_aca0f28bcaedd9938ab22b09eebb2adb1}\label{classrpp_1_1refcount__disposable_aca0f28bcaedd9938ab22b09eebb2adb1} 
+\Hypertarget{classrpp_1_1refcount__disposable_ac8e6be5f044e6c49809bcaa4b2eb446a}\label{classrpp_1_1refcount__disposable_ac8e6be5f044e6c49809bcaa4b2eb446a} 
 \index{rpp::refcount\_disposable@{rpp::refcount\_disposable}!dispose@{dispose}}
 \index{dispose@{dispose}!rpp::refcount\_disposable@{rpp::refcount\_disposable}}
 \doxysubsubsection{\texorpdfstring{dispose()}{dispose()}}
-{\footnotesize\ttfamily void rpp\+::refcount\+\_\+disposable\+::dispose (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+{\footnotesize\ttfamily void rpp\+::refcount\+\_\+disposable\+::dispose (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [final]}, {\ttfamily [virtual]}}
 
 
 
@@ -96,11 +96,11 @@ Dispose disposable and free any underlying resources and etc. @warn This functio
 
 Implements \mbox{\hyperlink{structrpp_1_1interface__disposable_a47d5a3e76f8f0e774b07f7743eb0634a}{rpp\+::interface\+\_\+disposable}}.
 
-\Hypertarget{classrpp_1_1refcount__disposable_a7ee21e190b2a1e3b527fc46823109c04}\label{classrpp_1_1refcount__disposable_a7ee21e190b2a1e3b527fc46823109c04} 
+\Hypertarget{classrpp_1_1refcount__disposable_ab35fc075f55ebed15f47796a949b18f4}\label{classrpp_1_1refcount__disposable_ab35fc075f55ebed15f47796a949b18f4} 
 \index{rpp::refcount\_disposable@{rpp::refcount\_disposable}!is\_disposed@{is\_disposed}}
 \index{is\_disposed@{is\_disposed}!rpp::refcount\_disposable@{rpp::refcount\_disposable}}
 \doxysubsubsection{\texorpdfstring{is\_disposed()}{is\_disposed()}}
-{\footnotesize\ttfamily bool rpp\+::refcount\+\_\+disposable\+::is\+\_\+disposed (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}, {\ttfamily [noexcept]}}
+{\footnotesize\ttfamily bool rpp\+::refcount\+\_\+disposable\+::is\+\_\+disposed (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [final]}, {\ttfamily [virtual]}, {\ttfamily [noexcept]}}
 
 
 

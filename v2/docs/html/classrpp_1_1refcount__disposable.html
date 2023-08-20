@@ -99,11 +99,11 @@ $(document).ready(function(){initNavTree('classrpp_1_1refcount__disposable.html'
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="classrpp_1_1refcount__disposable-members.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">rpp::refcount_disposable Class Reference<span class="mlabels"><span class="mlabel">final</span></span><div class="ingroups"><a class="el" href="group__rpp.html">RPP</a> &raquo; <a class="el" href="group__disposables.html">Disposables</a></div></div></div>
+  <div class="headertitle"><div class="title">rpp::refcount_disposable Class Reference<div class="ingroups"><a class="el" href="group__rpp.html">RPP</a> &raquo; <a class="el" href="group__disposables.html">Disposables</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Disposable with counter inside. Each <code>add_ref</code> increments counter, while each <code><a class="el" href="classrpp_1_1refcount__disposable.html#aca0f28bcaedd9938ab22b09eebb2adb1" title="Dispose disposable and free any underlying resources and etc. @warn This function must be thread-safe...">dispose()</a></code> call decrements. In case of reaching zero disposes underlying disposables @warn Don't use it as disposable of observer due to <code><a class="el" href="classrpp_1_1refcount__disposable.html#a7ee21e190b2a1e3b527fc46823109c04" title="Check if this disposable is just disposed @warn This function must be thread-safe.">is_disposed()</a></code> would be false till counter reaches zero, so, observer can be also not <code><a class="el" href="classrpp_1_1refcount__disposable.html#a7ee21e190b2a1e3b527fc46823109c04" title="Check if this disposable is just disposed @warn This function must be thread-safe.">is_disposed()</a></code> during this time.  
+<p>Disposable with counter inside. Each <code>add_ref</code> increments counter, while each <code><a class="el" href="classrpp_1_1refcount__disposable.html#ac8e6be5f044e6c49809bcaa4b2eb446a" title="Dispose disposable and free any underlying resources and etc. @warn This function must be thread-safe...">dispose()</a></code> call decrements. In case of reaching zero disposes underlying disposables @warn Don't use it as disposable of observer due to <code><a class="el" href="classrpp_1_1refcount__disposable.html#ab35fc075f55ebed15f47796a949b18f4" title="Check if this disposable is just disposed @warn This function must be thread-safe.">is_disposed()</a></code> would be false till counter reaches zero, so, observer can be also not <code><a class="el" href="classrpp_1_1refcount__disposable.html#ab35fc075f55ebed15f47796a949b18f4" title="Check if this disposable is just disposed @warn This function must be thread-safe.">is_disposed()</a></code> during this time.  
  <a href="classrpp_1_1refcount__disposable.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="refcount__disposable_8hpp_source.html">refcount_disposable.hpp</a>&gt;</code></p>
@@ -129,17 +129,17 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a06cf8265622b261dadd2d015902888e3"><td class="memItemLeft" align="right" valign="top"><a id="a06cf8265622b261dadd2d015902888e3" name="a06cf8265622b261dadd2d015902888e3"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>refcount_disposable</b> (<a class="el" href="classrpp_1_1refcount__disposable.html">refcount_disposable</a> &amp;&amp;) noexcept=delete</td></tr>
 <tr class="separator:a06cf8265622b261dadd2d015902888e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7ee21e190b2a1e3b527fc46823109c04"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrpp_1_1refcount__disposable.html#a7ee21e190b2a1e3b527fc46823109c04">is_disposed</a> () const noexcept override</td></tr>
-<tr class="memdesc:a7ee21e190b2a1e3b527fc46823109c04"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if this disposable is just disposed @warn This function must be thread-safe.  <br /></td></tr>
-<tr class="separator:a7ee21e190b2a1e3b527fc46823109c04"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aca0f28bcaedd9938ab22b09eebb2adb1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrpp_1_1refcount__disposable.html#aca0f28bcaedd9938ab22b09eebb2adb1">dispose</a> () override</td></tr>
-<tr class="memdesc:aca0f28bcaedd9938ab22b09eebb2adb1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dispose disposable and free any underlying resources and etc. @warn This function must be thread-safe.  <br /></td></tr>
-<tr class="separator:aca0f28bcaedd9938ab22b09eebb2adb1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab35fc075f55ebed15f47796a949b18f4"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrpp_1_1refcount__disposable.html#ab35fc075f55ebed15f47796a949b18f4">is_disposed</a> () const noexcept final</td></tr>
+<tr class="memdesc:ab35fc075f55ebed15f47796a949b18f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if this disposable is just disposed @warn This function must be thread-safe.  <br /></td></tr>
+<tr class="separator:ab35fc075f55ebed15f47796a949b18f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac8e6be5f044e6c49809bcaa4b2eb446a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrpp_1_1refcount__disposable.html#ac8e6be5f044e6c49809bcaa4b2eb446a">dispose</a> () final</td></tr>
+<tr class="memdesc:ac8e6be5f044e6c49809bcaa4b2eb446a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dispose disposable and free any underlying resources and etc. @warn This function must be thread-safe.  <br /></td></tr>
+<tr class="separator:ac8e6be5f044e6c49809bcaa4b2eb446a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5a24f91fba302a26cfa05aa08e145086"><td class="memItemLeft" align="right" valign="top"><a id="a5a24f91fba302a26cfa05aa08e145086" name="a5a24f91fba302a26cfa05aa08e145086"></a>
 <a class="el" href="classrpp_1_1disposable__wrapper__impl.html">composite_disposable_wrapper</a>&#160;</td><td class="memItemRight" valign="bottom"><b>add_ref</b> ()</td></tr>
 <tr class="separator:a5a24f91fba302a26cfa05aa08e145086"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a564afaa73300fcd85de651012862fd8f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrpp_1_1refcount__disposable.html#a564afaa73300fcd85de651012862fd8f">add</a> (<a class="el" href="classrpp_1_1disposable__wrapper__impl.html">disposable_wrapper</a> disposable) override</td></tr>
-<tr class="separator:a564afaa73300fcd85de651012862fd8f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa4dfeb5254f24d78af76eb6521235273"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrpp_1_1refcount__disposable.html#aa4dfeb5254f24d78af76eb6521235273">add</a> (<a class="el" href="classrpp_1_1disposable__wrapper__impl.html">disposable_wrapper</a> disposable) final</td></tr>
+<tr class="separator:aa4dfeb5254f24d78af76eb6521235273"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aeabbd86e2ea58c12cbb13a2d3cf5f726"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrpp_1_1refcount__disposable.html#aeabbd86e2ea58c12cbb13a2d3cf5f726">add</a> (<a class="el" href="classrpp_1_1disposable__wrapper__impl.html">disposable_wrapper</a> disposable)=0</td></tr>
 <tr class="separator:aeabbd86e2ea58c12cbb13a2d3cf5f726"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5a466624c0cf774c3fbe2f585eaf813c"><td class="memTemplParams" colspan="2"><a id="a5a466624c0cf774c3fbe2f585eaf813c" name="a5a466624c0cf774c3fbe2f585eaf813c"></a>
@@ -162,10 +162,10 @@ template&lt;std::invocable Fn&gt; </td></tr>
 <tr class="separator:a47d5a3e76f8f0e774b07f7743eb0634a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Disposable with counter inside. Each <code>add_ref</code> increments counter, while each <code><a class="el" href="classrpp_1_1refcount__disposable.html#aca0f28bcaedd9938ab22b09eebb2adb1" title="Dispose disposable and free any underlying resources and etc. @warn This function must be thread-safe...">dispose()</a></code> call decrements. In case of reaching zero disposes underlying disposables @warn Don't use it as disposable of observer due to <code><a class="el" href="classrpp_1_1refcount__disposable.html#a7ee21e190b2a1e3b527fc46823109c04" title="Check if this disposable is just disposed @warn This function must be thread-safe.">is_disposed()</a></code> would be false till counter reaches zero, so, observer can be also not <code><a class="el" href="classrpp_1_1refcount__disposable.html#a7ee21e190b2a1e3b527fc46823109c04" title="Check if this disposable is just disposed @warn This function must be thread-safe.">is_disposed()</a></code> during this time. </p>
+<div class="textblock"><p>Disposable with counter inside. Each <code>add_ref</code> increments counter, while each <code><a class="el" href="classrpp_1_1refcount__disposable.html#ac8e6be5f044e6c49809bcaa4b2eb446a" title="Dispose disposable and free any underlying resources and etc. @warn This function must be thread-safe...">dispose()</a></code> call decrements. In case of reaching zero disposes underlying disposables @warn Don't use it as disposable of observer due to <code><a class="el" href="classrpp_1_1refcount__disposable.html#ab35fc075f55ebed15f47796a949b18f4" title="Check if this disposable is just disposed @warn This function must be thread-safe.">is_disposed()</a></code> would be false till counter reaches zero, so, observer can be also not <code><a class="el" href="classrpp_1_1refcount__disposable.html#ab35fc075f55ebed15f47796a949b18f4" title="Check if this disposable is just disposed @warn This function must be thread-safe.">is_disposed()</a></code> during this time. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a564afaa73300fcd85de651012862fd8f" name="a564afaa73300fcd85de651012862fd8f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a564afaa73300fcd85de651012862fd8f">&#9670;&#160;</a></span>add() <span class="overload">[1/2]</span></h2>
+<a id="aa4dfeb5254f24d78af76eb6521235273" name="aa4dfeb5254f24d78af76eb6521235273"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa4dfeb5254f24d78af76eb6521235273">&#9670;&#160;</a></span>add() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -183,7 +183,7 @@ template&lt;std::invocable Fn&gt; </td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">final</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -220,8 +220,8 @@ template&lt;std::invocable Fn&gt; </td></tr>
 
 </div>
 </div>
-<a id="aca0f28bcaedd9938ab22b09eebb2adb1" name="aca0f28bcaedd9938ab22b09eebb2adb1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aca0f28bcaedd9938ab22b09eebb2adb1">&#9670;&#160;</a></span>dispose()</h2>
+<a id="ac8e6be5f044e6c49809bcaa4b2eb446a" name="ac8e6be5f044e6c49809bcaa4b2eb446a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac8e6be5f044e6c49809bcaa4b2eb446a">&#9670;&#160;</a></span>dispose()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -238,7 +238,7 @@ template&lt;std::invocable Fn&gt; </td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">final</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -249,8 +249,8 @@ template&lt;std::invocable Fn&gt; </td></tr>
 
 </div>
 </div>
-<a id="a7ee21e190b2a1e3b527fc46823109c04" name="a7ee21e190b2a1e3b527fc46823109c04"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7ee21e190b2a1e3b527fc46823109c04">&#9670;&#160;</a></span>is_disposed()</h2>
+<a id="ab35fc075f55ebed15f47796a949b18f4" name="ab35fc075f55ebed15f47796a949b18f4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab35fc075f55ebed15f47796a949b18f4">&#9670;&#160;</a></span>is_disposed()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -267,7 +267,7 @@ template&lt;std::invocable Fn&gt; </td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span><span class="mlabel">noexcept</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">final</span><span class="mlabel">virtual</span><span class="mlabel">noexcept</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">

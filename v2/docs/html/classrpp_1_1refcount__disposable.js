@@ -1,5 +1,5 @@
 var classrpp_1_1refcount__disposable =
 [
-    [ "dispose", "classrpp_1_1refcount__disposable.html#aca0f28bcaedd9938ab22b09eebb2adb1", null ],
-    [ "is_disposed", "classrpp_1_1refcount__disposable.html#a7ee21e190b2a1e3b527fc46823109c04", null ]
+    [ "dispose", "classrpp_1_1refcount__disposable.html#ac8e6be5f044e6c49809bcaa4b2eb446a", null ],
+    [ "is_disposed", "classrpp_1_1refcount__disposable.html#ab35fc075f55ebed15f47796a949b18f4", null ]
 ];

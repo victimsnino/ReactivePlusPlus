@@ -95,6 +95,7 @@ var annotated_dup =
           [ "template_multicast_t", "structrpp_1_1operators_1_1details_1_1template__multicast__t.html", null ],
           [ "template_subscribe_strategy", "structrpp_1_1operators_1_1details_1_1template__subscribe__strategy.html", null ],
           [ "value_with_mutex", "structrpp_1_1operators_1_1details_1_1value__with__mutex.html", null ],
+          [ "with_auto_dispose", "structrpp_1_1operators_1_1details_1_1with__auto__dispose.html", null ],
           [ "with_latest_from_disposable", "classrpp_1_1operators_1_1details_1_1with__latest__from__disposable.html", null ],
           [ "with_latest_from_inner_observer_strategy", "structrpp_1_1operators_1_1details_1_1with__latest__from__inner__observer__strategy.html", null ],
           [ "with_latest_from_observer_strategy", "classrpp_1_1operators_1_1details_1_1with__latest__from__observer__strategy.html", null ],
