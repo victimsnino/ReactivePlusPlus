@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['with_5fdisposable_0',['with_disposable',['../structrpp_1_1details_1_1with__disposable.html',1,'rpp::details']]],
-  ['worker_1',['worker',['../classrpp_1_1schedulers_1_1worker.html',1,'rpp::schedulers']]],
-  ['worker_5fstrategy_2',['worker_strategy',['../classrpp_1_1schedulers_1_1current__thread_1_1worker__strategy.html',1,'rpp::schedulers::current_thread::worker_strategy'],['../classrpp_1_1schedulers_1_1immediate_1_1worker__strategy.html',1,'rpp::schedulers::immediate::worker_strategy'],['../classrpp_1_1schedulers_1_1new__thread_1_1worker__strategy.html',1,'rpp::schedulers::new_thread::worker_strategy']]]
+  ['value_5fwith_5fmutex_0',['value_with_mutex',['../structrpp_1_1operators_1_1details_1_1value__with__mutex.html',1,'rpp::operators::details']]],
+  ['value_5fwith_5fmutex_3c_20observer_20_3e_1',['value_with_mutex&lt; Observer &gt;',['../structrpp_1_1operators_1_1details_1_1value__with__mutex.html',1,'rpp::operators::details']]],
+  ['value_5fwith_5fmutex_3c_20tobserver_20_3e_2',['value_with_mutex&lt; TObserver &gt;',['../structrpp_1_1operators_1_1details_1_1value__with__mutex.html',1,'rpp::operators::details']]]
 ];

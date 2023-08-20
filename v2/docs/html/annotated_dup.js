@@ -73,6 +73,7 @@ var annotated_dup =
           [ "operator_observable_strategy_base", "classrpp_1_1operators_1_1details_1_1operator__observable__strategy__base.html", null ],
           [ "operator_strategy_base", "classrpp_1_1operators_1_1details_1_1operator__strategy__base.html", null ],
           [ "operator_strategy_base< T, rpp::observer< TT, ObserverStrategy >, Strategy >", "classrpp_1_1operators_1_1details_1_1operator__strategy__base_3_01_t_00_01rpp_1_1observer_3_01_t_62de0c37c195be8c90156dbfce434b58.html", "classrpp_1_1operators_1_1details_1_1operator__strategy__base_3_01_t_00_01rpp_1_1observer_3_01_t_62de0c37c195be8c90156dbfce434b58" ],
+          [ "pointer_under_lock", "classrpp_1_1operators_1_1details_1_1pointer__under__lock.html", null ],
           [ "repeat_t", "structrpp_1_1operators_1_1details_1_1repeat__t.html", null ],
           [ "scan_no_seed_observer_strategy", "structrpp_1_1operators_1_1details_1_1scan__no__seed__observer__strategy.html", null ],
           [ "scan_no_seed_t", "structrpp_1_1operators_1_1details_1_1scan__no__seed__t.html", null ],
@@ -92,7 +93,12 @@ var annotated_dup =
           [ "take_while_observer_strategy", "structrpp_1_1operators_1_1details_1_1take__while__observer__strategy.html", null ],
           [ "take_while_t", "structrpp_1_1operators_1_1details_1_1take__while__t.html", null ],
           [ "template_multicast_t", "structrpp_1_1operators_1_1details_1_1template__multicast__t.html", null ],
-          [ "template_subscribe_strategy", "structrpp_1_1operators_1_1details_1_1template__subscribe__strategy.html", null ]
+          [ "template_subscribe_strategy", "structrpp_1_1operators_1_1details_1_1template__subscribe__strategy.html", null ],
+          [ "value_with_mutex", "structrpp_1_1operators_1_1details_1_1value__with__mutex.html", null ],
+          [ "with_latest_from_disposable", "classrpp_1_1operators_1_1details_1_1with__latest__from__disposable.html", null ],
+          [ "with_latest_from_inner_observer_strategy", "structrpp_1_1operators_1_1details_1_1with__latest__from__inner__observer__strategy.html", null ],
+          [ "with_latest_from_observer_strategy", "classrpp_1_1operators_1_1details_1_1with__latest__from__observer__strategy.html", null ],
+          [ "with_latest_from_t", "structrpp_1_1operators_1_1details_1_1with__latest__from__t.html", null ]
         ] ]
       ] ],
       [ "schedulers", null, [

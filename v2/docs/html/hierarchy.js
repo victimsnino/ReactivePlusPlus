@@ -57,6 +57,7 @@ var hierarchy =
       [ "rpp::interface_composite_disposable", "structrpp_1_1interface__composite__disposable.html", [
         [ "rpp::composite_disposable", "classrpp_1_1composite__disposable.html", [
           [ "rpp::operators::details::merge_disposable< TObserver >", "classrpp_1_1operators_1_1details_1_1merge__disposable.html", null ],
+          [ "rpp::operators::details::with_latest_from_disposable< Observer, TSelector, RestArgs >", "classrpp_1_1operators_1_1details_1_1with__latest__from__disposable.html", null ],
           [ "rpp::subjects::details::subject_state< Type >", "classrpp_1_1subjects_1_1details_1_1subject__state.html", null ]
         ] ],
         [ "rpp::refcount_disposable", "classrpp_1_1refcount__disposable.html", null ]
@@ -114,6 +115,7 @@ var hierarchy =
     ] ],
     [ "rpp::operators::details::operator_strategy_base< T, TObs, Strategy >", "classrpp_1_1operators_1_1details_1_1operator__strategy__base.html", null ],
     [ "rpp::operators::details::operator_strategy_base< T, rpp::observer< TT, ObserverStrategy >, Strategy >", "classrpp_1_1operators_1_1details_1_1operator__strategy__base_3_01_t_00_01rpp_1_1observer_3_01_t_62de0c37c195be8c90156dbfce434b58.html", null ],
+    [ "rpp::operators::details::pointer_under_lock< T >", "classrpp_1_1operators_1_1details_1_1pointer__under__lock.html", null ],
     [ "rpp::subjects::details::publish_strategy< Type >", "classrpp_1_1subjects_1_1details_1_1publish__strategy.html", null ],
     [ "rpp::details::ref_count_on_subscribe_t< T >", "structrpp_1_1details_1_1ref__count__on__subscribe__t.html", null ],
     [ "rpp::details::ref_count_on_subscribe_t< rpp::connectable_observable< OriginalObservable, Subject > >", "structrpp_1_1details_1_1ref__count__on__subscribe__t_3_01rpp_1_1connectable__observable_3_01_oria02afbb30282d4727b872472b2af56d8.html", null ],
@@ -145,7 +147,13 @@ var hierarchy =
     ] ],
     [ "rpp::memory_model::use_shared", "structrpp_1_1memory__model_1_1use__shared.html", null ],
     [ "rpp::memory_model::use_stack", "structrpp_1_1memory__model_1_1use__stack.html", null ],
+    [ "rpp::operators::details::value_with_mutex< T >", "structrpp_1_1operators_1_1details_1_1value__with__mutex.html", null ],
+    [ "rpp::operators::details::value_with_mutex< Observer >", "structrpp_1_1operators_1_1details_1_1value__with__mutex.html", null ],
+    [ "rpp::operators::details::value_with_mutex< TObserver >", "structrpp_1_1operators_1_1details_1_1value__with__mutex.html", null ],
     [ "rpp::details::with_disposable< S >", "structrpp_1_1details_1_1with__disposable.html", null ],
+    [ "rpp::operators::details::with_latest_from_inner_observer_strategy< I, Observer, TSelector, RestArgs >", "structrpp_1_1operators_1_1details_1_1with__latest__from__inner__observer__strategy.html", null ],
+    [ "rpp::operators::details::with_latest_from_observer_strategy< Observer, TSelector, OriginalValue, TObservables >", "classrpp_1_1operators_1_1details_1_1with__latest__from__observer__strategy.html", null ],
+    [ "rpp::operators::details::with_latest_from_t< TSelector, TObservables >", "structrpp_1_1operators_1_1details_1_1with__latest__from__t.html", null ],
     [ "rpp::schedulers::worker< Strategy >", "classrpp_1_1schedulers_1_1worker.html", null ],
     [ "rpp::schedulers::current_thread::worker_strategy", "classrpp_1_1schedulers_1_1current__thread_1_1worker__strategy.html", null ],
     [ "rpp::schedulers::immediate::worker_strategy", "classrpp_1_1schedulers_1_1immediate_1_1worker__strategy.html", null ],

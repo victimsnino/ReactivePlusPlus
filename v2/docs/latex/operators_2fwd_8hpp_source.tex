@@ -88,11 +88,19 @@
 \DoxyCodeLine{00084\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__conditional__operators_gac65952f7460d8f0e71a93d95810d2061}{take\_while}}(Fn\&\&\ predicate);}
 \DoxyCodeLine{00085\ }
 \DoxyCodeLine{00086\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__filtering__operators_gaf32161437c2c6cd7d5a0e5170a333cbb}{take}}(\textcolor{keywordtype}{size\_t}\ count);}
-\DoxyCodeLine{00087\ \}}
-\DoxyCodeLine{00088\ }
-\DoxyCodeLine{00089\ \textcolor{keyword}{namespace\ }rpp}
-\DoxyCodeLine{00090\ \{}
-\DoxyCodeLine{00091\ \ \ \ \ \textcolor{keyword}{namespace\ }ops\ =\ operators;}
-\DoxyCodeLine{00092\ \}}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ TSelector,\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp::constraint::observable}}\ TObservable,\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp::constraint::observable}}...\ TObservables>}
+\DoxyCodeLine{00089\ \ \ \ \ \textcolor{keyword}{requires}(!utils::is\_not\_template\_callable<TSelector>\ ||}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \ \ \ \ \ std::invocable<TSelector,\ rpp::utils::convertible\_to\_any,\ utils::extract\_observable\_type\_t<TObservable>,\ utils::extract\_observable\_type\_t<TObservables>...>)}
+\DoxyCodeLine{00091\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__combining__operators_ga7c5521cd41f2832e93446fb740fb4d31}{with\_latest\_from}}(TSelector\&\&\ selector,\ TObservable\&\&\ observable,\ TObservables\&\&...\ observables);}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00093\ \textcolor{keyword}{template}<\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp::constraint::observable}}\ TObservable,\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp::constraint::observable}}...\ TObservables>}
+\DoxyCodeLine{00094\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__combining__operators_ga7c5521cd41f2832e93446fb740fb4d31}{with\_latest\_from}}(TObservable\&\&\ observable,\ TObservables\&\&...\ observables);}
+\DoxyCodeLine{00095\ \}\ \textcolor{comment}{//\ namespace\ rpp::operators}}
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00097\ \textcolor{keyword}{namespace\ }rpp}
+\DoxyCodeLine{00098\ \{}
+\DoxyCodeLine{00099\ \ \ \ \ \textcolor{keyword}{namespace\ }ops\ =\ operators;}
+\DoxyCodeLine{00100\ \}}
 
 \end{DoxyCode}
