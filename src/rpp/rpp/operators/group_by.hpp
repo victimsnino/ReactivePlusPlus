@@ -12,6 +12,7 @@
 
 #include <rpp/operators/fwd.hpp>
 #include <rpp/operators/details/strategy.hpp>
+#include <rpp/operators/details/utils.hpp>
 #include <rpp/observables/grouped_observable.hpp>
 #include <rpp/subjects/publish_subject.hpp>
 #include <rpp/disposables/refcount_disposable.hpp>
@@ -67,7 +68,7 @@ struct group_by_observer_strategy
     RPP_NO_UNIQUE_ADDRESS KeyComparator comparator;
 
     mutable std::map<TKey, subjects::publish_subject<Type>, KeyComparator> key_to_subject{};
-    std::shared_ptr<refcount_disposable> disposable = std::make_shared<refcount_disposable>();
+    std::shared_ptr<details::with_auto_dispose<refcount_disposable>> disposable = std::make_shared<details::with_auto_dispose<refcount_disposable>>();
 
     void on_subscribe(rpp::constraint::observer auto& obs) const
     {

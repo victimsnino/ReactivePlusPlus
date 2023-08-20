@@ -43,5 +43,12 @@ private:
     std::scoped_lock<std::mutex> m_lock;
 };
 
-
+template<typename T>
+struct with_auto_dispose : public T
+{
+    ~with_auto_dispose() override
+    {
+        T::dispose();
+    }
+};
 } // namespace rpp::operators::details

@@ -25,7 +25,7 @@
 namespace rpp::operators::details
 {
 template<rpp::constraint::observer Observer, typename TSelector, rpp::constraint::decayed_type... RestArgs>
-class with_latest_from_disposable final : public composite_disposable
+class with_latest_from_disposable final : public with_auto_dispose<composite_disposable>
 {
 public:
     explicit with_latest_from_disposable(Observer&& observer, const TSelector& selector)
