@@ -15,6 +15,8 @@
 
 #include "mock_observer.hpp"
 #include "copy_count_tracker.hpp"
+#include "disposable_observable.hpp"
+
 #include "rpp/operators/subscribe.hpp"
 
 
@@ -166,4 +168,9 @@ TEST_CASE("scan doesn't produce extra copies")
             CHECK(tracker.get_move_count() == 3); // 2 times 1 move to internal state
         }
     }
+}
+
+TEST_CASE("scan disposes original disposable on disposing")
+{
+    test_operator_with_disposable<int>(rpp::ops::scan([](auto&& s, auto&&){return s; }));
 }

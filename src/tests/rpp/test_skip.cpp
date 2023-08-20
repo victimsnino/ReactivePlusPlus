@@ -17,6 +17,8 @@
 
 #include "mock_observer.hpp"
 #include "copy_count_tracker.hpp"
+#include "disposable_observable.hpp"
+
 
 TEMPLATE_TEST_CASE("skip ignores first `count` of items",
                    "",
@@ -79,4 +81,9 @@ TEST_CASE("skip doesn't produce extra copies")
                                                             .move_count = 1} // 1 move to final subscriber
                                         }, 2);
     }
+}
+
+TEST_CASE("skip disposes original disposable on disposing")
+{
+    test_operator_with_disposable<int>(rpp::ops::skip(1));
 }

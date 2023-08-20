@@ -15,6 +15,8 @@
 
 #include "mock_observer.hpp"
 #include "copy_count_tracker.hpp"
+#include "disposable_observable.hpp"
+
 
 TEST_CASE("take operator limits emissions")
 {
@@ -106,4 +108,9 @@ TEST_CASE("take doesn't produce extra copies")
                                                             .move_count = 1} // 1 move to final subscriber
                                         }, 2);
     }
+}
+
+TEST_CASE("take disposes original disposable on disposing")
+{
+    test_operator_with_disposable<int>(rpp::ops::take(1));
 }

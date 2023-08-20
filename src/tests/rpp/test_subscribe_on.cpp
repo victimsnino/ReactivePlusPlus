@@ -22,6 +22,8 @@
 #include <thread>
 
 #include "mock_observer.hpp"
+#include "disposable_observable.hpp"
+
 #include "rpp/disposables/composite_disposable.hpp"
 #include "rpp/disposables/fwd.hpp"
 #include "rpp/operators/fwd.hpp"
@@ -109,4 +111,10 @@ TEST_CASE("subscribe_on schedules job in another scheduler")
         CHECK(d->is_disposed());
         CHECK(second->is_disposed());
     }
+}
+
+
+TEST_CASE("group_by disposes original disposable on disposing")
+{
+    test_operator_with_disposable<int>(rpp::ops::subscribe_on(rpp::schedulers::current_thread{}));
 }

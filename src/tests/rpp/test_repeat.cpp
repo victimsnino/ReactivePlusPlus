@@ -16,6 +16,7 @@
 
 #include "mock_observer.hpp"
 #include "copy_count_tracker.hpp"
+#include "disposable_observable.hpp"
 
 
 TEST_CASE("repeat resubscribes")
@@ -130,4 +131,9 @@ TEST_CASE("repeat doesn't produce extra copies")
                                                             .move_count = 2} // 2 times 1 move to final subscriber
                                         });
     }
+}
+
+TEST_CASE("repeat disposes original disposable on disposing")
+{
+    test_operator_with_disposable<int>(rpp::ops::repeat());
 }
