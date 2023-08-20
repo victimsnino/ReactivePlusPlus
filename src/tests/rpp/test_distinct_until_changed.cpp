@@ -15,6 +15,8 @@
 
 #include "mock_observer.hpp"
 #include "copy_count_tracker.hpp"
+#include "disposable_observable.hpp"
+
 
 TEMPLATE_TEST_CASE("distinct_until_changed filters out consecutive duplicates and send first value from duplicates", "", rpp::memory_model::use_stack, rpp::memory_model::use_shared)
 {
@@ -46,4 +48,9 @@ TEST_CASE("distinct_until_changed doesn't produce extra copies")
                                           .send_by_move = {.copy_count = 1, // 1 copy to internal state
                                                            .move_count = 1} // 1 move to final subscriber
                                       });
+}
+
+TEST_CASE("distinct_until_changed disposes original disposable on disposing")
+{
+    test_operator_with_disposable<int>(rpp::ops::distinct_until_changed());
 }

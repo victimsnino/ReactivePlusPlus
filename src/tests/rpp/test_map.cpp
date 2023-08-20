@@ -15,6 +15,8 @@
 
 #include "mock_observer.hpp"
 #include "copy_count_tracker.hpp"
+#include "disposable_observable.hpp"
+
 
 #include <stdexcept>
 #include <string>
@@ -63,4 +65,9 @@ TEST_CASE("map doesn't produce extra copies")
                                                             .move_count = 2} // 1 move on return from map + 1 move to final subscriber
                                         });
     }
+}
+
+TEST_CASE("map disposes original disposable on disposing")
+{
+    test_operator_with_disposable<int>(rpp::ops::map([](auto&& v){return std::forward<decltype(v)>(v);}));
 }

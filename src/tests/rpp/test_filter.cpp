@@ -15,6 +15,7 @@
 
 #include "mock_observer.hpp"
 #include "copy_count_tracker.hpp"
+#include "disposable_observable.hpp"
 
 #include <stdexcept>
 #include <string>
@@ -69,4 +70,9 @@ TEST_CASE("filter doesn't produce extra copies")
                                                             .move_count = 0}
                                         });
     }
+}
+
+TEST_CASE("filter disposes original disposable on disposing")
+{
+    test_operator_with_disposable<int>(rpp::ops::filter([](const int&){return false;}));
 }

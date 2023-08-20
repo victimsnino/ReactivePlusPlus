@@ -26,7 +26,7 @@
 namespace rpp::operators::details
 {
 template<rpp::constraint::observer TObserver>
-class merge_disposable final : public composite_disposable
+class merge_disposable final : public with_auto_dispose<composite_disposable>
 {
 public:
     merge_disposable(TObserver&& observer) : m_observer(std::move(observer)) {}

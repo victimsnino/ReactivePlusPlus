@@ -26,7 +26,7 @@ namespace rpp
  * 
  * @ingroup disposables
  */
-class refcount_disposable final : public interface_composite_disposable, public std::enable_shared_from_this<refcount_disposable>
+class refcount_disposable : public interface_composite_disposable, public std::enable_shared_from_this<refcount_disposable>
 {
 public:
     refcount_disposable() = default;
@@ -35,9 +35,9 @@ public:
     refcount_disposable(const refcount_disposable&)     = delete;
     refcount_disposable(refcount_disposable&&) noexcept = delete;
 
-    bool is_disposed() const noexcept override { return m_refcount.load(std::memory_order_acquire) == 0; }
+    bool is_disposed() const noexcept final { return m_refcount.load(std::memory_order_acquire) == 0; }
 
-    void dispose() override
+    void dispose() final
     {
         while (auto current_value = m_refcount.load(std::memory_order_acquire))
         {
@@ -66,7 +66,7 @@ public:
 
     using interface_composite_disposable::add;
     
-    void add(disposable_wrapper disposable) override
+    void add(disposable_wrapper disposable) final
     {
         m_underlying.add(std::move(disposable));
     }

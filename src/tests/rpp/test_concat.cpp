@@ -17,6 +17,8 @@
 
 #include "mock_observer.hpp"
 #include "copy_count_tracker.hpp"
+#include "disposable_observable.hpp"
+
 
 #include <rpp/disposables/composite_disposable.hpp>
 #include <rpp/disposables/disposable_wrapper.hpp>
@@ -237,4 +239,9 @@ TEST_CASE("concat of iterable doesn't produce extra copies")
         CHECK(tracker.get_copy_count() - initial_copy == 2); // 1 copy to observable + 1 copy to observer
         CHECK(tracker.get_move_count() - initial_move == 0);
     }
+}
+
+TEST_CASE("concat disposes original disposable on disposing")
+{
+    test_operator_over_observable_with_disposable<int>([](auto&& observable){return rpp::source::concat(observable);});
 }

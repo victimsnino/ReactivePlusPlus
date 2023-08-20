@@ -18,6 +18,8 @@
 
 #include "mock_observer.hpp"
 #include "copy_count_tracker.hpp"
+#include "disposable_observable.hpp"
+
 
 TEST_CASE("first only emits once")
 {
@@ -88,4 +90,9 @@ TEST_CASE("first doesn't produce extra copies")
                                                             .move_count = 1} // 1 move to final subscriber
                                         }, 2);
     }
+}
+
+TEST_CASE("first disposes original disposable on disposing")
+{
+    test_operator_with_disposable<int>(rpp::ops::first());
 }

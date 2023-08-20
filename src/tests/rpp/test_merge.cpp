@@ -22,6 +22,8 @@
 
 #include "mock_observer.hpp"
 #include "copy_count_tracker.hpp"
+#include "disposable_observable.hpp"
+
 
 #include <stdexcept>
 #include <string>
@@ -285,4 +287,14 @@ TEST_CASE("merge doesn't produce extra copies")
         REQUIRE(verifier.get_copy_count() == 0);
         REQUIRE(verifier.get_move_count() == 1); // 1 move to final subscriber
     }
+}
+
+TEST_CASE("merge disposes original disposable on disposing")
+{
+    auto observable_disposable = std::make_shared<rpp::composite_disposable>();
+    auto observable = observable_with_disposable<int>(observable_disposable);
+
+    test_operator_with_disposable<int>(rpp::ops::merge_with(observable));
+
+    CHECK(observable_disposable->is_disposed());
 }

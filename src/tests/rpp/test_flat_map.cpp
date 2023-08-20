@@ -21,6 +21,8 @@
 
 #include "copy_count_tracker.hpp"
 #include "mock_observer.hpp"
+#include "disposable_observable.hpp"
+
 
 #include <stdexcept>
 #include <string>
@@ -134,4 +136,9 @@ TEMPLATE_TEST_CASE("flat_map", "", rpp::memory_model::use_stack, rpp::memory_mod
             }
         }
     }
+}
+
+TEST_CASE("flat_map disposes original disposable on disposing")
+{
+    test_operator_with_disposable<int>(rpp::ops::flat_map([](const auto& v){return rpp::source::just(v); }));
 }

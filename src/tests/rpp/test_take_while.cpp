@@ -10,6 +10,8 @@
 
 #include "mock_observer.hpp"
 #include "copy_count_tracker.hpp"
+#include "disposable_observable.hpp"
+
 
 #include <rpp/operators/take_while.hpp>
 #include <rpp/sources/create.hpp>
@@ -57,4 +59,9 @@ TEST_CASE("take_while doesn't produce extra copies")
                                                             .move_count = 1} // 1 move to final subscriber
                                         });
     }
+}
+
+TEST_CASE("take_while disposes original disposable on disposing")
+{
+    test_operator_with_disposable<int>(rpp::ops::take_while([](auto){return true; }));
 }
