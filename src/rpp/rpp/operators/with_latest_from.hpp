@@ -165,6 +165,33 @@ private:
 
 namespace rpp::operators
 {
+/**
+ * @brief Combines latest emissions from observables with emission from current observable when it sends new value via applying selector
+ * 
+ * @marble with_latest_from_custom_selector
+   {
+       source observable                                 : +------1    -2    -3    -|
+       source other_observable                           : +-5-6-7-    --    8-    -|
+       operator "with_latest_from: x,y =>std::pair{x,y}" : +------{1,5}-{2,7}-{3,8}-|
+   }
+ *
+ * @details Actually this operator just keeps last values from all other observables and combines them together with each new emission from original observable
+ *
+ * @par Performance notes:
+ * - 1 heap allocation for disposable
+ * - each value from "others" copied/moved to internal storage
+ * - mutex acquired every time value obtained
+ * 
+ * @param selector is applied to current emission of current observable and latests emissions from observables
+ * @param observables are observables whose emissions would be combined when current observable sends new value
+ * @warning #include <rpp/operators/with_latest_from.hpp>
+ *
+ * @par Examples
+ * @snippet with_latest_from.cpp with_latest_from custom selector
+ *
+ * @ingroup combining_operators
+ * @see https://reactivex.io/documentation/operators/combinelatest.html
+ */
 template<typename TSelector, rpp::constraint::observable TObservable, rpp::constraint::observable... TObservables>
     requires(!utils::is_not_template_callable<TSelector> ||
              std::invocable<TSelector, rpp::utils::convertible_to_any, utils::extract_observable_type_t<TObservable>, utils::extract_observable_type_t<TObservables>...>)
@@ -173,6 +200,32 @@ auto with_latest_from(TSelector&& selector, TObservable&& observable, TObservabl
     return details::with_latest_from_t<std::decay_t<TSelector>, std::decay_t<TObservable>, std::decay_t<TObservables>...>{rpp::utils::tuple{std::forward<TObservable>(observable), std::forward<TObservables>(observables)...}, std::forward<TSelector>(selector)};
 }
 
+/**
+ * @brief Combines latest emissions from observables with emission from current observable when it sends new value via making tuple
+ * 
+ * @marble with_latest_from
+   {
+       source observable                       : +------1    -2    -3    -|
+       source other_observable                 : +-5-6-7-    --    8-    -|
+       operator "with_latest_from: make_tuple" : +------{1,5}-{2,7}-{3,8}-|
+   }
+ *
+ * @warn Selector is just packing values to tuple in this case
+ * 
+ * @par Performance notes:
+ * - 1 heap allocation for disposable
+ * - each value from "others" copied/moved to internal storage
+ * - mutex acquired every time value obtained
+ *
+ * @param observables are observables whose emissions would be combined when current observable sends new value
+ * @warning #include <rpp/operators/with_latest_from.hpp>
+ *
+ * @par Examples
+ * @snippet with_latest_from.cpp with_latest_from
+ *
+ * @ingroup combining_operators
+ * @see https://reactivex.io/documentation/operators/combinelatest.html
+ */
 template<rpp::constraint::observable TObservable, rpp::constraint::observable... TObservables>
 auto with_latest_from(TObservable&& observable, TObservables&&... observables)
 {
