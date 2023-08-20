@@ -22,6 +22,7 @@ template<size_t index, typename T>
 class tuple_leaf
 {
 public:
+    tuple_leaf() = default;
     tuple_leaf(const T& value) : m_value{value} {}
     tuple_leaf(T&& value) : m_value{std::move(value)} {}
 
@@ -29,7 +30,7 @@ public:
     T&       get() { return m_value; }
 
 private:
-    RPP_NO_UNIQUE_ADDRESS T m_value;
+    RPP_NO_UNIQUE_ADDRESS T m_value{};
 };
 
 template<typename, typename...>
@@ -39,6 +40,8 @@ template<typename... Args, size_t... Indices>
 class tuple_impl<std::index_sequence<Indices...>, Args...> : private tuple_leaf<Indices, Args>...
 {
 public:
+    tuple_impl() = default;
+
     template<std::convertible_to<Args> ...TArgs>
         requires(!rpp::constraint::variadic_decayed_same_as<tuple_impl<std::index_sequence<Indices...>, Args...>, TArgs...>)
     tuple_impl(TArgs&&...args)
@@ -56,6 +59,29 @@ public:
     {
         return std::forward<Callable>(callable)(std::forward<TArgs>(args)..., static_cast<const tuple_leaf<Indices, Args>*>(this)->get()...);
     }
+
+    template<size_t I>
+        requires (I < sizeof...(Args))
+    const auto& get() const 
+    {
+        return static_cast<const tuple_leaf<I, type_at_index_t<I>>*>(this)->get();
+    }
+
+    template<size_t I>
+        requires (I < sizeof...(Args))
+    auto& get()
+    {
+        return static_cast<tuple_leaf<I, type_at_index_t<I>>*>(this)->get();
+    }
+
+private:
+    template<size_t I, typename T>
+    consteval static T type_at_index(const tuple_leaf<I, T>&);
+
+public:
+    template<size_t I>
+        requires (I < sizeof...(Args))
+    using type_at_index_t = decltype(type_at_index<I>(std::declval<tuple_impl>()));
 };
 }
 

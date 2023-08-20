@@ -68,6 +68,7 @@
  */
 
 #include <rpp/operators/merge.hpp>
+#include <rpp/operators/with_latest_from.hpp>
 
 /**
  * @defgroup utility_operators Utility Operators

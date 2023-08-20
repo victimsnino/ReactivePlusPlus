@@ -12,6 +12,8 @@
 
 #include <stdexcept>
 
+#include <tuple>
+
 namespace rpp::utils
 {
 template<class... Ts> struct overloaded : Ts... { using Ts::operator()...; };
@@ -58,5 +60,10 @@ struct less
 {
     template<typename T>
     bool operator()(const T& l, const T& r) const { return l < r; }
+};
+
+struct pack_to_tuple
+{
+    auto operator()(auto&& ...vals) const { return std::make_tuple(std::forward<decltype(vals)>(vals)...); }
 };
 } // namespace rpp::utils
