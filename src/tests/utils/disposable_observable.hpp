@@ -28,12 +28,14 @@ template<typename T>
 void test_operator_over_observable_with_disposable(auto&& op)
 {
     auto observable_disposable = std::make_shared<rpp::composite_disposable>();
-    auto observable = observable_with_disposable<T>(observable_disposable);
+    {
+        auto observable = observable_with_disposable<T>(observable_disposable);
 
-    auto observer_disposable = std::make_shared<rpp::composite_disposable>();
-    op(observable) | rpp::ops::subscribe(rpp::composite_disposable_wrapper{observer_disposable}, [](const auto&){});
+        auto observer_disposable = std::make_shared<rpp::composite_disposable>();
+        op(observable) | rpp::ops::subscribe(rpp::composite_disposable_wrapper{observer_disposable}, [](const auto&){});
 
-    observer_disposable->dispose();
+        observer_disposable->dispose();
+    }
     CHECK(observable_disposable->is_disposed() || observable_disposable.use_count() == 1);
 }
 
