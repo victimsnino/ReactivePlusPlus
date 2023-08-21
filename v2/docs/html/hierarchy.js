@@ -56,10 +56,8 @@ var hierarchy =
       ] ],
       [ "rpp::interface_composite_disposable", "structrpp_1_1interface__composite__disposable.html", [
         [ "rpp::composite_disposable", "classrpp_1_1composite__disposable.html", [
-          [ "rpp::operators::details::with_auto_dispose< composite_disposable >", "structrpp_1_1operators_1_1details_1_1with__auto__dispose.html", [
-            [ "rpp::operators::details::merge_disposable< TObserver >", "classrpp_1_1operators_1_1details_1_1merge__disposable.html", null ],
-            [ "rpp::operators::details::with_latest_from_disposable< Observer, TSelector, RestArgs >", "classrpp_1_1operators_1_1details_1_1with__latest__from__disposable.html", null ]
-          ] ],
+          [ "rpp::operators::details::merge_disposable< TObserver >", "classrpp_1_1operators_1_1details_1_1merge__disposable.html", null ],
+          [ "rpp::operators::details::with_latest_from_disposable< Observer, TSelector, RestArgs >", "classrpp_1_1operators_1_1details_1_1with__latest__from__disposable.html", null ],
           [ "rpp::subjects::details::subject_state< Type >", "classrpp_1_1subjects_1_1details_1_1subject__state.html", null ]
         ] ],
         [ "rpp::refcount_disposable", "classrpp_1_1refcount__disposable.html", null ]
@@ -138,9 +136,6 @@ var hierarchy =
     [ "rpp::operators::details::subscribe_t< OnNext, OnError, OnCompleted >", "classrpp_1_1operators_1_1details_1_1subscribe__t_3_01_on_next_00_01_on_error_00_01_on_completed_01_4.html", null ],
     [ "rpp::operators::details::subscribe_t< rpp::composite_disposable_wrapper, observer< Type, ObserverStrategy > >", "classrpp_1_1operators_1_1details_1_1subscribe__t_3_01rpp_1_1composite__disposable__wrapper_00_0176ebc9869815430b00b6be89aa2e2b76.html", null ],
     [ "rpp::operators::details::subscribe_t< rpp::composite_disposable_wrapper, OnNext, OnError, OnCompleted >", "classrpp_1_1operators_1_1details_1_1subscribe__t_3_01rpp_1_1composite__disposable__wrapper_00_015839511ef5aa7d547130d10313f4a820.html", null ],
-    [ "T", null, [
-      [ "rpp::operators::details::with_auto_dispose< T >", "structrpp_1_1operators_1_1details_1_1with__auto__dispose.html", null ]
-    ] ],
     [ "rpp::operators::details::take_observer_strategy", "structrpp_1_1operators_1_1details_1_1take__observer__strategy.html", null ],
     [ "rpp::operators::details::take_while_observer_strategy< Fn >", "structrpp_1_1operators_1_1details_1_1take__while__observer__strategy.html", null ],
     [ "rpp::operators::details::template_multicast_t< Subject >", "structrpp_1_1operators_1_1details_1_1template__multicast__t.html", null ],

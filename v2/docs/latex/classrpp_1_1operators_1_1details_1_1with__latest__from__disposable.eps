@@ -5,7 +5,7 @@
 %%For: 
 %Magnification: 1.00
 %%Orientation: Portrait
-%%BoundingBox: 0 0 500 198.019806
+%%BoundingBox: 0 0 500 158.415848
 %%Pages: 0
 %%BeginSetup
 %%EndSetup
@@ -19,12 +19,12 @@
 /marginwidth 10 def
 /distx 20 def
 /disty 40 def
-/boundaspect 2.525000 def  % aspect ratio of the BoundingBox (width/height)
+/boundaspect 3.156250 def  % aspect ratio of the BoundingBox (width/height)
 /boundx 500 def
 /boundy boundx boundaspect div def
 /xspacing 0 def
 /yspacing 0 def
-/rows 5 def
+/rows 4 def
 /cols 1 def
 /scalefactor 0 def
 /boxfont /Times-Roman findfont fontheight scalefont def
@@ -174,7 +174,6 @@
 boxfont setfont
 1 boundaspect scale
 (rpp::operators::details::with_latest_from_disposable< Observer, TSelector, RestArgs >) cw
-(rpp::operators::details::with_auto_dispose< composite_disposable >) cw
 (rpp::composite_disposable) cw
 (rpp::interface_composite_disposable) cw
 (rpp::interface_disposable) cw
@@ -190,10 +189,9 @@ boundx scalefactor div boundy scalefactor div scale
 % ----- classes -----
 
  (rpp::operators::details::with_latest_from_disposable< Observer, TSelector, RestArgs >) 0.000000 0.000000 box
- (rpp::operators::details::with_auto_dispose< composite_disposable >) 0.000000 1.000000 box
- (rpp::composite_disposable) 0.000000 2.000000 box
- (rpp::interface_composite_disposable) 0.000000 3.000000 box
- (rpp::interface_disposable) 0.000000 4.000000 box
+ (rpp::composite_disposable) 0.000000 1.000000 box
+ (rpp::interface_composite_disposable) 0.000000 2.000000 box
+ (rpp::interface_disposable) 0.000000 3.000000 box
 
 % ----- relations -----
 
@@ -209,7 +207,3 @@ solid
 0 0.000000 2.000000 out
 solid
 1 0.000000 3.000000 in
-solid
-0 0.000000 3.000000 out
-solid
-1 0.000000 4.000000 in
