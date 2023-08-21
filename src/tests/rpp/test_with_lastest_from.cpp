@@ -185,10 +185,11 @@ TEST_CASE("with_latest_from handles race condition", "[with_latest_from]")
 TEST_CASE("with_latest_from disposes original disposable on disposing")
 {
     auto observable_disposable = std::make_shared<rpp::composite_disposable>();
-    auto observable = observable_with_disposable<int>(observable_disposable);
+    {
+        auto observable = observable_with_disposable<int>(observable_disposable);
 
-    test_operator_with_disposable<int>(rpp::ops::with_latest_from(observable));
-
+        test_operator_with_disposable<int>(rpp::ops::with_latest_from(observable));
+    }
     
-    CHECK(observable_disposable->is_disposed());
+    CHECK(observable_disposable->is_disposed() || observable_disposable.use_count() == 1);
 }

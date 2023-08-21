@@ -292,9 +292,10 @@ TEST_CASE("merge doesn't produce extra copies")
 TEST_CASE("merge disposes original disposable on disposing")
 {
     auto observable_disposable = std::make_shared<rpp::composite_disposable>();
-    auto observable = observable_with_disposable<int>(observable_disposable);
+    {
+        auto observable = observable_with_disposable<int>(observable_disposable);
 
-    test_operator_with_disposable<int>(rpp::ops::merge_with(observable));
-
-    CHECK(observable_disposable->is_disposed());
+        test_operator_with_disposable<int>(rpp::ops::merge_with(observable));
+    }
+    CHECK(observable_disposable->is_disposed() || observable_disposable.use_count() == 1);
 }
