@@ -68,7 +68,7 @@ struct group_by_observer_strategy
     RPP_NO_UNIQUE_ADDRESS KeyComparator comparator;
 
     mutable std::map<TKey, subjects::publish_subject<Type>, KeyComparator> key_to_subject{};
-    std::shared_ptr<details::with_auto_dispose<refcount_disposable>> disposable = std::make_shared<details::with_auto_dispose<refcount_disposable>>();
+    std::shared_ptr<refcount_disposable> disposable = std::make_shared<refcount_disposable>();
 
     void on_subscribe(rpp::constraint::observer auto& obs) const
     {

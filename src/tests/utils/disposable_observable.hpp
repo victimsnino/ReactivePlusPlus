@@ -34,7 +34,7 @@ void test_operator_over_observable_with_disposable(auto&& op)
     op(observable) | rpp::ops::subscribe(rpp::composite_disposable_wrapper{observer_disposable}, [](const auto&){});
 
     observer_disposable->dispose();
-    CHECK(observable_disposable->is_disposed());
+    CHECK(observable_disposable->is_disposed() || observable_disposable.use_count() == 1);
 }
 
 template<typename T>

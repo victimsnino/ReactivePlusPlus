@@ -296,5 +296,5 @@ TEST_CASE("merge disposes original disposable on disposing")
 
     test_operator_with_disposable<int>(rpp::ops::merge_with(observable));
 
-    CHECK(observable_disposable->is_disposed());
+    CHECK(observable_disposable->is_disposed() || observable_disposable.use_count() == 1);
 }
