@@ -57,10 +57,10 @@ template<rpp::constraint::decayed_type Fn, rpp::schedulers::constraint::schedula
 class specific_schedulable final : public schedulable_base
 {
 public:
-    template<rpp::constraint::decayed_same_as<Fn> TFn, rpp::constraint::decayed_same_as<Handler> THandler, typename... TArgs>
-    explicit specific_schedulable(const time_point& time_point, TFn&& in_fn, THandler&& handler, TArgs&&... in_args)
+    template<rpp::constraint::decayed_same_as<Fn> TFn,  typename... TArgs>
+    explicit specific_schedulable(const time_point& time_point, TFn&& in_fn, TArgs&&... in_args)
         : schedulable_base{time_point}
-        , m_args{std::forward<THandler>(handler), std::forward<TArgs>(in_args)...}
+        , m_args{std::forward<TArgs>(in_args)...}
         , m_fn{std::forward<TFn>(in_fn)}
     {
     }

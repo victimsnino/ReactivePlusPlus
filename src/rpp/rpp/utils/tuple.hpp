@@ -37,7 +37,7 @@ template<typename, typename...>
 class tuple_impl;
 
 template<typename... Args, size_t... Indices>
-class tuple_impl<std::index_sequence<Indices...>, Args...> : private tuple_leaf<Indices, Args>...
+class RPP_EMPTY_BASES tuple_impl<std::index_sequence<Indices...>, Args...> : private tuple_leaf<Indices, Args>...
 {
 public:
     tuple_impl() = default;
