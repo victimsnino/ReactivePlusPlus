@@ -54,7 +54,7 @@ public:
         return std::forward<Callable>(callable)(std::forward<TArgs>(args)..., static_cast<tuple_leaf<Indices, Args>*>(this)->get()...);
     }
 
-    template<typename...TArgs, std::invocable<TArgs&&..., const Args&...> Callable>
+    template<typename...TArgs, std::invocable<TArgs&&..., Args...> Callable>
     auto apply(Callable&& callable, TArgs&& ...args) const
     {
         return std::forward<Callable>(callable)(std::forward<TArgs>(args)..., static_cast<const tuple_leaf<Indices, Args>*>(this)->get()...);
