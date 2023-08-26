@@ -31,8 +31,8 @@ public:
 
     virtual ~schedulable_base() noexcept = default;
 
-    virtual optional_duration operator()()        = 0;
-    virtual bool              is_disposed() const = 0;
+    virtual optional_duration operator()() noexcept        = 0;
+    virtual bool              is_disposed() const noexcept = 0;
 
     time_point get_timepoint() const { return m_time_point; }
     void       set_timepoint(const time_point& timepoint) { m_time_point = timepoint; }
@@ -52,38 +52,36 @@ private:
     time_point                        m_time_point;
 };
 
-template<rpp::constraint::decayed_type Fn, rpp::constraint::observer TObs, rpp::constraint::decayed_type... Args>
-    requires constraint::schedulable_fn<Fn, TObs, Args...>
+template<rpp::constraint::decayed_type Fn, rpp::schedulers::constraint::schedulable_handler Handler, rpp::constraint::decayed_type... Args>
+    requires constraint::schedulable_fn<Fn, Handler, Args...>
 class specific_schedulable final : public schedulable_base
 {
 public:
-    template<rpp::constraint::decayed_same_as<Fn> TFn, rpp::constraint::decayed_same_as<TObs> TTObs, typename... TArgs>
-    explicit specific_schedulable(const time_point& time_point, TFn&& in_fn, TTObs&& in_obs, TArgs&&... in_args)
+    template<rpp::constraint::decayed_same_as<Fn> TFn, rpp::constraint::decayed_same_as<Handler> THandler, typename... TArgs>
+    explicit specific_schedulable(const time_point& time_point, TFn&& in_fn, THandler&& handler, TArgs&&... in_args)
         : schedulable_base{time_point}
-        , m_observer{std::forward<TTObs>(in_obs)}
-        , m_args(std::forward<TArgs>(in_args)...)
+        , m_args{std::forward<THandler>(handler), std::forward<TArgs>(in_args)...}
         , m_fn{std::forward<TFn>(in_fn)}
     {
     }
 
-    optional_duration operator()() override
+    optional_duration operator()() noexcept override 
     {
         try
         {
-            return m_args.apply(m_fn, m_observer);
+            return m_args.apply(m_fn);
         }
         catch(...)
         {
-            m_observer.on_error(std::current_exception());
+            m_args.template get<0>().on_error(std::current_exception());
             return std::nullopt;
         }
     }
-    bool is_disposed() const override { return m_observer.is_disposed(); }
+    bool is_disposed() const noexcept override { return m_args.template get<0>().is_disposed(); }
 
 private:
-    RPP_NO_UNIQUE_ADDRESS TObs                       m_observer;
-    RPP_NO_UNIQUE_ADDRESS rpp::utils::tuple<Args...> m_args;
-    RPP_NO_UNIQUE_ADDRESS Fn                         m_fn;
+    RPP_NO_UNIQUE_ADDRESS rpp::utils::tuple<Handler, Args...> m_args;
+    RPP_NO_UNIQUE_ADDRESS Fn                                  m_fn;
 };
 
 class schedulables_queue
@@ -92,12 +90,12 @@ public:
     schedulables_queue() = default;
     schedulables_queue(std::shared_ptr<std::condition_variable_any> cv) : m_cv{std::move(cv)} {}
 
-    template<rpp::constraint::observer TObs, typename... Args, constraint::schedulable_fn<TObs, Args...> Fn>
-    void emplace(const time_point& timepoint, Fn&& fn, TObs&& obs, Args&&... args)
+    template<rpp::schedulers::constraint::schedulable_handler Handler, typename... Args, constraint::schedulable_fn<Handler, Args...> Fn>
+    void emplace(const time_point& timepoint, Fn&& fn, Handler&& handler, Args&&... args)
     {
-        using schedulable_type = specific_schedulable<std::decay_t<Fn>, std::decay_t<TObs>, std::decay_t<Args>...>;
+        using schedulable_type = specific_schedulable<std::decay_t<Fn>, std::decay_t<Handler>, std::decay_t<Args>...>;
 
-        emplace_impl(std::make_shared<schedulable_type>(timepoint, std::forward<Fn>(fn), std::forward<TObs>(obs), std::forward<Args>(args)...));
+        emplace_impl(std::make_shared<schedulable_type>(timepoint, std::forward<Fn>(fn), std::forward<Handler>(handler), std::forward<Args>(args)...));
         if (m_cv)
             m_cv->notify_all();
     }

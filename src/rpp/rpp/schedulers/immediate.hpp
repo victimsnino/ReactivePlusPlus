@@ -23,31 +23,31 @@ namespace rpp::schedulers
  * @par Example
  * ```cpp
    auto worker = rpp::schedulers::immediate::create_worker();
-   worker.schedule([&worker](const auto& observer)
+   worker.schedule([&worker](const auto& handler)
    {
        std::cout << "Task 1 starts" << std::endl;
    
-       worker.schedule([&worker](const auto& observer)
+       worker.schedule([&worker](const auto& handler)
        {
            std::cout << "Task 2 starts" << std::endl;
            worker.schedule([](const auto&)
            {
                std::cout << "Task 4" << std::endl;
                return rpp::schedulers::optional_duration{};
-           }, observer);
+           }, handler);
            std::cout << "Task 2 ends" << std::endl;
            return rpp::schedulers::optional_duration{};
-       }, observer);
+       }, handler);
    
        worker.schedule([](const auto&)
        {
            std::cout << "Task 3" << std::endl;
            return rpp::schedulers::optional_duration{};
-       }, observer);
+       }, handler);
    
        std::cout << "Task 1 ends" << std::endl;
        return rpp::schedulers::optional_duration{};
-   }, observer);
+   }, handler);
    ```
  *
  * Would lead to:
@@ -66,10 +66,10 @@ public:
     class worker_strategy
     {
     public:
-        template<rpp::constraint::observer TObs, typename...Args, constraint::schedulable_fn<TObs, Args...> Fn>
-        static void defer_for(duration duration, Fn&& fn, TObs&& obs, Args&&...args)
+        template<rpp::schedulers::constraint::schedulable_handler Handler, typename...Args, constraint::schedulable_fn<Handler, Args...> Fn>
+        static void defer_for(duration duration, Fn&& fn, Handler&& handler, Args&&...args)
         {
-            details::immediate_scheduling_while_condition(duration, rpp::utils::return_true{}, std::forward<Fn>(fn), std::forward<TObs>(obs), std::forward<Args>(args)...);
+            details::immediate_scheduling_while_condition(duration, rpp::utils::return_true{}, std::forward<Fn>(fn), std::forward<Handler>(handler), std::forward<Args>(args)...);
         }
 
         static rpp::disposable_wrapper get_disposable() {return rpp::disposable_wrapper{}; }

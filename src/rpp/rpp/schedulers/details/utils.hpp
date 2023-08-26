@@ -20,36 +20,36 @@ namespace rpp::schedulers::details
  * @brief Makes immediate-like scheduling for provided arguments
  * @returns nullopt in case of subscription unsubscribed or schedulable doesn't requested to re-schedule, some value - in case of condition failed but still some duration to delay action
  **/
-template<rpp::constraint::observer TObs, typename... Args>
-optional_duration immediate_scheduling_while_condition(duration                                         duration,
-                                                       const std::predicate auto&                       condition,
-                                                       constraint::schedulable_fn<TObs, Args...> auto&& fn,
-                                                       TObs&&                                           obs,
-                                                       Args&&... args)
+template<rpp::schedulers::constraint::schedulable_handler Handler, typename... Args>
+optional_duration immediate_scheduling_while_condition(duration                                            duration,
+                                                       const std::predicate auto&                          condition,
+                                                       constraint::schedulable_fn<Handler, Args...> auto&& fn,
+                                                       Handler&&                                           handler,
+                                                       Args&&... args) noexcept
 {
     while (condition())
     {
-        if (obs.is_disposed())
+        if (handler.is_disposed())
             return std::nullopt;
 
         if (duration > duration::zero())
         {
             std::this_thread::sleep_for(duration);
 
-            if (obs.is_disposed())
+            if (handler.is_disposed())
                 return std::nullopt;
         }
 
         try
         {
-            if (const auto new_duration = fn(obs, args...))
+            if (const auto new_duration = fn(handler, args...))
                 duration = new_duration.value();
             else
                 return std::nullopt;
         }
         catch(...)
         {
-            obs.on_error(std::current_exception());
+            handler.on_error(std::current_exception());
             return std::nullopt;
         }
     }
