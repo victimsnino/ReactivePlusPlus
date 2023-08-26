@@ -33,6 +33,11 @@ struct is_not_template_callable_t<R (*)(Args ...)> : std::true_type{};
 template<typename T>
 concept is_not_template_callable = is_not_template_callable_t<T>::value;
 
+template<typename F>
+concept is_no_argument_function = requires(F&& f) {
+    std::invoke(std::forward<F>(f));
+};
+
 // Lambda
 template<is_not_template_callable T>
 struct function_traits : function_traits<decltype(&T::operator())> {};
