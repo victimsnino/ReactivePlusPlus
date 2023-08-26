@@ -32,7 +32,7 @@ struct fake_schedulable_handler
     constexpr static bool is_disposed() {return true;}
     static void on_error(const std::exception_ptr&) {}
 };
-};
+}
 
 namespace rpp::schedulers::constraint
 {
