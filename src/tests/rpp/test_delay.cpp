@@ -19,8 +19,11 @@
 #include <rpp/operators/as_blocking.hpp>
 
 #include "mock_observer.hpp"
+#include "disposable_observable.hpp"
 
-class no_schedule_scheduler final
+rpp::schedulers::details::schedulables_queue queue{};
+
+class manual_scheduler final
 {
 public:
     class worker_strategy
@@ -30,16 +33,15 @@ public:
         void defer_for(rpp::schedulers::duration duration, Fn&& fn, Handler&& handler, Args&&...args) const
         {
             queue.emplace(rpp::schedulers::time_point{duration}, std::forward<Fn>(fn), std::forward<Handler>(handler), std::forward<Args>(args)...);
-
         }
 
         static rpp::disposable_wrapper get_disposable() {return rpp::disposable_wrapper{}; }
 
-        mutable rpp::schedulers::details::schedulables_queue queue{};
     };
 
     static rpp::schedulers::worker<worker_strategy> create_worker()
     {
+        queue = rpp::schedulers::details::schedulables_queue{};
         return rpp::schedulers::worker<worker_strategy>{};
     }
 };
@@ -177,15 +179,48 @@ TEST_CASE("delay delays observable's emissions")
         SECTION("subscribe on subject via delay via test_scheduler, sent value")
         {
             subj.get_observable()
-                | rpp::ops::delay(std::chrono::seconds{30000}, no_schedule_scheduler{})
+                | rpp::ops::delay(std::chrono::seconds{30000}, manual_scheduler{})
                 | rpp::ops::subscribe(mock.get_observer());
 
             subj.get_observer().on_next(1);
 
             SECTION("no memory leak")
             {
+                queue = rpp::schedulers::details::schedulables_queue{};
                 // checked via sanitizer
             }
         }
     }
+
+    SECTION("observable of -1-| but with invoking schedulable after subscription")
+    {
+        rpp::source::just(1)
+            | rpp::ops::delay(std::chrono::seconds{0}, manual_scheduler{})
+            | rpp::ops::subscribe(mock.get_observer());
+
+        SECTION("shouldn't see anything before manual invoking")
+        {
+            CHECK(mock.get_received_values() == std::vector<int>{});
+            CHECK(mock.get_on_completed_count() == 0);
+            CHECK(mock.get_on_error_count() == 0);
+        }
+
+        REQUIRE(!queue.is_empty());
+        auto top = queue.top();
+        queue.pop();
+        (*top)();
+
+        SECTION("should see -1-|")
+        {
+            CHECK(mock.get_received_values() == std::vector<int>{1});
+            CHECK(mock.get_on_completed_count() == 1);
+            CHECK(mock.get_on_error_count() == 0);
+            CHECK(queue.is_empty());
+        }
+    }
+}
+
+TEST_CASE("delay disposes original disposable on disposing")
+{
+    test_operator_with_disposable<int>(rpp::ops::delay(std::chrono::seconds{0}, manual_scheduler{}));
 }
