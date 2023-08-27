@@ -26,10 +26,10 @@ public:
     class worker_strategy
     {
     public:
-        template<rpp::constraint::observer TObs, typename...Args, rpp::schedulers::constraint::schedulable_fn<TObs, Args...> Fn>
-        void defer_for(rpp::schedulers::duration duration, Fn&& fn, TObs&& obs, Args&&...args) const
+        template<rpp::schedulers::constraint::schedulable_handler Handler, typename...Args, rpp::schedulers::constraint::schedulable_fn<Handler, Args...> Fn>
+        void defer_for(rpp::schedulers::duration duration, Fn&& fn, Handler&& handler, Args&&...args) const
         {
-            queue.emplace(rpp::schedulers::time_point{duration}, std::forward<Fn>(fn), std::forward<TObs>(obs), std::forward<Args>(args)...);
+            queue.emplace(rpp::schedulers::time_point{duration}, std::forward<Fn>(fn), std::forward<Handler>(handler), std::forward<Args>(args)...);
 
         }
 
@@ -147,7 +147,7 @@ TEST_CASE("delay delays observable's emissions")
             {
                 auto current_thread = std::this_thread::get_id();
 
-                auto sub = subj.get_observable()
+                subj.get_observable()
                     | rpp::ops::delay(delay_duration, rpp::schedulers::current_thread{})
                     | rpp::ops::subscribe([&](int v)
                     {

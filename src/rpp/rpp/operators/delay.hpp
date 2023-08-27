@@ -34,6 +34,11 @@ struct delay_disposable final : public rpp::composite_disposable, public std::en
 
     struct emission
     {
+        template<typename TT>
+        emission(TT&& item, schedulers::time_point time)
+            : value{std::forward<TT>(item)} 
+            , time_point{time}{}
+
         std::variant<T, std::exception_ptr, rpp::utils::none> value{};
         rpp::schedulers::time_point                           time_point{};
     };
@@ -45,6 +50,15 @@ struct delay_disposable final : public rpp::composite_disposable, public std::en
     std::mutex           mutex{};
     std::queue<emission> queue;
     bool                 is_active{};
+};
+
+template<rpp::constraint::observer Observer, typename Worker>
+struct delay_disposable_wrapper
+{
+    std::shared_ptr<delay_disposable<Observer, Worker>> disposable{};
+
+    bool is_disposed() const { return disposable->is_disposed(); }
+    void on_error(const std::exception_ptr& err) const { disposable->observer.on_error(err); }
 };
 
 template<rpp::constraint::observer Observer, typename Worker>
@@ -82,29 +96,28 @@ private:
     template<typename TT>
     void emplace(TT&& value) const
     {
-        if (const auto timepoint = emplace_safe(std::forward<TT>(value)))
+        if (const auto delay = emplace_safe(std::forward<TT>(value)))
         {
-            disposable->worker.schedule(timepoint.value(), [*this]() -> schedulers::optional_duration { return drain_queue(); });
+            disposable->worker.schedule(delay.value(), [](const delay_disposable_wrapper<Observer, Worker>& wrapper) -> schedulers::optional_duration { return drain_queue(wrapper.disposable); }, delay_disposable_wrapper<Observer, Worker>{disposable});
         }
     }
 
     template<typename TT>
-    std::optional<rpp::schedulers::time_point> emplace_safe(TT&& item) const
+    std::optional<rpp::schedulers::duration> emplace_safe(TT&& item) const
     {
         const auto delay = std::is_same_v<std::exception_ptr, std::decay_t<TT>> ? schedulers::duration{0} : disposable->delay;
 
         std::lock_guard lock{disposable->mutex};
-        const auto timepoint = disposable->worker.now() + delay;
-        disposable->queue.emplace(std::forward<TT>(item), timepoint);
+        disposable->queue.emplace(std::forward<TT>(item), rpp::schedulers::clock_type::now() + delay);
         if (!disposable->is_active && disposable->queue.size() == 1)
         {
             disposable->is_active = true;
-            return timepoint;
+            return delay;
         }
         return {};
     }
 
-    schedulers::optional_duration drain_queue() const
+    static schedulers::optional_duration drain_queue(const std::shared_ptr<delay_disposable<Observer, Worker>>& disposable)
     {
         while (true)
         {
@@ -115,10 +128,10 @@ private:
                 return {};
             }
 
-            auto& top = disposable->queue.top();
-            const auto now = disposable->worker.now();
+            auto& top = disposable->queue.front();
+            const auto now = rpp::schedulers::clock_type::now();
             if (top.time_point > now)
-                return top.time - now;
+                return top.time_point - now;
 
             auto item = std::move(top.value);
             disposable->queue.pop();
