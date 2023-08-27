@@ -109,6 +109,7 @@ var annotated_dup =
           ] ]
         ] ],
         [ "details", null, [
+          [ "fake_schedulable_handler", "structrpp_1_1schedulers_1_1details_1_1fake__schedulable__handler.html", null ],
           [ "schedulable_base", "classrpp_1_1schedulers_1_1details_1_1schedulable__base.html", null ],
           [ "schedulables_queue", "classrpp_1_1schedulers_1_1details_1_1schedulables__queue.html", null ],
           [ "specific_schedulable", "classrpp_1_1schedulers_1_1details_1_1specific__schedulable.html", null ]
@@ -154,8 +155,6 @@ var annotated_dup =
       [ "observable_chain_strategy", "classrpp_1_1observable__chain__strategy.html", null ],
       [ "observable_chain_strategy< TStrategy >", "classrpp_1_1observable__chain__strategy_3_01_t_strategy_01_4.html", null ],
       [ "observer", "classrpp_1_1observer.html", "classrpp_1_1observer" ],
-      [ "observer< Type, details::with_disposable< Strategy > >", "classrpp_1_1observer_3_01_type_00_01details_1_1with__disposable_3_01_strategy_01_4_01_4.html", "classrpp_1_1observer_3_01_type_00_01details_1_1with__disposable_3_01_strategy_01_4_01_4" ],
-      [ "observer< Type, rpp::details::observers::dynamic_strategy< Type > >", "classrpp_1_1observer_3_01_type_00_01rpp_1_1details_1_1observers_1_1dynamic__strategy_3_01_type_01_4_01_4.html", null ],
       [ "refcount_disposable", "classrpp_1_1refcount__disposable.html", "classrpp_1_1refcount__disposable" ]
     ] ]
 ];

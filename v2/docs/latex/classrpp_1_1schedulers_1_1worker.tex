@@ -13,17 +13,11 @@ requires (!rpp\+::constraint\+::variadic\+\_\+decayed\+\_\+same\+\_\+as$<$\mbox{
 \Hypertarget{classrpp_1_1schedulers_1_1worker_a30a71f1071b31090f2c71d7524c49770}\label{classrpp_1_1schedulers_1_1worker_a30a71f1071b31090f2c71d7524c49770} 
 {\bfseries worker} (\mbox{\hyperlink{classrpp_1_1schedulers_1_1worker}{worker}} \&\&) noexcept=default
 \item 
-\Hypertarget{classrpp_1_1schedulers_1_1worker_a903fa7a9f0360a42501f56d73110a9d1}\label{classrpp_1_1schedulers_1_1worker_a903fa7a9f0360a42501f56d73110a9d1} 
-{\footnotesize template$<$typename Obs\+Type , typename Obs\+Strategy , typename... Args, constraint\+::schedulable\+\_\+fn$<$ \mbox{\hyperlink{classrpp_1_1observer}{rpp\+::observer}}$<$ Obs\+Type, Obs\+Strategy $>$, Args... $>$ Fn$>$ }\\void {\bfseries schedule} (Fn \&\&fn, \mbox{\hyperlink{classrpp_1_1observer}{rpp\+::observer}}$<$ Obs\+Type, Obs\+Strategy $>$ \&\&obs, Args \&\&...args) const
+\Hypertarget{classrpp_1_1schedulers_1_1worker_a691fb692664659b05f8046c5d41d208f}\label{classrpp_1_1schedulers_1_1worker_a691fb692664659b05f8046c5d41d208f} 
+{\footnotesize template$<$\mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1schedulable__handler}{rpp\+::schedulers\+::constraint\+::schedulable\+\_\+handler}} Handler, typename... Args, constraint\+::schedulable\+\_\+fn$<$ Handler, Args... $>$ Fn$>$ }\\void {\bfseries schedule} (Fn \&\&fn, Handler \&\&handler, Args \&\&...args) const
 \item 
-\Hypertarget{classrpp_1_1schedulers_1_1worker_a2b8fa0ba1223c70428b3f40b3b6fb721}\label{classrpp_1_1schedulers_1_1worker_a2b8fa0ba1223c70428b3f40b3b6fb721} 
-{\footnotesize template$<$typename Obs\+Type , typename Obs\+Strategy , typename... Args, constraint\+::schedulable\+\_\+fn$<$ \mbox{\hyperlink{classrpp_1_1observer}{rpp\+::observer}}$<$ Obs\+Type, Obs\+Strategy $>$, Args... $>$ Fn$>$ }\\void {\bfseries schedule} (const duration delay, Fn \&\&fn, \mbox{\hyperlink{classrpp_1_1observer}{rpp\+::observer}}$<$ Obs\+Type, Obs\+Strategy $>$ \&\&obs, Args \&\&...args) const
-\item 
-\Hypertarget{classrpp_1_1schedulers_1_1worker_aa2d8236a68be239e67809640497e4a23}\label{classrpp_1_1schedulers_1_1worker_aa2d8236a68be239e67809640497e4a23} 
-{\footnotesize template$<$typename Obs\+Type , typename... Args, constraint\+::schedulable\+\_\+fn$<$ \mbox{\hyperlink{group__observers_gaccd025034d57327e6a31b2106619197b}{rpp\+::dynamic\+\_\+observer}}$<$ Obs\+Type $>$, Args... $>$ Fn$>$ }\\void {\bfseries schedule} (Fn \&\&fn, const \mbox{\hyperlink{group__observers_gaccd025034d57327e6a31b2106619197b}{rpp\+::dynamic\+\_\+observer}}$<$ Obs\+Type $>$ \&obs, Args \&\&...args) const
-\item 
-\Hypertarget{classrpp_1_1schedulers_1_1worker_a5b56d15a400c5fbca98accc68dfd16a7}\label{classrpp_1_1schedulers_1_1worker_a5b56d15a400c5fbca98accc68dfd16a7} 
-{\footnotesize template$<$typename Obs\+Type , typename... Args, constraint\+::schedulable\+\_\+fn$<$ \mbox{\hyperlink{group__observers_gaccd025034d57327e6a31b2106619197b}{rpp\+::dynamic\+\_\+observer}}$<$ Obs\+Type $>$, Args... $>$ Fn$>$ }\\void {\bfseries schedule} (const duration delay, Fn \&\&fn, const \mbox{\hyperlink{group__observers_gaccd025034d57327e6a31b2106619197b}{rpp\+::dynamic\+\_\+observer}}$<$ Obs\+Type $>$ \&obs, Args \&\&...args) const
+\Hypertarget{classrpp_1_1schedulers_1_1worker_a0ee985cc60427c9cb74f49f122d78d36}\label{classrpp_1_1schedulers_1_1worker_a0ee985cc60427c9cb74f49f122d78d36} 
+{\footnotesize template$<$\mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1schedulable__handler}{rpp\+::schedulers\+::constraint\+::schedulable\+\_\+handler}} Handler, typename... Args, constraint\+::schedulable\+\_\+fn$<$ Handler, Args... $>$ Fn$>$ }\\void {\bfseries schedule} (const duration delay, Fn \&\&fn, Handler \&\&handler, Args \&\&...args) const
 \item 
 \Hypertarget{classrpp_1_1schedulers_1_1worker_a94dab011af0cb9c49429146a68584806}\label{classrpp_1_1schedulers_1_1worker_a94dab011af0cb9c49429146a68584806} 
 \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp\+::disposable\+\_\+wrapper}} {\bfseries get\+\_\+disposable} () const

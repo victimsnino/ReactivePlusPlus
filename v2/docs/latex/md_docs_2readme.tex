@@ -88,7 +88,7 @@ For example\+:
 \DoxyCodeLine{}
 \DoxyCodeLine{\textcolor{keywordtype}{int}\ main()}
 \DoxyCodeLine{\{}
-\DoxyCodeLine{\ \ \ \ rpp::source::create<int>([](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ observer)}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_ga5bf57bc7e432fb38565810144a75b972}{rpp::source::create<int>}}([](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ observer)}
 \DoxyCodeLine{\ \ \ \ \{}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (\textcolor{keyword}{true})}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \{}
@@ -107,7 +107,7 @@ For example\+:
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ observer.on\_next(digit);}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{\ \ \ \ \})}
-\DoxyCodeLine{\ \ \ \ .\mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{subscribe}}([](\textcolor{keywordtype}{int}\ val)}
+\DoxyCodeLine{\ \ \ \ .subscribe([](\textcolor{keywordtype}{int}\ val)}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}obtained\ val\ "{}}\ <<\ val\ <<\ std::endl;}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \},}
@@ -140,7 +140,7 @@ For example\+:
 \end{DoxyCode}
 
 
-There we are creating observable that emits digits from console input\+:In case of user promted something else it is {\bfseries{error}} for our observable (it is expected to emit ONLY digits). In this case we are notifying observer about it and just stopping. When user prompts {\ttfamily 0}, it means \"{}end of observable\"{}.
+There we are creating observable that emits digits from console input\+:In case of user promted something else it is {\bfseries{error}} for our observable (it is expected to emit ONLY digits). In this case we are notifying observer about it and just stopping. When user prompts {\ttfamily 0}, it means "{}end of observable"{}.
 
 See \href{https://reactivex.io/documentation/observable.html}{\texttt{ https\+://reactivex.\+io/documentation/observable.\+html}} for more details.
 
@@ -162,7 +162,7 @@ For example, we can create observable which\+: get chars from console input, do 
 \DoxyCodeLine{\ \ \ \ |\ \mbox{\hyperlink{group__conditional__operators_gac65952f7460d8f0e71a93d95810d2061}{rpp::operators::take\_while}}([](\textcolor{keywordtype}{char}\ v)\ \{\ \textcolor{keywordflow}{return}\ v\ !=\ \textcolor{charliteral}{'0'};\ \})}
 \DoxyCodeLine{\ \ \ \ |\ \mbox{\hyperlink{group__filtering__operators_ga3ad579153e7975af6ae4b75f585fb873}{rpp::operators::filter}}(std::not\_fn(\&::isdigit))}
 \DoxyCodeLine{\ \ \ \ |\ \mbox{\hyperlink{group__transforming__operators_ga1291dba2d973d4ba1061c9e0e202cb3f}{rpp::operators::map}}(\&::toupper)}
-\DoxyCodeLine{\ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{rpp::operators::subscribe}}([](\textcolor{keywordtype}{char}\ v)\ \{\ std::cout\ <<\ v;\ \});}
+\DoxyCodeLine{\ \ \ \ |\ rpp::operators::subscribe([](\textcolor{keywordtype}{char}\ v)\ \{\ std::cout\ <<\ v;\ \});}
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ \textcolor{comment}{//\ input:\ 12345qwer5125ttqt0}}
 \DoxyCodeLine{\ \ \textcolor{comment}{//\ output:\ QWERTTQT}}
@@ -232,7 +232,7 @@ It means, that for example\+:
 \DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{return}\ v;}
 \DoxyCodeLine{\ \ \})}
 \DoxyCodeLine{\ \ |\ \mbox{\hyperlink{group__utility__operators_ga9df008c11eeff8c9383e56bf36e28ec2}{rpp::operators::as\_blocking}}()}
-\DoxyCodeLine{\ \ |\ \mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{rpp::operators::subscribe}}([](\textcolor{keywordtype}{int})\{\});}
+\DoxyCodeLine{\ \ |\ rpp::operators::subscribe([](\textcolor{keywordtype}{int})\{\});}
 
 \end{DoxyCode}
 

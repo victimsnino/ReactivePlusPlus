@@ -29,43 +29,43 @@ immediately calls provided schedulable or waits for time\+\_\+point (in the call
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{\textcolor{keyword}{auto}\ worker\ =\ rpp::schedulers::immediate::create\_worker();}
-\DoxyCodeLine{worker.schedule([\&worker](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ observer)}
+\DoxyCodeLine{worker.schedule([\&worker](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ handler)}
 \DoxyCodeLine{\{}
 \DoxyCodeLine{\ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Task\ 1\ starts"{}}\ <<\ std::endl;}
 \DoxyCodeLine{}
-\DoxyCodeLine{\ \ \ \ worker.schedule([\&worker](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ observer)}
+\DoxyCodeLine{\ \ \ \ worker.schedule([\&worker](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ handler)}
 \DoxyCodeLine{\ \ \ \ \{}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Task\ 2\ starts"{}}\ <<\ std::endl;}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ worker.schedule([](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&)}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \{}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Task\ 4"{}}\ <<\ std::endl;}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ rpp::schedulers::optional\_duration\{\};}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \},\ observer);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \},\ handler);}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Task\ 2\ ends"{}}\ <<\ std::endl;}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ rpp::schedulers::optional\_duration\{\};}
-\DoxyCodeLine{\ \ \ \ \},\ observer);}
+\DoxyCodeLine{\ \ \ \ \},\ handler);}
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ \ \ worker.schedule([](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&)}
 \DoxyCodeLine{\ \ \ \ \{}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Task\ 3"{}}\ <<\ std::endl;}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ rpp::schedulers::optional\_duration\{\};}
-\DoxyCodeLine{\ \ \ \ \},\ observer);}
+\DoxyCodeLine{\ \ \ \ \},\ handler);}
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Task\ 1\ ends"{}}\ <<\ std::endl;}
 \DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{return}\ rpp::schedulers::optional\_duration\{\};}
-\DoxyCodeLine{\},\ observer);}
+\DoxyCodeLine{\},\ handler);}
 
 \end{DoxyCode}
 
 \end{DoxyParagraph}
 Would lead to\+:
 \begin{DoxyItemize}
-\item \"{}\+Task 1 starts\"{}
-\item \"{}\+Task 2 starts\"{}
-\item \"{}\+Task 4\"{}
-\item \"{}\+Task 2 ends\"{}
-\item \"{}\+Task 3\"{}
-\item \"{}\+Task 1 ends\"{} 
+\item "{}\+Task 1 starts"{}
+\item "{}\+Task 2 starts"{}
+\item "{}\+Task 4"{}
+\item "{}\+Task 2 ends"{}
+\item "{}\+Task 3"{}
+\item "{}\+Task 1 ends"{} 
 \end{DoxyItemize}\begin{Desc}
 \item[Examples]\par
 \mbox{\hyperlink{from_8cpp-example}{from.\+cpp}}, and \mbox{\hyperlink{just_8cpp-example}{just.\+cpp}}.\end{Desc}

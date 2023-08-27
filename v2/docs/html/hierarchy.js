@@ -27,6 +27,7 @@ var hierarchy =
     ] ],
     [ "rpp::details::error_strategy< Type >", "structrpp_1_1details_1_1error__strategy.html", null ],
     [ "rpp::utils::details::extract_observable_type< TObservable >", "structrpp_1_1utils_1_1details_1_1extract__observable__type.html", null ],
+    [ "rpp::schedulers::details::fake_schedulable_handler", "structrpp_1_1schedulers_1_1details_1_1fake__schedulable__handler.html", null ],
     [ "rpp::details::fake_strategy", "structrpp_1_1details_1_1fake__strategy.html", null ],
     [ "std::false_type", null, [
       [ "rpp::schedulers::constraint::details::is_worker< T >", "structrpp_1_1schedulers_1_1constraint_1_1details_1_1is__worker.html", null ],
@@ -89,17 +90,13 @@ var hierarchy =
     [ "rpp::observable_chain_strategy< TStrategy, TStrategies >", "classrpp_1_1observable__chain__strategy.html", null ],
     [ "rpp::observable_chain_strategy< TStrategy >", "classrpp_1_1observable__chain__strategy_3_01_t_strategy_01_4.html", null ],
     [ "rpp::details::observer_impl< Type, Strategy, DisposablesStrategy >", "classrpp_1_1details_1_1observer__impl.html", null ],
-    [ "rpp::details::observer_impl< Type, rpp::details::observers::dynamic_strategy< Type >, details::none_disposable_strategy >", "classrpp_1_1details_1_1observer__impl.html", [
-      [ "rpp::observer< Type, rpp::details::observers::dynamic_strategy< Type > >", "classrpp_1_1observer_3_01_type_00_01rpp_1_1details_1_1observers_1_1dynamic__strategy_3_01_type_01_4_01_4.html", null ]
-    ] ],
+    [ "rpp::details::observer_impl< Type, rpp::details::observers::dynamic_strategy< Type >, details::none_disposable_strategy >", "classrpp_1_1details_1_1observer__impl.html", null ],
     [ "rpp::details::observer_impl< Type, Strategy, details::deduce_disposable_strategy_t< Strategy > >", "classrpp_1_1details_1_1observer__impl.html", [
       [ "rpp::observer< TT, ObserverStrategy >", "classrpp_1_1observer.html", null ],
       [ "rpp::observer< Type, ObserverStrategy >", "classrpp_1_1observer.html", null ],
       [ "rpp::observer< Type, Strategy >", "classrpp_1_1observer.html", null ]
     ] ],
-    [ "rpp::details::observer_impl< Type, Strategy, details::external_disposable_strategy >", "classrpp_1_1details_1_1observer__impl.html", [
-      [ "rpp::observer< Type, details::with_disposable< Strategy > >", "classrpp_1_1observer_3_01_type_00_01details_1_1with__disposable_3_01_strategy_01_4_01_4.html", null ]
-    ] ],
+    [ "rpp::details::observer_impl< Type, Strategy, details::external_disposable_strategy >", "classrpp_1_1details_1_1observer__impl.html", null ],
     [ "rpp::operators::details::operator_observable_strategy_base< SubscribeStrategy, Args >", "classrpp_1_1operators_1_1details_1_1operator__observable__strategy__base.html", [
       [ "rpp::operators::details::distinct_until_changed_t< EqualityFn >", "structrpp_1_1operators_1_1details_1_1distinct__until__changed__t.html", null ],
       [ "rpp::operators::details::filter_t< Fn >", "structrpp_1_1operators_1_1details_1_1filter__t.html", null ],
@@ -123,7 +120,7 @@ var hierarchy =
     [ "rpp::operators::details::scan_no_seed_observer_strategy< Seed, Fn >", "structrpp_1_1operators_1_1details_1_1scan__no__seed__observer__strategy.html", null ],
     [ "rpp::operators::details::scan_observer_strategy< Seed, Fn >", "structrpp_1_1operators_1_1details_1_1scan__observer__strategy.html", null ],
     [ "rpp::schedulers::details::schedulable_base", "classrpp_1_1schedulers_1_1details_1_1schedulable__base.html", [
-      [ "rpp::schedulers::details::specific_schedulable< Fn, TObs, Args >", "classrpp_1_1schedulers_1_1details_1_1specific__schedulable.html", null ]
+      [ "rpp::schedulers::details::specific_schedulable< Fn, Handler, Args >", "classrpp_1_1schedulers_1_1details_1_1specific__schedulable.html", null ]
     ] ],
     [ "rpp::schedulers::details::schedulables_queue", "classrpp_1_1schedulers_1_1details_1_1schedulables__queue.html", null ],
     [ "rpp::details::shared_container< Container >", "classrpp_1_1details_1_1shared__container.html", null ],

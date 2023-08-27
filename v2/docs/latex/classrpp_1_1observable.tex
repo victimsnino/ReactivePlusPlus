@@ -72,7 +72,7 @@ class rpp\+::observable$<$ Type, Strategy $>$}
 Base class for any observable used in RPP. It handles core callbacks of observable. 
 
 Observable provides only one core function\+: subscribe -\/ it accepts observer (or any way to construct it) and then invokes underlying Strategy to emit emissions somehow. \begin{DoxyWarning}{Warning}
-Actually observable \"{}doesn\textquotesingle{}t emit nothing\"{}, it only {\bfseries{invokes Strategy!}} Strategy COULD emit emissions immediately OR place observer to some queue or something like this to obtain emissions later (for example subjects) 
+Actually observable "{}doesn\textquotesingle{}t emit nothing"{}, it only {\bfseries{invokes Strategy!}} Strategy COULD emit emissions immediately OR place observer to some queue or something like this to obtain emissions later (for example subjects) 
 
 Expected that observable\textquotesingle{}s strategy would work with observer in serialized way
 \end{DoxyWarning}
@@ -116,7 +116,7 @@ composite\+\_\+disposable\+\_\+wrapper is disposable to be able to dispose obser
 \DoxyCodeLine{\mbox{\hyperlink{group__creational__operators_gae60bdb9b493443d2786b0eee8bfe17ab}{rpp::source::just}}(1)\ }
 \DoxyCodeLine{|\ \mbox{\hyperlink{group__utility__operators_ga41ef49dc75a3eadb0eb3fda7c3692c40}{rpp::operators::repeat}}()\ }
 \DoxyCodeLine{|\ \mbox{\hyperlink{group__utility__operators_gace728cfbf71720901cb6f310edabf8b0}{rpp::operators::subscribe\_on}}(\mbox{\hyperlink{classrpp_1_1schedulers_1_1new__thread}{rpp::schedulers::new\_thread}}\{\})\ }
-\DoxyCodeLine{|\ \mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{rpp::operators::subscribe}}(disposable,\ \mbox{\hyperlink{group__observers_gae17f62f64102925f4cd2eb29c4c27028}{rpp::make\_lambda\_observer}}([](\textcolor{keywordtype}{int})\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}NEW\ VALUE"{}}\ <<\ std::endl;\ \}));}
+\DoxyCodeLine{|\ rpp::operators::subscribe(disposable,\ \mbox{\hyperlink{group__observers_gae17f62f64102925f4cd2eb29c4c27028}{rpp::make\_lambda\_observer}}([](\textcolor{keywordtype}{int})\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}NEW\ VALUE"{}}\ <<\ std::endl;\ \}));}
 \DoxyCodeLine{}
 \DoxyCodeLine{std::this\_thread::sleep\_for(std::chrono::seconds(1));}
 \DoxyCodeLine{disposable-\/>dispose();}
@@ -138,7 +138,7 @@ This overloading has some performance penalties, use it only when you really nee
 composite\+\_\+disposable\+\_\+wrapper is disposable to be able to dispose observer when it needed
 \end{DoxyReturn}
 \begin{DoxyWarning}{Warning}
-Observer must be moved in to subscribe method. (Not recommended) If you need to copy observer, convert it to dynamic\+\_\+observer \texorpdfstring{$\ast$}{*}/ template\texorpdfstring{$<$}{<}constraint\+::observer\+\_\+strategy$<$\+Type$>$ Observer\+Strategy\texorpdfstring{$>$}{>} \mbox{[}\mbox{[}nodiscard(\"{}\+Use returned disposable or use subscribe(observer) instead\"{})\mbox{]}\mbox{]} composite\+\_\+disposable\+\_\+wrapper subscribe\+\_\+with\+\_\+disposable(observer$<$\+Type, Observer\+Strategy$>$\&\& observer) const \{ if (!observer.is\+\_\+disposed()) m\+\_\+strategy.\+subscribe(rpp\+::composite\+\_\+disposable\+\_\+wrapper\{std\+::make\+\_\+shared$<$rpp\+::composite\+\_\+disposable$>$()\}, std\+::move(observer)); return \{\}; \}
+Observer must be moved in to subscribe method. (Not recommended) If you need to copy observer, convert it to dynamic\+\_\+observer \texorpdfstring{$\ast$}{*}/ template\texorpdfstring{$<$}{<}constraint\+::observer\+\_\+strategy$<$\+Type$>$ Observer\+Strategy\texorpdfstring{$>$}{>} \mbox{[}\mbox{[}nodiscard("{}\+Use returned disposable or use subscribe(observer) instead"{})\mbox{]}\mbox{]} composite\+\_\+disposable\+\_\+wrapper subscribe\+\_\+with\+\_\+disposable(observer$<$\+Type, Observer\+Strategy$>$\&\& observer) const \{ if (!observer.is\+\_\+disposed()) m\+\_\+strategy.\+subscribe(rpp\+::composite\+\_\+disposable\+\_\+wrapper\{std\+::make\+\_\+shared$<$rpp\+::composite\+\_\+disposable$>$()\}, std\+::move(observer)); return \{\}; \}
 \end{DoxyWarning}
 /\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}
 
@@ -150,7 +150,7 @@ This overloading has some performance penalties, use it only when you really nee
 \begin{DoxyReturn}{Returns}
 composite\+\_\+disposable\+\_\+wrapper is disposable to be able to dispose observer when it needed
 \end{DoxyReturn}
-Special overloading for dynamic observer to enable copy of observer \texorpdfstring{$\ast$}{*}/ \mbox{[}\mbox{[}nodiscard(\"{}\+Use returned disposable or use subscribe(observer) instead\"{})\mbox{]}\mbox{]} composite\+\_\+disposable\+\_\+wrapper subscribe\+\_\+with\+\_\+disposable(dynamic\+\_\+observer$<$\+Type$>$ observer) const \{ return \doxylink{classrpp_1_1observable_a193b0e08c516912c04afd8379ec27182}{subscribe$<$details\+::observers\+::dynamic\+\_\+strategy$<$\+Type$>$$>$}(rpp\+::composite\+\_\+disposable\+\_\+wrapper\{std\+::make\+\_\+shared$<$rpp\+::composite\+\_\+disposable$>$()\}, std\+::move(observer)); \}
+Special overloading for dynamic observer to enable copy of observer \texorpdfstring{$\ast$}{*}/ \mbox{[}\mbox{[}nodiscard("{}\+Use returned disposable or use subscribe(observer) instead"{})\mbox{]}\mbox{]} composite\+\_\+disposable\+\_\+wrapper subscribe\+\_\+with\+\_\+disposable(dynamic\+\_\+observer$<$\+Type$>$ observer) const \{ return \doxylink{classrpp_1_1observable_a193b0e08c516912c04afd8379ec27182}{subscribe$<$details\+::observers\+::dynamic\+\_\+strategy$<$\+Type$>$$>$}(rpp\+::composite\+\_\+disposable\+\_\+wrapper\{std\+::make\+\_\+shared$<$rpp\+::composite\+\_\+disposable$>$()\}, std\+::move(observer)); \}
 
 /\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}
 
@@ -164,7 +164,7 @@ This overloading attaches disposable to observer and return it to provide abilit
 This overloading has some performance penalties, use it only when you really need to use disposable 
 \end{DoxyWarning}
 \begin{DoxyReturn}{Returns}
-composite\+\_\+disposable\+\_\+wrapper is disposable to be able to dispose observer when it needed \texorpdfstring{$\ast$}{*}/ template\texorpdfstring{$<$}{<}std\+::invocable$<$\+Type$>$ On\+Next, std\+::invocable$<$const std\+::exception\+\_\+ptr\&$>$ On\+Error = rpp\+::utils\+::rethrow\+\_\+error\+\_\+t, std\+::invocable$<$$>$ On\+Completed = rpp\+::utils\+::empty\+\_\+function\+\_\+t$<$$>$\texorpdfstring{$>$}{>} \mbox{[}\mbox{[}nodiscard(\"{}\+Use returned disposable or use subscribe(observer) instead\"{})\mbox{]}\mbox{]} composite\+\_\+disposable\+\_\+wrapper subscribe\+\_\+with\+\_\+disposable(On\+Next\&\& on\+\_\+next, On\+Error\&\& on\+\_\+error = \{\}, On\+Completed\&\& on\+\_\+completed = \{\}) const \{ auto res = rpp\+::composite\+\_\+disposable\+\_\+wrapper\{std\+::make\+\_\+shared$<$rpp\+::composite\+\_\+disposable$>$()\}; subscribe(make\+\_\+lambda\+\_\+observer$<$\+Type$>$(res, std\+::forward$<$\+On\+Next$>$(on\+\_\+next), std\+::forward$<$\+On\+Error$>$(on\+\_\+error), std\+::forward$<$\+On\+Completed$>$(on\+\_\+completed))); return res; \}
+composite\+\_\+disposable\+\_\+wrapper is disposable to be able to dispose observer when it needed \texorpdfstring{$\ast$}{*}/ template\texorpdfstring{$<$}{<}std\+::invocable$<$\+Type$>$ On\+Next, std\+::invocable$<$const std\+::exception\+\_\+ptr\&$>$ On\+Error = rpp\+::utils\+::rethrow\+\_\+error\+\_\+t, std\+::invocable$<$$>$ On\+Completed = rpp\+::utils\+::empty\+\_\+function\+\_\+t$<$$>$\texorpdfstring{$>$}{>} \mbox{[}\mbox{[}nodiscard("{}\+Use returned disposable or use subscribe(observer) instead"{})\mbox{]}\mbox{]} composite\+\_\+disposable\+\_\+wrapper subscribe\+\_\+with\+\_\+disposable(On\+Next\&\& on\+\_\+next, On\+Error\&\& on\+\_\+error = \{\}, On\+Completed\&\& on\+\_\+completed = \{\}) const \{ auto res = rpp\+::composite\+\_\+disposable\+\_\+wrapper\{std\+::make\+\_\+shared$<$rpp\+::composite\+\_\+disposable$>$()\}; subscribe(make\+\_\+lambda\+\_\+observer$<$\+Type$>$(res, std\+::forward$<$\+On\+Next$>$(on\+\_\+next), std\+::forward$<$\+On\+Error$>$(on\+\_\+error), std\+::forward$<$\+On\+Completed$>$(on\+\_\+completed))); return res; \}
 \end{DoxyReturn}
 /\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}
 
@@ -188,7 +188,7 @@ composite\+\_\+disposable\+\_\+wrapper is disposable to be able to dispose obser
 \DoxyCodeLine{\mbox{\hyperlink{group__creational__operators_gae60bdb9b493443d2786b0eee8bfe17ab}{rpp::source::just}}(1)\ }
 \DoxyCodeLine{|\ \mbox{\hyperlink{group__utility__operators_ga41ef49dc75a3eadb0eb3fda7c3692c40}{rpp::operators::repeat}}()\ }
 \DoxyCodeLine{|\ \mbox{\hyperlink{group__utility__operators_gace728cfbf71720901cb6f310edabf8b0}{rpp::operators::subscribe\_on}}(\mbox{\hyperlink{classrpp_1_1schedulers_1_1new__thread}{rpp::schedulers::new\_thread}}\{\})\ }
-\DoxyCodeLine{|\ \mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{rpp::operators::subscribe}}(disposable,\ [](\textcolor{keywordtype}{int})\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}NEW\ VALUE"{}}\ <<\ std::endl;\ \});}
+\DoxyCodeLine{|\ rpp::operators::subscribe(disposable,\ [](\textcolor{keywordtype}{int})\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}NEW\ VALUE"{}}\ <<\ std::endl;\ \});}
 \DoxyCodeLine{}
 \DoxyCodeLine{std::this\_thread::sleep\_for(std::chrono::seconds(1));}
 \DoxyCodeLine{disposable-\/>dispose();}

@@ -24,6 +24,7 @@ var concepts =
       [ "schedulers", null, [
         [ "constraint", null, [
           [ "schedulable_fn", "conceptrpp_1_1schedulers_1_1constraint_1_1schedulable__fn.html", null ],
+          [ "schedulable_handler", "conceptrpp_1_1schedulers_1_1constraint_1_1schedulable__handler.html", null ],
           [ "strategy", "conceptrpp_1_1schedulers_1_1constraint_1_1strategy.html", null ],
           [ "worker", "conceptrpp_1_1schedulers_1_1constraint_1_1worker.html", null ],
           [ "scheduler", "conceptrpp_1_1schedulers_1_1constraint_1_1scheduler.html", null ]

@@ -16,14 +16,14 @@ concept \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer__strategy}{rpp\+::
 {\footnotesize template$<$constraint\+::decayed\+\_\+type Type$>$ }\\using \mbox{\hyperlink{group__observers_gaccd025034d57327e6a31b2106619197b}{rpp\+::dynamic\+\_\+observer}} = \mbox{\hyperlink{classrpp_1_1observer}{observer}}$<$ Type, \mbox{\hyperlink{classrpp_1_1details_1_1observers_1_1dynamic__strategy}{details\+::observers\+::dynamic\+\_\+strategy}}$<$ Type $>$ $>$
 \begin{DoxyCompactList}\small\item\em Type-\/erased version of the {\ttfamily \doxylink{classrpp_1_1observer}{rpp\+::observer}}. Any observer can be converted to dynamic\+\_\+observer via {\ttfamily \doxylink{classrpp_1_1observer_ab008a79c1c7825554c91dbc6d130ece4}{rpp\+::observer\+::as\+\_\+dynamic}} member function. \end{DoxyCompactList}\item 
 {\footnotesize template$<$constraint\+::decayed\+\_\+type Type, std\+::invocable$<$ Type $>$ On\+Next, std\+::invocable$<$ const std\+::exception\+\_\+ptr \& $>$ On\+Error, std\+::invocable$<$$>$ On\+Completed$>$ }\\using \mbox{\hyperlink{group__observers_gad7a2b4cbca14301bec3f5a5f59146c94}{rpp\+::lambda\+\_\+observer}} = \mbox{\hyperlink{classrpp_1_1observer}{observer}}$<$ Type, \mbox{\hyperlink{structrpp_1_1details_1_1observers_1_1lambda__strategy}{details\+::observers\+::lambda\+\_\+strategy}}$<$ Type, On\+Next, On\+Error, On\+Completed $>$ $>$
-\begin{DoxyCompactList}\small\item\em Observer specialized with passed callbacks. Most easiesest way to construct observer \"{}on the fly\"{} via lambdas and etc. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Observer specialized with passed callbacks. Most easiesest way to construct observer "{}on the fly"{} via lambdas and etc. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsubsubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
 {\footnotesize template$<$constraint\+::decayed\+\_\+type Type, std\+::invocable$<$ Type $>$ On\+Next, std\+::invocable$<$ const std\+::exception\+\_\+ptr \& $>$ On\+Error = rpp\+::utils\+::rethrow\+\_\+error\+\_\+t, std\+::invocable$<$$>$ On\+Completed = rpp\+::utils\+::empty\+\_\+function\+\_\+t$<$$>$$>$ }\\auto \mbox{\hyperlink{group__observers_gae17f62f64102925f4cd2eb29c4c27028}{rpp\+::make\+\_\+lambda\+\_\+observer}} (On\+Next \&\&on\+\_\+next, On\+Error \&\&on\+\_\+error=\{\}, On\+Completed \&\&on\+\_\+completed=\{\}) -\/$>$ \mbox{\hyperlink{group__observers_gad7a2b4cbca14301bec3f5a5f59146c94}{lambda\+\_\+observer}}$<$ Type, std\+::decay\+\_\+t$<$ On\+Next $>$, std\+::decay\+\_\+t$<$ On\+Error $>$, std\+::decay\+\_\+t$<$ On\+Completed $>$ $>$
-\begin{DoxyCompactList}\small\item\em Constructs observer specialized with passed callbacks. Most easiesest way to construct observer \"{}on the fly\"{} via lambdas and etc. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Constructs observer specialized with passed callbacks. Most easiesest way to construct observer "{}on the fly"{} via lambdas and etc. \end{DoxyCompactList}\item 
 {\footnotesize template$<$constraint\+::decayed\+\_\+type Type, std\+::invocable$<$ Type $>$ On\+Next, std\+::invocable$<$ const std\+::exception\+\_\+ptr \& $>$ On\+Error = rpp\+::utils\+::rethrow\+\_\+error\+\_\+t, std\+::invocable$<$$>$ On\+Completed = rpp\+::utils\+::empty\+\_\+function\+\_\+t$<$$>$$>$ }\\auto \mbox{\hyperlink{group__observers_ga0a5fc7d28fa79ad482413d4f745ecc36}{rpp\+::make\+\_\+lambda\+\_\+observer}} (const \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp\+::composite\+\_\+disposable\+\_\+wrapper}} \&d, On\+Next \&\&on\+\_\+next, On\+Error \&\&on\+\_\+error=\{\}, On\+Completed \&\&on\+\_\+completed=\{\}) -\/$>$ \mbox{\hyperlink{classrpp_1_1observer}{lambda\+\_\+observer\+\_\+with\+\_\+disposable}}$<$ Type, std\+::decay\+\_\+t$<$ On\+Next $>$, std\+::decay\+\_\+t$<$ On\+Error $>$, std\+::decay\+\_\+t$<$ On\+Completed $>$ $>$
-\begin{DoxyCompactList}\small\item\em Constructs observer specialized with passed callbacks. Most easiesest way to construct observer \"{}on the fly\"{} via lambdas and etc. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Constructs observer specialized with passed callbacks. Most easiesest way to construct observer "{}on the fly"{} via lambdas and etc. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsubsection{Detailed Description}
@@ -67,7 +67,7 @@ using \mbox{\hyperlink{group__observers_gad7a2b4cbca14301bec3f5a5f59146c94}{rpp\
 
 
 
-Observer specialized with passed callbacks. Most easiesest way to construct observer \"{}on the fly\"{} via lambdas and etc. 
+Observer specialized with passed callbacks. Most easiesest way to construct observer "{}on the fly"{} via lambdas and etc. 
 
 
 \begin{DoxyTemplParams}{Template Parameters}
@@ -92,7 +92,7 @@ auto rpp\+::make\+\_\+lambda\+\_\+observer (\begin{DoxyParamCaption}\item[{const
 
 
 
-Constructs observer specialized with passed callbacks. Most easiesest way to construct observer \"{}on the fly\"{} via lambdas and etc. 
+Constructs observer specialized with passed callbacks. Most easiesest way to construct observer "{}on the fly"{} via lambdas and etc. 
 
 
 \begin{DoxyTemplParams}{Template Parameters}
@@ -119,7 +119,7 @@ auto rpp\+::make\+\_\+lambda\+\_\+observer (\begin{DoxyParamCaption}\item[{On\+N
 
 
 
-Constructs observer specialized with passed callbacks. Most easiesest way to construct observer \"{}on the fly\"{} via lambdas and etc. 
+Constructs observer specialized with passed callbacks. Most easiesest way to construct observer "{}on the fly"{} via lambdas and etc. 
 
 
 \begin{DoxyTemplParams}{Template Parameters}

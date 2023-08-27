@@ -43,58 +43,58 @@ When this scheduler passed to some operators, then caller thread is thread where
 This scheduler used to prevent recursion calls and making planar linear execution of schedulables. For example\+: 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{\textcolor{keyword}{auto}\ worker\ =\ rpp::schedulers::current\_thread::create\_worker();}
-\DoxyCodeLine{worker.schedule([\&worker](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ observer)}
+\DoxyCodeLine{worker.schedule([\&worker](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ handler)}
 \DoxyCodeLine{\{}
 \DoxyCodeLine{\ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Task\ 1\ starts"{}}\ <<\ std::endl;}
 \DoxyCodeLine{}
-\DoxyCodeLine{\ \ \ \ worker.schedule([\&worker](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ observer)}
+\DoxyCodeLine{\ \ \ \ worker.schedule([\&worker](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ handler)}
 \DoxyCodeLine{\ \ \ \ \{}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Task\ 2\ starts"{}}\ <<\ std::endl;}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ worker.schedule([](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&)}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \{}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Task\ 4"{}}\ <<\ std::endl;}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ rpp::schedulers::optional\_duration\{\};}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \},\ observer);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \},\ handler);}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Task\ 2\ ends"{}}\ <<\ std::endl;}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ rpp::schedulers::optional\_duration\{\};}
-\DoxyCodeLine{\ \ \ \ \},\ observer);}
+\DoxyCodeLine{\ \ \ \ \},\ handler);}
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ \ \ worker.schedule([](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&)}
 \DoxyCodeLine{\ \ \ \ \{}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Task\ 3"{}}\ <<\ std::endl;}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ rpp::schedulers::optional\_duration\{\};}
-\DoxyCodeLine{\ \ \ \ \},\ observer);}
+\DoxyCodeLine{\ \ \ \ \},\ handler);}
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Task\ 1\ ends"{}}\ <<\ std::endl;}
 \DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{return}\ rpp::schedulers::optional\_duration\{\};}
-\DoxyCodeLine{\},\ observer);}
+\DoxyCodeLine{\},\ handler);}
 
 \end{DoxyCode}
  Would lead to\+:
 \begin{DoxyItemize}
-\item \"{}\+Task 1 starts\"{}
-\item \"{}\+Task 1 ends\"{}
-\item \"{}\+Task 2 starts\"{}
-\item \"{}\+Task 2 ends\"{}
-\item \"{}\+Task 3\"{}
-\item \"{}\+Task 4\"{}
+\item "{}\+Task 1 starts"{}
+\item "{}\+Task 1 ends"{}
+\item "{}\+Task 2 starts"{}
+\item "{}\+Task 2 ends"{}
+\item "{}\+Task 3"{}
+\item "{}\+Task 4"{}
 \end{DoxyItemize}
 \end{DoxyParagraph}
 \begin{DoxyParagraph}{How to use it properly?}
-To have any visible impact you need to use it at least {\bfseries{twice}} during same observable. For example, {\ttfamily \doxylink{group__creational__operators_gae60bdb9b493443d2786b0eee8bfe17ab}{rpp\+::source\+::just}} source uses it as default scheduler as well as {\ttfamily \doxylink{group__combining__operators_ga3f8a04b4c8eb945534eddde5a25eec74}{rpp\+::operators\+::merge}} operator (which just \"{}owns\"{} it during subscription).
+To have any visible impact you need to use it at least {\bfseries{twice}} during same observable. For example, {\ttfamily \doxylink{group__creational__operators_gae60bdb9b493443d2786b0eee8bfe17ab}{rpp\+::source\+::just}} source uses it as default scheduler as well as {\ttfamily \doxylink{group__combining__operators_ga3f8a04b4c8eb945534eddde5a25eec74}{rpp\+::operators\+::merge}} operator (which just "{}owns"{} it during subscription).
 \end{DoxyParagraph}
 For example, this one 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{\mbox{\hyperlink{group__creational__operators_gae60bdb9b493443d2786b0eee8bfe17ab}{rpp::source::just}}(1,\ 2,\ 3)\ }
 \DoxyCodeLine{\ |\ \mbox{\hyperlink{group__combining__operators_ga063bcb64ac3afbedca8b257d3558f2dd}{rpp::operators::merge\_with}}(\mbox{\hyperlink{group__creational__operators_gae60bdb9b493443d2786b0eee8bfe17ab}{rpp::source::just}}(4,\ 5,\ 6))\ }
-\DoxyCodeLine{\ |\ \mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{rpp::operators::subscribe}}([](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ v\ <<\ \textcolor{stringliteral}{"{}\ "{}};\ \});}
+\DoxyCodeLine{\ |\ rpp::operators::subscribe([](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ v\ <<\ \textcolor{stringliteral}{"{}\ "{}};\ \});}
 
 \end{DoxyCode}
  Procedes output {\ttfamily 1 4 2 5 3 6} due to {\ttfamily merge\+\_\+with} takes ownership over this scheduler during subscription, both sources schedule their first emissions into scheduler, then {\ttfamily merge\+\_\+with} frees scheduler and it starts to proceed scheduled actions. As a result it continues interleaving of values. In case of usingg {\ttfamily \doxylink{classrpp_1_1schedulers_1_1immediate}{rpp\+::schedulers\+::immediate}} it would be\+: 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{\mbox{\hyperlink{group__creational__operators_gae60bdb9b493443d2786b0eee8bfe17ab}{rpp::source::just}}(\mbox{\hyperlink{classrpp_1_1schedulers_1_1immediate}{rpp::schedulers::immediate}}\{\},\ 1,\ 2,\ 3)\ }
 \DoxyCodeLine{\ |\ \mbox{\hyperlink{group__combining__operators_ga063bcb64ac3afbedca8b257d3558f2dd}{rpp::operators::merge\_with}}(\mbox{\hyperlink{group__creational__operators_gae60bdb9b493443d2786b0eee8bfe17ab}{rpp::source::just}}(\mbox{\hyperlink{classrpp_1_1schedulers_1_1immediate}{rpp::schedulers::immediate}}\{\},\ 4,\ 5,\ 6))\ }
-\DoxyCodeLine{\ |\ \mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{rpp::operators::subscribe}}([](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ v\ <<\ \textcolor{stringliteral}{"{}\ "{}};\ \});}
+\DoxyCodeLine{\ |\ rpp::operators::subscribe([](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ v\ <<\ \textcolor{stringliteral}{"{}\ "{}};\ \});}
 
 \end{DoxyCode}
  With output {\ttfamily 1 2 3 4 5 6} \begin{Desc}

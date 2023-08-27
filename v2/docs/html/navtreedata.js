@@ -37,7 +37,6 @@ var NAVTREE =
         [ "Observable contract", "md_docs_2readme.html#autotoc_md8", null ]
       ] ]
     ] ],
-    [ "API reference", "modules.html", "modules" ],
     [ "Concepts", "concepts.html", "concepts" ],
     [ "Classes", "annotated.html", [
       [ "Class List", "annotated.html", "annotated_dup" ],
@@ -58,7 +57,7 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "annotated.html",
-"skip_8cpp-example.html"
+"structrpp_1_1utils_1_1details_1_1extract__observable__type.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

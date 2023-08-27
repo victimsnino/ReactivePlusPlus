@@ -22,7 +22,7 @@
 \DoxyCodeLine{00018\ \textcolor{keyword}{namespace\ }rpp::details::observables}
 \DoxyCodeLine{00019\ \{}
 \DoxyCodeLine{00020\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T,\ \textcolor{keyword}{typename}\ Observable>}
-\DoxyCodeLine{00021\ \textcolor{keywordtype}{void}\ forwarding\_subscribe(\textcolor{keyword}{const}\ \textcolor{keywordtype}{void}*\ \textcolor{keyword}{const}\ ptr,\ dynamic\_observer<T>\&\&\ obs)\ \{\ \textcolor{keyword}{static\_cast<}\textcolor{keyword}{const\ }Observable*\textcolor{keyword}{>}(ptr)-\/>\mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{subscribe}}(std::move(obs));\ \}}
+\DoxyCodeLine{00021\ \textcolor{keywordtype}{void}\ forwarding\_subscribe(\textcolor{keyword}{const}\ \textcolor{keywordtype}{void}*\ \textcolor{keyword}{const}\ ptr,\ dynamic\_observer<T>\&\&\ obs)\ \{\ \textcolor{keyword}{static\_cast<}\textcolor{keyword}{const\ }Observable*\textcolor{keyword}{>}(ptr)-\/>subscribe(std::move(obs));\ \}}
 \DoxyCodeLine{00022\ }
 \DoxyCodeLine{00023\ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type\ Type>}
 \DoxyCodeLine{00024\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1details_1_1observables_1_1dynamic__strategy}{dynamic\_strategy}}\ final}
