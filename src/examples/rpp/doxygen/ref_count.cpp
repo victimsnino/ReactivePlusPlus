@@ -4,7 +4,7 @@
 /**
  * @example ref_count.cpp
  **/
-int main() // NOLINT
+int main()
 {
     //! [ref_count]
     auto observable = rpp::source::just(1, 2, 3) | rpp::operators::multicast();

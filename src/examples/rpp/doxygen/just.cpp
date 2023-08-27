@@ -7,7 +7,7 @@
  * \example just.cpp
  **/
 
-int main() // NOLINT
+int main()
 {
     //! [just]
     rpp::source::just(42, 53, 10, 1).subscribe([](int v) { std::cout << v << std::endl; });

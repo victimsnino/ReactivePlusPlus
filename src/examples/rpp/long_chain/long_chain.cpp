@@ -5,7 +5,7 @@
 #include <iostream>
 #include <functional>
 
-int main() // NOLINT
+int main()
 {
     auto source = rpp::source::concat(rpp::source::just('1', 'w', 'e', '2', 'r','3')
         | rpp::operators::repeat(3), rpp::source::just('P', '0'))

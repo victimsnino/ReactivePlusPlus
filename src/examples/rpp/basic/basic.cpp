@@ -2,7 +2,7 @@
 #include <iostream>
 #include <functional>
 
-int main() // NOLINT
+int main()
 {
     rpp::source::from_callable(&::getchar)
         | rpp::operators::repeat()
