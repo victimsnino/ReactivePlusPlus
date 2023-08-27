@@ -9,6 +9,7 @@
 
 #pragma once
 
+#include <rpp/defs.hpp>
 #include <rpp/sources/fwd.hpp>
 #include <rpp/observables/observable.hpp>
 
@@ -19,8 +20,13 @@ struct defer_strategy
 {
     using ValueType = rpp::utils::extract_observable_type_t<std::invoke_result_t<Factory>>;
 
-    Factory observable_factory;
-    void subscribe(auto&& obs) const { observable_factory().subscribe(std::forward<decltype(obs)>(obs)); }
+    RPP_NO_UNIQUE_ADDRESS Factory observable_factory;
+
+    template<rpp::constraint::observer_of_type<ValueType> TObs>
+    void subscribe(TObs&& obs) const
+    {
+        observable_factory().subscribe(std::forward<TObs>(obs));
+    }
 };
 }
 
