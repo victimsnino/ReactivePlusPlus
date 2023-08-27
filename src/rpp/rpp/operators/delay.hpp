@@ -125,7 +125,7 @@ private:
             if (disposable->queue.empty())
             {
                 disposable->is_active = false;
-                return {};
+                return std::nullopt;
             }
 
             auto& top = disposable->queue.front();
