@@ -105,7 +105,7 @@ $(document).ready(function(){initNavTree('defer_8cpp-example.html',''); initResi
 <div class="line"> </div>
 <div class="line"><span class="keywordtype">int</span> main() <span class="comment">// NOLINT</span></div>
 <div class="line">{</div>
-<div class="line">    <a id="a0" name="a0"></a><a class="code hl_function" href="group__creational__operators.html#ga538da3738ff221beb319fc07de4d6be3">rpp::source::defer</a>([] {</div>
+<div class="line">    <a id="a0" name="a0"></a><a class="code hl_function" href="group__creational__operators.html#gad9a4bddea3780850a01b82b481951d18">rpp::source::defer</a>([] {</div>
 <div class="line">        std::cout &lt;&lt; <span class="stringliteral">&quot;Observable factory called\n&quot;</span>;</div>
 <div class="line">        <span class="keywordflow">return</span> <a id="a1" name="a1"></a><a class="code hl_function" href="group__creational__operators.html#gad15a7e8bfb2f7ce0af1b44e22918116c">rpp::source::from_iterable</a>(std::array{ 1,2,3 }); })</div>
 <div class="line">        .subscribe([](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; v &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>; }, rpp::utils::rethrow_error_t{}, []() { std::cout &lt;&lt; <span class="stringliteral">&quot;On complete\n&quot;</span>; });</div>
@@ -115,7 +115,7 @@ $(document).ready(function(){initNavTree('defer_8cpp-example.html',''); initResi
 <div class="line">    <span class="comment">//         3</span></div>
 <div class="line">    <span class="comment">//         On complete</span></div>
 <div class="line">    </div>
-<div class="line">    <span class="keyword">auto</span> obs = <a class="code hl_function" href="group__creational__operators.html#ga538da3738ff221beb319fc07de4d6be3">rpp::source::defer</a>([] {</div>
+<div class="line">    <span class="keyword">auto</span> obs = <a class="code hl_function" href="group__creational__operators.html#gad9a4bddea3780850a01b82b481951d18">rpp::source::defer</a>([] {</div>
 <div class="line">        std::cout &lt;&lt; <span class="stringliteral">&quot;Observable factory called\n&quot;</span>;</div>
 <div class="line">        <span class="keyword">auto</span> inner_obs = <a id="a2" name="a2"></a><a class="code hl_function" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">rpp::source::create&lt;int&gt;</a>([state = std::make_shared&lt;int&gt;(0)](<span class="keyword">const</span> <span class="keyword">auto</span>&amp; obs) {</div>
 <div class="line">            obs.on_next((*state)++);</div>
@@ -132,9 +132,9 @@ $(document).ready(function(){initNavTree('defer_8cpp-example.html',''); initResi
 <div class="line">    <span class="comment">//         0</span></div>
 <div class="line">    <span class="comment">//         On complete</span></div>
 <div class="line">}</div>
-<div class="ttc" id="agroup__creational__operators_html_ga538da3738ff221beb319fc07de4d6be3"><div class="ttname"><a href="group__creational__operators.html#ga538da3738ff221beb319fc07de4d6be3">rpp::source::defer</a></div><div class="ttdeci">auto defer(Factory &amp;&amp;observable_factory)</div><div class="ttdoc">Creates rpp::observable that calls the specified observable factory to create an observable for each ...</div><div class="ttdef"><b>Definition</b> defer.hpp:49</div></div>
 <div class="ttc" id="agroup__creational__operators_html_ga5bf57bc7e432fb38565810144a75b972"><div class="ttname"><a href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">rpp::source::concat</a></div><div class="ttdeci">auto concat(TObservable &amp;&amp;obs, TObservables &amp;&amp;...others)</div><div class="ttdoc">Make observable which would merge emissions from underlying observables but without overlapping (curr...</div><div class="ttdef"><b>Definition</b> concat.hpp:138</div></div>
 <div class="ttc" id="agroup__creational__operators_html_gad15a7e8bfb2f7ce0af1b44e22918116c"><div class="ttname"><a href="group__creational__operators.html#gad15a7e8bfb2f7ce0af1b44e22918116c">rpp::source::from_iterable</a></div><div class="ttdeci">auto from_iterable(Iterable &amp;&amp;iterable, const TScheduler &amp;scheduler)</div><div class="ttdoc">Creates observable that emits a items from provided iterable.</div><div class="ttdef"><b>Definition</b> from.hpp:170</div></div>
+<div class="ttc" id="agroup__creational__operators_html_gad9a4bddea3780850a01b82b481951d18"><div class="ttname"><a href="group__creational__operators.html#gad9a4bddea3780850a01b82b481951d18">rpp::source::defer</a></div><div class="ttdeci">auto defer(Factory &amp;&amp;observable_factory)</div><div class="ttdoc">Creates rpp::observable that calls the specified observable factory to create an observable for each ...</div><div class="ttdef"><b>Definition</b> defer.hpp:55</div></div>
 </div><!-- fragment --> </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

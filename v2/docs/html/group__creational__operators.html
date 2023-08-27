@@ -121,11 +121,11 @@ requires constraint::observable&lt;utils::iterable_value_t&lt;Iterable&gt;&gt;</
 <tr class="memitem:gae68c87e7ae3a505258b733082bf68513"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">auto</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__creational__operators.html#gae68c87e7ae3a505258b733082bf68513">rpp::source::create</a> (OnSubscribe &amp;&amp;on_subscribe)</td></tr>
 <tr class="memdesc:gae68c87e7ae3a505258b733082bf68513"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct observable specialized with passed callback function. Most easiesest way to construct observable "on the fly" via lambda and etc.  <br /></td></tr>
 <tr class="separator:gae68c87e7ae3a505258b733082bf68513"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga538da3738ff221beb319fc07de4d6be3" id="r_ga538da3738ff221beb319fc07de4d6be3"><td class="memTemplParams" colspan="2">template&lt;std::invocable Factory&gt; <br />
-requires (rpp::utils::is_no_argument_function&lt;<a class="el" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">Factory</a>&gt; &amp;&amp; <a class="el" href="conceptrpp_1_1constraint_1_1observable.html">rpp::constraint::observable</a>&lt;std::invoke_result_t&lt;<a class="el" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">Factory</a>&gt;&gt;)</td></tr>
-<tr class="memitem:ga538da3738ff221beb319fc07de4d6be3"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">auto</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__creational__operators.html#ga538da3738ff221beb319fc07de4d6be3">rpp::source::defer</a> (<a class="el" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">Factory</a> &amp;&amp;observable_factory)</td></tr>
-<tr class="memdesc:ga538da3738ff221beb319fc07de4d6be3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates <a class="el" href="classrpp_1_1observable.html" title="Base class for any observable used in RPP. It handles core callbacks of observable.">rpp::observable</a> that calls the specified observable factory to create an observable for each new observer that subscribes.  <br /></td></tr>
-<tr class="separator:ga538da3738ff221beb319fc07de4d6be3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad9a4bddea3780850a01b82b481951d18" id="r_gad9a4bddea3780850a01b82b481951d18"><td class="memTemplParams" colspan="2">template&lt;std::invocable Factory&gt; <br />
+requires <a class="el" href="conceptrpp_1_1constraint_1_1observable.html">rpp::constraint::observable</a>&lt;std::invoke_result_t&lt;<a class="el" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">Factory</a>&gt;&gt;</td></tr>
+<tr class="memitem:gad9a4bddea3780850a01b82b481951d18"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">auto</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__creational__operators.html#gad9a4bddea3780850a01b82b481951d18">rpp::source::defer</a> (<a class="el" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">Factory</a> &amp;&amp;observable_factory)</td></tr>
+<tr class="memdesc:gad9a4bddea3780850a01b82b481951d18"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates <a class="el" href="classrpp_1_1observable.html" title="Base class for any observable used in RPP. It handles core callbacks of observable.">rpp::observable</a> that calls the specified observable factory to create an observable for each new observer that subscribes.  <br /></td></tr>
+<tr class="separator:gad9a4bddea3780850a01b82b481951d18"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gad29c2904de57d176ccaf2614409789de" id="r_gad29c2904de57d176ccaf2614409789de"><td class="memTemplParams" colspan="2">template&lt;constraint::decayed_type Type&gt; </td></tr>
 <tr class="memitem:gad29c2904de57d176ccaf2614409789de"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">auto</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__creational__operators.html#gad29c2904de57d176ccaf2614409789de">rpp::source::empty</a> ()</td></tr>
 <tr class="memdesc:gad29c2904de57d176ccaf2614409789de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates <a class="el" href="classrpp_1_1observable.html" title="Base class for any observable used in RPP. It handles core callbacks of observable.">rpp::observable</a> that emits no items but terminates normally.  <br /></td></tr>
@@ -333,14 +333,14 @@ template&lt;constraint::decayed_type Type, constraint::on_subscribe&lt; Type &gt
 
 </div>
 </div>
-<a id="ga538da3738ff221beb319fc07de4d6be3" name="ga538da3738ff221beb319fc07de4d6be3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga538da3738ff221beb319fc07de4d6be3">&#9670;&#160;</a></span>defer()</h2>
+<a id="gad9a4bddea3780850a01b82b481951d18" name="gad9a4bddea3780850a01b82b481951d18"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gad9a4bddea3780850a01b82b481951d18">&#9670;&#160;</a></span>defer()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
 template&lt;std::invocable Factory&gt; <br />
-requires (rpp::utils::is_no_argument_function&lt;<a class="el" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">Factory</a>&gt; &amp;&amp; <a class="el" href="conceptrpp_1_1constraint_1_1observable.html">rpp::constraint::observable</a>&lt;std::invoke_result_t&lt;<a class="el" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">Factory</a>&gt;&gt;)</div>
+requires <a class="el" href="conceptrpp_1_1constraint_1_1observable.html">rpp::constraint::observable</a>&lt;std::invoke_result_t&lt;<a class="el" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">Factory</a>&gt;&gt;</div>
       <table class="memname">
         <tr>
           <td class="memname"><a class="el" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">auto</a> rpp::source::defer </td>
@@ -353,13 +353,13 @@ requires (rpp::utils::is_no_argument_function&lt;<a class="el" href="group__crea
 </div><div class="memdoc">
 
 <p>Creates <a class="el" href="classrpp_1_1observable.html" title="Base class for any observable used in RPP. It handles core callbacks of observable.">rpp::observable</a> that calls the specified observable factory to create an observable for each new observer that subscribes. </p>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">Factory</td><td>the type of the observable factory</td></tr>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">observable_factory</td><td>is function to create observable to subscribe on.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section user"><dt>Example:</dt><dd><div class="fragment"><div class="line">    <a class="code hl_function" href="group__creational__operators.html#ga538da3738ff221beb319fc07de4d6be3">rpp::source::defer</a>([] {</div>
+<dl class="section user"><dt>Example:</dt><dd><div class="fragment"><div class="line">    <a class="code hl_function" href="group__creational__operators.html#gad9a4bddea3780850a01b82b481951d18">rpp::source::defer</a>([] {</div>
 <div class="line">        std::cout &lt;&lt; <span class="stringliteral">&quot;Observable factory called\n&quot;</span>;</div>
 <div class="line">        <span class="keywordflow">return</span> <a class="code hl_function" href="group__creational__operators.html#gad15a7e8bfb2f7ce0af1b44e22918116c">rpp::source::from_iterable</a>(std::array{ 1,2,3 }); })</div>
 <div class="line">        .subscribe([](<span class="keywordtype">int</span> <a class="code hl_function" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">v</a>) { std::cout &lt;&lt; <a class="code hl_function" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">v</a> &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>; }, rpp::utils::rethrow_error_t{}, []() { std::cout &lt;&lt; <span class="stringliteral">&quot;On complete\n&quot;</span>; });</div>
@@ -368,8 +368,8 @@ requires (rpp::utils::is_no_argument_function&lt;<a class="el" href="group__crea
 <div class="line">    <span class="comment">//         2 </span></div>
 <div class="line">    <span class="comment">//         3</span></div>
 <div class="line">    <span class="comment">//         On complete</span></div>
-<div class="ttc" id="agroup__creational__operators_html_ga538da3738ff221beb319fc07de4d6be3"><div class="ttname"><a href="group__creational__operators.html#ga538da3738ff221beb319fc07de4d6be3">rpp::source::defer</a></div><div class="ttdeci">auto defer(Factory &amp;&amp;observable_factory)</div><div class="ttdoc">Creates rpp::observable that calls the specified observable factory to create an observable for each ...</div><div class="ttdef"><b>Definition</b> defer.hpp:49</div></div>
 <div class="ttc" id="agroup__creational__operators_html_gad15a7e8bfb2f7ce0af1b44e22918116c"><div class="ttname"><a href="group__creational__operators.html#gad15a7e8bfb2f7ce0af1b44e22918116c">rpp::source::from_iterable</a></div><div class="ttdeci">auto from_iterable(Iterable &amp;&amp;iterable, const TScheduler &amp;scheduler)</div><div class="ttdoc">Creates observable that emits a items from provided iterable.</div><div class="ttdef"><b>Definition</b> from.hpp:170</div></div>
+<div class="ttc" id="agroup__creational__operators_html_gad9a4bddea3780850a01b82b481951d18"><div class="ttname"><a href="group__creational__operators.html#gad9a4bddea3780850a01b82b481951d18">rpp::source::defer</a></div><div class="ttdeci">auto defer(Factory &amp;&amp;observable_factory)</div><div class="ttdoc">Creates rpp::observable that calls the specified observable factory to create an observable for each ...</div><div class="ttdef"><b>Definition</b> defer.hpp:55</div></div>
 </div><!-- fragment --></dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/defer.html">https://reactivex.io/documentation/operators/defer.html</a> </dd></dl>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="defer_8cpp-example.html#a0">defer.cpp</a>.</dd>

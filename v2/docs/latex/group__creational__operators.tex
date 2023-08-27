@@ -17,7 +17,7 @@ requires constraint\+::observable$<$utils\+::iterable\+\_\+value\+\_\+t$<$Iterab
 {\footnotesize template$<$constraint\+::decayed\+\_\+type Type, constraint\+::on\+\_\+subscribe$<$ Type $>$ On\+Subscribe$>$ }\\\mbox{\hyperlink{group__creational__operators_ga5bf57bc7e432fb38565810144a75b972}{auto}} \mbox{\hyperlink{group__creational__operators_gae68c87e7ae3a505258b733082bf68513}{rpp\+::source\+::create}} (On\+Subscribe \&\&on\+\_\+subscribe)
 \begin{DoxyCompactList}\small\item\em Construct observable specialized with passed callback function. Most easiesest way to construct observable "{}on the fly"{} via lambda and etc. \end{DoxyCompactList}\item 
 {\footnotesize template$<$std\+::invocable Factory$>$ \newline
-requires (rpp\+::utils\+::is\+\_\+no\+\_\+argument\+\_\+function$<$\mbox{\hyperlink{group__creational__operators_ga5bf57bc7e432fb38565810144a75b972}{Factory}}$>$ \&\& \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp\+::constraint\+::observable}}$<$std\+::invoke\+\_\+result\+\_\+t$<$\mbox{\hyperlink{group__creational__operators_ga5bf57bc7e432fb38565810144a75b972}{Factory}}$>$$>$)}\\\mbox{\hyperlink{group__creational__operators_ga5bf57bc7e432fb38565810144a75b972}{auto}} \mbox{\hyperlink{group__creational__operators_ga538da3738ff221beb319fc07de4d6be3}{rpp\+::source\+::defer}} (\mbox{\hyperlink{group__creational__operators_ga5bf57bc7e432fb38565810144a75b972}{Factory}} \&\&observable\+\_\+factory)
+requires \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp\+::constraint\+::observable}}$<$std\+::invoke\+\_\+result\+\_\+t$<$\mbox{\hyperlink{group__creational__operators_ga5bf57bc7e432fb38565810144a75b972}{Factory}}$>$$>$}\\\mbox{\hyperlink{group__creational__operators_ga5bf57bc7e432fb38565810144a75b972}{auto}} \mbox{\hyperlink{group__creational__operators_gad9a4bddea3780850a01b82b481951d18}{rpp\+::source\+::defer}} (\mbox{\hyperlink{group__creational__operators_ga5bf57bc7e432fb38565810144a75b972}{Factory}} \&\&observable\+\_\+factory)
 \begin{DoxyCompactList}\small\item\em Creates \doxylink{classrpp_1_1observable}{rpp\+::observable} that calls the specified observable factory to create an observable for each new observer that subscribes. \end{DoxyCompactList}\item 
 {\footnotesize template$<$constraint\+::decayed\+\_\+type Type$>$ }\\\mbox{\hyperlink{group__creational__operators_ga5bf57bc7e432fb38565810144a75b972}{auto}} \mbox{\hyperlink{group__creational__operators_gad29c2904de57d176ccaf2614409789de}{rpp\+::source\+::empty}} ()
 \begin{DoxyCompactList}\small\item\em Creates \doxylink{classrpp_1_1observable}{rpp\+::observable} that emits no items but terminates normally. \end{DoxyCompactList}\item 
@@ -222,12 +222,12 @@ Be sure, that your callback doesn\textquotesingle{}t violates observable rules\+
 \begin{DoxySeeAlso}{See also}
 \href{https://reactivex.io/documentation/operators/create.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/create.\+html}} 
 \end{DoxySeeAlso}
-\Hypertarget{group__creational__operators_ga538da3738ff221beb319fc07de4d6be3}\label{group__creational__operators_ga538da3738ff221beb319fc07de4d6be3} 
+\Hypertarget{group__creational__operators_gad9a4bddea3780850a01b82b481951d18}\label{group__creational__operators_gad9a4bddea3780850a01b82b481951d18} 
 \index{Creational Operators@{Creational Operators}!defer@{defer}}
 \index{defer@{defer}!Creational Operators@{Creational Operators}}
 \doxysubsubsubsubsection{\texorpdfstring{defer()}{defer()}}
 {\footnotesize\ttfamily template$<$std\+::invocable Factory$>$ \newline
-requires (rpp\+::utils\+::is\+\_\+no\+\_\+argument\+\_\+function$<$\mbox{\hyperlink{group__creational__operators_ga5bf57bc7e432fb38565810144a75b972}{Factory}}$>$ \&\& \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp\+::constraint\+::observable}}$<$std\+::invoke\+\_\+result\+\_\+t$<$\mbox{\hyperlink{group__creational__operators_ga5bf57bc7e432fb38565810144a75b972}{Factory}}$>$$>$)\\
+requires \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp\+::constraint\+::observable}}$<$std\+::invoke\+\_\+result\+\_\+t$<$\mbox{\hyperlink{group__creational__operators_ga5bf57bc7e432fb38565810144a75b972}{Factory}}$>$$>$\\
 \mbox{\hyperlink{group__creational__operators_ga5bf57bc7e432fb38565810144a75b972}{auto}} rpp\+::source\+::defer (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{group__creational__operators_ga5bf57bc7e432fb38565810144a75b972}{Factory}} \&\&}]{observable\+\_\+factory }\end{DoxyParamCaption})}
 
 
@@ -235,14 +235,14 @@ requires (rpp\+::utils\+::is\+\_\+no\+\_\+argument\+\_\+function$<$\mbox{\hyperl
 Creates \doxylink{classrpp_1_1observable}{rpp\+::observable} that calls the specified observable factory to create an observable for each new observer that subscribes. 
 
 
-\begin{DoxyTemplParams}{Template Parameters}
-{\em Factory} & the type of the observable factory\\
+\begin{DoxyParams}{Parameters}
+{\em observable\+\_\+factory} & is function to create observable to subscribe on.\\
 \hline
-\end{DoxyTemplParams}
+\end{DoxyParams}
 \begin{DoxyParagraph}{Example\+:}
 
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_ga538da3738ff221beb319fc07de4d6be3}{rpp::source::defer}}([]\ \{}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_gad9a4bddea3780850a01b82b481951d18}{rpp::source::defer}}([]\ \{}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Observable\ factory\ called\(\backslash\)n"{}};}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{group__creational__operators_gad15a7e8bfb2f7ce0af1b44e22918116c}{rpp::source::from\_iterable}}(std::array\{\ 1,2,3\ \});\ \})}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ .subscribe([](\textcolor{keywordtype}{int}\ \mbox{\hyperlink{group__creational__operators_ga5bf57bc7e432fb38565810144a75b972}{v}})\ \{\ std::cout\ <<\ \mbox{\hyperlink{group__creational__operators_ga5bf57bc7e432fb38565810144a75b972}{v}}\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};\ \},\ rpp::utils::rethrow\_error\_t\{\},\ []()\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}On\ complete\(\backslash\)n"{}};\ \});}
