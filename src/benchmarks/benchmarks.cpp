@@ -120,6 +120,18 @@ int main(int argc, char* argv[]) // NOLINT
                 rxcpp::observable<>::just(rxcpp::observable<>::just(1, rxcpp::identity_immediate()), rxcpp::identity_immediate()) | rxcpp::operators::concat() | rxcpp::operators::subscribe<int>([](int v){ ankerl::nanobench::doNotOptimizeAway(v); });
             });
         }
+        SECTION("defer from array of 1 - defer + create + subscribe + immediate")
+        {
+            TEST_RPP([&]()
+            {
+                rpp::source::defer([] { return rpp::source::from_iterable(std::array{123}, rpp::schedulers::immediate{}); }).subscribe([](int v){ ankerl::nanobench::doNotOptimizeAway(v); });
+            });
+
+            TEST_RXCPP([&]()
+            {
+                rxcpp::observable<>::defer([] { return rxcpp::observable<>::iterate(std::array{123}, rxcpp::identity_immediate()); }).subscribe([](int v){ ankerl::nanobench::doNotOptimizeAway(v); });
+            });
+        }
     };
 
     BENCHMARK("Schedulers")
