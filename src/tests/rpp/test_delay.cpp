@@ -218,6 +218,36 @@ TEST_CASE("delay delays observable's emissions")
             CHECK(queue.is_empty());
         }
     }
+    SECTION("observable of -1-x but with invoking schedulable after subscription")
+    {
+        rpp::source::create<int>([](const auto& obs)
+        {
+            obs.on_next(1);
+            obs.on_error({});
+        })
+        | rpp::ops::delay(std::chrono::seconds{0}, manual_scheduler{})
+        | rpp::ops::subscribe(mock.get_observer());
+
+        SECTION("shouldn't see anything before manual invoking")
+        {
+            CHECK(mock.get_received_values() == std::vector<int>{});
+            CHECK(mock.get_on_completed_count() == 0);
+            CHECK(mock.get_on_error_count() == 0);
+        }
+
+        REQUIRE(!queue.is_empty());
+        auto top = queue.top();
+        queue.pop();
+        (*top)();
+
+        SECTION("should see -x")
+        {
+            CHECK(mock.get_received_values() == std::vector<int>{});
+            CHECK(mock.get_on_completed_count() == 0);
+            CHECK(mock.get_on_error_count() == 1);
+            CHECK(queue.is_empty());
+        }
+    }
 }
 
 TEST_CASE("delay disposes original disposable on disposing")

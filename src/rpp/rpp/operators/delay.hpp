@@ -20,6 +20,18 @@
 
 namespace rpp::operators::details
 {
+template<typename T>
+struct emission
+{
+    template<typename TT>
+    emission(TT&& item, schedulers::time_point time)
+        : value{std::forward<TT>(item)} 
+        , time_point{time}{}
+
+    std::variant<T, std::exception_ptr, rpp::utils::none> value{};
+    rpp::schedulers::time_point                           time_point{};
+};
+
 template<rpp::constraint::observer Observer, typename Worker>
 struct delay_disposable final : public rpp::composite_disposable, public std::enable_shared_from_this<delay_disposable<Observer, Worker>> {
     using T = rpp::utils::extract_observer_type_t<Observer>;
@@ -32,23 +44,12 @@ struct delay_disposable final : public rpp::composite_disposable, public std::en
         add(worker.get_disposable());
     }
 
-    struct emission
-    {
-        template<typename TT>
-        emission(TT&& item, schedulers::time_point time)
-            : value{std::forward<TT>(item)} 
-            , time_point{time}{}
-
-        std::variant<T, std::exception_ptr, rpp::utils::none> value{};
-        rpp::schedulers::time_point                           time_point{};
-    };
-
     Worker                    worker;
     Observer                  observer;
     rpp::schedulers::duration delay{};
 
     std::mutex           mutex{};
-    std::queue<emission> queue;
+    std::queue<emission<T>> queue;
     bool                 is_active{};
 };
 
@@ -108,8 +109,11 @@ private:
         const auto delay = std::is_same_v<std::exception_ptr, std::decay_t<TT>> ? schedulers::duration{0} : disposable->delay;
 
         std::lock_guard lock{disposable->mutex};
+        if (std::is_same_v<std::exception_ptr, std::decay_t<TT>>)
+            disposable->queue = std::queue<emission<rpp::utils::extract_observer_type_t<Observer>>>{};
+
         disposable->queue.emplace(std::forward<TT>(item), rpp::schedulers::clock_type::now() + delay);
-        if (!disposable->is_active && disposable->queue.size() == 1)
+        if (!disposable->is_active)
         {
             disposable->is_active = true;
             return delay;
