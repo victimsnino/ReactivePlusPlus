@@ -10,7 +10,6 @@
 
 #pragma once
 
-#include <concepts>
 #include <tuple>
 #include <type_traits>
 
@@ -33,9 +32,6 @@ struct is_not_template_callable_t<R (*)(Args ...)> : std::true_type{};
 
 template<typename T>
 concept is_not_template_callable = is_not_template_callable_t<T>::value;
-
-template<typename F>
-concept is_no_argument_function = std::invocable<F>;
 
 // Lambda
 template<is_not_template_callable T>

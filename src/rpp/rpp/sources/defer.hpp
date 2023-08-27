@@ -9,6 +9,7 @@
 
 #pragma once
 
+#include <rpp/defs.hpp>
 #include <rpp/sources/fwd.hpp>
 #include <rpp/observables/observable.hpp>
 
@@ -19,8 +20,13 @@ struct defer_strategy
 {
     using ValueType = rpp::utils::extract_observable_type_t<std::invoke_result_t<Factory>>;
 
-    Factory observable_factory;
-    void subscribe(auto&& obs) const { observable_factory().subscribe(std::forward<decltype(obs)>(obs)); }
+    RPP_NO_UNIQUE_ADDRESS Factory observable_factory;
+
+    template<rpp::constraint::observer_of_type<ValueType> TObs>
+    void subscribe(TObs&& obs) const
+    {
+        observable_factory().subscribe(std::forward<TObs>(obs));
+    }
 };
 }
 
@@ -36,7 +42,7 @@ namespace rpp::source
 /**
  * @brief Creates rpp::observable that calls the specified observable factory to create an observable for each new observer that subscribes.
  *
- * @tparam Factory the type of the observable factory
+ * @param observable_factory is function to create observable to subscribe on.
  * 
  * @par Example:
  * @snippet defer.cpp defer from_iterable
@@ -45,7 +51,7 @@ namespace rpp::source
  * @see https://reactivex.io/documentation/operators/defer.html
  */
 template<std::invocable Factory>
-	requires(rpp::utils::is_no_argument_function<Factory> && rpp::constraint::observable<std::invoke_result_t<Factory>>)
+	requires rpp::constraint::observable<std::invoke_result_t<Factory>>
 auto defer(Factory&& observable_factory)
 {
     return defer_observable<rpp::utils::extract_observable_type_t<std::invoke_result_t<Factory>>, Factory>{std::forward<Factory>(observable_factory)};
