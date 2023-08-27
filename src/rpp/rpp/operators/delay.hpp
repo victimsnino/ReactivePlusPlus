@@ -37,20 +37,20 @@ struct delay_disposable final : public rpp::composite_disposable, public std::en
     using T = rpp::utils::extract_observer_type_t<Observer>;
 
     delay_disposable(Observer&& in_observer, Worker&& in_worker, rpp::schedulers::duration delay)
-        : worker{std::move(in_worker)}
-        , observer(std::move(in_observer))
+        : observer(std::move(in_observer))
+        ,  worker{std::move(in_worker)}
         , delay{delay}
     {
         add(worker.get_disposable());
     }
 
-    Worker                    worker;
-    Observer                  observer;
-    rpp::schedulers::duration delay{};
+    Observer                     observer;
+    RPP_NO_UNIQUE_ADDRESS Worker worker;
+    rpp::schedulers::duration    delay{};
 
-    std::mutex           mutex{};
+    std::mutex              mutex{};
     std::queue<emission<T>> queue;
-    bool                 is_active{};
+    bool                    is_active{};
 };
 
 template<rpp::constraint::observer Observer, typename Worker>
