@@ -1,0 +1,74 @@
+\doxysection{rpp\+::operators\+::details\+::delay\+\_\+disposable\texorpdfstring{$<$}{<} Observer, Worker \texorpdfstring{$>$}{>} Struct Template Reference}
+\hypertarget{structrpp_1_1operators_1_1details_1_1delay__disposable}{}\label{structrpp_1_1operators_1_1details_1_1delay__disposable}\index{rpp::operators::details::delay\_disposable$<$ Observer, Worker $>$@{rpp::operators::details::delay\_disposable$<$ Observer, Worker $>$}}
+Inheritance diagram for rpp\+::operators\+::details\+::delay\+\_\+disposable\texorpdfstring{$<$}{<} Observer, Worker \texorpdfstring{$>$}{>}\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.580645cm]{structrpp_1_1operators_1_1details_1_1delay__disposable}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{structrpp_1_1operators_1_1details_1_1delay__disposable_a0aac2c5fcccc69ba3ef6c21a1506fba7}\label{structrpp_1_1operators_1_1details_1_1delay__disposable_a0aac2c5fcccc69ba3ef6c21a1506fba7} 
+using {\bfseries T} = rpp\+::utils\+::extract\+\_\+observer\+\_\+type\+\_\+t$<$ Observer $>$
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{structrpp_1_1operators_1_1details_1_1delay__disposable_a177a8bbaa8a71933d04398c46b071d9e}\label{structrpp_1_1operators_1_1details_1_1delay__disposable_a177a8bbaa8a71933d04398c46b071d9e} 
+{\bfseries delay\+\_\+disposable} (Observer \&\&in\+\_\+observer, Worker \&\&in\+\_\+worker, rpp\+::schedulers\+::duration delay)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classrpp_1_1composite__disposable}{rpp\+::composite\+\_\+disposable}}}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries composite\+\_\+disposable} (const \mbox{\hyperlink{classrpp_1_1composite__disposable}{composite\+\_\+disposable}} \&)=delete
+\item 
+{\bfseries composite\+\_\+disposable} (\mbox{\hyperlink{classrpp_1_1composite__disposable}{composite\+\_\+disposable}} \&\&other) noexcept=delete
+\item 
+bool \mbox{\hyperlink{classrpp_1_1composite__disposable_a748deb894f9f98ea238e919e62859262}{is\+\_\+disposed}} () const noexcept final
+\begin{DoxyCompactList}\small\item\em Check if this disposable is just disposed @warn This function must be thread-\/safe. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classrpp_1_1composite__disposable_acf263ceb2c51a97f435d730f33ec293c}{dispose}} () final
+\begin{DoxyCompactList}\small\item\em Dispose disposable and free any underlying resources and etc. @warn This function must be thread-\/safe. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classrpp_1_1composite__disposable_afbddc262926c6eb3c37ab4c9898ed279}{add}} (\mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{disposable\+\_\+wrapper}} disposable) override
+\item 
+virtual void \mbox{\hyperlink{classrpp_1_1composite__disposable_aeabbd86e2ea58c12cbb13a2d3cf5f726}{add}} (\mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{disposable\+\_\+wrapper}} disposable)=0
+\item 
+{\footnotesize template$<$std\+::invocable Fn$>$ }\\void {\bfseries add} (Fn \&\&invocable)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{structrpp_1_1interface__composite__disposable}{rpp\+::interface\+\_\+composite\+\_\+disposable}}}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$std\+::invocable Fn$>$ }\\void {\bfseries add} (Fn \&\&invocable)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{structrpp_1_1operators_1_1details_1_1delay__disposable_aa3d92124d796de5421944c9f8453dce8}\label{structrpp_1_1operators_1_1details_1_1delay__disposable_aa3d92124d796de5421944c9f8453dce8} 
+Observer {\bfseries observer}
+\item 
+\Hypertarget{structrpp_1_1operators_1_1details_1_1delay__disposable_a4e162f4b03a321f96d9f25efe3299cd3}\label{structrpp_1_1operators_1_1details_1_1delay__disposable_a4e162f4b03a321f96d9f25efe3299cd3} 
+RPP\+\_\+\+NO\+\_\+\+UNIQUE\+\_\+\+ADDRESS Worker {\bfseries worker}
+\item 
+\Hypertarget{structrpp_1_1operators_1_1details_1_1delay__disposable_afdcbbb91a6235bfd591d29abd66d074d}\label{structrpp_1_1operators_1_1details_1_1delay__disposable_afdcbbb91a6235bfd591d29abd66d074d} 
+rpp\+::schedulers\+::duration {\bfseries delay} \{\}
+\item 
+\Hypertarget{structrpp_1_1operators_1_1details_1_1delay__disposable_ad1d67349bc56e7e262983a3c876c2e90}\label{structrpp_1_1operators_1_1details_1_1delay__disposable_ad1d67349bc56e7e262983a3c876c2e90} 
+std\+::mutex {\bfseries mutex} \{\}
+\item 
+\Hypertarget{structrpp_1_1operators_1_1details_1_1delay__disposable_a398235c83d6fa0ce9db3d53573200220}\label{structrpp_1_1operators_1_1details_1_1delay__disposable_a398235c83d6fa0ce9db3d53573200220} 
+std\+::queue$<$ \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1emission}{emission}}$<$ T $>$ $>$ {\bfseries queue}
+\item 
+\Hypertarget{structrpp_1_1operators_1_1details_1_1delay__disposable_aa8d9a1d719ac7d22a2a67d97e1b20179}\label{structrpp_1_1operators_1_1details_1_1delay__disposable_aa8d9a1d719ac7d22a2a67d97e1b20179} 
+bool {\bfseries is\+\_\+active} \{\}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Protected Member Functions inherited from \mbox{\hyperlink{classrpp_1_1composite__disposable}{rpp\+::composite\+\_\+disposable}}}
+\begin{DoxyCompactItemize}
+\item 
+virtual void {\bfseries dispose\+\_\+impl} ()
+\end{DoxyCompactItemize}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/rpp/rpp/operators/delay.\+hpp\end{DoxyCompactItemize}

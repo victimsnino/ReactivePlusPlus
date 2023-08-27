@@ -1,0 +1,46 @@
+\doxysection{delay.\+cpp}
+\hypertarget{delay_8cpp-example}{}\label{delay_8cpp-example}
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <rpp/rpp.hpp>}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <chrono>}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <ctime>}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{int}\ main()\ \textcolor{comment}{//\ NOLINT}}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{auto}\ start\ =\ rpp::schedulers::clock\_type::now();}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_ga5bf57bc7e432fb38565810144a75b972}{rpp::source::create<int>}}([\&start](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ obs)}
+\DoxyCodeLine{\ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ 3;\ ++i)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ emitting\_time\ =\ rpp::schedulers::clock\_type::now();}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}emit\ "{}}\ <<\ i\ <<\ \textcolor{stringliteral}{"{}\ in\ thread\{"{}}\ <<\ std::this\_thread::get\_id()\ <<\ \textcolor{stringliteral}{"{}\}\ duration\ since\ start\ "{}}\ <<\ std::chrono::duration\_cast<std::chrono::seconds>(emitting\_time\ -\/\ start).count()\ <<\ \textcolor{stringliteral}{"{}s"{}}<<\ std::endl;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ obs.on\_next(i);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ std::this\_thread::sleep\_for(std::chrono::seconds\{1\});}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ obs.on\_completed();}
+\DoxyCodeLine{\ \ \ \ \})}
+\DoxyCodeLine{\ \ \ \ |\ rpp::ops::delay(std::chrono::seconds\{3\},\ \mbox{\hyperlink{classrpp_1_1schedulers_1_1new__thread}{rpp::schedulers::new\_thread}}\{\})}
+\DoxyCodeLine{\ \ \ \ |\ rpp::ops::as\_blocking()}
+\DoxyCodeLine{\ \ \ \ |\ rpp::ops::subscribe([\&](\textcolor{keywordtype}{int}\ v)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ observing\_time\ =\ rpp::schedulers::clock\_type::now();}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}observe\ "{}}\ <<\ v\ <<\ \textcolor{stringliteral}{"{}\ in\ thread\{"{}}\ <<\ std::this\_thread::get\_id()\ <<\ \textcolor{stringliteral}{"{}\}\ duration\ since\ start\ "{}}\ <<\ std::chrono::duration\_cast<std::chrono::seconds>(observing\_time\ -\/\ start).count()\ <<\textcolor{stringliteral}{"{}s"{}}\ <<\ std::endl;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Template\ for\ output:}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ emit\ 0\ in\ thread\{140260327311232\}\ duration\ since\ start\ 0s}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ emit\ 1\ in\ thread\{140260327311232\}\ duration\ since\ start\ 1s}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ emit\ 2\ in\ thread\{140260327311232\}\ duration\ since\ start\ 2s}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ observe\ 0\ in\ thread\{140260327306816\}\ duration\ since\ start\ 3s}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ observe\ 1\ in\ thread\{140260327306816\}\ duration\ since\ start\ 4s}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ observe\ 2\ in\ thread\{140260327306816\}\ duration\ since\ start\ 5s}}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{\}}
+
+\end{DoxyCodeInclude}
+ 
