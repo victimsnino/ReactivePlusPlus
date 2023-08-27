@@ -1,0 +1,39 @@
+\doxysection{defer.\+cpp}
+\hypertarget{defer_8cpp-example}{}\label{defer_8cpp-example}
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <rpp/rpp.hpp>}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{int}\ main()\ \textcolor{comment}{//\ NOLINT}}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_ga538da3738ff221beb319fc07de4d6be3}{rpp::source::defer}}([]\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Observable\ factory\ called\(\backslash\)n"{}};}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{group__creational__operators_gad15a7e8bfb2f7ce0af1b44e22918116c}{rpp::source::from\_iterable}}(std::array\{\ 1,2,3\ \});\ \})}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ .subscribe([](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ v\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};\ \},\ rpp::utils::rethrow\_error\_t\{\},\ []()\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}On\ complete\(\backslash\)n"{}};\ \});}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:\ Observable\ factory\ called\ }}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ 1\ }}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ 2\ }}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ 3}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ On\ complete}}
+\DoxyCodeLine{\ \ \ \ }
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{auto}\ obs\ =\ \mbox{\hyperlink{group__creational__operators_ga538da3738ff221beb319fc07de4d6be3}{rpp::source::defer}}([]\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Observable\ factory\ called\(\backslash\)n"{}};}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ inner\_obs\ =\ \mbox{\hyperlink{group__creational__operators_ga5bf57bc7e432fb38565810144a75b972}{rpp::source::create<int>}}([state\ =\ std::make\_shared<int>(0)](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ obs)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ obs.on\_next((*state)++);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ obs.on\_completed();}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \});\ \ }
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ inner\_obs;\ }
+\DoxyCodeLine{\ \ \ \ \});}
+\DoxyCodeLine{\ \ \ \ obs.subscribe([](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ v\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};\ \},\ rpp::utils::rethrow\_error\_t\{\},\ []()\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}On\ complete\(\backslash\)n"{}};\ \});}
+\DoxyCodeLine{\ \ \ \ obs.subscribe([](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ v\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};\ \},\ rpp::utils::rethrow\_error\_t\{\},\ []()\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}On\ complete\(\backslash\)n"{}};\ \});}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:\ Observable\ factory\ called\ }}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ 0}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ On\ complete}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ Observable\ factory\ called\ }}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ 0}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ On\ complete}}
+\DoxyCodeLine{\}}
+
+\end{DoxyCodeInclude}
+ 

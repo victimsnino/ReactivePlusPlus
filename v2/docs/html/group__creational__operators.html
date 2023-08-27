@@ -121,6 +121,11 @@ requires constraint::observable&lt;utils::iterable_value_t&lt;Iterable&gt;&gt;</
 <tr class="memitem:gae68c87e7ae3a505258b733082bf68513"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">auto</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__creational__operators.html#gae68c87e7ae3a505258b733082bf68513">rpp::source::create</a> (OnSubscribe &amp;&amp;on_subscribe)</td></tr>
 <tr class="memdesc:gae68c87e7ae3a505258b733082bf68513"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct observable specialized with passed callback function. Most easiesest way to construct observable "on the fly" via lambda and etc.  <br /></td></tr>
 <tr class="separator:gae68c87e7ae3a505258b733082bf68513"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga538da3738ff221beb319fc07de4d6be3" id="r_ga538da3738ff221beb319fc07de4d6be3"><td class="memTemplParams" colspan="2">template&lt;std::invocable Factory&gt; <br />
+requires (rpp::utils::is_no_argument_function&lt;<a class="el" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">Factory</a>&gt; &amp;&amp; <a class="el" href="conceptrpp_1_1constraint_1_1observable.html">rpp::constraint::observable</a>&lt;std::invoke_result_t&lt;<a class="el" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">Factory</a>&gt;&gt;)</td></tr>
+<tr class="memitem:ga538da3738ff221beb319fc07de4d6be3"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">auto</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__creational__operators.html#ga538da3738ff221beb319fc07de4d6be3">rpp::source::defer</a> (<a class="el" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">Factory</a> &amp;&amp;observable_factory)</td></tr>
+<tr class="memdesc:ga538da3738ff221beb319fc07de4d6be3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates <a class="el" href="classrpp_1_1observable.html" title="Base class for any observable used in RPP. It handles core callbacks of observable.">rpp::observable</a> that calls the specified observable factory to create an observable for each new observer that subscribes.  <br /></td></tr>
+<tr class="separator:ga538da3738ff221beb319fc07de4d6be3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gad29c2904de57d176ccaf2614409789de" id="r_gad29c2904de57d176ccaf2614409789de"><td class="memTemplParams" colspan="2">template&lt;constraint::decayed_type Type&gt; </td></tr>
 <tr class="memitem:gad29c2904de57d176ccaf2614409789de"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">auto</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__creational__operators.html#gad29c2904de57d176ccaf2614409789de">rpp::source::empty</a> ()</td></tr>
 <tr class="memdesc:gad29c2904de57d176ccaf2614409789de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates <a class="el" href="classrpp_1_1observable.html" title="Base class for any observable used in RPP. It handles core callbacks of observable.">rpp::observable</a> that emits no items but terminates normally.  <br /></td></tr>
@@ -249,7 +254,7 @@ requires (std::same_as&lt;rpp::utils::extract_observable_type_t&lt;TObservable&g
 <div class="line">    <span class="comment">// Output: 1, 2, 1, 2, 3, completed</span></div>
 </div><!-- fragment --></dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/concat.html">https://reactivex.io/documentation/operators/concat.html</a> </dd></dl>
-<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="concat_8cpp-example.html#a0">concat.cpp</a>, <a class="el" href="create_8cpp-example.html#a0">create.cpp</a>, <a class="el" href="first_8cpp-example.html#a2">first.cpp</a>, <a class="el" href="from_8cpp-example.html#a1">from.cpp</a>, <a class="el" href="just_8cpp-example.html#a1">just.cpp</a>, <a class="el" href="last_8cpp-example.html#a2">last.cpp</a>, <a class="el" href="merge_8cpp-example.html#a1">merge.cpp</a>, and <a class="el" href="subscribe_on_8cpp-example.html#a0">subscribe_on.cpp</a>.</dd>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="concat_8cpp-example.html#a0">concat.cpp</a>, <a class="el" href="create_8cpp-example.html#a0">create.cpp</a>, <a class="el" href="defer_8cpp-example.html#a2">defer.cpp</a>, <a class="el" href="first_8cpp-example.html#a2">first.cpp</a>, <a class="el" href="from_8cpp-example.html#a1">from.cpp</a>, <a class="el" href="just_8cpp-example.html#a1">just.cpp</a>, <a class="el" href="last_8cpp-example.html#a2">last.cpp</a>, <a class="el" href="merge_8cpp-example.html#a1">merge.cpp</a>, and <a class="el" href="subscribe_on_8cpp-example.html#a0">subscribe_on.cpp</a>.</dd>
 </dl>
 
 </div>
@@ -325,6 +330,50 @@ template&lt;constraint::decayed_type Type, constraint::on_subscribe&lt; Type &gt
 <div class="line">    <span class="comment">// Output: 42</span></div>
 </div><!-- fragment --> <div class="fragment"></div><!-- fragment --></dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/create.html">https://reactivex.io/documentation/operators/create.html</a> </dd></dl>
+
+</div>
+</div>
+<a id="ga538da3738ff221beb319fc07de4d6be3" name="ga538da3738ff221beb319fc07de4d6be3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga538da3738ff221beb319fc07de4d6be3">&#9670;&#160;</a></span>defer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;std::invocable Factory&gt; <br />
+requires (rpp::utils::is_no_argument_function&lt;<a class="el" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">Factory</a>&gt; &amp;&amp; <a class="el" href="conceptrpp_1_1constraint_1_1observable.html">rpp::constraint::observable</a>&lt;std::invoke_result_t&lt;<a class="el" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">Factory</a>&gt;&gt;)</div>
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">auto</a> rpp::source::defer </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">Factory</a> &amp;&amp;&#160;</td>
+          <td class="paramname"><em>observable_factory</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates <a class="el" href="classrpp_1_1observable.html" title="Base class for any observable used in RPP. It handles core callbacks of observable.">rpp::observable</a> that calls the specified observable factory to create an observable for each new observer that subscribes. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">Factory</td><td>the type of the observable factory</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section user"><dt>Example:</dt><dd><div class="fragment"><div class="line">    <a class="code hl_function" href="group__creational__operators.html#ga538da3738ff221beb319fc07de4d6be3">rpp::source::defer</a>([] {</div>
+<div class="line">        std::cout &lt;&lt; <span class="stringliteral">&quot;Observable factory called\n&quot;</span>;</div>
+<div class="line">        <span class="keywordflow">return</span> <a class="code hl_function" href="group__creational__operators.html#gad15a7e8bfb2f7ce0af1b44e22918116c">rpp::source::from_iterable</a>(std::array{ 1,2,3 }); })</div>
+<div class="line">        .subscribe([](<span class="keywordtype">int</span> <a class="code hl_function" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">v</a>) { std::cout &lt;&lt; <a class="code hl_function" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">v</a> &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>; }, rpp::utils::rethrow_error_t{}, []() { std::cout &lt;&lt; <span class="stringliteral">&quot;On complete\n&quot;</span>; });</div>
+<div class="line">    <span class="comment">// Output: Observable factory called </span></div>
+<div class="line">    <span class="comment">//         1 </span></div>
+<div class="line">    <span class="comment">//         2 </span></div>
+<div class="line">    <span class="comment">//         3</span></div>
+<div class="line">    <span class="comment">//         On complete</span></div>
+<div class="ttc" id="agroup__creational__operators_html_ga538da3738ff221beb319fc07de4d6be3"><div class="ttname"><a href="group__creational__operators.html#ga538da3738ff221beb319fc07de4d6be3">rpp::source::defer</a></div><div class="ttdeci">auto defer(Factory &amp;&amp;observable_factory)</div><div class="ttdoc">Creates rpp::observable that calls the specified observable factory to create an observable for each ...</div><div class="ttdef"><b>Definition</b> defer.hpp:49</div></div>
+<div class="ttc" id="agroup__creational__operators_html_gad15a7e8bfb2f7ce0af1b44e22918116c"><div class="ttname"><a href="group__creational__operators.html#gad15a7e8bfb2f7ce0af1b44e22918116c">rpp::source::from_iterable</a></div><div class="ttdeci">auto from_iterable(Iterable &amp;&amp;iterable, const TScheduler &amp;scheduler)</div><div class="ttdoc">Creates observable that emits a items from provided iterable.</div><div class="ttdef"><b>Definition</b> from.hpp:170</div></div>
+</div><!-- fragment --></dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/defer.html">https://reactivex.io/documentation/operators/defer.html</a> </dd></dl>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="defer_8cpp-example.html#a0">defer.cpp</a>.</dd>
+</dl>
 
 </div>
 </div>
@@ -482,7 +531,6 @@ template&lt;constraint::memory_model memory_model, constraint::iterable Iterable
 </dl>
 <dl class="section user"><dt>Examples:</dt><dd><div class="fragment"><div class="line">        std::vector&lt;int&gt; <a class="code hl_function" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">vals</a>{ 1,2,3 };</div>
 <div class="line">        <a class="code hl_function" href="group__creational__operators.html#gad15a7e8bfb2f7ce0af1b44e22918116c">rpp::source::from_iterable</a>(<a class="code hl_function" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">vals</a>).subscribe([](<span class="keywordtype">int</span> <a class="code hl_function" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">v</a>) {std::cout &lt;&lt; <a class="code hl_function" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">v</a> &lt;&lt; <span class="stringliteral">&quot; &quot;</span>; });</div>
-<div class="ttc" id="agroup__creational__operators_html_gad15a7e8bfb2f7ce0af1b44e22918116c"><div class="ttname"><a href="group__creational__operators.html#gad15a7e8bfb2f7ce0af1b44e22918116c">rpp::source::from_iterable</a></div><div class="ttdeci">auto from_iterable(Iterable &amp;&amp;iterable, const TScheduler &amp;scheduler)</div><div class="ttdoc">Creates observable that emits a items from provided iterable.</div><div class="ttdef"><b>Definition</b> from.hpp:170</div></div>
 </div><!-- fragment --> <div class="fragment"><div class="line">        std::vector&lt;int&gt; <a class="code hl_function" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">vals</a>{ 1,2,3 };</div>
 <div class="line">        <a class="code hl_function" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">rpp::source::from_iterable&lt;rpp::memory_model::use_shared&gt;</a>(<a class="code hl_function" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">vals</a>).subscribe([](<span class="keywordtype">int</span> <a class="code hl_function" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">v</a>) {std::cout &lt;&lt; <a class="code hl_function" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">v</a> &lt;&lt; <span class="stringliteral">&quot; &quot;</span>; });</div>
 </div><!-- fragment --> <div class="fragment"><div class="line">        std::vector&lt;int&gt; <a class="code hl_function" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">vals</a>{ 1,2,3 };</div>
@@ -492,7 +540,7 @@ template&lt;constraint::memory_model memory_model, constraint::iterable Iterable
 <div class="ttc" id="aclassrpp_1_1schedulers_1_1immediate_html"><div class="ttname"><a href="classrpp_1_1schedulers_1_1immediate.html">rpp::schedulers::immediate</a></div><div class="ttdoc">immediately calls provided schedulable or waits for time_point (in the caller-thread)</div><div class="ttdef"><b>Definition</b> immediate.hpp:64</div></div>
 </div><!-- fragment --></dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/from.html">https://reactivex.io/documentation/operators/from.html</a> </dd></dl>
-<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="from_8cpp-example.html#a0">from.cpp</a>, and <a class="el" href="take_8cpp-example.html#a0">take.cpp</a>.</dd>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="defer_8cpp-example.html#a1">defer.cpp</a>, <a class="el" href="from_8cpp-example.html#a0">from.cpp</a>, and <a class="el" href="take_8cpp-example.html#a0">take.cpp</a>.</dd>
 </dl>
 
 </div>

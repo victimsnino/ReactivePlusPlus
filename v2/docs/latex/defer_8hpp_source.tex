@@ -1,0 +1,48 @@
+\doxysection{defer.\+hpp}
+\hypertarget{defer_8hpp_source}{}\label{defer_8hpp_source}\index{src/rpp/rpp/sources/defer.hpp@{src/rpp/rpp/sources/defer.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ReactivePlusPlus\ library}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ Copyright\ Aleksey\ Loginov\ 2023\ -\/\ present.}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ \ Distributed\ under\ the\ Boost\ Software\ License,\ Version\ 1.0.}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ \ \ \ \ (See\ accompanying\ file\ LICENSE\_1\_0.txt\ or\ copy\ at}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ https://www.boost.org/LICENSE\_1\_0.txt)}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ \ Project\ home:\ https://github.com/victimsnino/ReactivePlusPlus}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <rpp/sources/fwd.hpp>}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <rpp/observables/observable.hpp>}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{keyword}{namespace\ }rpp::details}
+\DoxyCodeLine{00016\ \{}
+\DoxyCodeLine{00017\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ Factory>}
+\DoxyCodeLine{00018\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1details_1_1defer__strategy}{defer\_strategy}}}
+\DoxyCodeLine{00019\ \{}
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keyword}{using\ }ValueType\ =\ rpp::utils::extract\_observable\_type\_t<std::invoke\_result\_t<Factory>>;}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \ \ \ \ Factory\ observable\_factory;}
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keywordtype}{void}\ subscribe(\textcolor{keyword}{auto}\&\&\ obs)\textcolor{keyword}{\ const\ }\{\ observable\_factory().subscribe(std::forward<\textcolor{keyword}{decltype}(obs)>(obs));\ \}}
+\DoxyCodeLine{00024\ \};}
+\DoxyCodeLine{00025\ \}}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{keyword}{namespace\ }rpp}
+\DoxyCodeLine{00028\ \{}
+\DoxyCodeLine{00029\ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type\ Type,\ \textcolor{keyword}{typename}\ Factory>}
+\DoxyCodeLine{00030\ \textcolor{keyword}{using\ }\mbox{\hyperlink{classrpp_1_1observable}{defer\_observable}}\ =\ \mbox{\hyperlink{classrpp_1_1observable}{observable<Type,\ details::defer\_strategy<Factory>}}>;}
+\DoxyCodeLine{00031\ \}}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \textcolor{keyword}{namespace\ }rpp::source}
+\DoxyCodeLine{00034\ \{}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00047\ \textcolor{keyword}{template}<std::invocable\ Factory>}
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{keyword}{requires}(rpp::utils::is\_no\_argument\_function<Factory>\ \&\&\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp::constraint::observable<std::invoke\_result\_t<Factory>}}>)}
+\DoxyCodeLine{00049\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__creational__operators_ga538da3738ff221beb319fc07de4d6be3}{defer}}(\mbox{\hyperlink{group__creational__operators_ga5bf57bc7e432fb38565810144a75b972}{Factory}}\&\&\ observable\_factory)}
+\DoxyCodeLine{00050\ \{}
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classrpp_1_1observable}{defer\_observable<rpp::utils::extract\_observable\_type\_t<std::invoke\_result\_t<Factory>}}>,\ \mbox{\hyperlink{group__creational__operators_ga5bf57bc7e432fb38565810144a75b972}{Factory}}>\{std::forward<Factory>(observable\_factory)\};}
+\DoxyCodeLine{00052\ \}}
+\DoxyCodeLine{00053\ \}}
+
+\end{DoxyCode}

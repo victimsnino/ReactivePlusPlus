@@ -16,6 +16,9 @@ requires constraint\+::observable$<$utils\+::iterable\+\_\+value\+\_\+t$<$Iterab
 \begin{DoxyCompactList}\small\item\em Make observable which would merge emissions from underlying observables but without overlapping (current observable completes THEN next started to emit its values) \end{DoxyCompactList}\item 
 {\footnotesize template$<$constraint\+::decayed\+\_\+type Type, constraint\+::on\+\_\+subscribe$<$ Type $>$ On\+Subscribe$>$ }\\\mbox{\hyperlink{group__creational__operators_ga5bf57bc7e432fb38565810144a75b972}{auto}} \mbox{\hyperlink{group__creational__operators_gae68c87e7ae3a505258b733082bf68513}{rpp\+::source\+::create}} (On\+Subscribe \&\&on\+\_\+subscribe)
 \begin{DoxyCompactList}\small\item\em Construct observable specialized with passed callback function. Most easiesest way to construct observable "{}on the fly"{} via lambda and etc. \end{DoxyCompactList}\item 
+{\footnotesize template$<$std\+::invocable Factory$>$ \newline
+requires (rpp\+::utils\+::is\+\_\+no\+\_\+argument\+\_\+function$<$\mbox{\hyperlink{group__creational__operators_ga5bf57bc7e432fb38565810144a75b972}{Factory}}$>$ \&\& \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp\+::constraint\+::observable}}$<$std\+::invoke\+\_\+result\+\_\+t$<$\mbox{\hyperlink{group__creational__operators_ga5bf57bc7e432fb38565810144a75b972}{Factory}}$>$$>$)}\\\mbox{\hyperlink{group__creational__operators_ga5bf57bc7e432fb38565810144a75b972}{auto}} \mbox{\hyperlink{group__creational__operators_ga538da3738ff221beb319fc07de4d6be3}{rpp\+::source\+::defer}} (\mbox{\hyperlink{group__creational__operators_ga5bf57bc7e432fb38565810144a75b972}{Factory}} \&\&observable\+\_\+factory)
+\begin{DoxyCompactList}\small\item\em Creates \doxylink{classrpp_1_1observable}{rpp\+::observable} that calls the specified observable factory to create an observable for each new observer that subscribes. \end{DoxyCompactList}\item 
 {\footnotesize template$<$constraint\+::decayed\+\_\+type Type$>$ }\\\mbox{\hyperlink{group__creational__operators_ga5bf57bc7e432fb38565810144a75b972}{auto}} \mbox{\hyperlink{group__creational__operators_gad29c2904de57d176ccaf2614409789de}{rpp\+::source\+::empty}} ()
 \begin{DoxyCompactList}\small\item\em Creates \doxylink{classrpp_1_1observable}{rpp\+::observable} that emits no items but terminates normally. \end{DoxyCompactList}\item 
 {\footnotesize template$<$constraint\+::decayed\+\_\+type Type$>$ }\\\mbox{\hyperlink{group__creational__operators_ga5bf57bc7e432fb38565810144a75b972}{auto}} \mbox{\hyperlink{group__creational__operators_ga4fe060f48695cc3fadfbdb10f77f8acb}{rpp\+::source\+::error}} (std\+::exception\+\_\+ptr err)
@@ -125,7 +128,7 @@ Actually it subscribes on first observable from emissions. When first observable
 \end{DoxySeeAlso}
 \begin{Desc}
 \item[Examples]\par
-\mbox{\hyperlink{concat_8cpp-example}{concat.\+cpp}}, \mbox{\hyperlink{create_8cpp-example}{create.\+cpp}}, \mbox{\hyperlink{first_8cpp-example}{first.\+cpp}}, \mbox{\hyperlink{from_8cpp-example}{from.\+cpp}}, \mbox{\hyperlink{just_8cpp-example}{just.\+cpp}}, \mbox{\hyperlink{last_8cpp-example}{last.\+cpp}}, \mbox{\hyperlink{merge_8cpp-example}{merge.\+cpp}}, and \mbox{\hyperlink{subscribe_on_8cpp-example}{subscribe\+\_\+on.\+cpp}}.\end{Desc}
+\mbox{\hyperlink{concat_8cpp-example}{concat.\+cpp}}, \mbox{\hyperlink{create_8cpp-example}{create.\+cpp}}, \mbox{\hyperlink{defer_8cpp-example}{defer.\+cpp}}, \mbox{\hyperlink{first_8cpp-example}{first.\+cpp}}, \mbox{\hyperlink{from_8cpp-example}{from.\+cpp}}, \mbox{\hyperlink{just_8cpp-example}{just.\+cpp}}, \mbox{\hyperlink{last_8cpp-example}{last.\+cpp}}, \mbox{\hyperlink{merge_8cpp-example}{merge.\+cpp}}, and \mbox{\hyperlink{subscribe_on_8cpp-example}{subscribe\+\_\+on.\+cpp}}.\end{Desc}
 \Hypertarget{group__creational__operators_gae68c87e7ae3a505258b733082bf68513}\label{group__creational__operators_gae68c87e7ae3a505258b733082bf68513} 
 \index{Creational Operators@{Creational Operators}!create@{create}}
 \index{create@{create}!Creational Operators@{Creational Operators}}
@@ -219,6 +222,45 @@ Be sure, that your callback doesn\textquotesingle{}t violates observable rules\+
 \begin{DoxySeeAlso}{See also}
 \href{https://reactivex.io/documentation/operators/create.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/create.\+html}} 
 \end{DoxySeeAlso}
+\Hypertarget{group__creational__operators_ga538da3738ff221beb319fc07de4d6be3}\label{group__creational__operators_ga538da3738ff221beb319fc07de4d6be3} 
+\index{Creational Operators@{Creational Operators}!defer@{defer}}
+\index{defer@{defer}!Creational Operators@{Creational Operators}}
+\doxysubsubsubsubsection{\texorpdfstring{defer()}{defer()}}
+{\footnotesize\ttfamily template$<$std\+::invocable Factory$>$ \newline
+requires (rpp\+::utils\+::is\+\_\+no\+\_\+argument\+\_\+function$<$\mbox{\hyperlink{group__creational__operators_ga5bf57bc7e432fb38565810144a75b972}{Factory}}$>$ \&\& \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp\+::constraint\+::observable}}$<$std\+::invoke\+\_\+result\+\_\+t$<$\mbox{\hyperlink{group__creational__operators_ga5bf57bc7e432fb38565810144a75b972}{Factory}}$>$$>$)\\
+\mbox{\hyperlink{group__creational__operators_ga5bf57bc7e432fb38565810144a75b972}{auto}} rpp\+::source\+::defer (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{group__creational__operators_ga5bf57bc7e432fb38565810144a75b972}{Factory}} \&\&}]{observable\+\_\+factory }\end{DoxyParamCaption})}
+
+
+
+Creates \doxylink{classrpp_1_1observable}{rpp\+::observable} that calls the specified observable factory to create an observable for each new observer that subscribes. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Factory} & the type of the observable factory\\
+\hline
+\end{DoxyTemplParams}
+\begin{DoxyParagraph}{Example\+:}
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_ga538da3738ff221beb319fc07de4d6be3}{rpp::source::defer}}([]\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Observable\ factory\ called\(\backslash\)n"{}};}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{group__creational__operators_gad15a7e8bfb2f7ce0af1b44e22918116c}{rpp::source::from\_iterable}}(std::array\{\ 1,2,3\ \});\ \})}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ .subscribe([](\textcolor{keywordtype}{int}\ \mbox{\hyperlink{group__creational__operators_ga5bf57bc7e432fb38565810144a75b972}{v}})\ \{\ std::cout\ <<\ \mbox{\hyperlink{group__creational__operators_ga5bf57bc7e432fb38565810144a75b972}{v}}\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};\ \},\ rpp::utils::rethrow\_error\_t\{\},\ []()\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}On\ complete\(\backslash\)n"{}};\ \});}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:\ Observable\ factory\ called\ }}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ 1\ }}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ 2\ }}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ 3}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ On\ complete}}
+
+\end{DoxyCodeInclude}
+
+\end{DoxyParagraph}
+\begin{DoxySeeAlso}{See also}
+\href{https://reactivex.io/documentation/operators/defer.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/defer.\+html}} 
+\end{DoxySeeAlso}
+\begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{defer_8cpp-example}{defer.\+cpp}}.\end{Desc}
 \Hypertarget{group__creational__operators_gad29c2904de57d176ccaf2614409789de}\label{group__creational__operators_gad29c2904de57d176ccaf2614409789de} 
 \index{Creational Operators@{Creational Operators}!empty@{empty}}
 \index{empty@{empty}!Creational Operators@{Creational Operators}}
@@ -349,7 +391,7 @@ Creates observable that emits a items from provided iterable.
 \end{DoxySeeAlso}
 \begin{Desc}
 \item[Examples]\par
-\mbox{\hyperlink{from_8cpp-example}{from.\+cpp}}, and \mbox{\hyperlink{take_8cpp-example}{take.\+cpp}}.\end{Desc}
+\mbox{\hyperlink{defer_8cpp-example}{defer.\+cpp}}, \mbox{\hyperlink{from_8cpp-example}{from.\+cpp}}, and \mbox{\hyperlink{take_8cpp-example}{take.\+cpp}}.\end{Desc}
 \Hypertarget{group__creational__operators_gae60bdb9b493443d2786b0eee8bfe17ab}\label{group__creational__operators_gae60bdb9b493443d2786b0eee8bfe17ab} 
 \index{Creational Operators@{Creational Operators}!just@{just}}
 \index{just@{just}!Creational Operators@{Creational Operators}}

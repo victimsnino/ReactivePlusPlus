@@ -17,6 +17,7 @@ var annotated_dup =
         [ "concat_source_observer_strategy", "structrpp_1_1details_1_1concat__source__observer__strategy.html", null ],
         [ "concat_strategy", "structrpp_1_1details_1_1concat__strategy.html", null ],
         [ "create_strategy", "structrpp_1_1details_1_1create__strategy.html", null ],
+        [ "defer_strategy", "structrpp_1_1details_1_1defer__strategy.html", null ],
         [ "empty_strategy", "structrpp_1_1details_1_1empty__strategy.html", null ],
         [ "error_strategy", "structrpp_1_1details_1_1error__strategy.html", null ],
         [ "fake_strategy", "structrpp_1_1details_1_1fake__strategy.html", null ],
