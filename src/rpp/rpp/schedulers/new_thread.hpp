@@ -47,15 +47,15 @@ class new_thread
             m_thread.detach();
         }
 
-        template<rpp::constraint::observer TObs, typename... Args, constraint::schedulable_fn<TObs, Args...> Fn>
-        void defer_at(time_point time_point, Fn&& fn, TObs&& obs, Args&&... args)
+        template<rpp::schedulers::constraint::schedulable_handler Handler, typename... Args, constraint::schedulable_fn<Handler, Args...> Fn>
+        void defer_at(time_point time_point, Fn&& fn, Handler&& handler, Args&&... args)
         {
             if (is_disposed())
                 return;
 
             std::lock_guard lock{m_state->queue_mutex};
             if (const auto queue = m_state->queue_ptr.load(std::memory_order_relaxed))
-                queue->emplace(time_point, std::forward<Fn>(fn), std::forward<TObs>(obs), std::forward<Args>(args)...);
+                queue->emplace(time_point, std::forward<Fn>(fn), std::forward<Handler>(handler), std::forward<Args>(args)...);
         }
 
     private:
@@ -132,10 +132,10 @@ public:
     public:
         worker_strategy() = default;
 
-        template<rpp::constraint::observer TObs, typename... Args, constraint::schedulable_fn<TObs, Args...> Fn>
-        void defer_for(duration duration, Fn&& fn, TObs&& obs, Args&&... args) const
+        template<rpp::schedulers::constraint::schedulable_handler Handler, typename... Args, constraint::schedulable_fn<Handler, Args...> Fn>
+        void defer_for(duration duration, Fn&& fn, Handler&& handler, Args&&... args) const
         {
-            m_state->defer_at(clock_type::now() + duration, std::forward<Fn>(fn), std::forward<TObs>(obs), std::forward<Args>(args)...);
+            m_state->defer_at(clock_type::now() + duration, std::forward<Fn>(fn), std::forward<Handler>(handler), std::forward<Args>(args)...);
         }
 
         rpp::disposable_wrapper get_disposable() const { return rpp::disposable_wrapper{m_state}; }

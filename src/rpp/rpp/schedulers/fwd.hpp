@@ -11,7 +11,6 @@
 #pragma once
 
 #include <rpp/disposables/fwd.hpp>
-#include <rpp/observers/fwd.hpp>
 #include <rpp/utils/constraints.hpp>
 
 
@@ -26,16 +25,32 @@ using duration = std::chrono::nanoseconds;
 using optional_duration = std::optional<duration>;
 }
 
+namespace rpp::schedulers::details
+{
+struct fake_schedulable_handler
+{
+    constexpr static bool is_disposed() {return true;}
+    static void on_error(const std::exception_ptr&) {}
+};
+}
+
 namespace rpp::schedulers::constraint
 {
 // returns std::nullopt in case of don't need to re-schedule schedulable or some duration which will be added to "now" and re-scheduled
 template<typename Fn, typename...Args>
 concept schedulable_fn = std::is_invocable_r_v<optional_duration, Fn, Args&...> && std::same_as<optional_duration, std::invoke_result_t<Fn, Args&...>>;
 
-template<typename S>
-concept strategy = requires(const S& s, const rpp::details::fake_observer<int>& obs)
+template<typename Handler>
+concept schedulable_handler = requires(const Handler& handler) 
 {
-    {s.defer_for(duration{}, std::declval<optional_duration(*)(const rpp::details::fake_observer<int>&)>(), obs)} -> std::same_as<void>;
+    {handler.is_disposed()} -> std::same_as<bool>;
+    handler.on_error(std::exception_ptr{});
+};
+
+template<typename S>
+concept strategy = requires(const S& s, const details::fake_schedulable_handler& handler)
+{
+    {s.defer_for(duration{}, std::declval<optional_duration(*)(const details::fake_schedulable_handler&)>(), handler)} -> std::same_as<void>;
     {s.get_disposable()} -> std::same_as<rpp::disposable_wrapper>;
 };
 }

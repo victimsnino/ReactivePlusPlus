@@ -37,7 +37,7 @@ template<typename, typename...>
 class tuple_impl;
 
 template<typename... Args, size_t... Indices>
-class tuple_impl<std::index_sequence<Indices...>, Args...> : private tuple_leaf<Indices, Args>...
+class RPP_EMPTY_BASES tuple_impl<std::index_sequence<Indices...>, Args...> : private tuple_leaf<Indices, Args>...
 {
 public:
     tuple_impl() = default;
@@ -54,7 +54,7 @@ public:
         return std::forward<Callable>(callable)(std::forward<TArgs>(args)..., static_cast<tuple_leaf<Indices, Args>*>(this)->get()...);
     }
 
-    template<typename...TArgs, std::invocable<TArgs&&..., const Args&...> Callable>
+    template<typename...TArgs, std::invocable<TArgs&&..., Args...> Callable>
     auto apply(Callable&& callable, TArgs&& ...args) const
     {
         return std::forward<Callable>(callable)(std::forward<TArgs>(args)..., static_cast<const tuple_leaf<Indices, Args>*>(this)->get()...);

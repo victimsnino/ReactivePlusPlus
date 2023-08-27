@@ -29,31 +29,31 @@ namespace rpp::schedulers
  * This scheduler used to prevent recursion calls and making planar linear execution of schedulables. For example:
  * ```cpp
    auto worker = rpp::schedulers::current_thread::create_worker();
-   worker.schedule([&worker](const auto& observer)
+   worker.schedule([&worker](const auto& handler)
    {
        std::cout << "Task 1 starts" << std::endl;
    
-       worker.schedule([&worker](const auto& observer)
+       worker.schedule([&worker](const auto& handler)
        {
            std::cout << "Task 2 starts" << std::endl;
            worker.schedule([](const auto&)
            {
                std::cout << "Task 4" << std::endl;
                return rpp::schedulers::optional_duration{};
-           }, observer);
+           }, handler);
            std::cout << "Task 2 ends" << std::endl;
            return rpp::schedulers::optional_duration{};
-       }, observer);
+       }, handler);
    
        worker.schedule([](const auto&)
        {
            std::cout << "Task 3" << std::endl;
            return rpp::schedulers::optional_duration{};
-       }, observer);
+       }, handler);
    
        std::cout << "Task 1 ends" << std::endl;
        return rpp::schedulers::optional_duration{};
-   }, observer);
+   }, handler);
    ```
  * Would lead to:
  * - "Task 1 starts"
@@ -159,8 +159,8 @@ public:
     class worker_strategy
     {
     public:
-        template<rpp::constraint::observer TObs, typename... Args, constraint::schedulable_fn<TObs, Args...> Fn>
-        static void defer_for(duration duration, Fn&& fn, TObs&& obs, Args&&... args)
+        template<rpp::schedulers::constraint::schedulable_handler Handler, typename... Args, constraint::schedulable_fn<Handler, Args...> Fn>
+        static void defer_for(duration duration, Fn&& fn, Handler&& handler, Args&&... args)
         {
             auto& queue = s_queue;
             const bool someone_owns_queue = queue.has_value();
@@ -168,15 +168,15 @@ public:
             {
                 queue.emplace();
 
-                const auto optional_duration = details::immediate_scheduling_while_condition(duration, is_queue_is_empty{queue.value()}, fn, obs, args...);
-                if (!optional_duration || obs.is_disposed())
+                const auto optional_duration = details::immediate_scheduling_while_condition(duration, is_queue_is_empty{queue.value()}, fn, handler, args...);
+                if (!optional_duration || handler.is_disposed())
                     return drain_queue(queue);
                 duration = optional_duration.value();
             }
-            else if (obs.is_disposed())
+            else if (handler.is_disposed())
                 return;
 
-            queue->emplace(get_now() + duration, std::forward<Fn>(fn), std::forward<TObs>(obs), std::forward<Args>(args)...);
+            queue->emplace(get_now() + duration, std::forward<Fn>(fn), std::forward<Handler>(handler), std::forward<Args>(args)...);
 
             if (!someone_owns_queue)
                 drain_queue(queue);

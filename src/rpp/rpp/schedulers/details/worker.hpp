@@ -12,7 +12,6 @@
 
 #include <rpp/schedulers/fwd.hpp>
 #include <rpp/disposables/disposable_wrapper.hpp>
-#include <rpp/observers/fwd.hpp>
 #include <rpp/utils/constraints.hpp>
 #include <rpp/defs.hpp>
 
@@ -30,28 +29,16 @@ public:
     worker(const worker&) = default;
     worker(worker&&) noexcept = default;
 
-    template<typename ObsType, typename ObsStrategy, typename...Args, constraint::schedulable_fn<rpp::observer<ObsType, ObsStrategy>, Args...> Fn>
-    void schedule(Fn&& fn, rpp::observer<ObsType, ObsStrategy>&& obs, Args&&...args) const
+    template<rpp::schedulers::constraint::schedulable_handler Handler, typename...Args, constraint::schedulable_fn<Handler, Args...> Fn>
+    void schedule(Fn&& fn, Handler&& handler, Args&&...args) const
     {
-        schedule(duration{}, std::forward<Fn>(fn), std::move(obs), std::forward<Args>(args)...);
+        schedule(duration{}, std::forward<Fn>(fn), std::forward<Handler>(handler), std::forward<Args>(args)...);
     }
 
-    template<typename ObsType, typename ObsStrategy, typename...Args, constraint::schedulable_fn<rpp::observer<ObsType, ObsStrategy>, Args...> Fn>
-    void schedule(const duration delay, Fn&& fn, rpp::observer<ObsType, ObsStrategy>&& obs, Args&&...args) const
+    template<rpp::schedulers::constraint::schedulable_handler Handler, typename...Args, constraint::schedulable_fn<Handler, Args...> Fn>
+    void schedule(const duration delay, Fn&& fn, Handler&& handler, Args&&...args) const
     {
-        m_strategy.defer_for(delay, std::forward<Fn>(fn), std::move(obs), std::forward<Args>(args)...);
-    }
-
-    template<typename ObsType, typename...Args, constraint::schedulable_fn<rpp::dynamic_observer<ObsType>, Args...> Fn>
-    void schedule(Fn&& fn, const rpp::dynamic_observer<ObsType>& obs, Args&&...args) const
-    {
-        schedule(duration{}, std::forward<Fn>(fn), obs, std::forward<Args>(args)...);
-    }
-
-    template<typename ObsType, typename...Args, constraint::schedulable_fn<rpp::dynamic_observer<ObsType>, Args...> Fn>
-    void schedule(const duration delay, Fn&& fn,  const rpp::dynamic_observer<ObsType>& obs, Args&&...args) const
-    {
-        m_strategy.defer_for(delay, std::forward<Fn>(fn), obs, std::forward<Args>(args)...);
+        m_strategy.defer_for(delay, std::forward<Fn>(fn), std::forward<Handler>(handler), std::forward<Args>(args)...);
     }
 
     rpp::disposable_wrapper get_disposable() const { return m_strategy.get_disposable(); }
