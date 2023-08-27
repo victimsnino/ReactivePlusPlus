@@ -10,6 +10,7 @@
 #pragma once
 
 #include <rpp/observers/fwd.hpp>
+#include <rpp/observables/fwd.hpp>
 #include <rpp/defs.hpp>
 namespace rpp
 {
@@ -32,7 +33,10 @@ public:
     template<rpp::constraint::observer Observer>
     void subscribe(Observer&& observer) const
     {
-        m_strategy.subscribe(std::forward<Observer>(observer), m_strategies);
+        if constexpr (rpp::constraint::operator_lift<TStrategy, typename observable_chain_strategy<TStrategies...>::ValueType>)
+            m_strategies.subscribe(m_strategy.template lift<typename observable_chain_strategy<TStrategies...>::ValueType>(std::forward<Observer>(observer)));
+        else
+            m_strategy.subscribe(std::forward<Observer>(observer), m_strategies);
     }
 
 private:

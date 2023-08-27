@@ -139,10 +139,10 @@ public:
     operator_observable_strategy_base(TArgs&&...args)
         : m_vals{std::forward<TArgs>(args)...} {}
 
-    template<rpp::constraint::observer Observer, typename... Strategies>
-    void subscribe(Observer&& observer, const observable_chain_strategy<Strategies...>& strategy) const
+    template<rpp::constraint::decayed_type Type, rpp::constraint::observer Observer>
+    auto lift(Observer&& observer) const
     {
-        m_vals.apply(&SubscribeStrategy::template apply<Observer, observable_chain_strategy<Strategies...>, Args...>, std::forward<Observer>(observer), strategy);
+        return m_vals.apply(&SubscribeStrategy::template apply<Type, Observer, Args...>, std::forward<Observer>(observer));
     }
 
 private:
@@ -152,11 +152,10 @@ private:
 template<template<typename...> typename Strategy>
 struct identity_subscribe_strategy
 {
-    template<rpp::constraint::observer Observer, typename ObservableStrategy, typename ...Args>
-    static void apply(Observer&& observer, const ObservableStrategy& strategy, const Args&... vals)
+    template<rpp::constraint::decayed_type Type, rpp::constraint::observer Observer, typename ...Args>
+    static auto apply(Observer&& observer,const Args&... vals)
     {
-        using Type = typename ObservableStrategy::ValueType;
-        strategy.subscribe(rpp::observer<Type, operator_strategy_base<Type, std::decay_t<Observer>, Strategy<Args...>>>{std::forward<Observer>(observer), vals...});
+        return rpp::observer<Type, operator_strategy_base<Type, std::decay_t<Observer>, Strategy<Args...>>>{std::forward<Observer>(observer), vals...};
     }
 };
 
@@ -166,11 +165,10 @@ using operator_observable_strategy = operator_observable_strategy_base<identity_
 template<template<typename, typename...> typename Strategy>
 struct template_subscribe_strategy
 {
-    template<rpp::constraint::observer Observer, typename ObservableStrategy, typename ...Args>
-    static void apply(Observer&& observer, const ObservableStrategy& strategy, const Args&... vals)
+    template<rpp::constraint::decayed_type Type, rpp::constraint::observer Observer, typename ...Args>
+    static auto apply(Observer&& observer, const Args&... vals)
     {
-        using Type = typename ObservableStrategy::ValueType;
-        strategy.subscribe(rpp::observer<Type, operator_strategy_base<Type, std::decay_t<Observer>, Strategy<Type, Args...>>>{std::forward<Observer>(observer), vals...});
+        return rpp::observer<Type, operator_strategy_base<Type, std::decay_t<Observer>, Strategy<Type, Args...>>>{std::forward<Observer>(observer), vals...};
     }
 };
 
@@ -180,11 +178,10 @@ using template_operator_observable_strategy = operator_observable_strategy_base<
 template<typename Strategy>
 struct not_template_subscribe_strategy
 {
-    template<rpp::constraint::observer Observer, typename ObservableStrategy, typename ...Args>
-    static void apply(Observer&& observer, const ObservableStrategy& strategy, const Args&... vals)
+    template<rpp::constraint::decayed_type Type, rpp::constraint::observer Observer, typename ...Args>
+    static auto apply(Observer&& observer, const Args&... vals)
     {
-        using Type = typename ObservableStrategy::ValueType;
-        strategy.subscribe(rpp::observer<Type, operator_strategy_base<Type, std::decay_t<Observer>, Strategy>>{std::forward<Observer>(observer), vals...});
+        return rpp::observer<Type, operator_strategy_base<Type, std::decay_t<Observer>, Strategy>>{std::forward<Observer>(observer), vals...};
     }
 };
 template<typename Strategy, rpp::constraint::decayed_type... Args>
