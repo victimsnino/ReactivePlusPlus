@@ -11,7 +11,7 @@ int main() // NOLINT
     //! [defer from_iterable]
     rpp::source::defer([] {
         std::cout << "Observable factory called\n";
-        return rpp::source::from_iterable(std::vector<int>{ 1,2,3 }); })
+        return rpp::source::from_iterable(std::array{ 1,2,3 }); })
         .subscribe([](int v) { std::cout << v << "\n"; }, rpp::utils::rethrow_error_t{}, []() { std::cout << "On complete\n"; });
     // Output: Observable factory called 
     //         1 
