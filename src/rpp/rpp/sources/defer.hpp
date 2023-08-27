@@ -14,10 +14,10 @@
 
 namespace rpp::details
 {
-template<constraint::decayed_type Type, typename Factory>
+template<typename Factory>
 struct defer_strategy
 {
-    using ValueType = Type;
+    using ValueType = rpp::utils::extract_observable_type_t<std::invoke_result_t<Factory>>;
 
     Factory observable_factory;
     void subscribe(auto&& obs) const { observable_factory().subscribe(std::forward<decltype(obs)>(obs)); }
@@ -27,7 +27,7 @@ struct defer_strategy
 namespace rpp
 {
 template<constraint::decayed_type Type, typename Factory>
-using defer_observable = observable<Type, details::defer_strategy<Type, Factory>>;
+using defer_observable = observable<Type, details::defer_strategy<Factory>>;
 }
 
 namespace rpp::source
@@ -37,6 +37,9 @@ namespace rpp::source
  * @brief Creates rpp::observable that calls the specified observable factory to create an observable for each new observer that subscribes.
  *
  * @tparam Factory the type of the observable factory
+ * 
+ * @par Example:
+ * @snippet defer.cpp defer from_iterable
  *
  * @ingroup creational_operators
  * @see https://reactivex.io/documentation/operators/defer.html
