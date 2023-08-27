@@ -10,6 +10,7 @@
 
 #pragma once
 
+#include <concepts>
 #include <tuple>
 #include <type_traits>
 
@@ -34,9 +35,7 @@ template<typename T>
 concept is_not_template_callable = is_not_template_callable_t<T>::value;
 
 template<typename F>
-concept is_no_argument_function = requires(F&& f) {
-    std::invoke(std::forward<F>(f));
-};
+concept is_no_argument_function = std::invocable<F>;
 
 // Lambda
 template<is_not_template_callable T>
