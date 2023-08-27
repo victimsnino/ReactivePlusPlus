@@ -168,9 +168,31 @@ struct delay_t
 
 namespace rpp::operators
 {
+/**
+ * @brief Shift the emissions from an Observable forward in time by a particular amount.
+ * @details The delay operator modifies its source Observable by pausing for a particular increment of time (that you specify) before emitting each of the source Observable’s items. This has the effect of shifting the entire sequence of items emitted by the Observable forward in time by that specified increment.
+ *
+ * @marble delay
+ {
+     source observable        : +-1-2-3-|
+     operator "delay: --"     : +---1-2-3-|
+ }
+ *
+ * @details Actually this operator just schedules emissions via provided scheduler with provided delay_duration.
+ *
+ * @param delay_duration is the delay duration for emitting items. Delay duration should be able to cast to rpp::schedulers::duration.
+ * @param scheduler provides the threading model for delay. e.g. With a new thread scheduler, the observer sees the values in a new thread after a delay duration to the subscription.
+ * @warning #include <rpp/operators/delay.hpp>
+ *
+ * @par Examples
+ * @snippet delay.cpp delay
+ *
+ * @ingroup utility_operators
+ * @see https://reactivex.io/documentation/operators/delay.html
+ */
 template<rpp::schedulers::constraint::scheduler Scheduler>
-auto delay(rpp::schedulers::duration duration, Scheduler&& scheduler)
+auto delay(rpp::schedulers::duration delay_duration, Scheduler&& scheduler)
 {
-    return details::delay_t<std::decay_t<Scheduler>>{duration, std::forward<Scheduler>(scheduler)};
+    return details::delay_t<std::decay_t<Scheduler>>{delay_duration, std::forward<Scheduler>(scheduler)};
 }
 } // namespace rpp::operators

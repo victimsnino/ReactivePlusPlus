@@ -21,7 +21,7 @@ namespace rpp::operators
 auto as_blocking();
 
 template<rpp::schedulers::constraint::scheduler Scheduler>
-auto delay(rpp::schedulers::duration duration, Scheduler&& scheduler);
+auto delay(rpp::schedulers::duration delay_duration, Scheduler&& scheduler);
 
 template<typename EqualityFn = rpp::utils::equal_to>
     requires (!utils::is_not_template_callable<EqualityFn> || std::same_as<bool, std::invoke_result_t<EqualityFn, rpp::utils::convertible_to_any, rpp::utils::convertible_to_any>>)
