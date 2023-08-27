@@ -114,7 +114,7 @@ private:
             disposable->is_active = true;
             return delay;
         }
-        return {};
+        return std::nullopt;
     }
 
     static schedulers::optional_duration drain_queue(const std::shared_ptr<delay_disposable<Observer, Worker>>& disposable)
