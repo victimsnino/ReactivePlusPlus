@@ -21,31 +21,33 @@
 #include "mock_observer.hpp"
 #include "disposable_observable.hpp"
 
-rpp::schedulers::details::schedulables_queue queue{};
-
-class manual_scheduler final
+namespace
 {
-public:
-    class worker_strategy
+    rpp::schedulers::details::schedulables_queue queue{};
+
+    class manual_scheduler final
     {
     public:
-        template<rpp::schedulers::constraint::schedulable_handler Handler, typename...Args, rpp::schedulers::constraint::schedulable_fn<Handler, Args...> Fn>
-        void defer_for(rpp::schedulers::duration duration, Fn&& fn, Handler&& handler, Args&&...args) const
+        class worker_strategy
         {
-            queue.emplace(rpp::schedulers::time_point{duration}, std::forward<Fn>(fn), std::forward<Handler>(handler), std::forward<Args>(args)...);
+        public:
+            template<rpp::schedulers::constraint::schedulable_handler Handler, typename...Args, rpp::schedulers::constraint::schedulable_fn<Handler, Args...> Fn>
+            void defer_for(rpp::schedulers::duration duration, Fn&& fn, Handler&& handler, Args&&...args) const
+            {
+                queue.emplace(rpp::schedulers::time_point{duration}, std::forward<Fn>(fn), std::forward<Handler>(handler), std::forward<Args>(args)...);
+            }
+
+            static rpp::disposable_wrapper get_disposable() {return rpp::disposable_wrapper{}; }
+
+        };
+
+        static rpp::schedulers::worker<worker_strategy> create_worker()
+        {
+            queue = rpp::schedulers::details::schedulables_queue{};
+            return rpp::schedulers::worker<worker_strategy>{};
         }
-
-        static rpp::disposable_wrapper get_disposable() {return rpp::disposable_wrapper{}; }
-
     };
-
-    static rpp::schedulers::worker<worker_strategy> create_worker()
-    {
-        queue = rpp::schedulers::details::schedulables_queue{};
-        return rpp::schedulers::worker<worker_strategy>{};
-    }
-};
-
+}
 TEST_CASE("delay delays observable's emissions")
 {
     auto mock = mock_observer_strategy<int>{};
