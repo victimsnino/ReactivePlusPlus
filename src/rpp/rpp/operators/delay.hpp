@@ -38,7 +38,7 @@ struct delay_disposable final : public rpp::composite_disposable, public std::en
 
     delay_disposable(Observer&& in_observer, Worker&& in_worker, rpp::schedulers::duration delay)
         : observer(std::move(in_observer))
-        ,  worker{std::move(in_worker)}
+        , worker{std::move(in_worker)}
         , delay{delay}
     {
         add(worker.get_disposable());
