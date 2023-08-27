@@ -23,7 +23,7 @@
 
 namespace
 {
-    rpp::schedulers::details::schedulables_queue queue{};
+    rpp::schedulers::details::schedulables_queue test_queue{};
 
     class manual_scheduler final
     {
@@ -34,7 +34,7 @@ namespace
             template<rpp::schedulers::constraint::schedulable_handler Handler, typename...Args, rpp::schedulers::constraint::schedulable_fn<Handler, Args...> Fn>
             void defer_for(rpp::schedulers::duration duration, Fn&& fn, Handler&& handler, Args&&...args) const
             {
-                queue.emplace(rpp::schedulers::time_point{duration}, std::forward<Fn>(fn), std::forward<Handler>(handler), std::forward<Args>(args)...);
+                test_queue.emplace(rpp::schedulers::time_point{duration}, std::forward<Fn>(fn), std::forward<Handler>(handler), std::forward<Args>(args)...);
             }
 
             static rpp::disposable_wrapper get_disposable() {return rpp::disposable_wrapper{}; }
@@ -43,7 +43,7 @@ namespace
 
         static rpp::schedulers::worker<worker_strategy> create_worker()
         {
-            queue = rpp::schedulers::details::schedulables_queue{};
+            test_queue = rpp::schedulers::details::schedulables_queue{};
             return rpp::schedulers::worker<worker_strategy>{};
         }
     };
@@ -188,7 +188,7 @@ TEST_CASE("delay delays observable's emissions")
 
             SECTION("no memory leak")
             {
-                queue = rpp::schedulers::details::schedulables_queue{};
+                test_queue = rpp::schedulers::details::schedulables_queue{};
                 // checked via sanitizer
             }
         }
@@ -207,9 +207,9 @@ TEST_CASE("delay delays observable's emissions")
             CHECK(mock.get_on_error_count() == 0);
         }
 
-        REQUIRE(!queue.is_empty());
-        auto top = queue.top();
-        queue.pop();
+        REQUIRE(!test_queue.is_empty());
+        auto top = test_queue.top();
+        test_queue.pop();
         (*top)();
 
         SECTION("should see -1-|")
@@ -217,7 +217,7 @@ TEST_CASE("delay delays observable's emissions")
             CHECK(mock.get_received_values() == std::vector<int>{1});
             CHECK(mock.get_on_completed_count() == 1);
             CHECK(mock.get_on_error_count() == 0);
-            CHECK(queue.is_empty());
+            CHECK(test_queue.is_empty());
         }
     }
     SECTION("observable of -1-x but with invoking schedulable after subscription")
@@ -237,9 +237,9 @@ TEST_CASE("delay delays observable's emissions")
             CHECK(mock.get_on_error_count() == 0);
         }
 
-        REQUIRE(!queue.is_empty());
-        auto top = queue.top();
-        queue.pop();
+        REQUIRE(!test_queue.is_empty());
+        auto top = test_queue.top();
+        test_queue.pop();
         (*top)();
 
         SECTION("should see -x")
@@ -247,7 +247,7 @@ TEST_CASE("delay delays observable's emissions")
             CHECK(mock.get_received_values() == std::vector<int>{});
             CHECK(mock.get_on_completed_count() == 0);
             CHECK(mock.get_on_error_count() == 1);
-            CHECK(queue.is_empty());
+            CHECK(test_queue.is_empty());
         }
     }
 }
