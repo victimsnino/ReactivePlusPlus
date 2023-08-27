@@ -34,7 +34,7 @@ int main() // NOLINT
     // Output: Observable factory called 
     //         0
     //         On complete
-    // Output: Observable factory called 
+    //         Observable factory called 
     //         0
     //         On complete
     //! [defer mutable source]
