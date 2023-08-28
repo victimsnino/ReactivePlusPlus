@@ -103,7 +103,7 @@ struct group_by_observer_strategy
 
     void on_error(const std::exception_ptr& err) const
     {
-        for (const auto& [_, subject] : key_to_subject)
+        for (const auto& [__, subject] : key_to_subject)
             subject.get_observer().on_error(err);
 
         observer.on_error(err);
@@ -111,7 +111,7 @@ struct group_by_observer_strategy
 
     void on_completed() const
     {
-        for (const auto& [_, subject] : key_to_subject)
+        for (const auto& [__, subject] : key_to_subject)
             subject.get_observer().on_completed();
 
         observer.on_completed();
