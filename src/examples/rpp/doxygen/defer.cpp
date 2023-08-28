@@ -23,7 +23,8 @@ int main() // NOLINT
     //! [defer mutable source]
     auto obs = rpp::source::defer([] {
         std::cout << "Observable factory called\n";
-        auto inner_obs = rpp::source::create<int>([state = std::make_shared<int>(0)](const auto& obs) {
+        const auto state = std::make_shared<int>(0);
+        auto inner_obs = rpp::source::create<int>([state](const auto& obs) {
             obs.on_next((*state)++);
             obs.on_completed();
         });  

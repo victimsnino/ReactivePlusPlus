@@ -55,7 +55,7 @@ struct scan_t : public operators::details::operator_observable_strategy<scan_obs
     using ResultValue = InitialValue;
 };
 
-template<rpp::constraint::observer TObserver, rpp::constraint::decayed_type Seed, rpp::constraint::decayed_type Fn>
+template< rpp::constraint::decayed_type Seed, rpp::constraint::observer TObserver, rpp::constraint::decayed_type Fn>
 struct scan_no_seed_observer_strategy
 {
     RPP_NO_UNIQUE_ADDRESS TObserver observer;
