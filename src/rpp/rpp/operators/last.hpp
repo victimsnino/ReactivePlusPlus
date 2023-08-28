@@ -19,34 +19,35 @@
 
 namespace rpp::operators::details
 {
-template<rpp::constraint::decayed_type Type>
+template<rpp::constraint::decayed_type Type, rpp::constraint::observer TObserver>
 struct last_observer_strategy
 {
     using DisposableStrategyToUseWithThis = rpp::details::none_disposable_strategy;
 
-    mutable std::optional<Type> value{};
+    RPP_NO_UNIQUE_ADDRESS TObserver observer;
+    mutable std::optional<Type>     value{};
 
     template<typename T>
-    void on_next(const rpp::constraint::observer auto&, T&& v) const
+    void on_next(T&& v) const
     {
         value.emplace(std::forward<T>(v));
     }
 
-    void on_completed(const rpp::constraint::observer auto& obs) const
+    void on_completed() const
     {
         if (value.has_value())
         {
-            obs.on_next(std::move(value).value());
-            obs.on_completed();
+            observer.on_next(std::move(value).value());
+            observer.on_completed();
         }
         else
-            obs.on_error(std::make_exception_ptr(utils::not_enough_emissions{"last() operator expects at least one emission from observable before completion"}));
+            observer.on_error(std::make_exception_ptr(utils::not_enough_emissions{"last() operator expects at least one emission from observable before completion"}));
     }
 
-    constexpr static forwarding_on_error_strategy on_error{};
-    constexpr static forwarding_set_upstream_strategy set_upstream{};
-    constexpr static forwarding_is_disposed_strategy is_disposed{};
-    constexpr static empty_on_subscribe on_subscribe{};
+    void on_error(const std::exception_ptr& err) const { observer.on_error(err); }
+
+    void set_upstream(const disposable_wrapper& d)     { observer.set_upstream(d); }
+    bool is_disposed() const                           { return observer.is_disposed(); }
 };
 
 struct last_t : public operators::details::template_operator_observable_strategy<last_observer_strategy>

@@ -18,6 +18,9 @@ namespace rpp::utils {
 
 struct none{};
 
+template<typename ...Args>
+struct types{};
+
 template<constraint::iterable T>
 using iterable_value_t = std::iter_value_t<decltype(std::begin(std::declval<T>()))>;
 
@@ -160,4 +163,6 @@ public:
 private:
     T m_value;
 };
+
+#define RPP_CALL_DURING_CONSTRUCTION(...) RPP_NO_UNIQUE_ADDRESS rpp::utils::none _ = [&](){__VA_ARGS__; return rpp::utils::none{}; }()
 } // namespace rpp::utils

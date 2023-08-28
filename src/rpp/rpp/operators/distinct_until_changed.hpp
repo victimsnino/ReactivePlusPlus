@@ -18,29 +18,30 @@
 
 namespace rpp::operators::details
 {
-template<rpp::constraint::decayed_type Type, rpp::constraint::decayed_type EqualityFn>
+template<rpp::constraint::decayed_type Type, rpp::constraint::observer TObserver, rpp::constraint::decayed_type EqualityFn>
 struct distinct_until_changed_observer_strategy
 {
     using DisposableStrategyToUseWithThis = rpp::details::none_disposable_strategy;
 
+    RPP_NO_UNIQUE_ADDRESS TObserver  observer;
     RPP_NO_UNIQUE_ADDRESS EqualityFn comparator;
     mutable std::optional<Type>      last_value{};
 
     template<typename T>
-    void on_next(const rpp::constraint::observer auto& obs, T&& v) const
+    void on_next(T&& v) const
     {
         if (last_value.has_value() && comparator(utils::as_const(last_value.value()), rpp::utils::as_const(v)))
             return;
 
         last_value.emplace(std::forward<T>(v));
-        obs.on_next(utils::as_const(last_value.value()));
+        observer.on_next(utils::as_const(last_value.value()));
     }
 
-    constexpr static forwarding_on_error_strategy on_error{};
-    constexpr static forwarding_on_completed_strategy on_completed{};
-    constexpr static forwarding_set_upstream_strategy set_upstream{};
-    constexpr static forwarding_is_disposed_strategy is_disposed{};
-    constexpr static empty_on_subscribe on_subscribe{};
+    void on_error(const std::exception_ptr& err) const { observer.on_error(err); }
+    void on_completed() const                          { observer.on_completed(); }
+
+    void set_upstream(const disposable_wrapper& d)     { observer.set_upstream(d); }
+    bool is_disposed() const                           { return observer.is_disposed(); }
 };
 
 template<rpp::constraint::decayed_type EqualityFn>

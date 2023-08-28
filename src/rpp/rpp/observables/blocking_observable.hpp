@@ -17,11 +17,11 @@
 
 namespace rpp::details::observables
 {
+template<rpp::constraint::observer TObserver>
 struct blocking_observer_strategy
 {
-    mutable std::promise<void> promise;
-
-    constexpr static operators::details::forwarding_on_next_strategy on_next{};
+    RPP_NO_UNIQUE_ADDRESS TObserver observer;
+    mutable std::promise<void>      promise;
 
     void on_error(const rpp::constraint::observer auto & obs, const std::exception_ptr& err) const
     {
@@ -35,9 +35,10 @@ struct blocking_observer_strategy
         promise.set_value();
     }
 
-    constexpr static operators::details::forwarding_set_upstream_strategy set_upstream{};
-    constexpr static operators::details::forwarding_is_disposed_strategy is_disposed{};
-    constexpr static operators::details::empty_on_subscribe on_subscribe{};
+    template<typename T>
+    void on_next(T&& v) const                          { observer.on_next(std::forward<T>(v)); }
+
+    bool is_disposed() const                           { return observer.is_disposed(); }
 };
 
 template<constraint::decayed_type Type, constraint::observable_strategy<Type> Strategy>
@@ -54,7 +55,7 @@ public:
     {
         std::promise<void> promise{};
         auto future = promise.get_future();
-        m_original.subscribe(observer<Type, rpp::operators::details::operator_strategy_base<Type, observer<Type, ObserverStrategy>, blocking_observer_strategy>>{std::move(obs), std::move(promise)});
+        m_original.subscribe(observer<Type, blocking_observer_strategy<observer<Type, ObserverStrategy>>>{std::move(obs), std::move(promise)});
         future.wait();
     }
 
