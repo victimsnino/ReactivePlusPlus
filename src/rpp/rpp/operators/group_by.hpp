@@ -72,7 +72,12 @@ struct group_by_observer_strategy
     RPP_NO_UNIQUE_ADDRESS KeyComparator comparator;
 
     mutable std::map<TKey, subjects::publish_subject<Type>, KeyComparator> key_to_subject{};
-    std::shared_ptr<refcount_disposable> disposable = init_disposable();
+    std::shared_ptr<refcount_disposable> disposable = std::make_shared<refcount_disposable>();
+
+    RPP_CALL_DURING_CONSTRUCTION(
+    {
+        observer.set_upstream(rpp::disposable_wrapper{disposable});
+    });
 
     void set_upstream(const rpp::disposable_wrapper& d) const
     {
@@ -112,14 +117,7 @@ struct group_by_observer_strategy
         observer.on_completed();
     }
 
-private:
-    std::shared_ptr<refcount_disposable> init_disposable()
-    {
-        auto res = std::make_shared<refcount_disposable>();
-        observer.set_upstream(rpp::disposable_wrapper{disposable});
-        return res;
-    }
-    
+private:    
     template<rpp::constraint::decayed_same_as<T> TT>
     const subjects::publish_subject<Type>* deduce_subject(const rpp::constraint::observer auto& obs, const TT& val) const
     {
