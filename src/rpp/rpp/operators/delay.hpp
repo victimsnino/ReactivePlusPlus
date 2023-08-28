@@ -158,14 +158,14 @@ struct delay_t
     rpp::schedulers::duration       duration;
     RPP_NO_UNIQUE_ADDRESS Scheduler scheduler;
 
-    template<rpp::constraint::observer Observer, typename... Strategies>
-    void subscribe(Observer&& observer, const observable_chain_strategy<Strategies...>& observable_strategy) const
+    template<rpp::constraint::decayed_type Type, rpp::constraint::observer Observer>
+    auto lift(Observer&& observer) const
     {
         using worker_t = decltype(scheduler.create_worker());
 
         auto disposable = std::make_shared<delay_disposable<std::decay_t<Observer>, worker_t>>(std::forward<Observer>(observer), scheduler.create_worker(), duration);
         disposable->observer.set_upstream(rpp::disposable_wrapper::from_weak(disposable));
-        observable_strategy.subscribe(rpp::observer<rpp::utils::extract_observer_type_t<Observer>, delay_observer_strategy<std::decay_t<Observer>, worker_t>>{std::move(disposable)});
+        return rpp::observer<rpp::utils::extract_observer_type_t<Observer>, delay_observer_strategy<std::decay_t<Observer>, worker_t>>{std::move(disposable)};
     }
 };
 }
