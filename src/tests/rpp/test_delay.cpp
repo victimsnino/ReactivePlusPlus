@@ -38,7 +38,7 @@ namespace
             }
 
             static rpp::disposable_wrapper get_disposable() {return rpp::disposable_wrapper{}; }
-
+            static rpp::schedulers::time_point now() { return rpp::schedulers::clock_type::now(); }
         };
 
         static rpp::schedulers::worker<worker_strategy> create_worker()
