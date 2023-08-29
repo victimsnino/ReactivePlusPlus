@@ -25,6 +25,9 @@ public:
     tuple_leaf() = default;
     tuple_leaf(const T& value) : m_value{value} {}
     tuple_leaf(T&& value) : m_value{std::move(value)} {}
+    template<typename TT>
+        requires std::constructible_from<T, TT>
+    tuple_leaf(TT&& value) : m_value{std::forward<TT>(value)} {}
 
     const T& get() const { return m_value; }
     T&       get() { return m_value; }
