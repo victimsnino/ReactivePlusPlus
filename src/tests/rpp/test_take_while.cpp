@@ -15,6 +15,8 @@
 
 #include <rpp/operators/take_while.hpp>
 #include <rpp/sources/create.hpp>
+#include <rpp/sources/error.hpp>
+#include <rpp/sources/empty.hpp>
 #include <snitch/snitch.hpp>
 
 #include <stdexcept>
@@ -23,27 +25,45 @@
 TEST_CASE("take_while")
 {
     auto mock = mock_observer_strategy<int>{};
-    auto obs  = rpp::source::create<int>(
-        [](const auto& sub)
-        {
-            int v{};
-            while (!sub.is_disposed())
-                sub.on_next(v++);
-        });
-
-    SECTION("take while val <= 5")
+    SECTION("-1-2-3-...")
     {
-        obs | rpp::operators::take_while([](int val) { return val <= 5; }) | rpp::operators::subscribe(mock.get_observer());
+        auto obs  = rpp::source::create<int>(
+            [](const auto& sub)
+            {
+                int v{};
+                while (!sub.is_disposed())
+                    sub.on_next(v++);
+            });
 
-        CHECK(mock.get_received_values() == std::vector{0, 1, 2, 3, 4, 5});
+        SECTION("take while val <= 5")
+        {
+            obs | rpp::operators::take_while([](int val) { return val <= 5; }) | rpp::operators::subscribe(mock.get_observer());
+
+            CHECK(mock.get_received_values() == std::vector{0, 1, 2, 3, 4, 5});
+        }
+
+        SECTION("take while false")
+        {
+            auto op=rpp::operators::take_while([](auto) { return false; });
+            obs | op | rpp::operators::subscribe(mock.get_observer());
+
+            CHECK(mock.get_received_values().empty());
+        }
+    }
+    SECTION("-x")
+    {
+        rpp::source::error<int>({}) | rpp::operators::take_while([](int){return false; }) | rpp::ops::subscribe(mock.get_observer());
+        CHECK(mock.get_received_values() == std::vector<int>{});
+        CHECK(mock.get_on_error_count() == 1);
+        CHECK(mock.get_on_completed_count() == 0);
     }
 
-    SECTION("take while false")
+    SECTION("-|")
     {
-        auto op=rpp::operators::take_while([](auto) { return false; });
-        obs | op | rpp::operators::subscribe(mock.get_observer());
-
-        CHECK(mock.get_received_values().empty());
+        rpp::source::empty<int>() | rpp::operators::take_while([](int){return true; }) | rpp::ops::subscribe(mock.get_observer());
+        CHECK(mock.get_received_values() == std::vector<int>{});
+        CHECK(mock.get_on_error_count() == 0);
+        CHECK(mock.get_on_completed_count() == 1);
     }
 }
 

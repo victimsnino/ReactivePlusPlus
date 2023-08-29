@@ -43,19 +43,17 @@ struct group_by_inner_observer_strategy
     RPP_NO_UNIQUE_ADDRESS TObserver    observer;
     std::weak_ptr<refcount_disposable> disposable;
 
-    void set_upstream(const rpp::constraint::observer auto&, const rpp::disposable_wrapper& d) const
-    {
-        if (const auto locked = disposable.lock())
-            locked->add(d.get_original());
-    }
-    
     template<typename T>
     void on_next(T&& v) const                          { observer.on_next(std::forward<T>(v)); }
     void on_error(const std::exception_ptr& err) const { observer.on_error(err); }
     void on_completed() const                          { observer.on_completed(); }
 
-    bool is_disposed() const                           { return observer.is_disposed(); }
-    void set_upstream(const disposable_wrapper& d)     { observer.set_upstream(d); }
+    bool is_disposed() const                             { return observer.is_disposed(); }
+    void set_upstream(const disposable_wrapper& d) const 
+    { 
+        if (const auto locked = disposable.lock()) 
+            locked->add(d.get_original()); 
+    }
 };
 
 template<rpp::constraint::decayed_type T, rpp::constraint::observer TObserver, rpp::constraint::decayed_type KeySelector, rpp::constraint::decayed_type ValueSelector, rpp::constraint::decayed_type KeyComparator>
