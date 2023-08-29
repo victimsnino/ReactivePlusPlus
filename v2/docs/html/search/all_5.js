@@ -11,14 +11,9 @@ var searchData=
   ['first_5ft_8',['first_t',['../structrpp_1_1operators_1_1details_1_1first__t.html',1,'rpp::operators::details']]],
   ['flat_5fmap_9',['flat_map',['../group__transforming__operators.html#ga633883e796101ceeab821e2a4912bd5e',1,'rpp::operators']]],
   ['flat_5fmap_5ft_10',['flat_map_t',['../structrpp_1_1operators_1_1details_1_1flat__map__t.html',1,'rpp::operators::details']]],
-  ['forwarding_5fis_5fdisposed_5fstrategy_11',['forwarding_is_disposed_strategy',['../structrpp_1_1operators_1_1details_1_1forwarding__is__disposed__strategy.html',1,'rpp::operators::details']]],
-  ['forwarding_5fon_5fcompleted_5fstrategy_12',['forwarding_on_completed_strategy',['../structrpp_1_1operators_1_1details_1_1forwarding__on__completed__strategy.html',1,'rpp::operators::details']]],
-  ['forwarding_5fon_5ferror_5fstrategy_13',['forwarding_on_error_strategy',['../structrpp_1_1operators_1_1details_1_1forwarding__on__error__strategy.html',1,'rpp::operators::details']]],
-  ['forwarding_5fon_5fnext_5fstrategy_14',['forwarding_on_next_strategy',['../structrpp_1_1operators_1_1details_1_1forwarding__on__next__strategy.html',1,'rpp::operators::details']]],
-  ['forwarding_5fset_5fupstream_5fstrategy_15',['forwarding_set_upstream_strategy',['../structrpp_1_1operators_1_1details_1_1forwarding__set__upstream__strategy.html',1,'rpp::operators::details']]],
-  ['from_5fcallable_16',['from_callable',['../group__creational__operators.html#ga519523490394660d7e8c46d2d5612f75',1,'rpp::source']]],
-  ['from_5fcallable_5finvoke_17',['from_callable_invoke',['../structrpp_1_1details_1_1from__callable__invoke.html',1,'rpp::details']]],
-  ['from_5fiterable_18',['from_iterable',['../group__creational__operators.html#gad15a7e8bfb2f7ce0af1b44e22918116c',1,'rpp::source']]],
-  ['from_5fiterable_5fschedulable_19',['from_iterable_schedulable',['../structrpp_1_1details_1_1from__iterable__schedulable.html',1,'rpp::details']]],
-  ['from_5fiterable_5fstrategy_20',['from_iterable_strategy',['../structrpp_1_1details_1_1from__iterable__strategy.html',1,'rpp::details']]]
+  ['from_5fcallable_11',['from_callable',['../group__creational__operators.html#ga519523490394660d7e8c46d2d5612f75',1,'rpp::source']]],
+  ['from_5fcallable_5finvoke_12',['from_callable_invoke',['../structrpp_1_1details_1_1from__callable__invoke.html',1,'rpp::details']]],
+  ['from_5fiterable_13',['from_iterable',['../group__creational__operators.html#gad15a7e8bfb2f7ce0af1b44e22918116c',1,'rpp::source']]],
+  ['from_5fiterable_5fschedulable_14',['from_iterable_schedulable',['../structrpp_1_1details_1_1from__iterable__schedulable.html',1,'rpp::details']]],
+  ['from_5fiterable_5fstrategy_15',['from_iterable_strategy',['../structrpp_1_1details_1_1from__iterable__strategy.html',1,'rpp::details']]]
 ];

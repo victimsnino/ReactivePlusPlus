@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ReactivePlusPlus: rpp::operators::details::group_by_observer_strategy&lt; T, KeySelector, ValueSelector, KeyComparator &gt; Struct Template Reference</title>
+<title>ReactivePlusPlus: rpp::operators::details::group_by_observer_strategy&lt; T, TObserver, KeySelector, ValueSelector, KeyComparator &gt; Struct Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -101,61 +101,64 @@ $(document).ready(function(){initNavTree('structrpp_1_1operators_1_1details_1_1g
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="structrpp_1_1operators_1_1details_1_1group__by__observer__strategy-members.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">rpp::operators::details::group_by_observer_strategy&lt; T, KeySelector, ValueSelector, KeyComparator &gt; Struct Template Reference</div></div>
+  <div class="headertitle"><div class="title">rpp::operators::details::group_by_observer_strategy&lt; T, TObserver, KeySelector, ValueSelector, KeyComparator &gt; Struct Template Reference</div></div>
 </div><!--header-->
 <div class="contents">
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:a9705d3c74b2a5dbfa31333dc445161a6" id="r_a9705d3c74b2a5dbfa31333dc445161a6"><td class="memItemLeft" align="right" valign="top"><a id="a9705d3c74b2a5dbfa31333dc445161a6" name="a9705d3c74b2a5dbfa31333dc445161a6"></a>
+<tr class="memitem:a097a567960e0e819bfc8dd572ac187f7" id="r_a097a567960e0e819bfc8dd572ac187f7"><td class="memItemLeft" align="right" valign="top"><a id="a097a567960e0e819bfc8dd572ac187f7" name="a097a567960e0e819bfc8dd572ac187f7"></a>
 using&#160;</td><td class="memItemRight" valign="bottom"><b>DisposableStrategyToUseWithThis</b> = <a class="el" href="structrpp_1_1details_1_1none__disposable__strategy.html">rpp::details::none_disposable_strategy</a></td></tr>
-<tr class="separator:a9705d3c74b2a5dbfa31333dc445161a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a66550bee646dd9ac39931595f2e88ab9" id="r_a66550bee646dd9ac39931595f2e88ab9"><td class="memItemLeft" align="right" valign="top"><a id="a66550bee646dd9ac39931595f2e88ab9" name="a66550bee646dd9ac39931595f2e88ab9"></a>
+<tr class="separator:a097a567960e0e819bfc8dd572ac187f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a34b81320816bb426561c930a7339f18f" id="r_a34b81320816bb426561c930a7339f18f"><td class="memItemLeft" align="right" valign="top"><a id="a34b81320816bb426561c930a7339f18f" name="a34b81320816bb426561c930a7339f18f"></a>
 using&#160;</td><td class="memItemRight" valign="bottom"><b>TKey</b> = rpp::utils::decayed_invoke_result_t&lt; KeySelector, T &gt;</td></tr>
-<tr class="separator:a66550bee646dd9ac39931595f2e88ab9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af425f13caa9075726152c26f667469d3" id="r_af425f13caa9075726152c26f667469d3"><td class="memItemLeft" align="right" valign="top"><a id="af425f13caa9075726152c26f667469d3" name="af425f13caa9075726152c26f667469d3"></a>
+<tr class="separator:a34b81320816bb426561c930a7339f18f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7b5849072b7db88b917a109e7aa341de" id="r_a7b5849072b7db88b917a109e7aa341de"><td class="memItemLeft" align="right" valign="top"><a id="a7b5849072b7db88b917a109e7aa341de" name="a7b5849072b7db88b917a109e7aa341de"></a>
 using&#160;</td><td class="memItemRight" valign="bottom"><b>Type</b> = rpp::utils::decayed_invoke_result_t&lt; ValueSelector, T &gt;</td></tr>
-<tr class="separator:af425f13caa9075726152c26f667469d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="separator:a7b5849072b7db88b917a109e7aa341de"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:add38465ef5762ef6752e14183d19ba58" id="r_add38465ef5762ef6752e14183d19ba58"><td class="memItemLeft" align="right" valign="top"><a id="add38465ef5762ef6752e14183d19ba58" name="add38465ef5762ef6752e14183d19ba58"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>on_subscribe</b> (<a class="el" href="conceptrpp_1_1constraint_1_1observer.html">rpp::constraint::observer</a> auto &amp;obs) const</td></tr>
-<tr class="separator:add38465ef5762ef6752e14183d19ba58"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaa66fa1b5a62cd861ccf5c1674b54ff2" id="r_aaa66fa1b5a62cd861ccf5c1674b54ff2"><td class="memItemLeft" align="right" valign="top"><a id="aaa66fa1b5a62cd861ccf5c1674b54ff2" name="aaa66fa1b5a62cd861ccf5c1674b54ff2"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>set_upstream</b> (const <a class="el" href="conceptrpp_1_1constraint_1_1observer.html">rpp::constraint::observer</a> auto &amp;, const <a class="el" href="classrpp_1_1disposable__wrapper__impl.html">rpp::disposable_wrapper</a> &amp;d) const</td></tr>
-<tr class="separator:aaa66fa1b5a62cd861ccf5c1674b54ff2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a232f823e9ebb732783ef52e1676cd7f5" id="r_a232f823e9ebb732783ef52e1676cd7f5"><td class="memItemLeft" align="right" valign="top"><a id="a232f823e9ebb732783ef52e1676cd7f5" name="a232f823e9ebb732783ef52e1676cd7f5"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>is_disposed</b> (const <a class="el" href="conceptrpp_1_1constraint_1_1observer.html">rpp::constraint::observer</a> auto &amp;) const</td></tr>
-<tr class="separator:a232f823e9ebb732783ef52e1676cd7f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3b613f520d11e49c00fc8916e16a0532" id="r_a3b613f520d11e49c00fc8916e16a0532"><td class="memTemplParams" colspan="2"><a id="a3b613f520d11e49c00fc8916e16a0532" name="a3b613f520d11e49c00fc8916e16a0532"></a>
+<tr class="memitem:a85115727ef1257dc9cb4c4766b1bbd12" id="r_a85115727ef1257dc9cb4c4766b1bbd12"><td class="memItemLeft" align="right" valign="top"><a id="a85115727ef1257dc9cb4c4766b1bbd12" name="a85115727ef1257dc9cb4c4766b1bbd12"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>RPP_CALL_DURING_CONSTRUCTION</b> ({ <a class="el" href="classrpp_1_1details_1_1observer__impl.html#ab95f4dd062581fb8432fadcee8abb95d">observer.set_upstream</a>(<a class="el" href="classrpp_1_1disposable__wrapper__impl.html">rpp::disposable_wrapper</a>{disposable});})</td></tr>
+<tr class="separator:a85115727ef1257dc9cb4c4766b1bbd12"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1bc7c1230872bb3073b90b97372f111a" id="r_a1bc7c1230872bb3073b90b97372f111a"><td class="memItemLeft" align="right" valign="top"><a id="a1bc7c1230872bb3073b90b97372f111a" name="a1bc7c1230872bb3073b90b97372f111a"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>set_upstream</b> (const <a class="el" href="classrpp_1_1disposable__wrapper__impl.html">rpp::disposable_wrapper</a> &amp;d) const</td></tr>
+<tr class="separator:a1bc7c1230872bb3073b90b97372f111a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9efb286fac86cd9674637d524e536219" id="r_a9efb286fac86cd9674637d524e536219"><td class="memItemLeft" align="right" valign="top"><a id="a9efb286fac86cd9674637d524e536219" name="a9efb286fac86cd9674637d524e536219"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>is_disposed</b> () const</td></tr>
+<tr class="separator:a9efb286fac86cd9674637d524e536219"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a02f3f6441a4d9cbb9278fc6d547fabd2" id="r_a02f3f6441a4d9cbb9278fc6d547fabd2"><td class="memTemplParams" colspan="2"><a id="a02f3f6441a4d9cbb9278fc6d547fabd2" name="a02f3f6441a4d9cbb9278fc6d547fabd2"></a>
 template&lt;rpp::constraint::decayed_same_as&lt; T &gt; TT&gt; </td></tr>
-<tr class="memitem:a3b613f520d11e49c00fc8916e16a0532"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>on_next</b> (const <a class="el" href="conceptrpp_1_1constraint_1_1observer.html">rpp::constraint::observer</a> auto &amp;obs, TT &amp;&amp;val) const</td></tr>
-<tr class="separator:a3b613f520d11e49c00fc8916e16a0532"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a568378770ad72ca0147c6ccf4d948217" id="r_a568378770ad72ca0147c6ccf4d948217"><td class="memItemLeft" align="right" valign="top"><a id="a568378770ad72ca0147c6ccf4d948217" name="a568378770ad72ca0147c6ccf4d948217"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>on_error</b> (const <a class="el" href="conceptrpp_1_1constraint_1_1observer.html">rpp::constraint::observer</a> auto &amp;obs, const std::exception_ptr &amp;err) const</td></tr>
-<tr class="separator:a568378770ad72ca0147c6ccf4d948217"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abca866eb529cf46ebc3e648d73bf7f25" id="r_abca866eb529cf46ebc3e648d73bf7f25"><td class="memItemLeft" align="right" valign="top"><a id="abca866eb529cf46ebc3e648d73bf7f25" name="abca866eb529cf46ebc3e648d73bf7f25"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>on_completed</b> (const <a class="el" href="conceptrpp_1_1constraint_1_1observer.html">rpp::constraint::observer</a> auto &amp;obs) const</td></tr>
-<tr class="separator:abca866eb529cf46ebc3e648d73bf7f25"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a02f3f6441a4d9cbb9278fc6d547fabd2"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>on_next</b> (TT &amp;&amp;val) const</td></tr>
+<tr class="separator:a02f3f6441a4d9cbb9278fc6d547fabd2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa300b8e1535222002f64f71d53cd738f" id="r_aa300b8e1535222002f64f71d53cd738f"><td class="memItemLeft" align="right" valign="top"><a id="aa300b8e1535222002f64f71d53cd738f" name="aa300b8e1535222002f64f71d53cd738f"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>on_error</b> (const std::exception_ptr &amp;err) const</td></tr>
+<tr class="separator:aa300b8e1535222002f64f71d53cd738f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a18c350d31b602bb028dc186737b24874" id="r_a18c350d31b602bb028dc186737b24874"><td class="memItemLeft" align="right" valign="top"><a id="a18c350d31b602bb028dc186737b24874" name="a18c350d31b602bb028dc186737b24874"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>on_completed</b> () const</td></tr>
+<tr class="separator:a18c350d31b602bb028dc186737b24874"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:ae6822a17268d4af20cab1c3478f8a4dd" id="r_ae6822a17268d4af20cab1c3478f8a4dd"><td class="memItemLeft" align="right" valign="top"><a id="ae6822a17268d4af20cab1c3478f8a4dd" name="ae6822a17268d4af20cab1c3478f8a4dd"></a>
+<tr class="memitem:ae3504ac90c44431e5f3c9d43996057d6" id="r_ae3504ac90c44431e5f3c9d43996057d6"><td class="memItemLeft" align="right" valign="top"><a id="ae3504ac90c44431e5f3c9d43996057d6" name="ae3504ac90c44431e5f3c9d43996057d6"></a>
+RPP_NO_UNIQUE_ADDRESS TObserver&#160;</td><td class="memItemRight" valign="bottom"><b>observer</b></td></tr>
+<tr class="separator:ae3504ac90c44431e5f3c9d43996057d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9712c4e6e954afc837cbc56e1c4bacc6" id="r_a9712c4e6e954afc837cbc56e1c4bacc6"><td class="memItemLeft" align="right" valign="top"><a id="a9712c4e6e954afc837cbc56e1c4bacc6" name="a9712c4e6e954afc837cbc56e1c4bacc6"></a>
 RPP_NO_UNIQUE_ADDRESS KeySelector&#160;</td><td class="memItemRight" valign="bottom"><b>key_selector</b></td></tr>
-<tr class="separator:ae6822a17268d4af20cab1c3478f8a4dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0e4d71e1875e3412c815d4099762b325" id="r_a0e4d71e1875e3412c815d4099762b325"><td class="memItemLeft" align="right" valign="top"><a id="a0e4d71e1875e3412c815d4099762b325" name="a0e4d71e1875e3412c815d4099762b325"></a>
+<tr class="separator:a9712c4e6e954afc837cbc56e1c4bacc6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a771a7f8893a97d9f3763bf6c9f4ac512" id="r_a771a7f8893a97d9f3763bf6c9f4ac512"><td class="memItemLeft" align="right" valign="top"><a id="a771a7f8893a97d9f3763bf6c9f4ac512" name="a771a7f8893a97d9f3763bf6c9f4ac512"></a>
 RPP_NO_UNIQUE_ADDRESS ValueSelector&#160;</td><td class="memItemRight" valign="bottom"><b>value_selector</b></td></tr>
-<tr class="separator:a0e4d71e1875e3412c815d4099762b325"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5b9db835bf39c087914b5cd8d7987c31" id="r_a5b9db835bf39c087914b5cd8d7987c31"><td class="memItemLeft" align="right" valign="top"><a id="a5b9db835bf39c087914b5cd8d7987c31" name="a5b9db835bf39c087914b5cd8d7987c31"></a>
+<tr class="separator:a771a7f8893a97d9f3763bf6c9f4ac512"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af889dc68a2a4ef95caf66d56bfdccbc4" id="r_af889dc68a2a4ef95caf66d56bfdccbc4"><td class="memItemLeft" align="right" valign="top"><a id="af889dc68a2a4ef95caf66d56bfdccbc4" name="af889dc68a2a4ef95caf66d56bfdccbc4"></a>
 RPP_NO_UNIQUE_ADDRESS KeyComparator&#160;</td><td class="memItemRight" valign="bottom"><b>comparator</b></td></tr>
-<tr class="separator:a5b9db835bf39c087914b5cd8d7987c31"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acb24883b193d8f4aa58f6f86cdf06f2f" id="r_acb24883b193d8f4aa58f6f86cdf06f2f"><td class="memItemLeft" align="right" valign="top"><a id="acb24883b193d8f4aa58f6f86cdf06f2f" name="acb24883b193d8f4aa58f6f86cdf06f2f"></a>
+<tr class="separator:af889dc68a2a4ef95caf66d56bfdccbc4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab74ba0f126cc121bcd10768d234fd78a" id="r_ab74ba0f126cc121bcd10768d234fd78a"><td class="memItemLeft" align="right" valign="top"><a id="ab74ba0f126cc121bcd10768d234fd78a" name="ab74ba0f126cc121bcd10768d234fd78a"></a>
 std::map&lt; TKey, <a class="el" href="group__subjects.html#gaf27df80724e7c0f28ecd1a72429812b0">subjects::publish_subject</a>&lt; Type &gt;, KeyComparator &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>key_to_subject</b> {}</td></tr>
-<tr class="separator:acb24883b193d8f4aa58f6f86cdf06f2f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a436b5536dcfa66e9a46d200d73bfd69f" id="r_a436b5536dcfa66e9a46d200d73bfd69f"><td class="memItemLeft" align="right" valign="top"><a id="a436b5536dcfa66e9a46d200d73bfd69f" name="a436b5536dcfa66e9a46d200d73bfd69f"></a>
+<tr class="separator:ab74ba0f126cc121bcd10768d234fd78a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a574e578d126bb2dc9eb9d52101f1c513" id="r_a574e578d126bb2dc9eb9d52101f1c513"><td class="memItemLeft" align="right" valign="top"><a id="a574e578d126bb2dc9eb9d52101f1c513" name="a574e578d126bb2dc9eb9d52101f1c513"></a>
 std::shared_ptr&lt; <a class="el" href="classrpp_1_1refcount__disposable.html">refcount_disposable</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>disposable</b> = std::make_shared&lt;<a class="el" href="classrpp_1_1refcount__disposable.html">refcount_disposable</a>&gt;()</td></tr>
-<tr class="separator:a436b5536dcfa66e9a46d200d73bfd69f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="separator:a574e578d126bb2dc9eb9d52101f1c513"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <hr/>The documentation for this struct was generated from the following file:<ul>
 <li>src/rpp/rpp/operators/<a class="el" href="group__by_8hpp_source.html">group_by.hpp</a></li>

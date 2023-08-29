@@ -1,43 +1,40 @@
-\doxysection{rpp\+::operators\+::details\+::distinct\+\_\+until\+\_\+changed\+\_\+observer\+\_\+strategy\texorpdfstring{$<$}{<} Type, Equality\+Fn \texorpdfstring{$>$}{>} Struct Template Reference}
-\hypertarget{structrpp_1_1operators_1_1details_1_1distinct__until__changed__observer__strategy}{}\label{structrpp_1_1operators_1_1details_1_1distinct__until__changed__observer__strategy}\index{rpp::operators::details::distinct\_until\_changed\_observer\_strategy$<$ Type, EqualityFn $>$@{rpp::operators::details::distinct\_until\_changed\_observer\_strategy$<$ Type, EqualityFn $>$}}
+\doxysection{rpp\+::operators\+::details\+::distinct\+\_\+until\+\_\+changed\+\_\+observer\+\_\+strategy\texorpdfstring{$<$}{<} Type, TObserver, Equality\+Fn \texorpdfstring{$>$}{>} Struct Template Reference}
+\hypertarget{structrpp_1_1operators_1_1details_1_1distinct__until__changed__observer__strategy}{}\label{structrpp_1_1operators_1_1details_1_1distinct__until__changed__observer__strategy}\index{rpp::operators::details::distinct\_until\_changed\_observer\_strategy$<$ Type, TObserver, EqualityFn $>$@{rpp::operators::details::distinct\_until\_changed\_observer\_strategy$<$ Type, TObserver, EqualityFn $>$}}
 \doxysubsubsection*{Public Types}
 \begin{DoxyCompactItemize}
 \item 
-\Hypertarget{structrpp_1_1operators_1_1details_1_1distinct__until__changed__observer__strategy_a9d13feb6db77e5f366c3ae34f659fde3}\label{structrpp_1_1operators_1_1details_1_1distinct__until__changed__observer__strategy_a9d13feb6db77e5f366c3ae34f659fde3} 
+\Hypertarget{structrpp_1_1operators_1_1details_1_1distinct__until__changed__observer__strategy_af464761d27fc7911a44e627f2e20eb02}\label{structrpp_1_1operators_1_1details_1_1distinct__until__changed__observer__strategy_af464761d27fc7911a44e627f2e20eb02} 
 using {\bfseries Disposable\+Strategy\+To\+Use\+With\+This} = \mbox{\hyperlink{structrpp_1_1details_1_1none__disposable__strategy}{rpp\+::details\+::none\+\_\+disposable\+\_\+strategy}}
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\Hypertarget{structrpp_1_1operators_1_1details_1_1distinct__until__changed__observer__strategy_ae886dba9746bcc3dd27a2c01db04356b}\label{structrpp_1_1operators_1_1details_1_1distinct__until__changed__observer__strategy_ae886dba9746bcc3dd27a2c01db04356b} 
-{\footnotesize template$<$typename T $>$ }\\void {\bfseries on\+\_\+next} (const \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer}{rpp\+::constraint\+::observer}} auto \&obs, T \&\&v) const
+\Hypertarget{structrpp_1_1operators_1_1details_1_1distinct__until__changed__observer__strategy_acc0f6f1d6f828e9c863031da7a9f09ec}\label{structrpp_1_1operators_1_1details_1_1distinct__until__changed__observer__strategy_acc0f6f1d6f828e9c863031da7a9f09ec} 
+{\footnotesize template$<$typename T $>$ }\\void {\bfseries on\+\_\+next} (T \&\&v) const
+\item 
+\Hypertarget{structrpp_1_1operators_1_1details_1_1distinct__until__changed__observer__strategy_a29483c13f28694951359757061cbd887}\label{structrpp_1_1operators_1_1details_1_1distinct__until__changed__observer__strategy_a29483c13f28694951359757061cbd887} 
+void {\bfseries on\+\_\+error} (const std\+::exception\+\_\+ptr \&err) const
+\item 
+\Hypertarget{structrpp_1_1operators_1_1details_1_1distinct__until__changed__observer__strategy_a290879aac52d7cd930c8ae19f637f40e}\label{structrpp_1_1operators_1_1details_1_1distinct__until__changed__observer__strategy_a290879aac52d7cd930c8ae19f637f40e} 
+void {\bfseries on\+\_\+completed} () const
+\item 
+\Hypertarget{structrpp_1_1operators_1_1details_1_1distinct__until__changed__observer__strategy_a47f3ffd3a1ded099b1ef4761bcdb0262}\label{structrpp_1_1operators_1_1details_1_1distinct__until__changed__observer__strategy_a47f3ffd3a1ded099b1ef4761bcdb0262} 
+void {\bfseries set\+\_\+upstream} (const \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{disposable\+\_\+wrapper}} \&d)
+\item 
+\Hypertarget{structrpp_1_1operators_1_1details_1_1distinct__until__changed__observer__strategy_ad56149adffeeee66b918490fc39cf3d1}\label{structrpp_1_1operators_1_1details_1_1distinct__until__changed__observer__strategy_ad56149adffeeee66b918490fc39cf3d1} 
+bool {\bfseries is\+\_\+disposed} () const
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
-\Hypertarget{structrpp_1_1operators_1_1details_1_1distinct__until__changed__observer__strategy_aaed173321acd9dea76c23fd22309b0fa}\label{structrpp_1_1operators_1_1details_1_1distinct__until__changed__observer__strategy_aaed173321acd9dea76c23fd22309b0fa} 
+\Hypertarget{structrpp_1_1operators_1_1details_1_1distinct__until__changed__observer__strategy_a63a9f37487f3046f3c15b58d347989cd}\label{structrpp_1_1operators_1_1details_1_1distinct__until__changed__observer__strategy_a63a9f37487f3046f3c15b58d347989cd} 
+RPP\+\_\+\+NO\+\_\+\+UNIQUE\+\_\+\+ADDRESS TObserver {\bfseries observer}
+\item 
+\Hypertarget{structrpp_1_1operators_1_1details_1_1distinct__until__changed__observer__strategy_ac40e97a345450210ff2af44a3d03616c}\label{structrpp_1_1operators_1_1details_1_1distinct__until__changed__observer__strategy_ac40e97a345450210ff2af44a3d03616c} 
 RPP\+\_\+\+NO\+\_\+\+UNIQUE\+\_\+\+ADDRESS Equality\+Fn {\bfseries comparator}
 \item 
-\Hypertarget{structrpp_1_1operators_1_1details_1_1distinct__until__changed__observer__strategy_a8b90504f8596cfca66df6bcf19f49d90}\label{structrpp_1_1operators_1_1details_1_1distinct__until__changed__observer__strategy_a8b90504f8596cfca66df6bcf19f49d90} 
+\Hypertarget{structrpp_1_1operators_1_1details_1_1distinct__until__changed__observer__strategy_a7a9ece424506c059f054094c1377a264}\label{structrpp_1_1operators_1_1details_1_1distinct__until__changed__observer__strategy_a7a9ece424506c059f054094c1377a264} 
 std\+::optional$<$ Type $>$ {\bfseries last\+\_\+value} \{\}
-\end{DoxyCompactItemize}
-\doxysubsubsection*{Static Public Attributes}
-\begin{DoxyCompactItemize}
-\item 
-\Hypertarget{structrpp_1_1operators_1_1details_1_1distinct__until__changed__observer__strategy_aa8662169661237d5e324cd1e76ae82f5}\label{structrpp_1_1operators_1_1details_1_1distinct__until__changed__observer__strategy_aa8662169661237d5e324cd1e76ae82f5} 
-static constexpr \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1forwarding__on__error__strategy}{forwarding\+\_\+on\+\_\+error\+\_\+strategy}} {\bfseries on\+\_\+error} \{\}
-\item 
-\Hypertarget{structrpp_1_1operators_1_1details_1_1distinct__until__changed__observer__strategy_a99c8e5527cc3bed117555d112ff631f9}\label{structrpp_1_1operators_1_1details_1_1distinct__until__changed__observer__strategy_a99c8e5527cc3bed117555d112ff631f9} 
-static constexpr \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1forwarding__on__completed__strategy}{forwarding\+\_\+on\+\_\+completed\+\_\+strategy}} {\bfseries on\+\_\+completed} \{\}
-\item 
-\Hypertarget{structrpp_1_1operators_1_1details_1_1distinct__until__changed__observer__strategy_a5654d97e667cc61ee5e02e12b563af55}\label{structrpp_1_1operators_1_1details_1_1distinct__until__changed__observer__strategy_a5654d97e667cc61ee5e02e12b563af55} 
-static constexpr \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1forwarding__set__upstream__strategy}{forwarding\+\_\+set\+\_\+upstream\+\_\+strategy}} {\bfseries set\+\_\+upstream} \{\}
-\item 
-\Hypertarget{structrpp_1_1operators_1_1details_1_1distinct__until__changed__observer__strategy_a17549ab07aefdd5f2daa2081bd53e6f0}\label{structrpp_1_1operators_1_1details_1_1distinct__until__changed__observer__strategy_a17549ab07aefdd5f2daa2081bd53e6f0} 
-static constexpr \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1forwarding__is__disposed__strategy}{forwarding\+\_\+is\+\_\+disposed\+\_\+strategy}} {\bfseries is\+\_\+disposed} \{\}
-\item 
-\Hypertarget{structrpp_1_1operators_1_1details_1_1distinct__until__changed__observer__strategy_a49a7494c472f006550ee0e77af1a22fd}\label{structrpp_1_1operators_1_1details_1_1distinct__until__changed__observer__strategy_a49a7494c472f006550ee0e77af1a22fd} 
-static constexpr \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1empty__on__subscribe}{empty\+\_\+on\+\_\+subscribe}} {\bfseries on\+\_\+subscribe} \{\}
 \end{DoxyCompactItemize}
 
 

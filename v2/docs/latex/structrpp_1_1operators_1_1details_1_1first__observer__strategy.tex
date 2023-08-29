@@ -1,34 +1,34 @@
-\doxysection{rpp\+::operators\+::details\+::first\+\_\+observer\+\_\+strategy Struct Reference}
-\hypertarget{structrpp_1_1operators_1_1details_1_1first__observer__strategy}{}\label{structrpp_1_1operators_1_1details_1_1first__observer__strategy}\index{rpp::operators::details::first\_observer\_strategy@{rpp::operators::details::first\_observer\_strategy}}
+\doxysection{rpp\+::operators\+::details\+::first\+\_\+observer\+\_\+strategy\texorpdfstring{$<$}{<} TObserver \texorpdfstring{$>$}{>} Struct Template Reference}
+\hypertarget{structrpp_1_1operators_1_1details_1_1first__observer__strategy}{}\label{structrpp_1_1operators_1_1details_1_1first__observer__strategy}\index{rpp::operators::details::first\_observer\_strategy$<$ TObserver $>$@{rpp::operators::details::first\_observer\_strategy$<$ TObserver $>$}}
 \doxysubsubsection*{Public Types}
 \begin{DoxyCompactItemize}
 \item 
-\Hypertarget{structrpp_1_1operators_1_1details_1_1first__observer__strategy_a520c6f2c2e32a93b012636444b0f593b}\label{structrpp_1_1operators_1_1details_1_1first__observer__strategy_a520c6f2c2e32a93b012636444b0f593b} 
+\Hypertarget{structrpp_1_1operators_1_1details_1_1first__observer__strategy_aa0ea45e5b2999b392ee309db9884b3f5}\label{structrpp_1_1operators_1_1details_1_1first__observer__strategy_aa0ea45e5b2999b392ee309db9884b3f5} 
 using {\bfseries Disposable\+Strategy\+To\+Use\+With\+This} = \mbox{\hyperlink{structrpp_1_1details_1_1none__disposable__strategy}{rpp\+::details\+::none\+\_\+disposable\+\_\+strategy}}
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\Hypertarget{structrpp_1_1operators_1_1details_1_1first__observer__strategy_a8911a1b780319ca45f00c9280cf59e8f}\label{structrpp_1_1operators_1_1details_1_1first__observer__strategy_a8911a1b780319ca45f00c9280cf59e8f} 
-{\footnotesize template$<$typename T $>$ }\\void {\bfseries on\+\_\+next} (const \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer}{rpp\+::constraint\+::observer}} auto \&obs, T \&\&v) const
+\Hypertarget{structrpp_1_1operators_1_1details_1_1first__observer__strategy_aa381a732cbaf2ee6f15fcbd743908257}\label{structrpp_1_1operators_1_1details_1_1first__observer__strategy_aa381a732cbaf2ee6f15fcbd743908257} 
+{\footnotesize template$<$typename T $>$ }\\void {\bfseries on\+\_\+next} (T \&\&v) const
 \item 
-\Hypertarget{structrpp_1_1operators_1_1details_1_1first__observer__strategy_a091fe3cd018840d816fc9334b39bec39}\label{structrpp_1_1operators_1_1details_1_1first__observer__strategy_a091fe3cd018840d816fc9334b39bec39} 
-void {\bfseries on\+\_\+completed} (const \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer}{rpp\+::constraint\+::observer}} auto \&obs) const
+\Hypertarget{structrpp_1_1operators_1_1details_1_1first__observer__strategy_a2f3014a0e616e2a26b78f7c0483b170e}\label{structrpp_1_1operators_1_1details_1_1first__observer__strategy_a2f3014a0e616e2a26b78f7c0483b170e} 
+void {\bfseries on\+\_\+completed} () const
+\item 
+\Hypertarget{structrpp_1_1operators_1_1details_1_1first__observer__strategy_a6e5bf2bc6352cb3d231b891196c85e21}\label{structrpp_1_1operators_1_1details_1_1first__observer__strategy_a6e5bf2bc6352cb3d231b891196c85e21} 
+void {\bfseries on\+\_\+error} (const std\+::exception\+\_\+ptr \&err) const
+\item 
+\Hypertarget{structrpp_1_1operators_1_1details_1_1first__observer__strategy_aca0bcd117d8843477f469ff546a10b11}\label{structrpp_1_1operators_1_1details_1_1first__observer__strategy_aca0bcd117d8843477f469ff546a10b11} 
+void {\bfseries set\+\_\+upstream} (const \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{disposable\+\_\+wrapper}} \&d)
+\item 
+\Hypertarget{structrpp_1_1operators_1_1details_1_1first__observer__strategy_a3336f964da7a8c7fc3969fa13378fb83}\label{structrpp_1_1operators_1_1details_1_1first__observer__strategy_a3336f964da7a8c7fc3969fa13378fb83} 
+bool {\bfseries is\+\_\+disposed} () const
 \end{DoxyCompactItemize}
-\doxysubsubsection*{Static Public Attributes}
+\doxysubsubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
-\Hypertarget{structrpp_1_1operators_1_1details_1_1first__observer__strategy_ac60c58bf101e05d91c7520442afd6401}\label{structrpp_1_1operators_1_1details_1_1first__observer__strategy_ac60c58bf101e05d91c7520442afd6401} 
-static constexpr \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1forwarding__on__error__strategy}{forwarding\+\_\+on\+\_\+error\+\_\+strategy}} {\bfseries on\+\_\+error} \{\}
-\item 
-\Hypertarget{structrpp_1_1operators_1_1details_1_1first__observer__strategy_aa3cb3ccab6cea40a06404843ea1db6c2}\label{structrpp_1_1operators_1_1details_1_1first__observer__strategy_aa3cb3ccab6cea40a06404843ea1db6c2} 
-static constexpr \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1forwarding__set__upstream__strategy}{forwarding\+\_\+set\+\_\+upstream\+\_\+strategy}} {\bfseries set\+\_\+upstream} \{\}
-\item 
-\Hypertarget{structrpp_1_1operators_1_1details_1_1first__observer__strategy_ae8fed9b631fb49289a37eebbbc1fe134}\label{structrpp_1_1operators_1_1details_1_1first__observer__strategy_ae8fed9b631fb49289a37eebbbc1fe134} 
-static constexpr \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1forwarding__is__disposed__strategy}{forwarding\+\_\+is\+\_\+disposed\+\_\+strategy}} {\bfseries is\+\_\+disposed} \{\}
-\item 
-\Hypertarget{structrpp_1_1operators_1_1details_1_1first__observer__strategy_a392aaa66a9d81e1f2614dbddb7e39526}\label{structrpp_1_1operators_1_1details_1_1first__observer__strategy_a392aaa66a9d81e1f2614dbddb7e39526} 
-static constexpr \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1empty__on__subscribe}{empty\+\_\+on\+\_\+subscribe}} {\bfseries on\+\_\+subscribe} \{\}
+\Hypertarget{structrpp_1_1operators_1_1details_1_1first__observer__strategy_abfd77fbaef94c8a2b411faeec7cd80cd}\label{structrpp_1_1operators_1_1details_1_1first__observer__strategy_abfd77fbaef94c8a2b411faeec7cd80cd} 
+RPP\+\_\+\+NO\+\_\+\+UNIQUE\+\_\+\+ADDRESS TObserver {\bfseries observer}
 \end{DoxyCompactItemize}
 
 

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ReactivePlusPlus: rpp::operators::details::scan_no_seed_observer_strategy&lt; Seed, Fn &gt; Struct Template Reference</title>
+<title>ReactivePlusPlus: rpp::operators::details::scan_no_seed_observer_strategy&lt; Seed, TObserver, Fn &gt; Struct Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -99,45 +99,41 @@ $(document).ready(function(){initNavTree('structrpp_1_1operators_1_1details_1_1s
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
-<a href="#pub-static-attribs">Static Public Attributes</a> &#124;
 <a href="structrpp_1_1operators_1_1details_1_1scan__no__seed__observer__strategy-members.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">rpp::operators::details::scan_no_seed_observer_strategy&lt; Seed, Fn &gt; Struct Template Reference</div></div>
+  <div class="headertitle"><div class="title">rpp::operators::details::scan_no_seed_observer_strategy&lt; Seed, TObserver, Fn &gt; Struct Template Reference</div></div>
 </div><!--header-->
 <div class="contents">
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a113eab60f9b5791f8a92d44dfed64a6f" id="r_a113eab60f9b5791f8a92d44dfed64a6f"><td class="memTemplParams" colspan="2"><a id="a113eab60f9b5791f8a92d44dfed64a6f" name="a113eab60f9b5791f8a92d44dfed64a6f"></a>
+<tr class="memitem:afcdd0e5068a60f9493d8ba2a3a0aeade" id="r_afcdd0e5068a60f9493d8ba2a3a0aeade"><td class="memTemplParams" colspan="2"><a id="afcdd0e5068a60f9493d8ba2a3a0aeade" name="afcdd0e5068a60f9493d8ba2a3a0aeade"></a>
 template&lt;rpp::constraint::decayed_same_as&lt; Seed &gt; T&gt; </td></tr>
-<tr class="memitem:a113eab60f9b5791f8a92d44dfed64a6f"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>on_next</b> (const <a class="el" href="conceptrpp_1_1constraint_1_1observer.html">rpp::constraint::observer</a> auto &amp;obs, T &amp;&amp;v) const</td></tr>
-<tr class="separator:a113eab60f9b5791f8a92d44dfed64a6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afcdd0e5068a60f9493d8ba2a3a0aeade"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>on_next</b> (T &amp;&amp;v) const</td></tr>
+<tr class="separator:afcdd0e5068a60f9493d8ba2a3a0aeade"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af566810841675c8a43363d6d27423fa0" id="r_af566810841675c8a43363d6d27423fa0"><td class="memItemLeft" align="right" valign="top"><a id="af566810841675c8a43363d6d27423fa0" name="af566810841675c8a43363d6d27423fa0"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>on_error</b> (const std::exception_ptr &amp;err) const</td></tr>
+<tr class="separator:af566810841675c8a43363d6d27423fa0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af1329959cf9e40a95f452a7fef192af6" id="r_af1329959cf9e40a95f452a7fef192af6"><td class="memItemLeft" align="right" valign="top"><a id="af1329959cf9e40a95f452a7fef192af6" name="af1329959cf9e40a95f452a7fef192af6"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>on_completed</b> () const</td></tr>
+<tr class="separator:af1329959cf9e40a95f452a7fef192af6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ace1d6da7877c6842b5f5e5701182daf2" id="r_ace1d6da7877c6842b5f5e5701182daf2"><td class="memItemLeft" align="right" valign="top"><a id="ace1d6da7877c6842b5f5e5701182daf2" name="ace1d6da7877c6842b5f5e5701182daf2"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>set_upstream</b> (const <a class="el" href="classrpp_1_1disposable__wrapper__impl.html">disposable_wrapper</a> &amp;d)</td></tr>
+<tr class="separator:ace1d6da7877c6842b5f5e5701182daf2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a73492decb37e3f75a6f8983054d67c31" id="r_a73492decb37e3f75a6f8983054d67c31"><td class="memItemLeft" align="right" valign="top"><a id="a73492decb37e3f75a6f8983054d67c31" name="a73492decb37e3f75a6f8983054d67c31"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>is_disposed</b> () const</td></tr>
+<tr class="separator:a73492decb37e3f75a6f8983054d67c31"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a11d15f364b35e597451a1ea4dd4914e6" id="r_a11d15f364b35e597451a1ea4dd4914e6"><td class="memItemLeft" align="right" valign="top"><a id="a11d15f364b35e597451a1ea4dd4914e6" name="a11d15f364b35e597451a1ea4dd4914e6"></a>
+<tr class="memitem:ab09f4b209a5f72ed5ff816bb0d452739" id="r_ab09f4b209a5f72ed5ff816bb0d452739"><td class="memItemLeft" align="right" valign="top"><a id="ab09f4b209a5f72ed5ff816bb0d452739" name="ab09f4b209a5f72ed5ff816bb0d452739"></a>
+RPP_NO_UNIQUE_ADDRESS TObserver&#160;</td><td class="memItemRight" valign="bottom"><b>observer</b></td></tr>
+<tr class="separator:ab09f4b209a5f72ed5ff816bb0d452739"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a67bb3b59dbb8739a178b9010d639cd79" id="r_a67bb3b59dbb8739a178b9010d639cd79"><td class="memItemLeft" align="right" valign="top"><a id="a67bb3b59dbb8739a178b9010d639cd79" name="a67bb3b59dbb8739a178b9010d639cd79"></a>
 RPP_NO_UNIQUE_ADDRESS Fn&#160;</td><td class="memItemRight" valign="bottom"><b>fn</b></td></tr>
-<tr class="separator:a11d15f364b35e597451a1ea4dd4914e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1af762cbabc8a9e91005dea21b2ee57b" id="r_a1af762cbabc8a9e91005dea21b2ee57b"><td class="memItemLeft" align="right" valign="top"><a id="a1af762cbabc8a9e91005dea21b2ee57b" name="a1af762cbabc8a9e91005dea21b2ee57b"></a>
+<tr class="separator:a67bb3b59dbb8739a178b9010d639cd79"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a208d1f5efcf3078eeaae4537df817430" id="r_a208d1f5efcf3078eeaae4537df817430"><td class="memItemLeft" align="right" valign="top"><a id="a208d1f5efcf3078eeaae4537df817430" name="a208d1f5efcf3078eeaae4537df817430"></a>
 std::optional&lt; Seed &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>seed</b> {}</td></tr>
-<tr class="separator:a1af762cbabc8a9e91005dea21b2ee57b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
-Static Public Attributes</h2></td></tr>
-<tr class="memitem:af4b232720fc9b2c63c24bf59abbebb96" id="r_af4b232720fc9b2c63c24bf59abbebb96"><td class="memItemLeft" align="right" valign="top"><a id="af4b232720fc9b2c63c24bf59abbebb96" name="af4b232720fc9b2c63c24bf59abbebb96"></a>
-static constexpr <a class="el" href="structrpp_1_1operators_1_1details_1_1forwarding__on__error__strategy.html">forwarding_on_error_strategy</a>&#160;</td><td class="memItemRight" valign="bottom"><b>on_error</b> {}</td></tr>
-<tr class="separator:af4b232720fc9b2c63c24bf59abbebb96"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a23bbccc2093a4795c84e087a09c88176" id="r_a23bbccc2093a4795c84e087a09c88176"><td class="memItemLeft" align="right" valign="top"><a id="a23bbccc2093a4795c84e087a09c88176" name="a23bbccc2093a4795c84e087a09c88176"></a>
-static constexpr <a class="el" href="structrpp_1_1operators_1_1details_1_1forwarding__on__completed__strategy.html">forwarding_on_completed_strategy</a>&#160;</td><td class="memItemRight" valign="bottom"><b>on_completed</b> {}</td></tr>
-<tr class="separator:a23bbccc2093a4795c84e087a09c88176"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2665eb89363a6bd2d801d5f48ca5300c" id="r_a2665eb89363a6bd2d801d5f48ca5300c"><td class="memItemLeft" align="right" valign="top"><a id="a2665eb89363a6bd2d801d5f48ca5300c" name="a2665eb89363a6bd2d801d5f48ca5300c"></a>
-static constexpr <a class="el" href="structrpp_1_1operators_1_1details_1_1forwarding__set__upstream__strategy.html">forwarding_set_upstream_strategy</a>&#160;</td><td class="memItemRight" valign="bottom"><b>set_upstream</b> {}</td></tr>
-<tr class="separator:a2665eb89363a6bd2d801d5f48ca5300c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a48e85f4379893eb5e2fc746ff3bb73e2" id="r_a48e85f4379893eb5e2fc746ff3bb73e2"><td class="memItemLeft" align="right" valign="top"><a id="a48e85f4379893eb5e2fc746ff3bb73e2" name="a48e85f4379893eb5e2fc746ff3bb73e2"></a>
-static constexpr <a class="el" href="structrpp_1_1operators_1_1details_1_1forwarding__is__disposed__strategy.html">forwarding_is_disposed_strategy</a>&#160;</td><td class="memItemRight" valign="bottom"><b>is_disposed</b> {}</td></tr>
-<tr class="separator:a48e85f4379893eb5e2fc746ff3bb73e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7728a5f996b4b6aca3fa7a3a5ce74702" id="r_a7728a5f996b4b6aca3fa7a3a5ce74702"><td class="memItemLeft" align="right" valign="top"><a id="a7728a5f996b4b6aca3fa7a3a5ce74702" name="a7728a5f996b4b6aca3fa7a3a5ce74702"></a>
-static constexpr <a class="el" href="structrpp_1_1operators_1_1details_1_1empty__on__subscribe.html">empty_on_subscribe</a>&#160;</td><td class="memItemRight" valign="bottom"><b>on_subscribe</b> {}</td></tr>
-<tr class="separator:a7728a5f996b4b6aca3fa7a3a5ce74702"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="separator:a208d1f5efcf3078eeaae4537df817430"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <hr/>The documentation for this struct was generated from the following file:<ul>
 <li>src/rpp/rpp/operators/<a class="el" href="scan_8hpp_source.html">scan.hpp</a></li>

@@ -1,40 +1,37 @@
-\doxysection{rpp\+::operators\+::details\+::take\+\_\+while\+\_\+observer\+\_\+strategy\texorpdfstring{$<$}{<} Fn \texorpdfstring{$>$}{>} Struct Template Reference}
-\hypertarget{structrpp_1_1operators_1_1details_1_1take__while__observer__strategy}{}\label{structrpp_1_1operators_1_1details_1_1take__while__observer__strategy}\index{rpp::operators::details::take\_while\_observer\_strategy$<$ Fn $>$@{rpp::operators::details::take\_while\_observer\_strategy$<$ Fn $>$}}
+\doxysection{rpp\+::operators\+::details\+::take\+\_\+while\+\_\+observer\+\_\+strategy\texorpdfstring{$<$}{<} TObserver, Fn \texorpdfstring{$>$}{>} Struct Template Reference}
+\hypertarget{structrpp_1_1operators_1_1details_1_1take__while__observer__strategy}{}\label{structrpp_1_1operators_1_1details_1_1take__while__observer__strategy}\index{rpp::operators::details::take\_while\_observer\_strategy$<$ TObserver, Fn $>$@{rpp::operators::details::take\_while\_observer\_strategy$<$ TObserver, Fn $>$}}
 \doxysubsubsection*{Public Types}
 \begin{DoxyCompactItemize}
 \item 
-\Hypertarget{structrpp_1_1operators_1_1details_1_1take__while__observer__strategy_a3edaa6e4b87a77ff645d5387e4be8732}\label{structrpp_1_1operators_1_1details_1_1take__while__observer__strategy_a3edaa6e4b87a77ff645d5387e4be8732} 
+\Hypertarget{structrpp_1_1operators_1_1details_1_1take__while__observer__strategy_a36117d4b551839b9712a8660ac32e205}\label{structrpp_1_1operators_1_1details_1_1take__while__observer__strategy_a36117d4b551839b9712a8660ac32e205} 
 using {\bfseries Disposable\+Strategy\+To\+Use\+With\+This} = \mbox{\hyperlink{structrpp_1_1details_1_1none__disposable__strategy}{rpp\+::details\+::none\+\_\+disposable\+\_\+strategy}}
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\Hypertarget{structrpp_1_1operators_1_1details_1_1take__while__observer__strategy_af08469ebdbf998ac2029a0d49215f819}\label{structrpp_1_1operators_1_1details_1_1take__while__observer__strategy_af08469ebdbf998ac2029a0d49215f819} 
-{\footnotesize template$<$typename T $>$ }\\void {\bfseries on\+\_\+next} (const \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer}{rpp\+::constraint\+::observer}} auto \&obs, T \&\&v) const
+\Hypertarget{structrpp_1_1operators_1_1details_1_1take__while__observer__strategy_affb044005391c858a75148b19d47e74e}\label{structrpp_1_1operators_1_1details_1_1take__while__observer__strategy_affb044005391c858a75148b19d47e74e} 
+{\footnotesize template$<$typename T $>$ }\\void {\bfseries on\+\_\+next} (T \&\&v) const
+\item 
+\Hypertarget{structrpp_1_1operators_1_1details_1_1take__while__observer__strategy_a67bf9b183275215972275024ed05d57b}\label{structrpp_1_1operators_1_1details_1_1take__while__observer__strategy_a67bf9b183275215972275024ed05d57b} 
+void {\bfseries on\+\_\+error} (const std\+::exception\+\_\+ptr \&err) const
+\item 
+\Hypertarget{structrpp_1_1operators_1_1details_1_1take__while__observer__strategy_afe265aa077ac13be0904926eeaf9d5c3}\label{structrpp_1_1operators_1_1details_1_1take__while__observer__strategy_afe265aa077ac13be0904926eeaf9d5c3} 
+void {\bfseries on\+\_\+completed} () const
+\item 
+\Hypertarget{structrpp_1_1operators_1_1details_1_1take__while__observer__strategy_a274c88780f686cffc91191c7230d858e}\label{structrpp_1_1operators_1_1details_1_1take__while__observer__strategy_a274c88780f686cffc91191c7230d858e} 
+void {\bfseries set\+\_\+upstream} (const \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{disposable\+\_\+wrapper}} \&d)
+\item 
+\Hypertarget{structrpp_1_1operators_1_1details_1_1take__while__observer__strategy_a89031ec68634f17a9dba743fd502886d}\label{structrpp_1_1operators_1_1details_1_1take__while__observer__strategy_a89031ec68634f17a9dba743fd502886d} 
+bool {\bfseries is\+\_\+disposed} () const
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
-\Hypertarget{structrpp_1_1operators_1_1details_1_1take__while__observer__strategy_a260a40025cd67dda1c7942489ff3df3a}\label{structrpp_1_1operators_1_1details_1_1take__while__observer__strategy_a260a40025cd67dda1c7942489ff3df3a} 
+\Hypertarget{structrpp_1_1operators_1_1details_1_1take__while__observer__strategy_a76c7c5a7b256194e0f994f80255e25b0}\label{structrpp_1_1operators_1_1details_1_1take__while__observer__strategy_a76c7c5a7b256194e0f994f80255e25b0} 
+RPP\+\_\+\+NO\+\_\+\+UNIQUE\+\_\+\+ADDRESS TObserver {\bfseries observer}
+\item 
+\Hypertarget{structrpp_1_1operators_1_1details_1_1take__while__observer__strategy_a54501c1aa3c50601cce17706a0d12ed7}\label{structrpp_1_1operators_1_1details_1_1take__while__observer__strategy_a54501c1aa3c50601cce17706a0d12ed7} 
 RPP\+\_\+\+NO\+\_\+\+UNIQUE\+\_\+\+ADDRESS Fn {\bfseries fn}
-\end{DoxyCompactItemize}
-\doxysubsubsection*{Static Public Attributes}
-\begin{DoxyCompactItemize}
-\item 
-\Hypertarget{structrpp_1_1operators_1_1details_1_1take__while__observer__strategy_af970c0e5ea016404e77e39172bc2b821}\label{structrpp_1_1operators_1_1details_1_1take__while__observer__strategy_af970c0e5ea016404e77e39172bc2b821} 
-static constexpr \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1forwarding__on__error__strategy}{forwarding\+\_\+on\+\_\+error\+\_\+strategy}} {\bfseries on\+\_\+error} \{\}
-\item 
-\Hypertarget{structrpp_1_1operators_1_1details_1_1take__while__observer__strategy_af35e7f2f566dc8c5daed1d230b34f9bf}\label{structrpp_1_1operators_1_1details_1_1take__while__observer__strategy_af35e7f2f566dc8c5daed1d230b34f9bf} 
-static constexpr \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1forwarding__on__completed__strategy}{forwarding\+\_\+on\+\_\+completed\+\_\+strategy}} {\bfseries on\+\_\+completed} \{\}
-\item 
-\Hypertarget{structrpp_1_1operators_1_1details_1_1take__while__observer__strategy_a28a9bd6cc807763bdecb766ecbf6000c}\label{structrpp_1_1operators_1_1details_1_1take__while__observer__strategy_a28a9bd6cc807763bdecb766ecbf6000c} 
-static constexpr \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1forwarding__set__upstream__strategy}{forwarding\+\_\+set\+\_\+upstream\+\_\+strategy}} {\bfseries set\+\_\+upstream} \{\}
-\item 
-\Hypertarget{structrpp_1_1operators_1_1details_1_1take__while__observer__strategy_ad039da6ea65c5f0ccbcc50169ac1742f}\label{structrpp_1_1operators_1_1details_1_1take__while__observer__strategy_ad039da6ea65c5f0ccbcc50169ac1742f} 
-static constexpr \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1forwarding__is__disposed__strategy}{forwarding\+\_\+is\+\_\+disposed\+\_\+strategy}} {\bfseries is\+\_\+disposed} \{\}
-\item 
-\Hypertarget{structrpp_1_1operators_1_1details_1_1take__while__observer__strategy_abad2db024a27b16c06f0800ab731a135}\label{structrpp_1_1operators_1_1details_1_1take__while__observer__strategy_abad2db024a27b16c06f0800ab731a135} 
-static constexpr \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1empty__on__subscribe}{empty\+\_\+on\+\_\+subscribe}} {\bfseries on\+\_\+subscribe} \{\}
 \end{DoxyCompactItemize}
 
 

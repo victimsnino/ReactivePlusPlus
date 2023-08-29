@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ReactivePlusPlus: rpp::operators::details::forwarding_set_upstream_strategy Struct Reference</title>
+<title>ReactivePlusPlus: rpp::constraint::operator_lift Concept Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -70,7 +70,7 @@ var searchBox = new SearchBox("searchBox", "search/",'.html');
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(document).ready(function(){initNavTree('structrpp_1_1operators_1_1details_1_1forwarding__set__upstream__strategy.html',''); initResizable(); });
+$(document).ready(function(){initNavTree('conceptrpp_1_1constraint_1_1operator__lift.html',''); initResizable(); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -96,29 +96,25 @@ $(document).ready(function(){initNavTree('structrpp_1_1operators_1_1details_1_1f
 </div>
 
 <div class="header">
-  <div class="summary">
-<a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="structrpp_1_1operators_1_1details_1_1forwarding__set__upstream__strategy-members.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">rpp::operators::details::forwarding_set_upstream_strategy Struct Reference</div></div>
+  <div class="headertitle"><div class="title">rpp::constraint::operator_lift Concept Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr class="memitem:a25c8c044ba747c4c8f442b1be033e059" id="r_a25c8c044ba747c4c8f442b1be033e059"><td class="memTemplParams" colspan="2"><a id="a25c8c044ba747c4c8f442b1be033e059" name="a25c8c044ba747c4c8f442b1be033e059"></a>
-template&lt;rpp::constraint::decayed_type T, <a class="el" href="conceptrpp_1_1constraint_1_1observer__strategy.html">rpp::constraint::observer_strategy</a>&lt; T &gt; ObserverStrategy&gt; </td></tr>
-<tr class="memitem:a25c8c044ba747c4c8f442b1be033e059"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>operator()</b> (<a class="el" href="classrpp_1_1observer.html">rpp::observer</a>&lt; T, ObserverStrategy &gt; &amp;<a class="el" href="classrpp_1_1observer.html">observer</a>, const <a class="el" href="classrpp_1_1disposable__wrapper__impl.html">rpp::disposable_wrapper</a> &amp;d) const</td></tr>
-<tr class="separator:a25c8c044ba747c4c8f442b1be033e059"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table>
-<hr/>The documentation for this struct was generated from the following file:<ul>
-<li>src/rpp/rpp/operators/details/<a class="el" href="strategy_8hpp_source.html">strategy.hpp</a></li>
-</ul>
-</div><!-- contents -->
+<h2 class="groupheader">Concept definition</h2>
+<div class="fragment"><div class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> Op, <span class="keyword">typename</span> Type&gt;</div>
+<div class="line"><span class="keyword">concept </span><a class="code hl_concept" href="conceptrpp_1_1constraint_1_1operator__lift.html">rpp::constraint::operator_lift</a> =  <span class="keyword">requires</span>(<span class="keyword">const</span> Op&amp; op, dynamic_observer&lt;typename std::decay_t&lt;Op&gt;::template ResultValue&lt;Type&gt;&gt;&amp;&amp; <a class="code hl_concept" href="conceptrpp_1_1constraint_1_1observer.html">observer</a>)</div>
+<div class="line">{</div>
+<div class="line">    <span class="keyword">typename</span> std::decay_t&lt;Op&gt;::template ResultValue&lt;Type&gt;;</div>
+<div class="line">    {op.template lift&lt;Type&gt;(std::move(<a class="code hl_concept" href="conceptrpp_1_1constraint_1_1observer.html">observer</a>))} -&gt; <a class="code hl_concept" href="conceptrpp_1_1constraint_1_1observer__of__type.html">rpp::constraint::observer_of_type&lt;Type&gt;</a>;</div>
+<div class="line">}</div>
+<div class="ttc" id="aconceptrpp_1_1constraint_1_1observer__of__type_html"><div class="ttname"><a href="conceptrpp_1_1constraint_1_1observer__of__type.html">rpp::constraint::observer_of_type</a></div><div class="ttdef"><b>Definition</b> fwd.hpp:235</div></div>
+<div class="ttc" id="aconceptrpp_1_1constraint_1_1observer_html"><div class="ttname"><a href="conceptrpp_1_1constraint_1_1observer.html">rpp::constraint::observer</a></div><div class="ttdef"><b>Definition</b> fwd.hpp:232</div></div>
+<div class="ttc" id="aconceptrpp_1_1constraint_1_1operator__lift_html"><div class="ttname"><a href="conceptrpp_1_1constraint_1_1operator__lift.html">rpp::constraint::operator_lift</a></div><div class="ttdef"><b>Definition</b> fwd.hpp:131</div></div>
+</div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>rpp</b></li><li class="navelem"><b>operators</b></li><li class="navelem"><b>details</b></li><li class="navelem"><a class="el" href="structrpp_1_1operators_1_1details_1_1forwarding__set__upstream__strategy.html">forwarding_set_upstream_strategy</a></li>
+    <li class="navelem"><b>rpp</b></li><li class="navelem"><b>constraint</b></li><li class="navelem"><a class="el" href="conceptrpp_1_1constraint_1_1operator__lift.html">operator_lift</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
   </ul>
 </div>

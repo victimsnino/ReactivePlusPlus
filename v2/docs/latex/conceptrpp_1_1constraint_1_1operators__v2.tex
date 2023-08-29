@@ -4,10 +4,6 @@
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename}\ Op,\ \textcolor{keyword}{typename}\ Type>}
-\DoxyCodeLine{\textcolor{keyword}{concept\ }\mbox{\hyperlink{conceptrpp_1_1constraint_1_1operators__v2}{rpp::constraint::operators\_v2}}\ =\ \ \textcolor{keyword}{requires}(\textcolor{keyword}{const}\ Op\&\ op,\ dynamic\_observer<typename\ std::decay\_t<Op>::template\ ResultValue<Type>>\&\&\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer}{observer}},\ \textcolor{keyword}{const}\ observable\_chain\_strategy<details::observables::dynamic\_strategy<Type>>\&\ chain)}
-\DoxyCodeLine{\{}
-\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{typename}\ std::decay\_t<Op>::template\ ResultValue<Type>;}
-\DoxyCodeLine{\ \ \ \ \{op.subscribe(std::move(\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer}{observer}}),\ chain)\};}
-\DoxyCodeLine{\}}
+\DoxyCodeLine{\textcolor{keyword}{concept\ }\mbox{\hyperlink{conceptrpp_1_1constraint_1_1operators__v2}{rpp::constraint::operators\_v2}}\ =\ \ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1operators__v2__impl}{operators\_v2\_impl<Op,\ Type>}}\ ||\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1operator__lift}{operator\_lift<Op,\ Type>}}}
 
 \end{DoxyCode}

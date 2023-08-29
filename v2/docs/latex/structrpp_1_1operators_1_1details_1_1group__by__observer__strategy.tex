@@ -1,54 +1,57 @@
-\doxysection{rpp\+::operators\+::details\+::group\+\_\+by\+\_\+observer\+\_\+strategy\texorpdfstring{$<$}{<} T, Key\+Selector, Value\+Selector, Key\+Comparator \texorpdfstring{$>$}{>} Struct Template Reference}
-\hypertarget{structrpp_1_1operators_1_1details_1_1group__by__observer__strategy}{}\label{structrpp_1_1operators_1_1details_1_1group__by__observer__strategy}\index{rpp::operators::details::group\_by\_observer\_strategy$<$ T, KeySelector, ValueSelector, KeyComparator $>$@{rpp::operators::details::group\_by\_observer\_strategy$<$ T, KeySelector, ValueSelector, KeyComparator $>$}}
+\doxysection{rpp\+::operators\+::details\+::group\+\_\+by\+\_\+observer\+\_\+strategy\texorpdfstring{$<$}{<} T, TObserver, Key\+Selector, Value\+Selector, Key\+Comparator \texorpdfstring{$>$}{>} Struct Template Reference}
+\hypertarget{structrpp_1_1operators_1_1details_1_1group__by__observer__strategy}{}\label{structrpp_1_1operators_1_1details_1_1group__by__observer__strategy}\index{rpp::operators::details::group\_by\_observer\_strategy$<$ T, TObserver, KeySelector, ValueSelector, KeyComparator $>$@{rpp::operators::details::group\_by\_observer\_strategy$<$ T, TObserver, KeySelector, ValueSelector, KeyComparator $>$}}
 \doxysubsubsection*{Public Types}
 \begin{DoxyCompactItemize}
 \item 
-\Hypertarget{structrpp_1_1operators_1_1details_1_1group__by__observer__strategy_a9705d3c74b2a5dbfa31333dc445161a6}\label{structrpp_1_1operators_1_1details_1_1group__by__observer__strategy_a9705d3c74b2a5dbfa31333dc445161a6} 
+\Hypertarget{structrpp_1_1operators_1_1details_1_1group__by__observer__strategy_a097a567960e0e819bfc8dd572ac187f7}\label{structrpp_1_1operators_1_1details_1_1group__by__observer__strategy_a097a567960e0e819bfc8dd572ac187f7} 
 using {\bfseries Disposable\+Strategy\+To\+Use\+With\+This} = \mbox{\hyperlink{structrpp_1_1details_1_1none__disposable__strategy}{rpp\+::details\+::none\+\_\+disposable\+\_\+strategy}}
 \item 
-\Hypertarget{structrpp_1_1operators_1_1details_1_1group__by__observer__strategy_a66550bee646dd9ac39931595f2e88ab9}\label{structrpp_1_1operators_1_1details_1_1group__by__observer__strategy_a66550bee646dd9ac39931595f2e88ab9} 
+\Hypertarget{structrpp_1_1operators_1_1details_1_1group__by__observer__strategy_a34b81320816bb426561c930a7339f18f}\label{structrpp_1_1operators_1_1details_1_1group__by__observer__strategy_a34b81320816bb426561c930a7339f18f} 
 using {\bfseries TKey} = rpp\+::utils\+::decayed\+\_\+invoke\+\_\+result\+\_\+t$<$ Key\+Selector, T $>$
 \item 
-\Hypertarget{structrpp_1_1operators_1_1details_1_1group__by__observer__strategy_af425f13caa9075726152c26f667469d3}\label{structrpp_1_1operators_1_1details_1_1group__by__observer__strategy_af425f13caa9075726152c26f667469d3} 
+\Hypertarget{structrpp_1_1operators_1_1details_1_1group__by__observer__strategy_a7b5849072b7db88b917a109e7aa341de}\label{structrpp_1_1operators_1_1details_1_1group__by__observer__strategy_a7b5849072b7db88b917a109e7aa341de} 
 using {\bfseries Type} = rpp\+::utils\+::decayed\+\_\+invoke\+\_\+result\+\_\+t$<$ Value\+Selector, T $>$
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\Hypertarget{structrpp_1_1operators_1_1details_1_1group__by__observer__strategy_add38465ef5762ef6752e14183d19ba58}\label{structrpp_1_1operators_1_1details_1_1group__by__observer__strategy_add38465ef5762ef6752e14183d19ba58} 
-void {\bfseries on\+\_\+subscribe} (\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer}{rpp\+::constraint\+::observer}} auto \&obs) const
+\Hypertarget{structrpp_1_1operators_1_1details_1_1group__by__observer__strategy_a85115727ef1257dc9cb4c4766b1bbd12}\label{structrpp_1_1operators_1_1details_1_1group__by__observer__strategy_a85115727ef1257dc9cb4c4766b1bbd12} 
+{\bfseries RPP\+\_\+\+CALL\+\_\+\+DURING\+\_\+\+CONSTRUCTION} (\{ \mbox{\hyperlink{classrpp_1_1details_1_1observer__impl_ab95f4dd062581fb8432fadcee8abb95d}{observer.\+set\+\_\+upstream}}(\mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp\+::disposable\+\_\+wrapper}}\{disposable\});\})
 \item 
-\Hypertarget{structrpp_1_1operators_1_1details_1_1group__by__observer__strategy_aaa66fa1b5a62cd861ccf5c1674b54ff2}\label{structrpp_1_1operators_1_1details_1_1group__by__observer__strategy_aaa66fa1b5a62cd861ccf5c1674b54ff2} 
-void {\bfseries set\+\_\+upstream} (const \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer}{rpp\+::constraint\+::observer}} auto \&, const \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp\+::disposable\+\_\+wrapper}} \&d) const
+\Hypertarget{structrpp_1_1operators_1_1details_1_1group__by__observer__strategy_a1bc7c1230872bb3073b90b97372f111a}\label{structrpp_1_1operators_1_1details_1_1group__by__observer__strategy_a1bc7c1230872bb3073b90b97372f111a} 
+void {\bfseries set\+\_\+upstream} (const \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp\+::disposable\+\_\+wrapper}} \&d) const
 \item 
-\Hypertarget{structrpp_1_1operators_1_1details_1_1group__by__observer__strategy_a232f823e9ebb732783ef52e1676cd7f5}\label{structrpp_1_1operators_1_1details_1_1group__by__observer__strategy_a232f823e9ebb732783ef52e1676cd7f5} 
-bool {\bfseries is\+\_\+disposed} (const \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer}{rpp\+::constraint\+::observer}} auto \&) const
+\Hypertarget{structrpp_1_1operators_1_1details_1_1group__by__observer__strategy_a9efb286fac86cd9674637d524e536219}\label{structrpp_1_1operators_1_1details_1_1group__by__observer__strategy_a9efb286fac86cd9674637d524e536219} 
+bool {\bfseries is\+\_\+disposed} () const
 \item 
-\Hypertarget{structrpp_1_1operators_1_1details_1_1group__by__observer__strategy_a3b613f520d11e49c00fc8916e16a0532}\label{structrpp_1_1operators_1_1details_1_1group__by__observer__strategy_a3b613f520d11e49c00fc8916e16a0532} 
-{\footnotesize template$<$rpp\+::constraint\+::decayed\+\_\+same\+\_\+as$<$ T $>$ TT$>$ }\\void {\bfseries on\+\_\+next} (const \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer}{rpp\+::constraint\+::observer}} auto \&obs, TT \&\&val) const
+\Hypertarget{structrpp_1_1operators_1_1details_1_1group__by__observer__strategy_a02f3f6441a4d9cbb9278fc6d547fabd2}\label{structrpp_1_1operators_1_1details_1_1group__by__observer__strategy_a02f3f6441a4d9cbb9278fc6d547fabd2} 
+{\footnotesize template$<$rpp\+::constraint\+::decayed\+\_\+same\+\_\+as$<$ T $>$ TT$>$ }\\void {\bfseries on\+\_\+next} (TT \&\&val) const
 \item 
-\Hypertarget{structrpp_1_1operators_1_1details_1_1group__by__observer__strategy_a568378770ad72ca0147c6ccf4d948217}\label{structrpp_1_1operators_1_1details_1_1group__by__observer__strategy_a568378770ad72ca0147c6ccf4d948217} 
-void {\bfseries on\+\_\+error} (const \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer}{rpp\+::constraint\+::observer}} auto \&obs, const std\+::exception\+\_\+ptr \&err) const
+\Hypertarget{structrpp_1_1operators_1_1details_1_1group__by__observer__strategy_aa300b8e1535222002f64f71d53cd738f}\label{structrpp_1_1operators_1_1details_1_1group__by__observer__strategy_aa300b8e1535222002f64f71d53cd738f} 
+void {\bfseries on\+\_\+error} (const std\+::exception\+\_\+ptr \&err) const
 \item 
-\Hypertarget{structrpp_1_1operators_1_1details_1_1group__by__observer__strategy_abca866eb529cf46ebc3e648d73bf7f25}\label{structrpp_1_1operators_1_1details_1_1group__by__observer__strategy_abca866eb529cf46ebc3e648d73bf7f25} 
-void {\bfseries on\+\_\+completed} (const \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer}{rpp\+::constraint\+::observer}} auto \&obs) const
+\Hypertarget{structrpp_1_1operators_1_1details_1_1group__by__observer__strategy_a18c350d31b602bb028dc186737b24874}\label{structrpp_1_1operators_1_1details_1_1group__by__observer__strategy_a18c350d31b602bb028dc186737b24874} 
+void {\bfseries on\+\_\+completed} () const
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
-\Hypertarget{structrpp_1_1operators_1_1details_1_1group__by__observer__strategy_ae6822a17268d4af20cab1c3478f8a4dd}\label{structrpp_1_1operators_1_1details_1_1group__by__observer__strategy_ae6822a17268d4af20cab1c3478f8a4dd} 
+\Hypertarget{structrpp_1_1operators_1_1details_1_1group__by__observer__strategy_ae3504ac90c44431e5f3c9d43996057d6}\label{structrpp_1_1operators_1_1details_1_1group__by__observer__strategy_ae3504ac90c44431e5f3c9d43996057d6} 
+RPP\+\_\+\+NO\+\_\+\+UNIQUE\+\_\+\+ADDRESS TObserver {\bfseries observer}
+\item 
+\Hypertarget{structrpp_1_1operators_1_1details_1_1group__by__observer__strategy_a9712c4e6e954afc837cbc56e1c4bacc6}\label{structrpp_1_1operators_1_1details_1_1group__by__observer__strategy_a9712c4e6e954afc837cbc56e1c4bacc6} 
 RPP\+\_\+\+NO\+\_\+\+UNIQUE\+\_\+\+ADDRESS Key\+Selector {\bfseries key\+\_\+selector}
 \item 
-\Hypertarget{structrpp_1_1operators_1_1details_1_1group__by__observer__strategy_a0e4d71e1875e3412c815d4099762b325}\label{structrpp_1_1operators_1_1details_1_1group__by__observer__strategy_a0e4d71e1875e3412c815d4099762b325} 
+\Hypertarget{structrpp_1_1operators_1_1details_1_1group__by__observer__strategy_a771a7f8893a97d9f3763bf6c9f4ac512}\label{structrpp_1_1operators_1_1details_1_1group__by__observer__strategy_a771a7f8893a97d9f3763bf6c9f4ac512} 
 RPP\+\_\+\+NO\+\_\+\+UNIQUE\+\_\+\+ADDRESS Value\+Selector {\bfseries value\+\_\+selector}
 \item 
-\Hypertarget{structrpp_1_1operators_1_1details_1_1group__by__observer__strategy_a5b9db835bf39c087914b5cd8d7987c31}\label{structrpp_1_1operators_1_1details_1_1group__by__observer__strategy_a5b9db835bf39c087914b5cd8d7987c31} 
+\Hypertarget{structrpp_1_1operators_1_1details_1_1group__by__observer__strategy_af889dc68a2a4ef95caf66d56bfdccbc4}\label{structrpp_1_1operators_1_1details_1_1group__by__observer__strategy_af889dc68a2a4ef95caf66d56bfdccbc4} 
 RPP\+\_\+\+NO\+\_\+\+UNIQUE\+\_\+\+ADDRESS Key\+Comparator {\bfseries comparator}
 \item 
-\Hypertarget{structrpp_1_1operators_1_1details_1_1group__by__observer__strategy_acb24883b193d8f4aa58f6f86cdf06f2f}\label{structrpp_1_1operators_1_1details_1_1group__by__observer__strategy_acb24883b193d8f4aa58f6f86cdf06f2f} 
+\Hypertarget{structrpp_1_1operators_1_1details_1_1group__by__observer__strategy_ab74ba0f126cc121bcd10768d234fd78a}\label{structrpp_1_1operators_1_1details_1_1group__by__observer__strategy_ab74ba0f126cc121bcd10768d234fd78a} 
 std\+::map$<$ TKey, \mbox{\hyperlink{group__subjects_gaf27df80724e7c0f28ecd1a72429812b0}{subjects\+::publish\+\_\+subject}}$<$ Type $>$, Key\+Comparator $>$ {\bfseries key\+\_\+to\+\_\+subject} \{\}
 \item 
-\Hypertarget{structrpp_1_1operators_1_1details_1_1group__by__observer__strategy_a436b5536dcfa66e9a46d200d73bfd69f}\label{structrpp_1_1operators_1_1details_1_1group__by__observer__strategy_a436b5536dcfa66e9a46d200d73bfd69f} 
+\Hypertarget{structrpp_1_1operators_1_1details_1_1group__by__observer__strategy_a574e578d126bb2dc9eb9d52101f1c513}\label{structrpp_1_1operators_1_1details_1_1group__by__observer__strategy_a574e578d126bb2dc9eb9d52101f1c513} 
 std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classrpp_1_1refcount__disposable}{refcount\+\_\+disposable}} $>$ {\bfseries disposable} = std\+::make\+\_\+shared$<$\mbox{\hyperlink{classrpp_1_1refcount__disposable}{refcount\+\_\+disposable}}$>$()
 \end{DoxyCompactItemize}
 

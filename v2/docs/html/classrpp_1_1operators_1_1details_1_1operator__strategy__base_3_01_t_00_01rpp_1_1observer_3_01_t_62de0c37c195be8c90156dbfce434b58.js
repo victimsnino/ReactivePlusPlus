@@ -1,4 +1,0 @@
-var classrpp_1_1operators_1_1details_1_1operator__strategy__base_3_01_t_00_01rpp_1_1observer_3_01_t_62de0c37c195be8c90156dbfce434b58 =
-[
-    [ "operator_strategy_base", "classrpp_1_1operators_1_1details_1_1operator__strategy__base_3_01_t_00_01rpp_1_1observer_3_01_t_62de0c37c195be8c90156dbfce434b58.html#abe97cb1df55451afae6ed184d447186b", null ]
-];
