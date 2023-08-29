@@ -12,6 +12,8 @@
 
 #include <rpp/operators/skip.hpp>
 #include <rpp/sources/just.hpp>
+#include <rpp/sources/empty.hpp>
+#include <rpp/sources/error.hpp>
 #include <rpp/schedulers/current_thread.hpp>
 #include <rpp/schedulers/immediate.hpp>
 
