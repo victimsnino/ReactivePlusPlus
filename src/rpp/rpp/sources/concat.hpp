@@ -24,21 +24,23 @@ namespace rpp::details
 template<constraint::decayed_type PackedContainer>
 struct concat_strategy;
 
-template<constraint::decayed_type PackedContainer>
+template<rpp::constraint::observer TObserver, constraint::decayed_type PackedContainer>
 struct concat_source_observer_strategy
 {
     using ValueType = rpp::utils::extract_observable_type_t<utils::iterable_value_t<PackedContainer>>;
 
+    RPP_NO_UNIQUE_ADDRESS mutable TObserver       observer;
     RPP_NO_UNIQUE_ADDRESS mutable PackedContainer container;
     mutable size_t                                index;
 
-    constexpr static operators::details::empty_on_subscribe on_subscribe{};
-    constexpr static operators::details::forwarding_on_next_strategy on_next{};
-    constexpr static operators::details::forwarding_on_error_strategy on_error{};
-    constexpr static operators::details::forwarding_set_upstream_strategy set_upstream{};
-    constexpr static operators::details::forwarding_is_disposed_strategy is_disposed{};
+    template<typename T>
+    void on_next(T&& v) const                          { observer.on_next(std::forward<T>(v)); }
+    void on_error(const std::exception_ptr& err) const { observer.on_error(err); }
 
-    void on_completed(rpp::constraint::observer auto& observer) const
+    void set_upstream(const disposable_wrapper& d)     { observer.set_upstream(d); }
+    bool is_disposed() const                           { return observer.is_disposed(); }
+
+    void on_completed() const
     {
         concat_strategy<PackedContainer>::drain(std::move(container), index, std::move(observer));
     }
@@ -95,13 +97,7 @@ struct concat_strategy
         if (is_last_observable)
             observable->subscribe(std::move(obs));
         else
-            observable->subscribe(observer<ValueType,
-                                           rpp::operators::details::operator_strategy_base<
-                                               ValueType,
-                                               observer<ValueType, Strategy>,
-                                               concat_source_observer_strategy<PackedContainer>>>{std::move(obs),
-                                                                                                  std::forward<decltype(container)>(container),
-                                                                                                  index});
+            observable->subscribe(observer<ValueType, concat_source_observer_strategy<observer<ValueType, Strategy>,PackedContainer>>{std::move(obs), std::forward<decltype(container)>(container), index});
     }
 };
 

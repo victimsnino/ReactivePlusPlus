@@ -66,7 +66,8 @@ TEST_CASE("defer on mutable sources")
 {    
      
     auto obs = rpp::source::defer([] {
-        auto inner_obs = rpp::source::create<int>([state = std::make_shared<int>(0)](const auto& obs) {
+        const auto state = std::make_shared<int>(0);
+        auto inner_obs = rpp::source::create<int>([state](const auto& obs) {
             obs.on_next((*state)++); 
         });  
         return inner_obs; 

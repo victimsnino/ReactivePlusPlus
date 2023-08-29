@@ -12,6 +12,8 @@
 
 #include <rpp/operators/skip.hpp>
 #include <rpp/sources/just.hpp>
+#include <rpp/sources/empty.hpp>
+#include <rpp/sources/error.hpp>
 #include <rpp/schedulers/current_thread.hpp>
 #include <rpp/schedulers/immediate.hpp>
 
@@ -67,6 +69,25 @@ TEMPLATE_TEST_CASE("skip ignores first `count` of items",
         CHECK(mock.get_received_values() == std::vector<int>{ });
         CHECK(mock.get_on_completed_count() == 1);
     }
+}
+
+TEST_CASE("skip forwards error")
+{
+    auto mock = mock_observer_strategy<int>{};
+
+    rpp::source::error<int>({}) | rpp::operators::skip(1) | rpp::ops::subscribe(mock.get_observer());
+    CHECK(mock.get_received_values() == std::vector<int>{});
+    CHECK(mock.get_on_error_count() == 1);
+    CHECK(mock.get_on_completed_count() == 0);
+}
+
+TEST_CASE("skip forwards completion")
+{
+    auto mock = mock_observer_strategy<int>{};
+    rpp::source::empty<int>() | rpp::operators::skip(1) | rpp::ops::subscribe(mock.get_observer());
+    CHECK(mock.get_received_values() == std::vector<int>{});
+    CHECK(mock.get_on_error_count() == 0);
+    CHECK(mock.get_on_completed_count() == 1);
 }
 
 TEST_CASE("skip doesn't produce extra copies")

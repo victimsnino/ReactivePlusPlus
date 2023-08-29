@@ -20,31 +20,32 @@
 
 namespace rpp::operators::details
 {
-template<rpp::constraint::decayed_type Seed, rpp::constraint::decayed_type Fn>
+template<rpp::constraint::observer TObserver, rpp::constraint::decayed_type Seed, rpp::constraint::decayed_type Fn>
 struct scan_observer_strategy
 {
     using DisposableStrategyToUseWithThis = rpp::details::none_disposable_strategy;
 
+    RPP_NO_UNIQUE_ADDRESS TObserver    observer;
     RPP_NO_UNIQUE_ADDRESS mutable Seed seed;
-    RPP_NO_UNIQUE_ADDRESS Fn fn;
-
-    void on_subscribe(const rpp::constraint::observer auto& obs) const
+    RPP_NO_UNIQUE_ADDRESS Fn           fn;
+    
+    RPP_CALL_DURING_CONSTRUCTION(
     {
-        obs.on_next(seed);
-    }
+        observer.on_next(utils::as_const(seed));
+    });
 
     template<typename T>
-    void on_next(const rpp::constraint::observer auto& obs, T&& v) const
+    void on_next(T&& v) const
     {
         seed = fn(std::move(seed), std::forward<T>(v));
-        obs.on_next(utils::as_const(seed));
+        observer.on_next(utils::as_const(seed));
     }
 
-    constexpr static forwarding_on_error_strategy on_error{};
-    constexpr static forwarding_on_completed_strategy on_completed{};
-    constexpr static forwarding_set_upstream_strategy set_upstream{};
-    constexpr static forwarding_is_disposed_strategy is_disposed{};
+    void on_error(const std::exception_ptr& err) const { observer.on_error(err); }
+    void on_completed() const                          { observer.on_completed(); }
 
+    void set_upstream(const disposable_wrapper& d)     { observer.set_upstream(d); }
+    bool is_disposed() const                           { return observer.is_disposed(); }
 };
 
 template<rpp::constraint::decayed_type InitialValue, rpp::constraint::decayed_type Fn>
@@ -57,28 +58,29 @@ struct scan_t : public operators::details::operator_observable_strategy<scan_obs
     using ResultValue = InitialValue;
 };
 
-template<rpp::constraint::decayed_type Seed, rpp::constraint::decayed_type Fn>
+template< rpp::constraint::decayed_type Seed, rpp::constraint::observer TObserver, rpp::constraint::decayed_type Fn>
 struct scan_no_seed_observer_strategy
 {
-    RPP_NO_UNIQUE_ADDRESS Fn    fn;
-    mutable std::optional<Seed> seed{};
+    RPP_NO_UNIQUE_ADDRESS TObserver observer;
+    RPP_NO_UNIQUE_ADDRESS Fn        fn;
+    mutable std::optional<Seed>     seed{};
 
     template<rpp::constraint::decayed_same_as<Seed> T>
-    void on_next(const rpp::constraint::observer auto& obs, T&& v) const
+    void on_next(T&& v) const
     {
         if (seed)
             seed = fn(std::move(seed).value(), std::forward<T>(v));
         else
             seed = std::forward<T>(v);
 
-        obs.on_next(utils::as_const(seed.value()));
+        observer.on_next(utils::as_const(seed.value()));
     }
 
-    constexpr static forwarding_on_error_strategy on_error{};
-    constexpr static forwarding_on_completed_strategy on_completed{};
-    constexpr static forwarding_set_upstream_strategy set_upstream{};
-    constexpr static forwarding_is_disposed_strategy is_disposed{};
-    constexpr static empty_on_subscribe on_subscribe{};
+    void on_error(const std::exception_ptr& err) const { observer.on_error(err); }
+    void on_completed() const                          { observer.on_completed(); }
+
+    void set_upstream(const disposable_wrapper& d)     { observer.set_upstream(d); }
+    bool is_disposed() const                           { return observer.is_disposed(); }
 };
 
 template<rpp::constraint::decayed_type Fn>

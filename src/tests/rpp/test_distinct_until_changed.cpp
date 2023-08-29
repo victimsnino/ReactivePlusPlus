@@ -12,6 +12,8 @@
 
 #include <rpp/operators/distinct_until_changed.hpp>
 #include <rpp/sources/just.hpp>
+#include <rpp/sources/empty.hpp>
+#include <rpp/sources/error.hpp>
 
 #include "mock_observer.hpp"
 #include "copy_count_tracker.hpp"
@@ -22,14 +24,14 @@ TEMPLATE_TEST_CASE("distinct_until_changed filters out consecutive duplicates an
 {
     auto mock = mock_observer_strategy<int>{};
     auto obs = rpp::source::just<TestType>(1, 1, 2, 2, 3, 2, 2, 1);
-    SECTION("SECTION subscribe on observable with duplicates via distinct_until_changed SECTION subscriber obtains values without consecutive duplicates")
+    SECTION("WHEN subscribe on observable with duplicates via distinct_until_changed THEN subscriber obtains values without consecutive duplicates")
     {
         obs | rpp::ops::distinct_until_changed() | rpp::ops::subscribe(mock.get_observer());
         CHECK(mock.get_received_values() == std::vector{ 1,2,3,2,1 });
         CHECK(mock.get_on_error_count() == 0);
         CHECK(mock.get_on_completed_count() == 1);
     }
-    SECTION("SECTION subscribe on observable with duplicates via distinct_until_changed with custom comparator SECTION subscriber obtains values without consecutive duplicates")
+    SECTION("WHEN subscribe on observable with duplicates via distinct_until_changed with custom comparator THEN subscriber obtains values without consecutive duplicates")
     {
         auto op = rpp::ops::distinct_until_changed([](int old_value, int new_value) {return old_value % 2 != new_value % 2; });
         obs | op | rpp::ops::subscribe(mock.get_observer());
@@ -37,6 +39,25 @@ TEMPLATE_TEST_CASE("distinct_until_changed filters out consecutive duplicates an
         CHECK(mock.get_on_error_count() == 0);
         CHECK(mock.get_on_completed_count() == 1);
     }
+}
+
+TEST_CASE("distinct_until_changed forwards error")
+{
+    auto mock = mock_observer_strategy<int>{};
+
+    rpp::source::error<int>({}) | rpp::operators::distinct_until_changed() | rpp::ops::subscribe(mock.get_observer());
+    CHECK(mock.get_received_values() == std::vector<int>{});
+    CHECK(mock.get_on_error_count() == 1);
+    CHECK(mock.get_on_completed_count() == 0);
+}
+
+TEST_CASE("distinct_until_changed forwards completion")
+{
+    auto mock = mock_observer_strategy<int>{};
+    rpp::source::empty<int>() | rpp::operators::distinct_until_changed() | rpp::ops::subscribe(mock.get_observer());
+    CHECK(mock.get_received_values() == std::vector<int>{});
+    CHECK(mock.get_on_error_count() == 0);
+    CHECK(mock.get_on_completed_count() == 1);
 }
 
 TEST_CASE("distinct_until_changed doesn't produce extra copies")

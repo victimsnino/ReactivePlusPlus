@@ -121,11 +121,21 @@ concept operators = requires(const Op& op, TObs obs)
 };
 
 template<typename Op, typename Type>
-concept operators_v2 = requires(const Op& op, dynamic_observer<typename std::decay_t<Op>::template ResultValue<Type>>&& observer, const observable_chain_strategy<details::observables::dynamic_strategy<Type>>& chain)
+concept operators_v2_impl = requires(const Op& op, dynamic_observer<typename std::decay_t<Op>::template ResultValue<Type>>&& observer, const observable_chain_strategy<details::observables::dynamic_strategy<Type>>& chain)
 {
     typename std::decay_t<Op>::template ResultValue<Type>;
     {op.subscribe(std::move(observer), chain)};
 };
+
+template<typename Op, typename Type>
+concept operator_lift = requires(const Op& op, dynamic_observer<typename std::decay_t<Op>::template ResultValue<Type>>&& observer)
+{
+    typename std::decay_t<Op>::template ResultValue<Type>;
+    {op.template lift<Type>(std::move(observer))} -> rpp::constraint::observer_of_type<Type>;
+};
+
+template<typename Op, typename Type>
+concept operators_v2 = operators_v2_impl<Op, Type> || operator_lift<Op, Type>;
 
 template<typename TObservable, typename... TObservables>
 concept observables_of_same_type = rpp::constraint::observable<TObservable> &&
