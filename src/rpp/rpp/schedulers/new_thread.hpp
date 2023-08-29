@@ -140,6 +140,8 @@ public:
 
         rpp::disposable_wrapper get_disposable() const { return rpp::disposable_wrapper{m_state}; }
 
+        static rpp::schedulers::time_point now() { return rpp::schedulers::clock_type::now(); }
+
 private:
         std::shared_ptr<disposable> m_state = std::make_shared<disposable>();
     };

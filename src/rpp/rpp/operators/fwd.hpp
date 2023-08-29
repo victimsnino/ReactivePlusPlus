@@ -21,6 +21,9 @@ namespace rpp::operators
 auto as_blocking();
 
 template<rpp::schedulers::constraint::scheduler Scheduler>
+auto debounce(rpp::schedulers::duration period, Scheduler&& scheduler);
+
+template<rpp::schedulers::constraint::scheduler Scheduler>
 auto delay(rpp::schedulers::duration delay_duration, Scheduler&& scheduler);
 
 template<typename EqualityFn = rpp::utils::equal_to>
