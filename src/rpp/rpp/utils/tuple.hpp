@@ -42,7 +42,7 @@ class RPP_EMPTY_BASES tuple_impl<std::index_sequence<Indices...>, Args...> : pri
 public:
     tuple_impl() = default;
 
-    template<std::convertible_to<Args> ...TArgs>
+    template<typename ...TArgs>
         requires(!rpp::constraint::variadic_decayed_same_as<tuple_impl<std::index_sequence<Indices...>, Args...>, TArgs...>)
     tuple_impl(TArgs&&...args)
         : tuple_leaf<Indices, Args>{std::forward<TArgs>(args)}...
