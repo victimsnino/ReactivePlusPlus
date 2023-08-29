@@ -132,6 +132,30 @@ int main(int argc, char* argv[]) // NOLINT
                 rxcpp::observable<>::defer([] { return rxcpp::observable<>::iterate(std::array{123}, rxcpp::identity_immediate()); }).subscribe([](int v){ ankerl::nanobench::doNotOptimizeAway(v); });
             });
         }
+        SECTION("interval - interval + take(3) + subscribe + immediate")
+        {
+            TEST_RPP([&]()
+            {
+                rpp::source::interval(std::chrono::milliseconds(10), rpp::schedulers::immediate{}) | rpp::operators::take(3) | rpp::operators::subscribe([](size_t v) { ankerl::nanobench::doNotOptimizeAway(v); });
+            });
+
+            TEST_RXCPP([&]()
+            {
+                rxcpp::observable<>::interval(std::chrono::milliseconds(10), rxcpp::identity_immediate()).take(3).subscribe([](size_t v) { ankerl::nanobench::doNotOptimizeAway(v); });
+            });
+        }
+        SECTION("interval - interval + take(3) + subscribe + current_thread")
+        {
+            TEST_RPP([&]()
+            {
+                rpp::source::interval(std::chrono::milliseconds(10), rpp::schedulers::current_thread{}) | rpp::operators::take(3) | rpp::operators::subscribe([](size_t v) { ankerl::nanobench::doNotOptimizeAway(v); });
+            });
+
+            TEST_RXCPP([&]()
+            {
+                rxcpp::observable<>::interval(std::chrono::milliseconds(10), rxcpp::identity_current_thread()).take(3).subscribe([](size_t v) { ankerl::nanobench::doNotOptimizeAway(v); });
+            });
+        }
     };
 
     BENCHMARK("Schedulers")

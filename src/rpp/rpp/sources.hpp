@@ -26,3 +26,4 @@
 #include <rpp/sources/error.hpp>
 #include <rpp/sources/empty.hpp>
 #include <rpp/sources/defer.hpp>
+#include <rpp/sources/interval.hpp>
