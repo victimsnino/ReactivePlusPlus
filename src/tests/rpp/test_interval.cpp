@@ -19,7 +19,6 @@
 #include <rpp/schedulers/new_thread.hpp>
 
 #include "mock_observer.hpp"
-#include "test_scheduler.hpp"
 
 #include <chrono>
 
