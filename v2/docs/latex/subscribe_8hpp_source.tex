@@ -179,6 +179,24 @@
 \DoxyCodeLine{00220\ \{}
 \DoxyCodeLine{00221\ \ \ \ \ \textcolor{keywordflow}{return}\ details::subscribe\_t\{std::move(d),\ std::forward<OnNext>(on\_next),\ std::forward<OnError>(on\_error),\ std::forward<OnCompleted>(on\_completed)\};}
 \DoxyCodeLine{00222\ \}}
-\DoxyCodeLine{00223\ \}}
+\DoxyCodeLine{00223\ }
+\DoxyCodeLine{00234\ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type\ Type,\ rpp::constra\textcolor{keywordtype}{int}::observer\_strategy<Type>\ ObserverStrategy>}
+\DoxyCodeLine{00235\ \textcolor{keyword}{auto}\ subscribe\_with\_disposable(observer<Type,\ ObserverStrategy>\&\&\ observer)}
+\DoxyCodeLine{00236\ \{}
+\DoxyCodeLine{00237\ \ \ \ \ \textcolor{keywordflow}{return}\ subscribe(\mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp::composite\_disposable\_wrapper}}\{std::make\_shared<rpp::composite\_disposable>()\},\ std::move(observer));}
+\DoxyCodeLine{00238\ \}}
+\DoxyCodeLine{00239\ }
+\DoxyCodeLine{00247\ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type\ Type>}
+\DoxyCodeLine{00248\ \textcolor{keyword}{auto}\ subscribe\_with\_disposable(dynamic\_observer<Type>\ observer)}
+\DoxyCodeLine{00249\ \{}
+\DoxyCodeLine{00250\ \ \ \ \ \textcolor{keywordflow}{return}\ subscribe(\mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp::composite\_disposable\_wrapper}}\{std::make\_shared<rpp::composite\_disposable>()\},\ std::move(observer));}
+\DoxyCodeLine{00251\ \}}
+\DoxyCodeLine{00252\ }
+\DoxyCodeLine{00260\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ OnNext\ =\ rpp::utils::empty\_function\_any\_t,\ std::invocable<const\ std::exception\_ptr\&>\ OnError\ =\ rpp::utils::rethrow\_error\_t,\ std::invocable<>\ OnCompleted\ =\ rpp::utils::empty\_function\_t<>>}
+\DoxyCodeLine{00261\ \textcolor{keyword}{auto}\ subscribe\_with\_disposable(OnNext\&\&\ on\_next\ =\ \{\},\ OnError\&\&\ on\_error\ =\ \{\},\ OnCompleted\&\&\ on\_completed\ =\ \{\})}
+\DoxyCodeLine{00262\ \{}
+\DoxyCodeLine{00263\ \ \ \ \ \textcolor{keywordflow}{return}\ subscribe(\mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp::composite\_disposable\_wrapper}}\{std::make\_shared<rpp::composite\_disposable>()\},\ std::forward<OnNext>(on\_next),\ std::forward<OnError>(on\_error),\ std::forward<OnCompleted>(on\_completed));}
+\DoxyCodeLine{00264\ \}}
+\DoxyCodeLine{00265\ \}}
 
 \end{DoxyCode}

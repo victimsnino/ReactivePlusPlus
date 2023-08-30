@@ -89,7 +89,7 @@
 \DoxyCodeLine{00155\ \ \ \ \ \textcolor{keyword}{template}<std::invocable<Type>\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ OnNext,}
 \DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ \ \ \ \ \ std::invocable<const\ std::exception\_ptr\&>\ OnError\ \ \ \ \ =\ rpp::utils::rethrow\_error\_t,}
 \DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \ \ \ \ \ std::invocable<>\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ OnCompleted\ =\ rpp::utils::empty\_function\_t<>>}
-\DoxyCodeLine{00158\ \ \ \ \ [[nodiscard(\textcolor{stringliteral}{"{}Use\ returned\ disposable\ or\ use\ subscribe(observer)\ instead"{}})]]}
+\DoxyCodeLine{00158\ \ \ \ \ [[nodiscard(\textcolor{stringliteral}{"{}Use\ returned\ disposable\ or\ use\ subscribe(on\_next,\ on\_error,\ on\_completed)\ instead"{}})]]}
 \DoxyCodeLine{00159\ \ \ \ \ composite\_disposable\_wrapper\ subscribe\_with\_disposable(OnNext\&\&\ on\_next,\ OnError\&\&\ on\_error\ =\ \{\},\ OnCompleted\&\&\ on\_completed\ =\ \{\})\ \textcolor{keyword}{const}}
 \DoxyCodeLine{00160\ \ \ \ \ \{}
 \DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ res\ =\ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp::composite\_disposable\_wrapper}}\{std::make\_shared<rpp::composite\_disposable>()\};}
