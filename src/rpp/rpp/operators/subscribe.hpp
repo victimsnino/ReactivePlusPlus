@@ -220,4 +220,46 @@ auto subscribe(rpp::composite_disposable_wrapper d, OnNext&& on_next = {}, OnErr
 {
     return details::subscribe_t{std::move(d), std::forward<OnNext>(on_next), std::forward<OnError>(on_error), std::forward<OnCompleted>(on_completed)};
 }
+
+/**
+ * @brief Subscribes passed observer to emissions from this observable.
+ * @details This overloading attaches disposable to observer and return it to provide ability to dispose/disconnect observer early if needed.
+ * @warning This overloading has some performance penalties, use it only when you really need to use disposable
+ *
+ * @warning Observer must be moved in to subscribe method. (Not recommended) If you need to copy observer, convert
+ * it to dynamic_observer
+ *
+ * @ingroup utility_operators
+ */
+template<rpp::constraint::decayed_type Type, rpp::constraint::observer_strategy<Type> ObserverStrategy>
+auto subscribe_with_disposable(observer<Type, ObserverStrategy>&& observer)
+{
+    return subscribe(rpp::composite_disposable_wrapper{std::make_shared<rpp::composite_disposable>()}, std::move(observer));
+}
+
+/**
+ * @brief Subscribes passed observer to emissions from this observable.
+ * @details This overloading attaches disposable to observer and return it to provide ability to dispose/disconnect observer early if needed.
+ * @warning This overloading has some performance penalties, use it only when you really need to use disposable
+ *
+ * @ingroup utility_operators
+ */
+template<rpp::constraint::decayed_type Type>
+auto subscribe_with_disposable(dynamic_observer<Type> observer)
+{
+    return subscribe(rpp::composite_disposable_wrapper{std::make_shared<rpp::composite_disposable>()}, std::move(observer));
+}
+
+/**
+ * @brief Construct rpp::lambda_observer on the fly and subscribe it to emissions from observable
+ * @details This overloading attaches disposable to observer and return it to provide ability to dispose/disconnect observer early if needed.
+ * @warning This overloading has some performance penalties, use it only when you really need to use disposable
+ *
+ * @ingroup utility_operators
+ */
+template<typename OnNext = rpp::utils::empty_function_any_t, std::invocable<const std::exception_ptr&> OnError = rpp::utils::rethrow_error_t, std::invocable<> OnCompleted = rpp::utils::empty_function_t<>>
+auto subscribe_with_disposable(OnNext&& on_next = {}, OnError&& on_error = {}, OnCompleted&& on_completed = {})
+{
+    return subscribe(rpp::composite_disposable_wrapper{std::make_shared<rpp::composite_disposable>()}, std::forward<OnNext>(on_next), std::forward<OnError>(on_error), std::forward<OnCompleted>(on_completed));
+}
 }

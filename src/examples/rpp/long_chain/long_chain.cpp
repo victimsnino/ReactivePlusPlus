@@ -18,12 +18,13 @@ int main() // NOLINT
     auto digits = source
         | rpp::operators::filter([](char c) -> bool {return std::isdigit(c); });
 
-    chars
+    auto d = chars
         | rpp::operators::merge_with(digits)
         | rpp::operators::skip(3)
         | rpp::operators::distinct_until_changed()
-        | rpp::operators::subscribe([](char v) { std::cout << v; });
+        | rpp::operators::subscribe_with_disposable([](char v) { std::cout << v; });
 
+    d.dispose();
 
     return 0;
 }
