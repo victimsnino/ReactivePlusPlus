@@ -155,7 +155,7 @@ public:
     template<std::invocable<Type>                      OnNext,
              std::invocable<const std::exception_ptr&> OnError     = rpp::utils::rethrow_error_t,
              std::invocable<>                          OnCompleted = rpp::utils::empty_function_t<>>
-    [[nodiscard("Use returned disposable or use subscribe(observer) instead")]]
+    [[nodiscard("Use returned disposable or use subscribe(on_next, on_error, on_completed) instead")]]
     composite_disposable_wrapper subscribe_with_disposable(OnNext&& on_next, OnError&& on_error = {}, OnCompleted&& on_completed = {}) const
     {
         auto res = rpp::composite_disposable_wrapper{std::make_shared<rpp::composite_disposable>()};
