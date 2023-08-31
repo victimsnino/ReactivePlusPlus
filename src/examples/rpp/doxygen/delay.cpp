@@ -25,9 +25,9 @@ int main() // NOLINT
         }
         obs.on_completed();
     })
-    | rpp::ops::delay(std::chrono::seconds{3}, rpp::schedulers::new_thread{})
-    | rpp::ops::as_blocking()
-    | rpp::ops::subscribe([&](int v)
+    | rpp::operators::delay(std::chrono::seconds{3}, rpp::schedulers::new_thread{})
+    | rpp::operators::as_blocking()
+    | rpp::operators::subscribe([&](int v)
                 {
                     auto observing_time = rpp::schedulers::clock_type::now();
                     std::cout << "observe " << v << " in thread{" << std::this_thread::get_id() << "} duration since start " << std::chrono::duration_cast<std::chrono::seconds>(observing_time - start).count() <<"s" << std::endl;

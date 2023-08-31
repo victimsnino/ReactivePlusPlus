@@ -8,8 +8,8 @@ int main()
 {
     //! [group_by]
     rpp::source::just(1, 2, 3, 4, 5, 6, 7, 8)
-        | rpp::ops::group_by([](int   v) { return v % 2 == 0; })
-        | rpp::ops::subscribe([](auto grouped_observable)
+        | rpp::operators::group_by([](int   v) { return v % 2 == 0; })
+        | rpp::operators::subscribe([](auto grouped_observable)
         {
             auto key = grouped_observable.get_key();
             std::cout << "new grouped observable " << key << std::endl;
@@ -42,8 +42,8 @@ int main()
                       Person{"Jack", 25},
                       Person{"Tom", 30},
                       Person{"Vanda", 18})
-        | rpp::ops::group_by([](const Person& v) { return v.age; }, [](const Person& v) { return v.name; })
-        | rpp::ops::subscribe([](auto grouped_observable)
+        | rpp::operators::group_by([](const Person& v) { return v.age; }, [](const Person& v) { return v.name; })
+        | rpp::operators::subscribe([](auto grouped_observable)
         {
             grouped_observable.subscribe([age = grouped_observable.get_key()](const std::string& name)
             {
