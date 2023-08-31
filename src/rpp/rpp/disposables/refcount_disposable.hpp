@@ -22,8 +22,8 @@ namespace rpp
 {
 /**
  * @brief Disposable with counter inside. Each `add_ref` increments counter, while each `dispose()` call decrements. In case of reaching zero disposes underlying disposables
- * @warn Don't use it as disposable of observer due to `is_disposed()` would be false till counter reaches zero, so, observer can be also not `is_disposed()` during this time.
- * 
+ * @warning Don't use it as disposable of observer due to `is_disposed()` would be false till counter reaches zero, so, observer can be also not `is_disposed()` during this time.
+ *
  * @ingroup disposables
  */
 class refcount_disposable : public interface_composite_disposable, public std::enable_shared_from_this<refcount_disposable>
@@ -65,7 +65,7 @@ public:
     }
 
     using interface_composite_disposable::add;
-    
+
     void add(disposable_wrapper disposable) final
     {
         m_underlying.add(std::move(disposable));

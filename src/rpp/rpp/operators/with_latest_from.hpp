@@ -59,7 +59,7 @@ struct with_latest_from_inner_observer_strategy
     }
 
     template<typename T>
-    void on_next(T&& v) const 
+    void on_next(T&& v) const
     {
         auto& [value, mutex] = disposable->get_values().template get<I>();
         std::scoped_lock lock{mutex};
@@ -103,7 +103,7 @@ public:
     }
 
     template<typename T>
-    void on_next(T&& v) const 
+    void on_next(T&& v) const
     {
         auto result = m_disposable->get_values().apply([&](value_with_mutex<std::optional<rpp::utils::extract_observable_type_t<TObservables>>>&... vals) -> std::optional<Result>
         {
@@ -167,7 +167,7 @@ namespace rpp::operators
 {
 /**
  * @brief Combines latest emissions from observables with emission from current observable when it sends new value via applying selector
- * 
+ *
  * @marble with_latest_from_custom_selector
    {
        source observable                                 : +------1    -2    -3    -|
@@ -181,7 +181,7 @@ namespace rpp::operators
  * - 1 heap allocation for disposable
  * - each value from "others" copied/moved to internal storage
  * - mutex acquired every time value obtained
- * 
+ *
  * @param selector is applied to current emission of current observable and latests emissions from observables
  * @param observables are observables whose emissions would be combined when current observable sends new value
  * @warning #include <rpp/operators/with_latest_from.hpp>
@@ -202,7 +202,7 @@ auto with_latest_from(TSelector&& selector, TObservable&& observable, TObservabl
 
 /**
  * @brief Combines latest emissions from observables with emission from current observable when it sends new value via making tuple
- * 
+ *
  * @marble with_latest_from
    {
        source observable                       : +------1    -2    -3    -|
@@ -210,8 +210,8 @@ auto with_latest_from(TSelector&& selector, TObservable&& observable, TObservabl
        operator "with_latest_from: make_tuple" : +------{1,5}-{2,7}-{3,8}-|
    }
  *
- * @warn Selector is just packing values to tuple in this case
- * 
+ * @warning Selector is just packing values to tuple in this case
+ *
  * @par Performance notes:
  * - 1 heap allocation for disposable
  * - each value from "others" copied/moved to internal storage

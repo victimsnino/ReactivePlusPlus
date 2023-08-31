@@ -19,7 +19,7 @@ using disposable_ptr = std::shared_ptr<interface_disposable>;
 
 /**
  * @brief Interface of disposable
- * 
+ *
  * @ingroup disposables
  */
 struct interface_disposable
@@ -28,13 +28,13 @@ struct interface_disposable
 
     /**
      * @brief Check if this disposable is just disposed
-     * @warn This function must be thread-safe
+     * @warning This function must be thread-safe
      */
     virtual bool is_disposed() const noexcept = 0;
 
     /**
      * @brief Dispose disposable and free any underlying resources and etc.
-     * @warn This function must be thread-safe
+     * @warning This function must be thread-safe
      */
     virtual void dispose()                    = 0;
 };
