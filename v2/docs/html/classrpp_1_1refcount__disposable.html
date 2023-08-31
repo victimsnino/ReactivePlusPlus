@@ -103,7 +103,7 @@ $(document).ready(function(){initNavTree('classrpp_1_1refcount__disposable.html'
 </div><!--header-->
 <div class="contents">
 
-<p>Disposable with counter inside. Each <code>add_ref</code> increments counter, while each <code><a class="el" href="classrpp_1_1refcount__disposable.html#ac8e6be5f044e6c49809bcaa4b2eb446a" title="Dispose disposable and free any underlying resources and etc. @warn This function must be thread-safe...">dispose()</a></code> call decrements. In case of reaching zero disposes underlying disposables @warn Don't use it as disposable of observer due to <code><a class="el" href="classrpp_1_1refcount__disposable.html#ab35fc075f55ebed15f47796a949b18f4" title="Check if this disposable is just disposed @warn This function must be thread-safe.">is_disposed()</a></code> would be false till counter reaches zero, so, observer can be also not <code><a class="el" href="classrpp_1_1refcount__disposable.html#ab35fc075f55ebed15f47796a949b18f4" title="Check if this disposable is just disposed @warn This function must be thread-safe.">is_disposed()</a></code> during this time.  
+<p>Disposable with counter inside. Each <code>add_ref</code> increments counter, while each <code><a class="el" href="classrpp_1_1refcount__disposable.html#ac8e6be5f044e6c49809bcaa4b2eb446a" title="Dispose disposable and free any underlying resources and etc.">dispose()</a></code> call decrements. In case of reaching zero disposes underlying disposables.  
  <a href="classrpp_1_1refcount__disposable.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="refcount__disposable_8hpp_source.html">refcount_disposable.hpp</a>&gt;</code></p>
@@ -130,10 +130,10 @@ Public Member Functions</h2></td></tr>
 &#160;</td><td class="memItemRight" valign="bottom"><b>refcount_disposable</b> (<a class="el" href="classrpp_1_1refcount__disposable.html">refcount_disposable</a> &amp;&amp;) noexcept=delete</td></tr>
 <tr class="separator:a06cf8265622b261dadd2d015902888e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab35fc075f55ebed15f47796a949b18f4" id="r_ab35fc075f55ebed15f47796a949b18f4"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrpp_1_1refcount__disposable.html#ab35fc075f55ebed15f47796a949b18f4">is_disposed</a> () const noexcept final</td></tr>
-<tr class="memdesc:ab35fc075f55ebed15f47796a949b18f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if this disposable is just disposed @warn This function must be thread-safe.  <br /></td></tr>
+<tr class="memdesc:ab35fc075f55ebed15f47796a949b18f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if this disposable is just disposed.  <br /></td></tr>
 <tr class="separator:ab35fc075f55ebed15f47796a949b18f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac8e6be5f044e6c49809bcaa4b2eb446a" id="r_ac8e6be5f044e6c49809bcaa4b2eb446a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrpp_1_1refcount__disposable.html#ac8e6be5f044e6c49809bcaa4b2eb446a">dispose</a> () final</td></tr>
-<tr class="memdesc:ac8e6be5f044e6c49809bcaa4b2eb446a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dispose disposable and free any underlying resources and etc. @warn This function must be thread-safe.  <br /></td></tr>
+<tr class="memdesc:ac8e6be5f044e6c49809bcaa4b2eb446a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dispose disposable and free any underlying resources and etc.  <br /></td></tr>
 <tr class="separator:ac8e6be5f044e6c49809bcaa4b2eb446a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5a24f91fba302a26cfa05aa08e145086" id="r_a5a24f91fba302a26cfa05aa08e145086"><td class="memItemLeft" align="right" valign="top"><a id="a5a24f91fba302a26cfa05aa08e145086" name="a5a24f91fba302a26cfa05aa08e145086"></a>
 <a class="el" href="classrpp_1_1disposable__wrapper__impl.html">composite_disposable_wrapper</a>&#160;</td><td class="memItemRight" valign="bottom"><b>add_ref</b> ()</td></tr>
@@ -153,7 +153,8 @@ template&lt;std::invocable Fn&gt; </td></tr>
 <tr class="separator:a5a466624c0cf774c3fbe2f585eaf813c inherit pub_methods_structrpp_1_1interface__composite__disposable"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Disposable with counter inside. Each <code>add_ref</code> increments counter, while each <code><a class="el" href="classrpp_1_1refcount__disposable.html#ac8e6be5f044e6c49809bcaa4b2eb446a" title="Dispose disposable and free any underlying resources and etc. @warn This function must be thread-safe...">dispose()</a></code> call decrements. In case of reaching zero disposes underlying disposables @warn Don't use it as disposable of observer due to <code><a class="el" href="classrpp_1_1refcount__disposable.html#ab35fc075f55ebed15f47796a949b18f4" title="Check if this disposable is just disposed @warn This function must be thread-safe.">is_disposed()</a></code> would be false till counter reaches zero, so, observer can be also not <code><a class="el" href="classrpp_1_1refcount__disposable.html#ab35fc075f55ebed15f47796a949b18f4" title="Check if this disposable is just disposed @warn This function must be thread-safe.">is_disposed()</a></code> during this time. </p>
+<div class="textblock"><p>Disposable with counter inside. Each <code>add_ref</code> increments counter, while each <code><a class="el" href="classrpp_1_1refcount__disposable.html#ac8e6be5f044e6c49809bcaa4b2eb446a" title="Dispose disposable and free any underlying resources and etc.">dispose()</a></code> call decrements. In case of reaching zero disposes underlying disposables. </p>
+<dl class="section warning"><dt>Warning</dt><dd>Don't use it as disposable of observer due to <code><a class="el" href="classrpp_1_1refcount__disposable.html#ab35fc075f55ebed15f47796a949b18f4" title="Check if this disposable is just disposed.">is_disposed()</a></code> would be false till counter reaches zero, so, observer can be also not <code><a class="el" href="classrpp_1_1refcount__disposable.html#ab35fc075f55ebed15f47796a949b18f4" title="Check if this disposable is just disposed.">is_disposed()</a></code> during this time. </dd></dl>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="aa4dfeb5254f24d78af76eb6521235273" name="aa4dfeb5254f24d78af76eb6521235273"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa4dfeb5254f24d78af76eb6521235273">&#9670;&#160;</a></span>add() <span class="overload">[1/2]</span></h2>
@@ -234,7 +235,8 @@ template&lt;std::invocable Fn&gt; </td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Dispose disposable and free any underlying resources and etc. @warn This function must be thread-safe. </p>
+<p>Dispose disposable and free any underlying resources and etc. </p>
+<dl class="section warning"><dt>Warning</dt><dd>This function must be thread-safe </dd></dl>
 
 <p>Implements <a class="el" href="structrpp_1_1interface__disposable.html#a47d5a3e76f8f0e774b07f7743eb0634a">rpp::interface_disposable</a>.</p>
 
@@ -263,7 +265,8 @@ template&lt;std::invocable Fn&gt; </td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Check if this disposable is just disposed @warn This function must be thread-safe. </p>
+<p>Check if this disposable is just disposed. </p>
+<dl class="section warning"><dt>Warning</dt><dd>This function must be thread-safe </dd></dl>
 
 <p>Implements <a class="el" href="structrpp_1_1interface__disposable.html#a0348da95fe5929a3861e80b6651c347f">rpp::interface_disposable</a>.</p>
 

@@ -163,7 +163,7 @@ $(document).ready(function(){initNavTree('with__latest__from_8hpp_source.html','
 <div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    }</div>
 <div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
 <div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    <span class="keywordtype">void</span> on_next(T&amp;&amp; v)<span class="keyword"> const </span></div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    <span class="keywordtype">void</span> on_next(T&amp;&amp; v)<span class="keyword"> const</span></div>
 <div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span><span class="keyword">    </span>{</div>
 <div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>        <span class="keyword">auto</span>&amp; [value, mutex] = disposable-&gt;get_values().template get&lt;I&gt;();</div>
 <div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>        std::scoped_lock lock{mutex};</div>
@@ -209,7 +209,7 @@ $(document).ready(function(){initNavTree('with__latest__from_8hpp_source.html','
 <div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>    }</div>
 <div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span> </div>
 <div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>    <span class="keywordtype">void</span> on_next(T&amp;&amp; v)<span class="keyword"> const </span></div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>    <span class="keywordtype">void</span> on_next(T&amp;&amp; v)<span class="keyword"> const</span></div>
 <div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span><span class="keyword">    </span>{</div>
 <div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>        <span class="keyword">auto</span> result = m_disposable-&gt;get_values().apply([&amp;](<a class="code hl_struct" href="structrpp_1_1operators_1_1details_1_1value__with__mutex.html">value_with_mutex</a>&lt;std::optional&lt;rpp::utils::extract_observable_type_t&lt;TObservables&gt;&gt;&gt;&amp;... vals) -&gt; std::optional&lt;Result&gt;</div>
 <div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>        {</div>
