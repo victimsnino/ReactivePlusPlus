@@ -62,6 +62,9 @@ Note that flat\+\_\+map merges the emissions of these Observables, so that they 
 \begin{DoxySeeAlso}{See also}
 \href{https://reactivex.io/documentation/operators/flatmap.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/flatmap.\+html}} 
 \end{DoxySeeAlso}
+\begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{debounce_8cpp-example}{debounce.\+cpp}}.\end{Desc}
 \Hypertarget{group__transforming__operators_ga136286fed612116e8d8f43511b5ef7dd}\label{group__transforming__operators_ga136286fed612116e8d8f43511b5ef7dd} 
 \index{Transforming Operators@{Transforming Operators}!group\_by@{group\_by}}
 \index{group\_by@{group\_by}!Transforming Operators@{Transforming Operators}}
@@ -94,8 +97,8 @@ Actually this operator applies {\ttfamily key\+\_\+selector} to emission to obta
 
 \begin{DoxyCodeInclude}{0}
 \DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_gae60bdb9b493443d2786b0eee8bfe17ab}{rpp::source::just}}(1,\ 2,\ 3,\ 4,\ 5,\ 6,\ 7,\ 8)}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ rpp::ops::group\_by([](\textcolor{keywordtype}{int}\ \ \ v)\ \{\ \textcolor{keywordflow}{return}\ v\ \%\ 2\ ==\ 0;\ \})}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ rpp::ops::subscribe([](\textcolor{keyword}{auto}\ \mbox{\hyperlink{classrpp_1_1grouped__observable}{grouped\_observable}})}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__transforming__operators_ga136286fed612116e8d8f43511b5ef7dd}{rpp::operators::group\_by}}([](\textcolor{keywordtype}{int}\ \ \ v)\ \{\ \textcolor{keywordflow}{return}\ v\ \%\ 2\ ==\ 0;\ \})}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ rpp::operators::subscribe([](\textcolor{keyword}{auto}\ \mbox{\hyperlink{classrpp_1_1grouped__observable}{grouped\_observable}})}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \{}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ key\ =\ \mbox{\hyperlink{classrpp_1_1grouped__observable}{grouped\_observable}}.get\_key();}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}new\ grouped\ observable\ "{}}\ <<\ key\ <<\ std::endl;}
@@ -129,8 +132,8 @@ Actually this operator applies {\ttfamily key\+\_\+selector} to emission to obta
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Person\{\textcolor{stringliteral}{"{}Jack"{}},\ 25\},}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Person\{\textcolor{stringliteral}{"{}Tom"{}},\ 30\},}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Person\{\textcolor{stringliteral}{"{}Vanda"{}},\ 18\})}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ rpp::ops::group\_by([](\textcolor{keyword}{const}\ Person\&\ v)\ \{\ \textcolor{keywordflow}{return}\ v.age;\ \},\ [](\textcolor{keyword}{const}\ Person\&\ v)\ \{\ \textcolor{keywordflow}{return}\ v.name;\ \})}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ rpp::ops::subscribe([](\textcolor{keyword}{auto}\ grouped\_observable)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__transforming__operators_ga136286fed612116e8d8f43511b5ef7dd}{rpp::operators::group\_by}}([](\textcolor{keyword}{const}\ Person\&\ v)\ \{\ \textcolor{keywordflow}{return}\ v.age;\ \},\ [](\textcolor{keyword}{const}\ Person\&\ v)\ \{\ \textcolor{keywordflow}{return}\ v.name;\ \})}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ rpp::operators::subscribe([](\textcolor{keyword}{auto}\ grouped\_observable)}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \{}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ grouped\_observable.subscribe([age\ =\ grouped\_observable.get\_key()](\textcolor{keyword}{const}\ std::string\&\ name)}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \{}
@@ -151,6 +154,9 @@ Actually this operator applies {\ttfamily key\+\_\+selector} to emission to obta
 \begin{DoxySeeAlso}{See also}
 \href{https://reactivex.io/documentation/operators/groupby.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/groupby.\+html}} 
 \end{DoxySeeAlso}
+\begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{group_by_8cpp-example}{group\+\_\+by.\+cpp}}.\end{Desc}
 \Hypertarget{group__transforming__operators_ga1291dba2d973d4ba1061c9e0e202cb3f}\label{group__transforming__operators_ga1291dba2d973d4ba1061c9e0e202cb3f} 
 \index{Transforming Operators@{Transforming Operators}!map@{map}}
 \index{map@{map}!Transforming Operators@{Transforming Operators}}
