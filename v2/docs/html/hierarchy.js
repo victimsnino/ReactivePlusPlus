@@ -10,6 +10,9 @@ var hierarchy =
     [ "rpp::details::concat_strategy< PackedContainer >", "structrpp_1_1details_1_1concat__strategy.html", null ],
     [ "rpp::details::create_strategy< Type, OnSubscribe >", "structrpp_1_1details_1_1create__strategy.html", null ],
     [ "rpp::schedulers::current_thread", "classrpp_1_1schedulers_1_1current__thread.html", null ],
+    [ "rpp::operators::details::debounce_disposable_wrapper< Observer, Worker >", "structrpp_1_1operators_1_1details_1_1debounce__disposable__wrapper.html", null ],
+    [ "rpp::operators::details::debounce_observer_strategy< Observer, Worker >", "structrpp_1_1operators_1_1details_1_1debounce__observer__strategy.html", null ],
+    [ "rpp::operators::details::debounce_t< Scheduler >", "structrpp_1_1operators_1_1details_1_1debounce__t.html", null ],
     [ "decltypestd::declval< Subject >get_observable", null, [
       [ "rpp::connectable_observable< OriginalObservable, Subject >", "classrpp_1_1connectable__observable.html", null ]
     ] ],
@@ -26,7 +29,7 @@ var hierarchy =
     [ "rpp::operators::details::emission< T >", "structrpp_1_1operators_1_1details_1_1emission.html", null ],
     [ "rpp::details::empty_strategy< Type >", "structrpp_1_1details_1_1empty__strategy.html", null ],
     [ "std::enable_shared_from_this", null, [
-      [ "rpp::operators::details::delay_disposable< Observer, Worker >", "structrpp_1_1operators_1_1details_1_1delay__disposable.html", null ],
+      [ "rpp::operators::details::debounce_disposable< Observer, Worker >", "classrpp_1_1operators_1_1details_1_1debounce__disposable.html", null ],
       [ "rpp::refcount_disposable", "classrpp_1_1refcount__disposable.html", null ],
       [ "rpp::subjects::details::subject_state< Type >", "classrpp_1_1subjects_1_1details_1_1subject__state.html", null ]
     ] ],
@@ -58,6 +61,7 @@ var hierarchy =
       ] ],
       [ "rpp::interface_composite_disposable", "structrpp_1_1interface__composite__disposable.html", [
         [ "rpp::composite_disposable", "classrpp_1_1composite__disposable.html", [
+          [ "rpp::operators::details::debounce_disposable< Observer, Worker >", "classrpp_1_1operators_1_1details_1_1debounce__disposable.html", null ],
           [ "rpp::operators::details::delay_disposable< Observer, Worker >", "structrpp_1_1operators_1_1details_1_1delay__disposable.html", null ],
           [ "rpp::operators::details::merge_disposable< TObserver >", "classrpp_1_1operators_1_1details_1_1merge__disposable.html", null ],
           [ "rpp::operators::details::with_latest_from_disposable< Observer, TSelector, RestArgs >", "classrpp_1_1operators_1_1details_1_1with__latest__from__disposable.html", null ],

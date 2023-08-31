@@ -2,6 +2,7 @@ var examples =
 [
     [ "concat.cpp", "concat_8cpp-example.html", null ],
     [ "create.cpp", "create_8cpp-example.html", null ],
+    [ "debounce.cpp", "debounce_8cpp-example.html", null ],
     [ "defer.cpp", "defer_8cpp-example.html", null ],
     [ "delay.cpp", "delay_8cpp-example.html", null ],
     [ "distinct_until_changed.cpp", "distinct_until_changed_8cpp-example.html", null ],

@@ -37,7 +37,7 @@
 \DoxyCodeLine{00033\ \};}
 \DoxyCodeLine{00034\ }
 \DoxyCodeLine{00035\ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::observer\ Observer,\ \textcolor{keyword}{typename}\ Worker>}
-\DoxyCodeLine{00036\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1delay__disposable}{delay\_disposable}}\ final\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classrpp_1_1composite__disposable}{rpp::composite\_disposable}},\ \textcolor{keyword}{public}\ std::enable\_shared\_from\_this<delay\_disposable<Observer,\ Worker>>\ \{}
+\DoxyCodeLine{00036\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1delay__disposable}{delay\_disposable}}\ final\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classrpp_1_1composite__disposable}{rpp::composite\_disposable}}\ \{}
 \DoxyCodeLine{00037\ \ \ \ \ \textcolor{keyword}{using\ }T\ =\ rpp::utils::extract\_observer\_type\_t<Observer>;}
 \DoxyCodeLine{00038\ }
 \DoxyCodeLine{00039\ \ \ \ \ \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1delay__disposable}{delay\_disposable}}(Observer\&\&\ in\_observer,\ Worker\&\&\ in\_worker,\ rpp::schedulers::duration\ delay)}
@@ -50,7 +50,7 @@
 \DoxyCodeLine{00046\ }
 \DoxyCodeLine{00047\ \ \ \ \ Observer\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrpp_1_1observer}{observer}};}
 \DoxyCodeLine{00048\ \ \ \ \ RPP\_NO\_UNIQUE\_ADDRESS\ Worker\ worker;}
-\DoxyCodeLine{00049\ \ \ \ \ rpp::schedulers::duration\ \ \ \ \mbox{\hyperlink{group__utility__operators_gae38caa489cf43c0aca1aa1c8822aed60}{delay}}\{\};}
+\DoxyCodeLine{00049\ \ \ \ \ rpp::schedulers::duration\ \ \ \ \mbox{\hyperlink{group__utility__operators_gae38caa489cf43c0aca1aa1c8822aed60}{delay}};}
 \DoxyCodeLine{00050\ }
 \DoxyCodeLine{00051\ \ \ \ \ std::mutex\ \ \ \ \ \ \ \ \ \ \ \ \ \ mutex\{\};}
 \DoxyCodeLine{00052\ \ \ \ \ std::queue<emission<T>>\ queue;}
@@ -116,7 +116,7 @@
 \DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (std::is\_same\_v<std::exception\_ptr,\ std::decay\_t<TT>>)}
 \DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \ \ \ \ disposable-\/>queue\ =\ std::queue<emission<rpp::utils::extract\_observer\_type\_t<Observer>>>\{\};}
 \DoxyCodeLine{00114\ }
-\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ disposable-\/>queue.emplace(std::forward<TT>(item),\ rpp::schedulers::clock\_type::now()\ +\ \mbox{\hyperlink{group__utility__operators_gae38caa489cf43c0aca1aa1c8822aed60}{delay}});}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ disposable-\/>queue.emplace(std::forward<TT>(item),\ disposable-\/>worker.now()\ +\ \mbox{\hyperlink{group__utility__operators_gae38caa489cf43c0aca1aa1c8822aed60}{delay}});}
 \DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!disposable-\/>is\_active)}
 \DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \{}
 \DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \ \ \ \ disposable-\/>is\_active\ =\ \textcolor{keyword}{true};}
@@ -137,7 +137,7 @@
 \DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{00134\ }
 \DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\&\ top\ =\ disposable-\/>queue.front();}
-\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ now\ =\ rpp::schedulers::clock\_type::now();}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ now\ =\ disposable-\/>worker.now();}
 \DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (top.time\_point\ >\ now)}
 \DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ top.time\_point\ -\/\ now;}
 \DoxyCodeLine{00139\ }

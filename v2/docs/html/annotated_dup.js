@@ -40,6 +40,10 @@ var annotated_dup =
       [ "operators", null, [
         [ "details", null, [
           [ "as_blocking_t", "structrpp_1_1operators_1_1details_1_1as__blocking__t.html", null ],
+          [ "debounce_disposable", "classrpp_1_1operators_1_1details_1_1debounce__disposable.html", null ],
+          [ "debounce_disposable_wrapper", "structrpp_1_1operators_1_1details_1_1debounce__disposable__wrapper.html", null ],
+          [ "debounce_observer_strategy", "structrpp_1_1operators_1_1details_1_1debounce__observer__strategy.html", null ],
+          [ "debounce_t", "structrpp_1_1operators_1_1details_1_1debounce__t.html", null ],
           [ "delay_disposable", "structrpp_1_1operators_1_1details_1_1delay__disposable.html", null ],
           [ "delay_disposable_wrapper", "structrpp_1_1operators_1_1details_1_1delay__disposable__wrapper.html", null ],
           [ "delay_observer_strategy", "structrpp_1_1operators_1_1details_1_1delay__observer__strategy.html", null ],

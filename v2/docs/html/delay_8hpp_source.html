@@ -137,7 +137,7 @@ $(document).ready(function(){initNavTree('delay_8hpp_source.html',''); initResiz
 <div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="keyword">template</span>&lt;rpp::constra<span class="keywordtype">int</span>::observer Observer, <span class="keyword">typename</span> Worker&gt;</div>
 <div class="foldopen" id="foldopen00036" data-start="{" data-end="};">
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno"><a class="line" href="structrpp_1_1operators_1_1details_1_1delay__disposable.html">   36</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structrpp_1_1operators_1_1details_1_1delay__disposable.html">delay_disposable</a> final : <span class="keyword">public</span> <a class="code hl_class" href="classrpp_1_1composite__disposable.html">rpp::composite_disposable</a>, <span class="keyword">public</span> std::enable_shared_from_this&lt;delay_disposable&lt;Observer, Worker&gt;&gt; {</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno"><a class="line" href="structrpp_1_1operators_1_1details_1_1delay__disposable.html">   36</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structrpp_1_1operators_1_1details_1_1delay__disposable.html">delay_disposable</a> final : <span class="keyword">public</span> <a class="code hl_class" href="classrpp_1_1composite__disposable.html">rpp::composite_disposable</a> {</div>
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <span class="keyword">using </span>T = rpp::utils::extract_observer_type_t&lt;Observer&gt;;</div>
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
 <div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    <a class="code hl_struct" href="structrpp_1_1operators_1_1details_1_1delay__disposable.html">delay_disposable</a>(Observer&amp;&amp; in_observer, Worker&amp;&amp; in_worker, rpp::schedulers::duration delay)</div>
@@ -150,7 +150,7 @@ $(document).ready(function(){initNavTree('delay_8hpp_source.html',''); initResiz
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
 <div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    Observer                     <a class="code hl_class" href="classrpp_1_1observer.html">observer</a>;</div>
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    RPP_NO_UNIQUE_ADDRESS Worker worker;</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    rpp::schedulers::duration    <a class="code hl_function" href="group__utility__operators.html#gae38caa489cf43c0aca1aa1c8822aed60">delay</a>{};</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    rpp::schedulers::duration    <a class="code hl_function" href="group__utility__operators.html#gae38caa489cf43c0aca1aa1c8822aed60">delay</a>;</div>
 <div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
 <div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    std::mutex              mutex{};</div>
 <div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    std::queue&lt;emission&lt;T&gt;&gt; queue;</div>
@@ -220,7 +220,7 @@ $(document).ready(function(){initNavTree('delay_8hpp_source.html',''); initResiz
 <div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>        <span class="keywordflow">if</span> (std::is_same_v&lt;std::exception_ptr, std::decay_t&lt;TT&gt;&gt;)</div>
 <div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>            disposable-&gt;queue = std::queue&lt;emission&lt;rpp::utils::extract_observer_type_t&lt;Observer&gt;&gt;&gt;{};</div>
 <div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span> </div>
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>        disposable-&gt;queue.emplace(std::forward&lt;TT&gt;(item), rpp::schedulers::clock_type::now() + <a class="code hl_function" href="group__utility__operators.html#gae38caa489cf43c0aca1aa1c8822aed60">delay</a>);</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>        disposable-&gt;queue.emplace(std::forward&lt;TT&gt;(item), disposable-&gt;worker.now() + <a class="code hl_function" href="group__utility__operators.html#gae38caa489cf43c0aca1aa1c8822aed60">delay</a>);</div>
 <div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>        <span class="keywordflow">if</span> (!disposable-&gt;is_active)</div>
 <div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>        {</div>
 <div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>            disposable-&gt;is_active = <span class="keyword">true</span>;</div>
@@ -241,7 +241,7 @@ $(document).ready(function(){initNavTree('delay_8hpp_source.html',''); initResiz
 <div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>            }</div>
 <div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span> </div>
 <div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>            <span class="keyword">auto</span>&amp; top = disposable-&gt;queue.front();</div>
-<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>            <span class="keyword">const</span> <span class="keyword">auto</span> now = rpp::schedulers::clock_type::now();</div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>            <span class="keyword">const</span> <span class="keyword">auto</span> now = disposable-&gt;worker.now();</div>
 <div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>            <span class="keywordflow">if</span> (top.time_point &gt; now)</div>
 <div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>                <span class="keywordflow">return</span> top.time_point - now;</div>
 <div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span> </div>

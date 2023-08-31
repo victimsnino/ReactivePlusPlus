@@ -56,38 +56,39 @@
 \DoxyCodeLine{00052\ \{}
 \DoxyCodeLine{00053\ \ \ \ \ \{s.defer\_for(duration\{\},\ std::declval<optional\_duration(*)(const\ details::fake\_schedulable\_handler\&)>(),\ handler)\}\ -\/>\ std::same\_as<void>;}
 \DoxyCodeLine{00054\ \ \ \ \ \{s.get\_disposable()\}\ -\/>\ std::same\_as<rpp::disposable\_wrapper>;}
-\DoxyCodeLine{00055\ \};}
-\DoxyCodeLine{00056\ \}}
-\DoxyCodeLine{00057\ }
-\DoxyCodeLine{00058\ \textcolor{keyword}{namespace\ }rpp::schedulers}
-\DoxyCodeLine{00059\ \{}
-\DoxyCodeLine{00060\ \textcolor{keyword}{template}<rpp::schedulers::constra\textcolor{keywordtype}{int}::strategy\ Strategy>}
-\DoxyCodeLine{00061\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1schedulers_1_1worker}{worker}};}
-\DoxyCodeLine{00062\ }
-\DoxyCodeLine{00063\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1schedulers_1_1immediate}{immediate}};}
-\DoxyCodeLine{00064\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1schedulers_1_1current__thread}{current\_thread}};}
-\DoxyCodeLine{00065\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1schedulers_1_1new__thread}{new\_thread}};}
-\DoxyCodeLine{00066\ \}}
-\DoxyCodeLine{00067\ }
-\DoxyCodeLine{00068\ \textcolor{keyword}{namespace\ }rpp::schedulers::constraint}
-\DoxyCodeLine{00069\ \{}
-\DoxyCodeLine{00070\ \textcolor{keyword}{namespace\ }details}
-\DoxyCodeLine{00071\ \{}
-\DoxyCodeLine{00072\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
-\DoxyCodeLine{00073\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1schedulers_1_1constraint_1_1details_1_1is__worker}{is\_worker}}\ :\ std::false\_type\{\};}
-\DoxyCodeLine{00074\ }
-\DoxyCodeLine{00075\ \ \ \ \ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::strategy\ Strategy>}
-\DoxyCodeLine{00076\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1schedulers_1_1constraint_1_1details_1_1is__worker}{is\_worker}}<rpp::\mbox{\hyperlink{classrpp_1_1schedulers_1_1worker}{schedulers::worker}}<Strategy>>\ :\ std::true\_type\{\};}
-\DoxyCodeLine{00077\ \}\ \textcolor{comment}{//\ namespace\ details}}
-\DoxyCodeLine{00078\ }
-\DoxyCodeLine{00079\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ W>}
-\DoxyCodeLine{00080\ \textcolor{keyword}{concept\ }\mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1worker}{worker}}\ =\ details::is\_worker<W>::value;}
-\DoxyCodeLine{00081\ }
-\DoxyCodeLine{00082\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ S>}
-\DoxyCodeLine{00083\ \textcolor{keyword}{concept\ }\mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1scheduler}{scheduler}}\ =\ \textcolor{keyword}{requires}(\textcolor{keyword}{const}\ S\&\ s)}
-\DoxyCodeLine{00084\ \{}
-\DoxyCodeLine{00085\ \ \ \ \ \{s.create\_worker()\}\ -\/>\ \mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1worker}{worker}};}
-\DoxyCodeLine{00086\ \};}
-\DoxyCodeLine{00087\ \}}
+\DoxyCodeLine{00055\ \ \ \ \ \{S::now()\}\ -\/>\ std::same\_as<rpp::schedulers::time\_point>;}
+\DoxyCodeLine{00056\ \};}
+\DoxyCodeLine{00057\ \}}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \textcolor{keyword}{namespace\ }rpp::schedulers}
+\DoxyCodeLine{00060\ \{}
+\DoxyCodeLine{00061\ \textcolor{keyword}{template}<rpp::schedulers::constra\textcolor{keywordtype}{int}::strategy\ Strategy>}
+\DoxyCodeLine{00062\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1schedulers_1_1worker}{worker}};}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1schedulers_1_1immediate}{immediate}};}
+\DoxyCodeLine{00065\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1schedulers_1_1current__thread}{current\_thread}};}
+\DoxyCodeLine{00066\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1schedulers_1_1new__thread}{new\_thread}};}
+\DoxyCodeLine{00067\ \}}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \textcolor{keyword}{namespace\ }rpp::schedulers::constraint}
+\DoxyCodeLine{00070\ \{}
+\DoxyCodeLine{00071\ \textcolor{keyword}{namespace\ }details}
+\DoxyCodeLine{00072\ \{}
+\DoxyCodeLine{00073\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00074\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1schedulers_1_1constraint_1_1details_1_1is__worker}{is\_worker}}\ :\ std::false\_type\{\};}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \ \ \ \ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::strategy\ Strategy>}
+\DoxyCodeLine{00077\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1schedulers_1_1constraint_1_1details_1_1is__worker}{is\_worker}}<rpp::\mbox{\hyperlink{classrpp_1_1schedulers_1_1worker}{schedulers::worker}}<Strategy>>\ :\ std::true\_type\{\};}
+\DoxyCodeLine{00078\ \}\ \textcolor{comment}{//\ namespace\ details}}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00080\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ W>}
+\DoxyCodeLine{00081\ \textcolor{keyword}{concept\ }\mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1worker}{worker}}\ =\ details::is\_worker<W>::value;}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ S>}
+\DoxyCodeLine{00084\ \textcolor{keyword}{concept\ }\mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1scheduler}{scheduler}}\ =\ \textcolor{keyword}{requires}(\textcolor{keyword}{const}\ S\&\ s)}
+\DoxyCodeLine{00085\ \{}
+\DoxyCodeLine{00086\ \ \ \ \ \{s.create\_worker()\}\ -\/>\ \mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1worker}{worker}};}
+\DoxyCodeLine{00087\ \};}
+\DoxyCodeLine{00088\ \}}
 
 \end{DoxyCode}
