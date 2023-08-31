@@ -87,7 +87,7 @@ public:
         std::weak_ptr<state> m_state;
     };
 
-    test_scheduler() {}
+    test_scheduler() = default;
 
     rpp::schedulers::worker<worker_strategy> create_worker() const
     {

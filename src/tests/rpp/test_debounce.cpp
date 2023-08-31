@@ -14,30 +14,10 @@
 #include <rpp/subjects/publish_subject.hpp>
 
 #include "mock_observer.hpp"
+#include "disposable_observable.hpp"
+
 #include "test_scheduler.hpp"
 
-#include <sstream>
-
-namespace std {
-    bool append(snitch::small_string_span ss, const std::vector<rpp::schedulers::time_point>& v) {
-        std::stringstream res{};
-        for(const auto& vv : v)
-        {
-            res << vv.time_since_epoch().count() << ", ";
-        }
-        return append(ss, res.str());
-    }
-    template<typename T>
-        requires requires(const T& v) { std::stringstream{} << v;}
-    bool append(snitch::small_string_span ss, const std::vector<T>& v) {
-        std::stringstream res{};
-        for(const auto& vv : v)
-        {
-            res << vv << ", ";
-        }
-        return append(ss, res.str());
-    }
-}
 
 TEST_CASE("debounce emit only items where timeout reached")
 {
@@ -138,4 +118,10 @@ TEST_CASE("debounce emit only items where timeout reached")
             }
         }
     }
+}
+
+
+TEST_CASE("debounce disposes original disposable on disposing")
+{
+    test_operator_with_disposable<int>(rpp::ops::debounce(std::chrono::seconds{1}, test_scheduler{}));
 }

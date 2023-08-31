@@ -165,6 +165,28 @@ struct debounce_t
 
 namespace rpp::operators
 {
+/**
+ * @brief Only emit emission if specified period of time has passed without any other emission. On each new emission timer reset.
+ * 
+ * @marble debounce
+ {
+     source    observable   : +--1-2-----3---|
+     operator "debounce(4)" : +--------2-----3|
+ }
+ *
+ * @details Actually this operator resets time of last emission, schedules action to send this emission after specified period if no any new emissions till this moment.
+ *
+ * @param period is duration of time should be passed since emission from original observable without any new emissions to emit this emission.
+ * @param scheduler is scheduler used to run timer for debounce
+
+ * @warning #include <rpp/operators/debounce.hpp>
+ * 
+ * @par Example
+ * @snippet debounce.cpp debounce
+ *
+ * @ingroup utility_operators
+ * @see https://reactivex.io/documentation/operators/debounce.html
+ */
 template<rpp::schedulers::constraint::scheduler Scheduler>
 auto debounce(rpp::schedulers::duration period, Scheduler&& scheduler)
 {
