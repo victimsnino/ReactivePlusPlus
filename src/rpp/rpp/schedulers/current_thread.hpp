@@ -106,8 +106,6 @@ class current_thread
         s_last_now_time = std::max(now, timepoint);
     }
 
-    static time_point get_now() { return s_last_now_time = clock_type::now(); }
-
     static void drain_current_queue()
     {
         drain_queue(s_queue);
@@ -138,7 +136,7 @@ class current_thread
             } while (queue->is_empty() && duration.has_value());
 
             if (duration.has_value())
-                queue->emplace(get_now() + duration.value(), std::move(top));
+                queue->emplace(worker_strategy::now() + duration.value(), std::move(top));
         }
 
         queue.reset();
@@ -176,13 +174,14 @@ public:
             else if (handler.is_disposed())
                 return;
 
-            queue->emplace(get_now() + duration, std::forward<Fn>(fn), std::forward<Handler>(handler), std::forward<Args>(args)...);
+            queue->emplace(now() + duration, std::forward<Fn>(fn), std::forward<Handler>(handler), std::forward<Args>(args)...);
 
             if (!someone_owns_queue)
                 drain_queue(queue);
         }
 
         static rpp::disposable_wrapper get_disposable() { return rpp::disposable_wrapper{}; }
+        static rpp::schedulers::time_point now() { return s_last_now_time = clock_type::now(); }
     };
 
     static rpp::schedulers::worker<worker_strategy> create_worker()

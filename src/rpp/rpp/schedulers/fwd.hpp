@@ -52,6 +52,7 @@ concept strategy = requires(const S& s, const details::fake_schedulable_handler&
 {
     {s.defer_for(duration{}, std::declval<optional_duration(*)(const details::fake_schedulable_handler&)>(), handler)} -> std::same_as<void>;
     {s.get_disposable()} -> std::same_as<rpp::disposable_wrapper>;
+    {S::now()} -> std::same_as<rpp::schedulers::time_point>;
 };
 }
 

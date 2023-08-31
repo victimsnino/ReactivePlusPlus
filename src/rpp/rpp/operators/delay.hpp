@@ -33,7 +33,7 @@ struct emission
 };
 
 template<rpp::constraint::observer Observer, typename Worker>
-struct delay_disposable final : public rpp::composite_disposable, public std::enable_shared_from_this<delay_disposable<Observer, Worker>> {
+struct delay_disposable final : public rpp::composite_disposable {
     using T = rpp::utils::extract_observer_type_t<Observer>;
 
     delay_disposable(Observer&& in_observer, Worker&& in_worker, rpp::schedulers::duration delay)
@@ -46,7 +46,7 @@ struct delay_disposable final : public rpp::composite_disposable, public std::en
 
     Observer                     observer;
     RPP_NO_UNIQUE_ADDRESS Worker worker;
-    rpp::schedulers::duration    delay{};
+    rpp::schedulers::duration    delay;
 
     std::mutex              mutex{};
     std::queue<emission<T>> queue;
@@ -112,7 +112,7 @@ private:
         if (std::is_same_v<std::exception_ptr, std::decay_t<TT>>)
             disposable->queue = std::queue<emission<rpp::utils::extract_observer_type_t<Observer>>>{};
 
-        disposable->queue.emplace(std::forward<TT>(item), rpp::schedulers::clock_type::now() + delay);
+        disposable->queue.emplace(std::forward<TT>(item), disposable->worker.now() + delay);
         if (!disposable->is_active)
         {
             disposable->is_active = true;
@@ -133,7 +133,7 @@ private:
             }
 
             auto& top = disposable->queue.front();
-            const auto now = rpp::schedulers::clock_type::now();
+            const auto now = disposable->worker.now();
             if (top.time_point > now)
                 return top.time_point - now;
 

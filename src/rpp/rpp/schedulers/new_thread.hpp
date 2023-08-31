@@ -102,10 +102,13 @@ class new_thread
                     continue;
                 }
 
-                if (const auto now = clock_type::now(); now < queue->top()->get_timepoint())
+                if (current_thread::s_last_now_time < queue->top()->get_timepoint()) 
                 {
-                    state->cv.wait_for(lock, queue->top()->get_timepoint() - now);
-                    continue;
+                    if (const auto now = worker_strategy::now(); now < queue->top()->get_timepoint())
+                    {
+                        state->cv.wait_for(lock, queue->top()->get_timepoint() - now);
+                        continue;
+                    }
                 }
 
                 auto top = queue->pop();
@@ -113,7 +116,7 @@ class new_thread
                 // we need to keep lock locked due to we have chance to use current_thread during invoking of this schedulable
                 if (const auto duration = (*top)())
                 {
-                    queue->emplace(clock_type::now() + duration.value(), std::move(top));
+                    queue->emplace(worker_strategy::now() + duration.value(), std::move(top));
                 }
             }
 
@@ -135,10 +138,12 @@ public:
         template<rpp::schedulers::constraint::schedulable_handler Handler, typename... Args, constraint::schedulable_fn<Handler, Args...> Fn>
         void defer_for(duration duration, Fn&& fn, Handler&& handler, Args&&... args) const
         {
-            m_state->defer_at(clock_type::now() + duration, std::forward<Fn>(fn), std::forward<Handler>(handler), std::forward<Args>(args)...);
+            m_state->defer_at(now() + duration, std::forward<Fn>(fn), std::forward<Handler>(handler), std::forward<Args>(args)...);
         }
 
         rpp::disposable_wrapper get_disposable() const { return rpp::disposable_wrapper{m_state}; }
+
+        static rpp::schedulers::time_point now() { return current_thread::worker_strategy::now(); }
 
 private:
         std::shared_ptr<disposable> m_state = std::make_shared<disposable>();

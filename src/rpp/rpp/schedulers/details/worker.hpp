@@ -43,6 +43,8 @@ public:
 
     rpp::disposable_wrapper get_disposable() const { return m_strategy.get_disposable(); }
 
+    static rpp::schedulers::time_point now() { return Strategy::now(); }
+
 private:
     RPP_NO_UNIQUE_ADDRESS Strategy m_strategy;
 };
