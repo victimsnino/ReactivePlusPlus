@@ -9,6 +9,7 @@
 
 #pragma once
 
+#include <rpp/defs.hpp>
 #include <rpp/sources/fwd.hpp>
 #include <rpp/observables/observable.hpp>
 
@@ -16,7 +17,7 @@ namespace rpp::details
 {
 struct interval_schedulable
 {
-    rpp::schedulers::optional_duration operator()(auto&& observer, rpp::schedulers::duration period, size_t& counter) const
+    rpp::schedulers::optional_duration operator()(const auto& observer, rpp::schedulers::duration period, size_t& counter) const
     {
          observer.on_next(++counter);
          return period;
@@ -28,7 +29,7 @@ struct interval_strategy
 {
     using ValueType = size_t;
 
-    TScheduler scheduler;
+    RPP_NO_UNIQUE_ADDRESS TScheduler scheduler;
     rpp::schedulers::duration initial;
     rpp::schedulers::duration period;
 
@@ -71,7 +72,7 @@ namespace rpp::source
  */
 template<schedulers::constraint::scheduler TScheduler>
 auto interval(rpp::schedulers::duration initial, rpp::schedulers::duration period, TScheduler&& scheduler) {
-    return interval_observable<TScheduler>{std::forward<TScheduler>(scheduler), initial, period};
+    return interval_observable<std::decay_t<TScheduler>>{std::forward<TScheduler>(scheduler), initial, period};
 }
 
 /**
