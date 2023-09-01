@@ -23,7 +23,7 @@
 \DoxyCodeLine{00019\ \{}
 \DoxyCodeLine{00020\ \ \ \ \ rpp::schedulers::optional\_duration\ operator()(\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ \mbox{\hyperlink{classrpp_1_1observer}{observer}},\ rpp::schedulers::duration\ period,\ \textcolor{keywordtype}{size\_t}\&\ counter)\textcolor{keyword}{\ const}}
 \DoxyCodeLine{00021\ \textcolor{keyword}{\ \ \ \ }\{}
-\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrpp_1_1observer}{observer}}.\mbox{\hyperlink{classrpp_1_1details_1_1observer__impl_a14747a5260ecc183a6d0f1adafee4f68}{on\_next}}(++counter);}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrpp_1_1observer}{observer}}.\mbox{\hyperlink{classrpp_1_1details_1_1observer__impl_a14747a5260ecc183a6d0f1adafee4f68}{on\_next}}(counter++);}
 \DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ period;}
 \DoxyCodeLine{00024\ \ \ \ \ \}}
 \DoxyCodeLine{00025\ \};}
@@ -63,7 +63,7 @@
 \DoxyCodeLine{00077\ }
 \DoxyCodeLine{00094\ \textcolor{keyword}{template}<schedulers::constra\textcolor{keywordtype}{int}::scheduler\ TScheduler>}
 \DoxyCodeLine{00095\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__creational__operators_ga4018b147fb99a358c6c01f21183c13e6}{interval}}(rpp::schedulers::duration\ period,\ TScheduler\&\&\ scheduler)\ \{}
-\DoxyCodeLine{00096\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{group__creational__operators_ga4018b147fb99a358c6c01f21183c13e6}{interval}}(rpp::schedulers::duration\{\},\ period,\ std::forward<TScheduler>(scheduler));}
+\DoxyCodeLine{00096\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{group__creational__operators_ga4018b147fb99a358c6c01f21183c13e6}{interval}}(period,\ period,\ std::forward<TScheduler>(scheduler));}
 \DoxyCodeLine{00097\ \}}
 \DoxyCodeLine{00098\ \}}
 
