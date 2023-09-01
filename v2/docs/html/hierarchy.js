@@ -70,6 +70,8 @@ var hierarchy =
         [ "rpp::refcount_disposable", "classrpp_1_1refcount__disposable.html", null ]
       ] ]
     ] ],
+    [ "rpp::details::interval_schedulable", "structrpp_1_1details_1_1interval__schedulable.html", null ],
+    [ "rpp::details::interval_strategy< TScheduler >", "structrpp_1_1details_1_1interval__strategy.html", null ],
     [ "rpp::utils::details::is_observable_t< TObservable >", "structrpp_1_1utils_1_1details_1_1is__observable__t.html", null ],
     [ "rpp::details::observers::lambda_strategy< Type, OnNext, OnError, OnCompleted >", "structrpp_1_1details_1_1observers_1_1lambda__strategy.html", null ],
     [ "rpp::operators::details::last_observer_strategy< Type, TObserver >", "structrpp_1_1operators_1_1details_1_1last__observer__strategy.html", null ],

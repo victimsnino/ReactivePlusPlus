@@ -33,6 +33,10 @@ requires (constraint\+::decayed\+\_\+same\+\_\+as$<$T, \mbox{\hyperlink{group__c
 \begin{DoxyCompactList}\small\item\em Creates \doxylink{classrpp_1_1observable}{rpp\+::observable} that emits a particular items and completes. \end{DoxyCompactList}\item 
 {\footnotesize template$<$constraint\+::memory\+\_\+model memory\+\_\+model, std\+::invocable$<$$>$ Callable$>$ }\\\mbox{\hyperlink{group__creational__operators_ga5bf57bc7e432fb38565810144a75b972}{auto}} \mbox{\hyperlink{group__creational__operators_ga519523490394660d7e8c46d2d5612f75}{rpp\+::source\+::from\+\_\+callable}} (\mbox{\hyperlink{group__creational__operators_ga5bf57bc7e432fb38565810144a75b972}{Callable}} \&\&\mbox{\hyperlink{group__creational__operators_ga5bf57bc7e432fb38565810144a75b972}{callable}})
 \begin{DoxyCompactList}\small\item\em Creates rpp\+::specific\+\_\+observable that calls provided callable and emits resulting value of this callable. \end{DoxyCompactList}\item 
+{\footnotesize template$<$schedulers\+::constraint\+::scheduler TScheduler$>$ }\\\mbox{\hyperlink{group__creational__operators_ga5bf57bc7e432fb38565810144a75b972}{auto}} \mbox{\hyperlink{group__creational__operators_ga4018b147fb99a358c6c01f21183c13e6}{rpp\+::source\+::interval}} (rpp\+::schedulers\+::duration initial, rpp\+::schedulers\+::duration period, TScheduler \&\&scheduler)
+\begin{DoxyCompactList}\small\item\em Creates \doxylink{classrpp_1_1observable}{rpp\+::observable} that emits a sequential integer every specified time interval, on the specified scheduler. \end{DoxyCompactList}\item 
+{\footnotesize template$<$schedulers\+::constraint\+::scheduler TScheduler$>$ }\\\mbox{\hyperlink{group__creational__operators_ga5bf57bc7e432fb38565810144a75b972}{auto}} \mbox{\hyperlink{group__creational__operators_ga95f6d310d6f17a4c248e43fb628527df}{rpp\+::source\+::interval}} (rpp\+::schedulers\+::duration period, TScheduler \&\&scheduler)
+\begin{DoxyCompactList}\small\item\em Creates \doxylink{classrpp_1_1observable}{rpp\+::observable} that emits a sequential integer every specified time interval, on the specified scheduler. \end{DoxyCompactList}\item 
 {\footnotesize template$<$constraint\+::decayed\+\_\+type Type$>$ }\\\mbox{\hyperlink{group__creational__operators_ga5bf57bc7e432fb38565810144a75b972}{auto}} \mbox{\hyperlink{group__creational__operators_ga16c57281cc1b24605ec23b09ec880416}{rpp\+::source\+::never}} ()
 \begin{DoxyCompactList}\small\item\em Creates \doxylink{classrpp_1_1observable}{rpp\+::observable} that emits no items and does not terminate. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
@@ -392,6 +396,66 @@ Creates observable that emits a items from provided iterable.
 \begin{Desc}
 \item[Examples]\par
 \mbox{\hyperlink{defer_8cpp-example}{defer.\+cpp}}, \mbox{\hyperlink{from_8cpp-example}{from.\+cpp}}, and \mbox{\hyperlink{take_8cpp-example}{take.\+cpp}}.\end{Desc}
+\Hypertarget{group__creational__operators_ga4018b147fb99a358c6c01f21183c13e6}\label{group__creational__operators_ga4018b147fb99a358c6c01f21183c13e6} 
+\index{Creational Operators@{Creational Operators}!interval@{interval}}
+\index{interval@{interval}!Creational Operators@{Creational Operators}}
+\doxysubsubsubsubsection{\texorpdfstring{interval()}{interval()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$schedulers\+::constraint\+::scheduler TScheduler$>$ \\
+\mbox{\hyperlink{group__creational__operators_ga5bf57bc7e432fb38565810144a75b972}{auto}} rpp\+::source\+::interval (\begin{DoxyParamCaption}\item[{rpp\+::schedulers\+::duration}]{initial,  }\item[{rpp\+::schedulers\+::duration}]{period,  }\item[{TScheduler \&\&}]{scheduler }\end{DoxyParamCaption})}
+
+
+
+Creates \doxylink{classrpp_1_1observable}{rpp\+::observable} that emits a sequential integer every specified time interval, on the specified scheduler. 
+
+
+
+
+\begin{DoxyParams}{Parameters}
+{\em initial} & time before first emission \\
+\hline
+{\em period} & period between emitted values \\
+\hline
+{\em scheduler} & the scheduler to use for scheduling the items\\
+\hline
+\end{DoxyParams}
+\begin{DoxyParagraph}{Example\+:}
+
+\begin{DoxyCodeInclude}{0}
+
+\end{DoxyCodeInclude}
+
+\end{DoxyParagraph}
+\begin{DoxySeeAlso}{See also}
+\href{https://reactivex.io/documentation/operators/interval.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/interval.\+html}} 
+\end{DoxySeeAlso}
+\Hypertarget{group__creational__operators_ga95f6d310d6f17a4c248e43fb628527df}\label{group__creational__operators_ga95f6d310d6f17a4c248e43fb628527df} 
+\index{Creational Operators@{Creational Operators}!interval@{interval}}
+\index{interval@{interval}!Creational Operators@{Creational Operators}}
+\doxysubsubsubsubsection{\texorpdfstring{interval()}{interval()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$schedulers\+::constraint\+::scheduler TScheduler$>$ \\
+\mbox{\hyperlink{group__creational__operators_ga5bf57bc7e432fb38565810144a75b972}{auto}} rpp\+::source\+::interval (\begin{DoxyParamCaption}\item[{rpp\+::schedulers\+::duration}]{period,  }\item[{TScheduler \&\&}]{scheduler }\end{DoxyParamCaption})}
+
+
+
+Creates \doxylink{classrpp_1_1observable}{rpp\+::observable} that emits a sequential integer every specified time interval, on the specified scheduler. 
+
+ 
+\begin{DoxyParams}{Parameters}
+{\em period} & period between emitted values \\
+\hline
+{\em scheduler} & the scheduler to use for scheduling the items\\
+\hline
+\end{DoxyParams}
+\begin{DoxyParagraph}{Example\+:}
+
+\begin{DoxyCodeInclude}{0}
+
+\end{DoxyCodeInclude}
+
+\end{DoxyParagraph}
+\begin{DoxySeeAlso}{See also}
+\href{https://reactivex.io/documentation/operators/interval.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/interval.\+html}} 
+\end{DoxySeeAlso}
 \Hypertarget{group__creational__operators_gae60bdb9b493443d2786b0eee8bfe17ab}\label{group__creational__operators_gae60bdb9b493443d2786b0eee8bfe17ab} 
 \index{Creational Operators@{Creational Operators}!just@{just}}
 \index{just@{just}!Creational Operators@{Creational Operators}}
