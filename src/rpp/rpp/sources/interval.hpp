@@ -19,7 +19,7 @@ struct interval_schedulable
 {
     rpp::schedulers::optional_duration operator()(const auto& observer, rpp::schedulers::duration period, size_t& counter) const
     {
-         observer.on_next(++counter);
+         observer.on_next(counter++);
          return period;
     }
 };
@@ -55,9 +55,9 @@ namespace rpp::source
 /**
  * @brief Creates rpp::observable that emits a sequential integer every specified time interval, on the specified scheduler.
  *
- * @marble interval
+ * @marble interval_with_initial
    {
-       operator "interval(10s)": +-1-2-3-5->
+       operator "interval(20s, 10s)": +--1-2-3-5->
    }
  *
  * @param initial time before first emission
@@ -80,7 +80,7 @@ auto interval(rpp::schedulers::duration initial, rpp::schedulers::duration perio
  *
  * @marble interval
    {
-       operator "interval(20s, 10s)": +--1-2-3-5->
+       operator "interval(10s)": +-1-2-3-5->
    }
  * @param period period between emitted values
  * @param scheduler the scheduler to use for scheduling the items
@@ -93,6 +93,6 @@ auto interval(rpp::schedulers::duration initial, rpp::schedulers::duration perio
  */
 template<schedulers::constraint::scheduler TScheduler>
 auto interval(rpp::schedulers::duration period, TScheduler&& scheduler) {
-    return interval(rpp::schedulers::duration{}, period, std::forward<TScheduler>(scheduler));
+    return interval(period, period, std::forward<TScheduler>(scheduler));
 }
 }

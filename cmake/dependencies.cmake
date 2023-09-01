@@ -54,6 +54,8 @@ endif()
 if (RPP_BUILD_TESTS)
   Include(FetchContent)
 
+  set(BUILD_SHARED_LIBS OFF CACHE INTERNAL "Build SHARED libraries")
+
   FetchContent_Declare(snitch
       GIT_REPOSITORY https://github.com/cschreib/snitch.git
       GIT_TAG        main
