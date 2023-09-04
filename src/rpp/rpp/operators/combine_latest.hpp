@@ -42,7 +42,7 @@ public:
 private:
     value_with_mutex<Observer>                observer_with_mutex{};
     rpp::utils::tuple<std::optional<Args>...> values{};
-    TSelector                                 selector;
+    RPP_NO_UNIQUE_ADDRESS TSelector           selector;
 
     std::atomic_size_t m_on_completed_needed{sizeof...(Args)};
 };
@@ -69,7 +69,7 @@ struct combine_latest_observer_strategy
         const auto observer = disposable->get_observer_under_lock();
         disposable->get_values().template get<I>().emplace(std::forward<T>(v));
 
-        disposable->get_values().apply([&](const std::optional<Args>&... vals)
+        disposable->get_values().apply([this, &observer](const std::optional<Args>&... vals)
         {
             if ((vals.has_value() && ...))
                 observer->on_next(disposable->get_selector()(vals.value()...));

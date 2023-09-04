@@ -40,7 +40,7 @@ public:
 private:
     value_with_mutex<Observer>                                      observer_with_mutex{};
     rpp::utils::tuple<value_with_mutex<std::optional<RestArgs>>...> values{};
-    TSelector                                                       selector;
+    RPP_NO_UNIQUE_ADDRESS TSelector                                 selector;
 };
 
 template<size_t I, rpp::constraint::observer Observer, typename TSelector, rpp::constraint::decayed_type... RestArgs>
@@ -98,7 +98,7 @@ struct with_latest_from_observer_strategy
     template<typename T>
     void on_next(T&& v) const
     {
-        auto result = disposable->get_values().apply([&](value_with_mutex<std::optional<RestArgs>>&... vals) -> std::optional<Result>
+        auto result = disposable->get_values().apply([this, &v](value_with_mutex<std::optional<RestArgs>>&... vals) -> std::optional<Result>
         {
             auto lock = std::scoped_lock{vals.mutex...};
 
