@@ -25,4 +25,4 @@ set_target_properties(${TARGET} PROPERTIES FOLDER Tests)
 set_target_properties(${TARGET} PROPERTIES CXX_CLANG_TIDY "")
 
 
-add_test(NAME ${TARGET} COMMAND  $<TARGET_FILE:${TARGET}> --dump="${RPP_TEST_RESULTS_DIR}/benchmarks_results.json")
+add_test(NAME ${TARGET} COMMAND  $<TARGET_FILE:${TARGET}> --dump=${RPP_TEST_RESULTS_DIR}/benchmarks_results.json)
