@@ -557,7 +557,7 @@ int main(int argc, char* argv[]) // NOLINT
     }
 
     if (dump.has_value()) {
-        std::ofstream of{dump.value()};
+        std::ofstream of{std::string{dump.value()}};
         bench.render(json(), of);
         of.close();
     }
