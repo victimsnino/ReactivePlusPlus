@@ -157,3 +157,15 @@ TEST_CASE("combine_latest handles race condition")
         }
     }
 }
+
+TEST_CASE("combine_latest disposes original disposable on disposing")
+{
+    auto observable_disposable = std::make_shared<rpp::composite_disposable>();
+    {
+        auto observable = observable_with_disposable<int>(observable_disposable);
+
+        test_operator_with_disposable<int>(rpp::ops::combine_latest(observable));
+    }
+    
+    CHECK(observable_disposable->is_disposed() || observable_disposable.use_count() == 1);
+}

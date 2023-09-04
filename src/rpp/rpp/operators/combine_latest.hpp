@@ -144,7 +144,7 @@ namespace rpp::operators
        operator "combine_latest: x,y =>std::pair{x,y}"   : +------{1,5}-{2,7}-{2,8}-{3,8}-|
    }
  *
- * @details Actually this operator just keeps last values from all other observables and combines them together with each new emission from any observable
+ * @details Actually this operator subscribes on all of theses observables and emits new combined value when any of them emits new emission (and each observable emit values at least one to be able to provide combined value)
  *
  * @par Performance notes:
  * - 1 heap allocation for disposable
@@ -177,6 +177,8 @@ auto combine_latest(TSelector&& selector, TObservable&& observable, TObservables
        source other_observable                 : +-5-6-7-    --    -8    --    -|
        operator "combine_latest: make_tuple"   : +------{1,5}-{2,7}-{2,8}-{3,8}-|
    }
+ *
+ * @details Actually this operator subscribes on all of theses observables and emits new combined value when any of them emits new emission (and each observable emit values at least one to be able to provide combined value)
  *
  * @warning Selector is just packing values to tuple in this case
  *
