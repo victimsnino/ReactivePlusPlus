@@ -6,17 +6,18 @@
 #include <string_view>
 #include <functional>
 #include <tuple>
+#include <span>
 
 #include <rpp/rpp.hpp>
 #ifdef RPP_BUILD_RXCPP
     #include <rxcpp/rx.hpp>
 #endif
 
-#define BENCHMARK(NAME)     bench.context("benchmark_title", NAME);
-#define SECTION(NAME)       bench.context("benchmark_name", NAME);
-#define TEST_RPP(...)    bench.context("source", "rpp").run(__VA_ARGS__)
+#define BENCHMARK(NAME)     bench.context("benchmark_title", NAME); if (!benchmark.has_value() || std::string_view{NAME}.find(benchmark.value()) != std::string_view::npos)
+#define SECTION(NAME)       bench.context("benchmark_name", NAME); if (!section.has_value() || std::string_view{NAME}.find(section.value()) != std::string_view::npos)
+#define TEST_RPP(...)       if (!disable_rpp) bench.context("source", "rpp").run(__VA_ARGS__)
 #ifdef RPP_BUILD_RXCPP
-    #define TEST_RXCPP(...)  bench.context("source", "rxcpp").run(__VA_ARGS__)
+    #define TEST_RXCPP(...)  if (!disable_rxcpp) bench.context("source", "rxcpp").run(__VA_ARGS__)
 #else
     #define TEST_RXCPP(...)
 #endif
@@ -34,10 +35,29 @@ char const* json() noexcept {
 ])DELIM";
 }
 
+std::optional<std::string_view> find_argument(std::string_view target_argument, std::span<char*> args)
+{
+    for (const auto raw_argument : args)
+    {
+        const auto argument = std::string_view{raw_argument};
+        if (argument.starts_with(target_argument))
+        {
+            return argument.substr(target_argument.size());
+        }
+    }
+    return std::nullopt;
+}
+
 
 int main(int argc, char* argv[]) // NOLINT
 {
     auto bench = ankerl::nanobench::Bench{}.output(nullptr).warmup(3);
+    const auto args = std::span{argv, static_cast<size_t>(argc)};
+    const auto benchmark = find_argument("--benchmark=", args);
+    const auto section = find_argument("--section=", args);
+    const auto disable_rxcpp = find_argument("--disable_rxcpp", args).has_value();
+    const auto disable_rpp = find_argument("--disable_rpp", args).has_value();
+    const auto dump = find_argument("--dump=", args);
 
     BENCHMARK("General")
     {
@@ -536,8 +556,8 @@ int main(int argc, char* argv[]) // NOLINT
         }
     }
 
-    if (argc > 1) {
-        std::ofstream of{argv[1]};
+    if (dump.has_value()) {
+        std::ofstream of{std::string{dump.value()}};
         bench.render(json(), of);
         of.close();
     }
