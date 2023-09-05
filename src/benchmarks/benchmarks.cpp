@@ -523,12 +523,12 @@ int main(int argc, char* argv[]) // NOLINT
                 });
             }
             {
-                rxcpp::subjects::subject<int> rxcpp_subj{};
-                rxcpp_subj.get_observable().subscribe(rxcpp::make_subscriber<int>([](int v){ ankerl::nanobench::doNotOptimizeAway(v); }, []{}));
-                TEST_RXCPP([&]()
-                {
-                    rxcpp_subj.get_subscriber().on_next(1);
-                });
+                // rxcpp::subjects::subject<int> rxcpp_subj{};
+                // rxcpp_subj.get_observable().subscribe(rxcpp::make_subscriber<int>([](int v){ ankerl::nanobench::doNotOptimizeAway(v); }, []{}));
+                // TEST_RXCPP([&]()
+                // {
+                //     rxcpp_subj.get_subscriber().on_next(1);
+                // });
             }
         }
     }

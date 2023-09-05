@@ -22,6 +22,7 @@
 #include <exception>
 #include <stdexcept>
 #include <type_traits>
+#include <variant>
 
 namespace rpp::details
 {
@@ -30,11 +31,30 @@ using external_disposable_strategy = composite_disposable_wrapper;
 class local_disposable_strategy
 {
 public:
-    local_disposable_strategy() = default;
+    local_disposable_strategy() {};
+    ~local_disposable_strategy() {}
 
-    void add(const disposable_wrapper& d)
+    void add(const rpp::disposable_wrapper& d)
     {
-        m_upstreams.push_back(d);
+        // std::visit(rpp::utils::overloaded{[&](std::monostate) { m_upstream = d; },
+        //                                   [&](rpp::disposable_wrapper& current)
+        //                                   {
+        //                                       if (current.is_disposed())
+        //                                           current = d;
+        //                                       else
+        //                                           m_upstream = std::vector{std::move(current), d};
+        //                                   },
+        //                                   [&](std::vector<rpp::disposable_wrapper>& upstreams)
+        //                                   {
+        //                                       auto itr = std::find_if(upstreams.begin(),
+        //                                                               upstreams.end(),
+        //                                                               rpp::utils::static_mem_fn<&disposable_wrapper::is_disposed>{});
+        //                                       if (itr != upstreams.cend())
+        //                                           *itr = d;
+        //                                       else
+        //                                           upstreams.push_back(d);
+        //                                   }},
+        //            m_upstream);
     }
 
     bool is_disposed() const noexcept
@@ -45,12 +65,18 @@ public:
     void dispose() const
     {
         m_is_disposed = true;
-        for(const auto& d : m_upstreams)
-            d.dispose();
+        std::visit(rpp::utils::overloaded{[](std::monostate) {},
+                                          [](const rpp::disposable_wrapper& current) { current.dispose(); },
+                                          [](const std::vector<rpp::disposable_wrapper>& upstreams)
+                                          {
+                                              for (const auto& d : upstreams)
+                                                  d.dispose();
+                                          }},
+                   m_upstream);
     }
 
 private:
-    std::vector<disposable_wrapper> m_upstreams{};
+    std::variant<std::monostate, rpp::disposable_wrapper, std::vector<disposable_wrapper>> m_upstream{};
     mutable bool                    m_is_disposed{false};
 };
 
@@ -84,6 +110,13 @@ protected:
     {
     }
 
+    template<typename... Args>
+        requires constraint::is_constructible_from<Strategy, Args&&...>
+    explicit observer_impl(Args&&... args)
+        : m_strategy{std::forward<Args>(args)...}, m_disposable{}
+    {
+    }
+
     observer_impl(const observer_impl&)     = default;
     observer_impl(observer_impl&&) noexcept = default;
 
@@ -98,6 +131,9 @@ public:
      */
     void set_upstream(const disposable_wrapper& d)
     {
+        // if (d.is_disposed())
+        //     return;
+
         if (is_disposed()) {
             d.dispose();
             return;
@@ -208,7 +244,7 @@ public:
     template<typename ...Args>
         requires (!constraint::variadic_decayed_same_as<observer<Type, Strategy>, Args...> && constraint::is_constructible_from<Strategy, Args&&...>)
     explicit observer(Args&& ...args)
-        : details::observer_impl<Type, Strategy, details::deduce_disposable_strategy_t<Strategy>>{details::deduce_disposable_strategy_t<Strategy>{}, std::forward<Args>(args)...}
+        : details::observer_impl<Type, Strategy, details::deduce_disposable_strategy_t<Strategy>>{std::forward<Args>(args)...}
     {}
 
     observer(const observer&)     = delete;
@@ -254,7 +290,7 @@ public:
     template<constraint::observer_strategy<Type> TStrategy>
         requires (!std::same_as<TStrategy, rpp::details::observers::dynamic_strategy<Type>>)
     explicit observer(observer<Type, TStrategy>&& other)
-        : details::observer_impl<Type, rpp::details::observers::dynamic_strategy<Type>, details::none_disposable_strategy>{details::none_disposable_strategy{}, std::move(other)}
+        : details::observer_impl<Type, rpp::details::observers::dynamic_strategy<Type>, details::none_disposable_strategy>{std::move(other)}
     {}
 
     observer(const observer&)     = default;
