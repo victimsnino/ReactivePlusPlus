@@ -40,7 +40,7 @@ public:
 private:
     value_with_mutex<Observer>                                      observer_with_mutex{};
     rpp::utils::tuple<value_with_mutex<std::optional<RestArgs>>...> values{};
-    TSelector                                                       selector;
+    RPP_NO_UNIQUE_ADDRESS TSelector                                 selector;
 };
 
 template<size_t I, rpp::constraint::observer Observer, typename TSelector, rpp::constraint::decayed_type... RestArgs>
@@ -75,63 +75,53 @@ struct with_latest_from_inner_observer_strategy
     static constexpr rpp::utils::empty_function_t<> on_completed{};
 };
 
-template<rpp::constraint::observer Observer, typename TSelector, typename OriginalValue, rpp::constraint::observable... TObservables>
-    requires std::invocable<TSelector, OriginalValue, rpp::utils::extract_observable_type_t<TObservables>...>
-class with_latest_from_observer_strategy
+template<rpp::constraint::observer Observer, typename TSelector, typename OriginalValue, rpp::constraint::decayed_type... RestArgs>
+    requires std::invocable<TSelector, OriginalValue, RestArgs...>
+struct with_latest_from_observer_strategy
 {
-    using Result = std::invoke_result_t<TSelector, OriginalValue, rpp::utils::extract_observable_type_t<TObservables>...>;
-    using Disposable = with_latest_from_disposable<Observer, TSelector, rpp::utils::extract_observable_type_t<TObservables>...>;
-public:
+    using Disposable = with_latest_from_disposable<Observer, TSelector, RestArgs...>;
+    using Result = std::invoke_result_t<TSelector, OriginalValue, RestArgs...>;
     using DisposableStrategyToUseWithThis = rpp::details::none_disposable_strategy;
 
-    template<size_t...I>
-    with_latest_from_observer_strategy(Observer&& observer, const TSelector& selector, const TObservables&... observables, std::index_sequence<I...>)
-        : m_disposable{std::make_shared<Disposable>(std::move(observer), selector)}
-    {
-        m_disposable->get_observer_under_lock()->set_upstream(rpp::disposable_wrapper::from_weak(m_disposable));
-        (observables.subscribe(rpp::observer<rpp::utils::extract_observable_type_t<TObservables>, with_latest_from_inner_observer_strategy<I, Observer, TSelector, rpp::utils::extract_observable_type_t<TObservables>...>>{m_disposable}),...);
-    }
+    std::shared_ptr<Disposable> disposable{};
 
     void set_upstream(const rpp::disposable_wrapper& d) const
     {
-        m_disposable->add(d.get_original());
+        disposable->add(d.get_original());
     }
 
     bool is_disposed() const
     {
-        return m_disposable->is_disposed();
+        return disposable->is_disposed();
     }
 
     template<typename T>
     void on_next(T&& v) const
     {
-        auto result = m_disposable->get_values().apply([&](value_with_mutex<std::optional<rpp::utils::extract_observable_type_t<TObservables>>>&... vals) -> std::optional<Result>
+        auto result = disposable->get_values().apply([this, &v](value_with_mutex<std::optional<RestArgs>>&... vals) -> std::optional<Result>
         {
             auto lock = std::scoped_lock{vals.mutex...};
 
             if ((vals.value.has_value() && ...))
-                return m_disposable->get_selector()(rpp::utils::as_const(std::forward<T>(v)), rpp::utils::as_const(vals.value.value())...);
+                return disposable->get_selector()(rpp::utils::as_const(std::forward<T>(v)), rpp::utils::as_const(vals.value.value())...);
             return std::nullopt;
         });
 
         if (result.has_value())
-            m_disposable->get_observer_under_lock()->on_next(std::move(result).value());
+            disposable->get_observer_under_lock()->on_next(std::move(result).value());
     }
 
     void on_error(const std::exception_ptr& err) const
     {
-        m_disposable->dispose();
-        m_disposable->get_observer_under_lock()->on_error(err);
+        disposable->dispose();
+        disposable->get_observer_under_lock()->on_error(err);
     }
 
     void on_completed() const
     {
-        m_disposable->dispose();
-        m_disposable->get_observer_under_lock()->on_completed();
+        disposable->dispose();
+        disposable->get_observer_under_lock()->on_completed();
     }
-
-private:
-    std::shared_ptr<Disposable> m_disposable{};
 };
 
 template<typename TSelector, rpp::constraint::observable... TObservables>
@@ -156,9 +146,21 @@ private:
     template<rpp::constraint::observer Observer, typename... Strategies>
     static void subscribe_impl(Observer&& observer, const observable_chain_strategy<Strategies...>& observable_strategy, const TSelector& selector, const TObservables&... observables)
     {
+        using Disposable = with_latest_from_disposable<Observer, TSelector, rpp::utils::extract_observable_type_t<TObservables>...>;
+
+        auto disposable = std::make_shared<Disposable>(std::forward<Observer>(observer), selector);
+        disposable->get_observer_under_lock()->set_upstream(rpp::disposable_wrapper::from_weak(disposable));
+        subscribe(disposable, std::index_sequence_for<TObservables...>{}, observables...);
+
         using ExpectedValue = typename observable_chain_strategy<Strategies...>::ValueType;
 
-        observable_strategy.subscribe(rpp::observer<ExpectedValue, with_latest_from_observer_strategy<std::decay_t<Observer>, TSelector, ExpectedValue, TObservables...>>{std::forward<Observer>(observer), selector, observables..., std::index_sequence_for<TObservables...>{}});
+        observable_strategy.subscribe(rpp::observer<ExpectedValue, with_latest_from_observer_strategy<std::decay_t<Observer>, TSelector, ExpectedValue, rpp::utils::extract_observable_type_t<TObservables>...>>{std::move(disposable)});
+    }
+
+    template<rpp::constraint::observer Observer, size_t...I>
+    static void subscribe(std::shared_ptr<with_latest_from_disposable<Observer, TSelector, rpp::utils::extract_observable_type_t<TObservables>...>> disposable, std::index_sequence<I...>, const TObservables&... observables)
+    {
+        (..., observables.subscribe(rpp::observer<rpp::utils::extract_observable_type_t<TObservables>, with_latest_from_inner_observer_strategy<I, Observer, TSelector, rpp::utils::extract_observable_type_t<TObservables>...>>{disposable}));
     }
 };
 }
@@ -193,8 +195,7 @@ namespace rpp::operators
  * @see https://reactivex.io/documentation/operators/combinelatest.html
  */
 template<typename TSelector, rpp::constraint::observable TObservable, rpp::constraint::observable... TObservables>
-    requires(!utils::is_not_template_callable<TSelector> ||
-             std::invocable<TSelector, rpp::utils::convertible_to_any, utils::extract_observable_type_t<TObservable>, utils::extract_observable_type_t<TObservables>...>)
+    requires (!rpp::constraint::observable<TSelector> && (!utils::is_not_template_callable<TSelector> || std::invocable<TSelector, rpp::utils::convertible_to_any, utils::extract_observable_type_t<TObservable>, utils::extract_observable_type_t<TObservables>...>))
 auto with_latest_from(TSelector&& selector, TObservable&& observable, TObservables&&... observables)
 {
     return details::with_latest_from_t<std::decay_t<TSelector>, std::decay_t<TObservable>, std::decay_t<TObservables>...>{rpp::utils::tuple{std::forward<TObservable>(observable), std::forward<TObservables>(observables)...}, std::forward<TSelector>(selector)};

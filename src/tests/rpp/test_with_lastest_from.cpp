@@ -143,7 +143,7 @@ TEST_CASE("with_latest_from reacts only on main root but sends last value from o
     }
 }
 
-TEST_CASE("with_latest_from handles race condition", "[with_latest_from]")
+TEST_CASE("with_latest_from handles race condition")
 {
     SECTION("source observable in current thread pairs with error in other thread")
     {

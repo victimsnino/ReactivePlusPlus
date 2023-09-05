@@ -2,31 +2,37 @@
 #include <snitch/snitch_string.hpp>
 #include <snitch/snitch_append.hpp>
 
+#include <rpp/schedulers/fwd.hpp>
 #include <vector>
 
-#include <sstream>
-
-namespace std // NOLINT
-{
-bool append(snitch::small_string_span ss, const std::vector<rpp::schedulers::time_point>& v)
-{
-    std::stringstream res{};
-    for (const auto& vv : v)
-    {
-        res << vv.time_since_epoch().count() << ", ";
-    }
-    return append(ss, res.str());
-}
+#include <tuple>
 
 template<typename T>
-    requires requires(const T& v) { std::stringstream{} << v; }
+concept appendable = requires(snitch::small_string_span ss, const T& v) { append(ss, v); };
+
+namespace rpp
+{
+inline bool append(snitch::small_string_span ss, rpp::schedulers::time_point& v)
+{
+    return append(ss, v.time_since_epoch().count());
+}
+}
+
+namespace std 
+{
+template<appendable T>
 bool append(snitch::small_string_span ss, const std::vector<T>& v)
 {
-    std::stringstream res{};
-    for (const auto& vv : v)
-    {
-        res << vv << ", ";
-    }
-    return append(ss, res.str());
+    return append(ss, "{") 
+        && std::all_of(v.cbegin(), v.cend(), [&ss](const T& vv) { return append(ss, vv) && append(ss, ", "); }) 
+        && append(ss, "}");
 }
-} // namespace std
+
+template<appendable ...T>
+bool append(snitch::small_string_span ss, const std::tuple<T...>& v)
+{
+    return append(ss, "{") 
+        && std::apply([&ss](const auto&... vv) { return ((append(ss, vv) && append(ss, ", ")) && ...); }, v) 
+        && append(ss, "}");
+}
+}

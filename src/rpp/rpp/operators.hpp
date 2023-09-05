@@ -62,12 +62,13 @@
 #include <rpp/operators/take_while.hpp>
 
 /**
- * \defgroup combining_operators Combining Operators
- * \brief Combining operators are operators that combines emissions of multiple observables into same observable by some rule
- * \see https://reactivex.io/documentation/operators.html#combining
- * \ingroup operators
+ * @defgroup combining_operators Combining Operators
+ * @brief Combining operators are operators that combines emissions of multiple observables into same observable by some rule
+ * @see https://reactivex.io/documentation/operators.html#combining
+ * @ingroup operators
  */
 
+#include <rpp/operators/combine_latest.hpp>
 #include <rpp/operators/merge.hpp>
 #include <rpp/operators/with_latest_from.hpp>
 
@@ -85,10 +86,10 @@
 #include <rpp/operators/subscribe_on.hpp>
 
 /**
- * \defgroup connectable_operators Connectable Operators
- * \brief Connectable operators are operators that provide extra functionality for multicasting of controlling of subscription
- * \see https://reactivex.io/documentation/operators.html#connectable
- * \ingroup operators
+ * @defgroup connectable_operators Connectable Operators
+ * @brief Connectable operators are operators that provide extra functionality for multicasting of controlling of subscription
+ * @see https://reactivex.io/documentation/operators.html#connectable
+ * @ingroup operators
  */
 
 #include <rpp/operators/multicast.hpp>

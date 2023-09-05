@@ -132,10 +132,10 @@ auto scan(InitialValue&& initial_value, Fn&& accumulator)
 /**
  * @brief Apply accumulator function for each emission from observable and result of accumulator from previous step and emit (and cache) resulting value
  *
- * @marble scan
+ * @marble scan_no_seed
  {
-     source observable                : +--1-2-3-|
-     operator "scan: s=1, (s,x)=>s+x" : +1-2-4-7-|
+     source observable           : +--1-2-3-|
+     operator "scan: (s,x)=>s+x" : +--1-3-6-|
  }
  *
  * @details Actually this operator applies provided accumulator function to seed and new emission, emits resulting value and updates seed value for next emission
