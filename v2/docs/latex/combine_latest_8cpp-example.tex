@@ -1,0 +1,38 @@
+\doxysection{combine\+\_\+latest.\+cpp}
+\hypertarget{combine_latest_8cpp-example}{}\label{combine_latest_8cpp-example}
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <rpp/rpp.hpp>}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{}
+\DoxyCodeLine{std::ostream\&\ operator<<(std::ostream\&\ out,\ \textcolor{keyword}{const}\ std::tuple<int,\ int>\&\ value)}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ \ \ out\ <<\ \textcolor{stringliteral}{"{}\{"{}}\ <<\ std::get<0>(value)\ <<\ \textcolor{stringliteral}{"{},"{}}\ <<\ std::get<1>(value)\ <<\ \textcolor{stringliteral}{"{}\}"{}};}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{return}\ out;}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{int}\ main()}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_gae60bdb9b493443d2786b0eee8bfe17ab}{rpp::source::just}}(\mbox{\hyperlink{classrpp_1_1schedulers_1_1current__thread}{rpp::schedulers::current\_thread}}\{\},\ 1,\ 2,\ 3)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ source\ 1}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ rpp::ops::combine\_latest(\mbox{\hyperlink{group__creational__operators_gae60bdb9b493443d2786b0eee8bfe17ab}{rpp::source::just}}(\mbox{\hyperlink{classrpp_1_1schedulers_1_1current__thread}{rpp::schedulers::current\_thread}}\{\},\ 4,\ 5,\ 6))\ \textcolor{comment}{//\ source\ 2}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ rpp::ops::subscribe([](\textcolor{keyword}{const}\ std::tuple<int,\ int>\&\ v)\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}-\/"{}}\ <<\ v;\ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [](\textcolor{keyword}{const}\ std::exception\_ptr\&)\ \{\},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ []()\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}-\/|"{}}\ <<\ std::endl;\ \});}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ source\ 1:\ \ \ -\/1-\/-\/-\/2-\/-\/-\/3-\/|}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ source\ 2:\ -\/4-\/-\/-\/5-\/-\/-\/6-\/|\ (note\ that\ source\ 2\ is\ subscribed\ earlier\ than\ source\ 1)}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output\ \ :\ -\/\{1,4\}-\/\{1,5\}-\/\{2,5\}-\/\{2,6\}-\/\{3,6\}\}-\/|}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_gae60bdb9b493443d2786b0eee8bfe17ab}{rpp::source::just}}(1,\ 2,\ 3)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ source\ 1}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ rpp::ops::combine\_latest([](\textcolor{keywordtype}{int}\ left,\ \textcolor{keywordtype}{int}\ right)\ \{\ \textcolor{keywordflow}{return}\ left\ +\ right;\ \},\ \textcolor{comment}{//\ custom\ combiner}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__creational__operators_gae60bdb9b493443d2786b0eee8bfe17ab}{rpp::source::just}}(4,\ 5,\ 6))\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ source\ 2}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ rpp::ops::subscribe([](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}-\/"{}}\ <<\ v;\ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [](\textcolor{keyword}{const}\ std::exception\_ptr\&)\ \{\},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ []()\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}-\/|"{}}\ <<\ std::endl;\ \});}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ source\ 1:\ \ \ \ \ \ \ \ \ \ -\/1-\/-\/-\/2-\/-\/-\/3-\/|}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ source\ 2:\ -\/4-\/-\/-\/5-\/-\/-\/6-\/|\ (note\ that\ source\ 2\ is\ subscribed\ earlier\ than\ source\ 1)}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output\ \ :\ -\/5-\/6-\/7-\/8-\/9-\/|}}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{\}}
+
+\end{DoxyCodeInclude}
+ 

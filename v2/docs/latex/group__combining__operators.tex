@@ -14,7 +14,7 @@ auto \mbox{\hyperlink{group__combining__operators_ga3f8a04b4c8eb945534eddde5a25e
 requires constraint\+::observables\+\_\+of\+\_\+same\+\_\+type$<$std\+::decay\+\_\+t$<$TObservable$>$, std\+::decay\+\_\+t$<$TObservables$>$...$>$}\\auto \mbox{\hyperlink{group__combining__operators_ga063bcb64ac3afbedca8b257d3558f2dd}{rpp\+::operators\+::merge\+\_\+with}} (TObservable \&\&\mbox{\hyperlink{classrpp_1_1observable}{observable}}, TObservables \&\&...observables)
 \begin{DoxyCompactList}\small\item\em Combines submissions from current observable with other observables into one. \end{DoxyCompactList}\item 
 {\footnotesize template$<$typename TSelector , \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp\+::constraint\+::observable}} TObservable, rpp\+::constraint\+::observable... TObservables$>$ \newline
-requires (!utils\+::is\+\_\+not\+\_\+template\+\_\+callable$<$TSelector$>$ \texorpdfstring{$\vert$}{|}\texorpdfstring{$\vert$}{|} std\+::invocable$<$TSelector, rpp\+::utils\+::convertible\+\_\+to\+\_\+any, utils\+::extract\+\_\+observable\+\_\+type\+\_\+t$<$TObservable$>$, utils\+::extract\+\_\+observable\+\_\+type\+\_\+t$<$TObservables$>$...$>$)}\\auto \mbox{\hyperlink{group__combining__operators_ga7c5521cd41f2832e93446fb740fb4d31}{rpp\+::operators\+::with\+\_\+latest\+\_\+from}} (TSelector \&\&selector, TObservable \&\&\mbox{\hyperlink{classrpp_1_1observable}{observable}}, TObservables \&\&... observables)
+requires (!\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp\+::constraint\+::observable}}$<$TSelector$>$ \&\& (!utils\+::is\+\_\+not\+\_\+template\+\_\+callable$<$TSelector$>$ \texorpdfstring{$\vert$}{|}\texorpdfstring{$\vert$}{|} std\+::invocable$<$TSelector, rpp\+::utils\+::convertible\+\_\+to\+\_\+any, utils\+::extract\+\_\+observable\+\_\+type\+\_\+t$<$TObservable$>$, utils\+::extract\+\_\+observable\+\_\+type\+\_\+t$<$TObservables$>$...$>$))}\\auto \mbox{\hyperlink{group__combining__operators_ga9345ba5faac717ba85fc88f1c5fff58b}{rpp\+::operators\+::with\+\_\+latest\+\_\+from}} (TSelector \&\&selector, TObservable \&\&\mbox{\hyperlink{classrpp_1_1observable}{observable}}, TObservables \&\&... observables)
 \begin{DoxyCompactList}\small\item\em Combines latest emissions from observables with emission from current observable when it sends new value via applying selector. \end{DoxyCompactList}\item 
 {\footnotesize template$<$\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp\+::constraint\+::observable}} TObservable, rpp\+::constraint\+::observable... TObservables$>$ }\\auto \mbox{\hyperlink{group__combining__operators_ga20acc2f23cb06163f9d5e56c5522ce6c}{rpp\+::operators\+::with\+\_\+latest\+\_\+from}} (TObservable \&\&\mbox{\hyperlink{classrpp_1_1observable}{observable}}, TObservables \&\&... observables)
 \begin{DoxyCompactList}\small\item\em Combines latest emissions from observables with emission from current observable when it sends new value via making tuple. \end{DoxyCompactList}\end{DoxyCompactItemize}
@@ -166,14 +166,14 @@ Selector is just packing values to tuple in this case
 
 \begin{DoxyCodeInclude}{0}
 \DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_gae60bdb9b493443d2786b0eee8bfe17ab}{rpp::source::just}}(1,\ 2,\ 3,\ 4,\ 5,\ 6)}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__combining__operators_ga7c5521cd41f2832e93446fb740fb4d31}{rpp::operators::with\_latest\_from}}(\mbox{\hyperlink{group__creational__operators_gae60bdb9b493443d2786b0eee8bfe17ab}{rpp::source::just}}(3,\ 4,\ 5))}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__combining__operators_ga9345ba5faac717ba85fc88f1c5fff58b}{rpp::operators::with\_latest\_from}}(\mbox{\hyperlink{group__creational__operators_gae60bdb9b493443d2786b0eee8bfe17ab}{rpp::source::just}}(3,\ 4,\ 5))}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ |\ rpp::operators::subscribe([](std::tuple<int,int>\ v)\ \{\ std::cout\ <<\ std::get<0>(v)\ <<\ \textcolor{stringliteral}{"{}:"{}}\ <<\ std::get<1>(v)\ <<\ \textcolor{stringliteral}{"{}\ "{}};\ \});}
 \DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:\ 1:3\ 2:4\ 3:5\ 4:5\ 5:5\ 6:5}}
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ \ \ std::cout\ <<\ std::endl;}
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_gae60bdb9b493443d2786b0eee8bfe17ab}{rpp::source::just}}(1,\ 2,\ 3)}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__combining__operators_ga7c5521cd41f2832e93446fb740fb4d31}{rpp::operators::with\_latest\_from}}(\mbox{\hyperlink{group__creational__operators_gae60bdb9b493443d2786b0eee8bfe17ab}{rpp::source::just}}(3,\ 4,\ 5,\ 6,\ 7,\ 8))}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__combining__operators_ga9345ba5faac717ba85fc88f1c5fff58b}{rpp::operators::with\_latest\_from}}(\mbox{\hyperlink{group__creational__operators_gae60bdb9b493443d2786b0eee8bfe17ab}{rpp::source::just}}(3,\ 4,\ 5,\ 6,\ 7,\ 8))}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ |\ rpp::operators::subscribe([](std::tuple<int,int>\ v)\ \{\ std::cout\ <<\ std::get<0>(v)\ <<\ \textcolor{stringliteral}{"{}:"{}}\ <<\ std::get<1>(v)\ <<\ \textcolor{stringliteral}{"{}\ "{}};\ \});}
 \DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:\ 1:3\ 2:4\ 3:5}}
 
@@ -183,12 +183,12 @@ Selector is just packing values to tuple in this case
 \begin{DoxySeeAlso}{See also}
 \href{https://reactivex.io/documentation/operators/combinelatest.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/combinelatest.\+html}} 
 \end{DoxySeeAlso}
-\Hypertarget{group__combining__operators_ga7c5521cd41f2832e93446fb740fb4d31}\label{group__combining__operators_ga7c5521cd41f2832e93446fb740fb4d31} 
+\Hypertarget{group__combining__operators_ga9345ba5faac717ba85fc88f1c5fff58b}\label{group__combining__operators_ga9345ba5faac717ba85fc88f1c5fff58b} 
 \index{Combining Operators@{Combining Operators}!with\_latest\_from@{with\_latest\_from}}
 \index{with\_latest\_from@{with\_latest\_from}!Combining Operators@{Combining Operators}}
 \doxysubsubsubsubsection{\texorpdfstring{with\_latest\_from()}{with\_latest\_from()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
 {\footnotesize\ttfamily template$<$typename TSelector , \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp\+::constraint\+::observable}} TObservable, rpp\+::constraint\+::observable... TObservables$>$ \newline
-requires (!utils\+::is\+\_\+not\+\_\+template\+\_\+callable$<$TSelector$>$ \texorpdfstring{$\vert$}{|}\texorpdfstring{$\vert$}{|} std\+::invocable$<$TSelector, rpp\+::utils\+::convertible\+\_\+to\+\_\+any, utils\+::extract\+\_\+observable\+\_\+type\+\_\+t$<$TObservable$>$, utils\+::extract\+\_\+observable\+\_\+type\+\_\+t$<$TObservables$>$...$>$)\\
+requires (!\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp\+::constraint\+::observable}}$<$TSelector$>$ \&\& (!utils\+::is\+\_\+not\+\_\+template\+\_\+callable$<$TSelector$>$ \texorpdfstring{$\vert$}{|}\texorpdfstring{$\vert$}{|} std\+::invocable$<$TSelector, rpp\+::utils\+::convertible\+\_\+to\+\_\+any, utils\+::extract\+\_\+observable\+\_\+type\+\_\+t$<$TObservable$>$, utils\+::extract\+\_\+observable\+\_\+type\+\_\+t$<$TObservables$>$...$>$))\\
 auto rpp\+::operators\+::with\+\_\+latest\+\_\+from (\begin{DoxyParamCaption}\item[{TSelector \&\&}]{selector,  }\item[{TObservable \&\&}]{observable,  }\item[{TObservables \&\&...}]{observables }\end{DoxyParamCaption})}
 
 
@@ -221,7 +221,7 @@ Actually this operator just keeps last values from all other observables and com
 
 \begin{DoxyCodeInclude}{0}
 \DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_gae60bdb9b493443d2786b0eee8bfe17ab}{rpp::source::just}}(1,\ 2,\ 3,\ 4)}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__combining__operators_ga7c5521cd41f2832e93446fb740fb4d31}{rpp::operators::with\_latest\_from}}([](\textcolor{keywordtype}{int}\ left,\ \textcolor{keywordtype}{int}\ right)\ \{\ \textcolor{keywordflow}{return}\ left\ +\ right;\ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__combining__operators_ga9345ba5faac717ba85fc88f1c5fff58b}{rpp::operators::with\_latest\_from}}([](\textcolor{keywordtype}{int}\ left,\ \textcolor{keywordtype}{int}\ right)\ \{\ \textcolor{keywordflow}{return}\ left\ +\ right;\ \},}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__creational__operators_gae60bdb9b493443d2786b0eee8bfe17ab}{rpp::source::just}}(3,\ 4,\ 5))}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ |\ rpp::operators::subscribe([](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ v\ <<\ \textcolor{stringliteral}{"{}\ "{}};\ \});}
 \DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:\ 4\ 6\ 8\ 9}}

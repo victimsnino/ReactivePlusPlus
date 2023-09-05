@@ -44,7 +44,7 @@
 \DoxyCodeLine{00040\ \textcolor{keyword}{private}:}
 \DoxyCodeLine{00041\ \ \ \ \ \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1value__with__mutex}{value\_with\_mutex<Observer>}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ observer\_with\_mutex\{\};}
 \DoxyCodeLine{00042\ \ \ \ \ rpp::utils::tuple<value\_with\_mutex<std::optional<RestArgs>>...>\ values\{\};}
-\DoxyCodeLine{00043\ \ \ \ \ TSelector\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ selector;}
+\DoxyCodeLine{00043\ \ \ \ \ RPP\_NO\_UNIQUE\_ADDRESS\ TSelector\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ selector;}
 \DoxyCodeLine{00044\ \};}
 \DoxyCodeLine{00045\ }
 \DoxyCodeLine{00046\ \textcolor{keyword}{template}<\textcolor{keywordtype}{size\_t}\ I,\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer}{rpp::constraint::observer}}\ Observer,\ \textcolor{keyword}{typename}\ TSelector,\ rpp::constraint::decayed\_type...\ RestArgs>}
@@ -79,109 +79,110 @@
 \DoxyCodeLine{00075\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ rpp::utils::empty\_function\_t<>\ on\_completed\{\};}
 \DoxyCodeLine{00076\ \};}
 \DoxyCodeLine{00077\ }
-\DoxyCodeLine{00078\ \textcolor{keyword}{template}<\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer}{rpp::constraint::observer}}\ Observer,\ \textcolor{keyword}{typename}\ TSelector,\ \textcolor{keyword}{typename}\ OriginalValue,\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp::constraint::observable}}...\ TObservables>}
-\DoxyCodeLine{00079\ \ \ \ \ \textcolor{keyword}{requires}\ std::invocable<TSelector,\ OriginalValue,\ rpp::utils::extract\_observable\_type\_t<TObservables>...>}
-\DoxyCodeLine{00080\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1with__latest__from__observer__strategy}{with\_latest\_from\_observer\_strategy}}}
+\DoxyCodeLine{00078\ \textcolor{keyword}{template}<\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer}{rpp::constraint::observer}}\ Observer,\ \textcolor{keyword}{typename}\ TSelector,\ \textcolor{keyword}{typename}\ OriginalValue,\ rpp::constraint::decayed\_type...\ RestArgs>}
+\DoxyCodeLine{00079\ \ \ \ \ \textcolor{keyword}{requires}\ std::invocable<TSelector,\ OriginalValue,\ RestArgs...>}
+\DoxyCodeLine{00080\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1with__latest__from__observer__strategy}{with\_latest\_from\_observer\_strategy}}}
 \DoxyCodeLine{00081\ \{}
-\DoxyCodeLine{00082\ \ \ \ \ \textcolor{keyword}{using\ }Result\ =\ std::invoke\_result\_t<TSelector,\ OriginalValue,\ rpp::utils::extract\_observable\_type\_t<TObservables>...>;}
-\DoxyCodeLine{00083\ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1with__latest__from__disposable}{Disposable}}\ =\ \mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1with__latest__from__disposable}{with\_latest\_from\_disposable<Observer,\ TSelector,\ rpp::utils::extract\_observable\_type\_t<TObservables>}}...>;}
-\DoxyCodeLine{00084\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00085\ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{structrpp_1_1details_1_1none__disposable__strategy}{DisposableStrategyToUseWithThis}}\ =\ \mbox{\hyperlink{structrpp_1_1details_1_1none__disposable__strategy}{rpp::details::none\_disposable\_strategy}};}
-\DoxyCodeLine{00086\ }
-\DoxyCodeLine{00087\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keywordtype}{size\_t}...I>}
-\DoxyCodeLine{00088\ \ \ \ \ \mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1with__latest__from__observer__strategy}{with\_latest\_from\_observer\_strategy}}(Observer\&\&\ \mbox{\hyperlink{classrpp_1_1observer}{observer}},\ \textcolor{keyword}{const}\ TSelector\&\ selector,\ \textcolor{keyword}{const}\ TObservables\&...\ observables,\ std::index\_sequence<I...>)}
-\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ :\ m\_disposable\{std::make\_shared<Disposable>(std::move(\mbox{\hyperlink{classrpp_1_1observer}{observer}}),\ selector)\}}
-\DoxyCodeLine{00090\ \ \ \ \ \{}
-\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ m\_disposable-\/>get\_observer\_under\_lock()-\/>set\_upstream(rpp::disposable\_wrapper::from\_weak(m\_disposable));}
-\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ (observables.subscribe(\mbox{\hyperlink{classrpp_1_1observer}{rpp::observer}}<rpp::utils::extract\_observable\_type\_t<TObservables>,\ \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1with__latest__from__inner__observer__strategy}{with\_latest\_from\_inner\_observer\_strategy}}<I,\ Observer,\ TSelector,\ rpp::utils::extract\_observable\_type\_t<TObservables>...>>\{m\_disposable\}),...);}
-\DoxyCodeLine{00093\ \ \ \ \ \}}
-\DoxyCodeLine{00094\ }
-\DoxyCodeLine{00095\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_upstream(\textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp::disposable\_wrapper}}\&\ d)\textcolor{keyword}{\ const}}
-\DoxyCodeLine{00096\ \textcolor{keyword}{\ \ \ \ }\{}
-\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ m\_disposable-\/>add(d.get\_original());}
-\DoxyCodeLine{00098\ \ \ \ \ \}}
-\DoxyCodeLine{00099\ }
-\DoxyCodeLine{00100\ \ \ \ \ \textcolor{keywordtype}{bool}\ is\_disposed()\textcolor{keyword}{\ const}}
-\DoxyCodeLine{00101\ \textcolor{keyword}{\ \ \ \ }\{}
-\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ m\_disposable-\/>is\_disposed();}
-\DoxyCodeLine{00103\ \ \ \ \ \}}
+\DoxyCodeLine{00082\ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1with__latest__from__disposable}{Disposable}}\ =\ \mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1with__latest__from__disposable}{with\_latest\_from\_disposable}}<Observer,\ TSelector,\ RestArgs...>;}
+\DoxyCodeLine{00083\ \ \ \ \ \textcolor{keyword}{using\ }Result\ =\ std::invoke\_result\_t<TSelector,\ OriginalValue,\ RestArgs...>;}
+\DoxyCodeLine{00084\ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{structrpp_1_1details_1_1none__disposable__strategy}{DisposableStrategyToUseWithThis}}\ =\ \mbox{\hyperlink{structrpp_1_1details_1_1none__disposable__strategy}{rpp::details::none\_disposable\_strategy}};}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ \ \ \ \ std::shared\_ptr<Disposable>\ disposable\{\};}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_upstream(\textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp::disposable\_wrapper}}\&\ d)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00089\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ disposable-\/>add(d.get\_original());}
+\DoxyCodeLine{00091\ \ \ \ \ \}}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00093\ \ \ \ \ \textcolor{keywordtype}{bool}\ is\_disposed()\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00094\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ disposable-\/>is\_disposed();}
+\DoxyCodeLine{00096\ \ \ \ \ \}}
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00098\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00099\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_next(T\&\&\ v)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00100\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ result\ =\ disposable-\/>get\_values().apply([\textcolor{keyword}{this},\ \&v](\mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1value__with__mutex}{value\_with\_mutex}}<std::optional<RestArgs>>\&...\ vals)\ -\/>\ std::optional<Result>}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ lock\ =\ std::scoped\_lock\{vals.mutex...\};}
 \DoxyCodeLine{00104\ }
-\DoxyCodeLine{00105\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
-\DoxyCodeLine{00106\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_next(T\&\&\ v)\textcolor{keyword}{\ const}}
-\DoxyCodeLine{00107\ \textcolor{keyword}{\ \ \ \ }\{}
-\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ result\ =\ m\_disposable-\/>get\_values().apply([\&](\mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1value__with__mutex}{value\_with\_mutex}}<std::optional<rpp::utils::extract\_observable\_type\_t<TObservables>>>\&...\ vals)\ -\/>\ std::optional<Result>}
-\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ lock\ =\ std::scoped\_lock\{vals.mutex...\};}
-\DoxyCodeLine{00111\ }
-\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ ((vals.value.has\_value()\ \&\&\ ...))}
-\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ m\_disposable-\/>get\_selector()(rpp::utils::as\_const(std::forward<T>(v)),\ rpp::utils::as\_const(vals.value.value())...);}
-\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::nullopt;}
-\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \});}
-\DoxyCodeLine{00116\ }
-\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (result.has\_value())}
-\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \ \ \ \ m\_disposable-\/>get\_observer\_under\_lock()-\/>on\_next(std::move(result).value());}
-\DoxyCodeLine{00119\ \ \ \ \ \}}
-\DoxyCodeLine{00120\ }
-\DoxyCodeLine{00121\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_error(\textcolor{keyword}{const}\ std::exception\_ptr\&\ err)\textcolor{keyword}{\ const}}
-\DoxyCodeLine{00122\ \textcolor{keyword}{\ \ \ \ }\{}
-\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ m\_disposable-\/>dispose();}
-\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ m\_disposable-\/>get\_observer\_under\_lock()-\/>on\_error(err);}
-\DoxyCodeLine{00125\ \ \ \ \ \}}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ ((vals.value.has\_value()\ \&\&\ ...))}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ disposable-\/>get\_selector()(rpp::utils::as\_const(std::forward<T>(v)),\ rpp::utils::as\_const(vals.value.value())...);}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::nullopt;}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (result.has\_value())}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \ \ \ \ disposable-\/>get\_observer\_under\_lock()-\/>on\_next(std::move(result).value());}
+\DoxyCodeLine{00112\ \ \ \ \ \}}
+\DoxyCodeLine{00113\ }
+\DoxyCodeLine{00114\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_error(\textcolor{keyword}{const}\ std::exception\_ptr\&\ err)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00115\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ disposable-\/>dispose();}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ disposable-\/>get\_observer\_under\_lock()-\/>on\_error(err);}
+\DoxyCodeLine{00118\ \ \ \ \ \}}
+\DoxyCodeLine{00119\ }
+\DoxyCodeLine{00120\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_completed()\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00121\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ disposable-\/>dispose();}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ disposable-\/>get\_observer\_under\_lock()-\/>on\_completed();}
+\DoxyCodeLine{00124\ \ \ \ \ \}}
+\DoxyCodeLine{00125\ \};}
 \DoxyCodeLine{00126\ }
-\DoxyCodeLine{00127\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_completed()\textcolor{keyword}{\ const}}
-\DoxyCodeLine{00128\ \textcolor{keyword}{\ \ \ \ }\{}
-\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ m\_disposable-\/>dispose();}
-\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ m\_disposable-\/>get\_observer\_under\_lock()-\/>on\_completed();}
-\DoxyCodeLine{00131\ \ \ \ \ \}}
+\DoxyCodeLine{00127\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ TSelector,\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp::constraint::observable}}...\ TObservables>}
+\DoxyCodeLine{00128\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1with__latest__from__t}{with\_latest\_from\_t}}}
+\DoxyCodeLine{00129\ \{}
+\DoxyCodeLine{00130\ \ \ \ \ RPP\_NO\_UNIQUE\_ADDRESS\ rpp::utils::tuple<TObservables...>\ observables;}
+\DoxyCodeLine{00131\ \ \ \ \ RPP\_NO\_UNIQUE\_ADDRESS\ TSelector\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ selector;}
 \DoxyCodeLine{00132\ }
-\DoxyCodeLine{00133\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00134\ \ \ \ \ std::shared\_ptr<Disposable>\ m\_disposable\{\};}
-\DoxyCodeLine{00135\ \};}
+\DoxyCodeLine{00133\ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type\ T>}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \textcolor{keyword}{requires}\ std::invocable<TSelector,\ T,\ rpp::utils::extract\_observable\_type\_t<TObservables>...>}
+\DoxyCodeLine{00135\ \ \ \ \ \textcolor{keyword}{using\ }ResultValue\ =\ std::invoke\_result\_t<TSelector,\ T,\ rpp::utils::extract\_observable\_type\_t<TObservables>...>;}
 \DoxyCodeLine{00136\ }
-\DoxyCodeLine{00137\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ TSelector,\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp::constraint::observable}}...\ TObservables>}
-\DoxyCodeLine{00138\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1with__latest__from__t}{with\_latest\_from\_t}}}
-\DoxyCodeLine{00139\ \{}
-\DoxyCodeLine{00140\ \ \ \ \ RPP\_NO\_UNIQUE\_ADDRESS\ rpp::utils::tuple<TObservables...>\ observables;}
-\DoxyCodeLine{00141\ \ \ \ \ RPP\_NO\_UNIQUE\_ADDRESS\ TSelector\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ selector;}
-\DoxyCodeLine{00142\ }
-\DoxyCodeLine{00143\ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type\ T>}
-\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \textcolor{keyword}{requires}\ std::invocable<TSelector,\ T,\ rpp::utils::extract\_observable\_type\_t<TObservables>...>}
-\DoxyCodeLine{00145\ \ \ \ \ \textcolor{keyword}{using\ }ResultValue\ =\ std::invoke\_result\_t<TSelector,\ T,\ rpp::utils::extract\_observable\_type\_t<TObservables>...>;}
-\DoxyCodeLine{00146\ }
-\DoxyCodeLine{00147\ \ \ \ \ \textcolor{keyword}{template}<\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer}{rpp::constraint::observer}}\ Observer,\ \textcolor{keyword}{typename}...\ Strategies>}
-\DoxyCodeLine{00148\ \ \ \ \ \textcolor{keywordtype}{void}\ subscribe(Observer\&\&\ \mbox{\hyperlink{classrpp_1_1observer}{observer}},\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1observable__chain__strategy}{observable\_chain\_strategy<Strategies...>}}\&\ observable\_strategy)\textcolor{keyword}{\ const}}
-\DoxyCodeLine{00149\ \textcolor{keyword}{\ \ \ \ }\{}
-\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Need\ to\ take\ ownership\ over\ current\_thread\ in\ case\ of\ inner-\/observables\ also\ uses\ them}}
-\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ drain\_on\_exit\ =\ rpp::schedulers::current\_thread::own\_queue\_and\_drain\_finally\_if\_not\_owned();}
-\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ observables.apply(\&subscribe\_impl<Observer,\ Strategies...>,\ std::forward<Observer>(\mbox{\hyperlink{classrpp_1_1observer}{observer}}),\ observable\_strategy,\ selector);}
-\DoxyCodeLine{00153\ \ \ \ \ \}}
+\DoxyCodeLine{00137\ \ \ \ \ \textcolor{keyword}{template}<\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer}{rpp::constraint::observer}}\ Observer,\ \textcolor{keyword}{typename}...\ Strategies>}
+\DoxyCodeLine{00138\ \ \ \ \ \textcolor{keywordtype}{void}\ subscribe(Observer\&\&\ \mbox{\hyperlink{classrpp_1_1observer}{observer}},\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1observable__chain__strategy}{observable\_chain\_strategy<Strategies...>}}\&\ observable\_strategy)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00139\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Need\ to\ take\ ownership\ over\ current\_thread\ in\ case\ of\ inner-\/observables\ also\ uses\ them}}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ drain\_on\_exit\ =\ rpp::schedulers::current\_thread::own\_queue\_and\_drain\_finally\_if\_not\_owned();}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ observables.apply(\&subscribe\_impl<Observer,\ Strategies...>,\ std::forward<Observer>(\mbox{\hyperlink{classrpp_1_1observer}{observer}}),\ observable\_strategy,\ selector);}
+\DoxyCodeLine{00143\ \ \ \ \ \}}
+\DoxyCodeLine{00144\ }
+\DoxyCodeLine{00145\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00146\ \ \ \ \ \textcolor{keyword}{template}<\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer}{rpp::constraint::observer}}\ Observer,\ \textcolor{keyword}{typename}...\ Strategies>}
+\DoxyCodeLine{00147\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ subscribe\_impl(Observer\&\&\ \mbox{\hyperlink{classrpp_1_1observer}{observer}},\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1observable__chain__strategy}{observable\_chain\_strategy<Strategies...>}}\&\ observable\_strategy,\ \textcolor{keyword}{const}\ TSelector\&\ selector,\ \textcolor{keyword}{const}\ TObservables\&...\ observables)}
+\DoxyCodeLine{00148\ \ \ \ \ \{}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }Disposable\ =\ \mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1with__latest__from__disposable}{with\_latest\_from\_disposable<Observer,\ TSelector,\ rpp::utils::extract\_observable\_type\_t<TObservables>}}...>;}
+\DoxyCodeLine{00150\ }
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ disposable\ =\ std::make\_shared<Disposable>(std::forward<Observer>(\mbox{\hyperlink{classrpp_1_1observer}{observer}}),\ selector);}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ disposable-\/>get\_observer\_under\_lock()-\/>set\_upstream(rpp::disposable\_wrapper::from\_weak(disposable));}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ subscribe(disposable,\ std::index\_sequence\_for<TObservables...>\{\},\ observables...);}
 \DoxyCodeLine{00154\ }
-\DoxyCodeLine{00155\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00156\ \ \ \ \ \textcolor{keyword}{template}<\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer}{rpp::constraint::observer}}\ Observer,\ \textcolor{keyword}{typename}...\ Strategies>}
-\DoxyCodeLine{00157\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ subscribe\_impl(Observer\&\&\ \mbox{\hyperlink{classrpp_1_1observer}{observer}},\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1observable__chain__strategy}{observable\_chain\_strategy<Strategies...>}}\&\ observable\_strategy,\ \textcolor{keyword}{const}\ TSelector\&\ selector,\ \textcolor{keyword}{const}\ TObservables\&...\ observables)}
-\DoxyCodeLine{00158\ \ \ \ \ \{}
-\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }ExpectedValue\ =\ \textcolor{keyword}{typename}\ \mbox{\hyperlink{classrpp_1_1observable__chain__strategy}{observable\_chain\_strategy}}<Strategies...>::ValueType;}
-\DoxyCodeLine{00160\ }
-\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ observable\_strategy.subscribe(\mbox{\hyperlink{classrpp_1_1observer}{rpp::observer}}<ExpectedValue,\ \mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1with__latest__from__observer__strategy}{with\_latest\_from\_observer\_strategy}}<std::decay\_t<Observer>,\ TSelector,\ ExpectedValue,\ TObservables...>>\{std::forward<Observer>(observer),\ selector,\ observables...,\ std::index\_sequence\_for<TObservables...>\{\}\});}
-\DoxyCodeLine{00162\ \ \ \ \ \}}
-\DoxyCodeLine{00163\ \};}
-\DoxyCodeLine{00164\ \}}
-\DoxyCodeLine{00165\ }
-\DoxyCodeLine{00166\ \textcolor{keyword}{namespace\ }rpp::operators}
-\DoxyCodeLine{00167\ \{}
-\DoxyCodeLine{00195\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ TSelector,\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp::constraint::observable}}\ TObservable,\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp::constraint::observable}}...\ TObservables>}
-\DoxyCodeLine{00196\ \ \ \ \ \textcolor{keyword}{requires}(!utils::is\_not\_template\_callable<TSelector>\ ||}
-\DoxyCodeLine{00197\ \ \ \ \ \ \ \ \ \ \ \ \ \ std::invocable<TSelector,\ rpp::utils::convertible\_to\_any,\ utils::extract\_observable\_type\_t<TObservable>,\ utils::extract\_observable\_type\_t<TObservables>...>)}
-\DoxyCodeLine{00198\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__combining__operators_ga7c5521cd41f2832e93446fb740fb4d31}{with\_latest\_from}}(TSelector\&\&\ selector,\ TObservable\&\&\ \mbox{\hyperlink{classrpp_1_1observable}{observable}},\ TObservables\&\&...\ observables)}
-\DoxyCodeLine{00199\ \{}
-\DoxyCodeLine{00200\ \ \ \ \ \textcolor{keywordflow}{return}\ details::with\_latest\_from\_t<std::decay\_t<TSelector>,\ std::decay\_t<TObservable>,\ std::decay\_t<TObservables>...>\{rpp::utils::tuple\{std::forward<TObservable>(\mbox{\hyperlink{classrpp_1_1observable}{observable}}),\ std::forward<TObservables>(observables)...\},\ std::forward<TSelector>(selector)\};}
-\DoxyCodeLine{00201\ \}}
-\DoxyCodeLine{00202\ }
-\DoxyCodeLine{00229\ \textcolor{keyword}{template}<\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp::constraint::observable}}\ TObservable,\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp::constraint::observable}}...\ TObservables>}
-\DoxyCodeLine{00230\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__combining__operators_ga7c5521cd41f2832e93446fb740fb4d31}{with\_latest\_from}}(TObservable\&\&\ observable,\ TObservables\&\&...\ observables)}
-\DoxyCodeLine{00231\ \{}
-\DoxyCodeLine{00232\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{group__combining__operators_ga7c5521cd41f2832e93446fb740fb4d31}{with\_latest\_from}}(rpp::utils::pack\_to\_tuple\{\},\ std::forward<TObservable>(observable),\ std::forward<TObservables>(observables)...);}
-\DoxyCodeLine{00233\ \}}
-\DoxyCodeLine{00234\ \}\ \textcolor{comment}{//\ namespace\ rpp::operators}}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }ExpectedValue\ =\ \textcolor{keyword}{typename}\ \mbox{\hyperlink{classrpp_1_1observable__chain__strategy}{observable\_chain\_strategy}}<Strategies...>::ValueType;}
+\DoxyCodeLine{00156\ }
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ observable\_strategy.subscribe(\mbox{\hyperlink{classrpp_1_1observer}{rpp::observer}}<ExpectedValue,\ \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1with__latest__from__observer__strategy}{with\_latest\_from\_observer\_strategy}}<std::decay\_t<Observer>,\ TSelector,\ ExpectedValue,\ rpp::utils::extract\_observable\_type\_t<TObservables>...>>\{std::move(disposable)\});}
+\DoxyCodeLine{00158\ \ \ \ \ \}}
+\DoxyCodeLine{00159\ }
+\DoxyCodeLine{00160\ \ \ \ \ \textcolor{keyword}{template}<\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer}{rpp::constraint::observer}}\ Observer,\ \textcolor{keywordtype}{size\_t}...I>}
+\DoxyCodeLine{00161\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ subscribe(std::shared\_ptr<\mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1with__latest__from__disposable}{with\_latest\_from\_disposable}}<Observer,\ TSelector,\ rpp::utils::extract\_observable\_type\_t<TObservables>...>>\ disposable,\ std::index\_sequence<I...>,\ \textcolor{keyword}{const}\ TObservables\&...\ observables)}
+\DoxyCodeLine{00162\ \ \ \ \ \{}
+\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ (...,\ observables.subscribe(\mbox{\hyperlink{classrpp_1_1observer}{rpp::observer}}<rpp::utils::extract\_observable\_type\_t<TObservables>,\ \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1with__latest__from__inner__observer__strategy}{with\_latest\_from\_inner\_observer\_strategy}}<I,\ Observer,\ TSelector,\ rpp::utils::extract\_observable\_type\_t<TObservables>...>>\{disposable\}));}
+\DoxyCodeLine{00164\ \ \ \ \ \}}
+\DoxyCodeLine{00165\ \};}
+\DoxyCodeLine{00166\ \}}
+\DoxyCodeLine{00167\ }
+\DoxyCodeLine{00168\ \textcolor{keyword}{namespace\ }rpp::operators}
+\DoxyCodeLine{00169\ \{}
+\DoxyCodeLine{00197\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ TSelector,\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp::constraint::observable}}\ TObservable,\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp::constraint::observable}}...\ TObservables>}
+\DoxyCodeLine{00198\ \ \ \ \ \textcolor{keyword}{requires}\ (!\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp::constraint::observable<TSelector>}}\ \&\&\ (!utils::is\_not\_template\_callable<TSelector>\ ||\ std::invocable<TSelector,\ rpp::utils::convertible\_to\_any,\ utils::extract\_observable\_type\_t<TObservable>,\ utils::extract\_observable\_type\_t<TObservables>...>))}
+\DoxyCodeLine{00199\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__combining__operators_ga9345ba5faac717ba85fc88f1c5fff58b}{with\_latest\_from}}(TSelector\&\&\ selector,\ TObservable\&\&\ \mbox{\hyperlink{classrpp_1_1observable}{observable}},\ TObservables\&\&...\ observables)}
+\DoxyCodeLine{00200\ \{}
+\DoxyCodeLine{00201\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1with__latest__from__t}{details::with\_latest\_from\_t<std::decay\_t<TSelector>}},\ std::decay\_t<TObservable>,\ std::decay\_t<TObservables>...>\{rpp::utils::tuple\{std::forward<TObservable>(\mbox{\hyperlink{classrpp_1_1observable}{observable}}),\ std::forward<TObservables>(observables)...\},\ std::forward<TSelector>(selector)\};}
+\DoxyCodeLine{00202\ \}}
+\DoxyCodeLine{00203\ }
+\DoxyCodeLine{00230\ \textcolor{keyword}{template}<\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp::constraint::observable}}\ TObservable,\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp::constraint::observable}}...\ TObservables>}
+\DoxyCodeLine{00231\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__combining__operators_ga9345ba5faac717ba85fc88f1c5fff58b}{with\_latest\_from}}(TObservable\&\&\ observable,\ TObservables\&\&...\ observables)}
+\DoxyCodeLine{00232\ \{}
+\DoxyCodeLine{00233\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{group__combining__operators_ga9345ba5faac717ba85fc88f1c5fff58b}{with\_latest\_from}}(rpp::utils::pack\_to\_tuple\{\},\ std::forward<TObservable>(observable),\ std::forward<TObservables>(observables)...);}
+\DoxyCodeLine{00234\ \}}
+\DoxyCodeLine{00235\ \}\ \textcolor{comment}{//\ namespace\ rpp::operators}}
 
 \end{DoxyCode}

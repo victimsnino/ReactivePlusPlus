@@ -1,0 +1,59 @@
+\doxysection{rpp\+::operators\+::details\+::combine\+\_\+latest\+\_\+disposable\texorpdfstring{$<$}{<} Observer, TSelector, Args \texorpdfstring{$>$}{>} Class Template Reference}
+\hypertarget{classrpp_1_1operators_1_1details_1_1combine__latest__disposable}{}\label{classrpp_1_1operators_1_1details_1_1combine__latest__disposable}\index{rpp::operators::details::combine\_latest\_disposable$<$ Observer, TSelector, Args $>$@{rpp::operators::details::combine\_latest\_disposable$<$ Observer, TSelector, Args $>$}}
+Inheritance diagram for rpp\+::operators\+::details\+::combine\+\_\+latest\+\_\+disposable\texorpdfstring{$<$}{<} Observer, TSelector, Args \texorpdfstring{$>$}{>}\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=4.000000cm]{classrpp_1_1operators_1_1details_1_1combine__latest__disposable}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classrpp_1_1operators_1_1details_1_1combine__latest__disposable_ae93ab173ddc4c053646635b1b09222c6}\label{classrpp_1_1operators_1_1details_1_1combine__latest__disposable_ae93ab173ddc4c053646635b1b09222c6} 
+{\bfseries combine\+\_\+latest\+\_\+disposable} (Observer \&\&\mbox{\hyperlink{classrpp_1_1observer}{observer}}, const TSelector \&selector)
+\item 
+\Hypertarget{classrpp_1_1operators_1_1details_1_1combine__latest__disposable_a2285b68c66ad79dbc4c71f87b1437c0c}\label{classrpp_1_1operators_1_1details_1_1combine__latest__disposable_a2285b68c66ad79dbc4c71f87b1437c0c} 
+\mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1pointer__under__lock}{pointer\+\_\+under\+\_\+lock}}$<$ Observer $>$ {\bfseries get\+\_\+observer\+\_\+under\+\_\+lock} ()
+\item 
+\Hypertarget{classrpp_1_1operators_1_1details_1_1combine__latest__disposable_a4ae2c968a291443796a8791e5b11b0b0}\label{classrpp_1_1operators_1_1details_1_1combine__latest__disposable_a4ae2c968a291443796a8791e5b11b0b0} 
+rpp\+::utils\+::tuple$<$ std\+::optional$<$ Args $>$... $>$ \& {\bfseries get\+\_\+values} ()
+\item 
+\Hypertarget{classrpp_1_1operators_1_1details_1_1combine__latest__disposable_afa622910c4250bdb7cb703363b497f28}\label{classrpp_1_1operators_1_1details_1_1combine__latest__disposable_afa622910c4250bdb7cb703363b497f28} 
+const TSelector \& {\bfseries get\+\_\+selector} () const
+\item 
+\Hypertarget{classrpp_1_1operators_1_1details_1_1combine__latest__disposable_a2ccb2db61f380b1ccadbf4145770f469}\label{classrpp_1_1operators_1_1details_1_1combine__latest__disposable_a2ccb2db61f380b1ccadbf4145770f469} 
+bool {\bfseries decrement\+\_\+on\+\_\+completed} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classrpp_1_1composite__disposable}{rpp\+::composite\+\_\+disposable}}}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries composite\+\_\+disposable} (const \mbox{\hyperlink{classrpp_1_1composite__disposable}{composite\+\_\+disposable}} \&)=delete
+\item 
+{\bfseries composite\+\_\+disposable} (\mbox{\hyperlink{classrpp_1_1composite__disposable}{composite\+\_\+disposable}} \&\&other) noexcept=delete
+\item 
+bool \mbox{\hyperlink{classrpp_1_1composite__disposable_a748deb894f9f98ea238e919e62859262}{is\+\_\+disposed}} () const noexcept final
+\begin{DoxyCompactList}\small\item\em Check if this disposable is just disposed. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classrpp_1_1composite__disposable_acf263ceb2c51a97f435d730f33ec293c}{dispose}} () final
+\begin{DoxyCompactList}\small\item\em Dispose disposable and free any underlying resources and etc. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classrpp_1_1composite__disposable_afbddc262926c6eb3c37ab4c9898ed279}{add}} (\mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{disposable\+\_\+wrapper}} disposable) override
+\item 
+virtual void \mbox{\hyperlink{classrpp_1_1composite__disposable_aeabbd86e2ea58c12cbb13a2d3cf5f726}{add}} (\mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{disposable\+\_\+wrapper}} disposable)=0
+\item 
+{\footnotesize template$<$std\+::invocable Fn$>$ }\\void {\bfseries add} (Fn \&\&invocable)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{structrpp_1_1interface__composite__disposable}{rpp\+::interface\+\_\+composite\+\_\+disposable}}}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$std\+::invocable Fn$>$ }\\void {\bfseries add} (Fn \&\&invocable)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Protected Member Functions inherited from \mbox{\hyperlink{classrpp_1_1composite__disposable}{rpp\+::composite\+\_\+disposable}}}
+\begin{DoxyCompactItemize}
+\item 
+virtual void {\bfseries dispose\+\_\+impl} ()
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/rpp/rpp/operators/combine\+\_\+latest.\+hpp\end{DoxyCompactItemize}

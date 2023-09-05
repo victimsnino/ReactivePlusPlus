@@ -115,11 +115,11 @@ requires constraint::observables_of_same_type&lt;std::decay_t&lt;TObservable&gt;
 <tr class="memitem:ga063bcb64ac3afbedca8b257d3558f2dd"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__combining__operators.html#ga063bcb64ac3afbedca8b257d3558f2dd">rpp::operators::merge_with</a> (TObservable &amp;&amp;<a class="el" href="classrpp_1_1observable.html">observable</a>, TObservables &amp;&amp;...observables)</td></tr>
 <tr class="memdesc:ga063bcb64ac3afbedca8b257d3558f2dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Combines submissions from current observable with other observables into one.  <br /></td></tr>
 <tr class="separator:ga063bcb64ac3afbedca8b257d3558f2dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga7c5521cd41f2832e93446fb740fb4d31" id="r_ga7c5521cd41f2832e93446fb740fb4d31"><td class="memTemplParams" colspan="2">template&lt;typename TSelector , <a class="el" href="conceptrpp_1_1constraint_1_1observable.html">rpp::constraint::observable</a> TObservable, rpp::constraint::observable... TObservables&gt; <br />
-requires (!utils::is_not_template_callable&lt;TSelector&gt; || std::invocable&lt;TSelector, rpp::utils::convertible_to_any, utils::extract_observable_type_t&lt;TObservable&gt;, utils::extract_observable_type_t&lt;TObservables&gt;...&gt;)</td></tr>
-<tr class="memitem:ga7c5521cd41f2832e93446fb740fb4d31"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__combining__operators.html#ga7c5521cd41f2832e93446fb740fb4d31">rpp::operators::with_latest_from</a> (TSelector &amp;&amp;selector, TObservable &amp;&amp;<a class="el" href="classrpp_1_1observable.html">observable</a>, TObservables &amp;&amp;... observables)</td></tr>
-<tr class="memdesc:ga7c5521cd41f2832e93446fb740fb4d31"><td class="mdescLeft">&#160;</td><td class="mdescRight">Combines latest emissions from observables with emission from current observable when it sends new value via applying selector.  <br /></td></tr>
-<tr class="separator:ga7c5521cd41f2832e93446fb740fb4d31"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9345ba5faac717ba85fc88f1c5fff58b" id="r_ga9345ba5faac717ba85fc88f1c5fff58b"><td class="memTemplParams" colspan="2">template&lt;typename TSelector , <a class="el" href="conceptrpp_1_1constraint_1_1observable.html">rpp::constraint::observable</a> TObservable, rpp::constraint::observable... TObservables&gt; <br />
+requires (!<a class="el" href="conceptrpp_1_1constraint_1_1observable.html">rpp::constraint::observable</a>&lt;TSelector&gt; &amp;&amp; (!utils::is_not_template_callable&lt;TSelector&gt; || std::invocable&lt;TSelector, rpp::utils::convertible_to_any, utils::extract_observable_type_t&lt;TObservable&gt;, utils::extract_observable_type_t&lt;TObservables&gt;...&gt;))</td></tr>
+<tr class="memitem:ga9345ba5faac717ba85fc88f1c5fff58b"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__combining__operators.html#ga9345ba5faac717ba85fc88f1c5fff58b">rpp::operators::with_latest_from</a> (TSelector &amp;&amp;selector, TObservable &amp;&amp;<a class="el" href="classrpp_1_1observable.html">observable</a>, TObservables &amp;&amp;... observables)</td></tr>
+<tr class="memdesc:ga9345ba5faac717ba85fc88f1c5fff58b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Combines latest emissions from observables with emission from current observable when it sends new value via applying selector.  <br /></td></tr>
+<tr class="separator:ga9345ba5faac717ba85fc88f1c5fff58b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga20acc2f23cb06163f9d5e56c5522ce6c" id="r_ga20acc2f23cb06163f9d5e56c5522ce6c"><td class="memTemplParams" colspan="2">template&lt;<a class="el" href="conceptrpp_1_1constraint_1_1observable.html">rpp::constraint::observable</a> TObservable, rpp::constraint::observable... TObservables&gt; </td></tr>
 <tr class="memitem:ga20acc2f23cb06163f9d5e56c5522ce6c"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__combining__operators.html#ga20acc2f23cb06163f9d5e56c5522ce6c">rpp::operators::with_latest_from</a> (TObservable &amp;&amp;<a class="el" href="classrpp_1_1observable.html">observable</a>, TObservables &amp;&amp;... observables)</td></tr>
 <tr class="memdesc:ga20acc2f23cb06163f9d5e56c5522ce6c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Combines latest emissions from observables with emission from current observable when it sends new value via making tuple.  <br /></td></tr>
@@ -290,30 +290,30 @@ template&lt;<a class="el" href="conceptrpp_1_1constraint_1_1observable.html">rpp
 </dl>
 <dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="with__latest__from_8hpp_source.html">rpp/operators/with_latest_from.hpp</a>&gt;</dd></dl>
 <dl class="section user"><dt>Examples</dt><dd><div class="fragment"><div class="line">    <a class="code hl_function" href="group__creational__operators.html#gae60bdb9b493443d2786b0eee8bfe17ab">rpp::source::just</a>(1, 2, 3, 4, 5, 6)</div>
-<div class="line">        | <a class="code hl_function" href="group__combining__operators.html#ga7c5521cd41f2832e93446fb740fb4d31">rpp::operators::with_latest_from</a>(<a class="code hl_function" href="group__creational__operators.html#gae60bdb9b493443d2786b0eee8bfe17ab">rpp::source::just</a>(3, 4, 5))</div>
+<div class="line">        | <a class="code hl_function" href="group__combining__operators.html#ga9345ba5faac717ba85fc88f1c5fff58b">rpp::operators::with_latest_from</a>(<a class="code hl_function" href="group__creational__operators.html#gae60bdb9b493443d2786b0eee8bfe17ab">rpp::source::just</a>(3, 4, 5))</div>
 <div class="line">        | rpp::operators::subscribe([](std::tuple&lt;int,int&gt; v) { std::cout &lt;&lt; std::get&lt;0&gt;(v) &lt;&lt; <span class="stringliteral">&quot;:&quot;</span> &lt;&lt; std::get&lt;1&gt;(v) &lt;&lt; <span class="stringliteral">&quot; &quot;</span>; });</div>
 <div class="line">    <span class="comment">// Output: 1:3 2:4 3:5 4:5 5:5 6:5</span></div>
 <div class="line"> </div>
 <div class="line">    std::cout &lt;&lt; std::endl;</div>
 <div class="line"> </div>
 <div class="line">    <a class="code hl_function" href="group__creational__operators.html#gae60bdb9b493443d2786b0eee8bfe17ab">rpp::source::just</a>(1, 2, 3)</div>
-<div class="line">        | <a class="code hl_function" href="group__combining__operators.html#ga7c5521cd41f2832e93446fb740fb4d31">rpp::operators::with_latest_from</a>(<a class="code hl_function" href="group__creational__operators.html#gae60bdb9b493443d2786b0eee8bfe17ab">rpp::source::just</a>(3, 4, 5, 6, 7, 8))</div>
+<div class="line">        | <a class="code hl_function" href="group__combining__operators.html#ga9345ba5faac717ba85fc88f1c5fff58b">rpp::operators::with_latest_from</a>(<a class="code hl_function" href="group__creational__operators.html#gae60bdb9b493443d2786b0eee8bfe17ab">rpp::source::just</a>(3, 4, 5, 6, 7, 8))</div>
 <div class="line">        | rpp::operators::subscribe([](std::tuple&lt;int,int&gt; v) { std::cout &lt;&lt; std::get&lt;0&gt;(v) &lt;&lt; <span class="stringliteral">&quot;:&quot;</span> &lt;&lt; std::get&lt;1&gt;(v) &lt;&lt; <span class="stringliteral">&quot; &quot;</span>; });</div>
 <div class="line">    <span class="comment">// Output: 1:3 2:4 3:5</span></div>
-<div class="ttc" id="agroup__combining__operators_html_ga7c5521cd41f2832e93446fb740fb4d31"><div class="ttname"><a href="group__combining__operators.html#ga7c5521cd41f2832e93446fb740fb4d31">rpp::operators::with_latest_from</a></div><div class="ttdeci">auto with_latest_from(TSelector &amp;&amp;selector, TObservable &amp;&amp;observable, TObservables &amp;&amp;... observables)</div><div class="ttdoc">Combines latest emissions from observables with emission from current observable when it sends new va...</div><div class="ttdef"><b>Definition</b> with_latest_from.hpp:193</div></div>
+<div class="ttc" id="agroup__combining__operators_html_ga9345ba5faac717ba85fc88f1c5fff58b"><div class="ttname"><a href="group__combining__operators.html#ga9345ba5faac717ba85fc88f1c5fff58b">rpp::operators::with_latest_from</a></div><div class="ttdeci">auto with_latest_from(TSelector &amp;&amp;selector, TObservable &amp;&amp;observable, TObservables &amp;&amp;... observables)</div><div class="ttdoc">Combines latest emissions from observables with emission from current observable when it sends new va...</div><div class="ttdef"><b>Definition</b> with_latest_from.hpp:194</div></div>
 </div><!-- fragment --></dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/combinelatest.html">https://reactivex.io/documentation/operators/combinelatest.html</a> </dd></dl>
 
 </div>
 </div>
-<a id="ga7c5521cd41f2832e93446fb740fb4d31" name="ga7c5521cd41f2832e93446fb740fb4d31"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga7c5521cd41f2832e93446fb740fb4d31">&#9670;&#160;</a></span>with_latest_from() <span class="overload">[2/2]</span></h2>
+<a id="ga9345ba5faac717ba85fc88f1c5fff58b" name="ga9345ba5faac717ba85fc88f1c5fff58b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga9345ba5faac717ba85fc88f1c5fff58b">&#9670;&#160;</a></span>with_latest_from() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
 template&lt;typename TSelector , <a class="el" href="conceptrpp_1_1constraint_1_1observable.html">rpp::constraint::observable</a> TObservable, rpp::constraint::observable... TObservables&gt; <br />
-requires (!utils::is_not_template_callable&lt;TSelector&gt; || std::invocable&lt;TSelector, rpp::utils::convertible_to_any, utils::extract_observable_type_t&lt;TObservable&gt;, utils::extract_observable_type_t&lt;TObservables&gt;...&gt;)</div>
+requires (!<a class="el" href="conceptrpp_1_1constraint_1_1observable.html">rpp::constraint::observable</a>&lt;TSelector&gt; &amp;&amp; (!utils::is_not_template_callable&lt;TSelector&gt; || std::invocable&lt;TSelector, rpp::utils::convertible_to_any, utils::extract_observable_type_t&lt;TObservable&gt;, utils::extract_observable_type_t&lt;TObservables&gt;...&gt;))</div>
       <table class="memname">
         <tr>
           <td class="memname">auto rpp::operators::with_latest_from </td>
@@ -361,7 +361,7 @@ requires (!utils::is_not_template_callable&lt;TSelector&gt; || std::invocable&lt
 </dl>
 <dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="with__latest__from_8hpp_source.html">rpp/operators/with_latest_from.hpp</a>&gt;</dd></dl>
 <dl class="section user"><dt>Examples</dt><dd><div class="fragment"><div class="line">    <a class="code hl_function" href="group__creational__operators.html#gae60bdb9b493443d2786b0eee8bfe17ab">rpp::source::just</a>(1, 2, 3, 4)</div>
-<div class="line">        | <a class="code hl_function" href="group__combining__operators.html#ga7c5521cd41f2832e93446fb740fb4d31">rpp::operators::with_latest_from</a>([](<span class="keywordtype">int</span> left, <span class="keywordtype">int</span> right) { <span class="keywordflow">return</span> left + right; },</div>
+<div class="line">        | <a class="code hl_function" href="group__combining__operators.html#ga9345ba5faac717ba85fc88f1c5fff58b">rpp::operators::with_latest_from</a>([](<span class="keywordtype">int</span> left, <span class="keywordtype">int</span> right) { <span class="keywordflow">return</span> left + right; },</div>
 <div class="line">                                           <a class="code hl_function" href="group__creational__operators.html#gae60bdb9b493443d2786b0eee8bfe17ab">rpp::source::just</a>(3, 4, 5))</div>
 <div class="line">        | rpp::operators::subscribe([](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; v &lt;&lt; <span class="stringliteral">&quot; &quot;</span>; });</div>
 <div class="line">    <span class="comment">// Output: 4 6 8 9</span></div>

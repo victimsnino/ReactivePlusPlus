@@ -355,7 +355,7 @@ template&lt;typename Fn &gt; </div>
 
 <p>Apply accumulator function for each emission from observable and result of accumulator from previous step and emit (and cache) resulting value. </p>
 <div class="image">
-<object type="image/svg+xml" data="scan.svg" style="pointer-events: none;"></object>
+<object type="image/svg+xml" data="scan_no_seed.svg" style="pointer-events: none;"></object>
 </div>
 <p>Actually this operator applies provided accumulator function to seed and new emission, emits resulting value and updates seed value for next emission </p><dl class="section warning"><dt>Warning</dt><dd>There is no initial value for seed, so, first value would be used as seed value and forwarded as is.</dd></dl>
 <dl class="section user"><dt>Performance notes:</dt><dd><ul>

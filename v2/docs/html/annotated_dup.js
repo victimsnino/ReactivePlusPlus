@@ -42,6 +42,9 @@ var annotated_dup =
       [ "operators", null, [
         [ "details", null, [
           [ "as_blocking_t", "structrpp_1_1operators_1_1details_1_1as__blocking__t.html", null ],
+          [ "combine_latest_disposable", "classrpp_1_1operators_1_1details_1_1combine__latest__disposable.html", null ],
+          [ "combine_latest_observer_strategy", "structrpp_1_1operators_1_1details_1_1combine__latest__observer__strategy.html", null ],
+          [ "combine_latest_t", "structrpp_1_1operators_1_1details_1_1combine__latest__t.html", null ],
           [ "debounce_disposable", "classrpp_1_1operators_1_1details_1_1debounce__disposable.html", null ],
           [ "debounce_disposable_wrapper", "structrpp_1_1operators_1_1details_1_1debounce__disposable__wrapper.html", null ],
           [ "debounce_observer_strategy", "structrpp_1_1operators_1_1details_1_1debounce__observer__strategy.html", null ],
@@ -102,7 +105,7 @@ var annotated_dup =
           [ "value_with_mutex", "structrpp_1_1operators_1_1details_1_1value__with__mutex.html", null ],
           [ "with_latest_from_disposable", "classrpp_1_1operators_1_1details_1_1with__latest__from__disposable.html", null ],
           [ "with_latest_from_inner_observer_strategy", "structrpp_1_1operators_1_1details_1_1with__latest__from__inner__observer__strategy.html", null ],
-          [ "with_latest_from_observer_strategy", "classrpp_1_1operators_1_1details_1_1with__latest__from__observer__strategy.html", null ],
+          [ "with_latest_from_observer_strategy", "structrpp_1_1operators_1_1details_1_1with__latest__from__observer__strategy.html", null ],
           [ "with_latest_from_t", "structrpp_1_1operators_1_1details_1_1with__latest__from__t.html", null ]
         ] ]
       ] ],
