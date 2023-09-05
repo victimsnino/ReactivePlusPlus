@@ -99,7 +99,7 @@ struct combine_latest_t
     RPP_NO_UNIQUE_ADDRESS TSelector                          selector;
 
     template<rpp::constraint::decayed_type T>
-        // requires std::invocable<TSelector, T, rpp::utils::extract_observable_type_t<TObservables>...>
+        requires std::invocable<TSelector, T, rpp::utils::extract_observable_type_t<TObservables>...>
     using ResultValue = std::invoke_result_t<TSelector, T, rpp::utils::extract_observable_type_t<TObservables>...>;
 
     template<rpp::constraint::observer Observer, typename... Strategies>
