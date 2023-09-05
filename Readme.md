@@ -17,6 +17,8 @@ ReactivePlusPlus is reactive programming library for C++20 language inspired by 
 See the [BUILDING](BUILDING.md) document to know how to build/install RPP.
 If you are going to know more details about developing for RPP check [HACKING](HACKING.md) document.
 
+Try out rpp on [godbolt.org](https://godbolt.org/z/48fh1hcbn)!
+
 ## Documentation:
 
 Refer to [User Guide](https://victimsnino.github.io/ReactivePlusPlus/v2/docs/html/md_docs_2readme.html) for better understanding of concepts of Reactive Programming and [API Reference of RPP](https://victimsnino.github.io/ReactivePlusPlus/v2/docs/html/group__rpp.html) itself.
