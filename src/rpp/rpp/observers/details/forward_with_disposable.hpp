@@ -32,4 +32,4 @@ struct forward_with_disposable
     void set_upstream(const disposable_wrapper& d) const { disposable.add(d);
     }
 };
-};
+}
