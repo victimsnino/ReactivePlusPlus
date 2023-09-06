@@ -37,18 +37,18 @@ public:
                 break;
         }
     }
-    double_variant_with_monostate(double_variant_with_monostate&& other)
+    double_variant_with_monostate(double_variant_with_monostate&& other) noexcept
         : m_index{other.m_index}
     {
         switch (m_index) {
             case Index::Monostate:
-                std::construct_at(&u.m_monostate, other.u.m_monostate);
+                std::construct_at(&u.m_monostate, std::move_if_noexcept(other.u.m_monostate));
                 break;
             case Index::FirstValue:
-                std::construct_at(&u.m_first, other.u.m_first);
+                std::construct_at(&u.m_first, std::move_if_noexcept(other.u.m_first));
                 break;
             case Index::SecondValue:
-                std::construct_at(&u.m_second, other.u.m_second);
+                std::construct_at(&u.m_second, std::move_if_noexcept(other.u.m_second));
                 break;
         }
     }
