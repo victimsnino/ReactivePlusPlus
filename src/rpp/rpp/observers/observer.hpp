@@ -31,8 +31,7 @@ using external_disposable_strategy = composite_disposable_wrapper;
 class local_disposable_strategy
 {
 public:
-    local_disposable_strategy() {};
-    ~local_disposable_strategy() {}
+    local_disposable_strategy() = default;
 
     void add(const rpp::disposable_wrapper& d)
     {
@@ -130,8 +129,8 @@ public:
      */
     void set_upstream(const disposable_wrapper& d)
     {
-        // if (d.is_disposed())
-        //     return;
+        if (d.is_disposed())
+            return;
 
         if (is_disposed()) {
             d.dispose();
