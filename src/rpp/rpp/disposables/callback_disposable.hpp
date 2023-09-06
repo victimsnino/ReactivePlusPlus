@@ -17,7 +17,7 @@ namespace rpp
 {
 /**
  * @brief Disposable invokes underlying callable on disposing.
- * 
+ *
  * @ingroup disposables
  */
 template<std::invocable Fn>
@@ -28,7 +28,7 @@ public:
     explicit callback_disposable(const Fn& fn) : m_fn{fn} {}
 
 private:
-    void dispose_impl() override { std::move(m_fn)(); }
+    void dispose_impl() noexcept override { std::move(m_fn)(); }
 
 private:
     Fn m_fn;

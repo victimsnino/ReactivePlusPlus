@@ -21,7 +21,7 @@ namespace rpp
 /**
  * @brief Wrapper over disposable_ptr to prevent manual checking over nullptr/is_disposed()
  * @details Can keep weak_ptr in case of not owning disposable
- * 
+ *
  * @ingroup disposables
  */
 template<rpp::constraint::decayed_type TDisposable>
@@ -36,7 +36,7 @@ class disposable_wrapper_impl
     {
     }
 
-public: 
+public:
     template<std::derived_from<TDisposable> TT = TDisposable>
     disposable_wrapper_impl(std::shared_ptr<TT>&& disposable = {})
         requires std::derived_from<TT, interface_disposable>
@@ -68,7 +68,7 @@ public:
         return true;
     }
 
-    void dispose() const
+    void dispose() const noexcept
     {
         if (const auto locked = get_original())
             locked->dispose();

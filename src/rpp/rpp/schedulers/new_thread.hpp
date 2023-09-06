@@ -25,7 +25,7 @@ namespace rpp::schedulers
 /**
  * @brief Scheduler which schedules invoking of schedulables to another thread via queueing tasks with priority to time_point and order
  * @warning Creates new thread for each "create_worker" call, but not for each schedule
- * @details This scheduler useful when we want to have separate thread for processing starting from some timepoint. 
+ * @details This scheduler useful when we want to have separate thread for processing starting from some timepoint.
  * @ingroup schedulers
  */
 class new_thread
@@ -59,7 +59,7 @@ class new_thread
         }
 
     private:
-        void dispose_impl() override
+        void dispose_impl() noexcept override
         {
             if (!m_thread.joinable())
                 return;
@@ -102,7 +102,7 @@ class new_thread
                     continue;
                 }
 
-                if (current_thread::s_last_now_time < queue->top()->get_timepoint()) 
+                if (current_thread::s_last_now_time < queue->top()->get_timepoint())
                 {
                     if (const auto now = worker_strategy::now(); now < queue->top()->get_timepoint())
                     {

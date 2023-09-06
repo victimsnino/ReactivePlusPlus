@@ -37,7 +37,7 @@ public:
 
     bool is_disposed() const noexcept final { return m_refcount.load(std::memory_order_acquire) == 0; }
 
-    void dispose() final
+    void dispose() noexcept final
     {
         while (auto current_value = m_refcount.load(std::memory_order_acquire))
         {

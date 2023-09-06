@@ -39,7 +39,7 @@ public:
         return m_current_state.load(std::memory_order_acquire) == State::Disposed;
     }
 
-    void dispose() final
+    void dispose() noexcept final
     {
         while (true)
         {

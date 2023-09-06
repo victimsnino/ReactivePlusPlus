@@ -43,9 +43,9 @@ public:
                 queue.pop();
 
                 executions.push_back(s_current_time);
-                if (auto duration = (*fn)()) 
+                if (auto duration = (*fn)())
                 {
-                    if (!is_disposed()) 
+                    if (!is_disposed())
                     {
                         schedulings.push_back(std::max(s_current_time, s_current_time + duration.value()));
                         queue.emplace(schedulings.back(), std::move(fn));
@@ -54,7 +54,7 @@ public:
             }
         }
 
-        void dispose_impl() override {}
+        void dispose_impl() noexcept override {}
 
         std::vector<rpp::schedulers::time_point>     schedulings{};
         std::vector<rpp::schedulers::time_point>     executions{};
@@ -79,7 +79,7 @@ public:
                 }
             }
         }
-        
+
         static rpp::schedulers::time_point now() { return s_current_time; }
 
         rpp::disposable_wrapper get_disposable() const { return rpp::disposable_wrapper::from_weak(m_state); }
