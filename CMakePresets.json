@@ -158,6 +158,14 @@
         "RPP_USE_LLVM_COV" : "ON"
       }
     },
+    {
+      "name": "ci-unity-build",
+      "hidden": true,
+      "cacheVariables": {
+        "CMAKE_UNITY_BUILD": true,
+        "RPP_BUILD_TESTS_TOGETHER": true
+      }
+    },
 
 
     {
@@ -224,11 +232,11 @@
     },
     {
       "name": "ci-ubuntu-clang-tests",
-      "inherits": ["ci-build", "ci-build-tests", "ci-build-examples", "ci-build-sfml", "ci-unix", "ci-clang", "cppcheck", "clang-tidy" ]
+      "inherits": ["ci-build", "ci-build-tests", "ci-build-examples", "ci-build-sfml", "ci-unix", "ci-clang", "cppcheck", "clang-tidy", "ci-unity-build" ]
     },
     {
       "name": "ci-ubuntu-gcc-tests",
-      "inherits": ["ci-build", "ci-build-tests", "ci-build-examples", "ci-build-sfml", "ci-unix", "ci-gcc", "cppcheck", "clang-tidy"]
+      "inherits": ["ci-build", "ci-build-tests", "ci-build-examples", "ci-build-sfml", "ci-unix", "ci-gcc", "cppcheck", "clang-tidy", "ci-unity-build"]
     },
     {
       "name": "ci-windows-tests",
