@@ -5,5 +5,5 @@ var classrpp_1_1details_1_1observer__impl =
     [ "on_error", "classrpp_1_1details_1_1observer__impl.html#aa55c5a334bc39c92218f7b51e5126bbc", null ],
     [ "on_next", "classrpp_1_1details_1_1observer__impl.html#a14747a5260ecc183a6d0f1adafee4f68", null ],
     [ "on_next", "classrpp_1_1details_1_1observer__impl.html#a3f97f7bceb8484af908ed4134d88104b", null ],
-    [ "set_upstream", "classrpp_1_1details_1_1observer__impl.html#a3ae7822fe5f962a69ee190af8ff8f0e2", null ]
+    [ "set_upstream", "classrpp_1_1details_1_1observer__impl.html#ab95f4dd062581fb8432fadcee8abb95d", null ]
 ];
