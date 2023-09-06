@@ -6,7 +6,7 @@
  * \example from.cpp
  **/
 
-int main() // NOLINT
+int main() // NOLINT(bugprone-exception-escape)
 {
     {
         //! [from_iterable]

@@ -4,7 +4,7 @@
 /**
  * @example multicast.cpp
  **/
-int main() // NOLINT
+int main() // NOLINT(bugprone-exception-escape)
 {
     {
         //! [multicast]
