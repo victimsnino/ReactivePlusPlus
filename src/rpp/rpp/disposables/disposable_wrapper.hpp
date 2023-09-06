@@ -66,7 +66,7 @@ public:
     static disposable_wrapper_impl with_can_be_replaced_on_set_upstream(disposable_wrapper_impl other)
     {
         other.m_can_be_replaced_on_set_upstream = true;
-        return std::move(other);
+        return other;
     }
 
     bool is_disposed() const noexcept
