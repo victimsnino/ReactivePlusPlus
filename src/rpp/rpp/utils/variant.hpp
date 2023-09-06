@@ -75,8 +75,8 @@ public:
         {
             destroy();
             std::construct_at(&u.m_first, std::forward<T>(v));
+            m_index = Index::FirstValue;
         }
-        m_index = Index::FirstValue;
         return *this;
     }
 
@@ -89,8 +89,8 @@ public:
         {
             destroy();
             std::construct_at(&u.m_second, std::forward<T>(v));
+            m_index = Index::SecondValue;
         }
-        m_index = Index::SecondValue;
         return *this;
     }
 
@@ -145,11 +145,11 @@ private:
         Second m_second;
     } u;
 
-    enum class Index {
-        Monostate,
-        FirstValue,
-        SecondValue
+    enum class Index : uint8_t {
+        Monostate = 0,
+        FirstValue = 1,
+        SecondValue = 2
     };
-    Index m_index : 2 {}; // 00 01 10 (unusued 11)
+    Index m_index : 2{};
 };
 }
