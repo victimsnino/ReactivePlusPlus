@@ -38,7 +38,7 @@ TEST_CASE("subscribe_on schedules job in another scheduler")
     SECTION("observable")
     {
         std::promise<std::thread::id> thread_id{};
-        auto obs = rpp::source::create<int>([&](const auto& sub)
+        auto obs = rpp::source::create<int>([&](auto&& sub)
         {
             thread_id.set_value(std::this_thread::get_id());
             sub.set_upstream(std::make_shared<rpp::composite_disposable>());
