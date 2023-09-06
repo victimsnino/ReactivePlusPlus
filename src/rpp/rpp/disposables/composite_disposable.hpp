@@ -22,7 +22,7 @@ namespace rpp
 {
 /**
  * @brief Disposable which can keep some other sub-disposables. When this root disposable is disposed, then all sub-disposables would be disposed too.
- * 
+ *
  * @ingroup disposables
  */
 class composite_disposable : public interface_composite_disposable
@@ -32,7 +32,7 @@ public:
 
     composite_disposable(const composite_disposable&) = delete;
     composite_disposable(composite_disposable&& other) noexcept = delete;
-    
+
     bool is_disposed() const noexcept final
     {
         return m_current_state.load(std::memory_order_acquire) == State::Disposed;
@@ -60,7 +60,7 @@ public:
     }
 
     using interface_composite_disposable::add;
-    
+
     void add(disposable_wrapper disposable) override
     {
         if (disposable.is_disposed() || disposable.get_original().get() == this)
@@ -88,7 +88,7 @@ protected:
     virtual void dispose_impl() {}
 
 private:
-    enum class State
+    enum class State : uint8_t
     {
         None,    // default state
         Edit,    // set it during adding new element into deps or removing. After success -> back to None

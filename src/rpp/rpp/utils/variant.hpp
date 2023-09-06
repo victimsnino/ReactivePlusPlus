@@ -145,7 +145,8 @@ private:
         Second m_second;
     } u;
 
-    enum class Index : uint8_t {
+    enum class Index : uint8_t
+    {
         Monostate = 0,
         FirstValue = 1,
         SecondValue = 2
