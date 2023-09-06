@@ -16,25 +16,132 @@
 
 namespace rpp::utils
 {
-template<rpp::constraint::decayed_type ...Types>
-class variant
+template<rpp::constraint::decayed_type First, rpp::constraint::decayed_type Second>
+class double_variant_with_monostate
 {
-    using types_as_tuple = rpp::utils::tuple<Types...>;
 public:
-    variant() 
+    double_variant_with_monostate() = default;
+    double_variant_with_monostate(const double_variant_with_monostate& other)
+        : m_index{other.m_index}
     {
-        std::construct_at(static_cast<typename types_as_tuple::template type_at_index_t<0>*>(m_buff));
+        switch (m_index) {
+            case Index::Monostate:
+                u.m_monostate = other.u.m_monostate;
+                break;
+            case Index::FirstValue:
+                u.m_first = other.u.m_first;
+                break;
+            case Index::SecondValue:
+                u.m_second = other.u.m_second;
+                break;
+        }
+    }
+    double_variant_with_monostate(double_variant_with_monostate&& other)
+        : m_index{other.m_index}
+    {
+        switch (m_index) {
+            case Index::Monostate:
+                u.m_monostate = std::move(other.u.m_monostate);
+                break;
+            case Index::FirstValue:
+                u.m_first = std::move(other.u.m_first);
+                break;
+            case Index::SecondValue:
+                u.m_second = std::move(other.u.m_second);
+                break;
+        }
+    }
+
+    ~double_variant_with_monostate()
+    {
+        destroy();
+    }
+
+    const double_variant_with_monostate& operator=(std::monostate)
+    {
+        destroy();
+        m_index = Index::Monostate;
+        return *this;
+    }
+
+    template<rpp::constraint::decayed_same_as<First> T>
+    const double_variant_with_monostate& operator=(T&& v)
+    {
+        if (m_index != Index::FirstValue)
+            destroy();
+        m_index = Index::FirstValue;
+        u.m_first = std::forward<T>(v);
+        return *this;
+    }
+
+    template<rpp::constraint::decayed_same_as<Second> T>
+    const double_variant_with_monostate& operator=(T&& v)
+    {
+        if (m_index != Index::SecondValue)
+            destroy();
+        m_index = Index::SecondValue;
+        u.m_second = std::forward<T>(v);
+        return *this;
     }
 
     template<typename Fn>
-        requires (std::invocable<Fn, Types> && ...)
-    auto apply(Fn&& fn)
+        requires (std::invocable<Fn, First&> && std::invocable<Fn, Second&> && std::invocable<Fn, std::monostate&>)
+    auto visit(Fn&& fn)
     {
-        return fn()
+        switch (m_index) {
+            case Index::Monostate:
+                return std::forward<Fn>(fn)(u.m_monostate);
+            case Index::FirstValue:
+                return std::forward<Fn>(fn)(u.m_first);
+            case Index::SecondValue:
+                return std::forward<Fn>(fn)(u.m_second);
+        }
+    }
+
+    template<typename Fn>
+        requires (std::invocable<Fn, const First&> && std::invocable<Fn, const Second&> && std::invocable<Fn, const std::monostate&>)
+    auto visit(Fn&& fn) const
+    {
+        switch (m_index) {
+            case Index::Monostate:
+                return std::forward<Fn>(fn)(u.m_monostate);
+            case Index::FirstValue:
+                return std::forward<Fn>(fn)(u.m_first);
+            case Index::SecondValue:
+                return std::forward<Fn>(fn)(u.m_second);
+        }
     }
 
 private:
-    alignas(Types...) std::byte m_buff[std::max({sizeof(Types)...})];
-    size_t                      m_index{};
+    void destroy()
+    {
+        switch (m_index) {
+            case Index::Monostate:
+                break;
+            case Index::FirstValue:
+                return u.m_first.~First();
+            case Index::SecondValue:
+                return u.m_second.~Second();
+
+
+        }
+    }
+
+private:
+    union U {
+        U() {};
+        ~U() {}
+
+        std::monostate m_monostate{};
+        First m_first;
+        Second m_second;
+    } u;
+
+    enum class Index {
+        Monostate,
+        FirstValue,
+        SecondValue
+    };
+    Index m_index : 2 {}; // 00 01 10 (unusued 11)
 };
 }
