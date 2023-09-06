@@ -12,7 +12,8 @@
 
 #include <rpp/defs.hpp>
 #include <rpp/utils/constraints.hpp>
-#include <rpp/utils/tuple.hpp>
+
+#include <memory>
 
 namespace rpp::utils
 {
@@ -26,13 +27,13 @@ public:
     {
         switch (m_index) {
             case Index::Monostate:
-                u.m_monostate = other.u.m_monostate;
+                std::construct_at(&u.m_monostate, other.u.m_monostate);
                 break;
             case Index::FirstValue:
-                u.m_first = other.u.m_first;
+                std::construct_at(&u.m_first, other.u.m_first);
                 break;
             case Index::SecondValue:
-                u.m_second = other.u.m_second;
+                std::construct_at(&u.m_second, other.u.m_second);
                 break;
         }
     }
@@ -41,13 +42,13 @@ public:
     {
         switch (m_index) {
             case Index::Monostate:
-                u.m_monostate = std::move(other.u.m_monostate);
+                std::construct_at(&u.m_monostate, other.u.m_monostate);
                 break;
             case Index::FirstValue:
-                u.m_first = std::move(other.u.m_first);
+                std::construct_at(&u.m_first, other.u.m_first);
                 break;
             case Index::SecondValue:
-                u.m_second = std::move(other.u.m_second);
+                std::construct_at(&u.m_second, other.u.m_second);
                 break;
         }
     }
@@ -61,26 +62,35 @@ public:
     {
         destroy();
         m_index = Index::Monostate;
+        std::construct_at(&u.m_monostate);
         return *this;
     }
 
     template<rpp::constraint::decayed_same_as<First> T>
     const double_variant_with_monostate& operator=(T&& v)
     {
-        if (m_index != Index::FirstValue)
+        if (m_index == Index::FirstValue)
+            u.m_first = std::forward<T>(v);
+        else
+        {
             destroy();
+            std::construct_at(&u.m_first, std::forward<T>(v));
+        }
         m_index = Index::FirstValue;
-        u.m_first = std::forward<T>(v);
         return *this;
     }
 
     template<rpp::constraint::decayed_same_as<Second> T>
     const double_variant_with_monostate& operator=(T&& v)
     {
-        if (m_index != Index::SecondValue)
+        if (m_index == Index::SecondValue)
+            u.m_second = std::forward<T>(v);
+        else
+        {
             destroy();
+            std::construct_at(&u.m_second, std::forward<T>(v));
+        }
         m_index = Index::SecondValue;
-        u.m_second = std::forward<T>(v);
         return *this;
     }
 
@@ -119,11 +129,9 @@ private:
             case Index::Monostate:
                 break;
             case Index::FirstValue:
-                return u.m_first.~First();
+                return std::destroy_at(&u.m_first);
             case Index::SecondValue:
-                return u.m_second.~Second();
-
-
+                return std::destroy_at(&u.m_second);
         }
     }
 
