@@ -18,6 +18,7 @@
 #include <rpp/utils/functors.hpp>
 #include <rpp/utils/exceptions.hpp>
 #include <rpp/utils/utils.hpp>
+#include <rpp/utils/variant.hpp>
 
 #include <exception>
 #include <stdexcept>
@@ -36,25 +37,25 @@ public:
 
     void add(const rpp::disposable_wrapper& d)
     {
-        // std::visit(rpp::utils::overloaded{[&](std::monostate) { m_upstream = d; },
-        //                                   [&](rpp::disposable_wrapper& current)
-        //                                   {
-        //                                       if (current.is_disposed())
-        //                                           current = d;
-        //                                       else
-        //                                           m_upstream = std::vector{std::move(current), d};
-        //                                   },
-        //                                   [&](std::vector<rpp::disposable_wrapper>& upstreams)
-        //                                   {
-        //                                       auto itr = std::find_if(upstreams.begin(),
-        //                                                               upstreams.end(),
-        //                                                               rpp::utils::static_mem_fn<&disposable_wrapper::is_disposed>{});
-        //                                       if (itr != upstreams.cend())
-        //                                           *itr = d;
-        //                                       else
-        //                                           upstreams.push_back(d);
-        //                                   }},
-        //            m_upstream);
+        m_upstream.visit(rpp::utils::overloaded{[&](std::monostate) { m_upstream = d; },
+                                                [&](rpp::disposable_wrapper& current)
+                                                {
+                                                    if (current.is_disposed())
+                                                        current = d;
+                                                    else
+                                                        m_upstream = std::vector{std::move(current), d};
+                                                },
+                                                [&](std::vector<rpp::disposable_wrapper>& upstreams)
+                                                {
+                                                    auto itr =
+                                                        std::find_if(upstreams.begin(),
+                                                                     upstreams.end(),
+                                                                     rpp::utils::static_mem_fn<&disposable_wrapper::is_disposed>{});
+                                                    if (itr != upstreams.cend())
+                                                        *itr = d;
+                                                    else
+                                                        upstreams.push_back(d);
+                                                }});
     }
 
     bool is_disposed() const noexcept
@@ -65,19 +66,18 @@ public:
     void dispose() const
     {
         m_is_disposed = true;
-        std::visit(rpp::utils::overloaded{[](std::monostate) {},
-                                          [](const rpp::disposable_wrapper& current) { current.dispose(); },
-                                          [](const std::vector<rpp::disposable_wrapper>& upstreams)
-                                          {
-                                              for (const auto& d : upstreams)
-                                                  d.dispose();
-                                          }},
-                   m_upstream);
+        m_upstream.visit(rpp::utils::overloaded{[](std::monostate) {},
+                                                [](const rpp::disposable_wrapper& current) { current.dispose(); },
+                                                [](const std::vector<rpp::disposable_wrapper>& upstreams)
+                                                {
+                                                    for (const auto& d : upstreams)
+                                                        d.dispose();
+                                                }});
     }
 
 private:
-    std::variant<std::monostate, rpp::disposable_wrapper, std::vector<disposable_wrapper>> m_upstream{};
-    mutable bool                    m_is_disposed{false};
+    rpp::utils::double_variant_with_monostate<rpp::disposable_wrapper, std::vector<disposable_wrapper>> m_upstream{};
+    mutable bool m_is_disposed{false};
 };
 
 struct none_disposable_strategy
@@ -122,7 +122,7 @@ protected:
 
 public:
     using DisposableStrategyToUseWithThis = none_disposable_strategy;
-    
+
     using on_next_lvalue = void(observer_impl::*)(const Type&) const noexcept;
     using on_next_rvalue = void(observer_impl::*)(Type&&) const noexcept;
     /**
