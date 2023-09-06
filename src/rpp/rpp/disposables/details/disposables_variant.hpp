@@ -12,6 +12,7 @@
 
 #include <rpp/disposables/disposable_wrapper.hpp>
 #include <rpp/utils/utils.hpp>
+#include <rpp/utils/functors.hpp>
 
 #include <variant>
 #include <vector>
@@ -25,44 +26,62 @@ public:
 
     void add(rpp::disposable_wrapper d)
     {
-        if (const auto current_ptr = std::get_if<rpp::disposable_wrapper>(&m_upstream))
-        {
-            if (current_ptr->is_disposed())
-                *current_ptr = std::move(d);
-            else
-                m_upstream = std::vector{std::move(*current_ptr), std::move(d)};
-        }
-        else if(const auto upstreams = std::get_if<std::vector<rpp::disposable_wrapper>>(&m_upstream))
-        {
-            auto itr = std::find_if(upstreams->begin(), upstreams->end(), rpp::utils::static_mem_fn<&disposable_wrapper::is_disposed>{});
-            if (itr != upstreams->cend())
-                *itr = d;
-            else
-                upstreams->push_back(std::move(d));
-        }
-        else
-            m_upstream = std::move(d);
+        visit(rpp::utils::overloaded{[&](rpp::disposable_wrapper& current)
+                                     {
+                                         if (current.is_disposed())
+                                             current = std::move(d);
+                                         else
+                                             m_upstream = std::vector{std::move(current), std::move(d)};
+                                     },
+                                     [&](std::vector<rpp::disposable_wrapper>& upstreams)
+                                     {
+                                         auto itr = std::find_if(upstreams.begin(),
+                                                                 upstreams.end(),
+                                                                 rpp::utils::static_mem_fn<&disposable_wrapper::is_disposed>{});
+                                         if (itr != upstreams.cend())
+                                             *itr = std::move(d);
+                                         else
+                                             upstreams.push_back(std::move(d));
+                                     },
+                                     [&](std::monostate) { m_upstream = std::move(d); }});
     }
 
     void dispose() const noexcept
     {
-        if (const auto current_ptr = std::get_if<rpp::disposable_wrapper>(&m_upstream))
-        {
-            current_ptr->dispose();
-        }
-        else if (const auto upstreams = std::get_if<std::vector<rpp::disposable_wrapper>>(&m_upstream))
-        {
-            for (const auto& d : *upstreams)
-                d.dispose();
-        }
+        visit(rpp::utils::overloaded{[](const rpp::disposable_wrapper& current) { current.dispose(); },
+                                     [](const std::vector<rpp::disposable_wrapper>& upstreams)
+                                     {
+                                         for (auto& d : upstreams)
+                                             d.dispose();
+                                     },
+                                     [](std::monostate) {}});
     }
 
     void clear() noexcept
     {
-        if (const auto current_ptr = std::get_if<rpp::disposable_wrapper>(&m_upstream))
-            *current_ptr = rpp::disposable_wrapper{};
-        else if (const auto upstreams = std::get_if<std::vector<rpp::disposable_wrapper>>(&m_upstream))
-            upstreams->clear();
+        visit(rpp::utils::overloaded{[](rpp::disposable_wrapper& current) { current = rpp::disposable_wrapper{}; },
+                                     [](std::vector<rpp::disposable_wrapper>& upstreams) { upstreams.clear(); },
+                                     [](std::monostate) {}});
+    }
+
+private:
+
+    template<typename Fn>
+    void visit(Fn&& fn)
+    {
+        if (m_upstream.valueless_by_exception())
+            std::forward<Fn>(fn)(std::monostate{});
+        else
+            std::visit(std::forward<Fn>(fn), m_upstream);
+    }
+
+    template<typename Fn>
+    void visit(Fn&& fn) const
+    {
+        if (m_upstream.valueless_by_exception())
+            std::forward<Fn>(fn)(std::monostate{});
+        else
+            std::visit(std::forward<Fn>(fn), m_upstream);
     }
 
 private:
