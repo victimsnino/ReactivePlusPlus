@@ -39,7 +39,8 @@ public:
         , m_worker{std::move(in_worker)}
         , m_period{period}
     {
-        add(m_worker.get_disposable());
+        if (auto d = m_worker.get_disposable(); !d.is_disposed())
+            add(std::move(d));
     }
 
     template<typename TT>
@@ -120,7 +121,7 @@ struct debounce_observer_strategy
     }
 
     template<typename T>
-    void on_next(T&& v) const 
+    void on_next(T&& v) const
     {
         disposable->emplace_safe(std::forward<T>(v));
     }
@@ -167,7 +168,7 @@ namespace rpp::operators
 {
 /**
  * @brief Only emit emission if specified period of time has passed without any other emission. On each new emission timer reset.
- * 
+ *
  * @marble debounce
  {
      source    observable   : +--1-2-----3---|
@@ -180,7 +181,7 @@ namespace rpp::operators
  * @param scheduler is scheduler used to run timer for debounce
 
  * @warning #include <rpp/operators/debounce.hpp>
- * 
+ *
  * @par Example
  * @snippet debounce.cpp debounce
  *

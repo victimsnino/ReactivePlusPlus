@@ -25,7 +25,7 @@ struct emission
 {
     template<typename TT>
     emission(TT&& item, schedulers::time_point time)
-        : value{std::forward<TT>(item)} 
+        : value{std::forward<TT>(item)}
         , time_point{time}{}
 
     std::variant<T, std::exception_ptr, rpp::utils::none> value{};
@@ -41,7 +41,8 @@ struct delay_disposable final : public rpp::composite_disposable {
         , worker{std::move(in_worker)}
         , delay{delay}
     {
-        add(worker.get_disposable());
+        if (auto d = worker.get_disposable(); !d.is_disposed())
+            add(std::move(d));
     }
 
     Observer                     observer;
@@ -78,7 +79,7 @@ struct delay_observer_strategy
     }
 
     template<typename T>
-    void on_next(T&& v) const 
+    void on_next(T&& v) const
     {
         emplace(std::forward<T>(v));
     }

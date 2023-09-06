@@ -89,7 +89,7 @@ public:
 
         if (!m_state->disposable.is_disposed())
             return m_state->disposable;
-        
+
         if (!wrapper.has_underlying())
             wrapper = rpp::composite_disposable_wrapper{std::make_shared<rpp::composite_disposable>()};
 
@@ -103,10 +103,10 @@ public:
     /**
     * @brief Forces rpp::connectable_observable to behave like common observable
     * @details Connects rpp::connectable_observable on the first subscription and unsubscribes on last unsubscription
-    *	
+    *
     * @par Example
     * @snippet ref_count.cpp ref_count
-    * 
+    *
     * @ingroup connectable_operators
     * @see https://reactivex.io/documentation/operators/refcount.html
     */

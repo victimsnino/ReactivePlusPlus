@@ -37,7 +37,8 @@ struct interval_strategy
     void subscribe(TObs&& observer) const
     {
         const auto worker = scheduler.create_worker();
-        observer.set_upstream(worker.get_disposable());
+        if (auto d = worker.get_disposable(); !d.is_disposed())
+            observer.set_upstream(std::move(d));
         worker.schedule(initial, interval_schedulable{}, std::forward<TObs>(observer), period, size_t{});
     }
 };
@@ -63,7 +64,7 @@ namespace rpp::source
  * @param initial time before first emission
  * @param period period between emitted values
  * @param scheduler the scheduler to use for scheduling the items
- * 
+ *
  * @par Example:
  * @snippet interval.cpp interval period
  *
@@ -84,7 +85,7 @@ auto interval(rpp::schedulers::duration initial, rpp::schedulers::duration perio
    }
  * @param period period between emitted values
  * @param scheduler the scheduler to use for scheduling the items
- * 
+ *
  * @par Example:
  * @snippet interval.cpp interval period
  *

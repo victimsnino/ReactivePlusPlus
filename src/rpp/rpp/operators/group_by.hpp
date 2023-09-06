@@ -49,10 +49,10 @@ struct group_by_inner_observer_strategy
     void on_completed() const                          { observer.on_completed(); }
 
     bool is_disposed() const                             { return observer.is_disposed(); }
-    void set_upstream(const disposable_wrapper& d) const 
-    { 
-        if (const auto locked = disposable.lock()) 
-            locked->add(d.get_original()); 
+    void set_upstream(const disposable_wrapper& d) const
+    {
+        if (const auto locked = disposable.lock())
+            locked->add(d.get_original());
     }
 };
 
@@ -115,7 +115,7 @@ struct group_by_observer_strategy
         observer.on_completed();
     }
 
-private:    
+private:
     template<rpp::constraint::decayed_same_as<T> TT>
     const subjects::publish_subject<Type>* deduce_subject(const rpp::constraint::observer auto& obs, const TT& val) const
     {
