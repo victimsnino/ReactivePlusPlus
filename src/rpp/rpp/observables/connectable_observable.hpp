@@ -10,6 +10,7 @@
 #pragma once
 
 #include <rpp/observables/observable.hpp>
+#include <rpp/observers/details/forward_with_disposable.hpp>
 #include <rpp/subjects/fwd.hpp>
 #include <rpp/disposables/refcount_disposable.hpp>
 
@@ -39,7 +40,7 @@ struct ref_count_on_subscribe_t<rpp::connectable_observable<OriginalObservable, 
         const auto [should_connect, disposable] = on_subscribe();
 
         obs.set_upstream(disposable);
-        original_observable.subscribe(std::move(obs));
+        original_observable.subscribe(rpp::observer<ValueType, rpp::details::forward_with_disposable<observer<ValueType, Strategy>>>{std::move(obs), disposable});
         if (should_connect)
             original_observable.connect(disposable);
     }

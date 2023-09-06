@@ -104,7 +104,7 @@ TEST_CASE("disposable keeps state")
     }
 
     SECTION("add self") {
-        d.add(d.get_original());
+        d.add(d);
         CHECK(!d.is_disposed());
         SECTION("dispose self") {
             d.dispose();

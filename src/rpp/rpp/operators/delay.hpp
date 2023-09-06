@@ -70,7 +70,7 @@ struct delay_observer_strategy
 
     void set_upstream(const rpp::disposable_wrapper& d) const
     {
-        disposable->add(d.get_original());
+        disposable->add(d);
     }
 
     bool is_disposed() const

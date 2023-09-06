@@ -178,29 +178,40 @@ TEST_CASE("set_upstream without base disposable makes it main disposalbe")
 
 TEST_CASE("set_upstream can be called multiple times")
 {
-    auto check = [](auto&& observer)
+    size_t error_count{};
+    auto on_error = [&error_count](const std::exception_ptr&) {++error_count;};
+    auto check = [&](auto&& observer, bool empty = false)
     {
         auto d1 = std::make_shared<rpp::composite_disposable>();
         observer.set_upstream(rpp::disposable_wrapper{d1});
         CHECK(d1->is_disposed() == observer.is_disposed());
         auto d2 = std::make_shared<rpp::composite_disposable>();
+        CHECK(error_count == 0);
         observer.set_upstream(rpp::disposable_wrapper{d2});
+
+        if (!empty)
+            CHECK(error_count == 1);
+
         CHECK(d1->is_disposed() == observer.is_disposed());
-        CHECK(d2->is_disposed() == observer.is_disposed());
+        
+        if (empty)
+            CHECK(d2->is_disposed() == observer.is_disposed());
 
         observer.on_completed();
         CHECK(d1->is_disposed());
-        CHECK(d2->is_disposed());
+
+        if (empty)
+            CHECK(d2->is_disposed());
     };
 
     SECTION("observer")
-        check(rpp::make_lambda_observer<int>([](int) {}, [](const std::exception_ptr&) {}, []() {}));
+        check(rpp::make_lambda_observer<int>([](int) {}, on_error, []() {}));
 
     SECTION("observer with disposable")
-        check(rpp::make_lambda_observer<int>(rpp::composite_disposable_wrapper{std::make_shared<rpp::composite_disposable>()}, [](int) {}, [](const std::exception_ptr&) {}, []() {}));
+        check(rpp::make_lambda_observer<int>(rpp::composite_disposable_wrapper{std::make_shared<rpp::composite_disposable>()}, [](int) {}, on_error, []() {}));
 
     SECTION("observer with empty disposable")
-        check(rpp::make_lambda_observer<int>(rpp::composite_disposable_wrapper{}, [](int) {}, [](const std::exception_ptr&) {}, []() {}));
+        check(rpp::make_lambda_observer<int>(rpp::composite_disposable_wrapper{}, [](int) {}, on_error, []() {}), true);
 }
 
 TEST_CASE("set_upstream depends on base disposable")

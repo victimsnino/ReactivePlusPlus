@@ -84,10 +84,10 @@ public:
     }
 
 protected:
-    virtual void dispose_impl() {}
+    virtual void dispose_impl() noexcept {}
 
 private:
-    enum class State
+    enum class State : uint8_t
     {
         None,    // default state
         Edit,    // set it during adding new element into deps or removing. After success -> back to None

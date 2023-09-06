@@ -32,16 +32,18 @@ struct concat_source_observer_strategy
     RPP_NO_UNIQUE_ADDRESS mutable TObserver       observer;
     RPP_NO_UNIQUE_ADDRESS mutable PackedContainer container;
     mutable size_t                                index;
+    disposable_wrapper old_disposable{};
 
     template<typename T>
     void on_next(T&& v) const                          { observer.on_next(std::forward<T>(v)); }
     void on_error(const std::exception_ptr& err) const { observer.on_error(err); }
 
-    void set_upstream(const disposable_wrapper& d)     { observer.set_upstream(d); }
+    void set_upstream(const disposable_wrapper& d)     { old_disposable = d; observer.set_upstream(rpp::disposable_wrapper::with_can_be_replaced_on_set_upstream(d)); }
     bool is_disposed() const                           { return observer.is_disposed(); }
 
     void on_completed() const
     {
+        old_disposable.dispose();
         concat_strategy<PackedContainer>::drain(std::move(container), index, std::move(observer));
     }
 };

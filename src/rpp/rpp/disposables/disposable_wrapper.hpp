@@ -38,16 +38,18 @@ class disposable_wrapper_impl
 
 public:
     template<std::derived_from<TDisposable> TT = TDisposable>
-    disposable_wrapper_impl(std::shared_ptr<TT>&& disposable = {})
+    disposable_wrapper_impl(std::shared_ptr<TT>&& disposable = {}, bool can_be_replaced_on_set_upstream = false)
         requires std::derived_from<TT, interface_disposable>
-    : m_disposable{std::static_pointer_cast<TDisposable>(std::move(disposable))}
+        : m_disposable{std::static_pointer_cast<TDisposable>(std::move(disposable))}
+        , m_can_be_replaced_on_set_upstream{can_be_replaced_on_set_upstream}
     {
     }
 
     template<std::derived_from<TDisposable> TT = TDisposable>
-    disposable_wrapper_impl(const std::shared_ptr<TT>& disposable)
+    disposable_wrapper_impl(const std::shared_ptr<TT>& disposable, bool can_be_replaced_on_set_upstream = false)
         requires std::derived_from<TT, interface_disposable>
-    : m_disposable{std::static_pointer_cast<TDisposable>(disposable)}
+        : m_disposable{std::static_pointer_cast<TDisposable>(disposable)}
+        , m_can_be_replaced_on_set_upstream{can_be_replaced_on_set_upstream}
     {
     }
 
@@ -59,6 +61,12 @@ public:
     static disposable_wrapper_impl from_weak(std::weak_ptr<TDisposable> disposable)
     {
         return disposable_wrapper_impl{weak_tag{}, std::move(disposable)};
+    }
+
+    static disposable_wrapper_impl with_can_be_replaced_on_set_upstream(disposable_wrapper_impl other)
+    {
+        other.m_can_be_replaced_on_set_upstream = true;
+        return std::move(other);
     }
 
     bool is_disposed() const noexcept
@@ -109,7 +117,10 @@ public:
         return std::visit([](const auto& ptr) { return ptr.use_count() != 0; }, m_disposable);
     }
 
+    bool can_be_replaced_on_set_upstream() const { return m_can_be_replaced_on_set_upstream; }
+
 private:
     std::variant<std::shared_ptr<TDisposable>, std::weak_ptr<TDisposable>> m_disposable;
+    bool m_can_be_replaced_on_set_upstream{};
 };
 }

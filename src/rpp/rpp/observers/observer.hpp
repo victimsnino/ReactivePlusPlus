@@ -14,7 +14,6 @@
 #include <rpp/observers/fwd.hpp>
 #include <rpp/observers/dynamic_observer.hpp>
 #include <rpp/disposables/disposable_wrapper.hpp>
-#include <rpp/disposables/details/disposables_variant.hpp>
 #include <rpp/utils/functors.hpp>
 #include <rpp/utils/exceptions.hpp>
 #include <rpp/utils/utils.hpp>
@@ -25,7 +24,55 @@
 
 namespace rpp::details
 {
-using external_disposable_strategy = composite_disposable_wrapper;
+class upstream_strategy
+{
+public:
+    upstream_strategy() = default;
+
+    void add(const disposable_wrapper& d)
+    {
+        if (m_upstream.has_underlying() && !m_upstream.can_be_replaced_on_set_upstream())
+            throw rpp::utils::set_upstream_called_twice{"set_upstream called twice, but it is unexpected!"};
+        m_upstream = d;
+    }
+
+    void dispose() const
+    {
+        m_upstream.dispose();
+    }
+
+private:
+    rpp::disposable_wrapper m_upstream{};
+};
+
+class external_disposable_strategy
+{
+public:
+    external_disposable_strategy(rpp::composite_disposable_wrapper&& external)
+    : m_external{std::move(external)}
+    {}
+
+    void add(const disposable_wrapper& d)
+    {
+        m_upstream.add(d);
+        m_external.add(d);
+    }
+
+    bool is_disposed() const noexcept
+    {
+        return m_external.is_disposed();
+    }
+
+    void dispose() const
+    {
+        m_external.dispose();
+        m_upstream.dispose();
+    }
+
+private:
+    upstream_strategy                 m_upstream{};
+    rpp::composite_disposable_wrapper m_external;
+};
 
 class local_disposable_strategy
 {
@@ -34,7 +81,7 @@ public:
 
     void add(const disposable_wrapper& d)
     {
-        m_upstreams.add(d);
+        m_upstream.add(d);
     }
 
     bool is_disposed() const noexcept
@@ -45,12 +92,12 @@ public:
     void dispose() const
     {
         m_is_disposed = true;
-        m_upstreams.dispose();
+        m_upstream.dispose();
     }
 
 private:
-    rpp::details::disposables_variant m_upstreams{};
-    mutable bool                      m_is_disposed{false};
+    upstream_strategy m_upstream{};
+    mutable bool m_is_disposed{false};
 };
 
 struct none_disposable_strategy
@@ -84,7 +131,7 @@ protected:
     }
 
     template<typename... Args>
-        requires constraint::is_constructible_from<Strategy, Args&&...>
+        requires (constraint::is_constructible_from<Strategy, Args&&...> && !rpp::constraint::variadic_decayed_same_as<observer_impl<Type, Strategy, DisposablesStrategy>, Args...>)
     explicit observer_impl(Args&&... args)
         : m_strategy{std::forward<Args>(args)...}, m_disposable{}
     {

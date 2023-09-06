@@ -82,7 +82,7 @@ public:
     }
 
 private:
-    void dispose_impl() override
+    void dispose_impl() noexcept override
     {
         exchange_observers_under_lock_if_there(disposed{});
     }
