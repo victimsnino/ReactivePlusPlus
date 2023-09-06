@@ -7,7 +7,7 @@
  * \example concat.cpp
  **/
 
-int main() // NOLINT
+int main() // NOLINT(bugprone-exception-escape)
 {
     //! [concat_as_source]
     rpp::source::concat(rpp::source::just(1), rpp::source::just(2), rpp::source::just(1,2,3)).subscribe([](int v){std::cout << v << ", ";}, [](const std::exception_ptr&){}, [](){std::cout << "completed\n";});

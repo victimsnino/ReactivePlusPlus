@@ -4,7 +4,7 @@
 /**
  * @example filter.cpp
  **/
-int main() // NOLINT
+int main() // NOLINT(bugprone-exception-escape)
 {
     //! [Filter]
     rpp::source::just(0, 1, 2, 3, 4, 5, 6, 7, 8, 9)

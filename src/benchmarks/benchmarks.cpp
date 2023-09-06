@@ -49,7 +49,7 @@ std::optional<std::string_view> find_argument(std::string_view target_argument, 
 }
 
 
-int main(int argc, char* argv[]) // NOLINT
+int main(int argc, char* argv[]) // NOLINT(bugprone-exception-escape)
 {
     auto bench = ankerl::nanobench::Bench{}.output(nullptr).warmup(3);
     const auto args = std::span{argv, static_cast<size_t>(argc)};

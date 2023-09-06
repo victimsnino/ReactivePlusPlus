@@ -7,7 +7,7 @@
 /**
  * \example delay.cpp
  **/
-int main() // NOLINT
+int main() // NOLINT(bugprone-exception-escape)
 {
     //! [delay]
 
@@ -19,7 +19,7 @@ int main() // NOLINT
         {
             auto emitting_time = rpp::schedulers::clock_type::now();
             std::cout << "emit " << i << " in thread{" << std::this_thread::get_id() << "} duration since start " << std::chrono::duration_cast<std::chrono::seconds>(emitting_time - start).count() << "s"<< std::endl;
-            
+
             obs.on_next(i);
             std::this_thread::sleep_for(std::chrono::seconds{1});
         }
