@@ -15,6 +15,9 @@
 
 namespace rpp::constraint
 {
+template<typename Fn, typename...Args>
+concept is_nothrow_invocable = std::is_nothrow_invocable_v<Fn, Args...>;
+
 template<typename T, typename Type>
 concept decayed_same_as = std::same_as<std::decay_t<T>, std::decay_t<Type>>;
 

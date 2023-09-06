@@ -90,7 +90,7 @@ private:
     void set_upstream(rpp::dynamic_observer<Type>& obs)
     {
         obs.set_upstream(rpp::disposable_wrapper{make_callback_disposable(
-            [weak = this->weak_from_this()]()
+            [weak = this->weak_from_this()]() noexcept
             {
                 if (const auto shared = weak.lock())
                 {

@@ -20,7 +20,7 @@ namespace rpp
  *
  * @ingroup disposables
  */
-template<std::invocable Fn>
+template<rpp::constraint::is_nothrow_invocable Fn>
 class callback_disposable final : public details::base_disposable
 {
 public:
@@ -34,7 +34,7 @@ private:
     Fn m_fn;
 };
 
-template<std::invocable Fn>
+template<rpp::constraint::is_nothrow_invocable Fn>
 auto make_callback_disposable(Fn&& invocable)
 {
     return std::make_shared<rpp::callback_disposable<std::decay_t<Fn>>>(std::forward<Fn>(invocable));
