@@ -13,8 +13,8 @@
 #include <rpp/defs.hpp>
 #include <rpp/observers/fwd.hpp>
 #include <rpp/observers/dynamic_observer.hpp>
-#include <rpp/disposables/composite_disposable.hpp>
 #include <rpp/disposables/disposable_wrapper.hpp>
+#include <rpp/disposables/details/disposables_variant.hpp>
 #include <rpp/utils/functors.hpp>
 #include <rpp/utils/exceptions.hpp>
 #include <rpp/utils/utils.hpp>
@@ -34,7 +34,7 @@ public:
 
     void add(const disposable_wrapper& d)
     {
-        m_upstreams.push_back(d);
+        m_upstreams.add(d);
     }
 
     bool is_disposed() const noexcept
@@ -45,13 +45,12 @@ public:
     void dispose() const
     {
         m_is_disposed = true;
-        for(const auto& d : m_upstreams)
-            d.dispose();
+        m_upstreams.dispose();
     }
 
 private:
-    std::vector<disposable_wrapper> m_upstreams{};
-    mutable bool                    m_is_disposed{false};
+    rpp::details::disposables_variant m_upstreams{};
+    mutable bool                      m_is_disposed{false};
 };
 
 struct none_disposable_strategy

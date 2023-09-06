@@ -13,6 +13,7 @@
 #include <rpp/disposables/fwd.hpp>
 #include <rpp/disposables/interface_composite_disposable.hpp>
 #include <rpp/disposables/disposable_wrapper.hpp>
+#include <rpp/disposables/details/disposables_variant.hpp>
 
 #include <atomic>
 #include <memory>
@@ -22,7 +23,7 @@ namespace rpp
 {
 /**
  * @brief Disposable which can keep some other sub-disposables. When this root disposable is disposed, then all sub-disposables would be disposed too.
- * 
+ *
  * @ingroup disposables
  */
 class composite_disposable : public interface_composite_disposable
@@ -32,7 +33,7 @@ public:
 
     composite_disposable(const composite_disposable&) = delete;
     composite_disposable(composite_disposable&& other) noexcept = delete;
-    
+
     bool is_disposed() const noexcept final
     {
         return m_current_state.load(std::memory_order_acquire) == State::Disposed;
@@ -47,9 +48,7 @@ public:
             {
                 dispose_impl();
 
-                for (const auto& d : m_disposables)
-                    d.dispose();
-
+                m_disposables.dispose();
                 m_disposables.clear();
                 return;
             }
@@ -60,7 +59,7 @@ public:
     }
 
     using interface_composite_disposable::add;
-    
+
     void add(disposable_wrapper disposable) override
     {
         if (disposable.is_disposed() || disposable.get_original().get() == this)
@@ -71,7 +70,7 @@ public:
             State expected{State::None};
             if (m_current_state.compare_exchange_strong(expected, State::Edit, std::memory_order::acq_rel))
             {
-                m_disposables.emplace_back(std::move(disposable));
+                m_disposables.add(std::move(disposable));
                 m_current_state.store(State::None, std::memory_order::release);
                 return;
             }
@@ -95,7 +94,7 @@ private:
         Disposed // permanent state after dispose
     };
 
-    std::vector<disposable_wrapper> m_disposables{};
-    std::atomic<State>              m_current_state{};
+    rpp::details::disposables_variant m_disposables{};
+    std::atomic<State>                m_current_state{};
 };
 } // namespace rpp
