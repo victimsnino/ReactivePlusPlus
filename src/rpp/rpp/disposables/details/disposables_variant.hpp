@@ -36,7 +36,7 @@ public:
         {
             auto itr = std::find_if(upstreams->begin(), upstreams->end(), rpp::utils::static_mem_fn<&disposable_wrapper::is_disposed>{});
             if (itr != upstreams->cend())
-                *itr = d;
+                *itr = std::move(d);
             else
                 upstreams->push_back(std::move(d));
         }
