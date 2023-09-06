@@ -19,7 +19,7 @@ struct custom_disposable : public rpp::interface_disposable
 
     bool is_disposed() const noexcept final { return dispose_count > 1; }
 
-    void dispose() final { ++dispose_count; }
+    void dispose() noexcept final { ++dispose_count; }
 
     size_t dispose_count{};
 };
@@ -104,7 +104,7 @@ TEST_CASE("disposable keeps state")
     }
 
     SECTION("add self") {
-        d.add(d.get_original());
+        d.add(d);
         CHECK(!d.is_disposed());
         SECTION("dispose self") {
             d.dispose();

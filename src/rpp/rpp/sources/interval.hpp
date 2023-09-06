@@ -37,7 +37,8 @@ struct interval_strategy
     void subscribe(TObs&& observer) const
     {
         const auto worker = scheduler.create_worker();
-        observer.set_upstream(worker.get_disposable());
+        if (auto d = worker.get_disposable(); !d.is_disposed())
+            observer.set_upstream(std::move(d));
         worker.schedule(initial, interval_schedulable{}, std::forward<TObs>(observer), period, size_t{});
     }
 };

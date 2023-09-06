@@ -41,7 +41,8 @@ struct delay_disposable final : public rpp::composite_disposable {
         , worker{std::move(in_worker)}
         , delay{delay}
     {
-        add(worker.get_disposable());
+        if (auto d = worker.get_disposable(); !d.is_disposed())
+            add(std::move(d));
     }
 
     Observer                     observer;
@@ -69,7 +70,7 @@ struct delay_observer_strategy
 
     void set_upstream(const rpp::disposable_wrapper& d) const
     {
-        disposable->add(d.get_original());
+        disposable->add(d);
     }
 
     bool is_disposed() const

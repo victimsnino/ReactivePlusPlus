@@ -54,7 +54,7 @@ public:
             }
         }
 
-        void dispose_impl() override {}
+        void dispose_impl() noexcept override {}
 
         std::vector<rpp::schedulers::time_point>     schedulings{};
         std::vector<rpp::schedulers::time_point>     executions{};

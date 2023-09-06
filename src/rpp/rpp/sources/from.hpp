@@ -116,7 +116,8 @@ struct from_iterable_strategy
         else
         {
             const auto worker = scheduler.create_worker();
-            obs.set_upstream(worker.get_disposable());
+            if (auto d = worker.get_disposable(); !d.is_disposed())
+                obs.set_upstream(std::move(d));
             worker.schedule(from_iterable_schedulable{}, std::move(obs), container, size_t{});
         }
     }
