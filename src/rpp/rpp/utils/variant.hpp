@@ -42,13 +42,13 @@ public:
     {
         switch (m_index) {
             case Index::Monostate:
-                std::construct_at(&u.m_monostate, std::move_if_noexcept(other.u.m_monostate));
+                std::construct_at(&u.m_monostate, std::move(other.u.m_monostate));
                 break;
             case Index::FirstValue:
-                std::construct_at(&u.m_first, std::move_if_noexcept(other.u.m_first));
+                std::construct_at(&u.m_first, std::move(other.u.m_first));
                 break;
             case Index::SecondValue:
-                std::construct_at(&u.m_second, std::move_if_noexcept(other.u.m_second));
+                std::construct_at(&u.m_second, std::move(other.u.m_second));
                 break;
         }
     }
