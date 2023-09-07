@@ -75,7 +75,6 @@ auto create(OnSubscribe&& on_subscribe)
  * @par Examples:
  * @snippet create.cpp create
  * @snippet create.cpp create with capture
- * @snippet create.cpp create type deduction
  *
  * @ingroup creational_operators
  * @see https://reactivex.io/documentation/operators/create.html

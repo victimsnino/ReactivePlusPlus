@@ -6,7 +6,7 @@
  * \example create.cpp
  **/
 
-int main() // NOLINT
+int main() // NOLINT(bugprone-exception-escape)
 {
     //! [create]
     rpp::source::create<int>([](const auto& sub)

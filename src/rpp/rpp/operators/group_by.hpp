@@ -52,7 +52,7 @@ struct group_by_inner_observer_strategy
     void set_upstream(const disposable_wrapper& d) const 
     { 
         if (const auto locked = disposable.lock()) 
-            locked->add(d.get_original()); 
+            locked->add(d); 
     }
 };
 
@@ -79,7 +79,7 @@ struct group_by_observer_strategy
 
     void set_upstream(const rpp::disposable_wrapper& d) const
     {
-        disposable->add(d.get_original());
+        disposable->add(d);
     }
 
     bool is_disposed() const

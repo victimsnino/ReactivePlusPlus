@@ -39,7 +39,8 @@ public:
         , m_worker{std::move(in_worker)}
         , m_period{period}
     {
-        add(m_worker.get_disposable());
+        if (auto d = m_worker.get_disposable(); !d.is_disposed())
+            add(std::move(d));
     }
 
     template<typename TT>
@@ -111,7 +112,7 @@ struct debounce_observer_strategy
 
     void set_upstream(const rpp::disposable_wrapper& d) const
     {
-        disposable->add(d.get_original());
+        disposable->add(d);
     }
 
     bool is_disposed() const

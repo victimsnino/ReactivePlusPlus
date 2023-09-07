@@ -82,7 +82,7 @@ public:
     }
 
 private:
-    void dispose_impl() override
+    void dispose_impl() noexcept override
     {
         exchange_observers_under_lock_if_there(disposed{});
     }
@@ -90,7 +90,7 @@ private:
     void set_upstream(rpp::dynamic_observer<Type>& obs)
     {
         obs.set_upstream(rpp::disposable_wrapper{make_callback_disposable(
-            [weak = this->weak_from_this()]()
+            [weak = this->weak_from_this()]() noexcept // NOLINT(bugprone-exception-escape)
             {
                 if (const auto shared = weak.lock())
                 {

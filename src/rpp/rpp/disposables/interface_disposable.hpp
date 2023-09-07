@@ -36,6 +36,6 @@ struct interface_disposable
      * @brief Dispose disposable and free any underlying resources and etc.
      * @warning This function must be thread-safe
      */
-    virtual void dispose()                    = 0;
+    virtual void dispose() noexcept = 0;
 };
 }

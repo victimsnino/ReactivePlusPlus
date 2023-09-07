@@ -5,7 +5,7 @@
 #include <iostream>
 #include <functional>
 
-int main() // NOLINT
+int main() // NOLINT(bugprone-exception-escape)
 {
     auto source = rpp::source::concat(rpp::source::just('1', 'w', 'e', '2', 'r','3')
         | rpp::operators::repeat(3), rpp::source::just('P', '0'))

@@ -54,7 +54,7 @@ struct merge_observer_base_strategy
 
     void set_upstream(const rpp::disposable_wrapper& d) const
     {
-        m_disposable->add(d.get_original());
+        m_disposable->add(d);
     }
 
     bool is_disposed() const

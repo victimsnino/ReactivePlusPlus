@@ -59,7 +59,7 @@ class new_thread
         }
 
     private:
-        void dispose_impl() override
+        void dispose_impl() noexcept override
         {
             if (!m_thread.joinable())
                 return;

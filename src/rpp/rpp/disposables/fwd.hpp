@@ -19,12 +19,12 @@ struct interface_composite_disposable;
 
 class composite_disposable;
 
-template<std::invocable Fn>
+template<rpp::constraint::is_nothrow_invocable Fn>
 class callback_disposable;
 
 class refcount_disposable;
 
-template<std::invocable Fn>
+template<rpp::constraint::is_nothrow_invocable Fn>
 auto make_callback_disposable(Fn&& invocable);
 
 template<rpp::constraint::decayed_type TDisposable>
