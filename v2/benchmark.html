@@ -38,9 +38,6 @@
 
                     for (const [title, resultsPerTitle] of Object.entries(groupBy(platform_results, "title"))) {
                         var titleDetails = document.createElement('details');
-                        titleDetails.addEventListener("toggle", function() {
-                            window.dispatchEvent(new Event('resize'));
-                        });
                         var titleSummary = document.createElement('summary');
                         var graphDiv = document.createElement('div');
                         titleSummary.innerHTML += "<h3 style='display:inline'>"+title+"</h3>"
@@ -93,24 +90,30 @@
                                                      }
                                                  });
                                          });
-
-
-                        Plotly.newPlot(graphDiv,
-                                      data,
+                        titleDetails.graphDiv = graphDiv;
+                        titleDetails.data = data;
+                        titleDetails.commitNames = commitNames;
+                        titleDetails.addEventListener("toggle", function(ev) {
+                            Plotly.newPlot(ev.currentTarget.graphDiv,
+                                      ev.currentTarget.data,
                                       {
                                           showlegend: true,
                                           hovermode: "x unified",
                                           yaxis: {
                                             title: 'ns/iter',
-                                            autorange: true,
-                                            rangemode: "tozero"
+                                            fixedrange: false,
+                                            autorange: false,
+                                            rangemode: "tozero",
+                                            rangeslider : {
+                                                visible: true
+                                            },
                                           },
                                           xaxis: {
-                                            tickvals: [...Array(commitNames.length).keys()],
+                                            tickvals: [...Array(ev.currentTarget.commitNames.length).keys()],
                                             tickmode: "array",
-                                            ticktext: commitNames,
+                                            ticktext: ev.currentTarget.commitNames,
                                             tickangle: -30,
-                                            range: [commitNames.length-takeLast, commitNames.length],
+                                            range: [ev.currentTarget.commitNames.length-takeLast, ev.currentTarget.commitNames.length],
                                             rangeslider : {
                                                 visible: true
                                             },
@@ -122,6 +125,8 @@
                                       },
                                       { responsive: true });
 
+                            window.dispatchEvent(new Event('resize'));
+                        });
 
                         titleDetails.appendChild(graphDiv);
                         titleDetails.appendChild(titleSummary);
