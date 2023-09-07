@@ -102,7 +102,7 @@ $(document).ready(function(){initNavTree('take_while_8cpp-example.html',''); ini
 <div class="fragment"><div class="line"><span class="preprocessor">#include &lt;rpp/rpp.hpp&gt;</span></div>
 <div class="line"><span class="preprocessor">#include &lt;iostream&gt;</span></div>
 <div class="line"> </div>
-<div class="line"><span class="keywordtype">int</span> main() <span class="comment">// NOLINT</span></div>
+<div class="line"><span class="keywordtype">int</span> main() <span class="comment">// NOLINT(bugprone-exception-escape)</span></div>
 <div class="line">{</div>
 <div class="line">    <a id="a0" name="a0"></a><a class="code hl_function" href="group__creational__operators.html#gae60bdb9b493443d2786b0eee8bfe17ab">rpp::source::just</a>(0, 1, 2, 3, 4, 5, 6, 7, 8, 9)</div>
 <div class="line">            | <a id="a1" name="a1"></a><a class="code hl_function" href="group__conditional__operators.html#gac65952f7460d8f0e71a93d95810d2061">rpp::operators::take_while</a>([](<span class="keywordtype">int</span> v) { <span class="keywordflow">return</span> v != 5; })</div>
@@ -111,7 +111,7 @@ $(document).ready(function(){initNavTree('take_while_8cpp-example.html',''); ini
 <div class="line">    <span class="keywordflow">return</span> 0;</div>
 <div class="line">}</div>
 <div class="ttc" id="agroup__conditional__operators_html_gac65952f7460d8f0e71a93d95810d2061"><div class="ttname"><a href="group__conditional__operators.html#gac65952f7460d8f0e71a93d95810d2061">rpp::operators::take_while</a></div><div class="ttdeci">auto take_while(Fn &amp;&amp;predicate)</div><div class="ttdoc">Sends items from observable while items are satisfy predicate. When condition becomes false -&gt; sends ...</div><div class="ttdef"><b>Definition</b> take_while.hpp:75</div></div>
-<div class="ttc" id="agroup__creational__operators_html_gae60bdb9b493443d2786b0eee8bfe17ab"><div class="ttname"><a href="group__creational__operators.html#gae60bdb9b493443d2786b0eee8bfe17ab">rpp::source::just</a></div><div class="ttdeci">auto just(const TScheduler &amp;scheduler, T &amp;&amp;item, Ts &amp;&amp;...items)</div><div class="ttdoc">Creates rpp::observable that emits a particular items and completes.</div><div class="ttdef"><b>Definition</b> from.hpp:195</div></div>
+<div class="ttc" id="agroup__creational__operators_html_gae60bdb9b493443d2786b0eee8bfe17ab"><div class="ttname"><a href="group__creational__operators.html#gae60bdb9b493443d2786b0eee8bfe17ab">rpp::source::just</a></div><div class="ttdeci">auto just(const TScheduler &amp;scheduler, T &amp;&amp;item, Ts &amp;&amp;...items)</div><div class="ttdoc">Creates rpp::observable that emits a particular items and completes.</div><div class="ttdef"><b>Definition</b> from.hpp:196</div></div>
 </div><!-- fragment --> </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

@@ -11,6 +11,7 @@ var examples =
     [ "first.cpp", "first_8cpp-example.html", null ],
     [ "from.cpp", "from_8cpp-example.html", null ],
     [ "group_by.cpp", "group_by_8cpp-example.html", null ],
+    [ "interval.cpp", "interval_8cpp-example.html", null ],
     [ "just.cpp", "just_8cpp-example.html", null ],
     [ "last.cpp", "last_8cpp-example.html", null ],
     [ "map.cpp", "map_8cpp-example.html", null ],

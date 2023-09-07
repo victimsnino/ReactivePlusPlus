@@ -26,10 +26,10 @@
 \DoxyCodeLine{00022\ \{}
 \DoxyCodeLine{00023\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ add(\mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{disposable\_wrapper}}\ disposable)\ =\ 0;}
 \DoxyCodeLine{00024\ }
-\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keyword}{template}<std::invocable\ Fn>}
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::is\_nothrow\_invocable\ Fn>}
 \DoxyCodeLine{00026\ \ \ \ \ \textcolor{keywordtype}{void}\ add(Fn\&\&\ invocable)}
 \DoxyCodeLine{00027\ \ \ \ \ \{}
-\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ add(std::make\_shared<\mbox{\hyperlink{classrpp_1_1callback__disposable}{rpp::callback\_disposable}}<std::decay\_t<Fn>>>(std::forward<Fn>(invocable)));}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ add(make\_callback\_disposable(std::forward<Fn>(invocable)));}
 \DoxyCodeLine{00029\ \ \ \ \ \}}
 \DoxyCodeLine{00030\ \};}
 \DoxyCodeLine{00031\ \}}

@@ -103,7 +103,7 @@ $(document).ready(function(){initNavTree('from_8cpp-example.html',''); initResiz
 <div class="line"> </div>
 <div class="line"><span class="preprocessor">#include &lt;iostream&gt;</span></div>
 <div class="line"> </div>
-<div class="line"><span class="keywordtype">int</span> main() <span class="comment">// NOLINT</span></div>
+<div class="line"><span class="keywordtype">int</span> main() <span class="comment">// NOLINT(bugprone-exception-escape)</span></div>
 <div class="line">{</div>
 <div class="line">    {</div>
 <div class="line">        std::vector&lt;int&gt; vals{ 1,2,3 };</div>
@@ -129,9 +129,9 @@ $(document).ready(function(){initNavTree('from_8cpp-example.html',''); initResiz
 <div class="line">}</div>
 <div class="ttc" id="aclassrpp_1_1schedulers_1_1current__thread_html"><div class="ttname"><a href="classrpp_1_1schedulers_1_1current__thread.html">rpp::schedulers::current_thread</a></div><div class="ttdoc">Schedules execution of schedulables via queueing tasks to the caller thread with priority to time_poi...</div><div class="ttdef"><b>Definition</b> current_thread.hpp:86</div></div>
 <div class="ttc" id="aclassrpp_1_1schedulers_1_1immediate_html"><div class="ttname"><a href="classrpp_1_1schedulers_1_1immediate.html">rpp::schedulers::immediate</a></div><div class="ttdoc">immediately calls provided schedulable or waits for time_point (in the caller-thread)</div><div class="ttdef"><b>Definition</b> immediate.hpp:64</div></div>
-<div class="ttc" id="agroup__creational__operators_html_ga519523490394660d7e8c46d2d5612f75"><div class="ttname"><a href="group__creational__operators.html#ga519523490394660d7e8c46d2d5612f75">rpp::source::from_callable</a></div><div class="ttdeci">auto from_callable(Callable &amp;&amp;callable)</div><div class="ttdoc">Creates rpp::specific_observable that calls provided callable and emits resulting value of this calla...</div><div class="ttdef"><b>Definition</b> from.hpp:242</div></div>
+<div class="ttc" id="agroup__creational__operators_html_ga519523490394660d7e8c46d2d5612f75"><div class="ttname"><a href="group__creational__operators.html#ga519523490394660d7e8c46d2d5612f75">rpp::source::from_callable</a></div><div class="ttdeci">auto from_callable(Callable &amp;&amp;callable)</div><div class="ttdoc">Creates rpp::specific_observable that calls provided callable and emits resulting value of this calla...</div><div class="ttdef"><b>Definition</b> from.hpp:243</div></div>
 <div class="ttc" id="agroup__creational__operators_html_ga5bf57bc7e432fb38565810144a75b972"><div class="ttname"><a href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">rpp::source::concat</a></div><div class="ttdeci">auto concat(TObservable &amp;&amp;obs, TObservables &amp;&amp;...others)</div><div class="ttdoc">Make observable which would merge emissions from underlying observables but without overlapping (curr...</div><div class="ttdef"><b>Definition</b> concat.hpp:134</div></div>
-<div class="ttc" id="agroup__creational__operators_html_gad15a7e8bfb2f7ce0af1b44e22918116c"><div class="ttname"><a href="group__creational__operators.html#gad15a7e8bfb2f7ce0af1b44e22918116c">rpp::source::from_iterable</a></div><div class="ttdeci">auto from_iterable(Iterable &amp;&amp;iterable, const TScheduler &amp;scheduler)</div><div class="ttdoc">Creates observable that emits a items from provided iterable.</div><div class="ttdef"><b>Definition</b> from.hpp:170</div></div>
+<div class="ttc" id="agroup__creational__operators_html_gad15a7e8bfb2f7ce0af1b44e22918116c"><div class="ttname"><a href="group__creational__operators.html#gad15a7e8bfb2f7ce0af1b44e22918116c">rpp::source::from_iterable</a></div><div class="ttdeci">auto from_iterable(Iterable &amp;&amp;iterable, const TScheduler &amp;scheduler)</div><div class="ttdoc">Creates observable that emits a items from provided iterable.</div><div class="ttdef"><b>Definition</b> from.hpp:171</div></div>
 </div><!-- fragment --> </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

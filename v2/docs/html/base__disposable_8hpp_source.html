@@ -129,7 +129,7 @@ $(document).ready(function(){initNavTree('base__disposable_8hpp_source.html','')
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno"><a class="line" href="classrpp_1_1details_1_1base__disposable.html#a09179df9b71e2c76a362026ae3e7ee59">   27</a></span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="classrpp_1_1details_1_1base__disposable.html#a09179df9b71e2c76a362026ae3e7ee59">is_disposed</a>() const noexcept final { <span class="keywordflow">return</span> m_disposed.load(std::memory_order_acquire); }</div>
 <div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
 <div class="foldopen" id="foldopen00029" data-start="{" data-end="}">
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno"><a class="line" href="classrpp_1_1details_1_1base__disposable.html#a81449c292421aa65d6dd64f4e1f585dc">   29</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classrpp_1_1details_1_1base__disposable.html#a81449c292421aa65d6dd64f4e1f585dc">dispose</a>() final</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno"><a class="line" href="classrpp_1_1details_1_1base__disposable.html#a81a08578b3258de82422eb3a64976b5d">   29</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classrpp_1_1details_1_1base__disposable.html#a81a08578b3258de82422eb3a64976b5d">dispose</a>() noexcept final</div>
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    {</div>
 <div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>        <span class="keywordflow">if</span> (m_disposed.exchange(<span class="keyword">true</span>, std::memory_order_acq_rel) == <span class="keyword">false</span>)</div>
 <div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>            dispose_impl();</div>
@@ -137,16 +137,16 @@ $(document).ready(function(){initNavTree('base__disposable_8hpp_source.html','')
 </div>
 <div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="keyword">protected</span>:</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> dispose_impl() = 0;</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> dispose_impl() noexcept = 0;</div>
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>private:</div>
 <div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    std::atomic_bool m_disposed{};</div>
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>};</div>
 </div>
 <div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>}</div>
 <div class="ttc" id="aclassrpp_1_1details_1_1base__disposable_html"><div class="ttname"><a href="classrpp_1_1details_1_1base__disposable.html">rpp::details::base_disposable</a></div><div class="ttdef"><b>Definition</b> base_disposable.hpp:21</div></div>
 <div class="ttc" id="aclassrpp_1_1details_1_1base__disposable_html_a09179df9b71e2c76a362026ae3e7ee59"><div class="ttname"><a href="classrpp_1_1details_1_1base__disposable.html#a09179df9b71e2c76a362026ae3e7ee59">rpp::details::base_disposable::is_disposed</a></div><div class="ttdeci">bool is_disposed() const noexcept final</div><div class="ttdoc">Check if this disposable is just disposed.</div><div class="ttdef"><b>Definition</b> base_disposable.hpp:27</div></div>
-<div class="ttc" id="aclassrpp_1_1details_1_1base__disposable_html_a81449c292421aa65d6dd64f4e1f585dc"><div class="ttname"><a href="classrpp_1_1details_1_1base__disposable.html#a81449c292421aa65d6dd64f4e1f585dc">rpp::details::base_disposable::dispose</a></div><div class="ttdeci">void dispose() final</div><div class="ttdoc">Dispose disposable and free any underlying resources and etc.</div><div class="ttdef"><b>Definition</b> base_disposable.hpp:29</div></div>
+<div class="ttc" id="aclassrpp_1_1details_1_1base__disposable_html_a81a08578b3258de82422eb3a64976b5d"><div class="ttname"><a href="classrpp_1_1details_1_1base__disposable.html#a81a08578b3258de82422eb3a64976b5d">rpp::details::base_disposable::dispose</a></div><div class="ttdeci">void dispose() noexcept final</div><div class="ttdoc">Dispose disposable and free any underlying resources and etc.</div><div class="ttdef"><b>Definition</b> base_disposable.hpp:29</div></div>
 <div class="ttc" id="astructrpp_1_1interface__disposable_html"><div class="ttname"><a href="structrpp_1_1interface__disposable.html">rpp::interface_disposable</a></div><div class="ttdoc">Interface of disposable.</div><div class="ttdef"><b>Definition</b> interface_disposable.hpp:26</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->

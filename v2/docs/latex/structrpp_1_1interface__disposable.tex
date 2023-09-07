@@ -20,7 +20,7 @@ Inheritance diagram for rpp\+::interface\+\_\+disposable\+:\begin{figure}[H]
 \item 
 virtual bool \mbox{\hyperlink{structrpp_1_1interface__disposable_a0348da95fe5929a3861e80b6651c347f}{is\+\_\+disposed}} () const noexcept=0
 \begin{DoxyCompactList}\small\item\em Check if this disposable is just disposed. \end{DoxyCompactList}\item 
-virtual void \mbox{\hyperlink{structrpp_1_1interface__disposable_a47d5a3e76f8f0e774b07f7743eb0634a}{dispose}} ()=0
+virtual void \mbox{\hyperlink{structrpp_1_1interface__disposable_aba40958e70b43507be04f55bbd4340e9}{dispose}} () noexcept=0
 \begin{DoxyCompactList}\small\item\em Dispose disposable and free any underlying resources and etc. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
@@ -28,11 +28,11 @@ virtual void \mbox{\hyperlink{structrpp_1_1interface__disposable_a47d5a3e76f8f0e
 Interface of disposable. 
 
 \doxysubsection{Member Function Documentation}
-\Hypertarget{structrpp_1_1interface__disposable_a47d5a3e76f8f0e774b07f7743eb0634a}\label{structrpp_1_1interface__disposable_a47d5a3e76f8f0e774b07f7743eb0634a} 
+\Hypertarget{structrpp_1_1interface__disposable_aba40958e70b43507be04f55bbd4340e9}\label{structrpp_1_1interface__disposable_aba40958e70b43507be04f55bbd4340e9} 
 \index{rpp::interface\_disposable@{rpp::interface\_disposable}!dispose@{dispose}}
 \index{dispose@{dispose}!rpp::interface\_disposable@{rpp::interface\_disposable}}
 \doxysubsubsection{\texorpdfstring{dispose()}{dispose()}}
-{\footnotesize\ttfamily virtual void rpp\+::interface\+\_\+disposable\+::dispose (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+{\footnotesize\ttfamily virtual void rpp\+::interface\+\_\+disposable\+::dispose (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}, {\ttfamily [noexcept]}}
 
 
 
@@ -43,7 +43,7 @@ This function must be thread-\/safe
 \end{DoxyWarning}
 
 
-Implemented in \mbox{\hyperlink{classrpp_1_1composite__disposable_acf263ceb2c51a97f435d730f33ec293c}{rpp\+::composite\+\_\+disposable}}, \mbox{\hyperlink{classrpp_1_1details_1_1base__disposable_a81449c292421aa65d6dd64f4e1f585dc}{rpp\+::details\+::base\+\_\+disposable}}, and \mbox{\hyperlink{classrpp_1_1refcount__disposable_ac8e6be5f044e6c49809bcaa4b2eb446a}{rpp\+::refcount\+\_\+disposable}}.
+Implemented in \mbox{\hyperlink{classrpp_1_1composite__disposable_aa7c4039ee81bf520bd6c1724d32e4ba5}{rpp\+::composite\+\_\+disposable}}, \mbox{\hyperlink{classrpp_1_1details_1_1base__disposable_a81a08578b3258de82422eb3a64976b5d}{rpp\+::details\+::base\+\_\+disposable}}, and \mbox{\hyperlink{classrpp_1_1refcount__disposable_a16524bec95defe5911c73629e257bd31}{rpp\+::refcount\+\_\+disposable}}.
 
 \Hypertarget{structrpp_1_1interface__disposable_a0348da95fe5929a3861e80b6651c347f}\label{structrpp_1_1interface__disposable_a0348da95fe5929a3861e80b6651c347f} 
 \index{rpp::interface\_disposable@{rpp::interface\_disposable}!is\_disposed@{is\_disposed}}

@@ -1,0 +1,37 @@
+\doxysection{interval.\+cpp}
+\hypertarget{interval_8cpp-example}{}\label{interval_8cpp-example}
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <rpp/rpp.hpp>}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <chrono>}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{int}\ main()\ \textcolor{comment}{//\ NOLINT(bugprone-\/exception-\/escape)}}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_ga4018b147fb99a358c6c01f21183c13e6}{rpp::source::interval}}(std::chrono::milliseconds(10),\ \mbox{\hyperlink{classrpp_1_1schedulers_1_1immediate}{rpp::schedulers::immediate}}\{\})}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__filtering__operators_gaf32161437c2c6cd7d5a0e5170a333cbb}{rpp::operators::take}}(3)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ rpp::operators::subscribe(}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ [start\ =\ rpp::schedulers::clock\_type::now()](\textcolor{keywordtype}{size\_t}\ v)\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}emit\ "{}}\ <<\ v\ <<\ \textcolor{stringliteral}{"{}\ duration\ since\ start\ "{}}\ <<\ std::chrono::duration\_cast<std::chrono::milliseconds>(rpp::schedulers::clock\_type::now()\ -\/\ start).count()\ <<\ \textcolor{stringliteral}{"{}ms\(\backslash\)n"{}};\ \},\ }
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ rpp::utils::rethrow\_error\_t\{\},\ }
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ []()\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}On\ complete\(\backslash\)n"{}};\ \});}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:\ Observable\ factory\ called\ }}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ \ \ \ emit\ 1\ duration\ since\ start\ 0ms}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ \ \ \ emit\ 2\ duration\ since\ start\ 10ms}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ \ \ \ emit\ 3\ duration\ since\ start\ 20ms}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ \ \ \ On\ complete}}
+\DoxyCodeLine{\ \ \ \ }
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_ga4018b147fb99a358c6c01f21183c13e6}{rpp::source::interval}}(std::chrono::milliseconds(5),\ std::chrono::milliseconds(10),\ \mbox{\hyperlink{classrpp_1_1schedulers_1_1immediate}{rpp::schedulers::immediate}}\{\})}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__filtering__operators_gaf32161437c2c6cd7d5a0e5170a333cbb}{rpp::operators::take}}(3)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ rpp::operators::subscribe(}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ [start\ =\ rpp::schedulers::clock\_type::now()](\textcolor{keywordtype}{size\_t}\ v)\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}emit\ "{}}\ <<\ v\ <<\ \textcolor{stringliteral}{"{}\ duration\ since\ start\ "{}}\ <<\ std::chrono::duration\_cast<std::chrono::milliseconds>(rpp::schedulers::clock\_type::now()\ -\/\ start).count()\ <<\ \textcolor{stringliteral}{"{}ms\(\backslash\)n"{}};\ \},\ }
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ rpp::utils::rethrow\_error\_t\{\},\ }
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ []()\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}On\ complete\(\backslash\)n"{}};\ \});}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:\ Observable\ factory\ called\ }}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ \ \ \ emit\ 1\ duration\ since\ start\ 5ms}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ \ \ \ emit\ 2\ duration\ since\ start\ 15ms}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ \ \ \ emit\ 3\ duration\ since\ start\ 25ms}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ \ \ \ On\ complete}}
+\DoxyCodeLine{\}}
+
+\end{DoxyCodeInclude}
+ 

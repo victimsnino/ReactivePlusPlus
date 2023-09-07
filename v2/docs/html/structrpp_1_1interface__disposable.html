@@ -132,15 +132,15 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a0348da95fe5929a3861e80b6651c347f" id="r_a0348da95fe5929a3861e80b6651c347f"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structrpp_1_1interface__disposable.html#a0348da95fe5929a3861e80b6651c347f">is_disposed</a> () const noexcept=0</td></tr>
 <tr class="memdesc:a0348da95fe5929a3861e80b6651c347f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if this disposable is just disposed.  <br /></td></tr>
 <tr class="separator:a0348da95fe5929a3861e80b6651c347f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a47d5a3e76f8f0e774b07f7743eb0634a" id="r_a47d5a3e76f8f0e774b07f7743eb0634a"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structrpp_1_1interface__disposable.html#a47d5a3e76f8f0e774b07f7743eb0634a">dispose</a> ()=0</td></tr>
-<tr class="memdesc:a47d5a3e76f8f0e774b07f7743eb0634a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dispose disposable and free any underlying resources and etc.  <br /></td></tr>
-<tr class="separator:a47d5a3e76f8f0e774b07f7743eb0634a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aba40958e70b43507be04f55bbd4340e9" id="r_aba40958e70b43507be04f55bbd4340e9"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structrpp_1_1interface__disposable.html#aba40958e70b43507be04f55bbd4340e9">dispose</a> () noexcept=0</td></tr>
+<tr class="memdesc:aba40958e70b43507be04f55bbd4340e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dispose disposable and free any underlying resources and etc.  <br /></td></tr>
+<tr class="separator:aba40958e70b43507be04f55bbd4340e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Interface of disposable. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a47d5a3e76f8f0e774b07f7743eb0634a" name="a47d5a3e76f8f0e774b07f7743eb0634a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a47d5a3e76f8f0e774b07f7743eb0634a">&#9670;&#160;</a></span>dispose()</h2>
+<a id="aba40958e70b43507be04f55bbd4340e9" name="aba40958e70b43507be04f55bbd4340e9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aba40958e70b43507be04f55bbd4340e9">&#9670;&#160;</a></span>dispose()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -157,7 +157,7 @@ Public Member Functions</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">pure virtual</span><span class="mlabel">noexcept</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -165,7 +165,7 @@ Public Member Functions</h2></td></tr>
 <p>Dispose disposable and free any underlying resources and etc. </p>
 <dl class="section warning"><dt>Warning</dt><dd>This function must be thread-safe </dd></dl>
 
-<p>Implemented in <a class="el" href="classrpp_1_1composite__disposable.html#acf263ceb2c51a97f435d730f33ec293c">rpp::composite_disposable</a>, <a class="el" href="classrpp_1_1details_1_1base__disposable.html#a81449c292421aa65d6dd64f4e1f585dc">rpp::details::base_disposable</a>, and <a class="el" href="classrpp_1_1refcount__disposable.html#ac8e6be5f044e6c49809bcaa4b2eb446a">rpp::refcount_disposable</a>.</p>
+<p>Implemented in <a class="el" href="classrpp_1_1composite__disposable.html#aa7c4039ee81bf520bd6c1724d32e4ba5">rpp::composite_disposable</a>, <a class="el" href="classrpp_1_1details_1_1base__disposable.html#a81a08578b3258de82422eb3a64976b5d">rpp::details::base_disposable</a>, and <a class="el" href="classrpp_1_1refcount__disposable.html#a16524bec95defe5911c73629e257bd31">rpp::refcount_disposable</a>.</p>
 
 </div>
 </div>

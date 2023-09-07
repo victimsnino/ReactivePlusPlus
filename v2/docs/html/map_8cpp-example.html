@@ -103,7 +103,7 @@ $(document).ready(function(){initNavTree('map_8cpp-example.html',''); initResiza
 <div class="line"> </div>
 <div class="line"><span class="preprocessor">#include &lt;iostream&gt;</span></div>
 <div class="line"> </div>
-<div class="line"><span class="keywordtype">int</span> main() <span class="comment">// NOLINT</span></div>
+<div class="line"><span class="keywordtype">int</span> main() <span class="comment">// NOLINT(bugprone-exception-escape)</span></div>
 <div class="line">{</div>
 <div class="line">    <a id="a0" name="a0"></a><a class="code hl_function" href="group__creational__operators.html#gae60bdb9b493443d2786b0eee8bfe17ab">rpp::source::just</a>(42)</div>
 <div class="line">        | <a id="a1" name="a1"></a><a class="code hl_function" href="group__transforming__operators.html#ga1291dba2d973d4ba1061c9e0e202cb3f">rpp::operators::map</a>([](<span class="keywordtype">int</span> value) { <span class="keywordflow">return</span> value + 10; })</div>
@@ -116,7 +116,7 @@ $(document).ready(function(){initNavTree('map_8cpp-example.html',''); initResiza
 <div class="line">    <span class="comment">// Output: 42 VAL</span></div>
 <div class="line">    <span class="keywordflow">return</span> 0;</div>
 <div class="line">}</div>
-<div class="ttc" id="agroup__creational__operators_html_gae60bdb9b493443d2786b0eee8bfe17ab"><div class="ttname"><a href="group__creational__operators.html#gae60bdb9b493443d2786b0eee8bfe17ab">rpp::source::just</a></div><div class="ttdeci">auto just(const TScheduler &amp;scheduler, T &amp;&amp;item, Ts &amp;&amp;...items)</div><div class="ttdoc">Creates rpp::observable that emits a particular items and completes.</div><div class="ttdef"><b>Definition</b> from.hpp:195</div></div>
+<div class="ttc" id="agroup__creational__operators_html_gae60bdb9b493443d2786b0eee8bfe17ab"><div class="ttname"><a href="group__creational__operators.html#gae60bdb9b493443d2786b0eee8bfe17ab">rpp::source::just</a></div><div class="ttdeci">auto just(const TScheduler &amp;scheduler, T &amp;&amp;item, Ts &amp;&amp;...items)</div><div class="ttdoc">Creates rpp::observable that emits a particular items and completes.</div><div class="ttdef"><b>Definition</b> from.hpp:196</div></div>
 <div class="ttc" id="agroup__transforming__operators_html_ga1291dba2d973d4ba1061c9e0e202cb3f"><div class="ttname"><a href="group__transforming__operators.html#ga1291dba2d973d4ba1061c9e0e202cb3f">rpp::operators::map</a></div><div class="ttdeci">auto map(Fn &amp;&amp;callable)</div><div class="ttdoc">Transforms the items emitted by an Observable via applying a function to each item and emitting resul...</div><div class="ttdef"><b>Definition</b> map.hpp:79</div></div>
 </div><!-- fragment --> </div><!-- contents -->
 </div><!-- doc-content -->

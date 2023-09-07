@@ -37,7 +37,7 @@
 \DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ m\_current\_state.load(std::memory\_order\_acquire)\ ==\ State::Disposed;}
 \DoxyCodeLine{00039\ \ \ \ \ \}}
 \DoxyCodeLine{00040\ }
-\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classrpp_1_1composite__disposable_acf263ceb2c51a97f435d730f33ec293c}{dispose}}()\ final}
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classrpp_1_1composite__disposable_aa7c4039ee81bf520bd6c1724d32e4ba5}{dispose}}()\ noexcept\ final}
 \DoxyCodeLine{00042\ \ \ \ \ \{}
 \DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (\textcolor{keyword}{true})}
 \DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \{}
@@ -84,10 +84,10 @@
 \DoxyCodeLine{00085\ \ \ \ \ \}}
 \DoxyCodeLine{00086\ }
 \DoxyCodeLine{00087\ \textcolor{keyword}{protected}:}
-\DoxyCodeLine{00088\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ dispose\_impl()\ \{\}}
+\DoxyCodeLine{00088\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ dispose\_impl()\ noexcept\ \{\}}
 \DoxyCodeLine{00089\ }
 \DoxyCodeLine{00090\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00091\ \ \ \ \ \textcolor{keyword}{enum\ class}\ State}
+\DoxyCodeLine{00091\ \ \ \ \ \textcolor{keyword}{enum\ class}\ State\ :\ uint8\_t}
 \DoxyCodeLine{00092\ \ \ \ \ \{}
 \DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ None,\ \ \ \ \textcolor{comment}{//\ default\ state}}
 \DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ Edit,\ \ \ \ \textcolor{comment}{//\ set\ it\ during\ adding\ new\ element\ into\ deps\ or\ removing.\ After\ success\ -\/>\ back\ to\ None}}

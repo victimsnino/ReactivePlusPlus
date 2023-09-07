@@ -86,15 +86,15 @@
 \DoxyCodeLine{00082\ \ \ \ \ \}}
 \DoxyCodeLine{00083\ }
 \DoxyCodeLine{00084\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00085\ \ \ \ \ \textcolor{keywordtype}{void}\ dispose\_impl()\textcolor{keyword}{\ override}}
-\DoxyCodeLine{00086\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00085\ \ \ \ \ \textcolor{keywordtype}{void}\ dispose\_impl()\ \textcolor{keyword}{noexcept}\ \textcolor{keyword}{override}}
+\DoxyCodeLine{00086\ \ \ \ \ \{}
 \DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ exchange\_observers\_under\_lock\_if\_there(\mbox{\hyperlink{structrpp_1_1subjects_1_1details_1_1disposed}{disposed}}\{\});}
 \DoxyCodeLine{00088\ \ \ \ \ \}}
 \DoxyCodeLine{00089\ }
 \DoxyCodeLine{00090\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_upstream(\mbox{\hyperlink{classrpp_1_1observer}{rpp::dynamic\_observer<Type>}}\&\ obs)}
 \DoxyCodeLine{00091\ \ \ \ \ \{}
 \DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ obs.\mbox{\hyperlink{classrpp_1_1details_1_1observer__impl_ab95f4dd062581fb8432fadcee8abb95d}{set\_upstream}}(\mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp::disposable\_wrapper}}\{make\_callback\_disposable(}
-\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \ \ \ \ [weak\ =\ this-\/>weak\_from\_this()]()}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \ \ \ \ [weak\ =\ this-\/>weak\_from\_this()]()\ \textcolor{keyword}{noexcept}\ \textcolor{comment}{//\ NOLINT(bugprone-\/exception-\/escape)}}
 \DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
 \DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ shared\ =\ weak.lock())}
 \DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}

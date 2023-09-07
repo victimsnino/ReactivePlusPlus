@@ -13,14 +13,14 @@ Inheritance diagram for rpp\+::interface\+\_\+composite\+\_\+disposable\+:\begin
 virtual void {\bfseries add} (\mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{disposable\+\_\+wrapper}} disposable)=0
 \item 
 \Hypertarget{structrpp_1_1interface__composite__disposable_a5a466624c0cf774c3fbe2f585eaf813c}\label{structrpp_1_1interface__composite__disposable_a5a466624c0cf774c3fbe2f585eaf813c} 
-{\footnotesize template$<$std\+::invocable Fn$>$ }\\void {\bfseries add} (Fn \&\&invocable)
+{\footnotesize template$<$rpp\+::constraint\+::is\+\_\+nothrow\+\_\+invocable Fn$>$ }\\void {\bfseries add} (Fn \&\&invocable)
 \end{DoxyCompactItemize}
 \doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{structrpp_1_1interface__disposable}{rpp\+::interface\+\_\+disposable}}}
 \begin{DoxyCompactItemize}
 \item 
 virtual bool \mbox{\hyperlink{structrpp_1_1interface__disposable_a0348da95fe5929a3861e80b6651c347f}{is\+\_\+disposed}} () const noexcept=0
 \begin{DoxyCompactList}\small\item\em Check if this disposable is just disposed. \end{DoxyCompactList}\item 
-virtual void \mbox{\hyperlink{structrpp_1_1interface__disposable_a47d5a3e76f8f0e774b07f7743eb0634a}{dispose}} ()=0
+virtual void \mbox{\hyperlink{structrpp_1_1interface__disposable_aba40958e70b43507be04f55bbd4340e9}{dispose}} () noexcept=0
 \begin{DoxyCompactList}\small\item\em Dispose disposable and free any underlying resources and etc. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
