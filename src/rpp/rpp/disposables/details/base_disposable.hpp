@@ -26,14 +26,14 @@ public:
 
     bool is_disposed() const noexcept final { return m_disposed.load(std::memory_order_acquire); }
 
-    void dispose() final
+    void dispose() noexcept final
     {
         if (m_disposed.exchange(true, std::memory_order_acq_rel) == false)
             dispose_impl();
     }
 
 protected:
-    virtual void dispose_impl() = 0;
+    virtual void dispose_impl() noexcept = 0;
 
 private:
     std::atomic_bool m_disposed{};

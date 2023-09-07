@@ -44,7 +44,8 @@ struct subscribe_on_t
     void subscribe(Observer&& observer, const observable_chain_strategy<Strategies...>& observable_strategy) const
     {
         const auto worker = scheduler.create_worker();
-        observer.set_upstream(worker.get_disposable());
+        if (auto d = worker.get_disposable(); !d.is_disposed())
+            observer.set_upstream(std::move(d));
         worker.schedule(subscribe_on_schedulable<observable_chain_strategy<Strategies...>>{observable_strategy}, std::forward<Observer>(observer));
     }
 };

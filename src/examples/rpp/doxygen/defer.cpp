@@ -6,7 +6,7 @@
  * \example defer.cpp
  **/
 
-int main() // NOLINT
+int main() // NOLINT(bugprone-exception-escape)
 {
     //! [defer from_iterable]
     rpp::source::defer([] {

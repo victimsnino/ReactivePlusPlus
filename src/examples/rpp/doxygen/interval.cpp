@@ -4,10 +4,10 @@
 #include <iostream>
 
 /**
- * \example defer.cpp
+ * \example interval.cpp
  **/
 
-int main() // NOLINT
+int main() // NOLINT(bugprone-exception-escape)
 {
     //! [interval period]
     rpp::source::interval(std::chrono::milliseconds(10), rpp::schedulers::immediate{})

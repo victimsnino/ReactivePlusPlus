@@ -37,7 +37,7 @@ namespace
                 test_queue.emplace(rpp::schedulers::time_point{duration}, std::forward<Fn>(fn), std::forward<Handler>(handler), std::forward<Args>(args)...);
             }
 
-            static rpp::disposable_wrapper get_disposable() {return rpp::disposable_wrapper{}; }
+            static rpp::disposable_wrapper get_disposable() {return rpp::disposable_wrapper{std::make_shared<rpp::composite_disposable>()}; }
             static rpp::schedulers::time_point now() { return rpp::schedulers::clock_type::now(); }
         };
 

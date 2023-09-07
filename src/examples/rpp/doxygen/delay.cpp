@@ -7,7 +7,7 @@
 /**
  * \example delay.cpp
  **/
-int main() // NOLINT
+int main() // NOLINT(bugprone-exception-escape)
 {
     //! [delay]
 

@@ -68,7 +68,7 @@ public:
         return true;
     }
 
-    void dispose() const
+    void dispose() const noexcept
     {
         if (const auto locked = get_original())
             locked->dispose();

@@ -22,10 +22,10 @@ struct interface_composite_disposable : public interface_disposable
 {
     virtual void add(disposable_wrapper disposable) = 0;
 
-    template<std::invocable Fn>
+    template<rpp::constraint::is_nothrow_invocable Fn>
     void add(Fn&& invocable)
     {
-        add(std::make_shared<rpp::callback_disposable<std::decay_t<Fn>>>(std::forward<Fn>(invocable)));
+        add(make_callback_disposable(std::forward<Fn>(invocable)));
     }
 };
 }
