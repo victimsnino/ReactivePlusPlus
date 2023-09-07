@@ -13,10 +13,10 @@
 #include <rpp/disposables/fwd.hpp>
 #include <rpp/disposables/interface_composite_disposable.hpp>
 #include <rpp/disposables/disposable_wrapper.hpp>
+#include <rpp/disposables/details/disposables_variant.hpp>
 
 #include <atomic>
 #include <memory>
-#include <vector>
 
 namespace rpp
 {
@@ -47,9 +47,7 @@ public:
             {
                 dispose_impl();
 
-                for (const auto& d : m_disposables)
-                    d.dispose();
-
+                m_disposables.dispose();
                 m_disposables.clear();
                 return;
             }
@@ -71,7 +69,7 @@ public:
             State expected{State::None};
             if (m_current_state.compare_exchange_strong(expected, State::Edit, std::memory_order::acq_rel))
             {
-                m_disposables.emplace_back(std::move(disposable));
+                m_disposables.add(std::move(disposable));
                 m_current_state.store(State::None, std::memory_order::release);
                 return;
             }
@@ -95,7 +93,7 @@ private:
         Disposed // permanent state after dispose
     };
 
-    std::vector<disposable_wrapper> m_disposables{};
-    std::atomic<State>              m_current_state{};
+    rpp::details::disposables_variant m_disposables{};
+    std::atomic<State>                m_current_state{};
 };
 } // namespace rpp

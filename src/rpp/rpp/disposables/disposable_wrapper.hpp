@@ -37,8 +37,10 @@ class disposable_wrapper_impl
     }
 
 public: 
+    disposable_wrapper_impl() = default;
+    
     template<std::derived_from<TDisposable> TT = TDisposable>
-    disposable_wrapper_impl(std::shared_ptr<TT>&& disposable = {})
+    disposable_wrapper_impl(std::shared_ptr<TT>&& disposable)
         requires std::derived_from<TT, interface_disposable>
     : m_disposable{std::static_pointer_cast<TDisposable>(std::move(disposable))}
     {
@@ -110,6 +112,6 @@ public:
     }
 
 private:
-    std::variant<std::shared_ptr<TDisposable>, std::weak_ptr<TDisposable>> m_disposable;
+    std::variant<std::monostate, std::shared_ptr<TDisposable>, std::weak_ptr<TDisposable>> m_disposable;
 };
 }
