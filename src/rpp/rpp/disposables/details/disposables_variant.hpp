@@ -23,7 +23,7 @@ class disposables_variant
 public:
     disposables_variant() = default;
 
-    void add(rpp::disposable_wrapper d)
+    void add(rpp::disposable_wrapper&& d)
     {
         if (const auto current_ptr = std::get_if<rpp::disposable_wrapper>(&m_upstream))
         {
@@ -59,10 +59,10 @@ public:
 
     void clear() noexcept
     {
-        if (const auto current_ptr = std::get_if<rpp::disposable_wrapper>(&m_upstream))
-            *current_ptr = rpp::disposable_wrapper{};
-        else if (const auto upstreams = std::get_if<std::vector<rpp::disposable_wrapper>>(&m_upstream))
-            upstreams->clear();
+        // if (const auto current_ptr = std::get_if<rpp::disposable_wrapper>(&m_upstream))
+        //     *current_ptr = rpp::disposable_wrapper{};
+        // else if (const auto upstreams = std::get_if<std::vector<rpp::disposable_wrapper>>(&m_upstream))
+        //     upstreams->clear();
     }
 
 private:

@@ -110,8 +110,15 @@ public:
             return;
         }
 
-        m_disposable.add(d);
-        m_strategy.set_upstream(d);
+        try
+        {
+            m_disposable.add(d);
+            m_strategy.set_upstream(d);
+        }
+        catch (...)
+        {
+            on_error(std::current_exception());
+        }
     }
 
     /**
