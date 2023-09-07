@@ -28,7 +28,7 @@ public:
     explicit callback_disposable(const Fn& fn) : m_fn{fn} {}
 
 private:
-    void dispose_impl() noexcept override { m_fn(); } // NOLINT(bugprone-exception-escape)
+    void dispose_impl() noexcept override { std::move(m_fn)(); } // NOLINT(bugprone-exception-escape)
 
 private:
     Fn m_fn;

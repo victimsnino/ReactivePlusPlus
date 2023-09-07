@@ -60,7 +60,7 @@ namespace rpp::operators
  * @details Actually it makes `map(callable)` and then `merge`.
  * @details Note that flat_map merges the emissions of these Observables, so that they may interleave. 
  *
- * @param a function that returns an observable for each item emitted by the source observable. 
+ * @param callable function that returns an observable for each item emitted by the source observable. 
  * @warning #include <rpp/operators/flat_map.hpp>
  *
  * @ingroup transforming_operators

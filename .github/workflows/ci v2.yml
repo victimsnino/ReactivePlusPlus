@@ -47,6 +47,11 @@ jobs:
       with:
           fetch-depth: 0
 
+    - name: ccache
+      uses: hendrikmuhs/ccache-action@v1.2
+      with:
+        key: ${{ matrix.type }}-${{ matrix.config.name }}
+
     - name: Install deps
       if: matrix.config.os == 'ubuntu-latest'
       run: |
@@ -110,7 +115,7 @@ jobs:
     #   uses: jurplel/install-qt-action@v3
     #   with:
     #     cache: true
-          
+
     - name: Install project and build
       env:
         CC: gcc-10
@@ -118,7 +123,7 @@ jobs:
       run: |
         cmake -B build
         sudo cmake --build build --target install --parallel 2 --config Release
-        
+
         cmake -B sample_build -S src/examples/rpp/package
         cmake --build sample_build --parallel 2 --config Release
 
