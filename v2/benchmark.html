@@ -2,6 +2,7 @@
 
 <head>
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 </head>
 
 <body>
@@ -91,22 +92,18 @@
                                                  });
                                          });
                         titleDetails.graphDiv = graphDiv;
-                        titleDetails.data = data;
+                        titleDetails.underlyingData = data;
                         titleDetails.commitNames = commitNames;
                         titleDetails.addEventListener("toggle", function(ev) {
                             Plotly.newPlot(ev.currentTarget.graphDiv,
-                                      ev.currentTarget.data,
+                                      ev.currentTarget.underlyingData,
                                       {
                                           showlegend: true,
                                           hovermode: "x unified",
                                           yaxis: {
                                             title: 'ns/iter',
-                                            fixedrange: false,
                                             autorange: true,
-                                            rangemode: "tozero",
-                                            rangeslider : {
-                                                visible: true
-                                            },
+                                            rangemode: "tozero"
                                           },
                                           xaxis: {
                                             tickvals: [...Array(ev.currentTarget.commitNames.length).keys()],
@@ -124,6 +121,28 @@
                                           autosize: true
                                       },
                                       { responsive: true });
+
+                            $(ev.currentTarget.graphDiv).on('plotly_relayout', {underlyingData: structuredClone(ev.currentTarget.underlyingData), graphDiv: ev.currentTarget.graphDiv}, (event)=>{
+                                const sliceMin = Math.floor(event.currentTarget.layout.xaxis.range[0]);
+                                const sliceMax = Math.floor(event.currentTarget.layout.xaxis.range[1]) - 1;
+                                const { min, max } = event.data.underlyingData.reduce((seed, v) => {
+                                    let start = v["x"].indexOf(sliceMin);
+                                    let end = v["x"].indexOf(sliceMax);
+                                    if (end != -1 || start != -1) {
+                                        if (end == -1)
+                                            end = v["x"].length-1;
+                                        if (start == -1)
+                                            start = 0
+                                    }
+                                    return { min: Math.max(0, Math.min(...v["y"].slice(start, end), seed["min"]) -2), max: Math.max(...v["y"].slice(start, end), seed["max"]) +2 };
+                                }, { min: Infinity, max: -Infinity });
+
+                                if (event.currentTarget.layout.yaxis.range[0] != min || event.currentTarget.layout.yaxis.range[1] != max) {
+                                    Plotly.relayout(event.data.graphDiv, {
+                                        'yaxis.range': [min, max]
+                                    });
+                                }
+                            });
 
                             window.dispatchEvent(new Event('resize'));
                         });
