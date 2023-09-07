@@ -81,7 +81,7 @@
       "name": "clang-tidy",
       "hidden": true,
       "cacheVariables": {
-        "CMAKE_CXX_CLANG_TIDY": "clang-tidy;-header-filter=${sourceDir}/src/.*;-checks=bugprone-*,concurrency-*,performance-*,-macro*,-bugprone-suspicious-include;-warnings-as-errors=*;-extra-arg=-std=c++20"
+        "CMAKE_CXX_CLANG_TIDY": "clang-tidy;-header-filter=${sourceDir}/src/.*;-checks=bugprone-*,concurrency-*,performance-*,-macro*;-warnings-as-errors=*;-extra-arg=-std=c++20"
       }
     },
     {
@@ -229,7 +229,7 @@
     },
     {
       "name": "ci-ubuntu-gcc-tests",
-      "inherits": ["ci-build", "ci-build-tests", "ci-build-examples", "ci-build-sfml", "ci-unix", "ci-gcc", "cppcheck", "clang-tidy", "ci-unity-build" ]
+      "inherits": ["ci-build", "ci-build-tests", "ci-build-examples", "ci-build-sfml", "ci-unix", "ci-gcc", "cppcheck", "clang-tidy" ]
     },
     {
       "name": "ci-windows-tests",
