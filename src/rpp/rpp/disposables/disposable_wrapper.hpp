@@ -21,13 +21,14 @@ namespace rpp
 /**
  * @brief Wrapper over disposable_ptr to prevent manual checking over nullptr/is_disposed()
  * @details Can keep weak_ptr in case of not owning disposable
- * 
+ *
  * @ingroup disposables
  */
 template<rpp::constraint::decayed_type TDisposable>
 class disposable_wrapper_impl
 {
     struct weak_tag{};
+    struct can_be_replaced_on_set_upstream_tag{};
 
     template<std::derived_from<TDisposable> TT = TDisposable>
     explicit disposable_wrapper_impl(weak_tag, std::weak_ptr<TT> disposable)
@@ -36,7 +37,12 @@ class disposable_wrapper_impl
     {
     }
 
-public: 
+    explicit disposable_wrapper_impl(can_be_replaced_on_set_upstream_tag, disposable_wrapper_impl&& other)
+    : m_disposable{std::move(other.m_disposable)}
+    , m_can_be_replaced_on_set_upstream{true}
+    {}
+
+public:
     template<std::derived_from<TDisposable> TT = TDisposable>
     disposable_wrapper_impl(std::shared_ptr<TT>&& disposable = {})
         requires std::derived_from<TT, interface_disposable>
@@ -59,6 +65,11 @@ public:
     static disposable_wrapper_impl from_weak(std::weak_ptr<TDisposable> disposable)
     {
         return disposable_wrapper_impl{weak_tag{}, std::move(disposable)};
+    }
+
+    static disposable_wrapper_impl with_can_be_replaced_on_set_upstream(disposable_wrapper_impl other)
+    {
+        return disposable_wrapper_impl{can_be_replaced_on_set_upstream_tag{}, std::move(other)};
     }
 
     bool is_disposed() const noexcept
@@ -109,7 +120,10 @@ public:
         return std::visit([](const auto& ptr) { return ptr.use_count() != 0; }, m_disposable);
     }
 
+    bool can_be_replaced_on_set_upstream() const { return m_can_be_replaced_on_set_upstream; }
+
 private:
     std::variant<std::shared_ptr<TDisposable>, std::weak_ptr<TDisposable>> m_disposable;
+    bool                                                                   m_can_be_replaced_on_set_upstream{};
 };
-}
+} // namespace rpp

@@ -13,6 +13,7 @@
 #include <rpp/operators/fwd.hpp>
 #include <rpp/operators/details/strategy.hpp>
 #include <rpp/operators/details/utils.hpp>
+#include <rpp/observers/details/forward_with_disposable.hpp>
 #include <rpp/observables/grouped_observable.hpp>
 #include <rpp/subjects/publish_subject.hpp>
 #include <rpp/disposables/refcount_disposable.hpp>
@@ -36,25 +37,7 @@ using grouped_observable_group_by = grouped_observable<TKey, ResValue, operators
 namespace rpp::operators::details
 {
 template<rpp::constraint::observer TObserver>
-struct group_by_inner_observer_strategy
-{
-    using DisposableStrategyToUseWithThis = rpp::details::none_disposable_strategy;
-
-    RPP_NO_UNIQUE_ADDRESS TObserver    observer;
-    std::weak_ptr<refcount_disposable> disposable;
-
-    template<typename T>
-    void on_next(T&& v) const                          { observer.on_next(std::forward<T>(v)); }
-    void on_error(const std::exception_ptr& err) const { observer.on_error(err); }
-    void on_completed() const                          { observer.on_completed(); }
-
-    bool is_disposed() const                             { return observer.is_disposed(); }
-    void set_upstream(const disposable_wrapper& d) const 
-    { 
-        if (const auto locked = disposable.lock()) 
-            locked->add(d); 
-    }
-};
+using group_by_inner_observer_strategy = rpp::details::forward_with_disposable<TObserver>;
 
 template<rpp::constraint::decayed_type T, rpp::constraint::observer TObserver, rpp::constraint::decayed_type KeySelector, rpp::constraint::decayed_type ValueSelector, rpp::constraint::decayed_type KeyComparator>
 struct group_by_observer_strategy
@@ -115,7 +98,7 @@ struct group_by_observer_strategy
         observer.on_completed();
     }
 
-private:    
+private:
     template<rpp::constraint::decayed_same_as<T> TT>
     const subjects::publish_subject<Type>* deduce_subject(const rpp::constraint::observer auto& obs, const TT& val) const
     {
@@ -131,7 +114,7 @@ private:
 
         if (inserted)
         {
-            disposable->add(itr->second.get_disposable().get_original());
+            disposable->add(itr->second.get_disposable());
             obs.on_next(rpp::grouped_observable_group_by<TKey, Type>{std::move(key), group_by_observable_strategy<Type>{itr->second, disposable}});
         }
 
@@ -154,7 +137,7 @@ struct group_by_observable_strategy
         {
             obs.set_upstream(rpp::disposable_wrapper::from_weak(locked->add_ref().get_original()));
             subj.get_observable()
-                .subscribe(rpp::observer<T, group_by_inner_observer_strategy<observer<T, Strategy>>>{std::move(obs), disposable});
+                .subscribe(rpp::observer<T, group_by_inner_observer_strategy<observer<T, Strategy>>>{std::move(obs), rpp::composite_disposable_wrapper::from_weak(disposable)});
         }
     }
 };

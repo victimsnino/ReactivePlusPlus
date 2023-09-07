@@ -12,6 +12,7 @@
 #include <rpp/observables/observable.hpp>
 #include <rpp/subjects/fwd.hpp>
 #include <rpp/disposables/refcount_disposable.hpp>
+#include <rpp/observers/details/forward_with_disposable.hpp>
 
 #include <mutex>
 
@@ -39,7 +40,7 @@ struct ref_count_on_subscribe_t<rpp::connectable_observable<OriginalObservable, 
         const auto [should_connect, disposable] = on_subscribe();
 
         obs.set_upstream(disposable);
-        original_observable.subscribe(std::move(obs));
+        original_observable.subscribe(rpp::observer<ValueType, rpp::details::forward_with_disposable<observer<ValueType, Strategy>>>{std::move(obs), disposable});
         if (should_connect)
             original_observable.connect(disposable);
     }
@@ -89,7 +90,7 @@ public:
 
         if (!m_state->disposable.is_disposed())
             return m_state->disposable;
-        
+
         if (!wrapper.has_underlying())
             wrapper = rpp::composite_disposable_wrapper{std::make_shared<rpp::composite_disposable>()};
 
@@ -103,10 +104,10 @@ public:
     /**
     * @brief Forces rpp::connectable_observable to behave like common observable
     * @details Connects rpp::connectable_observable on the first subscription and unsubscribes on last unsubscription
-    *	
+    *
     * @par Example
     * @snippet ref_count.cpp ref_count
-    * 
+    *
     * @ingroup connectable_operators
     * @see https://reactivex.io/documentation/operators/refcount.html
     */

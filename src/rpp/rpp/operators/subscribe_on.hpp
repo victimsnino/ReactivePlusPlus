@@ -45,7 +45,7 @@ struct subscribe_on_t
     {
         const auto worker = scheduler.create_worker();
         if (auto d = worker.get_disposable(); !d.is_disposed())
-            observer.set_upstream(std::move(d));
+            observer.set_upstream(rpp::disposable_wrapper::with_can_be_replaced_on_set_upstream(std::move(d)));
         worker.schedule(subscribe_on_schedulable<observable_chain_strategy<Strategies...>>{observable_strategy}, std::forward<Observer>(observer));
     }
 };

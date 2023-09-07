@@ -25,7 +25,55 @@
 
 namespace rpp::details
 {
-using external_disposable_strategy = composite_disposable_wrapper;
+class upstream_strategy
+{
+public:
+    upstream_strategy() = default;
+
+    void add(const disposable_wrapper& d)
+    {
+        if (m_upstream.has_underlying() && !m_upstream.can_be_replaced_on_set_upstream())
+            throw rpp::utils::set_upstream_called_twice{"set_upstream called twice, but it is unexpected!"};
+        m_upstream = d;
+    }
+
+    void dispose() const
+    {
+        m_upstream.dispose();
+    }
+
+private:
+    rpp::disposable_wrapper m_upstream{};
+};
+
+class external_disposable_strategy
+{
+public:
+    external_disposable_strategy(rpp::composite_disposable_wrapper&& external)
+    : m_external{std::move(external)}
+    {}
+
+    void add(const disposable_wrapper& d)
+    {
+        m_upstream.add(d);
+        m_external.add(d);
+    }
+
+    bool is_disposed() const noexcept
+    {
+        return m_external.is_disposed();
+    }
+
+    void dispose() const
+    {
+        m_external.dispose();
+        m_upstream.dispose();
+    }
+
+private:
+    upstream_strategy                 m_upstream{};
+    rpp::composite_disposable_wrapper m_external;
+};
 
 class local_disposable_strategy
 {
@@ -34,24 +82,22 @@ public:
 
     void add(const disposable_wrapper& d)
     {
-        m_upstreams.push_back(d);
+        m_upstream.add(d);
     }
 
     bool is_disposed() const noexcept
     {
         return m_is_disposed;
     }
-
     void dispose() const
     {
         m_is_disposed = true;
-        for(const auto& d : m_upstreams)
-            d.dispose();
+        m_upstream.dispose();
     }
 
 private:
-    std::vector<disposable_wrapper> m_upstreams{};
-    mutable bool                    m_is_disposed{false};
+    upstream_strategy m_upstream{};
+    mutable bool m_is_disposed{false};
 };
 
 struct none_disposable_strategy
@@ -96,22 +142,29 @@ protected:
 
 public:
     using DisposableStrategyToUseWithThis = none_disposable_strategy;
-    
+
     using on_next_lvalue = void(observer_impl::*)(const Type&) const noexcept;
     using on_next_rvalue = void(observer_impl::*)(Type&&) const noexcept;
     /**
      * @brief Observable calls this method to pass disposable. Observer disposes this disposable WHEN observer wants to unsubscribe.
      * @note This method can be called multiple times, but new call means "replace upstream with this new one". So, tracked only last one
      */
-    void set_upstream(const disposable_wrapper& d)
+    void set_upstream(const disposable_wrapper& d) noexcept
     {
         if (is_disposed()) {
             d.dispose();
             return;
         }
 
-        m_disposable.add(d);
-        m_strategy.set_upstream(d);
+        try
+        {
+            m_disposable.add(d);
+            m_strategy.set_upstream(d);
+        }
+        catch(...)
+        {
+            on_error(std::current_exception());
+        }
     }
 
     /**
