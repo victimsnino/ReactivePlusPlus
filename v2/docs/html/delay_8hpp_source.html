@@ -276,7 +276,7 @@ $(document).ready(function(){initNavTree('delay_8hpp_source.html',''); initResiz
 <div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span> </div>
 <div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>        <span class="keyword">auto</span> disposable = std::make_shared&lt;delay_disposable&lt;std::decay_t&lt;Observer&gt;, worker_t&gt;&gt;(std::forward&lt;Observer&gt;(<a class="code hl_class" href="classrpp_1_1observer.html">observer</a>), scheduler.create_worker(), duration);</div>
 <div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>        disposable-&gt;observer.set_upstream(rpp::disposable_wrapper::from_weak(disposable));</div>
-<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>        <span class="keywordflow">return</span> <a class="code hl_class" href="classrpp_1_1observer.html">rpp::observer&lt;rpp::utils::extract_observer_type_t&lt;Observer&gt;</a>, <a class="code hl_struct" href="structrpp_1_1operators_1_1details_1_1delay__observer__strategy.html">delay_observer_strategy&lt;std::decay_t&lt;Observer&gt;</a>, worker_t&gt;&gt;{std::move(disposable)};</div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>        <span class="keywordflow">return</span> <a class="code hl_class" href="classrpp_1_1observer.html">rpp::observer&lt;Type, delay_observer_strategy&lt;std::decay_t&lt;Observer&gt;</a>, worker_t&gt;&gt;{std::move(disposable)};</div>
 <div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>    }</div>
 <div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>};</div>
 </div>

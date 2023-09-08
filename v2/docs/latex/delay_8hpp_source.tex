@@ -170,7 +170,7 @@
 \DoxyCodeLine{00166\ }
 \DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ disposable\ =\ std::make\_shared<delay\_disposable<std::decay\_t<Observer>,\ worker\_t>>(std::forward<Observer>(\mbox{\hyperlink{classrpp_1_1observer}{observer}}),\ scheduler.create\_worker(),\ duration);}
 \DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ disposable-\/>observer.set\_upstream(rpp::disposable\_wrapper::from\_weak(disposable));}
-\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classrpp_1_1observer}{rpp::observer<rpp::utils::extract\_observer\_type\_t<Observer>}},\ \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1delay__observer__strategy}{delay\_observer\_strategy<std::decay\_t<Observer>}},\ worker\_t>>\{std::move(disposable)\};}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classrpp_1_1observer}{rpp::observer<Type,\ delay\_observer\_strategy<std::decay\_t<Observer>}},\ worker\_t>>\{std::move(disposable)\};}
 \DoxyCodeLine{00170\ \ \ \ \ \}}
 \DoxyCodeLine{00171\ \};}
 \DoxyCodeLine{00172\ \}}
