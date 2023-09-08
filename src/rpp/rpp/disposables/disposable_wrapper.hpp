@@ -21,7 +21,7 @@ namespace rpp
 /**
  * @brief Wrapper over disposable_ptr to prevent manual checking over nullptr/is_disposed()
  * @details Can keep weak_ptr in case of not owning disposable
- * 
+ *
  * @ingroup disposables
  */
 template<rpp::constraint::decayed_type TDisposable>
@@ -36,9 +36,11 @@ class disposable_wrapper_impl
     {
     }
 
-public: 
+public:
+    disposable_wrapper_impl() = default;
+
     template<std::derived_from<TDisposable> TT = TDisposable>
-    disposable_wrapper_impl(std::shared_ptr<TT>&& disposable = {})
+    disposable_wrapper_impl(std::shared_ptr<TT>&& disposable)
         requires std::derived_from<TT, interface_disposable>
     : m_disposable{std::static_pointer_cast<TDisposable>(std::move(disposable))}
     {
@@ -106,10 +108,16 @@ public:
 
     bool has_underlying() const
     {
-        return std::visit([](const auto& ptr) { return ptr.use_count() != 0; }, m_disposable);
+        if (const auto ptr_ptr = std::get_if<std::shared_ptr<TDisposable>>(&m_disposable))
+            return ptr_ptr->use_count() != 0;
+
+        if (const auto ptr_ptr = std::get_if<std::weak_ptr<TDisposable>>(&m_disposable))
+            return ptr_ptr->use_count() != 0;
+
+        return false;
     }
 
 private:
-    std::variant<std::shared_ptr<TDisposable>, std::weak_ptr<TDisposable>> m_disposable;
+    std::variant<std::monostate, std::shared_ptr<TDisposable>, std::weak_ptr<TDisposable>> m_disposable;
 };
 }
