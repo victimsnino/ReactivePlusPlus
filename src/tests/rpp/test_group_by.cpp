@@ -146,7 +146,7 @@ TEST_CASE("group_by keeps subscription till anyone subscribed")
         REQUIRE(!d->is_disposed());
         REQUIRE(!observable_upstream->is_disposed());
     }
-    SECTION("diispose all")
+    SECTION("dispose all")
     {
         d->dispose();
         rpp::utils::for_each(disposables, std::mem_fn(&rpp::composite_disposable_wrapper::dispose));

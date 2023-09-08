@@ -11,7 +11,7 @@
 #pragma once
 
 #include <rpp/disposables/fwd.hpp>
-#include <rpp/disposables/interface_disposable.hpp>
+#include <rpp/disposables/details/base_disposable.hpp>
 #include <rpp/disposables/composite_disposable.hpp>
 #include <rpp/disposables/disposable_wrapper.hpp>
 
@@ -26,27 +26,33 @@ namespace rpp
  *
  * @ingroup disposables
  */
-class refcount_disposable : public interface_composite_disposable, public std::enable_shared_from_this<refcount_disposable>
+class refcount_disposable : public details::base_composite_disposable, public std::enable_shared_from_this<refcount_disposable>
 {
+    struct state_t
+    {
+        composite_disposable underlying;
+        std::atomic_size_t   refcount{1};
+    };
 public:
     refcount_disposable() = default;
-    refcount_disposable(disposable_ptr target) { m_underlying.add(std::move(target)); }
+    refcount_disposable(disposable_wrapper target) { m_state->underlying.add(std::move(target)); }
+    refcount_disposable(const std::shared_ptr<state_t>& state) : m_state{state} {}
 
     refcount_disposable(const refcount_disposable&)     = delete;
     refcount_disposable(refcount_disposable&&) noexcept = delete;
 
-    bool is_disposed() const noexcept final { return m_refcount.load(std::memory_order_acquire) == 0; }
+    bool is_disposed_underlying() const noexcept { return m_state->refcount.load(std::memory_order_acquire) == 0; }
 
-    void dispose() noexcept final
+    void dispose_impl() noexcept final
     {
-        while (auto current_value = m_refcount.load(std::memory_order_acquire))
+        while (auto current_value = m_state->refcount.load(std::memory_order_acquire))
         {
-            if (!m_refcount.compare_exchange_strong(current_value, current_value - 1, std::memory_order_acq_rel))
+            if (!m_state->refcount.compare_exchange_strong(current_value, current_value - 1, std::memory_order_acq_rel))
                 continue;
 
             // was last one
             if (current_value == 1)
-                m_underlying.dispose();
+                m_state->underlying.dispose();
 
             return;
         }
@@ -54,12 +60,12 @@ public:
 
     composite_disposable_wrapper add_ref()
     {
-        while (auto current_value = m_refcount.load(std::memory_order_acquire))
+        while (auto current_value = m_state->refcount.load(std::memory_order_acquire))
         {
-            if (!m_refcount.compare_exchange_strong(current_value, current_value + 1, std::memory_order_acq_rel))
+            if (!m_state->refcount.compare_exchange_strong(current_value, current_value + 1, std::memory_order_acq_rel))
                 continue;
 
-            return composite_disposable_wrapper{shared_from_this()};
+            return composite_disposable_wrapper{std::make_shared<refcount_disposable>(m_state)};
         }
         return composite_disposable_wrapper{};
     }
@@ -68,11 +74,10 @@ public:
 
     void add(disposable_wrapper disposable) final
     {
-        m_underlying.add(std::move(disposable));
+        m_state->underlying.add(std::move(disposable));
     }
 
 private:
-    composite_disposable m_underlying;
-    std::atomic_size_t   m_refcount{1};
+    std::shared_ptr<state_t> m_state = std::make_shared<state_t>();
 };
 } // namespace rpp
