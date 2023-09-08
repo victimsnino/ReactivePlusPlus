@@ -166,7 +166,7 @@ struct delay_t
 
         auto disposable = std::make_shared<delay_disposable<std::decay_t<Observer>, worker_t>>(std::forward<Observer>(observer), scheduler.create_worker(), duration);
         disposable->observer.set_upstream(rpp::disposable_wrapper::from_weak(disposable));
-        return rpp::observer<rpp::utils::extract_observer_type_t<Observer>, delay_observer_strategy<std::decay_t<Observer>, worker_t>>{std::move(disposable)};
+        return rpp::observer<Type, delay_observer_strategy<std::decay_t<Observer>, worker_t>>{std::move(disposable)};
     }
 };
 }
