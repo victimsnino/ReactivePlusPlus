@@ -167,7 +167,10 @@ TEST_CASE("refcount disposable dispose underlying in case of reaching zero")
             disposables.push_back(refcount->add_ref());
 
         CHECK(!refcount->is_disposed());
-        refcount->dispose();
+
+        for (size_t i = 0; i < 10*count; ++i)
+            refcount->dispose();
+
         CHECK(refcount->is_disposed());
         CHECK(!underlying->is_disposed());
 
