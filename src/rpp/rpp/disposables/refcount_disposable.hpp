@@ -18,56 +18,40 @@
 #include <atomic>
 #include <memory>
 
-namespace rpp
+namespace rpp::details
 {
-/**
- * @brief Disposable with counter inside. Each `add_ref` increments counter, while each `dispose()` call decrements. In case of reaching zero disposes underlying disposables
- * @warning Don't use it as disposable of observer due to `is_disposed()` would be false till counter reaches zero, so, observer can be also not `is_disposed()` during this time.
- *
- * @ingroup disposables
- */
-class refcount_disposable : public details::base_composite_disposable
+struct refocunt_disposable_state_t
 {
-    struct state_t
+    composite_disposable underlying;
+    std::atomic_size_t   refcount{1};
+
+    void dispose()
     {
-        composite_disposable underlying;
-        std::atomic_size_t   refcount{1};
-    };
-public:
-    refcount_disposable() = default;
-    refcount_disposable(disposable_wrapper target) { m_state->underlying.add(std::move(target)); }
-    refcount_disposable(const std::shared_ptr<state_t>& state) : m_state{state} {}
-
-    refcount_disposable(const refcount_disposable&)     = delete;
-    refcount_disposable(refcount_disposable&&) noexcept = delete;
-
-    bool is_disposed_underlying() const noexcept { return m_state->refcount.load(std::memory_order_relaxed) == 0; }
-
-    void dispose_impl() noexcept final
-    {
-        while (auto current_value = m_state->refcount.load(std::memory_order_acquire))
+        while (auto current_value = refcount.load(std::memory_order_acquire))
         {
-            if (!m_state->refcount.compare_exchange_strong(current_value, current_value - 1, std::memory_order_acq_rel))
+            if (!refcount.compare_exchange_strong(current_value, current_value - 1, std::memory_order_acq_rel))
                 continue;
 
             // was last one
             if (current_value == 1)
-                m_state->underlying.dispose();
+                underlying.dispose();
 
             return;
         }
     }
+};
 
-    composite_disposable_wrapper add_ref()
+class inner_refcount_disposable final : public details::base_composite_disposable
+{
+public:
+    inner_refcount_disposable(const std::shared_ptr<refocunt_disposable_state_t>& state) : m_state{state} {}
+
+    inner_refcount_disposable(const inner_refcount_disposable&)     = delete;
+    inner_refcount_disposable(inner_refcount_disposable&&) noexcept = delete;
+
+    void dispose_impl() noexcept final
     {
-        while (auto current_value = m_state->refcount.load(std::memory_order_acquire))
-        {
-            if (!m_state->refcount.compare_exchange_strong(current_value, current_value + 1, std::memory_order_acq_rel))
-                continue;
-
-            return composite_disposable_wrapper{std::make_shared<refcount_disposable>(m_state)};
-        }
-        return composite_disposable_wrapper{};
+        m_state->dispose();
     }
 
     using interface_composite_disposable::add;
@@ -78,6 +62,55 @@ public:
     }
 
 private:
-    std::shared_ptr<state_t> m_state = std::make_shared<state_t>();
+    std::shared_ptr<refocunt_disposable_state_t> m_state;
+};
+}
+
+namespace rpp
+{
+/**
+ * @brief Disposable with counter inside. Each `add_ref` increments counter, while each `dispose()` call decrements. In case of reaching zero disposes underlying disposables
+ * @warning Don't use it as disposable of observer due to `is_disposed()` would be false till counter reaches zero, so, observer can be also not `is_disposed()` during this time.
+ *
+ * @ingroup disposables
+ */
+class refcount_disposable : public details::base_composite_disposable, public std::enable_shared_from_this<refcount_disposable>
+{
+
+public:
+    refcount_disposable() = default;
+    refcount_disposable(disposable_wrapper target) { m_state.underlying.add(std::move(target)); }
+
+    refcount_disposable(const refcount_disposable&)     = delete;
+    refcount_disposable(refcount_disposable&&) noexcept = delete;
+
+    bool is_disposed_underlying() const noexcept { return m_state.refcount.load(std::memory_order_relaxed) == 0; }
+
+    void dispose_impl() noexcept final
+    {
+        m_state.dispose();
+    }
+
+    composite_disposable_wrapper add_ref()
+    {
+        while (auto current_value = m_state.refcount.load(std::memory_order_acquire))
+        {
+            if (!m_state.refcount.compare_exchange_strong(current_value, current_value + 1, std::memory_order_acq_rel))
+                continue;
+
+            return composite_disposable_wrapper{std::make_shared<details::inner_refcount_disposable>(std::shared_ptr<details::refocunt_disposable_state_t>{this->shared_from_this(), &this->m_state})};
+        }
+        return composite_disposable_wrapper{};
+    }
+
+    using interface_composite_disposable::add;
+
+    void add(disposable_wrapper disposable) final
+    {
+        m_state.underlying.add(std::move(disposable));
+    }
+
+private:
+    details::refocunt_disposable_state_t m_state{};
 };
 } // namespace rpp
