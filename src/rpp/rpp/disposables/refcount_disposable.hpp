@@ -26,7 +26,7 @@ namespace rpp
  *
  * @ingroup disposables
  */
-class refcount_disposable : public details::base_composite_disposable, public std::enable_shared_from_this<refcount_disposable>
+class refcount_disposable : public details::base_composite_disposable
 {
     struct state_t
     {
@@ -41,7 +41,7 @@ public:
     refcount_disposable(const refcount_disposable&)     = delete;
     refcount_disposable(refcount_disposable&&) noexcept = delete;
 
-    bool is_disposed_underlying() const noexcept { return m_state->refcount.load(std::memory_order_acquire) == 0; }
+    bool is_disposed_underlying() const noexcept { return m_state->refcount.load(std::memory_order_relaxed) == 0; }
 
     void dispose_impl() noexcept final
     {
