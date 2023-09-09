@@ -127,7 +127,7 @@ private:
 
         if (inserted)
         {
-            disposable->add(rpp::disposable_wrapper::from_weak(itr->second.get_disposable()));
+            disposable->add(rpp::disposable_wrapper::from_weak(itr->second.get_disposable().get_original()));
             obs.on_next(rpp::grouped_observable_group_by<TKey, Type>{std::move(key), group_by_observable_strategy<Type>{itr->second, disposable}});
         }
 
