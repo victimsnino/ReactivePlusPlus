@@ -45,7 +45,7 @@
 \DoxyCodeLine{00041\ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{structrpp_1_1details_1_1none__disposable__strategy}{DisposableStrategyToUseWithThis}}\ =\ \mbox{\hyperlink{structrpp_1_1details_1_1none__disposable__strategy}{rpp::details::none\_disposable\_strategy}};}
 \DoxyCodeLine{00042\ }
 \DoxyCodeLine{00043\ \ \ \ \ RPP\_NO\_UNIQUE\_ADDRESS\ TObserver\ \ \ \ \mbox{\hyperlink{classrpp_1_1observer}{observer}};}
-\DoxyCodeLine{00044\ \ \ \ \ std::weak\_ptr<refcount\_disposable>\ disposable;}
+\DoxyCodeLine{00044\ \ \ \ \ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp::composite\_disposable\_wrapper}}\ disposable;}
 \DoxyCodeLine{00045\ }
 \DoxyCodeLine{00046\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
 \DoxyCodeLine{00047\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_next(T\&\&\ v)\textcolor{keyword}{\ const\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\{\ \mbox{\hyperlink{classrpp_1_1observer}{observer}}.\mbox{\hyperlink{classrpp_1_1details_1_1observer__impl_a14747a5260ecc183a6d0f1adafee4f68}{on\_next}}(std::forward<T>(v));\ \}}
@@ -53,146 +53,142 @@
 \DoxyCodeLine{00049\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_completed()\textcolor{keyword}{\ const\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\{\ \mbox{\hyperlink{classrpp_1_1observer}{observer}}.\mbox{\hyperlink{classrpp_1_1details_1_1observer__impl_a7a73f13eae52effde01a2d3b2cf1d1b4}{on\_completed}}();\ \}}
 \DoxyCodeLine{00050\ }
 \DoxyCodeLine{00051\ \ \ \ \ \textcolor{keywordtype}{bool}\ is\_disposed()\textcolor{keyword}{\ const\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classrpp_1_1observer}{observer}}.\mbox{\hyperlink{classrpp_1_1details_1_1observer__impl_ab4d6f3e513e55f94547c8fa4d042f0cb}{is\_disposed}}();\ \}}
-\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_upstream(\textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{disposable\_wrapper}}\&\ d)\textcolor{keyword}{\ const\ }}
-\DoxyCodeLine{00053\ \textcolor{keyword}{\ \ \ \ }\{\ }
-\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ locked\ =\ disposable.lock())\ }
-\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \ \ \ \ locked-\/>add(d);\ }
-\DoxyCodeLine{00056\ \ \ \ \ \}}
-\DoxyCodeLine{00057\ \};}
-\DoxyCodeLine{00058\ }
-\DoxyCodeLine{00059\ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type\ T,\ rpp::constra\textcolor{keywordtype}{int}::observer\ TObserver,\ rpp::constra\textcolor{keywordtype}{int}::decayed\_type\ KeySelector,\ rpp::constra\textcolor{keywordtype}{int}::decayed\_type\ ValueSelector,\ rpp::constra\textcolor{keywordtype}{int}::decayed\_type\ KeyComparator>}
-\DoxyCodeLine{00060\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1group__by__observer__strategy}{group\_by\_observer\_strategy}}}
-\DoxyCodeLine{00061\ \{}
-\DoxyCodeLine{00062\ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{structrpp_1_1details_1_1none__disposable__strategy}{DisposableStrategyToUseWithThis}}\ =\ \mbox{\hyperlink{structrpp_1_1details_1_1none__disposable__strategy}{rpp::details::none\_disposable\_strategy}};}
-\DoxyCodeLine{00063\ }
-\DoxyCodeLine{00064\ \ \ \ \ \textcolor{keyword}{using\ }TKey\ =\ rpp::utils::decayed\_invoke\_result\_t<KeySelector,\ T>;}
-\DoxyCodeLine{00065\ \ \ \ \ \textcolor{keyword}{using\ }Type\ =\ rpp::utils::decayed\_invoke\_result\_t<ValueSelector,\ T>;}
-\DoxyCodeLine{00066\ }
-\DoxyCodeLine{00067\ \ \ \ \ RPP\_NO\_UNIQUE\_ADDRESS\ TObserver\ \ \ \ \ \mbox{\hyperlink{classrpp_1_1observer}{observer}};}
-\DoxyCodeLine{00068\ \ \ \ \ RPP\_NO\_UNIQUE\_ADDRESS\ KeySelector\ \ \ key\_selector;}
-\DoxyCodeLine{00069\ \ \ \ \ RPP\_NO\_UNIQUE\_ADDRESS\ ValueSelector\ value\_selector;}
-\DoxyCodeLine{00070\ \ \ \ \ RPP\_NO\_UNIQUE\_ADDRESS\ KeyComparator\ comparator;}
-\DoxyCodeLine{00071\ }
-\DoxyCodeLine{00072\ \ \ \ \ \textcolor{keyword}{mutable}\ std::map<TKey,\ subjects::publish\_subject<Type>,\ KeyComparator>\ key\_to\_subject\{\};}
-\DoxyCodeLine{00073\ \ \ \ \ std::shared\_ptr<refcount\_disposable>\ disposable\ =\ std::make\_shared<refcount\_disposable>();}
-\DoxyCodeLine{00074\ }
-\DoxyCodeLine{00075\ \ \ \ \ RPP\_CALL\_DURING\_CONSTRUCTION(}
-\DoxyCodeLine{00076\ \ \ \ \ \{}
-\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrpp_1_1observer}{observer}}.\mbox{\hyperlink{classrpp_1_1details_1_1observer__impl_ab95f4dd062581fb8432fadcee8abb95d}{set\_upstream}}(\mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp::disposable\_wrapper}}\{disposable\});}
-\DoxyCodeLine{00078\ \ \ \ \ \});}
-\DoxyCodeLine{00079\ }
-\DoxyCodeLine{00080\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_upstream(\textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp::disposable\_wrapper}}\&\ d)\textcolor{keyword}{\ const}}
-\DoxyCodeLine{00081\ \textcolor{keyword}{\ \ \ \ }\{}
-\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ disposable-\/>add(d);}
-\DoxyCodeLine{00083\ \ \ \ \ \}}
-\DoxyCodeLine{00084\ }
-\DoxyCodeLine{00085\ \ \ \ \ \textcolor{keywordtype}{bool}\ is\_disposed()\textcolor{keyword}{\ const}}
-\DoxyCodeLine{00086\ \textcolor{keyword}{\ \ \ \ }\{}
-\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ disposable-\/>is\_disposed();}
-\DoxyCodeLine{00088\ \ \ \ \ \}}
-\DoxyCodeLine{00089\ }
-\DoxyCodeLine{00090\ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_same\_as<T>\ TT>}
-\DoxyCodeLine{00091\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_next(TT\&\&\ val)\textcolor{keyword}{\ const}}
-\DoxyCodeLine{00092\ \textcolor{keyword}{\ \ \ \ }\{}
-\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ subject\ =\ deduce\_subject(\mbox{\hyperlink{classrpp_1_1observer}{observer}},\ val);}
-\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!subject)}
-\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
-\DoxyCodeLine{00096\ }
-\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ subject\_obs\ =\ subject-\/>get\_observer();}
-\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!subject\_obs.is\_disposed())}
-\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \ \ \ \ subject\_obs.on\_next(value\_selector(std::forward<TT>(val)));}
-\DoxyCodeLine{00100\ \ \ \ \ \}}
-\DoxyCodeLine{00101\ }
-\DoxyCodeLine{00102\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_error(\textcolor{keyword}{const}\ std::exception\_ptr\&\ err)\textcolor{keyword}{\ const}}
-\DoxyCodeLine{00103\ \textcolor{keyword}{\ \ \ \ }\{}
-\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ [key,\ subject]\ :\ key\_to\_subject)}
-\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \ \ \ \ subject.get\_observer().on\_error(err);}
-\DoxyCodeLine{00106\ }
-\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrpp_1_1observer}{observer}}.\mbox{\hyperlink{classrpp_1_1details_1_1observer__impl_aa55c5a334bc39c92218f7b51e5126bbc}{on\_error}}(err);}
-\DoxyCodeLine{00108\ \ \ \ \ \}}
-\DoxyCodeLine{00109\ }
-\DoxyCodeLine{00110\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_completed()\textcolor{keyword}{\ const}}
-\DoxyCodeLine{00111\ \textcolor{keyword}{\ \ \ \ }\{}
-\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ [key,\ subject]\ :\ key\_to\_subject)}
-\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \ \ \ \ subject.get\_observer().on\_completed();}
-\DoxyCodeLine{00114\ }
-\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrpp_1_1observer}{observer}}.\mbox{\hyperlink{classrpp_1_1details_1_1observer__impl_a7a73f13eae52effde01a2d3b2cf1d1b4}{on\_completed}}();}
-\DoxyCodeLine{00116\ \ \ \ \ \}}
-\DoxyCodeLine{00117\ }
-\DoxyCodeLine{00118\ \textcolor{keyword}{private}:\ \ \ \ }
-\DoxyCodeLine{00119\ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_same\_as<T>\ TT>}
-\DoxyCodeLine{00120\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1subjects_1_1details_1_1base__subject}{subjects::publish\_subject<Type>}}*\ deduce\_subject(\textcolor{keyword}{const}\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer}{rpp::constraint::observer}}\ \textcolor{keyword}{auto}\&\ obs,\ \textcolor{keyword}{const}\ TT\&\ val)\textcolor{keyword}{\ const}}
-\DoxyCodeLine{00121\ \textcolor{keyword}{\ \ \ \ }\{}
-\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ key\ =\ key\_selector(utils::as\_const(val));}
-\DoxyCodeLine{00123\ }
-\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (obs.is\_disposed())}
-\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ itr\ =\ key\_to\_subject.find(key);}
-\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ itr\ ==\ key\_to\_subject.cend()\ ?\ nullptr\ :\ \&itr-\/>second;}
-\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00129\ }
-\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ [itr,\ inserted]\ =\ key\_to\_subject.try\_emplace(key);}
-\DoxyCodeLine{00131\ }
-\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (inserted)}
-\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \ \ \ \ disposable-\/>add(itr-\/>second.get\_disposable().get\_original());}
-\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \ \ \ \ obs.on\_next(\mbox{\hyperlink{classrpp_1_1grouped__observable}{rpp::grouped\_observable\_group\_by<TKey,\ Type>}}\{std::move(key),\ \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1group__by__observable__strategy}{group\_by\_observable\_strategy<Type>}}\{itr-\/>second,\ disposable\}\});}
-\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_upstream(\textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{disposable\_wrapper}}\&\ d)\textcolor{keyword}{\ const\ }\{\ disposable.add(d);\ \}}
+\DoxyCodeLine{00053\ \};}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type\ T,\ rpp::constra\textcolor{keywordtype}{int}::observer\ TObserver,\ rpp::constra\textcolor{keywordtype}{int}::decayed\_type\ KeySelector,\ rpp::constra\textcolor{keywordtype}{int}::decayed\_type\ ValueSelector,\ rpp::constra\textcolor{keywordtype}{int}::decayed\_type\ KeyComparator>}
+\DoxyCodeLine{00056\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1group__by__observer__strategy}{group\_by\_observer\_strategy}}}
+\DoxyCodeLine{00057\ \{}
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{structrpp_1_1details_1_1none__disposable__strategy}{DisposableStrategyToUseWithThis}}\ =\ \mbox{\hyperlink{structrpp_1_1details_1_1none__disposable__strategy}{rpp::details::none\_disposable\_strategy}};}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \ \ \ \ \textcolor{keyword}{using\ }TKey\ =\ rpp::utils::decayed\_invoke\_result\_t<KeySelector,\ T>;}
+\DoxyCodeLine{00061\ \ \ \ \ \textcolor{keyword}{using\ }Type\ =\ rpp::utils::decayed\_invoke\_result\_t<ValueSelector,\ T>;}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \ \ \ \ RPP\_NO\_UNIQUE\_ADDRESS\ TObserver\ \ \ \ \ \mbox{\hyperlink{classrpp_1_1observer}{observer}};}
+\DoxyCodeLine{00064\ \ \ \ \ RPP\_NO\_UNIQUE\_ADDRESS\ KeySelector\ \ \ key\_selector;}
+\DoxyCodeLine{00065\ \ \ \ \ RPP\_NO\_UNIQUE\_ADDRESS\ ValueSelector\ value\_selector;}
+\DoxyCodeLine{00066\ \ \ \ \ RPP\_NO\_UNIQUE\_ADDRESS\ KeyComparator\ comparator;}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ \ \ \ \ \textcolor{keyword}{mutable}\ std::map<TKey,\ subjects::publish\_subject<Type>,\ KeyComparator>\ key\_to\_subject\{\};}
+\DoxyCodeLine{00069\ \ \ \ \ std::shared\_ptr<refcount\_disposable>\ disposable\ =\ std::make\_shared<refcount\_disposable>();}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \ \ \ \ RPP\_CALL\_DURING\_CONSTRUCTION(}
+\DoxyCodeLine{00072\ \ \ \ \ \{}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrpp_1_1observer}{observer}}.\mbox{\hyperlink{classrpp_1_1details_1_1observer__impl_ab95f4dd062581fb8432fadcee8abb95d}{set\_upstream}}(\mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp::disposable\_wrapper}}\{disposable\});}
+\DoxyCodeLine{00074\ \ \ \ \ \});}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_upstream(\textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp::disposable\_wrapper}}\&\ d)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00077\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ disposable-\/>add(d);}
+\DoxyCodeLine{00079\ \ \ \ \ \}}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ \ \ \ \ \textcolor{keywordtype}{bool}\ is\_disposed()\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00082\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ disposable-\/>is\_disposed\_underlying();}
+\DoxyCodeLine{00084\ \ \ \ \ \}}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_same\_as<T>\ TT>}
+\DoxyCodeLine{00087\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_next(TT\&\&\ val)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00088\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ subject\ =\ deduce\_subject(\mbox{\hyperlink{classrpp_1_1observer}{observer}},\ val);}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!subject)}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ subject\_obs\ =\ subject-\/>get\_observer();}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!subject\_obs.is\_disposed())}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \ \ \ \ subject\_obs.on\_next(value\_selector(std::forward<TT>(val)));}
+\DoxyCodeLine{00096\ \ \ \ \ \}}
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00098\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_error(\textcolor{keyword}{const}\ std::exception\_ptr\&\ err)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00099\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ [key,\ subject]\ :\ key\_to\_subject)}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \ \ \ \ subject.get\_observer().on\_error(err);}
+\DoxyCodeLine{00102\ }
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrpp_1_1observer}{observer}}.\mbox{\hyperlink{classrpp_1_1details_1_1observer__impl_aa55c5a334bc39c92218f7b51e5126bbc}{on\_error}}(err);}
+\DoxyCodeLine{00104\ \ \ \ \ \}}
+\DoxyCodeLine{00105\ }
+\DoxyCodeLine{00106\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_completed()\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00107\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ [key,\ subject]\ :\ key\_to\_subject)}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \ \ \ \ subject.get\_observer().on\_completed();}
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrpp_1_1observer}{observer}}.\mbox{\hyperlink{classrpp_1_1details_1_1observer__impl_a7a73f13eae52effde01a2d3b2cf1d1b4}{on\_completed}}();}
+\DoxyCodeLine{00112\ \ \ \ \ \}}
+\DoxyCodeLine{00113\ }
+\DoxyCodeLine{00114\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00115\ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_same\_as<T>\ TT>}
+\DoxyCodeLine{00116\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1subjects_1_1details_1_1base__subject}{subjects::publish\_subject<Type>}}*\ deduce\_subject(\textcolor{keyword}{const}\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer}{rpp::constraint::observer}}\ \textcolor{keyword}{auto}\&\ obs,\ \textcolor{keyword}{const}\ TT\&\ val)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00117\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ key\ =\ key\_selector(utils::as\_const(val));}
+\DoxyCodeLine{00119\ }
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (obs.is\_disposed())}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ itr\ =\ key\_to\_subject.find(key);}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ itr\ ==\ key\_to\_subject.cend()\ ?\ nullptr\ :\ \&itr-\/>second;}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00125\ }
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ [itr,\ inserted]\ =\ key\_to\_subject.try\_emplace(key);}
+\DoxyCodeLine{00127\ }
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (inserted)}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \ \ \ \ disposable-\/>add(rpp::disposable\_wrapper::from\_weak(itr-\/>second.get\_disposable().get\_original()));}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \ \ \ \ obs.on\_next(\mbox{\hyperlink{classrpp_1_1grouped__observable}{rpp::grouped\_observable\_group\_by<TKey,\ Type>}}\{std::move(key),\ \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1group__by__observable__strategy}{group\_by\_observable\_strategy<Type>}}\{itr-\/>second,\ disposable\}\});}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00133\ }
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \&itr-\/>second;}
+\DoxyCodeLine{00135\ \ \ \ \ \}}
+\DoxyCodeLine{00136\ \};}
 \DoxyCodeLine{00137\ }
-\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \&itr-\/>second;}
-\DoxyCodeLine{00139\ \ \ \ \ \}}
-\DoxyCodeLine{00140\ \};}
-\DoxyCodeLine{00141\ }
-\DoxyCodeLine{00142\ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type\ T>}
-\DoxyCodeLine{00143\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1group__by__observable__strategy}{group\_by\_observable\_strategy}}}
-\DoxyCodeLine{00144\ \{}
-\DoxyCodeLine{00145\ \ \ \ \ \textcolor{keyword}{using\ }ValueType\ =\ T;}
-\DoxyCodeLine{00146\ }
-\DoxyCodeLine{00147\ \ \ \ \ \mbox{\hyperlink{classrpp_1_1subjects_1_1details_1_1base__subject}{rpp::subjects::publish\_subject<T>}}\ subj;}
-\DoxyCodeLine{00148\ \ \ \ \ std::weak\_ptr<refcount\_disposable>\ disposable;}
-\DoxyCodeLine{00149\ }
-\DoxyCodeLine{00150\ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::observer\_strategy<T>\ Strategy>}
-\DoxyCodeLine{00151\ \ \ \ \ \textcolor{keywordtype}{void}\ subscribe(\mbox{\hyperlink{classrpp_1_1observer}{observer<T,\ Strategy>}}\&\&\ obs)\textcolor{keyword}{\ const}}
-\DoxyCodeLine{00152\ \textcolor{keyword}{\ \ \ \ }\{}
-\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ locked\ =\ disposable.lock())}
-\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ \ \ \ \ obs.set\_upstream(rpp::disposable\_wrapper::from\_weak(locked-\/>add\_ref().get\_original()));}
-\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ \ \ \ \ subj.get\_observable()}
-\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .subscribe(\mbox{\hyperlink{classrpp_1_1observer}{rpp::observer}}<T,\ \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1group__by__inner__observer__strategy}{group\_by\_inner\_observer\_strategy}}<\mbox{\hyperlink{classrpp_1_1observer}{observer<T,\ Strategy>}}>>\{std::move(obs),\ disposable\});}
-\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00159\ \ \ \ \ \}}
-\DoxyCodeLine{00160\ \};}
-\DoxyCodeLine{00161\ }
-\DoxyCodeLine{00162\ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type\ KeySelector,\ rpp::constra\textcolor{keywordtype}{int}::decayed\_type\ ValueSelector,\ rpp::constra\textcolor{keywordtype}{int}::decayed\_type\ KeyComparator>}
-\DoxyCodeLine{00163\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1group__by__t}{group\_by\_t}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1operator__observable__strategy__base}{operators::details::template\_operator\_observable\_strategy}}<group\_by\_observer\_strategy,\ KeySelector,\ ValueSelector,\ KeyComparator>}
-\DoxyCodeLine{00164\ \{}
-\DoxyCodeLine{00165\ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1operator__observable__strategy__base}{operators::details::template\_operator\_observable\_strategy}}<\mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1group__by__observer__strategy}{group\_by\_observer\_strategy}},\ KeySelector,\ ValueSelector,\ KeyComparator>::template\_operator\_observable\_strategy;}
-\DoxyCodeLine{00166\ }
-\DoxyCodeLine{00167\ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type\ T>}
-\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \textcolor{keyword}{requires}\ std::invocable<KeySelector,\ T>\ \&\&}
-\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::invocable<ValueSelector,\ T>\ \&\&}
-\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::strict\_weak\_order<KeyComparator,\ rpp::utils::decayed\_invoke\_result\_t<KeySelector,\ T>,\ rpp::utils::decayed\_invoke\_result\_t<KeySelector,\ T>>}
-\DoxyCodeLine{00171\ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{classrpp_1_1grouped__observable}{ResultValue}}\ =\ \mbox{\hyperlink{classrpp_1_1grouped__observable}{grouped\_observable<utils::decayed\_invoke\_result\_t<KeySelector,\ T>}},\ rpp::utils::decayed\_invoke\_result\_t<ValueSelector,\ T>,\ \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1group__by__observable__strategy}{group\_by\_observable\_strategy<utils::decayed\_invoke\_result\_t<ValueSelector,\ T>}}>>;}
-\DoxyCodeLine{00172\ \};}
-\DoxyCodeLine{00173\ \}}
-\DoxyCodeLine{00174\ \textcolor{keyword}{namespace\ }rpp::operators}
-\DoxyCodeLine{00175\ \{}
-\DoxyCodeLine{00205\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ KeySelector,}
-\DoxyCodeLine{00206\ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ ValueSelector,}
-\DoxyCodeLine{00207\ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ KeyComparator>}
-\DoxyCodeLine{00208\ \ \ \ \ \textcolor{keyword}{requires}}
-\DoxyCodeLine{00209\ \ \ \ \ (}
-\DoxyCodeLine{00210\ \ \ \ \ \ \ \ \ (!utils::is\_not\_template\_callable<KeySelector>\ ||\ !std::same\_as<void,\ std::invoke\_result\_t<KeySelector,\ rpp::utils::convertible\_to\_any>>)\ \&\&}
-\DoxyCodeLine{00211\ \ \ \ \ \ \ \ \ (!utils::is\_not\_template\_callable<ValueSelector>\ ||\ !std::same\_as<\textcolor{keywordtype}{void},\ std::invoke\_result\_t<ValueSelector,\ rpp::utils::convertible\_to\_any>>)\ \&\&}
-\DoxyCodeLine{00212\ \ \ \ \ \ \ \ \ (!utils::is\_not\_template\_callable<KeyComparator>\ ||\ std::strict\_weak\_order<KeyComparator,\ rpp::utils::convertible\_to\_any,\ rpp::utils::convertible\_to\_any>)}
-\DoxyCodeLine{00213\ \ \ \ \ )}
-\DoxyCodeLine{00214\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__transforming__operators_ga136286fed612116e8d8f43511b5ef7dd}{group\_by}}(KeySelector\&\&\ key\_selector,\ ValueSelector\&\&\ value\_selector,\ KeyComparator\&\&\ comparator)}
-\DoxyCodeLine{00215\ \{}
-\DoxyCodeLine{00216\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1group__by__t}{details::group\_by\_t<std::decay\_t<KeySelector>}},\ std::decay\_t<ValueSelector>,\ std::decay\_t<KeyComparator>>}
-\DoxyCodeLine{00217\ \ \ \ \ \{}
-\DoxyCodeLine{00218\ \ \ \ \ \ \ \ \ std::forward<KeySelector>(key\_selector),\ std::forward<ValueSelector>(value\_selector),\ std::forward<KeyComparator>(comparator)}
-\DoxyCodeLine{00219\ \ \ \ \ \};}
-\DoxyCodeLine{00220\ \}}
-\DoxyCodeLine{00221\ \}\ \textcolor{comment}{//\ namespace\ rpp::operators}}
+\DoxyCodeLine{00138\ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type\ T>}
+\DoxyCodeLine{00139\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1group__by__observable__strategy}{group\_by\_observable\_strategy}}}
+\DoxyCodeLine{00140\ \{}
+\DoxyCodeLine{00141\ \ \ \ \ \textcolor{keyword}{using\ }ValueType\ =\ T;}
+\DoxyCodeLine{00142\ }
+\DoxyCodeLine{00143\ \ \ \ \ \mbox{\hyperlink{classrpp_1_1subjects_1_1details_1_1base__subject}{rpp::subjects::publish\_subject<T>}}\ subj;}
+\DoxyCodeLine{00144\ \ \ \ \ std::weak\_ptr<refcount\_disposable>\ disposable;}
+\DoxyCodeLine{00145\ }
+\DoxyCodeLine{00146\ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::observer\_strategy<T>\ Strategy>}
+\DoxyCodeLine{00147\ \ \ \ \ \textcolor{keywordtype}{void}\ subscribe(\mbox{\hyperlink{classrpp_1_1observer}{observer<T,\ Strategy>}}\&\&\ obs)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00148\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ locked\ =\ disposable.lock())}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \ \ \ \ obs.set\_upstream(locked-\/>add\_ref());}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \ \ \ \ subj.get\_observable()}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .subscribe(\mbox{\hyperlink{classrpp_1_1observer}{rpp::observer}}<T,\ \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1group__by__inner__observer__strategy}{group\_by\_inner\_observer\_strategy}}<\mbox{\hyperlink{classrpp_1_1observer}{observer<T,\ Strategy>}}>>\{std::move(obs),\ rpp::composite\_disposable\_wrapper::from\_weak(disposable)\});}
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00155\ \ \ \ \ \}}
+\DoxyCodeLine{00156\ \};}
+\DoxyCodeLine{00157\ }
+\DoxyCodeLine{00158\ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type\ KeySelector,\ rpp::constra\textcolor{keywordtype}{int}::decayed\_type\ ValueSelector,\ rpp::constra\textcolor{keywordtype}{int}::decayed\_type\ KeyComparator>}
+\DoxyCodeLine{00159\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1group__by__t}{group\_by\_t}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1operator__observable__strategy__base}{operators::details::template\_operator\_observable\_strategy}}<group\_by\_observer\_strategy,\ KeySelector,\ ValueSelector,\ KeyComparator>}
+\DoxyCodeLine{00160\ \{}
+\DoxyCodeLine{00161\ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1operator__observable__strategy__base}{operators::details::template\_operator\_observable\_strategy}}<\mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1group__by__observer__strategy}{group\_by\_observer\_strategy}},\ KeySelector,\ ValueSelector,\ KeyComparator>::template\_operator\_observable\_strategy;}
+\DoxyCodeLine{00162\ }
+\DoxyCodeLine{00163\ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type\ T>}
+\DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ \textcolor{keyword}{requires}\ std::invocable<KeySelector,\ T>\ \&\&}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::invocable<ValueSelector,\ T>\ \&\&}
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::strict\_weak\_order<KeyComparator,\ rpp::utils::decayed\_invoke\_result\_t<KeySelector,\ T>,\ rpp::utils::decayed\_invoke\_result\_t<KeySelector,\ T>>}
+\DoxyCodeLine{00167\ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{classrpp_1_1grouped__observable}{ResultValue}}\ =\ \mbox{\hyperlink{classrpp_1_1grouped__observable}{grouped\_observable<utils::decayed\_invoke\_result\_t<KeySelector,\ T>}},\ rpp::utils::decayed\_invoke\_result\_t<ValueSelector,\ T>,\ \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1group__by__observable__strategy}{group\_by\_observable\_strategy<utils::decayed\_invoke\_result\_t<ValueSelector,\ T>}}>>;}
+\DoxyCodeLine{00168\ \};}
+\DoxyCodeLine{00169\ \}}
+\DoxyCodeLine{00170\ \textcolor{keyword}{namespace\ }rpp::operators}
+\DoxyCodeLine{00171\ \{}
+\DoxyCodeLine{00201\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ KeySelector,}
+\DoxyCodeLine{00202\ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ ValueSelector,}
+\DoxyCodeLine{00203\ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ KeyComparator>}
+\DoxyCodeLine{00204\ \ \ \ \ \textcolor{keyword}{requires}}
+\DoxyCodeLine{00205\ \ \ \ \ (}
+\DoxyCodeLine{00206\ \ \ \ \ \ \ \ \ (!utils::is\_not\_template\_callable<KeySelector>\ ||\ !std::same\_as<void,\ std::invoke\_result\_t<KeySelector,\ rpp::utils::convertible\_to\_any>>)\ \&\&}
+\DoxyCodeLine{00207\ \ \ \ \ \ \ \ \ (!utils::is\_not\_template\_callable<ValueSelector>\ ||\ !std::same\_as<\textcolor{keywordtype}{void},\ std::invoke\_result\_t<ValueSelector,\ rpp::utils::convertible\_to\_any>>)\ \&\&}
+\DoxyCodeLine{00208\ \ \ \ \ \ \ \ \ (!utils::is\_not\_template\_callable<KeyComparator>\ ||\ std::strict\_weak\_order<KeyComparator,\ rpp::utils::convertible\_to\_any,\ rpp::utils::convertible\_to\_any>)}
+\DoxyCodeLine{00209\ \ \ \ \ )}
+\DoxyCodeLine{00210\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__transforming__operators_ga136286fed612116e8d8f43511b5ef7dd}{group\_by}}(KeySelector\&\&\ key\_selector,\ ValueSelector\&\&\ value\_selector,\ KeyComparator\&\&\ comparator)}
+\DoxyCodeLine{00211\ \{}
+\DoxyCodeLine{00212\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1group__by__t}{details::group\_by\_t<std::decay\_t<KeySelector>}},\ std::decay\_t<ValueSelector>,\ std::decay\_t<KeyComparator>>}
+\DoxyCodeLine{00213\ \ \ \ \ \{}
+\DoxyCodeLine{00214\ \ \ \ \ \ \ \ \ std::forward<KeySelector>(key\_selector),\ std::forward<ValueSelector>(value\_selector),\ std::forward<KeyComparator>(comparator)}
+\DoxyCodeLine{00215\ \ \ \ \ \};}
+\DoxyCodeLine{00216\ \}}
+\DoxyCodeLine{00217\ \}\ \textcolor{comment}{//\ namespace\ rpp::operators}}
 
 \end{DoxyCode}

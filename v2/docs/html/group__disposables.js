@@ -9,9 +9,5 @@ var group__disposables =
     [ "rpp::interface_disposable", "structrpp_1_1interface__disposable.html", [
       [ "dispose", "structrpp_1_1interface__disposable.html#aba40958e70b43507be04f55bbd4340e9", null ],
       [ "is_disposed", "structrpp_1_1interface__disposable.html#a0348da95fe5929a3861e80b6651c347f", null ]
-    ] ],
-    [ "rpp::refcount_disposable", "classrpp_1_1refcount__disposable.html", [
-      [ "dispose", "classrpp_1_1refcount__disposable.html#a16524bec95defe5911c73629e257bd31", null ],
-      [ "is_disposed", "classrpp_1_1refcount__disposable.html#ab35fc075f55ebed15f47796a949b18f4", null ]
     ] ]
 ];

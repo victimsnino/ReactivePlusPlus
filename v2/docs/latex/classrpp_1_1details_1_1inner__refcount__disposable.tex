@@ -1,0 +1,61 @@
+\doxysection{rpp\+::details\+::inner\+\_\+refcount\+\_\+disposable Class Reference}
+\hypertarget{classrpp_1_1details_1_1inner__refcount__disposable}{}\label{classrpp_1_1details_1_1inner__refcount__disposable}\index{rpp::details::inner\_refcount\_disposable@{rpp::details::inner\_refcount\_disposable}}
+Inheritance diagram for rpp\+::details\+::inner\+\_\+refcount\+\_\+disposable\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{classrpp_1_1details_1_1inner__refcount__disposable}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classrpp_1_1details_1_1inner__refcount__disposable_a7ee0fad9786eccfb9c89e950877ccda6}\label{classrpp_1_1details_1_1inner__refcount__disposable_a7ee0fad9786eccfb9c89e950877ccda6} 
+{\bfseries inner\+\_\+refcount\+\_\+disposable} (const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{structrpp_1_1details_1_1refocunt__disposable__state__t}{refocunt\+\_\+disposable\+\_\+state\+\_\+t}} $>$ \&state)
+\item 
+\Hypertarget{classrpp_1_1details_1_1inner__refcount__disposable_afbc7f06cc06dd78acfcf1f53318f48a2}\label{classrpp_1_1details_1_1inner__refcount__disposable_afbc7f06cc06dd78acfcf1f53318f48a2} 
+{\bfseries inner\+\_\+refcount\+\_\+disposable} (const \mbox{\hyperlink{classrpp_1_1details_1_1inner__refcount__disposable}{inner\+\_\+refcount\+\_\+disposable}} \&)=delete
+\item 
+\Hypertarget{classrpp_1_1details_1_1inner__refcount__disposable_a55e89b9a13147c2fb35db51b1933414c}\label{classrpp_1_1details_1_1inner__refcount__disposable_a55e89b9a13147c2fb35db51b1933414c} 
+{\bfseries inner\+\_\+refcount\+\_\+disposable} (\mbox{\hyperlink{classrpp_1_1details_1_1inner__refcount__disposable}{inner\+\_\+refcount\+\_\+disposable}} \&\&) noexcept=delete
+\item 
+void \mbox{\hyperlink{classrpp_1_1details_1_1inner__refcount__disposable_a384c2b85264a00414a0a6f78e4566c10}{dispose\+\_\+impl}} () noexcept final
+\item 
+\Hypertarget{classrpp_1_1details_1_1inner__refcount__disposable_ac431029c009a1c27783cc120d824e7ef}\label{classrpp_1_1details_1_1inner__refcount__disposable_ac431029c009a1c27783cc120d824e7ef} 
+void {\bfseries add} (\mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{disposable\+\_\+wrapper}} disposable) final
+\item 
+\Hypertarget{classrpp_1_1details_1_1inner__refcount__disposable_aeabbd86e2ea58c12cbb13a2d3cf5f726}\label{classrpp_1_1details_1_1inner__refcount__disposable_aeabbd86e2ea58c12cbb13a2d3cf5f726} 
+virtual void {\bfseries add} (\mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{disposable\+\_\+wrapper}} disposable)=0
+\item 
+\Hypertarget{classrpp_1_1details_1_1inner__refcount__disposable_a5a466624c0cf774c3fbe2f585eaf813c}\label{classrpp_1_1details_1_1inner__refcount__disposable_a5a466624c0cf774c3fbe2f585eaf813c} 
+{\footnotesize template$<$rpp\+::constraint\+::is\+\_\+nothrow\+\_\+invocable Fn$>$ }\\void {\bfseries add} (Fn \&\&invocable)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classrpp_1_1details_1_1base__disposable__impl}{rpp\+::details\+::base\+\_\+disposable\+\_\+impl$<$ base\+\_\+interface $>$}}}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries base\+\_\+disposable\+\_\+impl} (const \mbox{\hyperlink{classrpp_1_1details_1_1base__disposable__impl}{base\+\_\+disposable\+\_\+impl}} \&)=delete
+\item 
+{\bfseries base\+\_\+disposable\+\_\+impl} (\mbox{\hyperlink{classrpp_1_1details_1_1base__disposable__impl}{base\+\_\+disposable\+\_\+impl}} \&\&) noexcept=delete
+\item 
+bool {\bfseries is\+\_\+disposed} () const noexcept final
+\item 
+void {\bfseries dispose} () noexcept final
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classrpp_1_1details_1_1inner__refcount__disposable_a384c2b85264a00414a0a6f78e4566c10}\label{classrpp_1_1details_1_1inner__refcount__disposable_a384c2b85264a00414a0a6f78e4566c10} 
+\index{rpp::details::inner\_refcount\_disposable@{rpp::details::inner\_refcount\_disposable}!dispose\_impl@{dispose\_impl}}
+\index{dispose\_impl@{dispose\_impl}!rpp::details::inner\_refcount\_disposable@{rpp::details::inner\_refcount\_disposable}}
+\doxysubsubsection{\texorpdfstring{dispose\_impl()}{dispose\_impl()}}
+{\footnotesize\ttfamily void rpp\+::details\+::inner\+\_\+refcount\+\_\+disposable\+::dispose\+\_\+impl (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [final]}, {\ttfamily [virtual]}, {\ttfamily [noexcept]}}
+
+
+
+Implements \mbox{\hyperlink{classrpp_1_1details_1_1base__disposable__impl}{rpp\+::details\+::base\+\_\+disposable\+\_\+impl$<$ base\+\_\+interface $>$}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/rpp/rpp/disposables/refcount\+\_\+disposable.\+hpp\end{DoxyCompactItemize}

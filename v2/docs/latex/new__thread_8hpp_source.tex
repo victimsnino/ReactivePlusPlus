@@ -28,7 +28,7 @@
 \DoxyCodeLine{00024\ \{}
 \DoxyCodeLine{00031\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1schedulers_1_1new__thread}{new\_thread}}}
 \DoxyCodeLine{00032\ \{}
-\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keyword}{class\ }disposable\ final\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classrpp_1_1details_1_1base__disposable}{rpp::details::base\_disposable}}}
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keyword}{class\ }disposable\ final\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classrpp_1_1details_1_1base__disposable__impl}{rpp::details::base\_disposable}}}
 \DoxyCodeLine{00034\ \ \ \ \ \{}
 \DoxyCodeLine{00035\ \ \ \ \ \textcolor{keyword}{public}:}
 \DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ disposable()\ \{}
@@ -48,7 +48,7 @@
 \DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}<\mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1schedulable__handler}{rpp::schedulers::constraint::schedulable\_handler}}\ Handler,\ \textcolor{keyword}{typename}...\ Args,\ \mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1schedulable__fn}{constraint::schedulable\_fn}}<Handler,\ Args...>\ Fn>}
 \DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ defer\_at(time\_point\ time\_point,\ Fn\&\&\ fn,\ Handler\&\&\ handler,\ Args\&\&...\ args)}
 \DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{classrpp_1_1details_1_1base__disposable_a09179df9b71e2c76a362026ae3e7ee59}{is\_disposed}}())}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (is\_disposed())}
 \DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
 \DoxyCodeLine{00055\ }
 \DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \ \ \ \ std::lock\_guard\ lock\{m\_state-\/>queue\_mutex\};}
@@ -77,7 +77,7 @@
 \DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \ \ \ \ std::recursive\_mutex\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ queue\_mutex\{\};}
 \DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \ \ \ \ std::atomic<details::schedulables\_queue*>\ queue\_ptr\{\};}
 \DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \ \ \ \ std::condition\_variable\_any\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cv\{\};}
-\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \ \ \ \ std::atomic\_bool\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrpp_1_1details_1_1base__disposable_a09179df9b71e2c76a362026ae3e7ee59}{is\_disposed}}\{\};}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \ \ \ \ std::atomic\_bool\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ is\_disposed\{\};}
 \DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \ \ \ \ std::atomic\_bool\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ is\_destroying\{\};}
 \DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \};}
 \DoxyCodeLine{00085\ }

@@ -174,11 +174,8 @@
 boxfont setfont
 1 boundaspect scale
 (rpp::interface_disposable) cw
-(rpp::details::base_disposable) cw
 (rpp::interface_composite_disposable) cw
-(rpp::callback_disposable< Fn >) cw
 (rpp::composite_disposable) cw
-(rpp::refcount_disposable) cw
 (rpp::operators::details::combine_latest_disposable< Observer, TSelector, Args >) cw
 (rpp::operators::details::debounce_disposable< Observer, Worker >) cw
 (rpp::operators::details::delay_disposable< Observer, Worker >) cw
@@ -196,12 +193,9 @@ boundx scalefactor div boundy scalefactor div scale
 
 % ----- classes -----
 
- (rpp::interface_disposable) 1.500000 3.000000 box
- (rpp::details::base_disposable) 0.000000 2.000000 box
- (rpp::interface_composite_disposable) 3.000000 2.000000 box
- (rpp::callback_disposable< Fn >) 0.000000 1.000000 box
+ (rpp::interface_disposable) 2.500000 3.000000 box
+ (rpp::interface_composite_disposable) 2.500000 2.000000 box
  (rpp::composite_disposable) 2.500000 1.000000 box
- (rpp::refcount_disposable) 3.500000 1.000000 box
  (rpp::operators::details::combine_latest_disposable< Observer, TSelector, Args >) 0.000000 0.000000 box
  (rpp::operators::details::debounce_disposable< Observer, Worker >) 1.000000 0.000000 box
  (rpp::operators::details::delay_disposable< Observer, Worker >) 2.000000 0.000000 box
@@ -212,29 +206,17 @@ boundx scalefactor div boundy scalefactor div scale
 % ----- relations -----
 
 solid
-1 1.500000 2.250000 out
+1 2.500000 2.250000 out
 solid
-0.000000 3.000000 3.000000 conn
+0 2.500000 2.750000 in
 solid
-0 0.000000 2.750000 in
-solid
-1 0.000000 1.250000 out
-solid
-0 3.000000 2.750000 in
-solid
-1 3.000000 1.250000 out
-solid
-2.500000 3.500000 2.000000 conn
-solid
-0 0.000000 1.750000 in
+1 2.500000 1.250000 out
 solid
 0 2.500000 1.750000 in
 solid
 1 2.500000 0.250000 out
 solid
 0.000000 5.000000 1.000000 conn
-solid
-0 3.500000 1.750000 in
 solid
 0 0.000000 0.750000 in
 solid

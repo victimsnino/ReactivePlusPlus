@@ -4,7 +4,7 @@ var searchData=
   ['ref_5fcount_1',['ref_count',['../group__connectable__operators.html#gadac4721de7506cc9a1c2a4453a6c28cf',1,'rpp::connectable_observable']]],
   ['ref_5fcount_5fon_5fsubscribe_5ft_2',['ref_count_on_subscribe_t',['../structrpp_1_1details_1_1ref__count__on__subscribe__t.html',1,'rpp::details']]],
   ['ref_5fcount_5fon_5fsubscribe_5ft_3c_20rpp_3a_3aconnectable_5fobservable_3c_20originalobservable_2c_20subject_20_3e_20_3e_3',['ref_count_on_subscribe_t&lt; rpp::connectable_observable&lt; OriginalObservable, Subject &gt; &gt;',['../structrpp_1_1details_1_1ref__count__on__subscribe__t_3_01rpp_1_1connectable__observable_3_01_oria02afbb30282d4727b872472b2af56d8.html',1,'rpp::details']]],
-  ['refcount_5fdisposable_4',['refcount_disposable',['../classrpp_1_1refcount__disposable.html',1,'rpp']]],
+  ['refocunt_5fdisposable_5fstate_5ft_4',['refocunt_disposable_state_t',['../structrpp_1_1details_1_1refocunt__disposable__state__t.html',1,'rpp::details']]],
   ['repeat_5',['repeat',['../group__utility__operators.html#ga41ef49dc75a3eadb0eb3fda7c3692c40',1,'rpp::operators::repeat()'],['../group__utility__operators.html#ga96a3c17903a50c2f6dfd66d8b90a96f2',1,'rpp::operators::repeat(size_t count)']]],
   ['repeat_5ft_6',['repeat_t',['../structrpp_1_1operators_1_1details_1_1repeat__t.html',1,'rpp::operators::details']]],
   ['rpp_7',['RPP',['../group__rpp.html',1,'']]],

@@ -21,27 +21,31 @@
 \DoxyCodeLine{00017\ }
 \DoxyCodeLine{00018\ \textcolor{keyword}{namespace\ }rpp::details}
 \DoxyCodeLine{00019\ \{}
-\DoxyCodeLine{00020\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1details_1_1base__disposable}{base\_disposable}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{structrpp_1_1interface__disposable}{interface\_disposable}}}
-\DoxyCodeLine{00021\ \{}
-\DoxyCodeLine{00022\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00023\ \ \ \ \ \mbox{\hyperlink{classrpp_1_1details_1_1base__disposable}{base\_disposable}}()\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ \textcolor{keywordflow}{default};}
-\DoxyCodeLine{00024\ \ \ \ \ \mbox{\hyperlink{classrpp_1_1details_1_1base__disposable}{base\_disposable}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1details_1_1base__disposable}{base\_disposable}}\&)\ \ \ \ \ =\ \textcolor{keyword}{delete};}
-\DoxyCodeLine{00025\ \ \ \ \ \mbox{\hyperlink{classrpp_1_1details_1_1base__disposable}{base\_disposable}}(\mbox{\hyperlink{classrpp_1_1details_1_1base__disposable}{base\_disposable}}\&\&)\ \textcolor{keyword}{noexcept}\ =\ \textcolor{keyword}{delete};}
-\DoxyCodeLine{00026\ }
-\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classrpp_1_1details_1_1base__disposable_a09179df9b71e2c76a362026ae3e7ee59}{is\_disposed}}()\ const\ noexcept\ final\ \{\ \textcolor{keywordflow}{return}\ m\_disposed.load(std::memory\_order\_acquire);\ \}}
-\DoxyCodeLine{00028\ }
-\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classrpp_1_1details_1_1base__disposable_a81a08578b3258de82422eb3a64976b5d}{dispose}}()\ noexcept\ final}
-\DoxyCodeLine{00030\ \ \ \ \ \{}
-\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (m\_disposed.exchange(\textcolor{keyword}{true},\ std::memory\_order\_acq\_rel)\ ==\ \textcolor{keyword}{false})}
-\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \ \ \ \ dispose\_impl();}
-\DoxyCodeLine{00033\ \ \ \ \ \}}
-\DoxyCodeLine{00034\ }
-\DoxyCodeLine{00035\ \textcolor{keyword}{protected}:}
-\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ dispose\_impl()\ noexcept\ =\ 0;}
-\DoxyCodeLine{00037\ }
-\DoxyCodeLine{00038\ private:}
-\DoxyCodeLine{00039\ \ \ \ \ std::atomic\_bool\ m\_disposed\{\};}
-\DoxyCodeLine{00040\ \};}
-\DoxyCodeLine{00041\ \}}
+\DoxyCodeLine{00020\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ base\_\textcolor{keywordtype}{int}erface>}
+\DoxyCodeLine{00021\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1details_1_1base__disposable__impl}{base\_disposable\_impl}}\ :\ \textcolor{keyword}{public}\ base\_interface}
+\DoxyCodeLine{00022\ \{}
+\DoxyCodeLine{00023\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00024\ \ \ \ \ \mbox{\hyperlink{classrpp_1_1details_1_1base__disposable__impl}{base\_disposable\_impl}}()\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00025\ \ \ \ \ \mbox{\hyperlink{classrpp_1_1details_1_1base__disposable__impl}{base\_disposable\_impl}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1details_1_1base__disposable__impl}{base\_disposable\_impl}}\&)\ \ \ \ \ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00026\ \ \ \ \ \mbox{\hyperlink{classrpp_1_1details_1_1base__disposable__impl}{base\_disposable\_impl}}(\mbox{\hyperlink{classrpp_1_1details_1_1base__disposable__impl}{base\_disposable\_impl}}\&\&)\ \textcolor{keyword}{noexcept}\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keywordtype}{bool}\ is\_disposed()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \textcolor{keyword}{final}\ \{\ \textcolor{keywordflow}{return}\ m\_disposed.load(std::memory\_order\_acquire);\ \}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keywordtype}{void}\ dispose()\ \textcolor{keyword}{noexcept}\ \textcolor{keyword}{final}}
+\DoxyCodeLine{00031\ \ \ \ \ \{}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (m\_disposed.exchange(\textcolor{keyword}{true},\ std::memory\_order\_acq\_rel)\ ==\ \textcolor{keyword}{false})}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \ \ \ \ dispose\_impl();}
+\DoxyCodeLine{00034\ \ \ \ \ \}}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ dispose\_impl()\ \textcolor{keyword}{noexcept}\ =\ 0;}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00040\ \ \ \ \ std::atomic\_bool\ m\_disposed\{\};}
+\DoxyCodeLine{00041\ \};}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \textcolor{keyword}{using\ }\mbox{\hyperlink{classrpp_1_1details_1_1base__disposable__impl}{base\_disposable}}\ =\ \mbox{\hyperlink{classrpp_1_1details_1_1base__disposable__impl}{base\_disposable\_impl<interface\_disposable>}};}
+\DoxyCodeLine{00044\ \textcolor{keyword}{using\ }\mbox{\hyperlink{classrpp_1_1details_1_1base__disposable__impl}{base\_composite\_disposable}}\ =\ \mbox{\hyperlink{classrpp_1_1details_1_1base__disposable__impl}{base\_disposable\_impl<interface\_composite\_disposable>}};}
+\DoxyCodeLine{00045\ \}}
 
 \end{DoxyCode}
