@@ -12,8 +12,10 @@
 
 #include <rpp/operators/take.hpp>
 #include <rpp/operators/group_by.hpp>
+#include <rpp/operators/delay.hpp>
 #include <rpp/sources/create.hpp>
 #include <rpp/sources/just.hpp>
+#include <rpp/schedulers/immediate.hpp>
 
 #include "mock_observer.hpp"
 #include "rpp/disposables/composite_disposable.hpp"
@@ -144,7 +146,7 @@ TEST_CASE("group_by keeps subscription till anyone subscribed")
         REQUIRE(!d->is_disposed());
         REQUIRE(!observable_upstream->is_disposed());
     }
-    SECTION("diispose all")
+    SECTION("dispose all")
     {
         d->dispose();
         rpp::utils::for_each(disposables, std::mem_fn(&rpp::composite_disposable_wrapper::dispose));
@@ -190,7 +192,7 @@ TEST_CASE("group_by selectors affects types", "[group_by]")
     SECTION("subscribe on observable via group_by with identity key selector")
     {
         std::vector<int> keys{};
-        obs | rpp::ops::group_by(std::identity{}) 
+        obs | rpp::ops::group_by(std::identity{})
             | rpp::ops::subscribe([&](const auto& grouped)
         {
             keys.push_back(grouped.get_key());
@@ -204,7 +206,7 @@ TEST_CASE("group_by selectors affects types", "[group_by]")
     SECTION("subscribe on observable via group_by with value selector")
     {
         auto mock = mock_observer_strategy<std::string>{};
-        obs | rpp::ops::group_by(std::identity{}, [](int v){return std::to_string(v);}) 
+        obs | rpp::ops::group_by(std::identity{}, [](int v){return std::to_string(v);})
             | rpp::ops::subscribe([&](const auto& grouped)
         {
             grouped.subscribe(mock.get_observer());
@@ -225,7 +227,7 @@ TEST_CASE("group_by selectors affects types", "[group_by]")
                     [](int f, int s)
                     {
                         return f % 2 < s %2;
-                    }) 
+                    })
             | rpp::ops::subscribe([&](const auto& grouped)
         {
             keys.push_back(grouped.get_key());
@@ -240,7 +242,7 @@ TEST_CASE("group_by selectors affects types", "[group_by]")
 
     SECTION("subscribe on observable via group_by with key selector with exception")
     {
-        obs | rpp::ops::group_by([](int) -> int {throw std::runtime_error{""};}) 
+        obs | rpp::ops::group_by([](int) -> int {throw std::runtime_error{""};})
             | rpp::ops::subscribe(mock.get_observer());
         SECTION("on_error obtained once")
         {
@@ -252,7 +254,7 @@ TEST_CASE("group_by selectors affects types", "[group_by]")
 
     SECTION("subscribe on observable via group_by with value selector with exception")
     {
-        obs | rpp::ops::group_by(std::identity{}, [](int) -> int {throw std::runtime_error{""};}) 
+        obs | rpp::ops::group_by(std::identity{}, [](int) -> int {throw std::runtime_error{""};})
             | rpp::ops::subscribe(mock.get_observer());
         SECTION("on_error obtained once")
         {
@@ -261,4 +263,25 @@ TEST_CASE("group_by selectors affects types", "[group_by]")
             REQUIRE(mock.get_on_completed_count() == 0);
         }
     }
+}
+
+TEST_CASE("group_by's disposables tracks 1 dispose per call")
+{
+    auto mock_0 = mock_observer_strategy<int>{};
+    rpp::source::just(1, 2)
+    | rpp::ops::group_by([](int){return 0;})
+    | rpp::ops::subscribe([&](const auto& observable)
+    {
+        for(size_t i =0; i < 10;++i)
+        {
+            observable
+            | rpp::ops::take(1)
+            | rpp::ops::delay(std::chrono::seconds{0}, rpp::schedulers::immediate{})
+            | rpp::ops::subscribe([](int){});
+        }
+
+        observable.subscribe(mock_0.get_observer());
+    });
+
+    CHECK(mock_0.get_received_values() == std::vector{1,2});
 }

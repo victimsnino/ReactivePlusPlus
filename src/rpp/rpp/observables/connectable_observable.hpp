@@ -26,8 +26,8 @@ struct ref_count_on_subscribe_t<rpp::connectable_observable<OriginalObservable, 
     rpp::connectable_observable<OriginalObservable, Subject> original_observable{};
     struct state_t
     {
-        std::mutex                                 mutex{};
-        std::shared_ptr<rpp::refcount_disposable>  disposable{};
+        std::mutex                                mutex{};
+        std::shared_ptr<rpp::refcount_disposable> disposable{};
     };
 
     std::shared_ptr<state_t> m_state = std::make_shared<state_t>();
@@ -36,28 +36,25 @@ struct ref_count_on_subscribe_t<rpp::connectable_observable<OriginalObservable, 
     template<constraint::observer_strategy<ValueType> Strategy>
     void subscribe(observer<ValueType, Strategy>&& obs) const
     {
-        const auto [should_connect, disposable] = on_subscribe();
+        auto [disposable, upstream] = on_subscribe();
 
         obs.set_upstream(disposable);
         original_observable.subscribe(std::move(obs));
-        if (should_connect)
-            original_observable.connect(disposable);
+        if (upstream)
+            original_observable.connect(std::move(upstream).value());
     }
 
 private:
-    struct on_subscribe_res
-    {
-        bool                              should_connect{};
-        rpp::composite_disposable_wrapper disposable{};
-    };
 
-    on_subscribe_res on_subscribe()  const
+    std::pair<rpp::composite_disposable_wrapper, std::optional<rpp::composite_disposable_wrapper>> on_subscribe()  const
     {
         std::unique_lock lock(m_state->mutex);
-        if (m_state->disposable && !m_state->disposable->is_disposed())
-            return {.should_connect=false, .disposable=m_state->disposable->add_ref()};
-        m_state->disposable = std::make_shared<rpp::refcount_disposable>();
-        return {.should_connect=true, .disposable=m_state->disposable};
+        if (m_state->disposable && !m_state->disposable->is_disposed_underlying())
+            return {m_state->disposable->add_ref(), std::nullopt};
+
+        rpp::composite_disposable_wrapper upstream = std::make_shared<rpp::composite_disposable>();
+        m_state->disposable = std::make_shared<rpp::refcount_disposable>(upstream);
+        return {m_state->disposable, upstream};
     }
 };
 }
@@ -89,7 +86,7 @@ public:
 
         if (!m_state->disposable.is_disposed())
             return m_state->disposable;
-        
+
         if (!wrapper.has_underlying())
             wrapper = rpp::composite_disposable_wrapper{std::make_shared<rpp::composite_disposable>()};
 
@@ -103,10 +100,10 @@ public:
     /**
     * @brief Forces rpp::connectable_observable to behave like common observable
     * @details Connects rpp::connectable_observable on the first subscription and unsubscribes on last unsubscription
-    *	
+    *
     * @par Example
     * @snippet ref_count.cpp ref_count
-    * 
+    *
     * @ingroup connectable_operators
     * @see https://reactivex.io/documentation/operators/refcount.html
     */

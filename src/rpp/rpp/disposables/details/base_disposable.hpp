@@ -17,12 +17,13 @@
 
 namespace rpp::details
 {
-class base_disposable : public interface_disposable
+template<typename base_interface>
+class base_disposable_impl : public base_interface
 {
 public:
-    base_disposable()                           = default;
-    base_disposable(const base_disposable&)     = delete;
-    base_disposable(base_disposable&&) noexcept = delete;
+    base_disposable_impl()                                = default;
+    base_disposable_impl(const base_disposable_impl&)     = delete;
+    base_disposable_impl(base_disposable_impl&&) noexcept = delete;
 
     bool is_disposed() const noexcept final { return m_disposed.load(std::memory_order_acquire); }
 
@@ -38,4 +39,7 @@ protected:
 private:
     std::atomic_bool m_disposed{};
 };
+
+using base_disposable = base_disposable_impl<interface_disposable>;
+using base_composite_disposable = base_disposable_impl<interface_composite_disposable>;
 }

@@ -162,18 +162,26 @@ TEST_CASE("refcount disposable dispose underlying in case of reaching zero")
     SECTION("add_ref prevents immediate disposing")
     {
         size_t count = 5;
+        std::vector<rpp::disposable_wrapper> disposables{};
         for (size_t i = 0; i < count; ++i)
-            refcount->add_ref();
+            disposables.push_back(refcount->add_ref());
 
-        for (size_t i = 0; i < count + 1; ++i)
+        CHECK(!refcount->is_disposed());
+
+        for (size_t i = 0; i < 10*count; ++i)
+            refcount->dispose();
+
+        CHECK(refcount->is_disposed());
+        CHECK(!underlying->is_disposed());
+
+        for(auto& d : disposables)
         {
             CHECK(!underlying->is_disposed());
-            CHECK(!refcount->is_disposed());
-
-            refcount->dispose();
+            CHECK(!d.is_disposed());
+            d.dispose();
+            CHECK(d.is_disposed());
         }
 
         CHECK(underlying->dispose_count == 1);
-        CHECK(refcount->is_disposed());
     }
 }
