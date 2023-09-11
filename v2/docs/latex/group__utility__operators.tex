@@ -126,8 +126,9 @@ The delay operator modifies its source Observable by pausing for a particular in
 
 
 
-Actually this operator just schedules emissions via provided scheduler with provided delay\+\_\+duration.
-
+Actually this operator just schedules emissions via provided scheduler with provided delay\+\_\+duration. \begin{DoxyWarning}{Warning}
+on\+\_\+error/on\+\_\+completed invoking also would be delayed as any other emissions, so, WHOLE observable would be shifter. If you want to obtain {\ttfamily on\+\_\+error} immediately, use {\ttfamily observe\+\_\+on}
+\end{DoxyWarning}
 
 \begin{DoxyParams}{Parameters}
 {\em delay\+\_\+duration} & is the delay duration for emitting items. Delay duration should be able to cast to rpp\+::schedulers\+::duration. \\
