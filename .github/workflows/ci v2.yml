@@ -20,7 +20,7 @@ jobs:
     timeout-minutes: 10
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
 
     - name: Run CMake
       uses: lukka/run-cmake@v10
@@ -43,7 +43,7 @@ jobs:
     name: ${{ matrix.type }} ${{ matrix.config.name }}
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
       with:
           fetch-depth: 0
 
@@ -77,7 +77,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
 
     - uses: actions/setup-python@v4
       with: { python-version: "3.8" }
@@ -107,7 +107,7 @@ jobs:
     name: Test RPP as package - ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
       with:
           fetch-depth: 0
 
