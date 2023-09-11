@@ -25,7 +25,7 @@ struct emission
 {
     template<typename TT>
     emission(TT&& item, schedulers::time_point time)
-        : value{std::forward<TT>(item)} 
+        : value{std::forward<TT>(item)}
         , time_point{time}{}
 
     std::variant<T, std::exception_ptr, rpp::utils::none> value{};
@@ -79,7 +79,7 @@ struct delay_observer_strategy
     }
 
     template<typename T>
-    void on_next(T&& v) const 
+    void on_next(T&& v) const
     {
         emplace(std::forward<T>(v));
     }
@@ -107,17 +107,12 @@ private:
     template<typename TT>
     std::optional<rpp::schedulers::duration> emplace_safe(TT&& item) const
     {
-        const auto delay = std::is_same_v<std::exception_ptr, std::decay_t<TT>> ? schedulers::duration{0} : disposable->delay;
-
         std::lock_guard lock{disposable->mutex};
-        if (std::is_same_v<std::exception_ptr, std::decay_t<TT>>)
-            disposable->queue = std::queue<emission<rpp::utils::extract_observer_type_t<Observer>>>{};
-
-        disposable->queue.emplace(std::forward<TT>(item), disposable->worker.now() + delay);
+        disposable->queue.emplace(std::forward<TT>(item), disposable->worker.now() + disposable->delay);
         if (!disposable->is_active)
         {
             disposable->is_active = true;
-            return delay;
+            return disposable->delay;
         }
         return std::nullopt;
     }
@@ -184,6 +179,7 @@ namespace rpp::operators
  }
  *
  * @details Actually this operator just schedules emissions via provided scheduler with provided delay_duration.
+ * @warning on_error/on_completed invoking also would be delayed as any other emissions, so, WHOLE observable would be shifter. If you want to obtain `on_error` immediately, use `observe_on`
  *
  * @param delay_duration is the delay duration for emitting items. Delay duration should be able to cast to rpp::schedulers::duration.
  * @param scheduler provides the threading model for delay. e.g. With a new thread scheduler, the observer sees the values in a new thread after a delay duration to the subscription.
