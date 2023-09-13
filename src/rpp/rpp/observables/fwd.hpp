@@ -11,6 +11,7 @@
 
 #include <rpp/observers/fwd.hpp>
 #include <rpp/subjects/fwd.hpp>
+
 #include <rpp/utils/constraints.hpp>
 
 namespace rpp::constraint
@@ -59,7 +60,7 @@ using blocking_observable = observable<Type, details::observables::blocking_stra
 
 /**
  * @brief Extension over raw observable which also has `get_key()` member function. Used in `group_by` operator to represent grouped observable
- * 
+ *
  * @tparam KeyType is type of key
  * @tparam Type of value this obsevalbe can provide
  * @tparam Strategy is observable strategy
@@ -70,15 +71,15 @@ class grouped_observable;
 
 namespace rpp::utils::details
 {
-    template<typename TObservable>
-    struct is_observable_t
-    {
-        template<typename T, typename Strategy>
-        consteval static std::true_type  deduce(const rpp::observable<T, Strategy>*);
-        consteval static std::false_type deduce(...);
+template<typename TObservable>
+struct is_observable_t
+{
+    template<typename T, typename Strategy>
+    consteval static std::true_type  deduce(const rpp::observable<T, Strategy>*);
+    consteval static std::false_type deduce(...);
 
-        using type = decltype(deduce(std::declval<std::decay_t<TObservable>*>()));
-    };
+    using type = decltype(deduce(std::declval<std::decay_t<TObservable>*>()));
+};
 
 } // namespace rpp::utils::details
 
@@ -108,6 +109,7 @@ namespace details
     };
 
 } // namespace details
+
 template<typename T>
 using extract_observable_type_t = typename details::extract_observable_type<std::decay_t<T>>::type;
 } // namespace rpp::utils

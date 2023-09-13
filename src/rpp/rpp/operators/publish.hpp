@@ -20,6 +20,6 @@ namespace rpp::operators
  */
 inline auto publish()
 {
-    return multicast<rpp::subjects::publish_subject>(); 
+    return multicast<rpp::subjects::publish_subject>();
 }
 }

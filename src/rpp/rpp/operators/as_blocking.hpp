@@ -10,8 +10,9 @@
 
 #pragma once
 
-#include <rpp/operators/fwd.hpp>
 #include <rpp/observables/fwd.hpp>
+#include <rpp/operators/fwd.hpp>
+
 #include <rpp/observables/blocking_observable.hpp>
 
 namespace rpp::operators::details

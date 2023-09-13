@@ -11,6 +11,7 @@
 #pragma once
 
 #include <rpp/disposables/fwd.hpp>
+
 #include <rpp/disposables/details/base_disposable.hpp>
 
 namespace rpp
@@ -24,8 +25,15 @@ template<rpp::constraint::is_nothrow_invocable Fn>
 class callback_disposable final : public details::base_disposable
 {
 public:
-    explicit callback_disposable(Fn&& fn) : m_fn{std::move(fn)} {}
-    explicit callback_disposable(const Fn& fn) : m_fn{fn} {}
+    explicit callback_disposable(Fn&& fn)
+        : m_fn{std::move(fn)}
+    {
+    }
+
+    explicit callback_disposable(const Fn& fn)
+        : m_fn{fn}
+    {
+    }
 
 private:
     void dispose_impl() noexcept override { std::move(m_fn)(); } // NOLINT(bugprone-exception-escape)

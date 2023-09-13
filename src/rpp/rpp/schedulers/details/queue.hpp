@@ -9,17 +9,18 @@
 
 #pragma once
 
+#include <rpp/schedulers/fwd.hpp>
+
 #include <rpp/defs.hpp>
 #include <rpp/utils/constraints.hpp>
-#include <rpp/schedulers/fwd.hpp>
-#include <rpp/utils/utils.hpp>
 #include <rpp/utils/tuple.hpp>
+#include <rpp/utils/utils.hpp>
 
 #include <condition_variable>
 #include <exception>
+#include <memory>
 #include <optional>
 #include <queue>
-#include <memory>
 #include <utility>
 
 namespace rpp::schedulers::details
@@ -27,7 +28,10 @@ namespace rpp::schedulers::details
 class schedulable_base
 {
 public:
-    explicit schedulable_base(const time_point& time_point) : m_time_point{time_point} {}
+    explicit schedulable_base(const time_point& time_point)
+        : m_time_point{time_point}
+    {
+    }
 
     virtual ~schedulable_base() noexcept = default;
 
@@ -35,9 +39,11 @@ public:
     virtual bool              is_disposed() const noexcept = 0;
 
     time_point get_timepoint() const { return m_time_point; }
-    void       set_timepoint(const time_point& timepoint) { m_time_point = timepoint; }
+
+    void set_timepoint(const time_point& timepoint) { m_time_point = timepoint; }
 
     const std::shared_ptr<schedulable_base>& get_next() const { return m_next; }
+
     void set_next(std::shared_ptr<schedulable_base>&& next) { m_next = std::move(next); }
 
     void update_next(std::shared_ptr<schedulable_base>&& next)
@@ -57,7 +63,7 @@ template<rpp::constraint::decayed_type Fn, rpp::schedulers::constraint::schedula
 class specific_schedulable final : public schedulable_base
 {
 public:
-    template<rpp::constraint::decayed_same_as<Fn> TFn,  typename... TArgs>
+    template<rpp::constraint::decayed_same_as<Fn> TFn, typename... TArgs>
     explicit specific_schedulable(const time_point& time_point, TFn&& in_fn, TArgs&&... in_args)
         : schedulable_base{time_point}
         , m_args{std::forward<TArgs>(in_args)...}
@@ -65,18 +71,19 @@ public:
     {
     }
 
-    optional_duration operator()() noexcept override 
+    optional_duration operator()() noexcept override
     {
         try
         {
             return m_args.apply(m_fn);
         }
-        catch(...)
+        catch (...)
         {
             m_args.template get<0>().on_error(std::current_exception());
             return std::nullopt;
         }
     }
+
     bool is_disposed() const noexcept override { return m_args.template get<0>().is_disposed(); }
 
 private:
@@ -88,7 +95,11 @@ class schedulables_queue
 {
 public:
     schedulables_queue() = default;
-    schedulables_queue(std::shared_ptr<std::condition_variable_any> cv) : m_cv{std::move(cv)} {}
+
+    schedulables_queue(std::shared_ptr<std::condition_variable_any> cv)
+        : m_cv{std::move(cv)}
+    {
+    }
 
     template<rpp::schedulers::constraint::schedulable_handler Handler, typename... Args, constraint::schedulable_fn<Handler, Args...> Fn>
     void emplace(const time_point& timepoint, Fn&& fn, Handler&& handler, Args&&... args)
@@ -143,6 +154,7 @@ private:
 
         current->update_next(std::move(schedulable));
     }
+
 private:
     std::shared_ptr<schedulable_base>            m_head{};
     std::shared_ptr<std::condition_variable_any> m_cv{};

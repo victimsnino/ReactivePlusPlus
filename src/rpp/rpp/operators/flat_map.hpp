@@ -10,36 +10,36 @@
 
 #pragma once
 
+#include <rpp/defs.hpp>
 #include <rpp/operators/map.hpp>
 #include <rpp/operators/merge.hpp>
-#include <rpp/defs.hpp>
 
 namespace rpp::operators::details
 {
 
 template<rpp::constraint::decayed_type Fn>
-struct flat_map_t 
+struct flat_map_t
 {
     RPP_NO_UNIQUE_ADDRESS Fn m_fn;
 
     template<rpp::constraint::observable TObservable>
-        requires (std::invocable<Fn, rpp::utils::extract_observable_type_t<TObservable>> 
-                    && rpp::constraint::observable<std::invoke_result_t<Fn, rpp::utils::extract_observable_type_t<TObservable>>>)
+        requires (std::invocable<Fn, rpp::utils::extract_observable_type_t<TObservable>>
+                  && rpp::constraint::observable<std::invoke_result_t<Fn, rpp::utils::extract_observable_type_t<TObservable>>>)
     auto operator()(TObservable&& observable) const &
     {
         return std::forward<TObservable>(observable)
-                | rpp::ops::map(m_fn)
-                | rpp::ops::merge();
+             | rpp::ops::map(m_fn)
+             | rpp::ops::merge();
     }
 
     template<rpp::constraint::observable TObservable>
-        requires (std::invocable<Fn, rpp::utils::extract_observable_type_t<TObservable>> 
-                    && rpp::constraint::observable<std::invoke_result_t<Fn, rpp::utils::extract_observable_type_t<TObservable>>>)
+        requires (std::invocable<Fn, rpp::utils::extract_observable_type_t<TObservable>>
+                  && rpp::constraint::observable<std::invoke_result_t<Fn, rpp::utils::extract_observable_type_t<TObservable>>>)
     auto operator()(TObservable&& observable) &&
     {
         return std::forward<TObservable>(observable)
-                | rpp::ops::map(std::move(m_fn))
-                | rpp::ops::merge();
+             | rpp::ops::map(std::move(m_fn))
+             | rpp::ops::merge();
     }
 };
 

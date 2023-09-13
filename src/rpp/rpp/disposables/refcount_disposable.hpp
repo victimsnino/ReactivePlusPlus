@@ -11,8 +11,9 @@
 #pragma once
 
 #include <rpp/disposables/fwd.hpp>
-#include <rpp/disposables/details/base_disposable.hpp>
+
 #include <rpp/disposables/composite_disposable.hpp>
+#include <rpp/disposables/details/base_disposable.hpp>
 #include <rpp/disposables/disposable_wrapper.hpp>
 
 #include <atomic>
@@ -44,7 +45,10 @@ struct refocunt_disposable_state_t
 class inner_refcount_disposable final : public details::base_composite_disposable
 {
 public:
-    inner_refcount_disposable(const std::shared_ptr<refocunt_disposable_state_t>& state) : m_state{state} {}
+    inner_refcount_disposable(const std::shared_ptr<refocunt_disposable_state_t>& state)
+        : m_state{state}
+    {
+    }
 
     inner_refcount_disposable(const inner_refcount_disposable&)     = delete;
     inner_refcount_disposable(inner_refcount_disposable&&) noexcept = delete;
@@ -74,11 +78,13 @@ namespace rpp
  *
  * @ingroup disposables
  */
-class refcount_disposable : public details::base_composite_disposable, public std::enable_shared_from_this<refcount_disposable>
+class refcount_disposable : public details::base_composite_disposable
+                          , public std::enable_shared_from_this<refcount_disposable>
 {
 
 public:
     refcount_disposable() = default;
+
     refcount_disposable(disposable_wrapper target) { m_state.underlying.add(std::move(target)); }
 
     refcount_disposable(const refcount_disposable&)     = delete;

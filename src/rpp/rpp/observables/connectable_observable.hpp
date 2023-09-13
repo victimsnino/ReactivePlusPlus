@@ -9,9 +9,10 @@
 
 #pragma once
 
-#include <rpp/observables/observable.hpp>
 #include <rpp/subjects/fwd.hpp>
+
 #include <rpp/disposables/refcount_disposable.hpp>
+#include <rpp/observables/observable.hpp>
 
 #include <mutex>
 
@@ -24,6 +25,7 @@ template<rpp::constraint::observable OriginalObservable, rpp::constraint::subjec
 struct ref_count_on_subscribe_t<rpp::connectable_observable<OriginalObservable, Subject>>
 {
     rpp::connectable_observable<OriginalObservable, Subject> original_observable{};
+
     struct state_t
     {
         std::mutex                                mutex{};
@@ -33,6 +35,7 @@ struct ref_count_on_subscribe_t<rpp::connectable_observable<OriginalObservable, 
     std::shared_ptr<state_t> m_state = std::make_shared<state_t>();
 
     using ValueType = rpp::utils::extract_observable_type_t<OriginalObservable>;
+
     template<constraint::observer_strategy<ValueType> Strategy>
     void subscribe(observer<ValueType, Strategy>&& obs) const
     {
@@ -45,15 +48,14 @@ struct ref_count_on_subscribe_t<rpp::connectable_observable<OriginalObservable, 
     }
 
 private:
-
-    std::pair<rpp::composite_disposable_wrapper, std::optional<rpp::composite_disposable_wrapper>> on_subscribe()  const
+    std::pair<rpp::composite_disposable_wrapper, std::optional<rpp::composite_disposable_wrapper>> on_subscribe() const
     {
         std::unique_lock lock(m_state->mutex);
         if (m_state->disposable && !m_state->disposable->is_disposed_underlying())
             return {m_state->disposable->add_ref(), std::nullopt};
 
         rpp::composite_disposable_wrapper upstream = std::make_shared<rpp::composite_disposable>();
-        m_state->disposable = std::make_shared<rpp::refcount_disposable>(upstream);
+        m_state->disposable                        = std::make_shared<rpp::refcount_disposable>(upstream);
         return {m_state->disposable, upstream};
     }
 };
@@ -65,17 +67,21 @@ template<rpp::constraint::observable OriginalObservable, rpp::constraint::subjec
 class connectable_observable final : public decltype(std::declval<Subject>().get_observable())
 {
     using base = decltype(std::declval<Subject>().get_observable());
+
 public:
     connectable_observable(const OriginalObservable& original_observable, const Subject& subject = Subject{})
         : base{subject.get_observable()}
         , m_original_observable{original_observable}
-        , m_subject{subject} {}
+        , m_subject{subject}
+    {
+    }
 
     connectable_observable(OriginalObservable&& original_observable, const Subject& subject = Subject{})
         : base{subject.get_observable()}
         , m_original_observable{std::move(original_observable)}
-        , m_subject{subject} {}
-
+        , m_subject{subject}
+    {
+    }
 
     rpp::disposable_wrapper connect(rpp::composite_disposable_wrapper wrapper = {}) const
     {
@@ -109,18 +115,20 @@ public:
     */
     auto ref_count() const
     {
-        return rpp::observable < rpp::utils::extract_observable_type_t<OriginalObservable>,
-               details::ref_count_on_subscribe_t<connectable_observable<OriginalObservable, Subject>>>{*this};
+        return rpp::observable<rpp::utils::extract_observable_type_t<OriginalObservable>,
+                               details::ref_count_on_subscribe_t<connectable_observable<OriginalObservable, Subject>>>{*this};
     }
 
 private:
-    OriginalObservable                                        m_original_observable;
-    Subject                                                   m_subject;
+    OriginalObservable m_original_observable;
+    Subject            m_subject;
+
     struct state_t
     {
         std::mutex                        mutex{};
         rpp::composite_disposable_wrapper disposable{};
     };
+
     std::shared_ptr<state_t> m_state = std::make_shared<state_t>();
 };
 }

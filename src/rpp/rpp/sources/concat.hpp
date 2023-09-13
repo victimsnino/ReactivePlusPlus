@@ -10,14 +10,15 @@
 #pragma once
 
 #include <rpp/sources/fwd.hpp>
-#include <rpp/sources/from.hpp>
-#include <rpp/observables/observable.hpp>
-#include <rpp/observables/dynamic_observable.hpp>
-#include <rpp/operators/details/strategy.hpp>
+
 #include <rpp/memory_model.hpp>
+#include <rpp/observables/dynamic_observable.hpp>
+#include <rpp/observables/observable.hpp>
+#include <rpp/operators/details/strategy.hpp>
+#include <rpp/sources/from.hpp>
+
 #include <exception>
 #include <optional>
-
 
 namespace rpp::details
 {
@@ -34,11 +35,16 @@ struct concat_source_observer_strategy
     mutable size_t                                index;
 
     template<typename T>
-    void on_next(T&& v) const                          { observer.on_next(std::forward<T>(v)); }
+    void on_next(T&& v) const
+    {
+        observer.on_next(std::forward<T>(v));
+    }
+
     void on_error(const std::exception_ptr& err) const { observer.on_error(err); }
 
-    void set_upstream(const disposable_wrapper& d)     { observer.set_upstream(d); }
-    bool is_disposed() const                           { return observer.is_disposed(); }
+    void set_upstream(const disposable_wrapper& d) { observer.set_upstream(d); }
+
+    bool is_disposed() const { return observer.is_disposed(); }
 
     void on_completed() const
     {
@@ -49,11 +55,12 @@ struct concat_source_observer_strategy
 template<constraint::decayed_type PackedContainer>
 struct concat_strategy
 {
-    template<typename...Args>
+    template<typename... Args>
         requires (!constraint::variadic_decayed_same_as<concat_strategy<PackedContainer>, Args...>)
-    concat_strategy(Args&&...args)
+    concat_strategy(Args&&... args)
         : container{std::forward<Args>(args)...}
-    {}
+    {
+    }
 
     RPP_NO_UNIQUE_ADDRESS PackedContainer container;
 
@@ -69,7 +76,7 @@ struct concat_strategy
     static void drain(constraint::decayed_same_as<PackedContainer> auto&& container, size_t index, observer<ValueType, Strategy>&& obs)
     {
         std::optional<utils::iterable_value_t<PackedContainer>> observable{};
-        bool is_last_observable = false;
+        bool                                                    is_last_observable = false;
         try
         {
             auto itr = std::cbegin(container);
@@ -80,7 +87,6 @@ struct concat_strategy
                 observable.emplace(*itr);
                 is_last_observable = std::next(itr) == std::cend(container);
             }
-
         }
         catch (...)
         {
@@ -97,17 +103,18 @@ struct concat_strategy
         if (is_last_observable)
             observable->subscribe(std::move(obs));
         else
-            observable->subscribe(observer<ValueType, concat_source_observer_strategy<observer<ValueType, Strategy>,PackedContainer>>{std::move(obs), std::forward<decltype(container)>(container), index});
+            observable->subscribe(observer<ValueType, concat_source_observer_strategy<observer<ValueType, Strategy>, PackedContainer>>{std::move(obs), std::forward<decltype(container)>(container), index});
     }
 };
 
-template<typename PackedContainer, typename ...Args>
-auto make_concat_from_iterable(Args&& ...args)
+template<typename PackedContainer, typename... Args>
+auto make_concat_from_iterable(Args&&... args)
 {
     return observable<utils::extract_observable_type_t<utils::iterable_value_t<std::decay_t<PackedContainer>>>,
-                           concat_strategy<std::decay_t<PackedContainer>>>{std::forward<Args>(args)...};
+                      concat_strategy<std::decay_t<PackedContainer>>>{std::forward<Args>(args)...};
 }
 } // namespace rpp::details
+
 namespace rpp::source
 {
 /**
@@ -137,14 +144,14 @@ namespace rpp::source
  * @ingroup creational_operators
  * @see https://reactivex.io/documentation/operators/concat.html
  */
-template<constraint::memory_model memory_model /*= memory_model::use_stack*/, rpp::constraint::observable TObservable, rpp::constraint::observable ...TObservables>
+template<constraint::memory_model memory_model /*= memory_model::use_stack*/, rpp::constraint::observable TObservable, rpp::constraint::observable... TObservables>
     requires (std::same_as<rpp::utils::extract_observable_type_t<TObservable>, rpp::utils::extract_observable_type_t<TObservables>> && ...)
-auto concat(TObservable&& obs, TObservables&&...others)
+auto concat(TObservable&& obs, TObservables&&... others)
 {
     if constexpr ((rpp::constraint::decayed_same_as<TObservable, TObservables> && ...))
     {
         using inner_container = std::array<std::decay_t<TObservable>, sizeof...(TObservables) + 1>;
-        using container = std::conditional_t<std::same_as<memory_model, rpp::memory_model::use_stack>, inner_container, details::shared_container<inner_container>>;
+        using container       = std::conditional_t<std::same_as<memory_model, rpp::memory_model::use_stack>, inner_container, details::shared_container<inner_container>>;
         return rpp::details::make_concat_from_iterable<container>(std::forward<TObservable>(obs), std::forward<TObservables>(others)...);
     }
     else

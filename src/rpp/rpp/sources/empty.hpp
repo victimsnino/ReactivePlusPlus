@@ -10,6 +10,7 @@
 #pragma once
 
 #include <rpp/sources/fwd.hpp>
+
 #include <rpp/observables/observable.hpp>
 
 namespace rpp::details

@@ -11,6 +11,7 @@
 #pragma once
 
 #include <rpp/operators/fwd.hpp>
+
 #include <rpp/defs.hpp>
 #include <rpp/operators/details/strategy.hpp>
 
@@ -34,20 +35,23 @@ struct take_while_observer_strategy
     }
 
     void on_error(const std::exception_ptr& err) const { observer.on_error(err); }
-    void on_completed() const                          { observer.on_completed(); }
 
-    void set_upstream(const disposable_wrapper& d)     { observer.set_upstream(d); }
-    bool is_disposed() const                           { return observer.is_disposed(); }
+    void on_completed() const { observer.on_completed(); }
+
+    void set_upstream(const disposable_wrapper& d) { observer.set_upstream(d); }
+
+    bool is_disposed() const { return observer.is_disposed(); }
 };
 
 template<rpp::constraint::decayed_type Fn>
 struct take_while_t : public operators::details::operator_observable_strategy<take_while_observer_strategy, Fn>
 {
     template<rpp::constraint::decayed_type T>
-       requires std::is_invocable_r_v<bool, Fn, T>
+        requires std::is_invocable_r_v<bool, Fn, T>
     using ResultValue = T;
 };
 }
+
 namespace rpp::operators
 {
 /**

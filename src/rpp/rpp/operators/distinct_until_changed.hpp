@@ -11,6 +11,7 @@
 #pragma once
 
 #include <rpp/operators/fwd.hpp>
+
 #include <rpp/defs.hpp>
 #include <rpp/operators/details/strategy.hpp>
 
@@ -38,10 +39,12 @@ struct distinct_until_changed_observer_strategy
     }
 
     void on_error(const std::exception_ptr& err) const { observer.on_error(err); }
-    void on_completed() const                          { observer.on_completed(); }
 
-    void set_upstream(const disposable_wrapper& d)     { observer.set_upstream(d); }
-    bool is_disposed() const                           { return observer.is_disposed(); }
+    void on_completed() const { observer.on_completed(); }
+
+    void set_upstream(const disposable_wrapper& d) { observer.set_upstream(d); }
+
+    bool is_disposed() const { return observer.is_disposed(); }
 };
 
 template<rpp::constraint::decayed_type EqualityFn>

@@ -12,6 +12,7 @@
 
 #include <rpp/defs.hpp>
 #include <rpp/utils/constraints.hpp>
+
 #include <concepts>
 #include <cstddef>
 #include <utility>
@@ -23,11 +24,20 @@ class tuple_leaf
 {
 public:
     tuple_leaf() = default;
-    tuple_leaf(const T& value) : m_value{value} {}
-    tuple_leaf(T&& value) : m_value{std::move(value)} {}
+
+    tuple_leaf(const T& value)
+        : m_value{value}
+    {
+    }
+
+    tuple_leaf(T&& value)
+        : m_value{std::move(value)}
+    {
+    }
 
     const T& get() const { return m_value; }
-    T&       get() { return m_value; }
+
+    T& get() { return m_value; }
 
 private:
     RPP_NO_UNIQUE_ADDRESS T m_value{};
@@ -42,27 +52,28 @@ class RPP_EMPTY_BASES tuple_impl<std::index_sequence<Indices...>, Args...> : pri
 public:
     tuple_impl() = default;
 
-    template<typename ...TArgs>
-        requires(!rpp::constraint::variadic_decayed_same_as<tuple_impl<std::index_sequence<Indices...>, Args...>, TArgs...>)
-    tuple_impl(TArgs&&...args)
+    template<typename... TArgs>
+        requires (!rpp::constraint::variadic_decayed_same_as<tuple_impl<std::index_sequence<Indices...>, Args...>, TArgs...>)
+    tuple_impl(TArgs&&... args)
         : tuple_leaf<Indices, Args>{std::forward<TArgs>(args)}...
-    {}
+    {
+    }
 
-    template<typename...TArgs, std::invocable<TArgs&&..., Args&...> Callable>
-    auto apply(Callable&& callable, TArgs&& ...args)
+    template<typename... TArgs, std::invocable<TArgs&&..., Args&...> Callable>
+    auto apply(Callable&& callable, TArgs&&... args)
     {
         return std::forward<Callable>(callable)(std::forward<TArgs>(args)..., static_cast<tuple_leaf<Indices, Args>*>(this)->get()...);
     }
 
-    template<typename...TArgs, std::invocable<TArgs&&..., Args...> Callable>
-    auto apply(Callable&& callable, TArgs&& ...args) const
+    template<typename... TArgs, std::invocable<TArgs&&..., Args...> Callable>
+    auto apply(Callable&& callable, TArgs&&... args) const
     {
         return std::forward<Callable>(callable)(std::forward<TArgs>(args)..., static_cast<const tuple_leaf<Indices, Args>*>(this)->get()...);
     }
 
     template<size_t I>
         requires (I < sizeof...(Args))
-    const auto& get() const 
+    const auto& get() const
     {
         return static_cast<const tuple_leaf<I, type_at_index_t<I>>*>(this)->get();
     }

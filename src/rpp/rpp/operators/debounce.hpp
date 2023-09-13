@@ -11,8 +11,9 @@
 #pragma once
 
 #include <rpp/operators/fwd.hpp>
-#include <rpp/operators/details/strategy.hpp>
+
 #include <rpp/disposables/composite_disposable.hpp>
+#include <rpp/operators/details/strategy.hpp>
 #include <rpp/operators/details/utils.hpp>
 
 namespace rpp::operators::details
@@ -26,11 +27,14 @@ struct debounce_disposable_wrapper
     std::shared_ptr<debounce_disposable<Observer, Worker>> disposable{};
 
     bool is_disposed() const { return disposable->is_disposed(); }
+
     void on_error(const std::exception_ptr& err) const { disposable->get_observer_under_lock()->on_error(err); }
 };
 
 template<rpp::constraint::observer Observer, typename Worker>
-class debounce_disposable final : public rpp::composite_disposable, public std::enable_shared_from_this<debounce_disposable<Observer, Worker>> {
+class debounce_disposable final : public rpp::composite_disposable
+    , public std::enable_shared_from_this<debounce_disposable<Observer, Worker>>
+{
     using T = rpp::utils::extract_observer_type_t<Observer>;
 
 public:
@@ -48,7 +52,7 @@ public:
     {
         std::lock_guard lock{m_mutex};
         m_value_to_be_emitted.emplace(std::forward<TT>(v));
-        const bool need_to_scheduled = !m_time_when_value_should_be_emitted.has_value() || !m_value_to_be_emitted.has_value();
+        const bool need_to_scheduled        = !m_time_when_value_should_be_emitted.has_value() || !m_value_to_be_emitted.has_value();
         m_time_when_value_should_be_emitted = m_worker.now() + m_period;
         if (need_to_scheduled)
         {
@@ -63,21 +67,23 @@ public:
     }
 
     pointer_under_lock<Observer> get_observer_under_lock() { return pointer_under_lock{m_observer}; }
+
 private:
     void schedule()
     {
-        m_worker.schedule(m_period,
-                          [](const debounce_disposable_wrapper<Observer, Worker>& handler) -> schedulers::optional_duration
-                          {
-                              auto value_or_duration = handler.disposable->extract_value_or_time();
-                              if (auto* duration = std::get_if<schedulers::duration>(&value_or_duration))
-                                  return *duration;
+        m_worker.schedule(
+            m_period,
+            [](const debounce_disposable_wrapper<Observer, Worker>& handler) -> schedulers::optional_duration {
+                auto value_or_duration = handler.disposable->extract_value_or_time();
+                if (auto* duration = std::get_if<schedulers::duration>(&value_or_duration))
+                    return *duration;
 
-                              if (auto* value = std::get_if<T>(&value_or_duration))
-                                  handler.disposable->get_observer_under_lock()->on_next(std::move(*value));
+                if (auto* value = std::get_if<T>(&value_or_duration))
+                    handler.disposable->get_observer_under_lock()->on_next(std::move(*value));
 
-                              return std::nullopt;
-                          }, debounce_disposable_wrapper<Observer, Worker>{this->shared_from_this()});
+                return std::nullopt;
+            },
+            debounce_disposable_wrapper<Observer, Worker>{this->shared_from_this()});
     }
 
     std::variant<std::monostate, T, schedulers::duration> extract_value_or_time()
@@ -121,7 +127,7 @@ struct debounce_observer_strategy
     }
 
     template<typename T>
-    void on_next(T&& v) const 
+    void on_next(T&& v) const
     {
         disposable->emplace_safe(std::forward<T>(v));
     }
@@ -135,7 +141,7 @@ struct debounce_observer_strategy
     void on_completed() const noexcept
     {
         disposable->dispose();
-        const auto value = disposable->extract_value();
+        const auto value    = disposable->extract_value();
         const auto observer = disposable->get_observer_under_lock();
         if (value)
             observer->on_next(std::move(value).value());

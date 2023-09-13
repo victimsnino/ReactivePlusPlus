@@ -11,8 +11,10 @@
 #pragma once
 
 #include <rpp/operators/fwd.hpp>
+
 #include <rpp/defs.hpp>
 #include <rpp/operators/details/strategy.hpp>
+
 #include <cstddef>
 
 namespace rpp::operators::details
@@ -39,10 +41,12 @@ struct take_observer_strategy
     }
 
     void on_error(const std::exception_ptr& err) const { observer.on_error(err); }
-    void on_completed() const                          { observer.on_completed(); }
 
-    void set_upstream(const disposable_wrapper& d)     { observer.set_upstream(d); }
-    bool is_disposed() const                           { return observer.is_disposed(); }
+    void on_completed() const { observer.on_completed(); }
+
+    void set_upstream(const disposable_wrapper& d) { observer.set_upstream(d); }
+
+    bool is_disposed() const { return observer.is_disposed(); }
 };
 
 struct take_t : public operator_observable_strategy_diffferent_types<take_observer_strategy, rpp::utils::types<>, size_t>

@@ -13,6 +13,7 @@
 #include <rpp/observables/fwd.hpp>
 #include <rpp/schedulers/fwd.hpp>
 #include <rpp/subjects/fwd.hpp>
+
 #include <rpp/utils/constraints.hpp>
 #include <rpp/utils/utils.hpp>
 
@@ -21,7 +22,7 @@ namespace rpp::operators
 auto as_blocking();
 
 template<typename TSelector, rpp::constraint::observable TObservable, rpp::constraint::observable... TObservables>
-    requires(!rpp::constraint::observable<TSelector> && (!utils::is_not_template_callable<TSelector> || std::invocable<TSelector, rpp::utils::convertible_to_any, utils::extract_observable_type_t<TObservable>, utils::extract_observable_type_t<TObservables>...>))
+    requires (!rpp::constraint::observable<TSelector> && (!utils::is_not_template_callable<TSelector> || std::invocable<TSelector, rpp::utils::convertible_to_any, utils::extract_observable_type_t<TObservable>, utils::extract_observable_type_t<TObservables>...>))
 auto combine_latest(TSelector&& selector, TObservable&& observable, TObservables&&... observables);
 
 template<rpp::constraint::observable TObservable, rpp::constraint::observable... TObservables>
@@ -46,7 +47,7 @@ auto filter(Fn&& predicate);
 template<typename KeySelector,
          typename ValueSelector = std::identity,
          typename KeyComparator = rpp::utils::less>
-    requires 
+    requires
     (
         (!utils::is_not_template_callable<KeySelector> || !std::same_as<void, std::invoke_result_t<KeySelector, rpp::utils::convertible_to_any>>) &&
         (!utils::is_not_template_callable<ValueSelector> || !std::same_as<void, std::invoke_result_t<ValueSelector, rpp::utils::convertible_to_any>>) &&
@@ -72,7 +73,7 @@ auto flat_map(Fn&& callable);
 
 template<rpp::constraint::observable TObservable, rpp::constraint::observable... TObservables>
     requires constraint::observables_of_same_type<std::decay_t<TObservable>, std::decay_t<TObservables>...>
-auto merge_with(TObservable&& observable, TObservables&& ...observables);
+auto merge_with(TObservable&& observable, TObservables&&... observables);
 auto merge();
 
 auto publish();
@@ -108,5 +109,5 @@ auto with_latest_from(TObservable&& observable, TObservables&&... observables);
 
 namespace rpp
 {
-    namespace ops = operators;
+namespace ops = operators;
 }

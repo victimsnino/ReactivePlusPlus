@@ -1,6 +1,7 @@
 #include <rpp/rpp.hpp>
-#include <iostream>
+
 #include <functional>
+#include <iostream>
 
 int main() // NOLINT(bugprone-exception-escape)
 {

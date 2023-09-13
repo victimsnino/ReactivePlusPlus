@@ -11,10 +11,12 @@
 #pragma once
 
 #include <rpp/schedulers/fwd.hpp>
+
 #include <rpp/schedulers/details/queue.hpp>
 #include <rpp/schedulers/details/utils.hpp>
 #include <rpp/schedulers/details/worker.hpp>
 #include <rpp/utils/functors.hpp>
+
 #include <thread>
 
 namespace rpp::schedulers
@@ -87,7 +89,7 @@ class current_thread
     friend class new_thread;
 
     inline static thread_local std::optional<details::schedulables_queue> s_queue{};
-    inline static thread_local time_point s_last_now_time{};
+    inline static thread_local time_point                                 s_last_now_time{};
 
     struct is_queue_is_empty
     {
@@ -143,7 +145,6 @@ class current_thread
     }
 
 public:
-
     static rpp::utils::finally_action<void (*)()> own_queue_and_drain_finally_if_not_owned()
     {
         const bool someone_owns_queue = s_queue.has_value();
@@ -160,7 +161,7 @@ public:
         template<rpp::schedulers::constraint::schedulable_handler Handler, typename... Args, constraint::schedulable_fn<Handler, Args...> Fn>
         static void defer_for(duration duration, Fn&& fn, Handler&& handler, Args&&... args)
         {
-            auto& queue = s_queue;
+            auto&      queue              = s_queue;
             const bool someone_owns_queue = queue.has_value();
             if (!someone_owns_queue)
             {
@@ -181,6 +182,7 @@ public:
         }
 
         static rpp::disposable_wrapper get_disposable() { return rpp::disposable_wrapper{}; }
+
         static rpp::schedulers::time_point now() { return s_last_now_time = clock_type::now(); }
     };
 

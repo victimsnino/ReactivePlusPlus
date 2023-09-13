@@ -11,17 +11,17 @@
 #pragma once
 
 #include <rpp/operators/fwd.hpp>
-#include <rpp/schedulers/current_thread.hpp>
-#include <rpp/disposables/composite_disposable.hpp>
 
 #include <rpp/defs.hpp>
+#include <rpp/disposables/composite_disposable.hpp>
 #include <rpp/operators/details/strategy.hpp>
 #include <rpp/operators/details/utils.hpp>
+#include <rpp/schedulers/current_thread.hpp>
+#include <rpp/utils/tuple.hpp>
 
 #include <atomic>
 #include <cstddef>
 #include <mutex>
-#include <rpp/utils/tuple.hpp>
 
 namespace rpp::operators::details
 {
@@ -29,9 +29,13 @@ template<rpp::constraint::observer TObserver>
 class merge_disposable final : public composite_disposable
 {
 public:
-    merge_disposable(TObserver&& observer) : m_observer(std::move(observer)) {}
+    merge_disposable(TObserver&& observer)
+        : m_observer(std::move(observer))
+    {
+    }
 
     void increment_on_completed() { m_on_completed_needed.fetch_add(1, std::memory_order_relaxed); }
+
     bool decrement_on_completed() { return m_on_completed_needed.fetch_sub(1, std::memory_order_relaxed) == 1; }
 
     pointer_under_lock<TObserver> get_observer_under_lock() { return pointer_under_lock{m_observer}; }
@@ -46,11 +50,13 @@ struct merge_observer_base_strategy
 {
     merge_observer_base_strategy(std::shared_ptr<merge_disposable<TObserver>>&& disposable)
         : m_disposable{std::move(disposable)}
-    {}
+    {
+    }
 
     merge_observer_base_strategy(const std::shared_ptr<merge_disposable<TObserver>>& disposable)
         : m_disposable{disposable}
-    {}
+    {
+    }
 
     void set_upstream(const rpp::disposable_wrapper& d) const
     {
@@ -73,7 +79,7 @@ struct merge_observer_base_strategy
         if (m_disposable->decrement_on_completed())
         {
             std::atomic_thread_fence(std::memory_order_acquire);
-            
+
             m_disposable->dispose();
             m_disposable->get_observer_under_lock()->on_completed();
         }
@@ -96,7 +102,7 @@ struct merge_observer_inner_strategy final : public merge_observer_base_strategy
 };
 
 template<rpp::constraint::observer TObserver>
-class merge_observer_strategy final : public merge_observer_base_strategy<TObserver> 
+class merge_observer_strategy final : public merge_observer_base_strategy<TObserver>
 {
 public:
     explicit merge_observer_strategy(TObserver&& observer)
@@ -129,7 +135,6 @@ struct merge_t
 
         strategy.subscribe(rpp::observer<InnerObservable, merge_observer_strategy<std::decay_t<Observer>>>{std::forward<Observer>(observer)});
     }
-
 };
 
 template<rpp::constraint::observable... TObservables>
@@ -156,7 +161,7 @@ struct merge_with_t
 
 private:
     template<rpp::constraint::observer Observer>
-    static void apply(const merge_observer_strategy<Observer>& strategy, const TObservables& ...observables)
+    static void apply(const merge_observer_strategy<Observer>& strategy, const TObservables&... observables)
     {
         (strategy.on_next(observables), ...);
     }
@@ -232,8 +237,10 @@ inline auto merge()
  */
 template<rpp::constraint::observable TObservable, rpp::constraint::observable... TObservables>
     requires constraint::observables_of_same_type<std::decay_t<TObservable>, std::decay_t<TObservables>...>
-auto merge_with(TObservable&& observable, TObservables&& ...observables)
+auto merge_with(TObservable&& observable, TObservables&&... observables)
 {
-    return details::merge_with_t<std::decay_t<TObservable>, std::decay_t<TObservables>...>{rpp::utils::tuple{std::forward<TObservable>(observable), std::forward<TObservables>(observables)...}};
+    return details::merge_with_t<std::decay_t<TObservable>, std::decay_t<TObservables>...>{
+        rpp::utils::tuple{std::forward<TObservable>(observable), std::forward<TObservables>(observables)...}
+    };
 }
 } // namespace rpp::operators

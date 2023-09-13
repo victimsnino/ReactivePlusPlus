@@ -10,12 +10,13 @@
 
 #pragma once
 
-#include <rpp/defs.hpp>
 #include <rpp/observers/fwd.hpp>
 #include <rpp/sources/fwd.hpp>
+
+#include <rpp/defs.hpp>
 #include <rpp/disposables/disposable_wrapper.hpp>
-#include <rpp/observables/observable.hpp>
 #include <rpp/observables/details/chain_strategy.hpp>
+#include <rpp/observables/observable.hpp>
 #include <rpp/utils/constraints.hpp>
 #include <rpp/utils/tuple.hpp>
 #include <rpp/utils/utils.hpp>
@@ -29,9 +30,11 @@ template<typename SubscribeStrategy, rpp::constraint::decayed_type... Args>
 class operator_observable_strategy_base
 {
 public:
-    template<rpp::constraint::decayed_same_as<Args> ...TArgs>
-    operator_observable_strategy_base(TArgs&&...args)
-        : m_vals{std::forward<TArgs>(args)...} {}
+    template<rpp::constraint::decayed_same_as<Args>... TArgs>
+    operator_observable_strategy_base(TArgs&&... args)
+        : m_vals{std::forward<TArgs>(args)...}
+    {
+    }
 
     template<rpp::constraint::decayed_type Type, rpp::constraint::observer Observer>
     auto lift(Observer&& observer) const
@@ -46,10 +49,10 @@ private:
 template<template<typename, typename...> typename Strategy, typename Types>
 struct identity_subscribe_strategy;
 
-template<template<typename, typename...> typename Strategy, typename ...Types>
+template<template<typename, typename...> typename Strategy, typename... Types>
 struct identity_subscribe_strategy<Strategy, rpp::utils::types<Types...>>
 {
-    template<rpp::constraint::decayed_type Type, rpp::constraint::observer Observer, typename ...Args>
+    template<rpp::constraint::decayed_type Type, rpp::constraint::observer Observer, typename... Args>
     static auto apply(Observer&& observer, const Args&... vals)
     {
         return rpp::observer<Type, Strategy<std::decay_t<Observer>, Types...>>{std::forward<Observer>(observer), vals...};
@@ -65,10 +68,10 @@ using operator_observable_strategy_diffferent_types = operator_observable_strate
 template<template<typename, typename, typename...> typename Strategy, typename Types>
 struct template_subscribe_strategy;
 
-template<template<typename, typename, typename...> typename Strategy, typename...Types>
+template<template<typename, typename, typename...> typename Strategy, typename... Types>
 struct template_subscribe_strategy<Strategy, rpp::utils::types<Types...>>
 {
-    template<rpp::constraint::decayed_type Type, rpp::constraint::observer Observer, typename ...Args>
+    template<rpp::constraint::decayed_type Type, rpp::constraint::observer Observer, typename... Args>
     static auto apply(Observer&& observer, const Args&... vals)
     {
         return rpp::observer<Type, Strategy<Type, std::decay_t<Observer>, Types...>>{std::forward<Observer>(observer), vals...};

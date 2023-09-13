@@ -10,18 +10,20 @@
 
 #pragma once
 
+#include <rpp/observables/fwd.hpp>
 #include <rpp/observers/fwd.hpp>
 #include <rpp/operators/fwd.hpp>
-#include <rpp/observers/observer.hpp>
-#include <rpp/observables/fwd.hpp>
-#include <rpp/disposables/disposable_wrapper.hpp>
+
 #include <rpp/disposables/composite_disposable.hpp>
+#include <rpp/disposables/disposable_wrapper.hpp>
+#include <rpp/observers/observer.hpp>
 #include <rpp/utils/functors.hpp>
+
 #include <utility>
 
 namespace rpp::operators::details
 {
-template<typename...Args>
+template<typename... Args>
 class subscribe_t;
 
 template<rpp::constraint::decayed_type Type, rpp::constraint::observer_strategy<Type> ObserverStrategy>
@@ -29,11 +31,13 @@ class subscribe_t<observer<Type, ObserverStrategy>>
 {
 public:
     explicit subscribe_t(observer<Type, ObserverStrategy>&& observer)
-        : m_observer{std::move(observer)} {}
-
+        : m_observer{std::move(observer)}
+    {
+    }
 
     template<rpp::constraint::observable_strategy<Type> Strategy>
-    void operator()(const rpp::observable<Type, Strategy>& observalbe) && {
+    void operator()(const rpp::observable<Type, Strategy>& observalbe) &&
+    {
         if (!m_observer.is_disposed())
             observalbe.subscribe(std::move(m_observer));
     }
@@ -48,18 +52,21 @@ class subscribe_t<rpp::composite_disposable_wrapper, observer<Type, ObserverStra
 public:
     explicit subscribe_t(rpp::composite_disposable_wrapper&& d, observer<Type, ObserverStrategy>&& observer)
         : m_disposable{std::move(d)}
-        , m_observer{std::move(observer)} {}
+        , m_observer{std::move(observer)}
+    {
+    }
 
     template<rpp::constraint::observable_strategy<Type> Strategy>
-    rpp::composite_disposable_wrapper operator()(const rpp::observable<Type, Strategy>& observalbe) && {
+    rpp::composite_disposable_wrapper operator()(const rpp::observable<Type, Strategy>& observalbe) &&
+    {
         if (!m_disposable.is_disposed() && !m_observer.is_disposed())
             observalbe.subscribe(observer<Type, rpp::details::with_disposable<observer<Type, ObserverStrategy>>>{m_disposable, std::move(m_observer)});
         return m_disposable;
     }
 
 private:
-    rpp::composite_disposable_wrapper               m_disposable;
-    observer<Type, ObserverStrategy> m_observer;
+    rpp::composite_disposable_wrapper m_disposable;
+    observer<Type, ObserverStrategy>  m_observer;
 };
 
 template<typename OnNext, std::invocable<const std::exception_ptr&> OnError, std::invocable<> OnCompleted>
@@ -90,11 +97,10 @@ public:
     }
 
 private:
-    RPP_NO_UNIQUE_ADDRESS OnNext m_on_next;
-    RPP_NO_UNIQUE_ADDRESS OnError m_on_error;
+    RPP_NO_UNIQUE_ADDRESS OnNext      m_on_next;
+    RPP_NO_UNIQUE_ADDRESS OnError     m_on_error;
     RPP_NO_UNIQUE_ADDRESS OnCompleted m_on_completed;
 };
-
 
 template<typename OnNext, std::invocable<const std::exception_ptr&> OnError, std::invocable<> OnCompleted>
 class subscribe_t<rpp::composite_disposable_wrapper, OnNext, OnError, OnCompleted>
@@ -129,12 +135,12 @@ public:
 
 private:
     rpp::composite_disposable_wrapper m_disposable;
-    RPP_NO_UNIQUE_ADDRESS OnNext                    m_on_next;
-    RPP_NO_UNIQUE_ADDRESS OnError                   m_on_error;
-    RPP_NO_UNIQUE_ADDRESS OnCompleted               m_on_completed;
+    RPP_NO_UNIQUE_ADDRESS OnNext      m_on_next;
+    RPP_NO_UNIQUE_ADDRESS OnError     m_on_error;
+    RPP_NO_UNIQUE_ADDRESS OnCompleted m_on_completed;
 };
 
-template<typename ...Args>
+template<typename... Args>
 subscribe_t(const Args&...) -> subscribe_t<Args...>;
 }
 

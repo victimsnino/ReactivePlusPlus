@@ -10,6 +10,7 @@
 #pragma once
 
 #include <rpp/sources/fwd.hpp>
+
 #include <rpp/observables/observable.hpp>
 
 namespace rpp::details
@@ -20,6 +21,7 @@ struct error_strategy
     using ValueType = Type;
 
     std::exception_ptr err{};
+
     void subscribe(const auto& obs) const { obs.on_error(err); }
 };
 }

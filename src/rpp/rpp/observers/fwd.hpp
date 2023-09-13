@@ -11,6 +11,7 @@
 #pragma once
 
 #include <rpp/disposables/fwd.hpp>
+
 #include <rpp/utils/constraints.hpp>
 #include <rpp/utils/function_traits.hpp>
 #include <rpp/utils/functors.hpp>
@@ -95,10 +96,10 @@ using dynamic_observer = observer<Type, details::observers::dynamic_strategy<Typ
  *
  * @ingroup observers
  */
-template<constraint::decayed_type Type, std::invocable<Type> OnNext,  std::invocable<const std::exception_ptr&> OnError, std::invocable<> OnCompleted>
+template<constraint::decayed_type Type, std::invocable<Type> OnNext, std::invocable<const std::exception_ptr&> OnError, std::invocable<> OnCompleted>
 using lambda_observer = observer<Type, details::observers::lambda_strategy<Type, OnNext, OnError, OnCompleted>>;
 
-template<constraint::decayed_type Type, std::invocable<Type> OnNext,  std::invocable<const std::exception_ptr&> OnError, std::invocable<> OnCompleted>
+template<constraint::decayed_type Type, std::invocable<Type> OnNext, std::invocable<const std::exception_ptr&> OnError, std::invocable<> OnCompleted>
 using lambda_observer_with_disposable = observer<Type, details::with_disposable<details::observers::lambda_strategy<Type, OnNext, OnError, OnCompleted>>>;
 
 /**
@@ -111,12 +112,12 @@ using lambda_observer_with_disposable = observer<Type, details::with_disposable<
  *
  * @ingroup observers
  */
-template<constraint::decayed_type Type,
+template<constraint::decayed_type                  Type,
          std::invocable<Type>                      OnNext,
-         std::invocable<const std::exception_ptr&> OnError = rpp::utils::rethrow_error_t,
+         std::invocable<const std::exception_ptr&> OnError     = rpp::utils::rethrow_error_t,
          std::invocable<>                          OnCompleted = rpp::utils::empty_function_t<>>
 auto make_lambda_observer(OnNext&&      on_next,
-                          OnError&&     on_error = {},
+                          OnError&&     on_error     = {},
                           OnCompleted&& on_completed = {}) -> lambda_observer<Type,
                                                                               std::decay_t<OnNext>,
                                                                               std::decay_t<OnError>,
@@ -133,14 +134,14 @@ auto make_lambda_observer(OnNext&&      on_next,
  *
  * @ingroup observers
  */
-template<constraint::decayed_type Type,
+template<constraint::decayed_type                  Type,
          std::invocable<Type>                      OnNext,
-         std::invocable<const std::exception_ptr&> OnError = rpp::utils::rethrow_error_t,
+         std::invocable<const std::exception_ptr&> OnError     = rpp::utils::rethrow_error_t,
          std::invocable<>                          OnCompleted = rpp::utils::empty_function_t<>>
 auto make_lambda_observer(const rpp::composite_disposable_wrapper& d,
-                          OnNext&&      on_next,
-                          OnError&&     on_error = {},
-                          OnCompleted&& on_completed = {}) -> lambda_observer_with_disposable<Type,
+                          OnNext&&                                 on_next,
+                          OnError&&                                on_error     = {},
+                          OnCompleted&&                            on_completed = {}) -> lambda_observer_with_disposable<Type,
                                                                                               std::decay_t<OnNext>,
                                                                                               std::decay_t<OnError>,
                                                                                               std::decay_t<OnCompleted>>;
@@ -155,17 +156,18 @@ auto make_lambda_observer(const rpp::composite_disposable_wrapper& d,
  *
  * @ingroup observers
  */
-template<typename                                  OnNext,
-         std::invocable<const std::exception_ptr&> OnError = rpp::utils::rethrow_error_t,
+template<typename OnNext,
+         std::invocable<const std::exception_ptr&> OnError     = rpp::utils::rethrow_error_t,
          std::invocable<>                          OnCompleted = rpp::utils::empty_function_t<>,
-         constraint::decayed_type                  Type = rpp::utils::decayed_function_argument_t<OnNext>>
+         constraint::decayed_type                  Type        = rpp::utils::decayed_function_argument_t<OnNext>>
     requires std::invocable<OnNext, Type>
 auto make_lambda_observer(OnNext&&      on_next,
-                          OnError&&     on_error = {},
+                          OnError&&     on_error     = {},
                           OnCompleted&& on_completed = {})
 {
     return make_lambda_observer<Type>(std::forward<OnNext>(on_next), std::forward<OnError>(on_error), std::forward<OnCompleted>(on_completed));
 }
+
 /**
  * @brief Constructs observer specialized with passed callbacks. Most easiesest way to construct observer "on the fly" via lambdas and etc.
  *
@@ -178,42 +180,47 @@ auto make_lambda_observer(OnNext&&      on_next,
  * @ingroup observers
  */
 
-template<typename                                  OnNext,
-         std::invocable<const std::exception_ptr&> OnError = rpp::utils::rethrow_error_t,
+template<typename OnNext,
+         std::invocable<const std::exception_ptr&> OnError     = rpp::utils::rethrow_error_t,
          std::invocable<>                          OnCompleted = rpp::utils::empty_function_t<>,
-         constraint::decayed_type                  Type = rpp::utils::decayed_function_argument_t<OnNext>>
+         constraint::decayed_type                  Type        = rpp::utils::decayed_function_argument_t<OnNext>>
     requires std::invocable<OnNext, Type>
 auto make_lambda_observer(const rpp::composite_disposable_wrapper& d,
-                          OnNext&&      on_next,
-                          OnError&&     on_error = {},
-                          OnCompleted&& on_completed = {})
+                          OnNext&&                                 on_next,
+                          OnError&&                                on_error     = {},
+                          OnCompleted&&                            on_completed = {})
 {
     return make_lambda_observer<Type>(d, std::forward<OnNext>(on_next), std::forward<OnError>(on_error), std::forward<OnCompleted>(on_completed));
 }
 } // namespace rpp
-
 
 namespace rpp::details
 {
 struct fake_strategy
 {
     static void on_next(const auto&) noexcept {}
+
     static void on_error(const std::exception_ptr&) noexcept {}
+
     static void on_completed() noexcept {}
 
     static void set_upstream(const disposable_wrapper&) noexcept {}
+
     static bool is_disposed() noexcept { return true; }
 };
 
 template<typename T>
 using fake_observer = rpp::observer<T, fake_strategy>;
 }
+
 namespace rpp::utils
 {
 namespace details
 {
     template<typename T>
-    struct extract_observer_type : std::false_type{};
+    struct extract_observer_type : std::false_type
+    {
+    };
 
     template<typename TT, typename Strategy>
     struct extract_observer_type<rpp::observer<TT, Strategy>> : std::true_type
@@ -222,6 +229,7 @@ namespace details
     };
 
 } // namespace details
+
 template<typename T>
 using extract_observer_type_t = typename details::extract_observer_type<T>::type;
 } // namespace rpp::utils

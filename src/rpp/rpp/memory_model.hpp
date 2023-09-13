@@ -14,10 +14,15 @@
 
 namespace rpp::memory_model
 {
-    // copy and move everywhere when needed
-    struct use_stack{};
-    // make shared_ptr once and avoid any future copies/moves
-    struct use_shared{};
+// copy and move everywhere when needed
+struct use_stack
+{
+};
+
+// make shared_ptr once and avoid any future copies/moves
+struct use_shared
+{
+};
 } // namespace rpp::memory_model
 
 namespace rpp::constraint

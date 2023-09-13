@@ -17,7 +17,7 @@
 namespace rpp::operators::details
 {
 template<rpp::constraint::subject Subject>
-struct multicast_t 
+struct multicast_t
 {
     RPP_NO_UNIQUE_ADDRESS Subject m_subject;
 

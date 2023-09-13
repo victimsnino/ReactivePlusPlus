@@ -11,17 +11,17 @@
 #pragma once
 
 #include <rpp/disposables/fwd.hpp>
-#include <rpp/utils/constraints.hpp>
 
+#include <rpp/utils/constraints.hpp>
 
 #include <chrono>
 #include <optional>
 
 namespace rpp::schedulers
 {
-using clock_type = std::chrono::steady_clock;
-using time_point = clock_type::time_point;
-using duration = std::chrono::nanoseconds;
+using clock_type        = std::chrono::steady_clock;
+using time_point        = clock_type::time_point;
+using duration          = std::chrono::nanoseconds;
 using optional_duration = std::optional<duration>;
 }
 
@@ -29,7 +29,8 @@ namespace rpp::schedulers::details
 {
 struct fake_schedulable_handler
 {
-    constexpr static bool is_disposed() {return true;}
+    constexpr static bool is_disposed() { return true; }
+
     static void on_error(const std::exception_ptr&) {}
 };
 }
@@ -37,11 +38,11 @@ struct fake_schedulable_handler
 namespace rpp::schedulers::constraint
 {
 // returns std::nullopt in case of don't need to re-schedule schedulable or some duration which will be added to "now" and re-scheduled
-template<typename Fn, typename...Args>
+template<typename Fn, typename... Args>
 concept schedulable_fn = std::is_invocable_r_v<optional_duration, Fn, Args&...> && std::same_as<optional_duration, std::invoke_result_t<Fn, Args&...>>;
 
 template<typename Handler>
-concept schedulable_handler = requires(const Handler& handler) 
+concept schedulable_handler = requires(const Handler& handler)
 {
     {handler.is_disposed()} -> std::same_as<bool>;
     handler.on_error(std::exception_ptr{});
@@ -71,10 +72,14 @@ namespace rpp::schedulers::constraint
 namespace details
 {
     template<typename T>
-    struct is_worker : std::false_type{};
+    struct is_worker : std::false_type
+    {
+    };
 
     template<constraint::strategy Strategy>
-    struct is_worker<rpp::schedulers::worker<Strategy>> : std::true_type{};
+    struct is_worker<rpp::schedulers::worker<Strategy>> : std::true_type
+    {
+    };
 } // namespace details
 
 template<typename W>

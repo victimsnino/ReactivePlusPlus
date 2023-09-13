@@ -9,13 +9,13 @@
 
 #pragma once
 
-#include <rpp/disposables/disposable_wrapper.hpp>
 #include <rpp/disposables/callback_disposable.hpp>
 #include <rpp/disposables/composite_disposable.hpp>
+#include <rpp/disposables/disposable_wrapper.hpp>
 #include <rpp/observers/dynamic_observer.hpp>
 #include <rpp/utils/constraints.hpp>
-#include <rpp/utils/utils.hpp>
 #include <rpp/utils/functors.hpp>
+#include <rpp/utils/utils.hpp>
 
 #include <algorithm>
 #include <memory>
@@ -25,11 +25,17 @@
 
 namespace rpp::subjects::details
 {
-struct completed{};
-struct disposed{};
+struct completed
+{
+};
+
+struct disposed
+{
+};
 
 template<rpp::constraint::decayed_type Type>
-class subject_state final : public std::enable_shared_from_this<subject_state<Type>>, public composite_disposable
+class subject_state final : public std::enable_shared_from_this<subject_state<Type>>
+    , public composite_disposable
 {
     using shared_observers = std::shared_ptr<std::vector<rpp::dynamic_observer<Type>>>;
     using state_t          = std::variant<shared_observers, std::exception_ptr, completed, disposed>;
@@ -41,8 +47,7 @@ public:
         std::unique_lock lock{m_mutex};
         process_state_unsafe(
             m_state,
-            [&](const shared_observers& observers)
-            {
+            [&](const shared_observers& observers) {
                 auto new_observers       = make_copy_of_subscribed_observers(true, observers);
                 auto observer_as_dynamic = std::forward<TObs>(observer).as_dynamic();
                 new_observers->push_back(observer_as_dynamic);
@@ -51,13 +56,11 @@ public:
                 lock.unlock();
                 set_upstream(observer_as_dynamic);
             },
-            [&](const std::exception_ptr& err)
-            {
+            [&](const std::exception_ptr& err) {
                 lock.unlock();
                 observer.on_error(err);
             },
-            [&](completed)
-            {
+            [&](completed) {
                 lock.unlock();
                 observer.on_completed();
             });
@@ -96,9 +99,8 @@ private:
                 {
                     std::unique_lock lock{shared->m_mutex};
                     process_state_unsafe(shared->m_state,
-                                         [&](const shared_observers& observers)
-                                         {
-                                            shared->m_state = make_copy_of_subscribed_observers(false, observers);
+                                         [&](const shared_observers& observers) {
+                                             shared->m_state = make_copy_of_subscribed_observers(false, observers);
                                          });
                 }
             })});

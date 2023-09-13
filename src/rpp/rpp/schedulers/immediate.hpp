@@ -11,10 +11,11 @@
 #pragma once
 
 #include <rpp/schedulers/fwd.hpp>
-#include <rpp/schedulers/details/worker.hpp>
-#include <rpp/schedulers/details/utils.hpp>
-#include <rpp/utils/functors.hpp>
+
 #include <rpp/disposables/disposable_wrapper.hpp>
+#include <rpp/schedulers/details/utils.hpp>
+#include <rpp/schedulers/details/worker.hpp>
+#include <rpp/utils/functors.hpp>
 
 namespace rpp::schedulers
 {
@@ -66,14 +67,14 @@ public:
     class worker_strategy
     {
     public:
-        template<rpp::schedulers::constraint::schedulable_handler Handler, typename...Args, constraint::schedulable_fn<Handler, Args...> Fn>
-        static void defer_for(duration duration, Fn&& fn, Handler&& handler, Args&&...args)
+        template<rpp::schedulers::constraint::schedulable_handler Handler, typename... Args, constraint::schedulable_fn<Handler, Args...> Fn>
+        static void defer_for(duration duration, Fn&& fn, Handler&& handler, Args&&... args)
         {
             details::immediate_scheduling_while_condition(duration, rpp::utils::return_true{}, std::forward<Fn>(fn), std::forward<Handler>(handler), std::forward<Args>(args)...);
         }
 
-        static rpp::disposable_wrapper get_disposable() {return rpp::disposable_wrapper{}; }
-        
+        static rpp::disposable_wrapper get_disposable() { return rpp::disposable_wrapper{}; }
+
         static rpp::schedulers::time_point now() { return rpp::schedulers::clock_type::now(); }
     };
 

@@ -11,8 +11,9 @@
 #pragma once
 
 #include <rpp/disposables/fwd.hpp>
-#include <rpp/disposables/interface_composite_disposable.hpp>
+
 #include <rpp/disposables/disposable_wrapper.hpp>
+#include <rpp/disposables/interface_composite_disposable.hpp>
 
 #include <atomic>
 #include <memory>
@@ -30,9 +31,9 @@ class composite_disposable : public interface_composite_disposable
 public:
     composite_disposable() = default;
 
-    composite_disposable(const composite_disposable&) = delete;
+    composite_disposable(const composite_disposable&)           = delete;
     composite_disposable(composite_disposable&& other) noexcept = delete;
-    
+
     bool is_disposed() const noexcept final
     {
         return m_current_state.load(std::memory_order_acquire) == State::Disposed;
@@ -60,7 +61,7 @@ public:
     }
 
     using interface_composite_disposable::add;
-    
+
     void add(disposable_wrapper disposable) override
     {
         if (disposable.is_disposed() || disposable.get_original().get() == this)

@@ -11,8 +11,10 @@
 #pragma once
 
 #include <rpp/operators/fwd.hpp>
+
 #include <rpp/defs.hpp>
 #include <rpp/operators/details/strategy.hpp>
+
 #include <cstddef>
 #include <type_traits>
 
@@ -24,7 +26,7 @@ struct map_observer_strategy
     using DisposableStrategyToUseWithThis = rpp::details::none_disposable_strategy;
 
     RPP_NO_UNIQUE_ADDRESS TObserver observer;
-    RPP_NO_UNIQUE_ADDRESS Fn fn;
+    RPP_NO_UNIQUE_ADDRESS Fn        fn;
 
     template<typename T>
     void on_next(T&& v) const
@@ -33,14 +35,16 @@ struct map_observer_strategy
     }
 
     void on_error(const std::exception_ptr& err) const { observer.on_error(err); }
-    void on_completed() const                          { observer.on_completed(); }
 
-    void set_upstream(const disposable_wrapper& d)     { observer.set_upstream(d); }
-    bool is_disposed() const                           { return observer.is_disposed(); }
+    void on_completed() const { observer.on_completed(); }
+
+    void set_upstream(const disposable_wrapper& d) { observer.set_upstream(d); }
+
+    bool is_disposed() const { return observer.is_disposed(); }
 };
 
 template<rpp::constraint::decayed_type Fn>
-struct map_t : public operators::details::operator_observable_strategy<map_observer_strategy, Fn> 
+struct map_t : public operators::details::operator_observable_strategy<map_observer_strategy, Fn>
 {
     template<rpp::constraint::decayed_type T>
         requires std::invocable<Fn, T>
