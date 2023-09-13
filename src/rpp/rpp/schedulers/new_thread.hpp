@@ -10,15 +10,14 @@
 
 #pragma once
 
-#include <rpp/schedulers/current_thread.hpp>
 #include <rpp/disposables/details/base_disposable.hpp>
+#include <rpp/schedulers/current_thread.hpp>
 
 #include <atomic>
 #include <condition_variable>
 #include <memory>
 #include <mutex>
 #include <thread>
-
 
 namespace rpp::schedulers
 {
@@ -33,8 +32,11 @@ class new_thread
     class disposable final : public rpp::details::base_disposable
     {
     public:
-        disposable() {
-            while (!m_state->queue_ptr.load(std::memory_order_relaxed)) {};
+        disposable()
+        {
+            while (!m_state->queue_ptr.load(std::memory_order_relaxed))
+            {
+            };
         }
 
         ~disposable() override
@@ -86,7 +88,7 @@ class new_thread
         static void data_thread(std::shared_ptr<state_t> state)
         {
             std::unique_lock lock{state->queue_mutex};
-            auto& queue = current_thread::s_queue;
+            auto&            queue = current_thread::s_queue;
             state->queue_ptr.store(&queue.emplace(std::shared_ptr<std::condition_variable_any>{state, &state->cv}), std::memory_order_relaxed);
 
             while (!state->is_disposed.load(std::memory_order_relaxed) && (!state->is_destroying.load(std::memory_order_relaxed) || !queue->is_empty()))
@@ -102,7 +104,7 @@ class new_thread
                     continue;
                 }
 
-                if (current_thread::s_last_now_time < queue->top()->get_timepoint()) 
+                if (current_thread::s_last_now_time < queue->top()->get_timepoint())
                 {
                     if (const auto now = worker_strategy::now(); now < queue->top()->get_timepoint())
                     {
@@ -145,7 +147,7 @@ public:
 
         static rpp::schedulers::time_point now() { return current_thread::worker_strategy::now(); }
 
-private:
+    private:
         std::shared_ptr<disposable> m_state = std::make_shared<disposable>();
     };
 
@@ -153,6 +155,5 @@ private:
     {
         return rpp::schedulers::worker<worker_strategy>{};
     }
-
 };
 }

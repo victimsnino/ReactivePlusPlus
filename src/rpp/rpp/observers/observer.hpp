@@ -10,13 +10,14 @@
 
 #pragma once
 
-#include <rpp/defs.hpp>
 #include <rpp/observers/fwd.hpp>
-#include <rpp/observers/dynamic_observer.hpp>
+
+#include <rpp/defs.hpp>
 #include <rpp/disposables/composite_disposable.hpp>
 #include <rpp/disposables/disposable_wrapper.hpp>
-#include <rpp/utils/functors.hpp>
+#include <rpp/observers/dynamic_observer.hpp>
 #include <rpp/utils/exceptions.hpp>
+#include <rpp/utils/functors.hpp>
 #include <rpp/utils/utils.hpp>
 
 #include <exception>
@@ -45,7 +46,7 @@ public:
     void dispose() const
     {
         m_is_disposed = true;
-        for(const auto& d : m_upstreams)
+        for (const auto& d : m_upstreams)
             d.dispose();
     }
 
@@ -57,14 +58,16 @@ private:
 struct none_disposable_strategy
 {
     static void add(const rpp::disposable_wrapper&) {}
+
     static bool is_disposed() noexcept { return false; }
+
     static void dispose() {}
 };
 
 template<typename T>
 auto* deduce_disposable_strategy()
 {
-    if constexpr (requires {typename T::DisposableStrategyToUseWithThis; })
+    if constexpr (requires { typename T::DisposableStrategyToUseWithThis; })
         return static_cast<typename T::DisposableStrategyToUseWithThis*>(nullptr);
     else
         return static_cast<local_disposable_strategy*>(nullptr);
@@ -80,14 +83,16 @@ protected:
     template<typename... Args>
         requires constraint::is_constructible_from<Strategy, Args&&...>
     explicit observer_impl(DisposablesStrategy&& strategy, Args&&... args)
-        : m_strategy{std::forward<Args>(args)...}, m_disposable{std::move(strategy)}
+        : m_strategy{std::forward<Args>(args)...}
+        , m_disposable{std::move(strategy)}
     {
     }
 
     template<typename... Args>
-        requires (constraint::is_constructible_from<Strategy, Args&&...> && !rpp::constraint::variadic_decayed_same_as<observer_impl<Type, Strategy, DisposablesStrategy>, Args...>)
+        requires (constraint::is_constructible_from<Strategy, Args && ...> && !rpp::constraint::variadic_decayed_same_as<observer_impl<Type, Strategy, DisposablesStrategy>, Args...>)
     explicit observer_impl(Args&&... args)
-        : m_strategy{std::forward<Args>(args)...}, m_disposable{}
+        : m_strategy{std::forward<Args>(args)...}
+        , m_disposable{}
     {
     }
 
@@ -96,16 +101,18 @@ protected:
 
 public:
     using DisposableStrategyToUseWithThis = none_disposable_strategy;
-    
-    using on_next_lvalue = void(observer_impl::*)(const Type&) const noexcept;
-    using on_next_rvalue = void(observer_impl::*)(Type&&) const noexcept;
+
+    using on_next_lvalue = void (observer_impl::*)(const Type&) const noexcept;
+    using on_next_rvalue = void (observer_impl::*)(Type&&) const noexcept;
+
     /**
      * @brief Observable calls this method to pass disposable. Observer disposes this disposable WHEN observer wants to unsubscribe.
      * @note This method can be called multiple times, but new call means "replace upstream with this new one". So, tracked only last one
      */
     void set_upstream(const disposable_wrapper& d)
     {
-        if (is_disposed()) {
+        if (is_disposed())
+        {
             d.dispose();
             return;
         }
@@ -122,8 +129,9 @@ public:
      */
     bool is_disposed() const noexcept
     {
-        return m_disposable.is_disposed() ||  m_strategy.is_disposed();
+        return m_disposable.is_disposed() || m_strategy.is_disposed();
     }
+
     /**
      * @brief Observable calls this method to notify observer about new value.
      *
@@ -136,7 +144,7 @@ public:
             if (!is_disposed())
                 m_strategy.on_next(v);
         }
-        catch(...)
+        catch (...)
         {
             on_error(std::current_exception());
         }
@@ -154,7 +162,7 @@ public:
             if (!is_disposed())
                 m_strategy.on_next(std::move(v));
         }
-        catch(...)
+        catch (...)
         {
             on_error(std::current_exception());
         }
@@ -169,7 +177,9 @@ public:
     {
         if (!is_disposed())
         {
-            rpp::utils::finally_action finally{[&]{ m_disposable.dispose(); }};
+            rpp::utils::finally_action finally{[&] {
+                m_disposable.dispose();
+            }};
             m_strategy.on_error(err);
         }
     }
@@ -182,7 +192,9 @@ public:
     {
         if (!is_disposed())
         {
-            rpp::utils::finally_action finally{[&]{ m_disposable.dispose(); }};
+            rpp::utils::finally_action finally{[&] {
+                m_disposable.dispose();
+            }};
             m_strategy.on_completed();
         }
     }
@@ -192,6 +204,7 @@ private:
     RPP_NO_UNIQUE_ADDRESS mutable DisposablesStrategy m_disposable;
 };
 }
+
 namespace rpp
 {
 /**
@@ -212,11 +225,12 @@ template<constraint::decayed_type Type, constraint::observer_strategy<Type> Stra
 class observer final : public details::observer_impl<Type, Strategy, details::deduce_disposable_strategy_t<Strategy>>
 {
 public:
-    template<typename ...Args>
-        requires (!constraint::variadic_decayed_same_as<observer<Type, Strategy>, Args...> && constraint::is_constructible_from<Strategy, Args&&...>)
-    explicit observer(Args&& ...args)
+    template<typename... Args>
+        requires (!constraint::variadic_decayed_same_as<observer<Type, Strategy>, Args...> && constraint::is_constructible_from<Strategy, Args && ...>)
+    explicit observer(Args&&... args)
         : details::observer_impl<Type, Strategy, details::deduce_disposable_strategy_t<Strategy>>{std::forward<Args>(args)...}
-    {}
+    {
+    }
 
     observer(const observer&)     = delete;
     observer(observer&&) noexcept = default;
@@ -235,11 +249,12 @@ class observer<Type, details::with_disposable<Strategy>> final
     : public details::observer_impl<Type, Strategy, details::external_disposable_strategy>
 {
 public:
-    template<typename ...Args>
-        requires (constraint::is_constructible_from<Strategy, Args&&...>)
-    explicit observer(composite_disposable_wrapper disposable, Args&& ...args)
+    template<typename... Args>
+        requires (constraint::is_constructible_from<Strategy, Args && ...>)
+    explicit observer(composite_disposable_wrapper disposable, Args&&... args)
         : details::observer_impl<Type, Strategy, details::external_disposable_strategy>{details::external_disposable_strategy{std::move(disposable)}, std::forward<Args>(args)...}
-    {}
+    {
+    }
 
     observer(const observer&)     = delete;
     observer(observer&&) noexcept = default;
@@ -262,7 +277,8 @@ public:
         requires (!std::same_as<TStrategy, rpp::details::observers::dynamic_strategy<Type>>)
     explicit observer(observer<Type, TStrategy>&& other)
         : details::observer_impl<Type, rpp::details::observers::dynamic_strategy<Type>, details::none_disposable_strategy>{std::move(other)}
-    {}
+    {
+    }
 
     observer(const observer&)     = default;
     observer(observer&&) noexcept = default;

@@ -11,13 +11,14 @@
 #pragma once
 
 #include <rpp/operators/fwd.hpp>
+
+#include <rpp/disposables/refcount_disposable.hpp>
+#include <rpp/observables/grouped_observable.hpp>
 #include <rpp/operators/details/strategy.hpp>
 #include <rpp/operators/details/utils.hpp>
-#include <rpp/observables/grouped_observable.hpp>
 #include <rpp/subjects/publish_subject.hpp>
-#include <rpp/disposables/refcount_disposable.hpp>
-
 #include <rpp/utils/function_traits.hpp>
+
 #include <map>
 #include <type_traits>
 
@@ -40,15 +41,21 @@ struct group_by_inner_observer_strategy
 {
     using DisposableStrategyToUseWithThis = rpp::details::none_disposable_strategy;
 
-    RPP_NO_UNIQUE_ADDRESS TObserver    observer;
+    RPP_NO_UNIQUE_ADDRESS TObserver   observer;
     rpp::composite_disposable_wrapper disposable;
 
     template<typename T>
-    void on_next(T&& v) const                          { observer.on_next(std::forward<T>(v)); }
-    void on_error(const std::exception_ptr& err) const { observer.on_error(err); }
-    void on_completed() const                          { observer.on_completed(); }
+    void on_next(T&& v) const
+    {
+        observer.on_next(std::forward<T>(v));
+    }
 
-    bool is_disposed() const                             { return observer.is_disposed(); }
+    void on_error(const std::exception_ptr& err) const { observer.on_error(err); }
+
+    void on_completed() const { observer.on_completed(); }
+
+    bool is_disposed() const { return observer.is_disposed(); }
+
     void set_upstream(const disposable_wrapper& d) const { disposable.add(d); }
 };
 
@@ -66,12 +73,12 @@ struct group_by_observer_strategy
     RPP_NO_UNIQUE_ADDRESS KeyComparator comparator;
 
     mutable std::map<TKey, subjects::publish_subject<Type>, KeyComparator> key_to_subject{};
-    std::shared_ptr<refcount_disposable> disposable = std::make_shared<refcount_disposable>();
+    std::shared_ptr<refcount_disposable>                                   disposable = std::make_shared<refcount_disposable>();
 
     RPP_CALL_DURING_CONSTRUCTION(
-    {
-        observer.set_upstream(rpp::disposable_wrapper{disposable});
-    });
+        {
+            observer.set_upstream(rpp::disposable_wrapper{disposable});
+        });
 
     void set_upstream(const rpp::disposable_wrapper& d) const
     {
@@ -128,7 +135,10 @@ private:
         if (inserted)
         {
             disposable->add(rpp::disposable_wrapper::from_weak(itr->second.get_disposable().get_original()));
-            obs.on_next(rpp::grouped_observable_group_by<TKey, Type>{std::move(key), group_by_observable_strategy<Type>{itr->second, disposable}});
+            obs.on_next(rpp::grouped_observable_group_by<TKey, Type>{
+                std::move(key),
+                group_by_observable_strategy<Type>{itr->second, disposable}
+            });
         }
 
         return &itr->second;
@@ -140,7 +150,7 @@ struct group_by_observable_strategy
 {
     using ValueType = T;
 
-    rpp::subjects::publish_subject<T> subj;
+    rpp::subjects::publish_subject<T>  subj;
     std::weak_ptr<refcount_disposable> disposable;
 
     template<rpp::constraint::observer_strategy<T> Strategy>
@@ -161,12 +171,11 @@ struct group_by_t : public operators::details::template_operator_observable_stra
     using operators::details::template_operator_observable_strategy<group_by_observer_strategy, KeySelector, ValueSelector, KeyComparator>::template_operator_observable_strategy;
 
     template<rpp::constraint::decayed_type T>
-        requires std::invocable<KeySelector, T> &&
-                 std::invocable<ValueSelector, T> &&
-                 std::strict_weak_order<KeyComparator, rpp::utils::decayed_invoke_result_t<KeySelector, T>, rpp::utils::decayed_invoke_result_t<KeySelector, T>>
+        requires std::invocable<KeySelector, T> && std::invocable<ValueSelector, T> && std::strict_weak_order<KeyComparator, rpp::utils::decayed_invoke_result_t<KeySelector, T>, rpp::utils::decayed_invoke_result_t<KeySelector, T>>
     using ResultValue = grouped_observable<utils::decayed_invoke_result_t<KeySelector, T>, rpp::utils::decayed_invoke_result_t<ValueSelector, T>, group_by_observable_strategy<utils::decayed_invoke_result_t<ValueSelector, T>>>;
 };
 }
+
 namespace rpp::operators
 {
 /**
@@ -201,17 +210,13 @@ namespace rpp::operators
 template<typename KeySelector,
          typename ValueSelector,
          typename KeyComparator>
-    requires
-    (
-        (!utils::is_not_template_callable<KeySelector> || !std::same_as<void, std::invoke_result_t<KeySelector, rpp::utils::convertible_to_any>>) &&
-        (!utils::is_not_template_callable<ValueSelector> || !std::same_as<void, std::invoke_result_t<ValueSelector, rpp::utils::convertible_to_any>>) &&
-        (!utils::is_not_template_callable<KeyComparator> || std::strict_weak_order<KeyComparator, rpp::utils::convertible_to_any, rpp::utils::convertible_to_any>)
-    )
+    requires (
+        (!utils::is_not_template_callable<KeySelector> || !std::same_as<void, std::invoke_result_t<KeySelector, rpp::utils::convertible_to_any>>) && (!utils::is_not_template_callable<ValueSelector> || !std::same_as<void, std::invoke_result_t<ValueSelector, rpp::utils::convertible_to_any>>) && (!utils::is_not_template_callable<KeyComparator> || std::strict_weak_order<KeyComparator, rpp::utils::convertible_to_any, rpp::utils::convertible_to_any>))
 auto group_by(KeySelector&& key_selector, ValueSelector&& value_selector, KeyComparator&& comparator)
 {
-    return details::group_by_t<std::decay_t<KeySelector>, std::decay_t<ValueSelector>, std::decay_t<KeyComparator>>
-    {
-        std::forward<KeySelector>(key_selector), std::forward<ValueSelector>(value_selector), std::forward<KeyComparator>(comparator)
-    };
+    return details::group_by_t<std::decay_t<KeySelector>, std::decay_t<ValueSelector>, std::decay_t<KeyComparator>>{
+        std::forward<KeySelector>(key_selector),
+        std::forward<ValueSelector>(value_selector),
+        std::forward<KeyComparator>(comparator)};
 }
 } // namespace rpp::operators

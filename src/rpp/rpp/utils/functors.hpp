@@ -11,33 +11,43 @@
 #pragma once
 
 #include <stdexcept>
-
 #include <tuple>
 
 namespace rpp::utils
 {
-template<class... Ts> struct overloaded : Ts... { using Ts::operator()...; };
-template<class... Ts> overloaded(Ts...) -> overloaded<Ts...>;
+template<class... Ts>
+struct overloaded : Ts...
+{
+    using Ts::operator()...;
+};
+template<class... Ts>
+overloaded(Ts...) -> overloaded<Ts...>;
 
-template<typename ...Types>
+template<typename... Types>
 struct empty_function_t
 {
     constexpr void operator()(const Types&...) const noexcept {}
 };
 
-template<typename ...Types>
-void empty_function(const Types&...){}
+template<typename... Types>
+void empty_function(const Types&...)
+{
+}
 
 struct empty_function_any_t
 {
-    template<typename ...Types>
-    constexpr void operator()(const Types&...) const noexcept {}
+    template<typename... Types>
+    constexpr void operator()(const Types&...) const noexcept
+    {
+    }
 };
 
 struct empty_function_any_by_lvalue_t
 {
-    template<typename ...Types>
-    constexpr void operator()(Types...) const noexcept {}
+    template<typename... Types>
+    constexpr void operator()(Types...) const noexcept
+    {
+    }
 };
 
 struct rethrow_error_t
@@ -48,22 +58,28 @@ struct rethrow_error_t
 struct equal_to
 {
     template<typename T>
-    bool operator()(const T& l, const T& r) const { return l == r; }
+    bool operator()(const T& l, const T& r) const
+    {
+        return l == r;
+    }
 };
 
 struct return_true
 {
-    bool operator()() const {return true;}
+    bool operator()() const { return true; }
 };
 
 struct less
 {
     template<typename T>
-    bool operator()(const T& l, const T& r) const { return l < r; }
+    bool operator()(const T& l, const T& r) const
+    {
+        return l < r;
+    }
 };
 
 struct pack_to_tuple
 {
-    auto operator()(auto&& ...vals) const { return std::make_tuple(std::forward<decltype(vals)>(vals)...); }
+    auto operator()(auto&&... vals) const { return std::make_tuple(std::forward<decltype(vals)>(vals)...); }
 };
 } // namespace rpp::utils

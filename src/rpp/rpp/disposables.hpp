@@ -18,8 +18,9 @@
  */
 
 #include <rpp/disposables/fwd.hpp>
-#include <rpp/disposables/interface_disposable.hpp>
+
+#include <rpp/disposables/callback_disposable.hpp>
 #include <rpp/disposables/composite_disposable.hpp>
 #include <rpp/disposables/disposable_wrapper.hpp>
-#include <rpp/disposables/callback_disposable.hpp>
+#include <rpp/disposables/interface_disposable.hpp>
 #include <rpp/disposables/refcount_disposable.hpp>

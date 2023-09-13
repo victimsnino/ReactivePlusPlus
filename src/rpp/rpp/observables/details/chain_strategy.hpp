@@ -9,9 +9,11 @@
 
 #pragma once
 
-#include <rpp/observers/fwd.hpp>
 #include <rpp/observables/fwd.hpp>
+#include <rpp/observers/fwd.hpp>
+
 #include <rpp/defs.hpp>
+
 namespace rpp
 {
 template<typename TStrategy, typename... TStrategies>
@@ -20,15 +22,17 @@ class observable_chain_strategy
 public:
     using ValueType = typename TStrategy::template ResultValue<typename observable_chain_strategy<TStrategies...>::ValueType>;
 
-    observable_chain_strategy(const TStrategy& strategy, const TStrategies& ...strategies)
+    observable_chain_strategy(const TStrategy& strategy, const TStrategies&... strategies)
         : m_strategy(strategy)
         , m_strategies(strategies...)
-    {}
+    {
+    }
 
     observable_chain_strategy(const TStrategy& strategy, const observable_chain_strategy<TStrategies...>& strategies)
         : m_strategy(strategy)
         , m_strategies(strategies)
-    {}
+    {
+    }
 
     template<rpp::constraint::observer Observer>
     void subscribe(Observer&& observer) const
@@ -52,7 +56,8 @@ public:
 
     observable_chain_strategy(const TStrategy& strategy)
         : m_strategy(strategy)
-    {}
+    {
+    }
 
     template<rpp::constraint::observer Observer>
     void subscribe(Observer&& observer) const
@@ -70,7 +75,7 @@ struct make_chain_observable
     using type = observable_chain_strategy<New, Old>;
 };
 
-template<typename New, typename ...Args>
+template<typename New, typename... Args>
 struct make_chain_observable<New, observable_chain_strategy<Args...>>
 {
     using type = observable_chain_strategy<New, Args...>;

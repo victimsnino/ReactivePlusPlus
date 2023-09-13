@@ -17,6 +17,6 @@
  * @ingroup rpp
  */
 
-#include <rpp/schedulers/immediate.hpp>
 #include <rpp/schedulers/current_thread.hpp>
+#include <rpp/schedulers/immediate.hpp>
 #include <rpp/schedulers/new_thread.hpp>

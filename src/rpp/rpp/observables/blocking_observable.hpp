@@ -9,8 +9,9 @@
 
 #pragma once
 
-#include <rpp/defs.hpp>
 #include <rpp/observables/fwd.hpp>
+
+#include <rpp/defs.hpp>
 #include <rpp/operators/details/strategy.hpp>
 
 #include <future>
@@ -24,7 +25,10 @@ struct blocking_observer_strategy
     mutable std::promise<void>      promise;
 
     template<typename T>
-    void on_next(T&& v) const                          { observer.on_next(std::forward<T>(v)); }
+    void on_next(T&& v) const
+    {
+        observer.on_next(std::forward<T>(v));
+    }
 
     void on_error(const std::exception_ptr& err) const
     {
@@ -38,8 +42,9 @@ struct blocking_observer_strategy
         promise.set_value();
     }
 
-    void set_upstream(const disposable_wrapper& d)     { observer.set_upstream(d); }
-    bool is_disposed() const                           { return observer.is_disposed(); }
+    void set_upstream(const disposable_wrapper& d) { observer.set_upstream(d); }
+
+    bool is_disposed() const { return observer.is_disposed(); }
 };
 
 template<constraint::decayed_type Type, constraint::observable_strategy<Type> Strategy>
@@ -47,15 +52,22 @@ class blocking_strategy
 {
 public:
     using ValueType = Type;
-    
-    blocking_strategy(observable<Type, Strategy>&& observable) : m_original{std::move(observable)}{}
-    blocking_strategy(const observable<Type, Strategy>& observable) : m_original{observable}{}
+
+    blocking_strategy(observable<Type, Strategy>&& observable)
+        : m_original{std::move(observable)}
+    {
+    }
+
+    blocking_strategy(const observable<Type, Strategy>& observable)
+        : m_original{observable}
+    {
+    }
 
     template<constraint::observer_strategy<Type> ObserverStrategy>
     void subscribe(observer<Type, ObserverStrategy>&& obs) const
     {
         std::promise<void> promise{};
-        auto future = promise.get_future();
+        auto               future = promise.get_future();
         m_original.subscribe(observer<Type, blocking_observer_strategy<observer<Type, ObserverStrategy>>>{std::move(obs), std::move(promise)});
         future.wait();
     }

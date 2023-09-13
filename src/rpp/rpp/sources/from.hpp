@@ -9,12 +9,13 @@
 
 #pragma once
 
-#include <rpp/defs.hpp>
 #include <rpp/sources/fwd.hpp>
+
+#include <rpp/defs.hpp>
 #include <rpp/observables/observable.hpp>
-#include <rpp/utils/utils.hpp>
-#include <rpp/schedulers/current_thread.hpp>
 #include <rpp/operators/map.hpp>
+#include <rpp/schedulers/current_thread.hpp>
+#include <rpp/utils/utils.hpp>
 
 #include <array>
 #include <exception>
@@ -29,7 +30,7 @@ class shared_container
 {
 public:
     template<typename... Ts>
-        requires(!constraint::variadic_decayed_same_as<shared_container<Container>, Ts...>)
+        requires (!constraint::variadic_decayed_same_as<shared_container<Container>, Ts...>)
     explicit shared_container(Ts&&... items)
         // raw "new" call to avoid extra copy/moves for items
         : m_container{new Container{std::forward<Ts>(items)...}}
@@ -40,6 +41,7 @@ public:
     shared_container(shared_container&&) noexcept = default;
 
     auto begin() const { return std::cbegin(*m_container); }
+
     auto end() const { return std::cend(*m_container); }
 
 private:
@@ -60,7 +62,7 @@ struct from_iterable_schedulable
             if (itr != end)
             {
                 obs.on_next(utils::as_const(*itr));
-                if (std::next(itr) != end)     // it was not last
+                if (std::next(itr) != end) // it was not last
                 {
                     ++index;
                     return schedulers::duration{}; // re-schedule this
@@ -80,11 +82,12 @@ struct from_iterable_schedulable
 template<constraint::decayed_type PackedContainer, schedulers::constraint::scheduler TScheduler>
 struct from_iterable_strategy
 {
-    template<typename ...Args>
-    from_iterable_strategy(const TScheduler& scheduler, Args&& ...args)
+    template<typename... Args>
+    from_iterable_strategy(const TScheduler& scheduler, Args&&... args)
         : container{std::forward<Args>(args)...}
         , scheduler{scheduler}
-        {}
+    {
+    }
 
     using ValueType = rpp::utils::iterable_value_t<PackedContainer>;
 
@@ -123,11 +126,11 @@ struct from_iterable_strategy
     }
 };
 
-template<typename PackedContainer, schedulers::constraint::scheduler TScheduler, typename ...Args>
-auto make_from_iterable_observable(const TScheduler& scheduler, Args&& ...args)
+template<typename PackedContainer, schedulers::constraint::scheduler TScheduler, typename... Args>
+auto make_from_iterable_observable(const TScheduler& scheduler, Args&&... args)
 {
     return observable<utils::iterable_value_t<std::decay_t<PackedContainer>>,
-                           details::from_iterable_strategy<std::decay_t<PackedContainer>, TScheduler>>{scheduler, std::forward<Args>(args)...};
+                      details::from_iterable_strategy<std::decay_t<PackedContainer>, TScheduler>>{scheduler, std::forward<Args>(args)...};
 }
 
 struct from_callable_invoke
@@ -170,7 +173,7 @@ namespace rpp::source
  * @ingroup creational_operators
  * @see https://reactivex.io/documentation/operators/from.html
  */
-template<constraint::memory_model memory_model/* = memory_model::use_stack*/, constraint::iterable Iterable, schedulers::constraint::scheduler TScheduler /* = schedulers::current_thread*/>
+template<constraint::memory_model memory_model /* = memory_model::use_stack*/, constraint::iterable Iterable, schedulers::constraint::scheduler TScheduler /* = schedulers::current_thread*/>
 auto from_iterable(Iterable&& iterable, const TScheduler& scheduler /* = TScheduler{}*/)
 {
     using container = std::conditional_t<std::same_as<memory_model, rpp::memory_model::use_stack>, std::decay_t<Iterable>, details::shared_container<std::decay_t<Iterable>>>;
@@ -198,11 +201,12 @@ auto from_iterable(Iterable&& iterable, const TScheduler& scheduler /* = TSchedu
  * @ingroup creational_operators
  * @see https://reactivex.io/documentation/operators/just.html
  */
-template<constraint::memory_model memory_model /* = memory_model::use_stack */, schedulers::constraint::scheduler TScheduler, typename T, typename ...Ts>
-auto just(const TScheduler& scheduler, T&& item, Ts&& ...items) requires (constraint::decayed_same_as<T, Ts> && ...)
+template<constraint::memory_model memory_model /* = memory_model::use_stack */, schedulers::constraint::scheduler TScheduler, typename T, typename... Ts>
+auto just(const TScheduler& scheduler, T&& item, Ts&&... items)
+    requires (constraint::decayed_same_as<T, Ts> && ...)
 {
     using inner_container = std::array<std::decay_t<T>, sizeof...(Ts) + 1>;
-    using container = std::conditional_t<std::same_as<memory_model, rpp::memory_model::use_stack>, inner_container, details::shared_container<inner_container>>;
+    using container       = std::conditional_t<std::same_as<memory_model, rpp::memory_model::use_stack>, inner_container, details::shared_container<inner_container>>;
     return details::make_from_iterable_observable<container>(scheduler, std::forward<T>(item), std::forward<Ts>(items)...);
 }
 
@@ -227,11 +231,12 @@ auto just(const TScheduler& scheduler, T&& item, Ts&& ...items) requires (constr
  * @ingroup creational_operators
  * @see https://reactivex.io/documentation/operators/just.html
  */
-template<constraint::memory_model memory_model /* = memory_model::use_stack */, typename T, typename ...Ts>
-auto just(T&& item, Ts&& ...items) requires (constraint::decayed_same_as<T, Ts> && ...)
+template<constraint::memory_model memory_model /* = memory_model::use_stack */, typename T, typename... Ts>
+auto just(T&& item, Ts&&... items)
+    requires (constraint::decayed_same_as<T, Ts> && ...)
 {
     using inner_container = std::array<std::decay_t<T>, sizeof...(Ts) + 1>;
-    using container = std::conditional_t<std::same_as<memory_model, rpp::memory_model::use_stack>, inner_container, details::shared_container<inner_container>>;
+    using container       = std::conditional_t<std::same_as<memory_model, rpp::memory_model::use_stack>, inner_container, details::shared_container<inner_container>>;
     return details::make_from_iterable_observable<container>(schedulers::current_thread{}, std::forward<T>(item), std::forward<Ts>(items)...);
 }
 

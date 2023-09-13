@@ -9,8 +9,9 @@
 
 #pragma once
 
-#include <rpp/defs.hpp>
 #include <rpp/sources/fwd.hpp>
+
+#include <rpp/defs.hpp>
 #include <rpp/observables/observable.hpp>
 
 namespace rpp::details
@@ -51,7 +52,7 @@ namespace rpp::source
  * @see https://reactivex.io/documentation/operators/defer.html
  */
 template<std::invocable Factory>
-	requires rpp::constraint::observable<std::invoke_result_t<Factory>>
+    requires rpp::constraint::observable<std::invoke_result_t<Factory>>
 auto defer(Factory&& observable_factory)
 {
     return defer_observable<rpp::utils::extract_observable_type_t<std::invoke_result_t<Factory>>, Factory>{std::forward<Factory>(observable_factory)};

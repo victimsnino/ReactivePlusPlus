@@ -10,6 +10,7 @@
 #pragma once
 
 #include <rpp/schedulers/fwd.hpp>
+
 #include <exception>
 #include <optional>
 #include <thread>
@@ -47,7 +48,7 @@ optional_duration immediate_scheduling_while_condition(duration                 
             else
                 return std::nullopt;
         }
-        catch(...)
+        catch (...)
         {
             handler.on_error(std::current_exception());
             return std::nullopt;

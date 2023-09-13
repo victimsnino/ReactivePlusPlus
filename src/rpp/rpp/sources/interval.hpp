@@ -9,8 +9,9 @@
 
 #pragma once
 
-#include <rpp/defs.hpp>
 #include <rpp/sources/fwd.hpp>
+
+#include <rpp/defs.hpp>
 #include <rpp/observables/observable.hpp>
 
 namespace rpp::details
@@ -19,8 +20,8 @@ struct interval_schedulable
 {
     rpp::schedulers::optional_duration operator()(const auto& observer, rpp::schedulers::duration period, size_t& counter) const
     {
-         observer.on_next(counter++);
-         return period;
+        observer.on_next(counter++);
+        return period;
     }
 };
 
@@ -30,8 +31,8 @@ struct interval_strategy
     using ValueType = size_t;
 
     RPP_NO_UNIQUE_ADDRESS TScheduler scheduler;
-    rpp::schedulers::duration initial;
-    rpp::schedulers::duration period;
+    rpp::schedulers::duration        initial;
+    rpp::schedulers::duration        period;
 
     template<rpp::constraint::observer_of_type<ValueType> TObs>
     void subscribe(TObs&& observer) const
@@ -72,7 +73,8 @@ namespace rpp::source
  * @see https://reactivex.io/documentation/operators/interval.html
  */
 template<schedulers::constraint::scheduler TScheduler>
-auto interval(rpp::schedulers::duration initial, rpp::schedulers::duration period, TScheduler&& scheduler) {
+auto interval(rpp::schedulers::duration initial, rpp::schedulers::duration period, TScheduler&& scheduler)
+{
     return interval_observable<std::decay_t<TScheduler>>{std::forward<TScheduler>(scheduler), initial, period};
 }
 
@@ -93,7 +95,8 @@ auto interval(rpp::schedulers::duration initial, rpp::schedulers::duration perio
  * @see https://reactivex.io/documentation/operators/interval.html
  */
 template<schedulers::constraint::scheduler TScheduler>
-auto interval(rpp::schedulers::duration period, TScheduler&& scheduler) {
+auto interval(rpp::schedulers::duration period, TScheduler&& scheduler)
+{
     return interval(period, period, std::forward<TScheduler>(scheduler));
 }
 }

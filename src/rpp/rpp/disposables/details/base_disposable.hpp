@@ -11,6 +11,7 @@
 #pragma once
 
 #include <rpp/disposables/fwd.hpp>
+
 #include <rpp/disposables/interface_disposable.hpp>
 
 #include <atomic>
@@ -40,6 +41,6 @@ private:
     std::atomic_bool m_disposed{};
 };
 
-using base_disposable = base_disposable_impl<interface_disposable>;
+using base_disposable           = base_disposable_impl<interface_disposable>;
 using base_composite_disposable = base_disposable_impl<interface_composite_disposable>;
 }

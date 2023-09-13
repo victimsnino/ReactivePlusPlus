@@ -10,9 +10,10 @@
 
 #pragma once
 
+#include <rpp/operators/fwd.hpp>
+
 #include <rpp/defs.hpp>
 #include <rpp/observables/observable.hpp>
-#include <rpp/operators/fwd.hpp>
 
 namespace rpp::operators::details
 {
@@ -30,7 +31,6 @@ struct subscribe_on_schedulable
         return rpp::schedulers::optional_duration{};
     }
 };
-
 
 template<rpp::schedulers::constraint::scheduler Scheduler>
 struct subscribe_on_t

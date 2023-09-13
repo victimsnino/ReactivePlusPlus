@@ -19,11 +19,15 @@ class grouped_observable final : public observable<Type, Strategy>
 public:
     grouped_observable(KeyType key, const Strategy& strategy)
         : observable<Type, Strategy>{strategy}
-        , m_key{std::move(key)} {}
+        , m_key{std::move(key)}
+    {
+    }
 
     grouped_observable(KeyType key, Strategy&& strategy)
         : observable<Type, Strategy>{std::move(strategy)}
-        , m_key{std::move(key)} {}
+        , m_key{std::move(key)}
+    {
+    }
 
     const KeyType& get_key() const { return m_key; }
 

@@ -11,11 +11,12 @@
 #pragma once
 
 #include <rpp/operators/fwd.hpp>
+
 #include <rpp/defs.hpp>
 #include <rpp/operators/details/strategy.hpp>
 
-#include <optional>
 #include <cstddef>
+#include <optional>
 
 namespace rpp::operators::details
 {
@@ -46,8 +47,9 @@ struct last_observer_strategy
 
     void on_error(const std::exception_ptr& err) const { observer.on_error(err); }
 
-    void set_upstream(const disposable_wrapper& d)     { observer.set_upstream(d); }
-    bool is_disposed() const                           { return observer.is_disposed(); }
+    void set_upstream(const disposable_wrapper& d) { observer.set_upstream(d); }
+
+    bool is_disposed() const { return observer.is_disposed(); }
 };
 
 struct last_t : public operators::details::template_operator_observable_strategy<last_observer_strategy>

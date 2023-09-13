@@ -11,9 +11,10 @@
 #pragma once
 
 #include <rpp/schedulers/fwd.hpp>
+
+#include <rpp/defs.hpp>
 #include <rpp/disposables/disposable_wrapper.hpp>
 #include <rpp/utils/constraints.hpp>
-#include <rpp/defs.hpp>
 
 namespace rpp::schedulers
 {
@@ -21,22 +22,24 @@ template<rpp::schedulers::constraint::strategy Strategy>
 class worker
 {
 public:
-    template<typename...Args>
-        requires (!rpp::constraint::variadic_decayed_same_as<worker<Strategy>, Args...> && rpp::constraint::is_constructible_from<Strategy, Args&&...>)
-    explicit worker(Args&& ...args)
-        : m_strategy(std::forward<Args>(args)...) {}
+    template<typename... Args>
+        requires (!rpp::constraint::variadic_decayed_same_as<worker<Strategy>, Args...> && rpp::constraint::is_constructible_from<Strategy, Args && ...>)
+    explicit worker(Args&&... args)
+        : m_strategy(std::forward<Args>(args)...)
+    {
+    }
 
-    worker(const worker&) = default;
+    worker(const worker&)     = default;
     worker(worker&&) noexcept = default;
 
-    template<rpp::schedulers::constraint::schedulable_handler Handler, typename...Args, constraint::schedulable_fn<Handler, Args...> Fn>
-    void schedule(Fn&& fn, Handler&& handler, Args&&...args) const
+    template<rpp::schedulers::constraint::schedulable_handler Handler, typename... Args, constraint::schedulable_fn<Handler, Args...> Fn>
+    void schedule(Fn&& fn, Handler&& handler, Args&&... args) const
     {
         schedule(duration{}, std::forward<Fn>(fn), std::forward<Handler>(handler), std::forward<Args>(args)...);
     }
 
-    template<rpp::schedulers::constraint::schedulable_handler Handler, typename...Args, constraint::schedulable_fn<Handler, Args...> Fn>
-    void schedule(const duration delay, Fn&& fn, Handler&& handler, Args&&...args) const
+    template<rpp::schedulers::constraint::schedulable_handler Handler, typename... Args, constraint::schedulable_fn<Handler, Args...> Fn>
+    void schedule(const duration delay, Fn&& fn, Handler&& handler, Args&&... args) const
     {
         m_strategy.defer_for(delay, std::forward<Fn>(fn), std::forward<Handler>(handler), std::forward<Args>(args)...);
     }

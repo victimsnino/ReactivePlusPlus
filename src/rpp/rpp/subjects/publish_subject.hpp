@@ -9,10 +9,11 @@
 
 #pragma once
 
+#include <rpp/subjects/fwd.hpp>
+
+#include <rpp/observers/observer.hpp>
 #include <rpp/subjects/details/base_subject.hpp>
 #include <rpp/subjects/details/subject_state.hpp>
-#include <rpp/subjects/fwd.hpp>
-#include <rpp/observers/observer.hpp>
 
 #include <memory>
 
@@ -26,10 +27,13 @@ class publish_strategy
         std::shared_ptr<subject_state<Type>> state{};
 
         static void set_upstream(const disposable_wrapper&) noexcept {}
+
         static bool is_disposed() noexcept { return false; }
 
         void on_next(const Type& v) const { state->on_next(v); }
+
         void on_error(const std::exception_ptr& err) const { state->on_error(err); }
+
         void on_completed() const { state->on_completed(); }
     };
 

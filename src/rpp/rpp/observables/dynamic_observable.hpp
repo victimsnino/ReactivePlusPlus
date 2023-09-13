@@ -10,6 +10,7 @@
 #pragma once
 
 #include <rpp/observables/fwd.hpp>
+
 #include <rpp/observers/dynamic_observer.hpp>
 
 #include <memory>
@@ -18,7 +19,10 @@
 namespace rpp::details::observables
 {
 template<typename T, typename Observable>
-void forwarding_subscribe(const void* const ptr, dynamic_observer<T>&& obs) { static_cast<const Observable*>(ptr)->subscribe(std::move(obs)); }
+void forwarding_subscribe(const void* const ptr, dynamic_observer<T>&& obs)
+{
+    static_cast<const Observable*>(ptr)->subscribe(std::move(obs));
+}
 
 template<constraint::decayed_type Type>
 class dynamic_strategy final
@@ -30,15 +34,19 @@ public:
         requires (!constraint::decayed_same_as<Strategy, dynamic_strategy<Type>>)
     explicit dynamic_strategy(observable<Type, Strategy>&& obs)
         : m_forwarder{std::make_shared<observable<Type, Strategy>>(std::move(obs))}
-        , m_vtable{vtable::template create<observable<Type, Strategy>>()} {}
+        , m_vtable{vtable::template create<observable<Type, Strategy>>()}
+    {
+    }
 
     template<constraint::observable_strategy<Type> Strategy>
         requires (!constraint::decayed_same_as<Strategy, dynamic_strategy<Type>>)
     explicit dynamic_strategy(const observable<Type, Strategy>& obs)
         : m_forwarder{std::make_shared<observable<Type, Strategy>>(obs)}
-        , m_vtable{vtable::template create<observable<Type, Strategy>>()} {}
+        , m_vtable{vtable::template create<observable<Type, Strategy>>()}
+    {
+    }
 
-    dynamic_strategy(const dynamic_strategy&) = default;
+    dynamic_strategy(const dynamic_strategy&)     = default;
     dynamic_strategy(dynamic_strategy&&) noexcept = default;
 
     template<constraint::observer_strategy<Type> ObserverStrategy>
@@ -56,8 +64,7 @@ private:
         static const vtable* create() noexcept
         {
             static vtable s_res{
-                .subscribe = forwarding_subscribe<Type, Observable>
-            };
+                .subscribe = forwarding_subscribe<Type, Observable>};
             return &s_res;
         }
     };

@@ -11,12 +11,13 @@
 #pragma once
 
 #include <rpp/operators/fwd.hpp>
-#include <rpp/defs.hpp>
-#include <rpp/operators/details/strategy.hpp>
-#include <rpp/disposables/composite_disposable.hpp>
 
-#include <queue>
+#include <rpp/defs.hpp>
+#include <rpp/disposables/composite_disposable.hpp>
+#include <rpp/operators/details/strategy.hpp>
+
 #include <mutex>
+#include <queue>
 
 namespace rpp::operators::details
 {
@@ -26,14 +27,17 @@ struct emission
     template<typename TT>
     emission(TT&& item, schedulers::time_point time)
         : value{std::forward<TT>(item)}
-        , time_point{time}{}
+        , time_point{time}
+    {
+    }
 
     std::variant<T, std::exception_ptr, rpp::utils::none> value{};
     rpp::schedulers::time_point                           time_point{};
 };
 
 template<rpp::constraint::observer Observer, typename Worker>
-struct delay_disposable final : public rpp::composite_disposable {
+struct delay_disposable final : public rpp::composite_disposable
+{
     using T = rpp::utils::extract_observer_type_t<Observer>;
 
     delay_disposable(Observer&& in_observer, Worker&& in_worker, rpp::schedulers::duration delay)
@@ -60,6 +64,7 @@ struct delay_disposable_wrapper
     std::shared_ptr<delay_disposable<Observer, Worker>> disposable{};
 
     bool is_disposed() const { return disposable->is_disposed(); }
+
     void on_error(const std::exception_ptr& err) const { disposable->observer.on_error(err); }
 };
 
@@ -100,7 +105,10 @@ private:
     {
         if (const auto delay = emplace_safe(std::forward<TT>(value)))
         {
-            disposable->worker.schedule(delay.value(), [](const delay_disposable_wrapper<Observer, Worker>& wrapper) -> schedulers::optional_duration { return drain_queue(wrapper.disposable); }, delay_disposable_wrapper<Observer, Worker>{disposable});
+            disposable->worker.schedule(
+                delay.value(),
+                [](const delay_disposable_wrapper<Observer, Worker>& wrapper) -> schedulers::optional_duration { return drain_queue(wrapper.disposable); },
+                delay_disposable_wrapper<Observer, Worker>{disposable});
         }
     }
 
@@ -128,7 +136,7 @@ private:
                 return std::nullopt;
             }
 
-            auto& top = disposable->queue.front();
+            auto&      top = disposable->queue.front();
             const auto now = disposable->worker.now();
             if (top.time_point > now)
                 return top.time_point - now;
@@ -138,8 +146,10 @@ private:
             lock.unlock();
 
             std::visit(rpp::utils::overloaded{[&](rpp::utils::extract_observer_type_t<Observer>&& v) { disposable->observer.on_next(std::move(v)); },
-                                              [&](const std::exception_ptr& err)                     { disposable->observer.on_error(err); },
-                                              [&](rpp::utils::none)                                  { disposable->observer.on_completed(); }},
+                                              [&](const std::exception_ptr& err) { disposable->observer.on_error(err); },
+                                              [&](rpp::utils::none) {
+                                                  disposable->observer.on_completed();
+                                              }},
                        std::move(item));
         }
     }

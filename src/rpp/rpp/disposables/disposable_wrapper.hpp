@@ -11,6 +11,7 @@
 #pragma once
 
 #include <rpp/disposables/fwd.hpp>
+
 #include <rpp/disposables/interface_disposable.hpp>
 
 #include <memory>
@@ -27,7 +28,9 @@ namespace rpp
 template<rpp::constraint::decayed_type TDisposable>
 class disposable_wrapper_impl
 {
-    struct weak_tag{};
+    struct weak_tag
+    {
+    };
 
     template<std::derived_from<TDisposable> TT = TDisposable>
     explicit disposable_wrapper_impl(weak_tag, std::weak_ptr<TT> disposable)
@@ -42,14 +45,14 @@ public:
     template<std::derived_from<TDisposable> TT = TDisposable>
     disposable_wrapper_impl(std::shared_ptr<TT>&& disposable)
         requires std::derived_from<TT, interface_disposable>
-    : m_disposable{std::static_pointer_cast<TDisposable>(std::move(disposable))}
+        : m_disposable{std::static_pointer_cast<TDisposable>(std::move(disposable))}
     {
     }
 
     template<std::derived_from<TDisposable> TT = TDisposable>
     disposable_wrapper_impl(const std::shared_ptr<TT>& disposable)
         requires std::derived_from<TT, interface_disposable>
-    : m_disposable{std::static_pointer_cast<TDisposable>(disposable)}
+        : m_disposable{std::static_pointer_cast<TDisposable>(disposable)}
     {
     }
 
@@ -76,7 +79,8 @@ public:
             locked->dispose();
     }
 
-    void add(disposable_wrapper other) const requires std::derived_from<TDisposable, interface_composite_disposable>
+    void add(disposable_wrapper other) const
+        requires std::derived_from<TDisposable, interface_composite_disposable>
     {
         if (const auto locked = get_original())
             locked->add(std::move(other));
