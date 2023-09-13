@@ -14,62 +14,69 @@
 \DoxyCodeLine{00010\ \textcolor{preprocessor}{\#pragma\ once}}
 \DoxyCodeLine{00011\ }
 \DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <rpp/observables/fwd.hpp>}}
-\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <rpp/observers/dynamic\_observer.hpp>}}
-\DoxyCodeLine{00014\ }
-\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <memory>}}
-\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ <utility>}}
-\DoxyCodeLine{00017\ }
-\DoxyCodeLine{00018\ \textcolor{keyword}{namespace\ }rpp::details::observables}
-\DoxyCodeLine{00019\ \{}
-\DoxyCodeLine{00020\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T,\ \textcolor{keyword}{typename}\ Observable>}
-\DoxyCodeLine{00021\ \textcolor{keywordtype}{void}\ forwarding\_subscribe(\textcolor{keyword}{const}\ \textcolor{keywordtype}{void}*\ \textcolor{keyword}{const}\ ptr,\ dynamic\_observer<T>\&\&\ obs)\ \{\ \textcolor{keyword}{static\_cast<}\textcolor{keyword}{const\ }Observable*\textcolor{keyword}{>}(ptr)-\/>subscribe(std::move(obs));\ \}}
-\DoxyCodeLine{00022\ }
-\DoxyCodeLine{00023\ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type\ Type>}
-\DoxyCodeLine{00024\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1details_1_1observables_1_1dynamic__strategy}{dynamic\_strategy}}\ final}
-\DoxyCodeLine{00025\ \{}
-\DoxyCodeLine{00026\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keyword}{using\ }ValueType\ =\ Type;}
-\DoxyCodeLine{00028\ }
-\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::observable\_strategy<Type>\ Strategy>}
-\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \textcolor{keyword}{requires}\ (!constraint::decayed\_same\_as<Strategy,\ dynamic\_strategy<Type>>)}
-\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{classrpp_1_1details_1_1observables_1_1dynamic__strategy}{dynamic\_strategy}}(\mbox{\hyperlink{classrpp_1_1observable}{observable<Type,\ Strategy>}}\&\&\ obs)}
-\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ :\ m\_forwarder\{std::make\_shared<observable<Type,\ Strategy>>(std::move(obs))\}}
-\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ ,\ m\_vtable\{vtable::template\ create<observable<Type,\ Strategy>>()\}\ \{\}}
-\DoxyCodeLine{00034\ }
-\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::observable\_strategy<Type>\ Strategy>}
-\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \textcolor{keyword}{requires}\ (!constraint::decayed\_same\_as<Strategy,\ dynamic\_strategy<Type>>)}
-\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{classrpp_1_1details_1_1observables_1_1dynamic__strategy}{dynamic\_strategy}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1observable}{observable<Type,\ Strategy>}}\&\ obs)}
-\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ :\ m\_forwarder\{std::make\_shared<observable<Type,\ Strategy>>(obs)\}}
-\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ ,\ m\_vtable\{vtable::template\ create<observable<Type,\ Strategy>>()\}\ \{\}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <rpp/observers/dynamic\_observer.hpp>}}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ <memory>}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ <utility>}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{keyword}{namespace\ }rpp::details::observables}
+\DoxyCodeLine{00020\ \{}
+\DoxyCodeLine{00021\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T,\ \textcolor{keyword}{typename}\ Observable>}
+\DoxyCodeLine{00022\ \textcolor{keywordtype}{void}\ forwarding\_subscribe(\textcolor{keyword}{const}\ \textcolor{keywordtype}{void}*\ \textcolor{keyword}{const}\ ptr,\ dynamic\_observer<T>\&\&\ obs)}
+\DoxyCodeLine{00023\ \{}
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keyword}{static\_cast<}\textcolor{keyword}{const\ }Observable*\textcolor{keyword}{>}(ptr)-\/>subscribe(std::move(obs));}
+\DoxyCodeLine{00025\ \}}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type\ Type>}
+\DoxyCodeLine{00028\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1details_1_1observables_1_1dynamic__strategy}{dynamic\_strategy}}\ final}
+\DoxyCodeLine{00029\ \{}
+\DoxyCodeLine{00030\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keyword}{using\ }ValueType\ =\ Type;}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::observable\_strategy<Type>\ Strategy>}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \textcolor{keyword}{requires}\ (!constraint::decayed\_same\_as<Strategy,\ dynamic\_strategy<Type>>)}
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{classrpp_1_1details_1_1observables_1_1dynamic__strategy}{dynamic\_strategy}}(\mbox{\hyperlink{classrpp_1_1observable}{observable<Type,\ Strategy>}}\&\&\ obs)}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ :\ m\_forwarder\{std::make\_shared<observable<Type,\ Strategy>>(std::move(obs))\}}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ ,\ m\_vtable\{vtable::template\ create<observable<Type,\ Strategy>>()\}}
+\DoxyCodeLine{00038\ \ \ \ \ \{}
+\DoxyCodeLine{00039\ \ \ \ \ \}}
 \DoxyCodeLine{00040\ }
-\DoxyCodeLine{00041\ \ \ \ \ \mbox{\hyperlink{classrpp_1_1details_1_1observables_1_1dynamic__strategy}{dynamic\_strategy}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1details_1_1observables_1_1dynamic__strategy}{dynamic\_strategy}}\&)\ =\ \textcolor{keywordflow}{default};}
-\DoxyCodeLine{00042\ \ \ \ \ \mbox{\hyperlink{classrpp_1_1details_1_1observables_1_1dynamic__strategy}{dynamic\_strategy}}(\mbox{\hyperlink{classrpp_1_1details_1_1observables_1_1dynamic__strategy}{dynamic\_strategy}}\&\&)\ \textcolor{keyword}{noexcept}\ =\ \textcolor{keywordflow}{default};}
-\DoxyCodeLine{00043\ }
-\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::observer\_strategy<Type>\ ObserverStrategy>}
-\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keywordtype}{void}\ subscribe(\mbox{\hyperlink{classrpp_1_1observer}{observer<Type,\ ObserverStrategy>}}\&\&\ \mbox{\hyperlink{classrpp_1_1observer}{observer}})\textcolor{keyword}{\ const}}
-\DoxyCodeLine{00046\ \textcolor{keyword}{\ \ \ \ }\{}
-\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ m\_vtable-\/>subscribe(m\_forwarder.get(),\ std::move(\mbox{\hyperlink{classrpp_1_1observer}{observer}}).as\_dynamic());}
-\DoxyCodeLine{00048\ \ \ \ \ \}}
-\DoxyCodeLine{00049\ }
-\DoxyCodeLine{00050\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keyword}{struct\ }vtable}
-\DoxyCodeLine{00052\ \ \ \ \ \{}
-\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ void\ (*subscribe)(\textcolor{keyword}{const}\ \textcolor{keywordtype}{void}*,\ \mbox{\hyperlink{classrpp_1_1observer}{dynamic\_observer<Type>}}\&\&)\{\};}
-\DoxyCodeLine{00054\ }
-\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::observable\ Observable>}
-\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ vtable*\ create()\ \textcolor{keyword}{noexcept}}
-\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ vtable\ s\_res\{}
-\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .subscribe\ =\ forwarding\_subscribe<Type,\ Observable>}
-\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \ \ \ \ \};}
-\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \&s\_res;}
-\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00063\ \ \ \ \ \};}
-\DoxyCodeLine{00064\ }
-\DoxyCodeLine{00065\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00066\ \ \ \ \ std::shared\_ptr<void>\ m\_forwarder;}
-\DoxyCodeLine{00067\ \ \ \ \ \textcolor{keyword}{const}\ vtable*\ \ \ \ \ \ \ \ \ m\_vtable;}
-\DoxyCodeLine{00068\ \};}
-\DoxyCodeLine{00069\ \}}
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::observable\_strategy<Type>\ Strategy>}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \textcolor{keyword}{requires}\ (!constraint::decayed\_same\_as<Strategy,\ dynamic\_strategy<Type>>)}
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{classrpp_1_1details_1_1observables_1_1dynamic__strategy}{dynamic\_strategy}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1observable}{observable<Type,\ Strategy>}}\&\ obs)}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ :\ m\_forwarder\{std::make\_shared<observable<Type,\ Strategy>>(obs)\}}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ ,\ m\_vtable\{vtable::template\ create<observable<Type,\ Strategy>>()\}}
+\DoxyCodeLine{00046\ \ \ \ \ \{}
+\DoxyCodeLine{00047\ \ \ \ \ \}}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \ \ \ \ \mbox{\hyperlink{classrpp_1_1details_1_1observables_1_1dynamic__strategy}{dynamic\_strategy}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1details_1_1observables_1_1dynamic__strategy}{dynamic\_strategy}}\&)\ \ \ \ \ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00050\ \ \ \ \ \mbox{\hyperlink{classrpp_1_1details_1_1observables_1_1dynamic__strategy}{dynamic\_strategy}}(\mbox{\hyperlink{classrpp_1_1details_1_1observables_1_1dynamic__strategy}{dynamic\_strategy}}\&\&)\ \textcolor{keyword}{noexcept}\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::observer\_strategy<Type>\ ObserverStrategy>}
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keywordtype}{void}\ subscribe(\mbox{\hyperlink{classrpp_1_1observer}{observer<Type,\ ObserverStrategy>}}\&\&\ \mbox{\hyperlink{classrpp_1_1observer}{observer}})\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00054\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ m\_vtable-\/>subscribe(m\_forwarder.get(),\ std::move(\mbox{\hyperlink{classrpp_1_1observer}{observer}}).as\_dynamic());}
+\DoxyCodeLine{00056\ \ \ \ \ \}}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keyword}{struct\ }vtable}
+\DoxyCodeLine{00060\ \ \ \ \ \{}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ void\ (*subscribe)(\textcolor{keyword}{const}\ \textcolor{keywordtype}{void}*,\ \mbox{\hyperlink{classrpp_1_1observer}{dynamic\_observer<Type>}}\&\&)\{\};}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::observable\ Observable>}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ vtable*\ create()\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ vtable\ s\_res\{}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .subscribe\ =\ forwarding\_subscribe<Type,\ Observable>\};}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \&s\_res;}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00070\ \ \ \ \ \};}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00073\ \ \ \ \ std::shared\_ptr<void>\ m\_forwarder;}
+\DoxyCodeLine{00074\ \ \ \ \ \textcolor{keyword}{const}\ vtable*\ \ \ \ \ \ \ \ \ m\_vtable;}
+\DoxyCodeLine{00075\ \};}
+\DoxyCodeLine{00076\ \}}
 
 \end{DoxyCode}

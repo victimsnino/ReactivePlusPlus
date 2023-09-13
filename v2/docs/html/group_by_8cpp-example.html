@@ -104,8 +104,8 @@ $(document).ready(function(){initNavTree('group_by_8cpp-example.html',''); initR
 <div class="line"> </div>
 <div class="line"><span class="keywordtype">int</span> main()</div>
 <div class="line">{</div>
-<div class="line">    <a id="a0" name="a0"></a><a class="code hl_function" href="group__creational__operators.html#gae60bdb9b493443d2786b0eee8bfe17ab">rpp::source::just</a>(1, 2, 3, 4, 5, 6, 7, 8)</div>
-<div class="line">        | <a id="a1" name="a1"></a><a class="code hl_function" href="group__transforming__operators.html#ga136286fed612116e8d8f43511b5ef7dd">rpp::operators::group_by</a>([](<span class="keywordtype">int</span>   v) { <span class="keywordflow">return</span> v % 2 == 0; })</div>
+<div class="line">    <a id="a0" name="a0"></a><a class="code hl_function" href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">rpp::source::just</a>(1, 2, 3, 4, 5, 6, 7, 8)</div>
+<div class="line">        | <a id="a1" name="a1"></a><a class="code hl_function" href="group__transforming__operators.html#ga2fa21790af1c065382cd37faa3462851">rpp::operators::group_by</a>([](<span class="keywordtype">int</span>   v) { <span class="keywordflow">return</span> v % 2 == 0; })</div>
 <div class="line">        | rpp::operators::subscribe([](<span class="keyword">auto</span> grouped_observable)</div>
 <div class="line">        {</div>
 <div class="line">            <span class="keyword">auto</span> key = grouped_observable.get_key();</div>
@@ -131,13 +131,13 @@ $(document).ready(function(){initNavTree('group_by_8cpp-example.html',''); initR
 <div class="line">        std::string name;</div>
 <div class="line">        <span class="keywordtype">int</span> age;</div>
 <div class="line">    };</div>
-<div class="line">    <a class="code hl_function" href="group__creational__operators.html#gae60bdb9b493443d2786b0eee8bfe17ab">rpp::source::just</a>(Person{<span class="stringliteral">&quot;Kate&quot;</span>, 18},</div>
+<div class="line">    <a class="code hl_function" href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">rpp::source::just</a>(Person{<span class="stringliteral">&quot;Kate&quot;</span>, 18},</div>
 <div class="line">                      Person{<span class="stringliteral">&quot;Alex&quot;</span>, 25},</div>
 <div class="line">                      Person{<span class="stringliteral">&quot;Nick&quot;</span>, 18},</div>
 <div class="line">                      Person{<span class="stringliteral">&quot;Jack&quot;</span>, 25},</div>
 <div class="line">                      Person{<span class="stringliteral">&quot;Tom&quot;</span>, 30},</div>
 <div class="line">                      Person{<span class="stringliteral">&quot;Vanda&quot;</span>, 18})</div>
-<div class="line">        | <a class="code hl_function" href="group__transforming__operators.html#ga136286fed612116e8d8f43511b5ef7dd">rpp::operators::group_by</a>([](<span class="keyword">const</span> Person&amp; v) { <span class="keywordflow">return</span> v.age; }, [](<span class="keyword">const</span> Person&amp; v) { <span class="keywordflow">return</span> v.name; })</div>
+<div class="line">        | <a class="code hl_function" href="group__transforming__operators.html#ga2fa21790af1c065382cd37faa3462851">rpp::operators::group_by</a>([](<span class="keyword">const</span> Person&amp; v) { <span class="keywordflow">return</span> v.age; }, [](<span class="keyword">const</span> Person&amp; v) { <span class="keywordflow">return</span> v.name; })</div>
 <div class="line">        | rpp::operators::subscribe([](<span class="keyword">auto</span> grouped_observable)</div>
 <div class="line">        {</div>
 <div class="line">            grouped_observable.subscribe([age = grouped_observable.get_key()](<span class="keyword">const</span> std::string&amp; name)</div>
@@ -154,8 +154,8 @@ $(document).ready(function(){initNavTree('group_by_8cpp-example.html',''); initR
 <div class="line">    <span class="comment">//         Age [18] Name: Vanda</span></div>
 <div class="line">    <span class="keywordflow">return</span> 0;</div>
 <div class="line">}</div>
-<div class="ttc" id="agroup__creational__operators_html_gae60bdb9b493443d2786b0eee8bfe17ab"><div class="ttname"><a href="group__creational__operators.html#gae60bdb9b493443d2786b0eee8bfe17ab">rpp::source::just</a></div><div class="ttdeci">auto just(const TScheduler &amp;scheduler, T &amp;&amp;item, Ts &amp;&amp;...items)</div><div class="ttdoc">Creates rpp::observable that emits a particular items and completes.</div><div class="ttdef"><b>Definition</b> from.hpp:196</div></div>
-<div class="ttc" id="agroup__transforming__operators_html_ga136286fed612116e8d8f43511b5ef7dd"><div class="ttname"><a href="group__transforming__operators.html#ga136286fed612116e8d8f43511b5ef7dd">rpp::operators::group_by</a></div><div class="ttdeci">auto group_by(KeySelector &amp;&amp;key_selector, ValueSelector &amp;&amp;value_selector={}, KeyComparator &amp;&amp;comparator={})</div><div class="ttdoc">Divide original observable into multiple observables where each new observable emits some group of va...</div><div class="ttdef"><b>Definition</b> group_by.hpp:202</div></div>
+<div class="ttc" id="agroup__creational__operators_html_ga1edf47f176050dd414e28a1c0616b7c0"><div class="ttname"><a href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">rpp::source::just</a></div><div class="ttdeci">auto just(const TScheduler &amp;scheduler, T &amp;&amp;item, Ts &amp;&amp;... items)</div><div class="ttdoc">Creates rpp::observable that emits a particular items and completes.</div><div class="ttdef"><b>Definition</b> from.hpp:199</div></div>
+<div class="ttc" id="agroup__transforming__operators_html_ga2fa21790af1c065382cd37faa3462851"><div class="ttname"><a href="group__transforming__operators.html#ga2fa21790af1c065382cd37faa3462851">rpp::operators::group_by</a></div><div class="ttdeci">auto group_by(KeySelector &amp;&amp;key_selector, ValueSelector &amp;&amp;value_selector={}, KeyComparator &amp;&amp;comparator={})</div><div class="ttdoc">Divide original observable into multiple observables where each new observable emits some group of va...</div><div class="ttdef"><b>Definition</b> group_by.hpp:207</div></div>
 </div><!-- fragment --> </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

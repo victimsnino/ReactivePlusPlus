@@ -110,11 +110,11 @@ Functions</h2></td></tr>
 <tr class="memitem:ga3f8a04b4c8eb945534eddde5a25eec74" id="r_ga3f8a04b4c8eb945534eddde5a25eec74"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__combining__operators.html#ga3f8a04b4c8eb945534eddde5a25eec74">rpp::operators::merge</a> ()</td></tr>
 <tr class="memdesc:ga3f8a04b4c8eb945534eddde5a25eec74"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts observable of observables of items into observable of items via merging emissions.  <br /></td></tr>
 <tr class="separator:ga3f8a04b4c8eb945534eddde5a25eec74"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga063bcb64ac3afbedca8b257d3558f2dd" id="r_ga063bcb64ac3afbedca8b257d3558f2dd"><td class="memTemplParams" colspan="2">template&lt;<a class="el" href="conceptrpp_1_1constraint_1_1observable.html">rpp::constraint::observable</a> TObservable, rpp::constraint::observable... TObservables&gt; <br />
+<tr class="memitem:ga35392a84e52bf7101d0d0445ef391db7" id="r_ga35392a84e52bf7101d0d0445ef391db7"><td class="memTemplParams" colspan="2">template&lt;<a class="el" href="conceptrpp_1_1constraint_1_1observable.html">rpp::constraint::observable</a> TObservable, rpp::constraint::observable... TObservables&gt; <br />
 requires constraint::observables_of_same_type&lt;std::decay_t&lt;TObservable&gt;, std::decay_t&lt;TObservables&gt;...&gt;</td></tr>
-<tr class="memitem:ga063bcb64ac3afbedca8b257d3558f2dd"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__combining__operators.html#ga063bcb64ac3afbedca8b257d3558f2dd">rpp::operators::merge_with</a> (TObservable &amp;&amp;<a class="el" href="classrpp_1_1observable.html">observable</a>, TObservables &amp;&amp;...observables)</td></tr>
-<tr class="memdesc:ga063bcb64ac3afbedca8b257d3558f2dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Combines submissions from current observable with other observables into one.  <br /></td></tr>
-<tr class="separator:ga063bcb64ac3afbedca8b257d3558f2dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga35392a84e52bf7101d0d0445ef391db7"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__combining__operators.html#ga35392a84e52bf7101d0d0445ef391db7">rpp::operators::merge_with</a> (TObservable &amp;&amp;<a class="el" href="classrpp_1_1observable.html">observable</a>, TObservables &amp;&amp;... observables)</td></tr>
+<tr class="memdesc:ga35392a84e52bf7101d0d0445ef391db7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Combines submissions from current observable with other observables into one.  <br /></td></tr>
+<tr class="separator:ga35392a84e52bf7101d0d0445ef391db7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga9345ba5faac717ba85fc88f1c5fff58b" id="r_ga9345ba5faac717ba85fc88f1c5fff58b"><td class="memTemplParams" colspan="2">template&lt;typename TSelector , <a class="el" href="conceptrpp_1_1constraint_1_1observable.html">rpp::constraint::observable</a> TObservable, rpp::constraint::observable... TObservables&gt; <br />
 requires (!<a class="el" href="conceptrpp_1_1constraint_1_1observable.html">rpp::constraint::observable</a>&lt;TSelector&gt; &amp;&amp; (!utils::is_not_template_callable&lt;TSelector&gt; || std::invocable&lt;TSelector, rpp::utils::convertible_to_any, utils::extract_observable_type_t&lt;TObservable&gt;, utils::extract_observable_type_t&lt;TObservables&gt;...&gt;))</td></tr>
 <tr class="memitem:ga9345ba5faac717ba85fc88f1c5fff58b"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__combining__operators.html#ga9345ba5faac717ba85fc88f1c5fff58b">rpp::operators::with_latest_from</a> (TSelector &amp;&amp;selector, TObservable &amp;&amp;<a class="el" href="classrpp_1_1observable.html">observable</a>, TObservables &amp;&amp;... observables)</td></tr>
@@ -166,15 +166,15 @@ During on subscribe operator takes ownership over <a class="el" href="classrpp_1
 </ul>
 </dd></dl>
 <dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="merge_8hpp_source.html">rpp/operators/merge.hpp</a>&gt;</dd></dl>
-<dl class="section user"><dt>Example:</dt><dd><div class="fragment"><div class="line">    <a class="code hl_function" href="group__creational__operators.html#gae60bdb9b493443d2786b0eee8bfe17ab">rpp::source::just</a>(<a class="code hl_function" href="group__creational__operators.html#gae60bdb9b493443d2786b0eee8bfe17ab">rpp::source::just</a>(1).as_dynamic(),</div>
-<div class="line">                      <a class="code hl_function" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">rpp::source::never&lt;int&gt;</a>().as_dynamic(),</div>
-<div class="line">                      <a class="code hl_function" href="group__creational__operators.html#gae60bdb9b493443d2786b0eee8bfe17ab">rpp::source::just</a>(2).as_dynamic())</div>
+<dl class="section user"><dt>Example:</dt><dd><div class="fragment"><div class="line">    <a class="code hl_function" href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">rpp::source::just</a>(<a class="code hl_function" href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">rpp::source::just</a>(1).as_dynamic(),</div>
+<div class="line">                      <a class="code hl_function" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">rpp::source::never&lt;int&gt;</a>().as_dynamic(),</div>
+<div class="line">                      <a class="code hl_function" href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">rpp::source::just</a>(2).as_dynamic())</div>
 <div class="line">            | <a class="code hl_function" href="group__combining__operators.html#ga3f8a04b4c8eb945534eddde5a25eec74">rpp::operators::merge</a>()</div>
 <div class="line">            | rpp::operators::subscribe([](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; v &lt;&lt; <span class="stringliteral">&quot; &quot;</span>; });</div>
 <div class="line">    <span class="comment">// Output: 1 2</span></div>
-<div class="ttc" id="agroup__combining__operators_html_ga3f8a04b4c8eb945534eddde5a25eec74"><div class="ttname"><a href="group__combining__operators.html#ga3f8a04b4c8eb945534eddde5a25eec74">rpp::operators::merge</a></div><div class="ttdeci">auto merge()</div><div class="ttdoc">Converts observable of observables of items into observable of items via merging emissions.</div><div class="ttdef"><b>Definition</b> merge.hpp:191</div></div>
-<div class="ttc" id="agroup__creational__operators_html_ga5bf57bc7e432fb38565810144a75b972"><div class="ttname"><a href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">rpp::source::concat</a></div><div class="ttdeci">auto concat(TObservable &amp;&amp;obs, TObservables &amp;&amp;...others)</div><div class="ttdoc">Make observable which would merge emissions from underlying observables but without overlapping (curr...</div><div class="ttdef"><b>Definition</b> concat.hpp:134</div></div>
-<div class="ttc" id="agroup__creational__operators_html_gae60bdb9b493443d2786b0eee8bfe17ab"><div class="ttname"><a href="group__creational__operators.html#gae60bdb9b493443d2786b0eee8bfe17ab">rpp::source::just</a></div><div class="ttdeci">auto just(const TScheduler &amp;scheduler, T &amp;&amp;item, Ts &amp;&amp;...items)</div><div class="ttdoc">Creates rpp::observable that emits a particular items and completes.</div><div class="ttdef"><b>Definition</b> from.hpp:196</div></div>
+<div class="ttc" id="agroup__combining__operators_html_ga3f8a04b4c8eb945534eddde5a25eec74"><div class="ttname"><a href="group__combining__operators.html#ga3f8a04b4c8eb945534eddde5a25eec74">rpp::operators::merge</a></div><div class="ttdeci">auto merge()</div><div class="ttdoc">Converts observable of observables of items into observable of items via merging emissions.</div><div class="ttdef"><b>Definition</b> merge.hpp:196</div></div>
+<div class="ttc" id="agroup__creational__operators_html_ga1edf47f176050dd414e28a1c0616b7c0"><div class="ttname"><a href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">rpp::source::just</a></div><div class="ttdeci">auto just(const TScheduler &amp;scheduler, T &amp;&amp;item, Ts &amp;&amp;... items)</div><div class="ttdoc">Creates rpp::observable that emits a particular items and completes.</div><div class="ttdef"><b>Definition</b> from.hpp:199</div></div>
+<div class="ttc" id="agroup__creational__operators_html_gab6cfd9da2e3590fd199c9972477e04df"><div class="ttname"><a href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">rpp::source::concat</a></div><div class="ttdeci">auto concat(TObservable &amp;&amp;obs, TObservables &amp;&amp;... others)</div><div class="ttdoc">Make observable which would merge emissions from underlying observables but without overlapping (curr...</div><div class="ttdef"><b>Definition</b> concat.hpp:141</div></div>
 </div><!-- fragment --></dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/merge.html">https://reactivex.io/documentation/operators/merge.html</a> </dd></dl>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="merge_8cpp-example.html#a2">merge.cpp</a>.</dd>
@@ -182,8 +182,8 @@ During on subscribe operator takes ownership over <a class="el" href="classrpp_1
 
 </div>
 </div>
-<a id="ga063bcb64ac3afbedca8b257d3558f2dd" name="ga063bcb64ac3afbedca8b257d3558f2dd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga063bcb64ac3afbedca8b257d3558f2dd">&#9670;&#160;</a></span>merge_with()</h2>
+<a id="ga35392a84e52bf7101d0d0445ef391db7" name="ga35392a84e52bf7101d0d0445ef391db7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga35392a84e52bf7101d0d0445ef391db7">&#9670;&#160;</a></span>merge_with()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -231,11 +231,11 @@ During on subscribe operator takes ownership over <a class="el" href="classrpp_1
   </dd>
 </dl>
 <dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="merge_8hpp_source.html">rpp/operators/merge.hpp</a>&gt;</dd></dl>
-<dl class="section user"><dt>Example:</dt><dd><div class="fragment"><div class="line">    <a class="code hl_function" href="group__creational__operators.html#gae60bdb9b493443d2786b0eee8bfe17ab">rpp::source::just</a>(1)</div>
-<div class="line">            | <a class="code hl_function" href="group__combining__operators.html#ga063bcb64ac3afbedca8b257d3558f2dd">rpp::operators::merge_with</a>(<a class="code hl_function" href="group__creational__operators.html#gae60bdb9b493443d2786b0eee8bfe17ab">rpp::source::just</a>(2))</div>
+<dl class="section user"><dt>Example:</dt><dd><div class="fragment"><div class="line">    <a class="code hl_function" href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">rpp::source::just</a>(1)</div>
+<div class="line">            | <a class="code hl_function" href="group__combining__operators.html#ga35392a84e52bf7101d0d0445ef391db7">rpp::operators::merge_with</a>(<a class="code hl_function" href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">rpp::source::just</a>(2))</div>
 <div class="line">            | rpp::operators::subscribe([](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; v &lt;&lt; <span class="stringliteral">&quot; &quot;</span>; });</div>
 <div class="line">    <span class="comment">// Output: 1 2</span></div>
-<div class="ttc" id="agroup__combining__operators_html_ga063bcb64ac3afbedca8b257d3558f2dd"><div class="ttname"><a href="group__combining__operators.html#ga063bcb64ac3afbedca8b257d3558f2dd">rpp::operators::merge_with</a></div><div class="ttdeci">auto merge_with(TObservable &amp;&amp;observable, TObservables &amp;&amp;...observables)</div><div class="ttdoc">Combines submissions from current observable with other observables into one.</div><div class="ttdef"><b>Definition</b> merge.hpp:222</div></div>
+<div class="ttc" id="agroup__combining__operators_html_ga35392a84e52bf7101d0d0445ef391db7"><div class="ttname"><a href="group__combining__operators.html#ga35392a84e52bf7101d0d0445ef391db7">rpp::operators::merge_with</a></div><div class="ttdeci">auto merge_with(TObservable &amp;&amp;observable, TObservables &amp;&amp;... observables)</div><div class="ttdoc">Combines submissions from current observable with other observables into one.</div><div class="ttdef"><b>Definition</b> merge.hpp:227</div></div>
 </div><!-- fragment --></dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/merge.html">https://reactivex.io/documentation/operators/merge.html</a> </dd></dl>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="merge_8cpp-example.html#a3">merge.cpp</a>.</dd>
@@ -289,18 +289,18 @@ template&lt;<a class="el" href="conceptrpp_1_1constraint_1_1observable.html">rpp
   </dd>
 </dl>
 <dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="with__latest__from_8hpp_source.html">rpp/operators/with_latest_from.hpp</a>&gt;</dd></dl>
-<dl class="section user"><dt>Examples</dt><dd><div class="fragment"><div class="line">    <a class="code hl_function" href="group__creational__operators.html#gae60bdb9b493443d2786b0eee8bfe17ab">rpp::source::just</a>(1, 2, 3, 4, 5, 6)</div>
-<div class="line">        | <a class="code hl_function" href="group__combining__operators.html#ga9345ba5faac717ba85fc88f1c5fff58b">rpp::operators::with_latest_from</a>(<a class="code hl_function" href="group__creational__operators.html#gae60bdb9b493443d2786b0eee8bfe17ab">rpp::source::just</a>(3, 4, 5))</div>
+<dl class="section user"><dt>Examples</dt><dd><div class="fragment"><div class="line">    <a class="code hl_function" href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">rpp::source::just</a>(1, 2, 3, 4, 5, 6)</div>
+<div class="line">        | <a class="code hl_function" href="group__combining__operators.html#ga9345ba5faac717ba85fc88f1c5fff58b">rpp::operators::with_latest_from</a>(<a class="code hl_function" href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">rpp::source::just</a>(3, 4, 5))</div>
 <div class="line">        | rpp::operators::subscribe([](std::tuple&lt;int,int&gt; v) { std::cout &lt;&lt; std::get&lt;0&gt;(v) &lt;&lt; <span class="stringliteral">&quot;:&quot;</span> &lt;&lt; std::get&lt;1&gt;(v) &lt;&lt; <span class="stringliteral">&quot; &quot;</span>; });</div>
 <div class="line">    <span class="comment">// Output: 1:3 2:4 3:5 4:5 5:5 6:5</span></div>
 <div class="line"> </div>
 <div class="line">    std::cout &lt;&lt; std::endl;</div>
 <div class="line"> </div>
-<div class="line">    <a class="code hl_function" href="group__creational__operators.html#gae60bdb9b493443d2786b0eee8bfe17ab">rpp::source::just</a>(1, 2, 3)</div>
-<div class="line">        | <a class="code hl_function" href="group__combining__operators.html#ga9345ba5faac717ba85fc88f1c5fff58b">rpp::operators::with_latest_from</a>(<a class="code hl_function" href="group__creational__operators.html#gae60bdb9b493443d2786b0eee8bfe17ab">rpp::source::just</a>(3, 4, 5, 6, 7, 8))</div>
+<div class="line">    <a class="code hl_function" href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">rpp::source::just</a>(1, 2, 3)</div>
+<div class="line">        | <a class="code hl_function" href="group__combining__operators.html#ga9345ba5faac717ba85fc88f1c5fff58b">rpp::operators::with_latest_from</a>(<a class="code hl_function" href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">rpp::source::just</a>(3, 4, 5, 6, 7, 8))</div>
 <div class="line">        | rpp::operators::subscribe([](std::tuple&lt;int,int&gt; v) { std::cout &lt;&lt; std::get&lt;0&gt;(v) &lt;&lt; <span class="stringliteral">&quot;:&quot;</span> &lt;&lt; std::get&lt;1&gt;(v) &lt;&lt; <span class="stringliteral">&quot; &quot;</span>; });</div>
 <div class="line">    <span class="comment">// Output: 1:3 2:4 3:5</span></div>
-<div class="ttc" id="agroup__combining__operators_html_ga9345ba5faac717ba85fc88f1c5fff58b"><div class="ttname"><a href="group__combining__operators.html#ga9345ba5faac717ba85fc88f1c5fff58b">rpp::operators::with_latest_from</a></div><div class="ttdeci">auto with_latest_from(TSelector &amp;&amp;selector, TObservable &amp;&amp;observable, TObservables &amp;&amp;... observables)</div><div class="ttdoc">Combines latest emissions from observables with emission from current observable when it sends new va...</div><div class="ttdef"><b>Definition</b> with_latest_from.hpp:194</div></div>
+<div class="ttc" id="agroup__combining__operators_html_ga9345ba5faac717ba85fc88f1c5fff58b"><div class="ttname"><a href="group__combining__operators.html#ga9345ba5faac717ba85fc88f1c5fff58b">rpp::operators::with_latest_from</a></div><div class="ttdeci">auto with_latest_from(TSelector &amp;&amp;selector, TObservable &amp;&amp;observable, TObservables &amp;&amp;... observables)</div><div class="ttdoc">Combines latest emissions from observables with emission from current observable when it sends new va...</div><div class="ttdef"><b>Definition</b> with_latest_from.hpp:195</div></div>
 </div><!-- fragment --></dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/combinelatest.html">https://reactivex.io/documentation/operators/combinelatest.html</a> </dd></dl>
 
@@ -360,9 +360,9 @@ requires (!<a class="el" href="conceptrpp_1_1constraint_1_1observable.html">rpp:
   </dd>
 </dl>
 <dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="with__latest__from_8hpp_source.html">rpp/operators/with_latest_from.hpp</a>&gt;</dd></dl>
-<dl class="section user"><dt>Examples</dt><dd><div class="fragment"><div class="line">    <a class="code hl_function" href="group__creational__operators.html#gae60bdb9b493443d2786b0eee8bfe17ab">rpp::source::just</a>(1, 2, 3, 4)</div>
+<dl class="section user"><dt>Examples</dt><dd><div class="fragment"><div class="line">    <a class="code hl_function" href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">rpp::source::just</a>(1, 2, 3, 4)</div>
 <div class="line">        | <a class="code hl_function" href="group__combining__operators.html#ga9345ba5faac717ba85fc88f1c5fff58b">rpp::operators::with_latest_from</a>([](<span class="keywordtype">int</span> left, <span class="keywordtype">int</span> right) { <span class="keywordflow">return</span> left + right; },</div>
-<div class="line">                                           <a class="code hl_function" href="group__creational__operators.html#gae60bdb9b493443d2786b0eee8bfe17ab">rpp::source::just</a>(3, 4, 5))</div>
+<div class="line">                                           <a class="code hl_function" href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">rpp::source::just</a>(3, 4, 5))</div>
 <div class="line">        | rpp::operators::subscribe([](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; v &lt;&lt; <span class="stringliteral">&quot; &quot;</span>; });</div>
 <div class="line">    <span class="comment">// Output: 4 6 8 9</span></div>
 </div><!-- fragment --></dd></dl>

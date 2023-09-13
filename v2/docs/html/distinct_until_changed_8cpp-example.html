@@ -105,20 +105,20 @@ $(document).ready(function(){initNavTree('distinct_until_changed_8cpp-example.ht
 <div class="line"> </div>
 <div class="line"><span class="keywordtype">int</span> main()</div>
 <div class="line">{</div>
-<div class="line">    <a id="a0" name="a0"></a><a class="code hl_function" href="group__creational__operators.html#gae60bdb9b493443d2786b0eee8bfe17ab">rpp::source::just</a>(1, 1, 2, 2, 3, 2, 1)</div>
+<div class="line">    <a id="a0" name="a0"></a><a class="code hl_function" href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">rpp::source::just</a>(1, 1, 2, 2, 3, 2, 1)</div>
 <div class="line">            | <a id="a1" name="a1"></a><a class="code hl_function" href="group__filtering__operators.html#gaa8ed11faabd5b31d63d0481f9018fc68">rpp::operators::distinct_until_changed</a>()</div>
 <div class="line">            | rpp::operators::subscribe([](<span class="keywordtype">int</span> val) { std::cout &lt;&lt; val &lt;&lt; <span class="stringliteral">&quot; &quot;</span>; });</div>
 <div class="line">    <span class="comment">// Output: 1 2 3 2 1</span></div>
 <div class="line"> </div>
 <div class="line">    std::cout &lt;&lt; std::endl;</div>
-<div class="line">    <a class="code hl_function" href="group__creational__operators.html#gae60bdb9b493443d2786b0eee8bfe17ab">rpp::source::just</a>(1, 1, 2, 2, 3, 2, 1)</div>
+<div class="line">    <a class="code hl_function" href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">rpp::source::just</a>(1, 1, 2, 2, 3, 2, 1)</div>
 <div class="line">            | <a class="code hl_function" href="group__filtering__operators.html#gaa8ed11faabd5b31d63d0481f9018fc68">rpp::operators::distinct_until_changed</a>([](<span class="keywordtype">int</span> left, <span class="keywordtype">int</span> right) {<span class="keywordflow">return</span> left != right; })</div>
 <div class="line">            | rpp::operators::subscribe([](<span class="keywordtype">int</span> val) { std::cout &lt;&lt; val &lt;&lt; <span class="stringliteral">&quot; &quot;</span>; });</div>
 <div class="line">    <span class="comment">// Output: 1 1 1</span></div>
 <div class="line">    <span class="keywordflow">return</span> 0;</div>
 <div class="line">}</div>
-<div class="ttc" id="agroup__creational__operators_html_gae60bdb9b493443d2786b0eee8bfe17ab"><div class="ttname"><a href="group__creational__operators.html#gae60bdb9b493443d2786b0eee8bfe17ab">rpp::source::just</a></div><div class="ttdeci">auto just(const TScheduler &amp;scheduler, T &amp;&amp;item, Ts &amp;&amp;...items)</div><div class="ttdoc">Creates rpp::observable that emits a particular items and completes.</div><div class="ttdef"><b>Definition</b> from.hpp:196</div></div>
-<div class="ttc" id="agroup__filtering__operators_html_gaa8ed11faabd5b31d63d0481f9018fc68"><div class="ttname"><a href="group__filtering__operators.html#gaa8ed11faabd5b31d63d0481f9018fc68">rpp::operators::distinct_until_changed</a></div><div class="ttdeci">auto distinct_until_changed(EqualityFn &amp;&amp;equality_fn)</div><div class="ttdoc">Suppress consecutive duplicates of emissions from original observable.</div><div class="ttdef"><b>Definition</b> distinct_until_changed.hpp:82</div></div>
+<div class="ttc" id="agroup__creational__operators_html_ga1edf47f176050dd414e28a1c0616b7c0"><div class="ttname"><a href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">rpp::source::just</a></div><div class="ttdeci">auto just(const TScheduler &amp;scheduler, T &amp;&amp;item, Ts &amp;&amp;... items)</div><div class="ttdoc">Creates rpp::observable that emits a particular items and completes.</div><div class="ttdef"><b>Definition</b> from.hpp:199</div></div>
+<div class="ttc" id="agroup__filtering__operators_html_gaa8ed11faabd5b31d63d0481f9018fc68"><div class="ttname"><a href="group__filtering__operators.html#gaa8ed11faabd5b31d63d0481f9018fc68">rpp::operators::distinct_until_changed</a></div><div class="ttdeci">auto distinct_until_changed(EqualityFn &amp;&amp;equality_fn)</div><div class="ttdoc">Suppress consecutive duplicates of emissions from original observable.</div><div class="ttdef"><b>Definition</b> distinct_until_changed.hpp:85</div></div>
 </div><!-- fragment --> </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

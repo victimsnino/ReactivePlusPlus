@@ -68,7 +68,7 @@ Actually this operator has {\ttfamily std\+::optional} with last item and checks
 \begin{DoxyParagraph}{Example}
 
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_gae60bdb9b493443d2786b0eee8bfe17ab}{rpp::source::just}}(1,\ 1,\ 2,\ 2,\ 3,\ 2,\ 1)}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(1,\ 1,\ 2,\ 2,\ 3,\ 2,\ 1)}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__filtering__operators_gaa8ed11faabd5b31d63d0481f9018fc68}{rpp::operators::distinct\_until\_changed}}()}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ |\ rpp::operators::subscribe([](\textcolor{keywordtype}{int}\ val)\ \{\ std::cout\ <<\ val\ <<\ \textcolor{stringliteral}{"{}\ "{}};\ \});}
 \DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:\ 1\ 2\ 3\ 2\ 1}}
@@ -76,7 +76,7 @@ Actually this operator has {\ttfamily std\+::optional} with last item and checks
 \end{DoxyCodeInclude}
  
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_gae60bdb9b493443d2786b0eee8bfe17ab}{rpp::source::just}}(1,\ 1,\ 2,\ 2,\ 3,\ 2,\ 1)}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(1,\ 1,\ 2,\ 2,\ 3,\ 2,\ 1)}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__filtering__operators_gaa8ed11faabd5b31d63d0481f9018fc68}{rpp::operators::distinct\_until\_changed}}([](\textcolor{keywordtype}{int}\ left,\ \textcolor{keywordtype}{int}\ right)\ \{\textcolor{keywordflow}{return}\ left\ !=\ right;\ \})}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ |\ rpp::operators::subscribe([](\textcolor{keywordtype}{int}\ val)\ \{\ std::cout\ <<\ val\ <<\ \textcolor{stringliteral}{"{}\ "{}};\ \});}
 \DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:\ 1\ 1\ 1}}
@@ -124,7 +124,7 @@ Actually this operator just checks if predicate returns true, then forwards emis
 \begin{DoxyParagraph}{Example\+:}
 
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_gae60bdb9b493443d2786b0eee8bfe17ab}{rpp::source::just}}(0,\ 1,\ 2,\ 3,\ 4,\ 5,\ 6,\ 7,\ 8,\ 9)}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(0,\ 1,\ 2,\ 3,\ 4,\ 5,\ 6,\ 7,\ 8,\ 9)}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ |\mbox{\hyperlink{group__filtering__operators_ga3ad579153e7975af6ae4b75f585fb873}{rpp::operators::filter}}([](\textcolor{keywordtype}{int}\ \ \ \ v)\ \{\ \textcolor{keywordflow}{return}\ v\ \%\ 2\ ==\ 0;\ \})}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ |rpp::operators::subscribe([](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ v\ <<\ \textcolor{stringliteral}{"{}\ "{}};\ \});}
 \DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:\ 0\ 2\ 4\ 6\ 8}}
@@ -168,7 +168,7 @@ Actually this operator is {\ttfamily take(1)} with exception during {\ttfamily o
 \begin{DoxyParagraph}{Example\+:}
 
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_gae60bdb9b493443d2786b0eee8bfe17ab}{rpp::source::just}}(1,\ 2,\ 3,\ 4,\ 5)}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(1,\ 2,\ 3,\ 4,\ 5)}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__filtering__operators_ga5b8f3bf549a8679d41941f7224f7faad}{rpp::operators::first}}()}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ |\ rpp::operators::subscribe(}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ [](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ \&v)\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}-\/"{}}\ <<\ v;\ \},}
@@ -180,7 +180,7 @@ Actually this operator is {\ttfamily take(1)} with exception during {\ttfamily o
 \end{DoxyCodeInclude}
  
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_ga5bf57bc7e432fb38565810144a75b972}{rpp::source::empty<int>}}()}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{rpp::source::empty<int>}}()}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__filtering__operators_ga5b8f3bf549a8679d41941f7224f7faad}{rpp::operators::first}}()}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ |\ rpp::operators::subscribe(}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ [](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ \&v)\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}-\/"{}}\ <<\ v;\ \},}
@@ -228,7 +228,7 @@ Actually this operator just updates {\ttfamily std\+::optional} on every new emi
 \begin{DoxyParagraph}{Example\+:}
 
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_gae60bdb9b493443d2786b0eee8bfe17ab}{rpp::source::just}}(1,\ 2,\ 3,\ 4,\ 5)}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(1,\ 2,\ 3,\ 4,\ 5)}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__filtering__operators_ga679e35f7895a5d7e22cd2b3c359b9457}{rpp::operators::last}}()}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ |\ rpp::operators::subscribe(}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ [](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ \&v)\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}-\/"{}}\ <<\ v;\ \},}
@@ -240,7 +240,7 @@ Actually this operator just updates {\ttfamily std\+::optional} on every new emi
 \end{DoxyCodeInclude}
  
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_ga5bf57bc7e432fb38565810144a75b972}{rpp::source::empty<int>}}()}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{rpp::source::empty<int>}}()}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__filtering__operators_ga679e35f7895a5d7e22cd2b3c359b9457}{rpp::operators::last}}()}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ |\ rpp::operators::subscribe(}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ [](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ \&v)\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}-\/"{}}\ <<\ v;\ \},}
@@ -291,7 +291,7 @@ Actually this operator just decrements counter and starts to forward emissions w
 \begin{DoxyParagraph}{Example\+:}
 
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_gae60bdb9b493443d2786b0eee8bfe17ab}{rpp::source::just}}(0,1,2,3,4,5)}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(0,1,2,3,4,5)}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__filtering__operators_ga8e20aec530e08ba64004c10b7732593c}{rpp::operators::skip}}(2)}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ |\ rpp::operators::subscribe([](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ v\ <<\ \textcolor{stringliteral}{"{}\ "{}};\ \});}
 \DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:\ 2\ 3\ 4\ 5}}

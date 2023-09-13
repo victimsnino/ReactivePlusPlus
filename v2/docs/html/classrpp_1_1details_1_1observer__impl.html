@@ -110,12 +110,12 @@ Public Types</h2></td></tr>
 <tr class="memitem:a5d7672a078ce4d324124ea8817d8d433" id="r_a5d7672a078ce4d324124ea8817d8d433"><td class="memItemLeft" align="right" valign="top"><a id="a5d7672a078ce4d324124ea8817d8d433" name="a5d7672a078ce4d324124ea8817d8d433"></a>
 using&#160;</td><td class="memItemRight" valign="bottom"><b>DisposableStrategyToUseWithThis</b> = <a class="el" href="structrpp_1_1details_1_1none__disposable__strategy.html">none_disposable_strategy</a></td></tr>
 <tr class="separator:a5d7672a078ce4d324124ea8817d8d433"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a501eb17946928a225ed21fb0ced765f9" id="r_a501eb17946928a225ed21fb0ced765f9"><td class="memItemLeft" align="right" valign="top"><a id="a501eb17946928a225ed21fb0ced765f9" name="a501eb17946928a225ed21fb0ced765f9"></a>
+<tr class="memitem:ab624148fb355dd36b31da497c0a44bc3" id="r_ab624148fb355dd36b31da497c0a44bc3"><td class="memItemLeft" align="right" valign="top"><a id="ab624148fb355dd36b31da497c0a44bc3" name="ab624148fb355dd36b31da497c0a44bc3"></a>
 using&#160;</td><td class="memItemRight" valign="bottom"><b>on_next_lvalue</b> = void(observer_impl::*)(const Type &amp;) const noexcept</td></tr>
-<tr class="separator:a501eb17946928a225ed21fb0ced765f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9c7284957105708f5e9bb253decbf701" id="r_a9c7284957105708f5e9bb253decbf701"><td class="memItemLeft" align="right" valign="top"><a id="a9c7284957105708f5e9bb253decbf701" name="a9c7284957105708f5e9bb253decbf701"></a>
+<tr class="separator:ab624148fb355dd36b31da497c0a44bc3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abba608430cf680d2aa1204d9c7d968e1" id="r_abba608430cf680d2aa1204d9c7d968e1"><td class="memItemLeft" align="right" valign="top"><a id="abba608430cf680d2aa1204d9c7d968e1" name="abba608430cf680d2aa1204d9c7d968e1"></a>
 using&#160;</td><td class="memItemRight" valign="bottom"><b>on_next_rvalue</b> = void(observer_impl::*)(Type &amp;&amp;) const noexcept</td></tr>
-<tr class="separator:a9c7284957105708f5e9bb253decbf701"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="separator:abba608430cf680d2aa1204d9c7d968e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -145,11 +145,11 @@ template&lt;typename... Args&gt; <br />
 requires constraint::is_constructible_from&lt;Strategy, Args&amp;&amp;...&gt;</td></tr>
 <tr class="memitem:a2f010efd5f0b78ddde9a8ab205005de4"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><b>observer_impl</b> (DisposablesStrategy &amp;&amp;strategy, Args &amp;&amp;... args)</td></tr>
 <tr class="separator:a2f010efd5f0b78ddde9a8ab205005de4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a96732c0948b1b318354bf9e0c5331e3b" id="r_a96732c0948b1b318354bf9e0c5331e3b"><td class="memTemplParams" colspan="2"><a id="a96732c0948b1b318354bf9e0c5331e3b" name="a96732c0948b1b318354bf9e0c5331e3b"></a>
+<tr class="memitem:aa80852dd59f9a6f6cef0e14d911720f9" id="r_aa80852dd59f9a6f6cef0e14d911720f9"><td class="memTemplParams" colspan="2"><a id="aa80852dd59f9a6f6cef0e14d911720f9" name="aa80852dd59f9a6f6cef0e14d911720f9"></a>
 template&lt;typename... Args&gt; <br />
-requires (constraint::is_constructible_from&lt;Strategy, Args&amp;&amp;...&gt; &amp;&amp; !rpp::constraint::variadic_decayed_same_as&lt;<a class="el" href="classrpp_1_1details_1_1observer__impl.html">observer_impl</a>&lt;Type, Strategy, DisposablesStrategy&gt;, Args...&gt;)</td></tr>
-<tr class="memitem:a96732c0948b1b318354bf9e0c5331e3b"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><b>observer_impl</b> (Args &amp;&amp;... args)</td></tr>
-<tr class="separator:a96732c0948b1b318354bf9e0c5331e3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+requires (constraint::is_constructible_from&lt;Strategy, Args &amp;&amp; ...&gt; &amp;&amp; !rpp::constraint::variadic_decayed_same_as&lt;<a class="el" href="classrpp_1_1details_1_1observer__impl.html">observer_impl</a>&lt;Type, Strategy, DisposablesStrategy&gt;, Args...&gt;)</td></tr>
+<tr class="memitem:aa80852dd59f9a6f6cef0e14d911720f9"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><b>observer_impl</b> (Args &amp;&amp;... args)</td></tr>
+<tr class="separator:aa80852dd59f9a6f6cef0e14d911720f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1086c5aeaf72f4976434d15225602a37" id="r_a1086c5aeaf72f4976434d15225602a37"><td class="memItemLeft" align="right" valign="top"><a id="a1086c5aeaf72f4976434d15225602a37" name="a1086c5aeaf72f4976434d15225602a37"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>observer_impl</b> (const <a class="el" href="classrpp_1_1details_1_1observer__impl.html">observer_impl</a> &amp;)=default</td></tr>
 <tr class="separator:a1086c5aeaf72f4976434d15225602a37"><td class="memSeparator" colspan="2">&#160;</td></tr>

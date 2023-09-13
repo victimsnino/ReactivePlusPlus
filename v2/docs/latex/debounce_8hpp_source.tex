@@ -15,166 +15,172 @@
 \DoxyCodeLine{00011\ \textcolor{preprocessor}{\#pragma\ once}}
 \DoxyCodeLine{00012\ }
 \DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <rpp/operators/fwd.hpp>}}
-\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <rpp/operators/details/strategy.hpp>}}
+\DoxyCodeLine{00014\ }
 \DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <rpp/disposables/composite\_disposable.hpp>}}
-\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ <rpp/operators/details/utils.hpp>}}
-\DoxyCodeLine{00017\ }
-\DoxyCodeLine{00018\ \textcolor{keyword}{namespace\ }rpp::operators::details}
-\DoxyCodeLine{00019\ \{}
-\DoxyCodeLine{00020\ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::observer\ Observer,\ \textcolor{keyword}{typename}\ Worker>}
-\DoxyCodeLine{00021\ \textcolor{keyword}{class\ }debounce\_disposable;}
-\DoxyCodeLine{00022\ }
-\DoxyCodeLine{00023\ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::observer\ Observer,\ \textcolor{keyword}{typename}\ Worker>}
-\DoxyCodeLine{00024\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1debounce__disposable__wrapper}{debounce\_disposable\_wrapper}}}
-\DoxyCodeLine{00025\ \{}
-\DoxyCodeLine{00026\ \ \ \ \ std::shared\_ptr<debounce\_disposable<Observer,\ Worker>>\ disposable\{\};}
-\DoxyCodeLine{00027\ }
-\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keywordtype}{bool}\ is\_disposed()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ disposable-\/>is\_disposed();\ \}}
-\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_error(\textcolor{keyword}{const}\ std::exception\_ptr\&\ err)\textcolor{keyword}{\ const\ }\{\ disposable-\/>get\_observer\_under\_lock()-\/>on\_error(err);\ \}}
-\DoxyCodeLine{00030\ \};}
-\DoxyCodeLine{00031\ }
-\DoxyCodeLine{00032\ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::observer\ Observer,\ \textcolor{keyword}{typename}\ Worker>}
-\DoxyCodeLine{00033\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1debounce__disposable}{debounce\_disposable}}\ final\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classrpp_1_1composite__disposable}{rpp::composite\_disposable}},\ \textcolor{keyword}{public}\ std::enable\_shared\_from\_this<debounce\_disposable<Observer,\ Worker>>\ \{}
-\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keyword}{using\ }T\ =\ rpp::utils::extract\_observer\_type\_t<Observer>;}
-\DoxyCodeLine{00035\ }
-\DoxyCodeLine{00036\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00037\ \ \ \ \ \mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1debounce__disposable}{debounce\_disposable}}(Observer\&\&\ in\_observer,\ Worker\&\&\ in\_worker,\ rpp::schedulers::duration\ period)}
-\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ :\ m\_observer(std::move(in\_observer))}
-\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ ,\ m\_worker\{std::move(in\_worker)\}}
-\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ ,\ m\_period\{period\}}
-\DoxyCodeLine{00041\ \ \ \ \ \{}
-\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{auto}\ d\ =\ m\_worker.get\_disposable();\ !d.is\_disposed())}
-\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \ \ \ \ add(std::move(d));}
-\DoxyCodeLine{00044\ \ \ \ \ \}}
-\DoxyCodeLine{00045\ }
-\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ TT>}
-\DoxyCodeLine{00047\ \ \ \ \ \textcolor{keywordtype}{void}\ emplace\_safe(TT\&\&\ v)}
-\DoxyCodeLine{00048\ \ \ \ \ \{}
-\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ std::lock\_guard\ lock\{m\_mutex\};}
-\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ m\_value\_to\_be\_emitted.emplace(std::forward<TT>(v));}
-\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ need\_to\_scheduled\ =\ !m\_time\_when\_value\_should\_be\_emitted.has\_value()\ ||\ !m\_value\_to\_be\_emitted.has\_value();}
-\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ m\_time\_when\_value\_should\_be\_emitted\ =\ m\_worker.now()\ +\ m\_period;}
-\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (need\_to\_scheduled)}
-\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \ \ \ \ schedule();}
-\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00057\ \ \ \ \ \}}
-\DoxyCodeLine{00058\ }
-\DoxyCodeLine{00059\ \ \ \ \ std::optional<T>\ extract\_value()}
-\DoxyCodeLine{00060\ \ \ \ \ \{}
-\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ std::lock\_guard\ lock\{m\_mutex\};}
-\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::exchange(m\_value\_to\_be\_emitted,\ std::optional<T>\{\});}
-\DoxyCodeLine{00063\ \ \ \ \ \}}
-\DoxyCodeLine{00064\ }
-\DoxyCodeLine{00065\ \ \ \ \ \mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1pointer__under__lock}{pointer\_under\_lock<Observer>}}\ get\_observer\_under\_lock()\ \{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1pointer__under__lock}{pointer\_under\_lock}}\{m\_observer\};\ \}}
-\DoxyCodeLine{00066\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00067\ \ \ \ \ \textcolor{keywordtype}{void}\ schedule()}
-\DoxyCodeLine{00068\ \ \ \ \ \{}
-\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ m\_worker.schedule(m\_period,}
-\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [](\textcolor{keyword}{const}\ \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1debounce__disposable__wrapper}{debounce\_disposable\_wrapper<Observer,\ Worker>}}\&\ handler)\ -\/>\ schedulers::optional\_duration}
-\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ value\_or\_duration\ =\ handler.disposable-\/>extract\_value\_or\_time();}
-\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{auto}*\ duration\ =\ std::get\_if<schedulers::duration>(\&value\_or\_duration))}
-\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *duration;}
-\DoxyCodeLine{00075\ }
-\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{auto}*\ value\ =\ std::get\_if<T>(\&value\_or\_duration))}
-\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ handler.disposable-\/>get\_observer\_under\_lock()-\/>on\_next(std::move(*value));}
-\DoxyCodeLine{00078\ }
-\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::nullopt;}
-\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \},\ \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1debounce__disposable__wrapper}{debounce\_disposable\_wrapper<Observer,\ Worker>}}\{this-\/>shared\_from\_this()\});}
-\DoxyCodeLine{00081\ \ \ \ \ \}}
-\DoxyCodeLine{00082\ }
-\DoxyCodeLine{00083\ \ \ \ \ std::variant<std::monostate,\ T,\ schedulers::duration>\ extract\_value\_or\_time()}
-\DoxyCodeLine{00084\ \ \ \ \ \{}
-\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ std::lock\_guard\ lock\{m\_mutex\};}
-\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!m\_time\_when\_value\_should\_be\_emitted.has\_value()\ ||\ !m\_value\_to\_be\_emitted.has\_value())}
-\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::monostate\{\};}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ <rpp/operators/details/strategy.hpp>}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ <rpp/operators/details/utils.hpp>}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{keyword}{namespace\ }rpp::operators::details}
+\DoxyCodeLine{00020\ \{}
+\DoxyCodeLine{00021\ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::observer\ Observer,\ \textcolor{keyword}{typename}\ Worker>}
+\DoxyCodeLine{00022\ \textcolor{keyword}{class\ }debounce\_disposable;}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::observer\ Observer,\ \textcolor{keyword}{typename}\ Worker>}
+\DoxyCodeLine{00025\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1debounce__disposable__wrapper}{debounce\_disposable\_wrapper}}}
+\DoxyCodeLine{00026\ \{}
+\DoxyCodeLine{00027\ \ \ \ \ std::shared\_ptr<debounce\_disposable<Observer,\ Worker>>\ disposable\{\};}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keywordtype}{bool}\ is\_disposed()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ disposable-\/>is\_disposed();\ \}}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_error(\textcolor{keyword}{const}\ std::exception\_ptr\&\ err)\textcolor{keyword}{\ const\ }\{\ disposable-\/>get\_observer\_under\_lock()-\/>on\_error(err);\ \}}
+\DoxyCodeLine{00032\ \};}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::observer\ Observer,\ \textcolor{keyword}{typename}\ Worker>}
+\DoxyCodeLine{00035\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1debounce__disposable}{debounce\_disposable}}\ final\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classrpp_1_1composite__disposable}{rpp::composite\_disposable}}}
+\DoxyCodeLine{00036\ \ \ \ \ ,\ \textcolor{keyword}{public}\ std::enable\_shared\_from\_this<debounce\_disposable<Observer,\ Worker>>}
+\DoxyCodeLine{00037\ \{}
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keyword}{using\ }T\ =\ rpp::utils::extract\_observer\_type\_t<Observer>;}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00041\ \ \ \ \ \mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1debounce__disposable}{debounce\_disposable}}(Observer\&\&\ in\_observer,\ Worker\&\&\ in\_worker,\ rpp::schedulers::duration\ period)}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ :\ m\_observer(std::move(in\_observer))}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ ,\ m\_worker\{std::move(in\_worker)\}}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ ,\ m\_period\{period\}}
+\DoxyCodeLine{00045\ \ \ \ \ \{}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{auto}\ d\ =\ m\_worker.get\_disposable();\ !d.is\_disposed())}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \ \ \ \ add(std::move(d));}
+\DoxyCodeLine{00048\ \ \ \ \ \}}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ TT>}
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keywordtype}{void}\ emplace\_safe(TT\&\&\ v)}
+\DoxyCodeLine{00052\ \ \ \ \ \{}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ std::lock\_guard\ lock\{m\_mutex\};}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ m\_value\_to\_be\_emitted.emplace(std::forward<TT>(v));}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ need\_to\_scheduled\ \ \ \ \ \ \ \ =\ !m\_time\_when\_value\_should\_be\_emitted.has\_value()\ ||\ !m\_value\_to\_be\_emitted.has\_value();}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ m\_time\_when\_value\_should\_be\_emitted\ =\ m\_worker.now()\ +\ m\_period;}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (need\_to\_scheduled)}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \ \ \ schedule();}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00061\ \ \ \ \ \}}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \ \ \ \ std::optional<T>\ extract\_value()}
+\DoxyCodeLine{00064\ \ \ \ \ \{}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ std::lock\_guard\ lock\{m\_mutex\};}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::exchange(m\_value\_to\_be\_emitted,\ std::optional<T>\{\});}
+\DoxyCodeLine{00067\ \ \ \ \ \}}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \ \ \ \ \mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1pointer__under__lock}{pointer\_under\_lock<Observer>}}\ get\_observer\_under\_lock()\ \{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1pointer__under__lock}{pointer\_under\_lock}}\{m\_observer\};\ \}}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00072\ \ \ \ \ \textcolor{keywordtype}{void}\ schedule()}
+\DoxyCodeLine{00073\ \ \ \ \ \{}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ m\_worker.schedule(}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \ \ \ \ m\_period,}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \ \ \ \ [](\textcolor{keyword}{const}\ \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1debounce__disposable__wrapper}{debounce\_disposable\_wrapper<Observer,\ Worker>}}\&\ handler)\ -\/>\ schedulers::optional\_duration\ \{}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ value\_or\_duration\ =\ handler.disposable-\/>extract\_value\_or\_time();}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{auto}*\ duration\ =\ std::get\_if<schedulers::duration>(\&value\_or\_duration))}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *duration;}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{auto}*\ value\ =\ std::get\_if<T>(\&value\_or\_duration))}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ handler.disposable-\/>get\_observer\_under\_lock()-\/>on\_next(std::move(*value));}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::nullopt;}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \ \ \ \ \},}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1debounce__disposable__wrapper}{debounce\_disposable\_wrapper<Observer,\ Worker>}}\{this-\/>shared\_from\_this()\});}
+\DoxyCodeLine{00087\ \ \ \ \ \}}
 \DoxyCodeLine{00088\ }
-\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ now\ =\ m\_worker.now();}
-\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (m\_time\_when\_value\_should\_be\_emitted\ >\ now)}
-\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ m\_time\_when\_value\_should\_be\_emitted.value()\ -\/\ now;}
-\DoxyCodeLine{00092\ }
-\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ m\_time\_when\_value\_should\_be\_emitted.reset();}
-\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ v\ =\ std::move(m\_value\_to\_be\_emitted).value();}
-\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ m\_value\_to\_be\_emitted.reset();}
-\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ v;}
-\DoxyCodeLine{00097\ \ \ \ \ \}}
+\DoxyCodeLine{00089\ \ \ \ \ std::variant<std::monostate,\ T,\ schedulers::duration>\ extract\_value\_or\_time()}
+\DoxyCodeLine{00090\ \ \ \ \ \{}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ std::lock\_guard\ lock\{m\_mutex\};}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!m\_time\_when\_value\_should\_be\_emitted.has\_value()\ ||\ !m\_value\_to\_be\_emitted.has\_value())}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::monostate\{\};}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ now\ =\ m\_worker.now();}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (m\_time\_when\_value\_should\_be\_emitted\ >\ now)}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ m\_time\_when\_value\_should\_be\_emitted.value()\ -\/\ now;}
 \DoxyCodeLine{00098\ }
-\DoxyCodeLine{00099\ \ \ \ \ \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1value__with__mutex}{value\_with\_mutex<Observer>}}\ \ \ m\_observer;}
-\DoxyCodeLine{00100\ \ \ \ \ RPP\_NO\_UNIQUE\_ADDRESS\ Worker\ m\_worker;}
-\DoxyCodeLine{00101\ \ \ \ \ rpp::schedulers::duration\ \ \ \ m\_period;}
-\DoxyCodeLine{00102\ }
-\DoxyCodeLine{00103\ \ \ \ \ std::mutex\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ m\_mutex\{\};}
-\DoxyCodeLine{00104\ \ \ \ \ std::optional<schedulers::time\_point>\ m\_time\_when\_value\_should\_be\_emitted\{\};}
-\DoxyCodeLine{00105\ \ \ \ \ std::optional<T>\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ m\_value\_to\_be\_emitted\{\};}
-\DoxyCodeLine{00106\ \};}
-\DoxyCodeLine{00107\ }
-\DoxyCodeLine{00108\ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::observer\ Observer,\ \textcolor{keyword}{typename}\ Worker>}
-\DoxyCodeLine{00109\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1debounce__observer__strategy}{debounce\_observer\_strategy}}}
-\DoxyCodeLine{00110\ \{}
-\DoxyCodeLine{00111\ \ \ \ \ std::shared\_ptr<debounce\_disposable<Observer,\ Worker>>\ disposable\{\};}
-\DoxyCodeLine{00112\ }
-\DoxyCodeLine{00113\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_upstream(\textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp::disposable\_wrapper}}\&\ d)\textcolor{keyword}{\ const}}
-\DoxyCodeLine{00114\ \textcolor{keyword}{\ \ \ \ }\{}
-\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ disposable-\/>add(d);}
-\DoxyCodeLine{00116\ \ \ \ \ \}}
-\DoxyCodeLine{00117\ }
-\DoxyCodeLine{00118\ \ \ \ \ \textcolor{keywordtype}{bool}\ is\_disposed()\textcolor{keyword}{\ const}}
-\DoxyCodeLine{00119\ \textcolor{keyword}{\ \ \ \ }\{}
-\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ disposable-\/>is\_disposed();}
-\DoxyCodeLine{00121\ \ \ \ \ \}}
-\DoxyCodeLine{00122\ }
-\DoxyCodeLine{00123\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
-\DoxyCodeLine{00124\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_next(T\&\&\ v)\textcolor{keyword}{\ const\ }}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ m\_time\_when\_value\_should\_be\_emitted.reset();}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ v\ =\ std::move(m\_value\_to\_be\_emitted).value();}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ m\_value\_to\_be\_emitted.reset();}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ v;}
+\DoxyCodeLine{00103\ \ \ \ \ \}}
+\DoxyCodeLine{00104\ }
+\DoxyCodeLine{00105\ \ \ \ \ \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1value__with__mutex}{value\_with\_mutex<Observer>}}\ \ \ m\_observer;}
+\DoxyCodeLine{00106\ \ \ \ \ RPP\_NO\_UNIQUE\_ADDRESS\ Worker\ m\_worker;}
+\DoxyCodeLine{00107\ \ \ \ \ rpp::schedulers::duration\ \ \ \ m\_period;}
+\DoxyCodeLine{00108\ }
+\DoxyCodeLine{00109\ \ \ \ \ std::mutex\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ m\_mutex\{\};}
+\DoxyCodeLine{00110\ \ \ \ \ std::optional<schedulers::time\_point>\ m\_time\_when\_value\_should\_be\_emitted\{\};}
+\DoxyCodeLine{00111\ \ \ \ \ std::optional<T>\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ m\_value\_to\_be\_emitted\{\};}
+\DoxyCodeLine{00112\ \};}
+\DoxyCodeLine{00113\ }
+\DoxyCodeLine{00114\ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::observer\ Observer,\ \textcolor{keyword}{typename}\ Worker>}
+\DoxyCodeLine{00115\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1debounce__observer__strategy}{debounce\_observer\_strategy}}}
+\DoxyCodeLine{00116\ \{}
+\DoxyCodeLine{00117\ \ \ \ \ std::shared\_ptr<debounce\_disposable<Observer,\ Worker>>\ disposable\{\};}
+\DoxyCodeLine{00118\ }
+\DoxyCodeLine{00119\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_upstream(\textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp::disposable\_wrapper}}\&\ d)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00120\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ disposable-\/>add(d);}
+\DoxyCodeLine{00122\ \ \ \ \ \}}
+\DoxyCodeLine{00123\ }
+\DoxyCodeLine{00124\ \ \ \ \ \textcolor{keywordtype}{bool}\ is\_disposed()\textcolor{keyword}{\ const}}
 \DoxyCodeLine{00125\ \textcolor{keyword}{\ \ \ \ }\{}
-\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ disposable-\/>emplace\_safe(std::forward<T>(v));}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ disposable-\/>is\_disposed();}
 \DoxyCodeLine{00127\ \ \ \ \ \}}
 \DoxyCodeLine{00128\ }
-\DoxyCodeLine{00129\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_error(\textcolor{keyword}{const}\ std::exception\_ptr\&\ err)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}}
-\DoxyCodeLine{00130\ \ \ \ \ \{}
-\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ disposable-\/>dispose();}
-\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ disposable-\/>get\_observer\_under\_lock()-\/>on\_error(err);}
+\DoxyCodeLine{00129\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00130\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_next(T\&\&\ v)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00131\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ disposable-\/>emplace\_safe(std::forward<T>(v));}
 \DoxyCodeLine{00133\ \ \ \ \ \}}
 \DoxyCodeLine{00134\ }
-\DoxyCodeLine{00135\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_completed()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00135\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_error(\textcolor{keyword}{const}\ std::exception\_ptr\&\ err)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}}
 \DoxyCodeLine{00136\ \ \ \ \ \{}
 \DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ disposable-\/>dispose();}
-\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ value\ =\ disposable-\/>extract\_value();}
-\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{classrpp_1_1observer}{observer}}\ =\ disposable-\/>get\_observer\_under\_lock();}
-\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (value)}
-\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrpp_1_1observer}{observer}}-\/>\mbox{\hyperlink{classrpp_1_1details_1_1observer__impl_a14747a5260ecc183a6d0f1adafee4f68}{on\_next}}(std::move(value).value());}
-\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrpp_1_1observer}{observer}}-\/>\mbox{\hyperlink{classrpp_1_1details_1_1observer__impl_a7a73f13eae52effde01a2d3b2cf1d1b4}{on\_completed}}();}
-\DoxyCodeLine{00143\ \ \ \ \ \}}
-\DoxyCodeLine{00144\ \};}
-\DoxyCodeLine{00145\ }
-\DoxyCodeLine{00146\ \textcolor{keyword}{template}<rpp::schedulers::constra\textcolor{keywordtype}{int}::scheduler\ Scheduler>}
-\DoxyCodeLine{00147\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1debounce__t}{debounce\_t}}}
-\DoxyCodeLine{00148\ \{}
-\DoxyCodeLine{00149\ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type\ T>}
-\DoxyCodeLine{00150\ \ \ \ \ \textcolor{keyword}{using\ }ResultValue\ =\ T;}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ disposable-\/>get\_observer\_under\_lock()-\/>on\_error(err);}
+\DoxyCodeLine{00139\ \ \ \ \ \}}
+\DoxyCodeLine{00140\ }
+\DoxyCodeLine{00141\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_completed()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00142\ \ \ \ \ \{}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ disposable-\/>dispose();}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ value\ \ \ \ =\ disposable-\/>extract\_value();}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{classrpp_1_1observer}{observer}}\ =\ disposable-\/>get\_observer\_under\_lock();}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (value)}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrpp_1_1observer}{observer}}-\/>\mbox{\hyperlink{classrpp_1_1details_1_1observer__impl_a14747a5260ecc183a6d0f1adafee4f68}{on\_next}}(std::move(value).value());}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrpp_1_1observer}{observer}}-\/>\mbox{\hyperlink{classrpp_1_1details_1_1observer__impl_a7a73f13eae52effde01a2d3b2cf1d1b4}{on\_completed}}();}
+\DoxyCodeLine{00149\ \ \ \ \ \}}
+\DoxyCodeLine{00150\ \};}
 \DoxyCodeLine{00151\ }
-\DoxyCodeLine{00152\ \ \ \ \ rpp::schedulers::duration\ \ \ \ \ \ \ duration;}
-\DoxyCodeLine{00153\ \ \ \ \ RPP\_NO\_UNIQUE\_ADDRESS\ Scheduler\ scheduler;}
-\DoxyCodeLine{00154\ }
-\DoxyCodeLine{00155\ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type\ Type,\ rpp::constra\textcolor{keywordtype}{int}::observer\ Observer>}
-\DoxyCodeLine{00156\ \ \ \ \ \textcolor{keyword}{auto}\ lift(Observer\&\&\ \mbox{\hyperlink{classrpp_1_1observer}{observer}})\textcolor{keyword}{\ const}}
-\DoxyCodeLine{00157\ \textcolor{keyword}{\ \ \ \ }\{}
-\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }worker\_t\ =\ \textcolor{keyword}{decltype}(scheduler.create\_worker());}
-\DoxyCodeLine{00159\ }
-\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ disposable\ =\ std::make\_shared<debounce\_disposable<std::decay\_t<Observer>,\ worker\_t>>(std::forward<Observer>(\mbox{\hyperlink{classrpp_1_1observer}{observer}}),\ scheduler.create\_worker(),\ duration);}
-\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ disposable-\/>get\_observer\_under\_lock()-\/>set\_upstream(rpp::disposable\_wrapper::from\_weak(disposable));}
-\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classrpp_1_1observer}{rpp::observer<Type,\ debounce\_observer\_strategy<std::decay\_t<Observer>}},\ worker\_t>>\{std::move(disposable)\};}
-\DoxyCodeLine{00163\ \ \ \ \ \}}
-\DoxyCodeLine{00164\ \};}
-\DoxyCodeLine{00165\ \}}
-\DoxyCodeLine{00166\ }
-\DoxyCodeLine{00167\ \textcolor{keyword}{namespace\ }rpp::operators}
-\DoxyCodeLine{00168\ \{}
-\DoxyCodeLine{00191\ \textcolor{keyword}{template}<rpp::schedulers::constra\textcolor{keywordtype}{int}::scheduler\ Scheduler>}
-\DoxyCodeLine{00192\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__utility__operators_ga49e91c6114f62ac261303814c818face}{debounce}}(rpp::schedulers::duration\ period,\ Scheduler\&\&\ scheduler)}
-\DoxyCodeLine{00193\ \{}
-\DoxyCodeLine{00194\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1debounce__t}{details::debounce\_t<std::decay\_t<Scheduler>}}>\{period,\ std::forward<Scheduler>(scheduler)\};}
-\DoxyCodeLine{00195\ \}}
-\DoxyCodeLine{00196\ \}}
+\DoxyCodeLine{00152\ \textcolor{keyword}{template}<rpp::schedulers::constra\textcolor{keywordtype}{int}::scheduler\ Scheduler>}
+\DoxyCodeLine{00153\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1debounce__t}{debounce\_t}}}
+\DoxyCodeLine{00154\ \{}
+\DoxyCodeLine{00155\ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type\ T>}
+\DoxyCodeLine{00156\ \ \ \ \ \textcolor{keyword}{using\ }ResultValue\ =\ T;}
+\DoxyCodeLine{00157\ }
+\DoxyCodeLine{00158\ \ \ \ \ rpp::schedulers::duration\ \ \ \ \ \ \ duration;}
+\DoxyCodeLine{00159\ \ \ \ \ RPP\_NO\_UNIQUE\_ADDRESS\ Scheduler\ scheduler;}
+\DoxyCodeLine{00160\ }
+\DoxyCodeLine{00161\ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type\ Type,\ rpp::constra\textcolor{keywordtype}{int}::observer\ Observer>}
+\DoxyCodeLine{00162\ \ \ \ \ \textcolor{keyword}{auto}\ lift(Observer\&\&\ \mbox{\hyperlink{classrpp_1_1observer}{observer}})\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00163\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }worker\_t\ =\ \textcolor{keyword}{decltype}(scheduler.create\_worker());}
+\DoxyCodeLine{00165\ }
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ disposable\ =\ std::make\_shared<debounce\_disposable<std::decay\_t<Observer>,\ worker\_t>>(std::forward<Observer>(\mbox{\hyperlink{classrpp_1_1observer}{observer}}),\ scheduler.create\_worker(),\ duration);}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ disposable-\/>get\_observer\_under\_lock()-\/>set\_upstream(rpp::disposable\_wrapper::from\_weak(disposable));}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classrpp_1_1observer}{rpp::observer<Type,\ debounce\_observer\_strategy<std::decay\_t<Observer>}},\ worker\_t>>\{std::move(disposable)\};}
+\DoxyCodeLine{00169\ \ \ \ \ \}}
+\DoxyCodeLine{00170\ \};}
+\DoxyCodeLine{00171\ \}}
+\DoxyCodeLine{00172\ }
+\DoxyCodeLine{00173\ \textcolor{keyword}{namespace\ }rpp::operators}
+\DoxyCodeLine{00174\ \{}
+\DoxyCodeLine{00197\ \textcolor{keyword}{template}<rpp::schedulers::constra\textcolor{keywordtype}{int}::scheduler\ Scheduler>}
+\DoxyCodeLine{00198\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__utility__operators_ga49e91c6114f62ac261303814c818face}{debounce}}(rpp::schedulers::duration\ period,\ Scheduler\&\&\ scheduler)}
+\DoxyCodeLine{00199\ \{}
+\DoxyCodeLine{00200\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1debounce__t}{details::debounce\_t<std::decay\_t<Scheduler>}}>\{period,\ std::forward<Scheduler>(scheduler)\};}
+\DoxyCodeLine{00201\ \}}
+\DoxyCodeLine{00202\ \}}
 
 \end{DoxyCode}

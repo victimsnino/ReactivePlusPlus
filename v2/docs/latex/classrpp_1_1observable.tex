@@ -18,9 +18,9 @@ Inheritance diagram for rpp\+::observable\texorpdfstring{$<$}{<} Type, Strategy 
 \doxysubsubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\Hypertarget{classrpp_1_1observable_a82468ea566cd659a41000947704d1965}\label{classrpp_1_1observable_a82468ea566cd659a41000947704d1965} 
-{\footnotesize template$<$typename ... Args$>$ \newline
-requires (!constraint\+::variadic\+\_\+decayed\+\_\+same\+\_\+as$<$\mbox{\hyperlink{classrpp_1_1observable}{observable}}$<$Type, Strategy$>$, Args...$>$ \&\& constraint\+::is\+\_\+constructible\+\_\+from$<$Strategy, Args\&\&...$>$)}\\{\bfseries observable} (Args \&\&...args)
+\Hypertarget{classrpp_1_1observable_a2d2766dd422f4541f612551531b96066}\label{classrpp_1_1observable_a2d2766dd422f4541f612551531b96066} 
+{\footnotesize template$<$typename... Args$>$ \newline
+requires (!constraint\+::variadic\+\_\+decayed\+\_\+same\+\_\+as$<$\mbox{\hyperlink{classrpp_1_1observable}{observable}}$<$Type, Strategy$>$, Args...$>$ \&\& constraint\+::is\+\_\+constructible\+\_\+from$<$Strategy, Args \&\& ...$>$)}\\{\bfseries observable} (Args \&\&... args)
 \item 
 \Hypertarget{classrpp_1_1observable_a706315f9bdf16b3148216ded9662212a}\label{classrpp_1_1observable_a706315f9bdf16b3148216ded9662212a} 
 {\bfseries observable} (const \mbox{\hyperlink{classrpp_1_1observable}{observable}} \&)=default
@@ -113,7 +113,7 @@ composite\+\_\+disposable\+\_\+wrapper is disposable to be able to dispose obser
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{\textcolor{keyword}{auto}\ disposable\ =\ std::make\_shared<rpp::composite\_disposable>();}
-\DoxyCodeLine{\mbox{\hyperlink{group__creational__operators_gae60bdb9b493443d2786b0eee8bfe17ab}{rpp::source::just}}(1)\ }
+\DoxyCodeLine{\mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(1)\ }
 \DoxyCodeLine{|\ \mbox{\hyperlink{group__utility__operators_ga41ef49dc75a3eadb0eb3fda7c3692c40}{rpp::operators::repeat}}()\ }
 \DoxyCodeLine{|\ \mbox{\hyperlink{group__utility__operators_gace728cfbf71720901cb6f310edabf8b0}{rpp::operators::subscribe\_on}}(\mbox{\hyperlink{classrpp_1_1schedulers_1_1new__thread}{rpp::schedulers::new\_thread}}\{\})\ }
 \DoxyCodeLine{|\ rpp::operators::subscribe(disposable,\ \mbox{\hyperlink{group__observers_gae17f62f64102925f4cd2eb29c4c27028}{rpp::make\_lambda\_observer}}([](\textcolor{keywordtype}{int})\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}NEW\ VALUE"{}}\ <<\ std::endl;\ \}));}
@@ -185,7 +185,7 @@ composite\+\_\+disposable\+\_\+wrapper is disposable to be able to dispose obser
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{\textcolor{keyword}{auto}\ disposable\ =\ std::make\_shared<rpp::composite\_disposable>();}
-\DoxyCodeLine{\mbox{\hyperlink{group__creational__operators_gae60bdb9b493443d2786b0eee8bfe17ab}{rpp::source::just}}(1)\ }
+\DoxyCodeLine{\mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(1)\ }
 \DoxyCodeLine{|\ \mbox{\hyperlink{group__utility__operators_ga41ef49dc75a3eadb0eb3fda7c3692c40}{rpp::operators::repeat}}()\ }
 \DoxyCodeLine{|\ \mbox{\hyperlink{group__utility__operators_gace728cfbf71720901cb6f310edabf8b0}{rpp::operators::subscribe\_on}}(\mbox{\hyperlink{classrpp_1_1schedulers_1_1new__thread}{rpp::schedulers::new\_thread}}\{\})\ }
 \DoxyCodeLine{|\ rpp::operators::subscribe(disposable,\ [](\textcolor{keywordtype}{int})\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}NEW\ VALUE"{}}\ <<\ std::endl;\ \});}

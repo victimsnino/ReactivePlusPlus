@@ -3,61 +3,66 @@
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{00001\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ReactivePlusPlus\ library}}
-\DoxyCodeLine{00002\ \textcolor{comment}{//\ }}
+\DoxyCodeLine{00002\ \textcolor{comment}{//}}
 \DoxyCodeLine{00003\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ Copyright\ Aleksey\ Loginov\ 2022\ -\/\ present.}}
 \DoxyCodeLine{00004\ \textcolor{comment}{//\ \ Distributed\ under\ the\ Boost\ Software\ License,\ Version\ 1.0.}}
 \DoxyCodeLine{00005\ \textcolor{comment}{//\ \ \ \ \ (See\ accompanying\ file\ LICENSE\_1\_0.txt\ or\ copy\ at}}
 \DoxyCodeLine{00006\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ https://www.boost.org/LICENSE\_1\_0.txt)}}
-\DoxyCodeLine{00007\ \textcolor{comment}{//\ }}
+\DoxyCodeLine{00007\ \textcolor{comment}{//}}
 \DoxyCodeLine{00008\ \textcolor{comment}{//\ \ Project\ home:\ https://github.com/victimsnino/ReactivePlusPlus}}
 \DoxyCodeLine{00009\ }
 \DoxyCodeLine{00010\ \textcolor{preprocessor}{\#pragma\ once}}
 \DoxyCodeLine{00011\ }
-\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ "{}rpp/disposables/fwd.hpp"{}}}
-\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <rpp/subjects/fwd.hpp>}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <rpp/subjects/fwd.hpp>}}
+\DoxyCodeLine{00013\ }
 \DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <rpp/observables/observable.hpp>}}
 \DoxyCodeLine{00015\ }
-\DoxyCodeLine{00016\ \textcolor{keyword}{namespace\ }rpp::subjects::details}
-\DoxyCodeLine{00017\ \{}
-\DoxyCodeLine{00018\ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type\ T,\ constra\textcolor{keywordtype}{int}::subject\_strategy<T>\ Strategy>}
-\DoxyCodeLine{00019\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1subjects_1_1details_1_1base__subject}{base\_subject}}}
-\DoxyCodeLine{00020\ \{}
-\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keyword}{struct\ }on\_subscribe}
-\DoxyCodeLine{00022\ \ \ \ \ \{}
-\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }ValueType\ =\ T;}
-\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ }
-\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ Strategy\ strategy;}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ "{}rpp/disposables/fwd.hpp"{}}}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \textcolor{keyword}{namespace\ }rpp::subjects::details}
+\DoxyCodeLine{00019\ \{}
+\DoxyCodeLine{00020\ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type\ T,\ constra\textcolor{keywordtype}{int}::subject\_strategy<T>\ Strategy>}
+\DoxyCodeLine{00021\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1subjects_1_1details_1_1base__subject}{base\_subject}}}
+\DoxyCodeLine{00022\ \{}
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keyword}{struct\ }on\_subscribe}
+\DoxyCodeLine{00024\ \ \ \ \ \{}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }ValueType\ =\ T;}
 \DoxyCodeLine{00026\ }
-\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::observer\_of\_type<T>\ TObs>}
-\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ subscribe(TObs\&\&\ sub)\textcolor{keyword}{\ const}}
-\DoxyCodeLine{00029\ \textcolor{keyword}{\ \ \ \ \ \ \ \ }\{}
-\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \ \ \ \ strategy.on\_subscribe(std::forward<TObs>(sub));}
-\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00032\ \ \ \ \ \};}
-\DoxyCodeLine{00033\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ ...Args>}
-\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \textcolor{keyword}{requires}\ (rpp::constraint::is\_constructible\_from<Strategy,\ Args\&\&...>\ \&\&\ !rpp::constraint::variadic\_decayed\_same\_as<\mbox{\hyperlink{classrpp_1_1subjects_1_1details_1_1base__subject}{base\_subject}},\ Args...>)}
-\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{classrpp_1_1subjects_1_1details_1_1base__subject}{base\_subject}}(Args\&\&\ ...args)}
-\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ :\ m\_strategy\{std::forward<Args>(args)...\}\ \{\}}
-\DoxyCodeLine{00038\ }
-\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keyword}{auto}\ get\_observer()\textcolor{keyword}{\ const}}
-\DoxyCodeLine{00040\ \textcolor{keyword}{\ \ \ \ }\{}
-\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ m\_strategy.get\_observer();}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ Strategy\ strategy;}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::observer\_of\_type<T>\ TObs>}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ subscribe(TObs\&\&\ sub)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00031\ \textcolor{keyword}{\ \ \ \ \ \ \ \ }\{}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \ \ \ \ strategy.on\_subscribe(std::forward<TObs>(sub));}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00034\ \ \ \ \ \};}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}...\ Args>}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \textcolor{keyword}{requires}\ (rpp::constraint::is\_constructible\_from<Strategy,\ Args\ \&\&\ ...>\ \&\&\ !rpp::constraint::variadic\_decayed\_same\_as<\mbox{\hyperlink{classrpp_1_1subjects_1_1details_1_1base__subject}{base\_subject}},\ Args...>)}
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{classrpp_1_1subjects_1_1details_1_1base__subject}{base\_subject}}(Args\&\&...\ args)}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ :\ m\_strategy\{std::forward<Args>(args)...\}}
+\DoxyCodeLine{00041\ \ \ \ \ \{}
 \DoxyCodeLine{00042\ \ \ \ \ \}}
 \DoxyCodeLine{00043\ }
-\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keyword}{auto}\ get\_observable()\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keyword}{auto}\ get\_observer()\textcolor{keyword}{\ const}}
 \DoxyCodeLine{00045\ \textcolor{keyword}{\ \ \ \ }\{}
-\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classrpp_1_1observable}{rpp::observable<T,\ on\_subscribe>}}\{m\_strategy\};}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ m\_strategy.get\_observer();}
 \DoxyCodeLine{00047\ \ \ \ \ \}}
 \DoxyCodeLine{00048\ }
-\DoxyCodeLine{00049\ \ \ \ \ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp::disposable\_wrapper}}\ get\_disposable()\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keyword}{auto}\ get\_observable()\textcolor{keyword}{\ const}}
 \DoxyCodeLine{00050\ \textcolor{keyword}{\ \ \ \ }\{}
-\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ m\_strategy.get\_disposable();}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classrpp_1_1observable}{rpp::observable<T,\ on\_subscribe>}}\{m\_strategy\};}
 \DoxyCodeLine{00052\ \ \ \ \ \}}
 \DoxyCodeLine{00053\ }
-\DoxyCodeLine{00054\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00055\ \ \ \ \ Strategy\ m\_strategy\{\};}
-\DoxyCodeLine{00056\ \};}
-\DoxyCodeLine{00057\ \}\ \textcolor{comment}{//\ namespace\ rpp::subjects::details}}
+\DoxyCodeLine{00054\ \ \ \ \ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp::disposable\_wrapper}}\ get\_disposable()\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00055\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ m\_strategy.get\_disposable();}
+\DoxyCodeLine{00057\ \ \ \ \ \}}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00060\ \ \ \ \ Strategy\ m\_strategy\{\};}
+\DoxyCodeLine{00061\ \};}
+\DoxyCodeLine{00062\ \}\ \textcolor{comment}{//\ namespace\ rpp::subjects::details}}
 
 \end{DoxyCode}

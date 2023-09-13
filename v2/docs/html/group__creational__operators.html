@@ -107,61 +107,61 @@ $(document).ready(function(){initNavTree('group__creational__operators.html','')
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ga5bf57bc7e432fb38565810144a75b972" id="r_ga5bf57bc7e432fb38565810144a75b972"><td class="memTemplParams" colspan="2">template&lt;constraint::memory_model memory_model, <a class="el" href="conceptrpp_1_1constraint_1_1observable.html">rpp::constraint::observable</a> TObservable, <a class="el" href="conceptrpp_1_1constraint_1_1observable.html">rpp::constraint::observable</a> ... TObservables&gt; <br />
+<tr class="memitem:gab6cfd9da2e3590fd199c9972477e04df" id="r_gab6cfd9da2e3590fd199c9972477e04df"><td class="memTemplParams" colspan="2">template&lt;constraint::memory_model memory_model, <a class="el" href="conceptrpp_1_1constraint_1_1observable.html">rpp::constraint::observable</a> TObservable, rpp::constraint::observable... TObservables&gt; <br />
 requires (std::same_as&lt;rpp::utils::extract_observable_type_t&lt;TObservable&gt;, rpp::utils::extract_observable_type_t&lt;TObservables&gt;&gt; &amp;&amp; ...)</td></tr>
-<tr class="memitem:ga5bf57bc7e432fb38565810144a75b972"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">rpp::source::concat</a> (TObservable &amp;&amp;obs, TObservables &amp;&amp;...others)</td></tr>
-<tr class="memdesc:ga5bf57bc7e432fb38565810144a75b972"><td class="mdescLeft">&#160;</td><td class="mdescRight">Make observable which would merge emissions from underlying observables but without overlapping (current observable completes THEN next started to emit its values)  <br /></td></tr>
-<tr class="separator:ga5bf57bc7e432fb38565810144a75b972"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab6cfd9da2e3590fd199c9972477e04df"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">rpp::source::concat</a> (TObservable &amp;&amp;obs, TObservables &amp;&amp;... others)</td></tr>
+<tr class="memdesc:gab6cfd9da2e3590fd199c9972477e04df"><td class="mdescLeft">&#160;</td><td class="mdescRight">Make observable which would merge emissions from underlying observables but without overlapping (current observable completes THEN next started to emit its values)  <br /></td></tr>
+<tr class="separator:gab6cfd9da2e3590fd199c9972477e04df"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga4f9024c949765737e6a99a05f74d382e" id="r_ga4f9024c949765737e6a99a05f74d382e"><td class="memTemplParams" colspan="2">template&lt;constraint::memory_model memory_model, constraint::iterable Iterable&gt; <br />
 requires constraint::observable&lt;utils::iterable_value_t&lt;Iterable&gt;&gt;</td></tr>
 <tr class="memitem:ga4f9024c949765737e6a99a05f74d382e"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__creational__operators.html#ga4f9024c949765737e6a99a05f74d382e">rpp::source::concat</a> (Iterable &amp;&amp;iterable)</td></tr>
 <tr class="memdesc:ga4f9024c949765737e6a99a05f74d382e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Make observable which would merge emissions from underlying observables but without overlapping (current observable completes THEN next started to emit its values)  <br /></td></tr>
 <tr class="separator:ga4f9024c949765737e6a99a05f74d382e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gae68c87e7ae3a505258b733082bf68513" id="r_gae68c87e7ae3a505258b733082bf68513"><td class="memTemplParams" colspan="2">template&lt;constraint::decayed_type Type, constraint::on_subscribe&lt; Type &gt; OnSubscribe&gt; </td></tr>
-<tr class="memitem:gae68c87e7ae3a505258b733082bf68513"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">auto</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__creational__operators.html#gae68c87e7ae3a505258b733082bf68513">rpp::source::create</a> (OnSubscribe &amp;&amp;on_subscribe)</td></tr>
+<tr class="memitem:gae68c87e7ae3a505258b733082bf68513"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">auto</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__creational__operators.html#gae68c87e7ae3a505258b733082bf68513">rpp::source::create</a> (OnSubscribe &amp;&amp;on_subscribe)</td></tr>
 <tr class="memdesc:gae68c87e7ae3a505258b733082bf68513"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct observable specialized with passed callback function. Most easiesest way to construct observable "on the fly" via lambda and etc.  <br /></td></tr>
 <tr class="separator:gae68c87e7ae3a505258b733082bf68513"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gad9a4bddea3780850a01b82b481951d18" id="r_gad9a4bddea3780850a01b82b481951d18"><td class="memTemplParams" colspan="2">template&lt;std::invocable Factory&gt; <br />
-requires <a class="el" href="conceptrpp_1_1constraint_1_1observable.html">rpp::constraint::observable</a>&lt;std::invoke_result_t&lt;<a class="el" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">Factory</a>&gt;&gt;</td></tr>
-<tr class="memitem:gad9a4bddea3780850a01b82b481951d18"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">auto</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__creational__operators.html#gad9a4bddea3780850a01b82b481951d18">rpp::source::defer</a> (<a class="el" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">Factory</a> &amp;&amp;observable_factory)</td></tr>
+requires <a class="el" href="conceptrpp_1_1constraint_1_1observable.html">rpp::constraint::observable</a>&lt;std::invoke_result_t&lt;<a class="el" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">Factory</a>&gt;&gt;</td></tr>
+<tr class="memitem:gad9a4bddea3780850a01b82b481951d18"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">auto</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__creational__operators.html#gad9a4bddea3780850a01b82b481951d18">rpp::source::defer</a> (<a class="el" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">Factory</a> &amp;&amp;observable_factory)</td></tr>
 <tr class="memdesc:gad9a4bddea3780850a01b82b481951d18"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates <a class="el" href="classrpp_1_1observable.html" title="Base class for any observable used in RPP. It handles core callbacks of observable.">rpp::observable</a> that calls the specified observable factory to create an observable for each new observer that subscribes.  <br /></td></tr>
 <tr class="separator:gad9a4bddea3780850a01b82b481951d18"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gad29c2904de57d176ccaf2614409789de" id="r_gad29c2904de57d176ccaf2614409789de"><td class="memTemplParams" colspan="2">template&lt;constraint::decayed_type Type&gt; </td></tr>
-<tr class="memitem:gad29c2904de57d176ccaf2614409789de"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">auto</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__creational__operators.html#gad29c2904de57d176ccaf2614409789de">rpp::source::empty</a> ()</td></tr>
+<tr class="memitem:gad29c2904de57d176ccaf2614409789de"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">auto</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__creational__operators.html#gad29c2904de57d176ccaf2614409789de">rpp::source::empty</a> ()</td></tr>
 <tr class="memdesc:gad29c2904de57d176ccaf2614409789de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates <a class="el" href="classrpp_1_1observable.html" title="Base class for any observable used in RPP. It handles core callbacks of observable.">rpp::observable</a> that emits no items but terminates normally.  <br /></td></tr>
 <tr class="separator:gad29c2904de57d176ccaf2614409789de"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga4fe060f48695cc3fadfbdb10f77f8acb" id="r_ga4fe060f48695cc3fadfbdb10f77f8acb"><td class="memTemplParams" colspan="2">template&lt;constraint::decayed_type Type&gt; </td></tr>
-<tr class="memitem:ga4fe060f48695cc3fadfbdb10f77f8acb"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">auto</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__creational__operators.html#ga4fe060f48695cc3fadfbdb10f77f8acb">rpp::source::error</a> (std::exception_ptr err)</td></tr>
+<tr class="memitem:ga4fe060f48695cc3fadfbdb10f77f8acb"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">auto</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__creational__operators.html#ga4fe060f48695cc3fadfbdb10f77f8acb">rpp::source::error</a> (std::exception_ptr err)</td></tr>
 <tr class="memdesc:ga4fe060f48695cc3fadfbdb10f77f8acb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates <a class="el" href="classrpp_1_1observable.html" title="Base class for any observable used in RPP. It handles core callbacks of observable.">rpp::observable</a> that emits no items and terminates with an error.  <br /></td></tr>
 <tr class="separator:ga4fe060f48695cc3fadfbdb10f77f8acb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gad15a7e8bfb2f7ce0af1b44e22918116c" id="r_gad15a7e8bfb2f7ce0af1b44e22918116c"><td class="memTemplParams" colspan="2">template&lt;constraint::memory_model memory_model, constraint::iterable Iterable, schedulers::constraint::scheduler TScheduler&gt; </td></tr>
-<tr class="memitem:gad15a7e8bfb2f7ce0af1b44e22918116c"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">auto</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__creational__operators.html#gad15a7e8bfb2f7ce0af1b44e22918116c">rpp::source::from_iterable</a> (<a class="el" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">Iterable</a> &amp;&amp;<a class="el" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">iterable</a>, <a class="el" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">const</a> TScheduler &amp;scheduler)</td></tr>
+<tr class="memitem:gad15a7e8bfb2f7ce0af1b44e22918116c"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">auto</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__creational__operators.html#gad15a7e8bfb2f7ce0af1b44e22918116c">rpp::source::from_iterable</a> (<a class="el" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">Iterable</a> &amp;&amp;<a class="el" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">iterable</a>, <a class="el" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">const</a> TScheduler &amp;scheduler)</td></tr>
 <tr class="memdesc:gad15a7e8bfb2f7ce0af1b44e22918116c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates observable that emits a items from provided iterable.  <br /></td></tr>
 <tr class="separator:gad15a7e8bfb2f7ce0af1b44e22918116c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gae60bdb9b493443d2786b0eee8bfe17ab" id="r_gae60bdb9b493443d2786b0eee8bfe17ab"><td class="memTemplParams" colspan="2">template&lt;constraint::memory_model memory_model, schedulers::constraint::scheduler TScheduler, <a class="el" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">typename</a> T , <a class="el" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">typename</a> ... Ts&gt; <br />
-requires (constraint::decayed_same_as&lt;T, <a class="el" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">Ts</a>&gt; &amp;&amp; ...)</td></tr>
-<tr class="memitem:gae60bdb9b493443d2786b0eee8bfe17ab"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">auto</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__creational__operators.html#gae60bdb9b493443d2786b0eee8bfe17ab">rpp::source::just</a> (<a class="el" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">const</a> TScheduler &amp;scheduler, T &amp;&amp;<a class="el" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">item</a>, <a class="el" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">Ts</a> &amp;&amp;...<a class="el" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">items</a>)</td></tr>
-<tr class="memdesc:gae60bdb9b493443d2786b0eee8bfe17ab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates <a class="el" href="classrpp_1_1observable.html" title="Base class for any observable used in RPP. It handles core callbacks of observable.">rpp::observable</a> that emits a particular items and completes.  <br /></td></tr>
-<tr class="separator:gae60bdb9b493443d2786b0eee8bfe17ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga9104f4682dddefb9021bb9f2c2025494" id="r_ga9104f4682dddefb9021bb9f2c2025494"><td class="memTemplParams" colspan="2">template&lt;constraint::memory_model memory_model, <a class="el" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">typename</a> T , <a class="el" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">typename</a> ... Ts&gt; <br />
-requires (constraint::decayed_same_as&lt;T, <a class="el" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">Ts</a>&gt; &amp;&amp; ...)</td></tr>
-<tr class="memitem:ga9104f4682dddefb9021bb9f2c2025494"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">auto</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__creational__operators.html#ga9104f4682dddefb9021bb9f2c2025494">rpp::source::just</a> (T &amp;&amp;<a class="el" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">item</a>, <a class="el" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">Ts</a> &amp;&amp;...<a class="el" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">items</a>)</td></tr>
-<tr class="memdesc:ga9104f4682dddefb9021bb9f2c2025494"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates <a class="el" href="classrpp_1_1observable.html" title="Base class for any observable used in RPP. It handles core callbacks of observable.">rpp::observable</a> that emits a particular items and completes.  <br /></td></tr>
-<tr class="separator:ga9104f4682dddefb9021bb9f2c2025494"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga1edf47f176050dd414e28a1c0616b7c0" id="r_ga1edf47f176050dd414e28a1c0616b7c0"><td class="memTemplParams" colspan="2">template&lt;constraint::memory_model memory_model, schedulers::constraint::scheduler TScheduler, <a class="el" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">typename</a> T , typename... Ts&gt; <br />
+requires (constraint::decayed_same_as&lt;T, <a class="el" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">Ts</a>&gt; &amp;&amp; ...)</td></tr>
+<tr class="memitem:ga1edf47f176050dd414e28a1c0616b7c0"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">auto</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">rpp::source::just</a> (<a class="el" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">const</a> TScheduler &amp;scheduler, T &amp;&amp;<a class="el" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">item</a>, <a class="el" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">Ts</a> &amp;&amp;... <a class="el" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">items</a>)</td></tr>
+<tr class="memdesc:ga1edf47f176050dd414e28a1c0616b7c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates <a class="el" href="classrpp_1_1observable.html" title="Base class for any observable used in RPP. It handles core callbacks of observable.">rpp::observable</a> that emits a particular items and completes.  <br /></td></tr>
+<tr class="separator:ga1edf47f176050dd414e28a1c0616b7c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga65fe5e58c0179835d702de99475c86b3" id="r_ga65fe5e58c0179835d702de99475c86b3"><td class="memTemplParams" colspan="2">template&lt;constraint::memory_model memory_model, <a class="el" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">typename</a> T , typename... Ts&gt; <br />
+requires (constraint::decayed_same_as&lt;T, <a class="el" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">Ts</a>&gt; &amp;&amp; ...)</td></tr>
+<tr class="memitem:ga65fe5e58c0179835d702de99475c86b3"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">auto</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__creational__operators.html#ga65fe5e58c0179835d702de99475c86b3">rpp::source::just</a> (T &amp;&amp;<a class="el" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">item</a>, <a class="el" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">Ts</a> &amp;&amp;... <a class="el" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">items</a>)</td></tr>
+<tr class="memdesc:ga65fe5e58c0179835d702de99475c86b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates <a class="el" href="classrpp_1_1observable.html" title="Base class for any observable used in RPP. It handles core callbacks of observable.">rpp::observable</a> that emits a particular items and completes.  <br /></td></tr>
+<tr class="separator:ga65fe5e58c0179835d702de99475c86b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga519523490394660d7e8c46d2d5612f75" id="r_ga519523490394660d7e8c46d2d5612f75"><td class="memTemplParams" colspan="2">template&lt;constraint::memory_model memory_model, std::invocable&lt;&gt; Callable&gt; </td></tr>
-<tr class="memitem:ga519523490394660d7e8c46d2d5612f75"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">auto</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__creational__operators.html#ga519523490394660d7e8c46d2d5612f75">rpp::source::from_callable</a> (<a class="el" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">Callable</a> &amp;&amp;<a class="el" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">callable</a>)</td></tr>
+<tr class="memitem:ga519523490394660d7e8c46d2d5612f75"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">auto</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__creational__operators.html#ga519523490394660d7e8c46d2d5612f75">rpp::source::from_callable</a> (<a class="el" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">Callable</a> &amp;&amp;<a class="el" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">callable</a>)</td></tr>
 <tr class="memdesc:ga519523490394660d7e8c46d2d5612f75"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates rpp::specific_observable that calls provided callable and emits resulting value of this callable.  <br /></td></tr>
 <tr class="separator:ga519523490394660d7e8c46d2d5612f75"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga4018b147fb99a358c6c01f21183c13e6" id="r_ga4018b147fb99a358c6c01f21183c13e6"><td class="memTemplParams" colspan="2">template&lt;schedulers::constraint::scheduler TScheduler&gt; </td></tr>
-<tr class="memitem:ga4018b147fb99a358c6c01f21183c13e6"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">auto</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__creational__operators.html#ga4018b147fb99a358c6c01f21183c13e6">rpp::source::interval</a> (rpp::schedulers::duration initial, rpp::schedulers::duration period, TScheduler &amp;&amp;scheduler)</td></tr>
+<tr class="memitem:ga4018b147fb99a358c6c01f21183c13e6"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">auto</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__creational__operators.html#ga4018b147fb99a358c6c01f21183c13e6">rpp::source::interval</a> (rpp::schedulers::duration initial, rpp::schedulers::duration period, TScheduler &amp;&amp;scheduler)</td></tr>
 <tr class="memdesc:ga4018b147fb99a358c6c01f21183c13e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates <a class="el" href="classrpp_1_1observable.html" title="Base class for any observable used in RPP. It handles core callbacks of observable.">rpp::observable</a> that emits a sequential integer every specified time interval, on the specified scheduler.  <br /></td></tr>
 <tr class="separator:ga4018b147fb99a358c6c01f21183c13e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga95f6d310d6f17a4c248e43fb628527df" id="r_ga95f6d310d6f17a4c248e43fb628527df"><td class="memTemplParams" colspan="2">template&lt;schedulers::constraint::scheduler TScheduler&gt; </td></tr>
-<tr class="memitem:ga95f6d310d6f17a4c248e43fb628527df"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">auto</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__creational__operators.html#ga95f6d310d6f17a4c248e43fb628527df">rpp::source::interval</a> (rpp::schedulers::duration period, TScheduler &amp;&amp;scheduler)</td></tr>
+<tr class="memitem:ga95f6d310d6f17a4c248e43fb628527df"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">auto</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__creational__operators.html#ga95f6d310d6f17a4c248e43fb628527df">rpp::source::interval</a> (rpp::schedulers::duration period, TScheduler &amp;&amp;scheduler)</td></tr>
 <tr class="memdesc:ga95f6d310d6f17a4c248e43fb628527df"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates <a class="el" href="classrpp_1_1observable.html" title="Base class for any observable used in RPP. It handles core callbacks of observable.">rpp::observable</a> that emits a sequential integer every specified time interval, on the specified scheduler.  <br /></td></tr>
 <tr class="separator:ga95f6d310d6f17a4c248e43fb628527df"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga16c57281cc1b24605ec23b09ec880416" id="r_ga16c57281cc1b24605ec23b09ec880416"><td class="memTemplParams" colspan="2">template&lt;constraint::decayed_type Type&gt; </td></tr>
-<tr class="memitem:ga16c57281cc1b24605ec23b09ec880416"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">auto</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__creational__operators.html#ga16c57281cc1b24605ec23b09ec880416">rpp::source::never</a> ()</td></tr>
+<tr class="memitem:ga16c57281cc1b24605ec23b09ec880416"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">auto</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__creational__operators.html#ga16c57281cc1b24605ec23b09ec880416">rpp::source::never</a> ()</td></tr>
 <tr class="memdesc:ga16c57281cc1b24605ec23b09ec880416"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates <a class="el" href="classrpp_1_1observable.html" title="Base class for any observable used in RPP. It handles core callbacks of observable.">rpp::observable</a> that emits no items and does not terminate.  <br /></td></tr>
 <tr class="separator:ga16c57281cc1b24605ec23b09ec880416"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -199,24 +199,24 @@ requires constraint::observable&lt;utils::iterable_value_t&lt;Iterable&gt;&gt;</
   </table>
   </dd>
 </dl>
-<dl class="section warning"><dt>Warning</dt><dd><a class="el" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972" title="Make observable which would merge emissions from underlying observables but without overlapping (curr...">include</a> &lt;rpp/operators/concat.hpp&gt;</dd></dl>
-<dl class="section user"><dt>Example</dt><dd><div class="fragment"><div class="line">    <span class="keyword">auto</span> observables = std::vector{<a class="code hl_function" href="group__creational__operators.html#gae60bdb9b493443d2786b0eee8bfe17ab">rpp::source::just</a>(1), <a class="code hl_function" href="group__creational__operators.html#gae60bdb9b493443d2786b0eee8bfe17ab">rpp::source::just</a>(2)};</div>
-<div class="line">    <a class="code hl_function" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">rpp::source::concat&lt;rpp::memory_model::use_shared&gt;</a>(observables).subscribe([](<span class="keywordtype">int</span> <a class="code hl_function" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">v</a>){std::cout &lt;&lt; <a class="code hl_function" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">v</a> &lt;&lt; <span class="stringliteral">&quot;, &quot;</span>;}, [](<span class="keyword">const</span> std::exception_ptr&amp;){}, [](){std::cout &lt;&lt; <span class="stringliteral">&quot;completed\n&quot;</span>;});</div>
+<dl class="section warning"><dt>Warning</dt><dd><a class="el" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df" title="Make observable which would merge emissions from underlying observables but without overlapping (curr...">include</a> &lt;rpp/operators/concat.hpp&gt;</dd></dl>
+<dl class="section user"><dt>Example</dt><dd><div class="fragment"><div class="line">    <span class="keyword">auto</span> observables = std::vector{<a class="code hl_function" href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">rpp::source::just</a>(1), <a class="code hl_function" href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">rpp::source::just</a>(2)};</div>
+<div class="line">    <a class="code hl_function" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">rpp::source::concat&lt;rpp::memory_model::use_shared&gt;</a>(observables).subscribe([](<span class="keywordtype">int</span> <a class="code hl_function" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">v</a>){std::cout &lt;&lt; <a class="code hl_function" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">v</a> &lt;&lt; <span class="stringliteral">&quot;, &quot;</span>;}, [](<span class="keyword">const</span> std::exception_ptr&amp;){}, [](){std::cout &lt;&lt; <span class="stringliteral">&quot;completed\n&quot;</span>;});</div>
 <div class="line">    <span class="comment">// Output: 1, 2, completed</span></div>
-<div class="ttc" id="agroup__creational__operators_html_ga5bf57bc7e432fb38565810144a75b972"><div class="ttname"><a href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">rpp::source::concat</a></div><div class="ttdeci">auto concat(TObservable &amp;&amp;obs, TObservables &amp;&amp;...others)</div><div class="ttdoc">Make observable which would merge emissions from underlying observables but without overlapping (curr...</div><div class="ttdef"><b>Definition</b> concat.hpp:134</div></div>
-<div class="ttc" id="agroup__creational__operators_html_gae60bdb9b493443d2786b0eee8bfe17ab"><div class="ttname"><a href="group__creational__operators.html#gae60bdb9b493443d2786b0eee8bfe17ab">rpp::source::just</a></div><div class="ttdeci">auto just(const TScheduler &amp;scheduler, T &amp;&amp;item, Ts &amp;&amp;...items)</div><div class="ttdoc">Creates rpp::observable that emits a particular items and completes.</div><div class="ttdef"><b>Definition</b> from.hpp:196</div></div>
+<div class="ttc" id="agroup__creational__operators_html_ga1edf47f176050dd414e28a1c0616b7c0"><div class="ttname"><a href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">rpp::source::just</a></div><div class="ttdeci">auto just(const TScheduler &amp;scheduler, T &amp;&amp;item, Ts &amp;&amp;... items)</div><div class="ttdoc">Creates rpp::observable that emits a particular items and completes.</div><div class="ttdef"><b>Definition</b> from.hpp:199</div></div>
+<div class="ttc" id="agroup__creational__operators_html_gab6cfd9da2e3590fd199c9972477e04df"><div class="ttname"><a href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">rpp::source::concat</a></div><div class="ttdeci">auto concat(TObservable &amp;&amp;obs, TObservables &amp;&amp;... others)</div><div class="ttdoc">Make observable which would merge emissions from underlying observables but without overlapping (curr...</div><div class="ttdef"><b>Definition</b> concat.hpp:141</div></div>
 </div><!-- fragment --></dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/concat.html">https://reactivex.io/documentation/operators/concat.html</a> </dd></dl>
 
 </div>
 </div>
-<a id="ga5bf57bc7e432fb38565810144a75b972" name="ga5bf57bc7e432fb38565810144a75b972"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga5bf57bc7e432fb38565810144a75b972">&#9670;&#160;</a></span>concat() <span class="overload">[2/2]</span></h2>
+<a id="gab6cfd9da2e3590fd199c9972477e04df" name="gab6cfd9da2e3590fd199c9972477e04df"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gab6cfd9da2e3590fd199c9972477e04df">&#9670;&#160;</a></span>concat() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;constraint::memory_model memory_model, <a class="el" href="conceptrpp_1_1constraint_1_1observable.html">rpp::constraint::observable</a> TObservable, <a class="el" href="conceptrpp_1_1constraint_1_1observable.html">rpp::constraint::observable</a> ... TObservables&gt; <br />
+template&lt;constraint::memory_model memory_model, <a class="el" href="conceptrpp_1_1constraint_1_1observable.html">rpp::constraint::observable</a> TObservable, rpp::constraint::observable... TObservables&gt; <br />
 requires (std::same_as&lt;rpp::utils::extract_observable_type_t&lt;TObservable&gt;, rpp::utils::extract_observable_type_t&lt;TObservables&gt;&gt; &amp;&amp; ...)</div>
       <table class="memname">
         <tr>
@@ -257,8 +257,8 @@ requires (std::same_as&lt;rpp::utils::extract_observable_type_t&lt;TObservable&g
   </table>
   </dd>
 </dl>
-<dl class="section warning"><dt>Warning</dt><dd><a class="el" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972" title="Make observable which would merge emissions from underlying observables but without overlapping (curr...">include</a> &lt;rpp/operators/concat.hpp&gt;</dd></dl>
-<dl class="section user"><dt>Example</dt><dd><div class="fragment"><div class="line">    <a class="code hl_function" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">rpp::source::concat</a>(<a class="code hl_function" href="group__creational__operators.html#gae60bdb9b493443d2786b0eee8bfe17ab">rpp::source::just</a>(1), <a class="code hl_function" href="group__creational__operators.html#gae60bdb9b493443d2786b0eee8bfe17ab">rpp::source::just</a>(2), <a class="code hl_function" href="group__creational__operators.html#gae60bdb9b493443d2786b0eee8bfe17ab">rpp::source::just</a>(1,2,3)).subscribe([](<span class="keywordtype">int</span> <a class="code hl_function" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">v</a>){std::cout &lt;&lt; <a class="code hl_function" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">v</a> &lt;&lt; <span class="stringliteral">&quot;, &quot;</span>;}, [](<span class="keyword">const</span> std::exception_ptr&amp;){}, [](){std::cout &lt;&lt; <span class="stringliteral">&quot;completed\n&quot;</span>;});</div>
+<dl class="section warning"><dt>Warning</dt><dd><a class="el" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df" title="Make observable which would merge emissions from underlying observables but without overlapping (curr...">include</a> &lt;rpp/operators/concat.hpp&gt;</dd></dl>
+<dl class="section user"><dt>Example</dt><dd><div class="fragment"><div class="line">    <a class="code hl_function" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">rpp::source::concat</a>(<a class="code hl_function" href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">rpp::source::just</a>(1), <a class="code hl_function" href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">rpp::source::just</a>(2), <a class="code hl_function" href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">rpp::source::just</a>(1,2,3)).subscribe([](<span class="keywordtype">int</span> <a class="code hl_function" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">v</a>){std::cout &lt;&lt; <a class="code hl_function" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">v</a> &lt;&lt; <span class="stringliteral">&quot;, &quot;</span>;}, [](<span class="keyword">const</span> std::exception_ptr&amp;){}, [](){std::cout &lt;&lt; <span class="stringliteral">&quot;completed\n&quot;</span>;});</div>
 <div class="line">    <span class="comment">// Output: 1, 2, 1, 2, 3, completed</span></div>
 </div><!-- fragment --></dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/concat.html">https://reactivex.io/documentation/operators/concat.html</a> </dd></dl>
@@ -276,7 +276,7 @@ requires (std::same_as&lt;rpp::utils::extract_observable_type_t&lt;TObservable&g
 template&lt;constraint::decayed_type Type, constraint::on_subscribe&lt; Type &gt; OnSubscribe&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">auto</a> rpp::source::create </td>
+          <td class="memname"><a class="el" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">auto</a> rpp::source::create </td>
           <td>(</td>
           <td class="paramtype">OnSubscribe &amp;&amp;&#160;</td>
           <td class="paramname"><em>on_subscribe</em></td><td>)</td>
@@ -297,18 +297,18 @@ template&lt;constraint::decayed_type Type, constraint::on_subscribe&lt; Type &gt
   </table>
   </dd>
 </dl>
-<dl class="section user"><dt>Examples:</dt><dd><div class="fragment"><div class="line">    <a class="code hl_function" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">rpp::source::create&lt;int&gt;</a>([](<span class="keyword">const</span> <span class="keyword">auto</span>&amp; <a class="code hl_function" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">sub</a>)</div>
+<dl class="section user"><dt>Examples:</dt><dd><div class="fragment"><div class="line">    <a class="code hl_function" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">rpp::source::create&lt;int&gt;</a>([](<span class="keyword">const</span> <span class="keyword">auto</span>&amp; <a class="code hl_function" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">sub</a>)</div>
 <div class="line">            {</div>
-<div class="line">                <a class="code hl_function" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">sub</a>.on_next(42);</div>
+<div class="line">                <a class="code hl_function" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">sub</a>.on_next(42);</div>
 <div class="line">            })</div>
-<div class="line">            .subscribe([](<span class="keywordtype">int</span> <a class="code hl_function" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">v</a>) { std::cout &lt;&lt; <a class="code hl_function" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">v</a> &lt;&lt; std::endl; });</div>
+<div class="line">            .subscribe([](<span class="keywordtype">int</span> <a class="code hl_function" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">v</a>) { std::cout &lt;&lt; <a class="code hl_function" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">v</a> &lt;&lt; std::endl; });</div>
 <div class="line">    <span class="comment">// Output: 42</span></div>
-</div><!-- fragment --> <div class="fragment"><div class="line">    <span class="keywordtype">int</span> <a class="code hl_function" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">val</a> = 42;</div>
-<div class="line">    <a class="code hl_function" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">rpp::source::create&lt;int&gt;</a>([<a class="code hl_function" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">val</a>](<span class="keyword">const</span> <span class="keyword">auto</span>&amp; <a class="code hl_function" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">sub</a>)</div>
+</div><!-- fragment --> <div class="fragment"><div class="line">    <span class="keywordtype">int</span> <a class="code hl_function" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">val</a> = 42;</div>
+<div class="line">    <a class="code hl_function" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">rpp::source::create&lt;int&gt;</a>([<a class="code hl_function" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">val</a>](<span class="keyword">const</span> <span class="keyword">auto</span>&amp; <a class="code hl_function" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">sub</a>)</div>
 <div class="line">            {</div>
-<div class="line">                <a class="code hl_function" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">sub</a>.on_next(<a class="code hl_function" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">val</a>);</div>
+<div class="line">                <a class="code hl_function" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">sub</a>.on_next(<a class="code hl_function" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">val</a>);</div>
 <div class="line">            })</div>
-<div class="line">            .subscribe([](<span class="keywordtype">int</span> <a class="code hl_function" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">v</a>) { std::cout &lt;&lt; <a class="code hl_function" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">v</a> &lt;&lt; std::endl; });</div>
+<div class="line">            .subscribe([](<span class="keywordtype">int</span> <a class="code hl_function" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">v</a>) { std::cout &lt;&lt; <a class="code hl_function" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">v</a> &lt;&lt; std::endl; });</div>
 <div class="line">    <span class="comment">// Output: 42</span></div>
 </div><!-- fragment --></dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/create.html">https://reactivex.io/documentation/operators/create.html</a></dd></dl>
@@ -323,18 +323,18 @@ template&lt;constraint::decayed_type Type, constraint::on_subscribe&lt; Type &gt
   </table>
   </dd>
 </dl>
-<dl class="section user"><dt>Examples:</dt><dd><div class="fragment"><div class="line">    <a class="code hl_function" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">rpp::source::create&lt;int&gt;</a>([](<span class="keyword">const</span> <span class="keyword">auto</span>&amp; <a class="code hl_function" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">sub</a>)</div>
+<dl class="section user"><dt>Examples:</dt><dd><div class="fragment"><div class="line">    <a class="code hl_function" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">rpp::source::create&lt;int&gt;</a>([](<span class="keyword">const</span> <span class="keyword">auto</span>&amp; <a class="code hl_function" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">sub</a>)</div>
 <div class="line">            {</div>
-<div class="line">                <a class="code hl_function" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">sub</a>.on_next(42);</div>
+<div class="line">                <a class="code hl_function" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">sub</a>.on_next(42);</div>
 <div class="line">            })</div>
-<div class="line">            .subscribe([](<span class="keywordtype">int</span> <a class="code hl_function" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">v</a>) { std::cout &lt;&lt; <a class="code hl_function" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">v</a> &lt;&lt; std::endl; });</div>
+<div class="line">            .subscribe([](<span class="keywordtype">int</span> <a class="code hl_function" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">v</a>) { std::cout &lt;&lt; <a class="code hl_function" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">v</a> &lt;&lt; std::endl; });</div>
 <div class="line">    <span class="comment">// Output: 42</span></div>
-</div><!-- fragment --> <div class="fragment"><div class="line">    <span class="keywordtype">int</span> <a class="code hl_function" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">val</a> = 42;</div>
-<div class="line">    <a class="code hl_function" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">rpp::source::create&lt;int&gt;</a>([<a class="code hl_function" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">val</a>](<span class="keyword">const</span> <span class="keyword">auto</span>&amp; <a class="code hl_function" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">sub</a>)</div>
+</div><!-- fragment --> <div class="fragment"><div class="line">    <span class="keywordtype">int</span> <a class="code hl_function" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">val</a> = 42;</div>
+<div class="line">    <a class="code hl_function" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">rpp::source::create&lt;int&gt;</a>([<a class="code hl_function" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">val</a>](<span class="keyword">const</span> <span class="keyword">auto</span>&amp; <a class="code hl_function" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">sub</a>)</div>
 <div class="line">            {</div>
-<div class="line">                <a class="code hl_function" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">sub</a>.on_next(<a class="code hl_function" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">val</a>);</div>
+<div class="line">                <a class="code hl_function" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">sub</a>.on_next(<a class="code hl_function" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">val</a>);</div>
 <div class="line">            })</div>
-<div class="line">            .subscribe([](<span class="keywordtype">int</span> <a class="code hl_function" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">v</a>) { std::cout &lt;&lt; <a class="code hl_function" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">v</a> &lt;&lt; std::endl; });</div>
+<div class="line">            .subscribe([](<span class="keywordtype">int</span> <a class="code hl_function" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">v</a>) { std::cout &lt;&lt; <a class="code hl_function" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">v</a> &lt;&lt; std::endl; });</div>
 <div class="line">    <span class="comment">// Output: 42</span></div>
 </div><!-- fragment --></dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/create.html">https://reactivex.io/documentation/operators/create.html</a> </dd></dl>
@@ -348,12 +348,12 @@ template&lt;constraint::decayed_type Type, constraint::on_subscribe&lt; Type &gt
 <div class="memproto">
 <div class="memtemplate">
 template&lt;std::invocable Factory&gt; <br />
-requires <a class="el" href="conceptrpp_1_1constraint_1_1observable.html">rpp::constraint::observable</a>&lt;std::invoke_result_t&lt;<a class="el" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">Factory</a>&gt;&gt;</div>
+requires <a class="el" href="conceptrpp_1_1constraint_1_1observable.html">rpp::constraint::observable</a>&lt;std::invoke_result_t&lt;<a class="el" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">Factory</a>&gt;&gt;</div>
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">auto</a> rpp::source::defer </td>
+          <td class="memname"><a class="el" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">auto</a> rpp::source::defer </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">Factory</a> &amp;&amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">Factory</a> &amp;&amp;&#160;</td>
           <td class="paramname"><em>observable_factory</em></td><td>)</td>
           <td></td>
         </tr>
@@ -370,14 +370,14 @@ requires <a class="el" href="conceptrpp_1_1constraint_1_1observable.html">rpp::c
 <dl class="section user"><dt>Example:</dt><dd><div class="fragment"><div class="line">    <a class="code hl_function" href="group__creational__operators.html#gad9a4bddea3780850a01b82b481951d18">rpp::source::defer</a>([] {</div>
 <div class="line">        std::cout &lt;&lt; <span class="stringliteral">&quot;Observable factory called\n&quot;</span>;</div>
 <div class="line">        <span class="keywordflow">return</span> <a class="code hl_function" href="group__creational__operators.html#gad15a7e8bfb2f7ce0af1b44e22918116c">rpp::source::from_iterable</a>(std::array{ 1,2,3 }); })</div>
-<div class="line">        .subscribe([](<span class="keywordtype">int</span> <a class="code hl_function" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">v</a>) { std::cout &lt;&lt; <a class="code hl_function" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">v</a> &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>; }, rpp::utils::rethrow_error_t{}, []() { std::cout &lt;&lt; <span class="stringliteral">&quot;On complete\n&quot;</span>; });</div>
+<div class="line">        .subscribe([](<span class="keywordtype">int</span> <a class="code hl_function" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">v</a>) { std::cout &lt;&lt; <a class="code hl_function" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">v</a> &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>; }, rpp::utils::rethrow_error_t{}, []() { std::cout &lt;&lt; <span class="stringliteral">&quot;On complete\n&quot;</span>; });</div>
 <div class="line">    <span class="comment">// Output: Observable factory called </span></div>
 <div class="line">    <span class="comment">//         1 </span></div>
 <div class="line">    <span class="comment">//         2 </span></div>
 <div class="line">    <span class="comment">//         3</span></div>
 <div class="line">    <span class="comment">//         On complete</span></div>
-<div class="ttc" id="agroup__creational__operators_html_gad15a7e8bfb2f7ce0af1b44e22918116c"><div class="ttname"><a href="group__creational__operators.html#gad15a7e8bfb2f7ce0af1b44e22918116c">rpp::source::from_iterable</a></div><div class="ttdeci">auto from_iterable(Iterable &amp;&amp;iterable, const TScheduler &amp;scheduler)</div><div class="ttdoc">Creates observable that emits a items from provided iterable.</div><div class="ttdef"><b>Definition</b> from.hpp:171</div></div>
-<div class="ttc" id="agroup__creational__operators_html_gad9a4bddea3780850a01b82b481951d18"><div class="ttname"><a href="group__creational__operators.html#gad9a4bddea3780850a01b82b481951d18">rpp::source::defer</a></div><div class="ttdeci">auto defer(Factory &amp;&amp;observable_factory)</div><div class="ttdoc">Creates rpp::observable that calls the specified observable factory to create an observable for each ...</div><div class="ttdef"><b>Definition</b> defer.hpp:55</div></div>
+<div class="ttc" id="agroup__creational__operators_html_gad15a7e8bfb2f7ce0af1b44e22918116c"><div class="ttname"><a href="group__creational__operators.html#gad15a7e8bfb2f7ce0af1b44e22918116c">rpp::source::from_iterable</a></div><div class="ttdeci">auto from_iterable(Iterable &amp;&amp;iterable, const TScheduler &amp;scheduler)</div><div class="ttdoc">Creates observable that emits a items from provided iterable.</div><div class="ttdef"><b>Definition</b> from.hpp:174</div></div>
+<div class="ttc" id="agroup__creational__operators_html_gad9a4bddea3780850a01b82b481951d18"><div class="ttname"><a href="group__creational__operators.html#gad9a4bddea3780850a01b82b481951d18">rpp::source::defer</a></div><div class="ttdeci">auto defer(Factory &amp;&amp;observable_factory)</div><div class="ttdoc">Creates rpp::observable that calls the specified observable factory to create an observable for each ...</div><div class="ttdef"><b>Definition</b> defer.hpp:56</div></div>
 </div><!-- fragment --></dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/defer.html">https://reactivex.io/documentation/operators/defer.html</a> </dd></dl>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="defer_8cpp-example.html#a0">defer.cpp</a>.</dd>
@@ -394,7 +394,7 @@ requires <a class="el" href="conceptrpp_1_1constraint_1_1observable.html">rpp::c
 template&lt;constraint::decayed_type Type&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">auto</a> rpp::source::empty </td>
+          <td class="memname"><a class="el" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">auto</a> rpp::source::empty </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -425,7 +425,7 @@ template&lt;constraint::decayed_type Type&gt; </div>
 template&lt;constraint::decayed_type Type&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">auto</a> rpp::source::error </td>
+          <td class="memname"><a class="el" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">auto</a> rpp::source::error </td>
           <td>(</td>
           <td class="paramtype">std::exception_ptr&#160;</td>
           <td class="paramname"><em>err</em></td><td>)</td>
@@ -463,9 +463,9 @@ template&lt;constraint::decayed_type Type&gt; </div>
 template&lt;constraint::memory_model memory_model, std::invocable&lt;&gt; Callable&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">auto</a> rpp::source::from_callable </td>
+          <td class="memname"><a class="el" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">auto</a> rpp::source::from_callable </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">Callable</a> &amp;&amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">Callable</a> &amp;&amp;&#160;</td>
           <td class="paramname"><em>callable</em></td><td>)</td>
           <td></td>
         </tr>
@@ -482,9 +482,9 @@ template&lt;constraint::memory_model memory_model, std::invocable&lt;&gt; Callab
   </table>
   </dd>
 </dl>
-<dl class="section user"><dt>Example</dt><dd><div class="fragment"><div class="line">        <a class="code hl_function" href="group__creational__operators.html#ga519523490394660d7e8c46d2d5612f75">rpp::source::from_callable</a>([]() {<span class="keywordflow">return</span> 49; }).subscribe([](<span class="keywordtype">int</span> <a class="code hl_function" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">v</a>) {std::cout &lt;&lt; <a class="code hl_function" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">v</a> &lt;&lt; <span class="stringliteral">&quot; &quot;</span>; });</div>
+<dl class="section user"><dt>Example</dt><dd><div class="fragment"><div class="line">        <a class="code hl_function" href="group__creational__operators.html#ga519523490394660d7e8c46d2d5612f75">rpp::source::from_callable</a>([]() {<span class="keywordflow">return</span> 49; }).subscribe([](<span class="keywordtype">int</span> <a class="code hl_function" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">v</a>) {std::cout &lt;&lt; <a class="code hl_function" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">v</a> &lt;&lt; <span class="stringliteral">&quot; &quot;</span>; });</div>
 <div class="line">        <span class="comment">// Output: 49</span></div>
-<div class="ttc" id="agroup__creational__operators_html_ga519523490394660d7e8c46d2d5612f75"><div class="ttname"><a href="group__creational__operators.html#ga519523490394660d7e8c46d2d5612f75">rpp::source::from_callable</a></div><div class="ttdeci">auto from_callable(Callable &amp;&amp;callable)</div><div class="ttdoc">Creates rpp::specific_observable that calls provided callable and emits resulting value of this calla...</div><div class="ttdef"><b>Definition</b> from.hpp:243</div></div>
+<div class="ttc" id="agroup__creational__operators_html_ga519523490394660d7e8c46d2d5612f75"><div class="ttname"><a href="group__creational__operators.html#ga519523490394660d7e8c46d2d5612f75">rpp::source::from_callable</a></div><div class="ttdeci">auto from_callable(Callable &amp;&amp;callable)</div><div class="ttdoc">Creates rpp::specific_observable that calls provided callable and emits resulting value of this calla...</div><div class="ttdef"><b>Definition</b> from.hpp:248</div></div>
 </div><!-- fragment --></dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/from.html">https://reactivex.io/documentation/operators/from.html</a> </dd></dl>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="from_8cpp-example.html#a4">from.cpp</a>.</dd>
@@ -501,15 +501,15 @@ template&lt;constraint::memory_model memory_model, std::invocable&lt;&gt; Callab
 template&lt;constraint::memory_model memory_model, constraint::iterable Iterable, schedulers::constraint::scheduler TScheduler&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">auto</a> rpp::source::from_iterable </td>
+          <td class="memname"><a class="el" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">auto</a> rpp::source::from_iterable </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">Iterable</a> &amp;&amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">Iterable</a> &amp;&amp;&#160;</td>
           <td class="paramname"><em>iterable</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">const</a> TScheduler &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">const</a> TScheduler &amp;&#160;</td>
           <td class="paramname"><em>scheduler</em>&#160;</td>
         </tr>
         <tr>
@@ -537,15 +537,15 @@ template&lt;constraint::memory_model memory_model, constraint::iterable Iterable
   </table>
   </dd>
 </dl>
-<dl class="section user"><dt>Examples:</dt><dd><div class="fragment"><div class="line">        std::vector&lt;int&gt; <a class="code hl_function" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">vals</a>{ 1,2,3 };</div>
-<div class="line">        <a class="code hl_function" href="group__creational__operators.html#gad15a7e8bfb2f7ce0af1b44e22918116c">rpp::source::from_iterable</a>(<a class="code hl_function" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">vals</a>).subscribe([](<span class="keywordtype">int</span> <a class="code hl_function" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">v</a>) {std::cout &lt;&lt; <a class="code hl_function" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">v</a> &lt;&lt; <span class="stringliteral">&quot; &quot;</span>; });</div>
-</div><!-- fragment --> <div class="fragment"><div class="line">        std::vector&lt;int&gt; <a class="code hl_function" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">vals</a>{ 1,2,3 };</div>
-<div class="line">        <a class="code hl_function" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">rpp::source::from_iterable&lt;rpp::memory_model::use_shared&gt;</a>(<a class="code hl_function" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">vals</a>).subscribe([](<span class="keywordtype">int</span> <a class="code hl_function" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">v</a>) {std::cout &lt;&lt; <a class="code hl_function" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">v</a> &lt;&lt; <span class="stringliteral">&quot; &quot;</span>; });</div>
-</div><!-- fragment --> <div class="fragment"><div class="line">        std::vector&lt;int&gt; <a class="code hl_function" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">vals</a>{ 1,2,3 };</div>
-<div class="line">        <a class="code hl_function" href="group__creational__operators.html#gad15a7e8bfb2f7ce0af1b44e22918116c">rpp::source::from_iterable</a>(<a class="code hl_function" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">vals</a>, <a class="code hl_class" href="classrpp_1_1schedulers_1_1immediate.html">rpp::schedulers::immediate</a>{}).subscribe([](<span class="keywordtype">int</span> <a class="code hl_function" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">v</a>) {std::cout &lt;&lt; <a class="code hl_function" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">v</a> &lt;&lt; <span class="stringliteral">&quot; &quot;</span>; });</div>
-<div class="line">        <a class="code hl_function" href="group__creational__operators.html#gad15a7e8bfb2f7ce0af1b44e22918116c">rpp::source::from_iterable</a>(<a class="code hl_function" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">vals</a>, <a class="code hl_class" href="classrpp_1_1schedulers_1_1current__thread.html">rpp::schedulers::current_thread</a>{}).subscribe([](<span class="keywordtype">int</span> <a class="code hl_function" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">v</a>) {std::cout &lt;&lt; <a class="code hl_function" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">v</a> &lt;&lt; <span class="stringliteral">&quot; &quot;</span>; });</div>
-<div class="ttc" id="aclassrpp_1_1schedulers_1_1current__thread_html"><div class="ttname"><a href="classrpp_1_1schedulers_1_1current__thread.html">rpp::schedulers::current_thread</a></div><div class="ttdoc">Schedules execution of schedulables via queueing tasks to the caller thread with priority to time_poi...</div><div class="ttdef"><b>Definition</b> current_thread.hpp:86</div></div>
-<div class="ttc" id="aclassrpp_1_1schedulers_1_1immediate_html"><div class="ttname"><a href="classrpp_1_1schedulers_1_1immediate.html">rpp::schedulers::immediate</a></div><div class="ttdoc">immediately calls provided schedulable or waits for time_point (in the caller-thread)</div><div class="ttdef"><b>Definition</b> immediate.hpp:64</div></div>
+<dl class="section user"><dt>Examples:</dt><dd><div class="fragment"><div class="line">        std::vector&lt;int&gt; <a class="code hl_function" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">vals</a>{ 1,2,3 };</div>
+<div class="line">        <a class="code hl_function" href="group__creational__operators.html#gad15a7e8bfb2f7ce0af1b44e22918116c">rpp::source::from_iterable</a>(<a class="code hl_function" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">vals</a>).subscribe([](<span class="keywordtype">int</span> <a class="code hl_function" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">v</a>) {std::cout &lt;&lt; <a class="code hl_function" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">v</a> &lt;&lt; <span class="stringliteral">&quot; &quot;</span>; });</div>
+</div><!-- fragment --> <div class="fragment"><div class="line">        std::vector&lt;int&gt; <a class="code hl_function" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">vals</a>{ 1,2,3 };</div>
+<div class="line">        <a class="code hl_function" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">rpp::source::from_iterable&lt;rpp::memory_model::use_shared&gt;</a>(<a class="code hl_function" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">vals</a>).subscribe([](<span class="keywordtype">int</span> <a class="code hl_function" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">v</a>) {std::cout &lt;&lt; <a class="code hl_function" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">v</a> &lt;&lt; <span class="stringliteral">&quot; &quot;</span>; });</div>
+</div><!-- fragment --> <div class="fragment"><div class="line">        std::vector&lt;int&gt; <a class="code hl_function" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">vals</a>{ 1,2,3 };</div>
+<div class="line">        <a class="code hl_function" href="group__creational__operators.html#gad15a7e8bfb2f7ce0af1b44e22918116c">rpp::source::from_iterable</a>(<a class="code hl_function" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">vals</a>, <a class="code hl_class" href="classrpp_1_1schedulers_1_1immediate.html">rpp::schedulers::immediate</a>{}).subscribe([](<span class="keywordtype">int</span> <a class="code hl_function" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">v</a>) {std::cout &lt;&lt; <a class="code hl_function" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">v</a> &lt;&lt; <span class="stringliteral">&quot; &quot;</span>; });</div>
+<div class="line">        <a class="code hl_function" href="group__creational__operators.html#gad15a7e8bfb2f7ce0af1b44e22918116c">rpp::source::from_iterable</a>(<a class="code hl_function" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">vals</a>, <a class="code hl_class" href="classrpp_1_1schedulers_1_1current__thread.html">rpp::schedulers::current_thread</a>{}).subscribe([](<span class="keywordtype">int</span> <a class="code hl_function" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">v</a>) {std::cout &lt;&lt; <a class="code hl_function" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">v</a> &lt;&lt; <span class="stringliteral">&quot; &quot;</span>; });</div>
+<div class="ttc" id="aclassrpp_1_1schedulers_1_1current__thread_html"><div class="ttname"><a href="classrpp_1_1schedulers_1_1current__thread.html">rpp::schedulers::current_thread</a></div><div class="ttdoc">Schedules execution of schedulables via queueing tasks to the caller thread with priority to time_poi...</div><div class="ttdef"><b>Definition</b> current_thread.hpp:88</div></div>
+<div class="ttc" id="aclassrpp_1_1schedulers_1_1immediate_html"><div class="ttname"><a href="classrpp_1_1schedulers_1_1immediate.html">rpp::schedulers::immediate</a></div><div class="ttdoc">immediately calls provided schedulable or waits for time_point (in the caller-thread)</div><div class="ttdef"><b>Definition</b> immediate.hpp:65</div></div>
 </div><!-- fragment --></dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/from.html">https://reactivex.io/documentation/operators/from.html</a> </dd></dl>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="defer_8cpp-example.html#a1">defer.cpp</a>, <a class="el" href="from_8cpp-example.html#a0">from.cpp</a>, and <a class="el" href="take_8cpp-example.html#a0">take.cpp</a>.</dd>
@@ -562,7 +562,7 @@ template&lt;constraint::memory_model memory_model, constraint::iterable Iterable
 template&lt;schedulers::constraint::scheduler TScheduler&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">auto</a> rpp::source::interval </td>
+          <td class="memname"><a class="el" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">auto</a> rpp::source::interval </td>
           <td>(</td>
           <td class="paramtype">rpp::schedulers::duration&#160;</td>
           <td class="paramname"><em>initial</em>, </td>
@@ -615,7 +615,7 @@ template&lt;schedulers::constraint::scheduler TScheduler&gt; </div>
 template&lt;schedulers::constraint::scheduler TScheduler&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">auto</a> rpp::source::interval </td>
+          <td class="memname"><a class="el" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">auto</a> rpp::source::interval </td>
           <td>(</td>
           <td class="paramtype">rpp::schedulers::duration&#160;</td>
           <td class="paramname"><em>period</em>, </td>
@@ -650,19 +650,19 @@ template&lt;schedulers::constraint::scheduler TScheduler&gt; </div>
 
 </div>
 </div>
-<a id="gae60bdb9b493443d2786b0eee8bfe17ab" name="gae60bdb9b493443d2786b0eee8bfe17ab"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gae60bdb9b493443d2786b0eee8bfe17ab">&#9670;&#160;</a></span>just() <span class="overload">[1/2]</span></h2>
+<a id="ga1edf47f176050dd414e28a1c0616b7c0" name="ga1edf47f176050dd414e28a1c0616b7c0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga1edf47f176050dd414e28a1c0616b7c0">&#9670;&#160;</a></span>just() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;constraint::memory_model memory_model, schedulers::constraint::scheduler TScheduler, <a class="el" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">typename</a> T , <a class="el" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">typename</a> ... Ts&gt; <br />
-requires (constraint::decayed_same_as&lt;T, <a class="el" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">Ts</a>&gt; &amp;&amp; ...)</div>
+template&lt;constraint::memory_model memory_model, schedulers::constraint::scheduler TScheduler, <a class="el" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">typename</a> T , typename... Ts&gt; <br />
+requires (constraint::decayed_same_as&lt;T, <a class="el" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">Ts</a>&gt; &amp;&amp; ...)</div>
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">auto</a> rpp::source::just </td>
+          <td class="memname"><a class="el" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">auto</a> rpp::source::just </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">const</a> TScheduler &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">const</a> TScheduler &amp;&#160;</td>
           <td class="paramname"><em>scheduler</em>, </td>
         </tr>
         <tr>
@@ -674,7 +674,7 @@ requires (constraint::decayed_same_as&lt;T, <a class="el" href="group__creationa
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">Ts</a> &amp;&amp;...&#160;</td>
+          <td class="paramtype"><a class="el" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">Ts</a> &amp;&amp;...&#160;</td>
           <td class="paramname"><em>items</em>&#160;</td>
         </tr>
         <tr>
@@ -703,13 +703,13 @@ requires (constraint::decayed_same_as&lt;T, <a class="el" href="group__creationa
   </table>
   </dd>
 </dl>
-<dl class="section user"><dt>Examples:</dt><dd><div class="fragment"><div class="line">    <a class="code hl_function" href="group__creational__operators.html#gae60bdb9b493443d2786b0eee8bfe17ab">rpp::source::just</a>(42, 53, 10, 1).subscribe([](<span class="keywordtype">int</span> <a class="code hl_function" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">v</a>) { std::cout &lt;&lt; <a class="code hl_function" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">v</a> &lt;&lt; std::endl; });</div>
+<dl class="section user"><dt>Examples:</dt><dd><div class="fragment"><div class="line">    <a class="code hl_function" href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">rpp::source::just</a>(42, 53, 10, 1).subscribe([](<span class="keywordtype">int</span> <a class="code hl_function" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">v</a>) { std::cout &lt;&lt; <a class="code hl_function" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">v</a> &lt;&lt; std::endl; });</div>
 <div class="line">    <span class="comment">// Output: 42 53 10 1</span></div>
-</div><!-- fragment --> <div class="fragment"><div class="line">    std::array&lt;int, 100&gt; <a class="code hl_function" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">expensive_to_copy_1</a>{};</div>
-<div class="line">    std::array&lt;int, 100&gt; <a class="code hl_function" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">expensive_to_copy_2</a>{};</div>
-<div class="line">    <a class="code hl_function" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">rpp::source::just&lt;rpp::memory_model::use_shared&gt;</a>(<a class="code hl_function" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">expensive_to_copy_1</a>, <a class="code hl_function" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">expensive_to_copy_2</a>).subscribe([](<span class="keyword">const</span> <span class="keyword">auto</span>&amp;){});</div>
-</div><!-- fragment --> <div class="fragment"><div class="line">    <a class="code hl_function" href="group__creational__operators.html#gae60bdb9b493443d2786b0eee8bfe17ab">rpp::source::just</a>(<a class="code hl_class" href="classrpp_1_1schedulers_1_1immediate.html">rpp::schedulers::immediate</a>{}, 42, 53).subscribe([](<span class="keyword">const</span> <span class="keyword">auto</span>&amp;){});</div>
-<div class="line">    <a class="code hl_function" href="group__creational__operators.html#gae60bdb9b493443d2786b0eee8bfe17ab">rpp::source::just</a>(<a class="code hl_class" href="classrpp_1_1schedulers_1_1current__thread.html">rpp::schedulers::current_thread</a>{}, 42, 53).subscribe([](<span class="keyword">const</span> <span class="keyword">auto</span>&amp;){});</div>
+</div><!-- fragment --> <div class="fragment"><div class="line">    std::array&lt;int, 100&gt; <a class="code hl_function" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">expensive_to_copy_1</a>{};</div>
+<div class="line">    std::array&lt;int, 100&gt; <a class="code hl_function" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">expensive_to_copy_2</a>{};</div>
+<div class="line">    <a class="code hl_function" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">rpp::source::just&lt;rpp::memory_model::use_shared&gt;</a>(<a class="code hl_function" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">expensive_to_copy_1</a>, <a class="code hl_function" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">expensive_to_copy_2</a>).subscribe([](<span class="keyword">const</span> <span class="keyword">auto</span>&amp;){});</div>
+</div><!-- fragment --> <div class="fragment"><div class="line">    <a class="code hl_function" href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">rpp::source::just</a>(<a class="code hl_class" href="classrpp_1_1schedulers_1_1immediate.html">rpp::schedulers::immediate</a>{}, 42, 53).subscribe([](<span class="keyword">const</span> <span class="keyword">auto</span>&amp;){});</div>
+<div class="line">    <a class="code hl_function" href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">rpp::source::just</a>(<a class="code hl_class" href="classrpp_1_1schedulers_1_1current__thread.html">rpp::schedulers::current_thread</a>{}, 42, 53).subscribe([](<span class="keyword">const</span> <span class="keyword">auto</span>&amp;){});</div>
 </div><!-- fragment --></dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/just.html">https://reactivex.io/documentation/operators/just.html</a> </dd></dl>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="combine_latest_8cpp-example.html#a0">combine_latest.cpp</a>, <a class="el" href="concat_8cpp-example.html#a1">concat.cpp</a>, <a class="el" href="debounce_8cpp-example.html#a0">debounce.cpp</a>, <a class="el" href="distinct_until_changed_8cpp-example.html#a0">distinct_until_changed.cpp</a>, <a class="el" href="filter_8cpp-example.html#a0">filter.cpp</a>, <a class="el" href="first_8cpp-example.html#a0">first.cpp</a>, <a class="el" href="group_by_8cpp-example.html#a0">group_by.cpp</a>, <a class="el" href="just_8cpp-example.html#a0">just.cpp</a>, <a class="el" href="last_8cpp-example.html#a0">last.cpp</a>, <a class="el" href="map_8cpp-example.html#a0">map.cpp</a>, <a class="el" href="merge_8cpp-example.html#a0">merge.cpp</a>, <a class="el" href="multicast_8cpp-example.html#a1">multicast.cpp</a>, <a class="el" href="ref_count_8cpp-example.html#a0">ref_count.cpp</a>, <a class="el" href="repeat_8cpp-example.html#a0">repeat.cpp</a>, <a class="el" href="scan_8cpp-example.html#a0">scan.cpp</a>, <a class="el" href="skip_8cpp-example.html#a0">skip.cpp</a>, <a class="el" href="take_while_8cpp-example.html#a0">take_while.cpp</a>, and <a class="el" href="with_latest_from_8cpp-example.html#a0">with_latest_from.cpp</a>.</dd>
@@ -717,17 +717,17 @@ requires (constraint::decayed_same_as&lt;T, <a class="el" href="group__creationa
 
 </div>
 </div>
-<a id="ga9104f4682dddefb9021bb9f2c2025494" name="ga9104f4682dddefb9021bb9f2c2025494"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga9104f4682dddefb9021bb9f2c2025494">&#9670;&#160;</a></span>just() <span class="overload">[2/2]</span></h2>
+<a id="ga65fe5e58c0179835d702de99475c86b3" name="ga65fe5e58c0179835d702de99475c86b3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga65fe5e58c0179835d702de99475c86b3">&#9670;&#160;</a></span>just() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;constraint::memory_model memory_model, <a class="el" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">typename</a> T , <a class="el" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">typename</a> ... Ts&gt; <br />
-requires (constraint::decayed_same_as&lt;T, <a class="el" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">Ts</a>&gt; &amp;&amp; ...)</div>
+template&lt;constraint::memory_model memory_model, <a class="el" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">typename</a> T , typename... Ts&gt; <br />
+requires (constraint::decayed_same_as&lt;T, <a class="el" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">Ts</a>&gt; &amp;&amp; ...)</div>
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">auto</a> rpp::source::just </td>
+          <td class="memname"><a class="el" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">auto</a> rpp::source::just </td>
           <td>(</td>
           <td class="paramtype">T &amp;&amp;&#160;</td>
           <td class="paramname"><em>item</em>, </td>
@@ -735,7 +735,7 @@ requires (constraint::decayed_same_as&lt;T, <a class="el" href="group__creationa
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">Ts</a> &amp;&amp;...&#160;</td>
+          <td class="paramtype"><a class="el" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">Ts</a> &amp;&amp;...&#160;</td>
           <td class="paramname"><em>items</em>&#160;</td>
         </tr>
         <tr>
@@ -764,13 +764,13 @@ requires (constraint::decayed_same_as&lt;T, <a class="el" href="group__creationa
   </table>
   </dd>
 </dl>
-<dl class="section user"><dt>Examples:</dt><dd><div class="fragment"><div class="line">    <a class="code hl_function" href="group__creational__operators.html#gae60bdb9b493443d2786b0eee8bfe17ab">rpp::source::just</a>(42, 53, 10, 1).subscribe([](<span class="keywordtype">int</span> <a class="code hl_function" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">v</a>) { std::cout &lt;&lt; <a class="code hl_function" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">v</a> &lt;&lt; std::endl; });</div>
+<dl class="section user"><dt>Examples:</dt><dd><div class="fragment"><div class="line">    <a class="code hl_function" href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">rpp::source::just</a>(42, 53, 10, 1).subscribe([](<span class="keywordtype">int</span> <a class="code hl_function" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">v</a>) { std::cout &lt;&lt; <a class="code hl_function" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">v</a> &lt;&lt; std::endl; });</div>
 <div class="line">    <span class="comment">// Output: 42 53 10 1</span></div>
-</div><!-- fragment --> <div class="fragment"><div class="line">    std::array&lt;int, 100&gt; <a class="code hl_function" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">expensive_to_copy_1</a>{};</div>
-<div class="line">    std::array&lt;int, 100&gt; <a class="code hl_function" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">expensive_to_copy_2</a>{};</div>
-<div class="line">    <a class="code hl_function" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">rpp::source::just&lt;rpp::memory_model::use_shared&gt;</a>(<a class="code hl_function" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">expensive_to_copy_1</a>, <a class="code hl_function" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">expensive_to_copy_2</a>).subscribe([](<span class="keyword">const</span> <span class="keyword">auto</span>&amp;){});</div>
-</div><!-- fragment --> <div class="fragment"><div class="line">    <a class="code hl_function" href="group__creational__operators.html#gae60bdb9b493443d2786b0eee8bfe17ab">rpp::source::just</a>(<a class="code hl_class" href="classrpp_1_1schedulers_1_1immediate.html">rpp::schedulers::immediate</a>{}, 42, 53).subscribe([](<span class="keyword">const</span> <span class="keyword">auto</span>&amp;){});</div>
-<div class="line">    <a class="code hl_function" href="group__creational__operators.html#gae60bdb9b493443d2786b0eee8bfe17ab">rpp::source::just</a>(<a class="code hl_class" href="classrpp_1_1schedulers_1_1current__thread.html">rpp::schedulers::current_thread</a>{}, 42, 53).subscribe([](<span class="keyword">const</span> <span class="keyword">auto</span>&amp;){});</div>
+</div><!-- fragment --> <div class="fragment"><div class="line">    std::array&lt;int, 100&gt; <a class="code hl_function" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">expensive_to_copy_1</a>{};</div>
+<div class="line">    std::array&lt;int, 100&gt; <a class="code hl_function" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">expensive_to_copy_2</a>{};</div>
+<div class="line">    <a class="code hl_function" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">rpp::source::just&lt;rpp::memory_model::use_shared&gt;</a>(<a class="code hl_function" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">expensive_to_copy_1</a>, <a class="code hl_function" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">expensive_to_copy_2</a>).subscribe([](<span class="keyword">const</span> <span class="keyword">auto</span>&amp;){});</div>
+</div><!-- fragment --> <div class="fragment"><div class="line">    <a class="code hl_function" href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">rpp::source::just</a>(<a class="code hl_class" href="classrpp_1_1schedulers_1_1immediate.html">rpp::schedulers::immediate</a>{}, 42, 53).subscribe([](<span class="keyword">const</span> <span class="keyword">auto</span>&amp;){});</div>
+<div class="line">    <a class="code hl_function" href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">rpp::source::just</a>(<a class="code hl_class" href="classrpp_1_1schedulers_1_1current__thread.html">rpp::schedulers::current_thread</a>{}, 42, 53).subscribe([](<span class="keyword">const</span> <span class="keyword">auto</span>&amp;){});</div>
 </div><!-- fragment --></dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/just.html">https://reactivex.io/documentation/operators/just.html</a> </dd></dl>
 
@@ -785,7 +785,7 @@ requires (constraint::decayed_same_as&lt;T, <a class="el" href="group__creationa
 template&lt;constraint::decayed_type Type&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="group__creational__operators.html#ga5bf57bc7e432fb38565810144a75b972">auto</a> rpp::source::never </td>
+          <td class="memname"><a class="el" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">auto</a> rpp::source::never </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>

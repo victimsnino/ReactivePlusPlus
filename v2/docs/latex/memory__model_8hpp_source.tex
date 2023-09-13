@@ -18,16 +18,21 @@
 \DoxyCodeLine{00014\ }
 \DoxyCodeLine{00015\ \textcolor{keyword}{namespace\ }rpp::memory\_model}
 \DoxyCodeLine{00016\ \{}
-\DoxyCodeLine{00017\ \ \ \ \ \textcolor{comment}{//\ copy\ and\ move\ everywhere\ when\ needed}}
-\DoxyCodeLine{00018\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1memory__model_1_1use__stack}{use\_stack}}\{\};}
-\DoxyCodeLine{00019\ \ \ \ \ \textcolor{comment}{//\ make\ shared\_ptr\ once\ and\ avoid\ any\ future\ copies/moves}}
-\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1memory__model_1_1use__shared}{use\_shared}}\{\};}
-\DoxyCodeLine{00021\ \}\ \textcolor{comment}{//\ namespace\ rpp::memory\_model}}
-\DoxyCodeLine{00022\ }
-\DoxyCodeLine{00023\ \textcolor{keyword}{namespace\ }rpp::constraint}
+\DoxyCodeLine{00017\ \textcolor{comment}{//\ copy\ and\ move\ everywhere\ when\ needed}}
+\DoxyCodeLine{00018\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1memory__model_1_1use__stack}{use\_stack}}}
+\DoxyCodeLine{00019\ \{}
+\DoxyCodeLine{00020\ \};}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \textcolor{comment}{//\ make\ shared\_ptr\ once\ and\ avoid\ any\ future\ copies/moves}}
+\DoxyCodeLine{00023\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1memory__model_1_1use__shared}{use\_shared}}}
 \DoxyCodeLine{00024\ \{}
-\DoxyCodeLine{00025\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
-\DoxyCodeLine{00026\ \textcolor{keyword}{concept\ }\mbox{\hyperlink{conceptrpp_1_1constraint_1_1memory__model}{memory\_model}}\ =\ std::same\_as<rpp::memory\_model::use\_shared,\ T>\ ||\ std::same\_as<rpp::memory\_model::use\_stack,\ T>;}
-\DoxyCodeLine{00027\ \}}
+\DoxyCodeLine{00025\ \};}
+\DoxyCodeLine{00026\ \}\ \textcolor{comment}{//\ namespace\ rpp::memory\_model}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{keyword}{namespace\ }rpp::constraint}
+\DoxyCodeLine{00029\ \{}
+\DoxyCodeLine{00030\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00031\ \textcolor{keyword}{concept\ }\mbox{\hyperlink{conceptrpp_1_1constraint_1_1memory__model}{memory\_model}}\ =\ std::same\_as<rpp::memory\_model::use\_shared,\ T>\ ||\ std::same\_as<rpp::memory\_model::use\_stack,\ T>;}
+\DoxyCodeLine{00032\ \}}
 
 \end{DoxyCode}

@@ -14,33 +14,34 @@
 \DoxyCodeLine{00010\ \textcolor{preprocessor}{\#pragma\ once}}
 \DoxyCodeLine{00011\ }
 \DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <rpp/sources/fwd.hpp>}}
-\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <rpp/observables/observable.hpp>}}
-\DoxyCodeLine{00014\ }
-\DoxyCodeLine{00015\ \textcolor{keyword}{namespace\ }rpp::details}
-\DoxyCodeLine{00016\ \{}
-\DoxyCodeLine{00017\ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type\ Type>}
-\DoxyCodeLine{00018\ }
-\DoxyCodeLine{00019\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1details_1_1empty__strategy}{empty\_strategy}}}
-\DoxyCodeLine{00020\ \{}
-\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keyword}{using\ }ValueType\ =\ Type;}
-\DoxyCodeLine{00022\ }
-\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ subscribe(\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ obs)\ \{\ obs.on\_completed();\ \}}
-\DoxyCodeLine{00024\ \};}
-\DoxyCodeLine{00025\ \}}
-\DoxyCodeLine{00026\ }
-\DoxyCodeLine{00027\ \textcolor{keyword}{namespace\ }rpp}
-\DoxyCodeLine{00028\ \{}
-\DoxyCodeLine{00029\ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type\ Type>}
-\DoxyCodeLine{00030\ \textcolor{keyword}{using\ }\mbox{\hyperlink{classrpp_1_1observable}{empty\_observable}}\ =\ \mbox{\hyperlink{classrpp_1_1observable}{observable<Type,\ details::empty\_strategy<Type>}}>;}
-\DoxyCodeLine{00031\ \}}
-\DoxyCodeLine{00032\ }
-\DoxyCodeLine{00033\ \textcolor{keyword}{namespace\ }rpp::source}
-\DoxyCodeLine{00034\ \{}
-\DoxyCodeLine{00048\ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type\ Type>}
-\DoxyCodeLine{00049\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__creational__operators_gad29c2904de57d176ccaf2614409789de}{empty}}()}
-\DoxyCodeLine{00050\ \{}
-\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{group__creational__operators_ga5bf57bc7e432fb38565810144a75b972}{empty\_observable<Type>}}\{\};}
-\DoxyCodeLine{00052\ \}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <rpp/observables/observable.hpp>}}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \textcolor{keyword}{namespace\ }rpp::details}
+\DoxyCodeLine{00017\ \{}
+\DoxyCodeLine{00018\ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type\ Type>}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1details_1_1empty__strategy}{empty\_strategy}}}
+\DoxyCodeLine{00021\ \{}
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keyword}{using\ }ValueType\ =\ Type;}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ subscribe(\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ obs)\ \{\ obs.on\_completed();\ \}}
+\DoxyCodeLine{00025\ \};}
+\DoxyCodeLine{00026\ \}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{keyword}{namespace\ }rpp}
+\DoxyCodeLine{00029\ \{}
+\DoxyCodeLine{00030\ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type\ Type>}
+\DoxyCodeLine{00031\ \textcolor{keyword}{using\ }\mbox{\hyperlink{classrpp_1_1observable}{empty\_observable}}\ =\ \mbox{\hyperlink{classrpp_1_1observable}{observable<Type,\ details::empty\_strategy<Type>}}>;}
+\DoxyCodeLine{00032\ \}}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \textcolor{keyword}{namespace\ }rpp::source}
+\DoxyCodeLine{00035\ \{}
+\DoxyCodeLine{00049\ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type\ Type>}
+\DoxyCodeLine{00050\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__creational__operators_gad29c2904de57d176ccaf2614409789de}{empty}}()}
+\DoxyCodeLine{00051\ \{}
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{empty\_observable<Type>}}\{\};}
 \DoxyCodeLine{00053\ \}}
+\DoxyCodeLine{00054\ \}}
 
 \end{DoxyCode}

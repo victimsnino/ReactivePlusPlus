@@ -6,10 +6,10 @@
 \Hypertarget{classrpp_1_1details_1_1observer__impl_a5d7672a078ce4d324124ea8817d8d433}\label{classrpp_1_1details_1_1observer__impl_a5d7672a078ce4d324124ea8817d8d433} 
 using {\bfseries Disposable\+Strategy\+To\+Use\+With\+This} = \mbox{\hyperlink{structrpp_1_1details_1_1none__disposable__strategy}{none\+\_\+disposable\+\_\+strategy}}
 \item 
-\Hypertarget{classrpp_1_1details_1_1observer__impl_a501eb17946928a225ed21fb0ced765f9}\label{classrpp_1_1details_1_1observer__impl_a501eb17946928a225ed21fb0ced765f9} 
+\Hypertarget{classrpp_1_1details_1_1observer__impl_ab624148fb355dd36b31da497c0a44bc3}\label{classrpp_1_1details_1_1observer__impl_ab624148fb355dd36b31da497c0a44bc3} 
 using {\bfseries on\+\_\+next\+\_\+lvalue} = void(observer\+\_\+impl\+::\texorpdfstring{$\ast$}{*})(const Type \&) const noexcept
 \item 
-\Hypertarget{classrpp_1_1details_1_1observer__impl_a9c7284957105708f5e9bb253decbf701}\label{classrpp_1_1details_1_1observer__impl_a9c7284957105708f5e9bb253decbf701} 
+\Hypertarget{classrpp_1_1details_1_1observer__impl_abba608430cf680d2aa1204d9c7d968e1}\label{classrpp_1_1details_1_1observer__impl_abba608430cf680d2aa1204d9c7d968e1} 
 using {\bfseries on\+\_\+next\+\_\+rvalue} = void(observer\+\_\+impl\+::\texorpdfstring{$\ast$}{*})(Type \&\&) const noexcept
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Public Member Functions}
@@ -34,9 +34,9 @@ void \mbox{\hyperlink{classrpp_1_1details_1_1observer__impl_a7a73f13eae52effde01
 {\footnotesize template$<$typename... Args$>$ \newline
 requires constraint\+::is\+\_\+constructible\+\_\+from$<$Strategy, Args\&\&...$>$}\\{\bfseries observer\+\_\+impl} (Disposables\+Strategy \&\&strategy, Args \&\&... args)
 \item 
-\Hypertarget{classrpp_1_1details_1_1observer__impl_a96732c0948b1b318354bf9e0c5331e3b}\label{classrpp_1_1details_1_1observer__impl_a96732c0948b1b318354bf9e0c5331e3b} 
+\Hypertarget{classrpp_1_1details_1_1observer__impl_aa80852dd59f9a6f6cef0e14d911720f9}\label{classrpp_1_1details_1_1observer__impl_aa80852dd59f9a6f6cef0e14d911720f9} 
 {\footnotesize template$<$typename... Args$>$ \newline
-requires (constraint\+::is\+\_\+constructible\+\_\+from$<$Strategy, Args\&\&...$>$ \&\& !rpp\+::constraint\+::variadic\+\_\+decayed\+\_\+same\+\_\+as$<$\mbox{\hyperlink{classrpp_1_1details_1_1observer__impl}{observer\+\_\+impl}}$<$Type, Strategy, Disposables\+Strategy$>$, Args...$>$)}\\{\bfseries observer\+\_\+impl} (Args \&\&... args)
+requires (constraint\+::is\+\_\+constructible\+\_\+from$<$Strategy, Args \&\& ...$>$ \&\& !rpp\+::constraint\+::variadic\+\_\+decayed\+\_\+same\+\_\+as$<$\mbox{\hyperlink{classrpp_1_1details_1_1observer__impl}{observer\+\_\+impl}}$<$Type, Strategy, Disposables\+Strategy$>$, Args...$>$)}\\{\bfseries observer\+\_\+impl} (Args \&\&... args)
 \item 
 \Hypertarget{classrpp_1_1details_1_1observer__impl_a1086c5aeaf72f4976434d15225602a37}\label{classrpp_1_1details_1_1observer__impl_a1086c5aeaf72f4976434d15225602a37} 
 {\bfseries observer\+\_\+impl} (const \mbox{\hyperlink{classrpp_1_1details_1_1observer__impl}{observer\+\_\+impl}} \&)=default

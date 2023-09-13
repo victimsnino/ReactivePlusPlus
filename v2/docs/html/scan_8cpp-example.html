@@ -105,13 +105,13 @@ $(document).ready(function(){initNavTree('scan_8cpp-example.html',''); initResiz
 <div class="line"> </div>
 <div class="line"><span class="keywordtype">int</span> main()</div>
 <div class="line">{</div>
-<div class="line">    <a id="a0" name="a0"></a><a class="code hl_function" href="group__creational__operators.html#gae60bdb9b493443d2786b0eee8bfe17ab">rpp::source::just</a>(1,2,3)</div>
-<div class="line">            | <a id="a1" name="a1"></a><a class="code hl_function" href="group__transforming__operators.html#gaf31c7c2738a8ce81801e219b943c9e8f">rpp::operators::scan</a>(10, std::plus&lt;int&gt;{})</div>
+<div class="line">    <a id="a0" name="a0"></a><a class="code hl_function" href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">rpp::source::just</a>(1,2,3)</div>
+<div class="line">            | <a id="a1" name="a1"></a><a class="code hl_function" href="group__transforming__operators.html#gad34415b9aeed2ad2446e7d54b6a4081c">rpp::operators::scan</a>(10, std::plus&lt;int&gt;{})</div>
 <div class="line">            | rpp::operators::subscribe([](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; v &lt;&lt; std::endl; });</div>
 <div class="line">    <span class="comment">// Output: 10 11 13 16</span></div>
 <div class="line"> </div>
-<div class="line">    <a class="code hl_function" href="group__creational__operators.html#gae60bdb9b493443d2786b0eee8bfe17ab">rpp::source::just</a>(1,2,3)</div>
-<div class="line">            | <a class="code hl_function" href="group__transforming__operators.html#gaf31c7c2738a8ce81801e219b943c9e8f">rpp::operators::scan</a>(std::vector&lt;int&gt;{}, [](std::vector&lt;int&gt;&amp;&amp; seed, <span class="keywordtype">int</span> new_value)</div>
+<div class="line">    <a class="code hl_function" href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">rpp::source::just</a>(1,2,3)</div>
+<div class="line">            | <a class="code hl_function" href="group__transforming__operators.html#gad34415b9aeed2ad2446e7d54b6a4081c">rpp::operators::scan</a>(std::vector&lt;int&gt;{}, [](std::vector&lt;int&gt;&amp;&amp; seed, <span class="keywordtype">int</span> new_value)</div>
 <div class="line">            {</div>
 <div class="line">                seed.push_back(new_value);</div>
 <div class="line">                <span class="keywordflow">return</span> std::move(seed);</div>
@@ -128,14 +128,14 @@ $(document).ready(function(){initNavTree('scan_8cpp-example.html',''); initResiz
 <div class="line">    <span class="comment">//         vector: 1 2</span></div>
 <div class="line">    <span class="comment">//         vector: 1 2 3</span></div>
 <div class="line"> </div>
-<div class="line">    <a class="code hl_function" href="group__creational__operators.html#gae60bdb9b493443d2786b0eee8bfe17ab">rpp::source::just</a>(1,2,3)</div>
-<div class="line">            | <a class="code hl_function" href="group__transforming__operators.html#gaf31c7c2738a8ce81801e219b943c9e8f">rpp::operators::scan</a>(std::plus&lt;int&gt;{})</div>
+<div class="line">    <a class="code hl_function" href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">rpp::source::just</a>(1,2,3)</div>
+<div class="line">            | <a class="code hl_function" href="group__transforming__operators.html#gad34415b9aeed2ad2446e7d54b6a4081c">rpp::operators::scan</a>(std::plus&lt;int&gt;{})</div>
 <div class="line">            | rpp::operators::subscribe([](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; v &lt;&lt; std::endl; });</div>
 <div class="line">    <span class="comment">// Output: 1 3 6</span></div>
 <div class="line">    <span class="keywordflow">return</span> 0;</div>
 <div class="line">}</div>
-<div class="ttc" id="agroup__creational__operators_html_gae60bdb9b493443d2786b0eee8bfe17ab"><div class="ttname"><a href="group__creational__operators.html#gae60bdb9b493443d2786b0eee8bfe17ab">rpp::source::just</a></div><div class="ttdeci">auto just(const TScheduler &amp;scheduler, T &amp;&amp;item, Ts &amp;&amp;...items)</div><div class="ttdoc">Creates rpp::observable that emits a particular items and completes.</div><div class="ttdef"><b>Definition</b> from.hpp:196</div></div>
-<div class="ttc" id="agroup__transforming__operators_html_gaf31c7c2738a8ce81801e219b943c9e8f"><div class="ttname"><a href="group__transforming__operators.html#gaf31c7c2738a8ce81801e219b943c9e8f">rpp::operators::scan</a></div><div class="ttdeci">auto scan(InitialValue &amp;&amp;initial_value, Fn &amp;&amp;accumulator)</div><div class="ttdoc">Apply accumulator function for each emission from observable and result of accumulator from previous ...</div><div class="ttdef"><b>Definition</b> scan.hpp:123</div></div>
+<div class="ttc" id="agroup__creational__operators_html_ga1edf47f176050dd414e28a1c0616b7c0"><div class="ttname"><a href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">rpp::source::just</a></div><div class="ttdeci">auto just(const TScheduler &amp;scheduler, T &amp;&amp;item, Ts &amp;&amp;... items)</div><div class="ttdoc">Creates rpp::observable that emits a particular items and completes.</div><div class="ttdef"><b>Definition</b> from.hpp:199</div></div>
+<div class="ttc" id="agroup__transforming__operators_html_gad34415b9aeed2ad2446e7d54b6a4081c"><div class="ttname"><a href="group__transforming__operators.html#gad34415b9aeed2ad2446e7d54b6a4081c">rpp::operators::scan</a></div><div class="ttdeci">auto scan(InitialValue &amp;&amp;initial_value, Fn &amp;&amp;accumulator)</div><div class="ttdoc">Apply accumulator function for each emission from observable and result of accumulator from previous ...</div><div class="ttdef"><b>Definition</b> scan.hpp:130</div></div>
 </div><!-- fragment --> </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

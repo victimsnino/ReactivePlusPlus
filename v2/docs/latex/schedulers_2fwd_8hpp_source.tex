@@ -15,17 +15,17 @@
 \DoxyCodeLine{00011\ \textcolor{preprocessor}{\#pragma\ once}}
 \DoxyCodeLine{00012\ }
 \DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <rpp/disposables/fwd.hpp>}}
-\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <rpp/utils/constraints.hpp>}}
-\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <rpp/utils/constraints.hpp>}}
 \DoxyCodeLine{00016\ }
 \DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ <chrono>}}
 \DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ <optional>}}
 \DoxyCodeLine{00019\ }
 \DoxyCodeLine{00020\ \textcolor{keyword}{namespace\ }rpp::schedulers}
 \DoxyCodeLine{00021\ \{}
-\DoxyCodeLine{00022\ \textcolor{keyword}{using\ }clock\_type\ =\ std::chrono::steady\_clock;}
-\DoxyCodeLine{00023\ \textcolor{keyword}{using\ }time\_point\ =\ clock\_type::time\_point;}
-\DoxyCodeLine{00024\ \textcolor{keyword}{using\ }duration\ =\ std::chrono::nanoseconds;}
+\DoxyCodeLine{00022\ \textcolor{keyword}{using\ }clock\_type\ \ \ \ \ \ \ \ =\ std::chrono::steady\_clock;}
+\DoxyCodeLine{00023\ \textcolor{keyword}{using\ }time\_point\ \ \ \ \ \ \ \ =\ clock\_type::time\_point;}
+\DoxyCodeLine{00024\ \textcolor{keyword}{using\ }duration\ \ \ \ \ \ \ \ \ \ =\ std::chrono::nanoseconds;}
 \DoxyCodeLine{00025\ \textcolor{keyword}{using\ }optional\_duration\ =\ std::optional<duration>;}
 \DoxyCodeLine{00026\ \}}
 \DoxyCodeLine{00027\ }
@@ -33,62 +33,67 @@
 \DoxyCodeLine{00029\ \{}
 \DoxyCodeLine{00030\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1schedulers_1_1details_1_1fake__schedulable__handler}{fake\_schedulable\_handler}}}
 \DoxyCodeLine{00031\ \{}
-\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ is\_disposed()\ \{\textcolor{keywordflow}{return}\ \textcolor{keyword}{true};\}}
-\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ on\_error(\textcolor{keyword}{const}\ std::exception\_ptr\&)\ \{\}}
-\DoxyCodeLine{00034\ \};}
-\DoxyCodeLine{00035\ \}}
-\DoxyCodeLine{00036\ }
-\DoxyCodeLine{00037\ \textcolor{keyword}{namespace\ }rpp::schedulers::constraint}
-\DoxyCodeLine{00038\ \{}
-\DoxyCodeLine{00039\ \textcolor{comment}{//\ returns\ std::nullopt\ in\ case\ of\ don't\ need\ to\ re-\/schedule\ schedulable\ or\ some\ duration\ which\ will\ be\ added\ to\ "{}now"{}\ and\ re-\/scheduled}}
-\DoxyCodeLine{00040\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ Fn,\ \textcolor{keyword}{typename}...Args>}
-\DoxyCodeLine{00041\ \textcolor{keyword}{concept\ }\mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1schedulable__fn}{schedulable\_fn}}\ =\ std::is\_invocable\_r\_v<optional\_duration,\ Fn,\ Args\&...>\ \&\&\ std::same\_as<optional\_duration,\ std::invoke\_result\_t<Fn,\ Args\&...>>;}
-\DoxyCodeLine{00042\ }
-\DoxyCodeLine{00043\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ Handler>}
-\DoxyCodeLine{00044\ \textcolor{keyword}{concept\ }\mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1schedulable__handler}{schedulable\_handler}}\ =\ \textcolor{keyword}{requires}(\textcolor{keyword}{const}\ Handler\&\ handler)\ }
-\DoxyCodeLine{00045\ \{}
-\DoxyCodeLine{00046\ \ \ \ \ \{handler.is\_disposed()\}\ -\/>\ std::same\_as<bool>;}
-\DoxyCodeLine{00047\ \ \ \ \ handler.on\_error(std::exception\_ptr\{\});}
-\DoxyCodeLine{00048\ \};}
-\DoxyCodeLine{00049\ }
-\DoxyCodeLine{00050\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ S>}
-\DoxyCodeLine{00051\ \textcolor{keyword}{concept\ }\mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1strategy}{strategy}}\ =\ \textcolor{keyword}{requires}(\textcolor{keyword}{const}\ S\&\ s,\ \textcolor{keyword}{const}\ details::fake\_schedulable\_handler\&\ handler)}
-\DoxyCodeLine{00052\ \{}
-\DoxyCodeLine{00053\ \ \ \ \ \{s.defer\_for(duration\{\},\ std::declval<optional\_duration(*)(const\ details::fake\_schedulable\_handler\&)>(),\ handler)\}\ -\/>\ std::same\_as<void>;}
-\DoxyCodeLine{00054\ \ \ \ \ \{s.get\_disposable()\}\ -\/>\ std::same\_as<rpp::disposable\_wrapper>;}
-\DoxyCodeLine{00055\ \ \ \ \ \{S::now()\}\ -\/>\ std::same\_as<rpp::schedulers::time\_point>;}
-\DoxyCodeLine{00056\ \};}
-\DoxyCodeLine{00057\ \}}
-\DoxyCodeLine{00058\ }
-\DoxyCodeLine{00059\ \textcolor{keyword}{namespace\ }rpp::schedulers}
-\DoxyCodeLine{00060\ \{}
-\DoxyCodeLine{00061\ \textcolor{keyword}{template}<rpp::schedulers::constra\textcolor{keywordtype}{int}::strategy\ Strategy>}
-\DoxyCodeLine{00062\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1schedulers_1_1worker}{worker}};}
-\DoxyCodeLine{00063\ }
-\DoxyCodeLine{00064\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1schedulers_1_1immediate}{immediate}};}
-\DoxyCodeLine{00065\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1schedulers_1_1current__thread}{current\_thread}};}
-\DoxyCodeLine{00066\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1schedulers_1_1new__thread}{new\_thread}};}
-\DoxyCodeLine{00067\ \}}
-\DoxyCodeLine{00068\ }
-\DoxyCodeLine{00069\ \textcolor{keyword}{namespace\ }rpp::schedulers::constraint}
-\DoxyCodeLine{00070\ \{}
-\DoxyCodeLine{00071\ \textcolor{keyword}{namespace\ }details}
-\DoxyCodeLine{00072\ \{}
-\DoxyCodeLine{00073\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
-\DoxyCodeLine{00074\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1schedulers_1_1constraint_1_1details_1_1is__worker}{is\_worker}}\ :\ std::false\_type\{\};}
-\DoxyCodeLine{00075\ }
-\DoxyCodeLine{00076\ \ \ \ \ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::strategy\ Strategy>}
-\DoxyCodeLine{00077\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1schedulers_1_1constraint_1_1details_1_1is__worker}{is\_worker}}<rpp::\mbox{\hyperlink{classrpp_1_1schedulers_1_1worker}{schedulers::worker}}<Strategy>>\ :\ std::true\_type\{\};}
-\DoxyCodeLine{00078\ \}\ \textcolor{comment}{//\ namespace\ details}}
-\DoxyCodeLine{00079\ }
-\DoxyCodeLine{00080\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ W>}
-\DoxyCodeLine{00081\ \textcolor{keyword}{concept\ }\mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1worker}{worker}}\ =\ details::is\_worker<W>::value;}
-\DoxyCodeLine{00082\ }
-\DoxyCodeLine{00083\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ S>}
-\DoxyCodeLine{00084\ \textcolor{keyword}{concept\ }\mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1scheduler}{scheduler}}\ =\ \textcolor{keyword}{requires}(\textcolor{keyword}{const}\ S\&\ s)}
-\DoxyCodeLine{00085\ \{}
-\DoxyCodeLine{00086\ \ \ \ \ \{s.create\_worker()\}\ -\/>\ \mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1worker}{worker}};}
-\DoxyCodeLine{00087\ \};}
-\DoxyCodeLine{00088\ \}}
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ is\_disposed()\ \{\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};\ \}}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ on\_error(\textcolor{keyword}{const}\ std::exception\_ptr\&)\ \{\}}
+\DoxyCodeLine{00035\ \};}
+\DoxyCodeLine{00036\ \}}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \textcolor{keyword}{namespace\ }rpp::schedulers::constraint}
+\DoxyCodeLine{00039\ \{}
+\DoxyCodeLine{00040\ \textcolor{comment}{//\ returns\ std::nullopt\ in\ case\ of\ don't\ need\ to\ re-\/schedule\ schedulable\ or\ some\ duration\ which\ will\ be\ added\ to\ "{}now"{}\ and\ re-\/scheduled}}
+\DoxyCodeLine{00041\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ Fn,\ \textcolor{keyword}{typename}...\ Args>}
+\DoxyCodeLine{00042\ \textcolor{keyword}{concept\ }\mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1schedulable__fn}{schedulable\_fn}}\ =\ std::is\_invocable\_r\_v<optional\_duration,\ Fn,\ Args\&...>\ \&\&\ std::same\_as<optional\_duration,\ std::invoke\_result\_t<Fn,\ Args\&...>>;}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ Handler>}
+\DoxyCodeLine{00045\ \textcolor{keyword}{concept\ }\mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1schedulable__handler}{schedulable\_handler}}\ =\ \textcolor{keyword}{requires}(\textcolor{keyword}{const}\ Handler\&\ handler)}
+\DoxyCodeLine{00046\ \{}
+\DoxyCodeLine{00047\ \ \ \ \ \{handler.is\_disposed()\}\ -\/>\ std::same\_as<bool>;}
+\DoxyCodeLine{00048\ \ \ \ \ handler.on\_error(std::exception\_ptr\{\});}
+\DoxyCodeLine{00049\ \};}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ S>}
+\DoxyCodeLine{00052\ \textcolor{keyword}{concept\ }\mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1strategy}{strategy}}\ =\ \textcolor{keyword}{requires}(\textcolor{keyword}{const}\ S\&\ s,\ \textcolor{keyword}{const}\ details::fake\_schedulable\_handler\&\ handler)}
+\DoxyCodeLine{00053\ \{}
+\DoxyCodeLine{00054\ \ \ \ \ \{s.defer\_for(duration\{\},\ std::declval<optional\_duration(*)(const\ details::fake\_schedulable\_handler\&)>(),\ handler)\}\ -\/>\ std::same\_as<void>;}
+\DoxyCodeLine{00055\ \ \ \ \ \{s.get\_disposable()\}\ -\/>\ std::same\_as<rpp::disposable\_wrapper>;}
+\DoxyCodeLine{00056\ \ \ \ \ \{S::now()\}\ -\/>\ std::same\_as<rpp::schedulers::time\_point>;}
+\DoxyCodeLine{00057\ \};}
+\DoxyCodeLine{00058\ \}}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \textcolor{keyword}{namespace\ }rpp::schedulers}
+\DoxyCodeLine{00061\ \{}
+\DoxyCodeLine{00062\ \textcolor{keyword}{template}<rpp::schedulers::constra\textcolor{keywordtype}{int}::strategy\ Strategy>}
+\DoxyCodeLine{00063\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1schedulers_1_1worker}{worker}};}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1schedulers_1_1immediate}{immediate}};}
+\DoxyCodeLine{00066\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1schedulers_1_1current__thread}{current\_thread}};}
+\DoxyCodeLine{00067\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1schedulers_1_1new__thread}{new\_thread}};}
+\DoxyCodeLine{00068\ \}}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \textcolor{keyword}{namespace\ }rpp::schedulers::constraint}
+\DoxyCodeLine{00071\ \{}
+\DoxyCodeLine{00072\ \textcolor{keyword}{namespace\ }details}
+\DoxyCodeLine{00073\ \{}
+\DoxyCodeLine{00074\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00075\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1schedulers_1_1constraint_1_1details_1_1is__worker}{is\_worker}}\ :\ std::false\_type}
+\DoxyCodeLine{00076\ \ \ \ \ \{}
+\DoxyCodeLine{00077\ \ \ \ \ \};}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ \ \ \ \ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::strategy\ Strategy>}
+\DoxyCodeLine{00080\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1schedulers_1_1constraint_1_1details_1_1is__worker}{is\_worker}}<rpp::\mbox{\hyperlink{classrpp_1_1schedulers_1_1worker}{schedulers::worker}}<Strategy>>\ :\ std::true\_type}
+\DoxyCodeLine{00081\ \ \ \ \ \{}
+\DoxyCodeLine{00082\ \ \ \ \ \};}
+\DoxyCodeLine{00083\ \}\ \textcolor{comment}{//\ namespace\ details}}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ W>}
+\DoxyCodeLine{00086\ \textcolor{keyword}{concept\ }\mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1worker}{worker}}\ =\ details::is\_worker<W>::value;}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ S>}
+\DoxyCodeLine{00089\ \textcolor{keyword}{concept\ }\mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1scheduler}{scheduler}}\ =\ \textcolor{keyword}{requires}(\textcolor{keyword}{const}\ S\&\ s)}
+\DoxyCodeLine{00090\ \{}
+\DoxyCodeLine{00091\ \ \ \ \ \{s.create\_worker()\}\ -\/>\ \mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1worker}{worker}};}
+\DoxyCodeLine{00092\ \};}
+\DoxyCodeLine{00093\ \}}
 
 \end{DoxyCode}

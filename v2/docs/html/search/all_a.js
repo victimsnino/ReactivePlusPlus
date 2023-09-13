@@ -14,7 +14,7 @@ var searchData=
   ['merge_5fobserver_5finner_5fstrategy_11',['merge_observer_inner_strategy',['../structrpp_1_1operators_1_1details_1_1merge__observer__inner__strategy.html',1,'rpp::operators::details']]],
   ['merge_5fobserver_5fstrategy_12',['merge_observer_strategy',['../classrpp_1_1operators_1_1details_1_1merge__observer__strategy.html',1,'rpp::operators::details']]],
   ['merge_5ft_13',['merge_t',['../structrpp_1_1operators_1_1details_1_1merge__t.html',1,'rpp::operators::details']]],
-  ['merge_5fwith_14',['merge_with',['../group__combining__operators.html#ga063bcb64ac3afbedca8b257d3558f2dd',1,'rpp::operators']]],
+  ['merge_5fwith_14',['merge_with',['../group__combining__operators.html#ga35392a84e52bf7101d0d0445ef391db7',1,'rpp::operators']]],
   ['merge_5fwith_5ft_15',['merge_with_t',['../structrpp_1_1operators_1_1details_1_1merge__with__t.html',1,'rpp::operators::details']]],
   ['multicast_16',['multicast',['../group__connectable__operators.html#gac99bc1fb7cbf8814e0eb2c9b843fc19a',1,'rpp::operators::multicast(Subject &amp;&amp;subject)'],['../group__connectable__operators.html#gac7b150abbdae0a5084dd3784d9c7babf',1,'rpp::operators::multicast()']]],
   ['multicast_5ft_17',['multicast_t',['../structrpp_1_1operators_1_1details_1_1multicast__t.html',1,'rpp::operators::details']]]
