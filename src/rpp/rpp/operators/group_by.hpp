@@ -76,9 +76,9 @@ struct group_by_observer_strategy
     std::shared_ptr<refcount_disposable>                                   disposable = std::make_shared<refcount_disposable>();
 
     RPP_CALL_DURING_CONSTRUCTION(
-        {
-            observer.set_upstream(rpp::disposable_wrapper{disposable});
-        });
+    {
+        observer.set_upstream(rpp::disposable_wrapper{disposable});
+    });
 
     void set_upstream(const rpp::disposable_wrapper& d) const
     {
