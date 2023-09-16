@@ -68,7 +68,7 @@ struct delay_disposable_wrapper
     void on_error(const std::exception_ptr& err) const { disposable->observer.on_error(err); }
 };
 
-template<rpp::constraint::observer Observer, typename Worker>
+template<rpp::constraint::observer Observer, typename Worker, bool ClearOnError>
 struct delay_observer_strategy
 {
     std::shared_ptr<delay_disposable<Observer, Worker>> disposable{};
@@ -116,13 +116,22 @@ private:
     std::optional<rpp::schedulers::duration> emplace_safe(TT&& item) const
     {
         std::lock_guard lock{disposable->mutex};
-        disposable->queue.emplace(std::forward<TT>(item), disposable->worker.now() + disposable->delay);
-        if (!disposable->is_active)
+        if constexpr (ClearOnError && rpp::constraint::decayed_same_as<std::exception_ptr, TT>) 
         {
-            disposable->is_active = true;
-            return disposable->delay;
+            disposable->queue = std::queue<emission<rpp::utils::extract_observer_type_t<Observer>>>{};
+            disposable->observer.on_error(std::forward<TT>(item));
+            return std::nullopt;
         }
-        return std::nullopt;
+        else 
+        {
+            disposable->queue.emplace(std::forward<TT>(item), disposable->worker.now() + disposable->delay);
+            if (!disposable->is_active)
+            {
+                disposable->is_active = true;
+                return disposable->delay;
+            }
+            return std::nullopt;
+        }
     }
 
     static schedulers::optional_duration drain_queue(const std::shared_ptr<delay_disposable<Observer, Worker>>& disposable)
@@ -155,7 +164,7 @@ private:
     }
 };
 
-template<rpp::schedulers::constraint::scheduler Scheduler>
+template<rpp::schedulers::constraint::scheduler Scheduler, bool ClearOnError>
 struct delay_t
 {
     template<rpp::constraint::decayed_type T>
@@ -171,7 +180,7 @@ struct delay_t
 
         auto disposable = std::make_shared<delay_disposable<std::decay_t<Observer>, worker_t>>(std::forward<Observer>(observer), scheduler.create_worker(), duration);
         disposable->observer.set_upstream(rpp::disposable_wrapper::from_weak(disposable));
-        return rpp::observer<Type, delay_observer_strategy<std::decay_t<Observer>, worker_t>>{std::move(disposable)};
+        return rpp::observer<Type, delay_observer_strategy<std::decay_t<Observer>, worker_t, ClearOnError>>{std::move(disposable)};
     }
 };
 }
@@ -184,12 +193,12 @@ namespace rpp::operators
  *
  * @marble delay
  {
-     source observable        : +-1-2-3-|
-     operator "delay: --"     : +---1-2-3-|
+     source observable        : +-1-2-3-X
+     operator "delay: --"     : +---1-2-3-X
  }
  *
  * @details Actually this operator just schedules emissions via provided scheduler with provided delay_duration.
- * @warning on_error/on_completed invoking also would be delayed as any other emissions, so, WHOLE observable would be shifter. If you want to obtain `on_error` immediately, use `observe_on`
+ * @warning on_error/on_completed invoking also would be delayed as any other emissions, so, WHOLE observable would be shifter. If you want to obtain `on_error` immediately, use `observe_on` instead.
  *
  * @param delay_duration is the delay duration for emitting items. Delay duration should be able to cast to rpp::schedulers::duration.
  * @param scheduler provides the threading model for delay. e.g. With a new thread scheduler, the observer sees the values in a new thread after a delay duration to the subscription.
@@ -204,6 +213,6 @@ namespace rpp::operators
 template<rpp::schedulers::constraint::scheduler Scheduler>
 auto delay(rpp::schedulers::duration delay_duration, Scheduler&& scheduler)
 {
-    return details::delay_t<std::decay_t<Scheduler>>{delay_duration, std::forward<Scheduler>(scheduler)};
+    return details::delay_t<std::decay_t<Scheduler>, false>{delay_duration, std::forward<Scheduler>(scheduler)};
 }
 } // namespace rpp::operators

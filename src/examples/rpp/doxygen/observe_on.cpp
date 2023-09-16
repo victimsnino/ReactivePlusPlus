@@ -5,11 +5,11 @@
 #include <iostream>
 
 /**
- * \example delay.cpp
+ * \example observe_on.cpp
  **/
 int main() // NOLINT(bugprone-exception-escape)
 {
-    //! [delay]
+    //! [observe_on]
 
     auto start = rpp::schedulers::clock_type::now();
 
@@ -25,9 +25,10 @@ int main() // NOLINT(bugprone-exception-escape)
         }
         auto emitting_time = rpp::schedulers::clock_type::now();
         std::cout << "emit error in thread{" << std::this_thread::get_id() << "} duration since start " << std::chrono::duration_cast<std::chrono::seconds>(emitting_time - start).count() << "s"<< std::endl;
+
         obs.on_error({});
     })
-    | rpp::operators::delay(std::chrono::seconds{3}, rpp::schedulers::new_thread{})
+    | rpp::operators::observe_on(rpp::schedulers::new_thread{}, std::chrono::seconds{3})
     | rpp::operators::as_blocking()
     | rpp::operators::subscribe([&](int v)
                 {
@@ -41,14 +42,12 @@ int main() // NOLINT(bugprone-exception-escape)
                 });
 
     // Template for output:
-    // emit 0 in thread{139855196489600} duration since start 0s
-    // emit 1 in thread{139855196489600} duration since start 1s
-    // emit 2 in thread{139855196489600} duration since start 2s
-    // observe 0 in thread{139855196485184} duration since start 3s
-    // emit error in thread{139855196489600} duration since start 3s
-    // observe 1 in thread{139855196485184} duration since start 4s
-    // observe 2 in thread{139855196485184} duration since start 5s
-    // observe error in thread{139855196485184} duration since start 6s
-    //! [delay]
+    // emit 0 in thread{139800298538880} duration since start 0s
+    // emit 1 in thread{139800298538880} duration since start 1s
+    // emit 2 in thread{139800298538880} duration since start 2s
+    // observe 0 in thread{139800298534464} duration since start 3s
+    // emit error in thread{139800298538880} duration since start 3s
+    // observe error in thread{139800298538880} duration since start 3s
+    //! [observe_on]
     return 0;
 }

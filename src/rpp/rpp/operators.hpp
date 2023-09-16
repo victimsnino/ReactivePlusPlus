@@ -82,6 +82,7 @@
 
 #include <rpp/operators/as_blocking.hpp>
 #include <rpp/operators/delay.hpp>
+#include <rpp/operators/observe_on.hpp>
 #include <rpp/operators/repeat.hpp>
 #include <rpp/operators/subscribe_on.hpp>
 
