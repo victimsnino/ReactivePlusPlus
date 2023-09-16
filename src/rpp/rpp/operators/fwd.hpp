@@ -76,6 +76,9 @@ template<rpp::constraint::observable TObservable, rpp::constraint::observable...
 auto merge_with(TObservable&& observable, TObservables&&... observables);
 auto merge();
 
+template<rpp::schedulers::constraint::scheduler Scheduler>
+auto observe_on(Scheduler&& scheduler, rpp::schedulers::duration delay_duration = {});
+
 auto publish();
 
 auto repeat(size_t count);
