@@ -16,6 +16,7 @@
 #include <rpp/subjects/publish_subject.hpp>
 
 #include <rpp/operators/delay.hpp>
+#include <rpp/operators/observe_on.hpp>
 #include <rpp/operators/as_blocking.hpp>
 
 #include "snitch_logging.hpp"
@@ -239,4 +240,60 @@ TEST_CASE("delay delays observable's emissions")
 TEST_CASE("delay disposes original disposable on disposing")
 {
     test_operator_with_disposable<int>(rpp::ops::delay(std::chrono::seconds{0}, manual_scheduler{}));
+}
+
+TEST_CASE("observe_on forward error immediately")
+{
+    auto mock = mock_observer_strategy<int>{};
+    std::chrono::milliseconds delay_duration{300};
+    auto scheduler = test_scheduler{};
+
+    auto subscribe_with_delay = [&mock, &delay_duration](auto get_now) {
+        const auto now = get_now();
+        return rpp::ops::subscribe(
+        [&, now, get_now](const auto& v)
+        {
+            SECTION("should see event after the delay")
+            CHECK(get_now() >= now + delay_duration);
+
+            mock.on_next(v);
+        },
+        [&, now, get_now](const std::exception_ptr& err)
+        {
+            SECTION("should see event after the delay")
+            CHECK(get_now() == now);
+            mock.on_error(err);
+        },
+        [&, now, get_now]()
+        {
+            SECTION("should see event after the delay")
+            CHECK(get_now() >= now + delay_duration);
+
+            mock.on_completed();
+        });
+    };
+
+    SECTION("observable of -1-x but with invoking schedulable after subscription")
+    {
+        const auto now = test_scheduler::worker_strategy::now();
+        rpp::source::create<int>([](const auto& obs)
+        {
+            obs.on_next(1);
+            obs.on_error({});
+        })
+        | rpp::ops::observe_on(scheduler, delay_duration)
+        | subscribe_with_delay([](){return test_scheduler::worker_strategy::now(); });
+
+        SECTION("should see on_error immediately")
+        {
+            CHECK(mock.get_received_values() == std::vector<int>{});
+            CHECK(mock.get_on_completed_count() == 0);
+            CHECK(mock.get_on_error_count() == 1);
+        }
+
+        scheduler.time_advance(delay_duration);
+
+        CHECK(scheduler.get_schedulings() == std::vector{now+delay_duration});
+        CHECK(scheduler.get_executions() == std::vector<rpp::schedulers::time_point>{});
+    }
 }
