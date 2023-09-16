@@ -1,5 +1,5 @@
-\doxysection{delay.\+cpp}
-\hypertarget{delay_8cpp-example}{}\label{delay_8cpp-example}
+\doxysection{observe\+\_\+on.\+cpp}
+\hypertarget{observe_on_8cpp-example}{}\label{observe_on_8cpp-example}
 \begin{DoxyCodeInclude}{0}
 \DoxyCodeLine{\textcolor{preprocessor}{\#include\ <rpp/rpp.hpp>}}
 \DoxyCodeLine{}
@@ -24,9 +24,10 @@
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ emitting\_time\ =\ rpp::schedulers::clock\_type::now();}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}emit\ error\ in\ thread\{"{}}\ <<\ std::this\_thread::get\_id()\ <<\ \textcolor{stringliteral}{"{}\}\ duration\ since\ start\ "{}}\ <<\ std::chrono::duration\_cast<std::chrono::seconds>(emitting\_time\ -\/\ start).count()\ <<\ \textcolor{stringliteral}{"{}s"{}}<<\ std::endl;}
+\DoxyCodeLine{}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ obs.on\_error(\{\});}
 \DoxyCodeLine{\ \ \ \ \})}
-\DoxyCodeLine{\ \ \ \ |\ rpp::operators::delay(std::chrono::seconds\{3\},\ \mbox{\hyperlink{classrpp_1_1schedulers_1_1new__thread}{rpp::schedulers::new\_thread}}\{\})}
+\DoxyCodeLine{\ \ \ \ |\ rpp::operators::observe\_on(\mbox{\hyperlink{classrpp_1_1schedulers_1_1new__thread}{rpp::schedulers::new\_thread}}\{\},\ std::chrono::seconds\{3\})}
 \DoxyCodeLine{\ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_ga9df008c11eeff8c9383e56bf36e28ec2}{rpp::operators::as\_blocking}}()}
 \DoxyCodeLine{\ \ \ \ |\ rpp::operators::subscribe([\&](\textcolor{keywordtype}{int}\ v)}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
@@ -40,14 +41,12 @@
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \});}
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Template\ for\ output:}}
-\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ emit\ 0\ in\ thread\{139855196489600\}\ duration\ since\ start\ 0s}}
-\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ emit\ 1\ in\ thread\{139855196489600\}\ duration\ since\ start\ 1s}}
-\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ emit\ 2\ in\ thread\{139855196489600\}\ duration\ since\ start\ 2s}}
-\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ observe\ 0\ in\ thread\{139855196485184\}\ duration\ since\ start\ 3s}}
-\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ emit\ error\ in\ thread\{139855196489600\}\ duration\ since\ start\ 3s}}
-\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ observe\ 1\ in\ thread\{139855196485184\}\ duration\ since\ start\ 4s}}
-\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ observe\ 2\ in\ thread\{139855196485184\}\ duration\ since\ start\ 5s}}
-\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ observe\ error\ in\ thread\{139855196485184\}\ duration\ since\ start\ 6s}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ emit\ 0\ in\ thread\{139800298538880\}\ duration\ since\ start\ 0s}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ emit\ 1\ in\ thread\{139800298538880\}\ duration\ since\ start\ 1s}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ emit\ 2\ in\ thread\{139800298538880\}\ duration\ since\ start\ 2s}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ observe\ 0\ in\ thread\{139800298534464\}\ duration\ since\ start\ 3s}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ emit\ error\ in\ thread\{139800298538880\}\ duration\ since\ start\ 3s}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ observe\ error\ in\ thread\{139800298538880\}\ duration\ since\ start\ 3s}}
 \DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{return}\ 0;}
 \DoxyCodeLine{\}}
 

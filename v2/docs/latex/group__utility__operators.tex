@@ -12,8 +12,6 @@ auto \mbox{\hyperlink{group__utility__operators_ga9df008c11eeff8c9383e56bf36e28e
 \begin{DoxyCompactList}\small\item\em Converts {\ttfamily \doxylink{classrpp_1_1observable}{rpp\+::observable}} to {\ttfamily rpp\+::blocking\+\_\+observable} \end{DoxyCompactList}\item 
 {\footnotesize template$<$\mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1scheduler}{rpp\+::schedulers\+::constraint\+::scheduler}} Scheduler$>$ }\\auto \mbox{\hyperlink{group__utility__operators_ga49e91c6114f62ac261303814c818face}{rpp\+::operators\+::debounce}} (rpp\+::schedulers\+::duration period, Scheduler \&\&scheduler)
 \begin{DoxyCompactList}\small\item\em Only emit emission if specified period of time has passed without any other emission. On each new emission timer reset. \end{DoxyCompactList}\item 
-{\footnotesize template$<$\mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1scheduler}{rpp\+::schedulers\+::constraint\+::scheduler}} Scheduler$>$ }\\auto \mbox{\hyperlink{group__utility__operators_gae38caa489cf43c0aca1aa1c8822aed60}{rpp\+::operators\+::delay}} (rpp\+::schedulers\+::duration delay\+\_\+duration, Scheduler \&\&scheduler)
-\begin{DoxyCompactList}\small\item\em Shift the emissions from an Observable forward in time by a particular amount. \end{DoxyCompactList}\item 
 auto \mbox{\hyperlink{group__utility__operators_ga96a3c17903a50c2f6dfd66d8b90a96f2}{rpp\+::operators\+::repeat}} (size\+\_\+t count)
 \begin{DoxyCompactList}\small\item\em Repeats the Observabe\textquotesingle{}s sequence of emissions {\ttfamily count} times via re-\/subscribing on it during {\ttfamily on\+\_\+completed} call while {\ttfamily count} not reached. \end{DoxyCompactList}\item 
 auto \mbox{\hyperlink{group__utility__operators_ga41ef49dc75a3eadb0eb3fda7c3692c40}{rpp\+::operators\+::repeat}} ()
@@ -43,7 +41,7 @@ Converts {\ttfamily \doxylink{classrpp_1_1observable}{rpp\+::observable}} to {\t
 
 {\ttfamily rpp\+::blocking\+\_\+observable} blocks {\ttfamily subscribe} call till on\+\_\+completed/on\+\_\+error happens. \begin{Desc}
 \item[Examples]\par
-\mbox{\hyperlink{delay_8cpp-example}{delay.\+cpp}}, and \mbox{\hyperlink{subscribe_on_8cpp-example}{subscribe\+\_\+on.\+cpp}}.\end{Desc}
+\mbox{\hyperlink{delay_8cpp-example}{delay.\+cpp}}, \mbox{\hyperlink{observe_on_8cpp-example}{observe\+\_\+on.\+cpp}}, and \mbox{\hyperlink{subscribe_on_8cpp-example}{subscribe\+\_\+on.\+cpp}}.\end{Desc}
 \Hypertarget{group__utility__operators_ga49e91c6114f62ac261303814c818face}\label{group__utility__operators_ga49e91c6114f62ac261303814c818face} 
 \index{Utility Operators@{Utility Operators}!debounce@{debounce}}
 \index{debounce@{debounce}!Utility Operators@{Utility Operators}}
@@ -76,7 +74,7 @@ Actually this operator resets time of last emission, schedules action to send th
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(\mbox{\hyperlink{classrpp_1_1schedulers_1_1current__thread}{rpp::schedulers::current\_thread}}\{\},\ 1,\ 2,\ 5,\ 6,\ 9,\ 10)}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__transforming__operators_ga633883e796101ceeab821e2a4912bd5e}{rpp::operators::flat\_map}}([](\textcolor{keywordtype}{int}\ v)}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(v)\ |\ \mbox{\hyperlink{group__utility__operators_gae38caa489cf43c0aca1aa1c8822aed60}{rpp::operators::delay}}(std::chrono::milliseconds(500)\ *\ v,\ \mbox{\hyperlink{classrpp_1_1schedulers_1_1current__thread}{rpp::schedulers::current\_thread}}\{\});}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(v)\ |\ rpp::operators::delay(std::chrono::milliseconds(500)\ *\ v,\ \mbox{\hyperlink{classrpp_1_1schedulers_1_1current__thread}{rpp::schedulers::current\_thread}}\{\});}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \})}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__filtering__operators_ga3ad579153e7975af6ae4b75f585fb873}{rpp::operators::filter}}([\&](\textcolor{keywordtype}{int}\ v)}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
@@ -111,77 +109,6 @@ Actually this operator resets time of last emission, schedules action to send th
 \begin{Desc}
 \item[Examples]\par
 \mbox{\hyperlink{debounce_8cpp-example}{debounce.\+cpp}}.\end{Desc}
-\Hypertarget{group__utility__operators_gae38caa489cf43c0aca1aa1c8822aed60}\label{group__utility__operators_gae38caa489cf43c0aca1aa1c8822aed60} 
-\index{Utility Operators@{Utility Operators}!delay@{delay}}
-\index{delay@{delay}!Utility Operators@{Utility Operators}}
-\doxysubsubsubsubsection{\texorpdfstring{delay()}{delay()}}
-{\footnotesize\ttfamily template$<$\mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1scheduler}{rpp\+::schedulers\+::constraint\+::scheduler}} Scheduler$>$ \\
-auto rpp\+::operators\+::delay (\begin{DoxyParamCaption}\item[{rpp\+::schedulers\+::duration}]{delay\+\_\+duration,  }\item[{Scheduler \&\&}]{scheduler }\end{DoxyParamCaption})}
-
-
-
-Shift the emissions from an Observable forward in time by a particular amount. 
-
-The delay operator modifies its source Observable by pausing for a particular increment of time (that you specify) before emitting each of the source Observable’s items. This has the effect of shifting the entire sequence of items emitted by the Observable forward in time by that specified increment.
-
-
-
-Actually this operator just schedules emissions via provided scheduler with provided delay\+\_\+duration. \begin{DoxyWarning}{Warning}
-on\+\_\+error/on\+\_\+completed invoking also would be delayed as any other emissions, so, WHOLE observable would be shifter. If you want to obtain {\ttfamily on\+\_\+error} immediately, use {\ttfamily observe\+\_\+on}
-\end{DoxyWarning}
-
-\begin{DoxyParams}{Parameters}
-{\em delay\+\_\+duration} & is the delay duration for emitting items. Delay duration should be able to cast to rpp\+::schedulers\+::duration. \\
-\hline
-{\em scheduler} & provides the threading model for delay. e.\+g. With a new thread scheduler, the observer sees the values in a new thread after a delay duration to the subscription. \\
-\hline
-\end{DoxyParams}
-\begin{DoxyWarning}{Warning}
-\#include \texorpdfstring{$<$}{<}\doxylink{delay_8hpp_source}{rpp/operators/delay.\+hpp}\texorpdfstring{$>$}{>}
-\end{DoxyWarning}
-\begin{DoxyParagraph}{Examples}
-
-\begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{}
-\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{auto}\ start\ =\ rpp::schedulers::clock\_type::now();}
-\DoxyCodeLine{}
-\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{rpp::source::create<int>}}([\&start](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ obs)}
-\DoxyCodeLine{\ \ \ \ \{}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ 3;\ ++i)}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ emitting\_time\ =\ rpp::schedulers::clock\_type::now();}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}emit\ "{}}\ <<\ i\ <<\ \textcolor{stringliteral}{"{}\ in\ thread\{"{}}\ <<\ std::this\_thread::get\_id()\ <<\ \textcolor{stringliteral}{"{}\}\ duration\ since\ start\ "{}}\ <<\ std::chrono::duration\_cast<std::chrono::seconds>(emitting\_time\ -\/\ start).count()\ <<\ \textcolor{stringliteral}{"{}s"{}}<<\ std::endl;}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ }
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ obs.on\_next(i);}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ std::this\_thread::sleep\_for(std::chrono::seconds\{1\});}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ obs.on\_completed();}
-\DoxyCodeLine{\ \ \ \ \})}
-\DoxyCodeLine{\ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_gae38caa489cf43c0aca1aa1c8822aed60}{rpp::operators::delay}}(std::chrono::seconds\{3\},\ \mbox{\hyperlink{classrpp_1_1schedulers_1_1new__thread}{rpp::schedulers::new\_thread}}\{\})}
-\DoxyCodeLine{\ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_ga9df008c11eeff8c9383e56bf36e28ec2}{rpp::operators::as\_blocking}}()}
-\DoxyCodeLine{\ \ \ \ |\ rpp::operators::subscribe([\&](\textcolor{keywordtype}{int}\ v)}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ observing\_time\ =\ rpp::schedulers::clock\_type::now();}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}observe\ "{}}\ <<\ v\ <<\ \textcolor{stringliteral}{"{}\ in\ thread\{"{}}\ <<\ std::this\_thread::get\_id()\ <<\ \textcolor{stringliteral}{"{}\}\ duration\ since\ start\ "{}}\ <<\ std::chrono::duration\_cast<std::chrono::seconds>(observing\_time\ -\/\ start).count()\ <<\textcolor{stringliteral}{"{}s"{}}\ <<\ std::endl;}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \});}
-\DoxyCodeLine{}
-\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Template\ for\ output:}}
-\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ emit\ 0\ in\ thread\{140260327311232\}\ duration\ since\ start\ 0s}}
-\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ emit\ 1\ in\ thread\{140260327311232\}\ duration\ since\ start\ 1s}}
-\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ emit\ 2\ in\ thread\{140260327311232\}\ duration\ since\ start\ 2s}}
-\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ observe\ 0\ in\ thread\{140260327306816\}\ duration\ since\ start\ 3s}}
-\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ observe\ 1\ in\ thread\{140260327306816\}\ duration\ since\ start\ 4s}}
-\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ observe\ 2\ in\ thread\{140260327306816\}\ duration\ since\ start\ 5s}}
-
-\end{DoxyCodeInclude}
-
-\end{DoxyParagraph}
-\begin{DoxySeeAlso}{See also}
-\href{https://reactivex.io/documentation/operators/delay.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/delay.\+html}} 
-\end{DoxySeeAlso}
-\begin{Desc}
-\item[Examples]\par
-\mbox{\hyperlink{debounce_8cpp-example}{debounce.\+cpp}}, and \mbox{\hyperlink{delay_8cpp-example}{delay.\+cpp}}.\end{Desc}
 \Hypertarget{group__utility__operators_ga41ef49dc75a3eadb0eb3fda7c3692c40}\label{group__utility__operators_ga41ef49dc75a3eadb0eb3fda7c3692c40} 
 \index{Utility Operators@{Utility Operators}!repeat@{repeat}}
 \index{repeat@{repeat}!Utility Operators@{Utility Operators}}
