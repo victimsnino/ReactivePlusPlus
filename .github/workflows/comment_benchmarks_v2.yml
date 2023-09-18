@@ -62,7 +62,7 @@ jobs:
 
       - name: Create comment
         if: github.event.workflow_run.event == 'push'
-        uses: peter-evans/commit-comment@v2
+        uses: peter-evans/commit-comment@v3
         with:
           sha: ${{ github.event.workflow_run.head_sha }}
           body: ${{ steps.results.outputs.body }}
