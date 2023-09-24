@@ -78,7 +78,7 @@ template<rpp::schedulers::constraint::scheduler Scheduler>
 auto repeat(size_t count, const Scheduler& scheduler)
 
 {
-    return details::repeat_t{count, scheduler};
+    return details::repeat_t<Scheduler>{count, scheduler};
 }
 
 /**
@@ -106,6 +106,6 @@ auto repeat(size_t count, const Scheduler& scheduler)
 template<rpp::schedulers::constraint::scheduler Scheduler>
 auto repeat(const Scheduler& scheduler)
 {
-    return details::infinite_repeat_t{scheduler};
+    return details::infinite_repeat_t<Scheduler>{scheduler};
 }
 } // namespace rpp::operators
