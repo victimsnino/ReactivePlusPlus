@@ -81,8 +81,11 @@ auto observe_on(Scheduler&& scheduler, rpp::schedulers::duration delay_duration 
 
 auto publish();
 
-auto repeat(size_t count);
-auto repeat();
+template<rpp::schedulers::constraint::scheduler Scheduler = rpp::schedulers::current_thread>
+auto repeat(size_t count, const Scheduler& scheduler = {});
+
+template<rpp::schedulers::constraint::scheduler Scheduler = rpp::schedulers::current_thread>
+auto repeat(const Scheduler& scheduler = {});
 
 template<typename InitialValue, typename Fn>
     requires (!utils::is_not_template_callable<Fn> || std::same_as<std::decay_t<InitialValue>, std::invoke_result_t<Fn, std::decay_t<InitialValue>&&, rpp::utils::convertible_to_any>>)

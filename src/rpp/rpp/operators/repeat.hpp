@@ -20,23 +20,27 @@
 
 namespace rpp::operators::details
 {
+template<rpp::schedulers::constraint::scheduler Scheduler>
 struct repeat_t
 {
     size_t count;
+    RPP_NO_UNIQUE_ADDRESS Scheduler scheduler;
 
     template<rpp::constraint::observable TObservable>
     auto operator()(TObservable&& observable) const
     {
-        return rpp::source::concat(utils::repeated_container{std::forward<TObservable>(observable), count});
+        return rpp::source::concat(utils::repeated_container{std::forward<TObservable>(observable), count}, scheduler);
     }
 };
 
+template<rpp::schedulers::constraint::scheduler Scheduler>
 struct infinite_repeat_t
 {
+    RPP_NO_UNIQUE_ADDRESS Scheduler scheduler;
     template<rpp::constraint::observable TObservable>
     auto operator()(TObservable&& observable) const
     {
-        return rpp::source::concat(utils::infinite_repeated_container{std::forward<TObservable>(observable)});
+        return rpp::source::concat(utils::infinite_repeated_container{std::forward<TObservable>(observable)}, scheduler);
     }
 };
 }
@@ -59,6 +63,8 @@ namespace rpp::operators
  *  - `repeat(1)`  - behave like ordinal observable
  *  - `repeat(10)` - 1 normal subscription and 9 re-subscriptions during `on_completed`
  *
+ * @param scheduler is scheduler used for scheduling of subscriptions to next observables during on_completed
+ *
  * @warning #include <rpp/operators/repeat.hpp>
  *
  * @par Examples:
@@ -67,9 +73,12 @@ namespace rpp::operators
  * @ingroup utility_operators
  * @see https://reactivex.io/documentation/operators/repeat.html
  */
-inline auto repeat(size_t count)
+
+template<rpp::schedulers::constraint::scheduler Scheduler>
+auto repeat(size_t count, const Scheduler& scheduler)
+
 {
-    return details::repeat_t{count};
+    return details::repeat_t{count, scheduler};
 }
 
 /**
@@ -85,14 +94,18 @@ inline auto repeat(size_t count)
  *
  * @warning #include <rpp/operators/repeat.hpp>
  *
+ * @param scheduler is scheduler used for scheduling of subscriptions to next observables during on_completed
+ *
+ *
  * @par Examples:
  * @snippet repeat.cpp repeat_infinitely
  *
  * @ingroup utility_operators
  * @see https://reactivex.io/documentation/operators/repeat.html
  */
-inline auto repeat()
+template<rpp::schedulers::constraint::scheduler Scheduler>
+auto repeat(const Scheduler& scheduler)
 {
-    return details::infinite_repeat_t{};
+    return details::infinite_repeat_t{scheduler};
 }
 } // namespace rpp::operators
