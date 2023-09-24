@@ -22,16 +22,17 @@
 
 namespace rpp::details
 {
-template<constraint::decayed_type PackedContainer>
-struct concat_strategy;
+template<rpp::schedulers::constraint::worker TWorker, rpp::constraint::observer TObserver, typename PackedContainer>
+void drain(TObserver&& observer, const TWorker& worker, PackedContainer&& container, size_t index);
 
-template<rpp::constraint::observer TObserver, constraint::decayed_type PackedContainer>
+template<rpp::schedulers::constraint::worker TWorker, rpp::constraint::observer TObserver, constraint::decayed_type PackedContainer>
 struct concat_source_observer_strategy
 {
     using ValueType = rpp::utils::extract_observable_type_t<utils::iterable_value_t<PackedContainer>>;
 
     RPP_NO_UNIQUE_ADDRESS mutable TObserver       observer;
     RPP_NO_UNIQUE_ADDRESS mutable PackedContainer container;
+    RPP_NO_UNIQUE_ADDRESS TWorker                 worker;
     mutable size_t                                index;
 
     template<typename T>
@@ -48,70 +49,86 @@ struct concat_source_observer_strategy
 
     void on_completed() const
     {
-        concat_strategy<PackedContainer>::drain(std::move(container), index, std::move(observer));
+        worker.schedule([](TObserver& observer, const TWorker& worker, PackedContainer& container, size_t index) -> rpp::schedulers::optional_duration 
+        {
+            drain(std::move(observer), worker, std::move(container), index);
+            return std::nullopt;
+        },
+        std::move(observer),
+        worker,
+        std::move(container),
+        index);
     }
 };
 
-template<constraint::decayed_type PackedContainer>
+template<rpp::schedulers::constraint::worker TWorker, rpp::constraint::observer TObserver, typename PackedContainer>
+void drain(TObserver&& obs, const TWorker& worker, PackedContainer&& container, size_t index)
+{
+    std::optional<utils::iterable_value_t<PackedContainer>> observable{};
+    bool                                                    is_last_observable = false;
+    try
+    {
+        auto itr = std::cbegin(container);
+        std::advance(itr, static_cast<int64_t>(index++));
+
+        if (itr != std::cend(container))
+        {
+            observable.emplace(*itr);
+            is_last_observable = std::next(itr) == std::cend(container);
+        }
+    }
+    catch (...)
+    {
+        obs.on_error(std::current_exception());
+        return;
+    }
+
+    if (!observable.has_value())
+    {
+        obs.on_completed();
+        return;
+    }
+
+    using ValueType = rpp::utils::extract_observable_type_t<utils::iterable_value_t<PackedContainer>>;
+
+    if (is_last_observable)
+        observable->subscribe(std::forward<TObserver>(obs));
+    else
+        observable->subscribe(observer<ValueType, concat_source_observer_strategy<TWorker, std::decay_t<TObserver>, std::decay_t<PackedContainer>>>{std::forward<TObserver>(obs), std::forward<PackedContainer>(container), worker, index});
+    return;
+}
+
+template<rpp::schedulers::constraint::scheduler TScheduler, constraint::decayed_type PackedContainer>
 struct concat_strategy
 {
     template<typename... Args>
-        requires (!constraint::variadic_decayed_same_as<concat_strategy<PackedContainer>, Args...>)
-    concat_strategy(Args&&... args)
+        requires (!constraint::variadic_decayed_same_as<concat_strategy<TScheduler, PackedContainer>, Args...>)
+    concat_strategy(const TScheduler& scheduler, Args&&... args)
         : container{std::forward<Args>(args)...}
+        , scheduler{scheduler}
     {
     }
 
     RPP_NO_UNIQUE_ADDRESS PackedContainer container;
+    RPP_NO_UNIQUE_ADDRESS TScheduler scheduler;
 
     using ValueType = rpp::utils::extract_observable_type_t<utils::iterable_value_t<PackedContainer>>;
 
     template<constraint::observer_strategy<ValueType> Strategy>
     void subscribe(observer<ValueType, Strategy>&& obs) const
     {
-        drain(container, size_t{}, std::move(obs));
-    }
-
-    template<constraint::observer_strategy<ValueType> Strategy>
-    static void drain(constraint::decayed_same_as<PackedContainer> auto&& container, size_t index, observer<ValueType, Strategy>&& obs)
-    {
-        std::optional<utils::iterable_value_t<PackedContainer>> observable{};
-        bool                                                    is_last_observable = false;
-        try
-        {
-            auto itr = std::cbegin(container);
-            std::advance(itr, static_cast<int64_t>(index++));
-
-            if (itr != std::cend(container))
-            {
-                observable.emplace(*itr);
-                is_last_observable = std::next(itr) == std::cend(container);
-            }
-        }
-        catch (...)
-        {
-            obs.on_error(std::current_exception());
-            return;
-        }
-
-        if (!observable.has_value())
-        {
-            obs.on_completed();
-            return;
-        }
-
-        if (is_last_observable)
-            observable->subscribe(std::move(obs));
-        else
-            observable->subscribe(observer<ValueType, concat_source_observer_strategy<observer<ValueType, Strategy>, PackedContainer>>{std::move(obs), std::forward<decltype(container)>(container), index});
+        const auto worker = scheduler.create_worker();
+        if (auto d = worker.get_disposable(); !d.is_disposed())
+            obs.set_upstream(std::move(d));
+        drain(std::move(obs), worker,  container, size_t{});
     }
 };
 
-template<typename PackedContainer, typename... Args>
-auto make_concat_from_iterable(Args&&... args)
+template<typename PackedContainer, rpp::schedulers::constraint::scheduler TScheduler, typename... Args>
+auto make_concat_from_iterable(const TScheduler& scheduler, Args&&... args)
 {
     return observable<utils::extract_observable_type_t<utils::iterable_value_t<std::decay_t<PackedContainer>>>,
-                      concat_strategy<std::decay_t<PackedContainer>>>{std::forward<Args>(args)...};
+                      concat_strategy<TScheduler, std::decay_t<PackedContainer>>>{scheduler, std::forward<Args>(args)...};
 }
 } // namespace rpp::details
 
@@ -119,6 +136,7 @@ namespace rpp::source
 {
 /**
  * @brief Make observable which would merge emissions from underlying observables but without overlapping (current observable completes THEN next started to emit its values)
+ * @warning this overloading uses trampoline scheduler as default
  *
  * @marble concat
  {
@@ -134,7 +152,7 @@ namespace rpp::source
  *
  * @param obs first observalbe to subscribe on
  * @param others rest list of observables to subscribe on
- * @tparam memory_model rpp::memory_model strategy used to handle provided observables
+ * @tparam MemoryModel rpp::memory_model strategy used to handle provided observables
  *
  * @warning #include <rpp/operators/concat.hpp>
  *
@@ -144,18 +162,11 @@ namespace rpp::source
  * @ingroup creational_operators
  * @see https://reactivex.io/documentation/operators/concat.html
  */
-template<constraint::memory_model memory_model /*= memory_model::use_stack*/, rpp::constraint::observable TObservable, rpp::constraint::observable... TObservables>
+template<constraint::memory_model MemoryModel /*= memory_model::use_stack*/, rpp::constraint::observable TObservable, rpp::constraint::observable... TObservables>
     requires (std::same_as<rpp::utils::extract_observable_type_t<TObservable>, rpp::utils::extract_observable_type_t<TObservables>> && ...)
 auto concat(TObservable&& obs, TObservables&&... others)
 {
-    if constexpr ((rpp::constraint::decayed_same_as<TObservable, TObservables> && ...))
-    {
-        using inner_container = std::array<std::decay_t<TObservable>, sizeof...(TObservables) + 1>;
-        using container       = std::conditional_t<std::same_as<memory_model, rpp::memory_model::use_stack>, inner_container, details::shared_container<inner_container>>;
-        return rpp::details::make_concat_from_iterable<container>(std::forward<TObservable>(obs), std::forward<TObservables>(others)...);
-    }
-    else
-        return concat<memory_model>(std::forward<TObservable>(obs).as_dynamic(), std::forward<TObservables>(others).as_dynamic()...);
+    return concat(rpp::schedulers::current_thread{}, std::forward<TObservable>(obs), std::forward<TObservables>(others)...);
 }
 
 /**
@@ -173,8 +184,52 @@ auto concat(TObservable&& obs, TObservables&&... others)
  *
  * @details Actually it subscribes on first observable from emissions. When first observable completes, then it subscribes on second observable from emissions and etc...
  *
- * @iterable is container with observables to subscribe on
- * @tparam memory_model rpp::memory_model strategy used to handle provided observables
+ * @param scheduler is scheduler used for scheduling of subscriptions to next observables during on_completed
+ * @param obs first observalbe to subscribe on
+ * @param others rest list of observables to subscribe on
+ * @tparam MemoryModel rpp::memory_model strategy used to handle provided observables
+ *
+ * @warning #include <rpp/operators/concat.hpp>
+ *
+ * @par Example
+ * @snippet concat.cpp concat_as_source
+ *
+ * @ingroup creational_operators
+ * @see https://reactivex.io/documentation/operators/concat.html
+ */
+template<constraint::memory_model MemoryModel /*= memory_model::use_stack*/, rpp::constraint::observable TObservable, rpp::constraint::observable... TObservables, rpp::schedulers::constraint::scheduler TScheduler>
+    requires (std::same_as<rpp::utils::extract_observable_type_t<TObservable>, rpp::utils::extract_observable_type_t<TObservables>> && ...)
+auto concat(const TScheduler& scheduler, TObservable&& obs, TObservables&&... others)
+{
+    if constexpr ((rpp::constraint::decayed_same_as<TObservable, TObservables> && ...))
+    {
+        using inner_container = std::array<std::decay_t<TObservable>, sizeof...(TObservables) + 1>;
+        using container       = std::conditional_t<std::same_as<MemoryModel, rpp::memory_model::use_stack>, inner_container, details::shared_container<inner_container>>;
+        return rpp::details::make_concat_from_iterable<container>(scheduler, std::forward<TObservable>(obs), std::forward<TObservables>(others)...);
+    }
+    else
+        return concat<MemoryModel>(scheduler, std::forward<TObservable>(obs).as_dynamic(), std::forward<TObservables>(others).as_dynamic()...);
+}
+
+/**
+ * @brief Make observable which would merge emissions from underlying observables but without overlapping (current observable completes THEN next started to emit its values)
+ *
+ * @marble concat
+ {
+     source observable :
+     {
+         +--1-2-3-|
+         .....+4--6-|
+     }
+     operator "concat" : +--1-2-3-4--6-|
+ }
+ *
+ * @details Actually it subscribes on first observable from emissions. When first observable completes, then it subscribes on second observable from emissions and etc...
+ *
+ * @param iterable is container with observables to subscribe on
+ * @param scheduler is scheduler used for scheduling of subscriptions to next observables during on_completed
+ *
+ * @tparam MemoryModel rpp::memory_model strategy used to handle provided observables
  * @warning #include <rpp/operators/concat.hpp>
  *
  * @par Example
@@ -183,11 +238,11 @@ auto concat(TObservable&& obs, TObservables&&... others)
  * @ingroup creational_operators
  * @see https://reactivex.io/documentation/operators/concat.html
  */
-template<constraint::memory_model memory_model /*= memory_model::use_stack*/, constraint::iterable Iterable>
+template<constraint::memory_model MemoryModel /*= memory_model::use_stack*/, constraint::iterable Iterable, rpp::schedulers::constraint::scheduler TScheduler>
     requires constraint::observable<utils::iterable_value_t<Iterable>>
-auto concat(Iterable&& iterable)
+auto concat(Iterable&& iterable, const TScheduler& scheduler)
 {
-    using container = std::conditional_t<std::same_as<memory_model, rpp::memory_model::use_stack>, std::decay_t<Iterable>, details::shared_container<std::decay_t<Iterable>>>;
-    return rpp::details::make_concat_from_iterable<container>(std::forward<Iterable>(iterable));
+    using Container = std::conditional_t<std::same_as<MemoryModel, rpp::memory_model::use_stack>, std::decay_t<Iterable>, details::shared_container<std::decay_t<Iterable>>>;
+    return rpp::details::make_concat_from_iterable<Container>(scheduler, std::forward<Iterable>(iterable));
 }
 }
