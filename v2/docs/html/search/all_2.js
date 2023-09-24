@@ -7,7 +7,7 @@ var searchData=
   ['combining_20operators_4',['Combining Operators',['../group__combining__operators.html',1,'']]],
   ['completed_5',['completed',['../structrpp_1_1subjects_1_1details_1_1completed.html',1,'rpp::subjects::details']]],
   ['composite_5fdisposable_6',['composite_disposable',['../classrpp_1_1composite__disposable.html',1,'rpp']]],
-  ['concat_7',['concat',['../group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df',1,'rpp::source::concat(TObservable &amp;&amp;obs, TObservables &amp;&amp;... others)'],['../group__creational__operators.html#ga4f9024c949765737e6a99a05f74d382e',1,'rpp::source::concat(Iterable &amp;&amp;iterable)']]],
+  ['concat_7',['concat',['../group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df',1,'rpp::source::concat(TObservable &amp;&amp;obs, TObservables &amp;&amp;... others)'],['../group__creational__operators.html#gaccd63d5e127d16a572f6d3da11d07885',1,'rpp::source::concat(Iterable &amp;&amp;iterable, const TScheduler &amp;scheduler)'],['../group__creational__operators.html#gada99b48f2ecd189b5881a6afe5e3753b',1,'rpp::source::concat(const TScheduler &amp;scheduler, TObservable &amp;&amp;obs, TObservables &amp;&amp;... others)']]],
   ['concat_5fsource_5fobserver_5fstrategy_8',['concat_source_observer_strategy',['../structrpp_1_1details_1_1concat__source__observer__strategy.html',1,'rpp::details']]],
   ['concat_5fstrategy_9',['concat_strategy',['../structrpp_1_1details_1_1concat__strategy.html',1,'rpp::details']]],
   ['concepts_20of_20reactive_20programming_10',['Core concepts of Reactive Programming',['../md_docs_2readme.html#autotoc_md3',1,'']]],

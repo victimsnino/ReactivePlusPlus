@@ -1,32 +1,29 @@
-\doxysection{rpp\+::details\+::concat\+\_\+strategy\texorpdfstring{$<$}{<} Packed\+Container \texorpdfstring{$>$}{>} Struct Template Reference}
-\hypertarget{structrpp_1_1details_1_1concat__strategy}{}\label{structrpp_1_1details_1_1concat__strategy}\index{rpp::details::concat\_strategy$<$ PackedContainer $>$@{rpp::details::concat\_strategy$<$ PackedContainer $>$}}
+\doxysection{rpp\+::details\+::concat\+\_\+strategy\texorpdfstring{$<$}{<} TScheduler, Packed\+Container \texorpdfstring{$>$}{>} Struct Template Reference}
+\hypertarget{structrpp_1_1details_1_1concat__strategy}{}\label{structrpp_1_1details_1_1concat__strategy}\index{rpp::details::concat\_strategy$<$ TScheduler, PackedContainer $>$@{rpp::details::concat\_strategy$<$ TScheduler, PackedContainer $>$}}
 \doxysubsubsection*{Public Types}
 \begin{DoxyCompactItemize}
 \item 
-\Hypertarget{structrpp_1_1details_1_1concat__strategy_af5eefa6036b37bea9d0e109594ab0394}\label{structrpp_1_1details_1_1concat__strategy_af5eefa6036b37bea9d0e109594ab0394} 
+\Hypertarget{structrpp_1_1details_1_1concat__strategy_a1f7c56ed339ad785544c7d70589df144}\label{structrpp_1_1details_1_1concat__strategy_a1f7c56ed339ad785544c7d70589df144} 
 using {\bfseries Value\+Type} = rpp\+::utils\+::extract\+\_\+observable\+\_\+type\+\_\+t$<$ utils\+::iterable\+\_\+value\+\_\+t$<$ Packed\+Container $>$ $>$
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\Hypertarget{structrpp_1_1details_1_1concat__strategy_a2a6048694bc7caaf2939670af0f321c8}\label{structrpp_1_1details_1_1concat__strategy_a2a6048694bc7caaf2939670af0f321c8} 
+\Hypertarget{structrpp_1_1details_1_1concat__strategy_affc8231f386e932189ef3ea70e830ab7}\label{structrpp_1_1details_1_1concat__strategy_affc8231f386e932189ef3ea70e830ab7} 
 {\footnotesize template$<$typename... Args$>$ \newline
-requires (!constraint\+::variadic\+\_\+decayed\+\_\+same\+\_\+as$<$\mbox{\hyperlink{structrpp_1_1details_1_1concat__strategy}{concat\+\_\+strategy}}$<$Packed\+Container$>$, Args...$>$)}\\{\bfseries concat\+\_\+strategy} (Args \&\&... args)
+requires (!constraint\+::variadic\+\_\+decayed\+\_\+same\+\_\+as$<$\mbox{\hyperlink{structrpp_1_1details_1_1concat__strategy}{concat\+\_\+strategy}}$<$TScheduler, Packed\+Container$>$, Args...$>$)}\\{\bfseries concat\+\_\+strategy} (const TScheduler \&scheduler, Args \&\&... args)
 \item 
-\Hypertarget{structrpp_1_1details_1_1concat__strategy_a545e962bc3de1d8d50cf6e334ed51d67}\label{structrpp_1_1details_1_1concat__strategy_a545e962bc3de1d8d50cf6e334ed51d67} 
+\Hypertarget{structrpp_1_1details_1_1concat__strategy_a3c0e4a0632db441de93200ae7f0a0128}\label{structrpp_1_1details_1_1concat__strategy_a3c0e4a0632db441de93200ae7f0a0128} 
 {\footnotesize template$<$constraint\+::observer\+\_\+strategy$<$ Value\+Type $>$ Strategy$>$ }\\void {\bfseries subscribe} (\mbox{\hyperlink{classrpp_1_1observer}{observer}}$<$ Value\+Type, Strategy $>$ \&\&obs) const
-\end{DoxyCompactItemize}
-\doxysubsubsection*{Static Public Member Functions}
-\begin{DoxyCompactItemize}
-\item 
-\Hypertarget{structrpp_1_1details_1_1concat__strategy_a7cc185f6a534be6b025c67a5b2326530}\label{structrpp_1_1details_1_1concat__strategy_a7cc185f6a534be6b025c67a5b2326530} 
-{\footnotesize template$<$constraint\+::observer\+\_\+strategy$<$ Value\+Type $>$ Strategy$>$ }\\static void {\bfseries drain} (constraint\+::decayed\+\_\+same\+\_\+as$<$ Packed\+Container $>$ auto \&\&container, size\+\_\+t index, \mbox{\hyperlink{classrpp_1_1observer}{observer}}$<$ Value\+Type, Strategy $>$ \&\&obs)
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
-\Hypertarget{structrpp_1_1details_1_1concat__strategy_a1e6b6c42bcdac3c0b87e66eda12c3a11}\label{structrpp_1_1details_1_1concat__strategy_a1e6b6c42bcdac3c0b87e66eda12c3a11} 
+\Hypertarget{structrpp_1_1details_1_1concat__strategy_af4adb90f4020ecbfa9d3e280f89c3c78}\label{structrpp_1_1details_1_1concat__strategy_af4adb90f4020ecbfa9d3e280f89c3c78} 
 RPP\+\_\+\+NO\+\_\+\+UNIQUE\+\_\+\+ADDRESS Packed\+Container {\bfseries container}
+\item 
+\Hypertarget{structrpp_1_1details_1_1concat__strategy_abc7e6d9aa7936ce8a80213282c340388}\label{structrpp_1_1details_1_1concat__strategy_abc7e6d9aa7936ce8a80213282c340388} 
+RPP\+\_\+\+NO\+\_\+\+UNIQUE\+\_\+\+ADDRESS TScheduler {\bfseries scheduler}
 \end{DoxyCompactItemize}
 
 
