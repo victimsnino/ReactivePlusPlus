@@ -173,10 +173,10 @@ namespace rpp::source
  * @ingroup creational_operators
  * @see https://reactivex.io/documentation/operators/from.html
  */
-template<constraint::memory_model memory_model /* = memory_model::use_stack*/, constraint::iterable Iterable, schedulers::constraint::scheduler TScheduler /* = schedulers::current_thread*/>
+template<constraint::memory_model MemoryModel /* = memory_model::use_stack*/, constraint::iterable Iterable, schedulers::constraint::scheduler TScheduler /* = schedulers::current_thread*/>
 auto from_iterable(Iterable&& iterable, const TScheduler& scheduler /* = TScheduler{}*/)
 {
-    using container = std::conditional_t<std::same_as<memory_model, rpp::memory_model::use_stack>, std::decay_t<Iterable>, details::shared_container<std::decay_t<Iterable>>>;
+    using container = std::conditional_t<std::same_as<MemoryModel, rpp::memory_model::use_stack>, std::decay_t<Iterable>, details::shared_container<std::decay_t<Iterable>>>;
     return details::make_from_iterable_observable<container>(scheduler, std::forward<Iterable>(iterable));
 }
 
@@ -201,12 +201,12 @@ auto from_iterable(Iterable&& iterable, const TScheduler& scheduler /* = TSchedu
  * @ingroup creational_operators
  * @see https://reactivex.io/documentation/operators/just.html
  */
-template<constraint::memory_model memory_model /* = memory_model::use_stack */, schedulers::constraint::scheduler TScheduler, typename T, typename... Ts>
-auto just(const TScheduler& scheduler, T&& item, Ts&&... items)
+template<constraint::memory_model MemoryModel /* = memory_model::use_stack */, schedulers::constraint::scheduler TScheduler, typename T, typename... Ts>
     requires (constraint::decayed_same_as<T, Ts> && ...)
+auto just(const TScheduler& scheduler, T&& item, Ts&&... items)
 {
     using inner_container = std::array<std::decay_t<T>, sizeof...(Ts) + 1>;
-    using container       = std::conditional_t<std::same_as<memory_model, rpp::memory_model::use_stack>, inner_container, details::shared_container<inner_container>>;
+    using container       = std::conditional_t<std::same_as<MemoryModel, rpp::memory_model::use_stack>, inner_container, details::shared_container<inner_container>>;
     return details::make_from_iterable_observable<container>(scheduler, std::forward<T>(item), std::forward<Ts>(items)...);
 }
 
@@ -231,12 +231,12 @@ auto just(const TScheduler& scheduler, T&& item, Ts&&... items)
  * @ingroup creational_operators
  * @see https://reactivex.io/documentation/operators/just.html
  */
-template<constraint::memory_model memory_model /* = memory_model::use_stack */, typename T, typename... Ts>
-auto just(T&& item, Ts&&... items)
+template<constraint::memory_model MemoryModel /* = memory_model::use_stack */, typename T, typename... Ts>
     requires (constraint::decayed_same_as<T, Ts> && ...)
+auto just(T&& item, Ts&&... items)
 {
     using inner_container = std::array<std::decay_t<T>, sizeof...(Ts) + 1>;
-    using container       = std::conditional_t<std::same_as<memory_model, rpp::memory_model::use_stack>, inner_container, details::shared_container<inner_container>>;
+    using container       = std::conditional_t<std::same_as<MemoryModel, rpp::memory_model::use_stack>, inner_container, details::shared_container<inner_container>>;
     return details::make_from_iterable_observable<container>(schedulers::current_thread{}, std::forward<T>(item), std::forward<Ts>(items)...);
 }
 
@@ -256,9 +256,9 @@ auto just(T&& item, Ts&&... items)
  * @ingroup creational_operators
  * @see https://reactivex.io/documentation/operators/from.html
  */
-template<constraint::memory_model memory_model /* = memory_model::use_stack */, std::invocable<> Callable>
+template<constraint::memory_model MemoryModel /* = memory_model::use_stack */, std::invocable<> Callable>
 auto from_callable(Callable&& callable)
 {
-    return just<memory_model>(std::forward<Callable>(callable)) | rpp::operators::map(details::from_callable_invoke{});
+    return just<MemoryModel>(std::forward<Callable>(callable)) | rpp::operators::map(details::from_callable_invoke{});
 }
 }
