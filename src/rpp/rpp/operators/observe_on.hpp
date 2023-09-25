@@ -22,7 +22,7 @@ namespace rpp::operators
  * @marble observe_on
  {
      source observable          : +-1-2-3-X
-     operator "observe_on: --"  : +---1-2-X
+     operator "observe_on:(--)"  : +---1-2-X
  }
  *
  * @details Actually this operator is just `delay`, but in case of obtaining `on_error` this operator cancels all scheduled but not emited emissions and forward error immediately. In case of you need to delay also `on_error`, use `delay` instead.

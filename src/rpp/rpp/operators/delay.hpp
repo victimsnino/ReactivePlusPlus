@@ -194,7 +194,7 @@ namespace rpp::operators
  * @marble delay
      {
          source observable        : +-1-2-3-X
-         operator "delay: --"     : +---1-2-3-X
+         operator "delay(--)"     : +---1-2-3-X
      {
  *
  * @details Actually this operator just schedules emissions via provided scheduler with provided delay_duration.
