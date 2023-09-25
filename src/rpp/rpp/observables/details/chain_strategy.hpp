@@ -34,7 +34,7 @@ public:
     {
     }
 
-    template<rpp::constraint::observer Observer>
+    template<rpp::constraint::observer_of_type<ValueType> Observer>
     void subscribe(Observer&& observer) const
     {
         if constexpr (rpp::constraint::operator_lift<TStrategy, typename observable_chain_strategy<TStrategies...>::ValueType>)
