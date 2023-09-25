@@ -192,10 +192,10 @@ namespace rpp::operators
  * @details The delay operator modifies its source Observable by pausing for a particular increment of time (that you specify) before emitting each of the source Observable’s items. This has the effect of shifting the entire sequence of items emitted by the Observable forward in time by that specified increment.
  *
  * @marble delay
-     {
-         source observable        : +-1-2-3-#
-         operator "delay(--)"     : +---1-2-3-#
-     {
+    {
+        source observable      : +-1-2-3-#
+        operator "delay:(--)"  : +---1-2-3-#
+    }
  *
  * @details Actually this operator just schedules emissions via provided scheduler with provided delay_duration.
  * @warning on_error/on_completed invoking also would be delayed as any other emissions, so, WHOLE observable would be shifter. If you want to obtain `on_error` immediately, use `observe_on` instead.

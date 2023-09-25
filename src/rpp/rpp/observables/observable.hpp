@@ -77,17 +77,17 @@ public:
      * @return composite_disposable_wrapper is disposable to be able to dispose observer when it needed
      *
      * @par Example
-     * ```cpp
-        auto disposable = std::make_shared<rpp::composite_disposable>();
-        rpp::source::just(1) 
-        | rpp::operators::repeat() 
-        | rpp::operators::subscribe_on(rpp::schedulers::new_thread{}) 
-        | rpp::operators::subscribe(disposable, rpp::make_lambda_observer([](int) { std::cout << "NEW VALUE" << std::endl; }));
-
-        std::this_thread::sleep_for(std::chrono::seconds(1));
-        disposable->dispose();
-        std::this_thread::sleep_for(std::chrono::seconds(1));
-       ```
+     * \code{.cpp}
+    *  auto disposable = std::make_shared<rpp::composite_disposable>();
+    *  rpp::source::just(1) 
+    *  | rpp::operators::repeat() 
+    *  | rpp::operators::subscribe_on(rpp::schedulers::new_thread{}) 
+    *  | rpp::operators::subscribe(disposable, rpp::make_lambda_observer([](int) { std::cout << "NEW VALUE" << std::endl; }));
+    *
+    *  std::this_thread::sleep_for(std::chrono::seconds(1));
+    *  disposable->dispose();
+    *  std::this_thread::sleep_for(std::chrono::seconds(1));
+    * \endcode
      *
      */
     template<constraint::observer_strategy<Type> ObserverStrategy>

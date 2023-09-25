@@ -21,7 +21,7 @@ namespace rpp::operators
  *
  * @marble observe_on
     {
-        source observable          : +-1-2-3-#
+        source observable           : +-1-2-3-#
         operator "observe_on:(--)"  : +---1-2-#
     }
  *
