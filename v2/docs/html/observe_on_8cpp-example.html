@@ -125,8 +125,8 @@ $(document).ready(function(){initNavTree('observe_on_8cpp-example.html',''); ini
 <div class="line"> </div>
 <div class="line">        obs.on_error({});</div>
 <div class="line">    })</div>
-<div class="line">    | rpp::operators::observe_on(<a id="_a1" name="_a1"></a><a class="code hl_class" href="classrpp_1_1schedulers_1_1new__thread.html">rpp::schedulers::new_thread</a>{}, std::chrono::seconds{3})</div>
-<div class="line">    | <a id="a2" name="a2"></a><a class="code hl_function" href="group__utility__operators.html#ga9df008c11eeff8c9383e56bf36e28ec2">rpp::operators::as_blocking</a>()</div>
+<div class="line">    | <a id="a1" name="a1"></a><a class="code hl_function" href="group__utility__operators.html#ga3feb1b1258c7e3e72c151abf176c30c4">rpp::operators::observe_on</a>(<a id="_a2" name="_a2"></a><a class="code hl_class" href="classrpp_1_1schedulers_1_1new__thread.html">rpp::schedulers::new_thread</a>{}, std::chrono::seconds{3})</div>
+<div class="line">    | <a id="a3" name="a3"></a><a class="code hl_function" href="group__utility__operators.html#ga9df008c11eeff8c9383e56bf36e28ec2">rpp::operators::as_blocking</a>()</div>
 <div class="line">    | rpp::operators::subscribe([&amp;](<span class="keywordtype">int</span> v)</div>
 <div class="line">                {</div>
 <div class="line">                    <span class="keyword">auto</span> observing_time = rpp::schedulers::clock_type::now();</div>
@@ -149,6 +149,7 @@ $(document).ready(function(){initNavTree('observe_on_8cpp-example.html',''); ini
 <div class="line">}</div>
 <div class="ttc" id="aclassrpp_1_1schedulers_1_1new__thread_html"><div class="ttname"><a href="classrpp_1_1schedulers_1_1new__thread.html">rpp::schedulers::new_thread</a></div><div class="ttdoc">Scheduler which schedules invoking of schedulables to another thread via queueing tasks with priority...</div><div class="ttdef"><b>Definition</b> new_thread.hpp:31</div></div>
 <div class="ttc" id="agroup__creational__operators_html_gab6cfd9da2e3590fd199c9972477e04df"><div class="ttname"><a href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">rpp::source::concat</a></div><div class="ttdeci">auto concat(TObservable &amp;&amp;obs, TObservables &amp;&amp;... others)</div><div class="ttdoc">Make observable which would merge emissions from underlying observables but without overlapping (curr...</div><div class="ttdef"><b>Definition</b> concat.hpp:159</div></div>
+<div class="ttc" id="agroup__utility__operators_html_ga3feb1b1258c7e3e72c151abf176c30c4"><div class="ttname"><a href="group__utility__operators.html#ga3feb1b1258c7e3e72c151abf176c30c4">rpp::operators::observe_on</a></div><div class="ttdeci">auto observe_on(Scheduler &amp;&amp;scheduler, rpp::schedulers::duration delay_duration={})</div><div class="ttdoc">Specify the Scheduler on which an observer will observe this Observable.</div><div class="ttdef"><b>Definition</b> observe_on.hpp:37</div></div>
 <div class="ttc" id="agroup__utility__operators_html_ga9df008c11eeff8c9383e56bf36e28ec2"><div class="ttname"><a href="group__utility__operators.html#ga9df008c11eeff8c9383e56bf36e28ec2">rpp::operators::as_blocking</a></div><div class="ttdeci">auto as_blocking()</div><div class="ttdoc">Converts rpp::observable to rpp::blocking_observable</div><div class="ttdef"><b>Definition</b> as_blocking.hpp:44</div></div>
 </div><!-- fragment --> </div><!-- contents -->
 </div><!-- doc-content -->

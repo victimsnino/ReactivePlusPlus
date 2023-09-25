@@ -1,5 +1,12 @@
 var NAVTREEINDEX1 =
 {
+"ref_count_8cpp-example.html":[5,18],
+"refcount__disposable_8hpp_source.html":[4,0,0,0,0,0,7],
+"repeat_8cpp-example.html":[5,19],
+"repeat_8hpp_source.html":[4,0,0,0,0,3,17],
+"rpp_8hpp_source.html":[4,0,0,0,0,14],
+"scan_8cpp-example.html":[5,20],
+"scan_8hpp_source.html":[4,0,0,0,0,3,18],
 "schedulers_2details_2utils_8hpp_source.html":[4,0,0,0,0,4,0,1],
 "schedulers_2fwd_8hpp_source.html":[4,0,0,0,0,4,2],
 "schedulers_8hpp_source.html":[4,0,0,0,0,15],
