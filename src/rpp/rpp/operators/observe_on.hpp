@@ -20,10 +20,10 @@ namespace rpp::operators
  * @details The observe_on operator modifies its source Observable by emitting all emissions via provided scheduler, so, all emissions/callbacks happens via scheduler.
  *
  * @marble observe_on
- {
-     source observable          : +-1-2-3-#
-     operator "observe_on:(--)"  : +---1-2-#
- }
+    {
+        source observable          : +-1-2-3-#
+        operator "observe_on:(--)"  : +---1-2-#
+    }
  *
  * @details Actually this operator is just `delay`, but in case of obtaining `on_error` this operator cancels all scheduled but not emited emissions and forward error immediately. In case of you need to delay also `on_error`, use `delay` instead.
  *
