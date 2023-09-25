@@ -1,0 +1,40 @@
+\doxysection{buffer.\+cpp}
+\hypertarget{buffer_8cpp-example}{}\label{buffer_8cpp-example}
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <rpp/rpp.hpp>}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{}
+\DoxyCodeLine{std::ostream\&\ operator<<(std::ostream\&\ out,\ \textcolor{keyword}{const}\ std::vector<int>\&\ list)}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ \ \ out\ <<\ \textcolor{stringliteral}{"{}\{"{}};}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{auto}\ size\ =\ list.size();}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ size;\ ++i)}
+\DoxyCodeLine{\ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ out\ <<\ list.at(i);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (i\ <\ size\ -\/\ 1)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ out\ <<\ \textcolor{stringliteral}{"{},"{}};}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ out\ <<\ \textcolor{stringliteral}{"{}\}"{}};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{return}\ out;}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{int}\ main()}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ The\ stream\ that\ uses\ rvalue\ overloads\ for\ operators}}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(1,\ 2,\ 3,\ 4,\ 5)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ rpp::ops::buffer(2)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ rpp::ops::subscribe(}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ [](\textcolor{keyword}{const}\ std::vector<int>\&\ v)\ \{\ std::cout\ <<\ v\ <<\ \textcolor{stringliteral}{"{}-\/"{}};\ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ [](\textcolor{keyword}{const}\ std::exception\_ptr\&)\ \{\},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ []()\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}|"{}}\ <<\ std::endl;\ \});}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Source:\ -\/1-\/2-\/3-\/4-\/5-\/-\/|}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:\ \{1,2\}-\/\{3,4\}-\/\{5\}-\/|}}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{\}}
+
+\end{DoxyCodeInclude}
+ 

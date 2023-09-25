@@ -1,5 +1,6 @@
 var examples =
 [
+    [ "buffer.cpp", "buffer_8cpp-example.html", null ],
     [ "combine_latest.cpp", "combine_latest_8cpp-example.html", null ],
     [ "concat.cpp", "concat_8cpp-example.html", null ],
     [ "create.cpp", "create_8cpp-example.html", null ],

@@ -107,6 +107,9 @@ $(document).ready(function(){initNavTree('group__transforming__operators.html','
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:gaa837faa675fb1ee03f4a589abcb206b4" id="r_gaa837faa675fb1ee03f4a589abcb206b4"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__transforming__operators.html#gaa837faa675fb1ee03f4a589abcb206b4">rpp::operators::buffer</a> (size_t count)</td></tr>
+<tr class="memdesc:gaa837faa675fb1ee03f4a589abcb206b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Periodically gather emissions emitted by an original Observable into bundles and emit these bundles rather than emitting the items one at a time.  <br /></td></tr>
+<tr class="separator:gaa837faa675fb1ee03f4a589abcb206b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga633883e796101ceeab821e2a4912bd5e" id="r_ga633883e796101ceeab821e2a4912bd5e"><td class="memTemplParams" colspan="2">template&lt;typename Fn &gt; <br />
 requires (!utils::is_not_template_callable&lt;Fn&gt; || <a class="el" href="conceptrpp_1_1constraint_1_1observable.html">rpp::constraint::observable</a>&lt;std::invoke_result_t&lt;Fn, rpp::utils::convertible_to_any&gt;&gt;)</td></tr>
 <tr class="memitem:ga633883e796101ceeab821e2a4912bd5e"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__transforming__operators.html#ga633883e796101ceeab821e2a4912bd5e">rpp::operators::flat_map</a> (Fn &amp;&amp;callable)</td></tr>
@@ -136,6 +139,57 @@ requires (!utils::is_not_template_callable&lt;Fn&gt; || std::same_as&lt;std::dec
 <p>Transforming operators are operators that transform items provided by observable. </p>
 <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators.html#transforming">https://reactivex.io/documentation/operators.html#transforming</a> </dd></dl>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="gaa837faa675fb1ee03f4a589abcb206b4" name="gaa837faa675fb1ee03f4a589abcb206b4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaa837faa675fb1ee03f4a589abcb206b4">&#9670;&#160;</a></span>buffer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto rpp::operators::buffer </td>
+          <td>(</td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>count</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Periodically gather emissions emitted by an original Observable into bundles and emit these bundles rather than emitting the items one at a time. </p>
+<div class="image">
+<object type="image/svg+xml" data="buffer.svg" style="pointer-events: none;"></object>
+</div>
+<p>The resulting bundle is <code>std::vector&lt;Type&gt;</code> of requested size. Actually it is similar to <code>window()</code> operator, but it emits vectors instead of observables.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">count</td><td>number of items being bundled. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="buffer_8hpp_source.html">rpp/operators/buffer.hpp</a>&gt;</dd></dl>
+<dl class="section user"><dt>Example:</dt><dd><div class="fragment"><div class="line">    <span class="comment">// The stream that uses rvalue overloads for operators</span></div>
+<div class="line">    <a class="code hl_function" href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">rpp::source::just</a>(1, 2, 3, 4, 5)</div>
+<div class="line">        | rpp::ops::buffer(2)</div>
+<div class="line">        | rpp::ops::subscribe(</div>
+<div class="line">            [](<span class="keyword">const</span> std::vector&lt;int&gt;&amp; v) { std::cout &lt;&lt; v &lt;&lt; <span class="stringliteral">&quot;-&quot;</span>; },</div>
+<div class="line">            [](<span class="keyword">const</span> std::exception_ptr&amp;) {},</div>
+<div class="line">            []() { std::cout &lt;&lt; <span class="stringliteral">&quot;|&quot;</span> &lt;&lt; std::endl; });</div>
+<div class="line">    <span class="comment">// Source: -1-2-3-4-5--|</span></div>
+<div class="line">    <span class="comment">// Output: {1,2}-{3,4}-{5}-|</span></div>
+<div class="ttc" id="agroup__creational__operators_html_ga1edf47f176050dd414e28a1c0616b7c0"><div class="ttname"><a href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">rpp::source::just</a></div><div class="ttdeci">auto just(const TScheduler &amp;scheduler, T &amp;&amp;item, Ts &amp;&amp;... items)</div><div class="ttdoc">Creates rpp::observable that emits a particular items and completes.</div><div class="ttdef"><b>Definition</b> from.hpp:200</div></div>
+</div><!-- fragment --></dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/buffer.html">https://reactivex.io/documentation/operators/buffer.html</a> </dd></dl>
+
+</div>
+</div>
 <a id="ga633883e796101ceeab821e2a4912bd5e" name="ga633883e796101ceeab821e2a4912bd5e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ga633883e796101ceeab821e2a4912bd5e">&#9670;&#160;</a></span>flat_map()</h2>
 
@@ -246,7 +300,6 @@ requires ( (!utils::is_not_template_callable&lt;KeySelector&gt; || !std::same_as
 <div class="line">    <span class="comment">//         key [1] Val: 8</span></div>
 <div class="ttc" id="aclassrpp_1_1grouped__observable_html"><div class="ttname"><a href="classrpp_1_1grouped__observable.html">rpp::grouped_observable</a></div><div class="ttdoc">Extension over raw observable which also has get_key() member function. Used in group_by operator to ...</div><div class="ttdef"><b>Definition</b> grouped_observable.hpp:18</div></div>
 <div class="ttc" id="aclassrpp_1_1observable_html_a193b0e08c516912c04afd8379ec27182"><div class="ttname"><a href="classrpp_1_1observable.html#a193b0e08c516912c04afd8379ec27182">rpp::observable::subscribe</a></div><div class="ttdeci">void subscribe(observer&lt; Type, ObserverStrategy &gt; &amp;&amp;observer) const</div><div class="ttdoc">Subscribes passed observer to emissions from this observable.</div><div class="ttdef"><b>Definition</b> observable.hpp:56</div></div>
-<div class="ttc" id="agroup__creational__operators_html_ga1edf47f176050dd414e28a1c0616b7c0"><div class="ttname"><a href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">rpp::source::just</a></div><div class="ttdeci">auto just(const TScheduler &amp;scheduler, T &amp;&amp;item, Ts &amp;&amp;... items)</div><div class="ttdoc">Creates rpp::observable that emits a particular items and completes.</div><div class="ttdef"><b>Definition</b> from.hpp:200</div></div>
 <div class="ttc" id="agroup__transforming__operators_html_ga2fa21790af1c065382cd37faa3462851"><div class="ttname"><a href="group__transforming__operators.html#ga2fa21790af1c065382cd37faa3462851">rpp::operators::group_by</a></div><div class="ttdeci">auto group_by(KeySelector &amp;&amp;key_selector, ValueSelector &amp;&amp;value_selector={}, KeyComparator &amp;&amp;comparator={})</div><div class="ttdoc">Divide original observable into multiple observables where each new observable emits some group of va...</div><div class="ttdef"><b>Definition</b> group_by.hpp:207</div></div>
 </div><!-- fragment --> <div class="fragment"><div class="line">    <span class="keyword">struct </span>Person</div>
 <div class="line">    {</div>

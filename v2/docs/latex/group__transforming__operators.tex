@@ -8,6 +8,8 @@ Transforming operators are operators that transform items provided by observable
 \doxysubsubsubsubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
+auto \mbox{\hyperlink{group__transforming__operators_gaa837faa675fb1ee03f4a589abcb206b4}{rpp\+::operators\+::buffer}} (size\+\_\+t count)
+\begin{DoxyCompactList}\small\item\em Periodically gather emissions emitted by an original Observable into bundles and emit these bundles rather than emitting the items one at a time. \end{DoxyCompactList}\item 
 {\footnotesize template$<$typename Fn $>$ \newline
 requires (!utils\+::is\+\_\+not\+\_\+template\+\_\+callable$<$Fn$>$ \texorpdfstring{$\vert$}{|}\texorpdfstring{$\vert$}{|} \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp\+::constraint\+::observable}}$<$std\+::invoke\+\_\+result\+\_\+t$<$Fn, rpp\+::utils\+::convertible\+\_\+to\+\_\+any$>$$>$)}\\auto \mbox{\hyperlink{group__transforming__operators_ga633883e796101ceeab821e2a4912bd5e}{rpp\+::operators\+::flat\+\_\+map}} (Fn \&\&callable)
 \begin{DoxyCompactList}\small\item\em Transform the items emitted by an Observable into Observables, then flatten the emissions from those into a single Observable. \end{DoxyCompactList}\item 
@@ -33,6 +35,47 @@ Transforming operators are operators that transform items provided by observable
 
 
 \doxysubsubsubsection{Function Documentation}
+\Hypertarget{group__transforming__operators_gaa837faa675fb1ee03f4a589abcb206b4}\label{group__transforming__operators_gaa837faa675fb1ee03f4a589abcb206b4} 
+\index{Transforming Operators@{Transforming Operators}!buffer@{buffer}}
+\index{buffer@{buffer}!Transforming Operators@{Transforming Operators}}
+\doxysubsubsubsubsection{\texorpdfstring{buffer()}{buffer()}}
+{\footnotesize\ttfamily auto rpp\+::operators\+::buffer (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{count }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Periodically gather emissions emitted by an original Observable into bundles and emit these bundles rather than emitting the items one at a time. 
+
+
+
+The resulting bundle is {\ttfamily std\+::vector\texorpdfstring{$<$}{<}Type\texorpdfstring{$>$}{>}} of requested size. Actually it is similar to {\ttfamily window()} operator, but it emits vectors instead of observables.
+
+
+\begin{DoxyParams}{Parameters}
+{\em count} & number of items being bundled. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyWarning}{Warning}
+\#include \texorpdfstring{$<$}{<}\doxylink{buffer_8hpp_source}{rpp/operators/buffer.\+hpp}\texorpdfstring{$>$}{>}
+\end{DoxyWarning}
+\begin{DoxyParagraph}{Example\+:}
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ The\ stream\ that\ uses\ rvalue\ overloads\ for\ operators}}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(1,\ 2,\ 3,\ 4,\ 5)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ rpp::ops::buffer(2)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ rpp::ops::subscribe(}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ [](\textcolor{keyword}{const}\ std::vector<int>\&\ v)\ \{\ std::cout\ <<\ v\ <<\ \textcolor{stringliteral}{"{}-\/"{}};\ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ [](\textcolor{keyword}{const}\ std::exception\_ptr\&)\ \{\},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ []()\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}|"{}}\ <<\ std::endl;\ \});}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Source:\ -\/1-\/2-\/3-\/4-\/5-\/-\/|}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:\ \{1,2\}-\/\{3,4\}-\/\{5\}-\/|}}
+
+\end{DoxyCodeInclude}
+
+\end{DoxyParagraph}
+\begin{DoxySeeAlso}{See also}
+\href{https://reactivex.io/documentation/operators/buffer.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/buffer.\+html}} 
+\end{DoxySeeAlso}
 \Hypertarget{group__transforming__operators_ga633883e796101ceeab821e2a4912bd5e}\label{group__transforming__operators_ga633883e796101ceeab821e2a4912bd5e} 
 \index{Transforming Operators@{Transforming Operators}!flat\_map@{flat\_map}}
 \index{flat\_map@{flat\_map}!Transforming Operators@{Transforming Operators}}

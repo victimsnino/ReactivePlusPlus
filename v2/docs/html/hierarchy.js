@@ -11,6 +11,7 @@ var hierarchy =
     [ "rpp::subjects::details::base_subject< T >", "classrpp_1_1subjects_1_1details_1_1base__subject.html", null ],
     [ "rpp::details::observables::blocking_observer_strategy< TObserver >", "structrpp_1_1details_1_1observables_1_1blocking__observer__strategy.html", null ],
     [ "rpp::details::observables::blocking_strategy< Type, Strategy >", "classrpp_1_1details_1_1observables_1_1blocking__strategy.html", null ],
+    [ "rpp::operators::details::buffer_observer_strategy< TObserver >", "classrpp_1_1operators_1_1details_1_1buffer__observer__strategy.html", null ],
     [ "rpp::operators::details::combine_latest_observer_strategy< I, Observer, TSelector, Args >", "structrpp_1_1operators_1_1details_1_1combine__latest__observer__strategy.html", null ],
     [ "rpp::operators::details::combine_latest_t< TSelector, TObservables >", "structrpp_1_1operators_1_1details_1_1combine__latest__t.html", null ],
     [ "rpp::subjects::details::completed", "structrpp_1_1subjects_1_1details_1_1completed.html", null ],
@@ -108,6 +109,7 @@ var hierarchy =
     ] ],
     [ "rpp::details::observer_impl< Type, Strategy, details::external_disposable_strategy >", "classrpp_1_1details_1_1observer__impl.html", null ],
     [ "rpp::operators::details::operator_observable_strategy_base< SubscribeStrategy, Args >", "classrpp_1_1operators_1_1details_1_1operator__observable__strategy__base.html", [
+      [ "rpp::operators::details::buffer_t", "structrpp_1_1operators_1_1details_1_1buffer__t.html", null ],
       [ "rpp::operators::details::distinct_until_changed_t< EqualityFn >", "structrpp_1_1operators_1_1details_1_1distinct__until__changed__t.html", null ],
       [ "rpp::operators::details::filter_t< Fn >", "structrpp_1_1operators_1_1details_1_1filter__t.html", null ],
       [ "rpp::operators::details::first_t", "structrpp_1_1operators_1_1details_1_1first__t.html", null ],

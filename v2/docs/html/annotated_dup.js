@@ -44,6 +44,8 @@ var annotated_dup =
       [ "operators", null, [
         [ "details", null, [
           [ "as_blocking_t", "structrpp_1_1operators_1_1details_1_1as__blocking__t.html", null ],
+          [ "buffer_observer_strategy", "classrpp_1_1operators_1_1details_1_1buffer__observer__strategy.html", null ],
+          [ "buffer_t", "structrpp_1_1operators_1_1details_1_1buffer__t.html", null ],
           [ "combine_latest_disposable", "classrpp_1_1operators_1_1details_1_1combine__latest__disposable.html", null ],
           [ "combine_latest_observer_strategy", "structrpp_1_1operators_1_1details_1_1combine__latest__observer__strategy.html", null ],
           [ "combine_latest_t", "structrpp_1_1operators_1_1details_1_1combine__latest__t.html", null ],

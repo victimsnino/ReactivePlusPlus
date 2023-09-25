@@ -163,7 +163,7 @@
 \DoxyCodeLine{00242\ \ \ \ \ \textcolor{keyword}{requires}\ constraint::observable<utils::iterable\_value\_t<Iterable>>}
 \DoxyCodeLine{00243\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{concat}}(\mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{Iterable}}\&\&\ \mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{iterable}},\ \textcolor{keyword}{const}\ TScheduler\&\ scheduler)}
 \DoxyCodeLine{00244\ \{}
-\DoxyCodeLine{00245\ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{Container}}\ =\ std::conditional\_t<std::same\_as<MemoryModel,\ rpp::memory\_model::use\_stack>,\ std::decay\_t<Iterable>,\ details::shared\_container<std::decay\_t<Iterable>>>;}
+\DoxyCodeLine{00245\ \ \ \ \ \textcolor{keyword}{using\ }Container\ =\ std::conditional\_t<std::same\_as<MemoryModel,\ rpp::memory\_model::use\_stack>,\ std::decay\_t<Iterable>,\ details::shared\_container<std::decay\_t<Iterable>>>;}
 \DoxyCodeLine{00246\ \ \ \ \ \textcolor{keywordflow}{return}\ rpp::details::make\_concat\_from\_iterable<Container>(scheduler,\ std::forward<Iterable>(\mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{iterable}}));}
 \DoxyCodeLine{00247\ \}}
 \DoxyCodeLine{00248\ \}}

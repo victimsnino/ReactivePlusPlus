@@ -1,5 +1,6 @@
 var group__transforming__operators =
 [
+    [ "rpp::operators::buffer", "group__transforming__operators.html#gaa837faa675fb1ee03f4a589abcb206b4", null ],
     [ "rpp::operators::flat_map", "group__transforming__operators.html#ga633883e796101ceeab821e2a4912bd5e", null ],
     [ "rpp::operators::group_by", "group__transforming__operators.html#ga2fa21790af1c065382cd37faa3462851", null ],
     [ "rpp::operators::map", "group__transforming__operators.html#ga1291dba2d973d4ba1061c9e0e202cb3f", null ],

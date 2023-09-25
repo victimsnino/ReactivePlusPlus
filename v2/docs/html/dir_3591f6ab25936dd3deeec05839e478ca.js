@@ -2,6 +2,7 @@ var dir_3591f6ab25936dd3deeec05839e478ca =
 [
     [ "details", "dir_0d0da1fb4197fa3caa994cbb6099370d.html", "dir_0d0da1fb4197fa3caa994cbb6099370d" ],
     [ "as_blocking.hpp", "as__blocking_8hpp_source.html", null ],
+    [ "buffer.hpp", "buffer_8hpp_source.html", null ],
     [ "combine_latest.hpp", "combine__latest_8hpp_source.html", null ],
     [ "debounce.hpp", "debounce_8hpp_source.html", null ],
     [ "delay.hpp", "delay_8hpp_source.html", null ],

@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['with_5flatest_5ffrom_0',['with_latest_from',['../group__combining__operators.html#ga9345ba5faac717ba85fc88f1c5fff58b',1,'rpp::operators::with_latest_from(TSelector &amp;&amp;selector, TObservable &amp;&amp;observable, TObservables &amp;&amp;... observables)'],['../group__combining__operators.html#ga20acc2f23cb06163f9d5e56c5522ce6c',1,'rpp::operators::with_latest_from(TObservable &amp;&amp;observable, TObservables &amp;&amp;... observables)']]]
+  ['take_0',['take',['../group__filtering__operators.html#gaf32161437c2c6cd7d5a0e5170a333cbb',1,'rpp::operators']]],
+  ['take_5fwhile_1',['take_while',['../group__conditional__operators.html#gac65952f7460d8f0e71a93d95810d2061',1,'rpp::operators']]]
 ];

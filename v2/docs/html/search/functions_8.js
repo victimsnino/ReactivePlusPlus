@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['last_0',['last',['../group__filtering__operators.html#ga679e35f7895a5d7e22cd2b3c359b9457',1,'rpp::operators']]]
+  ['just_0',['just',['../group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0',1,'rpp::source::just(const TScheduler &amp;scheduler, T &amp;&amp;item, Ts &amp;&amp;... items)'],['../group__creational__operators.html#ga65fe5e58c0179835d702de99475c86b3',1,'rpp::source::just(T &amp;&amp;item, Ts &amp;&amp;... items)']]]
 ];
