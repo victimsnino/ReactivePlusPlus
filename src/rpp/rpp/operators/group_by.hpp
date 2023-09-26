@@ -135,7 +135,7 @@ struct group_by_observable_strategy
     {
         if (const auto locked = disposable.lock())
         {
-            subj.get_observable().subscribe(rpp::observer<T, observer<T, Strategy>>{locked->add_ref(), std::move(obs)});
+            subj.get_observable().subscribe(rpp::observer<T, rpp::details::with_disposable<observer<T, Strategy>>>{locked->add_ref(), std::move(obs)});
         }
     }
 };
