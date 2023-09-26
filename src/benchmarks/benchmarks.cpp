@@ -358,6 +358,20 @@ int main(int argc, char* argv[]) // NOLINT(bugprone-exception-escape)
                     | rxcpp::operators::subscribe<int>([](int v) { ankerl::nanobench::doNotOptimizeAway(v); });
             });
         }
+        SECTION("create+buffer(2)+subscribe")
+        {
+            TEST_RPP([&]() {
+                rpp::source::create<int>([](const auto& obs) { obs.on_next(1); obs.on_completed(); })
+                    | rpp::operators::buffer(2)
+                    | rpp::operators::subscribe([](const std::vector<int>& v) { ankerl::nanobench::doNotOptimizeAway(v); });
+            });
+
+            TEST_RXCPP([&]() {
+                rxcpp::observable<>::create<int>([](const auto& obs) { obs.on_next(1); obs.on_completed(); })
+                    | rxcpp::operators::buffer(2)
+                    | rxcpp::operators::subscribe<std::vector<int>>([](const std::vector<int>& v) { ankerl::nanobench::doNotOptimizeAway(v); });
+            });
+        }
     };
 
     BENCHMARK("Filtering Operators")
