@@ -26,9 +26,9 @@ class publish_strategy
     {
         std::shared_ptr<subject_state<Type>> state{};
 
-        static void set_upstream(const disposable_wrapper&) noexcept {}
+        void set_upstream(const disposable_wrapper& d) noexcept { state->add(d); }
 
-        static bool is_disposed() noexcept { return false; }
+        bool is_disposed() noexcept { return state->is_disposed(); }
 
         void on_next(const Type& v) const { state->on_next(v); }
 

@@ -113,6 +113,8 @@ auto with_latest_from(TSelector&& selector, TObservable&& observable, TObservabl
 
 template<rpp::constraint::observable TObservable, rpp::constraint::observable... TObservables>
 auto with_latest_from(TObservable&& observable, TObservables&&... observables);
+
+auto window(size_t count);
 } // namespace rpp::operators
 
 namespace rpp
