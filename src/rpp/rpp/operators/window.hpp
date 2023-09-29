@@ -65,7 +65,7 @@ public:
             if (m_state->subject.get_disposable().is_disposed())
                 m_state->subject = Subject{};
             
-            m_state->subject.get_observer().set_upstream(rpp::disposable_wrapper::from_weak(m_state));
+            m_state->subject.get_observer().set_upstream(m_state->add_ref());
             m_state->observer.on_next(m_state->subject.get_observable());
             m_state->items_in_current_window = 0;
         }
