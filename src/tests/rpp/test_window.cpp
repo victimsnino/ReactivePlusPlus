@@ -125,11 +125,8 @@ TEST_CASE("window subdivide observable into sub-observables")
 
             SECTION("emit first item")
             {
-                auto                          mock = mock_observer_strategy<int>{};
-                obs.subscribe([&](const auto& observable)
-                              {
-                                  observable.subscribe(mock.get_observer());
-                              },
+                auto mock = mock_observer_strategy<int>{};
+                obs.subscribe([&](const auto& observable) { observable.subscribe(mock.get_observer()); },
                               [](const std::exception_ptr&) {});
 
                 subj.get_observer().on_next(1);
