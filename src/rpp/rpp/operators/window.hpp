@@ -15,9 +15,15 @@
 #include <rpp/defs.hpp>
 #include <rpp/operators/details/strategy.hpp>
 #include <rpp/disposables/refcount_disposable.hpp>
+#include <rpp/subjects/publish_subject.hpp>
 
 #include <cstddef>
 
+namespace rpp
+{
+template<constraint::decayed_type Type>
+using windowed_observable = decltype(std::declval<subjects::publish_subject<Type>>().get_observable());
+}
 namespace rpp::operators::details
 {
 template<rpp::constraint::observer TObserver>
@@ -71,11 +77,11 @@ public:
         }
 
         ++m_state->items_in_current_window;
-        m_state->subject.get_subscriber().on_next(std::forward<T>(v));
+        m_state->subject.get_observer().on_next(std::forward<T>(v));
 
         // cleanup current subject, but don't send due to wait for new value
         if (m_state->items_in_current_window == m_state->window_size)
-            m_state->subject.get_subscriber().on_completed();
+            m_state->subject.get_observer().on_completed();
     }
 
     void on_error(const std::exception_ptr& err) const
@@ -98,8 +104,6 @@ private:
     std::shared_ptr<window_disposable<TObserver>> m_state;
 };
 
-template<constraint::decayed_type Type>
-using windowed_observable = decltype(std::declval<subjects::publish_subject<Type>>().get_observable());
 
 struct window_t : public operators::details::operator_observable_strategy_diffferent_types<window_observer_strategy, rpp::utils::types<>, size_t>
 {
