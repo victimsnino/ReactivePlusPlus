@@ -15,6 +15,7 @@
 #include <rpp/operators/window.hpp>
 
 #include "mock_observer.hpp"
+#include "disposable_observable.hpp"
 
 TEST_CASE("window subdivide observable into sub-observables")
 {
@@ -177,4 +178,9 @@ TEST_CASE("window subdivide observable into sub-observables")
             }
         }
     }
+}
+
+TEST_CASE("window disposes original disposable on disposing")
+{
+    test_operator_with_disposable<int>(rpp::ops::window(1));
 }
