@@ -27,5 +27,6 @@ var examples =
     [ "subscribe_on.cpp", "subscribe_on_8cpp-example.html", null ],
     [ "take.cpp", "take_8cpp-example.html", null ],
     [ "take_while.cpp", "take_while_8cpp-example.html", null ],
+    [ "window.cpp", "window_8cpp-example.html", null ],
     [ "with_latest_from.cpp", "with_latest_from_8cpp-example.html", null ]
 ];

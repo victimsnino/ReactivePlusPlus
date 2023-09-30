@@ -9,6 +9,7 @@ var hierarchy =
     ] ],
     [ "rpp::subjects::details::base_subject< T, Strategy >", "classrpp_1_1subjects_1_1details_1_1base__subject.html", null ],
     [ "rpp::subjects::details::base_subject< T >", "classrpp_1_1subjects_1_1details_1_1base__subject.html", null ],
+    [ "rpp::subjects::details::base_subject< ValueType >", "classrpp_1_1subjects_1_1details_1_1base__subject.html", null ],
     [ "rpp::details::observables::blocking_observer_strategy< TObserver >", "structrpp_1_1details_1_1observables_1_1blocking__observer__strategy.html", null ],
     [ "rpp::details::observables::blocking_strategy< Type, Strategy >", "classrpp_1_1details_1_1observables_1_1blocking__strategy.html", null ],
     [ "rpp::operators::details::buffer_observer_strategy< TObserver >", "classrpp_1_1operators_1_1details_1_1buffer__observer__strategy.html", null ],
@@ -53,6 +54,7 @@ var hierarchy =
     [ "rpp::operators::details::filter_observer_strategy< TObserver, Fn >", "structrpp_1_1operators_1_1details_1_1filter__observer__strategy.html", null ],
     [ "rpp::operators::details::first_observer_strategy< TObserver >", "structrpp_1_1operators_1_1details_1_1first__observer__strategy.html", null ],
     [ "rpp::operators::details::flat_map_t< Fn >", "structrpp_1_1operators_1_1details_1_1flat__map__t.html", null ],
+    [ "rpp::operators::details::forwarding_strategy< Type >", "classrpp_1_1operators_1_1details_1_1forwarding__strategy.html", null ],
     [ "rpp::details::from_callable_invoke", "structrpp_1_1details_1_1from__callable__invoke.html", null ],
     [ "rpp::details::from_iterable_schedulable", "structrpp_1_1details_1_1from__iterable__schedulable.html", null ],
     [ "rpp::details::from_iterable_strategy< PackedContainer, TScheduler >", "structrpp_1_1details_1_1from__iterable__strategy.html", null ],
@@ -122,7 +124,8 @@ var hierarchy =
       [ "rpp::operators::details::scan_t< InitialValue, Fn >", "structrpp_1_1operators_1_1details_1_1scan__t.html", null ],
       [ "rpp::operators::details::skip_t", "structrpp_1_1operators_1_1details_1_1skip__t.html", null ],
       [ "rpp::operators::details::take_t", "structrpp_1_1operators_1_1details_1_1take__t.html", null ],
-      [ "rpp::operators::details::take_while_t< Fn >", "structrpp_1_1operators_1_1details_1_1take__while__t.html", null ]
+      [ "rpp::operators::details::take_while_t< Fn >", "structrpp_1_1operators_1_1details_1_1take__while__t.html", null ],
+      [ "rpp::operators::details::window_t", "structrpp_1_1operators_1_1details_1_1window__t.html", null ]
     ] ],
     [ "rpp::operators::details::pointer_under_lock< T >", "classrpp_1_1operators_1_1details_1_1pointer__under__lock.html", null ],
     [ "rpp::subjects::details::publish_strategy< Type >", "classrpp_1_1subjects_1_1details_1_1publish__strategy.html", null ],
@@ -163,6 +166,7 @@ var hierarchy =
     [ "rpp::operators::details::value_with_mutex< T >", "structrpp_1_1operators_1_1details_1_1value__with__mutex.html", null ],
     [ "rpp::operators::details::value_with_mutex< Observer >", "structrpp_1_1operators_1_1details_1_1value__with__mutex.html", null ],
     [ "rpp::operators::details::value_with_mutex< TObserver >", "structrpp_1_1operators_1_1details_1_1value__with__mutex.html", null ],
+    [ "rpp::operators::details::window_observer_strategy< TObserver >", "classrpp_1_1operators_1_1details_1_1window__observer__strategy.html", null ],
     [ "rpp::details::with_disposable< S >", "structrpp_1_1details_1_1with__disposable.html", null ],
     [ "rpp::operators::details::with_latest_from_inner_observer_strategy< I, Observer, TSelector, RestArgs >", "structrpp_1_1operators_1_1details_1_1with__latest__from__inner__observer__strategy.html", null ],
     [ "rpp::operators::details::with_latest_from_observer_strategy< Observer, TSelector, OriginalValue, RestArgs >", "structrpp_1_1operators_1_1details_1_1with__latest__from__observer__strategy.html", null ],

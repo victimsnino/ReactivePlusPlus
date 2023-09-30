@@ -23,7 +23,9 @@ requires (!utils\+::is\+\_\+not\+\_\+template\+\_\+callable$<$Fn$>$ \texorpdfstr
 requires (!utils\+::is\+\_\+not\+\_\+template\+\_\+callable$<$Fn$>$ \texorpdfstring{$\vert$}{|}\texorpdfstring{$\vert$}{|} std\+::same\+\_\+as$<$std\+::decay\+\_\+t$<$Initial\+Value$>$, std\+::invoke\+\_\+result\+\_\+t$<$Fn, std\+::decay\+\_\+t$<$Initial\+Value$>$ \&\&, rpp\+::utils\+::convertible\+\_\+to\+\_\+any$>$$>$)}\\auto \mbox{\hyperlink{group__transforming__operators_gad34415b9aeed2ad2446e7d54b6a4081c}{rpp\+::operators\+::scan}} (Initial\+Value \&\&initial\+\_\+value, Fn \&\&accumulator)
 \begin{DoxyCompactList}\small\item\em Apply accumulator function for each emission from observable and result of accumulator from previous step and emit (and cache) resulting value. \end{DoxyCompactList}\item 
 {\footnotesize template$<$typename Fn $>$ }\\auto \mbox{\hyperlink{group__transforming__operators_gaced4a6e7bc0556b40b07d7efd97d7ee3}{rpp\+::operators\+::scan}} (Fn \&\&accumulator)
-\begin{DoxyCompactList}\small\item\em Apply accumulator function for each emission from observable and result of accumulator from previous step and emit (and cache) resulting value. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Apply accumulator function for each emission from observable and result of accumulator from previous step and emit (and cache) resulting value. \end{DoxyCompactList}\item 
+auto \mbox{\hyperlink{group__transforming__operators_gab947bced93ea29bcaa791904a49f43e5}{rpp\+::operators\+::window}} (size\+\_\+t count)
+\begin{DoxyCompactList}\small\item\em Subdivide original observable into sub-\/observables (windowed observables) and emit sub-\/observables of items instead of original items. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsubsubsection{Detailed Description}
@@ -47,7 +49,7 @@ Periodically gather emissions emitted by an original Observable into bundles and
 
 
 
-The resulting bundle is {\ttfamily std\+::vector\texorpdfstring{$<$}{<}Type\texorpdfstring{$>$}{>}} of requested size. Actually it is similar to {\ttfamily window()} operator, but it emits vectors instead of observables.
+The resulting bundle is {\ttfamily std\+::vector\texorpdfstring{$<$}{<}Type\texorpdfstring{$>$}{>}} of requested size. Actually it is similar to {\ttfamily \doxylink{group__transforming__operators_gab947bced93ea29bcaa791904a49f43e5}{window()}} operator, but it emits vectors instead of observables.
 
 
 \begin{DoxyParams}{Parameters}
@@ -373,3 +375,49 @@ Initial value would be used as first value from this observable (would be sent d
 \begin{DoxySeeAlso}{See also}
 \href{https://reactivex.io/documentation/operators/scan.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/scan.\+html}} 
 \end{DoxySeeAlso}
+\Hypertarget{group__transforming__operators_gab947bced93ea29bcaa791904a49f43e5}\label{group__transforming__operators_gab947bced93ea29bcaa791904a49f43e5} 
+\index{Transforming Operators@{Transforming Operators}!window@{window}}
+\index{window@{window}!Transforming Operators@{Transforming Operators}}
+\doxysubsubsubsubsection{\texorpdfstring{window()}{window()}}
+{\footnotesize\ttfamily auto rpp\+::operators\+::window (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{count }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Subdivide original observable into sub-\/observables (windowed observables) and emit sub-\/observables of items instead of original items. 
+
+
+
+Actually it is similar to {\ttfamily buffer} but it emits observable instead of container.
+
+
+\begin{DoxyParams}{Parameters}
+{\em window\+\_\+size} & amount of items which every observable would have\\
+\hline
+\end{DoxyParams}
+\begin{DoxyWarning}{Warning}
+\#include \texorpdfstring{$<$}{<}\doxylink{window_8hpp_source}{rpp/operators/window.\+hpp}\texorpdfstring{$>$}{>}
+\end{DoxyWarning}
+\begin{DoxyParagraph}{Example}
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(1,\ 2,\ 3,\ 4,\ 5)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__transforming__operators_gab947bced93ea29bcaa791904a49f43e5}{rpp::operators::window}}(3)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ rpp::operators::subscribe([](\textcolor{keyword}{const}\ rpp::windowed\_observable<int>\&\ v)\ }
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \{\ }
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)nNew\ observable\ "{}}\ <<\ std::endl;\ }
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ v.subscribe([](\textcolor{keywordtype}{int}\ v)\ \{std::cout\ <<\ v\ <<\ \textcolor{stringliteral}{"{}\ "{}};\ \});\ }
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:\ New\ observable}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ 1\ 2\ 3}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ New\ observable}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ 4\ 5}}
+
+\end{DoxyCodeInclude}
+
+\end{DoxyParagraph}
+\begin{DoxySeeAlso}{See also}
+\href{https://reactivex.io/documentation/operators/window.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/window.\+html}} 
+\end{DoxySeeAlso}
+\begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{window_8cpp-example}{window.\+cpp}}.\end{Desc}

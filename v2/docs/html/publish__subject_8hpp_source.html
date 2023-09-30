@@ -128,9 +128,9 @@ $(document).ready(function(){initNavTree('publish__subject_8hpp_source.html','')
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    {</div>
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>        std::shared_ptr&lt;subject_state&lt;Type&gt;&gt; state{};</div>
 <div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>        <span class="keyword">static</span> <span class="keywordtype">void</span> set_upstream(<span class="keyword">const</span> <a class="code hl_class" href="classrpp_1_1disposable__wrapper__impl.html">disposable_wrapper</a>&amp;) <span class="keyword">noexcept</span> {}</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>        <span class="keywordtype">void</span> set_upstream(<span class="keyword">const</span> <a class="code hl_class" href="classrpp_1_1disposable__wrapper__impl.html">disposable_wrapper</a>&amp; d) <span class="keyword">const</span> <span class="keyword">noexcept</span> { state-&gt;add(d); }</div>
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>        <span class="keyword">static</span> <span class="keywordtype">bool</span> is_disposed() <span class="keyword">noexcept</span> { <span class="keywordflow">return</span> <span class="keyword">false</span>; }</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>        <span class="keywordtype">bool</span> is_disposed() <span class="keyword">const</span> <span class="keyword">noexcept</span> { <span class="keywordflow">return</span> state-&gt;is_disposed(); }</div>
 <div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>        <span class="keywordtype">void</span> on_next(<span class="keyword">const</span> Type&amp; v)<span class="keyword"> const </span>{ state-&gt;on_next(v); }</div>
 <div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>

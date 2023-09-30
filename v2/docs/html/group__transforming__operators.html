@@ -134,6 +134,9 @@ requires (!utils::is_not_template_callable&lt;Fn&gt; || std::same_as&lt;std::dec
 <tr class="memitem:gaced4a6e7bc0556b40b07d7efd97d7ee3"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__transforming__operators.html#gaced4a6e7bc0556b40b07d7efd97d7ee3">rpp::operators::scan</a> (Fn &amp;&amp;accumulator)</td></tr>
 <tr class="memdesc:gaced4a6e7bc0556b40b07d7efd97d7ee3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Apply accumulator function for each emission from observable and result of accumulator from previous step and emit (and cache) resulting value.  <br /></td></tr>
 <tr class="separator:gaced4a6e7bc0556b40b07d7efd97d7ee3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab947bced93ea29bcaa791904a49f43e5" id="r_gab947bced93ea29bcaa791904a49f43e5"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__transforming__operators.html#gab947bced93ea29bcaa791904a49f43e5">rpp::operators::window</a> (size_t count)</td></tr>
+<tr class="memdesc:gab947bced93ea29bcaa791904a49f43e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Subdivide original observable into sub-observables (windowed observables) and emit sub-observables of items instead of original items.  <br /></td></tr>
+<tr class="separator:gab947bced93ea29bcaa791904a49f43e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p>Transforming operators are operators that transform items provided by observable. </p>
@@ -167,7 +170,7 @@ requires (!utils::is_not_template_callable&lt;Fn&gt; || std::same_as&lt;std::dec
 <div class="image">
 <object type="image/svg+xml" data="buffer.svg" style="pointer-events: none;"></object>
 </div>
-<p>The resulting bundle is <code>std::vector&lt;Type&gt;</code> of requested size. Actually it is similar to <code>window()</code> operator, but it emits vectors instead of observables.</p>
+<p>The resulting bundle is <code>std::vector&lt;Type&gt;</code> of requested size. Actually it is similar to <code><a class="el" href="group__transforming__operators.html#gab947bced93ea29bcaa791904a49f43e5" title="Subdivide original observable into sub-observables (windowed observables) and emit sub-observables of...">window()</a></code> operator, but it emits vectors instead of observables.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">count</td><td>number of items being bundled. </td></tr>
@@ -501,6 +504,61 @@ requires (!utils::is_not_template_callable&lt;Fn&gt; || std::same_as&lt;std::dec
 <div class="line">    <span class="comment">//         vector: 1 2 3</span></div>
 </div><!-- fragment --></dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/scan.html">https://reactivex.io/documentation/operators/scan.html</a> </dd></dl>
+
+</div>
+</div>
+<a id="gab947bced93ea29bcaa791904a49f43e5" name="gab947bced93ea29bcaa791904a49f43e5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gab947bced93ea29bcaa791904a49f43e5">&#9670;&#160;</a></span>window()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto rpp::operators::window </td>
+          <td>(</td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>count</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Subdivide original observable into sub-observables (windowed observables) and emit sub-observables of items instead of original items. </p>
+<div class="image">
+<object type="image/svg+xml" data="window.svg" style="pointer-events: none;"></object>
+</div>
+<p>Actually it is similar to <code>buffer</code> but it emits observable instead of container.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">window_size</td><td>amount of items which every observable would have</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="window_8hpp_source.html">rpp/operators/window.hpp</a>&gt;</dd></dl>
+<dl class="section user"><dt>Example</dt><dd><div class="fragment"><div class="line">    <a class="code hl_function" href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">rpp::source::just</a>(1, 2, 3, 4, 5)</div>
+<div class="line">        | <a class="code hl_function" href="group__transforming__operators.html#gab947bced93ea29bcaa791904a49f43e5">rpp::operators::window</a>(3)</div>
+<div class="line">        | rpp::operators::subscribe([](<span class="keyword">const</span> rpp::windowed_observable&lt;int&gt;&amp; v) </div>
+<div class="line">        { </div>
+<div class="line">            std::cout &lt;&lt; <span class="stringliteral">&quot;\nNew observable &quot;</span> &lt;&lt; std::endl; </div>
+<div class="line">            v.subscribe([](<span class="keywordtype">int</span> v) {std::cout &lt;&lt; v &lt;&lt; <span class="stringliteral">&quot; &quot;</span>; }); </div>
+<div class="line">        });</div>
+<div class="line">    <span class="comment">// Output: New observable</span></div>
+<div class="line">    <span class="comment">//         1 2 3</span></div>
+<div class="line">    <span class="comment">//         New observable</span></div>
+<div class="line">    <span class="comment">//         4 5</span></div>
+<div class="ttc" id="agroup__transforming__operators_html_gab947bced93ea29bcaa791904a49f43e5"><div class="ttname"><a href="group__transforming__operators.html#gab947bced93ea29bcaa791904a49f43e5">rpp::operators::window</a></div><div class="ttdeci">auto window(size_t count)</div><div class="ttdoc">Subdivide original observable into sub-observables (windowed observables) and emit sub-observables of...</div><div class="ttdef"><b>Definition</b> window.hpp:120</div></div>
+</div><!-- fragment --></dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/window.html">https://reactivex.io/documentation/operators/window.html</a> </dd></dl>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="window_8cpp-example.html#a1">window.cpp</a>.</dd>
+</dl>
 
 </div>
 </div>
