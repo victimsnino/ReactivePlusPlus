@@ -17,10 +17,11 @@
 
 namespace rpp::operators::details
 {
-template<rpp::constraint::observer TObserver, rpp::constraint::decayed_type Seed, rpp::constraint::decayed_type Accumulator>
+template<rpp::constraint::observer TObserver, rpp::constraint::decayed_type Accumulator>
 struct reduce_observer_strategy
 {
     using DisposableStrategyToUseWithThis = rpp::details::none_disposable_strategy;
+    using Seed = <rpp::utils::extract_observer_type_t<TObserver>;
 
     RPP_NO_UNIQUE_ADDRESS TObserver    observer;
     RPP_NO_UNIQUE_ADDRESS mutable Seed seed;
@@ -46,19 +47,20 @@ struct reduce_observer_strategy
 };
 
 template<rpp::constraint::decayed_type Seed, rpp::constraint::decayed_type Accumulator>
-struct reduce_t : public operators::details::operator_observable_strategy<reduce_observer_strategy, Seed, Accumulator>
+struct reduce_t : public operators::details::operator_observable_strategy_diffferent_types<reduce_observer_strategy, rpp::utils::types<Accumulator>, Seed, Accumulator>
 {
-    using operators::details::operator_observable_strategy<reduce_observer_strategy, Seed, Accumulator>::operator_observable_strategy;
+    //using operators::details::operator_observable_strategy_diffferent_types<reduce_observer_strategy, Accumulator>::operator_observable_strategy;
 
     template<rpp::constraint::decayed_type T>
         requires std::is_invocable_r_v<Seed, Accumulator, Seed&&, T>
     using ResultValue = Seed;
 };
 
-template<rpp::constraint::decayed_type Seed, rpp::constraint::observer TObserver, rpp::constraint::decayed_type Accumulator>
+template<rpp::constraint::observer TObserver, rpp::constraint::decayed_type Accumulator>
 struct reduce_no_seed_observer_strategy
 {
     using DisposableStrategyToUseWithThis = rpp::details::none_disposable_strategy;
+    using Seed = rpp::utils::extract_observer_type_t<TObserver>;
 
     RPP_NO_UNIQUE_ADDRESS TObserver   observer;
     RPP_NO_UNIQUE_ADDRESS Accumulator accumulator;
@@ -87,7 +89,7 @@ struct reduce_no_seed_observer_strategy
 };
 
 template<rpp::constraint::decayed_type Accumulator>
-struct reduce_no_seed_t : public operators::details::template_operator_observable_strategy<reduce_no_seed_observer_strategy, Accumulator>
+struct reduce_no_seed_t : public operators::details::operator_observable_strategy<reduce_no_seed_observer_strategy, Accumulator>
 {
     template<rpp::constraint::decayed_type T>
         requires std::is_invocable_r_v<T, Accumulator, T&&, T>
