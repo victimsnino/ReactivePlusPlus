@@ -96,3 +96,12 @@
 
 #include <rpp/operators/multicast.hpp>
 #include <rpp/operators/publish.hpp>
+
+/**
+ * @defgroup aggregate_operators Aggregate Operators
+ * @brief Aggregate operators are operators that operate on the entire sequence of items emitted by an Observable
+ * @see https://reactivex.io/documentation/operators.html#mathematical
+ * @ingroup operators
+ */
+
+#include <rpp/operators/reduce.hpp>

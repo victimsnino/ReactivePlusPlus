@@ -13,11 +13,17 @@
     #include <rxcpp/rx.hpp>
 #endif
 
-#define BENCHMARK(NAME)     bench.context("benchmark_title", NAME); if (!benchmark.has_value() || std::string_view{NAME}.find(benchmark.value()) != std::string_view::npos)
-#define SECTION(NAME)       bench.context("benchmark_name", NAME); if (!section.has_value() || std::string_view{NAME}.find(section.value()) != std::string_view::npos)
-#define TEST_RPP(...)       if (!disable_rpp) bench.context("source", "rpp").run(__VA_ARGS__)
+#define BENCHMARK(NAME)                     \
+    bench.context("benchmark_title", NAME); \
+    if (!benchmark.has_value() || std::string_view{NAME}.find(benchmark.value()) != std::string_view::npos)
+#define SECTION(NAME)                      \
+    bench.context("benchmark_name", NAME); \
+    if (!section.has_value() || std::string_view{NAME}.find(section.value()) != std::string_view::npos)
+#define TEST_RPP(...) \
+    if (!disable_rpp) bench.context("source", "rpp").run(__VA_ARGS__)
 #ifdef RPP_BUILD_RXCPP
-    #define TEST_RXCPP(...)  if (!disable_rxcpp) bench.context("source", "rxcpp").run(__VA_ARGS__)
+    #define TEST_RXCPP(...) \
+        if (!disable_rxcpp) bench.context("source", "rxcpp").run(__VA_ARGS__)
 #else
     #define TEST_RXCPP(...)
 #endif
@@ -358,6 +364,7 @@ int main(int argc, char* argv[]) // NOLINT(bugprone-exception-escape)
                     | rxcpp::operators::subscribe<int>([](int v) { ankerl::nanobench::doNotOptimizeAway(v); });
             });
         }
+
         SECTION("create+buffer(2)+subscribe")
         {
             TEST_RPP([&]() {
@@ -480,6 +487,24 @@ int main(int argc, char* argv[]) // NOLINT(bugprone-exception-escape)
             TEST_RXCPP([&]() {
                 rxcpp::observable<>::create<int>([](const auto& obs) { obs.on_next(1); })
                     | rxcpp::operators::subscribe_on(rxcpp::identity_immediate())
+                    | rxcpp::operators::subscribe<int>([](int v) { ankerl::nanobench::doNotOptimizeAway(v); });
+            });
+        }
+    }
+
+    BENCHMARK("Aggregating Operators")
+    {
+        SECTION("create+reduce(10, std::plus)+subscribe")
+        {
+            TEST_RPP([&]() {
+                rpp::source::create<int>([](const auto& obs) { obs.on_next(1); obs.on_next(2); obs.on_next(3); })
+                    | rpp::operators::reduce(10, std::plus<int>{})
+                    | rpp::operators::subscribe([](int v) { ankerl::nanobench::doNotOptimizeAway(v); });
+            });
+
+            TEST_RXCPP([&]() {
+                rxcpp::observable<>::create<int>([](const auto& obs) { obs.on_next(1); obs.on_next(2); obs.on_next(3); })
+                    | rxcpp::operators::reduce(10, std::plus<int>{})
                     | rxcpp::operators::subscribe<int>([](int v) { ankerl::nanobench::doNotOptimizeAway(v); });
             });
         }
