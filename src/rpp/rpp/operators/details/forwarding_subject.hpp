@@ -14,17 +14,18 @@
 #include <rpp/observers/observer.hpp>
 #include <rpp/subjects/details/base_subject.hpp>
 #include <rpp/subjects/details/subject_state.hpp>
+#include <rpp/disposables/refcount_disposable.hpp>
 
 #include <memory>
 
-namespace rpp::subjects::details
+namespace rpp::operators::details
 {
 template<rpp::constraint::decayed_type Type>
-class publish_strategy
+class forwarding_strategy
 {
     struct observer_strategy
     {
-        std::shared_ptr<subject_state<Type>> state{};
+        std::shared_ptr<subjects::details::subject_state<Type>> state{};
 
         void set_upstream(const disposable_wrapper& d) const noexcept { state->add(d); }
 
@@ -38,6 +39,12 @@ class publish_strategy
     };
 
 public:
+    explicit forwarding_strategy(std::shared_ptr<rpp::refcount_disposable> refcount)
+        : m_refcount{std::move(refcount)}
+    {
+        m_refcount->add(rpp::disposable_wrapper::from_weak(m_state));
+    }
+
     auto get_observer() const
     {
         return rpp::observer<Type, rpp::details::with_disposable<observer_strategy>>{composite_disposable_wrapper{m_state}, observer_strategy{m_state}};
@@ -46,6 +53,7 @@ public:
     template<rpp::constraint::observer_of_type<Type> TObs>
     void on_subscribe(TObs&& observer) const
     {
+        observer.set_upstream(m_refcount->add_ref());
         m_state->on_subscribe(std::forward<TObs>(observer));
     }
 
@@ -55,6 +63,10 @@ public:
     }
 
 private:
-    std::shared_ptr<subject_state<Type>> m_state = std::make_shared<subject_state<Type>>();
+    std::shared_ptr<subjects::details::subject_state<Type>> m_state = std::make_shared<subjects::details::subject_state<Type>>();
+    std::shared_ptr<rpp::refcount_disposable>               m_refcount{};
 };
-} // namespace rpp::subjects::details
+
+template<rpp::constraint::decayed_type Type>
+using forwarding_subject = subjects::details::base_subject<Type, forwarding_strategy<Type>>;
+} 

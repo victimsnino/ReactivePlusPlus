@@ -36,6 +36,7 @@
 #include <rpp/operators/map.hpp>
 #include <rpp/operators/scan.hpp>
 #include <rpp/operators/subscribe.hpp>
+#include <rpp/operators/window.hpp>
 
 /**
  * @defgroup filtering_operators Filtering Operators

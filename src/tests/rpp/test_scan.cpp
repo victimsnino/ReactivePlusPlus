@@ -17,8 +17,6 @@
 #include "copy_count_tracker.hpp"
 #include "disposable_observable.hpp"
 
-#include "rpp/operators/subscribe.hpp"
-
 
 TEMPLATE_TEST_CASE("scan scans values and store state", "", rpp::memory_model::use_stack, rpp::memory_model::use_shared)
 {
