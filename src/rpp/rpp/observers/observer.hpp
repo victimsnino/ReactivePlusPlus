@@ -35,6 +35,9 @@ public:
 
     void add(const disposable_wrapper& d)
     {
+        const auto itr = std::remove_if(m_upstreams.begin(), m_upstreams.end(), rpp::utils::static_mem_fn<&rpp::disposable_wrapper::is_disposed>());
+        m_upstreams.erase(itr, m_upstreams.end());
+        
         m_upstreams.push_back(d);
     }
 
