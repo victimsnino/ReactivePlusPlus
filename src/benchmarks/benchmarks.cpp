@@ -497,13 +497,13 @@ int main(int argc, char* argv[]) // NOLINT(bugprone-exception-escape)
         SECTION("create+reduce(10, std::plus)+subscribe")
         {
             TEST_RPP([&]() {
-                rpp::source::create<int>([](const auto& obs) { obs.on_next(1); obs.on_next(2); obs.on_next(3); })
+                rpp::source::create<int>([](const auto& obs) { obs.on_next(1); obs.on_completed(); })
                     | rpp::operators::reduce(10, std::plus<int>{})
                     | rpp::operators::subscribe([](int v) { ankerl::nanobench::doNotOptimizeAway(v); });
             });
 
             TEST_RXCPP([&]() {
-                rxcpp::observable<>::create<int>([](const auto& obs) { obs.on_next(1); obs.on_next(2); obs.on_next(3); })
+                rxcpp::observable<>::create<int>([](const auto& obs) { obs.on_next(1); obs.on_completed(); })
                     | rxcpp::operators::reduce(10, std::plus<int>{})
                     | rxcpp::operators::subscribe<int>([](int v) { ankerl::nanobench::doNotOptimizeAway(v); });
             });
