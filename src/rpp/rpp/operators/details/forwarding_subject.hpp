@@ -59,7 +59,7 @@ public:
 
     rpp::disposable_wrapper get_disposable() const
     {
-        return rpp::disposable_wrapper{m_refcount};
+        return rpp::disposable_wrapper{m_state};
     }
 
 private:
