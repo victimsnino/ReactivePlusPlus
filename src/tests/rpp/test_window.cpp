@@ -13,9 +13,11 @@
 #include <rpp/sources/just.hpp>
 #include <rpp/sources/error.hpp>
 #include <rpp/operators/window.hpp>
+#include <rpp/subjects/publish_subject.hpp>
 
 #include "mock_observer.hpp"
 #include "disposable_observable.hpp"
+#include "snitch_logging.hpp"
 
 TEST_CASE("window subdivide observable into sub-observables")
 {
@@ -175,6 +177,41 @@ TEST_CASE("window subdivide observable into sub-observables")
             }
         }
     }
+}
+
+TEST_CASE("window disposes original disposable only when everything is disposed")
+{
+    auto source_disposable = std::make_shared<rpp::composite_disposable>();
+    auto obs = rpp::source::create<int>([source_disposable](auto&& obs)
+    {
+        obs.set_upstream(source_disposable);
+        obs.on_next(1);
+    });
+
+    auto observer_disposable = std::make_shared<rpp::composite_disposable>();
+    auto inner_observer_disposable = std::make_shared<rpp::composite_disposable>();
+    obs 
+        | rpp::ops::window(2) 
+        | rpp::ops::subscribe(rpp::composite_disposable_wrapper{observer_disposable}, [inner_observer_disposable](const rpp::windowed_observable<int>& new_obs)
+    {
+        new_obs.subscribe(rpp::composite_disposable_wrapper{inner_observer_disposable}, [](int){});
+    });
+
+    CHECK(!source_disposable->is_disposed());
+    CHECK(!observer_disposable->is_disposed());
+    CHECK(!inner_observer_disposable->is_disposed());
+
+    observer_disposable->dispose();
+
+    CHECK(!source_disposable->is_disposed());
+    CHECK(observer_disposable->is_disposed());
+    CHECK(!inner_observer_disposable->is_disposed());
+
+    inner_observer_disposable->dispose();
+
+    CHECK(source_disposable->is_disposed());
+    CHECK(observer_disposable->is_disposed());
+    CHECK(inner_observer_disposable->is_disposed());
 }
 
 TEST_CASE("window disposes original disposable on disposing")

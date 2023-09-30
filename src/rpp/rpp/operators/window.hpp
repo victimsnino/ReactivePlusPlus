@@ -15,14 +15,14 @@
 #include <rpp/defs.hpp>
 #include <rpp/operators/details/strategy.hpp>
 #include <rpp/disposables/refcount_disposable.hpp>
-#include <rpp/subjects/publish_subject.hpp>
+#include <rpp/operators/details/forwarding_subject.hpp>
 
 #include <cstddef>
 
 namespace rpp
 {
 template<constraint::decayed_type Type>
-using windowed_observable = decltype(std::declval<subjects::publish_subject<Type>>().get_observable());
+using windowed_observable = decltype(std::declval<rpp::operators::details::forwarding_subject<Type>>().get_observable());
 }
 namespace rpp::operators::details
 {
@@ -31,7 +31,6 @@ struct window_disposable : public refcount_disposable
 {
     using Observable = rpp::utils::extract_observer_type_t<TObserver>;
     using ValueType = rpp::utils::extract_observable_type_t<Observable>;
-    using Subject = subjects::publish_subject<ValueType>;
 
     window_disposable(TObserver&& observer, size_t count)
         : observer{std::move(observer)}
@@ -40,7 +39,6 @@ struct window_disposable : public refcount_disposable
     }
 
     RPP_NO_UNIQUE_ADDRESS TObserver observer;
-    Subject                         subject{};
     const size_t                    window_size;
     mutable size_t                  items_in_current_window = window_size;
 };
@@ -50,7 +48,8 @@ class window_observer_strategy
 {
     using Observable = rpp::utils::extract_observer_type_t<TObserver>;
     using ValueType = rpp::utils::extract_observable_type_t<Observable>;
-    using Subject = subjects::publish_subject<ValueType>;
+    using Subject = forwarding_subject<ValueType>;
+
     static_assert(std::same_as<Observable, decltype(std::declval<Subject>().get_observable())>);
     
 public:
@@ -68,31 +67,30 @@ public:
         // need to send new subject due to NEW item appeared (we avoid sending new subjects if no any new items)
         if (m_state->items_in_current_window == m_state->window_size)
         {
-            if (m_state->subject.get_disposable().is_disposed())
-                m_state->subject = Subject{};
+            if (m_subject.get_disposable().is_disposed())
+                m_subject = Subject{m_state};
             
-            m_state->subject.get_observer().set_upstream(m_state->add_ref());
-            m_state->observer.on_next(m_state->subject.get_observable());
+            m_state->observer.on_next(m_subject.get_observable());
             m_state->items_in_current_window = 0;
         }
 
         ++m_state->items_in_current_window;
-        m_state->subject.get_observer().on_next(std::forward<T>(v));
+        m_subject.get_observer().on_next(std::forward<T>(v));
 
         // cleanup current subject, but don't send due to wait for new value
         if (m_state->items_in_current_window == m_state->window_size)
-            m_state->subject.get_observer().on_completed();
+            m_subject.get_observer().on_completed();
     }
 
     void on_error(const std::exception_ptr& err) const
     {
-        m_state->subject.get_observer().on_error(err);
+        m_subject.get_observer().on_error(err);
         m_state->observer.on_error(err);
     }
 
     void on_completed() const
     {
-        m_state->subject.get_observer().on_completed();
+        m_subject.get_observer().on_completed();
         m_state->observer.on_completed();
     }
 
@@ -102,6 +100,7 @@ public:
 
 private:
     std::shared_ptr<window_disposable<TObserver>> m_state;
+    mutable Subject                               m_subject{m_state};
 };
 
 
