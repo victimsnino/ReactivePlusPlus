@@ -42,7 +42,7 @@ public:
     explicit forwarding_strategy(std::shared_ptr<rpp::refcount_disposable> refcount)
         : m_refcount{std::move(refcount)}
     {
-        m_refcount->add(m_state);
+        m_refcount->add(rpp::disposable_wrapper::from_weak(m_state));
     }
 
     auto get_observer() const
