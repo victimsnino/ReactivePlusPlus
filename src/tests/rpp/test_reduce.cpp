@@ -14,9 +14,10 @@
 #include <rpp/sources/from.hpp>
 
 #include "copy_count_tracker.hpp"
+#include "disposable_observable.hpp"
 #include "mock_observer.hpp"
 
-TEMPLATE_TEST_CASE("scan scans values and store state", "", rpp::memory_model::use_stack, rpp::memory_model::use_shared)
+TEMPLATE_TEST_CASE("reduce reduces values and store state", "", rpp::memory_model::use_stack, rpp::memory_model::use_shared)
 {
     auto obs = rpp::source::just<TestType>(1, 2, 3);
 
@@ -72,28 +73,29 @@ TEST_CASE("reduce doesn't produce extra copies")
     SECTION("send value by copy")
     {
         copy_count_tracker tracker{};
-        tracker.get_observable(2) 
+        tracker.get_observable(2)
             | rpp::ops::reduce([](copy_count_tracker&& seed, const copy_count_tracker& value) {
-                seed = value;
-                return seed; 
-            }) 
-            | rpp::ops::subscribe([](copy_count_tracker){});
+                  seed = value;
+                  return seed;
+              })
+            | rpp::ops::subscribe([](copy_count_tracker) {});
 
         // first emission: 1 copy from source to reduce + 1 move to seed
         // second emision: 1 copy from source to reduce + 1 move to seed + 1 move to subscriber
 
-        CHECK(tracker.get_copy_count() == 2); 
+        CHECK(tracker.get_copy_count() == 2);
         CHECK(tracker.get_move_count() == 3);
     }
+
     SECTION("send value by move")
     {
         copy_count_tracker tracker{};
-        tracker.get_observable_for_move(2) 
+        tracker.get_observable_for_move(2)
             | rpp::ops::reduce([](copy_count_tracker&& seed, copy_count_tracker&& value) {
-                seed = std::move(value);
-                return seed; 
-            }) 
-            | rpp::ops::subscribe([](copy_count_tracker){});
+                  seed = std::move(value);
+                  return seed;
+              })
+            | rpp::ops::subscribe([](copy_count_tracker) {});
 
         // first emission: 1 move from source to reduce + 1 move to seed
         // second emision: 1 move from source to reduce + 1 move to seed + 1 move to subscriber
@@ -101,4 +103,9 @@ TEST_CASE("reduce doesn't produce extra copies")
         CHECK(tracker.get_copy_count() == 0);
         CHECK(tracker.get_move_count() == 5);
     }
+}
+
+TEST_CASE("reduce disposes original disposable on disposing")
+{
+    test_operator_with_disposable<int>(rpp::ops::reduce([](auto&& s, auto&&) { return s; }));
 }
