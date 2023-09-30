@@ -14,6 +14,7 @@
 
 #include <rpp/disposables/disposable_wrapper.hpp>
 #include <rpp/disposables/interface_composite_disposable.hpp>
+#include <rpp/utils/utils.hpp>
 
 #include <atomic>
 #include <memory>
@@ -72,6 +73,8 @@ public:
             State expected{State::None};
             if (m_current_state.compare_exchange_strong(expected, State::Edit, std::memory_order::acq_rel))
             {
+                const auto itr = std::remove_if(m_disposables.begin(), m_disposables.end(), rpp::utils::static_mem_fn<&rpp::disposable_wrapper::is_disposed>());
+                m_disposables.erase(itr, m_disposables.end());
                 m_disposables.emplace_back(std::move(disposable));
                 m_current_state.store(State::None, std::memory_order::release);
                 return;
