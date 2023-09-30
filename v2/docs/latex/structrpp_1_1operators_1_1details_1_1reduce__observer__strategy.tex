@@ -1,0 +1,46 @@
+\doxysection{rpp\+::operators\+::details\+::reduce\+\_\+observer\+\_\+strategy\texorpdfstring{$<$}{<} TObserver, Accumulator \texorpdfstring{$>$}{>} Struct Template Reference}
+\hypertarget{structrpp_1_1operators_1_1details_1_1reduce__observer__strategy}{}\label{structrpp_1_1operators_1_1details_1_1reduce__observer__strategy}\index{rpp::operators::details::reduce\_observer\_strategy$<$ TObserver, Accumulator $>$@{rpp::operators::details::reduce\_observer\_strategy$<$ TObserver, Accumulator $>$}}
+\doxysubsubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{structrpp_1_1operators_1_1details_1_1reduce__observer__strategy_a19afe2e7963801dbe0d650827c9e5c18}\label{structrpp_1_1operators_1_1details_1_1reduce__observer__strategy_a19afe2e7963801dbe0d650827c9e5c18} 
+using {\bfseries Disposable\+Strategy\+To\+Use\+With\+This} = \mbox{\hyperlink{structrpp_1_1details_1_1none__disposable__strategy}{rpp\+::details\+::none\+\_\+disposable\+\_\+strategy}}
+\item 
+\Hypertarget{structrpp_1_1operators_1_1details_1_1reduce__observer__strategy_a18cd580ff225f642d50792c6cd952088}\label{structrpp_1_1operators_1_1details_1_1reduce__observer__strategy_a18cd580ff225f642d50792c6cd952088} 
+using {\bfseries Seed} = rpp\+::utils\+::extract\+\_\+observer\+\_\+type\+\_\+t$<$ TObserver $>$
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{structrpp_1_1operators_1_1details_1_1reduce__observer__strategy_a8fed9b8fe7f32c03e69d69f6966e7e2e}\label{structrpp_1_1operators_1_1details_1_1reduce__observer__strategy_a8fed9b8fe7f32c03e69d69f6966e7e2e} 
+{\footnotesize template$<$typename T $>$ }\\void {\bfseries on\+\_\+next} (T \&\&v) const
+\item 
+\Hypertarget{structrpp_1_1operators_1_1details_1_1reduce__observer__strategy_a6cbd7a5dcafa760ce57224b1e49782d0}\label{structrpp_1_1operators_1_1details_1_1reduce__observer__strategy_a6cbd7a5dcafa760ce57224b1e49782d0} 
+void {\bfseries on\+\_\+error} (const std\+::exception\+\_\+ptr \&err) const
+\item 
+\Hypertarget{structrpp_1_1operators_1_1details_1_1reduce__observer__strategy_a890321f5d114d36fff03faceaed0a585}\label{structrpp_1_1operators_1_1details_1_1reduce__observer__strategy_a890321f5d114d36fff03faceaed0a585} 
+void {\bfseries on\+\_\+completed} () const
+\item 
+\Hypertarget{structrpp_1_1operators_1_1details_1_1reduce__observer__strategy_ad34c85efdcdf2a4fb4475d8d732bb279}\label{structrpp_1_1operators_1_1details_1_1reduce__observer__strategy_ad34c85efdcdf2a4fb4475d8d732bb279} 
+void {\bfseries set\+\_\+upstream} (const \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{disposable\+\_\+wrapper}} \&d)
+\item 
+\Hypertarget{structrpp_1_1operators_1_1details_1_1reduce__observer__strategy_a7106a45e2f4d833f78641578975f6454}\label{structrpp_1_1operators_1_1details_1_1reduce__observer__strategy_a7106a45e2f4d833f78641578975f6454} 
+bool {\bfseries is\+\_\+disposed} () const
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{structrpp_1_1operators_1_1details_1_1reduce__observer__strategy_a1ea0cc00bd4f3312773c0e1533f465f0}\label{structrpp_1_1operators_1_1details_1_1reduce__observer__strategy_a1ea0cc00bd4f3312773c0e1533f465f0} 
+RPP\+\_\+\+NO\+\_\+\+UNIQUE\+\_\+\+ADDRESS TObserver {\bfseries observer}
+\item 
+\Hypertarget{structrpp_1_1operators_1_1details_1_1reduce__observer__strategy_af9aa394c58cdbd33c2314485409c729a}\label{structrpp_1_1operators_1_1details_1_1reduce__observer__strategy_af9aa394c58cdbd33c2314485409c729a} 
+RPP\+\_\+\+NO\+\_\+\+UNIQUE\+\_\+\+ADDRESS Seed {\bfseries seed}
+\item 
+\Hypertarget{structrpp_1_1operators_1_1details_1_1reduce__observer__strategy_a0bfa38aca5ce422f298d6203cf59326e}\label{structrpp_1_1operators_1_1details_1_1reduce__observer__strategy_a0bfa38aca5ce422f298d6203cf59326e} 
+RPP\+\_\+\+NO\+\_\+\+UNIQUE\+\_\+\+ADDRESS Accumulator {\bfseries accumulator}
+\end{DoxyCompactItemize}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/rpp/rpp/operators/reduce.\+hpp\end{DoxyCompactItemize}

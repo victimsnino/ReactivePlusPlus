@@ -1,0 +1,106 @@
+\doxysubsubsection{Aggregate Operators}
+\hypertarget{group__aggregate__operators}{}\label{group__aggregate__operators}\index{Aggregate Operators@{Aggregate Operators}}
+
+
+Aggregate operators are operators that operate on the entire sequence of items emitted by an Observable.  
+
+
+\doxysubsubsubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename Seed , typename Accumulator $>$ \newline
+requires (!utils\+::is\+\_\+not\+\_\+template\+\_\+callable$<$Accumulator$>$ \texorpdfstring{$\vert$}{|}\texorpdfstring{$\vert$}{|} std\+::same\+\_\+as$<$std\+::decay\+\_\+t$<$Seed$>$, std\+::invoke\+\_\+result\+\_\+t$<$Accumulator, std\+::decay\+\_\+t$<$Seed$>$\&\&, rpp\+::utils\+::convertible\+\_\+to\+\_\+any$>$$>$)}\\auto \mbox{\hyperlink{group__aggregate__operators_ga3cc33d76bf794bda80244882bb3fec3d}{rpp\+::operators\+::reduce}} (Seed \&\&seed, Accumulator \&\&accumulator)
+\begin{DoxyCompactList}\small\item\em Apply a function to each item emitted by an Observable, sequentially, and emit the final value. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename Accumulator $>$ }\\auto \mbox{\hyperlink{group__aggregate__operators_gab78e390657e26675457156b21112d344}{rpp\+::operators\+::reduce}} (Accumulator \&\&accumulator)
+\begin{DoxyCompactList}\small\item\em Apply a function to each item emitted by an Observable, sequentially, and emit the final value. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsubsubsection{Detailed Description}
+Aggregate operators are operators that operate on the entire sequence of items emitted by an Observable. 
+
+\begin{DoxySeeAlso}{See also}
+\href{https://reactivex.io/documentation/operators.html\#mathematical}{\texttt{ https\+://reactivex.\+io/documentation/operators.\+html\#mathematical}} 
+\end{DoxySeeAlso}
+
+
+\doxysubsubsubsection{Function Documentation}
+\Hypertarget{group__aggregate__operators_gab78e390657e26675457156b21112d344}\label{group__aggregate__operators_gab78e390657e26675457156b21112d344} 
+\index{Aggregate Operators@{Aggregate Operators}!reduce@{reduce}}
+\index{reduce@{reduce}!Aggregate Operators@{Aggregate Operators}}
+\doxysubsubsubsubsection{\texorpdfstring{reduce()}{reduce()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename Accumulator $>$ \\
+auto rpp\+::operators\+::reduce (\begin{DoxyParamCaption}\item[{Accumulator \&\&}]{accumulator }\end{DoxyParamCaption})}
+
+
+
+Apply a function to each item emitted by an Observable, sequentially, and emit the final value. 
+
+
+
+There is no initial value for seed, so, first value would be used as seed value and forwarded as is.
+
+
+\begin{DoxyParams}{Parameters}
+{\em initial\+\_\+value} & initial value for seed \\
+\hline
+{\em accumulator} & function which accepts seed value and new value from observable and return new value of seed. Can accept seed by move-\/reference.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyWarning}{Warning}
+\#include \texorpdfstring{$<$}{<}\doxylink{reduce_8hpp_source}{rpp/operators/reduce.\+hpp}\texorpdfstring{$>$}{>}
+\end{DoxyWarning}
+\begin{DoxyParagraph}{Example}
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(1,\ 2,\ 3)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__aggregate__operators_ga3cc33d76bf794bda80244882bb3fec3d}{rpp::operators::reduce}}(std::plus<int>\{\})}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ rpp::operators::subscribe([](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ v\ <<\ std::endl;\ \});}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:\ 6}}
+
+\end{DoxyCodeInclude}
+
+\end{DoxyParagraph}
+\begin{DoxySeeAlso}{See also}
+\href{https://reactivex.io/documentation/operators/reduce.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/reduce.\+html}} 
+\end{DoxySeeAlso}
+\Hypertarget{group__aggregate__operators_ga3cc33d76bf794bda80244882bb3fec3d}\label{group__aggregate__operators_ga3cc33d76bf794bda80244882bb3fec3d} 
+\index{Aggregate Operators@{Aggregate Operators}!reduce@{reduce}}
+\index{reduce@{reduce}!Aggregate Operators@{Aggregate Operators}}
+\doxysubsubsubsubsection{\texorpdfstring{reduce()}{reduce()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename Seed , typename Accumulator $>$ \newline
+requires (!utils\+::is\+\_\+not\+\_\+template\+\_\+callable$<$Accumulator$>$ \texorpdfstring{$\vert$}{|}\texorpdfstring{$\vert$}{|} std\+::same\+\_\+as$<$std\+::decay\+\_\+t$<$Seed$>$, std\+::invoke\+\_\+result\+\_\+t$<$Accumulator, std\+::decay\+\_\+t$<$Seed$>$\&\&, rpp\+::utils\+::convertible\+\_\+to\+\_\+any$>$$>$)\\
+auto rpp\+::operators\+::reduce (\begin{DoxyParamCaption}\item[{Seed \&\&}]{seed,  }\item[{Accumulator \&\&}]{accumulator }\end{DoxyParamCaption})}
+
+
+
+Apply a function to each item emitted by an Observable, sequentially, and emit the final value. 
+
+
+
+
+\begin{DoxyParams}{Parameters}
+{\em initial\+\_\+value} & initial value for seed \\
+\hline
+{\em accumulator} & function which accepts seed value and new value from observable and return new value of seed. Can accept seed by move-\/reference.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyWarning}{Warning}
+\#include \texorpdfstring{$<$}{<}\doxylink{reduce_8hpp_source}{rpp/operators/reduce.\+hpp}\texorpdfstring{$>$}{>}
+\end{DoxyWarning}
+\begin{DoxyParagraph}{Example}
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(1,\ 2,\ 3)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__aggregate__operators_ga3cc33d76bf794bda80244882bb3fec3d}{rpp::operators::reduce}}(std::string\{\},\ [](std::string\&\&\ seed,\ \textcolor{keywordtype}{int}\ v)\ \{\textcolor{keywordflow}{return}\ std::move(seed)\ +\ std::to\_string(v)\ +\ \textcolor{stringliteral}{"{},"{}};\ \})}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ rpp::operators::subscribe([](\textcolor{keyword}{const}\ std::string\&\ v)\ \{\ std::cout\ <<\ v\ <<\ std::endl;\ \});}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:\ 1,2,3,}}
+
+\end{DoxyCodeInclude}
+
+\end{DoxyParagraph}
+\begin{DoxySeeAlso}{See also}
+\href{https://reactivex.io/documentation/operators/reduce.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/reduce.\+html}} 
+\end{DoxySeeAlso}
+\begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{reduce_8cpp-example}{reduce.\+cpp}}.\end{Desc}

@@ -1,0 +1,46 @@
+\doxysection{rpp\+::operators\+::details\+::reduce\+\_\+no\+\_\+seed\+\_\+observer\+\_\+strategy\texorpdfstring{$<$}{<} TObserver, Accumulator \texorpdfstring{$>$}{>} Struct Template Reference}
+\hypertarget{structrpp_1_1operators_1_1details_1_1reduce__no__seed__observer__strategy}{}\label{structrpp_1_1operators_1_1details_1_1reduce__no__seed__observer__strategy}\index{rpp::operators::details::reduce\_no\_seed\_observer\_strategy$<$ TObserver, Accumulator $>$@{rpp::operators::details::reduce\_no\_seed\_observer\_strategy$<$ TObserver, Accumulator $>$}}
+\doxysubsubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{structrpp_1_1operators_1_1details_1_1reduce__no__seed__observer__strategy_a8df9fb6ad23f140024236e85a1d521e5}\label{structrpp_1_1operators_1_1details_1_1reduce__no__seed__observer__strategy_a8df9fb6ad23f140024236e85a1d521e5} 
+using {\bfseries Disposable\+Strategy\+To\+Use\+With\+This} = \mbox{\hyperlink{structrpp_1_1details_1_1none__disposable__strategy}{rpp\+::details\+::none\+\_\+disposable\+\_\+strategy}}
+\item 
+\Hypertarget{structrpp_1_1operators_1_1details_1_1reduce__no__seed__observer__strategy_aee0fb7325244eab9c902eea8f5ec8f22}\label{structrpp_1_1operators_1_1details_1_1reduce__no__seed__observer__strategy_aee0fb7325244eab9c902eea8f5ec8f22} 
+using {\bfseries Seed} = rpp\+::utils\+::extract\+\_\+observer\+\_\+type\+\_\+t$<$ TObserver $>$
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{structrpp_1_1operators_1_1details_1_1reduce__no__seed__observer__strategy_a3f1ac6031fe3cfcc18be18d9a54ec76c}\label{structrpp_1_1operators_1_1details_1_1reduce__no__seed__observer__strategy_a3f1ac6031fe3cfcc18be18d9a54ec76c} 
+{\footnotesize template$<$typename T $>$ }\\void {\bfseries on\+\_\+next} (T \&\&v) const
+\item 
+\Hypertarget{structrpp_1_1operators_1_1details_1_1reduce__no__seed__observer__strategy_a10aca2f06d1cdd83f42008bbdf6291e4}\label{structrpp_1_1operators_1_1details_1_1reduce__no__seed__observer__strategy_a10aca2f06d1cdd83f42008bbdf6291e4} 
+void {\bfseries on\+\_\+error} (const std\+::exception\+\_\+ptr \&err) const
+\item 
+\Hypertarget{structrpp_1_1operators_1_1details_1_1reduce__no__seed__observer__strategy_ad90b40bc92ad5ea47735134e926d9dd5}\label{structrpp_1_1operators_1_1details_1_1reduce__no__seed__observer__strategy_ad90b40bc92ad5ea47735134e926d9dd5} 
+void {\bfseries on\+\_\+completed} () const
+\item 
+\Hypertarget{structrpp_1_1operators_1_1details_1_1reduce__no__seed__observer__strategy_a8d385401c4121531a1f155cae2f8c418}\label{structrpp_1_1operators_1_1details_1_1reduce__no__seed__observer__strategy_a8d385401c4121531a1f155cae2f8c418} 
+void {\bfseries set\+\_\+upstream} (const \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{disposable\+\_\+wrapper}} \&d)
+\item 
+\Hypertarget{structrpp_1_1operators_1_1details_1_1reduce__no__seed__observer__strategy_ab4cd2f2947c04a72b84911bc102d5321}\label{structrpp_1_1operators_1_1details_1_1reduce__no__seed__observer__strategy_ab4cd2f2947c04a72b84911bc102d5321} 
+bool {\bfseries is\+\_\+disposed} () const
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{structrpp_1_1operators_1_1details_1_1reduce__no__seed__observer__strategy_ad10fcdbabef704fc5fcd755b7b1eb793}\label{structrpp_1_1operators_1_1details_1_1reduce__no__seed__observer__strategy_ad10fcdbabef704fc5fcd755b7b1eb793} 
+RPP\+\_\+\+NO\+\_\+\+UNIQUE\+\_\+\+ADDRESS TObserver {\bfseries observer}
+\item 
+\Hypertarget{structrpp_1_1operators_1_1details_1_1reduce__no__seed__observer__strategy_a8f884991573faa713e0fdd1123597508}\label{structrpp_1_1operators_1_1details_1_1reduce__no__seed__observer__strategy_a8f884991573faa713e0fdd1123597508} 
+RPP\+\_\+\+NO\+\_\+\+UNIQUE\+\_\+\+ADDRESS Accumulator {\bfseries accumulator}
+\item 
+\Hypertarget{structrpp_1_1operators_1_1details_1_1reduce__no__seed__observer__strategy_a3fdab793b86829b0b899ec9122f58177}\label{structrpp_1_1operators_1_1details_1_1reduce__no__seed__observer__strategy_a3fdab793b86829b0b899ec9122f58177} 
+std\+::optional$<$ Seed $>$ {\bfseries seed} \{\}
+\end{DoxyCompactItemize}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/rpp/rpp/operators/reduce.\+hpp\end{DoxyCompactItemize}
