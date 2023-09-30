@@ -55,11 +55,10 @@ struct reduce_t : public operators::details::operator_observable_strategy<reduce
     using ResultValue = Seed;
 };
 
-template<rpp::constraint::observer TObserver, rpp::constraint::decayed_type Accumulator>
+template<rpp::constraint::decayed_type Seed, rpp::constraint::observer TObserver, rpp::constraint::decayed_type Accumulator>
 struct reduce_no_seed_observer_strategy
 {
     using DisposableStrategyToUseWithThis = rpp::details::none_disposable_strategy;
-    using Seed = std::invoke_result_t<Accumulator, utils::convertible_to_any, utils::convertible_to_any>;
 
     RPP_NO_UNIQUE_ADDRESS TObserver   observer;
     RPP_NO_UNIQUE_ADDRESS Accumulator accumulator;
@@ -88,7 +87,7 @@ struct reduce_no_seed_observer_strategy
 };
 
 template<rpp::constraint::decayed_type Accumulator>
-struct reduce_no_seed_t : public operators::details::operator_observable_strategy<reduce_no_seed_observer_strategy, Accumulator>
+struct reduce_no_seed_t : public operators::details::template_operator_observable_strategy<reduce_no_seed_observer_strategy, Accumulator>
 {
     template<rpp::constraint::decayed_type T>
         requires std::is_invocable_r_v<T, Accumulator, T&&, T>
