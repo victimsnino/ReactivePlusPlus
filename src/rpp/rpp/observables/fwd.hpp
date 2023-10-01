@@ -57,16 +57,6 @@ using dynamic_observable = observable<Type, details::observables::dynamic_strate
  */
 template<constraint::decayed_type Type, constraint::observable_strategy<Type> Strategy>
 using blocking_observable = observable<Type, details::observables::blocking_strategy<Type, Strategy>>;
-
-/**
- * @brief Extension over raw observable which also has `get_key()` member function. Used in `group_by` operator to represent grouped observable
- *
- * @tparam KeyType is type of key
- * @tparam Type of value this obsevalbe can provide
- * @tparam Strategy is observable strategy
- */
-template<constraint::decayed_type KeyType, constraint::decayed_type Type, constraint::observable_strategy<Type> Strategy>
-class grouped_observable;
 }
 
 namespace rpp::utils::details
@@ -93,6 +83,17 @@ namespace rpp
 {
 template<rpp::constraint::observable OriginalObservable, rpp::constraint::subject Subject>
 class connectable_observable;
+
+
+/**
+ * @brief Extension over raw observable which also has `get_key()` member function. Used in `group_by` operator to represent grouped observable
+ *
+ * @tparam KeyType is type of key
+ * @tparam Type of value this obsevalbe can provide
+ * @tparam Strategy is observable strategy
+ */
+template<constraint::decayed_type KeyType, constraint::observable BaseObservable>
+class grouped_observable;
 }
 
 namespace rpp::utils

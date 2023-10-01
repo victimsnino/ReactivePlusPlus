@@ -9,22 +9,23 @@
 
 #pragma once
 
-#include <rpp/observables/observable.hpp>
+#include <rpp/observables/fwd.hpp>
 
 namespace rpp
 {
-template<constraint::decayed_type KeyType, constraint::decayed_type Type, constraint::observable_strategy<Type> Strategy>
-class grouped_observable final : public observable<Type, Strategy>
+template<constraint::decayed_type KeyType, constraint::observable BaseObservable>
+class grouped_observable final : public BaseObservable
 {
 public:
-    grouped_observable(KeyType key, const Strategy& strategy)
-        : observable<Type, Strategy>{strategy}
+
+    grouped_observable(KeyType key, BaseObservable&& inner)
+        : BaseObservable{std::move(inner)}
         , m_key{std::move(key)}
     {
     }
 
-    grouped_observable(KeyType key, Strategy&& strategy)
-        : observable<Type, Strategy>{std::move(strategy)}
+    grouped_observable(KeyType key, const BaseObservable& inner)
+        : BaseObservable{inner}
         , m_key{std::move(key)}
     {
     }

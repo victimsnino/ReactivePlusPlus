@@ -18,10 +18,10 @@
 #include <rpp/schedulers/immediate.hpp>
 
 #include "mock_observer.hpp"
-#include "rpp/disposables/composite_disposable.hpp"
-#include "rpp/disposables/fwd.hpp"
+#include "snitch_logging.hpp"
 
 #include <functional>
+#include <numeric>
 
 TEST_CASE("group_by emits grouped seqences of values with identity key selector", "[group_by]")
 {
@@ -268,20 +268,18 @@ TEST_CASE("group_by selectors affects types", "[group_by]")
 TEST_CASE("group_by's disposables tracks 1 dispose per call")
 {
     auto mock_0 = mock_observer_strategy<int>{};
-    rpp::source::just(1, 2)
-    | rpp::ops::group_by([](int){return 0;})
+    std::vector vals(100, 0);
+    std::iota(vals.begin(), vals.end(), 0);
+    rpp::source::from_iterable(vals)
+    | rpp::ops::group_by([](int v){return v;})
     | rpp::ops::subscribe([&](const auto& observable)
     {
-        for(size_t i =0; i < 10;++i)
-        {
-            observable
+        // each operator below COULD dispose disposable more than once, but refcount shouldn't do it
+        observable
             | rpp::ops::take(1)
             | rpp::ops::delay(std::chrono::seconds{0}, rpp::schedulers::immediate{})
-            | rpp::ops::subscribe([](int){});
-        }
-
-        observable.subscribe(mock_0.get_observer());
+            | rpp::ops::subscribe(mock_0.get_observer());
     });
 
-    CHECK(mock_0.get_received_values() == std::vector{1,2});
+    CHECK(mock_0.get_received_values() == vals);
 }

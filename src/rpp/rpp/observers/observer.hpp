@@ -283,6 +283,7 @@ public:
     {
     }
 
+    observer() = default;
     observer(const observer&)     = default;
     observer(observer&&) noexcept = default;
 

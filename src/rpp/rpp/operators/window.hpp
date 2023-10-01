@@ -15,14 +15,14 @@
 #include <rpp/defs.hpp>
 #include <rpp/operators/details/strategy.hpp>
 #include <rpp/disposables/refcount_disposable.hpp>
-#include <rpp/operators/details/forwarding_subject.hpp>
+#include <rpp/operators/details/single_observer_subject.hpp>
 
 #include <cstddef>
 
 namespace rpp
 {
 template<constraint::decayed_type Type>
-using windowed_observable = decltype(std::declval<rpp::operators::details::forwarding_subject<Type>>().get_observable());
+using windowed_observable = decltype(std::declval<rpp::operators::details::single_observer_subject<Type>>().get_observable());
 }
 namespace rpp::operators::details
 {
@@ -31,7 +31,7 @@ class window_observer_strategy
 {
     using Observable = rpp::utils::extract_observer_type_t<TObserver>;
     using ValueType = rpp::utils::extract_observable_type_t<Observable>;
-    using Subject = forwarding_subject<ValueType>;
+    using Subject = single_observer_subject<ValueType>;
 
     static_assert(std::same_as<Observable, decltype(std::declval<Subject>().get_observable())>);
     
@@ -116,6 +116,7 @@ namespace rpp::operators
    }
  *
  * @details Actually it is similar to `buffer` but it emits observable instead of container.
+ * @warning Only one ever observer could subscribe to windowed_observable! Else it would emit `more_than_one_observer` exception!
  *
  * @param window_size amount of items which every observable would have
  *

@@ -36,6 +36,8 @@ template<constraint::decayed_type Type>
 class dynamic_strategy final
 {
 public:
+    dynamic_strategy() = default;
+
     template<constraint::observer_strategy<Type> Strategy>
         requires (!constraint::decayed_same_as<Strategy, dynamic_strategy<Type>>)
     explicit dynamic_strategy(observer<Type, Strategy>&& obs)
@@ -47,17 +49,17 @@ public:
     dynamic_strategy(const dynamic_strategy&)     = default;
     dynamic_strategy(dynamic_strategy&&) noexcept = default;
 
-    void set_upstream(const disposable_wrapper& d) noexcept { m_vtable->set_upstream(m_forwarder.get(), d); }
+    void set_upstream(const disposable_wrapper& d) noexcept { if(m_vtable) m_vtable->set_upstream(m_forwarder.get(), d); }
 
-    bool is_disposed() const noexcept { return m_vtable->is_disposed(m_forwarder.get()); }
+    bool is_disposed() const noexcept { return m_vtable ? m_vtable->is_disposed(m_forwarder.get()) : true; }
 
-    void on_next(const Type& v) const noexcept { m_vtable->on_next_lvalue(m_forwarder.get(), v); }
+    void on_next(const Type& v) const noexcept { if(m_vtable) m_vtable->on_next_lvalue(m_forwarder.get(), v); }
 
-    void on_next(Type&& v) const noexcept { m_vtable->on_next_rvalue(m_forwarder.get(), std::move(v)); }
+    void on_next(Type&& v) const noexcept { if(m_vtable) m_vtable->on_next_rvalue(m_forwarder.get(), std::move(v)); }
 
-    void on_error(const std::exception_ptr& err) const noexcept { m_vtable->on_error(m_forwarder.get(), err); }
+    void on_error(const std::exception_ptr& err) const noexcept { if(m_vtable) m_vtable->on_error(m_forwarder.get(), err); }
 
-    void on_completed() const noexcept { m_vtable->on_completed(m_forwarder.get()); }
+    void on_completed() const noexcept { if(m_vtable) m_vtable->on_completed(m_forwarder.get()); }
 
 private:
     struct vtable
@@ -86,7 +88,7 @@ private:
     };
 
 private:
-    std::shared_ptr<void> m_forwarder;
-    const vtable*         m_vtable;
+    std::shared_ptr<void> m_forwarder{};
+    const vtable*         m_vtable{};
 };
 }
