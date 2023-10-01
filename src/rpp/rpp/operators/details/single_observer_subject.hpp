@@ -51,14 +51,7 @@ class single_observer_strategy
         rpp::dynamic_observer<Type> get_observer() 
         {
             std::lock_guard lock{m_mutex};
-            switch(m_state)
-            {
-                case EState::Empty:
-                case EState::Disposed:
-                    return {};
-                case EState::Observer:
-                    return *get();
-            }
+            return m_state == EState::Observer ? *get() : rpp::dynamic_observer<Type>{};
         }
         
     private:
