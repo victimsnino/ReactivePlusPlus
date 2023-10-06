@@ -37,13 +37,13 @@ template<rpp::constraint::decayed_type Type>
 class subject_state final : public std::enable_shared_from_this<subject_state<Type>>
                           , public composite_disposable
 {
-    struct observers
+    struct observers_t
     {
         std::vector<rpp::dynamic_observer<Type>> observers{};
         std::vector<rpp::dynamic_observer<Type>> observers_to_add{};
     };
 
-    using state_t = std::variant<observers, std::exception_ptr, completed, disposed>;
+    using state_t = std::variant<observers_t, std::exception_ptr, completed, disposed>;
 
 public:
     template<rpp::constraint::observer_of_type<Type> TObs>
@@ -52,7 +52,7 @@ public:
         std::unique_lock lock{m_mutex};
         process_state_unsafe(
             m_state,
-            [&](observers& observers) {
+            [&](observers_t& observers) {
                 auto observer_as_dynamic = std::forward<TObs>(observer).as_dynamic();
                 if (m_state_flag & EState::Emitting || !observers.observers_to_add.empty())
                     observers.observers_to_add.push_back(observer_as_dynamic);
@@ -104,7 +104,7 @@ private:
         exchange_observers_under_lock_if_there_unsafe(disposed{});
     }
 
-    static void cleanup_observers(observers* observers)
+    static void cleanup_observers(observers_t* observers)
     {
         if (!observers)
             return;
@@ -134,9 +134,9 @@ private:
         std::visit(rpp::utils::overloaded{actions..., rpp::utils::empty_function_any_t{}}, state);
     }
 
-    observers* extract_observers_under_lock_if_there_unsafe()
+    observers_t* extract_observers_under_lock_if_there_unsafe()
     {
-        if (auto obs = std::get_if<observers>(&m_state))
+        if (auto obs = std::get_if<observers_t>(&m_state))
         {
             std::move(obs->observers_to_add.begin(), obs->observers_to_add.begin(), std::back_inserter(obs->observers));
             obs->observers_to_add.clear();
