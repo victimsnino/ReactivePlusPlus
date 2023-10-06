@@ -80,7 +80,7 @@ public:
         {
             m_state_flag |= EState::Emitting;
             rpp::utils::for_each(observers->observers, [&](const auto& sub) { sub.on_next(v); });
-            if (std::exchange(m_state_flag, 0) & EState::NeedToCleanup)
+            if (std::exchange(m_state_flag, EState::None) & EState::NeedToCleanup)
                 cleanup_observers(observers);
         }
     }
