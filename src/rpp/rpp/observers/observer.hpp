@@ -32,6 +32,10 @@ class local_disposable_strategy
 {
 public:
     local_disposable_strategy() = default;
+    local_disposable_strategy(local_disposable_strategy&& other) noexcept
+        : m_upstreams(std::move(other.m_upstreams))
+        , m_is_disposed(other.m_is_disposed.test(std::memory_order_relaxed))
+    {}
 
     void add(const disposable_wrapper& d)
     {
