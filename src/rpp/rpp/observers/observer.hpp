@@ -27,33 +27,7 @@
 namespace rpp::details
 {
 using external_disposable_strategy = composite_disposable_wrapper;
-
-class local_disposable_strategy
-{
-public:
-    local_disposable_strategy() = default;
-
-    void add(const disposable_wrapper& d)
-    {
-        m_upstreams.push_back(d);
-    }
-
-    bool is_disposed() const noexcept
-    {
-        return m_is_disposed;
-    }
-
-    void dispose() const
-    {
-        m_is_disposed = true;
-        for (const auto& d : m_upstreams)
-            d.dispose();
-    }
-
-private:
-    std::vector<disposable_wrapper> m_upstreams{};
-    mutable bool                    m_is_disposed{false};
-};
+using local_disposable_strategy    = composite_disposable;
 
 struct none_disposable_strategy
 {
