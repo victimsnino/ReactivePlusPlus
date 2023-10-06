@@ -175,7 +175,7 @@ public:
 
 private:
     RPP_NO_UNIQUE_ADDRESS Strategy                    m_strategy;
-    RPP_NO_UNIQUE_ADDRESS mutable DisposablesStrategy m_disposable;
+    RPP_NO_UNIQUE_ADDRESS mutable DisposablesStrategy m_disposable{};
 };
 }
 
