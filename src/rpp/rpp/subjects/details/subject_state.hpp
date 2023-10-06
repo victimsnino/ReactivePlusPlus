@@ -124,7 +124,7 @@ private:
                     if (shared->m_state_flag & EState::Emitting)
                         shared->m_state_flag |= EState::NeedToCleanup;
                     else 
-                        cleanup_observers(std::get_if<observers>(&shared->m_state));
+                        cleanup_observers(std::get_if<observers_t>(&shared->m_state));
                 }
             })});
     }
