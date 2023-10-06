@@ -40,19 +40,19 @@ public:
 
     bool is_disposed() const noexcept
     {
-        return m_is_disposed;
+        return m_is_disposed.test(std::memory_order_relaxed);
     }
 
     void dispose() const
     {
-        m_is_disposed = true;
+        m_is_disposed.test_and_set(std::memory_order_relaxed);
         for (const auto& d : m_upstreams)
             d.dispose();
     }
 
 private:
     std::vector<disposable_wrapper> m_upstreams{};
-    mutable bool                    m_is_disposed{false};
+    mutable std::atomic_flag        m_is_disposed{false};
 };
 
 struct none_disposable_strategy
