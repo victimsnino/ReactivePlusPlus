@@ -100,9 +100,6 @@ protected:
     {
     }
 
-    observer_impl(const observer_impl&)     = default;
-    observer_impl(observer_impl&&) noexcept = default;
-
 public:
     using DisposableStrategyToUseWithThis = none_disposable_strategy;
 
@@ -283,9 +280,6 @@ public:
         : details::observer_impl<Type, rpp::details::observers::dynamic_strategy<Type>, details::none_disposable_strategy>{std::move(other)}
     {
     }
-
-    observer(const observer&)     = default;
-    observer(observer&&) noexcept = default;
 
     dynamic_observer<Type> as_dynamic() &&
     {

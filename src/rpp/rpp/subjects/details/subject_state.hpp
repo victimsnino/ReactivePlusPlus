@@ -35,10 +35,15 @@ struct disposed
 
 template<rpp::constraint::decayed_type Type>
 class subject_state final : public std::enable_shared_from_this<subject_state<Type>>
-    , public composite_disposable
+                          , public composite_disposable
 {
-    using shared_observers = std::shared_ptr<std::vector<rpp::dynamic_observer<Type>>>;
-    using state_t          = std::variant<shared_observers, std::exception_ptr, completed, disposed>;
+    struct observers
+    {
+        std::vector<rpp::dynamic_observer<Type>> observers{};
+        std::vector<rpp::dynamic_observer<Type>> observers_to_add{};
+    };
+
+    using state_t = std::variant<observers, std::exception_ptr, completed, disposed>;
 
 public:
     template<rpp::constraint::observer_of_type<Type> TObs>
@@ -47,11 +52,12 @@ public:
         std::unique_lock lock{m_mutex};
         process_state_unsafe(
             m_state,
-            [&](const shared_observers& observers) {
-                auto new_observers       = make_copy_of_subscribed_observers(true, observers);
+            [&](observers& observers) {
                 auto observer_as_dynamic = std::forward<TObs>(observer).as_dynamic();
-                new_observers->push_back(observer_as_dynamic);
-                m_state = std::move(new_observers);
+                if (m_state_flag & EState::Emitting || !observers.observers_to_add.empty())
+                    observers.observers_to_add.push_back(observer_as_dynamic);
+                else
+                    observers.observers.push_back(observer_as_dynamic);
 
                 lock.unlock();
                 set_upstream(observer_as_dynamic);
@@ -68,26 +74,43 @@ public:
 
     void on_next(const Type& v)
     {
-        if (const auto observers = extract_observers_under_lock_if_there())
-            rpp::utils::for_each(*observers, [&](const auto& sub) { sub.on_next(v); });
+        std::lock_guard lock{m_mutex};
+
+        if (auto* observers = extract_observers_under_lock_if_there_unsafe())
+        {
+            m_state_flag |= EState::Emitting;
+            rpp::utils::for_each(observers->observers, [&](const auto& sub) { sub.on_next(v); });
+            if (std::exchange(m_state_flag, 0) & EState::NeedToCleanup)
+                cleanup_observers(observers);
+        }
     }
 
     void on_error(const std::exception_ptr& err)
     {
-        if (const auto observers = exchange_observers_under_lock_if_there(err))
-            rpp::utils::for_each(*observers, [&](const auto& sub) { sub.on_error(err); });
+        std::lock_guard lock{m_mutex};
+        rpp::utils::for_each(exchange_observers_under_lock_if_there_unsafe(err), [&](const auto& sub) { sub.on_error(err); });
     }
 
     void on_completed()
     {
-        if (const auto observers = exchange_observers_under_lock_if_there(completed{}))
-            rpp::utils::for_each(*observers, rpp::utils::static_mem_fn<&dynamic_observer<Type>::on_completed>{});
+        std::lock_guard lock{m_mutex};
+        rpp::utils::for_each(exchange_observers_under_lock_if_there_unsafe(completed{}), rpp::utils::static_mem_fn<&dynamic_observer<Type>::on_completed>{});
     }
 
 private:
     void dispose_impl() noexcept override
     {
-        exchange_observers_under_lock_if_there(disposed{});
+        std::lock_guard lock{m_mutex};
+        exchange_observers_under_lock_if_there_unsafe(disposed{});
+    }
+
+    static void cleanup_observers(observers* observers)
+    {
+        if (!observers)
+            return;
+        
+        for (auto* target : {&observers->observers, &observers->observers_to_add})
+            target->erase(std::remove_if(target->begin(), target->end(), rpp::utils::static_mem_fn<&rpp::dynamic_observer<Type>::is_disposed>()), target->end());
     }
 
     void set_upstream(rpp::dynamic_observer<Type>& obs)
@@ -98,66 +121,53 @@ private:
                 if (const auto shared = weak.lock())
                 {
                     std::unique_lock lock{shared->m_mutex};
-                    process_state_unsafe(shared->m_state,
-                                         [&](const shared_observers& observers) {
-                                             shared->m_state = make_copy_of_subscribed_observers(false, observers);
-                                         });
+                    if (shared->m_state_flag & EState::Emitting)
+                        shared->m_state_flag |= EState::NeedToCleanup;
+                    else 
+                        cleanup_observers(std::get_if<observers>(&shared->m_state));
                 }
             })});
     }
 
-    static shared_observers make_copy_of_subscribed_observers(bool add, const shared_observers& current_subs)
-    {
-        auto subs = std::make_shared<std::vector<dynamic_observer<Type>>>();
-        subs->reserve(deduce_new_size(add, current_subs));
-        if (current_subs)
-        {
-            std::copy_if(current_subs->cbegin(),
-                         current_subs->cend(),
-                         std::back_inserter(*subs),
-                         rpp::utils::static_not_mem_fn<&dynamic_observer<Type>::is_disposed>{});
-        }
-        return subs;
-    }
-
-    static size_t deduce_new_size(bool add, const shared_observers& current_subs)
-    {
-        if (!current_subs)
-            return add ? 1 : 0;
-
-        if (add)
-            return current_subs->size() + 1;
-
-        return std::max(current_subs->size(), size_t{1}) - 1;
-    }
-
-    static void process_state_unsafe(const state_t& state, const auto&... actions)
+    static void process_state_unsafe(state_t& state, const auto&... actions)
     {
         std::visit(rpp::utils::overloaded{actions..., rpp::utils::empty_function_any_t{}}, state);
     }
 
-    shared_observers extract_observers_under_lock_if_there()
+    observers* extract_observers_under_lock_if_there_unsafe()
     {
-        std::lock_guard lock{m_mutex};
+        if (auto obs = std::get_if<observers>(&m_state))
+        {
+            std::move(obs->observers_to_add.begin(), obs->observers_to_add.begin(), std::back_inserter(obs->observers));
+            obs->observers_to_add.clear();
+            return obs;
+        }
 
-        if (!std::holds_alternative<shared_observers>(m_state))
-            return {};
-
-        return std::get<shared_observers>(m_state);
+        return {};
     }
 
-    shared_observers exchange_observers_under_lock_if_there(state_t&& new_val)
+    std::vector<rpp::dynamic_observer<Type>> exchange_observers_under_lock_if_there_unsafe(state_t&& new_val)
     {
-        std::lock_guard lock{m_mutex};
-
-        if (!std::holds_alternative<shared_observers>(m_state))
-            return {};
-
-        return std::get<shared_observers>(std::exchange(m_state, std::move(new_val)));
+        if (auto obs = extract_observers_under_lock_if_there_unsafe())
+        {
+            auto res = std::move(obs->observers);
+            m_state = std::move(new_val);
+            return res;
+        }
+        
+        return {};
     }
 
 private:
-    state_t    m_state{};
-    std::mutex m_mutex{};
+    enum EState : uint8_t
+    {
+        None          = 0b00,
+        Emitting      = 0b01,
+        NeedToCleanup = 0b10
+    };
+
+    state_t              m_state{};
+    std::recursive_mutex m_mutex{};
+    uint8_t              m_state_flag{};
 };
 } // namespace rpp::subjects::details
