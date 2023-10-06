@@ -14,9 +14,20 @@
 #include <rpp/utils/constraints.hpp>
 
 #include <algorithm>
+#include <memory>
+#include <atomic>
 
 namespace rpp::utils
 {
+
+#if defined(__cpp_lib_atomic_shared_ptr) && __cpp_lib_atomic_shared_ptr
+template<typename T>
+using atomic_shared_ptr = std::atomic<std::shared_ptr<T>>;
+#else
+template<typename T>
+using atomic_shared_ptr = std::shared_ptr<T>;
+#endif
+
 
 struct none
 {
