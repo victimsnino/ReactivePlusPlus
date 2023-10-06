@@ -26,11 +26,11 @@ public:
     base_disposable_impl(const base_disposable_impl&)     = delete;
     base_disposable_impl(base_disposable_impl&&) noexcept = delete;
 
-    bool is_disposed() const noexcept final { return m_disposed.test(std::memory_order_acquire); }
+    bool is_disposed() const noexcept final { return m_disposed.load(std::memory_order_acquire); }
 
     void dispose() noexcept final
     {
-        if (m_disposed.test_and_set(std::memory_order_acq_rel) == false)
+        if (m_disposed.exchange(true, std::memory_order_acq_rel) == false)
             dispose_impl();
     }
 
@@ -38,7 +38,7 @@ protected:
     virtual void dispose_impl() noexcept = 0;
 
 private:
-    std::atomic_flag m_disposed{};
+    std::atomic_bool m_disposed{};
 };
 
 using base_disposable           = base_disposable_impl<interface_disposable>;
