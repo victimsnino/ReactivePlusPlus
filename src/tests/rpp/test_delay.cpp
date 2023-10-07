@@ -18,6 +18,7 @@
 #include <rpp/operators/delay.hpp>
 #include <rpp/operators/observe_on.hpp>
 #include <rpp/operators/as_blocking.hpp>
+#include <rpp/operators/merge.hpp>
 
 #include "snitch_logging.hpp"
 #include "mock_observer.hpp"
@@ -137,7 +138,8 @@ TEST_CASE("delay delays observable's emissions")
             {
                 auto current_thread = std::this_thread::get_id();
 
-                subj.get_observable()
+                rpp::source::just(1)
+                    | rpp::ops::merge_with(subj.get_observable())
                     | rpp::ops::delay(delay_duration, rpp::schedulers::current_thread{})
                     | rpp::ops::subscribe([&](int v)
                     {
@@ -155,8 +157,6 @@ TEST_CASE("delay delays observable's emissions")
                             }
                         }
                     });
-
-                subj.get_observer().on_next(1);
 
                 SECTION("all values obtained")
                 {
