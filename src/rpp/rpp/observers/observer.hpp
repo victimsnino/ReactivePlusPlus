@@ -34,7 +34,8 @@ public:
     local_disposable_strategy() = default;
     local_disposable_strategy(local_disposable_strategy&& other) noexcept
         : m_upstreams(std::move(other.m_upstreams))
-        , m_is_disposed(other.m_is_disposed.load(std::memory_order_relaxed))
+        // just need atomicity, not guarding anything
+        , m_is_disposed(other.m_is_disposed.load(std::memory_order::relaxed))
     {}
 
     void add(const disposable_wrapper& d)
@@ -44,12 +45,14 @@ public:
 
     bool is_disposed() const noexcept
     {
-        return m_is_disposed.load(std::memory_order_relaxed);
+        // just need atomicity, not guarding anything
+        return m_is_disposed.load(std::memory_order::relaxed);
     }
 
     void dispose() const
     {
-        m_is_disposed.store(true, std::memory_order_relaxed);
+        // just need atomicity, not guarding anything
+        m_is_disposed.store(true, std::memory_order::relaxed);
         for (const auto& d : m_upstreams)
             d.dispose();
     }

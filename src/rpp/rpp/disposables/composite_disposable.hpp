@@ -23,7 +23,7 @@ namespace rpp
 {
 /**
  * @brief Disposable which can keep some other sub-disposables. When this root disposable is disposed, then all sub-disposables would be disposed too.
- * 
+ *
  * @ingroup disposables
  */
 class composite_disposable : public interface_composite_disposable
@@ -36,7 +36,8 @@ public:
 
     bool is_disposed() const noexcept final
     {
-        return m_current_state.load(std::memory_order_acquire) == State::Disposed;
+        // just need atomicity, not guarding anything
+        return m_current_state.load(std::memory_order::relaxed) == State::Disposed;
     }
 
     void dispose() noexcept final
@@ -44,7 +45,8 @@ public:
         while (true)
         {
             State expected{State::None};
-            if (m_current_state.compare_exchange_strong(expected, State::Disposed, std::memory_order::acq_rel))
+            // need to acquire possible state changing from `add`
+            if (m_current_state.compare_exchange_strong(expected, State::Disposed, std::memory_order::acquire, std::memory_order::relaxed))
             {
                 dispose_impl();
 
@@ -70,9 +72,11 @@ public:
         while (true)
         {
             State expected{State::None};
-            if (m_current_state.compare_exchange_strong(expected, State::Edit, std::memory_order::acq_rel))
+            // need to acquire possible disposables state changing from other `add`
+            if (m_current_state.compare_exchange_strong(expected, State::Edit, std::memory_order::acquire, std::memory_order::relaxed))
             {
                 m_disposables.emplace_back(std::move(disposable));
+                // need to propogate disposables state changing to others
                 m_current_state.store(State::None, std::memory_order::release);
                 return;
             }
