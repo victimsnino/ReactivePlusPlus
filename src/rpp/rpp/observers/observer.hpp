@@ -27,7 +27,7 @@
 
 namespace rpp::details
 {
-template<constraint::decayed_type Type, constraint::observer_strategy<Type> Strategy, typename DisposablesStrategy>
+template<constraint::decayed_type Type, constraint::observer_strategy<Type> Strategy, observers::constraint::disposable_strategy DisposablesStrategy>
 class observer_impl
 {
 protected:

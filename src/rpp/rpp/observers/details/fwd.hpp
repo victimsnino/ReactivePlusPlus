@@ -11,15 +11,52 @@
 #pragma once
 
 #include <rpp/disposables/fwd.hpp>
-
+#include <rpp/disposables/details/container.hpp>
 
 #include <type_traits>
 
 namespace rpp::details::observers
 {
-using external_disposable_strategy = composite_disposable_wrapper;
-struct none_disposable_strategy;
+template<typename DisposableContainer>
 class local_disposable_strategy;
+
+/**
+ * @brief No any disposable logic at all. Used only inside proxy-forwarding operators where extra disposable logic not requires
+ */
+struct none_disposable_strategy;
+
+/**
+ * @brief Dynamic disposable logic based on pre-allocated vector
+ */
+template<size_t Count>
+using dynamic_local_disposable_strategy = local_disposable_strategy<disposables::dynamic_disposables_container<Count>>;
+
+/**
+ * @brief Same as dynamic strategy, but based on array.
+ */
+template<size_t Count>
+using static_local_disposable_strategy = local_disposable_strategy<disposables::static_disposables_container<Count>>;
+
+/**
+ * @brief Just an boolean with no any disposables
+ */
+using bool_local_disposable_strategy = local_disposable_strategy<disposables::none_disposables_container>;
+
+/**
+ * @brief External disposable used as strategy
+ */
+using external_disposable_strategy = composite_disposable_wrapper;
+
+namespace constraint
+{
+    template<typename T>
+    concept disposable_strategy = requires (T& v, const T& const_v, const disposable_wrapper& d)
+    {
+        v.add(d);
+        { const_v.is_disposed() } -> std::same_as<bool>;
+        const_v.dispose();
+    };
+}
 
 namespace details
 {
@@ -29,7 +66,7 @@ namespace details
         if constexpr (requires { typename T::DisposableStrategyToUseWithThis; })
             return static_cast<typename T::DisposableStrategyToUseWithThis*>(nullptr);
         else
-            return static_cast<local_disposable_strategy*>(nullptr);
+            return static_cast<dynamic_local_disposable_strategy<0>*>(nullptr);
     }
 }
 template<typename T>

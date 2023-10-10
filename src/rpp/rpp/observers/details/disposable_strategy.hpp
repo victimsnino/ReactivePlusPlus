@@ -10,6 +10,7 @@
 
 #pragma once
 
+#include <rpp/defs.hpp>
 #include <rpp/observers/details/fwd.hpp>
 
 #include <rpp/disposables/disposable_wrapper.hpp>
@@ -19,7 +20,7 @@
 
 namespace rpp::details::observers
 {
-
+template<typename DisposableContainer>
 class local_disposable_strategy
 {
 public:
@@ -45,13 +46,12 @@ public:
     {
         // just need atomicity, not guarding anything
         m_is_disposed.store(true, std::memory_order::relaxed);
-        for (const auto& d : m_upstreams)
-            d.dispose();
+        m_upstreams.dispose();
     }
 
 private:
-    std::vector<disposable_wrapper> m_upstreams{};
-    mutable std::atomic_bool        m_is_disposed{false};
+    RPP_NO_UNIQUE_ADDRESS DisposableContainer m_upstreams{};
+    mutable std::atomic_bool                  m_is_disposed{false};
 };
 
 struct none_disposable_strategy
