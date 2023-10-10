@@ -58,10 +58,10 @@ struct lambda_strategy;
 
 namespace rpp::details
 {
-template<typename S>
-struct with_disposable
+template<typename S, observers::constraint::disposable_strategy Strategy>
+struct with_disposable_strategy
 {
-    with_disposable() = delete;
+    with_disposable_strategy() = delete;
 
     static void on_next(const auto&) noexcept;
     static void on_error(const std::exception_ptr&) noexcept;
@@ -70,6 +70,9 @@ struct with_disposable
     static void set_upstream(const disposable_wrapper&) noexcept;
     static bool is_disposed() noexcept;
 };
+
+template<typename S>
+using with_external_disposable = with_disposable_strategy<S, observers::external_disposable_strategy>;
 }
 
 namespace rpp
@@ -102,7 +105,7 @@ template<constraint::decayed_type Type, std::invocable<Type> OnNext, std::invoca
 using lambda_observer = observer<Type, details::observers::lambda_strategy<Type, OnNext, OnError, OnCompleted>>;
 
 template<constraint::decayed_type Type, std::invocable<Type> OnNext, std::invocable<const std::exception_ptr&> OnError, std::invocable<> OnCompleted>
-using lambda_observer_with_disposable = observer<Type, details::with_disposable<details::observers::lambda_strategy<Type, OnNext, OnError, OnCompleted>>>;
+using lambda_observer_with_disposable = observer<Type, details::with_external_disposasble<details::observers::lambda_strategy<Type, OnNext, OnError, OnCompleted>>>;
 
 /**
  * @brief Constructs observer specialized with passed callbacks. Most easiesest way to construct observer "on the fly" via lambdas and etc.

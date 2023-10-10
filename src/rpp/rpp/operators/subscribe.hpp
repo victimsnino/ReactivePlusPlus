@@ -60,7 +60,7 @@ public:
     rpp::composite_disposable_wrapper operator()(const rpp::observable<Type, Strategy>& observalbe) &&
     {
         if (!m_disposable.is_disposed() && !m_observer.is_disposed())
-            observalbe.subscribe(observer<Type, rpp::details::with_disposable<observer<Type, ObserverStrategy>>>{m_disposable, std::move(m_observer)});
+            observalbe.subscribe(observer<Type, rpp::details::with_external_disposasble<observer<Type, ObserverStrategy>>>{m_disposable, std::move(m_observer)});
         return m_disposable;
     }
 

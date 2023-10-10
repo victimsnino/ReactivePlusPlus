@@ -96,7 +96,7 @@ public:
     composite_disposable_wrapper subscribe(const composite_disposable_wrapper& d, observer<Type, ObserverStrategy>&& obs) const
     {
         if (!d.is_disposed())
-            m_strategy.subscribe(observer<Type, rpp::details::with_disposable<observer<Type, ObserverStrategy>>>{d, std::move(obs)});
+            m_strategy.subscribe(observer<Type, rpp::details::with_external_disposasble<observer<Type, ObserverStrategy>>>{d, std::move(obs)});
         return d;
     }
 

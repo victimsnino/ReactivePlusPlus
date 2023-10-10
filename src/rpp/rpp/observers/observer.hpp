@@ -33,7 +33,7 @@ class observer_impl
 protected:
     template<typename... Args>
         requires constraint::is_constructible_from<Strategy, Args&&...>
-    explicit observer_impl(DisposablesStrategy&& strategy, Args&&... args)
+    explicit observer_impl(DisposablesStrategy strategy, Args&&... args)
         : m_strategy{std::forward<Args>(args)...}
         , m_disposable{std::move(strategy)}
     {
@@ -195,15 +195,15 @@ public:
     }
 };
 
-template<constraint::decayed_type Type, constraint::observer_strategy<Type> Strategy>
-class observer<Type, details::with_disposable<Strategy>> final
-    : public details::observer_impl<Type, Strategy, details::observers::external_disposable_strategy>
+template<constraint::decayed_type Type, constraint::observer_strategy<Type> Strategy, rpp::details::observers::constraint::disposable_strategy DisposableStrategy>
+class observer<Type, details::with_disposable_strategy<Strategy, DisposableStrategy>> final
+    : public details::observer_impl<Type, Strategy, DisposableStrategy>
 {
 public:
     template<typename... Args>
-        requires (constraint::is_constructible_from<Strategy, Args && ...>)
-    explicit observer(composite_disposable_wrapper disposable, Args&&... args)
-        : details::observer_impl<Type, Strategy, details::observers::external_disposable_strategy>{details::observers::external_disposable_strategy{std::move(disposable)}, std::forward<Args>(args)...}
+        requires (constraint::is_constructible_from<details::observer_impl<Type, Strategy, DisposableStrategy>, Args && ...>)
+    explicit observer(Args&&... args)
+        : details::observer_impl<Type, Strategy, DisposableStrategy>{std::forward<Args>(args)...}
     {
     }
 
