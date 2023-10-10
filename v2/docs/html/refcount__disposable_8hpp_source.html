@@ -130,99 +130,96 @@ $(document).ready(function(){initNavTree('refcount__disposable_8hpp_source.html'
 <div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    <span class="keywordtype">void</span> dispose()</div>
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    {</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>        <span class="keywordflow">while</span> (<span class="keyword">auto</span> current_value = refcount.load(std::memory_order_acquire))</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>        {</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>            <span class="keywordflow">if</span> (!refcount.compare_exchange_strong(current_value, current_value - 1, std::memory_order_acq_rel))</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>                <span class="keywordflow">continue</span>;</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>            <span class="comment">// was last one</span></div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>            <span class="keywordflow">if</span> (current_value == 1)</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>                underlying.<a class="code hl_function" href="classrpp_1_1composite__disposable.html#aa7c4039ee81bf520bd6c1724d32e4ba5">dispose</a>();</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>            <span class="keywordflow">return</span>;</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        }</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    }</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>};</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>        <span class="comment">// just need atomicity, not guarding anything</span></div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>        <span class="keywordflow">if</span> (refcount.fetch_sub(1, std::memory_order::acquire) == 1)</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>            underlying.<a class="code hl_function" href="classrpp_1_1composite__disposable.html#aa7c4039ee81bf520bd6c1724d32e4ba5">dispose</a>();</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    }</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>};</div>
 </div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
+<div class="foldopen" id="foldopen00037" data-start="{" data-end="};">
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno"><a class="line" href="classrpp_1_1details_1_1inner__refcount__disposable.html">   37</a></span><span class="keyword">class </span><a class="code hl_class" href="classrpp_1_1details_1_1inner__refcount__disposable.html">inner_refcount_disposable</a> final : <span class="keyword">public</span> <a class="code hl_class" href="classrpp_1_1details_1_1base__disposable__impl.html">details::base_composite_disposable</a></div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>{</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <a class="code hl_class" href="classrpp_1_1details_1_1inner__refcount__disposable.html">inner_refcount_disposable</a>(<span class="keyword">const</span> std::shared_ptr&lt;refocunt_disposable_state_t&gt;&amp; state)</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        : m_state{state}</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    {</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    }</div>
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
-<div class="foldopen" id="foldopen00045" data-start="{" data-end="};">
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno"><a class="line" href="classrpp_1_1details_1_1inner__refcount__disposable.html">   45</a></span><span class="keyword">class </span><a class="code hl_class" href="classrpp_1_1details_1_1inner__refcount__disposable.html">inner_refcount_disposable</a> final : <span class="keyword">public</span> <a class="code hl_class" href="classrpp_1_1details_1_1base__disposable__impl.html">details::base_composite_disposable</a></div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>{</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    <a class="code hl_class" href="classrpp_1_1details_1_1inner__refcount__disposable.html">inner_refcount_disposable</a>(<span class="keyword">const</span> std::shared_ptr&lt;refocunt_disposable_state_t&gt;&amp; state)</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>        : m_state{state}</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    {</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    <a class="code hl_class" href="classrpp_1_1details_1_1inner__refcount__disposable.html">inner_refcount_disposable</a>(<span class="keyword">const</span> <a class="code hl_class" href="classrpp_1_1details_1_1inner__refcount__disposable.html">inner_refcount_disposable</a>&amp;)     = <span class="keyword">delete</span>;</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    <a class="code hl_class" href="classrpp_1_1details_1_1inner__refcount__disposable.html">inner_refcount_disposable</a>(<a class="code hl_class" href="classrpp_1_1details_1_1inner__refcount__disposable.html">inner_refcount_disposable</a>&amp;&amp;) <span class="keyword">noexcept</span> = <span class="keyword">delete</span>;</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    <span class="keywordtype">void</span> dispose_impl() <span class="keyword">noexcept</span> <span class="keyword">final</span></div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    {</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>        m_state-&gt;dispose();</div>
 <div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    }</div>
 <div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    <a class="code hl_class" href="classrpp_1_1details_1_1inner__refcount__disposable.html">inner_refcount_disposable</a>(<span class="keyword">const</span> <a class="code hl_class" href="classrpp_1_1details_1_1inner__refcount__disposable.html">inner_refcount_disposable</a>&amp;)     = <span class="keyword">delete</span>;</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    <a class="code hl_class" href="classrpp_1_1details_1_1inner__refcount__disposable.html">inner_refcount_disposable</a>(<a class="code hl_class" href="classrpp_1_1details_1_1inner__refcount__disposable.html">inner_refcount_disposable</a>&amp;&amp;) <span class="keyword">noexcept</span> = <span class="keyword">delete</span>;</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    <span class="keywordtype">void</span> dispose_impl() <span class="keyword">noexcept</span> <span class="keyword">final</span></div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    {</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>        m_state-&gt;dispose();</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    }</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    <span class="keyword">using </span>interface_composite_disposable::add;</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    <span class="keywordtype">void</span> add(<a class="code hl_class" href="classrpp_1_1disposable__wrapper__impl.html">disposable_wrapper</a> disposable) <span class="keyword">final</span></div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    {</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>        m_state-&gt;underlying.add(std::move(disposable));</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    }</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    std::shared_ptr&lt;refocunt_disposable_state_t&gt; m_state;</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>};</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    <span class="keyword">using </span>interface_composite_disposable::add;</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    <span class="keywordtype">void</span> add(<a class="code hl_class" href="classrpp_1_1disposable__wrapper__impl.html">disposable_wrapper</a> disposable) <span class="keyword">final</span></div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    {</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>        m_state-&gt;underlying.add(std::move(disposable));</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    }</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    std::shared_ptr&lt;refocunt_disposable_state_t&gt; m_state;</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>};</div>
 </div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>}</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span> </div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span><span class="keyword">namespace </span>rpp</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>{</div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span><span class="keyword">class </span>refcount_disposable : <span class="keyword">public</span> <a class="code hl_class" href="classrpp_1_1details_1_1base__disposable__impl.html">details::base_composite_disposable</a></div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>                          , <span class="keyword">public</span> std::enable_shared_from_this&lt;refcount_disposable&gt;</div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>{</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>}</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span><span class="keyword">namespace </span>rpp</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>{</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span><span class="keyword">class </span>refcount_disposable : <span class="keyword">public</span> <a class="code hl_class" href="classrpp_1_1details_1_1base__disposable__impl.html">details::base_composite_disposable</a></div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>                          , <span class="keyword">public</span> std::enable_shared_from_this&lt;refcount_disposable&gt;</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>{</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span> </div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    refcount_disposable() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span> </div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    refcount_disposable(<a class="code hl_class" href="classrpp_1_1disposable__wrapper__impl.html">disposable_wrapper</a> target) { m_state.underlying.add(std::move(target)); }</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span> </div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    refcount_disposable(<span class="keyword">const</span> refcount_disposable&amp;)     = <span class="keyword">delete</span>;</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    refcount_disposable(refcount_disposable&amp;&amp;) noexcept = delete;</div>
 <div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span> </div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    refcount_disposable() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span> </div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    refcount_disposable(<a class="code hl_class" href="classrpp_1_1disposable__wrapper__impl.html">disposable_wrapper</a> target) { m_state.underlying.add(std::move(target)); }</div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span> </div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    refcount_disposable(<span class="keyword">const</span> refcount_disposable&amp;)     = <span class="keyword">delete</span>;</div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    refcount_disposable(refcount_disposable&amp;&amp;) noexcept = delete;</div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span> </div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    <span class="keywordtype">bool</span> is_disposed_underlying() const noexcept { <span class="keywordflow">return</span> m_state.refcount.load(std::memory_order_relaxed) == 0; }</div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span> </div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>    <span class="keywordtype">void</span> dispose_impl() noexcept final</div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>    {</div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>        m_state.dispose();</div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>    }</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    <span class="keywordtype">bool</span> is_disposed_underlying() const noexcept</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    {</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>        <span class="comment">// just need atomicity, not guarding anything</span></div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>        <span class="keywordflow">return</span> m_state.refcount.load(std::memory_order::relaxed) == 0;</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    }</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span> </div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    <span class="keywordtype">void</span> dispose_impl() noexcept final</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>    {</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>        m_state.dispose();</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>    }</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span> </div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>    composite_disposable_wrapper add_ref()</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    {</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>        <span class="keyword">auto</span> current_value = m_state.refcount.load(std::memory_order::relaxed);</div>
 <div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span> </div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>    composite_disposable_wrapper add_ref()</div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>    {</div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>        <span class="keywordflow">while</span> (<span class="keyword">auto</span> current_value = m_state.refcount.load(std::memory_order_acquire))</div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>        {</div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>            <span class="keywordflow">if</span> (!m_state.refcount.compare_exchange_strong(current_value, current_value + 1, std::memory_order_acq_rel))</div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>                <span class="keywordflow">continue</span>;</div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span> </div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>            <span class="keywordflow">return</span> composite_disposable_wrapper{std::make_shared&lt;details::inner_refcount_disposable&gt;(std::shared_ptr&lt;details::refocunt_disposable_state_t&gt;{this-&gt;shared_from_this(), &amp;this-&gt;m_state})};</div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>        }</div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>        <span class="keywordflow">return</span> composite_disposable_wrapper{};</div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>    }</div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span> </div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>    <span class="keyword">using </span>interface_composite_disposable::add;</div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span> </div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>    <span class="keywordtype">void</span> add(disposable_wrapper disposable) <span class="keyword">final</span></div>
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>    {</div>
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>        m_state.underlying.add(std::move(disposable));</div>
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>    }</div>
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span> </div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>    details::refocunt_disposable_state_t m_state{};</div>
-<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>};</div>
-<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>} <span class="comment">// namespace rpp</span></div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>        <span class="comment">// just need atomicity, not guarding anything</span></div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>        <span class="keywordflow">while</span> (current_value &amp;&amp; !m_state.refcount.compare_exchange_strong(current_value, current_value + 1, std::memory_order::relaxed, std::memory_order::relaxed)){};</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span> </div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>        <span class="keywordflow">if</span> (!current_value)</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>            <span class="keywordflow">return</span> composite_disposable_wrapper{};</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span> </div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>        <span class="keywordflow">return</span> composite_disposable_wrapper{std::make_shared&lt;details::inner_refcount_disposable&gt;(std::shared_ptr&lt;details::refocunt_disposable_state_t&gt;{this-&gt;shared_from_this(), &amp;this-&gt;m_state})};</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>    }</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span> </div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>    <span class="keyword">using </span>interface_composite_disposable::add;</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span> </div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>    <span class="keywordtype">void</span> add(disposable_wrapper disposable) <span class="keyword">final</span></div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>    {</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>        m_state.underlying.add(std::move(disposable));</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>    }</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span> </div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>    details::refocunt_disposable_state_t m_state{};</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>};</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>} <span class="comment">// namespace rpp</span></div>
 <div class="ttc" id="aclassrpp_1_1composite__disposable_html"><div class="ttname"><a href="classrpp_1_1composite__disposable.html">rpp::composite_disposable</a></div><div class="ttdoc">Disposable which can keep some other sub-disposables. When this root disposable is disposed,...</div><div class="ttdef"><b>Definition</b> composite_disposable.hpp:30</div></div>
-<div class="ttc" id="aclassrpp_1_1composite__disposable_html_aa7c4039ee81bf520bd6c1724d32e4ba5"><div class="ttname"><a href="classrpp_1_1composite__disposable.html#aa7c4039ee81bf520bd6c1724d32e4ba5">rpp::composite_disposable::dispose</a></div><div class="ttdeci">void dispose() noexcept final</div><div class="ttdoc">Dispose disposable and free any underlying resources and etc.</div><div class="ttdef"><b>Definition</b> composite_disposable.hpp:42</div></div>
+<div class="ttc" id="aclassrpp_1_1composite__disposable_html_aa7c4039ee81bf520bd6c1724d32e4ba5"><div class="ttname"><a href="classrpp_1_1composite__disposable.html#aa7c4039ee81bf520bd6c1724d32e4ba5">rpp::composite_disposable::dispose</a></div><div class="ttdeci">void dispose() noexcept final</div><div class="ttdoc">Dispose disposable and free any underlying resources and etc.</div><div class="ttdef"><b>Definition</b> composite_disposable.hpp:43</div></div>
 <div class="ttc" id="aclassrpp_1_1details_1_1base__disposable__impl_html"><div class="ttname"><a href="classrpp_1_1details_1_1base__disposable__impl.html">rpp::details::base_disposable_impl</a></div><div class="ttdef"><b>Definition</b> base_disposable.hpp:23</div></div>
-<div class="ttc" id="aclassrpp_1_1details_1_1inner__refcount__disposable_html"><div class="ttname"><a href="classrpp_1_1details_1_1inner__refcount__disposable.html">rpp::details::inner_refcount_disposable</a></div><div class="ttdef"><b>Definition</b> refcount_disposable.hpp:46</div></div>
+<div class="ttc" id="aclassrpp_1_1details_1_1inner__refcount__disposable_html"><div class="ttname"><a href="classrpp_1_1details_1_1inner__refcount__disposable.html">rpp::details::inner_refcount_disposable</a></div><div class="ttdef"><b>Definition</b> refcount_disposable.hpp:38</div></div>
 <div class="ttc" id="aclassrpp_1_1disposable__wrapper__impl_html"><div class="ttname"><a href="classrpp_1_1disposable__wrapper__impl.html">rpp::disposable_wrapper_impl</a></div><div class="ttdoc">Wrapper over disposable_ptr to prevent manual checking over nullptr/is_disposed()</div><div class="ttdef"><b>Definition</b> disposable_wrapper.hpp:30</div></div>
 <div class="ttc" id="astructrpp_1_1details_1_1refocunt__disposable__state__t_html"><div class="ttname"><a href="structrpp_1_1details_1_1refocunt__disposable__state__t.html">rpp::details::refocunt_disposable_state_t</a></div><div class="ttdef"><b>Definition</b> refcount_disposable.hpp:25</div></div>
 </div><!-- fragment --></div><!-- contents -->

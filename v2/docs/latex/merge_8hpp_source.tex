@@ -38,52 +38,52 @@
 \DoxyCodeLine{00034\ \ \ \ \ \{}
 \DoxyCodeLine{00035\ \ \ \ \ \}}
 \DoxyCodeLine{00036\ }
-\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keywordtype}{void}\ increment\_on\_completed()\ \{\ m\_on\_completed\_needed.fetch\_add(1,\ std::memory\_order\_relaxed);\ \}}
-\DoxyCodeLine{00038\ }
-\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keywordtype}{bool}\ decrement\_on\_completed()\ \{\ \textcolor{keywordflow}{return}\ m\_on\_completed\_needed.fetch\_sub(1,\ std::memory\_order\_relaxed)\ ==\ 1;\ \}}
-\DoxyCodeLine{00040\ }
-\DoxyCodeLine{00041\ \ \ \ \ \mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1pointer__under__lock}{pointer\_under\_lock<TObserver>}}\ get\_observer\_under\_lock()\ \{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1pointer__under__lock}{pointer\_under\_lock}}\{m\_observer\};\ \}}
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{comment}{//\ just\ need\ atomicity,\ not\ guarding\ anything}}
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keywordtype}{void}\ increment\_on\_completed()\ \{\ m\_on\_completed\_needed.fetch\_add(1,\ std::memory\_order::relaxed);\ \}}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{comment}{//\ just\ need\ atomicity,\ not\ guarding\ anything}}
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keywordtype}{bool}\ decrement\_on\_completed()\ \{\ \textcolor{keywordflow}{return}\ m\_on\_completed\_needed.fetch\_sub(1,\ std::memory\_order::relaxed)\ ==\ 1;\ \}}
 \DoxyCodeLine{00042\ }
-\DoxyCodeLine{00043\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00044\ \ \ \ \ \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1value__with__mutex}{value\_with\_mutex<TObserver>}}\ m\_observer\{\};}
-\DoxyCodeLine{00045\ \ \ \ \ std::atomic\_size\_t\ \ \ \ \ \ \ \ \ \ m\_on\_completed\_needed\{1\};}
-\DoxyCodeLine{00046\ \};}
-\DoxyCodeLine{00047\ }
-\DoxyCodeLine{00048\ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::observer\ TObserver>}
-\DoxyCodeLine{00049\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1merge__observer__base__strategy}{merge\_observer\_base\_strategy}}}
-\DoxyCodeLine{00050\ \{}
-\DoxyCodeLine{00051\ \ \ \ \ \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1merge__observer__base__strategy}{merge\_observer\_base\_strategy}}(std::shared\_ptr<\mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1merge__disposable}{merge\_disposable<TObserver>}}>\&\&\ disposable)}
-\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ :\ m\_disposable\{std::move(disposable)\}}
-\DoxyCodeLine{00053\ \ \ \ \ \{}
-\DoxyCodeLine{00054\ \ \ \ \ \}}
-\DoxyCodeLine{00055\ }
-\DoxyCodeLine{00056\ \ \ \ \ \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1merge__observer__base__strategy}{merge\_observer\_base\_strategy}}(\textcolor{keyword}{const}\ std::shared\_ptr<\mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1merge__disposable}{merge\_disposable<TObserver>}}>\&\ disposable)}
-\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ :\ m\_disposable\{disposable\}}
-\DoxyCodeLine{00058\ \ \ \ \ \{}
-\DoxyCodeLine{00059\ \ \ \ \ \}}
-\DoxyCodeLine{00060\ }
-\DoxyCodeLine{00061\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_upstream(\textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp::disposable\_wrapper}}\&\ d)\textcolor{keyword}{\ const}}
-\DoxyCodeLine{00062\ \textcolor{keyword}{\ \ \ \ }\{}
-\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ m\_disposable-\/>add(d);}
-\DoxyCodeLine{00064\ \ \ \ \ \}}
-\DoxyCodeLine{00065\ }
-\DoxyCodeLine{00066\ \ \ \ \ \textcolor{keywordtype}{bool}\ is\_disposed()\textcolor{keyword}{\ const}}
-\DoxyCodeLine{00067\ \textcolor{keyword}{\ \ \ \ }\{}
-\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ m\_disposable-\/>is\_disposed();}
-\DoxyCodeLine{00069\ \ \ \ \ \}}
-\DoxyCodeLine{00070\ }
-\DoxyCodeLine{00071\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_error(\textcolor{keyword}{const}\ std::exception\_ptr\&\ err)\textcolor{keyword}{\ const}}
-\DoxyCodeLine{00072\ \textcolor{keyword}{\ \ \ \ }\{}
-\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ m\_disposable-\/>dispose();}
-\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ m\_disposable-\/>get\_observer\_under\_lock()-\/>on\_error(err);}
-\DoxyCodeLine{00075\ \ \ \ \ \}}
-\DoxyCodeLine{00076\ }
-\DoxyCodeLine{00077\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_completed()\textcolor{keyword}{\ const}}
-\DoxyCodeLine{00078\ \textcolor{keyword}{\ \ \ \ }\{}
-\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (m\_disposable-\/>decrement\_on\_completed())}
-\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \ \ \ \ std::atomic\_thread\_fence(std::memory\_order\_acquire);}
-\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00043\ \ \ \ \ \mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1pointer__under__lock}{pointer\_under\_lock<TObserver>}}\ get\_observer\_under\_lock()\ \{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1pointer__under__lock}{pointer\_under\_lock}}\{m\_observer\};\ \}}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00046\ \ \ \ \ \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1value__with__mutex}{value\_with\_mutex<TObserver>}}\ m\_observer\{\};}
+\DoxyCodeLine{00047\ \ \ \ \ std::atomic\_size\_t\ \ \ \ \ \ \ \ \ \ m\_on\_completed\_needed\{1\};}
+\DoxyCodeLine{00048\ \};}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::observer\ TObserver>}
+\DoxyCodeLine{00051\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1merge__observer__base__strategy}{merge\_observer\_base\_strategy}}}
+\DoxyCodeLine{00052\ \{}
+\DoxyCodeLine{00053\ \ \ \ \ \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1merge__observer__base__strategy}{merge\_observer\_base\_strategy}}(std::shared\_ptr<\mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1merge__disposable}{merge\_disposable<TObserver>}}>\&\&\ disposable)}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ :\ m\_disposable\{std::move(disposable)\}}
+\DoxyCodeLine{00055\ \ \ \ \ \{}
+\DoxyCodeLine{00056\ \ \ \ \ \}}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \ \ \ \ \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1merge__observer__base__strategy}{merge\_observer\_base\_strategy}}(\textcolor{keyword}{const}\ std::shared\_ptr<\mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1merge__disposable}{merge\_disposable<TObserver>}}>\&\ disposable)}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ :\ m\_disposable\{disposable\}}
+\DoxyCodeLine{00060\ \ \ \ \ \{}
+\DoxyCodeLine{00061\ \ \ \ \ \}}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_upstream(\textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp::disposable\_wrapper}}\&\ d)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00064\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ m\_disposable-\/>add(d);}
+\DoxyCodeLine{00066\ \ \ \ \ \}}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ \ \ \ \ \textcolor{keywordtype}{bool}\ is\_disposed()\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00069\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ m\_disposable-\/>is\_disposed();}
+\DoxyCodeLine{00071\ \ \ \ \ \}}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_error(\textcolor{keyword}{const}\ std::exception\_ptr\&\ err)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00074\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ m\_disposable-\/>dispose();}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ m\_disposable-\/>get\_observer\_under\_lock()-\/>on\_error(err);}
+\DoxyCodeLine{00077\ \ \ \ \ \}}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_completed()\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00080\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (m\_disposable-\/>decrement\_on\_completed())}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \{}
 \DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \ \ \ \ m\_disposable-\/>dispose();}
 \DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \ \ \ \ m\_disposable-\/>get\_observer\_under\_lock()-\/>on\_completed();}
 \DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \}}
