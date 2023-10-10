@@ -32,12 +32,12 @@ struct member_ptr_caller<F>
     static R call(const void* data, Args... args) { return (static_cast<const T*>(data)->*F)(static_cast<Args>(args)...); }
 };
 
-template<constraint::decayed_type Type>
+template<rpp::constraint::decayed_type Type>
 class dynamic_strategy final
 {
 public:
-    template<constraint::observer_strategy<Type> Strategy>
-        requires (!constraint::decayed_same_as<Strategy, dynamic_strategy<Type>>)
+    template<rpp::constraint::observer_strategy<Type> Strategy>
+        requires (!rpp::constraint::decayed_same_as<Strategy, dynamic_strategy<Type>>)
     explicit dynamic_strategy(observer<Type, Strategy>&& obs)
         : m_forwarder{std::make_shared<observer<Type, Strategy>>(std::move(obs))}
         , m_vtable{vtable::template create<observer<Type, Strategy>>()}
@@ -70,7 +70,7 @@ private:
         void (*set_upstream)(void*, const disposable_wrapper&){};
         bool (*is_disposed)(const void*){};
 
-        template<constraint::observer Strategy>
+        template<rpp::constraint::observer Strategy>
         static const vtable* create() noexcept
         {
             static vtable s_res{

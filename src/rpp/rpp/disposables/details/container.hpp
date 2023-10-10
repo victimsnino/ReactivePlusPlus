@@ -33,7 +33,7 @@ public:
 
     void dispose() const
     {
-        for (const auto& d : *this) {
+        for (const auto& d : m_data) {
             d.dispose();
         }
     }
