@@ -22,7 +22,7 @@ namespace rpp::operators::details
 template<rpp::constraint::observer TObserver>
 struct skip_observer_strategy
 {
-    using DisposableStrategyToUseWithThis = rpp::details::none_disposable_strategy;
+    using DisposableStrategyToUseWithThis = rpp::details::observers::none_disposable_strategy;
 
     RPP_NO_UNIQUE_ADDRESS TObserver observer;
     mutable size_t                  count{};

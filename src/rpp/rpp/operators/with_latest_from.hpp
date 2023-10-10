@@ -83,7 +83,7 @@ struct with_latest_from_observer_strategy
 {
     using Disposable                      = with_latest_from_disposable<Observer, TSelector, RestArgs...>;
     using Result                          = std::invoke_result_t<TSelector, OriginalValue, RestArgs...>;
-    using DisposableStrategyToUseWithThis = rpp::details::none_disposable_strategy;
+    using DisposableStrategyToUseWithThis = rpp::details::observers::none_disposable_strategy;
 
     std::shared_ptr<Disposable> disposable{};
 

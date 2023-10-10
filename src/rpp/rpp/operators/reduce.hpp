@@ -20,7 +20,7 @@ namespace rpp::operators::details
 template<rpp::constraint::observer TObserver, rpp::constraint::decayed_type Accumulator>
 struct reduce_observer_strategy
 {
-    using DisposableStrategyToUseWithThis = rpp::details::none_disposable_strategy;
+    using DisposableStrategyToUseWithThis = rpp::details::observers::none_disposable_strategy;
     using Seed = rpp::utils::extract_observer_type_t<TObserver>;
 
     RPP_NO_UNIQUE_ADDRESS TObserver    observer;
@@ -59,7 +59,7 @@ struct reduce_t : public operators::details::operator_observable_strategy_difffe
 template<rpp::constraint::observer TObserver, rpp::constraint::decayed_type Accumulator>
 struct reduce_no_seed_observer_strategy
 {
-    using DisposableStrategyToUseWithThis = rpp::details::none_disposable_strategy;
+    using DisposableStrategyToUseWithThis = rpp::details::observers::none_disposable_strategy;
     using Seed = rpp::utils::extract_observer_type_t<TObserver>;
 
     RPP_NO_UNIQUE_ADDRESS TObserver   observer;

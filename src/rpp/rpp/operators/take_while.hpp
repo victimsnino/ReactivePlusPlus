@@ -20,7 +20,7 @@ namespace rpp::operators::details
 template<rpp::constraint::observer TObserver, rpp::constraint::decayed_type Fn>
 struct take_while_observer_strategy
 {
-    using DisposableStrategyToUseWithThis = rpp::details::none_disposable_strategy;
+    using DisposableStrategyToUseWithThis = rpp::details::observers::none_disposable_strategy;
 
     RPP_NO_UNIQUE_ADDRESS TObserver observer;
     RPP_NO_UNIQUE_ADDRESS Fn        fn;

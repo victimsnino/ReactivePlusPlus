@@ -36,7 +36,7 @@ class window_observer_strategy
     static_assert(std::same_as<Observable, decltype(std::declval<Subject>().get_observable())>);
     
 public:
-    using DisposableStrategyToUseWithThis = rpp::details::none_disposable_strategy;
+    using DisposableStrategyToUseWithThis = rpp::details::observers::none_disposable_strategy;
 
     window_observer_strategy(TObserver&& observer, size_t count)
         : m_observer{std::move(observer)}
