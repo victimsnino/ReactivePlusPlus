@@ -153,7 +153,7 @@ template<rpp::schedulers::constraint::scheduler Scheduler>
 struct debounce_t
 {
     template<rpp::constraint::decayed_type T>
-    using ResultValue = T;
+    using result_value = T;
 
     rpp::schedulers::duration       duration;
     RPP_NO_UNIQUE_ADDRESS Scheduler scheduler;

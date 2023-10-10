@@ -34,10 +34,10 @@ struct ref_count_on_subscribe_t<rpp::connectable_observable<OriginalObservable, 
 
     std::shared_ptr<state_t> m_state = std::make_shared<state_t>();
 
-    using ValueType = rpp::utils::extract_observable_type_t<OriginalObservable>;
+    using value_type = rpp::utils::extract_observable_type_t<OriginalObservable>;
 
-    template<constraint::observer_strategy<ValueType> Strategy>
-    void subscribe(observer<ValueType, Strategy>&& obs) const
+    template<constraint::observer_strategy<value_type> Strategy>
+    void subscribe(observer<value_type, Strategy>&& obs) const
     {
         auto [disposable, upstream] = on_subscribe();
 

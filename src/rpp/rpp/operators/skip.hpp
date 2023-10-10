@@ -22,7 +22,7 @@ namespace rpp::operators::details
 template<rpp::constraint::observer TObserver>
 struct skip_observer_strategy
 {
-    using PreferredDisposableStrategy = rpp::details::observers::none_disposable_strategy;
+    using preferred_disposable_strategy = rpp::details::observers::none_disposable_strategy;
 
     RPP_NO_UNIQUE_ADDRESS TObserver observer;
     mutable size_t                  count{};
@@ -48,7 +48,7 @@ struct skip_observer_strategy
 struct skip_t : public operators::details::operator_observable_strategy_diffferent_types<skip_observer_strategy, rpp::utils::types<>, size_t>
 {
     template<rpp::constraint::decayed_type T>
-    using ResultValue = T;
+    using result_value = T;
 };
 }
 

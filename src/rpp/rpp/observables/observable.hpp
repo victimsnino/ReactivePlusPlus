@@ -212,13 +212,13 @@ public:
     template<constraint::operators_v2<Type> Op>
     auto operator|(Op&& op) const &
     {
-        return observable<typename std::decay_t<Op>::template ResultValue<Type>, make_chain_observable_t<std::decay_t<Op>, Strategy>>{std::forward<Op>(op), m_strategy};
+        return observable<typename std::decay_t<Op>::template result_value<Type>, make_chain_observable_t<std::decay_t<Op>, Strategy>>{std::forward<Op>(op), m_strategy};
     }
 
     template<constraint::operators_v2<Type> Op>
     auto operator|(Op&& op) &&
     {
-        return observable<typename std::decay_t<Op>::template ResultValue<Type>, make_chain_observable_t<std::decay_t<Op>, Strategy>>{std::forward<Op>(op), std::move(m_strategy)};
+        return observable<typename std::decay_t<Op>::template result_value<Type>, make_chain_observable_t<std::decay_t<Op>, Strategy>>{std::forward<Op>(op), std::move(m_strategy)};
     }
 
     template<constraint::operators<const observable<Type, Strategy>&> Op>

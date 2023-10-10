@@ -19,7 +19,7 @@ template<constraint::decayed_type Type>
 
 struct empty_strategy
 {
-    using ValueType = Type;
+    using value_type = Type;
 
     static void subscribe(const auto& obs) { obs.on_completed(); }
 };

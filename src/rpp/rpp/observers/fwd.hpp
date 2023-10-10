@@ -10,6 +10,8 @@
 
 #pragma once
 
+#include <rpp/observers/details/fwd.hpp>
+
 #include <rpp/disposables/fwd.hpp>
 
 #include <rpp/utils/constraints.hpp>
@@ -44,10 +46,10 @@ concept observer_strategy = requires(const S& const_strategy, S& strategy, const
 
 namespace rpp::details::observers
 {
-template<constraint::decayed_type Type>
+template<rpp::constraint::decayed_type Type>
 class dynamic_strategy;
 
-template<constraint::decayed_type                  Type,
+template<rpp::constraint::decayed_type                  Type,
          std::invocable<Type>                      OnNext,
          std::invocable<const std::exception_ptr&> OnError,
          std::invocable<>                          OnCompleted>

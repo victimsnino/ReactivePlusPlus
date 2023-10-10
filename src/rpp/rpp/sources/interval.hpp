@@ -28,13 +28,13 @@ struct interval_schedulable
 template<typename TScheduler>
 struct interval_strategy
 {
-    using ValueType = size_t;
+    using value_type = size_t;
 
     RPP_NO_UNIQUE_ADDRESS TScheduler scheduler;
     rpp::schedulers::duration        initial;
     rpp::schedulers::duration        period;
 
-    template<rpp::constraint::observer_of_type<ValueType> TObs>
+    template<rpp::constraint::observer_of_type<value_type> TObs>
     void subscribe(TObs&& observer) const
     {
         const auto worker = scheduler.create_worker();

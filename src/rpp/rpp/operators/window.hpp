@@ -30,13 +30,13 @@ template<rpp::constraint::observer TObserver>
 class window_observer_strategy
 {
     using Observable = rpp::utils::extract_observer_type_t<TObserver>;
-    using ValueType = rpp::utils::extract_observable_type_t<Observable>;
-    using Subject = forwarding_subject<ValueType>;
+    using value_type = rpp::utils::extract_observable_type_t<Observable>;
+    using Subject = forwarding_subject<value_type>;
 
     static_assert(std::same_as<Observable, decltype(std::declval<Subject>().get_observable())>);
     
 public:
-    using PreferredDisposableStrategy = rpp::details::observers::none_disposable_strategy;
+    using preferred_disposable_strategy = rpp::details::observers::none_disposable_strategy;
 
     window_observer_strategy(TObserver&& observer, size_t count)
         : m_observer{std::move(observer)}
@@ -94,7 +94,7 @@ private:
 struct window_t : public operators::details::operator_observable_strategy_diffferent_types<window_observer_strategy, rpp::utils::types<>, size_t>
 {
     template<rpp::constraint::decayed_type T>
-    using ResultValue = windowed_observable<T>;
+    using result_value = windowed_observable<T>;
 };
 }
 

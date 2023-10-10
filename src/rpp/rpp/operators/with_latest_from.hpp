@@ -83,7 +83,7 @@ struct with_latest_from_observer_strategy
 {
     using Disposable                      = with_latest_from_disposable<Observer, TSelector, RestArgs...>;
     using Result                          = std::invoke_result_t<TSelector, OriginalValue, RestArgs...>;
-    using PreferredDisposableStrategy = rpp::details::observers::none_disposable_strategy;
+    using preferred_disposable_strategy = rpp::details::observers::none_disposable_strategy;
 
     std::shared_ptr<Disposable> disposable{};
 
@@ -133,7 +133,7 @@ struct with_latest_from_t
 
     template<rpp::constraint::decayed_type T>
         requires std::invocable<TSelector, T, rpp::utils::extract_observable_type_t<TObservables>...>
-    using ResultValue = std::invoke_result_t<TSelector, T, rpp::utils::extract_observable_type_t<TObservables>...>;
+    using result_value = std::invoke_result_t<TSelector, T, rpp::utils::extract_observable_type_t<TObservables>...>;
 
     template<rpp::constraint::observer Observer, typename... Strategies>
     void subscribe(Observer&& observer, const observable_chain_strategy<Strategies...>& observable_strategy) const
@@ -153,7 +153,7 @@ private:
         disposable->get_observer_under_lock()->set_upstream(rpp::disposable_wrapper::from_weak(disposable));
         subscribe(disposable, std::index_sequence_for<TObservables...>{}, observables...);
 
-        using ExpectedValue = typename observable_chain_strategy<Strategies...>::ValueType;
+        using ExpectedValue = typename observable_chain_strategy<Strategies...>::value_type;
 
         observable_strategy.subscribe(rpp::observer<ExpectedValue, with_latest_from_observer_strategy<std::decay_t<Observer>, TSelector, ExpectedValue, rpp::utils::extract_observable_type_t<TObservables>...>>{std::move(disposable)});
     }

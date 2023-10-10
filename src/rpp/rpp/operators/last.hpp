@@ -23,7 +23,7 @@ namespace rpp::operators::details
 template<rpp::constraint::decayed_type Type, rpp::constraint::observer TObserver>
 struct last_observer_strategy
 {
-    using PreferredDisposableStrategy = rpp::details::observers::none_disposable_strategy;
+    using preferred_disposable_strategy = rpp::details::observers::none_disposable_strategy;
 
     RPP_NO_UNIQUE_ADDRESS TObserver observer;
     mutable std::optional<Type>     value{};
@@ -55,7 +55,7 @@ struct last_observer_strategy
 struct last_t : public operators::details::template_operator_observable_strategy<last_observer_strategy>
 {
     template<rpp::constraint::decayed_type T>
-    using ResultValue = T;
+    using result_value = T;
 };
 }
 

@@ -22,7 +22,7 @@ namespace rpp::operators::details
 template<rpp::constraint::observer TObserver, rpp::constraint::decayed_type Fn>
 struct filter_observer_strategy
 {
-    using PreferredDisposableStrategy = rpp::details::observers::none_disposable_strategy;
+    using preferred_disposable_strategy = rpp::details::observers::none_disposable_strategy;
 
     RPP_NO_UNIQUE_ADDRESS TObserver observer;
     RPP_NO_UNIQUE_ADDRESS Fn        fn;
@@ -48,7 +48,7 @@ struct filter_t : public operators::details::operator_observable_strategy<filter
 {
     template<rpp::constraint::decayed_type T>
         requires std::is_invocable_r_v<bool, Fn, T>
-    using ResultValue = T;
+    using result_value = T;
 };
 }
 

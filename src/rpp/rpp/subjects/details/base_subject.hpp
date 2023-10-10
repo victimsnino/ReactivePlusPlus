@@ -22,7 +22,7 @@ class base_subject
 {
     struct on_subscribe
     {
-        using ValueType = T;
+        using value_type = T;
 
         Strategy strategy;
 

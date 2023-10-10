@@ -28,7 +28,7 @@ template<constraint::decayed_type Type>
 class dynamic_strategy final
 {
 public:
-    using ValueType = Type;
+    using value_type = Type;
 
     template<constraint::observable_strategy<Type> Strategy>
         requires (!constraint::decayed_same_as<Strategy, dynamic_strategy<Type>>)

@@ -22,7 +22,7 @@ struct subscribe_on_schedulable
 {
     RPP_NO_UNIQUE_ADDRESS TObservableChainStrategy observable;
 
-    using Type = typename TObservableChainStrategy::ValueType;
+    using Type = typename TObservableChainStrategy::value_type;
 
     template<rpp::constraint::observer_strategy<Type> ObserverStrategy>
     rpp::schedulers::optional_duration operator()(observer<Type, ObserverStrategy>& observer) const
@@ -36,7 +36,7 @@ template<rpp::schedulers::constraint::scheduler Scheduler>
 struct subscribe_on_t
 {
     template<rpp::constraint::decayed_type T>
-    using ResultValue = T;
+    using result_value = T;
 
     RPP_NO_UNIQUE_ADDRESS Scheduler scheduler;
 

@@ -18,7 +18,7 @@ namespace rpp::details
 template<constraint::decayed_type Type>
 struct error_strategy
 {
-    using ValueType = Type;
+    using value_type = Type;
 
     std::exception_ptr err{};
 

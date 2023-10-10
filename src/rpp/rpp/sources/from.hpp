@@ -89,7 +89,7 @@ struct from_iterable_strategy
     {
     }
 
-    using ValueType = rpp::utils::iterable_value_t<PackedContainer>;
+    using value_type = rpp::utils::iterable_value_t<PackedContainer>;
 
     RPP_NO_UNIQUE_ADDRESS PackedContainer container;
     RPP_NO_UNIQUE_ADDRESS TScheduler      scheduler;

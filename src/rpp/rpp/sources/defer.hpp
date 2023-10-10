@@ -19,11 +19,11 @@ namespace rpp::details
 template<typename Factory>
 struct defer_strategy
 {
-    using ValueType = rpp::utils::extract_observable_type_t<std::invoke_result_t<Factory>>;
+    using value_type = rpp::utils::extract_observable_type_t<std::invoke_result_t<Factory>>;
 
     RPP_NO_UNIQUE_ADDRESS Factory observable_factory;
 
-    template<rpp::constraint::observer_of_type<ValueType> TObs>
+    template<rpp::constraint::observer_of_type<value_type> TObs>
     void subscribe(TObs&& obs) const
     {
         observable_factory().subscribe(std::forward<TObs>(obs));

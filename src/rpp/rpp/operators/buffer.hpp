@@ -23,11 +23,11 @@ template<rpp::constraint::observer TObserver>
 class buffer_observer_strategy
 {
     using Container = rpp::utils::extract_observer_type_t<TObserver>;
-    using ValueType = typename Container::value_type;
-    static_assert(std::same_as<Container, std::vector<ValueType>>);
+    using value_type = typename Container::value_type;
+    static_assert(std::same_as<Container, std::vector<value_type>>);
     
 public:
-    using PreferredDisposableStrategy = rpp::details::observers::none_disposable_strategy;
+    using preferred_disposable_strategy = rpp::details::observers::none_disposable_strategy;
 
     buffer_observer_strategy(TObserver&& observer, size_t count)
         : m_observer{std::move(observer)}
@@ -61,13 +61,13 @@ public:
 
 private:
     RPP_NO_UNIQUE_ADDRESS TObserver m_observer;
-    mutable std::vector<ValueType>  m_bucket;
+    mutable std::vector<value_type>  m_bucket;
 };
 
 struct buffer_t : public operators::details::operator_observable_strategy_diffferent_types<buffer_observer_strategy, rpp::utils::types<>, size_t>
 {
     template<rpp::constraint::decayed_type T>
-    using ResultValue = std::vector<T>;
+    using result_value = std::vector<T>;
 };
 }
 

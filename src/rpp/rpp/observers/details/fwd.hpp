@@ -63,8 +63,8 @@ namespace details
     template<typename T>
     auto* deduce_disposable_strategy()
     {
-        if constexpr (requires { typename T::PreferredDisposableStrategy; })
-            return static_cast<typename T::PreferredDisposableStrategy*>(nullptr);
+        if constexpr (requires { typename T::preferred_disposable_strategy; })
+            return static_cast<typename T::preferred_disposable_strategy*>(nullptr);
         else
             return static_cast<dynamic_local_disposable_strategy<0>*>(nullptr);
     }

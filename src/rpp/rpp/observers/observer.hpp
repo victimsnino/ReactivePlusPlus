@@ -51,7 +51,7 @@ protected:
     observer_impl(observer_impl&&) noexcept = default;
 
 public:
-    using PreferredDisposableStrategy = observers::none_disposable_strategy;
+    using preferred_disposable_strategy = observers::none_disposable_strategy;
 
     using on_next_lvalue = void (observer_impl::*)(const Type&) const noexcept;
     using on_next_rvalue = void (observer_impl::*)(Type&&) const noexcept;

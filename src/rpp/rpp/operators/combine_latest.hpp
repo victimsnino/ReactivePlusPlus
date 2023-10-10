@@ -105,7 +105,7 @@ struct combine_latest_t
 
     template<rpp::constraint::decayed_type T>
         requires std::invocable<TSelector, T, rpp::utils::extract_observable_type_t<TObservables>...>
-    using ResultValue = std::invoke_result_t<TSelector, T, rpp::utils::extract_observable_type_t<TObservables>...>;
+    using result_value = std::invoke_result_t<TSelector, T, rpp::utils::extract_observable_type_t<TObservables>...>;
 
     template<rpp::constraint::observer Observer, typename... Strategies>
     void subscribe(Observer&& observer, const observable_chain_strategy<Strategies...>& observable_strategy) const
@@ -119,7 +119,7 @@ private:
     template<rpp::constraint::observer Observer, typename... Strategies>
     static void subscribe_impl(Observer&& observer, const observable_chain_strategy<Strategies...>& observable_strategy, const TSelector& selector, const TObservables&... observables)
     {
-        using ExpectedValue = typename observable_chain_strategy<Strategies...>::ValueType;
+        using ExpectedValue = typename observable_chain_strategy<Strategies...>::value_type;
         using Disposable    = combine_latest_disposable<Observer, TSelector, ExpectedValue, rpp::utils::extract_observable_type_t<TObservables>...>;
 
         auto disposable = std::make_shared<Disposable>(std::forward<Observer>(observer), selector);

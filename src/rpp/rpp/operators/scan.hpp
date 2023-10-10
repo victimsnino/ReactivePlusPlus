@@ -26,7 +26,7 @@ namespace rpp::operators::details
 template<rpp::constraint::observer TObserver, rpp::constraint::decayed_type Seed, rpp::constraint::decayed_type Fn>
 struct scan_observer_strategy
 {
-    using PreferredDisposableStrategy = rpp::details::observers::none_disposable_strategy;
+    using preferred_disposable_strategy = rpp::details::observers::none_disposable_strategy;
 
     RPP_NO_UNIQUE_ADDRESS TObserver    observer;
     RPP_NO_UNIQUE_ADDRESS mutable Seed seed;
@@ -60,7 +60,7 @@ struct scan_t : public operators::details::operator_observable_strategy<scan_obs
 
     template<rpp::constraint::decayed_type T>
         requires std::is_invocable_r_v<InitialValue, Fn, InitialValue&&, T>
-    using ResultValue = InitialValue;
+    using result_value = InitialValue;
 };
 
 template<rpp::constraint::decayed_type Seed, rpp::constraint::observer TObserver, rpp::constraint::decayed_type Fn>
@@ -95,7 +95,7 @@ struct scan_no_seed_t : public operators::details::template_operator_observable_
 {
     template<rpp::constraint::decayed_type T>
         requires std::is_invocable_r_v<T, Fn, T&&, T>
-    using ResultValue = T;
+    using result_value = T;
 };
 }
 
