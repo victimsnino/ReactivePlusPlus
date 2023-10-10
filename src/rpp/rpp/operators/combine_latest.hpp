@@ -39,7 +39,11 @@ public:
 
     const TSelector& get_selector() const { return selector; }
 
-    bool decrement_on_completed() { return m_on_completed_needed.fetch_sub(1, std::memory_order_relaxed) == 1; }
+    bool decrement_on_completed()
+    {
+        // just need atomicity, not guarding anything
+        return m_on_completed_needed.fetch_sub(1, std::memory_order::relaxed) == 1;
+    }
 
 private:
     value_with_mutex<Observer>                observer_with_mutex{};

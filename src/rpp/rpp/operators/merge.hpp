@@ -34,9 +34,11 @@ public:
     {
     }
 
-    void increment_on_completed() { m_on_completed_needed.fetch_add(1, std::memory_order_relaxed); }
+    // just need atomicity, not guarding anything
+    void increment_on_completed() { m_on_completed_needed.fetch_add(1, std::memory_order::relaxed); }
 
-    bool decrement_on_completed() { return m_on_completed_needed.fetch_sub(1, std::memory_order_relaxed) == 1; }
+    // just need atomicity, not guarding anything
+    bool decrement_on_completed() { return m_on_completed_needed.fetch_sub(1, std::memory_order::relaxed) == 1; }
 
     pointer_under_lock<TObserver> get_observer_under_lock() { return pointer_under_lock{m_observer}; }
 
@@ -78,8 +80,6 @@ struct merge_observer_base_strategy
     {
         if (m_disposable->decrement_on_completed())
         {
-            std::atomic_thread_fence(std::memory_order_acquire);
-
             m_disposable->dispose();
             m_disposable->get_observer_under_lock()->on_completed();
         }

@@ -28,17 +28,9 @@ struct refocunt_disposable_state_t
 
     void dispose()
     {
-        while (auto current_value = refcount.load(std::memory_order_acquire))
-        {
-            if (!refcount.compare_exchange_strong(current_value, current_value - 1, std::memory_order_acq_rel))
-                continue;
-
-            // was last one
-            if (current_value == 1)
-                underlying.dispose();
-
-            return;
-        }
+        // just need atomicity, not guarding anything
+        if (refcount.fetch_sub(1, std::memory_order::acquire) == 1)
+            underlying.dispose();
     }
 };
 
@@ -90,7 +82,11 @@ public:
     refcount_disposable(const refcount_disposable&)     = delete;
     refcount_disposable(refcount_disposable&&) noexcept = delete;
 
-    bool is_disposed_underlying() const noexcept { return m_state.refcount.load(std::memory_order_relaxed) == 0; }
+    bool is_disposed_underlying() const noexcept
+    {
+        // just need atomicity, not guarding anything
+        return m_state.refcount.load(std::memory_order::relaxed) == 0;
+    }
 
     void dispose_impl() noexcept final
     {
@@ -99,14 +95,15 @@ public:
 
     composite_disposable_wrapper add_ref()
     {
-        while (auto current_value = m_state.refcount.load(std::memory_order_acquire))
-        {
-            if (!m_state.refcount.compare_exchange_strong(current_value, current_value + 1, std::memory_order_acq_rel))
-                continue;
+        auto current_value = m_state.refcount.load(std::memory_order::relaxed);
 
-            return composite_disposable_wrapper{std::make_shared<details::inner_refcount_disposable>(std::shared_ptr<details::refocunt_disposable_state_t>{this->shared_from_this(), &this->m_state})};
-        }
-        return composite_disposable_wrapper{};
+        // just need atomicity, not guarding anything
+        while (current_value && !m_state.refcount.compare_exchange_strong(current_value, current_value + 1, std::memory_order::relaxed, std::memory_order_relaxed)){};
+
+        if (!current_value)
+            return composite_disposable_wrapper{};
+
+        return composite_disposable_wrapper{std::make_shared<details::inner_refcount_disposable>(std::shared_ptr<details::refocunt_disposable_state_t>{this->shared_from_this(), &this->m_state})};
     }
 
     using interface_composite_disposable::add;

@@ -26,11 +26,16 @@ public:
     base_disposable_impl(const base_disposable_impl&)     = delete;
     base_disposable_impl(base_disposable_impl&&) noexcept = delete;
 
-    bool is_disposed() const noexcept final { return m_disposed.load(std::memory_order_acquire); }
+    bool is_disposed() const noexcept final
+    {
+        // just need atomicity, not guarding anything
+        return m_disposed.load(std::memory_order::relaxed);
+    }
 
     void dispose() noexcept final
     {
-        if (m_disposed.exchange(true, std::memory_order_acq_rel) == false)
+        // just need atomicity, not guarding anything
+        if (m_disposed.exchange(true, std::memory_order::relaxed) == false)
             dispose_impl();
     }
 
