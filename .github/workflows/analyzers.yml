@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     
-    if: false && github.repository_owner == 'victimsnino' && github.event.workflow_run.conclusion == 'success'
+    if: github.repository_owner == 'victimsnino' && github.event.workflow_run.conclusion == 'success'
 
     steps:
     - uses: haya14busa/action-workflow_run-status@v1
