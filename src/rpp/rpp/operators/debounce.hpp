@@ -155,6 +155,9 @@ struct debounce_t
     template<rpp::constraint::decayed_type T>
     using result_value = T;
 
+    template<rpp::details::observables::constraint::disposable_strategy Prev>
+    using updated_disposable_strategy = rpp::details::observables::fixed_disposable_strategy_selector<1>;
+
     rpp::schedulers::duration       duration;
     RPP_NO_UNIQUE_ADDRESS Scheduler scheduler;
 

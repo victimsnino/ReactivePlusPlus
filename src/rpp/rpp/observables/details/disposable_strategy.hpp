@@ -14,21 +14,14 @@
 
 namespace rpp::details::observables
 {
-struct default_disposable_strategy_selector
-{
-    template<size_t Count>
-    using add = default_disposable_strategy_selector;
-
-    using observer_disposable_strategy = observers::dynamic_local_disposable_strategy<0>;
-};
-
 template<size_t PreallocatedCount = 0>
 struct dynamic_disposable_strategy_selector
 {
     template<size_t Count>
     using add = dynamic_disposable_strategy_selector<PreallocatedCount+Count>;
 
-    using observer_disposable_strategy = observers::dynamic_local_disposable_strategy<PreallocatedCount>;
+    using disposable_container = disposables::dynamic_disposables_container<PreallocatedCount>;
+    using disposable_strategy  = observers::dynamic_local_disposable_strategy<PreallocatedCount>;
 };
 
 template<size_t Count>
@@ -37,7 +30,17 @@ struct fixed_disposable_strategy_selector
     template<size_t AddCount>
     using add = fixed_disposable_strategy_selector<Count+AddCount>;
 
-    using observer_disposable_strategy = observers::static_local_disposable_strategy<Count>;
+    using disposable_container = disposables::static_disposables_container<Count>;
+    using disposable_strategy = observers::static_local_disposable_strategy<Count>;
+};
+
+struct default_disposable_strategy_selector
+{
+    template<size_t Count>
+    using add = default_disposable_strategy_selector;
+
+    using disposable_container = dynamic_disposable_strategy_selector<0>::disposable_container;
+    using disposable_strategy = dynamic_disposable_strategy_selector<0>::disposable_strategy;
 };
 
 struct none_disposable_strategy_selector
@@ -45,8 +48,10 @@ struct none_disposable_strategy_selector
     template<size_t Count>
     using add = fixed_disposable_strategy_selector<Count>;
 
-    using observer_disposable_strategy = observers::bool_local_disposable_strategy;
+    using disposable_container = default_disposable_strategy_selector::disposable_container;
+    using disposable_strategy = observers::bool_local_disposable_strategy;
 };
+
 
 namespace details
 {
@@ -69,8 +74,9 @@ template<typename T>
 concept disposable_strategy = requires(const T&)
 {
     typename T::template add<size_t{}>;
-    typename T::observer_disposable_strategy;
-    requires observers::constraint::disposable_strategy<typename T::observer_disposable_strategy>;
+    typename T::disposable_strategy;
+    typename T::disposable_container;
+    requires observers::constraint::disposable_strategy<typename T::disposable_strategy>;
 };
 }
 }

@@ -19,7 +19,40 @@ namespace rpp
 struct interface_disposable;
 struct interface_composite_disposable;
 
-class composite_disposable;
+template<rpp::constraint::decayed_type TDisposable>
+class disposable_wrapper_impl;
+
+using disposable_wrapper           = disposable_wrapper_impl<interface_disposable>;
+using composite_disposable_wrapper = disposable_wrapper_impl<interface_composite_disposable>;
+} // namespace rpp
+
+namespace rpp::details::disposables
+{
+template<size_t Count>
+class dynamic_disposables_container;
+
+template<size_t Count>
+class static_disposables_container;
+
+struct none_disposables_container;
+
+namespace constraint
+{
+    template<typename T>
+    concept disposable_container = requires(T& c, const T& const_c, const rpp::disposable_wrapper& d)
+    {
+        c.push_back(d);
+        const_c.dispose(d);
+    };
+}
+}
+
+namespace rpp
+{
+template<rpp::constraint::decayed_type Container>
+class composite_disposable_impl;
+
+using composite_disposable = composite_disposable_impl<rpp::details::disposables::dynamic_disposables_container<0>>;
 
 template<rpp::constraint::is_nothrow_invocable Fn>
 class callback_disposable;
@@ -28,10 +61,4 @@ class refcount_disposable;
 
 template<rpp::constraint::is_nothrow_invocable Fn>
 auto make_callback_disposable(Fn&& invocable);
-
-template<rpp::constraint::decayed_type TDisposable>
-class disposable_wrapper_impl;
-
-using disposable_wrapper           = disposable_wrapper_impl<interface_disposable>;
-using composite_disposable_wrapper = disposable_wrapper_impl<interface_composite_disposable>;
 } // namespace rpp

@@ -33,12 +33,14 @@ public:
 
     void dispose() const
     {
-        for (const auto& d : m_data) {
+        for (auto& d : m_data) {
             d.dispose();
+            d = rpp::disposable_wrapper{};
         }
     }
+
 private:
-    std::vector<rpp::disposable_wrapper> m_data{};
+    mutable std::vector<rpp::disposable_wrapper> m_data{};
 };
 
 template<size_t Count>
@@ -58,12 +60,13 @@ public:
     {
         for (size_t i =0; i < m_size; ++i) {
             m_data[i].dispose();
+            m_data[i] = rpp::disposable_wrapper{};
         }
     }
 
 private:
-    std::array<rpp::disposable_wrapper, Count> m_data{};
-    size_t                                     m_size{};
+    mutable std::array<rpp::disposable_wrapper, Count> m_data{};
+    size_t                                             m_size{};
 };
 
 struct none_disposables_container

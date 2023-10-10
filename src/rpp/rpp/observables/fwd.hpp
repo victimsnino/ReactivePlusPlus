@@ -135,6 +135,8 @@ template<typename Op, typename Type>
 concept operator_lift = requires(const Op& op, dynamic_observer<typename std::decay_t<Op>::template result_value<Type>>&& observer)
 {
     typename std::decay_t<Op>::template result_value<Type>;
+    requires details::observables::constraint::disposable_strategy<typename std::decay_t<Op>::template updated_disposable_strategy<details::observables::none_disposable_strategy_selector>>;
+
     {op.template lift<Type>(std::move(observer))} -> rpp::constraint::observer_of_type<Type>;
 };
 
