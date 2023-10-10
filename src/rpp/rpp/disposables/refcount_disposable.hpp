@@ -98,7 +98,7 @@ public:
         auto current_value = m_state.refcount.load(std::memory_order::relaxed);
 
         // just need atomicity, not guarding anything
-        while (current_value && !m_state.refcount.compare_exchange_strong(current_value, current_value + 1, std::memory_order::relaxed, std::memory_order_relaxed)){};
+        while (current_value && !m_state.refcount.compare_exchange_strong(current_value, current_value + 1, std::memory_order::relaxed, std::memory_order::relaxed)){};
 
         if (!current_value)
             return composite_disposable_wrapper{};

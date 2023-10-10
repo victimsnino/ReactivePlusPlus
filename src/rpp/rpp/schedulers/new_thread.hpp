@@ -59,7 +59,7 @@ class new_thread
 
             std::lock_guard lock{m_state->queue_mutex};
             // guarded by lock
-            if (const auto queue = m_state->queue_ptr.load(std::memory_order::relaxed))
+            if (const auto queue = m_state->queue_ptr.load(std::memory_order::seq_cst))
                 queue->emplace(time_point, std::forward<Fn>(fn), std::forward<Handler>(handler), std::forward<Args>(args)...);
         }
 
