@@ -105,7 +105,7 @@ template<constraint::decayed_type Type, std::invocable<Type> OnNext, std::invoca
 using lambda_observer = observer<Type, details::observers::lambda_strategy<Type, OnNext, OnError, OnCompleted>>;
 
 template<constraint::decayed_type Type, std::invocable<Type> OnNext, std::invocable<const std::exception_ptr&> OnError, std::invocable<> OnCompleted>
-using lambda_observer_with_disposable = observer<Type, details::with_external_disposasble<details::observers::lambda_strategy<Type, OnNext, OnError, OnCompleted>>>;
+using lambda_observer_with_disposable = observer<Type, details::with_external_disposable<details::observers::lambda_strategy<Type, OnNext, OnError, OnCompleted>>>;
 
 /**
  * @brief Constructs observer specialized with passed callbacks. Most easiesest way to construct observer "on the fly" via lambdas and etc.

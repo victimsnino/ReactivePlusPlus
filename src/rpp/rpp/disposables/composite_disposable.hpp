@@ -11,6 +11,7 @@
 #pragma once
 
 #include <rpp/disposables/fwd.hpp>
+#include <rpp/disposables/details/container.hpp>
 
 #include <rpp/disposables/disposable_wrapper.hpp>
 #include <rpp/disposables/interface_composite_disposable.hpp>

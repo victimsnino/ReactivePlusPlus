@@ -42,7 +42,7 @@ namespace constraint
     concept disposable_container = requires(T& c, const T& const_c, const rpp::disposable_wrapper& d)
     {
         c.push_back(d);
-        const_c.dispose(d);
+        const_c.dispose();
     };
 }
 }

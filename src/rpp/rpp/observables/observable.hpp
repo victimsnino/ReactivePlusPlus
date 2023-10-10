@@ -96,7 +96,7 @@ public:
     composite_disposable_wrapper subscribe(const composite_disposable_wrapper& d, observer<Type, ObserverStrategy>&& obs) const
     {
         if (!d.is_disposed())
-            m_strategy.subscribe(observer<Type, rpp::details::with_external_disposasble<observer<Type, ObserverStrategy>>>{d, std::move(obs)});
+            m_strategy.subscribe(observer<Type, rpp::details::with_external_disposable<observer<Type, ObserverStrategy>>>{d, std::move(obs)});
         return d;
     }
 
@@ -211,13 +211,13 @@ public:
      */
     auto as_dynamic() && { return rpp::dynamic_observable<Type>{std::move(*this)}; }
 
-    template<constraint::operators_v2<Type> Op>
+    template<constraint::operators_v2<Type, expected_disposable_strategy> Op>
     auto operator|(Op&& op) const &
     {
         return observable<typename std::decay_t<Op>::template result_value<Type>, make_chain_observable_t<std::decay_t<Op>, Strategy>>{std::forward<Op>(op), m_strategy};
     }
 
-    template<constraint::operators_v2<Type> Op>
+    template<constraint::operators_v2<Type, expected_disposable_strategy> Op>
     auto operator|(Op&& op) &&
     {
         return observable<typename std::decay_t<Op>::template result_value<Type>, make_chain_observable_t<std::decay_t<Op>, Strategy>>{std::forward<Op>(op), std::move(m_strategy)};

@@ -26,9 +26,9 @@ public:
         m_data.reserve(Count);
     }
 
-    void push_back(const rpp::disposable_wrapper& d)
+    void push_back(rpp::disposable_wrapper d)
     {
-        m_data.push_back(d);
+        m_data.push_back(std::move(d));
     }
 
     void dispose() const
