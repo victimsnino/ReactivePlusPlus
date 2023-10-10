@@ -22,7 +22,7 @@ namespace rpp::operators::details
 template<rpp::constraint::decayed_type Type, rpp::constraint::observer TObserver, rpp::constraint::decayed_type EqualityFn>
 struct distinct_until_changed_observer_strategy
 {
-    using DisposableStrategyToUseWithThis = rpp::details::observers::none_disposable_strategy;
+    using PreferredDisposableStrategy = rpp::details::observers::none_disposable_strategy;
 
     RPP_NO_UNIQUE_ADDRESS TObserver  observer;
     RPP_NO_UNIQUE_ADDRESS EqualityFn comparator;

@@ -27,7 +27,7 @@ class buffer_observer_strategy
     static_assert(std::same_as<Container, std::vector<ValueType>>);
     
 public:
-    using DisposableStrategyToUseWithThis = rpp::details::observers::none_disposable_strategy;
+    using PreferredDisposableStrategy = rpp::details::observers::none_disposable_strategy;
 
     buffer_observer_strategy(TObserver&& observer, size_t count)
         : m_observer{std::move(observer)}
