@@ -29,7 +29,7 @@ struct refocunt_disposable_state_t
     void dispose()
     {
         // just need atomicity, not guarding anything
-        if (refcount.fetch_sub(1, std::memory_order::acquire) == 1)
+        if (refcount.fetch_sub(1) == 1)
             underlying.dispose();
     }
 };
@@ -85,7 +85,7 @@ public:
     bool is_disposed_underlying() const noexcept
     {
         // just need atomicity, not guarding anything
-        return m_state.refcount.load(std::memory_order::relaxed) == 0;
+        return m_state.refcount.load() == 0;
     }
 
     void dispose_impl() noexcept final
@@ -95,10 +95,10 @@ public:
 
     composite_disposable_wrapper add_ref()
     {
-        auto current_value = m_state.refcount.load(std::memory_order::relaxed);
+        auto current_value = m_state.refcount.load();
 
         // just need atomicity, not guarding anything
-        while (current_value && !m_state.refcount.compare_exchange_strong(current_value, current_value + 1, std::memory_order::relaxed, std::memory_order::relaxed)){};
+        while (current_value && !m_state.refcount.compare_exchange_strong(current_value, current_value + 1)){};
 
         if (!current_value)
             return composite_disposable_wrapper{};

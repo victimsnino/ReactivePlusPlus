@@ -29,13 +29,13 @@ public:
     bool is_disposed() const noexcept final
     {
         // just need atomicity, not guarding anything
-        return m_disposed.load(std::memory_order::relaxed);
+        return m_disposed.load();
     }
 
     void dispose() noexcept final
     {
         // just need atomicity, not guarding anything
-        if (m_disposed.exchange(true, std::memory_order::relaxed) == false)
+        if (m_disposed.exchange(true) == false)
             dispose_impl();
     }
 

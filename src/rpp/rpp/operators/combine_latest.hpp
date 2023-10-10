@@ -42,7 +42,7 @@ public:
     bool decrement_on_completed()
     {
         // just need atomicity, not guarding anything
-        return m_on_completed_needed.fetch_sub(1, std::memory_order::relaxed) == 1;
+        return m_on_completed_needed.fetch_sub(1) == 1;
     }
 
 private:

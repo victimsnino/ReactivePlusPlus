@@ -35,7 +35,7 @@ class new_thread
         disposable()
         {
             // just waiting
-            while (!m_state->queue_ptr.load(std::memory_order::relaxed))
+            while (!m_state->queue_ptr.load())
             {
             };
         }
@@ -46,7 +46,7 @@ class new_thread
                 return;
 
             // just notify
-            m_state->is_destroying.store(true, std::memory_order::relaxed);
+            m_state->is_destroying.store(true);
             m_state->cv.notify_all();
             m_thread.detach();
         }
@@ -59,7 +59,7 @@ class new_thread
 
             std::lock_guard lock{m_state->queue_mutex};
             // guarded by lock
-            if (const auto queue = m_state->queue_ptr.load(std::memory_order::seq_cst))
+            if (const auto queue = m_state->queue_ptr.load())
                 queue->emplace(time_point, std::forward<Fn>(fn), std::forward<Handler>(handler), std::forward<Args>(args)...);
         }
 
@@ -70,7 +70,7 @@ class new_thread
                 return;
 
             // just need atomicity, not guarding anything
-            m_state->is_disposed.store(true, std::memory_order::relaxed);
+            m_state->is_disposed.store(true);
             m_state->cv.notify_all();
 
             if (m_thread.get_id() != std::this_thread::get_id())
@@ -93,13 +93,13 @@ class new_thread
         {
             std::unique_lock lock{state->queue_mutex};
             auto&            queue = current_thread::s_queue;
-            state->queue_ptr.store(&queue.emplace(std::shared_ptr<std::condition_variable_any>{state, &state->cv}), std::memory_order::relaxed);
+            state->queue_ptr.store(&queue.emplace(std::shared_ptr<std::condition_variable_any>{state, &state->cv}));
 
-            while (!state->is_disposed.load(std::memory_order::relaxed) && (!state->is_destroying.load(std::memory_order::relaxed) || !queue->is_empty()))
+            while (!state->is_disposed.load() && (!state->is_destroying.load() || !queue->is_empty()))
             {
-                state->cv.wait(lock, [&] { return state->is_disposed.load(std::memory_order::relaxed) || !queue->is_empty() || state->is_destroying.load(std::memory_order::relaxed); });
+                state->cv.wait(lock, [&] { return state->is_disposed.load() || !queue->is_empty() || state->is_destroying.load(); });
 
-                if (state->is_disposed.load(std::memory_order::relaxed) || state->is_destroying.load(std::memory_order::relaxed))
+                if (state->is_disposed.load() || state->is_destroying.load())
                     break;
 
                 if (queue->top()->is_disposed())
@@ -127,7 +127,7 @@ class new_thread
             }
 
             queue.reset();
-            state->queue_ptr.store(nullptr, std::memory_order::relaxed);
+            state->queue_ptr.store(nullptr);
         }
 
     private:

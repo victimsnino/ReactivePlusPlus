@@ -37,7 +37,7 @@ public:
     bool is_disposed() const noexcept final
     {
         // just need atomicity, not guarding anything
-        return m_current_state.load(std::memory_order::relaxed) == State::Disposed;
+        return m_current_state.load() == State::Disposed;
     }
 
     void dispose() noexcept final
@@ -46,7 +46,7 @@ public:
         {
             State expected{State::None};
             // need to acquire possible state changing from `add`
-            if (m_current_state.compare_exchange_strong(expected, State::Disposed, std::memory_order::acquire, std::memory_order::relaxed))
+            if (m_current_state.compare_exchange_strong(expected, State::Disposed))
             {
                 dispose_impl();
 
@@ -73,11 +73,11 @@ public:
         {
             State expected{State::None};
             // need to acquire possible disposables state changing from other `add`
-            if (m_current_state.compare_exchange_strong(expected, State::Edit, std::memory_order::acquire, std::memory_order::relaxed))
+            if (m_current_state.compare_exchange_strong(expected, State::Edit))
             {
                 m_disposables.emplace_back(std::move(disposable));
                 // need to propogate disposables state changing to others
-                m_current_state.store(State::None, std::memory_order::release);
+                m_current_state.store(State::None);
                 return;
             }
 

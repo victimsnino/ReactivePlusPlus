@@ -35,10 +35,10 @@ public:
     }
 
     // just need atomicity, not guarding anything
-    void increment_on_completed() { m_on_completed_needed.fetch_add(1, std::memory_order::relaxed); }
+    void increment_on_completed() { m_on_completed_needed.fetch_add(1); }
 
     // just need atomicity, not guarding anything
-    bool decrement_on_completed() { return m_on_completed_needed.fetch_sub(1, std::memory_order::relaxed) == 1; }
+    bool decrement_on_completed() { return m_on_completed_needed.fetch_sub(1) == 1; }
 
     pointer_under_lock<TObserver> get_observer_under_lock() { return pointer_under_lock{m_observer}; }
 
