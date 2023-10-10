@@ -114,6 +114,8 @@ private:
 template<rpp::constraint::observer Observer, typename Worker, rpp::details::disposables::constraint::disposable_container Container>
 struct debounce_observer_strategy
 {
+    using preferred_disposable_strategy = rpp::details::observers::none_disposable_strategy;
+
     std::shared_ptr<debounce_disposable<Observer, Worker, Container>> disposable{};
 
     void set_upstream(const rpp::disposable_wrapper& d) const
