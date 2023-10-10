@@ -9,6 +9,7 @@
 
 #pragma once
 
+#include <rpp/observables/details/disposable_strategy.hpp>
 #include <rpp/observers/fwd.hpp>
 #include <rpp/subjects/fwd.hpp>
 
@@ -26,10 +27,10 @@ concept observable_strategy = requires(const S& strategy, details::fake_observer
 
 namespace rpp::details::observables
 {
-template<constraint::decayed_type Type>
+template<rpp::constraint::decayed_type Type>
 class dynamic_strategy;
 
-template<constraint::decayed_type Type, constraint::observable_strategy<Type> Strategy>
+template<rpp::constraint::decayed_type Type, rpp::constraint::observable_strategy<Type> Strategy>
 class blocking_strategy;
 }
 
@@ -126,6 +127,7 @@ template<typename Op, typename Type>
 concept operators_v2_impl = requires(const Op& op, dynamic_observer<typename std::decay_t<Op>::template result_value<Type>>&& observer, const observable_chain_strategy<details::observables::dynamic_strategy<Type>>& chain)
 {
     typename std::decay_t<Op>::template result_value<Type>;
+    requires details::observables::constraint::disposable_strategy<typename std::decay_t<Op>::template updated_disposable_strategy<typename observable_chain_strategy<details::observables::dynamic_strategy<Type>>::expected_disposable_strategy>>;
     {op.subscribe(std::move(observer), chain)};
 };
 

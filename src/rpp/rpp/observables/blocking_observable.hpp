@@ -47,7 +47,7 @@ struct blocking_observer_strategy
     bool is_disposed() const { return observer.is_disposed(); }
 };
 
-template<constraint::decayed_type Type, constraint::observable_strategy<Type> Strategy>
+template<rpp::constraint::decayed_type Type, rpp::constraint::observable_strategy<Type> Strategy>
 class blocking_strategy
 {
 public:
@@ -63,7 +63,7 @@ public:
     {
     }
 
-    template<constraint::observer_strategy<Type> ObserverStrategy>
+    template<rpp::constraint::observer_strategy<Type> ObserverStrategy>
     void subscribe(observer<Type, ObserverStrategy>&& obs) const
     {
         std::promise<void> promise{};

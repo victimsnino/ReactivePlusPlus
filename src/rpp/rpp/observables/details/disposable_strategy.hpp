@@ -53,8 +53,8 @@ namespace details
     template<typename T>
     auto* deduce_disposable_strategy()
     {
-        if constexpr (requires { typename T::DisposableStrategyToUseWithThis; })
-            return static_cast<typename T::DisposableStrategyToUseWithThis*>(nullptr);
+        if constexpr (requires { typename T::expected_disposable_strategy; })
+            return static_cast<typename T::expected_disposable_strategy*>(nullptr);
         else
             return static_cast<default_disposable_strategy_selector*>(nullptr);
     }
@@ -62,6 +62,7 @@ namespace details
 
 template<typename T>
 using deduce_disposable_strategy_t = std::remove_pointer_t<decltype(details::deduce_disposable_strategy<T>())>;
+
 namespace constraint
 {
 template<typename T>
@@ -69,6 +70,7 @@ concept disposable_strategy = requires(const T&)
 {
     typename T::template add<size_t{}>;
     typename T::observer_disposable_strategy;
-    observers::constraint::disposable_strategy<typename T::observer_disposable_strategy>;
+    requires observers::constraint::disposable_strategy<typename T::observer_disposable_strategy>;
 };
+}
 }

@@ -19,8 +19,11 @@ namespace rpp
 template<typename TStrategy, typename... TStrategies>
 class observable_chain_strategy
 {
+    using base = observable_chain_strategy<TStrategies...>;
+
 public:
-    using value_type = typename TStrategy::template result_value<typename observable_chain_strategy<TStrategies...>::value_type>;
+    using expected_disposable_strategy = typename TStrategy::template updated_disposable_strategy<typename base::expected_disposable_strategy>;
+    using value_type = typename TStrategy::template result_value<typename base::value_type>;
 
     observable_chain_strategy(const TStrategy& strategy, const TStrategies&... strategies)
         : m_strategy(strategy)
@@ -52,7 +55,8 @@ template<typename TStrategy>
 class observable_chain_strategy<TStrategy>
 {
 public:
-    using value_type = typename TStrategy::value_type;
+    using expected_disposable_strategy = rpp::details::observables::deduce_disposable_strategy_t<TStrategy>;
+    using value_type                   = typename TStrategy::value_type;
 
     observable_chain_strategy(const TStrategy& strategy)
         : m_strategy(strategy)

@@ -37,6 +37,8 @@ template<constraint::decayed_type Type, constraint::observable_strategy<Type> St
 class observable
 {
 public:
+    using expected_disposable_strategy = rpp::details::observables::deduce_disposable_strategy_t<Strategy>;
+
     template<typename... Args>
         requires (!constraint::variadic_decayed_same_as<observable<Type, Strategy>, Args...> && constraint::is_constructible_from<Strategy, Args && ...>)
     explicit observable(Args&&... args)
