@@ -65,7 +65,7 @@ public:
     }
 
 private:
-    mutable std::array<rpp::disposable_wrapper, Count> m_data{};
+    mutable std::array<rpp::disposable_wrapper, Count> m_data{{}};
     size_t                                             m_size{};
 };
 

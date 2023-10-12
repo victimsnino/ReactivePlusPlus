@@ -201,7 +201,7 @@ class observer<Type, details::with_disposable_strategy<Strategy, DisposableStrat
 {
 public:
     template<typename... Args>
-        requires (constraint::is_constructible_from<details::observer_impl<Type, Strategy, DisposableStrategy>, Args && ...>)
+        requires (!rpp::constraint::variadic_decayed_same_as<observer<Type, details::with_disposable_strategy<Strategy, DisposableStrategy>> , Args...>)
     explicit observer(Args&&... args)
         : details::observer_impl<Type, Strategy, DisposableStrategy>{std::forward<Args>(args)...}
     {
