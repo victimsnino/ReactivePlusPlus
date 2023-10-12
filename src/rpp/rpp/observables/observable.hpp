@@ -71,6 +71,19 @@ public:
     }
 
     /**
+     * @brief Subscribes passed observer strategy to emissions from this observable via construction of observer
+     */
+    template<constraint::observer_strategy<Type> ObserverStrategy>
+        requires (!constraint::observer<ObserverStrategy>)
+    void subscribe(ObserverStrategy&& observer_strategy) const
+    {
+        if constexpr (details::observers::has_disposable_strategy_v<ObserverStrategy>)
+            subscribe(rpp::observer<Type, std::decay_t<ObserverStrategy>>{std::forward<ObserverStrategy>(observer_strategy)});
+        else
+            subscribe(rpp::observer<Type, details::with_disposable_strategy<std::decay_t<ObserverStrategy>, typename expected_disposable_strategy::disposable_strategy>>{std::forward<ObserverStrategy>(observer_strategy)});
+    }
+
+    /**
      * @brief Subscribe passed observer to emissions from this observable.
      * @details This overloading attaches passed disposable to observer and return it to provide ability to dispose/disconnect observer early if needed.
      * @warning This overloading has some performance penalties, use it only when you really need to use disposable
@@ -113,7 +126,7 @@ public:
     [[nodiscard("Use returned disposable or use subscribe(observer) instead")]] composite_disposable_wrapper subscribe_with_disposable(observer<Type, ObserverStrategy>&& observer) const
     {
         if (!observer.is_disposed())
-            m_strategy.subscribe(rpp::composite_disposable_wrapper{std::make_shared<rpp::composite_disposable>()}, std::move(observer));
+            m_strategy.subscribe(rpp::composite_disposable_wrapper{std::make_shared<rpp::composite_disposable_impl<typename expected_disposable_strategy::disposable_container>>()}, std::move(observer));
         return {};
     }
 
@@ -128,7 +141,7 @@ public:
      */
     [[nodiscard("Use returned disposable or use subscribe(observer) instead")]] composite_disposable_wrapper subscribe_with_disposable(dynamic_observer<Type> observer) const
     {
-        return subscribe<details::observers::dynamic_strategy<Type>>(rpp::composite_disposable_wrapper{std::make_shared<rpp::composite_disposable>()}, std::move(observer));
+        return subscribe<details::observers::dynamic_strategy<Type>>(rpp::composite_disposable_wrapper{std::make_shared<rpp::composite_disposable_impl<typename expected_disposable_strategy::disposable_container>>()}, std::move(observer));
     }
 
     /**
@@ -141,9 +154,9 @@ public:
                    OnError&&     on_error     = {},
                    OnCompleted&& on_completed = {}) const
     {
-        subscribe(make_lambda_observer<Type>(std::forward<OnNext>(on_next),
-                                             std::forward<OnError>(on_error),
-                                             std::forward<OnCompleted>(on_completed)));
+        subscribe(rpp::details::observers::lambda_strategy<Type, std::decay_t<OnNext>, std::decay_t<OnError>, std::decay_t<OnCompleted>>{std::forward<OnNext>(on_next),
+                                                                                                                                         std::forward<OnError>(on_error),
+                                                                                                                                         std::forward<OnCompleted>(on_completed)});
     }
 
     /**
@@ -158,7 +171,7 @@ public:
              std::invocable<>                          OnCompleted = rpp::utils::empty_function_t<>>
     [[nodiscard("Use returned disposable or use subscribe(on_next, on_error, on_completed) instead")]] composite_disposable_wrapper subscribe_with_disposable(OnNext&& on_next, OnError&& on_error = {}, OnCompleted&& on_completed = {}) const
     {
-        auto res = rpp::composite_disposable_wrapper{std::make_shared<rpp::composite_disposable>()};
+        auto res = rpp::composite_disposable_wrapper{std::make_shared<rpp::composite_disposable_impl<typename expected_disposable_strategy::disposable_container>>()};
         subscribe(make_lambda_observer<Type>(res,
                                              std::forward<OnNext>(on_next),
                                              std::forward<OnError>(on_error),

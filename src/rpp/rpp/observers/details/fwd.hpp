@@ -58,17 +58,21 @@ namespace constraint
     };
 }
 
+template<typename T>
+static constexpr bool has_disposable_strategy_v = requires { typename T::preferred_disposable_strategy; };
+
 namespace details
 {
     template<typename T>
     auto* deduce_disposable_strategy()
     {
-        if constexpr (requires { typename T::preferred_disposable_strategy; })
+        if constexpr (has_disposable_strategy_v<T>)
             return static_cast<typename T::preferred_disposable_strategy*>(nullptr);
         else
             return static_cast<dynamic_local_disposable_strategy<0>*>(nullptr);
     }
 }
+
 template<typename T>
 using deduce_disposable_strategy_t = std::remove_pointer_t<decltype(details::deduce_disposable_strategy<T>())>;
 }
