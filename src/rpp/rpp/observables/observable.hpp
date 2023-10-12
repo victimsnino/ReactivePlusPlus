@@ -154,9 +154,11 @@ public:
                    OnError&&     on_error     = {},
                    OnCompleted&& on_completed = {}) const
     {
-        subscribe(rpp::details::observers::lambda_strategy<Type, std::decay_t<OnNext>, std::decay_t<OnError>, std::decay_t<OnCompleted>>{std::forward<OnNext>(on_next),
-                                                                                                                                         std::forward<OnError>(on_error),
-                                                                                                                                         std::forward<OnCompleted>(on_completed)});
+        using strategy = rpp::details::observers::lambda_strategy<Type, std::decay_t<OnNext>, std::decay_t<OnError>, std::decay_t<OnCompleted>>;
+
+        subscribe(rpp::observer<Type, rpp::details::with_disposable_strategy<strategy, typename expected_disposable_strategy::disposable_strategy>>{std::forward<OnNext>(on_next),
+                                                                                                                                                    std::forward<OnError>(on_error),
+                                                                                                                                                    std::forward<OnCompleted>(on_completed)});
     }
 
     /**

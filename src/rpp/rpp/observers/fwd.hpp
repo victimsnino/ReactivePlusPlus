@@ -61,6 +61,8 @@ namespace rpp::details
 template<typename S, observers::constraint::disposable_strategy Strategy>
 struct with_disposable_strategy
 {
+    using preferred_disposable_strategy = Strategy;
+
     with_disposable_strategy() = delete;
 
     static void on_next(const auto&) noexcept;
