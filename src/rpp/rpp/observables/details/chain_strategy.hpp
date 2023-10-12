@@ -40,8 +40,10 @@ public:
     template<rpp::constraint::observer_of_type<value_type> Observer>
     void subscribe(Observer&& observer) const
     {
-        if constexpr (rpp::constraint::operator_lift<TStrategy, typename base::value_type, typename base::expected_disposable_strategy>)
-            m_strategies.subscribe(m_strategy.template lift<typename base::value_type, typename base::expected_disposable_strategy>(std::forward<Observer>(observer)));
+        if constexpr (rpp::constraint::operator_lift_with_disposable<TStrategy, typename base::value_type, typename base::expected_disposable_strategy>)
+            m_strategies.subscribe(m_strategy.template lift_with_disposable<typename base::value_type, typename base::expected_disposable_strategy>(std::forward<Observer>(observer)));
+        else if constexpr (rpp::constraint::operator_lift<TStrategy, typename base::value_type>)
+            m_strategies.subscribe(m_strategy.template lift<typename base::value_type>(std::forward<Observer>(observer)));
         else
             m_strategy.subscribe(std::forward<Observer>(observer), m_strategies);
     }

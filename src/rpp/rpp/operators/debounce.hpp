@@ -164,7 +164,7 @@ struct debounce_t
     RPP_NO_UNIQUE_ADDRESS Scheduler scheduler;
 
     template<rpp::constraint::decayed_type Type, rpp::details::observables::constraint::disposable_strategy DisposableStrategy, rpp::constraint::observer Observer>
-    auto lift(Observer&& observer) const
+    auto lift_with_disposable(Observer&& observer) const
     {
         using worker_t = decltype(scheduler.create_worker());
 
@@ -179,7 +179,7 @@ namespace rpp::operators
 {
 /**
  * @brief Only emit emission if specified period of time has passed without any other emission. On each new emission timer reset.
- * 
+ *
  * @marble debounce
  {
      source    observable   : +--1-2-----3---|
@@ -192,7 +192,7 @@ namespace rpp::operators
  * @param scheduler is scheduler used to run timer for debounce
 
  * @warning #include <rpp/operators/debounce.hpp>
- * 
+ *
  * @par Example
  * @snippet debounce.cpp debounce
  *

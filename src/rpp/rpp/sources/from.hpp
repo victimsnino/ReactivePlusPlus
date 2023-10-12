@@ -82,6 +82,11 @@ struct from_iterable_schedulable
 template<constraint::decayed_type PackedContainer, schedulers::constraint::scheduler TScheduler>
 struct from_iterable_strategy
 {
+private:
+    static constexpr auto s_is_immediate = std::same_as<TScheduler, schedulers::immediate>;
+public:
+    using expected_disposable_strategy = std::conditional_t<s_is_immediate, rpp::details::observables::none_disposable_strategy_selector, rpp::details::observables::fixed_disposable_strategy_selector<1>>;
+
     template<typename... Args>
     from_iterable_strategy(const TScheduler& scheduler, Args&&... args)
         : container{std::forward<Args>(args)...}
@@ -97,7 +102,7 @@ struct from_iterable_strategy
     template<constraint::observer_strategy<utils::iterable_value_t<PackedContainer>> Strategy>
     void subscribe(observer<utils::iterable_value_t<PackedContainer>, Strategy>&& obs) const
     {
-        if constexpr (std::same_as<TScheduler, schedulers::immediate>)
+        if constexpr (s_is_immediate)
         {
             try
             {

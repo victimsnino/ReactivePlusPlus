@@ -81,9 +81,9 @@ public:
      * @par Example
      * \code{.cpp}
     *  auto disposable = std::make_shared<rpp::composite_disposable>();
-    *  rpp::source::just(1) 
-    *  | rpp::operators::repeat() 
-    *  | rpp::operators::subscribe_on(rpp::schedulers::new_thread{}) 
+    *  rpp::source::just(1)
+    *  | rpp::operators::repeat()
+    *  | rpp::operators::subscribe_on(rpp::schedulers::new_thread{})
     *  | rpp::operators::subscribe(disposable, rpp::make_lambda_observer([](int) { std::cout << "NEW VALUE" << std::endl; }));
     *
     *  std::this_thread::sleep_for(std::chrono::seconds(1));
@@ -102,7 +102,7 @@ public:
 
     /**
      * @brief Subscribes passed observer to emissions from this observable.
-     * 
+     *
      * @details This overloading attaches disposable to observer and return it to provide ability to dispose/disconnect observer early if needed.
      * @warning This overloading has some performance penalties, use it only when you really need to use disposable
      * @return composite_disposable_wrapper is disposable to be able to dispose observer when it needed
@@ -177,11 +177,11 @@ public:
      * @par Example
      * \code{.cpp}
      *  auto disposable = std::make_shared<rpp::composite_disposable>();
-     *  rpp::source::just(1) 
-     *  | rpp::operators::repeat() 
-     *  | rpp::operators::subscribe_on(rpp::schedulers::new_thread{}) 
+     *  rpp::source::just(1)
+     *  | rpp::operators::repeat()
+     *  | rpp::operators::subscribe_on(rpp::schedulers::new_thread{})
      *  | rpp::operators::subscribe(disposable, [](int) { std::cout << "NEW VALUE" << std::endl; });
-     *     
+     *
      *  std::this_thread::sleep_for(std::chrono::seconds(1));
      *  disposable->dispose();
      *  std::this_thread::sleep_for(std::chrono::seconds(1));
@@ -211,25 +211,25 @@ public:
      */
     auto as_dynamic() && { return rpp::dynamic_observable<Type>{std::move(*this)}; }
 
-    template<constraint::operators_v2<Type, expected_disposable_strategy> Op>
+    template<constraint::operator_chain<Type, expected_disposable_strategy> Op>
     auto operator|(Op&& op) const &
     {
         return observable<typename std::decay_t<Op>::template result_value<Type>, make_chain_observable_t<std::decay_t<Op>, Strategy>>{std::forward<Op>(op), m_strategy};
     }
 
-    template<constraint::operators_v2<Type, expected_disposable_strategy> Op>
+    template<constraint::operator_chain<Type, expected_disposable_strategy> Op>
     auto operator|(Op&& op) &&
     {
         return observable<typename std::decay_t<Op>::template result_value<Type>, make_chain_observable_t<std::decay_t<Op>, Strategy>>{std::forward<Op>(op), std::move(m_strategy)};
     }
 
-    template<constraint::operators<const observable<Type, Strategy>&> Op>
+    template<constraint::operator_observable_transform<const observable<Type, Strategy>&> Op>
     auto operator|(Op&& op) const &
     {
         return std::forward<Op>(op)(*this);
     }
 
-    template<constraint::operators<observable<Type, Strategy>&&> Op>
+    template<constraint::operator_observable_transform<observable<Type, Strategy>&&> Op>
     auto operator|(Op&& op) &&
     {
         return std::forward<Op>(op)(std::move(*this));
