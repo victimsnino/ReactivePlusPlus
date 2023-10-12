@@ -26,7 +26,12 @@ public:
         m_data.reserve(Count);
     }
 
-    void push_back(rpp::disposable_wrapper d)
+    void push_back(const rpp::disposable_wrapper& d)
+    {
+        m_data.push_back(d);
+    }
+
+    void push_back(rpp::disposable_wrapper&& d)
     {
         m_data.push_back(std::move(d));
     }
@@ -56,6 +61,13 @@ public:
         m_data[m_size++] = d;
     }
 
+    void push_back(rpp::disposable_wrapper&& d)
+    {
+        if (m_size >= Count)
+            throw rpp::utils::more_disposables_than_expected{"static_disposables_container obtained more disposables than expected"};
+        m_data[m_size++] = std::move(d);
+    }
+
     void dispose() const
     {
         for (size_t i =0; i < m_size; ++i) {
@@ -65,7 +77,7 @@ public:
     }
 
 private:
-    mutable std::array<rpp::disposable_wrapper, Count> m_data{{}};
+    mutable std::array<rpp::disposable_wrapper, Count> m_data{};
     size_t                                             m_size{};
 };
 
