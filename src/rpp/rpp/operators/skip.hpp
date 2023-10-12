@@ -49,6 +49,9 @@ struct skip_t : public operators::details::operator_observable_strategy_difffere
 {
     template<rpp::constraint::decayed_type T>
     using result_value = T;
+
+    template<rpp::details::observables::constraint::disposable_strategy Prev>
+    using updated_disposable_strategy = Prev;
 };
 }
 

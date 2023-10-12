@@ -38,6 +38,9 @@ struct subscribe_on_t
     template<rpp::constraint::decayed_type T>
     using result_value = T;
 
+    template<rpp::details::observables::constraint::disposable_strategy Prev>
+    using updated_disposable_strategy = typename Prev::template add<1>;
+
     RPP_NO_UNIQUE_ADDRESS Scheduler scheduler;
 
     template<rpp::constraint::observer Observer, typename... Strategies>

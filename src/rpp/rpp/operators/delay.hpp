@@ -116,13 +116,13 @@ private:
     std::optional<rpp::schedulers::duration> emplace_safe(TT&& item) const
     {
         std::lock_guard lock{disposable->mutex};
-        if constexpr (ClearOnError && rpp::constraint::decayed_same_as<std::exception_ptr, TT>) 
+        if constexpr (ClearOnError && rpp::constraint::decayed_same_as<std::exception_ptr, TT>)
         {
             disposable->queue = std::queue<emission<rpp::utils::extract_observer_type_t<Observer>>>{};
             disposable->observer.on_error(std::forward<TT>(item));
             return std::nullopt;
         }
-        else 
+        else
         {
             disposable->queue.emplace(std::forward<TT>(item), disposable->worker.now() + disposable->delay);
             if (!disposable->is_active)
@@ -169,6 +169,9 @@ struct delay_t
 {
     template<rpp::constraint::decayed_type T>
     using result_value = T;
+
+    template<rpp::details::observables::constraint::disposable_strategy Prev>
+    using updated_disposable_strategy = rpp::details::observables::fixed_disposable_strategy_selector<1>;
 
     rpp::schedulers::duration       duration;
     RPP_NO_UNIQUE_ADDRESS Scheduler scheduler;

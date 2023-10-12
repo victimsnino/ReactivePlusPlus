@@ -54,6 +54,9 @@ struct reduce_t : public operators::details::operator_observable_strategy_difffe
     template<rpp::constraint::decayed_type T>
         requires std::is_invocable_r_v<Seed, Accumulator, Seed&&, T>
     using result_value = Seed;
+
+    template<rpp::details::observables::constraint::disposable_strategy Prev>
+    using updated_disposable_strategy = Prev;
 };
 
 template<rpp::constraint::observer TObserver, rpp::constraint::decayed_type Accumulator>
@@ -94,6 +97,9 @@ struct reduce_no_seed_t : public operators::details::operator_observable_strateg
     template<rpp::constraint::decayed_type T>
         requires std::is_invocable_r_v<T, Accumulator, T&&, T>
     using result_value = T;
+
+    template<rpp::details::observables::constraint::disposable_strategy Prev>
+    using updated_disposable_strategy = Prev;
 };
 }
 
@@ -136,7 +142,7 @@ auto reduce(Seed&& seed, Accumulator&& accumulator)
  }
  *
  * @details There is no initial value for seed, so, first value would be used as seed value and forwarded as is.
- * 
+ *
  * @param initial_value initial value for seed
  * @param accumulator function which accepts seed value and new value from observable and return new value of seed. Can accept seed by move-reference.
  *

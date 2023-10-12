@@ -125,6 +125,9 @@ struct merge_t
         requires rpp::constraint::observable<T>
     using result_value = rpp::utils::extract_observable_type_t<T>;
 
+    template<rpp::details::observables::constraint::disposable_strategy Prev>
+    using updated_disposable_strategy = rpp::details::observables::fixed_disposable_strategy_selector<1>;
+
     template<rpp::constraint::observer Observer, typename... Strategies>
     void subscribe(Observer&& observer, const observable_chain_strategy<Strategies...>& strategy) const
     {
@@ -145,6 +148,9 @@ struct merge_with_t
     template<rpp::constraint::decayed_type T>
         requires (std::same_as<T, rpp::utils::extract_observable_type_t<TObservables>> && ...)
     using result_value = T;
+
+    template<rpp::details::observables::constraint::disposable_strategy Prev>
+    using updated_disposable_strategy = rpp::details::observables::fixed_disposable_strategy_selector<1>;
 
     template<rpp::constraint::observer Observer, typename... Strategies>
     void subscribe(Observer&& observer, const observable_chain_strategy<Strategies...>& observable_strategy) const

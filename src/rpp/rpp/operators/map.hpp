@@ -49,6 +49,9 @@ struct map_t : public operators::details::operator_observable_strategy<map_obser
     template<rpp::constraint::decayed_type T>
         requires std::invocable<Fn, T>
     using result_value = std::invoke_result_t<Fn, T>;
+
+    template<rpp::details::observables::constraint::disposable_strategy Prev>
+    using updated_disposable_strategy = Prev;
 };
 }
 

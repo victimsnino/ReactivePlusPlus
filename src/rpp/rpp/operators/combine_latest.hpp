@@ -107,6 +107,9 @@ struct combine_latest_t
         requires std::invocable<TSelector, T, rpp::utils::extract_observable_type_t<TObservables>...>
     using result_value = std::invoke_result_t<TSelector, T, rpp::utils::extract_observable_type_t<TObservables>...>;
 
+    template<rpp::details::observables::constraint::disposable_strategy Prev>
+    using updated_disposable_strategy = rpp::details::observables::fixed_disposable_strategy_selector<1>;
+
     template<rpp::constraint::observer Observer, typename... Strategies>
     void subscribe(Observer&& observer, const observable_chain_strategy<Strategies...>& observable_strategy) const
     {

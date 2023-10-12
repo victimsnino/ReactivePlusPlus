@@ -49,6 +49,9 @@ struct filter_t : public operators::details::operator_observable_strategy<filter
     template<rpp::constraint::decayed_type T>
         requires std::is_invocable_r_v<bool, Fn, T>
     using result_value = T;
+
+    template<rpp::details::observables::constraint::disposable_strategy Prev>
+    using updated_disposable_strategy = Prev;
 };
 }
 

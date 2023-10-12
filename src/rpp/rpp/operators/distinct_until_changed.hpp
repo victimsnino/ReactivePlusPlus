@@ -53,6 +53,9 @@ struct distinct_until_changed_t : public operators::details::template_operator_o
     template<rpp::constraint::decayed_type T>
         requires rpp::constraint::invocable_r_v<bool, EqualityFn, T, T>
     using result_value = T;
+
+    template<rpp::details::observables::constraint::disposable_strategy Prev>
+    using updated_disposable_strategy = Prev;
 };
 }
 
