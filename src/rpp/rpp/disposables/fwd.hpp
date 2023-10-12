@@ -43,6 +43,7 @@ namespace constraint
     {
         c.push_back(d);
         const_c.dispose();
+        c.clear();
     };
 }
 }

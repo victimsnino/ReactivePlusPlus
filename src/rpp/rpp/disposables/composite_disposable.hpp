@@ -55,6 +55,7 @@ public:
                 dispose_impl();
 
                 m_disposables.dispose();
+                m_disposables.clear();
                 return;
             }
 

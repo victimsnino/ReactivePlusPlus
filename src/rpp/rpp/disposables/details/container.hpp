@@ -40,8 +40,12 @@ public:
     {
         for (auto& d : m_data) {
             d.dispose();
-            d = rpp::disposable_wrapper{};
         }
+    }
+
+    void clear()
+    {
+        m_data.clear();
     }
 
 private:
@@ -72,8 +76,13 @@ public:
     {
         for (size_t i =0; i < m_size; ++i) {
             m_data[i].dispose();
-            m_data[i] = rpp::disposable_wrapper{};
         }
+    }
+
+    void clear()
+    {
+        m_data = std::array<rpp::disposable_wrapper, Count>{};
+        m_size = 0;
     }
 
 private:
@@ -83,11 +92,12 @@ private:
 
 struct none_disposables_container
 {
-    static void push_back(const rpp::disposable_wrapper&)
+    [[noreturn]] static void push_back(const rpp::disposable_wrapper&)
     {
         throw rpp::utils::more_disposables_than_expected{"none_disposables_container expected none disposables but obtained one"};
     }
 
     static void dispose() {};
+    static void clear() {};
 };
 }
