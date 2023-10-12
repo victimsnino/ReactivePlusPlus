@@ -84,7 +84,10 @@ struct from_iterable_strategy
 {
 private:
     static constexpr auto s_is_immediate = std::same_as<TScheduler, schedulers::immediate>;
+
 public:
+
+    using value_type = rpp::utils::iterable_value_t<PackedContainer>;
     using expected_disposable_strategy = std::conditional_t<s_is_immediate, rpp::details::observables::none_disposable_strategy_selector, rpp::details::observables::fixed_disposable_strategy_selector<1>>;
 
     template<typename... Args>
@@ -94,7 +97,6 @@ public:
     {
     }
 
-    using value_type = rpp::utils::iterable_value_t<PackedContainer>;
 
     RPP_NO_UNIQUE_ADDRESS PackedContainer container;
     RPP_NO_UNIQUE_ADDRESS TScheduler      scheduler;

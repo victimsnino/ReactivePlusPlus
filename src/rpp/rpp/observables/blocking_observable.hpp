@@ -52,6 +52,7 @@ class blocking_strategy
 {
 public:
     using value_type = Type;
+    using expected_disposable_strategy = rpp::details::observables::deduce_disposable_strategy_t<Strategy>;
 
     blocking_strategy(observable<Type, Strategy>&& observable)
         : m_original{std::move(observable)}

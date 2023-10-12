@@ -20,6 +20,7 @@ template<typename Factory>
 struct defer_strategy
 {
     using value_type = rpp::utils::extract_observable_type_t<std::invoke_result_t<Factory>>;
+    using expected_disposable_strategy = rpp::details::observables::deduce_disposable_strategy_t<std::invoke_result_t<Factory>>;
 
     RPP_NO_UNIQUE_ADDRESS Factory observable_factory;
 
@@ -44,7 +45,7 @@ namespace rpp::source
  * @brief Creates rpp::observable that calls the specified observable factory to create an observable for each new observer that subscribes.
  *
  * @param observable_factory is function to create observable to subscribe on.
- * 
+ *
  * @par Example:
  * @snippet defer.cpp defer from_iterable
  *

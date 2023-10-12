@@ -29,6 +29,8 @@ template<typename TScheduler>
 struct interval_strategy
 {
     using value_type = size_t;
+    using expected_disposable_strategy = rpp::details::observables::fixed_disposable_strategy_selector<1>;
+
 
     RPP_NO_UNIQUE_ADDRESS TScheduler scheduler;
     rpp::schedulers::duration        initial;
@@ -65,7 +67,7 @@ namespace rpp::source
  * @param initial time before first emission
  * @param period period between emitted values
  * @param scheduler the scheduler to use for scheduling the items
- * 
+ *
  * @par Example:
  * @snippet interval.cpp interval period
  *
@@ -87,7 +89,7 @@ auto interval(rpp::schedulers::duration initial, rpp::schedulers::duration perio
    }
  * @param period period between emitted values
  * @param scheduler the scheduler to use for scheduling the items
- * 
+ *
  * @par Example:
  * @snippet interval.cpp interval period
  *
