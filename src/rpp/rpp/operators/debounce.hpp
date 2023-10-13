@@ -167,10 +167,12 @@ struct debounce_t
     auto lift_with_disposable(Observer&& observer) const
     {
         using worker_t = decltype(scheduler.create_worker());
+        // add + 1 due to worker
+        using container = typename DisposableStrategy::template add<1>::disposable_container;
 
-        auto disposable = std::make_shared<debounce_disposable<std::decay_t<Observer>, worker_t, typename DisposableStrategy::disposable_container>>(std::forward<Observer>(observer), scheduler.create_worker(), duration);
+        auto disposable = std::make_shared<debounce_disposable<std::decay_t<Observer>, worker_t, container>>(std::forward<Observer>(observer), scheduler.create_worker(), duration);
         disposable->get_observer_under_lock()->set_upstream(rpp::disposable_wrapper::from_weak(disposable));
-        return rpp::observer<Type, debounce_observer_strategy<std::decay_t<Observer>, worker_t, typename DisposableStrategy::disposable_container>>{std::move(disposable)};
+        return rpp::observer<Type, debounce_observer_strategy<std::decay_t<Observer>, worker_t, container>>{std::move(disposable)};
     }
 };
 }
