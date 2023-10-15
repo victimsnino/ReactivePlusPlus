@@ -36,7 +36,7 @@ TEST_CASE("interval emit values with provided interval")
 
         SECTION("subscribe on it via take 3")
         {
-            obs | rpp::ops::take(3) | rpp::ops::subscribe(mock.get_observer());
+            obs | rpp::ops::take(3) | rpp::ops::subscribe(mock);
             SECTION("nothing happens immediately till scheduler advanced")
             {
                 CHECK(mock.get_received_values() == std::vector<size_t>{});
@@ -94,7 +94,7 @@ TEST_CASE("interval emit values with provided interval")
 
         SECTION("subscribe on it via take 3")
         {
-            obs | rpp::ops::take(3) | rpp::ops::subscribe(mock.get_observer());
+            obs | rpp::ops::take(3) | rpp::ops::subscribe(mock);
             SECTION("nothing happens immediately till scheduler advanced")
             {
                 CHECK(mock.get_received_values() == std::vector<size_t>{});

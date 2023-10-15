@@ -30,7 +30,7 @@ TEST_CASE("debounce emit only items where timeout reached")
         auto mock = mock_observer_strategy<int>{};
         std::optional<rpp::subjects::publish_subject<int>> optional_subj{rpp::subjects::publish_subject<int>{}};
         auto& subj = optional_subj.value();
-        subj.get_observable() | rpp::ops::debounce(debounce_delay, scheduler) | rpp::ops::subscribe(mock.get_observer());
+        subj.get_observable() | rpp::ops::debounce(debounce_delay, scheduler) | rpp::ops::subscribe(mock);
         SECTION("emit value")
         {
             subj.get_observer().on_next(1);

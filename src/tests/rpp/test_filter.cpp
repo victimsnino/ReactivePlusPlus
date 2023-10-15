@@ -29,7 +29,7 @@ TEMPLATE_TEST_CASE("filter", "", rpp::memory_model::use_stack, rpp::memory_model
     SECTION("filter emits only satisfying values")
     {
         auto filter = rpp::operators::filter([](auto v){return v % 2 == 0;});
-        obs | filter | rpp::operators::subscribe(mock.get_observer());
+        obs | filter | rpp::operators::subscribe(mock);
 
         CHECK(mock.get_received_values() == std::vector{2, 4});
         CHECK(mock.get_on_error_count() == 0);
@@ -39,7 +39,7 @@ TEMPLATE_TEST_CASE("filter", "", rpp::memory_model::use_stack, rpp::memory_model
 
     SECTION("filter with exception value")
     {
-        obs | rpp::operators::filter([](int) -> bool { throw std::runtime_error{""}; }) | rpp::operators::subscribe(mock.get_observer()); // NOLINT
+        obs | rpp::operators::filter([](int) -> bool { throw std::runtime_error{""}; }) | rpp::operators::subscribe(mock); // NOLINT
 
         CHECK(mock.get_received_values() == std::vector<int>{});
         CHECK(mock.get_on_error_count() == 1);

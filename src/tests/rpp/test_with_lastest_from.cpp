@@ -26,7 +26,7 @@ TEST_CASE("with_latest_from combines observables")
     SECTION("subscribe on it via with_latest_from")
     {
         auto mock = mock_observer_strategy<std::tuple<int, double>>{};
-        obs_1 | rpp::ops::with_latest_from(obs_2) | rpp::ops::subscribe(mock.get_observer());
+        obs_1 | rpp::ops::with_latest_from(obs_2) | rpp::ops::subscribe(mock);
         SECTION("obtain tuple of values")
         {
             CHECK(mock.get_received_values() == std::vector{ std::tuple{1, 2.2} });
@@ -37,7 +37,7 @@ TEST_CASE("with_latest_from combines observables")
     SECTION("subscribe on it via with_latest_from with custom selector")
     {
         auto                          mock = mock_observer_strategy<double>{};
-        obs_1 | rpp::ops::with_latest_from([](int left, double right) { return left + right; }, obs_2) | rpp::ops::subscribe(mock.get_observer());
+        obs_1 | rpp::ops::with_latest_from([](int left, double right) { return left + right; }, obs_2) | rpp::ops::subscribe(mock);
         SECTION("obtain values")
         {
             CHECK(mock.get_received_values() == std::vector{1+2.2});
@@ -54,7 +54,7 @@ TEST_CASE("with_latest_from reacts only on main root but sends last value from o
         auto subj_1 = rpp::subjects::publish_subject<int>{};
         auto subj_2 = rpp::subjects::publish_subject<int>{};
         auto mock = mock_observer_strategy<std::tuple<int, int>>{};
-        subj_1.get_observable() | rpp::ops::with_latest_from(subj_2.get_observable()) | rpp::ops::subscribe(mock.get_observer());
+        subj_1.get_observable() | rpp::ops::with_latest_from(subj_2.get_observable()) | rpp::ops::subscribe(mock);
         SECTION("send only first subject sends value")
         {
             subj_1.get_observer().on_next(1);

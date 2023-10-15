@@ -37,7 +37,7 @@ TEST_CASE("take_while")
 
         SECTION("take while val <= 5")
         {
-            obs | rpp::operators::take_while([](int val) { return val <= 5; }) | rpp::operators::subscribe(mock.get_observer());
+            obs | rpp::operators::take_while([](int val) { return val <= 5; }) | rpp::operators::subscribe(mock);
 
             CHECK(mock.get_received_values() == std::vector{0, 1, 2, 3, 4, 5});
         }
@@ -45,14 +45,14 @@ TEST_CASE("take_while")
         SECTION("take while false")
         {
             auto op=rpp::operators::take_while([](auto) { return false; });
-            obs | op | rpp::operators::subscribe(mock.get_observer());
+            obs | op | rpp::operators::subscribe(mock);
 
             CHECK(mock.get_received_values().empty());
         }
     }
     SECTION("-x")
     {
-        rpp::source::error<int>({}) | rpp::operators::take_while([](int){return false; }) | rpp::ops::subscribe(mock.get_observer());
+        rpp::source::error<int>({}) | rpp::operators::take_while([](int){return false; }) | rpp::ops::subscribe(mock);
         CHECK(mock.get_received_values() == std::vector<int>{});
         CHECK(mock.get_on_error_count() == 1);
         CHECK(mock.get_on_completed_count() == 0);
@@ -60,7 +60,7 @@ TEST_CASE("take_while")
 
     SECTION("-|")
     {
-        rpp::source::empty<int>() | rpp::operators::take_while([](int){return true; }) | rpp::ops::subscribe(mock.get_observer());
+        rpp::source::empty<int>() | rpp::operators::take_while([](int){return true; }) | rpp::ops::subscribe(mock);
         CHECK(mock.get_received_values() == std::vector<int>{});
         CHECK(mock.get_on_error_count() == 0);
         CHECK(mock.get_on_completed_count() == 1);

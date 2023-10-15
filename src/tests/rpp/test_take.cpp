@@ -40,7 +40,7 @@ TEST_CASE("take operator limits emissions")
 
     SECTION("subscribe via take(3)")
     {
-        (obs | rpp::operators::take(3)).subscribe(mock.get_observer());
+        (obs | rpp::operators::take(3)).subscribe(mock);
 
         CHECK(mock.get_received_values() == std::vector{0, 1, 2});
         CHECK(mock.get_on_error_count() == 0);
@@ -49,7 +49,7 @@ TEST_CASE("take operator limits emissions")
 
     SECTION("subscribe via take(2) | take(3)")
     {
-        (obs | rpp::operators::take(2) | rpp::operators::take(3)).subscribe(mock.get_observer());
+        (obs | rpp::operators::take(2) | rpp::operators::take(3)).subscribe(mock);
 
         CHECK(mock.get_received_values() == std::vector{0, 1});
         CHECK(mock.get_on_error_count() == 0);
@@ -58,7 +58,7 @@ TEST_CASE("take operator limits emissions")
 
     SECTION("subscribe via take(0)")
     {
-        (obs | rpp::operators::take(0)).subscribe(mock.get_observer());
+        (obs | rpp::operators::take(0)).subscribe(mock);
 
         CHECK(mock.get_received_values() == std::vector<int>{});
         CHECK(mock.get_on_error_count() == 0);
@@ -74,7 +74,7 @@ TEST_CASE("take operator forwards on_completed")
     });
 
     mock_observer_strategy<int> mock{};
-    (obs | rpp::operators::take(1)).subscribe(mock.get_observer());
+    (obs | rpp::operators::take(1)).subscribe(mock);
 
     CHECK(mock.get_received_values() == std::vector<int>{});
     CHECK(mock.get_on_error_count() == 0);
@@ -89,7 +89,7 @@ TEST_CASE("take operator forwards on_error")
     });
 
     mock_observer_strategy<int> mock{};
-    (obs | rpp::operators::take(1)).subscribe(mock.get_observer());
+    (obs | rpp::operators::take(1)).subscribe(mock);
 
     CHECK(mock.get_received_values() == std::vector<int>{});
     CHECK(mock.get_on_error_count() == 1);

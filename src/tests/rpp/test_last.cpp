@@ -30,7 +30,7 @@ TEST_CASE("last only emits once")
     {
         rpp::source::just(1)
         | rpp::ops::last()
-        | rpp::ops::subscribe(mock.get_observer());
+        | rpp::ops::subscribe(mock);
 
         CHECK(mock.get_received_values() == std::vector{1});
         CHECK(mock.get_on_completed_count() == 1);
@@ -41,7 +41,7 @@ TEST_CASE("last only emits once")
     {
         rpp::source::just(1, 2, 3)
         | rpp::ops::last()
-        | rpp::ops::subscribe(mock.get_observer());
+        | rpp::ops::subscribe(mock);
 
         CHECK(mock.get_received_values() == std::vector{3});
         CHECK(mock.get_on_completed_count() == 1);
@@ -52,7 +52,7 @@ TEST_CASE("last only emits once")
     {
         rpp::source::never<int>()
         | rpp::ops::last()
-        | rpp::ops::subscribe(mock.get_observer());
+        | rpp::ops::subscribe(mock);
 
         CHECK(mock.get_received_values().empty());
         CHECK(mock.get_on_completed_count() == 0);
@@ -63,7 +63,7 @@ TEST_CASE("last only emits once")
     {
         rpp::source::error<int>(std::make_exception_ptr(std::runtime_error{""}))
         | rpp::ops::last()
-        | rpp::ops::subscribe(mock.get_observer());
+        | rpp::ops::subscribe(mock);
 
         CHECK(mock.get_received_values().empty());
         CHECK(mock.get_on_completed_count() == 0);
@@ -74,7 +74,7 @@ TEST_CASE("last only emits once")
     {
         rpp::source::empty<int>()
         | rpp::ops::last()
-        | rpp::ops::subscribe(mock.get_observer());
+        | rpp::ops::subscribe(mock);
 
         CHECK(mock.get_received_values().empty());
         CHECK(mock.get_on_completed_count() == 0);

@@ -47,7 +47,7 @@ TEST_CASE("subscribe_on schedules job in another scheduler")
         });
         SECTION("subscribe on it with subscribe_on")
         {
-            obs | rpp::ops::subscribe_on(scheduler) | rpp::ops::as_blocking() | rpp::ops::subscribe(mock.get_observer());
+            obs | rpp::ops::subscribe_on(scheduler) | rpp::ops::as_blocking() | rpp::ops::subscribe(mock);
             SECTION("expect to obtain value via scheduling")
             {
                 REQUIRE(mock.get_total_on_next_count() == 1);
@@ -61,7 +61,7 @@ TEST_CASE("subscribe_on schedules job in another scheduler")
         auto obs = rpp::source::error<int>(std::make_exception_ptr(std::runtime_error{""}));
         SECTION("subscribe on it with subscribe_on")
         {
-            obs | rpp::ops::subscribe_on(scheduler) | rpp::ops::as_blocking() | rpp::ops::subscribe(mock.get_observer());
+            obs | rpp::ops::subscribe_on(scheduler) | rpp::ops::as_blocking() | rpp::ops::subscribe(mock);
             SECTION("expect to obtain error via scheduling")
             {
                 REQUIRE(mock.get_total_on_next_count() == 0);
@@ -90,7 +90,7 @@ TEST_CASE("subscribe_on schedules job in another scheduler")
             CHECK(!executed);
             CHECK(d->is_disposed());
             return rpp::schedulers::optional_duration{};
-        }, mock.get_observer());
+        }, mock);
 
         CHECK(!executed);
     }

@@ -74,7 +74,7 @@ TEMPLATE_TEST_CASE("concat as source", "", rpp::memory_model::use_stack, rpp::me
     SECTION("concat of solo observable")
     {
         auto observable = rpp::source::concat<TestType>(rpp::source::just<TestType>(1, 2));
-        observable.subscribe(mock.get_observer());
+        observable.subscribe(mock);
 
         CHECK(mock.get_received_values() == std::vector{1,2});
         CHECK(mock.get_on_error_count() == 0);
@@ -83,7 +83,7 @@ TEMPLATE_TEST_CASE("concat as source", "", rpp::memory_model::use_stack, rpp::me
     SECTION("concat of multiple same observables")
     {
         auto observable = rpp::source::concat<TestType>(rpp::source::just<TestType>(1, 2), rpp::source::just<TestType>(1, 2));
-        observable.subscribe(mock.get_observer());
+        observable.subscribe(mock);
 
         CHECK(mock.get_received_values() == std::vector{1,2, 1, 2});
         CHECK(mock.get_on_error_count() == 0);
@@ -92,7 +92,7 @@ TEMPLATE_TEST_CASE("concat as source", "", rpp::memory_model::use_stack, rpp::me
     SECTION("concat of multiple different observables")
     {
         auto observable = rpp::source::concat<TestType>(rpp::source::just<TestType>(1, 2), rpp::source::just<TestType>(1));
-        observable.subscribe(mock.get_observer());
+        observable.subscribe(mock);
 
         CHECK(mock.get_received_values() == std::vector{1,2,1});
         CHECK(mock.get_on_error_count() == 0);
@@ -101,7 +101,7 @@ TEMPLATE_TEST_CASE("concat as source", "", rpp::memory_model::use_stack, rpp::me
     SECTION("concat of array of different observables")
     {
         auto observable = rpp::source::concat<TestType>(std::array{rpp::source::just<TestType>(1, 2), rpp::source::just<TestType>(1, 1)});
-        observable.subscribe(mock.get_observer());
+        observable.subscribe(mock);
 
         CHECK(mock.get_received_values() == std::vector{1,2,1, 1});
         CHECK(mock.get_on_error_count() == 0);
@@ -111,7 +111,7 @@ TEMPLATE_TEST_CASE("concat as source", "", rpp::memory_model::use_stack, rpp::me
     {
         std::optional<rpp::dynamic_observer<int>> observer{};
         auto observable = rpp::source::concat<TestType>(rpp::source::just<TestType>(1, 2), rpp::source::create<int>([&](auto&& obs){ observer.emplace(std::forward<decltype(obs)>(obs).as_dynamic()); }), rpp::source::just<TestType>(3));
-        observable.subscribe(mock.get_observer());
+        observable.subscribe(mock);
 
         CHECK(mock.get_received_values() == std::vector{1,2});
         CHECK(mock.get_on_error_count() == 0);
@@ -151,7 +151,7 @@ TEMPLATE_TEST_CASE("concat as source", "", rpp::memory_model::use_stack, rpp::me
                                           rpp::source::create<int>([&](auto&& obs) { d->dispose(); obs.on_completed(); }),
                                           rpp::source::create<int>([&](auto&&) { FAIL("Shouldn't be called"); }),
                                           rpp::source::just<TestType>(3));
-        observable.subscribe(rpp::composite_disposable_wrapper{d}, mock.get_observer());
+        observable.subscribe(rpp::composite_disposable_wrapper{d}, mock);
 
         CHECK(mock.get_received_values() == std::vector{1});
         CHECK(mock.get_on_error_count() == 0);
@@ -164,7 +164,7 @@ TEMPLATE_TEST_CASE("concat as source", "", rpp::memory_model::use_stack, rpp::me
         auto d1 = std::make_shared<rpp::composite_disposable>();
 
         auto observable = rpp::source::concat<TestType>(rpp::source::create<int>([&](auto&& obs) { obs.set_upstream(rpp::disposable_wrapper{d1}); }));
-        observable.subscribe(rpp::composite_disposable_wrapper{d}, mock.get_observer());
+        observable.subscribe(rpp::composite_disposable_wrapper{d}, mock);
 
         CHECK(!d->is_disposed());
         CHECK(!d1->is_disposed());
@@ -184,7 +184,7 @@ TEMPLATE_TEST_CASE("concat as source", "", rpp::memory_model::use_stack, rpp::me
         auto observable =
             rpp::source::concat<TestType>(rpp::source::create<int>([&](auto&& obs) { obs.set_upstream(rpp::disposable_wrapper{d1}); obs.on_completed(); }),
                                           rpp::source::create<int>([&](auto&& obs) { obs.set_upstream(rpp::disposable_wrapper{d2}); }));
-        observable.subscribe(rpp::composite_disposable_wrapper{d}, mock.get_observer());
+        observable.subscribe(rpp::composite_disposable_wrapper{d}, mock);
 
         CHECK(!d->is_disposed());
         CHECK(d1->is_disposed());
@@ -198,14 +198,14 @@ TEMPLATE_TEST_CASE("concat as source", "", rpp::memory_model::use_stack, rpp::me
 
     SECTION("container with error on begin")
     {
-        rpp::source::concat<TestType>(my_container_with_error{}).subscribe(mock.get_observer());
+        rpp::source::concat<TestType>(my_container_with_error{}).subscribe(mock);
 
         CHECK(mock.get_on_error_count() == 1);
     }
 
     SECTION("container with error on increment")
     {
-        rpp::source::concat<TestType>(my_container_with_error_on_increment{}).subscribe(mock.get_observer());
+        rpp::source::concat<TestType>(my_container_with_error_on_increment{}).subscribe(mock);
 
         CHECK(mock.get_on_error_count() == 1);
     }

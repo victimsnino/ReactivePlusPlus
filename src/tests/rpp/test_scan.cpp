@@ -26,7 +26,7 @@ TEMPLATE_TEST_CASE("scan scans values and store state", "", rpp::memory_model::u
     {
         auto mock = mock_observer_strategy<int>{};
 
-        obs | rpp::operators::scan(10, std::plus<int>{}) | rpp::operators::subscribe(mock.get_observer());
+        obs | rpp::operators::scan(10, std::plus<int>{}) | rpp::operators::subscribe(mock);
         SECTION("observer obtains partial sums")
         {
             CHECK(mock.get_received_values() == std::vector{10, 11, 13, 16});
@@ -38,7 +38,7 @@ TEMPLATE_TEST_CASE("scan scans values and store state", "", rpp::memory_model::u
     {
         auto mock = mock_observer_strategy<int>{};
 
-        obs | rpp::operators::scan(std::plus<int>{}) | rpp::operators::subscribe(mock.get_observer());
+        obs | rpp::operators::scan(std::plus<int>{}) | rpp::operators::subscribe(mock);
         SECTION("observer obtains partial sums")
         {
             CHECK(mock.get_received_values() == std::vector{1, 3, 6});
@@ -51,7 +51,7 @@ TEMPLATE_TEST_CASE("scan scans values and store state", "", rpp::memory_model::u
         auto mock = mock_observer_strategy<int>{};
 
         auto op =  rpp::operators::scan(10, std::plus<int>{});
-        obs | op | rpp::operators::subscribe(mock.get_observer());
+        obs | op | rpp::operators::subscribe(mock);
         SECTION("observer obtains partial sums")
         {
             CHECK(mock.get_received_values() == std::vector{10, 11, 13, 16});
@@ -64,7 +64,7 @@ TEMPLATE_TEST_CASE("scan scans values and store state", "", rpp::memory_model::u
         auto mock = mock_observer_strategy<int>{};
 
         auto op = rpp::operators::scan(std::plus<int>{});
-        obs | op | rpp::operators::subscribe(mock.get_observer());
+        obs | op | rpp::operators::subscribe(mock);
         SECTION("observer obtains partial sums")
         {
             CHECK(mock.get_received_values() == std::vector{1, 3, 6});
@@ -83,7 +83,7 @@ TEMPLATE_TEST_CASE("scan scans values and store state", "", rpp::memory_model::u
                         seed.push_back(new_val);
                         return std::move(seed);
                     })
-            | rpp::operators::subscribe(mock.get_observer());
+            | rpp::operators::subscribe(mock);
 
         SECTION("observer obtains partial vectors")
         {
@@ -107,7 +107,7 @@ TEMPLATE_TEST_CASE("scan scans values and store state", "", rpp::memory_model::u
                             return 0;
                         throw std::runtime_error{""};
                     })
-            | rpp::operators::subscribe(mock.get_observer());
+            | rpp::operators::subscribe(mock);
 
         SECTION("observer obtains only on_error")
         {
@@ -127,7 +127,7 @@ TEMPLATE_TEST_CASE("scan scans values and store state", "", rpp::memory_model::u
                             return 0;
                         throw std::runtime_error{""};
                     })
-            | rpp::operators::subscribe(mock.get_observer());
+            | rpp::operators::subscribe(mock);
 
         SECTION("observer obtains only on_error")
         {

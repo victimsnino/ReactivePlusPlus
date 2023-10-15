@@ -20,46 +20,46 @@ TEMPLATE_TEST_CASE("subscribe as operator", "", rpp::memory_model::use_stack, rp
 
     SECTION("subscribe observer")
     {
-        static_assert(std::is_same_v<decltype(observable | rpp::operators::subscribe(mock.get_observer())), void>);
-        observable | rpp::operators::subscribe(mock.get_observer());
+        static_assert(std::is_same_v<decltype(observable | rpp::operators::subscribe(mock)), void>);
+        observable | rpp::operators::subscribe(mock);
         CHECK(mock.get_received_values() == std::vector{1});
     }
 
     SECTION("subscribe observer with disposable")
     {
-        static_assert(std::is_same_v<decltype(observable | rpp::operators::subscribe(rpp::composite_disposable_wrapper{std::make_shared<rpp::composite_disposable>()}, mock.get_observer())), rpp::composite_disposable_wrapper>);
-        auto d = observable | rpp::operators::subscribe(rpp::composite_disposable_wrapper{std::make_shared<rpp::composite_disposable>()}, mock.get_observer());
+        static_assert(std::is_same_v<decltype(observable | rpp::operators::subscribe(rpp::composite_disposable_wrapper{std::make_shared<rpp::composite_disposable>()}, mock)), rpp::composite_disposable_wrapper>);
+        auto d = observable | rpp::operators::subscribe(rpp::composite_disposable_wrapper{std::make_shared<rpp::composite_disposable>()}, mock);
         CHECK(d.is_disposed());
         CHECK(mock.get_received_values() == std::vector{1});
     }
 
     SECTION("subscribe observer with disposed disposable")
     {
-        static_assert(std::is_same_v<decltype(observable | rpp::operators::subscribe(rpp::composite_disposable_wrapper{}, mock.get_observer())), rpp::composite_disposable_wrapper>);
-        auto d = observable | rpp::operators::subscribe(rpp::composite_disposable_wrapper{}, mock.get_observer());
+        static_assert(std::is_same_v<decltype(observable | rpp::operators::subscribe(rpp::composite_disposable_wrapper{}, mock)), rpp::composite_disposable_wrapper>);
+        auto d = observable | rpp::operators::subscribe(rpp::composite_disposable_wrapper{}, mock);
         CHECK(d.is_disposed());
         CHECK(mock.get_received_values().empty());
     }
 
     SECTION("subscribe dynamic observer")
     {
-        static_assert(std::is_same_v<decltype(observable | rpp::operators::subscribe(mock.get_observer().as_dynamic())), void>);
-        observable | rpp::operators::subscribe(mock.get_observer().as_dynamic());
+        static_assert(std::is_same_v<decltype(observable | rpp::operators::subscribe(mock.as_dynamic())), void>);
+        observable | rpp::operators::subscribe(mock.as_dynamic());
         CHECK(mock.get_received_values() == std::vector{1});
     }
 
     SECTION("subscribe dynamic observer with disposable")
     {
-        static_assert(std::is_same_v<decltype(observable | rpp::operators::subscribe(rpp::composite_disposable_wrapper{std::make_shared<rpp::composite_disposable>()}, mock.get_observer().as_dynamic())), rpp::composite_disposable_wrapper>);
-        auto d = observable | rpp::operators::subscribe(rpp::composite_disposable_wrapper{std::make_shared<rpp::composite_disposable>()}, mock.get_observer().as_dynamic());
+        static_assert(std::is_same_v<decltype(observable | rpp::operators::subscribe(rpp::composite_disposable_wrapper{std::make_shared<rpp::composite_disposable>()}, mock.as_dynamic())), rpp::composite_disposable_wrapper>);
+        auto d = observable | rpp::operators::subscribe(rpp::composite_disposable_wrapper{std::make_shared<rpp::composite_disposable>()}, mock.as_dynamic());
         CHECK(d.is_disposed());
         CHECK(mock.get_received_values() == std::vector{1});
     }
 
     SECTION("subscribe dynamic observer with disposed disposable")
     {
-        static_assert(std::is_same_v<decltype(observable | rpp::operators::subscribe(rpp::composite_disposable_wrapper{}, mock.get_observer().as_dynamic())), rpp::composite_disposable_wrapper>);
-        auto d = observable | rpp::operators::subscribe(rpp::composite_disposable_wrapper{}, mock.get_observer().as_dynamic());
+        static_assert(std::is_same_v<decltype(observable | rpp::operators::subscribe(rpp::composite_disposable_wrapper{}, mock.as_dynamic())), rpp::composite_disposable_wrapper>);
+        auto d = observable | rpp::operators::subscribe(rpp::composite_disposable_wrapper{}, mock.as_dynamic());
         CHECK(d.is_disposed());
         CHECK(mock.get_received_values().empty());
     }
@@ -95,46 +95,46 @@ TEMPLATE_TEST_CASE("subscribe as member", "", rpp::memory_model::use_stack, rpp:
 
     SECTION("subscribe observer")
     {
-        static_assert(std::is_same_v<decltype(observable.subscribe(mock.get_observer())), void>);
-        observable.subscribe(mock.get_observer());
+        static_assert(std::is_same_v<decltype(observable.subscribe(mock)), void>);
+        observable.subscribe(mock);
         CHECK(mock.get_received_values() == std::vector{1});
     }
 
     SECTION("subscribe observer with disposable")
     {
-        static_assert(std::is_same_v<decltype(observable.subscribe(rpp::composite_disposable_wrapper{std::make_shared<rpp::composite_disposable>()}, mock.get_observer())), rpp::composite_disposable_wrapper>);
-        auto d = observable.subscribe(rpp::composite_disposable_wrapper{std::make_shared<rpp::composite_disposable>()}, mock.get_observer());
+        static_assert(std::is_same_v<decltype(observable.subscribe(rpp::composite_disposable_wrapper{std::make_shared<rpp::composite_disposable>()}, mock)), rpp::composite_disposable_wrapper>);
+        auto d = observable.subscribe(rpp::composite_disposable_wrapper{std::make_shared<rpp::composite_disposable>()}, mock);
         CHECK(d.is_disposed());
         CHECK(mock.get_received_values() == std::vector{1});
     }
 
     SECTION("subscribe observer with disposed disposable")
     {
-        static_assert(std::is_same_v<decltype(observable.subscribe(rpp::composite_disposable_wrapper{}, mock.get_observer())), rpp::composite_disposable_wrapper>);
-        auto d = observable.subscribe(rpp::composite_disposable_wrapper{}, mock.get_observer());
+        static_assert(std::is_same_v<decltype(observable.subscribe(rpp::composite_disposable_wrapper{}, mock)), rpp::composite_disposable_wrapper>);
+        auto d = observable.subscribe(rpp::composite_disposable_wrapper{}, mock);
         CHECK(d.is_disposed());
         CHECK(mock.get_received_values().empty());
     }
 
     SECTION("subscribe dynamic observer")
     {
-        static_assert(std::is_same_v<decltype(observable.subscribe(mock.get_observer().as_dynamic())), void>);
-        observable.subscribe(mock.get_observer().as_dynamic());
+        static_assert(std::is_same_v<decltype(observable.subscribe(mock.as_dynamic())), void>);
+        observable.subscribe(mock.as_dynamic());
         CHECK(mock.get_received_values() == std::vector{1});
     }
 
     SECTION("subscribe dynamic observer with disposable")
     {
-        static_assert(std::is_same_v<decltype(observable.subscribe(rpp::composite_disposable_wrapper{std::make_shared<rpp::composite_disposable>()}, mock.get_observer().as_dynamic())), rpp::composite_disposable_wrapper>);
-        auto d = observable.subscribe(rpp::composite_disposable_wrapper{std::make_shared<rpp::composite_disposable>()}, mock.get_observer().as_dynamic());
+        static_assert(std::is_same_v<decltype(observable.subscribe(rpp::composite_disposable_wrapper{std::make_shared<rpp::composite_disposable>()}, mock.as_dynamic())), rpp::composite_disposable_wrapper>);
+        auto d = observable.subscribe(rpp::composite_disposable_wrapper{std::make_shared<rpp::composite_disposable>()}, mock.as_dynamic());
         CHECK(d.is_disposed());
         CHECK(mock.get_received_values() == std::vector{1});
     }
 
     SECTION("subscribe dynamic observer with disposed disposable")
     {
-        static_assert(std::is_same_v<decltype(observable.subscribe(rpp::composite_disposable_wrapper{}, mock.get_observer().as_dynamic())), rpp::composite_disposable_wrapper>);
-        auto d = observable.subscribe(rpp::composite_disposable_wrapper{}, mock.get_observer().as_dynamic());
+        static_assert(std::is_same_v<decltype(observable.subscribe(rpp::composite_disposable_wrapper{}, mock.as_dynamic())), rpp::composite_disposable_wrapper>);
+        auto d = observable.subscribe(rpp::composite_disposable_wrapper{}, mock.as_dynamic());
         CHECK(d.is_disposed());
         CHECK(mock.get_received_values().empty());
     }

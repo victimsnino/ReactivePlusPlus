@@ -140,7 +140,7 @@ TEST_CASE("publish subject caches error/completed")
             subj.get_observer().on_next(1);
             SECTION("subscribe observer after emission")
             {
-                subj.get_observable().subscribe(mock.get_observer());
+                subj.get_observable().subscribe(mock);
                 SECTION("observer doesn't obtain value")
                 {
                     CHECK(mock.get_total_on_next_count() == 0);
@@ -154,7 +154,7 @@ TEST_CASE("publish subject caches error/completed")
             subj.get_observer().on_error(std::make_exception_ptr(std::runtime_error{""}));
             SECTION("subscribe observer after emission")
             {
-                subj.get_observable().subscribe(mock.get_observer());
+                subj.get_observable().subscribe(mock);
                 SECTION("observer obtains error")
                 {
                     CHECK(mock.get_total_on_next_count() == 0);
@@ -168,7 +168,7 @@ TEST_CASE("publish subject caches error/completed")
             subj.get_observer().on_completed();
             SECTION("subscribe observer after emission")
             {
-                subj.get_observable().subscribe(mock.get_observer());
+                subj.get_observable().subscribe(mock);
                 SECTION("observer obtains on_completed")
                 {
                     CHECK(mock.get_total_on_next_count() == 0);
@@ -183,7 +183,7 @@ TEST_CASE("publish subject caches error/completed")
             subj.get_observer().on_completed();
             SECTION("subscribe observer after emission")
             {
-                subj.get_observable().subscribe(mock.get_observer());
+                subj.get_observable().subscribe(mock);
                 SECTION("observer obtains error")
                 {
                     CHECK(mock.get_total_on_next_count() == 0);
@@ -198,7 +198,7 @@ TEST_CASE("publish subject caches error/completed")
             subj.get_observer().on_error(std::make_exception_ptr(std::runtime_error{ "" }));
             SECTION("subscribe observer after emission")
             {
-                subj.get_observable().subscribe(mock.get_observer());
+                subj.get_observable().subscribe(mock);
                 SECTION("observer obtains on_completed")
                 {
                     CHECK(mock.get_total_on_next_count() == 0);
@@ -211,7 +211,7 @@ TEST_CASE("publish subject caches error/completed")
         {
             auto observer = subj.get_observer();
             observer.on_completed();
-            subj.get_observable().subscribe(mock.get_observer());
+            subj.get_observable().subscribe(mock);
             observer.on_next(1);
             observer.on_error(std::make_exception_ptr(std::runtime_error{""}));
             observer.on_completed();

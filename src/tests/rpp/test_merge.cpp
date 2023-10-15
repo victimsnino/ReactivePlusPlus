@@ -37,7 +37,7 @@ TEMPLATE_TEST_CASE("merge for observable of observables", "", rpp::memory_model:
 
         SECTION("subscribe on merge of observable")
         {
-            obs | rpp::operators::merge() | rpp::ops::subscribe(mock.get_observer());
+            obs | rpp::operators::merge() | rpp::ops::subscribe(mock);
             SECTION("observer obtains values FROM underlying observables")
             {
                 CHECK(mock.get_received_values() == std::vector{ 1,2 });
@@ -52,7 +52,7 @@ TEMPLATE_TEST_CASE("merge for observable of observables", "", rpp::memory_model:
 
         SECTION("subscribe on merge of observable")
         {
-            obs | rpp::ops::merge() | rpp::ops::subscribe(mock.get_observer());
+            obs | rpp::ops::merge() | rpp::ops::subscribe(mock);
             SECTION("observer obtains values from second observable even if first emits nothing")
             {
                 CHECK(mock.get_received_values() == std::vector{ 2 });
@@ -70,7 +70,7 @@ TEMPLATE_TEST_CASE("merge for observable of observables", "", rpp::memory_model:
 
         SECTION("subscribe on merge of observable")
         {
-            obs | rpp::ops::merge() | rpp::ops::subscribe(mock.get_observer());
+            obs | rpp::ops::merge() | rpp::ops::subscribe(mock);
             SECTION("observer obtains values from second observable even if first emits nothing")
             {
                 CHECK(mock.get_received_values() == std::vector{ 1, 2 });
@@ -89,7 +89,7 @@ TEMPLATE_TEST_CASE("merge for observable of observables", "", rpp::memory_model:
 
         SECTION("subscribe on merge of observable")
         {
-            obs | rpp::ops::merge() | rpp::ops::subscribe(mock.get_observer());
+            obs | rpp::ops::merge() | rpp::ops::subscribe(mock);
             SECTION("observer obtains values from second observable even if first emits nothing")
             {
                 CHECK(mock.get_received_values() == std::vector{ 1 });
@@ -108,7 +108,7 @@ TEMPLATE_TEST_CASE("merge for observable of observables", "", rpp::memory_model:
 
         SECTION("subscribe on merge of observable")
         {
-            obs | rpp::ops::merge() | rpp::ops::subscribe(mock.get_observer());
+            obs | rpp::ops::merge() | rpp::ops::subscribe(mock);
             SECTION("observer obtains values from second observable even if first emits nothing")
             {
                 CHECK(mock.get_total_on_next_count() == 0);
@@ -129,7 +129,7 @@ TEMPLATE_TEST_CASE("merge_with", "", rpp::memory_model::use_stack, rpp::memory_m
 
         SECTION("subscribe on merge of this observables")
         {
-            obs_1 | rpp::ops::merge_with(obs_2) | rpp::ops::subscribe(mock.get_observer());
+            obs_1 | rpp::ops::merge_with(obs_2) | rpp::ops::subscribe(mock);
             SECTION("observer obtains values FROM both observables")
             {
                 CHECK(mock.get_received_values() == std::vector{ 1,2 });
@@ -146,7 +146,7 @@ TEMPLATE_TEST_CASE("merge_with", "", rpp::memory_model::use_stack, rpp::memory_m
         SECTION("subscribe on merge of this observables")
         {
             auto op = rpp::ops::merge_with(obs_2);
-            obs_1 | op | rpp::ops::subscribe(mock.get_observer());
+            obs_1 | op | rpp::ops::subscribe(mock);
             SECTION("observer obtains values FROM both observables")
             {
                 CHECK(mock.get_received_values() == std::vector{ 2 });
@@ -156,7 +156,7 @@ TEMPLATE_TEST_CASE("merge_with", "", rpp::memory_model::use_stack, rpp::memory_m
 
         SECTION("subscribe on merge of this observables in reverse oreder")
         {
-            obs_2 | rpp::ops::merge_with(obs_1)| rpp::ops::subscribe(mock.get_observer());
+            obs_2 | rpp::ops::merge_with(obs_1)| rpp::ops::subscribe(mock);
             SECTION("observer obtains values FROM both observables")
             {
                 CHECK(mock.get_received_values() == std::vector{ 2 });
@@ -172,7 +172,7 @@ TEMPLATE_TEST_CASE("merge_with", "", rpp::memory_model::use_stack, rpp::memory_m
 
         SECTION("subscribe on merge of this observables")
         {
-            obs_1 | rpp::ops::merge_with(obs_2)| rpp::ops::subscribe(mock.get_observer());
+            obs_1 | rpp::ops::merge_with(obs_2)| rpp::ops::subscribe(mock);
             SECTION("observer obtains values FROM both observables")
             {
                 CHECK(mock.get_total_on_next_count()==0);

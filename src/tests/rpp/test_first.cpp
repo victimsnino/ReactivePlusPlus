@@ -29,7 +29,7 @@ TEST_CASE("first only emits once")
     {
         auto obs = rpp::source::just(1);
         obs | rpp::ops::first()
-            | rpp::ops::subscribe(mock.get_observer());
+            | rpp::ops::subscribe(mock);
 
         CHECK(mock.get_received_values() == std::vector{1});
         CHECK(mock.get_on_completed_count() == 1);
@@ -40,7 +40,7 @@ TEST_CASE("first only emits once")
     {
         auto obs = rpp::source::just(1, 2, 3);
         obs | rpp::ops::first()
-            | rpp::ops::subscribe(mock.get_observer());
+            | rpp::ops::subscribe(mock);
         CHECK(mock.get_received_values() == std::vector{1});
         CHECK(mock.get_on_completed_count() == 1);
         CHECK(mock.get_on_error_count() == 0);
@@ -50,7 +50,7 @@ TEST_CASE("first only emits once")
     {
         auto obs = rpp::source::never<int>();
         obs | rpp::ops::first()
-            | rpp::ops::subscribe(mock.get_observer());
+            | rpp::ops::subscribe(mock);
         CHECK(mock.get_received_values().empty());
         CHECK(mock.get_on_completed_count() == 0);
         CHECK(mock.get_on_error_count() == 0);
@@ -60,7 +60,7 @@ TEST_CASE("first only emits once")
     {
         auto obs = rpp::source::error<int>(std::make_exception_ptr(std::runtime_error{""}));
         obs | rpp::ops::first()
-            | rpp::ops::subscribe(mock.get_observer());
+            | rpp::ops::subscribe(mock);
 
         CHECK(mock.get_received_values().empty());
         CHECK(mock.get_on_completed_count() == 0);
@@ -71,7 +71,7 @@ TEST_CASE("first only emits once")
     {
         auto obs = rpp::source::empty<int>();
         obs | rpp::ops::first()
-            | rpp::ops::subscribe(mock.get_observer());
+            | rpp::ops::subscribe(mock);
         CHECK(mock.get_received_values().empty());
         CHECK(mock.get_on_completed_count() == 0);
         CHECK(mock.get_on_error_count() == 1);

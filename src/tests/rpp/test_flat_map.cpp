@@ -37,7 +37,7 @@ TEMPLATE_TEST_CASE("flat_map", "", rpp::memory_model::use_stack, rpp::memory_mod
         SECTION("subscribe using flat_map with templated lambda")
         {
             obs | rpp::operators::flat_map([](auto v) { return rpp::source::just(v * 2); })
-                | rpp::ops::subscribe(mock.get_observer());
+                | rpp::ops::subscribe(mock);
             SECTION("observer obtains values from underlying observables")
             {
                 CHECK(mock.get_received_values() == std::vector{ 2, 4, 6 });
@@ -49,7 +49,7 @@ TEMPLATE_TEST_CASE("flat_map", "", rpp::memory_model::use_stack, rpp::memory_mod
         {
             const auto multiply_by_two = rpp::operators::flat_map([](auto v) { return rpp::source::just(v * 2); });
             obs | multiply_by_two
-                | rpp::ops::subscribe(mock.get_observer());
+                | rpp::ops::subscribe(mock);
             SECTION("observer obtains values from underlying observables")
             {
                 CHECK(mock.get_received_values() == std::vector{ 2, 4, 6 });
@@ -60,7 +60,7 @@ TEMPLATE_TEST_CASE("flat_map", "", rpp::memory_model::use_stack, rpp::memory_mod
         SECTION("subscribe using flat_map with error")
         {
             obs | rpp::operators::flat_map([](int) { return rpp::source::error<int>(std::make_exception_ptr(std::runtime_error{""})); })
-                | rpp::ops::subscribe(mock.get_observer());
+                | rpp::ops::subscribe(mock);
             SECTION("observer obtains values from underlying observables")
             {
                 CHECK(mock.get_total_on_next_count() == 0);
@@ -71,7 +71,7 @@ TEMPLATE_TEST_CASE("flat_map", "", rpp::memory_model::use_stack, rpp::memory_mod
         SECTION("subscribe using flat_map with empty")
         {
             obs | rpp::operators::flat_map([](int) { return rpp::source::empty<int>(); })
-                | rpp::ops::subscribe(mock.get_observer());
+                | rpp::ops::subscribe(mock);
             SECTION("observer obtains values from underlying observables")
             {
                 CHECK(mock.get_total_on_next_count() == 0);
@@ -82,7 +82,7 @@ TEMPLATE_TEST_CASE("flat_map", "", rpp::memory_model::use_stack, rpp::memory_mod
         SECTION("subscribe using flat_map with never")
         {
             obs | rpp::operators::flat_map([](int) { return rpp::source::never<int>(); })
-                | rpp::ops::subscribe(mock.get_observer());
+                | rpp::ops::subscribe(mock);
             SECTION("observer obtains values from underlying observables")
             {
                 CHECK(mock.get_total_on_next_count() == 0);
@@ -97,7 +97,7 @@ TEMPLATE_TEST_CASE("flat_map", "", rpp::memory_model::use_stack, rpp::memory_mod
                         return rpp::source::empty<int>().as_dynamic();
                     return rpp::source::just(v).as_dynamic(); 
                   })
-                | rpp::ops::subscribe(mock.get_observer());
+                | rpp::ops::subscribe(mock);
             SECTION("observer obtains values from underlying observables")
             {
                 CHECK(mock.get_received_values() == std::vector{ 1, 3 });
@@ -112,7 +112,7 @@ TEMPLATE_TEST_CASE("flat_map", "", rpp::memory_model::use_stack, rpp::memory_mod
                         return rpp::source::never<int>().as_dynamic();
                     return rpp::source::just(v).as_dynamic(); 
                   })
-                | rpp::ops::subscribe(mock.get_observer());
+                | rpp::ops::subscribe(mock);
             SECTION("observer obtains values from underlying observables")
             {
                 CHECK(mock.get_received_values() == std::vector{ 1, 3 });
@@ -127,7 +127,7 @@ TEMPLATE_TEST_CASE("flat_map", "", rpp::memory_model::use_stack, rpp::memory_mod
                         return rpp::source::error<int>(std::make_exception_ptr(std::runtime_error{""})).as_dynamic();
                     return rpp::source::just(v).as_dynamic(); 
                   })
-                | rpp::ops::subscribe(mock.get_observer());
+                | rpp::ops::subscribe(mock);
             SECTION("observer obtains values from underlying observables")
             {
                 CHECK(mock.get_total_on_next_count() == 0);

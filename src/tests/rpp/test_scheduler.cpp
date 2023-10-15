@@ -688,7 +688,7 @@ TEST_CASE("new_thread utilized current_thread")
     auto mock = mock_observer_strategy<int>{};
     {
         auto worker = rpp::schedulers::new_thread::create_worker();
-        auto obs = mock.get_observer().as_dynamic();
+        auto obs = mock.as_dynamic();
         obs.set_upstream(worker.get_disposable());
         worker.schedule([&inner_schedule_executed](const auto& obs)
         {
@@ -717,7 +717,7 @@ TEST_CASE("new_thread works till end")
     rpp::source::just(1,2,3,4,5,6,7,8,9,10)
     | rpp::operators::subscribe_on(rpp::schedulers::new_thread{})
     | rpp::operators::as_blocking()
-    | rpp::operators::subscribe(mock.get_observer());
+    | rpp::operators::subscribe(mock);
 
     CHECK(mock.get_received_values().size() == 10);
 }
