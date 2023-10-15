@@ -426,6 +426,20 @@ int main(int argc, char* argv[]) // NOLINT(bugprone-exception-escape)
                     | rxcpp::operators::subscribe<int>([](int v) { ankerl::nanobench::doNotOptimizeAway(v); });
             });
         }
+        SECTION("just+filter(true)+subscribe")
+        {
+            TEST_RPP([&]() {
+                rpp::source::just(rpp::schedulers::immediate{}, 1)
+                    | rpp::operators::filter([](int) { return true; })
+                    | rpp::operators::subscribe([](int v) { ankerl::nanobench::doNotOptimizeAway(v); });
+            });
+
+            TEST_RXCPP([&]() {
+                rxcpp::observable<>::just(1, rxcpp::identity_immediate())
+                    | rxcpp::operators::filter([](int) { return true; })
+                    | rxcpp::operators::subscribe<int>([](int v) { ankerl::nanobench::doNotOptimizeAway(v); });
+            });
+        }
 
         SECTION("create(1,2)+first()+subscribe")
         {
