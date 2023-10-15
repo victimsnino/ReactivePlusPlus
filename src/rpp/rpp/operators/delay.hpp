@@ -45,8 +45,11 @@ struct delay_disposable final : public rpp::composite_disposable_impl<Container>
         , worker{std::move(in_worker)}
         , delay{delay}
     {
-        if (auto d = worker.get_disposable(); !d.is_disposed())
-            rpp::composite_disposable_impl<Container>::add(std::move(d));
+        if constexpr (!Worker::is_none_disposable)
+        {
+            if (auto d = worker.get_disposable(); !d.is_disposed())
+                rpp::composite_disposable_impl<Container>::add(std::move(d));
+        }
     }
 
     Observer                     observer;

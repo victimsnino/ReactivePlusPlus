@@ -43,8 +43,11 @@ public:
         , m_worker{std::move(in_worker)}
         , m_period{period}
     {
-        if (auto d = m_worker.get_disposable(); !d.is_disposed())
-            rpp::composite_disposable_impl<Container>::add(std::move(d));
+        if constexpr (!Worker::is_none_disposable)
+        {
+            if (auto d = worker.get_disposable(); !d.is_disposed())
+                rpp::composite_disposable_impl<Container>::add(std::move(d));
+        }
     }
 
     template<typename TT>

@@ -118,8 +118,11 @@ struct concat_strategy
     void subscribe(observer<value_type, Strategy>&& obs) const
     {
         const auto worker = scheduler.create_worker();
-        if (auto d = worker.get_disposable(); !d.is_disposed())
-            obs.set_upstream(std::move(d));
+        if constexpr (!rpp::schedulers::utils::get_worker_t<TScheduler>::is_none_disposable)
+        {
+            if (auto d = worker.get_disposable(); !d.is_disposed())
+                obs.set_upstream(std::move(d));
+        }
         drain(std::move(obs), worker,  container, size_t{});
     }
 };

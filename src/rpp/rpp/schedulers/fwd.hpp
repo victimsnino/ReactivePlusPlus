@@ -33,6 +33,8 @@ struct fake_schedulable_handler
 
     static void on_error(const std::exception_ptr&) {}
 };
+
+struct none_disposable{};
 }
 
 namespace rpp::schedulers::constraint
@@ -52,7 +54,7 @@ template<typename S>
 concept strategy = requires(const S& s, const details::fake_schedulable_handler& handler)
 {
     {s.defer_for(duration{}, std::declval<optional_duration(*)(const details::fake_schedulable_handler&)>(), handler)} -> std::same_as<void>;
-    {s.get_disposable()} -> std::same_as<rpp::disposable_wrapper>;
+    {s.get_disposable()} -> rpp::constraint::any_of<rpp::disposable_wrapper, details::none_disposable>;
     {S::now()} -> std::same_as<rpp::schedulers::time_point>;
 };
 }
@@ -90,4 +92,10 @@ concept scheduler = requires(const S& s)
 {
     {s.create_worker()} -> worker;
 };
+}
+
+namespace rpp::schedulers::utils
+{
+template<rpp::schedulers::constraint::scheduler Scheduler>
+using get_worker_t = std::decay_t<decltype(std::declval<Scheduler>().create_worker())>;
 }

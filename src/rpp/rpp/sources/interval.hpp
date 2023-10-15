@@ -29,8 +29,7 @@ template<typename TScheduler>
 struct interval_strategy
 {
     using value_type = size_t;
-    using expected_disposable_strategy = rpp::details::observables::fixed_disposable_strategy_selector<1>;
-
+    using expected_disposable_strategy = std::conditional_t<rpp::schedulers::utils::get_worker_t<TScheduler>::is_none_disposable, rpp::details::observables::none_disposable_strategy_selector, rpp::details::observables::fixed_disposable_strategy_selector<1>>;
 
     RPP_NO_UNIQUE_ADDRESS TScheduler scheduler;
     rpp::schedulers::duration        initial;
@@ -40,8 +39,11 @@ struct interval_strategy
     void subscribe(TObs&& observer) const
     {
         const auto worker = scheduler.create_worker();
-        if (auto d = worker.get_disposable(); !d.is_disposed())
-            observer.set_upstream(std::move(d));
+        if constexpr (!rpp::schedulers::utils::get_worker_t<TScheduler>::is_none_disposable)
+        {
+            if (auto d = worker.get_disposable(); !d.is_disposed())
+                observer.set_upstream(std::move(d));
+        }
         worker.schedule(initial, interval_schedulable{}, std::forward<TObs>(observer), period, size_t{});
     }
 };

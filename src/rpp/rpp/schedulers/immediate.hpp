@@ -73,7 +73,7 @@ public:
             details::immediate_scheduling_while_condition(duration, rpp::utils::return_true{}, std::forward<Fn>(fn), std::forward<Handler>(handler), std::forward<Args>(args)...);
         }
 
-        static rpp::disposable_wrapper get_disposable() { return rpp::disposable_wrapper{}; }
+        static constexpr rpp::schedulers::details::none_disposable get_disposable() { return {}; }
 
         static rpp::schedulers::time_point now() { return rpp::schedulers::clock_type::now(); }
     };

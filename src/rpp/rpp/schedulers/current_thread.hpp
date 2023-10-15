@@ -181,7 +181,7 @@ public:
                 drain_queue(queue);
         }
 
-        static rpp::disposable_wrapper get_disposable() { return rpp::disposable_wrapper{}; }
+        static constexpr rpp::schedulers::details::none_disposable get_disposable() { return {}; }
 
         static rpp::schedulers::time_point now() { return s_last_now_time = clock_type::now(); }
     };
