@@ -45,7 +45,7 @@ public:
     {
         if constexpr (!Worker::is_none_disposable)
         {
-            if (auto d = worker.get_disposable(); !d.is_disposed())
+            if (auto d = m_worker.get_disposable(); !d.is_disposed())
                 rpp::composite_disposable_impl<Container>::add(std::move(d));
         }
     }

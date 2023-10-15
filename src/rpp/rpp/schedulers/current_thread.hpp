@@ -152,7 +152,7 @@ public:
         if (!someone_owns_queue)
             s_queue.emplace();
 
-        return rpp::utils::finally_action{!someone_owns_queue ? &drain_current_queue : &utils::empty_function<>};
+        return rpp::utils::finally_action{!someone_owns_queue ? &drain_current_queue : &rpp::utils::empty_function<>};
     }
 
     class worker_strategy
