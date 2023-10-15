@@ -23,7 +23,8 @@ class dynamic_disposables_container
 public:
     dynamic_disposables_container()
     {
-        m_data.reserve(Count);
+        if constexpr (Count != 0)
+            m_data.reserve(Count);
     }
 
     void push_back(const rpp::disposable_wrapper& d)
