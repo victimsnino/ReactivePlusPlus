@@ -17,14 +17,12 @@
 
 namespace rpp::details::disposables
 {
-template<size_t Count>
-class dynamic_disposables_container
+class dynamic_disposables_container_base
 {
 public:
-    dynamic_disposables_container()
+    explicit dynamic_disposables_container_base(size_t count)
     {
-        if constexpr (Count != 0)
-            m_data.reserve(Count);
+        m_data.reserve(count);
     }
 
     void push_back(const rpp::disposable_wrapper& d)
@@ -51,6 +49,15 @@ public:
 
 private:
     mutable std::vector<rpp::disposable_wrapper> m_data{};
+};
+
+template<size_t Count>
+class dynamic_disposables_container : public dynamic_disposables_container_base
+{
+public:
+    dynamic_disposables_container() 
+        : dynamic_disposables_container_base{Count}
+    {}
 };
 
 template<size_t Count>
