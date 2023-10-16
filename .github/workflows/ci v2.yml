@@ -37,10 +37,14 @@ jobs:
                 {name: ci-windows,     os: windows-latest},
                 {name: ci-macos,       os: macos-latest}]
         type: [tests, benchmarks]
+        build_type: [Release, Debug]
+        exclude:
+          - type: benchmarks
+            build_type: Debug
 
     timeout-minutes: 20
     runs-on: ${{ matrix.config.os }}
-    name: ${{ matrix.type }} ${{ matrix.config.name }}
+    name: ${{ matrix.type }} ${{ matrix.config.name }} ${{matrix.build_type}}
 
     steps:
     - uses: actions/checkout@v4
@@ -62,7 +66,9 @@ jobs:
       uses: lukka/run-cmake@v10
       with:
         configurePreset: ${{ matrix.config.name }}-${{ matrix.type }}
+        configurePresetAdditionalArgs: "[-DCMAKE_BUILD_TYPE=${{matrix.build_type}}]"
         buildPreset: ci-build
+        buildPresetAdditionalArgs: "[--config ${{matrix.build_type}}]"
         testPreset: ci-tests
 
     - name: Upload benchmark results
