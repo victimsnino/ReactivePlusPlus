@@ -66,9 +66,9 @@ jobs:
       uses: lukka/run-cmake@v10
       with:
         configurePreset: ${{ matrix.config.name }}-${{ matrix.type }}
-        configurePresetAdditionalArgs: "[-DCMAKE_BUILD_TYPE=${{matrix.build_type}}]"
+        configurePresetAdditionalArgs: "['-DCMAKE_BUILD_TYPE=${{matrix.build_type}}']"
         buildPreset: ci-build
-        buildPresetAdditionalArgs: "[--config ${{matrix.build_type}}]"
+        buildPresetAdditionalArgs: "['--config ${{matrix.build_type}}']"
         testPreset: ci-tests
 
     - name: Upload benchmark results
