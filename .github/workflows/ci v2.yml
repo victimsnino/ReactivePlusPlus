@@ -54,7 +54,7 @@ jobs:
     - name: ccache
       uses: hendrikmuhs/ccache-action@v1.2
       with:
-        key: ${{ matrix.type }}-${{ matrix.config.name }}
+        key: ${{ matrix.type }}-${{ matrix.config.name }}-${{matrix.build_type}}
 
     - name: Install deps
       if: matrix.config.os == 'ubuntu-latest'
