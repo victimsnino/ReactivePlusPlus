@@ -278,6 +278,17 @@
       "configuration": "Release"
     },
     {
+      "name": "ci-tests-debug",
+      "environment": {
+        "QT_QPA_PLATFORM":"offscreen"
+      },
+      "output": {
+        "outputOnFailure": true
+      },
+		  "configurePreset" : "ci-build",
+      "configuration": "Debug"
+    },
+    {
       "name": "ci-sanitize",
       "inherits" : "ci-tests",
       "environment": {

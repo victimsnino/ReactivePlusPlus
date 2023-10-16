@@ -33,14 +33,14 @@ jobs:
     strategy:
       matrix:
         config: [{name: ci-ubuntu-gcc,  os: ubuntu-latest},
-                {name: ci-ubuntu-clang,os: ubuntu-latest},
-                {name: ci-windows,     os: windows-latest},
-                {name: ci-macos,       os: macos-latest}]
+                {name: ci-ubuntu-clang, os: ubuntu-latest},
+                {name: ci-windows,      os: windows-latest},
+                {name: ci-macos,        os: macos-latest}]
         type: [tests, benchmarks]
-        build_type: [Release, Debug]
+        build_type: [{config: Release, test_preset: ci-tests}, {config: Debug, test_preset: ci-tests-debug}]
         exclude:
           - type: benchmarks
-            build_type: Debug
+            build_type: {config: Debug}
 
     timeout-minutes: 20
     runs-on: ${{ matrix.config.os }}
@@ -69,8 +69,7 @@ jobs:
         configurePresetAdditionalArgs: "['-DCMAKE_BUILD_TYPE=${{matrix.build_type}}']"
         buildPreset: ci-build
         buildPresetAdditionalArgs: "['--config ${{matrix.build_type}}']"
-        testPreset: ci-tests
-        testPresetAdditionalArgs: "['--config ${{matrix.build_type}}']"
+        testPreset: ${{matrix.build_type.test_preset}}
 
 
     - name: Upload benchmark results
