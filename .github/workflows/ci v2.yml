@@ -44,7 +44,7 @@ jobs:
 
     timeout-minutes: 20
     runs-on: ${{ matrix.config.os }}
-    name: ${{ matrix.type }} ${{ matrix.config.name }} ${{matrix.build_type}}
+    name: ${{ matrix.type }} ${{ matrix.config.name }} ${{ matrix.build_type.config }}
 
     steps:
     - uses: actions/checkout@v4
@@ -54,7 +54,7 @@ jobs:
     - name: ccache
       uses: hendrikmuhs/ccache-action@v1.2
       with:
-        key: ${{ matrix.type }}-${{ matrix.config.name }}-${{matrix.build_type}}
+        key: ${{ matrix.type }}-${{ matrix.config.name }}-${{ matrix.build_type.config }}
 
     - name: Install deps
       if: matrix.config.os == 'ubuntu-latest'
@@ -66,9 +66,9 @@ jobs:
       uses: lukka/run-cmake@v10
       with:
         configurePreset: ${{ matrix.config.name }}-${{ matrix.type }}
-        configurePresetAdditionalArgs: "['-DCMAKE_BUILD_TYPE=${{matrix.build_type}}']"
+        configurePresetAdditionalArgs: "['-DCMAKE_BUILD_TYPE=${{ matrix.build_type.config }}']"
         buildPreset: ci-build
-        buildPresetAdditionalArgs: "['--config ${{matrix.build_type}}']"
+        buildPresetAdditionalArgs: "['--config ${{ matrix.build_type.config }}']"
         testPreset: ${{matrix.build_type.test_preset}}
 
 
