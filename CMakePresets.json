@@ -54,10 +54,7 @@
       "name": "ci-unix",
       "generator": "Unix Makefiles",
       "hidden": true,
-      "inherits": ["flags-unix"],
-      "cacheVariables": {
-        "CMAKE_BUILD_TYPE": "Release"
-      }
+      "inherits": ["flags-unix"]
     },
     {
       "name": "ci-win64",
@@ -264,7 +261,6 @@
     {
       "name" : "ci-build",
       "jobs" : 2,
-      "configuration" : "Release",
 		  "configurePreset" : "ci-build"
     }
   ]
@@ -272,7 +268,6 @@
   "testPresets": [
     {
       "name": "ci-tests",
-      "configuration": "Release",
       "environment": {
         "QT_QPA_PLATFORM":"offscreen"
       },
