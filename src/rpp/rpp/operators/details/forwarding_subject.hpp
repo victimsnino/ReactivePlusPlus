@@ -39,6 +39,8 @@ class forwarding_strategy
     };
 
 public:
+    using expected_disposable_strategy = typename rpp::details::observables::deduce_disposable_strategy_t<subjects::details::subject_state<Type>>::template add<1>;
+
     explicit forwarding_strategy(std::shared_ptr<rpp::refcount_disposable> refcount)
         : m_refcount{std::move(refcount)}
     {

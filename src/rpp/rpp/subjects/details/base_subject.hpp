@@ -23,6 +23,7 @@ class base_subject
     struct on_subscribe
     {
         using value_type = T;
+        using expected_disposable_strategy = rpp::details::observables::deduce_disposable_strategy_t<Strategy>;
 
         Strategy strategy;
 
