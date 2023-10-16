@@ -114,6 +114,22 @@ public:
     }
 
     /**
+     * @brief Subscribes passed observer strategy to emissions from this observable via construction of observer
+     * @details This overloading attaches passed disposable to observer and return it to provide ability to dispose/disconnect observer early if needed.
+     * @warning This overloading has some performance penalties, use it only when you really need to use disposable
+     *
+     * @param d is disposable to be attached to observer. If disposable is nullptr or disposed -> no any subscription happens
+     * @return composite_disposable_wrapper is disposable to be able to dispose observer when it needed
+     */
+    template<constraint::observer_strategy<Type> ObserverStrategy>
+        requires (!constraint::observer<ObserverStrategy>)
+    composite_disposable_wrapper subscribe(const composite_disposable_wrapper& d, ObserverStrategy&& observer_strategy) const
+    {
+        subscribe(rpp::observer<Type, rpp::details::with_external_disposable<std::decay_t<ObserverStrategy>>>{d, std::forward<ObserverStrategy>(observer_strategy)});
+        return d;
+    }
+
+    /**
      * @brief Subscribes passed observer to emissions from this observable.
      *
      * @details This overloading attaches disposable to observer and return it to provide ability to dispose/disconnect observer early if needed.

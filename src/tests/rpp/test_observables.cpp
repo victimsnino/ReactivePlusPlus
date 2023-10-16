@@ -110,7 +110,7 @@ TEST_CASE("blocking_observable blocks subscribe call")
                 .detach();
         })
         | rpp::operators::as_blocking()
-        | rpp::operators::subscribe(mock.as_dynamic());
+        | rpp::operators::subscribe(mock);
 
         CHECK(mock.get_on_completed_count() == 1);
     }
@@ -130,7 +130,7 @@ TEST_CASE("blocking_observable blocks subscribe call")
 
         obs
         | op
-        | rpp::operators::subscribe(mock.as_dynamic());
+        | rpp::operators::subscribe(mock);
 
         CHECK(mock.get_on_error_count() == 1);
     }

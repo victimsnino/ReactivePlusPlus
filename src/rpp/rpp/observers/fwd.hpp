@@ -22,6 +22,18 @@
 
 namespace rpp::constraint
 {
+template<typename S>
+concept observer_strategy_base = requires(const S& const_strategy, S& strategy, const rpp::disposable_wrapper& disposable)
+{
+    // const_strategy.on_next(v);
+    // const_strategy.on_next(std::move(mv));
+    const_strategy.on_error(std::exception_ptr{});
+    const_strategy.on_completed();
+
+    strategy.set_upstream(disposable);
+    { strategy.is_disposed() } -> std::same_as<bool>;
+};
+
 /**
  * @brief Concept to define strategy to override observer behavior. Strategy must be able to handle all observer's
  * callbacks: on_next/on_error/on_completed
@@ -32,15 +44,10 @@ namespace rpp::constraint
  * @ingroup observers
  */
 template<typename S, typename Type>
-concept observer_strategy = requires(const S& const_strategy, S& strategy, const Type& v, Type& mv, const rpp::disposable_wrapper& disposable)
+concept observer_strategy = observer_strategy_base<S> && requires(const S& const_strategy, const Type& v, Type& mv)
 {
     const_strategy.on_next(v);
     const_strategy.on_next(std::move(mv));
-    const_strategy.on_error(std::exception_ptr{});
-    const_strategy.on_completed();
-
-    strategy.set_upstream(disposable);
-    { strategy.is_disposed() } -> std::same_as<bool>;
 };
 } // namespace rpp::constraint
 

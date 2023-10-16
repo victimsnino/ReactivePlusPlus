@@ -49,6 +49,7 @@ public:
 
     std::vector<Type> get_received_values() const {return m_state->vals; }
 
+    auto get_observer() const {return rpp::observer<Type, mock_observer_strategy<Type>>{*this}; }
     auto get_observer(rpp::composite_disposable_wrapper d) const {return rpp::observer<Type, rpp::details::with_external_disposable<mock_observer_strategy<Type>>>{std::move(d), *this}; }
 
 private:

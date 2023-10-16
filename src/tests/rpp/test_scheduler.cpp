@@ -688,7 +688,7 @@ TEST_CASE("new_thread utilized current_thread")
     auto mock = mock_observer_strategy<int>{};
     {
         auto worker = rpp::schedulers::new_thread::create_worker();
-        auto obs = mock.as_dynamic();
+        auto obs = mock.get_observer().as_dynamic();
         obs.set_upstream(worker.get_disposable());
         worker.schedule([&inner_schedule_executed](const auto& obs)
         {
