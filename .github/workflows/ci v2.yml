@@ -70,7 +70,7 @@ jobs:
         buildPreset: ci-build
         buildPresetAdditionalArgs: "['--config ${{matrix.build_type}}']"
         testPreset: ci-tests
-        testPresetAdditionalArgs: "['-C ${{matrix.build_type}}']"
+        testPresetAdditionalArgs: "['--config ${{matrix.build_type}}']"
 
 
     - name: Upload benchmark results
