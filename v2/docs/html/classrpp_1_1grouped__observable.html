@@ -145,10 +145,21 @@ requires (!constraint::variadic_decayed_same_as&lt;<a class="el" href="classrpp_
 <tr class="memitem:aa2621e98393f224a7689c6e08003c027 inherit pub_methods_classrpp_1_1observable" id="r_aa2621e98393f224a7689c6e08003c027"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrpp_1_1observable.html#aa2621e98393f224a7689c6e08003c027">subscribe</a> (<a class="el" href="group__observers.html#gaccd025034d57327e6a31b2106619197b">dynamic_observer</a>&lt; Type &gt; <a class="el" href="classrpp_1_1observer.html">observer</a>) const</td></tr>
 <tr class="memdesc:aa2621e98393f224a7689c6e08003c027 inherit pub_methods_classrpp_1_1observable"><td class="mdescLeft">&#160;</td><td class="mdescRight">Subscribe passed observer to emissions from this observable.  <br /></td></tr>
 <tr class="separator:aa2621e98393f224a7689c6e08003c027 inherit pub_methods_classrpp_1_1observable"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abd8e59d72e869c1c1eed6acd77c79c0c inherit pub_methods_classrpp_1_1observable" id="r_abd8e59d72e869c1c1eed6acd77c79c0c"><td class="memTemplParams" colspan="2">
+template&lt;constraint::observer_strategy&lt; Type &gt; ObserverStrategy&gt; <br />
+requires (!constraint::observer&lt;ObserverStrategy&gt;)</td></tr>
+<tr class="memitem:abd8e59d72e869c1c1eed6acd77c79c0c inherit pub_methods_classrpp_1_1observable"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>subscribe</b> (ObserverStrategy &amp;&amp;observer_strategy) const</td></tr>
+<tr class="memdesc:abd8e59d72e869c1c1eed6acd77c79c0c inherit pub_methods_classrpp_1_1observable"><td class="mdescLeft">&#160;</td><td class="mdescRight">Subscribes passed observer strategy to emissions from this observable via construction of observer. <br /></td></tr>
+<tr class="separator:abd8e59d72e869c1c1eed6acd77c79c0c inherit pub_methods_classrpp_1_1observable"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a18fd127e66c6fab482886fb4e4fdc75b inherit pub_methods_classrpp_1_1observable" id="r_a18fd127e66c6fab482886fb4e4fdc75b"><td class="memTemplParams" colspan="2">template&lt;constraint::observer_strategy&lt; Type &gt; ObserverStrategy&gt; </td></tr>
 <tr class="memitem:a18fd127e66c6fab482886fb4e4fdc75b inherit pub_methods_classrpp_1_1observable"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classrpp_1_1disposable__wrapper__impl.html">composite_disposable_wrapper</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classrpp_1_1observable.html#a18fd127e66c6fab482886fb4e4fdc75b">subscribe</a> (const <a class="el" href="classrpp_1_1disposable__wrapper__impl.html">composite_disposable_wrapper</a> &amp;d, <a class="el" href="classrpp_1_1observer.html">observer</a>&lt; Type, ObserverStrategy &gt; &amp;&amp;obs) const</td></tr>
 <tr class="memdesc:a18fd127e66c6fab482886fb4e4fdc75b inherit pub_methods_classrpp_1_1observable"><td class="mdescLeft">&#160;</td><td class="mdescRight">Subscribe passed observer to emissions from this observable.  <br /></td></tr>
 <tr class="separator:a18fd127e66c6fab482886fb4e4fdc75b inherit pub_methods_classrpp_1_1observable"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6bf5caf76b18d197fc56780b924b709c inherit pub_methods_classrpp_1_1observable" id="r_a6bf5caf76b18d197fc56780b924b709c"><td class="memTemplParams" colspan="2">template&lt;constraint::observer_strategy&lt; Type &gt; ObserverStrategy&gt; <br />
+requires (!constraint::observer&lt;ObserverStrategy&gt;)</td></tr>
+<tr class="memitem:a6bf5caf76b18d197fc56780b924b709c inherit pub_methods_classrpp_1_1observable"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classrpp_1_1disposable__wrapper__impl.html">composite_disposable_wrapper</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classrpp_1_1observable.html#a6bf5caf76b18d197fc56780b924b709c">subscribe</a> (const <a class="el" href="classrpp_1_1disposable__wrapper__impl.html">composite_disposable_wrapper</a> &amp;d, ObserverStrategy &amp;&amp;observer_strategy) const</td></tr>
+<tr class="memdesc:a6bf5caf76b18d197fc56780b924b709c inherit pub_methods_classrpp_1_1observable"><td class="mdescLeft">&#160;</td><td class="mdescRight">Subscribes passed observer strategy to emissions from this observable via construction of observer.  <br /></td></tr>
+<tr class="separator:a6bf5caf76b18d197fc56780b924b709c inherit pub_methods_classrpp_1_1observable"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac81ee3d805386d492ab54e40ccd6adc2 inherit pub_methods_classrpp_1_1observable" id="r_ac81ee3d805386d492ab54e40ccd6adc2"><td class="memTemplParams" colspan="2">template&lt;constraint::observer_strategy&lt; Type &gt; ObserverStrategy&gt; </td></tr>
 <tr class="memitem:ac81ee3d805386d492ab54e40ccd6adc2 inherit pub_methods_classrpp_1_1observable"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classrpp_1_1disposable__wrapper__impl.html">composite_disposable_wrapper</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classrpp_1_1observable.html#ac81ee3d805386d492ab54e40ccd6adc2">subscribe_with_disposable</a> (<a class="el" href="classrpp_1_1observer.html">observer</a>&lt; Type, ObserverStrategy &gt; &amp;&amp;<a class="el" href="classrpp_1_1observer.html">observer</a>) const</td></tr>
 <tr class="memdesc:ac81ee3d805386d492ab54e40ccd6adc2 inherit pub_methods_classrpp_1_1observable"><td class="mdescLeft">&#160;</td><td class="mdescRight">Subscribes passed observer to emissions from this observable.  <br /></td></tr>
@@ -178,19 +189,19 @@ auto&#160;</td><td class="memItemRight" valign="bottom"><b>as_dynamic</b> () &am
 <tr class="memdesc:a7f3a86ce4541938d7e4c7c73f883b30b inherit pub_methods_classrpp_1_1observable"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert observable to type-erased version. <br /></td></tr>
 <tr class="separator:a7f3a86ce4541938d7e4c7c73f883b30b inherit pub_methods_classrpp_1_1observable"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a49b71120ba6733e2aba8975304de7e11 inherit pub_methods_classrpp_1_1observable" id="r_a49b71120ba6733e2aba8975304de7e11"><td class="memTemplParams" colspan="2">
-template&lt;constraint::operators_v2&lt; Type &gt; Op&gt; </td></tr>
+template&lt;constraint::operator_chain&lt; Type, expected_disposable_strategy &gt; Op&gt; </td></tr>
 <tr class="memitem:a49b71120ba6733e2aba8975304de7e11 inherit pub_methods_classrpp_1_1observable"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><b>operator|</b> (Op &amp;&amp;op) const &amp;</td></tr>
 <tr class="separator:a49b71120ba6733e2aba8975304de7e11 inherit pub_methods_classrpp_1_1observable"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a452660c2284e7a9d9c3513c9b4d79c16 inherit pub_methods_classrpp_1_1observable" id="r_a452660c2284e7a9d9c3513c9b4d79c16"><td class="memTemplParams" colspan="2">
-template&lt;constraint::operators_v2&lt; Type &gt; Op&gt; </td></tr>
+template&lt;constraint::operator_chain&lt; Type, expected_disposable_strategy &gt; Op&gt; </td></tr>
 <tr class="memitem:a452660c2284e7a9d9c3513c9b4d79c16 inherit pub_methods_classrpp_1_1observable"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><b>operator|</b> (Op &amp;&amp;op) &amp;&amp;</td></tr>
 <tr class="separator:a452660c2284e7a9d9c3513c9b4d79c16 inherit pub_methods_classrpp_1_1observable"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a49b71120ba6733e2aba8975304de7e11 inherit pub_methods_classrpp_1_1observable" id="r_a49b71120ba6733e2aba8975304de7e11"><td class="memTemplParams" colspan="2">
-template&lt;constraint::operators&lt;const <a class="el" href="classrpp_1_1observable.html">observable</a>&lt; Type, Strategy &gt; &amp; &gt; Op&gt; </td></tr>
+template&lt;constraint::operator_observable_transform&lt; const <a class="el" href="classrpp_1_1observable.html">observable</a>&lt; Type, Strategy &gt; &amp; &gt; Op&gt; </td></tr>
 <tr class="memitem:a49b71120ba6733e2aba8975304de7e11 inherit pub_methods_classrpp_1_1observable"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><b>operator|</b> (Op &amp;&amp;op) const &amp;</td></tr>
 <tr class="separator:a49b71120ba6733e2aba8975304de7e11 inherit pub_methods_classrpp_1_1observable"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a452660c2284e7a9d9c3513c9b4d79c16 inherit pub_methods_classrpp_1_1observable" id="r_a452660c2284e7a9d9c3513c9b4d79c16"><td class="memTemplParams" colspan="2">
-template&lt;constraint::operators&lt;<a class="el" href="classrpp_1_1observable.html">observable</a>&lt; Type, Strategy &gt; &amp;&amp; &gt; Op&gt; </td></tr>
+template&lt;constraint::operator_observable_transform&lt; <a class="el" href="classrpp_1_1observable.html">observable</a>&lt; Type, Strategy &gt; &amp;&amp; &gt; Op&gt; </td></tr>
 <tr class="memitem:a452660c2284e7a9d9c3513c9b4d79c16 inherit pub_methods_classrpp_1_1observable"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><b>operator|</b> (Op &amp;&amp;op) &amp;&amp;</td></tr>
 <tr class="separator:a452660c2284e7a9d9c3513c9b4d79c16 inherit pub_methods_classrpp_1_1observable"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9a2be2bf26a236af21456ef41c11fade inherit pub_methods_classrpp_1_1observable" id="r_a9a2be2bf26a236af21456ef41c11fade"><td class="memTemplParams" colspan="2">
@@ -209,6 +220,13 @@ template&lt;typename Op &gt; </td></tr>
 template&lt;typename Op &gt; </td></tr>
 <tr class="memitem:a13848db42f673d783761272a9d4026f1 inherit pub_methods_classrpp_1_1observable"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><b>pipe</b> (Op &amp;&amp;op) &amp;&amp;</td></tr>
 <tr class="separator:a13848db42f673d783761272a9d4026f1 inherit pub_methods_classrpp_1_1observable"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="inherited" name="inherited"></a>
+Additional Inherited Members</h2></td></tr>
+<tr class="inherit_header pub_types_classrpp_1_1observable"><td colspan="2" onclick="javascript:toggleInherit('pub_types_classrpp_1_1observable')"><img src="closed.png" alt="-"/>&#160;Public Types inherited from <a class="el" href="classrpp_1_1observable.html">rpp::observable&lt; Type, Strategy &gt;</a></td></tr>
+<tr class="memitem:a8717e2367462c5ae2d67cbbaa79d4aa7 inherit pub_types_classrpp_1_1observable" id="r_a8717e2367462c5ae2d67cbbaa79d4aa7"><td class="memItemLeft" align="right" valign="top">
+using&#160;</td><td class="memItemRight" valign="bottom"><b>expected_disposable_strategy</b> = rpp::details::observables::deduce_disposable_strategy_t&lt; Strategy &gt;</td></tr>
+<tr class="separator:a8717e2367462c5ae2d67cbbaa79d4aa7 inherit pub_types_classrpp_1_1observable"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><div class="compoundTemplParams">template&lt;constraint::decayed_type KeyType, constraint::decayed_type Type, constraint::observable_strategy&lt; Type &gt; Strategy&gt;<br />

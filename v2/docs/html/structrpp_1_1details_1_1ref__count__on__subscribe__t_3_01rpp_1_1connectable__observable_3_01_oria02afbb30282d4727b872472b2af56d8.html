@@ -113,16 +113,19 @@ Classes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:aa2ac6dbcc19a196aa2e7acc6395b237d" id="r_aa2ac6dbcc19a196aa2e7acc6395b237d"><td class="memItemLeft" align="right" valign="top"><a id="aa2ac6dbcc19a196aa2e7acc6395b237d" name="aa2ac6dbcc19a196aa2e7acc6395b237d"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><b>ValueType</b> = rpp::utils::extract_observable_type_t&lt; OriginalObservable &gt;</td></tr>
-<tr class="separator:aa2ac6dbcc19a196aa2e7acc6395b237d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a75fb3d7ab45a0c03ea83938ed6766368" id="r_a75fb3d7ab45a0c03ea83938ed6766368"><td class="memItemLeft" align="right" valign="top"><a id="a75fb3d7ab45a0c03ea83938ed6766368" name="a75fb3d7ab45a0c03ea83938ed6766368"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>value_type</b> = rpp::utils::extract_observable_type_t&lt; OriginalObservable &gt;</td></tr>
+<tr class="separator:a75fb3d7ab45a0c03ea83938ed6766368"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a60cf94db23889d87802c6467e4e5feb6" id="r_a60cf94db23889d87802c6467e4e5feb6"><td class="memItemLeft" align="right" valign="top"><a id="a60cf94db23889d87802c6467e4e5feb6" name="a60cf94db23889d87802c6467e4e5feb6"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>expected_disposable_strategy</b> = typename rpp::details::observables::deduce_disposable_strategy_t&lt; <a class="el" href="classrpp_1_1connectable__observable.html">rpp::connectable_observable</a>&lt; OriginalObservable, Subject &gt; &gt;::template add&lt; 1 &gt;</td></tr>
+<tr class="separator:a60cf94db23889d87802c6467e4e5feb6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a711ea85f873e02bccebc54147acd6a53" id="r_a711ea85f873e02bccebc54147acd6a53"><td class="memTemplParams" colspan="2"><a id="a711ea85f873e02bccebc54147acd6a53" name="a711ea85f873e02bccebc54147acd6a53"></a>
-template&lt;constraint::observer_strategy&lt; ValueType &gt; Strategy&gt; </td></tr>
-<tr class="memitem:a711ea85f873e02bccebc54147acd6a53"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>subscribe</b> (<a class="el" href="classrpp_1_1observer.html">observer</a>&lt; ValueType, Strategy &gt; &amp;&amp;obs) const</td></tr>
-<tr class="separator:a711ea85f873e02bccebc54147acd6a53"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8d3ff490ecdb15b8c3e67d7faee53545" id="r_a8d3ff490ecdb15b8c3e67d7faee53545"><td class="memTemplParams" colspan="2"><a id="a8d3ff490ecdb15b8c3e67d7faee53545" name="a8d3ff490ecdb15b8c3e67d7faee53545"></a>
+template&lt;constraint::observer_strategy&lt; value_type &gt; Strategy&gt; </td></tr>
+<tr class="memitem:a8d3ff490ecdb15b8c3e67d7faee53545"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>subscribe</b> (<a class="el" href="classrpp_1_1observer.html">observer</a>&lt; value_type, Strategy &gt; &amp;&amp;obs) const</td></tr>
+<tr class="separator:a8d3ff490ecdb15b8c3e67d7faee53545"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>

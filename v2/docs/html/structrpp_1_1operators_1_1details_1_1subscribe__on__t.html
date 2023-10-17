@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ReactivePlusPlus: rpp::operators::details::subscribe_on_t&lt; Scheduler &gt; Struct Template Reference</title>
+<title>ReactivePlusPlus: rpp::operators::details::subscribe_on_t&lt; TScheduler &gt; Struct Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -101,29 +101,33 @@ $(document).ready(function(){initNavTree('structrpp_1_1operators_1_1details_1_1s
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="structrpp_1_1operators_1_1details_1_1subscribe__on__t-members.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">rpp::operators::details::subscribe_on_t&lt; Scheduler &gt; Struct Template Reference</div></div>
+  <div class="headertitle"><div class="title">rpp::operators::details::subscribe_on_t&lt; TScheduler &gt; Struct Template Reference</div></div>
 </div><!--header-->
 <div class="contents">
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:adf19e746f8320baac8952ef029b8a7f7" id="r_adf19e746f8320baac8952ef029b8a7f7"><td class="memTemplParams" colspan="2"><a id="adf19e746f8320baac8952ef029b8a7f7" name="adf19e746f8320baac8952ef029b8a7f7"></a>
+<tr class="memitem:adfc53dc4d0fd8e99017320ef150159ad" id="r_adfc53dc4d0fd8e99017320ef150159ad"><td class="memTemplParams" colspan="2"><a id="adfc53dc4d0fd8e99017320ef150159ad" name="adfc53dc4d0fd8e99017320ef150159ad"></a>
 template&lt;rpp::constraint::decayed_type T&gt; </td></tr>
-<tr class="memitem:adf19e746f8320baac8952ef029b8a7f7"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><b>ResultValue</b> = T</td></tr>
-<tr class="separator:adf19e746f8320baac8952ef029b8a7f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adfc53dc4d0fd8e99017320ef150159ad"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><b>result_value</b> = T</td></tr>
+<tr class="separator:adfc53dc4d0fd8e99017320ef150159ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3a1c63d170e7e66badd08fb18413c886" id="r_a3a1c63d170e7e66badd08fb18413c886"><td class="memTemplParams" colspan="2"><a id="a3a1c63d170e7e66badd08fb18413c886" name="a3a1c63d170e7e66badd08fb18413c886"></a>
+template&lt;<a class="el" href="conceptrpp_1_1details_1_1observables_1_1constraint_1_1disposable__strategy.html">rpp::details::observables::constraint::disposable_strategy</a> Prev&gt; </td></tr>
+<tr class="memitem:a3a1c63d170e7e66badd08fb18413c886"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><b>updated_disposable_strategy</b> = typename Prev::template add&lt; rpp::schedulers::utils::get_worker_t&lt; TScheduler &gt;::is_none_disposable ? 0 :1 &gt;</td></tr>
+<tr class="separator:a3a1c63d170e7e66badd08fb18413c886"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a9b662232719267bac9ecc166e6518516" id="r_a9b662232719267bac9ecc166e6518516"><td class="memTemplParams" colspan="2"><a id="a9b662232719267bac9ecc166e6518516" name="a9b662232719267bac9ecc166e6518516"></a>
+<tr class="memitem:a2a92bc78f27de6124c83f8f1c12c9ce2" id="r_a2a92bc78f27de6124c83f8f1c12c9ce2"><td class="memTemplParams" colspan="2"><a id="a2a92bc78f27de6124c83f8f1c12c9ce2" name="a2a92bc78f27de6124c83f8f1c12c9ce2"></a>
 template&lt;<a class="el" href="conceptrpp_1_1constraint_1_1observer.html">rpp::constraint::observer</a> Observer, typename... Strategies&gt; </td></tr>
-<tr class="memitem:a9b662232719267bac9ecc166e6518516"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>subscribe</b> (Observer &amp;&amp;<a class="el" href="classrpp_1_1observer.html">observer</a>, const <a class="el" href="classrpp_1_1observable__chain__strategy.html">observable_chain_strategy</a>&lt; Strategies... &gt; &amp;observable_strategy) const</td></tr>
-<tr class="separator:a9b662232719267bac9ecc166e6518516"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2a92bc78f27de6124c83f8f1c12c9ce2"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>subscribe</b> (Observer &amp;&amp;<a class="el" href="classrpp_1_1observer.html">observer</a>, const <a class="el" href="classrpp_1_1observable__chain__strategy.html">observable_chain_strategy</a>&lt; Strategies... &gt; &amp;observable_strategy) const</td></tr>
+<tr class="separator:a2a92bc78f27de6124c83f8f1c12c9ce2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a62c1c89d972dacc754a69e8aec68e37b" id="r_a62c1c89d972dacc754a69e8aec68e37b"><td class="memItemLeft" align="right" valign="top"><a id="a62c1c89d972dacc754a69e8aec68e37b" name="a62c1c89d972dacc754a69e8aec68e37b"></a>
-RPP_NO_UNIQUE_ADDRESS Scheduler&#160;</td><td class="memItemRight" valign="bottom"><b>scheduler</b></td></tr>
-<tr class="separator:a62c1c89d972dacc754a69e8aec68e37b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a38186198c4a41d55e0f5b87d1c271669" id="r_a38186198c4a41d55e0f5b87d1c271669"><td class="memItemLeft" align="right" valign="top"><a id="a38186198c4a41d55e0f5b87d1c271669" name="a38186198c4a41d55e0f5b87d1c271669"></a>
+RPP_NO_UNIQUE_ADDRESS TScheduler&#160;</td><td class="memItemRight" valign="bottom"><b>scheduler</b></td></tr>
+<tr class="separator:a38186198c4a41d55e0f5b87d1c271669"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <hr/>The documentation for this struct was generated from the following file:<ul>
 <li>src/rpp/rpp/operators/<a class="el" href="subscribe__on_8hpp_source.html">subscribe_on.hpp</a></li>

@@ -37,8 +37,14 @@ requires (!constraint\+::variadic\+\_\+decayed\+\_\+same\+\_\+as$<$\mbox{\hyperl
 \begin{DoxyCompactList}\small\item\em Subscribes passed observer to emissions from this observable. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classrpp_1_1observable_aa2621e98393f224a7689c6e08003c027}{subscribe}} (\mbox{\hyperlink{group__observers_gaccd025034d57327e6a31b2106619197b}{dynamic\+\_\+observer}}$<$ Type $>$ \mbox{\hyperlink{classrpp_1_1observer}{observer}}) const
 \begin{DoxyCompactList}\small\item\em Subscribe passed observer to emissions from this observable. \end{DoxyCompactList}\item 
+{\footnotesize template$<$constraint\+::observer\+\_\+strategy$<$ Type $>$ Observer\+Strategy$>$ \newline
+requires (!constraint\+::observer$<$Observer\+Strategy$>$)}\\void {\bfseries subscribe} (Observer\+Strategy \&\&observer\+\_\+strategy) const
+\begin{DoxyCompactList}\small\item\em Subscribes passed observer strategy to emissions from this observable via construction of observer. \end{DoxyCompactList}\item 
 {\footnotesize template$<$constraint\+::observer\+\_\+strategy$<$ Type $>$ Observer\+Strategy$>$ }\\\mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{composite\+\_\+disposable\+\_\+wrapper}} \mbox{\hyperlink{classrpp_1_1observable_a18fd127e66c6fab482886fb4e4fdc75b}{subscribe}} (const \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{composite\+\_\+disposable\+\_\+wrapper}} \&d, \mbox{\hyperlink{classrpp_1_1observer}{observer}}$<$ Type, Observer\+Strategy $>$ \&\&obs) const
 \begin{DoxyCompactList}\small\item\em Subscribe passed observer to emissions from this observable. \end{DoxyCompactList}\item 
+{\footnotesize template$<$constraint\+::observer\+\_\+strategy$<$ Type $>$ Observer\+Strategy$>$ \newline
+requires (!constraint\+::observer$<$Observer\+Strategy$>$)}\\\mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{composite\+\_\+disposable\+\_\+wrapper}} \mbox{\hyperlink{classrpp_1_1observable_a6bf5caf76b18d197fc56780b924b709c}{subscribe}} (const \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{composite\+\_\+disposable\+\_\+wrapper}} \&d, Observer\+Strategy \&\&observer\+\_\+strategy) const
+\begin{DoxyCompactList}\small\item\em Subscribes passed observer strategy to emissions from this observable via construction of observer. \end{DoxyCompactList}\item 
 {\footnotesize template$<$constraint\+::observer\+\_\+strategy$<$ Type $>$ Observer\+Strategy$>$ }\\\mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{composite\+\_\+disposable\+\_\+wrapper}} \mbox{\hyperlink{classrpp_1_1observable_ac81ee3d805386d492ab54e40ccd6adc2}{subscribe\+\_\+with\+\_\+disposable}} (\mbox{\hyperlink{classrpp_1_1observer}{observer}}$<$ Type, Observer\+Strategy $>$ \&\&\mbox{\hyperlink{classrpp_1_1observer}{observer}}) const
 \begin{DoxyCompactList}\small\item\em Subscribes passed observer to emissions from this observable. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{composite\+\_\+disposable\+\_\+wrapper}} \mbox{\hyperlink{classrpp_1_1observable_afb9bea529786c85a6bc9b0647bde2ef5}{subscribe\+\_\+with\+\_\+disposable}} (\mbox{\hyperlink{group__observers_gaccd025034d57327e6a31b2106619197b}{dynamic\+\_\+observer}}$<$ Type $>$ \mbox{\hyperlink{classrpp_1_1observer}{observer}}) const
@@ -53,13 +59,13 @@ auto {\bfseries as\+\_\+dynamic} () const \&
 \begin{DoxyCompactList}\small\item\em Convert observable to type-\/erased version. \end{DoxyCompactList}\item 
 auto {\bfseries as\+\_\+dynamic} () \&\&
 \begin{DoxyCompactList}\small\item\em Convert observable to type-\/erased version. \end{DoxyCompactList}\item 
-{\footnotesize template$<$constraint\+::operators\+\_\+v2$<$ Type $>$ Op$>$ }\\auto {\bfseries operator\texorpdfstring{$\vert$}{|}} (Op \&\&op) const \&
+{\footnotesize template$<$constraint\+::operator\+\_\+chain$<$ Type, expected\+\_\+disposable\+\_\+strategy $>$ Op$>$ }\\auto {\bfseries operator\texorpdfstring{$\vert$}{|}} (Op \&\&op) const \&
 \item 
-{\footnotesize template$<$constraint\+::operators\+\_\+v2$<$ Type $>$ Op$>$ }\\auto {\bfseries operator\texorpdfstring{$\vert$}{|}} (Op \&\&op) \&\&
+{\footnotesize template$<$constraint\+::operator\+\_\+chain$<$ Type, expected\+\_\+disposable\+\_\+strategy $>$ Op$>$ }\\auto {\bfseries operator\texorpdfstring{$\vert$}{|}} (Op \&\&op) \&\&
 \item 
-{\footnotesize template$<$constraint\+::operators$<$const \mbox{\hyperlink{classrpp_1_1observable}{observable}}$<$ Type, Strategy $>$ \& $>$ Op$>$ }\\auto {\bfseries operator\texorpdfstring{$\vert$}{|}} (Op \&\&op) const \&
+{\footnotesize template$<$constraint\+::operator\+\_\+observable\+\_\+transform$<$ const \mbox{\hyperlink{classrpp_1_1observable}{observable}}$<$ Type, Strategy $>$ \& $>$ Op$>$ }\\auto {\bfseries operator\texorpdfstring{$\vert$}{|}} (Op \&\&op) const \&
 \item 
-{\footnotesize template$<$constraint\+::operators$<$\mbox{\hyperlink{classrpp_1_1observable}{observable}}$<$ Type, Strategy $>$ \&\& $>$ Op$>$ }\\auto {\bfseries operator\texorpdfstring{$\vert$}{|}} (Op \&\&op) \&\&
+{\footnotesize template$<$constraint\+::operator\+\_\+observable\+\_\+transform$<$ \mbox{\hyperlink{classrpp_1_1observable}{observable}}$<$ Type, Strategy $>$ \&\& $>$ Op$>$ }\\auto {\bfseries operator\texorpdfstring{$\vert$}{|}} (Op \&\&op) \&\&
 \item 
 {\footnotesize template$<$typename... Args$>$ }\\auto {\bfseries operator\texorpdfstring{$\vert$}{|}} (const \mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1subscribe__t}{rpp\+::operators\+::details\+::subscribe\+\_\+t}}$<$ Args... $>$ \&op) const
 \item 
@@ -68,6 +74,12 @@ auto {\bfseries as\+\_\+dynamic} () \&\&
 {\footnotesize template$<$typename Op $>$ }\\auto {\bfseries pipe} (Op \&\&op) const \&
 \item 
 {\footnotesize template$<$typename Op $>$ }\\auto {\bfseries pipe} (Op \&\&op) \&\&
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Public Types inherited from \mbox{\hyperlink{classrpp_1_1observable}{rpp\+::observable$<$ Type, Strategy $>$}}}
+\begin{DoxyCompactItemize}
+\item 
+using {\bfseries expected\+\_\+disposable\+\_\+strategy} = rpp\+::details\+::observables\+::deduce\+\_\+disposable\+\_\+strategy\+\_\+t$<$ Strategy $>$
 \end{DoxyCompactItemize}
 
 

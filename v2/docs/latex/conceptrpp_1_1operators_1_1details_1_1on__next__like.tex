@@ -1,0 +1,12 @@
+\doxysection{rpp\+::operators\+::details\+::on\+\_\+next\+\_\+like Concept Reference}
+\hypertarget{conceptrpp_1_1operators_1_1details_1_1on__next__like}{}\label{conceptrpp_1_1operators_1_1details_1_1on__next__like}\index{rpp::operators::details::on\_next\_like@{rpp::operators::details::on\_next\_like}}
+\doxysubsection{Concept definition}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename}\ OnNext>}
+\DoxyCodeLine{\textcolor{keyword}{concept\ }\mbox{\hyperlink{conceptrpp_1_1operators_1_1details_1_1on__next__like}{rpp::operators::details::on\_next\_like}}\ =\ \ (rpp::utils::is\_not\_template\_callable<OnNext>\ \&\&\ std::invocable<OnNext,\ rpp::utils::convertible\_to\_any>)\ ||\ }
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (!rpp::constraint::decayed\_same\_as<OnNext,\ rpp::composite\_disposable\_wrapper>\ \&\&\ }
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ !\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer__strategy__base}{rpp::constraint::observer\_strategy\_base<OnNext>}}\ \&\&}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ !\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer}{rpp::constraint::observer<OnNext>}})}
+
+\end{DoxyCode}

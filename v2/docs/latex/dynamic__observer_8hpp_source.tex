@@ -36,12 +36,12 @@
 \DoxyCodeLine{00032\ \ \ \ \ \textcolor{keyword}{static}\ R\ call(\textcolor{keyword}{const}\ \textcolor{keywordtype}{void}*\ data,\ Args...\ args)\ \{\ \textcolor{keywordflow}{return}\ (\textcolor{keyword}{static\_cast<}\textcolor{keyword}{const\ }T*\textcolor{keyword}{>}(data)-\/>*F)(\textcolor{keyword}{static\_cast<}Args\textcolor{keyword}{>}(args)...);\ \}}
 \DoxyCodeLine{00033\ \};}
 \DoxyCodeLine{00034\ }
-\DoxyCodeLine{00035\ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type\ Type>}
+\DoxyCodeLine{00035\ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type\ Type>}
 \DoxyCodeLine{00036\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1details_1_1observers_1_1dynamic__strategy}{dynamic\_strategy}}\ \textcolor{keyword}{final}}
 \DoxyCodeLine{00037\ \{}
 \DoxyCodeLine{00038\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::observer\_strategy<Type>\ Strategy>}
-\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \textcolor{keyword}{requires}\ (!constraint::decayed\_same\_as<Strategy,\ dynamic\_strategy<Type>>)}
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::observer\_strategy<Type>\ Strategy>}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \textcolor{keyword}{requires}\ (!rpp::constraint::decayed\_same\_as<Strategy,\ dynamic\_strategy<Type>>)}
 \DoxyCodeLine{00041\ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{classrpp_1_1details_1_1observers_1_1dynamic__strategy}{dynamic\_strategy}}(\mbox{\hyperlink{classrpp_1_1observer}{observer<Type,\ Strategy>}}\&\&\ obs)}
 \DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ :\ m\_forwarder\{std::make\_shared<observer<Type,\ Strategy>>(std::move(obs))\}}
 \DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ ,\ m\_vtable\{vtable::template\ create<observer<Type,\ Strategy>>()\}}
@@ -74,7 +74,7 @@
 \DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ void\ (*set\_upstream)(\textcolor{keywordtype}{void}*,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{disposable\_wrapper}}\&)\{\};}
 \DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ bool\ (*is\_disposed)(\textcolor{keyword}{const}\ \textcolor{keywordtype}{void}*)\{\};}
 \DoxyCodeLine{00072\ }
-\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::observer\ Strategy>}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::observer\ Strategy>}
 \DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ vtable*\ create()\ \textcolor{keyword}{noexcept}}
 \DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \{}
 \DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ vtable\ s\_res\{}

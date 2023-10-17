@@ -27,14 +27,14 @@
 \DoxyCodeLine{00023\ \{}
 \DoxyCodeLine{00024\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1details_1_1refocunt__disposable__state__t}{refocunt\_disposable\_state\_t}}}
 \DoxyCodeLine{00025\ \{}
-\DoxyCodeLine{00026\ \ \ \ \ \mbox{\hyperlink{classrpp_1_1composite__disposable}{composite\_disposable}}\ underlying;}
+\DoxyCodeLine{00026\ \ \ \ \ \mbox{\hyperlink{classrpp_1_1composite__disposable__impl}{composite\_disposable}}\ underlying;}
 \DoxyCodeLine{00027\ \ \ \ \ std::atomic\_size\_t\ \ \ refcount\{1\};}
 \DoxyCodeLine{00028\ }
 \DoxyCodeLine{00029\ \ \ \ \ \textcolor{keywordtype}{void}\ dispose()}
 \DoxyCodeLine{00030\ \ \ \ \ \{}
 \DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ just\ need\ atomicity,\ not\ guarding\ anything}}
 \DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (refcount.fetch\_sub(1,\ std::memory\_order::acquire)\ ==\ 1)}
-\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \ \ \ \ underlying.\mbox{\hyperlink{classrpp_1_1composite__disposable_aa7c4039ee81bf520bd6c1724d32e4ba5}{dispose}}();}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \ \ \ \ underlying.\mbox{\hyperlink{classrpp_1_1composite__disposable__impl_a03ed7e9ee1fb1f05100c3996d7395fc5}{dispose}}();}
 \DoxyCodeLine{00034\ \ \ \ \ \}}
 \DoxyCodeLine{00035\ \};}
 \DoxyCodeLine{00036\ }

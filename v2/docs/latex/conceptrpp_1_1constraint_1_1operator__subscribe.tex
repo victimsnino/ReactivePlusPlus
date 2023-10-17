@@ -1,0 +1,14 @@
+\doxysection{rpp\+::constraint\+::operator\+\_\+subscribe Concept Reference}
+\hypertarget{conceptrpp_1_1constraint_1_1operator__subscribe}{}\label{conceptrpp_1_1constraint_1_1operator__subscribe}\index{rpp::constraint::operator\_subscribe@{rpp::constraint::operator\_subscribe}}
+\doxysubsection{Concept definition}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename}\ Op,\ \textcolor{keyword}{typename}\ Type>}
+\DoxyCodeLine{\textcolor{keyword}{concept\ }\mbox{\hyperlink{conceptrpp_1_1constraint_1_1operator__subscribe}{rpp::constraint::operator\_subscribe}}\ =\ \ \textcolor{keyword}{requires}(\textcolor{keyword}{const}\ Op\&\ op,\ dynamic\_observer<typename\ std::decay\_t<Op>::template\ result\_value<Type>>\&\&\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer}{observer}},\ \textcolor{keyword}{const}\ observable\_chain\_strategy<details::observables::dynamic\_strategy<Type>>\&\ chain)}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{typename}\ std::decay\_t<Op>::template\ result\_value<Type>;}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{requires}\ \mbox{\hyperlink{conceptrpp_1_1details_1_1observables_1_1constraint_1_1disposable__strategy}{details::observables::constraint::disposable\_strategy<typename\ std::decay\_t<Op>::template}}\ updated\_disposable\_strategy<typename\ observable\_chain\_strategy<details::observables::dynamic\_strategy<Type>>::expected\_disposable\_strategy>>;}
+\DoxyCodeLine{\ \ \ \ \{op.subscribe(std::move(\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer}{observer}}),\ chain)\};}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}

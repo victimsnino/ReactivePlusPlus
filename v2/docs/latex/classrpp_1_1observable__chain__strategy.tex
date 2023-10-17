@@ -3,8 +3,11 @@
 \doxysubsubsection*{Public Types}
 \begin{DoxyCompactItemize}
 \item 
-\Hypertarget{classrpp_1_1observable__chain__strategy_ae8c202d3d52936f03ca57e484e0659c5}\label{classrpp_1_1observable__chain__strategy_ae8c202d3d52936f03ca57e484e0659c5} 
-using {\bfseries Value\+Type} = typename TStrategy\+::template Result\+Value$<$ typename \mbox{\hyperlink{classrpp_1_1observable__chain__strategy}{observable\+\_\+chain\+\_\+strategy}}$<$ TStrategies... $>$\+::\+Value\+Type $>$
+\Hypertarget{classrpp_1_1observable__chain__strategy_a5009e00316b37cb013c68ed306339314}\label{classrpp_1_1observable__chain__strategy_a5009e00316b37cb013c68ed306339314} 
+using {\bfseries expected\+\_\+disposable\+\_\+strategy} = typename TStrategy\+::template updated\+\_\+disposable\+\_\+strategy$<$ typename base\+::expected\+\_\+disposable\+\_\+strategy $>$
+\item 
+\Hypertarget{classrpp_1_1observable__chain__strategy_afd2e54d317626cc6d79e0d4ba5eddb9c}\label{classrpp_1_1observable__chain__strategy_afd2e54d317626cc6d79e0d4ba5eddb9c} 
+using {\bfseries value\+\_\+type} = typename TStrategy\+::template result\+\_\+value$<$ typename base\+::value\+\_\+type $>$
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
@@ -16,7 +19,7 @@ using {\bfseries Value\+Type} = typename TStrategy\+::template Result\+Value$<$ 
 {\bfseries observable\+\_\+chain\+\_\+strategy} (const TStrategy \&strategy, const \mbox{\hyperlink{classrpp_1_1observable__chain__strategy}{observable\+\_\+chain\+\_\+strategy}}$<$ TStrategies... $>$ \&strategies)
 \item 
 \Hypertarget{classrpp_1_1observable__chain__strategy_a63f55cb101503e9bad9bf91698ec6869}\label{classrpp_1_1observable__chain__strategy_a63f55cb101503e9bad9bf91698ec6869} 
-{\footnotesize template$<$\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer__of__type}{rpp\+::constraint\+::observer\+\_\+of\+\_\+type}}$<$ Value\+Type $>$ Observer$>$ }\\void {\bfseries subscribe} (Observer \&\&\mbox{\hyperlink{classrpp_1_1observer}{observer}}) const
+{\footnotesize template$<$\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer__of__type}{rpp\+::constraint\+::observer\+\_\+of\+\_\+type}}$<$ value\+\_\+type $>$ Observer$>$ }\\void {\bfseries subscribe} (Observer \&\&\mbox{\hyperlink{classrpp_1_1observer}{observer}}) const
 \end{DoxyCompactItemize}
 
 

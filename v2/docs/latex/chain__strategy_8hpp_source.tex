@@ -23,70 +23,76 @@
 \DoxyCodeLine{00019\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ TStrategy,\ \textcolor{keyword}{typename}...\ TStrategies>}
 \DoxyCodeLine{00020\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1observable__chain__strategy}{observable\_chain\_strategy}}}
 \DoxyCodeLine{00021\ \{}
-\DoxyCodeLine{00022\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keyword}{using\ }ValueType\ =\ \textcolor{keyword}{typename}\ TStrategy::template\ ResultValue<\textcolor{keyword}{typename}\ \mbox{\hyperlink{classrpp_1_1observable__chain__strategy}{observable\_chain\_strategy}}<TStrategies...>::ValueType>;}
-\DoxyCodeLine{00024\ }
-\DoxyCodeLine{00025\ \ \ \ \ \mbox{\hyperlink{classrpp_1_1observable__chain__strategy}{observable\_chain\_strategy}}(\textcolor{keyword}{const}\ TStrategy\&\ strategy,\ \textcolor{keyword}{const}\ TStrategies\&...\ strategies)}
-\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ :\ m\_strategy(strategy)}
-\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ ,\ m\_strategies(strategies...)}
-\DoxyCodeLine{00028\ \ \ \ \ \{}
-\DoxyCodeLine{00029\ \ \ \ \ \}}
-\DoxyCodeLine{00030\ }
-\DoxyCodeLine{00031\ \ \ \ \ \mbox{\hyperlink{classrpp_1_1observable__chain__strategy}{observable\_chain\_strategy}}(\textcolor{keyword}{const}\ TStrategy\&\ strategy,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1observable__chain__strategy}{observable\_chain\_strategy<TStrategies...>}}\&\ strategies)}
-\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ :\ m\_strategy(strategy)}
-\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ ,\ m\_strategies(strategies)}
-\DoxyCodeLine{00034\ \ \ \ \ \{}
-\DoxyCodeLine{00035\ \ \ \ \ \}}
-\DoxyCodeLine{00036\ }
-\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::observer\_of\_type<ValueType>\ Observer>}
-\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keywordtype}{void}\ subscribe(Observer\&\&\ \mbox{\hyperlink{classrpp_1_1observer}{observer}})\textcolor{keyword}{\ const}}
-\DoxyCodeLine{00039\ \textcolor{keyword}{\ \ \ \ }\{}
-\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keyword}{constexpr}\ (\mbox{\hyperlink{conceptrpp_1_1constraint_1_1operator__lift}{rpp::constraint::operator\_lift}}<TStrategy,\ \textcolor{keyword}{typename}\ \mbox{\hyperlink{classrpp_1_1observable__chain__strategy}{observable\_chain\_strategy}}<TStrategies...>::ValueType>)}
-\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \ \ \ \ m\_strategies.subscribe(m\_strategy.template\ lift<\textcolor{keyword}{typename}\ observable\_chain\_strategy<TStrategies...>::ValueType>(std::forward<Observer>(\mbox{\hyperlink{classrpp_1_1observer}{observer}})));}
-\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
-\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \ \ \ \ m\_strategy.subscribe(std::forward<Observer>(\mbox{\hyperlink{classrpp_1_1observer}{observer}}),\ m\_strategies);}
-\DoxyCodeLine{00044\ \ \ \ \ \}}
-\DoxyCodeLine{00045\ }
-\DoxyCodeLine{00046\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00047\ \ \ \ \ RPP\_NO\_UNIQUE\_ADDRESS\ TStrategy\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ m\_strategy;}
-\DoxyCodeLine{00048\ \ \ \ \ RPP\_NO\_UNIQUE\_ADDRESS\ \mbox{\hyperlink{classrpp_1_1observable__chain__strategy}{observable\_chain\_strategy}}<TStrategies...>\ m\_strategies;}
-\DoxyCodeLine{00049\ \};}
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{classrpp_1_1observable__chain__strategy}{base}}\ =\ \mbox{\hyperlink{classrpp_1_1observable__chain__strategy}{observable\_chain\_strategy}}<TStrategies...>;}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keyword}{using\ }expected\_disposable\_strategy\ =\ \textcolor{keyword}{typename}\ TStrategy::template\ updated\_disposable\_strategy<typename\ base::expected\_disposable\_strategy>;}
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keyword}{using\ }value\_type\ =\ \textcolor{keyword}{typename}\ TStrategy::template\ result\_value<typename\ base::value\_type>;}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \ \ \ \ \mbox{\hyperlink{classrpp_1_1observable__chain__strategy}{observable\_chain\_strategy}}(\textcolor{keyword}{const}\ TStrategy\&\ strategy,\ \textcolor{keyword}{const}\ TStrategies\&...\ strategies)}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ :\ m\_strategy(strategy)}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ ,\ m\_strategies(strategies...)}
+\DoxyCodeLine{00031\ \ \ \ \ \{}
+\DoxyCodeLine{00032\ \ \ \ \ \}}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \ \ \ \ \mbox{\hyperlink{classrpp_1_1observable__chain__strategy}{observable\_chain\_strategy}}(\textcolor{keyword}{const}\ TStrategy\&\ strategy,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1observable__chain__strategy}{observable\_chain\_strategy<TStrategies...>}}\&\ strategies)}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ :\ m\_strategy(strategy)}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ ,\ m\_strategies(strategies)}
+\DoxyCodeLine{00037\ \ \ \ \ \{}
+\DoxyCodeLine{00038\ \ \ \ \ \}}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::observer\_of\_type<value\_type>\ Observer>}
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keywordtype}{void}\ subscribe(Observer\&\&\ \mbox{\hyperlink{classrpp_1_1observer}{observer}})\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00042\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keyword}{constexpr}\ (\mbox{\hyperlink{conceptrpp_1_1constraint_1_1operator__lift__with__disposable}{rpp::constraint::operator\_lift\_with\_disposable<TStrategy,\ typename\ base::value\_type,\ typename\ base::expected\_disposable\_strategy>}})}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \ \ \ \ m\_strategies.subscribe(m\_strategy.template\ lift\_with\_disposable<typename\ base::value\_type,\ typename\ base::expected\_disposable\_strategy>(std::forward<Observer>(\mbox{\hyperlink{classrpp_1_1observer}{observer}})));}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ \textcolor{keyword}{constexpr}\ (\mbox{\hyperlink{conceptrpp_1_1constraint_1_1operator__lift}{rpp::constraint::operator\_lift<TStrategy,\ typename\ base::value\_type>}})}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \ \ \ \ m\_strategies.subscribe(m\_strategy.template\ lift<typename\ base::value\_type>(std::forward<Observer>(\mbox{\hyperlink{classrpp_1_1observer}{observer}})));}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ m\_strategy.subscribe(std::forward<Observer>(\mbox{\hyperlink{classrpp_1_1observer}{observer}}),\ m\_strategies);}
+\DoxyCodeLine{00049\ \ \ \ \ \}}
 \DoxyCodeLine{00050\ }
-\DoxyCodeLine{00051\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ TStrategy>}
-\DoxyCodeLine{00052\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1observable__chain__strategy}{observable\_chain\_strategy}}<TStrategy>}
-\DoxyCodeLine{00053\ \{}
-\DoxyCodeLine{00054\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keyword}{using\ }ValueType\ =\ \textcolor{keyword}{typename}\ TStrategy::ValueType;}
-\DoxyCodeLine{00056\ }
-\DoxyCodeLine{00057\ \ \ \ \ \mbox{\hyperlink{classrpp_1_1observable__chain__strategy}{observable\_chain\_strategy}}(\textcolor{keyword}{const}\ TStrategy\&\ strategy)}
-\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ :\ m\_strategy(strategy)}
-\DoxyCodeLine{00059\ \ \ \ \ \{}
-\DoxyCodeLine{00060\ \ \ \ \ \}}
-\DoxyCodeLine{00061\ }
-\DoxyCodeLine{00062\ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::observer\ Observer>}
-\DoxyCodeLine{00063\ \ \ \ \ \textcolor{keywordtype}{void}\ subscribe(Observer\&\&\ \mbox{\hyperlink{classrpp_1_1observer}{observer}})\textcolor{keyword}{\ const}}
-\DoxyCodeLine{00064\ \textcolor{keyword}{\ \ \ \ }\{}
-\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ m\_strategy.subscribe(std::forward<Observer>(\mbox{\hyperlink{classrpp_1_1observer}{observer}}));}
+\DoxyCodeLine{00051\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00052\ \ \ \ \ RPP\_NO\_UNIQUE\_ADDRESS\ TStrategy\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ m\_strategy;}
+\DoxyCodeLine{00053\ \ \ \ \ RPP\_NO\_UNIQUE\_ADDRESS\ \mbox{\hyperlink{classrpp_1_1observable__chain__strategy}{observable\_chain\_strategy}}<TStrategies...>\ m\_strategies;}
+\DoxyCodeLine{00054\ \};}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ TStrategy>}
+\DoxyCodeLine{00057\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1observable__chain__strategy}{observable\_chain\_strategy}}<TStrategy>}
+\DoxyCodeLine{00058\ \{}
+\DoxyCodeLine{00059\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00060\ \ \ \ \ \textcolor{keyword}{using\ }expected\_disposable\_strategy\ =\ rpp::details::observables::deduce\_disposable\_strategy\_t<TStrategy>;}
+\DoxyCodeLine{00061\ \ \ \ \ \textcolor{keyword}{using\ }value\_type\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ \textcolor{keyword}{typename}\ TStrategy::value\_type;}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \ \ \ \ \mbox{\hyperlink{classrpp_1_1observable__chain__strategy}{observable\_chain\_strategy}}(\textcolor{keyword}{const}\ TStrategy\&\ strategy)}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ :\ m\_strategy(strategy)}
+\DoxyCodeLine{00065\ \ \ \ \ \{}
 \DoxyCodeLine{00066\ \ \ \ \ \}}
 \DoxyCodeLine{00067\ }
-\DoxyCodeLine{00068\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00069\ \ \ \ \ RPP\_NO\_UNIQUE\_ADDRESS\ TStrategy\ m\_strategy;}
-\DoxyCodeLine{00070\ \};}
-\DoxyCodeLine{00071\ }
-\DoxyCodeLine{00072\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ New,\ \textcolor{keyword}{typename}\ Old>}
-\DoxyCodeLine{00073\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1make__chain__observable}{make\_chain\_observable}}}
-\DoxyCodeLine{00074\ \{}
-\DoxyCodeLine{00075\ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{classrpp_1_1observable__chain__strategy}{type}}\ =\ \mbox{\hyperlink{classrpp_1_1observable__chain__strategy}{observable\_chain\_strategy<New,\ Old>}};}
+\DoxyCodeLine{00068\ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::observer\ Observer>}
+\DoxyCodeLine{00069\ \ \ \ \ \textcolor{keywordtype}{void}\ subscribe(Observer\&\&\ \mbox{\hyperlink{classrpp_1_1observer}{observer}})\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00070\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ m\_strategy.subscribe(std::forward<Observer>(\mbox{\hyperlink{classrpp_1_1observer}{observer}}));}
+\DoxyCodeLine{00072\ \ \ \ \ \}}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00075\ \ \ \ \ RPP\_NO\_UNIQUE\_ADDRESS\ TStrategy\ m\_strategy;}
 \DoxyCodeLine{00076\ \};}
 \DoxyCodeLine{00077\ }
-\DoxyCodeLine{00078\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ New,\ \textcolor{keyword}{typename}...\ Args>}
-\DoxyCodeLine{00079\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1make__chain__observable}{make\_chain\_observable}}<New,\ \mbox{\hyperlink{classrpp_1_1observable__chain__strategy}{observable\_chain\_strategy}}<Args...>>}
+\DoxyCodeLine{00078\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ New,\ \textcolor{keyword}{typename}\ Old>}
+\DoxyCodeLine{00079\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1make__chain__observable}{make\_chain\_observable}}}
 \DoxyCodeLine{00080\ \{}
-\DoxyCodeLine{00081\ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{classrpp_1_1observable__chain__strategy}{type}}\ =\ \mbox{\hyperlink{classrpp_1_1observable__chain__strategy}{observable\_chain\_strategy}}<New,\ Args...>;}
+\DoxyCodeLine{00081\ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{classrpp_1_1observable__chain__strategy}{type}}\ =\ \mbox{\hyperlink{classrpp_1_1observable__chain__strategy}{observable\_chain\_strategy<New,\ Old>}};}
 \DoxyCodeLine{00082\ \};}
 \DoxyCodeLine{00083\ }
-\DoxyCodeLine{00084\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ New,\ \textcolor{keyword}{typename}\ Old>}
-\DoxyCodeLine{00085\ \textcolor{keyword}{using\ }make\_chain\_observable\_t\ =\ \textcolor{keyword}{typename}\ \mbox{\hyperlink{classrpp_1_1observable__chain__strategy}{make\_chain\_observable<New,\ Old>::type}};}
-\DoxyCodeLine{00086\ \}\ \textcolor{comment}{//\ namespace\ rpp}}
+\DoxyCodeLine{00084\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ New,\ \textcolor{keyword}{typename}...\ Args>}
+\DoxyCodeLine{00085\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1make__chain__observable}{make\_chain\_observable}}<New,\ \mbox{\hyperlink{classrpp_1_1observable__chain__strategy}{observable\_chain\_strategy}}<Args...>>}
+\DoxyCodeLine{00086\ \{}
+\DoxyCodeLine{00087\ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{classrpp_1_1observable__chain__strategy}{type}}\ =\ \mbox{\hyperlink{classrpp_1_1observable__chain__strategy}{observable\_chain\_strategy}}<New,\ Args...>;}
+\DoxyCodeLine{00088\ \};}
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00090\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ New,\ \textcolor{keyword}{typename}\ Old>}
+\DoxyCodeLine{00091\ \textcolor{keyword}{using\ }make\_chain\_observable\_t\ =\ \textcolor{keyword}{typename}\ \mbox{\hyperlink{classrpp_1_1observable__chain__strategy}{make\_chain\_observable<New,\ Old>::type}};}
+\DoxyCodeLine{00092\ \}\ \textcolor{comment}{//\ namespace\ rpp}}
 
 \end{DoxyCode}

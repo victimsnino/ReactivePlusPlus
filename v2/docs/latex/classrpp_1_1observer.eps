@@ -5,7 +5,7 @@
 %%For: 
 %Magnification: 1.00
 %%Orientation: Portrait
-%%BoundingBox: 0 0 500 70.422539
+%%BoundingBox: 0 0 500 63.391441
 %%Pages: 0
 %%BeginSetup
 %%EndSetup
@@ -19,7 +19,7 @@
 /marginwidth 10 def
 /distx 20 def
 /disty 40 def
-/boundaspect 7.100000 def  % aspect ratio of the BoundingBox (width/height)
+/boundaspect 7.887500 def  % aspect ratio of the BoundingBox (width/height)
 /boundx 500 def
 /boundy boundx boundaspect div def
 /xspacing 0 def
@@ -174,7 +174,7 @@
 boxfont setfont
 1 boundaspect scale
 (rpp::observer< Type, Strategy >) cw
-(rpp::details::observer_impl< Type, Strategy, details::deduce_disposable_strategy_t< Strategy > >) cw
+(rpp::details::observer_impl< Type, Strategy, details::observers::deduce_disposable_strategy_t< Strategy > >) cw
 /boxwidth boxwidth marginwidth 2 mul add def
 /xspacing boxwidth distx add def
 /yspacing boxheight disty add def
@@ -187,7 +187,7 @@ boundx scalefactor div boundy scalefactor div scale
 % ----- classes -----
 
  (rpp::observer< Type, Strategy >) 0.000000 0.000000 box
- (rpp::details::observer_impl< Type, Strategy, details::deduce_disposable_strategy_t< Strategy > >) 0.000000 1.000000 box
+ (rpp::details::observer_impl< Type, Strategy, details::observers::deduce_disposable_strategy_t< Strategy > >) 0.000000 1.000000 box
 
 % ----- relations -----
 

@@ -5,16 +5,40 @@ var concepts =
         [ "memory_model", "conceptrpp_1_1constraint_1_1memory__model.html", null ],
         [ "observable_strategy", "conceptrpp_1_1constraint_1_1observable__strategy.html", null ],
         [ "observable", "conceptrpp_1_1constraint_1_1observable.html", null ],
-        [ "operators", "conceptrpp_1_1constraint_1_1operators.html", null ],
-        [ "operators_v2_impl", "conceptrpp_1_1constraint_1_1operators__v2__impl.html", null ],
+        [ "operator_observable_transform", "conceptrpp_1_1constraint_1_1operator__observable__transform.html", null ],
+        [ "operator_subscribe", "conceptrpp_1_1constraint_1_1operator__subscribe.html", null ],
         [ "operator_lift", "conceptrpp_1_1constraint_1_1operator__lift.html", null ],
-        [ "operators_v2", "conceptrpp_1_1constraint_1_1operators__v2.html", null ],
+        [ "operator_lift_with_disposable", "conceptrpp_1_1constraint_1_1operator__lift__with__disposable.html", null ],
+        [ "operator_chain", "conceptrpp_1_1constraint_1_1operator__chain.html", null ],
         [ "observables_of_same_type", "conceptrpp_1_1constraint_1_1observables__of__same__type.html", null ],
+        [ "observer_strategy_base", "conceptrpp_1_1constraint_1_1observer__strategy__base.html", null ],
         [ "observer_strategy", "conceptrpp_1_1constraint_1_1observer__strategy.html", null ],
         [ "observer", "conceptrpp_1_1constraint_1_1observer.html", null ],
         [ "observer_of_type", "conceptrpp_1_1constraint_1_1observer__of__type.html", null ],
         [ "on_subscribe", "conceptrpp_1_1constraint_1_1on__subscribe.html", null ],
         [ "subject", "conceptrpp_1_1constraint_1_1subject.html", null ]
+      ] ],
+      [ "details", null, [
+        [ "disposables", null, [
+          [ "constraint", null, [
+            [ "disposable_container", "conceptrpp_1_1details_1_1disposables_1_1constraint_1_1disposable__container.html", null ]
+          ] ]
+        ] ],
+        [ "observables", null, [
+          [ "constraint", null, [
+            [ "disposable_strategy", "conceptrpp_1_1details_1_1observables_1_1constraint_1_1disposable__strategy.html", null ]
+          ] ]
+        ] ],
+        [ "observers", null, [
+          [ "constraint", null, [
+            [ "disposable_strategy", "conceptrpp_1_1details_1_1observers_1_1constraint_1_1disposable__strategy.html", null ]
+          ] ]
+        ] ]
+      ] ],
+      [ "operators", null, [
+        [ "details", null, [
+          [ "on_next_like", "conceptrpp_1_1operators_1_1details_1_1on__next__like.html", null ]
+        ] ]
       ] ],
       [ "schedulers", null, [
         [ "constraint", null, [

@@ -1,0 +1,18 @@
+\doxysection{rpp\+::constraint\+::observer\+\_\+strategy\+\_\+base Concept Reference}
+\hypertarget{conceptrpp_1_1constraint_1_1observer__strategy__base}{}\label{conceptrpp_1_1constraint_1_1observer__strategy__base}\index{rpp::constraint::observer\_strategy\_base@{rpp::constraint::observer\_strategy\_base}}
+\doxysubsection{Concept definition}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename}\ S>}
+\DoxyCodeLine{\textcolor{keyword}{concept\ }\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer__strategy__base}{rpp::constraint::observer\_strategy\_base}}\ =\ \ \textcolor{keyword}{requires}(\textcolor{keyword}{const}\ S\&\ const\_strategy,\ S\&\ strategy,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp::disposable\_wrapper}}\&\ disposable)}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ \ \ }
+\DoxyCodeLine{\ \ \ \ }
+\DoxyCodeLine{\ \ \ \ const\_strategy.on\_error(std::exception\_ptr\{\});}
+\DoxyCodeLine{\ \ \ \ const\_strategy.on\_completed();}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ strategy.set\_upstream(disposable);}
+\DoxyCodeLine{\ \ \ \ \{\ strategy.is\_disposed()\ \}\ -\/>\ std::same\_as<bool>;}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
