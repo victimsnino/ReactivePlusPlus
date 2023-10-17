@@ -182,9 +182,8 @@ struct delay_t
     template<rpp::constraint::decayed_type Type, rpp::details::observables::constraint::disposable_strategy DisposableStrategy, rpp::constraint::observer Observer>
     auto lift_with_disposable(Observer&& observer) const
     {
-        using worker_t = decltype(scheduler.create_worker());
-        // add + 1 due to worker
-        using container = typename DisposableStrategy::template add<1>::disposable_container;
+        using worker_t = rpp::schedulers::utils::get_worker_t<Scheduler>;
+        using container = typename DisposableStrategy::template add<worker_t::is_none_disposable ? 0 : 1>::disposable_container;
 
         auto disposable = std::make_shared<delay_disposable<std::decay_t<Observer>, worker_t, container>>(std::forward<Observer>(observer), scheduler.create_worker(), duration);
         disposable->observer.set_upstream(rpp::disposable_wrapper::from_weak(disposable));
