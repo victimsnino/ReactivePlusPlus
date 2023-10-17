@@ -18,6 +18,8 @@
 #include <rpp/schedulers/immediate.hpp>
 
 #include "mock_observer.hpp"
+#include "disposable_observable.hpp"
+
 #include "rpp/disposables/composite_disposable.hpp"
 #include "rpp/disposables/fwd.hpp"
 
@@ -284,4 +286,9 @@ TEST_CASE("group_by's disposables tracks 1 dispose per call")
     });
 
     CHECK(mock_0.get_received_values() == std::vector{1,2});
+}
+
+TEST_CASE("group_by satisfies disposable contracts")
+{
+    test_operator_with_disposable<int>(rpp::ops::group_by([](int){return 0;}));
 }

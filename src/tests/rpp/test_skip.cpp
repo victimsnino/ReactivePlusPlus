@@ -104,7 +104,7 @@ TEST_CASE("skip doesn't produce extra copies")
     }
 }
 
-TEST_CASE("skip disposes original disposable on disposing")
+TEST_CASE("skip satisfies disposable contracts")
 {
     test_operator_with_disposable<int>(rpp::ops::skip(1));
 }

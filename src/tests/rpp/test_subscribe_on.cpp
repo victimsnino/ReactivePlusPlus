@@ -115,7 +115,7 @@ TEST_CASE("subscribe_on schedules job in another scheduler")
 }
 
 
-TEST_CASE("group_by disposes original disposable on disposing")
+TEST_CASE("group_by satisfies disposable contracts")
 {
     test_operator_with_disposable<int>(rpp::ops::subscribe_on(rpp::schedulers::current_thread{}));
 }

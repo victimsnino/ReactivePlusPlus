@@ -72,7 +72,7 @@ TEST_CASE("filter doesn't produce extra copies")
     }
 }
 
-TEST_CASE("filter disposes original disposable on disposing")
+TEST_CASE("filter satisfies disposable contracts")
 {
     test_operator_with_disposable<int>(rpp::ops::filter([](const int&){return false;}));
 }

@@ -241,7 +241,7 @@ TEST_CASE("concat of iterable doesn't produce extra copies")
     }
 }
 
-TEST_CASE("concat disposes original disposable on disposing")
+TEST_CASE("concat satisfies disposable contracts")
 {
     test_operator_over_observable_with_disposable<int>([](auto&& observable){return rpp::source::concat(observable);});
 }

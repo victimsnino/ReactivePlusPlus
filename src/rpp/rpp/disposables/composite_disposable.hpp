@@ -77,7 +77,15 @@ public:
             // need to acquire possible disposables state changing from other `add`
             if (m_current_state.compare_exchange_strong(expected, State::Edit, std::memory_order::acquire, std::memory_order::relaxed))
             {
-                m_disposables.push_back(std::move(disposable));
+                try
+                {
+                    m_disposables.push_back(std::move(disposable));
+                }
+                catch(...)
+                {
+                    m_current_state.store(State::None, std::memory_order::release);
+                    throw;
+                }
                 // need to propogate disposables state changing to others
                 m_current_state.store(State::None, std::memory_order::release);
                 return;

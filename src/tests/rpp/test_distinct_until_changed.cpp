@@ -71,7 +71,7 @@ TEST_CASE("distinct_until_changed doesn't produce extra copies")
                                       });
 }
 
-TEST_CASE("distinct_until_changed disposes original disposable on disposing")
+TEST_CASE("distinct_until_changed satisfies disposable contracts")
 {
     test_operator_with_disposable<int>(rpp::ops::distinct_until_changed());
 }

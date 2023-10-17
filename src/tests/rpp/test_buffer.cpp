@@ -143,7 +143,7 @@ TEST_CASE("buffer bundles items")
     }
 }
 
-TEST_CASE("buffer disposes original disposable on disposing")
+TEST_CASE("buffer satisfies disposable contracts")
 {
     test_operator_with_disposable<int>(rpp::ops::buffer(1));
 }

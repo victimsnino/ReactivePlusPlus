@@ -98,7 +98,7 @@ TEST_CASE("reduce doesn't produce extra copies")
     }
 }
 
-TEST_CASE("reduce disposes original disposable on disposing")
+TEST_CASE("reduce satisfies disposable contracts")
 {
     test_operator_with_disposable<int>(rpp::ops::reduce([](auto&& s, auto&&) { return s; }));
 }

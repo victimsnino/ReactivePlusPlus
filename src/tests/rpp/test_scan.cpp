@@ -168,7 +168,7 @@ TEST_CASE("scan doesn't produce extra copies")
     }
 }
 
-TEST_CASE("scan disposes original disposable on disposing")
+TEST_CASE("scan satisfies disposable contracts")
 {
     test_operator_with_disposable<int>(rpp::ops::scan([](auto&& s, auto&&){return s; }));
 }

@@ -81,7 +81,7 @@ TEST_CASE("take_while doesn't produce extra copies")
     }
 }
 
-TEST_CASE("take_while disposes original disposable on disposing")
+TEST_CASE("take_while satisfies disposable contracts")
 {
     test_operator_with_disposable<int>(rpp::ops::take_while([](auto){return true; }));
 }

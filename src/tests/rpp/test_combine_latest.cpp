@@ -158,7 +158,7 @@ TEST_CASE("combine_latest handles race condition")
     }
 }
 
-TEST_CASE("combine_latest disposes original disposable on disposing")
+TEST_CASE("combine_latest satisfies disposable contracts")
 {
     auto observable_disposable = std::make_shared<rpp::composite_disposable>();
     {

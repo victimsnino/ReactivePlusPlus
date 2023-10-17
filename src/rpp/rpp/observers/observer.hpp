@@ -60,7 +60,7 @@ public:
      * @brief Observable calls this method to pass disposable. Observer disposes this disposable WHEN observer wants to unsubscribe.
      * @note This method can be called multiple times, but new call means "replace upstream with this new one". So, tracked only last one
      */
-    void set_upstream(const disposable_wrapper& d)
+    void set_upstream(const disposable_wrapper& d) noexcept
     {
         if (is_disposed())
         {
@@ -68,8 +68,15 @@ public:
             return;
         }
 
-        m_disposable.add(d);
-        m_strategy.set_upstream(d);
+        try
+        {
+            m_disposable.add(d);
+            m_strategy.set_upstream(d);
+        } 
+        catch(...) 
+        {
+            on_error(std::current_exception());
+        }
     }
 
     /**

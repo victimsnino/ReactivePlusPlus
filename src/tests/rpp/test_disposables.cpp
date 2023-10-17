@@ -185,3 +185,18 @@ TEST_CASE("refcount disposable dispose underlying in case of reaching zero")
         CHECK(underlying->dispose_count == 1);
     }
 }
+
+TEST_CASE("composite_disposable correctly handles exception")
+{
+    auto d = rpp::composite_disposable_wrapper{std::make_shared<rpp::composite_disposable_impl<rpp::details::disposables::static_disposables_container<1>>>()};
+    auto d1 = rpp::composite_disposable_wrapper{std::make_shared<rpp::composite_disposable>()};
+    auto d2 = rpp::composite_disposable_wrapper{std::make_shared<rpp::composite_disposable>()};
+    d.add(d1);
+    CHECK_THROWS_AS(d.add(d2), rpp::utils::more_disposables_than_expected);
+    CHECK(!d1.is_disposed());
+    CHECK(!d2.is_disposed());
+
+    d.dispose();
+    CHECK(d1.is_disposed());
+    CHECK(!d2.is_disposed());
+}

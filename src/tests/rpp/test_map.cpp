@@ -67,7 +67,7 @@ TEST_CASE("map doesn't produce extra copies")
     }
 }
 
-TEST_CASE("map disposes original disposable on disposing")
+TEST_CASE("map satisfies disposable contracts")
 {
     test_operator_with_disposable<int>(rpp::ops::map([](auto&& v){return std::forward<decltype(v)>(v);}));
 }

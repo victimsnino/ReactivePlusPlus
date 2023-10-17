@@ -121,7 +121,7 @@ TEST_CASE("debounce emit only items where timeout reached")
 }
 
 
-TEST_CASE("debounce disposes original disposable on disposing")
+TEST_CASE("debounce satisfies disposable contracts")
 {
     test_operator_with_disposable<int>(rpp::ops::debounce(std::chrono::seconds{1}, test_scheduler{}));
 }

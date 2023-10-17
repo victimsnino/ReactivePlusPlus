@@ -110,7 +110,7 @@ TEST_CASE("take doesn't produce extra copies")
     }
 }
 
-TEST_CASE("take disposes original disposable on disposing")
+TEST_CASE("take satisfies disposable contracts")
 {
     test_operator_with_disposable<int>(rpp::ops::take(1));
 }

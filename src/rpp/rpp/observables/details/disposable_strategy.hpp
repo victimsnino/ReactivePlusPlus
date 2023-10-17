@@ -52,6 +52,8 @@ struct none_disposable_strategy_selector
     using disposable_strategy = observers::bool_local_disposable_strategy;
 };
 
+template<>
+struct fixed_disposable_strategy_selector<0> : public none_disposable_strategy_selector{};
 
 namespace details
 {

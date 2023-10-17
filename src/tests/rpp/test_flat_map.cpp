@@ -138,7 +138,7 @@ TEMPLATE_TEST_CASE("flat_map", "", rpp::memory_model::use_stack, rpp::memory_mod
     }
 }
 
-TEST_CASE("flat_map disposes original disposable on disposing")
+TEST_CASE("flat_map satisfies disposable contracts")
 {
     test_operator_with_disposable<int>(rpp::ops::flat_map([](const auto& v){return rpp::source::just(v); }));
 }

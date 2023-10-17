@@ -214,7 +214,7 @@ TEST_CASE("window disposes original disposable only when everything is disposed"
     CHECK(inner_observer_disposable->is_disposed());
 }
 
-TEST_CASE("window disposes original disposable on disposing")
+TEST_CASE("window satisfies disposable contracts")
 {
     test_operator_with_disposable<int>(rpp::ops::window(1));
 }

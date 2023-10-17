@@ -39,7 +39,7 @@ struct subscribe_on_t
     using result_value = T;
 
     template<rpp::details::observables::constraint::disposable_strategy Prev>
-    using updated_disposable_strategy = std::conditional_t<rpp::schedulers::utils::get_worker_t<TScheduler>::is_none_disposable, rpp::details::observables::none_disposable_strategy_selector, typename Prev::template add<1>>;
+    using updated_disposable_strategy = typename Prev::template add<rpp::schedulers::utils::get_worker_t<TScheduler>::is_none_disposable ? 0 : 1>;
 
     RPP_NO_UNIQUE_ADDRESS TScheduler scheduler;
 

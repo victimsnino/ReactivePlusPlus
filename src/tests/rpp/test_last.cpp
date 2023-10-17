@@ -96,7 +96,7 @@ TEST_CASE("last doesn't produce extra copies")
     }
 }
 
-TEST_CASE("last disposes original disposable on disposing")
+TEST_CASE("last satisfies disposable contracts")
 {
     test_operator_with_disposable<int>(rpp::ops::last());
 }

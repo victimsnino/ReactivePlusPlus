@@ -289,7 +289,7 @@ TEST_CASE("merge doesn't produce extra copies")
     }
 }
 
-TEST_CASE("merge disposes original disposable on disposing")
+TEST_CASE("merge satisfies disposable contracts")
 {
     auto observable_disposable = std::make_shared<rpp::composite_disposable>();
     {
