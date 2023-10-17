@@ -212,7 +212,7 @@ TEST_CASE("ref_count")
 
         SECTION("subscribe on it without ref_count")
         {
-            observable.subscribe(observer_1.get_observer());
+            observable.subscribe(observer_1);
             SECTION("nothing happens")
             {
                 CHECK(observer_1.get_total_on_next_count() == 0);
@@ -221,7 +221,7 @@ TEST_CASE("ref_count")
             }
             SECTION("subscribe on it another observer with ref_count")
             {
-                observable.ref_count().subscribe(observer_2.get_observer());
+                observable.ref_count().subscribe(observer_2);
                 SECTION("both observers obtain values")
                 {
                     auto validate = [](auto observer)
@@ -245,9 +245,9 @@ TEST_CASE("ref_count")
 
         SECTION("subscribe on it without ref_count and with ref_count")
         {
-            observable.subscribe(observer_1.get_observer());
+            observable.subscribe(observer_1);
             auto sub = std::make_shared<rpp::composite_disposable>();
-            observable.ref_count().subscribe(rpp::composite_disposable_wrapper{sub}, observer_2.get_observer());
+            observable.ref_count().subscribe(rpp::composite_disposable_wrapper{sub}, observer_2);
             SECTION("send value")
             {
                 subj.get_observer().on_next(1);
@@ -282,7 +282,7 @@ TEST_CASE("ref_count")
                 SECTION("subscribe via ref_count again and send value")
                 {
                     sub = std::make_shared<rpp::composite_disposable>();
-                    observable.ref_count().subscribe(rpp::composite_disposable_wrapper{sub},observer_2.get_observer());
+                    observable.ref_count().subscribe(rpp::composite_disposable_wrapper{sub},observer_2);
                     subj.get_observer().on_next(1);
                     SECTION("both observers obtain values")
                     {
@@ -301,9 +301,9 @@ TEST_CASE("ref_count")
         }
         SECTION("subscribe both with ref_count")
         {
-            observable.ref_count().subscribe(observer_1.get_observer());
+            observable.ref_count().subscribe(observer_1);
             auto sub = std::make_shared<rpp::composite_disposable>();
-            observable.ref_count().subscribe(rpp::composite_disposable_wrapper{sub}, observer_2.get_observer());
+            observable.ref_count().subscribe(rpp::composite_disposable_wrapper{sub}, observer_2);
             SECTION("send value")
             {
                 subj.get_observer().on_next(1);

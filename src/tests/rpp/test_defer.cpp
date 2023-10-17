@@ -26,7 +26,7 @@ TEST_CASE("defer on different sources")
     SECTION("just")
     {
         auto obs = rpp::source::defer([] { return rpp::source::just(1); });
-        obs.subscribe(mock.get_observer());
+        obs.subscribe(mock);
 
         CHECK(mock.get_received_values() == std::vector{ 1 });
         CHECK(mock.get_total_on_next_count() == 1);
@@ -36,7 +36,7 @@ TEST_CASE("defer on different sources")
     SECTION("error")
     {
         auto obs = rpp::source::defer([] { return rpp::source::error<int>(std::make_exception_ptr(std::runtime_error{"error"})); });
-        obs.subscribe(mock.get_observer());
+        obs.subscribe(mock);
 
         CHECK(mock.get_total_on_next_count() == 0);
         CHECK(mock.get_on_error_count() == 1);
@@ -45,7 +45,7 @@ TEST_CASE("defer on different sources")
     SECTION("empty")
     {
         auto obs = rpp::source::defer([] { return rpp::source::empty<int>(); });
-        obs.subscribe(mock.get_observer());
+        obs.subscribe(mock);
 
         CHECK(mock.get_total_on_next_count() == 0);
         CHECK(mock.get_on_error_count() == 0);
@@ -54,7 +54,7 @@ TEST_CASE("defer on different sources")
     SECTION("never")
     {
         auto obs = rpp::source::defer([] { return rpp::source::never<int>(); });
-        obs.subscribe(mock.get_observer());
+        obs.subscribe(mock);
 
         CHECK(mock.get_total_on_next_count() == 0);
         CHECK(mock.get_on_error_count() == 0);
@@ -77,8 +77,8 @@ TEST_CASE("defer on mutable sources")
     {
         auto mock1 = mock_observer_strategy<int>{};
         auto mock2 = mock_observer_strategy<int>{};
-        obs.subscribe(mock1.get_observer());
-        obs.subscribe(mock2.get_observer());
+        obs.subscribe(mock1);
+        obs.subscribe(mock2);
 
         CHECK(mock1.get_received_values() == std::vector{ 0 });
         CHECK(mock2.get_received_values() == std::vector{ 0 });

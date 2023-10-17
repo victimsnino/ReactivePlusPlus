@@ -22,7 +22,7 @@ namespace rpp::operators::details
 template<rpp::constraint::observer TObserver>
 struct take_observer_strategy
 {
-    using DisposableStrategyToUseWithThis = rpp::details::none_disposable_strategy;
+    using preferred_disposable_strategy = rpp::details::observers::none_disposable_strategy;
 
     RPP_NO_UNIQUE_ADDRESS TObserver observer;
     mutable size_t                  count{};
@@ -52,7 +52,10 @@ struct take_observer_strategy
 struct take_t : public operator_observable_strategy_diffferent_types<take_observer_strategy, rpp::utils::types<>, size_t>
 {
     template<rpp::constraint::decayed_type T>
-    using ResultValue = T;
+    using result_value = T;
+
+    template<rpp::details::observables::constraint::disposable_strategy Prev>
+    using updated_disposable_strategy = Prev;
 };
 }
 

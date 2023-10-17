@@ -30,13 +30,13 @@ template<rpp::constraint::observer TObserver>
 class window_observer_strategy
 {
     using Observable = rpp::utils::extract_observer_type_t<TObserver>;
-    using ValueType = rpp::utils::extract_observable_type_t<Observable>;
-    using Subject = forwarding_subject<ValueType>;
+    using value_type = rpp::utils::extract_observable_type_t<Observable>;
+    using Subject = forwarding_subject<value_type>;
 
     static_assert(std::same_as<Observable, decltype(std::declval<Subject>().get_observable())>);
-    
+
 public:
-    using DisposableStrategyToUseWithThis = rpp::details::none_disposable_strategy;
+    using preferred_disposable_strategy = rpp::details::observers::none_disposable_strategy;
 
     window_observer_strategy(TObserver&& observer, size_t count)
         : m_observer{std::move(observer)}
@@ -53,7 +53,7 @@ public:
         {
             if (m_subject.get_disposable().is_disposed())
                 m_subject = Subject{m_disposble};
-            
+
             m_observer.on_next(m_subject.get_observable());
             m_items_in_current_window = 0;
         }
@@ -94,7 +94,10 @@ private:
 struct window_t : public operators::details::operator_observable_strategy_diffferent_types<window_observer_strategy, rpp::utils::types<>, size_t>
 {
     template<rpp::constraint::decayed_type T>
-    using ResultValue = windowed_observable<T>;
+    using result_value = windowed_observable<T>;
+
+    template<rpp::details::observables::constraint::disposable_strategy Prev>
+    using updated_disposable_strategy = rpp::details::observables::fixed_disposable_strategy_selector<1>;
 };
 }
 
@@ -102,13 +105,13 @@ namespace rpp::operators
 {
 /**
  * @brief Subdivide original observable into sub-observables (windowed observables) and emit sub-observables of items instead of original items
- * 
+ *
  * @marble window
    {
        source observable    :  +-1-2-3-4-5-|
-  
-       operator "window(2)" : 
-                           {   
+
+       operator "window(2)" :
+                           {
                                .+1-2|
                                .....+3-4|
                                .........+5-|
@@ -120,10 +123,10 @@ namespace rpp::operators
  * @param window_size amount of items which every observable would have
  *
  * @warning #include <rpp/operators/window.hpp>
- * 
+ *
  * @par Example
  * @snippet window.cpp window
- *   
+ *
  * @ingroup transforming_operators
  * @see https://reactivex.io/documentation/operators/window.html
  */

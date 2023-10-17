@@ -38,9 +38,12 @@ class publish_strategy
     };
 
 public:
+
+    using expected_disposable_strategy = rpp::details::observables::deduce_disposable_strategy_t<subject_state<Type>>;
+
     auto get_observer() const
     {
-        return rpp::observer<Type, rpp::details::with_disposable<observer_strategy>>{composite_disposable_wrapper{m_state}, observer_strategy{m_state}};
+        return rpp::observer<Type, rpp::details::with_external_disposable<observer_strategy>>{composite_disposable_wrapper{m_state}, observer_strategy{m_state}};
     }
 
     template<rpp::constraint::observer_of_type<Type> TObs>

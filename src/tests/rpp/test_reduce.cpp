@@ -25,7 +25,7 @@ TEMPLATE_TEST_CASE("reduce reduces values and store state", "", rpp::memory_mode
     {
         auto mock = mock_observer_strategy<int>{};
 
-        obs | rpp::operators::reduce(0, std::plus<int>{}) | rpp::operators::subscribe(mock.get_observer());
+        obs | rpp::operators::reduce(0, std::plus<int>{}) | rpp::operators::subscribe(mock);
 
         SECTION("observer obtains sum")
         {
@@ -39,7 +39,7 @@ TEMPLATE_TEST_CASE("reduce reduces values and store state", "", rpp::memory_mode
     {
         auto mock = mock_observer_strategy<int>{};
 
-        obs | rpp::operators::reduce(std::plus<int>{}) | rpp::operators::subscribe(mock.get_observer());
+        obs | rpp::operators::reduce(std::plus<int>{}) | rpp::operators::subscribe(mock);
 
         SECTION("observer obtains sum")
         {
@@ -57,7 +57,7 @@ TEMPLATE_TEST_CASE("reduce reduces values and store state", "", rpp::memory_mode
             if (seed == 1)
                 return value;
             throw std::runtime_error{""};
-        }) | rpp::operators::subscribe(mock.get_observer());
+        }) | rpp::operators::subscribe(mock);
 
         SECTION("observer obtains only on_error")
         {
@@ -98,7 +98,7 @@ TEST_CASE("reduce doesn't produce extra copies")
     }
 }
 
-TEST_CASE("reduce disposes original disposable on disposing")
+TEST_CASE("reduce satisfies disposable contracts")
 {
     test_operator_with_disposable<int>(rpp::ops::reduce([](auto&& s, auto&&) { return s; }));
 }

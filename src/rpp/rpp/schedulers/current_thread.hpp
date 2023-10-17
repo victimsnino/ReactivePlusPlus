@@ -152,7 +152,7 @@ public:
         if (!someone_owns_queue)
             s_queue.emplace();
 
-        return rpp::utils::finally_action{!someone_owns_queue ? &drain_current_queue : &utils::empty_function<>};
+        return rpp::utils::finally_action{!someone_owns_queue ? &drain_current_queue : &rpp::utils::empty_function<>};
     }
 
     class worker_strategy
@@ -181,7 +181,7 @@ public:
                 drain_queue(queue);
         }
 
-        static rpp::disposable_wrapper get_disposable() { return rpp::disposable_wrapper{}; }
+        static constexpr rpp::schedulers::details::none_disposable get_disposable() { return {}; }
 
         static rpp::schedulers::time_point now() { return s_last_now_time = clock_type::now(); }
     };

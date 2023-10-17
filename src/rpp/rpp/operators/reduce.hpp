@@ -20,7 +20,7 @@ namespace rpp::operators::details
 template<rpp::constraint::observer TObserver, rpp::constraint::decayed_type Accumulator>
 struct reduce_observer_strategy
 {
-    using DisposableStrategyToUseWithThis = rpp::details::none_disposable_strategy;
+    using preferred_disposable_strategy = rpp::details::observers::none_disposable_strategy;
     using Seed = rpp::utils::extract_observer_type_t<TObserver>;
 
     RPP_NO_UNIQUE_ADDRESS TObserver    observer;
@@ -53,13 +53,16 @@ struct reduce_t : public operators::details::operator_observable_strategy_difffe
 
     template<rpp::constraint::decayed_type T>
         requires std::is_invocable_r_v<Seed, Accumulator, Seed&&, T>
-    using ResultValue = Seed;
+    using result_value = Seed;
+
+    template<rpp::details::observables::constraint::disposable_strategy Prev>
+    using updated_disposable_strategy = Prev;
 };
 
 template<rpp::constraint::observer TObserver, rpp::constraint::decayed_type Accumulator>
 struct reduce_no_seed_observer_strategy
 {
-    using DisposableStrategyToUseWithThis = rpp::details::none_disposable_strategy;
+    using preferred_disposable_strategy = rpp::details::observers::none_disposable_strategy;
     using Seed = rpp::utils::extract_observer_type_t<TObserver>;
 
     RPP_NO_UNIQUE_ADDRESS TObserver   observer;
@@ -93,7 +96,10 @@ struct reduce_no_seed_t : public operators::details::operator_observable_strateg
 {
     template<rpp::constraint::decayed_type T>
         requires std::is_invocable_r_v<T, Accumulator, T&&, T>
-    using ResultValue = T;
+    using result_value = T;
+
+    template<rpp::details::observables::constraint::disposable_strategy Prev>
+    using updated_disposable_strategy = Prev;
 };
 }
 
@@ -136,7 +142,7 @@ auto reduce(Seed&& seed, Accumulator&& accumulator)
  }
  *
  * @details There is no initial value for seed, so, first value would be used as seed value and forwarded as is.
- * 
+ *
  * @param initial_value initial value for seed
  * @param accumulator function which accepts seed value and new value from observable and return new value of seed. Can accept seed by move-reference.
  *

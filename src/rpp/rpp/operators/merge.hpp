@@ -123,7 +123,10 @@ struct merge_t
 {
     template<rpp::constraint::decayed_type T>
         requires rpp::constraint::observable<T>
-    using ResultValue = rpp::utils::extract_observable_type_t<T>;
+    using result_value = rpp::utils::extract_observable_type_t<T>;
+
+    template<rpp::details::observables::constraint::disposable_strategy Prev>
+    using updated_disposable_strategy = rpp::details::observables::fixed_disposable_strategy_selector<1>;
 
     template<rpp::constraint::observer Observer, typename... Strategies>
     void subscribe(Observer&& observer, const observable_chain_strategy<Strategies...>& strategy) const
@@ -131,7 +134,7 @@ struct merge_t
         // Need to take ownership over current_thread in case of inner-observables also uses them
         auto drain_on_exit = rpp::schedulers::current_thread::own_queue_and_drain_finally_if_not_owned();
 
-        using InnerObservable = typename observable_chain_strategy<Strategies...>::ValueType;
+        using InnerObservable = typename observable_chain_strategy<Strategies...>::value_type;
 
         strategy.subscribe(rpp::observer<InnerObservable, merge_observer_strategy<std::decay_t<Observer>>>{std::forward<Observer>(observer)});
     }
@@ -144,7 +147,10 @@ struct merge_with_t
 
     template<rpp::constraint::decayed_type T>
         requires (std::same_as<T, rpp::utils::extract_observable_type_t<TObservables>> && ...)
-    using ResultValue = T;
+    using result_value = T;
+
+    template<rpp::details::observables::constraint::disposable_strategy Prev>
+    using updated_disposable_strategy = rpp::details::observables::fixed_disposable_strategy_selector<1>;
 
     template<rpp::constraint::observer Observer, typename... Strategies>
     void subscribe(Observer&& observer, const observable_chain_strategy<Strategies...>& observable_strategy) const

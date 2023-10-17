@@ -717,7 +717,7 @@ TEST_CASE("new_thread works till end")
     rpp::source::just(1,2,3,4,5,6,7,8,9,10)
     | rpp::operators::subscribe_on(rpp::schedulers::new_thread{})
     | rpp::operators::as_blocking()
-    | rpp::operators::subscribe(mock.get_observer());
+    | rpp::operators::subscribe(mock);
 
     CHECK(mock.get_received_values().size() == 10);
 }

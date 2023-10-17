@@ -22,12 +22,12 @@ namespace rpp::operators::details
 template<rpp::constraint::observer TObserver>
 class buffer_observer_strategy
 {
-    using Container = rpp::utils::extract_observer_type_t<TObserver>;
-    using ValueType = typename Container::value_type;
-    static_assert(std::same_as<Container, std::vector<ValueType>>);
-    
+    using container = rpp::utils::extract_observer_type_t<TObserver>;
+    using value_type = typename container::value_type;
+    static_assert(std::same_as<container, std::vector<value_type>>);
+
 public:
-    using DisposableStrategyToUseWithThis = rpp::details::none_disposable_strategy;
+    using preferred_disposable_strategy = rpp::details::observers::none_disposable_strategy;
 
     buffer_observer_strategy(TObserver&& observer, size_t count)
         : m_observer{std::move(observer)}
@@ -48,11 +48,11 @@ public:
 
     void on_error(const std::exception_ptr& err) const { m_observer.on_error(err); }
 
-    void on_completed() const 
-    { 
+    void on_completed() const
+    {
         if (!m_bucket.empty())
             m_observer.on_next(std::move(m_bucket));
-        m_observer.on_completed(); 
+        m_observer.on_completed();
     }
 
     void set_upstream(const disposable_wrapper& d) { m_observer.set_upstream(d); }
@@ -61,13 +61,16 @@ public:
 
 private:
     RPP_NO_UNIQUE_ADDRESS TObserver m_observer;
-    mutable std::vector<ValueType>  m_bucket;
+    mutable std::vector<value_type>  m_bucket;
 };
 
 struct buffer_t : public operators::details::operator_observable_strategy_diffferent_types<buffer_observer_strategy, rpp::utils::types<>, size_t>
 {
     template<rpp::constraint::decayed_type T>
-    using ResultValue = std::vector<T>;
+    using result_value = std::vector<T>;
+
+    template<rpp::details::observables::constraint::disposable_strategy Prev>
+    using updated_disposable_strategy = Prev;
 };
 }
 
@@ -87,7 +90,7 @@ namespace rpp::operators
  *
  * @param count number of items being bundled.
  * @warning #include <rpp/operators/buffer.hpp>
- * 
+ *
  * @par Example:
  * @snippet buffer.cpp buffer
  *

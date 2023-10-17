@@ -27,7 +27,7 @@ TEST_CASE("buffer bundles items")
         SECTION("subscribe on it via buffer(0)")
         {
             obs | rpp::ops::buffer(0)
-                | rpp::ops::subscribe(mock.get_observer());
+                | rpp::ops::subscribe(mock);
             SECTION("shall see -{1}-{2}-{3}-|")
             {
                 CHECK(mock.get_received_values() == std::vector{
@@ -42,7 +42,7 @@ TEST_CASE("buffer bundles items")
         SECTION("subscribe on it via buffer(1)")
         {
             obs | rpp::ops::buffer(1)
-                | rpp::ops::subscribe(mock.get_observer());
+                | rpp::ops::subscribe(mock);
             SECTION("shall see -{1}-{2}-{3}-|")
             {
                 CHECK(mock.get_received_values() == std::vector{
@@ -57,7 +57,7 @@ TEST_CASE("buffer bundles items")
         SECTION("subscribe on it via buffer(2)")
         {
             obs | rpp::ops::buffer(2)
-                | rpp::ops::subscribe(mock.get_observer());
+                | rpp::ops::subscribe(mock);
             SECTION("shall see -{1,2}-{3}|")
             {
                 CHECK(mock.get_received_values() == std::vector<std::vector<int>>{
@@ -71,7 +71,7 @@ TEST_CASE("buffer bundles items")
         SECTION("subscribe on it via buffer(3)")
         {
             obs | rpp::ops::buffer(3)
-                | rpp::ops::subscribe(mock.get_observer());
+                | rpp::ops::subscribe(mock);
             SECTION("shall see -{1,2,3}-|")
             {
                 CHECK(mock.get_received_values() == std::vector<std::vector<int>>{
@@ -84,7 +84,7 @@ TEST_CASE("buffer bundles items")
         SECTION("subscribe on it via buffer(4)")
         {
             obs | rpp::ops::buffer(4)
-                | rpp::ops::subscribe(mock.get_observer());
+                | rpp::ops::subscribe(mock);
             SECTION("shall see -{1,2,3}-|")
             {
                 CHECK(mock.get_received_values() == std::vector<std::vector<int>>{
@@ -106,7 +106,7 @@ TEST_CASE("buffer bundles items")
         SECTION("subscribe on it via buffer(0)")
         {
             obs | rpp::ops::buffer(0)
-                | rpp::ops::subscribe(mock.get_observer());
+                | rpp::ops::subscribe(mock);
             SECTION("shall see -{1}-x, which means error event is through")
             {
                 CHECK(mock.get_received_values() == std::vector<std::vector<int>>{
@@ -119,7 +119,7 @@ TEST_CASE("buffer bundles items")
         SECTION("subscribe on it via buffer(1)")
         {
             obs | rpp::ops::buffer(1)
-                | rpp::ops::subscribe(mock.get_observer());
+                | rpp::ops::subscribe(mock);
             SECTION("shall see -{1}-x, which means error event is through")
             {
                 CHECK(mock.get_received_values() == std::vector<std::vector<int>>{
@@ -132,7 +132,7 @@ TEST_CASE("buffer bundles items")
         SECTION("subscribe on it via buffer(2)")
         {
             obs | rpp::ops::buffer(2)
-                | rpp::ops::subscribe(mock.get_observer());
+                | rpp::ops::subscribe(mock);
             SECTION("shall see --x, which means error event is through")
             {
                 CHECK(mock.get_received_values().empty());
@@ -143,7 +143,7 @@ TEST_CASE("buffer bundles items")
     }
 }
 
-TEST_CASE("buffer disposes original disposable on disposing")
+TEST_CASE("buffer satisfies disposable contracts")
 {
     test_operator_with_disposable<int>(rpp::ops::buffer(1));
 }

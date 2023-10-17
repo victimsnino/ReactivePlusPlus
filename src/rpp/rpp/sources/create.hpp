@@ -18,7 +18,7 @@ namespace rpp::details
 template<constraint::decayed_type Type, constraint::on_subscribe<Type> OnSubscribe>
 struct create_strategy
 {
-    using ValueType = Type;
+    using value_type = Type;
 
     RPP_NO_UNIQUE_ADDRESS OnSubscribe subscribe;
 };

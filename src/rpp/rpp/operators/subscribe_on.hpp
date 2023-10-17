@@ -22,7 +22,7 @@ struct subscribe_on_schedulable
 {
     RPP_NO_UNIQUE_ADDRESS TObservableChainStrategy observable;
 
-    using Type = typename TObservableChainStrategy::ValueType;
+    using Type = typename TObservableChainStrategy::value_type;
 
     template<rpp::constraint::observer_strategy<Type> ObserverStrategy>
     rpp::schedulers::optional_duration operator()(observer<Type, ObserverStrategy>& observer) const
@@ -32,20 +32,26 @@ struct subscribe_on_schedulable
     }
 };
 
-template<rpp::schedulers::constraint::scheduler Scheduler>
+template<rpp::schedulers::constraint::scheduler TScheduler>
 struct subscribe_on_t
 {
     template<rpp::constraint::decayed_type T>
-    using ResultValue = T;
+    using result_value = T;
 
-    RPP_NO_UNIQUE_ADDRESS Scheduler scheduler;
+    template<rpp::details::observables::constraint::disposable_strategy Prev>
+    using updated_disposable_strategy = typename Prev::template add<rpp::schedulers::utils::get_worker_t<TScheduler>::is_none_disposable ? 0 : 1>;
+
+    RPP_NO_UNIQUE_ADDRESS TScheduler scheduler;
 
     template<rpp::constraint::observer Observer, typename... Strategies>
     void subscribe(Observer&& observer, const observable_chain_strategy<Strategies...>& observable_strategy) const
     {
         const auto worker = scheduler.create_worker();
-        if (auto d = worker.get_disposable(); !d.is_disposed())
-            observer.set_upstream(std::move(d));
+        if constexpr (!rpp::schedulers::utils::get_worker_t<TScheduler>::is_none_disposable)
+        {
+            if (auto d = worker.get_disposable(); !d.is_disposed())
+                observer.set_upstream(std::move(d));
+        }
         worker.schedule(subscribe_on_schedulable<observable_chain_strategy<Strategies...>>{observable_strategy}, std::forward<Observer>(observer));
     }
 };

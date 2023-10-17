@@ -34,7 +34,7 @@ TEST_CASE("repeat resubscribes")
 
         SECTION("subscribe on it via repeat(0)")
         {
-            observable | rpp::operators::repeat(0) | rpp::operators::subscribe(observer.get_observer());
+            observable | rpp::operators::repeat(0) | rpp::operators::subscribe(observer);
             SECTION("only on_completed sent")
             {
                 CHECK(subscribe_count == 0);
@@ -45,7 +45,7 @@ TEST_CASE("repeat resubscribes")
         }
         SECTION("subscribe on it via repeat(1)")
         {
-            observable| rpp::operators::repeat(1) | rpp::operators::subscribe(observer.get_observer());
+            observable| rpp::operators::repeat(1) | rpp::operators::subscribe(observer);
             SECTION("sent value once")
             {
                 CHECK(subscribe_count == 1);
@@ -56,7 +56,7 @@ TEST_CASE("repeat resubscribes")
         }
         SECTION("subscribe on it via repeat(10)")
         {
-            observable| rpp::operators::repeat(10) | rpp::operators::subscribe(observer.get_observer());
+            observable| rpp::operators::repeat(10) | rpp::operators::subscribe(observer);
             SECTION("sent value 10 times")
             {
                 CHECK(subscribe_count == 10);
@@ -67,7 +67,7 @@ TEST_CASE("repeat resubscribes")
         }
         SECTION("subscribe on it via repeat()")
         {
-            observable | rpp::operators::repeat() | rpp::operators::take(10) | rpp::operators::subscribe(observer.get_observer());
+            observable | rpp::operators::repeat() | rpp::operators::take(10) | rpp::operators::subscribe(observer);
             SECTION("sent value infinitely")
             {
                 CHECK(subscribe_count == 10);
@@ -87,7 +87,7 @@ TEST_CASE("repeat resubscribes")
         });
         SECTION("subscribe on it via repeat(10)")
         {
-            observable| rpp::operators::repeat(10) | rpp::operators::subscribe(observer.get_observer());
+            observable| rpp::operators::repeat(10) | rpp::operators::subscribe(observer);
             SECTION("only on_error once")
             {
                 CHECK(subscribe_count == 1);
@@ -107,7 +107,7 @@ TEST_CASE("repeat resubscribes")
             });
         SECTION("subscribe on it via repeat(10)")
         {
-            observable| rpp::operators::repeat(10) | rpp::operators::subscribe(observer.get_observer());
+            observable| rpp::operators::repeat(10) | rpp::operators::subscribe(observer);
             SECTION("on_ompleted once")
             {
                 CHECK(subscribe_count == 10);
@@ -133,7 +133,7 @@ TEST_CASE("repeat doesn't produce extra copies")
     }
 }
 
-TEST_CASE("repeat disposes original disposable on disposing")
+TEST_CASE("repeat satisfies disposable contracts")
 {
     test_operator_with_disposable<int>(rpp::ops::repeat());
 }

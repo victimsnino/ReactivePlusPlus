@@ -19,8 +19,11 @@ namespace rpp
 template<typename TStrategy, typename... TStrategies>
 class observable_chain_strategy
 {
+    using base = observable_chain_strategy<TStrategies...>;
+
 public:
-    using ValueType = typename TStrategy::template ResultValue<typename observable_chain_strategy<TStrategies...>::ValueType>;
+    using expected_disposable_strategy = typename TStrategy::template updated_disposable_strategy<typename base::expected_disposable_strategy>;
+    using value_type = typename TStrategy::template result_value<typename base::value_type>;
 
     observable_chain_strategy(const TStrategy& strategy, const TStrategies&... strategies)
         : m_strategy(strategy)
@@ -34,11 +37,13 @@ public:
     {
     }
 
-    template<rpp::constraint::observer_of_type<ValueType> Observer>
+    template<rpp::constraint::observer_of_type<value_type> Observer>
     void subscribe(Observer&& observer) const
     {
-        if constexpr (rpp::constraint::operator_lift<TStrategy, typename observable_chain_strategy<TStrategies...>::ValueType>)
-            m_strategies.subscribe(m_strategy.template lift<typename observable_chain_strategy<TStrategies...>::ValueType>(std::forward<Observer>(observer)));
+        if constexpr (rpp::constraint::operator_lift_with_disposable<TStrategy, typename base::value_type, typename base::expected_disposable_strategy>)
+            m_strategies.subscribe(m_strategy.template lift_with_disposable<typename base::value_type, typename base::expected_disposable_strategy>(std::forward<Observer>(observer)));
+        else if constexpr (rpp::constraint::operator_lift<TStrategy, typename base::value_type>)
+            m_strategies.subscribe(m_strategy.template lift<typename base::value_type>(std::forward<Observer>(observer)));
         else
             m_strategy.subscribe(std::forward<Observer>(observer), m_strategies);
     }
@@ -52,7 +57,8 @@ template<typename TStrategy>
 class observable_chain_strategy<TStrategy>
 {
 public:
-    using ValueType = typename TStrategy::ValueType;
+    using expected_disposable_strategy = rpp::details::observables::deduce_disposable_strategy_t<TStrategy>;
+    using value_type                   = typename TStrategy::value_type;
 
     observable_chain_strategy(const TStrategy& strategy)
         : m_strategy(strategy)

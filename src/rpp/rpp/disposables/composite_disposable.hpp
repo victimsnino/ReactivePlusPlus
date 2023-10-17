@@ -11,6 +11,7 @@
 #pragma once
 
 #include <rpp/disposables/fwd.hpp>
+#include <rpp/disposables/details/container.hpp>
 
 #include <rpp/disposables/disposable_wrapper.hpp>
 #include <rpp/disposables/interface_composite_disposable.hpp>
@@ -26,13 +27,16 @@ namespace rpp
  *
  * @ingroup disposables
  */
-class composite_disposable : public interface_composite_disposable
+template<rpp::constraint::decayed_type Container>
+class composite_disposable_impl : public interface_composite_disposable
 {
 public:
-    composite_disposable() = default;
+    composite_disposable_impl()
+        requires details::disposables::constraint::disposable_container<Container>
+    = default;
 
-    composite_disposable(const composite_disposable&)           = delete;
-    composite_disposable(composite_disposable&& other) noexcept = delete;
+    composite_disposable_impl(const composite_disposable_impl&)           = delete;
+    composite_disposable_impl(composite_disposable_impl&& other) noexcept = delete;
 
     bool is_disposed() const noexcept final
     {
@@ -50,9 +54,7 @@ public:
             {
                 dispose_impl();
 
-                for (const auto& d : m_disposables)
-                    d.dispose();
-
+                m_disposables.dispose();
                 m_disposables.clear();
                 return;
             }
@@ -75,7 +77,15 @@ public:
             // need to acquire possible disposables state changing from other `add`
             if (m_current_state.compare_exchange_strong(expected, State::Edit, std::memory_order::acquire, std::memory_order::relaxed))
             {
-                m_disposables.emplace_back(std::move(disposable));
+                try
+                {
+                    m_disposables.push_back(std::move(disposable));
+                }
+                catch(...)
+                {
+                    m_current_state.store(State::None, std::memory_order::release);
+                    throw;
+                }
                 // need to propogate disposables state changing to others
                 m_current_state.store(State::None, std::memory_order::release);
                 return;
@@ -100,7 +110,7 @@ private:
         Disposed // permanent state after dispose
     };
 
-    std::vector<disposable_wrapper> m_disposables{};
-    std::atomic<State>              m_current_state{};
+    Container          m_disposables{};
+    std::atomic<State> m_current_state{};
 };
 } // namespace rpp

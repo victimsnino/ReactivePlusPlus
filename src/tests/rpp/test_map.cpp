@@ -29,7 +29,7 @@ TEMPLATE_TEST_CASE("map modifies values and forward errors/completions", "", rpp
     {
         mock_observer_strategy<std::string> mock{};
 
-        obs | rpp::operators::map([](auto v){return std::string("TEST ") + std::to_string(v);}) | rpp::operators::subscribe(mock.get_observer());
+        obs | rpp::operators::map([](auto v){return std::string("TEST ") + std::to_string(v);}) | rpp::operators::subscribe(mock);
 
         CHECK(mock.get_received_values() == std::vector<std::string>{"TEST 1", "TEST 2"});
         CHECK(mock.get_on_error_count() == 0);
@@ -43,7 +43,7 @@ TEMPLATE_TEST_CASE("map modifies values and forward errors/completions", "", rpp
 
         auto map = rpp::operators::map([](int) -> int { throw std::runtime_error{""}; });
 
-        obs | map | rpp::operators::subscribe(mock.get_observer()); // NOLINT
+        obs | map | rpp::operators::subscribe(mock); // NOLINT
 
         CHECK(mock.get_received_values() == std::vector<int>{});
         CHECK(mock.get_on_error_count() == 1);
@@ -67,7 +67,7 @@ TEST_CASE("map doesn't produce extra copies")
     }
 }
 
-TEST_CASE("map disposes original disposable on disposing")
+TEST_CASE("map satisfies disposable contracts")
 {
     test_operator_with_disposable<int>(rpp::ops::map([](auto&& v){return std::forward<decltype(v)>(v);}));
 }

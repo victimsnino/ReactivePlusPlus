@@ -33,7 +33,7 @@ TEST_CASE("combine_latest bundles items")
         auto mock = mock_observer_strategy<std::tuple<int, int>>{};
         rpp::source::just(rpp::schedulers::immediate{}, 1, 2, 3)
                 | rpp::ops::combine_latest(rpp::source::just(rpp::schedulers::immediate{}, 4, 5, 6))
-                | rpp::ops::subscribe(mock.get_observer());
+                | rpp::ops::subscribe(mock);
 
         CHECK(mock.get_received_values() == std::vector<std::tuple<int, int>>{
                 std::make_tuple(1, 6),
@@ -50,7 +50,7 @@ TEST_CASE("combine_latest bundles items")
 
         rpp::source::just(rpp::schedulers::current_thread{}, 1, 2, 3)                      // source 1
             | rpp::ops::combine_latest(rpp::source::just(rpp::schedulers::current_thread{}, 4, 5, 6)) // source 2
-            | rpp::ops::subscribe(mock.get_observer());
+            | rpp::ops::subscribe(mock);
 
         // Above stream should output in such sequence
         // source 1:   -1---2---3-|
@@ -75,7 +75,7 @@ TEST_CASE("combine_latest bundles items")
             | rpp::ops::combine_latest(
                 rpp::source::just(rpp::schedulers::current_thread{}, 4, 5, 6), // source 2
                 rpp::source::just(rpp::schedulers::current_thread{}, 7, 8 ,9)) // source 3
-            | rpp::ops::subscribe(mock.get_observer());
+            | rpp::ops::subscribe(mock);
 
         // Above stream should output in such sequence
         // source 1:   --1---2---3-|
@@ -103,7 +103,7 @@ TEST_CASE("combine_latest defers completed event")
         auto mock = mock_observer_strategy<std::tuple<int, int>>{};
         rpp::source::just(1, 2, 3)
             | rpp::ops::combine_latest(rpp::source::never<int>())
-            | rpp::ops::subscribe(mock.get_observer());
+            | rpp::ops::subscribe(mock);
 
         CHECK(mock.get_received_values().empty());
         CHECK(mock.get_on_completed_count() == 0);
@@ -118,7 +118,7 @@ TEST_CASE("combine_latest forwards errors")
         auto mock = mock_observer_strategy<std::tuple<int, int>>{};
         rpp::source::just(1, 2, 3)
             | rpp::ops::combine_latest(rpp::source::error<int>(std::make_exception_ptr(std::runtime_error{""})))
-            | rpp::ops::subscribe(mock.get_observer());
+            | rpp::ops::subscribe(mock);
 
         CHECK(mock.get_received_values().empty());
         CHECK(mock.get_on_completed_count() == 0);
@@ -158,7 +158,7 @@ TEST_CASE("combine_latest handles race condition")
     }
 }
 
-TEST_CASE("combine_latest disposes original disposable on disposing")
+TEST_CASE("combine_latest satisfies disposable contracts")
 {
     auto observable_disposable = std::make_shared<rpp::composite_disposable>();
     {

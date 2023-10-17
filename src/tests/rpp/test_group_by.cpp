@@ -18,6 +18,8 @@
 #include <rpp/schedulers/immediate.hpp>
 
 #include "mock_observer.hpp"
+#include "disposable_observable.hpp"
+
 #include "rpp/disposables/composite_disposable.hpp"
 #include "rpp/disposables/fwd.hpp"
 
@@ -31,7 +33,7 @@ TEST_CASE("group_by emits grouped seqences of values with identity key selector"
 
     SECTION("Obtained same amount of grouped observables as amount of unique values")
     {
-        observable.subscribe(obs.get_observer());
+        observable.subscribe(obs);
         REQUIRE(obs.get_total_on_next_count() == 4);
         REQUIRE(obs.get_on_error_count() == 0);
         REQUIRE(obs.get_on_completed_count() == 1);
@@ -41,7 +43,7 @@ TEST_CASE("group_by emits grouped seqences of values with identity key selector"
         observable.subscribe([&](const auto& grouped)
         {
             REQUIRE(grouped_mocks.contains(grouped.get_key()) == false);
-            grouped.subscribe(grouped_mocks[grouped.get_key()].get_observer());
+            grouped.subscribe(grouped_mocks[grouped.get_key()]);
         });
 
         REQUIRE(grouped_mocks.size() == 4);
@@ -61,9 +63,9 @@ TEST_CASE("group_by emits grouped seqences of values with identity key selector"
             REQUIRE(grouped_mocks.contains(key) == false);
 
             if (key == 4)
-                grouped | rpp::operators::take(1) | rpp::operators::subscribe(grouped_mocks[key].get_observer());
+                grouped | rpp::operators::take(1) | rpp::operators::subscribe(grouped_mocks[key]);
             else
-                grouped.subscribe(grouped_mocks[key].get_observer());
+                grouped.subscribe(grouped_mocks[key]);
         });
 
         SECTION("all except of key 4 obtains as before, but key 4 obtained once")
@@ -85,7 +87,7 @@ TEST_CASE("group_by emits grouped seqences of values with identity key selector"
     {
         observable | rpp::ops::take(1) | rpp::ops::subscribe([&](const auto& grouped)
         {
-            grouped.subscribe(grouped_mocks[grouped.get_key()].get_observer());
+            grouped.subscribe(grouped_mocks[grouped.get_key()]);
         });
         SECTION("values for such a observable are still obtainable")
         {
@@ -209,7 +211,7 @@ TEST_CASE("group_by selectors affects types", "[group_by]")
         obs | rpp::ops::group_by(std::identity{}, [](int v){return std::to_string(v);})
             | rpp::ops::subscribe([&](const auto& grouped)
         {
-            grouped.subscribe(mock.get_observer());
+            grouped.subscribe(mock);
         });
 
         SECTION("grouped observables provides modified values")
@@ -243,7 +245,7 @@ TEST_CASE("group_by selectors affects types", "[group_by]")
     SECTION("subscribe on observable via group_by with key selector with exception")
     {
         obs | rpp::ops::group_by([](int) -> int {throw std::runtime_error{""};})
-            | rpp::ops::subscribe(mock.get_observer());
+            | rpp::ops::subscribe(mock);
         SECTION("on_error obtained once")
         {
             REQUIRE(mock.get_total_on_next_count() == 0);
@@ -255,7 +257,7 @@ TEST_CASE("group_by selectors affects types", "[group_by]")
     SECTION("subscribe on observable via group_by with value selector with exception")
     {
         obs | rpp::ops::group_by(std::identity{}, [](int) -> int {throw std::runtime_error{""};})
-            | rpp::ops::subscribe(mock.get_observer());
+            | rpp::ops::subscribe(mock);
         SECTION("on_error obtained once")
         {
             REQUIRE(mock.get_total_on_next_count() == 1);
@@ -280,8 +282,13 @@ TEST_CASE("group_by's disposables tracks 1 dispose per call")
             | rpp::ops::subscribe([](int){});
         }
 
-        observable.subscribe(mock_0.get_observer());
+        observable.subscribe(mock_0);
     });
 
     CHECK(mock_0.get_received_values() == std::vector{1,2});
+}
+
+TEST_CASE("group_by satisfies disposable contracts")
+{
+    test_operator_with_disposable<int>(rpp::ops::group_by([](int){return 0;}));
 }

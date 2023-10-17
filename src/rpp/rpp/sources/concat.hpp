@@ -28,7 +28,7 @@ void drain(TObserver&& observer, const TWorker& worker, PackedContainer&& contai
 template<rpp::schedulers::constraint::worker TWorker, rpp::constraint::observer TObserver, constraint::decayed_type PackedContainer>
 struct concat_source_observer_strategy
 {
-    using ValueType = rpp::utils::extract_observable_type_t<utils::iterable_value_t<PackedContainer>>;
+    using value_type = rpp::utils::extract_observable_type_t<utils::iterable_value_t<PackedContainer>>;
 
     RPP_NO_UNIQUE_ADDRESS mutable TObserver       observer;
     RPP_NO_UNIQUE_ADDRESS mutable PackedContainer container;
@@ -89,12 +89,12 @@ void drain(TObserver&& obs, const TWorker& worker, PackedContainer&& container, 
         return;
     }
 
-    using ValueType = rpp::utils::extract_observable_type_t<utils::iterable_value_t<PackedContainer>>;
+    using value_type = rpp::utils::extract_observable_type_t<utils::iterable_value_t<PackedContainer>>;
 
     if (is_last_observable)
         observable->subscribe(std::forward<TObserver>(obs));
     else
-        observable->subscribe(observer<ValueType, concat_source_observer_strategy<TWorker, std::decay_t<TObserver>, std::decay_t<PackedContainer>>>{std::forward<TObserver>(obs), std::forward<PackedContainer>(container), worker, index});
+        observable->subscribe(observer<value_type, concat_source_observer_strategy<TWorker, std::decay_t<TObserver>, std::decay_t<PackedContainer>>>{std::forward<TObserver>(obs), std::forward<PackedContainer>(container), worker, index});
     return;
 }
 
@@ -112,14 +112,17 @@ struct concat_strategy
     RPP_NO_UNIQUE_ADDRESS PackedContainer container;
     RPP_NO_UNIQUE_ADDRESS TScheduler scheduler;
 
-    using ValueType = rpp::utils::extract_observable_type_t<utils::iterable_value_t<PackedContainer>>;
+    using value_type = rpp::utils::extract_observable_type_t<utils::iterable_value_t<PackedContainer>>;
 
-    template<constraint::observer_strategy<ValueType> Strategy>
-    void subscribe(observer<ValueType, Strategy>&& obs) const
+    template<constraint::observer_strategy<value_type> Strategy>
+    void subscribe(observer<value_type, Strategy>&& obs) const
     {
         const auto worker = scheduler.create_worker();
-        if (auto d = worker.get_disposable(); !d.is_disposed())
-            obs.set_upstream(std::move(d));
+        if constexpr (!rpp::schedulers::utils::get_worker_t<TScheduler>::is_none_disposable)
+        {
+            if (auto d = worker.get_disposable(); !d.is_disposed())
+                obs.set_upstream(std::move(d));
+        }
         drain(std::move(obs), worker,  container, size_t{});
     }
 };

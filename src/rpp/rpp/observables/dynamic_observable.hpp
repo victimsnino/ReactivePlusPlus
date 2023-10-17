@@ -24,22 +24,22 @@ void forwarding_subscribe(const void* const ptr, dynamic_observer<T>&& obs)
     static_cast<const Observable*>(ptr)->subscribe(std::move(obs));
 }
 
-template<constraint::decayed_type Type>
+template<rpp::constraint::decayed_type Type>
 class dynamic_strategy final
 {
 public:
-    using ValueType = Type;
+    using value_type = Type;
 
-    template<constraint::observable_strategy<Type> Strategy>
-        requires (!constraint::decayed_same_as<Strategy, dynamic_strategy<Type>>)
+    template<rpp::constraint::observable_strategy<Type> Strategy>
+        requires (!rpp::constraint::decayed_same_as<Strategy, dynamic_strategy<Type>>)
     explicit dynamic_strategy(observable<Type, Strategy>&& obs)
         : m_forwarder{std::make_shared<observable<Type, Strategy>>(std::move(obs))}
         , m_vtable{vtable::template create<observable<Type, Strategy>>()}
     {
     }
 
-    template<constraint::observable_strategy<Type> Strategy>
-        requires (!constraint::decayed_same_as<Strategy, dynamic_strategy<Type>>)
+    template<rpp::constraint::observable_strategy<Type> Strategy>
+        requires (!rpp::constraint::decayed_same_as<Strategy, dynamic_strategy<Type>>)
     explicit dynamic_strategy(const observable<Type, Strategy>& obs)
         : m_forwarder{std::make_shared<observable<Type, Strategy>>(obs)}
         , m_vtable{vtable::template create<observable<Type, Strategy>>()}
@@ -49,7 +49,7 @@ public:
     dynamic_strategy(const dynamic_strategy&)     = default;
     dynamic_strategy(dynamic_strategy&&) noexcept = default;
 
-    template<constraint::observer_strategy<Type> ObserverStrategy>
+    template<rpp::constraint::observer_strategy<Type> ObserverStrategy>
     void subscribe(observer<Type, ObserverStrategy>&& observer) const
     {
         m_vtable->subscribe(m_forwarder.get(), std::move(observer).as_dynamic());
@@ -60,7 +60,7 @@ private:
     {
         void (*subscribe)(const void*, dynamic_observer<Type>&&){};
 
-        template<constraint::observable Observable>
+        template<rpp::constraint::observable Observable>
         static const vtable* create() noexcept
         {
             static vtable s_res{

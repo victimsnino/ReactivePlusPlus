@@ -10,6 +10,8 @@
 
 #pragma once
 
+#include <rpp/observers/details/fwd.hpp>
+
 #include <rpp/disposables/fwd.hpp>
 
 #include <rpp/utils/constraints.hpp>
@@ -20,6 +22,18 @@
 
 namespace rpp::constraint
 {
+template<typename S>
+concept observer_strategy_base = requires(const S& const_strategy, S& strategy, const rpp::disposable_wrapper& disposable)
+{
+    // const_strategy.on_next(v);
+    // const_strategy.on_next(std::move(mv));
+    const_strategy.on_error(std::exception_ptr{});
+    const_strategy.on_completed();
+
+    strategy.set_upstream(disposable);
+    { strategy.is_disposed() } -> std::same_as<bool>;
+};
+
 /**
  * @brief Concept to define strategy to override observer behavior. Strategy must be able to handle all observer's
  * callbacks: on_next/on_error/on_completed
@@ -30,24 +44,19 @@ namespace rpp::constraint
  * @ingroup observers
  */
 template<typename S, typename Type>
-concept observer_strategy = requires(const S& const_strategy, S& strategy, const Type& v, Type& mv, const rpp::disposable_wrapper& disposable)
+concept observer_strategy = observer_strategy_base<S> && requires(const S& const_strategy, const Type& v, Type& mv)
 {
     const_strategy.on_next(v);
     const_strategy.on_next(std::move(mv));
-    const_strategy.on_error(std::exception_ptr{});
-    const_strategy.on_completed();
-
-    strategy.set_upstream(disposable);
-    { strategy.is_disposed() } -> std::same_as<bool>;
 };
 } // namespace rpp::constraint
 
 namespace rpp::details::observers
 {
-template<constraint::decayed_type Type>
+template<rpp::constraint::decayed_type Type>
 class dynamic_strategy;
 
-template<constraint::decayed_type                  Type,
+template<rpp::constraint::decayed_type                  Type,
          std::invocable<Type>                      OnNext,
          std::invocable<const std::exception_ptr&> OnError,
          std::invocable<>                          OnCompleted>
@@ -56,10 +65,12 @@ struct lambda_strategy;
 
 namespace rpp::details
 {
-template<typename S>
-struct with_disposable
+template<typename S, observers::constraint::disposable_strategy Strategy>
+struct with_disposable_strategy
 {
-    with_disposable() = delete;
+    using preferred_disposable_strategy = Strategy;
+
+    with_disposable_strategy() = delete;
 
     static void on_next(const auto&) noexcept;
     static void on_error(const std::exception_ptr&) noexcept;
@@ -68,6 +79,9 @@ struct with_disposable
     static void set_upstream(const disposable_wrapper&) noexcept;
     static bool is_disposed() noexcept;
 };
+
+template<typename S>
+using with_external_disposable = with_disposable_strategy<S, observers::external_disposable_strategy>;
 }
 
 namespace rpp
@@ -100,7 +114,7 @@ template<constraint::decayed_type Type, std::invocable<Type> OnNext, std::invoca
 using lambda_observer = observer<Type, details::observers::lambda_strategy<Type, OnNext, OnError, OnCompleted>>;
 
 template<constraint::decayed_type Type, std::invocable<Type> OnNext, std::invocable<const std::exception_ptr&> OnError, std::invocable<> OnCompleted>
-using lambda_observer_with_disposable = observer<Type, details::with_disposable<details::observers::lambda_strategy<Type, OnNext, OnError, OnCompleted>>>;
+using lambda_observer_with_disposable = observer<Type, details::with_external_disposable<details::observers::lambda_strategy<Type, OnNext, OnError, OnCompleted>>>;
 
 /**
  * @brief Constructs observer specialized with passed callbacks. Most easiesest way to construct observer "on the fly" via lambdas and etc.

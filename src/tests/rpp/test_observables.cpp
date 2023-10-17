@@ -110,7 +110,7 @@ TEST_CASE("blocking_observable blocks subscribe call")
                 .detach();
         })
         | rpp::operators::as_blocking()
-        | rpp::operators::subscribe(mock.get_observer().as_dynamic());
+        | rpp::operators::subscribe(mock);
 
         CHECK(mock.get_on_completed_count() == 1);
     }
@@ -130,7 +130,7 @@ TEST_CASE("blocking_observable blocks subscribe call")
 
         obs
         | op
-        | rpp::operators::subscribe(mock.get_observer().as_dynamic());
+        | rpp::operators::subscribe(mock);
 
         CHECK(mock.get_on_error_count() == 1);
     }
@@ -145,7 +145,7 @@ TEST_CASE("base observables")
         auto observable = rpp::source::empty<int>();
         SECTION("subscribe on this observable")
         {
-            observable.subscribe(mock.get_observer());
+            observable.subscribe(mock);
             SECTION("only on_completed called")
             {
                 CHECK(mock.get_total_on_next_count() == 0);
@@ -159,7 +159,7 @@ TEST_CASE("base observables")
         auto observable = rpp::source::never<int>();
         SECTION("subscribe on this observable")
         {
-            observable.subscribe(mock.get_observer());
+            observable.subscribe(mock);
             SECTION("no any callbacks")
             {
                 CHECK(mock.get_total_on_next_count() == 0);
@@ -173,7 +173,7 @@ TEST_CASE("base observables")
         auto observable = rpp::source::error<int>(std::make_exception_ptr(std::runtime_error{"MY EXCEPTION"}));
         SECTION("subscribe on this observable")
         {
-            observable.subscribe(mock.get_observer());
+            observable.subscribe(mock);
             SECTION("only on_error callback once")
             {
                 CHECK(mock.get_total_on_next_count() == 0);
@@ -197,8 +197,8 @@ TEST_CASE("create observable works properly as observable")
         mock_observer_strategy<int> pipe_operator_observer{};
         mock_observer_strategy<int> pipe_function_observer{};
 
-        observable | rpp::operators::subscribe(pipe_operator_observer.get_observer());
-        observable.pipe(rpp::operators::subscribe(pipe_function_observer.get_observer()));
+        observable | rpp::operators::subscribe(pipe_operator_observer);
+        observable.pipe(rpp::operators::subscribe(pipe_function_observer));
 
         CHECK(pipe_operator_observer.get_total_on_next_count() == pipe_function_observer.get_total_on_next_count());
         CHECK(pipe_operator_observer.get_on_error_count() == pipe_function_observer.get_on_error_count());
@@ -212,12 +212,12 @@ TEST_CASE("create observable works properly as observable")
         rpp::source::create<int>([](auto&& observer) {
             observer.on_next(1);
             observer.on_completed();
-        }) | rpp::operators::subscribe(pipe_operator_observer.get_observer());
+        }) | rpp::operators::subscribe(pipe_operator_observer);
 
         rpp::source::create<int>([](auto&& observer) {
             observer.on_next(1);
             observer.on_completed();
-        }).pipe(rpp::operators::subscribe(pipe_function_observer.get_observer()));
+        }).pipe(rpp::operators::subscribe(pipe_function_observer));
 
         CHECK(pipe_operator_observer.get_total_on_next_count() == pipe_function_observer.get_total_on_next_count());
         CHECK(pipe_operator_observer.get_on_error_count() == pipe_function_observer.get_on_error_count());

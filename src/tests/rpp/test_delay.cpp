@@ -237,7 +237,7 @@ TEST_CASE("delay delays observable's emissions")
     }
 }
 
-TEST_CASE("delay disposes original disposable on disposing")
+TEST_CASE("delay satisfies disposable contracts")
 {
     test_operator_with_disposable<int>(rpp::ops::delay(std::chrono::seconds{0}, manual_scheduler{}));
 }

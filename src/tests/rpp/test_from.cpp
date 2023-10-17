@@ -67,7 +67,7 @@ TEMPLATE_TEST_CASE("from iterable emit items from container",
     {
         auto vals = std::vector{1, 2, 3, 4, 5, 6};
         auto obs  = rpp::source::from_iterable<memory_model>(vals, scheduler{});
-        obs.subscribe(mock.get_observer());
+        obs.subscribe(mock);
         CHECK(mock.get_received_values() == vals);
         CHECK(mock.get_on_completed_count() == 1);
     }
@@ -76,7 +76,7 @@ TEMPLATE_TEST_CASE("from iterable emit items from container",
     {
         auto vals = std::vector<int>{};
         auto obs  = rpp::source::from_iterable<memory_model>(vals, scheduler{});
-        obs.subscribe(mock.get_observer());
+        obs.subscribe(mock);
         CHECK(mock.get_received_values() == vals);
         CHECK(mock.get_on_completed_count() == 1);
     }
@@ -84,7 +84,7 @@ TEMPLATE_TEST_CASE("from iterable emit items from container",
     SECTION("subscribe via take(1) to observable created from infinite container")
     {
         rpp::source::from_iterable<memory_model>(infinite_container{}, scheduler{}) | rpp::operators::take(1)
-                                                                     | rpp::operators::subscribe(mock.get_observer());
+                                                                     | rpp::operators::subscribe(mock);
 
         CHECK(mock.get_received_values() == std::vector{1});
         CHECK(mock.get_on_completed_count() == 1);
@@ -149,7 +149,7 @@ TEMPLATE_TEST_CASE("from iterable emit items from container",
         const auto obs = rpp::source::from_iterable<memory_model>(my_container_with_error{}, scheduler{});
         SECTION("subscribe on it and dispatch once")
         {
-            obs.subscribe(mock.get_observer());
+            obs.subscribe(mock);
             SECTION("observer obtains error")
             {
                 CHECK(mock.get_total_on_next_count() == 0);
@@ -171,17 +171,17 @@ TEMPLATE_TEST_CASE("from iterable with different schedulers", "", rpp::memory_mo
 
         rpp::schedulers::current_thread::create_worker().schedule([&obs_immediate, &obs_default, &mock](const auto&)
         {
-            obs_default.subscribe(mock.get_observer());
+            obs_default.subscribe(mock);
             CHECK(mock.get_received_values().empty());
             CHECK(mock.get_on_error_count() == 0);
             CHECK(mock.get_on_completed_count() == 0);
 
-            obs_immediate.subscribe(mock.get_observer());
+            obs_immediate.subscribe(mock);
             CHECK(mock.get_received_values() == std::vector{1,1,1});
             CHECK(mock.get_on_error_count() == 0);
             CHECK(mock.get_on_completed_count() == 1);
             return rpp::schedulers::optional_duration{};
-        }, mock.get_observer());
+        }, mock);
 
         CHECK(mock.get_received_values() == std::vector{1,1,1,2,2,2});
         CHECK(mock.get_on_error_count() == 0);
@@ -239,7 +239,7 @@ TEST_CASE("from callable")
         auto observable = rpp::source::from_callable(callable);
         SECTION("subscribe on this observable")
         {
-            observable.subscribe(mock.get_observer());
+            observable.subscribe(mock);
             SECTION("callable called only once and observable returns value of this function")
             {
                 CHECK(mock.get_received_values() == std::vector{ 1 });
@@ -258,7 +258,7 @@ TEST_CASE("from callable")
 
         SECTION("subscribe on this observable")
         {
-            observable.subscribe(none_mock.get_observer());
+            observable.subscribe(none_mock);
             SECTION("callable called only once and observable returns value of this function")
             {
                 CHECK(none_mock.get_received_values().size() == 1);
@@ -274,7 +274,7 @@ TEST_CASE("from callable")
         auto observable = rpp::source::from_callable(callable);
         SECTION("subscribe on this observable")
         {
-            observable.subscribe(mock.get_observer());
+            observable.subscribe(mock);
             SECTION("observer obtains error")
             {
                 CHECK(mock.get_total_on_next_count() == 0);
@@ -295,7 +295,7 @@ TEST_CASE("just")
         auto               obs = rpp::source::just(v);
         SECTION("subscribe on this observable")
         {
-            obs.subscribe(mock.get_observer());
+            obs.subscribe(mock);
             SECTION("value obtained")
             {
                 CHECK(mock.get_on_next_const_ref_count() == 1);
@@ -312,7 +312,7 @@ TEST_CASE("just")
         auto               obs = rpp::source::just(std::move(v));
         SECTION("subscribe on this observable")
         {
-            obs.subscribe(mock.get_observer());
+            obs.subscribe(mock);
             SECTION("value obtained")
             {
                 CHECK(mock.get_on_next_const_ref_count() == 1);
@@ -329,7 +329,7 @@ TEST_CASE("just")
         auto               obs = rpp::source::just<rpp::memory_model::use_shared>(v);
         SECTION("subscribe on this observable")
         {
-            obs.subscribe(mock.get_observer());
+            obs.subscribe(mock);
             SECTION("value obtained")
             {
                 CHECK(mock.get_on_next_const_ref_count() == 1);
@@ -346,7 +346,7 @@ TEST_CASE("just")
         auto               obs = rpp::source::just<rpp::memory_model::use_shared>(std::move(v));
         SECTION("subscribe on this observable")
         {
-            obs.subscribe(mock.get_observer());
+            obs.subscribe(mock);
             SECTION("value obtained")
             {
                 CHECK(mock.get_on_next_const_ref_count() == 1);
@@ -375,7 +375,7 @@ TEMPLATE_TEST_CASE("just variadic",
         auto obs = rpp::source::just<memory_model>(scheduler{}, 1, 2, 3, 4, 5, 6);
         SECTION("subscribe on it")
         {
-            obs.subscribe(mock.get_observer());
+            obs.subscribe(mock);
             SECTION("observer obtains values in the same order")
             {
                 CHECK(mock.get_received_values() == std::vector{ 1, 2, 3, 4, 5, 6 });
@@ -384,7 +384,7 @@ TEMPLATE_TEST_CASE("just variadic",
 
             SECTION("subscribe twice on same observer")
             {
-                obs.subscribe(mock.get_observer());
+                obs.subscribe(mock);
 
                 SECTION("observer obtains values in the same order twice")
                 {

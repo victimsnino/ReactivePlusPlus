@@ -36,14 +36,45 @@ public:
     }
 
     template<rpp::constraint::observable_strategy<Type> Strategy>
-    void operator()(const rpp::observable<Type, Strategy>& observalbe) &&
+    void operator()(const rpp::observable<Type, Strategy>& observable) &&
     {
-        if (!m_observer.is_disposed())
-            observalbe.subscribe(std::move(m_observer));
+        observable.subscribe(std::move(m_observer));
     }
 
 private:
     observer<Type, ObserverStrategy> m_observer;
+};
+
+template<rpp::constraint::observer_strategy_base ObserverStrategy>
+class subscribe_t<ObserverStrategy>
+{
+public:
+    explicit subscribe_t(ObserverStrategy&& observer_strategy)
+        : m_observer_strategy{std::move(observer_strategy)}
+    {
+    }
+
+    explicit subscribe_t(const ObserverStrategy& observer_strategy)
+        : m_observer_strategy{observer_strategy}
+    {
+    }
+
+    template<rpp::constraint::observable Observable>
+        requires rpp::constraint::observer_strategy<ObserverStrategy, rpp::utils::extract_observable_type_t<Observable>>
+    void operator()(const Observable& observable) const &
+    {
+        observable.subscribe(m_observer_strategy);
+    }
+    
+    template<rpp::constraint::observable Observable>
+        requires rpp::constraint::observer_strategy<ObserverStrategy, rpp::utils::extract_observable_type_t<Observable>>
+    void operator()(const Observable& observable) &&
+    {
+        observable.subscribe(std::move(m_observer_strategy));
+    }
+
+private:
+    ObserverStrategy m_observer_strategy;
 };
 
 template<rpp::constraint::decayed_type Type, rpp::constraint::observer_strategy<Type> ObserverStrategy>
@@ -57,16 +88,52 @@ public:
     }
 
     template<rpp::constraint::observable_strategy<Type> Strategy>
-    rpp::composite_disposable_wrapper operator()(const rpp::observable<Type, Strategy>& observalbe) &&
+    rpp::composite_disposable_wrapper operator()(const rpp::observable<Type, Strategy>& observable) &&
     {
-        if (!m_disposable.is_disposed() && !m_observer.is_disposed())
-            observalbe.subscribe(observer<Type, rpp::details::with_disposable<observer<Type, ObserverStrategy>>>{m_disposable, std::move(m_observer)});
+        observable.subscribe(observer<Type, rpp::details::with_external_disposable<observer<Type, ObserverStrategy>>>{m_disposable, std::move(m_observer)});
         return m_disposable;
     }
 
 private:
     rpp::composite_disposable_wrapper m_disposable;
     observer<Type, ObserverStrategy>  m_observer;
+};
+
+template<rpp::constraint::observer_strategy_base ObserverStrategy>
+class subscribe_t<rpp::composite_disposable_wrapper, ObserverStrategy>
+{
+public:
+    explicit subscribe_t(rpp::composite_disposable_wrapper&& d, ObserverStrategy&& observer_strategy)
+        : m_disposable{std::move(d)}
+        , m_observer_strategy{std::move(observer_strategy)}
+    {
+    }
+
+    explicit subscribe_t(rpp::composite_disposable_wrapper&& d, const ObserverStrategy& observer_strategy)
+        : m_disposable{std::move(d)}
+        , m_observer_strategy{observer_strategy}
+    {
+    }
+
+    template<rpp::constraint::observable Observable>
+        requires rpp::constraint::observer_strategy<ObserverStrategy, rpp::utils::extract_observable_type_t<Observable>>
+    rpp::composite_disposable_wrapper operator()(const Observable& observable) const &
+    {
+        observable.subscribe(m_disposable, m_observer_strategy);
+        return m_disposable;
+    }
+    
+    template<rpp::constraint::observable Observable>
+        requires rpp::constraint::observer_strategy<ObserverStrategy, rpp::utils::extract_observable_type_t<Observable>>
+    rpp::composite_disposable_wrapper operator()(const Observable& observable) &&
+    {
+        observable.subscribe(m_disposable, std::move(m_observer_strategy));
+        return m_disposable;
+    }
+
+private:
+    rpp::composite_disposable_wrapper m_disposable;
+    ObserverStrategy m_observer_strategy;
 };
 
 template<typename OnNext, std::invocable<const std::exception_ptr&> OnError, std::invocable<> OnCompleted>
@@ -84,16 +151,16 @@ public:
 
     template<rpp::constraint::decayed_type Type, rpp::constraint::observable_strategy<Type> Strategy>
         requires std::invocable<OnNext, Type>
-    void operator()(const rpp::observable<Type, Strategy>& observalbe) &&
+    void operator()(const rpp::observable<Type, Strategy>& observable) &&
     {
-        observalbe.subscribe(make_lambda_observer<Type>(std::move(m_on_next), std::move(m_on_error), std::move(m_on_completed)));
+        observable.subscribe(std::move(m_on_next), std::move(m_on_error), std::move(m_on_completed));
     }
 
     template<rpp::constraint::decayed_type Type, rpp::constraint::observable_strategy<Type> Strategy>
         requires std::invocable<OnNext, Type>
-    void operator()(const rpp::observable<Type, Strategy>& observalbe) const &
+    void operator()(const rpp::observable<Type, Strategy>& observable) const &
     {
-        observalbe.subscribe(make_lambda_observer<Type>(m_on_next, m_on_error, m_on_completed));
+        observable.subscribe(m_on_next, m_on_error, m_on_completed);
     }
 
 private:
@@ -117,19 +184,17 @@ public:
 
     template<rpp::constraint::decayed_type Type, rpp::constraint::observable_strategy<Type> Strategy>
         requires std::invocable<OnNext, Type>
-    rpp::composite_disposable_wrapper operator()(const rpp::observable<Type, Strategy>& observalbe) &&
+    rpp::composite_disposable_wrapper operator()(const rpp::observable<Type, Strategy>& observable) &&
     {
-        if (!m_disposable.is_disposed())
-            observalbe.subscribe(make_lambda_observer<Type>(m_disposable, std::move(m_on_next), std::move(m_on_error), std::move(m_on_completed)));
+        observable.subscribe(m_disposable, std::move(m_on_next), std::move(m_on_error), std::move(m_on_completed));
         return std::move(m_disposable);
     }
 
     template<rpp::constraint::decayed_type Type, rpp::constraint::observable_strategy<Type> Strategy>
         requires std::invocable<OnNext, Type>
-    rpp::composite_disposable_wrapper operator()(const rpp::observable<Type, Strategy>& observalbe) const &
+    rpp::composite_disposable_wrapper operator()(const rpp::observable<Type, Strategy>& observable) const &
     {
-        if (!m_disposable.is_disposed())
-            observalbe.subscribe(make_lambda_observer<Type>(m_disposable, m_on_next, m_on_error, m_on_completed));
+        observable.subscribe(m_disposable, m_on_next, m_on_error, m_on_completed);
         return m_disposable;
     }
 
@@ -142,6 +207,12 @@ private:
 
 template<typename... Args>
 subscribe_t(const Args&...) -> subscribe_t<Args...>;
+
+template<typename OnNext>
+concept on_next_like = (rpp::utils::is_not_template_callable<OnNext> && std::invocable<OnNext, rpp::utils::convertible_to_any>) || 
+                        (!rpp::constraint::decayed_same_as<OnNext, rpp::composite_disposable_wrapper> && 
+                         !rpp::constraint::observer_strategy_base<OnNext> &&
+                         !rpp::constraint::observer<OnNext>);
 }
 
 namespace rpp::operators
@@ -187,6 +258,18 @@ auto subscribe(dynamic_observer<Type> observer)
 }
 
 /**
+ * @brief  Subscribes passed observer strategy to emissions from this observable via construction of observer
+ *
+ * @ingroup utility_operators
+ */
+template<rpp::constraint::observer_strategy_base ObserverStrategy>
+    requires (!constraint::observer<ObserverStrategy>)
+auto subscribe(ObserverStrategy&& observer_strategy)
+{
+    return details::subscribe_t{std::forward<ObserverStrategy>(observer_strategy)};
+}
+
+/**
  * @brief Subscribe passed observer to emissions from observable.
  * @details This overloading attaches passed disposable to observer and return it to provide ability to dispose observer early if needed.
  * @warning This overloading has some performance penalties, use it only when you really need to use disposable
@@ -202,11 +285,28 @@ auto subscribe(rpp::composite_disposable_wrapper disposable, dynamic_observer<Ty
 }
 
 /**
+ * @brief  Subscribes passed observer strategy to emissions from this observable via construction of observer
+ * @details This overloading attaches passed disposable to observer and return it to provide ability to dispose observer early if needed.
+ * @warning This overloading has some performance penalties, use it only when you really need to use disposable
+ *
+ * @param d is disposable to be attached to observer. If disposable is nullptr or disposed -> no any subscription happens
+ *
+ * @ingroup utility_operators
+ */
+template<rpp::constraint::observer_strategy_base ObserverStrategy>
+    requires (!constraint::observer<ObserverStrategy>)
+auto subscribe(rpp::composite_disposable_wrapper disposable, ObserverStrategy&& observer_strategy)
+{
+    return details::subscribe_t{std::move(disposable), std::forward<ObserverStrategy>(observer_strategy)};
+}
+
+/**
  * @brief Construct rpp::lambda_observer on the fly and subscribe it to emissions from observable
  *
  * @ingroup utility_operators
  */
-template<typename OnNext = rpp::utils::empty_function_any_t, std::invocable<const std::exception_ptr&> OnError = rpp::utils::rethrow_error_t, std::invocable<> OnCompleted = rpp::utils::empty_function_t<>>
+template<details::on_next_like OnNext = rpp::utils::empty_function_any_t, std::invocable<const std::exception_ptr&> OnError = rpp::utils::rethrow_error_t, std::invocable<> OnCompleted = rpp::utils::empty_function_t<>>
+    
 auto subscribe(OnNext&& on_next = {}, OnError&& on_error = {}, OnCompleted&& on_completed = {})
 {
     return details::subscribe_t{std::forward<OnNext>(on_next), std::forward<OnError>(on_error), std::forward<OnCompleted>(on_completed)};
@@ -221,7 +321,7 @@ auto subscribe(OnNext&& on_next = {}, OnError&& on_error = {}, OnCompleted&& on_
  *
  * @ingroup utility_operators
  */
-template<typename OnNext = rpp::utils::empty_function_any_t, std::invocable<const std::exception_ptr&> OnError = rpp::utils::rethrow_error_t, std::invocable<> OnCompleted = rpp::utils::empty_function_t<>>
+template<details::on_next_like OnNext = rpp::utils::empty_function_any_t, std::invocable<const std::exception_ptr&> OnError = rpp::utils::rethrow_error_t, std::invocable<> OnCompleted = rpp::utils::empty_function_t<>>
 auto subscribe(rpp::composite_disposable_wrapper d, OnNext&& on_next = {}, OnError&& on_error = {}, OnCompleted&& on_completed = {})
 {
     return details::subscribe_t{std::move(d), std::forward<OnNext>(on_next), std::forward<OnError>(on_error), std::forward<OnCompleted>(on_completed)};
@@ -263,7 +363,7 @@ auto subscribe_with_disposable(dynamic_observer<Type> observer)
  *
  * @ingroup utility_operators
  */
-template<typename OnNext = rpp::utils::empty_function_any_t, std::invocable<const std::exception_ptr&> OnError = rpp::utils::rethrow_error_t, std::invocable<> OnCompleted = rpp::utils::empty_function_t<>>
+template<details::on_next_like OnNext = rpp::utils::empty_function_any_t, std::invocable<const std::exception_ptr&> OnError = rpp::utils::rethrow_error_t, std::invocable<> OnCompleted = rpp::utils::empty_function_t<>>
 auto subscribe_with_disposable(OnNext&& on_next = {}, OnError&& on_error = {}, OnCompleted&& on_completed = {})
 {
     return subscribe(rpp::composite_disposable_wrapper{std::make_shared<rpp::composite_disposable>()}, std::forward<OnNext>(on_next), std::forward<OnError>(on_error), std::forward<OnCompleted>(on_completed));

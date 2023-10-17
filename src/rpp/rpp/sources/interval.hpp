@@ -28,18 +28,22 @@ struct interval_schedulable
 template<typename TScheduler>
 struct interval_strategy
 {
-    using ValueType = size_t;
+    using value_type = size_t;
+    using expected_disposable_strategy = std::conditional_t<rpp::schedulers::utils::get_worker_t<TScheduler>::is_none_disposable, rpp::details::observables::none_disposable_strategy_selector, rpp::details::observables::fixed_disposable_strategy_selector<1>>;
 
     RPP_NO_UNIQUE_ADDRESS TScheduler scheduler;
     rpp::schedulers::duration        initial;
     rpp::schedulers::duration        period;
 
-    template<rpp::constraint::observer_of_type<ValueType> TObs>
+    template<rpp::constraint::observer_of_type<value_type> TObs>
     void subscribe(TObs&& observer) const
     {
         const auto worker = scheduler.create_worker();
-        if (auto d = worker.get_disposable(); !d.is_disposed())
-            observer.set_upstream(std::move(d));
+        if constexpr (!rpp::schedulers::utils::get_worker_t<TScheduler>::is_none_disposable)
+        {
+            if (auto d = worker.get_disposable(); !d.is_disposed())
+                observer.set_upstream(std::move(d));
+        }
         worker.schedule(initial, interval_schedulable{}, std::forward<TObs>(observer), period, size_t{});
     }
 };
@@ -65,7 +69,7 @@ namespace rpp::source
  * @param initial time before first emission
  * @param period period between emitted values
  * @param scheduler the scheduler to use for scheduling the items
- * 
+ *
  * @par Example:
  * @snippet interval.cpp interval period
  *
@@ -87,7 +91,7 @@ auto interval(rpp::schedulers::duration initial, rpp::schedulers::duration perio
    }
  * @param period period between emitted values
  * @param scheduler the scheduler to use for scheduling the items
- * 
+ *
  * @par Example:
  * @snippet interval.cpp interval period
  *

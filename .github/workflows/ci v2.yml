@@ -33,14 +33,18 @@ jobs:
     strategy:
       matrix:
         config: [{name: ci-ubuntu-gcc,  os: ubuntu-latest},
-                {name: ci-ubuntu-clang,os: ubuntu-latest},
-                {name: ci-windows,     os: windows-latest},
-                {name: ci-macos,       os: macos-latest}]
+                {name: ci-ubuntu-clang, os: ubuntu-latest},
+                {name: ci-windows,      os: windows-latest},
+                {name: ci-macos,        os: macos-latest}]
         type: [tests, benchmarks]
+        build_type: [{config: Release, test_preset: ci-tests}, {config: Debug, test_preset: ci-tests-debug}]
+        exclude:
+          - type: benchmarks
+            build_type: {config: Debug}
 
     timeout-minutes: 20
     runs-on: ${{ matrix.config.os }}
-    name: ${{ matrix.type }} ${{ matrix.config.name }}
+    name: ${{ matrix.type }} ${{ matrix.config.name }} ${{ matrix.build_type.config }}
 
     steps:
     - uses: actions/checkout@v4
@@ -50,7 +54,7 @@ jobs:
     - name: ccache
       uses: hendrikmuhs/ccache-action@v1.2
       with:
-        key: ${{ matrix.type }}-${{ matrix.config.name }}
+        key: ${{ matrix.type }}-${{ matrix.config.name }}-${{ matrix.build_type.config }}
 
     - name: Install deps
       if: matrix.config.os == 'ubuntu-latest'
@@ -62,8 +66,11 @@ jobs:
       uses: lukka/run-cmake@v10
       with:
         configurePreset: ${{ matrix.config.name }}-${{ matrix.type }}
+        configurePresetAdditionalArgs: "['-DCMAKE_BUILD_TYPE=${{ matrix.build_type.config }}']"
         buildPreset: ci-build
-        testPreset: ci-tests
+        buildPresetAdditionalArgs: "['--config ${{ matrix.build_type.config }}']"
+        testPreset: ${{matrix.build_type.test_preset}}
+
 
     - name: Upload benchmark results
       uses: actions/upload-artifact@v3

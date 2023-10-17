@@ -39,7 +39,7 @@ TEMPLATE_TEST_CASE("skip ignores first `count` of items",
     {
         constexpr size_t count = 5;
         auto             new_obs = obs| rpp::operators::skip(count);
-        new_obs.subscribe(mock.get_observer());
+        new_obs.subscribe(mock);
 
         CHECK(mock.get_received_values() == std::vector{ 5,6,7,8,9});
         CHECK(mock.get_on_completed_count() == 1);
@@ -47,7 +47,7 @@ TEMPLATE_TEST_CASE("skip ignores first `count` of items",
         SECTION("second subscription sees same")
         {
             auto mock_2 = mock_observer_strategy<int>{};
-            new_obs.subscribe(mock_2.get_observer());
+            new_obs.subscribe(mock_2);
 
             CHECK(mock_2.get_received_values() == std::vector{ 5,6,7,8,9 });
             CHECK(mock.get_on_completed_count() == 1);
@@ -57,7 +57,7 @@ TEMPLATE_TEST_CASE("skip ignores first `count` of items",
     {
         constexpr size_t count = 0;
         auto             new_obs = obs | rpp::ops::skip(count);
-        new_obs.subscribe(mock.get_observer());
+        new_obs.subscribe(mock);
         CHECK(mock.get_received_values() == std::vector{ 0,1,2,3,4,5,6,7,8,9 });
         CHECK(mock.get_on_completed_count() == 1);
     }
@@ -65,7 +65,7 @@ TEMPLATE_TEST_CASE("skip ignores first `count` of items",
     {
         constexpr size_t count = 1000;
         auto             new_obs = obs | rpp::ops::skip(count);
-        new_obs.subscribe(mock.get_observer());
+        new_obs.subscribe(mock);
         CHECK(mock.get_received_values() == std::vector<int>{ });
         CHECK(mock.get_on_completed_count() == 1);
     }
@@ -75,7 +75,7 @@ TEST_CASE("skip forwards error")
 {
     auto mock = mock_observer_strategy<int>{};
 
-    rpp::source::error<int>({}) | rpp::operators::skip(1) | rpp::ops::subscribe(mock.get_observer());
+    rpp::source::error<int>({}) | rpp::operators::skip(1) | rpp::ops::subscribe(mock);
     CHECK(mock.get_received_values() == std::vector<int>{});
     CHECK(mock.get_on_error_count() == 1);
     CHECK(mock.get_on_completed_count() == 0);
@@ -84,7 +84,7 @@ TEST_CASE("skip forwards error")
 TEST_CASE("skip forwards completion")
 {
     auto mock = mock_observer_strategy<int>{};
-    rpp::source::empty<int>() | rpp::operators::skip(1) | rpp::ops::subscribe(mock.get_observer());
+    rpp::source::empty<int>() | rpp::operators::skip(1) | rpp::ops::subscribe(mock);
     CHECK(mock.get_received_values() == std::vector<int>{});
     CHECK(mock.get_on_error_count() == 0);
     CHECK(mock.get_on_completed_count() == 1);
@@ -104,7 +104,7 @@ TEST_CASE("skip doesn't produce extra copies")
     }
 }
 
-TEST_CASE("skip disposes original disposable on disposing")
+TEST_CASE("skip satisfies disposable contracts")
 {
     test_operator_with_disposable<int>(rpp::ops::skip(1));
 }

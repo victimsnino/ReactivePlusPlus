@@ -29,7 +29,7 @@ TEST_CASE("window subdivide observable into sub-observables")
             SECTION("see 2 observables")
             {
                 auto mock = mock_observer_strategy<rpp::windowed_observable<int>>{};
-                obs.subscribe(mock.get_observer());
+                obs.subscribe(mock);
 
                 CHECK(mock.get_total_on_next_count() == 2);
                 CHECK(mock.get_on_error_count() == 0);
@@ -42,7 +42,7 @@ TEST_CASE("window subdivide observable into sub-observables")
                 obs.subscribe([&](const auto& observable)
                 {
                     if (i++ == 0)
-                        observable.subscribe(mock.get_observer());
+                        observable.subscribe(mock);
                 });
 
                 CHECK(mock.get_received_values() == std::vector{1,2});
@@ -56,7 +56,7 @@ TEST_CASE("window subdivide observable into sub-observables")
                 obs.subscribe([&](const auto& observable)
                 {
                     if (i++ == 1)
-                        observable.subscribe(mock.get_observer());
+                        observable.subscribe(mock);
                 });
 
                 CHECK(mock.get_received_values() == std::vector{ 3 });
@@ -76,7 +76,7 @@ TEST_CASE("window subdivide observable into sub-observables")
             SECTION("emit first item")
             {
                 auto mock = mock_observer_strategy<rpp::windowed_observable<int>>{};
-                obs.subscribe(mock.get_observer());
+                obs.subscribe(mock);
 
                 CHECK(mock.get_total_on_next_count() == 0);
                 CHECK(mock.get_on_error_count() == 0);
@@ -128,7 +128,7 @@ TEST_CASE("window subdivide observable into sub-observables")
             SECTION("emit first item")
             {
                 auto mock = mock_observer_strategy<int>{};
-                obs.subscribe([&](const auto& observable) { observable.subscribe(mock.get_observer()); },
+                obs.subscribe([&](const auto& observable) { observable.subscribe(mock); },
                               [](const std::exception_ptr&) {});
 
                 subj.get_observer().on_next(1);
@@ -214,7 +214,7 @@ TEST_CASE("window disposes original disposable only when everything is disposed"
     CHECK(inner_observer_disposable->is_disposed());
 }
 
-TEST_CASE("window disposes original disposable on disposing")
+TEST_CASE("window satisfies disposable contracts")
 {
     test_operator_with_disposable<int>(rpp::ops::window(1));
 }
