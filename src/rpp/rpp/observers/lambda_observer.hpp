@@ -22,9 +22,9 @@ template<rpp::constraint::decayed_type             Type,
          std::invocable<>                          OnCompleted>
 struct lambda_strategy
 {
-    RPP_NO_UNIQUE_ADDRESS OnNext      on_next;
-    RPP_NO_UNIQUE_ADDRESS OnError     on_error;
-    RPP_NO_UNIQUE_ADDRESS OnCompleted on_completed;
+    RPP_NO_UNIQUE_ADDRESS OnNext      on_next{};
+    RPP_NO_UNIQUE_ADDRESS OnError     on_error{};
+    RPP_NO_UNIQUE_ADDRESS OnCompleted on_completed{};
 
     static void set_upstream(const disposable_wrapper&) noexcept {}
 
