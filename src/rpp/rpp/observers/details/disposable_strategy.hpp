@@ -20,16 +20,55 @@
 
 namespace rpp::details::observers
 {
-template<typename DisposableContainer>
+class atomic_bool
+{
+public:
+    atomic_bool() = default;
+    atomic_bool(atomic_bool&& other) noexcept
+        // just need atomicity, not guarding anything
+        : m_value{other.m_value.load(std::memory_order::relaxed)}
+    {}
+
+    bool test() const noexcept 
+    {
+        // just need atomicity, not guarding anything
+        return m_value.load(std::memory_order::relaxed);
+    }
+
+    void set() noexcept
+    {
+        // just need atomicity, not guarding anything
+        m_value.store(true, std::memory_order::relaxed);
+    }
+private:
+    std::atomic_bool m_value{};
+};
+
+class non_atomic_bool
+{
+public:
+    non_atomic_bool() = default;
+    non_atomic_bool(non_atomic_bool&& other) noexcept = default;
+
+    bool test() const noexcept 
+    {
+        return m_value;
+    }
+
+    void set() noexcept
+    {
+        m_value = true;
+    }
+private:
+    bool m_value{};
+};
+
+template<typename DisposableContainer, rpp::constraint::any_of<atomic_bool, non_atomic_bool> Bool>
 class local_disposable_strategy
 {
 public:
     local_disposable_strategy() = default;
-    local_disposable_strategy(local_disposable_strategy&& other) noexcept
-        : m_upstreams(std::move(other.m_upstreams))
-        // just need atomicity, not guarding anything
-        , m_is_disposed(other.m_is_disposed.load(std::memory_order::relaxed))
-    {}
+    local_disposable_strategy(local_disposable_strategy&& other) noexcept = default;
 
     void add(const disposable_wrapper& d)
     {
@@ -39,19 +78,19 @@ public:
     bool is_disposed() const noexcept
     {
         // just need atomicity, not guarding anything
-        return m_is_disposed.load(std::memory_order::relaxed);
+        return m_is_disposed.test();
     }
 
     void dispose() const
     {
         // just need atomicity, not guarding anything
-        m_is_disposed.store(true, std::memory_order::relaxed);
+        m_is_disposed.set();
         m_upstreams.dispose();
     }
 
 private:
     RPP_NO_UNIQUE_ADDRESS DisposableContainer m_upstreams{};
-    mutable std::atomic_bool                  m_is_disposed{false};
+    mutable Bool                              m_is_disposed{};
 };
 
 struct none_disposable_strategy

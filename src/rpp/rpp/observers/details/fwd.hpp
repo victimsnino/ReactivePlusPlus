@@ -17,7 +17,10 @@
 
 namespace rpp::details::observers
 {
-template<typename DisposableContainer>
+class atomic_bool;
+class non_atomic_bool;
+
+template<typename DisposableContainer, rpp::constraint::any_of<atomic_bool, non_atomic_bool> Bool>
 class local_disposable_strategy;
 
 /**
@@ -28,19 +31,20 @@ struct none_disposable_strategy;
 /**
  * @brief Dynamic disposable logic based on pre-allocated vector
  */
-template<size_t Count>
-using dynamic_local_disposable_strategy = local_disposable_strategy<disposables::dynamic_disposables_container<Count>>;
+template<size_t Count, rpp::constraint::any_of<atomic_bool, non_atomic_bool> Bool>
+using dynamic_local_disposable_strategy = local_disposable_strategy<disposables::dynamic_disposables_container<Count>, Bool>;
 
 /**
  * @brief Same as dynamic strategy, but based on array.
  */
-template<size_t Count>
-using static_local_disposable_strategy = local_disposable_strategy<disposables::static_disposables_container<Count>>;
+template<size_t Count, rpp::constraint::any_of<atomic_bool, non_atomic_bool> Bool>
+using static_local_disposable_strategy = local_disposable_strategy<disposables::static_disposables_container<Count>, Bool>;
 
 /**
  * @brief Just an boolean with no any disposables
  */
-using bool_local_disposable_strategy = local_disposable_strategy<disposables::none_disposables_container>;
+template<rpp::constraint::any_of<atomic_bool, non_atomic_bool> Bool>
+using bool_local_disposable_strategy = local_disposable_strategy<disposables::none_disposables_container, Bool>;
 
 /**
  * @brief External disposable used as strategy
@@ -69,7 +73,7 @@ namespace details
         if constexpr (has_disposable_strategy_v<T>)
             return static_cast<typename T::preferred_disposable_strategy*>(nullptr);
         else
-            return static_cast<dynamic_local_disposable_strategy<0>*>(nullptr);
+            return static_cast<dynamic_local_disposable_strategy<0, atomic_bool>*>(nullptr);
     }
 }
 
