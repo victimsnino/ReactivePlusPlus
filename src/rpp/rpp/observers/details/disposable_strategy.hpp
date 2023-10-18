@@ -63,7 +63,7 @@ private:
     bool m_value{};
 };
 
-template<typename DisposableContainer, typename Bool>
+template<typename DisposableContainer, rpp::constraint::any_of<atomic_bool, non_atomic_bool> Bool>
 class local_disposable_strategy
 {
 public:
