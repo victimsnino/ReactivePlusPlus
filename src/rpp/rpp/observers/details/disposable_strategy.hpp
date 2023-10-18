@@ -48,7 +48,7 @@ class non_atomic_bool
 {
 public:
     non_atomic_bool() = default;
-    non_atomic_bool(atomic_bool&& other) noexcept = default;
+    non_atomic_bool(non_atomic_bool&& other) noexcept = default;
 
     bool test() const noexcept 
     {

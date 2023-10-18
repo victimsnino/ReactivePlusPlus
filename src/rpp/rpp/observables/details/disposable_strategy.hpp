@@ -68,11 +68,8 @@ struct fixed_disposable_strategy_selector<0, Mode>
 template<size_t Count>
 using atomic_fixed_disposable_strategy_selector = fixed_disposable_strategy_selector<Count, AtomicMode::Atomic>;
 
-template<AtomicMode Mode = AtomicMode::NonAtomic>
-using bool_disposable_strategy_selector = fixed_disposable_strategy_selector<0, Mode>;
-
-using atomic_bool_disposable_strategy_selector = bool_disposable_strategy_selector<AtomicMode::Atomic>;
-
+using bool_disposable_strategy_selector = fixed_disposable_strategy_selector<0, AtomicMode::NonAtomic>;
+using atomic_bool_disposable_strategy_selector = fixed_disposable_strategy_selector<0, AtomicMode::Atomic>;
 
 
 namespace details
