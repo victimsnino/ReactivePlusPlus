@@ -20,6 +20,9 @@ namespace rpp::details::observers
 template<typename DisposableContainer>
 class local_disposable_strategy;
 
+class atomic_bool;
+class non_atomic_flag;
+
 /**
  * @brief No any disposable logic at all. Used only inside proxy-forwarding operators where extra disposable logic not requires
  */
@@ -28,19 +31,20 @@ struct none_disposable_strategy;
 /**
  * @brief Dynamic disposable logic based on pre-allocated vector
  */
-template<size_t Count>
-using dynamic_local_disposable_strategy = local_disposable_strategy<disposables::dynamic_disposables_container<Count>>;
+template<size_t Count, typename Bool>
+using dynamic_local_disposable_strategy = local_disposable_strategy<disposables::dynamic_disposables_container<Count>, Bool>;
 
 /**
  * @brief Same as dynamic strategy, but based on array.
  */
-template<size_t Count>
-using static_local_disposable_strategy = local_disposable_strategy<disposables::static_disposables_container<Count>>;
+template<size_t Count, typename Bool>
+using static_local_disposable_strategy = local_disposable_strategy<disposables::static_disposables_container<Count>, Bool>;
 
 /**
  * @brief Just an boolean with no any disposables
  */
-using bool_local_disposable_strategy = local_disposable_strategy<disposables::none_disposables_container>;
+template<typename Bool>
+using bool_local_disposable_strategy = local_disposable_strategy<disposables::none_disposables_container, Bool>;
 
 /**
  * @brief External disposable used as strategy
@@ -69,7 +73,7 @@ namespace details
         if constexpr (has_disposable_strategy_v<T>)
             return static_cast<typename T::preferred_disposable_strategy*>(nullptr);
         else
-            return static_cast<dynamic_local_disposable_strategy<0>*>(nullptr);
+            return static_cast<dynamic_local_disposable_strategy<0, atomic_bool>*>(nullptr);
     }
 }
 

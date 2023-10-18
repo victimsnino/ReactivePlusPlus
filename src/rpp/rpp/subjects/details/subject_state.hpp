@@ -42,7 +42,7 @@ class subject_state final : public std::enable_shared_from_this<subject_state<Ty
     using state_t          = std::variant<shared_observers, std::exception_ptr, completed, disposed>;
 
 public:
-    using expected_disposable_strategy = rpp::details::observables::fixed_disposable_strategy_selector<1>;
+    using expected_disposable_strategy = rpp::details::observables::atomic_fixed_disposable_strategy_selector<1>;
 
     template<rpp::constraint::observer_of_type<Type> TObs>
     void on_subscribe(TObs&& observer)
