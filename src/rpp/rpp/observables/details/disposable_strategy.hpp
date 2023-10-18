@@ -27,7 +27,7 @@ template<size_t PreallocatedCount = 0, AtomicMode Mode = AtomicMode::NonAtomic>
 struct dynamic_disposable_strategy_selector
 {
     template<size_t Count>
-    using add = dynamic_disposable_strategy_selector<PreallocatedCount+Count>;
+    using add = dynamic_disposable_strategy_selector<PreallocatedCount+Count, Mode>;
 
     using disposable_container = disposables::dynamic_disposables_container<PreallocatedCount>;
     using disposable_strategy  = observers::dynamic_local_disposable_strategy<PreallocatedCount, deduce_atomic_bool<Mode>>;
@@ -40,7 +40,7 @@ template<size_t Count, AtomicMode Mode = AtomicMode::NonAtomic>
 struct fixed_disposable_strategy_selector
 {
     template<size_t AddCount>
-    using add = fixed_disposable_strategy_selector<Count+AddCount>;
+    using add = fixed_disposable_strategy_selector<Count+AddCount, Mode>;
 
     using disposable_container = disposables::static_disposables_container<Count>;
     using disposable_strategy = observers::static_local_disposable_strategy<Count, deduce_atomic_bool<Mode>>;
@@ -50,7 +50,7 @@ template<AtomicMode Mode = AtomicMode::NonAtomic>
 struct fixed_disposable_strategy_selector<0, Mode>
 {
     template<size_t Count>
-    using add = fixed_disposable_strategy_selector<Count>;
+    using add = fixed_disposable_strategy_selector<Count, Mode>;
 
     using disposable_container = default_disposable_strategy_selector::disposable_container;
     using disposable_strategy = observers::bool_local_disposable_strategy<deduce_atomic_bool<Mode>>;
