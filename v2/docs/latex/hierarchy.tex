@@ -1,6 +1,7 @@
 \doxysection{Class Hierarchy}
 This inheritance list is sorted roughly, but not completely, alphabetically\+:\begin{DoxyCompactList}
 \item \contentsline{section}{rpp\+::operators\+::details\+::as\+\_\+blocking\+\_\+t}{\pageref{structrpp_1_1operators_1_1details_1_1as__blocking__t}}{}
+\item \contentsline{section}{rpp\+::details\+::observers\+::atomic\+\_\+bool}{\pageref{classrpp_1_1details_1_1observers_1_1atomic__bool}}{}
 \item base\+\_\+interface\begin{DoxyCompactList}
 \item \contentsline{section}{rpp\+::details\+::base\+\_\+disposable\+\_\+impl\texorpdfstring{$<$}{<} base\+\_\+interface \texorpdfstring{$>$}{>}}{\pageref{classrpp_1_1details_1_1base__disposable__impl}}{}
 \begin{DoxyCompactList}
@@ -13,10 +14,6 @@ This inheritance list is sorted roughly, but not completely, alphabetically\+:\b
 \item \contentsline{section}{rpp\+::subjects\+::details\+::base\+\_\+subject\texorpdfstring{$<$}{<} value\+\_\+type \texorpdfstring{$>$}{>}}{\pageref{classrpp_1_1subjects_1_1details_1_1base__subject}}{}
 \item \contentsline{section}{rpp\+::details\+::observables\+::blocking\+\_\+observer\+\_\+strategy\texorpdfstring{$<$}{<} TObserver \texorpdfstring{$>$}{>}}{\pageref{structrpp_1_1details_1_1observables_1_1blocking__observer__strategy}}{}
 \item \contentsline{section}{rpp\+::details\+::observables\+::blocking\+\_\+strategy\texorpdfstring{$<$}{<} Type, Strategy \texorpdfstring{$>$}{>}}{\pageref{classrpp_1_1details_1_1observables_1_1blocking__strategy}}{}
-\item \contentsline{section}{rpp\+::details\+::observables\+::bool\+\_\+disposable\+\_\+strategy\+\_\+selector}{\pageref{structrpp_1_1details_1_1observables_1_1bool__disposable__strategy__selector}}{}
-\begin{DoxyCompactList}
-\item \contentsline{section}{rpp\+::details\+::observables\+::fixed\+\_\+disposable\+\_\+strategy\+\_\+selector\texorpdfstring{$<$}{<} 0 \texorpdfstring{$>$}{>}}{\pageref{structrpp_1_1details_1_1observables_1_1fixed__disposable__strategy__selector_3_010_01_4}}{}
-\end{DoxyCompactList}
 \item \contentsline{section}{rpp\+::operators\+::details\+::buffer\+\_\+observer\+\_\+strategy\texorpdfstring{$<$}{<} TObserver \texorpdfstring{$>$}{>}}{\pageref{classrpp_1_1operators_1_1details_1_1buffer__observer__strategy}}{}
 \item \contentsline{section}{rpp\+::operators\+::details\+::combine\+\_\+latest\+\_\+observer\+\_\+strategy\texorpdfstring{$<$}{<} I, Observer, TSelector, Args \texorpdfstring{$>$}{>}}{\pageref{structrpp_1_1operators_1_1details_1_1combine__latest__observer__strategy}}{}
 \item \contentsline{section}{rpp\+::operators\+::details\+::combine\+\_\+latest\+\_\+t\texorpdfstring{$<$}{<} TSelector, TObservables \texorpdfstring{$>$}{>}}{\pageref{structrpp_1_1operators_1_1details_1_1combine__latest__t}}{}
@@ -40,7 +37,7 @@ This inheritance list is sorted roughly, but not completely, alphabetically\+:\b
 \item \contentsline{section}{rpp\+::disposable\+\_\+wrapper\+\_\+impl\texorpdfstring{$<$}{<} interface\+\_\+composite\+\_\+disposable \texorpdfstring{$>$}{>}}{\pageref{classrpp_1_1disposable__wrapper__impl}}{}
 \item \contentsline{section}{rpp\+::subjects\+::details\+::disposed}{\pageref{structrpp_1_1subjects_1_1details_1_1disposed}}{}
 \item \contentsline{section}{rpp\+::operators\+::details\+::distinct\+\_\+until\+\_\+changed\+\_\+observer\+\_\+strategy\texorpdfstring{$<$}{<} Type, TObserver, Equality\+Fn \texorpdfstring{$>$}{>}}{\pageref{structrpp_1_1operators_1_1details_1_1distinct__until__changed__observer__strategy}}{}
-\item \contentsline{section}{rpp\+::details\+::observables\+::dynamic\+\_\+disposable\+\_\+strategy\+\_\+selector\texorpdfstring{$<$}{<} Preallocated\+Count \texorpdfstring{$>$}{>}}{\pageref{structrpp_1_1details_1_1observables_1_1dynamic__disposable__strategy__selector}}{}
+\item \contentsline{section}{rpp\+::details\+::observables\+::dynamic\+\_\+disposable\+\_\+strategy\+\_\+selector\texorpdfstring{$<$}{<} Preallocated\+Count, Mode \texorpdfstring{$>$}{>}}{\pageref{structrpp_1_1details_1_1observables_1_1dynamic__disposable__strategy__selector}}{}
 \item \contentsline{section}{rpp\+::details\+::disposables\+::dynamic\+\_\+disposables\+\_\+container\+\_\+base}{\pageref{classrpp_1_1details_1_1disposables_1_1dynamic__disposables__container__base}}{}
 \begin{DoxyCompactList}
 \item \contentsline{section}{rpp\+::details\+::disposables\+::dynamic\+\_\+disposables\+\_\+container\texorpdfstring{$<$}{<} Count \texorpdfstring{$>$}{>}}{\pageref{classrpp_1_1details_1_1disposables_1_1dynamic__disposables__container}}{}
@@ -64,7 +61,8 @@ This inheritance list is sorted roughly, but not completely, alphabetically\+:\b
 \end{DoxyCompactList}
 \item \contentsline{section}{rpp\+::operators\+::details\+::filter\+\_\+observer\+\_\+strategy\texorpdfstring{$<$}{<} TObserver, Fn \texorpdfstring{$>$}{>}}{\pageref{structrpp_1_1operators_1_1details_1_1filter__observer__strategy}}{}
 \item \contentsline{section}{rpp\+::operators\+::details\+::first\+\_\+observer\+\_\+strategy\texorpdfstring{$<$}{<} TObserver \texorpdfstring{$>$}{>}}{\pageref{structrpp_1_1operators_1_1details_1_1first__observer__strategy}}{}
-\item \contentsline{section}{rpp\+::details\+::observables\+::fixed\+\_\+disposable\+\_\+strategy\+\_\+selector\texorpdfstring{$<$}{<} Count \texorpdfstring{$>$}{>}}{\pageref{structrpp_1_1details_1_1observables_1_1fixed__disposable__strategy__selector}}{}
+\item \contentsline{section}{rpp\+::details\+::observables\+::fixed\+\_\+disposable\+\_\+strategy\+\_\+selector\texorpdfstring{$<$}{<} Count, Mode \texorpdfstring{$>$}{>}}{\pageref{structrpp_1_1details_1_1observables_1_1fixed__disposable__strategy__selector}}{}
+\item \contentsline{section}{rpp\+::details\+::observables\+::fixed\+\_\+disposable\+\_\+strategy\+\_\+selector\texorpdfstring{$<$}{<} 0, Mode \texorpdfstring{$>$}{>}}{\pageref{structrpp_1_1details_1_1observables_1_1fixed__disposable__strategy__selector_3_010_00_01_mode_01_4}}{}
 \item \contentsline{section}{rpp\+::operators\+::details\+::flat\+\_\+map\+\_\+t\texorpdfstring{$<$}{<} Fn \texorpdfstring{$>$}{>}}{\pageref{structrpp_1_1operators_1_1details_1_1flat__map__t}}{}
 \item \contentsline{section}{rpp\+::operators\+::details\+::forwarding\+\_\+strategy\texorpdfstring{$<$}{<} Type \texorpdfstring{$>$}{>}}{\pageref{classrpp_1_1operators_1_1details_1_1forwarding__strategy}}{}
 \item \contentsline{section}{rpp\+::details\+::from\+\_\+callable\+\_\+invoke}{\pageref{structrpp_1_1details_1_1from__callable__invoke}}{}
@@ -100,7 +98,7 @@ This inheritance list is sorted roughly, but not completely, alphabetically\+:\b
 \item \contentsline{section}{rpp\+::utils\+::details\+::is\+\_\+observable\+\_\+t\texorpdfstring{$<$}{<} TObservable \texorpdfstring{$>$}{>}}{\pageref{structrpp_1_1utils_1_1details_1_1is__observable__t}}{}
 \item \contentsline{section}{rpp\+::details\+::observers\+::lambda\+\_\+strategy\texorpdfstring{$<$}{<} Type, On\+Next, On\+Error, On\+Completed \texorpdfstring{$>$}{>}}{\pageref{structrpp_1_1details_1_1observers_1_1lambda__strategy}}{}
 \item \contentsline{section}{rpp\+::operators\+::details\+::last\+\_\+observer\+\_\+strategy\texorpdfstring{$<$}{<} Type, TObserver \texorpdfstring{$>$}{>}}{\pageref{structrpp_1_1operators_1_1details_1_1last__observer__strategy}}{}
-\item \contentsline{section}{rpp\+::details\+::observers\+::local\+\_\+disposable\+\_\+strategy\texorpdfstring{$<$}{<} Disposable\+Container \texorpdfstring{$>$}{>}}{\pageref{classrpp_1_1details_1_1observers_1_1local__disposable__strategy}}{}
+\item \contentsline{section}{rpp\+::details\+::observers\+::local\+\_\+disposable\+\_\+strategy\texorpdfstring{$<$}{<} Disposable\+Container, Bool \texorpdfstring{$>$}{>}}{\pageref{classrpp_1_1details_1_1observers_1_1local__disposable__strategy}}{}
 \item \contentsline{section}{rpp\+::make\+\_\+chain\+\_\+observable\texorpdfstring{$<$}{<} New, Old \texorpdfstring{$>$}{>}}{\pageref{structrpp_1_1make__chain__observable}}{}
 \item \contentsline{section}{rpp\+::make\+\_\+chain\+\_\+observable\texorpdfstring{$<$}{<} New, observable\+\_\+chain\+\_\+strategy\texorpdfstring{$<$}{<} Args... \texorpdfstring{$>$}{>} \texorpdfstring{$>$}{>}}{\pageref{structrpp_1_1make__chain__observable_3_01_new_00_01observable__chain__strategy_3_01_args_8_8_8_01_4_01_4}}{}
 \item \contentsline{section}{rpp\+::operators\+::details\+::map\+\_\+observer\+\_\+strategy\texorpdfstring{$<$}{<} TObserver, Fn \texorpdfstring{$>$}{>}}{\pageref{structrpp_1_1operators_1_1details_1_1map__observer__strategy}}{}
@@ -116,6 +114,7 @@ This inheritance list is sorted roughly, but not completely, alphabetically\+:\b
 \item \contentsline{section}{rpp\+::operators\+::details\+::multicast\+\_\+t\texorpdfstring{$<$}{<} Subject \texorpdfstring{$>$}{>}}{\pageref{structrpp_1_1operators_1_1details_1_1multicast__t}}{}
 \item \contentsline{section}{rpp\+::details\+::never\+\_\+strategy\texorpdfstring{$<$}{<} Type \texorpdfstring{$>$}{>}}{\pageref{structrpp_1_1details_1_1never__strategy}}{}
 \item \contentsline{section}{rpp\+::schedulers\+::new\+\_\+thread}{\pageref{classrpp_1_1schedulers_1_1new__thread}}{}
+\item \contentsline{section}{rpp\+::details\+::observers\+::non\+\_\+atomic\+\_\+bool}{\pageref{classrpp_1_1details_1_1observers_1_1non__atomic__bool}}{}
 \item \contentsline{section}{rpp\+::schedulers\+::details\+::none\+\_\+disposable}{\pageref{structrpp_1_1schedulers_1_1details_1_1none__disposable}}{}
 \item \contentsline{section}{rpp\+::details\+::observers\+::none\+\_\+disposable\+\_\+strategy}{\pageref{structrpp_1_1details_1_1observers_1_1none__disposable__strategy}}{}
 \item \contentsline{section}{rpp\+::details\+::disposables\+::none\+\_\+disposables\+\_\+container}{\pageref{structrpp_1_1details_1_1disposables_1_1none__disposables__container}}{}

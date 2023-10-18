@@ -185,7 +185,9 @@ class rpp::observer&lt; Type, Strategy &gt;</div><p>Base class for any observer 
 <dd>
 Expected that observer would be subscribed only to ONE observable ever. It can keep internal state and track it it was disposed or not. So, subscribing same observer multiple time follows unspecified behavior. </dd>
 <dd>
-If you are passing disposable to ctor, then state of this disposable would be used used (if empty disposable or disposed -&gt; observer is disposed by default)</dd></dl>
+If you are passing disposable to ctor, then state of this disposable would be used used (if empty disposable or disposed -&gt; observer is disposed by default) </dd>
+<dd>
+It is expected, that member of this observer would be called in SERIAL way. It means, no any parallel calls allowed, only serial ones from one observable.</dd></dl>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
     <tr><td class="paramname">Type</td><td>of value this observer can handle </td></tr>

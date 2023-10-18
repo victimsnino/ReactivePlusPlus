@@ -11,19 +11,20 @@ var annotated_dup =
         [ "observables", null, [
           [ "blocking_observer_strategy", "structrpp_1_1details_1_1observables_1_1blocking__observer__strategy.html", null ],
           [ "blocking_strategy", "classrpp_1_1details_1_1observables_1_1blocking__strategy.html", null ],
-          [ "bool_disposable_strategy_selector", "structrpp_1_1details_1_1observables_1_1bool__disposable__strategy__selector.html", null ],
           [ "default_disposable_strategy_selector", "structrpp_1_1details_1_1observables_1_1default__disposable__strategy__selector.html", null ],
           [ "dynamic_disposable_strategy_selector", "structrpp_1_1details_1_1observables_1_1dynamic__disposable__strategy__selector.html", null ],
           [ "dynamic_strategy", "classrpp_1_1details_1_1observables_1_1dynamic__strategy.html", null ],
           [ "fixed_disposable_strategy_selector", "structrpp_1_1details_1_1observables_1_1fixed__disposable__strategy__selector.html", null ],
-          [ "fixed_disposable_strategy_selector< 0 >", "structrpp_1_1details_1_1observables_1_1fixed__disposable__strategy__selector_3_010_01_4.html", null ]
+          [ "fixed_disposable_strategy_selector< 0, Mode >", "structrpp_1_1details_1_1observables_1_1fixed__disposable__strategy__selector_3_010_00_01_mode_01_4.html", null ]
         ] ],
         [ "observers", null, [
+          [ "atomic_bool", "classrpp_1_1details_1_1observers_1_1atomic__bool.html", null ],
           [ "dynamic_strategy", "classrpp_1_1details_1_1observers_1_1dynamic__strategy.html", null ],
           [ "lambda_strategy", "structrpp_1_1details_1_1observers_1_1lambda__strategy.html", null ],
           [ "local_disposable_strategy", "classrpp_1_1details_1_1observers_1_1local__disposable__strategy.html", null ],
           [ "member_ptr_caller", "structrpp_1_1details_1_1observers_1_1member__ptr__caller.html", null ],
           [ "member_ptr_caller< F >", "structrpp_1_1details_1_1observers_1_1member__ptr__caller_3_01_f_01_4.html", null ],
+          [ "non_atomic_bool", "classrpp_1_1details_1_1observers_1_1non__atomic__bool.html", null ],
           [ "none_disposable_strategy", "structrpp_1_1details_1_1observers_1_1none__disposable__strategy.html", null ]
         ] ],
         [ "base_disposable_impl", "classrpp_1_1details_1_1base__disposable__impl.html", null ],

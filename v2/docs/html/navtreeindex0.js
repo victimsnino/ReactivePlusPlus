@@ -21,7 +21,7 @@ var NAVTREEINDEX0 =
 "classrpp_1_1details_1_1disposables_1_1static__disposables__container.html":[3,0,0,0,0,3],
 "classrpp_1_1details_1_1inner__refcount__disposable.html":[3,0,0,0,14],
 "classrpp_1_1details_1_1observables_1_1blocking__strategy.html":[3,0,0,0,1,1],
-"classrpp_1_1details_1_1observables_1_1dynamic__strategy.html":[3,0,0,0,1,5],
+"classrpp_1_1details_1_1observables_1_1dynamic__strategy.html":[3,0,0,0,1,4],
 "classrpp_1_1details_1_1observer__impl.html":[3,0,0,0,18],
 "classrpp_1_1details_1_1observer__impl.html#a14747a5260ecc183a6d0f1adafee4f68":[3,0,0,0,18,3],
 "classrpp_1_1details_1_1observer__impl.html#a3ae7822fe5f962a69ee190af8ff8f0e2":[3,0,0,0,18,5],
@@ -29,8 +29,10 @@ var NAVTREEINDEX0 =
 "classrpp_1_1details_1_1observer__impl.html#a7a73f13eae52effde01a2d3b2cf1d1b4":[3,0,0,0,18,1],
 "classrpp_1_1details_1_1observer__impl.html#aa55c5a334bc39c92218f7b51e5126bbc":[3,0,0,0,18,2],
 "classrpp_1_1details_1_1observer__impl.html#ab4d6f3e513e55f94547c8fa4d042f0cb":[3,0,0,0,18,0],
-"classrpp_1_1details_1_1observers_1_1dynamic__strategy.html":[3,0,0,0,2,0],
-"classrpp_1_1details_1_1observers_1_1local__disposable__strategy.html":[3,0,0,0,2,2],
+"classrpp_1_1details_1_1observers_1_1atomic__bool.html":[3,0,0,0,2,0],
+"classrpp_1_1details_1_1observers_1_1dynamic__strategy.html":[3,0,0,0,2,1],
+"classrpp_1_1details_1_1observers_1_1local__disposable__strategy.html":[3,0,0,0,2,3],
+"classrpp_1_1details_1_1observers_1_1non__atomic__bool.html":[3,0,0,0,2,6],
 "classrpp_1_1details_1_1shared__container.html":[3,0,0,0,22],
 "classrpp_1_1disposable__wrapper__impl.html":[1,0,0,2],
 "classrpp_1_1grouped__observable.html":[3,0,0,10],
@@ -247,7 +249,5 @@ var NAVTREEINDEX0 =
 "map_8hpp_source.html":[4,0,0,0,0,3,13],
 "md_docs_2readme.html":[0],
 "md_docs_2readme.html#autotoc_md1":[0,0],
-"md_docs_2readme.html#autotoc_md2":[0,0,0],
-"md_docs_2readme.html#autotoc_md3":[0,0,1],
-"md_docs_2readme.html#autotoc_md4":[0,0,2]
+"md_docs_2readme.html#autotoc_md2":[0,0,0]
 };
