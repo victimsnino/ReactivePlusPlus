@@ -21,7 +21,7 @@ enum class AtomicMode
 };
 
 template<AtomicMode Mode>
-using deduce_atomic_bool = std::condtional_t<Mode == AtomicMode::Atomic, observers::atomic_bool, observers::non_atomic_bool>;
+using deduce_atomic_bool = std::conditional_t<Mode == AtomicMode::Atomic, observers::atomic_bool, observers::non_atomic_bool>;
 
 template<size_t PreallocatedCount = 0, AtomicMode Mode = AtomicMode::NonAtomic>
 struct dynamic_disposable_strategy_selector
