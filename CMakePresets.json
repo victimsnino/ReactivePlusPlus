@@ -181,7 +181,7 @@
     },
     {
       "name": "ci-sanitize-tsan",
-      "inherits": ["ci-build", "ci-build-tests", "ci-unix", "ci-clang"],
+      "inherits": ["ci-build", "ci-build-tests", "ci-build-benchmarks", "ci-unix", "ci-clang"],
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Sanitize",
         "CMAKE_CXX_FLAGS_SANITIZE": "-fsanitize=thread -g -O1"
@@ -189,7 +189,7 @@
     },
     {
       "name": "ci-sanitize-asan",
-      "inherits": ["ci-build", "ci-build-tests", "ci-unix", "ci-clang"],
+      "inherits": ["ci-build", "ci-build-tests", "ci-build-benchmarks", "ci-unix", "ci-clang"],
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Sanitize",
         "CMAKE_CXX_FLAGS_SANITIZE": "-fsanitize=address -fno-optimize-sibling-calls -fsanitize-address-use-after-scope -fno-omit-frame-pointer -g -O1"
@@ -197,7 +197,7 @@
     },
     {
       "name": "ci-sanitize-lsan",
-      "inherits": ["ci-build", "ci-build-tests", "ci-unix", "ci-clang"],
+      "inherits": ["ci-build", "ci-build-tests", "ci-build-benchmarks", "ci-unix", "ci-clang"],
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Sanitize",
         "CMAKE_CXX_FLAGS_SANITIZE": "-fsanitize=leak -fno-omit-frame-pointer -g -O1"
@@ -205,7 +205,7 @@
     },
     {
       "name": "ci-sanitize-msan",
-      "inherits": ["ci-build", "ci-build-tests", "ci-unix", "ci-clang"],
+      "inherits": ["ci-build", "ci-build-tests", "ci-build-benchmarks", "ci-unix", "ci-clang"],
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Sanitize",
         "CMAKE_CXX_FLAGS_SANITIZE": "-fsanitize=memory -fno-optimize-sibling-calls -fsanitize-memory-track-origins=2 -fno-omit-frame-pointer -g -O2"
@@ -213,7 +213,7 @@
     },
     {
       "name": "ci-sanitize-ubsan",
-      "inherits": ["ci-build", "ci-build-tests", "ci-unix", "ci-clang"],
+      "inherits": ["ci-build", "ci-build-tests", "ci-build-benchmarks", "ci-unix", "ci-clang"],
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Sanitize",
         "CMAKE_CXX_FLAGS_SANITIZE": "-fsanitize=undefined"
