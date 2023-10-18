@@ -85,7 +85,7 @@ struct from_iterable_strategy
 public:
 
     using value_type = rpp::utils::iterable_value_t<PackedContainer>;
-    using expected_disposable_strategy = std::conditional_t<rpp::schedulers::utils::get_worker_t<TScheduler>::is_none_disposable, rpp::details::observables::none_disposable_strategy_selector, rpp::details::observables::fixed_disposable_strategy_selector<1>>;
+    using expected_disposable_strategy = std::conditional_t<rpp::schedulers::utils::get_worker_t<TScheduler>::is_none_disposable, rpp::details::observables::bool_disposable_strategy_selector, rpp::details::observables::fixed_disposable_strategy_selector<1>>;
 
     template<typename... Args>
     from_iterable_strategy(const TScheduler& scheduler, Args&&... args)

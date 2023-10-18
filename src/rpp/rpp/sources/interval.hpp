@@ -29,7 +29,7 @@ template<typename TScheduler>
 struct interval_strategy
 {
     using value_type = size_t;
-    using expected_disposable_strategy = std::conditional_t<rpp::schedulers::utils::get_worker_t<TScheduler>::is_none_disposable, rpp::details::observables::none_disposable_strategy_selector, rpp::details::observables::fixed_disposable_strategy_selector<1>>;
+    using expected_disposable_strategy = std::conditional_t<rpp::schedulers::utils::get_worker_t<TScheduler>::is_none_disposable, rpp::details::observables::bool_disposable_strategy_selector, rpp::details::observables::fixed_disposable_strategy_selector<1>>;
 
     RPP_NO_UNIQUE_ADDRESS TScheduler scheduler;
     rpp::schedulers::duration        initial;

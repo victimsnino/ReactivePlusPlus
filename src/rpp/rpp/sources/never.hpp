@@ -19,7 +19,7 @@ template<constraint::decayed_type Type>
 struct never_strategy
 {
     using value_type = Type;
-    using expected_disposable_strategy = rpp::details::observables::none_disposable_strategy_selector;
+    using expected_disposable_strategy = rpp::details::observables::bool_disposable_strategy_selector;
 
     static void subscribe(const auto&) {}
 };

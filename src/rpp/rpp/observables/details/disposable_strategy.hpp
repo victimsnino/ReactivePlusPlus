@@ -43,7 +43,7 @@ struct default_disposable_strategy_selector
     using disposable_strategy = dynamic_disposable_strategy_selector<0>::disposable_strategy;
 };
 
-struct none_disposable_strategy_selector
+struct bool_disposable_strategy_selector
 {
     template<size_t Count>
     using add = fixed_disposable_strategy_selector<Count>;
@@ -53,7 +53,7 @@ struct none_disposable_strategy_selector
 };
 
 template<>
-struct fixed_disposable_strategy_selector<0> : public none_disposable_strategy_selector{};
+struct fixed_disposable_strategy_selector<0> : public bool_disposable_strategy_selector{};
 
 namespace details
 {

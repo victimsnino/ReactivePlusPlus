@@ -76,7 +76,7 @@ void test_operator_over_observable_with_disposable(auto&& op)
 
     SECTION("none_disposable_strategy")
     {
-        CHECK_NOTHROW(op(rpp::observable<T, wrapped_observable_strategy_no_set_upstream<T, rpp::details::observables::none_disposable_strategy_selector>>{})
+        CHECK_NOTHROW(op(rpp::observable<T, wrapped_observable_strategy_no_set_upstream<T, rpp::details::observables::bool_disposable_strategy_selector>>{})
                           .subscribe([](const auto&) {}, rpp::utils::rethrow_error_t{}));
     }
 
@@ -94,7 +94,7 @@ void test_operator_over_observable_with_disposable(auto&& op)
 
     SECTION("set_upstream with none_disposable_strategy calls on_error")
     {
-        CHECK_NOTHROW(op(rpp::observable<T, wrapped_observable_strategy_set_upstream<T, rpp::details::observables::none_disposable_strategy_selector>>{})
+        CHECK_NOTHROW(op(rpp::observable<T, wrapped_observable_strategy_set_upstream<T, rpp::details::observables::bool_disposable_strategy_selector>>{})
                           .subscribe([](const auto&) {}, [](const std::exception_ptr& err) { CHECK_THROWS_AS(std::rethrow_exception(err), rpp::utils::more_disposables_than_expected); }));
     }
 
