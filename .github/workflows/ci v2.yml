@@ -38,9 +38,6 @@ jobs:
                 {name: ci-macos,        os: macos-latest}]
         type: [tests, benchmarks]
         build_type: [{config: Release, test_preset: ci-tests}, {config: Debug, test_preset: ci-tests-debug}]
-        exclude:
-          - type: benchmarks
-            build_type: {config: Debug}
 
     timeout-minutes: 20
     runs-on: ${{ matrix.config.os }}
@@ -74,7 +71,7 @@ jobs:
 
     - name: Upload benchmark results
       uses: actions/upload-artifact@v3
-      if: matrix.type == 'benchmarks'
+      if: matrix.type == 'benchmarks' && matrix.build_type.config == 'Release'
       with:
         name: ${{ matrix.config.name }}
         path: ${{github.workspace}}/build/test_results/benchmarks_results.json
