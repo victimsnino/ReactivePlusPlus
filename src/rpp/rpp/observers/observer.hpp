@@ -58,7 +58,7 @@ public:
 
     /**
      * @brief Observable calls this method to pass disposable. Observer disposes this disposable WHEN observer wants to unsubscribe.
-     * @note This method can be called multiple times, but new call means "replace upstream with this new one". So, tracked only last one
+     * @note This method can be called multiple times.
      */
     void set_upstream(const disposable_wrapper& d) noexcept
     {
@@ -166,12 +166,12 @@ private:
 namespace rpp
 {
 /**
- * @brief Base class for any observer used in RPP. It handles core callbacks of observers. Objects of this class would
- * be passed to subscribe of observable
+ * @brief Base class for any observer used in RPP. It handles core callbacks of observers. Objects of this class would be passed to subscribe of observable
  *
  * @warning By default observer is not copyable, only movable. If you need to COPY your observer, you need to convert it to rpp::dynamic_observer via rpp::observer::as_dynamic
  * @warning Expected that observer would be subscribed only to ONE observable ever. It can keep internal state and track it it was disposed or not. So, subscribing same observer multiple time follows unspecified behavior.
  * @warning If you are passing disposable to ctor, then state of this disposable would be used used (if empty disposable or disposed -> observer is disposed by default)
+ * @warning It is expected, that member of this observer would be called in SERIAL way. It means, no any parallel calls allowed, only serial ones from one observable.
  *
  * @tparam Type of value this observer can handle
  * @tparam Strategy used to provide logic over observer's callbacks
