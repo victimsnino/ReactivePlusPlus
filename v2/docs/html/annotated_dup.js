@@ -11,12 +11,12 @@ var annotated_dup =
         [ "observables", null, [
           [ "blocking_observer_strategy", "structrpp_1_1details_1_1observables_1_1blocking__observer__strategy.html", null ],
           [ "blocking_strategy", "classrpp_1_1details_1_1observables_1_1blocking__strategy.html", null ],
+          [ "bool_disposable_strategy_selector", "structrpp_1_1details_1_1observables_1_1bool__disposable__strategy__selector.html", null ],
           [ "default_disposable_strategy_selector", "structrpp_1_1details_1_1observables_1_1default__disposable__strategy__selector.html", null ],
           [ "dynamic_disposable_strategy_selector", "structrpp_1_1details_1_1observables_1_1dynamic__disposable__strategy__selector.html", null ],
           [ "dynamic_strategy", "classrpp_1_1details_1_1observables_1_1dynamic__strategy.html", null ],
           [ "fixed_disposable_strategy_selector", "structrpp_1_1details_1_1observables_1_1fixed__disposable__strategy__selector.html", null ],
-          [ "fixed_disposable_strategy_selector< 0 >", "structrpp_1_1details_1_1observables_1_1fixed__disposable__strategy__selector_3_010_01_4.html", null ],
-          [ "none_disposable_strategy_selector", "structrpp_1_1details_1_1observables_1_1none__disposable__strategy__selector.html", null ]
+          [ "fixed_disposable_strategy_selector< 0 >", "structrpp_1_1details_1_1observables_1_1fixed__disposable__strategy__selector_3_010_01_4.html", null ]
         ] ],
         [ "observers", null, [
           [ "dynamic_strategy", "classrpp_1_1details_1_1observers_1_1dynamic__strategy.html", null ],

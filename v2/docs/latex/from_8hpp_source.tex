@@ -89,7 +89,7 @@
 \DoxyCodeLine{00085\ \textcolor{keyword}{public}:}
 \DoxyCodeLine{00086\ }
 \DoxyCodeLine{00087\ \ \ \ \ \textcolor{keyword}{using\ }value\_type\ =\ rpp::utils::iterable\_value\_t<PackedContainer>;}
-\DoxyCodeLine{00088\ \ \ \ \ \textcolor{keyword}{using\ }expected\_disposable\_strategy\ =\ std::conditional\_t<rpp::schedulers::utils::get\_worker\_t<TScheduler>::is\_none\_disposable,\ \mbox{\hyperlink{structrpp_1_1details_1_1observables_1_1none__disposable__strategy__selector}{rpp::details::observables::none\_disposable\_strategy\_selector}},\ \mbox{\hyperlink{structrpp_1_1details_1_1observables_1_1fixed__disposable__strategy__selector}{rpp::details::observables::fixed\_disposable\_strategy\_selector<1>}}>;}
+\DoxyCodeLine{00088\ \ \ \ \ \textcolor{keyword}{using\ }expected\_disposable\_strategy\ =\ std::conditional\_t<rpp::schedulers::utils::get\_worker\_t<TScheduler>::is\_none\_disposable,\ \mbox{\hyperlink{structrpp_1_1details_1_1observables_1_1bool__disposable__strategy__selector}{rpp::details::observables::bool\_disposable\_strategy\_selector}},\ \mbox{\hyperlink{structrpp_1_1details_1_1observables_1_1fixed__disposable__strategy__selector}{rpp::details::observables::fixed\_disposable\_strategy\_selector<1>}}>;}
 \DoxyCodeLine{00089\ }
 \DoxyCodeLine{00090\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}...\ Args>}
 \DoxyCodeLine{00091\ \ \ \ \ \mbox{\hyperlink{structrpp_1_1details_1_1from__iterable__strategy}{from\_iterable\_strategy}}(\textcolor{keyword}{const}\ TScheduler\&\ scheduler,\ Args\&\&...\ args)}

@@ -12,6 +12,9 @@ var hierarchy =
     [ "rpp::subjects::details::base_subject< value_type >", "classrpp_1_1subjects_1_1details_1_1base__subject.html", null ],
     [ "rpp::details::observables::blocking_observer_strategy< TObserver >", "structrpp_1_1details_1_1observables_1_1blocking__observer__strategy.html", null ],
     [ "rpp::details::observables::blocking_strategy< Type, Strategy >", "classrpp_1_1details_1_1observables_1_1blocking__strategy.html", null ],
+    [ "rpp::details::observables::bool_disposable_strategy_selector", "structrpp_1_1details_1_1observables_1_1bool__disposable__strategy__selector.html", [
+      [ "rpp::details::observables::fixed_disposable_strategy_selector< 0 >", "structrpp_1_1details_1_1observables_1_1fixed__disposable__strategy__selector_3_010_01_4.html", null ]
+    ] ],
     [ "rpp::operators::details::buffer_observer_strategy< TObserver >", "classrpp_1_1operators_1_1details_1_1buffer__observer__strategy.html", null ],
     [ "rpp::operators::details::combine_latest_observer_strategy< I, Observer, TSelector, Args >", "structrpp_1_1operators_1_1details_1_1combine__latest__observer__strategy.html", null ],
     [ "rpp::operators::details::combine_latest_t< TSelector, TObservables >", "structrpp_1_1operators_1_1details_1_1combine__latest__t.html", null ],
@@ -107,9 +110,6 @@ var hierarchy =
     [ "rpp::schedulers::new_thread", "classrpp_1_1schedulers_1_1new__thread.html", null ],
     [ "rpp::schedulers::details::none_disposable", "structrpp_1_1schedulers_1_1details_1_1none__disposable.html", null ],
     [ "rpp::details::observers::none_disposable_strategy", "structrpp_1_1details_1_1observers_1_1none__disposable__strategy.html", null ],
-    [ "rpp::details::observables::none_disposable_strategy_selector", "structrpp_1_1details_1_1observables_1_1none__disposable__strategy__selector.html", [
-      [ "rpp::details::observables::fixed_disposable_strategy_selector< 0 >", "structrpp_1_1details_1_1observables_1_1fixed__disposable__strategy__selector_3_010_01_4.html", null ]
-    ] ],
     [ "rpp::details::disposables::none_disposables_container", "structrpp_1_1details_1_1disposables_1_1none__disposables__container.html", null ],
     [ "rpp::observable< Type, Strategy >", "classrpp_1_1observable.html", [
       [ "rpp::grouped_observable< KeyType, Type, Strategy >", "classrpp_1_1grouped__observable.html", null ]

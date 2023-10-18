@@ -21,7 +21,7 @@ var NAVTREEINDEX0 =
 "classrpp_1_1details_1_1disposables_1_1static__disposables__container.html":[3,0,0,0,0,3],
 "classrpp_1_1details_1_1inner__refcount__disposable.html":[3,0,0,0,14],
 "classrpp_1_1details_1_1observables_1_1blocking__strategy.html":[3,0,0,0,1,1],
-"classrpp_1_1details_1_1observables_1_1dynamic__strategy.html":[3,0,0,0,1,4],
+"classrpp_1_1details_1_1observables_1_1dynamic__strategy.html":[3,0,0,0,1,5],
 "classrpp_1_1details_1_1observer__impl.html":[3,0,0,0,18],
 "classrpp_1_1details_1_1observer__impl.html#a14747a5260ecc183a6d0f1adafee4f68":[3,0,0,0,18,3],
 "classrpp_1_1details_1_1observer__impl.html#a3ae7822fe5f962a69ee190af8ff8f0e2":[3,0,0,0,18,5],
