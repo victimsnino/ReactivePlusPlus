@@ -7,7 +7,7 @@ set(package RPP)
 install(
     DIRECTORY 
         src/rpp
-#        src/rppqt
+       src/rppqt
     DESTINATION 
         "${CMAKE_INSTALL_INCLUDEDIR}"
     COMPONENT 
@@ -20,11 +20,11 @@ install(
     INCLUDES DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/rpp"
 )
 
-# install(
-#     TARGETS rppqt
-#     EXPORT RPPTargets
-#     INCLUDES DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/rppqt"
-# )
+install(
+    TARGETS rppqt
+    EXPORT RPPTargets
+    INCLUDES DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/rppqt"
+)
 
 write_basic_package_version_file(
     "${package}ConfigVersion.cmake"

@@ -1,0 +1,11 @@
+file(GLOB_RECURSE FILES "*.cpp")
+
+foreach(SOURCE ${FILES})
+    get_filename_component(BASE_NAME ${SOURCE} NAME_WE)
+    set(TARGET ${BASE_NAME}_doxygen_sample)
+    add_executable(${TARGET} ${SOURCE})
+    target_link_libraries(${TARGET} PRIVATE rpp rppqt)
+    set_target_properties(${TARGET} PROPERTIES FOLDER Examples/rppqt/Doxygen)
+    rpp_add_qt_support_to_executable(${TARGET})
+endforeach()
+

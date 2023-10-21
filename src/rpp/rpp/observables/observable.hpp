@@ -179,6 +179,17 @@ public:
 
     /**
      * @brief Construct rpp::lambda_observer on the fly and subscribe it to emissions from this observable
+     */
+    template<std::invocable<Type>                      OnNext,
+             std::invocable<>                          OnCompleted>
+    void subscribe(OnNext&&      on_next,
+                   OnCompleted&& on_completed) const
+    {
+       subscribe(std::forward<OnNext>(on_next), rpp::utils::rethrow_error_t{}, std::forward<OnCompleted>(on_completed));
+    }
+
+    /**
+     * @brief Construct rpp::lambda_observer on the fly and subscribe it to emissions from this observable
      *
      * @details This overloading attaches disposable to observer and return it to provide ability to dispose/disconnect observer early if needed.
      * @warning This overloading has some performance penalties, use it only when you really need to use disposable
@@ -195,6 +206,20 @@ public:
                                              std::forward<OnError>(on_error),
                                              std::forward<OnCompleted>(on_completed)));
         return res;
+    }
+
+    /**
+     * @brief Construct rpp::lambda_observer on the fly and subscribe it to emissions from this observable
+     *
+     * @details This overloading attaches disposable to observer and return it to provide ability to dispose/disconnect observer early if needed.
+     * @warning This overloading has some performance penalties, use it only when you really need to use disposable
+     * @return composite_disposable_wrapper is disposable to be able to dispose observer when it needed
+     */
+    template<std::invocable<Type>                      OnNext,
+             std::invocable<>                          OnCompleted>
+    [[nodiscard("Use returned disposable or use subscribe(on_next, on_error, on_completed) instead")]] composite_disposable_wrapper subscribe_with_disposable(OnNext&& on_next, OnCompleted&& on_completed) const
+    {
+        return subscribe_with_disposable(std::forward<OnNext>(on_next), rpp::utils::rethrow_error_t{}, std::forward<OnCompleted>(on_completed));
     }
 
     /**
@@ -230,6 +255,35 @@ public:
                                                             std::forward<OnError>(on_error),
                                                             std::forward<OnCompleted>(on_completed)));
         return d;
+    }
+
+    /**
+     * @brief Construct rpp::lambda_observer on the fly and subscribe it to emissions from this observable
+     * @details This overloading attaches passed disposable to observer and return it to provide ability to dispose/disconnect observer early if needed.
+     * @warning This overloading has some performance penalties, use it only when you really need to use disposable
+     *
+     * @param d is disposable to be attached to observer. If disposable is nullptr or disposed -> no any subscription happens
+     * @return composite_disposable_wrapper is disposable to be able to dispose observer when it needed
+     *
+     * @par Example
+     * \code{.cpp}
+     *  auto disposable = std::make_shared<rpp::composite_disposable>();
+     *  rpp::source::just(1)
+     *  | rpp::operators::repeat()
+     *  | rpp::operators::subscribe_on(rpp::schedulers::new_thread{})
+     *  | rpp::operators::subscribe(disposable, [](int) { std::cout << "NEW VALUE" << std::endl; });
+     *
+     *  std::this_thread::sleep_for(std::chrono::seconds(1));
+     *  disposable->dispose();
+     *  std::this_thread::sleep_for(std::chrono::seconds(1));
+     * \endcode
+     *
+     */
+    template<std::invocable<Type>                      OnNext,
+             std::invocable<>                          OnCompleted>
+    composite_disposable_wrapper subscribe(const composite_disposable_wrapper& d, OnNext&& on_next, OnCompleted&& on_completed) const
+    {
+        return subscribe(d, std::forward<OnNext>(on_next), rpp::utils::rethrow_error_t{}, std::forward<OnCompleted>(on_completed));
     }
 
     /**

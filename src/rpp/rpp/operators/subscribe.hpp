@@ -314,6 +314,18 @@ auto subscribe(OnNext&& on_next = {}, OnError&& on_error = {}, OnCompleted&& on_
 
 /**
  * @brief Construct rpp::lambda_observer on the fly and subscribe it to emissions from observable
+ *
+ * @ingroup utility_operators
+ */
+template<details::on_next_like OnNext, std::invocable<> OnCompleted>
+    
+auto subscribe(OnNext&& on_next, OnCompleted&& on_completed)
+{
+    return details::subscribe_t{std::forward<OnNext>(on_next), rpp::utils::rethrow_error_t{}, std::forward<OnCompleted>(on_completed)};
+}
+
+/**
+ * @brief Construct rpp::lambda_observer on the fly and subscribe it to emissions from observable
  * @details This overloading attaches passed disposable to observer and return it to provide ability to dispose observer early if needed.
  * @warning This overloading has some performance penalties, use it only when you really need to use disposable
  *
@@ -325,6 +337,21 @@ template<details::on_next_like OnNext = rpp::utils::empty_function_any_t, std::i
 auto subscribe(rpp::composite_disposable_wrapper d, OnNext&& on_next = {}, OnError&& on_error = {}, OnCompleted&& on_completed = {})
 {
     return details::subscribe_t{std::move(d), std::forward<OnNext>(on_next), std::forward<OnError>(on_error), std::forward<OnCompleted>(on_completed)};
+}
+
+/**
+ * @brief Construct rpp::lambda_observer on the fly and subscribe it to emissions from observable
+ * @details This overloading attaches passed disposable to observer and return it to provide ability to dispose observer early if needed.
+ * @warning This overloading has some performance penalties, use it only when you really need to use disposable
+ *
+ * @param d is disposable to be attached to observer. If disposable is nullptr or disposed -> no any subscription happens
+ *
+ * @ingroup utility_operators
+ */
+template<details::on_next_like OnNext,  std::invocable<> OnCompleted>
+auto subscribe(rpp::composite_disposable_wrapper d, OnNext&& on_next, OnCompleted&& on_completed)
+{
+    return details::subscribe_t{std::move(d), std::forward<OnNext>(on_next), rpp::utils::rethrow_error_t{}, std::forward<OnCompleted>(on_completed)};
 }
 
 /**
@@ -367,5 +394,18 @@ template<details::on_next_like OnNext = rpp::utils::empty_function_any_t, std::i
 auto subscribe_with_disposable(OnNext&& on_next = {}, OnError&& on_error = {}, OnCompleted&& on_completed = {})
 {
     return subscribe(rpp::composite_disposable_wrapper{std::make_shared<rpp::composite_disposable>()}, std::forward<OnNext>(on_next), std::forward<OnError>(on_error), std::forward<OnCompleted>(on_completed));
+}
+
+/**
+ * @brief Construct rpp::lambda_observer on the fly and subscribe it to emissions from observable
+ * @details This overloading attaches disposable to observer and return it to provide ability to dispose/disconnect observer early if needed.
+ * @warning This overloading has some performance penalties, use it only when you really need to use disposable
+ *
+ * @ingroup utility_operators
+ */
+template<details::on_next_like OnNext, std::invocable<> OnCompleted>
+auto subscribe_with_disposable(OnNext&& on_next, OnCompleted&& on_completed)
+{
+    return subscribe(rpp::composite_disposable_wrapper{std::make_shared<rpp::composite_disposable>()}, std::forward<OnNext>(on_next), rpp::utils::rethrow_error_t{}, std::forward<OnCompleted>(on_completed));
 }
 }
