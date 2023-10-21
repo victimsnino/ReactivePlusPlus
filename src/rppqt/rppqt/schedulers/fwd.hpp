@@ -10,11 +10,7 @@
 
 #pragma once
 
-/**
- * @defgroup qt_schedulers QT Schedulers
- * @brief Scheduler is the way to introduce multi-threading in your application via RPP
- * @see https://reactivex.io/documentation/scheduler.html
- * @ingroup rppqt
- */
-
-#include <rppqt/schedulers/main_thread.hpp>
+namespace rppqt::schedulers
+{
+class main_thread;
+} // namespace rppqt::schedulers

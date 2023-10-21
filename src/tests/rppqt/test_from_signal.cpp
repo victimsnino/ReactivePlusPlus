@@ -42,6 +42,8 @@ Q_SIGNALS:
 #include "copy_count_tracker.hpp"
 #include "mock_observer.hpp"
 
+#include <snitch/snitch.hpp>
+
 #include <rppqt/sources/from_signal.hpp>
 
 TEST_CASE("from_signal can see object value from object signal")

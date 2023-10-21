@@ -29,4 +29,4 @@
  * @see https://reactivex.io/documentation/scheduler.html
  * @ingroup rpp
  */
-// #include <rppqt/schedulers/fwd.hpp>
+#include <rppqt/schedulers/fwd.hpp>
