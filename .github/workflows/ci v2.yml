@@ -21,6 +21,11 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+      
+    - name: Install Qt
+      uses: jurplel/install-qt-action@v3
+      with:
+        cache: true
 
     - name: Run CMake
       uses: lukka/run-cmake@v10
@@ -58,6 +63,11 @@ jobs:
       run: |
         sudo apt-get update -q && sudo apt-get install clang-tidy cppcheck -y -q
         pip install pyyaml
+    
+    - name: Install Qt
+      uses: jurplel/install-qt-action@v3
+      with:
+        cache: true
 
     - name: Run CMake
       uses: lukka/run-cmake@v10
@@ -115,10 +125,10 @@ jobs:
       with:
           fetch-depth: 0
 
-    # - name: Install Qt
-    #   uses: jurplel/install-qt-action@v3
-    #   with:
-    #     cache: true
+    - name: Install Qt
+      uses: jurplel/install-qt-action@v3
+      with:
+        cache: true
 
     - name: Install project and build
       env:
