@@ -36,6 +36,11 @@ jobs:
         sudo apt update
         sudo apt install pvs-studio
         pvs-studio-analyzer credentials ${{ secrets.PVS_STUDIO_CREDENTIALS }}
+    
+    - name: Install Qt
+      uses: jurplel/install-qt-action@v3
+      with:
+        cache: true
 
     - name: Run CMake
       uses: lukka/run-cmake@v10
@@ -74,6 +79,11 @@ jobs:
 
     - name: Install llvm
       run: sudo apt-get update -q && sudo apt-get install llvm -q -y
+
+    - name: Install Qt
+      uses: jurplel/install-qt-action@v3
+      with:
+        cache: true
 
     - name:  Install sonar-scanner and build-wrapper
       uses: sonarsource/sonarcloud-github-c-cpp@v2
