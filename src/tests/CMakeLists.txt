@@ -44,6 +44,6 @@ endmacro()
 
 rpp_register_tests(rpp)
 
-# if (RPP_BUILD_QT_CODE)
-#   rpp_register_tests(rppqt)
-# endif()
+if (RPP_BUILD_QT_CODE)
+  rpp_register_tests(rppqt)
+endif()

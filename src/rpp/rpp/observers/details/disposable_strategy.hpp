@@ -101,5 +101,4 @@ struct none_disposable_strategy
 
     static void dispose() {}
 };
-
 }
