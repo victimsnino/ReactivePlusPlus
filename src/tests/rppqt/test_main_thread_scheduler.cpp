@@ -54,13 +54,14 @@ TEST_CASE("main_thread_scheduler schedules actions to main thread")
         {
             rppqt::schedulers::main_thread_scheduler::create_worker().schedule([&](const auto&)->rpp::schedulers::optional_duration
             {
-                const bool first_run = execution.empty();
-                execution += "outer ";
                 rppqt::schedulers::main_thread_scheduler::create_worker().schedule([&](const auto&)->rpp::schedulers::optional_duration
                 {
                     execution += "inner ";
                     return {};
                 }, observer);
+                
+                const bool first_run = execution.empty();
+                execution += "outer ";
                 return first_run ? rpp::schedulers::optional_duration{std::chrono::nanoseconds{}} : std::nullopt;
             }, observer);
         }}.join();
