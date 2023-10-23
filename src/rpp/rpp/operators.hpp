@@ -52,6 +52,7 @@
 #include <rpp/operators/last.hpp>
 #include <rpp/operators/skip.hpp>
 #include <rpp/operators/take.hpp>
+#include <rpp/operators/throttle.hpp>
 
 /**
  * @defgroup conditional_operators Conditional Operators

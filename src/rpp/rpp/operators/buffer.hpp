@@ -64,7 +64,7 @@ private:
     mutable std::vector<value_type>  m_bucket;
 };
 
-struct buffer_t : public operators::details::operator_observable_strategy_diffferent_types<buffer_observer_strategy, rpp::utils::types<>, size_t>
+struct buffer_t : public operators::details::operator_observable_strategy_different_types<buffer_observer_strategy, rpp::utils::types<>, size_t>
 {
     template<rpp::constraint::decayed_type T>
     using result_value = std::vector<T>;

@@ -63,7 +63,7 @@ template<template<typename, typename...> typename Strategy, rpp::constraint::dec
 using operator_observable_strategy = operator_observable_strategy_base<identity_subscribe_strategy<Strategy, rpp::utils::types<Args...>>, Args...>;
 
 template<template<typename, typename...> typename Strategy, typename Types = rpp::utils::types<>, rpp::constraint::decayed_type... Args>
-using operator_observable_strategy_diffferent_types = operator_observable_strategy_base<identity_subscribe_strategy<Strategy, Types>, Args...>;
+using operator_observable_strategy_different_types = operator_observable_strategy_base<identity_subscribe_strategy<Strategy, Types>, Args...>;
 
 template<template<typename, typename, typename...> typename Strategy, typename Types>
 struct template_subscribe_strategy;

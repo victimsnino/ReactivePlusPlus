@@ -12,7 +12,7 @@
 #include <rpp/schedulers.hpp>
 #include <rpp/disposables.hpp>
 
-static rpp::schedulers::time_point s_current_time{std::chrono::seconds{10}};
+rpp::schedulers::time_point s_current_time{std::chrono::seconds{10}};
 
 class test_scheduler final
 {
@@ -96,6 +96,8 @@ public:
 
     const auto& get_schedulings() const { return m_state->schedulings; }
     const auto& get_executions() const { return m_state->executions; }
+
+    static rpp::schedulers::time_point now() { return s_current_time; }
 
     void time_advance(rpp::schedulers::duration dur) const
     {
