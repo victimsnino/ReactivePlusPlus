@@ -12,7 +12,7 @@
 #include <rpp/schedulers.hpp>
 #include <rpp/disposables.hpp>
 
-rpp::schedulers::time_point s_current_time{std::chrono::seconds{10}};
+inline rpp::schedulers::time_point s_current_time{std::chrono::seconds{10}};
 
 class test_scheduler final
 {
