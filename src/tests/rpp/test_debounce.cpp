@@ -23,7 +23,7 @@ TEST_CASE("debounce emit only items where timeout reached")
 {
     auto           debounce_delay = std::chrono::seconds{2};
     test_scheduler scheduler{};
-    auto           start = test_scheduler::s_current_time;
+    auto           start = s_current_time;
 
     SECTION("subject of items and subscriber subscribed on it via debounce")
     {
