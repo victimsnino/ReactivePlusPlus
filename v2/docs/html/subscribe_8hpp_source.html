@@ -375,30 +375,49 @@ $(document).ready(function(){initNavTree('subscribe_8hpp_source.html',''); initR
 <div class="line"><a id="l00312" name="l00312"></a><span class="lineno">  312</span>    <span class="keywordflow">return</span> details::subscribe_t{std::forward&lt;OnNext&gt;(on_next), std::forward&lt;OnError&gt;(on_error), std::forward&lt;OnCompleted&gt;(on_completed)};</div>
 <div class="line"><a id="l00313" name="l00313"></a><span class="lineno">  313</span>}</div>
 <div class="line"><a id="l00314" name="l00314"></a><span class="lineno">  314</span> </div>
-<div class="line"><a id="l00324" name="l00324"></a><span class="lineno">  324</span><span class="keyword">template</span>&lt;details::on_next_like OnNext = rpp::utils::empty_function_any_t, std::invocable&lt;const std::exception_ptr&amp;&gt; OnError = rpp::utils::rethrow_error_t, std::invocable&lt;&gt; OnCompleted = rpp::utils::empty_function_t&lt;&gt;&gt;</div>
-<div class="line"><a id="l00325" name="l00325"></a><span class="lineno">  325</span><span class="keyword">auto</span> subscribe(<a class="code hl_class" href="classrpp_1_1disposable__wrapper__impl.html">rpp::composite_disposable_wrapper</a> d, OnNext&amp;&amp; on_next = {}, OnError&amp;&amp; on_error = {}, OnCompleted&amp;&amp; on_completed = {})</div>
-<div class="line"><a id="l00326" name="l00326"></a><span class="lineno">  326</span>{</div>
-<div class="line"><a id="l00327" name="l00327"></a><span class="lineno">  327</span>    <span class="keywordflow">return</span> details::subscribe_t{std::move(d), std::forward&lt;OnNext&gt;(on_next), std::forward&lt;OnError&gt;(on_error), std::forward&lt;OnCompleted&gt;(on_completed)};</div>
-<div class="line"><a id="l00328" name="l00328"></a><span class="lineno">  328</span>}</div>
-<div class="line"><a id="l00329" name="l00329"></a><span class="lineno">  329</span> </div>
-<div class="line"><a id="l00340" name="l00340"></a><span class="lineno">  340</span><span class="keyword">template</span>&lt;rpp::constra<span class="keywordtype">int</span>::decayed_type Type, rpp::constra<span class="keywordtype">int</span>::observer_strategy&lt;Type&gt; ObserverStrategy&gt;</div>
-<div class="line"><a id="l00341" name="l00341"></a><span class="lineno">  341</span><span class="keyword">auto</span> subscribe_with_disposable(observer&lt;Type, ObserverStrategy&gt;&amp;&amp; observer)</div>
-<div class="line"><a id="l00342" name="l00342"></a><span class="lineno">  342</span>{</div>
-<div class="line"><a id="l00343" name="l00343"></a><span class="lineno">  343</span>    <span class="keywordflow">return</span> subscribe(<a class="code hl_class" href="classrpp_1_1disposable__wrapper__impl.html">rpp::composite_disposable_wrapper</a>{std::make_shared&lt;rpp::composite_disposable&gt;()}, std::move(observer));</div>
-<div class="line"><a id="l00344" name="l00344"></a><span class="lineno">  344</span>}</div>
-<div class="line"><a id="l00345" name="l00345"></a><span class="lineno">  345</span> </div>
-<div class="line"><a id="l00353" name="l00353"></a><span class="lineno">  353</span><span class="keyword">template</span>&lt;rpp::constra<span class="keywordtype">int</span>::decayed_type Type&gt;</div>
-<div class="line"><a id="l00354" name="l00354"></a><span class="lineno">  354</span><span class="keyword">auto</span> subscribe_with_disposable(dynamic_observer&lt;Type&gt; observer)</div>
-<div class="line"><a id="l00355" name="l00355"></a><span class="lineno">  355</span>{</div>
-<div class="line"><a id="l00356" name="l00356"></a><span class="lineno">  356</span>    <span class="keywordflow">return</span> subscribe(<a class="code hl_class" href="classrpp_1_1disposable__wrapper__impl.html">rpp::composite_disposable_wrapper</a>{std::make_shared&lt;rpp::composite_disposable&gt;()}, std::move(observer));</div>
-<div class="line"><a id="l00357" name="l00357"></a><span class="lineno">  357</span>}</div>
-<div class="line"><a id="l00358" name="l00358"></a><span class="lineno">  358</span> </div>
-<div class="line"><a id="l00366" name="l00366"></a><span class="lineno">  366</span><span class="keyword">template</span>&lt;details::on_next_like OnNext = rpp::utils::empty_function_any_t, std::invocable&lt;const std::exception_ptr&amp;&gt; OnError = rpp::utils::rethrow_error_t, std::invocable&lt;&gt; OnCompleted = rpp::utils::empty_function_t&lt;&gt;&gt;</div>
-<div class="line"><a id="l00367" name="l00367"></a><span class="lineno">  367</span><span class="keyword">auto</span> subscribe_with_disposable(OnNext&amp;&amp; on_next = {}, OnError&amp;&amp; on_error = {}, OnCompleted&amp;&amp; on_completed = {})</div>
-<div class="line"><a id="l00368" name="l00368"></a><span class="lineno">  368</span>{</div>
-<div class="line"><a id="l00369" name="l00369"></a><span class="lineno">  369</span>    <span class="keywordflow">return</span> subscribe(<a class="code hl_class" href="classrpp_1_1disposable__wrapper__impl.html">rpp::composite_disposable_wrapper</a>{std::make_shared&lt;rpp::composite_disposable&gt;()}, std::forward&lt;OnNext&gt;(on_next), std::forward&lt;OnError&gt;(on_error), std::forward&lt;OnCompleted&gt;(on_completed));</div>
-<div class="line"><a id="l00370" name="l00370"></a><span class="lineno">  370</span>}</div>
+<div class="line"><a id="l00320" name="l00320"></a><span class="lineno">  320</span><span class="keyword">template</span>&lt;details::on_next_like OnNext, std::invocable&lt;&gt; OnCompleted&gt;</div>
+<div class="line"><a id="l00321" name="l00321"></a><span class="lineno">  321</span>    </div>
+<div class="line"><a id="l00322" name="l00322"></a><span class="lineno">  322</span><span class="keyword">auto</span> subscribe(OnNext&amp;&amp; on_next, OnCompleted&amp;&amp; on_completed)</div>
+<div class="line"><a id="l00323" name="l00323"></a><span class="lineno">  323</span>{</div>
+<div class="line"><a id="l00324" name="l00324"></a><span class="lineno">  324</span>    <span class="keywordflow">return</span> details::subscribe_t{std::forward&lt;OnNext&gt;(on_next), rpp::utils::rethrow_error_t{}, std::forward&lt;OnCompleted&gt;(on_completed)};</div>
+<div class="line"><a id="l00325" name="l00325"></a><span class="lineno">  325</span>}</div>
+<div class="line"><a id="l00326" name="l00326"></a><span class="lineno">  326</span> </div>
+<div class="line"><a id="l00336" name="l00336"></a><span class="lineno">  336</span><span class="keyword">template</span>&lt;details::on_next_like OnNext = rpp::utils::empty_function_any_t, std::invocable&lt;const std::exception_ptr&amp;&gt; OnError = rpp::utils::rethrow_error_t, std::invocable&lt;&gt; OnCompleted = rpp::utils::empty_function_t&lt;&gt;&gt;</div>
+<div class="line"><a id="l00337" name="l00337"></a><span class="lineno">  337</span><span class="keyword">auto</span> subscribe(<a class="code hl_class" href="classrpp_1_1disposable__wrapper__impl.html">rpp::composite_disposable_wrapper</a> d, OnNext&amp;&amp; on_next = {}, OnError&amp;&amp; on_error = {}, OnCompleted&amp;&amp; on_completed = {})</div>
+<div class="line"><a id="l00338" name="l00338"></a><span class="lineno">  338</span>{</div>
+<div class="line"><a id="l00339" name="l00339"></a><span class="lineno">  339</span>    <span class="keywordflow">return</span> details::subscribe_t{std::move(d), std::forward&lt;OnNext&gt;(on_next), std::forward&lt;OnError&gt;(on_error), std::forward&lt;OnCompleted&gt;(on_completed)};</div>
+<div class="line"><a id="l00340" name="l00340"></a><span class="lineno">  340</span>}</div>
+<div class="line"><a id="l00341" name="l00341"></a><span class="lineno">  341</span> </div>
+<div class="line"><a id="l00351" name="l00351"></a><span class="lineno">  351</span><span class="keyword">template</span>&lt;details::on_next_like OnNext,  std::invocable&lt;&gt; OnCompleted&gt;</div>
+<div class="line"><a id="l00352" name="l00352"></a><span class="lineno">  352</span><span class="keyword">auto</span> subscribe(<a class="code hl_class" href="classrpp_1_1disposable__wrapper__impl.html">rpp::composite_disposable_wrapper</a> d, OnNext&amp;&amp; on_next, OnCompleted&amp;&amp; on_completed)</div>
+<div class="line"><a id="l00353" name="l00353"></a><span class="lineno">  353</span>{</div>
+<div class="line"><a id="l00354" name="l00354"></a><span class="lineno">  354</span>    <span class="keywordflow">return</span> details::subscribe_t{std::move(d), std::forward&lt;OnNext&gt;(on_next), rpp::utils::rethrow_error_t{}, std::forward&lt;OnCompleted&gt;(on_completed)};</div>
+<div class="line"><a id="l00355" name="l00355"></a><span class="lineno">  355</span>}</div>
+<div class="line"><a id="l00356" name="l00356"></a><span class="lineno">  356</span> </div>
+<div class="line"><a id="l00367" name="l00367"></a><span class="lineno">  367</span><span class="keyword">template</span>&lt;rpp::constra<span class="keywordtype">int</span>::decayed_type Type, rpp::constra<span class="keywordtype">int</span>::observer_strategy&lt;Type&gt; ObserverStrategy&gt;</div>
+<div class="line"><a id="l00368" name="l00368"></a><span class="lineno">  368</span><span class="keyword">auto</span> subscribe_with_disposable(observer&lt;Type, ObserverStrategy&gt;&amp;&amp; observer)</div>
+<div class="line"><a id="l00369" name="l00369"></a><span class="lineno">  369</span>{</div>
+<div class="line"><a id="l00370" name="l00370"></a><span class="lineno">  370</span>    <span class="keywordflow">return</span> subscribe(<a class="code hl_class" href="classrpp_1_1disposable__wrapper__impl.html">rpp::composite_disposable_wrapper</a>{std::make_shared&lt;rpp::composite_disposable&gt;()}, std::move(observer));</div>
 <div class="line"><a id="l00371" name="l00371"></a><span class="lineno">  371</span>}</div>
+<div class="line"><a id="l00372" name="l00372"></a><span class="lineno">  372</span> </div>
+<div class="line"><a id="l00380" name="l00380"></a><span class="lineno">  380</span><span class="keyword">template</span>&lt;rpp::constra<span class="keywordtype">int</span>::decayed_type Type&gt;</div>
+<div class="line"><a id="l00381" name="l00381"></a><span class="lineno">  381</span><span class="keyword">auto</span> subscribe_with_disposable(dynamic_observer&lt;Type&gt; observer)</div>
+<div class="line"><a id="l00382" name="l00382"></a><span class="lineno">  382</span>{</div>
+<div class="line"><a id="l00383" name="l00383"></a><span class="lineno">  383</span>    <span class="keywordflow">return</span> subscribe(<a class="code hl_class" href="classrpp_1_1disposable__wrapper__impl.html">rpp::composite_disposable_wrapper</a>{std::make_shared&lt;rpp::composite_disposable&gt;()}, std::move(observer));</div>
+<div class="line"><a id="l00384" name="l00384"></a><span class="lineno">  384</span>}</div>
+<div class="line"><a id="l00385" name="l00385"></a><span class="lineno">  385</span> </div>
+<div class="line"><a id="l00393" name="l00393"></a><span class="lineno">  393</span><span class="keyword">template</span>&lt;details::on_next_like OnNext = rpp::utils::empty_function_any_t, std::invocable&lt;const std::exception_ptr&amp;&gt; OnError = rpp::utils::rethrow_error_t, std::invocable&lt;&gt; OnCompleted = rpp::utils::empty_function_t&lt;&gt;&gt;</div>
+<div class="line"><a id="l00394" name="l00394"></a><span class="lineno">  394</span><span class="keyword">auto</span> subscribe_with_disposable(OnNext&amp;&amp; on_next = {}, OnError&amp;&amp; on_error = {}, OnCompleted&amp;&amp; on_completed = {})</div>
+<div class="line"><a id="l00395" name="l00395"></a><span class="lineno">  395</span>{</div>
+<div class="line"><a id="l00396" name="l00396"></a><span class="lineno">  396</span>    <span class="keywordflow">return</span> subscribe(<a class="code hl_class" href="classrpp_1_1disposable__wrapper__impl.html">rpp::composite_disposable_wrapper</a>{std::make_shared&lt;rpp::composite_disposable&gt;()}, std::forward&lt;OnNext&gt;(on_next), std::forward&lt;OnError&gt;(on_error), std::forward&lt;OnCompleted&gt;(on_completed));</div>
+<div class="line"><a id="l00397" name="l00397"></a><span class="lineno">  397</span>}</div>
+<div class="line"><a id="l00398" name="l00398"></a><span class="lineno">  398</span> </div>
+<div class="line"><a id="l00406" name="l00406"></a><span class="lineno">  406</span><span class="keyword">template</span>&lt;details::on_next_like OnNext, std::invocable&lt;&gt; OnCompleted&gt;</div>
+<div class="line"><a id="l00407" name="l00407"></a><span class="lineno">  407</span><span class="keyword">auto</span> subscribe_with_disposable(OnNext&amp;&amp; on_next, OnCompleted&amp;&amp; on_completed)</div>
+<div class="line"><a id="l00408" name="l00408"></a><span class="lineno">  408</span>{</div>
+<div class="line"><a id="l00409" name="l00409"></a><span class="lineno">  409</span>    <span class="keywordflow">return</span> subscribe(<a class="code hl_class" href="classrpp_1_1disposable__wrapper__impl.html">rpp::composite_disposable_wrapper</a>{std::make_shared&lt;rpp::composite_disposable&gt;()}, std::forward&lt;OnNext&gt;(on_next), rpp::utils::rethrow_error_t{}, std::forward&lt;OnCompleted&gt;(on_completed));</div>
+<div class="line"><a id="l00410" name="l00410"></a><span class="lineno">  410</span>}</div>
+<div class="line"><a id="l00411" name="l00411"></a><span class="lineno">  411</span>}</div>
 <div class="ttc" id="aclassrpp_1_1disposable__wrapper__impl_html"><div class="ttname"><a href="classrpp_1_1disposable__wrapper__impl.html">rpp::disposable_wrapper_impl&lt; interface_composite_disposable &gt;</a></div></div>
 <div class="ttc" id="aclassrpp_1_1observable_html"><div class="ttname"><a href="classrpp_1_1observable.html">rpp::observable</a></div><div class="ttdoc">Base class for any observable used in RPP. It handles core callbacks of observable.</div><div class="ttdef"><b>Definition</b> observable.hpp:38</div></div>
 <div class="ttc" id="aclassrpp_1_1observable_html_a193b0e08c516912c04afd8379ec27182"><div class="ttname"><a href="classrpp_1_1observable.html#a193b0e08c516912c04afd8379ec27182">rpp::observable::subscribe</a></div><div class="ttdeci">void subscribe(observer&lt; Type, ObserverStrategy &gt; &amp;&amp;observer) const</div><div class="ttdoc">Subscribes passed observer to emissions from this observable.</div><div class="ttdef"><b>Definition</b> observable.hpp:58</div></div>

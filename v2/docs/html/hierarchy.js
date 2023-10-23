@@ -66,6 +66,9 @@ var hierarchy =
     [ "rpp::details::from_callable_invoke", "structrpp_1_1details_1_1from__callable__invoke.html", null ],
     [ "rpp::details::from_iterable_schedulable", "structrpp_1_1details_1_1from__iterable__schedulable.html", null ],
     [ "rpp::details::from_iterable_strategy< PackedContainer, TScheduler >", "structrpp_1_1details_1_1from__iterable__strategy.html", null ],
+    [ "rppqt::details::from_signal_on_event< Args >", "structrppqt_1_1details_1_1from__signal__on__event.html", null ],
+    [ "rppqt::details::from_signal_on_event< Arg >", "structrppqt_1_1details_1_1from__signal__on__event_3_01_arg_01_4.html", null ],
+    [ "rppqt::details::from_signal_on_event<>", "structrppqt_1_1details_1_1from__signal__on__event_3_4.html", null ],
     [ "rpp::operators::details::group_by_inner_observer_strategy< TObserver >", "structrpp_1_1operators_1_1details_1_1group__by__inner__observer__strategy.html", null ],
     [ "rpp::operators::details::group_by_observable_strategy< T >", "structrpp_1_1operators_1_1details_1_1group__by__observable__strategy.html", null ],
     [ "rpp::operators::details::group_by_observer_strategy< T, TObserver, KeySelector, ValueSelector, KeyComparator >", "structrpp_1_1operators_1_1details_1_1group__by__observer__strategy.html", null ],
@@ -93,6 +96,7 @@ var hierarchy =
     [ "rpp::details::observers::lambda_strategy< Type, OnNext, OnError, OnCompleted >", "structrpp_1_1details_1_1observers_1_1lambda__strategy.html", null ],
     [ "rpp::operators::details::last_observer_strategy< Type, TObserver >", "structrpp_1_1operators_1_1details_1_1last__observer__strategy.html", null ],
     [ "rpp::details::observers::local_disposable_strategy< DisposableContainer, Bool >", "classrpp_1_1details_1_1observers_1_1local__disposable__strategy.html", null ],
+    [ "rppqt::schedulers::main_thread_scheduler", "classrppqt_1_1schedulers_1_1main__thread__scheduler.html", null ],
     [ "rpp::make_chain_observable< New, Old >", "structrpp_1_1make__chain__observable.html", null ],
     [ "rpp::make_chain_observable< New, observable_chain_strategy< Args... > >", "structrpp_1_1make__chain__observable_3_01_new_00_01observable__chain__strategy_3_01_args_8_8_8_01_4_01_4.html", null ],
     [ "rpp::operators::details::map_observer_strategy< TObserver, Fn >", "structrpp_1_1operators_1_1details_1_1map__observer__strategy.html", null ],
@@ -148,6 +152,9 @@ var hierarchy =
     [ "rpp::details::ref_count_on_subscribe_t< rpp::connectable_observable< OriginalObservable, Subject > >", "structrpp_1_1details_1_1ref__count__on__subscribe__t_3_01rpp_1_1connectable__observable_3_01_oria02afbb30282d4727b872472b2af56d8.html", null ],
     [ "rpp::details::refocunt_disposable_state_t", "structrpp_1_1details_1_1refocunt__disposable__state__t.html", null ],
     [ "rpp::operators::details::repeat_t< Scheduler >", "structrpp_1_1operators_1_1details_1_1repeat__t.html", null ],
+    [ "std::runtime_error", null, [
+      [ "rppqt::utils::no_active_qapplication", "structrppqt_1_1utils_1_1no__active__qapplication.html", null ]
+    ] ],
     [ "rpp::operators::details::scan_no_seed_observer_strategy< Seed, TObserver, Fn >", "structrpp_1_1operators_1_1details_1_1scan__no__seed__observer__strategy.html", null ],
     [ "rpp::operators::details::scan_observer_strategy< TObserver, Seed, Fn >", "structrpp_1_1operators_1_1details_1_1scan__observer__strategy.html", null ],
     [ "rpp::schedulers::details::schedulable_base", "classrpp_1_1schedulers_1_1details_1_1schedulable__base.html", [

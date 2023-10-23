@@ -1,0 +1,63 @@
+\doxysubsubsection{QT Creational Operators}
+\hypertarget{group__qt__creational__operators}{}\label{group__qt__creational__operators}\index{QT Creational Operators@{QT Creational Operators}}
+
+
+QT creational operators are operators that create new observable from QObjects.  
+
+
+\doxysubsubsubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$std\+::derived\+\_\+from$<$ QObject $>$ TSignal\+QObject, std\+::derived\+\_\+from$<$ TSignal\+QObject $>$ TObject, typename R , typename ... Args$>$ }\\auto \mbox{\hyperlink{group__qt__creational__operators_ga8c635ee2f69919f16390b1b4002d00ae}{rppqt\+::source\+::from\+\_\+signal}} (const TObject \&object, R(TSignal\+QObject\+::\texorpdfstring{$\ast$}{*}signal)(Args...))
+\begin{DoxyCompactList}\small\item\em Creates \doxylink{classrpp_1_1observable}{rpp\+::observable} that emits a items from provided QT signal. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsubsubsection{Detailed Description}
+QT creational operators are operators that create new observable from QObjects. 
+
+
+
+\doxysubsubsubsection{Function Documentation}
+\Hypertarget{group__qt__creational__operators_ga8c635ee2f69919f16390b1b4002d00ae}\label{group__qt__creational__operators_ga8c635ee2f69919f16390b1b4002d00ae} 
+\index{QT Creational Operators@{QT Creational Operators}!from\_signal@{from\_signal}}
+\index{from\_signal@{from\_signal}!QT Creational Operators@{QT Creational Operators}}
+\doxysubsubsubsubsection{\texorpdfstring{from\_signal()}{from\_signal()}}
+{\footnotesize\ttfamily template$<$std\+::derived\+\_\+from$<$ QObject $>$ TSignal\+QObject, std\+::derived\+\_\+from$<$ TSignal\+QObject $>$ TObject, typename R , typename ... Args$>$ \\
+auto rppqt\+::source\+::from\+\_\+signal (\begin{DoxyParamCaption}\item[{const TObject \&}]{object,  }\item[{R(TSignal\+QObject\+::\texorpdfstring{$\ast$}{*})(Args...)}]{signal }\end{DoxyParamCaption})}
+
+
+
+Creates \doxylink{classrpp_1_1observable}{rpp\+::observable} that emits a items from provided QT signal. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em object} & is QObject which would emit signals \\
+\hline
+{\em signal} & is interested signal which would generate emissions for observable. Expected to obtain pointer to member function representing signal\\
+\hline
+\end{DoxyParams}
+\begin{DoxyParagraph}{Examples\+:}
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\ \ \ \ QTextEdit*\ text\_edit\ =\ \textcolor{keyword}{new}\ QTextEdit();}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__qt__creational__operators_ga8c635ee2f69919f16390b1b4002d00ae}{rppqt::source::from\_signal}}(*text\_edit,\ \&QTextEdit::textChanged)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ rpp::ops::map([\&](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&)\ }
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ text\_edit-\/>toPlainText();}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \})}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ rpp::ops::subscribe([](\textcolor{keyword}{const}\ QString\&\ text)\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}text\ changed:\ "{}}\ <<\ text.toStdString()\ <<\ std::endl;\ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ []()\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}text\_edit\ destroyed!"{}}\ <<\ std::endl;\ \});}
+\DoxyCodeLine{\ \ \ \ text\_edit-\/>setText(\textcolor{stringliteral}{"{}123"{}});}
+\DoxyCodeLine{\ \ \ \ text\_edit-\/>setText(\textcolor{stringliteral}{"{}temp"{}});}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{delete}\ text\_edit;}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ text\ changed:\ 123}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ text\ changed:\ temp}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ text\_edit\ destroyed!}}
+
+\end{DoxyCodeInclude}
+ 
+\end{DoxyParagraph}
+\begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{from_signal_8cpp-example}{from\+\_\+signal.\+cpp}}.\end{Desc}

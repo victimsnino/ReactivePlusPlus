@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['transforming_20operators_0',['Transforming Operators',['../group__transforming__operators.html',1,'']]]
+  ['schedulers_0',['schedulers',['../group__qt__schedulers.html',1,'QT Schedulers'],['../group__schedulers.html',1,'Schedulers']]],
+  ['subjects_1',['Subjects',['../group__subjects.html',1,'']]]
 ];

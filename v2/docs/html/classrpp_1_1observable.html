@@ -171,14 +171,27 @@ template&lt;std::invocable&lt; Type &gt; OnNext, std::invocable&lt; const std::e
 <tr class="memitem:af2de791d83ffb2944c69839a08453c61"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>subscribe</b> (OnNext &amp;&amp;on_next, OnError &amp;&amp;on_error={}, OnCompleted &amp;&amp;on_completed={}) const</td></tr>
 <tr class="memdesc:af2de791d83ffb2944c69839a08453c61"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct <a class="el" href="group__observers.html#gad7a2b4cbca14301bec3f5a5f59146c94" title="Observer specialized with passed callbacks. Most easiesest way to construct observer &quot;on the fly&quot; via...">rpp::lambda_observer</a> on the fly and subscribe it to emissions from this observable. <br /></td></tr>
 <tr class="separator:af2de791d83ffb2944c69839a08453c61"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac8041b8bf1b976f07b44356fb44f804d" id="r_ac8041b8bf1b976f07b44356fb44f804d"><td class="memTemplParams" colspan="2"><a id="ac8041b8bf1b976f07b44356fb44f804d" name="ac8041b8bf1b976f07b44356fb44f804d"></a>
+template&lt;std::invocable&lt; Type &gt; OnNext, std::invocable&lt;&gt; OnCompleted&gt; </td></tr>
+<tr class="memitem:ac8041b8bf1b976f07b44356fb44f804d"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>subscribe</b> (OnNext &amp;&amp;on_next, OnCompleted &amp;&amp;on_completed) const</td></tr>
+<tr class="memdesc:ac8041b8bf1b976f07b44356fb44f804d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct <a class="el" href="group__observers.html#gad7a2b4cbca14301bec3f5a5f59146c94" title="Observer specialized with passed callbacks. Most easiesest way to construct observer &quot;on the fly&quot; via...">rpp::lambda_observer</a> on the fly and subscribe it to emissions from this observable. <br /></td></tr>
+<tr class="separator:ac8041b8bf1b976f07b44356fb44f804d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acb875b06e348c6d77706e6d04aed4944" id="r_acb875b06e348c6d77706e6d04aed4944"><td class="memTemplParams" colspan="2">template&lt;std::invocable&lt; Type &gt; OnNext, std::invocable&lt; const std::exception_ptr &amp; &gt; OnError = rpp::utils::rethrow_error_t, std::invocable&lt;&gt; OnCompleted = rpp::utils::empty_function_t&lt;&gt;&gt; </td></tr>
 <tr class="memitem:acb875b06e348c6d77706e6d04aed4944"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classrpp_1_1disposable__wrapper__impl.html">composite_disposable_wrapper</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classrpp_1_1observable.html#acb875b06e348c6d77706e6d04aed4944">subscribe_with_disposable</a> (OnNext &amp;&amp;on_next, OnError &amp;&amp;on_error={}, OnCompleted &amp;&amp;on_completed={}) const</td></tr>
 <tr class="memdesc:acb875b06e348c6d77706e6d04aed4944"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct <a class="el" href="group__observers.html#gad7a2b4cbca14301bec3f5a5f59146c94" title="Observer specialized with passed callbacks. Most easiesest way to construct observer &quot;on the fly&quot; via...">rpp::lambda_observer</a> on the fly and subscribe it to emissions from this observable.  <br /></td></tr>
 <tr class="separator:acb875b06e348c6d77706e6d04aed4944"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa264608e3b4b845fa739b32c2e44d167" id="r_aa264608e3b4b845fa739b32c2e44d167"><td class="memTemplParams" colspan="2">template&lt;std::invocable&lt; Type &gt; OnNext, std::invocable&lt;&gt; OnCompleted&gt; </td></tr>
+<tr class="memitem:aa264608e3b4b845fa739b32c2e44d167"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classrpp_1_1disposable__wrapper__impl.html">composite_disposable_wrapper</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classrpp_1_1observable.html#aa264608e3b4b845fa739b32c2e44d167">subscribe_with_disposable</a> (OnNext &amp;&amp;on_next, OnCompleted &amp;&amp;on_completed) const</td></tr>
+<tr class="memdesc:aa264608e3b4b845fa739b32c2e44d167"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct <a class="el" href="group__observers.html#gad7a2b4cbca14301bec3f5a5f59146c94" title="Observer specialized with passed callbacks. Most easiesest way to construct observer &quot;on the fly&quot; via...">rpp::lambda_observer</a> on the fly and subscribe it to emissions from this observable.  <br /></td></tr>
+<tr class="separator:aa264608e3b4b845fa739b32c2e44d167"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ace715f6f4dbbee4f7b0000fd32f75c8c" id="r_ace715f6f4dbbee4f7b0000fd32f75c8c"><td class="memTemplParams" colspan="2">template&lt;std::invocable&lt; Type &gt; OnNext, std::invocable&lt; const std::exception_ptr &amp; &gt; OnError = rpp::utils::rethrow_error_t, std::invocable&lt;&gt; OnCompleted = rpp::utils::empty_function_t&lt;&gt;&gt; </td></tr>
 <tr class="memitem:ace715f6f4dbbee4f7b0000fd32f75c8c"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classrpp_1_1disposable__wrapper__impl.html">composite_disposable_wrapper</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classrpp_1_1observable.html#ace715f6f4dbbee4f7b0000fd32f75c8c">subscribe</a> (const <a class="el" href="classrpp_1_1disposable__wrapper__impl.html">composite_disposable_wrapper</a> &amp;d, OnNext &amp;&amp;on_next, OnError &amp;&amp;on_error={}, OnCompleted &amp;&amp;on_completed={}) const</td></tr>
 <tr class="memdesc:ace715f6f4dbbee4f7b0000fd32f75c8c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct <a class="el" href="group__observers.html#gad7a2b4cbca14301bec3f5a5f59146c94" title="Observer specialized with passed callbacks. Most easiesest way to construct observer &quot;on the fly&quot; via...">rpp::lambda_observer</a> on the fly and subscribe it to emissions from this observable.  <br /></td></tr>
 <tr class="separator:ace715f6f4dbbee4f7b0000fd32f75c8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a09b6bd77bdb6b86f06b7f21897db4b0b" id="r_a09b6bd77bdb6b86f06b7f21897db4b0b"><td class="memTemplParams" colspan="2">template&lt;std::invocable&lt; Type &gt; OnNext, std::invocable&lt;&gt; OnCompleted&gt; </td></tr>
+<tr class="memitem:a09b6bd77bdb6b86f06b7f21897db4b0b"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classrpp_1_1disposable__wrapper__impl.html">composite_disposable_wrapper</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classrpp_1_1observable.html#a09b6bd77bdb6b86f06b7f21897db4b0b">subscribe</a> (const <a class="el" href="classrpp_1_1disposable__wrapper__impl.html">composite_disposable_wrapper</a> &amp;d, OnNext &amp;&amp;on_next, OnCompleted &amp;&amp;on_completed) const</td></tr>
+<tr class="memdesc:a09b6bd77bdb6b86f06b7f21897db4b0b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct <a class="el" href="group__observers.html#gad7a2b4cbca14301bec3f5a5f59146c94" title="Observer specialized with passed callbacks. Most easiesest way to construct observer &quot;on the fly&quot; via...">rpp::lambda_observer</a> on the fly and subscribe it to emissions from this observable.  <br /></td></tr>
+<tr class="separator:a09b6bd77bdb6b86f06b7f21897db4b0b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab820514612d4314b99528525db6afd4f" id="r_ab820514612d4314b99528525db6afd4f"><td class="memItemLeft" align="right" valign="top"><a id="ab820514612d4314b99528525db6afd4f" name="ab820514612d4314b99528525db6afd4f"></a>
 auto&#160;</td><td class="memItemRight" valign="bottom"><b>as_dynamic</b> () const &amp;</td></tr>
 <tr class="memdesc:ab820514612d4314b99528525db6afd4f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert observable to type-erased version. <br /></td></tr>
@@ -235,7 +248,7 @@ Expected that observable's strategy would work with observer in serialized way</
 </dl>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a18fd127e66c6fab482886fb4e4fdc75b" name="a18fd127e66c6fab482886fb4e4fdc75b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a18fd127e66c6fab482886fb4e4fdc75b">&#9670;&#160;</a></span>subscribe() <span class="overload">[1/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a18fd127e66c6fab482886fb4e4fdc75b">&#9670;&#160;</a></span>subscribe() <span class="overload">[1/6]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -300,7 +313,7 @@ template&lt;constraint::observer_strategy&lt; Type &gt; ObserverStrategy&gt; </d
 </div>
 </div>
 <a id="a6bf5caf76b18d197fc56780b924b709c" name="a6bf5caf76b18d197fc56780b924b709c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6bf5caf76b18d197fc56780b924b709c">&#9670;&#160;</a></span>subscribe() <span class="overload">[2/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a6bf5caf76b18d197fc56780b924b709c">&#9670;&#160;</a></span>subscribe() <span class="overload">[2/6]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -350,8 +363,74 @@ requires (!constraint::observer&lt;ObserverStrategy&gt;)</div>
 
 </div>
 </div>
+<a id="a09b6bd77bdb6b86f06b7f21897db4b0b" name="a09b6bd77bdb6b86f06b7f21897db4b0b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a09b6bd77bdb6b86f06b7f21897db4b0b">&#9670;&#160;</a></span>subscribe() <span class="overload">[3/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;constraint::decayed_type Type, constraint::observable_strategy&lt; Type &gt; Strategy&gt; </div>
+<div class="memtemplate">
+template&lt;std::invocable&lt; Type &gt; OnNext, std::invocable&lt;&gt; OnCompleted&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classrpp_1_1disposable__wrapper__impl.html">composite_disposable_wrapper</a> <a class="el" href="classrpp_1_1observable.html">rpp::observable</a>&lt; Type, Strategy &gt;::subscribe </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classrpp_1_1disposable__wrapper__impl.html">composite_disposable_wrapper</a> &amp;&#160;</td>
+          <td class="paramname"><em>d</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">OnNext &amp;&amp;&#160;</td>
+          <td class="paramname"><em>on_next</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">OnCompleted &amp;&amp;&#160;</td>
+          <td class="paramname"><em>on_completed</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Construct <a class="el" href="group__observers.html#gad7a2b4cbca14301bec3f5a5f59146c94" title="Observer specialized with passed callbacks. Most easiesest way to construct observer &quot;on the fly&quot; via...">rpp::lambda_observer</a> on the fly and subscribe it to emissions from this observable. </p>
+<p>This overloading attaches passed disposable to observer and return it to provide ability to dispose/disconnect observer early if needed. </p><dl class="section warning"><dt>Warning</dt><dd>This overloading has some performance penalties, use it only when you really need to use disposable</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">d</td><td>is disposable to be attached to observer. If disposable is nullptr or disposed -&gt; no any subscription happens </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>composite_disposable_wrapper is disposable to be able to dispose observer when it needed</dd></dl>
+<dl class="section user"><dt>Example</dt><dd><div class="fragment"><div class="line"><span class="keyword">auto</span> disposable = std::make_shared&lt;rpp::composite_disposable&gt;();</div>
+<div class="line"><a class="code hl_function" href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">rpp::source::just</a>(1)</div>
+<div class="line">| <a class="code hl_function" href="group__utility__operators.html#ga22f3148defcabdd1935e201103644f4b">rpp::operators::repeat</a>()</div>
+<div class="line">| <a class="code hl_function" href="group__utility__operators.html#gace728cfbf71720901cb6f310edabf8b0">rpp::operators::subscribe_on</a>(<a class="code hl_class" href="classrpp_1_1schedulers_1_1new__thread.html">rpp::schedulers::new_thread</a>{})</div>
+<div class="line">| rpp::operators::subscribe(disposable, [](<span class="keywordtype">int</span>) { std::cout &lt;&lt; <span class="stringliteral">&quot;NEW VALUE&quot;</span> &lt;&lt; std::endl; });</div>
+<div class="line"> </div>
+<div class="line">std::this_thread::sleep_for(std::chrono::seconds(1));</div>
+<div class="line">disposable-&gt;dispose();</div>
+<div class="line">std::this_thread::sleep_for(std::chrono::seconds(1));</div>
+</div><!-- fragment --> </dd></dl>
+
+</div>
+</div>
 <a id="ace715f6f4dbbee4f7b0000fd32f75c8c" name="ace715f6f4dbbee4f7b0000fd32f75c8c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ace715f6f4dbbee4f7b0000fd32f75c8c">&#9670;&#160;</a></span>subscribe() <span class="overload">[3/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ace715f6f4dbbee4f7b0000fd32f75c8c">&#9670;&#160;</a></span>subscribe() <span class="overload">[4/6]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -423,7 +502,7 @@ template&lt;std::invocable&lt; Type &gt; OnNext, std::invocable&lt; const std::e
 </div>
 </div>
 <a id="aa2621e98393f224a7689c6e08003c027" name="aa2621e98393f224a7689c6e08003c027"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa2621e98393f224a7689c6e08003c027">&#9670;&#160;</a></span>subscribe() <span class="overload">[4/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aa2621e98393f224a7689c6e08003c027">&#9670;&#160;</a></span>subscribe() <span class="overload">[5/6]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -454,7 +533,7 @@ template&lt;constraint::decayed_type Type, constraint::observable_strategy&lt; T
 </div>
 </div>
 <a id="a193b0e08c516912c04afd8379ec27182" name="a193b0e08c516912c04afd8379ec27182"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a193b0e08c516912c04afd8379ec27182">&#9670;&#160;</a></span>subscribe() <span class="overload">[5/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a193b0e08c516912c04afd8379ec27182">&#9670;&#160;</a></span>subscribe() <span class="overload">[6/6]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -487,7 +566,7 @@ template&lt;constraint::observer_strategy&lt; Type &gt; ObserverStrategy&gt; </d
 </div>
 </div>
 <a id="afb9bea529786c85a6bc9b0647bde2ef5" name="afb9bea529786c85a6bc9b0647bde2ef5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afb9bea529786c85a6bc9b0647bde2ef5">&#9670;&#160;</a></span>subscribe_with_disposable() <span class="overload">[1/3]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#afb9bea529786c85a6bc9b0647bde2ef5">&#9670;&#160;</a></span>subscribe_with_disposable() <span class="overload">[1/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -520,7 +599,7 @@ template&lt;constraint::decayed_type Type, constraint::observable_strategy&lt; T
 </div>
 </div>
 <a id="ac81ee3d805386d492ab54e40ccd6adc2" name="ac81ee3d805386d492ab54e40ccd6adc2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac81ee3d805386d492ab54e40ccd6adc2">&#9670;&#160;</a></span>subscribe_with_disposable() <span class="overload">[2/3]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ac81ee3d805386d492ab54e40ccd6adc2">&#9670;&#160;</a></span>subscribe_with_disposable() <span class="overload">[2/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -554,8 +633,52 @@ template&lt;constraint::observer_strategy&lt; Type &gt; ObserverStrategy&gt; </d
 
 </div>
 </div>
+<a id="aa264608e3b4b845fa739b32c2e44d167" name="aa264608e3b4b845fa739b32c2e44d167"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa264608e3b4b845fa739b32c2e44d167">&#9670;&#160;</a></span>subscribe_with_disposable() <span class="overload">[3/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;constraint::decayed_type Type, constraint::observable_strategy&lt; Type &gt; Strategy&gt; </div>
+<div class="memtemplate">
+template&lt;std::invocable&lt; Type &gt; OnNext, std::invocable&lt;&gt; OnCompleted&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classrpp_1_1disposable__wrapper__impl.html">composite_disposable_wrapper</a> <a class="el" href="classrpp_1_1observable.html">rpp::observable</a>&lt; Type, Strategy &gt;::subscribe_with_disposable </td>
+          <td>(</td>
+          <td class="paramtype">OnNext &amp;&amp;&#160;</td>
+          <td class="paramname"><em>on_next</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">OnCompleted &amp;&amp;&#160;</td>
+          <td class="paramname"><em>on_completed</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Construct <a class="el" href="group__observers.html#gad7a2b4cbca14301bec3f5a5f59146c94" title="Observer specialized with passed callbacks. Most easiesest way to construct observer &quot;on the fly&quot; via...">rpp::lambda_observer</a> on the fly and subscribe it to emissions from this observable. </p>
+<p>This overloading attaches disposable to observer and return it to provide ability to dispose/disconnect observer early if needed. </p><dl class="section warning"><dt>Warning</dt><dd>This overloading has some performance penalties, use it only when you really need to use disposable </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>composite_disposable_wrapper is disposable to be able to dispose observer when it needed </dd></dl>
+
+</div>
+</div>
 <a id="acb875b06e348c6d77706e6d04aed4944" name="acb875b06e348c6d77706e6d04aed4944"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acb875b06e348c6d77706e6d04aed4944">&#9670;&#160;</a></span>subscribe_with_disposable() <span class="overload">[3/3]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#acb875b06e348c6d77706e6d04aed4944">&#9670;&#160;</a></span>subscribe_with_disposable() <span class="overload">[4/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -605,7 +728,7 @@ template&lt;std::invocable&lt; Type &gt; OnNext, std::invocable&lt; const std::e
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>src/rpp/rpp/observables/<a class="el" href="observables_2fwd_8hpp_source.html">fwd.hpp</a></li>
+<li>src/rpp/rpp/observables/<a class="el" href="rpp_2observables_2fwd_8hpp_source.html">fwd.hpp</a></li>
 <li>src/rpp/rpp/observables/<a class="el" href="observable_8hpp_source.html">observable.hpp</a></li>
 </ul>
 </div><!-- contents -->

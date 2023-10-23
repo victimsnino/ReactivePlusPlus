@@ -18,5 +18,9 @@ var searchData=
   ['from_5fcallable_5finvoke_15',['from_callable_invoke',['../structrpp_1_1details_1_1from__callable__invoke.html',1,'rpp::details']]],
   ['from_5fiterable_16',['from_iterable',['../group__creational__operators.html#gad15a7e8bfb2f7ce0af1b44e22918116c',1,'rpp::source']]],
   ['from_5fiterable_5fschedulable_17',['from_iterable_schedulable',['../structrpp_1_1details_1_1from__iterable__schedulable.html',1,'rpp::details']]],
-  ['from_5fiterable_5fstrategy_18',['from_iterable_strategy',['../structrpp_1_1details_1_1from__iterable__strategy.html',1,'rpp::details']]]
+  ['from_5fiterable_5fstrategy_18',['from_iterable_strategy',['../structrpp_1_1details_1_1from__iterable__strategy.html',1,'rpp::details']]],
+  ['from_5fsignal_19',['from_signal',['../group__qt__creational__operators.html#ga8c635ee2f69919f16390b1b4002d00ae',1,'rppqt::source']]],
+  ['from_5fsignal_5fon_5fevent_20',['from_signal_on_event',['../structrppqt_1_1details_1_1from__signal__on__event.html',1,'rppqt::details']]],
+  ['from_5fsignal_5fon_5fevent_3c_20arg_20_3e_21',['from_signal_on_event&lt; Arg &gt;',['../structrppqt_1_1details_1_1from__signal__on__event_3_01_arg_01_4.html',1,'rppqt::details']]],
+  ['from_5fsignal_5fon_5fevent_3c_3e_22',['from_signal_on_event&lt;&gt;',['../structrppqt_1_1details_1_1from__signal__on__event_3_4.html',1,'rppqt::details']]]
 ];

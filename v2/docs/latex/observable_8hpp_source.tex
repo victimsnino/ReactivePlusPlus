@@ -107,87 +107,109 @@
 \DoxyCodeLine{00177\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::forward<OnCompleted>(on\_completed)\});}
 \DoxyCodeLine{00178\ \ \ \ \ \}}
 \DoxyCodeLine{00179\ }
-\DoxyCodeLine{00187\ \ \ \ \ \textcolor{keyword}{template}<std::invocable<Type>\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ OnNext,}
-\DoxyCodeLine{00188\ \ \ \ \ \ \ \ \ \ \ \ \ \ std::invocable<const\ std::exception\_ptr\&>\ OnError\ \ \ \ \ =\ rpp::utils::rethrow\_error\_t,}
-\DoxyCodeLine{00189\ \ \ \ \ \ \ \ \ \ \ \ \ \ std::invocable<>\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ OnCompleted\ =\ rpp::utils::empty\_function\_t<>>}
-\DoxyCodeLine{00190\ \ \ \ \ [[nodiscard(\textcolor{stringliteral}{"{}Use\ returned\ disposable\ or\ use\ subscribe(on\_next,\ on\_error,\ on\_completed)\ instead"{}})]]\ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{composite\_disposable\_wrapper}}\ \mbox{\hyperlink{classrpp_1_1observable_acb875b06e348c6d77706e6d04aed4944}{subscribe\_with\_disposable}}(OnNext\&\&\ on\_next,\ OnError\&\&\ on\_error\ =\ \{\},\ OnCompleted\&\&\ on\_completed\ =\ \{\})\ \textcolor{keyword}{const}}
-\DoxyCodeLine{00191\ \ \ \ \ \{}
-\DoxyCodeLine{00192\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ res\ =\ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp::composite\_disposable\_wrapper}}\{std::make\_shared<rpp::composite\_disposable\_impl<typename\ expected\_disposable\_strategy::disposable\_container>>()\};}
-\DoxyCodeLine{00193\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrpp_1_1observable_a193b0e08c516912c04afd8379ec27182}{subscribe}}(make\_lambda\_observer<Type>(res,}
-\DoxyCodeLine{00194\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::forward<OnNext>(on\_next),}
-\DoxyCodeLine{00195\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::forward<OnError>(on\_error),}
-\DoxyCodeLine{00196\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::forward<OnCompleted>(on\_completed)));}
-\DoxyCodeLine{00197\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ res;}
-\DoxyCodeLine{00198\ \ \ \ \ \}}
-\DoxyCodeLine{00199\ }
-\DoxyCodeLine{00222\ \ \ \ \ \textcolor{keyword}{template}<std::invocable<Type>\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ OnNext,}
-\DoxyCodeLine{00223\ \ \ \ \ \ \ \ \ \ \ \ \ \ std::invocable<const\ std::exception\_ptr\&>\ OnError\ \ \ \ \ =\ rpp::utils::rethrow\_error\_t,}
-\DoxyCodeLine{00224\ \ \ \ \ \ \ \ \ \ \ \ \ \ std::invocable<>\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ OnCompleted\ =\ rpp::utils::empty\_function\_t<>>}
-\DoxyCodeLine{00225\ \ \ \ \ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{composite\_disposable\_wrapper}}\ \mbox{\hyperlink{classrpp_1_1observable_ace715f6f4dbbee4f7b0000fd32f75c8c}{subscribe}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{composite\_disposable\_wrapper}}\&\ d,\ OnNext\&\&\ on\_next,\ OnError\&\&\ on\_error\ =\ \{\},\ OnCompleted\&\&\ on\_completed\ =\ \{\})\ \textcolor{keyword}{const}}
-\DoxyCodeLine{00226\ \ \ \ \ \{}
-\DoxyCodeLine{00227\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!d.is\_disposed())}
-\DoxyCodeLine{00228\ \ \ \ \ \ \ \ \ \ \ \ \ m\_strategy.subscribe(make\_lambda\_observer<Type>(d,}
-\DoxyCodeLine{00229\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::forward<OnNext>(on\_next),}
-\DoxyCodeLine{00230\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::forward<OnError>(on\_error),}
-\DoxyCodeLine{00231\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::forward<OnCompleted>(on\_completed)));}
-\DoxyCodeLine{00232\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ d;}
-\DoxyCodeLine{00233\ \ \ \ \ \}}
-\DoxyCodeLine{00234\ }
-\DoxyCodeLine{00238\ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{classrpp_1_1observable_ab820514612d4314b99528525db6afd4f}{as\_dynamic}}()\ const\ \&\ \{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classrpp_1_1observable}{rpp::dynamic\_observable<Type>}}\{*\textcolor{keyword}{this}\};\ \}}
-\DoxyCodeLine{00239\ }
-\DoxyCodeLine{00243\ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{classrpp_1_1observable_a7f3a86ce4541938d7e4c7c73f883b30b}{as\_dynamic}}()\ \&\&\ \{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classrpp_1_1observable}{rpp::dynamic\_observable<Type>}}\{std::move(*\textcolor{keyword}{this})\};\ \}}
-\DoxyCodeLine{00244\ }
-\DoxyCodeLine{00245\ \ \ \ \ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::operator\_chain<Type,\ expected\_disposable\_strategy>\ Op>}
-\DoxyCodeLine{00246\ \ \ \ \ \textcolor{keyword}{auto}\ operator|(Op\&\&\ op)\ \textcolor{keyword}{const}\ \&}
-\DoxyCodeLine{00247\ \ \ \ \ \{}
-\DoxyCodeLine{00248\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classrpp_1_1observable}{observable<typename\ std::decay\_t<Op>::template}}\ result\_value<Type>,\ make\_chain\_observable\_t<std::decay\_t<Op>,\ Strategy>>\{std::forward<Op>(op),\ m\_strategy\};}
-\DoxyCodeLine{00249\ \ \ \ \ \}}
-\DoxyCodeLine{00250\ }
-\DoxyCodeLine{00251\ \ \ \ \ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::operator\_chain<Type,\ expected\_disposable\_strategy>\ Op>}
-\DoxyCodeLine{00252\ \ \ \ \ \textcolor{keyword}{auto}\ operator|(Op\&\&\ op)\ \&\&}
-\DoxyCodeLine{00253\ \ \ \ \ \{}
-\DoxyCodeLine{00254\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ observable<typename\ std::decay\_t<Op>::template\ result\_value<Type>,\ make\_chain\_observable\_t<std::decay\_t<Op>,\ Strategy>>\{std::forward<Op>(op),\ std::move(m\_strategy)\};}
-\DoxyCodeLine{00255\ \ \ \ \ \}}
-\DoxyCodeLine{00256\ }
-\DoxyCodeLine{00257\ \ \ \ \ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::operator\_observable\_transform<const\ observable<Type,\ Strategy>\&>\ Op>}
-\DoxyCodeLine{00258\ \ \ \ \ \textcolor{keyword}{auto}\ operator|(Op\&\&\ op)\ \textcolor{keyword}{const}\ \&}
-\DoxyCodeLine{00259\ \ \ \ \ \{}
-\DoxyCodeLine{00260\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::forward<Op>(op)(*this);}
-\DoxyCodeLine{00261\ \ \ \ \ \}}
-\DoxyCodeLine{00262\ }
-\DoxyCodeLine{00263\ \ \ \ \ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::operator\_observable\_transform<observable<Type,\ Strategy>\&\&>\ Op>}
-\DoxyCodeLine{00264\ \ \ \ \ \textcolor{keyword}{auto}\ operator|(Op\&\&\ op)\ \&\&}
-\DoxyCodeLine{00265\ \ \ \ \ \{}
-\DoxyCodeLine{00266\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::forward<Op>(op)(std::move(*\textcolor{keyword}{this}));}
-\DoxyCodeLine{00267\ \ \ \ \ \}}
-\DoxyCodeLine{00268\ }
-\DoxyCodeLine{00269\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}...\ Args>}
-\DoxyCodeLine{00270\ \ \ \ \ \textcolor{keyword}{auto}\ operator|(\textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1subscribe__t}{rpp::operators::details::subscribe\_t<Args...>}}\&\ op)\textcolor{keyword}{\ const}}
-\DoxyCodeLine{00271\ \textcolor{keyword}{\ \ \ \ }\{}
-\DoxyCodeLine{00272\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ op(*\textcolor{keyword}{this});}
-\DoxyCodeLine{00273\ \ \ \ \ \}}
-\DoxyCodeLine{00274\ }
-\DoxyCodeLine{00275\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}...\ Args>}
-\DoxyCodeLine{00276\ \ \ \ \ \textcolor{keyword}{auto}\ operator|(\mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1subscribe__t}{rpp::operators::details::subscribe\_t<Args...>}}\&\&\ op)\textcolor{keyword}{\ const}}
-\DoxyCodeLine{00277\ \textcolor{keyword}{\ \ \ \ }\{}
-\DoxyCodeLine{00278\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::move(op)(*this);}
-\DoxyCodeLine{00279\ \ \ \ \ \}}
-\DoxyCodeLine{00280\ }
-\DoxyCodeLine{00281\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ Op>}
-\DoxyCodeLine{00282\ \ \ \ \ \textcolor{keyword}{auto}\ pipe(Op\&\&\ op)\ \textcolor{keyword}{const}\ \&}
-\DoxyCodeLine{00283\ \ \ \ \ \{}
-\DoxyCodeLine{00284\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this}\ |\ std::forward<Op>(op);}
-\DoxyCodeLine{00285\ \ \ \ \ \}}
-\DoxyCodeLine{00286\ }
-\DoxyCodeLine{00287\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ Op>}
-\DoxyCodeLine{00288\ \ \ \ \ \textcolor{keyword}{auto}\ pipe(Op\&\&\ op)\ \&\&}
-\DoxyCodeLine{00289\ \ \ \ \ \{}
-\DoxyCodeLine{00290\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::move(*\textcolor{keyword}{this})\ |\ std::forward<Op>(op);}
-\DoxyCodeLine{00291\ \ \ \ \ \}}
-\DoxyCodeLine{00292\ }
-\DoxyCodeLine{00293\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00294\ \ \ \ \ RPP\_NO\_UNIQUE\_ADDRESS\ Strategy\ m\_strategy;}
-\DoxyCodeLine{00295\ \};}
-\DoxyCodeLine{00296\ \}}
+\DoxyCodeLine{00183\ \ \ \ \ \textcolor{keyword}{template}<std::invocable<Type>\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ OnNext,}
+\DoxyCodeLine{00184\ \ \ \ \ \ \ \ \ \ \ \ \ \ std::invocable<>\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ OnCompleted>}
+\DoxyCodeLine{00185\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classrpp_1_1observable_ac8041b8bf1b976f07b44356fb44f804d}{subscribe}}(OnNext\&\&\ \ \ \ \ \ on\_next,}
+\DoxyCodeLine{00186\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ OnCompleted\&\&\ on\_completed)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00187\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00188\ \ \ \ \ \ \ \ \mbox{\hyperlink{classrpp_1_1observable_a193b0e08c516912c04afd8379ec27182}{subscribe}}(std::forward<OnNext>(on\_next),\ rpp::utils::rethrow\_error\_t\{\},\ std::forward<OnCompleted>(on\_completed));}
+\DoxyCodeLine{00189\ \ \ \ \ \}}
+\DoxyCodeLine{00190\ }
+\DoxyCodeLine{00198\ \ \ \ \ \textcolor{keyword}{template}<std::invocable<Type>\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ OnNext,}
+\DoxyCodeLine{00199\ \ \ \ \ \ \ \ \ \ \ \ \ \ std::invocable<const\ std::exception\_ptr\&>\ OnError\ \ \ \ \ =\ rpp::utils::rethrow\_error\_t,}
+\DoxyCodeLine{00200\ \ \ \ \ \ \ \ \ \ \ \ \ \ std::invocable<>\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ OnCompleted\ =\ rpp::utils::empty\_function\_t<>>}
+\DoxyCodeLine{00201\ \ \ \ \ [[nodiscard(\textcolor{stringliteral}{"{}Use\ returned\ disposable\ or\ use\ subscribe(on\_next,\ on\_error,\ on\_completed)\ instead"{}})]]\ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{composite\_disposable\_wrapper}}\ \mbox{\hyperlink{classrpp_1_1observable_acb875b06e348c6d77706e6d04aed4944}{subscribe\_with\_disposable}}(OnNext\&\&\ on\_next,\ OnError\&\&\ on\_error\ =\ \{\},\ OnCompleted\&\&\ on\_completed\ =\ \{\})\ \textcolor{keyword}{const}}
+\DoxyCodeLine{00202\ \ \ \ \ \{}
+\DoxyCodeLine{00203\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ res\ =\ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp::composite\_disposable\_wrapper}}\{std::make\_shared<rpp::composite\_disposable\_impl<typename\ expected\_disposable\_strategy::disposable\_container>>()\};}
+\DoxyCodeLine{00204\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrpp_1_1observable_a193b0e08c516912c04afd8379ec27182}{subscribe}}(make\_lambda\_observer<Type>(res,}
+\DoxyCodeLine{00205\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::forward<OnNext>(on\_next),}
+\DoxyCodeLine{00206\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::forward<OnError>(on\_error),}
+\DoxyCodeLine{00207\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::forward<OnCompleted>(on\_completed)));}
+\DoxyCodeLine{00208\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ res;}
+\DoxyCodeLine{00209\ \ \ \ \ \}}
+\DoxyCodeLine{00210\ }
+\DoxyCodeLine{00218\ \ \ \ \ \textcolor{keyword}{template}<std::invocable<Type>\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ OnNext,}
+\DoxyCodeLine{00219\ \ \ \ \ \ \ \ \ \ \ \ \ \ std::invocable<>\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ OnCompleted>}
+\DoxyCodeLine{00220\ \ \ \ \ [[nodiscard(\textcolor{stringliteral}{"{}Use\ returned\ disposable\ or\ use\ subscribe(on\_next,\ on\_error,\ on\_completed)\ instead"{}})]]\ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{composite\_disposable\_wrapper}}\ \mbox{\hyperlink{classrpp_1_1observable_aa264608e3b4b845fa739b32c2e44d167}{subscribe\_with\_disposable}}(OnNext\&\&\ on\_next,\ OnCompleted\&\&\ on\_completed)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00221\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00222\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classrpp_1_1observable_ac81ee3d805386d492ab54e40ccd6adc2}{subscribe\_with\_disposable}}(std::forward<OnNext>(on\_next),\ rpp::utils::rethrow\_error\_t\{\},\ std::forward<OnCompleted>(on\_completed));}
+\DoxyCodeLine{00223\ \ \ \ \ \}}
+\DoxyCodeLine{00224\ }
+\DoxyCodeLine{00247\ \ \ \ \ \textcolor{keyword}{template}<std::invocable<Type>\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ OnNext,}
+\DoxyCodeLine{00248\ \ \ \ \ \ \ \ \ \ \ \ \ \ std::invocable<const\ std::exception\_ptr\&>\ OnError\ \ \ \ \ =\ rpp::utils::rethrow\_error\_t,}
+\DoxyCodeLine{00249\ \ \ \ \ \ \ \ \ \ \ \ \ \ std::invocable<>\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ OnCompleted\ =\ rpp::utils::empty\_function\_t<>>}
+\DoxyCodeLine{00250\ \ \ \ \ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{composite\_disposable\_wrapper}}\ \mbox{\hyperlink{classrpp_1_1observable_ace715f6f4dbbee4f7b0000fd32f75c8c}{subscribe}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{composite\_disposable\_wrapper}}\&\ d,\ OnNext\&\&\ on\_next,\ OnError\&\&\ on\_error\ =\ \{\},\ OnCompleted\&\&\ on\_completed\ =\ \{\})\ \textcolor{keyword}{const}}
+\DoxyCodeLine{00251\ \ \ \ \ \{}
+\DoxyCodeLine{00252\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!d.is\_disposed())}
+\DoxyCodeLine{00253\ \ \ \ \ \ \ \ \ \ \ \ \ m\_strategy.subscribe(make\_lambda\_observer<Type>(d,}
+\DoxyCodeLine{00254\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::forward<OnNext>(on\_next),}
+\DoxyCodeLine{00255\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::forward<OnError>(on\_error),}
+\DoxyCodeLine{00256\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::forward<OnCompleted>(on\_completed)));}
+\DoxyCodeLine{00257\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ d;}
+\DoxyCodeLine{00258\ \ \ \ \ \}}
+\DoxyCodeLine{00259\ }
+\DoxyCodeLine{00282\ \ \ \ \ \textcolor{keyword}{template}<std::invocable<Type>\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ OnNext,}
+\DoxyCodeLine{00283\ \ \ \ \ \ \ \ \ \ \ \ \ \ std::invocable<>\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ OnCompleted>}
+\DoxyCodeLine{00284\ \ \ \ \ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{composite\_disposable\_wrapper}}\ \mbox{\hyperlink{classrpp_1_1observable_a09b6bd77bdb6b86f06b7f21897db4b0b}{subscribe}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{composite\_disposable\_wrapper}}\&\ d,\ OnNext\&\&\ on\_next,\ OnCompleted\&\&\ on\_completed)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00285\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00286\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classrpp_1_1observable_a193b0e08c516912c04afd8379ec27182}{subscribe}}(d,\ std::forward<OnNext>(on\_next),\ rpp::utils::rethrow\_error\_t\{\},\ std::forward<OnCompleted>(on\_completed));}
+\DoxyCodeLine{00287\ \ \ \ \ \}}
+\DoxyCodeLine{00288\ }
+\DoxyCodeLine{00292\ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{classrpp_1_1observable_ab820514612d4314b99528525db6afd4f}{as\_dynamic}}()\ const\ \&\ \{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classrpp_1_1observable}{rpp::dynamic\_observable<Type>}}\{*\textcolor{keyword}{this}\};\ \}}
+\DoxyCodeLine{00293\ }
+\DoxyCodeLine{00297\ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{classrpp_1_1observable_a7f3a86ce4541938d7e4c7c73f883b30b}{as\_dynamic}}()\ \&\&\ \{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classrpp_1_1observable}{rpp::dynamic\_observable<Type>}}\{std::move(*\textcolor{keyword}{this})\};\ \}}
+\DoxyCodeLine{00298\ }
+\DoxyCodeLine{00299\ \ \ \ \ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::operator\_chain<Type,\ expected\_disposable\_strategy>\ Op>}
+\DoxyCodeLine{00300\ \ \ \ \ \textcolor{keyword}{auto}\ operator|(Op\&\&\ op)\ \textcolor{keyword}{const}\ \&}
+\DoxyCodeLine{00301\ \ \ \ \ \{}
+\DoxyCodeLine{00302\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classrpp_1_1observable}{observable<typename\ std::decay\_t<Op>::template}}\ result\_value<Type>,\ make\_chain\_observable\_t<std::decay\_t<Op>,\ Strategy>>\{std::forward<Op>(op),\ m\_strategy\};}
+\DoxyCodeLine{00303\ \ \ \ \ \}}
+\DoxyCodeLine{00304\ }
+\DoxyCodeLine{00305\ \ \ \ \ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::operator\_chain<Type,\ expected\_disposable\_strategy>\ Op>}
+\DoxyCodeLine{00306\ \ \ \ \ \textcolor{keyword}{auto}\ operator|(Op\&\&\ op)\ \&\&}
+\DoxyCodeLine{00307\ \ \ \ \ \{}
+\DoxyCodeLine{00308\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ observable<typename\ std::decay\_t<Op>::template\ result\_value<Type>,\ make\_chain\_observable\_t<std::decay\_t<Op>,\ Strategy>>\{std::forward<Op>(op),\ std::move(m\_strategy)\};}
+\DoxyCodeLine{00309\ \ \ \ \ \}}
+\DoxyCodeLine{00310\ }
+\DoxyCodeLine{00311\ \ \ \ \ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::operator\_observable\_transform<const\ observable<Type,\ Strategy>\&>\ Op>}
+\DoxyCodeLine{00312\ \ \ \ \ \textcolor{keyword}{auto}\ operator|(Op\&\&\ op)\ \textcolor{keyword}{const}\ \&}
+\DoxyCodeLine{00313\ \ \ \ \ \{}
+\DoxyCodeLine{00314\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::forward<Op>(op)(*this);}
+\DoxyCodeLine{00315\ \ \ \ \ \}}
+\DoxyCodeLine{00316\ }
+\DoxyCodeLine{00317\ \ \ \ \ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::operator\_observable\_transform<observable<Type,\ Strategy>\&\&>\ Op>}
+\DoxyCodeLine{00318\ \ \ \ \ \textcolor{keyword}{auto}\ operator|(Op\&\&\ op)\ \&\&}
+\DoxyCodeLine{00319\ \ \ \ \ \{}
+\DoxyCodeLine{00320\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::forward<Op>(op)(std::move(*\textcolor{keyword}{this}));}
+\DoxyCodeLine{00321\ \ \ \ \ \}}
+\DoxyCodeLine{00322\ }
+\DoxyCodeLine{00323\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}...\ Args>}
+\DoxyCodeLine{00324\ \ \ \ \ \textcolor{keyword}{auto}\ operator|(\textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1subscribe__t}{rpp::operators::details::subscribe\_t<Args...>}}\&\ op)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00325\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00326\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ op(*\textcolor{keyword}{this});}
+\DoxyCodeLine{00327\ \ \ \ \ \}}
+\DoxyCodeLine{00328\ }
+\DoxyCodeLine{00329\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}...\ Args>}
+\DoxyCodeLine{00330\ \ \ \ \ \textcolor{keyword}{auto}\ operator|(\mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1subscribe__t}{rpp::operators::details::subscribe\_t<Args...>}}\&\&\ op)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00331\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00332\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::move(op)(*this);}
+\DoxyCodeLine{00333\ \ \ \ \ \}}
+\DoxyCodeLine{00334\ }
+\DoxyCodeLine{00335\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ Op>}
+\DoxyCodeLine{00336\ \ \ \ \ \textcolor{keyword}{auto}\ pipe(Op\&\&\ op)\ \textcolor{keyword}{const}\ \&}
+\DoxyCodeLine{00337\ \ \ \ \ \{}
+\DoxyCodeLine{00338\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this}\ |\ std::forward<Op>(op);}
+\DoxyCodeLine{00339\ \ \ \ \ \}}
+\DoxyCodeLine{00340\ }
+\DoxyCodeLine{00341\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ Op>}
+\DoxyCodeLine{00342\ \ \ \ \ \textcolor{keyword}{auto}\ pipe(Op\&\&\ op)\ \&\&}
+\DoxyCodeLine{00343\ \ \ \ \ \{}
+\DoxyCodeLine{00344\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::move(*\textcolor{keyword}{this})\ |\ std::forward<Op>(op);}
+\DoxyCodeLine{00345\ \ \ \ \ \}}
+\DoxyCodeLine{00346\ }
+\DoxyCodeLine{00347\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00348\ \ \ \ \ RPP\_NO\_UNIQUE\_ADDRESS\ Strategy\ m\_strategy;}
+\DoxyCodeLine{00349\ \};}
+\DoxyCodeLine{00350\ \}}
 
 \end{DoxyCode}

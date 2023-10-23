@@ -266,29 +266,48 @@
 \DoxyCodeLine{00312\ \ \ \ \ \textcolor{keywordflow}{return}\ details::subscribe\_t\{std::forward<OnNext>(on\_next),\ std::forward<OnError>(on\_error),\ std::forward<OnCompleted>(on\_completed)\};}
 \DoxyCodeLine{00313\ \}}
 \DoxyCodeLine{00314\ }
-\DoxyCodeLine{00324\ \textcolor{keyword}{template}<details::on\_next\_like\ OnNext\ =\ rpp::utils::empty\_function\_any\_t,\ std::invocable<const\ std::exception\_ptr\&>\ OnError\ =\ rpp::utils::rethrow\_error\_t,\ std::invocable<>\ OnCompleted\ =\ rpp::utils::empty\_function\_t<>>}
-\DoxyCodeLine{00325\ \textcolor{keyword}{auto}\ subscribe(\mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp::composite\_disposable\_wrapper}}\ d,\ OnNext\&\&\ on\_next\ =\ \{\},\ OnError\&\&\ on\_error\ =\ \{\},\ OnCompleted\&\&\ on\_completed\ =\ \{\})}
-\DoxyCodeLine{00326\ \{}
-\DoxyCodeLine{00327\ \ \ \ \ \textcolor{keywordflow}{return}\ details::subscribe\_t\{std::move(d),\ std::forward<OnNext>(on\_next),\ std::forward<OnError>(on\_error),\ std::forward<OnCompleted>(on\_completed)\};}
-\DoxyCodeLine{00328\ \}}
-\DoxyCodeLine{00329\ }
-\DoxyCodeLine{00340\ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type\ Type,\ rpp::constra\textcolor{keywordtype}{int}::observer\_strategy<Type>\ ObserverStrategy>}
-\DoxyCodeLine{00341\ \textcolor{keyword}{auto}\ subscribe\_with\_disposable(observer<Type,\ ObserverStrategy>\&\&\ observer)}
-\DoxyCodeLine{00342\ \{}
-\DoxyCodeLine{00343\ \ \ \ \ \textcolor{keywordflow}{return}\ subscribe(\mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp::composite\_disposable\_wrapper}}\{std::make\_shared<rpp::composite\_disposable>()\},\ std::move(observer));}
-\DoxyCodeLine{00344\ \}}
-\DoxyCodeLine{00345\ }
-\DoxyCodeLine{00353\ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type\ Type>}
-\DoxyCodeLine{00354\ \textcolor{keyword}{auto}\ subscribe\_with\_disposable(dynamic\_observer<Type>\ observer)}
-\DoxyCodeLine{00355\ \{}
-\DoxyCodeLine{00356\ \ \ \ \ \textcolor{keywordflow}{return}\ subscribe(\mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp::composite\_disposable\_wrapper}}\{std::make\_shared<rpp::composite\_disposable>()\},\ std::move(observer));}
-\DoxyCodeLine{00357\ \}}
-\DoxyCodeLine{00358\ }
-\DoxyCodeLine{00366\ \textcolor{keyword}{template}<details::on\_next\_like\ OnNext\ =\ rpp::utils::empty\_function\_any\_t,\ std::invocable<const\ std::exception\_ptr\&>\ OnError\ =\ rpp::utils::rethrow\_error\_t,\ std::invocable<>\ OnCompleted\ =\ rpp::utils::empty\_function\_t<>>}
-\DoxyCodeLine{00367\ \textcolor{keyword}{auto}\ subscribe\_with\_disposable(OnNext\&\&\ on\_next\ =\ \{\},\ OnError\&\&\ on\_error\ =\ \{\},\ OnCompleted\&\&\ on\_completed\ =\ \{\})}
-\DoxyCodeLine{00368\ \{}
-\DoxyCodeLine{00369\ \ \ \ \ \textcolor{keywordflow}{return}\ subscribe(\mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp::composite\_disposable\_wrapper}}\{std::make\_shared<rpp::composite\_disposable>()\},\ std::forward<OnNext>(on\_next),\ std::forward<OnError>(on\_error),\ std::forward<OnCompleted>(on\_completed));}
-\DoxyCodeLine{00370\ \}}
+\DoxyCodeLine{00320\ \textcolor{keyword}{template}<details::on\_next\_like\ OnNext,\ std::invocable<>\ OnCompleted>}
+\DoxyCodeLine{00321\ \ \ \ \ }
+\DoxyCodeLine{00322\ \textcolor{keyword}{auto}\ subscribe(OnNext\&\&\ on\_next,\ OnCompleted\&\&\ on\_completed)}
+\DoxyCodeLine{00323\ \{}
+\DoxyCodeLine{00324\ \ \ \ \ \textcolor{keywordflow}{return}\ details::subscribe\_t\{std::forward<OnNext>(on\_next),\ rpp::utils::rethrow\_error\_t\{\},\ std::forward<OnCompleted>(on\_completed)\};}
+\DoxyCodeLine{00325\ \}}
+\DoxyCodeLine{00326\ }
+\DoxyCodeLine{00336\ \textcolor{keyword}{template}<details::on\_next\_like\ OnNext\ =\ rpp::utils::empty\_function\_any\_t,\ std::invocable<const\ std::exception\_ptr\&>\ OnError\ =\ rpp::utils::rethrow\_error\_t,\ std::invocable<>\ OnCompleted\ =\ rpp::utils::empty\_function\_t<>>}
+\DoxyCodeLine{00337\ \textcolor{keyword}{auto}\ subscribe(\mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp::composite\_disposable\_wrapper}}\ d,\ OnNext\&\&\ on\_next\ =\ \{\},\ OnError\&\&\ on\_error\ =\ \{\},\ OnCompleted\&\&\ on\_completed\ =\ \{\})}
+\DoxyCodeLine{00338\ \{}
+\DoxyCodeLine{00339\ \ \ \ \ \textcolor{keywordflow}{return}\ details::subscribe\_t\{std::move(d),\ std::forward<OnNext>(on\_next),\ std::forward<OnError>(on\_error),\ std::forward<OnCompleted>(on\_completed)\};}
+\DoxyCodeLine{00340\ \}}
+\DoxyCodeLine{00341\ }
+\DoxyCodeLine{00351\ \textcolor{keyword}{template}<details::on\_next\_like\ OnNext,\ \ std::invocable<>\ OnCompleted>}
+\DoxyCodeLine{00352\ \textcolor{keyword}{auto}\ subscribe(\mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp::composite\_disposable\_wrapper}}\ d,\ OnNext\&\&\ on\_next,\ OnCompleted\&\&\ on\_completed)}
+\DoxyCodeLine{00353\ \{}
+\DoxyCodeLine{00354\ \ \ \ \ \textcolor{keywordflow}{return}\ details::subscribe\_t\{std::move(d),\ std::forward<OnNext>(on\_next),\ rpp::utils::rethrow\_error\_t\{\},\ std::forward<OnCompleted>(on\_completed)\};}
+\DoxyCodeLine{00355\ \}}
+\DoxyCodeLine{00356\ }
+\DoxyCodeLine{00367\ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type\ Type,\ rpp::constra\textcolor{keywordtype}{int}::observer\_strategy<Type>\ ObserverStrategy>}
+\DoxyCodeLine{00368\ \textcolor{keyword}{auto}\ subscribe\_with\_disposable(observer<Type,\ ObserverStrategy>\&\&\ observer)}
+\DoxyCodeLine{00369\ \{}
+\DoxyCodeLine{00370\ \ \ \ \ \textcolor{keywordflow}{return}\ subscribe(\mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp::composite\_disposable\_wrapper}}\{std::make\_shared<rpp::composite\_disposable>()\},\ std::move(observer));}
 \DoxyCodeLine{00371\ \}}
+\DoxyCodeLine{00372\ }
+\DoxyCodeLine{00380\ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type\ Type>}
+\DoxyCodeLine{00381\ \textcolor{keyword}{auto}\ subscribe\_with\_disposable(dynamic\_observer<Type>\ observer)}
+\DoxyCodeLine{00382\ \{}
+\DoxyCodeLine{00383\ \ \ \ \ \textcolor{keywordflow}{return}\ subscribe(\mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp::composite\_disposable\_wrapper}}\{std::make\_shared<rpp::composite\_disposable>()\},\ std::move(observer));}
+\DoxyCodeLine{00384\ \}}
+\DoxyCodeLine{00385\ }
+\DoxyCodeLine{00393\ \textcolor{keyword}{template}<details::on\_next\_like\ OnNext\ =\ rpp::utils::empty\_function\_any\_t,\ std::invocable<const\ std::exception\_ptr\&>\ OnError\ =\ rpp::utils::rethrow\_error\_t,\ std::invocable<>\ OnCompleted\ =\ rpp::utils::empty\_function\_t<>>}
+\DoxyCodeLine{00394\ \textcolor{keyword}{auto}\ subscribe\_with\_disposable(OnNext\&\&\ on\_next\ =\ \{\},\ OnError\&\&\ on\_error\ =\ \{\},\ OnCompleted\&\&\ on\_completed\ =\ \{\})}
+\DoxyCodeLine{00395\ \{}
+\DoxyCodeLine{00396\ \ \ \ \ \textcolor{keywordflow}{return}\ subscribe(\mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp::composite\_disposable\_wrapper}}\{std::make\_shared<rpp::composite\_disposable>()\},\ std::forward<OnNext>(on\_next),\ std::forward<OnError>(on\_error),\ std::forward<OnCompleted>(on\_completed));}
+\DoxyCodeLine{00397\ \}}
+\DoxyCodeLine{00398\ }
+\DoxyCodeLine{00406\ \textcolor{keyword}{template}<details::on\_next\_like\ OnNext,\ std::invocable<>\ OnCompleted>}
+\DoxyCodeLine{00407\ \textcolor{keyword}{auto}\ subscribe\_with\_disposable(OnNext\&\&\ on\_next,\ OnCompleted\&\&\ on\_completed)}
+\DoxyCodeLine{00408\ \{}
+\DoxyCodeLine{00409\ \ \ \ \ \textcolor{keywordflow}{return}\ subscribe(\mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp::composite\_disposable\_wrapper}}\{std::make\_shared<rpp::composite\_disposable>()\},\ std::forward<OnNext>(on\_next),\ rpp::utils::rethrow\_error\_t\{\},\ std::forward<OnCompleted>(on\_completed));}
+\DoxyCodeLine{00410\ \}}
+\DoxyCodeLine{00411\ \}}
 
 \end{DoxyCode}

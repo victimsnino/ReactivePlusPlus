@@ -1,0 +1,35 @@
+\doxysection{from\+\_\+signal.\+cpp}
+\hypertarget{from_signal_8cpp-example}{}\label{from_signal_8cpp-example}
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <rpp/rpp.hpp>}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <rppqt/rppqt.hpp>}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <QApplication>}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <QTextEdit>}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{int}\ main(\textcolor{keywordtype}{int}\ argc,\ \textcolor{keywordtype}{char}*\ argv[])}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ \ \ QApplication\ app\{argc,\ argv\};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ QTextEdit*\ text\_edit\ =\ \textcolor{keyword}{new}\ QTextEdit();}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__qt__creational__operators_ga8c635ee2f69919f16390b1b4002d00ae}{rppqt::source::from\_signal}}(*text\_edit,\ \&QTextEdit::textChanged)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ rpp::ops::map([\&](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&)\ }
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ text\_edit-\/>toPlainText();}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \})}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ rpp::ops::subscribe([](\textcolor{keyword}{const}\ QString\&\ text)\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}text\ changed:\ "{}}\ <<\ text.toStdString()\ <<\ std::endl;\ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ []()\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}text\_edit\ destroyed!"{}}\ <<\ std::endl;\ \});}
+\DoxyCodeLine{\ \ \ \ text\_edit-\/>setText(\textcolor{stringliteral}{"{}123"{}});}
+\DoxyCodeLine{\ \ \ \ text\_edit-\/>setText(\textcolor{stringliteral}{"{}temp"{}});}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{delete}\ text\_edit;}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ text\ changed:\ 123}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ text\ changed:\ temp}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ text\_edit\ destroyed!}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{\}}
+
+\end{DoxyCodeInclude}
+ 

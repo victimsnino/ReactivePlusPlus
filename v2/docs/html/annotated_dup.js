@@ -189,5 +189,18 @@ var annotated_dup =
       [ "observable_chain_strategy", "classrpp_1_1observable__chain__strategy.html", null ],
       [ "observable_chain_strategy< TStrategy >", "classrpp_1_1observable__chain__strategy_3_01_t_strategy_01_4.html", null ],
       [ "observer", "classrpp_1_1observer.html", "classrpp_1_1observer" ]
+    ] ],
+    [ "rppqt", null, [
+      [ "details", null, [
+        [ "from_signal_on_event", "structrppqt_1_1details_1_1from__signal__on__event.html", null ],
+        [ "from_signal_on_event< Arg >", "structrppqt_1_1details_1_1from__signal__on__event_3_01_arg_01_4.html", null ],
+        [ "from_signal_on_event<>", "structrppqt_1_1details_1_1from__signal__on__event_3_4.html", null ]
+      ] ],
+      [ "schedulers", null, [
+        [ "main_thread_scheduler", "classrppqt_1_1schedulers_1_1main__thread__scheduler.html", null ]
+      ] ],
+      [ "utils", null, [
+        [ "no_active_qapplication", "structrppqt_1_1utils_1_1no__active__qapplication.html", null ]
+      ] ]
     ] ]
 ];
