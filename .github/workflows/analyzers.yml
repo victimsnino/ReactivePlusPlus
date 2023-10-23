@@ -38,7 +38,7 @@ jobs:
         pvs-studio-analyzer credentials ${{ secrets.PVS_STUDIO_CREDENTIALS }}
     
     - name: Install Qt
-      uses: jurplel/install-qt-action@v3
+      uses: jurplel/install-qt-action@v4
       with:
         cache: true
 
@@ -81,7 +81,7 @@ jobs:
       run: sudo apt-get update -q && sudo apt-get install llvm -q -y
 
     - name: Install Qt
-      uses: jurplel/install-qt-action@v3
+      uses: jurplel/install-qt-action@v4
       with:
         cache: true
 
