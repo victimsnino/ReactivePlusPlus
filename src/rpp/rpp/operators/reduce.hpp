@@ -47,9 +47,9 @@ struct reduce_observer_strategy
 };
 
 template<rpp::constraint::decayed_type Seed, rpp::constraint::decayed_type Accumulator>
-struct reduce_t : public operators::details::operator_observable_strategy_diffferent_types<reduce_observer_strategy, rpp::utils::types<Accumulator>, Seed, Accumulator>
+struct reduce_t : public operators::details::operator_observable_strategy_different_types<reduce_observer_strategy, rpp::utils::types<Accumulator>, Seed, Accumulator>
 {
-    using operators::details::operator_observable_strategy_diffferent_types<reduce_observer_strategy, rpp::utils::types<Accumulator>, Seed, Accumulator>::operator_observable_strategy_diffferent_types;
+    using operators::details::operator_observable_strategy_different_types<reduce_observer_strategy, rpp::utils::types<Accumulator>, Seed, Accumulator>::operator_observable_strategy_different_types;
 
     template<rpp::constraint::decayed_type T>
         requires std::is_invocable_r_v<Seed, Accumulator, Seed&&, T>

@@ -49,7 +49,7 @@ struct take_observer_strategy
     bool is_disposed() const { return observer.is_disposed(); }
 };
 
-struct take_t : public operator_observable_strategy_diffferent_types<take_observer_strategy, rpp::utils::types<>, size_t>
+struct take_t : public operator_observable_strategy_different_types<take_observer_strategy, rpp::utils::types<>, size_t>
 {
     template<rpp::constraint::decayed_type T>
     using result_value = T;

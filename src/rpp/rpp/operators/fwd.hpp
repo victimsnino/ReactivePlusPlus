@@ -107,6 +107,9 @@ auto take_while(Fn&& predicate);
 
 auto take(size_t count);
 
+template<rpp::schedulers::constraint::scheduler Scheduler = rpp::schedulers::immediate>
+auto throttle(rpp::schedulers::duration period);
+
 template<typename TSelector, rpp::constraint::observable TObservable, rpp::constraint::observable... TObservables>
     requires(!rpp::constraint::observable<TSelector> && (!utils::is_not_template_callable<TSelector> || std::invocable<TSelector, rpp::utils::convertible_to_any, utils::extract_observable_type_t<TObservable>, utils::extract_observable_type_t<TObservables>...>))
 auto with_latest_from(TSelector&& selector, TObservable&& observable, TObservables&&... observables);
