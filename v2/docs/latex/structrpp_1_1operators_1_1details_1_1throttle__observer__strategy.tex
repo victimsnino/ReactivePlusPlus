@@ -1,0 +1,43 @@
+\doxysection{rpp\+::operators\+::details\+::throttle\+\_\+observer\+\_\+strategy\texorpdfstring{$<$}{<} TObserver, Scheduler \texorpdfstring{$>$}{>} Struct Template Reference}
+\hypertarget{structrpp_1_1operators_1_1details_1_1throttle__observer__strategy}{}\label{structrpp_1_1operators_1_1details_1_1throttle__observer__strategy}\index{rpp::operators::details::throttle\_observer\_strategy$<$ TObserver, Scheduler $>$@{rpp::operators::details::throttle\_observer\_strategy$<$ TObserver, Scheduler $>$}}
+\doxysubsubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{structrpp_1_1operators_1_1details_1_1throttle__observer__strategy_a5d9bb1f6ed51e2fb82d4e2a8f17c1e78}\label{structrpp_1_1operators_1_1details_1_1throttle__observer__strategy_a5d9bb1f6ed51e2fb82d4e2a8f17c1e78} 
+using {\bfseries preferred\+\_\+disposable\+\_\+strategy} = \mbox{\hyperlink{structrpp_1_1details_1_1observers_1_1none__disposable__strategy}{rpp\+::details\+::observers\+::none\+\_\+disposable\+\_\+strategy}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{structrpp_1_1operators_1_1details_1_1throttle__observer__strategy_a51876b900148c9e5c5578cc33fc77b64}\label{structrpp_1_1operators_1_1details_1_1throttle__observer__strategy_a51876b900148c9e5c5578cc33fc77b64} 
+{\footnotesize template$<$typename T $>$ }\\void {\bfseries on\+\_\+next} (T \&\&v) const
+\item 
+\Hypertarget{structrpp_1_1operators_1_1details_1_1throttle__observer__strategy_acdd63803bb5be5de818f32f4dcde3924}\label{structrpp_1_1operators_1_1details_1_1throttle__observer__strategy_acdd63803bb5be5de818f32f4dcde3924} 
+void {\bfseries on\+\_\+error} (const std\+::exception\+\_\+ptr \&err) const
+\item 
+\Hypertarget{structrpp_1_1operators_1_1details_1_1throttle__observer__strategy_a0ca786e127c0183dcb7febe4ceae5337}\label{structrpp_1_1operators_1_1details_1_1throttle__observer__strategy_a0ca786e127c0183dcb7febe4ceae5337} 
+void {\bfseries on\+\_\+completed} () const
+\item 
+\Hypertarget{structrpp_1_1operators_1_1details_1_1throttle__observer__strategy_aa07023387c49d1b9ce88bc7dfb3f1a95}\label{structrpp_1_1operators_1_1details_1_1throttle__observer__strategy_aa07023387c49d1b9ce88bc7dfb3f1a95} 
+void {\bfseries set\+\_\+upstream} (const \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{disposable\+\_\+wrapper}} \&d)
+\item 
+\Hypertarget{structrpp_1_1operators_1_1details_1_1throttle__observer__strategy_a232fceccb3471a190a355554622668a0}\label{structrpp_1_1operators_1_1details_1_1throttle__observer__strategy_a232fceccb3471a190a355554622668a0} 
+bool {\bfseries is\+\_\+disposed} () const
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{structrpp_1_1operators_1_1details_1_1throttle__observer__strategy_a162f4428eb20c0eae954cec413c8c9d6}\label{structrpp_1_1operators_1_1details_1_1throttle__observer__strategy_a162f4428eb20c0eae954cec413c8c9d6} 
+RPP\+\_\+\+NO\+\_\+\+UNIQUE\+\_\+\+ADDRESS TObserver {\bfseries observer}
+\item 
+\Hypertarget{structrpp_1_1operators_1_1details_1_1throttle__observer__strategy_a14b7589eabff2aa8fe89eab3a6023ca3}\label{structrpp_1_1operators_1_1details_1_1throttle__observer__strategy_a14b7589eabff2aa8fe89eab3a6023ca3} 
+rpp\+::schedulers\+::duration {\bfseries duration} \{\}
+\item 
+\Hypertarget{structrpp_1_1operators_1_1details_1_1throttle__observer__strategy_a53a9bc51cc6da77e9e98620bf84a825c}\label{structrpp_1_1operators_1_1details_1_1throttle__observer__strategy_a53a9bc51cc6da77e9e98620bf84a825c} 
+std\+::optional$<$ rpp\+::schedulers\+::time\+\_\+point $>$ {\bfseries last\+\_\+emission\+\_\+time\+\_\+point} \{\}
+\end{DoxyCompactItemize}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/rpp/rpp/operators/throttle.\+hpp\end{DoxyCompactItemize}

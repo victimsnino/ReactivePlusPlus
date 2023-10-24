@@ -26,6 +26,7 @@ var dir_3591f6ab25936dd3deeec05839e478ca =
     [ "subscribe_on.hpp", "subscribe__on_8hpp_source.html", null ],
     [ "take.hpp", "take_8hpp_source.html", null ],
     [ "take_while.hpp", "take__while_8hpp_source.html", null ],
+    [ "throttle.hpp", "throttle_8hpp_source.html", null ],
     [ "window.hpp", "window_8hpp_source.html", null ],
     [ "with_latest_from.hpp", "with__latest__from_8hpp_source.html", null ]
 ];

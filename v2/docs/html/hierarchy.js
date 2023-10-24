@@ -142,6 +142,7 @@ var hierarchy =
       [ "rpp::operators::details::skip_t", "structrpp_1_1operators_1_1details_1_1skip__t.html", null ],
       [ "rpp::operators::details::take_t", "structrpp_1_1operators_1_1details_1_1take__t.html", null ],
       [ "rpp::operators::details::take_while_t< Fn >", "structrpp_1_1operators_1_1details_1_1take__while__t.html", null ],
+      [ "rpp::operators::details::throttle_t< Scheduler >", "structrpp_1_1operators_1_1details_1_1throttle__t.html", null ],
       [ "rpp::operators::details::window_t", "structrpp_1_1operators_1_1details_1_1window__t.html", null ]
     ] ],
     [ "rpp::operators::details::pointer_under_lock< T >", "classrpp_1_1operators_1_1details_1_1pointer__under__lock.html", null ],
@@ -179,6 +180,7 @@ var hierarchy =
     [ "rpp::operators::details::template_multicast_t< Subject >", "structrpp_1_1operators_1_1details_1_1template__multicast__t.html", null ],
     [ "rpp::operators::details::template_subscribe_strategy< Strategy, Types >", "structrpp_1_1operators_1_1details_1_1template__subscribe__strategy.html", null ],
     [ "rpp::operators::details::template_subscribe_strategy< Strategy, rpp::utils::types< Types... > >", "structrpp_1_1operators_1_1details_1_1template__subscribe__strategy_3_01_strategy_00_01rpp_1_1uti1b4a70817e67a3dff0087ab4465db868.html", null ],
+    [ "rpp::operators::details::throttle_observer_strategy< TObserver, Scheduler >", "structrpp_1_1operators_1_1details_1_1throttle__observer__strategy.html", null ],
     [ "std::true_type", null, [
       [ "rpp::schedulers::constraint::details::is_worker< rpp::schedulers::worker< Strategy > >", "structrpp_1_1schedulers_1_1constraint_1_1details_1_1is__worker_3_01rpp_1_1schedulers_1_1worker_3_01_strategy_01_4_01_4.html", null ],
       [ "rpp::subjects::utils::details::extract_subject_type< rpp::subjects::details::base_subject< TT, Strategy > >", "structrpp_1_1subjects_1_1utils_1_1details_1_1extract__subject__type_3_01rpp_1_1subjects_1_1detaie00a4443681b018e69b041137386dfb4.html", null ],

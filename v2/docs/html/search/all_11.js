@@ -9,5 +9,8 @@ var searchData=
   ['template_5fmulticast_5ft_6',['template_multicast_t',['../structrpp_1_1operators_1_1details_1_1template__multicast__t.html',1,'rpp::operators::details']]],
   ['template_5fsubscribe_5fstrategy_7',['template_subscribe_strategy',['../structrpp_1_1operators_1_1details_1_1template__subscribe__strategy.html',1,'rpp::operators::details']]],
   ['template_5fsubscribe_5fstrategy_3c_20strategy_2c_20rpp_3a_3autils_3a_3atypes_3c_20types_2e_2e_2e_20_3e_20_3e_8',['template_subscribe_strategy&lt; Strategy, rpp::utils::types&lt; Types... &gt; &gt;',['../structrpp_1_1operators_1_1details_1_1template__subscribe__strategy_3_01_strategy_00_01rpp_1_1uti1b4a70817e67a3dff0087ab4465db868.html',1,'rpp::operators::details']]],
-  ['transforming_20operators_9',['Transforming Operators',['../group__transforming__operators.html',1,'']]]
+  ['throttle_9',['throttle',['../group__filtering__operators.html#gada7d22ff6ee83d4aca44411561f56f98',1,'rpp::operators']]],
+  ['throttle_5fobserver_5fstrategy_10',['throttle_observer_strategy',['../structrpp_1_1operators_1_1details_1_1throttle__observer__strategy.html',1,'rpp::operators::details']]],
+  ['throttle_5ft_11',['throttle_t',['../structrpp_1_1operators_1_1details_1_1throttle__t.html',1,'rpp::operators::details']]],
+  ['transforming_20operators_12',['Transforming Operators',['../group__transforming__operators.html',1,'']]]
 ];

@@ -125,6 +125,8 @@ var annotated_dup =
           [ "template_multicast_t", "structrpp_1_1operators_1_1details_1_1template__multicast__t.html", null ],
           [ "template_subscribe_strategy", "structrpp_1_1operators_1_1details_1_1template__subscribe__strategy.html", null ],
           [ "template_subscribe_strategy< Strategy, rpp::utils::types< Types... > >", "structrpp_1_1operators_1_1details_1_1template__subscribe__strategy_3_01_strategy_00_01rpp_1_1uti1b4a70817e67a3dff0087ab4465db868.html", null ],
+          [ "throttle_observer_strategy", "structrpp_1_1operators_1_1details_1_1throttle__observer__strategy.html", null ],
+          [ "throttle_t", "structrpp_1_1operators_1_1details_1_1throttle__t.html", null ],
           [ "value_with_mutex", "structrpp_1_1operators_1_1details_1_1value__with__mutex.html", null ],
           [ "window_observer_strategy", "classrpp_1_1operators_1_1details_1_1window__observer__strategy.html", null ],
           [ "window_t", "structrpp_1_1operators_1_1details_1_1window__t.html", null ],

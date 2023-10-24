@@ -5,5 +5,6 @@ var group__filtering__operators =
     [ "rpp::operators::first", "group__filtering__operators.html#ga5b8f3bf549a8679d41941f7224f7faad", null ],
     [ "rpp::operators::last", "group__filtering__operators.html#ga679e35f7895a5d7e22cd2b3c359b9457", null ],
     [ "rpp::operators::skip", "group__filtering__operators.html#ga8e20aec530e08ba64004c10b7732593c", null ],
-    [ "rpp::operators::take", "group__filtering__operators.html#gaf32161437c2c6cd7d5a0e5170a333cbb", null ]
+    [ "rpp::operators::take", "group__filtering__operators.html#gaf32161437c2c6cd7d5a0e5170a333cbb", null ],
+    [ "rpp::operators::throttle", "group__filtering__operators.html#gada7d22ff6ee83d4aca44411561f56f98", null ]
 ];

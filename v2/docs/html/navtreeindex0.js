@@ -71,8 +71,8 @@ var NAVTREEINDEX0 =
 "classrpp_1_1operators_1_1details_1_1subscribe__t_3_01rpp_1_1composite__disposable__wrapper_00_015839511ef5aa7d547130d10313f4a820.html":[3,0,0,2,0,62],
 "classrpp_1_1operators_1_1details_1_1subscribe__t_3_01rpp_1_1composite__disposable__wrapper_00_0176ebc9869815430b00b6be89aa2e2b76.html":[3,0,0,2,0,60],
 "classrpp_1_1operators_1_1details_1_1subscribe__t_3_01rpp_1_1composite__disposable__wrapper_00_01_observer_strategy_01_4.html":[3,0,0,2,0,61],
-"classrpp_1_1operators_1_1details_1_1window__observer__strategy.html":[3,0,0,2,0,71],
-"classrpp_1_1operators_1_1details_1_1with__latest__from__disposable.html":[3,0,0,2,0,73],
+"classrpp_1_1operators_1_1details_1_1window__observer__strategy.html":[3,0,0,2,0,73],
+"classrpp_1_1operators_1_1details_1_1with__latest__from__disposable.html":[3,0,0,2,0,75],
 "classrpp_1_1schedulers_1_1current__thread.html":[1,0,4,0],
 "classrpp_1_1schedulers_1_1current__thread_1_1worker__strategy.html":[1,0,4,0,0],
 "classrpp_1_1schedulers_1_1details_1_1schedulable__base.html":[3,0,0,3,1,2],
@@ -171,7 +171,7 @@ var NAVTREEINDEX0 =
 "from_8cpp-example.html":[5,10],
 "from_8hpp_source.html":[4,0,0,0,0,5,5],
 "from__signal_8hpp_source.html":[4,0,0,1,0,1,0],
-"from_signal_8cpp-example.html":[5,29],
+"from_signal_8cpp-example.html":[5,30],
 "functions.html":[3,3,0],
 "functions_func.html":[3,3,1],
 "group__aggregate__operators.html":[1,0,3,6],
@@ -212,6 +212,7 @@ var NAVTREEINDEX0 =
 "group__filtering__operators.html#ga679e35f7895a5d7e22cd2b3c359b9457":[1,0,3,1,3],
 "group__filtering__operators.html#ga8e20aec530e08ba64004c10b7732593c":[1,0,3,1,4],
 "group__filtering__operators.html#gaa8ed11faabd5b31d63d0481f9018fc68":[1,0,3,1,0],
+"group__filtering__operators.html#gada7d22ff6ee83d4aca44411561f56f98":[1,0,3,1,6],
 "group__filtering__operators.html#gaf32161437c2c6cd7d5a0e5170a333cbb":[1,0,3,1,5],
 "group__observables.html":[1,0,1],
 "group__observables.html#gaf40b08a4edc0f64303aeb7ac958f876e":[1,0,1,1],
@@ -248,6 +249,5 @@ var NAVTREEINDEX0 =
 "group__utility__operators.html#gae38caa489cf43c0aca1aa1c8822aed60":[1,0,3,4,2],
 "group_by_8cpp-example.html":[5,11],
 "grouped__observable_8hpp_source.html":[4,0,0,0,0,1,5],
-"hierarchy.html":[3,2],
-"immediate_8hpp_source.html":[4,0,0,0,0,4,3]
+"hierarchy.html":[3,2]
 };
