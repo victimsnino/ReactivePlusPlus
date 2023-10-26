@@ -308,13 +308,13 @@ public:
         return observable<typename std::decay_t<Op>::template result_value<Type>, make_chain_observable_t<std::decay_t<Op>, Strategy>>{std::forward<Op>(op), std::move(m_strategy)};
     }
 
-    template<constraint::operator_observable_transform<const observable<Type, Strategy>&> Op>
+    template<constraint::operator_observable_transform<const observable&> Op>
     auto operator|(Op&& op) const &
     {
         return std::forward<Op>(op)(*this);
     }
 
-    template<constraint::operator_observable_transform<observable<Type, Strategy>&&> Op>
+    template<constraint::operator_observable_transform<observable&&> Op>
     auto operator|(Op&& op) &&
     {
         return std::forward<Op>(op)(std::move(*this));

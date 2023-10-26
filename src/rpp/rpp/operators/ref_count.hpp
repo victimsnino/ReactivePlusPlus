@@ -21,7 +21,7 @@ namespace rpp::operators
 * @details Connects rpp::connectable_observable on the first subscription and unsubscribes on last unsubscription
 *
 * @par Example
-* @snippet ref_count.cpp ref_count
+* @snippet ref_count.cpp ref_count_operator
 *
 * @ingroup connectable_operators
 * @see https://reactivex.io/documentation/operators/refcount.html
