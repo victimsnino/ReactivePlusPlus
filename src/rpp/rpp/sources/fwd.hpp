@@ -38,7 +38,7 @@ auto create(OnSubscribe&& on_subscribe);
 template<utils::is_not_template_callable OnSubscribe, constraint::decayed_type Type = rpp::utils::extract_observer_type_t<rpp::utils::decayed_function_argument_t<OnSubscribe>>>
 auto create(OnSubscribe&& on_subscribe);
 
-template<constraint::memory_model MemoryModel = memory_model::use_stack, constraint::iterable Iterable, schedulers::constraint::scheduler TScheduler = schedulers::current_thread>
+template<constraint::memory_model MemoryModel = memory_model::use_stack, constraint::iterable Iterable, schedulers::constraint::scheduler TScheduler = rpp::schedulers::defaults::iteration_scheduler>
 auto from_iterable(Iterable&& iterable, const TScheduler& scheduler = TScheduler{});
 
 template<constraint::memory_model MemoryModel = memory_model::use_stack, typename T, typename... Ts>
@@ -60,7 +60,7 @@ template<constraint::memory_model MemoryModel = memory_model::use_stack, rpp::co
     requires (std::same_as<rpp::utils::extract_observable_type_t<TObservable>, rpp::utils::extract_observable_type_t<TObservables>> && ...)
 auto concat(const TScheduler& scheduler, TObservable&& obs, TObservables&&... others);
 
-template<constraint::memory_model MemoryModel = memory_model::use_stack, constraint::iterable Iterable, rpp::schedulers::constraint::scheduler TScheduler = schedulers::current_thread>
+template<constraint::memory_model MemoryModel = memory_model::use_stack, constraint::iterable Iterable, rpp::schedulers::constraint::scheduler TScheduler = rpp::schedulers::defaults::iteration_scheduler>
     requires constraint::observable<utils::iterable_value_t<Iterable>>
 auto concat(Iterable&& iterable, const TScheduler& scheduler = TScheduler{});
 

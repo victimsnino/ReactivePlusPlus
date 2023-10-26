@@ -67,6 +67,11 @@ class worker;
 class immediate;
 class current_thread;
 class new_thread;
+
+namespace defaults
+{
+    using iteration_scheduler = current_thread;
+}
 }
 
 namespace rpp::schedulers::constraint

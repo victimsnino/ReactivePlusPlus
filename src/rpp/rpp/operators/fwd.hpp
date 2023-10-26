@@ -16,6 +16,7 @@
 
 #include <rpp/utils/constraints.hpp>
 #include <rpp/utils/utils.hpp>
+#include <rpp/memory_model.hpp>
 
 namespace rpp::operators
 {
@@ -83,10 +84,10 @@ auto observe_on(Scheduler&& scheduler, rpp::schedulers::duration delay_duration 
 
 auto publish();
 
-template<rpp::schedulers::constraint::scheduler Scheduler = rpp::schedulers::current_thread>
+template<rpp::schedulers::constraint::scheduler Scheduler = rpp::schedulers::defaults::iteration_scheduler>
 auto repeat(size_t count, const Scheduler& scheduler = {});
 
-template<rpp::schedulers::constraint::scheduler Scheduler = rpp::schedulers::current_thread>
+template<rpp::schedulers::constraint::scheduler Scheduler = rpp::schedulers::defaults::iteration_scheduler>
 auto repeat(const Scheduler& scheduler = {});
 
 template<typename InitialValue, typename Fn>
@@ -97,6 +98,18 @@ template<typename Fn>
 auto scan(Fn&& accumulator);
 
 auto skip(size_t count);
+
+template<rpp::constraint::observable TObservable, rpp::constraint::observable... TObservables>
+    requires constraint::observables_of_same_type<std::decay_t<TObservable>, std::decay_t<TObservables>...>
+auto start_with(TObservable&& observable, TObservables&&... observables);
+
+template<constraint::memory_model MemoryModel = memory_model::use_stack, typename T, typename ...Ts>
+    requires (rpp::constraint::decayed_same_as<T, Ts> && ...)
+auto start_with_values(T&& v, Ts&&... vals);
+
+template<constraint::memory_model MemoryModel = memory_model::use_stack, rpp::schedulers::constraint::scheduler TScheduler, typename T, typename ...Ts>
+    requires (rpp::constraint::decayed_same_as<T, Ts> && ...)
+auto start_with_values(const TScheduler& scheduler, T&& v, Ts&&... vals);
 
 template<rpp::schedulers::constraint::scheduler Scheduler>
 auto subscribe_on(Scheduler&& scheduler);

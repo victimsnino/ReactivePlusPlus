@@ -117,6 +117,9 @@ using extract_observable_type_t = typename details::extract_observable_type<std:
 
 namespace rpp::constraint
 {
+template<typename T, typename Type>
+concept observable_of_type = observable<T> && std::same_as<utils::extract_observable_type_t<T>, std::decay_t<Type>>;
+
 template<typename Op, typename TObs>
 concept operator_observable_transform = requires(const Op& op, TObs obs)
 {

@@ -169,7 +169,7 @@ template<constraint::memory_model MemoryModel /*= memory_model::use_stack*/, rpp
     requires (std::same_as<rpp::utils::extract_observable_type_t<TObservable>, rpp::utils::extract_observable_type_t<TObservables>> && ...)
 auto concat(TObservable&& obs, TObservables&&... others)
 {
-    return concat(rpp::schedulers::current_thread{}, std::forward<TObservable>(obs), std::forward<TObservables>(others)...);
+    return concat(rpp::schedulers::defaults::iteration_scheduler{}, std::forward<TObservable>(obs), std::forward<TObservables>(others)...);
 }
 
 /**
