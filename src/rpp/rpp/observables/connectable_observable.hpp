@@ -132,6 +132,8 @@ public:
         return std::forward<Op>(op)(std::move(*this));
     }
 
+    using base::operator|;
+
 private:
     OriginalObservable m_original_observable;
     Subject            m_subject;
