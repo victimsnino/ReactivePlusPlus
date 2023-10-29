@@ -56,6 +56,7 @@ namespace rpp::operators
 {
 /**
  * @brief Combines submissions from current observable with other observables into one but without overlapping and starting from observables provided as arguments
+ * @warning If by some reason you need to interpet observables as "values", not sources of data, then use `start_with_values` instead
  *
  * @marble start_with_observable
      {
@@ -85,10 +86,10 @@ auto start_with(TObservable&& observable, TObservables&&... observables)
 /**
  * @brief Combines submissions from current observable with values into one but without overlapping and starting from values provided as arguments
  *
- * @marble start_with
+ * @marble start_with_values
      {
          source original_observable   : +-4--6-|
-         operator "start_with(1,2,3)" : +-1-2-3--4--6-|
+         operator "start_with_values(1,2,3)" : +-1-2-3--4--6-|
      }
  *
  * @details Actually it makes concat(rpp::source::just(vals_to_start_with)..., current_observable) so observables from argument subscribed before current observable
@@ -115,10 +116,10 @@ auto start_with_values(T&& v, Ts&&... vals)
 /**
  * @brief Combines submissions from current observable with values into one but without overlapping and starting from values provided as arguments
  *
- * @marble start_with
+ * @marble start_with_values
      {
          source original_observable   : +-4--6-|
-         operator "start_with(1,2,3)" : +-1-2-3--4--6-|
+         operator "start_with_values(1,2,3)" : +-1-2-3--4--6-|
      }
  *
  * @details Actually it makes concat(rpp::source::just(vals_to_start_with)..., current_observable) so observables from argument subscribed before current observable
@@ -142,5 +143,19 @@ auto start_with_values(const TScheduler& scheduler, T&& v, Ts&&... vals)
     using container       = std::conditional_t<std::same_as<MemoryModel, rpp::memory_model::use_stack>, inner_container, rpp::details::shared_container<inner_container>>;
 
     return details::start_with_values_t<container, TScheduler>{scheduler, std::forward<T>(v), std::forward<Ts>(vals)...};
+}
+
+template<constraint::memory_model MemoryModel /* = memory_model::use_stack*/, typename T, typename... Ts>
+    requires (rpp::constraint::decayed_same_as<T, Ts> && ...)
+auto start_with(T&& v, Ts&&... vals)
+{
+    return start_with_values<MemoryModel>(std::forward<T>(v), std::forward<Ts>(vals)...);
+}
+
+template<constraint::memory_model MemoryModel /* = memory_model::use_stack*/, rpp::schedulers::constraint::scheduler TScheduler, typename T, typename... Ts>
+    requires (rpp::constraint::decayed_same_as<T, Ts> && ...)
+auto start_with(const TScheduler& scheduler, T&& v, Ts&&... vals)
+{
+    return start_with_values<MemoryModel>(scheduler, std::forward<T>(v), std::forward<Ts>(vals)...);
 }
 }

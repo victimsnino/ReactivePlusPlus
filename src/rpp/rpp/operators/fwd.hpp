@@ -104,6 +104,14 @@ template<rpp::constraint::observable TObservable, rpp::constraint::observable...
 auto start_with(TObservable&& observable, TObservables&&... observables);
 
 template<constraint::memory_model MemoryModel = memory_model::use_stack, typename T, typename ...Ts>
+    requires ((rpp::constraint::decayed_same_as<T, Ts> && ...) && !(rpp::constraint::observable<T> || (rpp::constraint::observable<Ts> || ...)))
+auto start_with(T&& v, Ts&&... vals);
+
+template<constraint::memory_model MemoryModel = memory_model::use_stack, rpp::schedulers::constraint::scheduler TScheduler, typename T, typename ...Ts>
+    requires ((rpp::constraint::decayed_same_as<T, Ts> && ...) && !(rpp::constraint::observable<T> || (rpp::constraint::observable<Ts> || ...)))
+auto start_with(const TScheduler& scheduler, T&& v, Ts&&... vals);
+
+template<constraint::memory_model MemoryModel = memory_model::use_stack, typename T, typename ...Ts>
     requires (rpp::constraint::decayed_same_as<T, Ts> && ...)
 auto start_with_values(T&& v, Ts&&... vals);
 
