@@ -45,7 +45,7 @@ TEST_CASE("start_with works as concat with prepending instead of adding at the e
         auto obs_1 = rpp::source::just(1);
         SECTION("subscribe on it via start_with with values")
         {
-            obs_1 | rpp::ops::start_with_values(2, 3) | rpp::ops::subscribe(mock);
+            obs_1 | rpp::ops::start_with(2, 3) | rpp::ops::subscribe(mock);
 
             check();
         }

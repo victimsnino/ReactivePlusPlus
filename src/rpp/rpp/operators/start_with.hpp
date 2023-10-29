@@ -146,14 +146,14 @@ auto start_with_values(const TScheduler& scheduler, T&& v, Ts&&... vals)
 }
 
 template<constraint::memory_model MemoryModel /* = memory_model::use_stack*/, typename T, typename... Ts>
-    requires (rpp::constraint::decayed_same_as<T, Ts> && ...)
+    requires ((rpp::constraint::decayed_same_as<T, Ts> && ...) && !(rpp::constraint::observable<T> || (rpp::constraint::observable<Ts> || ...)))
 auto start_with(T&& v, Ts&&... vals)
 {
     return start_with_values<MemoryModel>(std::forward<T>(v), std::forward<Ts>(vals)...);
 }
 
 template<constraint::memory_model MemoryModel /* = memory_model::use_stack*/, rpp::schedulers::constraint::scheduler TScheduler, typename T, typename... Ts>
-    requires (rpp::constraint::decayed_same_as<T, Ts> && ...)
+    requires ((rpp::constraint::decayed_same_as<T, Ts> && ...) && !(rpp::constraint::observable<T> || (rpp::constraint::observable<Ts> || ...)))
 auto start_with(const TScheduler& scheduler, T&& v, Ts&&... vals)
 {
     return start_with_values<MemoryModel>(scheduler, std::forward<T>(v), std::forward<Ts>(vals)...);
