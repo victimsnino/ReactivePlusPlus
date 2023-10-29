@@ -72,6 +72,7 @@ namespace rpp::operators
  *
  * @par Example
  * @snippet start_with.cpp start_with_observable
+ * @snippet start_with.cpp start_with_observable_as_value
  *
  * @ingroup combining_operators
  * @see https://reactivex.io/documentation/operators/startwith.html
@@ -102,6 +103,7 @@ auto start_with(TObservable&& observable, TObservables&&... observables)
  *
  * @par Example
  * @snippet start_with.cpp start_with_values
+ * @snippet start_with.cpp start_with_observable_as_value
  *
  * @ingroup combining_operators
  * @see https://reactivex.io/documentation/operators/startwith.html
