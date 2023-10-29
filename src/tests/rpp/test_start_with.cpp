@@ -14,7 +14,7 @@
 
 #include "mock_observer.hpp"
 
-TEST_CASE("start_with works as concat with prepending instead of adding at the end", "[start_with]")
+TEST_CASE("start_with works as concat with prepending instead of adding at the end")
 {
     auto mock = mock_observer_strategy<int>{};
 
@@ -46,6 +46,12 @@ TEST_CASE("start_with works as concat with prepending instead of adding at the e
         SECTION("subscribe on it via start_with with values")
         {
             obs_1 | rpp::ops::start_with(2, 3) | rpp::ops::subscribe(mock);
+
+            check();
+        }
+        SECTION("subscribe on it via start_with<shared> with values")
+        {
+            obs_1 | rpp::ops::start_with<rpp::memory_model::use_shared>(2, 3) | rpp::ops::subscribe(mock);
 
             check();
         }
