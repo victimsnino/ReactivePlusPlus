@@ -11,7 +11,7 @@
 ![GitHub commit activity (v2)](https://img.shields.io/github/commit-activity/m/victimsnino/ReactivePlusPlus/v2)
 
 ## Usage:
-
+ 
 ReactivePlusPlus is reactive programming library for C++20 language inspired by "official implementation" ([RxCpp](https://github.com/ReactiveX/RxCpp)) and original idea ([ReactiveX](https://reactivex.io/)) that only depends on standard library and C++20 features (mostly on [concepts](https://en.cppreference.com/w/cpp/language/constraints)).
 
 See the [BUILDING](BUILDING.md) document to know how to build/install RPP.
