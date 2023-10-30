@@ -171,13 +171,13 @@
 \DoxyCodeLine{00308\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ observable<typename\ std::decay\_t<Op>::template\ result\_value<Type>,\ make\_chain\_observable\_t<std::decay\_t<Op>,\ Strategy>>\{std::forward<Op>(op),\ std::move(m\_strategy)\};}
 \DoxyCodeLine{00309\ \ \ \ \ \}}
 \DoxyCodeLine{00310\ }
-\DoxyCodeLine{00311\ \ \ \ \ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::operator\_observable\_transform<const\ observable<Type,\ Strategy>\&>\ Op>}
+\DoxyCodeLine{00311\ \ \ \ \ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::operator\_observable\_transform<const\ observable\&>\ Op>}
 \DoxyCodeLine{00312\ \ \ \ \ \textcolor{keyword}{auto}\ operator|(Op\&\&\ op)\ \textcolor{keyword}{const}\ \&}
 \DoxyCodeLine{00313\ \ \ \ \ \{}
 \DoxyCodeLine{00314\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::forward<Op>(op)(*this);}
 \DoxyCodeLine{00315\ \ \ \ \ \}}
 \DoxyCodeLine{00316\ }
-\DoxyCodeLine{00317\ \ \ \ \ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::operator\_observable\_transform<observable<Type,\ Strategy>\&\&>\ Op>}
+\DoxyCodeLine{00317\ \ \ \ \ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::operator\_observable\_transform<observable\&\&>\ Op>}
 \DoxyCodeLine{00318\ \ \ \ \ \textcolor{keyword}{auto}\ operator|(Op\&\&\ op)\ \&\&}
 \DoxyCodeLine{00319\ \ \ \ \ \{}
 \DoxyCodeLine{00320\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::forward<Op>(op)(std::move(*\textcolor{keyword}{this}));}

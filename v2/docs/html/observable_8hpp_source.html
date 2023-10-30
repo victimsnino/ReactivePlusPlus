@@ -295,13 +295,13 @@ $(document).ready(function(){initNavTree('observable_8hpp_source.html',''); init
 <div class="line"><a id="l00308" name="l00308"></a><span class="lineno">  308</span>        <span class="keywordflow">return</span> observable&lt;typename std::decay_t&lt;Op&gt;::template result_value&lt;Type&gt;, make_chain_observable_t&lt;std::decay_t&lt;Op&gt;, Strategy&gt;&gt;{std::forward&lt;Op&gt;(op), std::move(m_strategy)};</div>
 <div class="line"><a id="l00309" name="l00309"></a><span class="lineno">  309</span>    }</div>
 <div class="line"><a id="l00310" name="l00310"></a><span class="lineno">  310</span> </div>
-<div class="line"><a id="l00311" name="l00311"></a><span class="lineno">  311</span>    <span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::operator_observable_transform&lt;const observable&lt;Type, Strategy&gt;&amp;&gt; Op&gt;</div>
+<div class="line"><a id="l00311" name="l00311"></a><span class="lineno">  311</span>    <span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::operator_observable_transform&lt;const observable&amp;&gt; Op&gt;</div>
 <div class="line"><a id="l00312" name="l00312"></a><span class="lineno">  312</span>    <span class="keyword">auto</span> operator|(Op&amp;&amp; op) <span class="keyword">const</span> &amp;</div>
 <div class="line"><a id="l00313" name="l00313"></a><span class="lineno">  313</span>    {</div>
 <div class="line"><a id="l00314" name="l00314"></a><span class="lineno">  314</span>        <span class="keywordflow">return</span> std::forward&lt;Op&gt;(op)(*this);</div>
 <div class="line"><a id="l00315" name="l00315"></a><span class="lineno">  315</span>    }</div>
 <div class="line"><a id="l00316" name="l00316"></a><span class="lineno">  316</span> </div>
-<div class="line"><a id="l00317" name="l00317"></a><span class="lineno">  317</span>    <span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::operator_observable_transform&lt;observable&lt;Type, Strategy&gt;&amp;&amp;&gt; Op&gt;</div>
+<div class="line"><a id="l00317" name="l00317"></a><span class="lineno">  317</span>    <span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::operator_observable_transform&lt;observable&amp;&amp;&gt; Op&gt;</div>
 <div class="line"><a id="l00318" name="l00318"></a><span class="lineno">  318</span>    <span class="keyword">auto</span> operator|(Op&amp;&amp; op) &amp;&amp;</div>
 <div class="line"><a id="l00319" name="l00319"></a><span class="lineno">  319</span>    {</div>
 <div class="line"><a id="l00320" name="l00320"></a><span class="lineno">  320</span>        <span class="keywordflow">return</span> std::forward&lt;Op&gt;(op)(std::move(*<span class="keyword">this</span>));</div>

@@ -151,6 +151,7 @@ var hierarchy =
     [ "rpp::operators::details::reduce_observer_strategy< TObserver, Accumulator >", "structrpp_1_1operators_1_1details_1_1reduce__observer__strategy.html", null ],
     [ "rpp::details::ref_count_on_subscribe_t< T >", "structrpp_1_1details_1_1ref__count__on__subscribe__t.html", null ],
     [ "rpp::details::ref_count_on_subscribe_t< rpp::connectable_observable< OriginalObservable, Subject > >", "structrpp_1_1details_1_1ref__count__on__subscribe__t_3_01rpp_1_1connectable__observable_3_01_oria02afbb30282d4727b872472b2af56d8.html", null ],
+    [ "rpp::operators::details::ref_count_t", "structrpp_1_1operators_1_1details_1_1ref__count__t.html", null ],
     [ "rpp::details::refocunt_disposable_state_t", "structrpp_1_1details_1_1refocunt__disposable__state__t.html", null ],
     [ "rpp::operators::details::repeat_t< Scheduler >", "structrpp_1_1operators_1_1details_1_1repeat__t.html", null ],
     [ "std::runtime_error", null, [

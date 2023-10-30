@@ -104,19 +104,36 @@ $(document).ready(function(){initNavTree('ref_count_8cpp-example.html',''); init
 <div class="line"> </div>
 <div class="line"><span class="keywordtype">int</span> main() <span class="comment">// NOLINT(bugprone-exception-escape)</span></div>
 <div class="line">{</div>
-<div class="line">    <span class="keyword">auto</span> observable = <a id="a0" name="a0"></a><a class="code hl_function" href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">rpp::source::just</a>(1, 2, 3) | <a id="a1" name="a1"></a><a class="code hl_function" href="group__connectable__operators.html#gac7b150abbdae0a5084dd3784d9c7babf">rpp::operators::multicast</a>();</div>
-<div class="line">    observable.subscribe([](<span class="keywordtype">int</span> v) {std::cout &lt;&lt; <span class="stringliteral">&quot;#1 &quot;</span> &lt;&lt; v &lt;&lt; std::endl; });</div>
-<div class="line">    <span class="comment">// No Output</span></div>
+<div class="line">    {</div>
+<div class="line">        <span class="keyword">auto</span> observable = <a id="a0" name="a0"></a><a class="code hl_function" href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">rpp::source::just</a>(1, 2, 3) | <a id="a1" name="a1"></a><a class="code hl_function" href="group__connectable__operators.html#gac7b150abbdae0a5084dd3784d9c7babf">rpp::operators::multicast</a>();</div>
+<div class="line">        observable.subscribe([](<span class="keywordtype">int</span> v) {std::cout &lt;&lt; <span class="stringliteral">&quot;#1 &quot;</span> &lt;&lt; v &lt;&lt; std::endl; });</div>
+<div class="line">        <span class="comment">// No Output</span></div>
 <div class="line"> </div>
-<div class="line">    observable.ref_count().subscribe([](<span class="keywordtype">int</span> v) {std::cout &lt;&lt; <span class="stringliteral">&quot;#2 &quot;</span> &lt;&lt; v &lt;&lt; std::endl; });</div>
-<div class="line">    <span class="comment">// Output:</span></div>
-<div class="line">    <span class="comment">// #1 1</span></div>
-<div class="line">    <span class="comment">// #2 1</span></div>
-<div class="line">    <span class="comment">// #1 2</span></div>
-<div class="line">    <span class="comment">// #2 2</span></div>
-<div class="line">    <span class="comment">// #1 3</span></div>
-<div class="line">    <span class="comment">// #2 3</span></div>
+<div class="line">        observable.ref_count().subscribe([](<span class="keywordtype">int</span> v) {std::cout &lt;&lt; <span class="stringliteral">&quot;#2 &quot;</span> &lt;&lt; v &lt;&lt; std::endl; });</div>
+<div class="line">        <span class="comment">// Output:</span></div>
+<div class="line">        <span class="comment">// #1 1</span></div>
+<div class="line">        <span class="comment">// #2 1</span></div>
+<div class="line">        <span class="comment">// #1 2</span></div>
+<div class="line">        <span class="comment">// #2 2</span></div>
+<div class="line">        <span class="comment">// #1 3</span></div>
+<div class="line">        <span class="comment">// #2 3</span></div>
 <div class="line"> </div>
+<div class="line">    }</div>
+<div class="line">    {</div>
+<div class="line">        <span class="keyword">auto</span> observable = <a class="code hl_function" href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">rpp::source::just</a>(1, 2, 3) | <a class="code hl_function" href="group__connectable__operators.html#gac7b150abbdae0a5084dd3784d9c7babf">rpp::operators::multicast</a>();</div>
+<div class="line">        observable.subscribe([](<span class="keywordtype">int</span> v) {std::cout &lt;&lt; <span class="stringliteral">&quot;#1 &quot;</span> &lt;&lt; v &lt;&lt; std::endl; });</div>
+<div class="line">        <span class="comment">// No Output</span></div>
+<div class="line"> </div>
+<div class="line">        observable | rpp::ops::ref_count() | rpp::ops::subscribe([](<span class="keywordtype">int</span> v) {std::cout &lt;&lt; <span class="stringliteral">&quot;#2 &quot;</span> &lt;&lt; v &lt;&lt; std::endl; });</div>
+<div class="line">        <span class="comment">// Output:</span></div>
+<div class="line">        <span class="comment">// #1 1</span></div>
+<div class="line">        <span class="comment">// #2 1</span></div>
+<div class="line">        <span class="comment">// #1 2</span></div>
+<div class="line">        <span class="comment">// #2 2</span></div>
+<div class="line">        <span class="comment">// #1 3</span></div>
+<div class="line">        <span class="comment">// #2 3</span></div>
+<div class="line"> </div>
+<div class="line">    }</div>
 <div class="line">    <span class="keywordflow">return</span> 0;</div>
 <div class="line">}</div>
 <div class="ttc" id="agroup__connectable__operators_html_gac7b150abbdae0a5084dd3784d9c7babf"><div class="ttname"><a href="group__connectable__operators.html#gac7b150abbdae0a5084dd3784d9c7babf">rpp::operators::multicast</a></div><div class="ttdeci">auto multicast()</div><div class="ttdoc">Converts ordinary observable to rpp::connectable_observable with help of inline instsantiated subject...</div><div class="ttdef"><b>Definition</b> multicast.hpp:84</div></div>

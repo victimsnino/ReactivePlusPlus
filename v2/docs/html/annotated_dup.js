@@ -102,6 +102,7 @@ var annotated_dup =
           [ "reduce_no_seed_t", "structrpp_1_1operators_1_1details_1_1reduce__no__seed__t.html", null ],
           [ "reduce_observer_strategy", "structrpp_1_1operators_1_1details_1_1reduce__observer__strategy.html", null ],
           [ "reduce_t", "structrpp_1_1operators_1_1details_1_1reduce__t.html", null ],
+          [ "ref_count_t", "structrpp_1_1operators_1_1details_1_1ref__count__t.html", null ],
           [ "repeat_t", "structrpp_1_1operators_1_1details_1_1repeat__t.html", null ],
           [ "scan_no_seed_observer_strategy", "structrpp_1_1operators_1_1details_1_1scan__no__seed__observer__strategy.html", null ],
           [ "scan_no_seed_t", "structrpp_1_1operators_1_1details_1_1scan__no__seed__t.html", null ],

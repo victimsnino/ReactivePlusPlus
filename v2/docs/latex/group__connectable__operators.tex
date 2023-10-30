@@ -15,7 +15,9 @@ auto \mbox{\hyperlink{group__connectable__operators_gadac4721de7506cc9a1c2a4453a
 {\footnotesize template$<$template$<$ typename $>$ typename Subject = rpp\+::subjects\+::publish\+\_\+subject$>$ }\\auto \mbox{\hyperlink{group__connectable__operators_gac7b150abbdae0a5084dd3784d9c7babf}{rpp\+::operators\+::multicast}} ()
 \begin{DoxyCompactList}\small\item\em Converts ordinary observable to \doxylink{classrpp_1_1connectable__observable}{rpp\+::connectable\+\_\+observable} with help of inline instsantiated subject of provided type. \end{DoxyCompactList}\item 
 auto \mbox{\hyperlink{group__connectable__operators_ga42498cc0bc565116e9deece3c3afa66f}{rpp\+::operators\+::publish}} ()
-\begin{DoxyCompactList}\small\item\em Converts ordinary observable to \doxylink{classrpp_1_1connectable__observable}{rpp\+::connectable\+\_\+observable} with help of inline instsantiated publish subject. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Converts ordinary observable to \doxylink{classrpp_1_1connectable__observable}{rpp\+::connectable\+\_\+observable} with help of inline instsantiated publish subject. \end{DoxyCompactList}\item 
+auto \mbox{\hyperlink{group__connectable__operators_ga7c5ba7b673ad2f41b767f4cea0b5af3e}{rpp\+::operators\+::ref\+\_\+count}} ()
+\begin{DoxyCompactList}\small\item\em Forces \doxylink{classrpp_1_1connectable__observable}{rpp\+::connectable\+\_\+observable} to behave like common observable. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsubsubsection{Detailed Description}
@@ -162,10 +164,45 @@ This overloading creates fresh {\ttfamily Subject\texorpdfstring{$<$}{<}Type\tex
 \begin{Desc}
 \item[Examples]\par
 \mbox{\hyperlink{multicast_8cpp-example}{multicast.\+cpp}}.\end{Desc}
+\Hypertarget{group__connectable__operators_ga7c5ba7b673ad2f41b767f4cea0b5af3e}\label{group__connectable__operators_ga7c5ba7b673ad2f41b767f4cea0b5af3e} 
+\index{Connectable Operators@{Connectable Operators}!ref\_count@{ref\_count}}
+\index{ref\_count@{ref\_count}!Connectable Operators@{Connectable Operators}}
+\doxysubsubsubsubsection{\texorpdfstring{ref\_count()}{ref\_count()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily auto rpp\+::operators\+::ref\+\_\+count (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Forces \doxylink{classrpp_1_1connectable__observable}{rpp\+::connectable\+\_\+observable} to behave like common observable. 
+
+Connects \doxylink{classrpp_1_1connectable__observable}{rpp\+::connectable\+\_\+observable} on the first subscription and unsubscribes on last unsubscription
+
+\begin{DoxyParagraph}{Example}
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{classrpp_1_1observable}{observable}}\ =\ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(1,\ 2,\ 3)\ |\ \mbox{\hyperlink{group__connectable__operators_gac7b150abbdae0a5084dd3784d9c7babf}{rpp::operators::multicast}}();}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \mbox{\hyperlink{classrpp_1_1observable}{observable}}.\mbox{\hyperlink{classrpp_1_1observable_a193b0e08c516912c04afd8379ec27182}{subscribe}}([](\textcolor{keywordtype}{int}\ v)\ \{std::cout\ <<\ \textcolor{stringliteral}{"{}\#1\ "{}}\ <<\ v\ <<\ std::endl;\ \});}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{comment}{//\ No\ Output}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \mbox{\hyperlink{classrpp_1_1observable}{observable}}\ |\ rpp::ops::ref\_count()\ |\ rpp::ops::subscribe([](\textcolor{keywordtype}{int}\ v)\ \{std::cout\ <<\ \textcolor{stringliteral}{"{}\#2\ "{}}\ <<\ v\ <<\ std::endl;\ \});}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{comment}{//\ Output:}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{comment}{//\ \#1\ 1}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{comment}{//\ \#2\ 1}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{comment}{//\ \#1\ 2}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{comment}{//\ \#2\ 2}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{comment}{//\ \#1\ 3}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{comment}{//\ \#2\ 3}}
+\DoxyCodeLine{}
+
+\end{DoxyCodeInclude}
+
+\end{DoxyParagraph}
+\begin{DoxySeeAlso}{See also}
+\href{https://reactivex.io/documentation/operators/refcount.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/refcount.\+html}} 
+\end{DoxySeeAlso}
 \Hypertarget{group__connectable__operators_gadac4721de7506cc9a1c2a4453a6c28cf}\label{group__connectable__operators_gadac4721de7506cc9a1c2a4453a6c28cf} 
 \index{Connectable Operators@{Connectable Operators}!ref\_count@{ref\_count}}
 \index{ref\_count@{ref\_count}!Connectable Operators@{Connectable Operators}}
-\doxysubsubsubsubsection{\texorpdfstring{ref\_count()}{ref\_count()}}
+\doxysubsubsubsubsection{\texorpdfstring{ref\_count()}{ref\_count()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
 {\footnotesize\ttfamily template$<$\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp\+::constraint\+::observable}} Original\+Observable, \mbox{\hyperlink{conceptrpp_1_1constraint_1_1subject}{rpp\+::constraint\+::subject}} Subject$>$ \\
 auto \mbox{\hyperlink{classrpp_1_1connectable__observable}{rpp\+::connectable\+\_\+observable}}$<$ Original\+Observable, Subject $>$\+::ref\+\_\+count (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
@@ -178,18 +215,18 @@ Connects \doxylink{classrpp_1_1connectable__observable}{rpp\+::connectable\+\_\+
 \begin{DoxyParagraph}{Example}
 
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{auto}\ observable\ =\ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(1,\ 2,\ 3)\ |\ \mbox{\hyperlink{group__connectable__operators_gac7b150abbdae0a5084dd3784d9c7babf}{rpp::operators::multicast}}();}
-\DoxyCodeLine{\ \ \ \ observable.subscribe([](\textcolor{keywordtype}{int}\ v)\ \{std::cout\ <<\ \textcolor{stringliteral}{"{}\#1\ "{}}\ <<\ v\ <<\ std::endl;\ \});}
-\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ No\ Output}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ observable\ =\ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(1,\ 2,\ 3)\ |\ \mbox{\hyperlink{group__connectable__operators_gac7b150abbdae0a5084dd3784d9c7babf}{rpp::operators::multicast}}();}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ observable.subscribe([](\textcolor{keywordtype}{int}\ v)\ \{std::cout\ <<\ \textcolor{stringliteral}{"{}\#1\ "{}}\ <<\ v\ <<\ std::endl;\ \});}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{comment}{//\ No\ Output}}
 \DoxyCodeLine{}
-\DoxyCodeLine{\ \ \ \ observable.ref\_count().subscribe([](\textcolor{keywordtype}{int}\ v)\ \{std::cout\ <<\ \textcolor{stringliteral}{"{}\#2\ "{}}\ <<\ v\ <<\ std::endl;\ \});}
-\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:}}
-\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ \#1\ 1}}
-\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ \#2\ 1}}
-\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ \#1\ 2}}
-\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ \#2\ 2}}
-\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ \#1\ 3}}
-\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ \#2\ 3}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ observable.ref\_count().subscribe([](\textcolor{keywordtype}{int}\ v)\ \{std::cout\ <<\ \textcolor{stringliteral}{"{}\#2\ "{}}\ <<\ v\ <<\ std::endl;\ \});}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{comment}{//\ Output:}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{comment}{//\ \#1\ 1}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{comment}{//\ \#2\ 1}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{comment}{//\ \#1\ 2}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{comment}{//\ \#2\ 2}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{comment}{//\ \#1\ 3}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{comment}{//\ \#2\ 3}}
 \DoxyCodeLine{}
 
 \end{DoxyCodeInclude}
