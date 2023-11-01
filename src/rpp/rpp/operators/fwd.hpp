@@ -84,6 +84,8 @@ auto observe_on(Scheduler&& scheduler, rpp::schedulers::duration delay_duration 
 
 auto publish();
 
+auto ref_count();
+
 template<rpp::schedulers::constraint::scheduler Scheduler = rpp::schedulers::defaults::iteration_scheduler>
 auto repeat(size_t count, const Scheduler& scheduler = {});
 

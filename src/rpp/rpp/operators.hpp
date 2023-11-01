@@ -99,6 +99,7 @@
 
 #include <rpp/operators/multicast.hpp>
 #include <rpp/operators/publish.hpp>
+#include <rpp/operators/ref_count.hpp>
 
 /**
  * @defgroup aggregate_operators Aggregate Operators
