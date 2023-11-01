@@ -5,6 +5,7 @@ var concepts =
         [ "memory_model", "conceptrpp_1_1constraint_1_1memory__model.html", null ],
         [ "observable_strategy", "conceptrpp_1_1constraint_1_1observable__strategy.html", null ],
         [ "observable", "conceptrpp_1_1constraint_1_1observable.html", null ],
+        [ "observable_of_type", "conceptrpp_1_1constraint_1_1observable__of__type.html", null ],
         [ "operator_observable_transform", "conceptrpp_1_1constraint_1_1operator__observable__transform.html", null ],
         [ "operator_subscribe", "conceptrpp_1_1constraint_1_1operator__subscribe.html", null ],
         [ "operator_lift", "conceptrpp_1_1constraint_1_1operator__lift.html", null ],

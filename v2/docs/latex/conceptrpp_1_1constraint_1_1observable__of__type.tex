@@ -1,0 +1,9 @@
+\doxysection{rpp\+::constraint\+::observable\+\_\+of\+\_\+type Concept Reference}
+\hypertarget{conceptrpp_1_1constraint_1_1observable__of__type}{}\label{conceptrpp_1_1constraint_1_1observable__of__type}\index{rpp::constraint::observable\_of\_type@{rpp::constraint::observable\_of\_type}}
+\doxysubsection{Concept definition}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T,\ \textcolor{keyword}{typename}\ Type>}
+\DoxyCodeLine{\textcolor{keyword}{concept\ }\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable__of__type}{rpp::constraint::observable\_of\_type}}\ =\ \ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{observable<T>}}\ \&\&\ std::same\_as<utils::extract\_observable\_type\_t<T>,\ std::decay\_t<Type>>}
+
+\end{DoxyCode}

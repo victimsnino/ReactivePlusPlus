@@ -115,6 +115,21 @@ requires constraint::observables_of_same_type&lt;std::decay_t&lt;TObservable&gt;
 <tr class="memitem:ga35392a84e52bf7101d0d0445ef391db7"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__combining__operators.html#ga35392a84e52bf7101d0d0445ef391db7">rpp::operators::merge_with</a> (TObservable &amp;&amp;<a class="el" href="classrpp_1_1observable.html">observable</a>, TObservables &amp;&amp;... observables)</td></tr>
 <tr class="memdesc:ga35392a84e52bf7101d0d0445ef391db7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Combines submissions from current observable with other observables into one.  <br /></td></tr>
 <tr class="separator:ga35392a84e52bf7101d0d0445ef391db7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gadf12c4de9702425819b0d34b5fdf7db3" id="r_gadf12c4de9702425819b0d34b5fdf7db3"><td class="memTemplParams" colspan="2">template&lt;<a class="el" href="conceptrpp_1_1constraint_1_1observable.html">rpp::constraint::observable</a> TObservable, rpp::constraint::observable... TObservables&gt; <br />
+requires constraint::observables_of_same_type&lt;std::decay_t&lt;TObservable&gt;, std::decay_t&lt;TObservables&gt;...&gt;</td></tr>
+<tr class="memitem:gadf12c4de9702425819b0d34b5fdf7db3"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__combining__operators.html#gadf12c4de9702425819b0d34b5fdf7db3">rpp::operators::start_with</a> (TObservable &amp;&amp;<a class="el" href="classrpp_1_1observable.html">observable</a>, TObservables &amp;&amp;... observables)</td></tr>
+<tr class="memdesc:gadf12c4de9702425819b0d34b5fdf7db3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Combines submissions from current observable with other observables into one but without overlapping and starting from observables provided as arguments.  <br /></td></tr>
+<tr class="separator:gadf12c4de9702425819b0d34b5fdf7db3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7bb4fbf5e43b500471881a900ef1d6b9" id="r_ga7bb4fbf5e43b500471881a900ef1d6b9"><td class="memTemplParams" colspan="2">template&lt;constraint::memory_model MemoryModel = memory_model::use_stack, typename T , typename ... Ts&gt; <br />
+requires (rpp::constraint::decayed_same_as&lt;T, Ts&gt; &amp;&amp; ...)</td></tr>
+<tr class="memitem:ga7bb4fbf5e43b500471881a900ef1d6b9"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__combining__operators.html#ga7bb4fbf5e43b500471881a900ef1d6b9">rpp::operators::start_with_values</a> (T &amp;&amp;v, Ts &amp;&amp;... vals)</td></tr>
+<tr class="memdesc:ga7bb4fbf5e43b500471881a900ef1d6b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Combines submissions from current observable with values into one but without overlapping and starting from values provided as arguments.  <br /></td></tr>
+<tr class="separator:ga7bb4fbf5e43b500471881a900ef1d6b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga04a8768b213581b77f025c39c42e1e78" id="r_ga04a8768b213581b77f025c39c42e1e78"><td class="memTemplParams" colspan="2">template&lt;constraint::memory_model MemoryModel = memory_model::use_stack, <a class="el" href="conceptrpp_1_1schedulers_1_1constraint_1_1scheduler.html">rpp::schedulers::constraint::scheduler</a> TScheduler, typename T , typename ... Ts&gt; <br />
+requires (rpp::constraint::decayed_same_as&lt;T, Ts&gt; &amp;&amp; ...)</td></tr>
+<tr class="memitem:ga04a8768b213581b77f025c39c42e1e78"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__combining__operators.html#ga04a8768b213581b77f025c39c42e1e78">rpp::operators::start_with_values</a> (const TScheduler &amp;scheduler, T &amp;&amp;v, Ts &amp;&amp;... vals)</td></tr>
+<tr class="memdesc:ga04a8768b213581b77f025c39c42e1e78"><td class="mdescLeft">&#160;</td><td class="mdescRight">Combines submissions from current observable with values into one but without overlapping and starting from values provided as arguments.  <br /></td></tr>
+<tr class="separator:ga04a8768b213581b77f025c39c42e1e78"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga9345ba5faac717ba85fc88f1c5fff58b" id="r_ga9345ba5faac717ba85fc88f1c5fff58b"><td class="memTemplParams" colspan="2">template&lt;typename TSelector , <a class="el" href="conceptrpp_1_1constraint_1_1observable.html">rpp::constraint::observable</a> TObservable, rpp::constraint::observable... TObservables&gt; <br />
 requires (!<a class="el" href="conceptrpp_1_1constraint_1_1observable.html">rpp::constraint::observable</a>&lt;TSelector&gt; &amp;&amp; (!utils::is_not_template_callable&lt;TSelector&gt; || std::invocable&lt;TSelector, rpp::utils::convertible_to_any, utils::extract_observable_type_t&lt;TObservable&gt;, utils::extract_observable_type_t&lt;TObservables&gt;...&gt;))</td></tr>
 <tr class="memitem:ga9345ba5faac717ba85fc88f1c5fff58b"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__combining__operators.html#ga9345ba5faac717ba85fc88f1c5fff58b">rpp::operators::with_latest_from</a> (TSelector &amp;&amp;selector, TObservable &amp;&amp;<a class="el" href="classrpp_1_1observable.html">observable</a>, TObservables &amp;&amp;... observables)</td></tr>
@@ -174,7 +189,7 @@ During on subscribe operator takes ownership over <a class="el" href="classrpp_1
 <div class="line">    <span class="comment">// Output: 1 2</span></div>
 <div class="ttc" id="agroup__combining__operators_html_ga3f8a04b4c8eb945534eddde5a25eec74"><div class="ttname"><a href="group__combining__operators.html#ga3f8a04b4c8eb945534eddde5a25eec74">rpp::operators::merge</a></div><div class="ttdeci">auto merge()</div><div class="ttdoc">Converts observable of observables of items into observable of items via merging emissions.</div><div class="ttdef"><b>Definition</b> merge.hpp:202</div></div>
 <div class="ttc" id="agroup__creational__operators_html_ga1edf47f176050dd414e28a1c0616b7c0"><div class="ttname"><a href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">rpp::source::just</a></div><div class="ttdeci">auto just(const TScheduler &amp;scheduler, T &amp;&amp;item, Ts &amp;&amp;... items)</div><div class="ttdoc">Creates rpp::observable that emits a particular items and completes.</div><div class="ttdef"><b>Definition</b> from.hpp:207</div></div>
-<div class="ttc" id="agroup__creational__operators_html_gab6cfd9da2e3590fd199c9972477e04df"><div class="ttname"><a href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">rpp::source::concat</a></div><div class="ttdeci">auto concat(TObservable &amp;&amp;obs, TObservables &amp;&amp;... others)</div><div class="ttdoc">Make observable which would merge emissions from underlying observables but without overlapping (curr...</div><div class="ttdef"><b>Definition</b> concat.hpp:162</div></div>
+<div class="ttc" id="agroup__creational__operators_html_gab6cfd9da2e3590fd199c9972477e04df"><div class="ttname"><a href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">rpp::source::concat</a></div><div class="ttdeci">auto concat(TObservable &amp;&amp;obs, TObservables &amp;&amp;... others)</div><div class="ttdoc">Make observable which would merge emissions from underlying observables but without overlapping (curr...</div><div class="ttdef"><b>Definition</b> concat.hpp:161</div></div>
 </div><!-- fragment --></dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/merge.html">https://reactivex.io/documentation/operators/merge.html</a> </dd></dl>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="merge_8cpp-example.html#a2">merge.cpp</a>.</dd>
@@ -240,6 +255,164 @@ During on subscribe operator takes ownership over <a class="el" href="classrpp_1
 <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/merge.html">https://reactivex.io/documentation/operators/merge.html</a> </dd></dl>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="merge_8cpp-example.html#a3">merge.cpp</a>.</dd>
 </dl>
+
+</div>
+</div>
+<a id="gadf12c4de9702425819b0d34b5fdf7db3" name="gadf12c4de9702425819b0d34b5fdf7db3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gadf12c4de9702425819b0d34b5fdf7db3">&#9670;&#160;</a></span>start_with()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;<a class="el" href="conceptrpp_1_1constraint_1_1observable.html">rpp::constraint::observable</a> TObservable, rpp::constraint::observable... TObservables&gt; <br />
+requires constraint::observables_of_same_type&lt;std::decay_t&lt;TObservable&gt;, std::decay_t&lt;TObservables&gt;...&gt;</div>
+      <table class="memname">
+        <tr>
+          <td class="memname">auto rpp::operators::start_with </td>
+          <td>(</td>
+          <td class="paramtype">TObservable &amp;&amp;&#160;</td>
+          <td class="paramname"><em>observable</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">TObservables &amp;&amp;...&#160;</td>
+          <td class="paramname"><em>observables</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Combines submissions from current observable with other observables into one but without overlapping and starting from observables provided as arguments. </p>
+<dl class="section warning"><dt>Warning</dt><dd>If by some reason you need to interpet observables as "values", not sources of data, then use <code>start_with_values</code> instead</dd></dl>
+<div class="image">
+<object type="image/svg+xml" data="start_with_observable.svg" style="pointer-events: none;"></object>
+</div>
+<p>Actually it makes concat(observables_to_start_with..., current_observable) so observables from argument subscribed before current observable</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">observables</td><td>list of observables which should be used before current observable</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="start__with_8hpp_source.html">rpp/operators/start_with.hpp</a>&gt;</dd></dl>
+<dl class="section user"><dt>Example</dt><dd><div class="fragment"></div><!-- fragment --> <div class="fragment"></div><!-- fragment --></dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/startwith.html">https://reactivex.io/documentation/operators/startwith.html</a> </dd></dl>
+
+</div>
+</div>
+<a id="ga04a8768b213581b77f025c39c42e1e78" name="ga04a8768b213581b77f025c39c42e1e78"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga04a8768b213581b77f025c39c42e1e78">&#9670;&#160;</a></span>start_with_values() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;constraint::memory_model MemoryModel = memory_model::use_stack, <a class="el" href="conceptrpp_1_1schedulers_1_1constraint_1_1scheduler.html">rpp::schedulers::constraint::scheduler</a> TScheduler, typename T , typename ... Ts&gt; <br />
+requires (rpp::constraint::decayed_same_as&lt;T, Ts&gt; &amp;&amp; ...)</div>
+      <table class="memname">
+        <tr>
+          <td class="memname">auto rpp::operators::start_with_values </td>
+          <td>(</td>
+          <td class="paramtype">const TScheduler &amp;&#160;</td>
+          <td class="paramname"><em>scheduler</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">T &amp;&amp;&#160;</td>
+          <td class="paramname"><em>v</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Ts &amp;&amp;...&#160;</td>
+          <td class="paramname"><em>vals</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Combines submissions from current observable with values into one but without overlapping and starting from values provided as arguments. </p>
+<div class="image">
+<object type="image/svg+xml" data="start_with_values.svg" style="pointer-events: none;"></object>
+</div>
+<p>Actually it makes concat(rpp::source::just(vals_to_start_with)..., current_observable) so observables from argument subscribed before current observable</p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">memory_model</td><td>memory_model strategy used to store provided values </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">vals</td><td>list of values which should be emitted before current observable</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="start__with_8hpp_source.html">rpp/operators/start_with.hpp</a>&gt;</dd></dl>
+<dl class="section user"><dt>Example</dt><dd><div class="fragment"></div><!-- fragment --></dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/startwith.html">https://reactivex.io/documentation/operators/startwith.html</a> </dd></dl>
+
+</div>
+</div>
+<a id="ga7bb4fbf5e43b500471881a900ef1d6b9" name="ga7bb4fbf5e43b500471881a900ef1d6b9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga7bb4fbf5e43b500471881a900ef1d6b9">&#9670;&#160;</a></span>start_with_values() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;constraint::memory_model MemoryModel = memory_model::use_stack, typename T , typename ... Ts&gt; <br />
+requires (rpp::constraint::decayed_same_as&lt;T, Ts&gt; &amp;&amp; ...)</div>
+      <table class="memname">
+        <tr>
+          <td class="memname">auto rpp::operators::start_with_values </td>
+          <td>(</td>
+          <td class="paramtype">T &amp;&amp;&#160;</td>
+          <td class="paramname"><em>v</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Ts &amp;&amp;...&#160;</td>
+          <td class="paramname"><em>vals</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Combines submissions from current observable with values into one but without overlapping and starting from values provided as arguments. </p>
+<div class="image">
+<object type="image/svg+xml" data="start_with_values.svg" style="pointer-events: none;"></object>
+</div>
+<p>Actually it makes concat(rpp::source::just(vals_to_start_with)..., current_observable) so observables from argument subscribed before current observable</p>
+<p>This overloading operates on <a class="el" href="classrpp_1_1schedulers_1_1current__thread.html" title="Schedules execution of schedulables via queueing tasks to the caller thread with priority to time_poi...">rpp::schedulers::current_thread</a> by default</p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">memory_model</td><td>memory_model strategy used to store provided values </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">vals</td><td>list of values which should be emitted before current observable</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="start__with_8hpp_source.html">rpp/operators/start_with.hpp</a>&gt;</dd></dl>
+<dl class="section user"><dt>Example</dt><dd><div class="fragment"></div><!-- fragment --> <div class="fragment"></div><!-- fragment --></dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/startwith.html">https://reactivex.io/documentation/operators/startwith.html</a> </dd></dl>
 
 </div>
 </div>

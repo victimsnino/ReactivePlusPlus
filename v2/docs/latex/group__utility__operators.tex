@@ -16,9 +16,9 @@ auto \mbox{\hyperlink{group__utility__operators_ga9df008c11eeff8c9383e56bf36e28e
 \begin{DoxyCompactList}\small\item\em Shift the emissions from an Observable forward in time by a particular amount. \end{DoxyCompactList}\item 
 {\footnotesize template$<$\mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1scheduler}{rpp\+::schedulers\+::constraint\+::scheduler}} Scheduler$>$ }\\auto \mbox{\hyperlink{group__utility__operators_ga3feb1b1258c7e3e72c151abf176c30c4}{rpp\+::operators\+::observe\+\_\+on}} (Scheduler \&\&scheduler, rpp\+::schedulers\+::duration delay\+\_\+duration)
 \begin{DoxyCompactList}\small\item\em Specify the Scheduler on which an observer will observe this Observable. \end{DoxyCompactList}\item 
-{\footnotesize template$<$\mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1scheduler}{rpp\+::schedulers\+::constraint\+::scheduler}} Scheduler = rpp\+::schedulers\+::current\+\_\+thread$>$ }\\auto \mbox{\hyperlink{group__utility__operators_ga22f3148defcabdd1935e201103644f4b}{rpp\+::operators\+::repeat}} (size\+\_\+t count, const Scheduler \&scheduler)
+{\footnotesize template$<$\mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1scheduler}{rpp\+::schedulers\+::constraint\+::scheduler}} Scheduler = rpp\+::schedulers\+::defaults\+::iteration\+\_\+scheduler$>$ }\\auto \mbox{\hyperlink{group__utility__operators_ga22f3148defcabdd1935e201103644f4b}{rpp\+::operators\+::repeat}} (size\+\_\+t count, const Scheduler \&scheduler)
 \begin{DoxyCompactList}\small\item\em Repeats the Observabe\textquotesingle{}s sequence of emissions {\ttfamily count} times via re-\/subscribing on it during {\ttfamily on\+\_\+completed} call while {\ttfamily count} not reached. \end{DoxyCompactList}\item 
-{\footnotesize template$<$\mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1scheduler}{rpp\+::schedulers\+::constraint\+::scheduler}} Scheduler = rpp\+::schedulers\+::current\+\_\+thread$>$ }\\auto \mbox{\hyperlink{group__utility__operators_ga0cfd908889bdd68eff60f3342c89f500}{rpp\+::operators\+::repeat}} (const Scheduler \&scheduler)
+{\footnotesize template$<$\mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1scheduler}{rpp\+::schedulers\+::constraint\+::scheduler}} Scheduler = rpp\+::schedulers\+::defaults\+::iteration\+\_\+scheduler$>$ }\\auto \mbox{\hyperlink{group__utility__operators_ga0cfd908889bdd68eff60f3342c89f500}{rpp\+::operators\+::repeat}} (const Scheduler \&scheduler)
 \begin{DoxyCompactList}\small\item\em Repeats the Observabe\textquotesingle{}s sequence of emissions infinite amount of times via re-\/subscribing on it during {\ttfamily on\+\_\+completed}. \end{DoxyCompactList}\item 
 {\footnotesize template$<$\mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1scheduler}{rpp\+::schedulers\+::constraint\+::scheduler}} Scheduler$>$ }\\auto \mbox{\hyperlink{group__utility__operators_gace728cfbf71720901cb6f310edabf8b0}{rpp\+::operators\+::subscribe\+\_\+on}} (Scheduler \&\&scheduler)
 \begin{DoxyCompactList}\small\item\em On\+Subscribe function for this observable will be scheduled via provided scheduler. \end{DoxyCompactList}\end{DoxyCompactItemize}
@@ -275,7 +275,7 @@ Actually this operator is just {\ttfamily delay}, but in case of obtaining {\ttf
 \index{Utility Operators@{Utility Operators}!repeat@{repeat}}
 \index{repeat@{repeat}!Utility Operators@{Utility Operators}}
 \doxysubsubsubsubsection{\texorpdfstring{repeat()}{repeat()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
-{\footnotesize\ttfamily template$<$\mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1scheduler}{rpp\+::schedulers\+::constraint\+::scheduler}} Scheduler = rpp\+::schedulers\+::current\+\_\+thread$>$ \\
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1scheduler}{rpp\+::schedulers\+::constraint\+::scheduler}} Scheduler = rpp\+::schedulers\+::defaults\+::iteration\+\_\+scheduler$>$ \\
 auto rpp\+::operators\+::repeat (\begin{DoxyParamCaption}\item[{const Scheduler \&}]{scheduler }\end{DoxyParamCaption})}
 
 
@@ -318,7 +318,7 @@ Actually this operator is kind of {\ttfamily concat(obs, obs...)}
 \index{Utility Operators@{Utility Operators}!repeat@{repeat}}
 \index{repeat@{repeat}!Utility Operators@{Utility Operators}}
 \doxysubsubsubsubsection{\texorpdfstring{repeat()}{repeat()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
-{\footnotesize\ttfamily template$<$\mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1scheduler}{rpp\+::schedulers\+::constraint\+::scheduler}} Scheduler = rpp\+::schedulers\+::current\+\_\+thread$>$ \\
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1scheduler}{rpp\+::schedulers\+::constraint\+::scheduler}} Scheduler = rpp\+::schedulers\+::defaults\+::iteration\+\_\+scheduler$>$ \\
 auto rpp\+::operators\+::repeat (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{count,  }\item[{const Scheduler \&}]{scheduler }\end{DoxyParamCaption})}
 
 

@@ -13,6 +13,15 @@ auto \mbox{\hyperlink{group__combining__operators_ga3f8a04b4c8eb945534eddde5a25e
 {\footnotesize template$<$\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp\+::constraint\+::observable}} TObservable, rpp\+::constraint\+::observable... TObservables$>$ \newline
 requires constraint\+::observables\+\_\+of\+\_\+same\+\_\+type$<$std\+::decay\+\_\+t$<$TObservable$>$, std\+::decay\+\_\+t$<$TObservables$>$...$>$}\\auto \mbox{\hyperlink{group__combining__operators_ga35392a84e52bf7101d0d0445ef391db7}{rpp\+::operators\+::merge\+\_\+with}} (TObservable \&\&\mbox{\hyperlink{classrpp_1_1observable}{observable}}, TObservables \&\&... observables)
 \begin{DoxyCompactList}\small\item\em Combines submissions from current observable with other observables into one. \end{DoxyCompactList}\item 
+{\footnotesize template$<$\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp\+::constraint\+::observable}} TObservable, rpp\+::constraint\+::observable... TObservables$>$ \newline
+requires constraint\+::observables\+\_\+of\+\_\+same\+\_\+type$<$std\+::decay\+\_\+t$<$TObservable$>$, std\+::decay\+\_\+t$<$TObservables$>$...$>$}\\auto \mbox{\hyperlink{group__combining__operators_gadf12c4de9702425819b0d34b5fdf7db3}{rpp\+::operators\+::start\+\_\+with}} (TObservable \&\&\mbox{\hyperlink{classrpp_1_1observable}{observable}}, TObservables \&\&... observables)
+\begin{DoxyCompactList}\small\item\em Combines submissions from current observable with other observables into one but without overlapping and starting from observables provided as arguments. \end{DoxyCompactList}\item 
+{\footnotesize template$<$constraint\+::memory\+\_\+model Memory\+Model = memory\+\_\+model\+::use\+\_\+stack, typename T , typename ... Ts$>$ \newline
+requires (rpp\+::constraint\+::decayed\+\_\+same\+\_\+as$<$T, Ts$>$ \&\& ...)}\\auto \mbox{\hyperlink{group__combining__operators_ga7bb4fbf5e43b500471881a900ef1d6b9}{rpp\+::operators\+::start\+\_\+with\+\_\+values}} (T \&\&v, Ts \&\&... vals)
+\begin{DoxyCompactList}\small\item\em Combines submissions from current observable with values into one but without overlapping and starting from values provided as arguments. \end{DoxyCompactList}\item 
+{\footnotesize template$<$constraint\+::memory\+\_\+model Memory\+Model = memory\+\_\+model\+::use\+\_\+stack, \mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1scheduler}{rpp\+::schedulers\+::constraint\+::scheduler}} TScheduler, typename T , typename ... Ts$>$ \newline
+requires (rpp\+::constraint\+::decayed\+\_\+same\+\_\+as$<$T, Ts$>$ \&\& ...)}\\auto \mbox{\hyperlink{group__combining__operators_ga04a8768b213581b77f025c39c42e1e78}{rpp\+::operators\+::start\+\_\+with\+\_\+values}} (const TScheduler \&scheduler, T \&\&v, Ts \&\&... vals)
+\begin{DoxyCompactList}\small\item\em Combines submissions from current observable with values into one but without overlapping and starting from values provided as arguments. \end{DoxyCompactList}\item 
 {\footnotesize template$<$typename TSelector , \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp\+::constraint\+::observable}} TObservable, rpp\+::constraint\+::observable... TObservables$>$ \newline
 requires (!\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp\+::constraint\+::observable}}$<$TSelector$>$ \&\& (!utils\+::is\+\_\+not\+\_\+template\+\_\+callable$<$TSelector$>$ \texorpdfstring{$\vert$}{|}\texorpdfstring{$\vert$}{|} std\+::invocable$<$TSelector, rpp\+::utils\+::convertible\+\_\+to\+\_\+any, utils\+::extract\+\_\+observable\+\_\+type\+\_\+t$<$TObservable$>$, utils\+::extract\+\_\+observable\+\_\+type\+\_\+t$<$TObservables$>$...$>$))}\\auto \mbox{\hyperlink{group__combining__operators_ga9345ba5faac717ba85fc88f1c5fff58b}{rpp\+::operators\+::with\+\_\+latest\+\_\+from}} (TSelector \&\&selector, TObservable \&\&\mbox{\hyperlink{classrpp_1_1observable}{observable}}, TObservables \&\&... observables)
 \begin{DoxyCompactList}\small\item\em Combines latest emissions from observables with emission from current observable when it sends new value via applying selector. \end{DoxyCompactList}\item 
@@ -130,6 +139,131 @@ Actually it subscribes on each observable. Resulting observables completes when 
 \begin{Desc}
 \item[Examples]\par
 \mbox{\hyperlink{merge_8cpp-example}{merge.\+cpp}}.\end{Desc}
+\Hypertarget{group__combining__operators_gadf12c4de9702425819b0d34b5fdf7db3}\label{group__combining__operators_gadf12c4de9702425819b0d34b5fdf7db3} 
+\index{Combining Operators@{Combining Operators}!start\_with@{start\_with}}
+\index{start\_with@{start\_with}!Combining Operators@{Combining Operators}}
+\doxysubsubsubsubsection{\texorpdfstring{start\_with()}{start\_with()}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp\+::constraint\+::observable}} TObservable, rpp\+::constraint\+::observable... TObservables$>$ \newline
+requires constraint\+::observables\+\_\+of\+\_\+same\+\_\+type$<$std\+::decay\+\_\+t$<$TObservable$>$, std\+::decay\+\_\+t$<$TObservables$>$...$>$\\
+auto rpp\+::operators\+::start\+\_\+with (\begin{DoxyParamCaption}\item[{TObservable \&\&}]{observable,  }\item[{TObservables \&\&...}]{observables }\end{DoxyParamCaption})}
+
+
+
+Combines submissions from current observable with other observables into one but without overlapping and starting from observables provided as arguments. 
+
+\begin{DoxyWarning}{Warning}
+If by some reason you need to interpet observables as "{}values"{}, not sources of data, then use {\ttfamily start\+\_\+with\+\_\+values} instead
+\end{DoxyWarning}
+
+
+Actually it makes concat(observables\+\_\+to\+\_\+start\+\_\+with..., current\+\_\+observable) so observables from argument subscribed before current observable
+
+
+\begin{DoxyParams}{Parameters}
+{\em observables} & list of observables which should be used before current observable\\
+\hline
+\end{DoxyParams}
+\begin{DoxyWarning}{Warning}
+\#include \texorpdfstring{$<$}{<}\doxylink{start__with_8hpp_source}{rpp/operators/start\+\_\+with.\+hpp}\texorpdfstring{$>$}{>}
+\end{DoxyWarning}
+\begin{DoxyParagraph}{Example}
+
+\begin{DoxyCodeInclude}{0}
+
+\end{DoxyCodeInclude}
+ 
+\begin{DoxyCodeInclude}{0}
+
+\end{DoxyCodeInclude}
+
+\end{DoxyParagraph}
+\begin{DoxySeeAlso}{See also}
+\href{https://reactivex.io/documentation/operators/startwith.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/startwith.\+html}} 
+\end{DoxySeeAlso}
+\Hypertarget{group__combining__operators_ga04a8768b213581b77f025c39c42e1e78}\label{group__combining__operators_ga04a8768b213581b77f025c39c42e1e78} 
+\index{Combining Operators@{Combining Operators}!start\_with\_values@{start\_with\_values}}
+\index{start\_with\_values@{start\_with\_values}!Combining Operators@{Combining Operators}}
+\doxysubsubsubsubsection{\texorpdfstring{start\_with\_values()}{start\_with\_values()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$constraint\+::memory\+\_\+model Memory\+Model = memory\+\_\+model\+::use\+\_\+stack, \mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1scheduler}{rpp\+::schedulers\+::constraint\+::scheduler}} TScheduler, typename T , typename ... Ts$>$ \newline
+requires (rpp\+::constraint\+::decayed\+\_\+same\+\_\+as$<$T, Ts$>$ \&\& ...)\\
+auto rpp\+::operators\+::start\+\_\+with\+\_\+values (\begin{DoxyParamCaption}\item[{const TScheduler \&}]{scheduler,  }\item[{T \&\&}]{v,  }\item[{Ts \&\&...}]{vals }\end{DoxyParamCaption})}
+
+
+
+Combines submissions from current observable with values into one but without overlapping and starting from values provided as arguments. 
+
+
+
+Actually it makes concat(rpp\+::source\+::just(vals\+\_\+to\+\_\+start\+\_\+with)..., current\+\_\+observable) so observables from argument subscribed before current observable
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em memory\+\_\+model} & memory\+\_\+model strategy used to store provided values \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em vals} & list of values which should be emitted before current observable\\
+\hline
+\end{DoxyParams}
+\begin{DoxyWarning}{Warning}
+\#include \texorpdfstring{$<$}{<}\doxylink{start__with_8hpp_source}{rpp/operators/start\+\_\+with.\+hpp}\texorpdfstring{$>$}{>}
+\end{DoxyWarning}
+\begin{DoxyParagraph}{Example}
+
+\begin{DoxyCodeInclude}{0}
+
+\end{DoxyCodeInclude}
+
+\end{DoxyParagraph}
+\begin{DoxySeeAlso}{See also}
+\href{https://reactivex.io/documentation/operators/startwith.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/startwith.\+html}} 
+\end{DoxySeeAlso}
+\Hypertarget{group__combining__operators_ga7bb4fbf5e43b500471881a900ef1d6b9}\label{group__combining__operators_ga7bb4fbf5e43b500471881a900ef1d6b9} 
+\index{Combining Operators@{Combining Operators}!start\_with\_values@{start\_with\_values}}
+\index{start\_with\_values@{start\_with\_values}!Combining Operators@{Combining Operators}}
+\doxysubsubsubsubsection{\texorpdfstring{start\_with\_values()}{start\_with\_values()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$constraint\+::memory\+\_\+model Memory\+Model = memory\+\_\+model\+::use\+\_\+stack, typename T , typename ... Ts$>$ \newline
+requires (rpp\+::constraint\+::decayed\+\_\+same\+\_\+as$<$T, Ts$>$ \&\& ...)\\
+auto rpp\+::operators\+::start\+\_\+with\+\_\+values (\begin{DoxyParamCaption}\item[{T \&\&}]{v,  }\item[{Ts \&\&...}]{vals }\end{DoxyParamCaption})}
+
+
+
+Combines submissions from current observable with values into one but without overlapping and starting from values provided as arguments. 
+
+
+
+Actually it makes concat(rpp\+::source\+::just(vals\+\_\+to\+\_\+start\+\_\+with)..., current\+\_\+observable) so observables from argument subscribed before current observable
+
+This overloading operates on \doxylink{classrpp_1_1schedulers_1_1current__thread}{rpp\+::schedulers\+::current\+\_\+thread} by default
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em memory\+\_\+model} & memory\+\_\+model strategy used to store provided values \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em vals} & list of values which should be emitted before current observable\\
+\hline
+\end{DoxyParams}
+\begin{DoxyWarning}{Warning}
+\#include \texorpdfstring{$<$}{<}\doxylink{start__with_8hpp_source}{rpp/operators/start\+\_\+with.\+hpp}\texorpdfstring{$>$}{>}
+\end{DoxyWarning}
+\begin{DoxyParagraph}{Example}
+
+\begin{DoxyCodeInclude}{0}
+
+\end{DoxyCodeInclude}
+ 
+\begin{DoxyCodeInclude}{0}
+
+\end{DoxyCodeInclude}
+
+\end{DoxyParagraph}
+\begin{DoxySeeAlso}{See also}
+\href{https://reactivex.io/documentation/operators/startwith.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/startwith.\+html}} 
+\end{DoxySeeAlso}
 \Hypertarget{group__combining__operators_ga20acc2f23cb06163f9d5e56c5522ce6c}\label{group__combining__operators_ga20acc2f23cb06163f9d5e56c5522ce6c} 
 \index{Combining Operators@{Combining Operators}!with\_latest\_from@{with\_latest\_from}}
 \index{with\_latest\_from@{with\_latest\_from}!Combining Operators@{Combining Operators}}

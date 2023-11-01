@@ -122,11 +122,11 @@ Functions</h2></td></tr>
 <tr class="memitem:ga3feb1b1258c7e3e72c151abf176c30c4"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__utility__operators.html#ga3feb1b1258c7e3e72c151abf176c30c4">rpp::operators::observe_on</a> (Scheduler &amp;&amp;scheduler, rpp::schedulers::duration delay_duration)</td></tr>
 <tr class="memdesc:ga3feb1b1258c7e3e72c151abf176c30c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specify the Scheduler on which an observer will observe this Observable.  <br /></td></tr>
 <tr class="separator:ga3feb1b1258c7e3e72c151abf176c30c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga22f3148defcabdd1935e201103644f4b" id="r_ga22f3148defcabdd1935e201103644f4b"><td class="memTemplParams" colspan="2">template&lt;<a class="el" href="conceptrpp_1_1schedulers_1_1constraint_1_1scheduler.html">rpp::schedulers::constraint::scheduler</a> Scheduler = rpp::schedulers::current_thread&gt; </td></tr>
+<tr class="memitem:ga22f3148defcabdd1935e201103644f4b" id="r_ga22f3148defcabdd1935e201103644f4b"><td class="memTemplParams" colspan="2">template&lt;<a class="el" href="conceptrpp_1_1schedulers_1_1constraint_1_1scheduler.html">rpp::schedulers::constraint::scheduler</a> Scheduler = rpp::schedulers::defaults::iteration_scheduler&gt; </td></tr>
 <tr class="memitem:ga22f3148defcabdd1935e201103644f4b"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__utility__operators.html#ga22f3148defcabdd1935e201103644f4b">rpp::operators::repeat</a> (size_t count, const Scheduler &amp;scheduler)</td></tr>
 <tr class="memdesc:ga22f3148defcabdd1935e201103644f4b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Repeats the Observabe's sequence of emissions <code>count</code> times via re-subscribing on it during <code>on_completed</code> call while <code>count</code> not reached.  <br /></td></tr>
 <tr class="separator:ga22f3148defcabdd1935e201103644f4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga0cfd908889bdd68eff60f3342c89f500" id="r_ga0cfd908889bdd68eff60f3342c89f500"><td class="memTemplParams" colspan="2">template&lt;<a class="el" href="conceptrpp_1_1schedulers_1_1constraint_1_1scheduler.html">rpp::schedulers::constraint::scheduler</a> Scheduler = rpp::schedulers::current_thread&gt; </td></tr>
+<tr class="memitem:ga0cfd908889bdd68eff60f3342c89f500" id="r_ga0cfd908889bdd68eff60f3342c89f500"><td class="memTemplParams" colspan="2">template&lt;<a class="el" href="conceptrpp_1_1schedulers_1_1constraint_1_1scheduler.html">rpp::schedulers::constraint::scheduler</a> Scheduler = rpp::schedulers::defaults::iteration_scheduler&gt; </td></tr>
 <tr class="memitem:ga0cfd908889bdd68eff60f3342c89f500"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__utility__operators.html#ga0cfd908889bdd68eff60f3342c89f500">rpp::operators::repeat</a> (const Scheduler &amp;scheduler)</td></tr>
 <tr class="memdesc:ga0cfd908889bdd68eff60f3342c89f500"><td class="mdescLeft">&#160;</td><td class="mdescRight">Repeats the Observabe's sequence of emissions infinite amount of times via re-subscribing on it during <code>on_completed</code>.  <br /></td></tr>
 <tr class="separator:ga0cfd908889bdd68eff60f3342c89f500"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -334,7 +334,7 @@ template&lt;<a class="el" href="conceptrpp_1_1schedulers_1_1constraint_1_1schedu
 <div class="line">    <span class="comment">// observe 2 in thread{139855196485184} duration since start 5s</span></div>
 <div class="line">    <span class="comment">// observe error in thread{139855196485184} duration since start 6s</span></div>
 <div class="ttc" id="aclassrpp_1_1schedulers_1_1new__thread_html"><div class="ttname"><a href="classrpp_1_1schedulers_1_1new__thread.html">rpp::schedulers::new_thread</a></div><div class="ttdoc">Scheduler which schedules invoking of schedulables to another thread via queueing tasks with priority...</div><div class="ttdef"><b>Definition</b> new_thread.hpp:31</div></div>
-<div class="ttc" id="agroup__creational__operators_html_gab6cfd9da2e3590fd199c9972477e04df"><div class="ttname"><a href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">rpp::source::concat</a></div><div class="ttdeci">auto concat(TObservable &amp;&amp;obs, TObservables &amp;&amp;... others)</div><div class="ttdoc">Make observable which would merge emissions from underlying observables but without overlapping (curr...</div><div class="ttdef"><b>Definition</b> concat.hpp:162</div></div>
+<div class="ttc" id="agroup__creational__operators_html_gab6cfd9da2e3590fd199c9972477e04df"><div class="ttname"><a href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">rpp::source::concat</a></div><div class="ttdeci">auto concat(TObservable &amp;&amp;obs, TObservables &amp;&amp;... others)</div><div class="ttdoc">Make observable which would merge emissions from underlying observables but without overlapping (curr...</div><div class="ttdef"><b>Definition</b> concat.hpp:161</div></div>
 <div class="ttc" id="agroup__utility__operators_html_ga9df008c11eeff8c9383e56bf36e28ec2"><div class="ttname"><a href="group__utility__operators.html#ga9df008c11eeff8c9383e56bf36e28ec2">rpp::operators::as_blocking</a></div><div class="ttdeci">auto as_blocking()</div><div class="ttdoc">Converts rpp::observable to rpp::blocking_observable</div><div class="ttdef"><b>Definition</b> as_blocking.hpp:44</div></div>
 </div><!-- fragment --></dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/delay.html">https://reactivex.io/documentation/operators/delay.html</a> </dd></dl>
@@ -437,7 +437,7 @@ template&lt;<a class="el" href="conceptrpp_1_1schedulers_1_1constraint_1_1schedu
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;<a class="el" href="conceptrpp_1_1schedulers_1_1constraint_1_1scheduler.html">rpp::schedulers::constraint::scheduler</a> Scheduler = rpp::schedulers::current_thread&gt; </div>
+template&lt;<a class="el" href="conceptrpp_1_1schedulers_1_1constraint_1_1scheduler.html">rpp::schedulers::constraint::scheduler</a> Scheduler = rpp::schedulers::defaults::iteration_scheduler&gt; </div>
       <table class="memname">
         <tr>
           <td class="memname">auto rpp::operators::repeat </td>
@@ -484,7 +484,7 @@ template&lt;<a class="el" href="conceptrpp_1_1schedulers_1_1constraint_1_1schedu
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;<a class="el" href="conceptrpp_1_1schedulers_1_1constraint_1_1scheduler.html">rpp::schedulers::constraint::scheduler</a> Scheduler = rpp::schedulers::current_thread&gt; </div>
+template&lt;<a class="el" href="conceptrpp_1_1schedulers_1_1constraint_1_1scheduler.html">rpp::schedulers::constraint::scheduler</a> Scheduler = rpp::schedulers::defaults::iteration_scheduler&gt; </div>
       <table class="memname">
         <tr>
           <td class="memname">auto rpp::operators::repeat </td>
