@@ -180,7 +180,7 @@ namespace rpp::source
  * @ingroup creational_operators
  * @see https://reactivex.io/documentation/operators/from.html
  */
-template<constraint::memory_model MemoryModel /* = memory_model::use_stack*/, constraint::iterable Iterable, schedulers::constraint::scheduler TScheduler /* = schedulers::current_thread*/>
+template<constraint::memory_model MemoryModel /* = memory_model::use_stack*/, constraint::iterable Iterable, schedulers::constraint::scheduler TScheduler /* = rpp::schedulers::defaults::iteration_scheduler*/>
 auto from_iterable(Iterable&& iterable, const TScheduler& scheduler /* = TScheduler{}*/)
 {
     using container = std::conditional_t<std::same_as<MemoryModel, rpp::memory_model::use_stack>, std::decay_t<Iterable>, details::shared_container<std::decay_t<Iterable>>>;
@@ -244,7 +244,7 @@ auto just(T&& item, Ts&&... items)
 {
     using inner_container = std::array<std::decay_t<T>, sizeof...(Ts) + 1>;
     using container       = std::conditional_t<std::same_as<MemoryModel, rpp::memory_model::use_stack>, inner_container, details::shared_container<inner_container>>;
-    return details::make_from_iterable_observable<container>(schedulers::current_thread{}, std::forward<T>(item), std::forward<Ts>(items)...);
+    return details::make_from_iterable_observable<container>(rpp::schedulers::defaults::iteration_scheduler{}, std::forward<T>(item), std::forward<Ts>(items)...);
 }
 
 /**
