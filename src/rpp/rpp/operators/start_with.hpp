@@ -30,7 +30,7 @@ struct start_with_t
     
 private:
     template<rpp::constraint::observable TObservable>
-    static void apply(TObservable&& observable, const TObservables& ...observables) 
+    static auto apply(TObservable&& observable, const TObservables& ...observables) 
     {
         return rpp::source::concat(observables..., std::forward<TObservable>(observable));
     }
