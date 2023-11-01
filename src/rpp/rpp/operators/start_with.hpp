@@ -25,9 +25,14 @@ struct start_with_t
         requires rpp::constraint::observables_of_same_type<TObservable, TObservables...>
     auto operator()(TObservable&& observable) const
     {
-        return observables.apply([](TObservable&& observable, const TObservables& ...observables){
-            return rpp::source::concat(observables..., std::forward<TObservable>(observable));
-        }, std::forward<TObservable>(observable));
+        return observables.apply(&apply<TObservable>, std::forward<TObservable>(observable));
+    }
+    
+private:
+    template<rpp::constraint::observable TObservable>
+    static void apply(TObservable&& observable, const TObservables& ...observables) 
+    {
+        return rpp::source::concat(observables..., std::forward<TObservable>(observable));
     }
 };
 
@@ -47,7 +52,7 @@ struct start_with_values_t
     template<rpp::constraint::observable_of_type<rpp::utils::iterable_value_t<PackedContainer>> TObservable>
     auto operator()(TObservable&& observable) const
     {
-        return rpp::source::concat(scheduler, rpp::source::from_iterable(container), std::forward<TObservable>(observable));
+        return rpp::source::concat(scheduler, rpp::source::from_iterable(container, scheduler), std::forward<TObservable>(observable));
     }
 };
 }
