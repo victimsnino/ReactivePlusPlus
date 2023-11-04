@@ -721,3 +721,47 @@ TEST_CASE("new_thread works till end")
 
     CHECK(mock.get_received_values().size() == 10);
 }
+
+TEST_CASE("run_loop scheduler dispatches tasks only manually")
+{
+
+    auto scheduler = rpp::schedulers::run_loop{};
+    auto obs = mock_observer_strategy<int>{}.get_observer().as_dynamic();
+
+    SECTION("submit work to it")
+    {
+        size_t schedulable_1_executed_count{};
+        size_t schedulable_2_executed_count{};
+        scheduler.create_worker().schedule([&](const auto&) -> rpp::schedulers::optional_duration {++schedulable_1_executed_count; return {}; }, obs);
+        scheduler.create_worker().schedule([&](const auto&) -> rpp::schedulers::optional_duration {++schedulable_2_executed_count; return {}; }, obs);
+        SECTION("nothing happens but scheduler has schedulable to dispatch")
+        {
+            CHECK(schedulable_1_executed_count == 0);
+            CHECK(schedulable_2_executed_count == 0);
+            CHECK(scheduler.is_empty() == false);
+            CHECK(scheduler.is_any_ready_schedulable() == true);
+        }
+        SECTION("call dispatch_if_ready")
+        {
+            scheduler.dispatch_if_ready();
+            SECTION("only first schedulable dispatched")
+            {
+                CHECK(schedulable_1_executed_count == 1);
+                CHECK(schedulable_2_executed_count == 0);
+                CHECK(scheduler.is_empty() == false);
+                CHECK(scheduler.is_any_ready_schedulable() == true);
+            }
+            SECTION("call dispatch_if_ready again")
+            {
+                scheduler.dispatch_if_ready();
+                SECTION("both schedulable dispatched")
+                {
+                    CHECK(schedulable_1_executed_count == 1);
+                    CHECK(schedulable_2_executed_count == 1);
+                    CHECK(scheduler.is_empty() == true);
+                    CHECK(scheduler.is_any_ready_schedulable() == false);
+                }
+            }
+        }
+    }
+}

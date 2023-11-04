@@ -67,13 +67,13 @@ class run_loop final
             return {};
         }
 
-        bool is_any_ready_schedulable() const 
+        bool is_any_ready_schedulable() 
         {
             std::lock_guard lock{m_mutex};
             return is_any_ready_schedulable_unsafe();
         }
 
-        bool is_empty() const 
+        bool is_empty() 
         {
             std::lock_guard lock{m_mutex};
             return m_queue.is_empty();
@@ -109,7 +109,7 @@ class run_loop final
         void defer_for(duration duration, Fn&& fn, Handler&& handler, Args&&... args) const
         {
             if (const auto shared = m_state.lock())
-                shared->emplace_and_notify(duration, std::forward<Fn>(fn), std::forward<Handler>(handler), std::forward<Args>(args)...)
+                shared->emplace_and_notify(duration, std::forward<Fn>(fn), std::forward<Handler>(handler), std::forward<Args>(args)...);
         }
 
         rpp::disposable_wrapper get_disposable() const { return rpp::disposable_wrapper::from_weak(m_state); }
@@ -158,6 +158,6 @@ private:
     }
 
 private:
-    std::shared_ptr<state_t> m_state{};
+    std::shared_ptr<state_t> m_state = std::make_shared<state_t>();
 };
 }
