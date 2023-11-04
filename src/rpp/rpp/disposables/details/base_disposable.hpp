@@ -18,8 +18,8 @@
 
 namespace rpp::details
 {
-template<typename base_interface>
-class base_disposable_impl : public base_interface
+template<typename BaseInterface>
+class base_disposable_impl : public BaseInterface
 {
 public:
     base_disposable_impl()                                = default;
