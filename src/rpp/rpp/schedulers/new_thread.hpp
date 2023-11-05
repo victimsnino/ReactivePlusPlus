@@ -112,7 +112,7 @@ class new_thread
                 {
                     if (const auto now = worker_strategy::now(); now < queue->top()->get_timepoint())
                     {
-                        state->cv.wait_for(lock, queue->top()->get_timepoint() - now);
+                        state->cv.wait_for(lock, queue->top()->get_timepoint() - now, [&] { return state->is_disposed.load(std::memory_order::relaxed) || state->is_destroying.load(std::memory_order::relaxed) || worker_strategy::now() >= queue->top()->get_timepoint(); });
                         continue;
                     }
                 }

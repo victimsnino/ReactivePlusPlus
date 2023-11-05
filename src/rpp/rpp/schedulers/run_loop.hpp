@@ -62,7 +62,7 @@ class run_loop final
                 if (!wait)
                     break;
                 
-                m_cv.wait_for(lock, m_queue.top()->get_timepoint() - now);
+                m_cv.wait_for(lock, m_queue.top()->get_timepoint() - now, [&](){ return is_disposed() || !m_queue.is_empty() || m_queue.top()->get_timepoint() <= worker_strategy::now(); });
             }
             return {};
         }
@@ -87,8 +87,11 @@ class run_loop final
 
         void dispose_impl() noexcept override 
         {
-            std::lock_guard lock{m_mutex};
-            m_queue = details::schedulables_queue{};
+            {
+                std::lock_guard lock{m_mutex};
+                m_queue = details::schedulables_queue{};
+            }
+            m_cv.notify_one();
         }
 
     private:
