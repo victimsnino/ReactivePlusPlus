@@ -67,6 +67,7 @@ class worker;
 class immediate;
 class current_thread;
 class new_thread;
+class run_loop;
 
 namespace defaults
 {

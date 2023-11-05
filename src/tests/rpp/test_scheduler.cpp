@@ -721,3 +721,132 @@ TEST_CASE("new_thread works till end")
 
     CHECK(mock.get_received_values().size() == 10);
 }
+
+TEST_CASE("run_loop scheduler dispatches tasks only manually")
+{
+
+    auto scheduler = rpp::schedulers::run_loop{};
+    auto worker = scheduler.create_worker();
+    auto d = std::make_shared<rpp::composite_disposable>();
+    auto obs = mock_observer_strategy<int>{}.get_observer(d).as_dynamic();
+
+    SECTION("submit 3 tasks to run_loop")
+    {
+        size_t schedulable_1_executed_count{};
+        size_t schedulable_2_executed_count{};
+        size_t schedulable_3_executed_count{};
+        worker.schedule([&](const auto&) -> rpp::schedulers::optional_duration {++schedulable_1_executed_count; return {}; }, obs);
+        worker.schedule([&](const auto&) -> rpp::schedulers::optional_duration {++schedulable_2_executed_count; d->dispose(); return {}; }, obs);
+        worker.schedule([&](const auto&) -> rpp::schedulers::optional_duration {++schedulable_3_executed_count; return {}; }, obs);
+
+        SECTION("nothing happens but scheduler has schedulable to dispatch")
+        {
+            CHECK(schedulable_1_executed_count == 0);
+            CHECK(schedulable_2_executed_count == 0);
+            CHECK(schedulable_3_executed_count == 0);
+            CHECK(d->is_disposed() == false);
+            CHECK(scheduler.is_empty() == false);
+            CHECK(scheduler.is_any_ready_schedulable() == true);
+        }
+        SECTION("call dispatch_if_ready")
+        {
+            scheduler.dispatch_if_ready();
+            SECTION("only first schedulable dispatched")
+            {
+                CHECK(schedulable_1_executed_count == 1);
+                CHECK(schedulable_2_executed_count == 0);
+                CHECK(schedulable_3_executed_count == 0);
+                CHECK(d->is_disposed() == false);
+                CHECK(scheduler.is_empty() == false);
+                CHECK(scheduler.is_any_ready_schedulable() == true);
+
+                SECTION("call dispatch_if_ready again")
+                {
+                    scheduler.dispatch_if_ready();
+                    SECTION("both schedulable dispatched")
+                    {
+                        CHECK(schedulable_1_executed_count == 1);
+                        CHECK(schedulable_2_executed_count == 1);
+                        CHECK(schedulable_3_executed_count == 0);
+                        CHECK(d->is_disposed() == true);
+                        CHECK(scheduler.is_empty() == false);
+                        CHECK(scheduler.is_any_ready_schedulable() == true);
+                    }
+                    SECTION("call dispatch_if_ready again")
+                    {
+                        scheduler.dispatch_if_ready();
+                        SECTION("third scehdulable not dispatched, but scheduler is empty")
+                        {
+                            CHECK(schedulable_1_executed_count == 1);
+                            CHECK(schedulable_2_executed_count == 1);
+                            CHECK(schedulable_3_executed_count == 0);
+                            CHECK(d->is_disposed() == true);
+                            CHECK(scheduler.is_empty() == true);
+                            CHECK(scheduler.is_any_ready_schedulable() == false);
+                        }
+                    }
+                }
+            }
+        }
+    }
+    SECTION("submit 1 task to run_loop")
+    {
+        size_t schedulable_1_executed_count{};
+        worker.schedule([&](const auto&) -> rpp::schedulers::optional_duration {++schedulable_1_executed_count; return {}; }, obs);
+        SECTION("call dispose on scheduler")
+        {
+            worker.get_disposable().dispose();
+            worker.schedule([&](const auto&) -> rpp::schedulers::optional_duration {++schedulable_1_executed_count; return {}; }, obs);
+
+            CHECK(schedulable_1_executed_count == 0);
+            CHECK(d->is_disposed() == false);
+            CHECK(scheduler.is_empty() == true);
+            CHECK(scheduler.is_any_ready_schedulable() == false);
+        }
+
+        SECTION("call dispatch")
+        {
+            scheduler.dispatch();
+            SECTION("only first schedulable dispatched")
+            {
+                CHECK(schedulable_1_executed_count == 1);
+                CHECK(d->is_disposed() == false);
+                CHECK(scheduler.is_empty() == true);
+                CHECK(scheduler.is_any_ready_schedulable() == false);
+
+                SECTION("call dispatch and dispose in other thread") 
+                {
+                    std::atomic_bool dispatched{};
+                    auto t = std::thread{[&]{ 
+                        std::this_thread::sleep_for(std::chrono::milliseconds{100});
+                        if(!scheduler.is_empty()) throw std::runtime_error{"!is_empty"};
+                        if(scheduler.is_any_ready_schedulable()) throw std::runtime_error{"is_any_ready_schedulable"};
+                        if(dispatched) throw std::runtime_error{"dispatched"};
+                        
+                        worker.get_disposable().dispose(); 
+                    }};
+                    scheduler.dispatch();
+                    dispatched = true;
+                    t.join();
+                }
+                SECTION("call dispatch and schedule in other thread") {
+                    std::atomic_bool dispatched{};
+                    size_t schedulable_2_executed_count{};
+
+                    auto t = std::thread{[&]{ 
+                        std::this_thread::sleep_for(std::chrono::milliseconds{100});
+                        if(!scheduler.is_empty()) throw std::runtime_error{"!is_empty"};
+                        if(scheduler.is_any_ready_schedulable()) throw std::runtime_error{"is_any_ready_schedulable"};
+                        if(dispatched) throw std::runtime_error{"dispatched"};
+                        
+                        worker.schedule(std::chrono::milliseconds{1}, [&](const auto&) -> rpp::schedulers::optional_duration {++schedulable_2_executed_count; return {}; }, obs);
+                    }};
+                    scheduler.dispatch();
+                    CHECK(schedulable_2_executed_count == 1);
+                    dispatched = true;
+                    t.join();
+                }
+            }
+        }
+    }
+}
