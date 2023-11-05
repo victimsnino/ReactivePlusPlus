@@ -5,7 +5,7 @@
 %%For: 
 %Magnification: 1.00
 %%Orientation: Portrait
-%%BoundingBox: 0 0 500 94.339622
+%%BoundingBox: 0 0 500 96.153847
 %%Pages: 0
 %%BeginSetup
 %%EndSetup
@@ -19,7 +19,7 @@
 /marginwidth 10 def
 /distx 20 def
 /disty 40 def
-/boundaspect 5.300000 def  % aspect ratio of the BoundingBox (width/height)
+/boundaspect 5.200000 def  % aspect ratio of the BoundingBox (width/height)
 /boundx 500 def
 /boundy boundx boundaspect div def
 /xspacing 0 def
@@ -173,8 +173,8 @@
 
 boxfont setfont
 1 boundaspect scale
-(rpp::details::base_disposable_impl< base_interface >) cw
-(base_interface) cw
+(rpp::details::base_disposable_impl< BaseInterface >) cw
+(BaseInterface) cw
 (rpp::callback_disposable< Fn >) cw
 (rpp::details::inner_refcount_disposable) cw
 /boxwidth boxwidth marginwidth 2 mul add def
@@ -188,8 +188,8 @@ boundx scalefactor div boundy scalefactor div scale
 
 % ----- classes -----
 
- (rpp::details::base_disposable_impl< base_interface >) 0.500000 1.000000 box
- (base_interface) 0.500000 2.000000 box
+ (rpp::details::base_disposable_impl< BaseInterface >) 0.500000 1.000000 box
+ (BaseInterface) 0.500000 2.000000 box
  (rpp::callback_disposable< Fn >) 0.000000 0.000000 box
  (rpp::details::inner_refcount_disposable) 1.000000 0.000000 box
 

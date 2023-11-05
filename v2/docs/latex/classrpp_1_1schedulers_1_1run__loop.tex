@@ -1,0 +1,42 @@
+\doxysection{rpp\+::schedulers\+::run\+\_\+loop Class Reference}
+\hypertarget{classrpp_1_1schedulers_1_1run__loop}{}\label{classrpp_1_1schedulers_1_1run__loop}\index{rpp::schedulers::run\_loop@{rpp::schedulers::run\_loop}}
+
+
+scheduler which schedules execution via queueing tasks, but execution of tasks should be manually dispatched  
+
+
+
+
+{\ttfamily \#include $<$run\+\_\+loop.\+hpp$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classrpp_1_1schedulers_1_1run__loop_aec8f5353b631e3a2973ea94d7a3d2ebb}\label{classrpp_1_1schedulers_1_1run__loop_aec8f5353b631e3a2973ea94d7a3d2ebb} 
+bool {\bfseries is\+\_\+empty} () const
+\item 
+\Hypertarget{classrpp_1_1schedulers_1_1run__loop_a3d00a464935d6a0ec6b376743120b0bd}\label{classrpp_1_1schedulers_1_1run__loop_a3d00a464935d6a0ec6b376743120b0bd} 
+bool {\bfseries is\+\_\+any\+\_\+ready\+\_\+schedulable} () const
+\item 
+\Hypertarget{classrpp_1_1schedulers_1_1run__loop_a710807f588d535c1127a3bb56baad4e3}\label{classrpp_1_1schedulers_1_1run__loop_a710807f588d535c1127a3bb56baad4e3} 
+void {\bfseries dispatch\+\_\+if\+\_\+ready} () const
+\item 
+\Hypertarget{classrpp_1_1schedulers_1_1run__loop_a13486550322f494d60a006e1c57c543d}\label{classrpp_1_1schedulers_1_1run__loop_a13486550322f494d60a006e1c57c543d} 
+void {\bfseries dispatch} () const
+\item 
+\Hypertarget{classrpp_1_1schedulers_1_1run__loop_a7a0c13e28381ccd909ba65d5b5ca21a3}\label{classrpp_1_1schedulers_1_1run__loop_a7a0c13e28381ccd909ba65d5b5ca21a3} 
+\mbox{\hyperlink{classrpp_1_1schedulers_1_1worker}{rpp\+::schedulers\+::worker}}$<$ worker\+\_\+strategy $>$ {\bfseries create\+\_\+worker} () const
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+scheduler which schedules execution via queueing tasks, but execution of tasks should be manually dispatched 
+
+\begin{DoxyWarning}{Warning}
+you need manually dispatch events for this scheduler in some thread. 
+\end{DoxyWarning}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/rpp/rpp/schedulers/run\+\_\+loop.\+hpp\end{DoxyCompactItemize}

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ReactivePlusPlus: rpp::details::base_disposable_impl&lt; BaseInterface &gt; Class Template Reference</title>
+<title>ReactivePlusPlus: rpp::schedulers::run_loop Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -70,7 +70,7 @@ var searchBox = new SearchBox("searchBox", "search/",'.html');
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(document).ready(function(){initNavTree('classrpp_1_1details_1_1base__disposable__impl.html',''); initResizable(); });
+$(document).ready(function(){initNavTree('classrpp_1_1schedulers_1_1run__loop.html',''); initResizable(); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -97,53 +97,48 @@ $(document).ready(function(){initNavTree('classrpp_1_1details_1_1base__disposabl
 
 <div class="header">
   <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pro-methods">Protected Member Functions</a> &#124;
-<a href="classrpp_1_1details_1_1base__disposable__impl-members.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">rpp::details::base_disposable_impl&lt; BaseInterface &gt; Class Template Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div></div>
+<a href="classrpp_1_1schedulers_1_1run__loop-members.html">List of all members</a>  </div>
+  <div class="headertitle"><div class="title">rpp::schedulers::run_loop Class Reference<span class="mlabels"><span class="mlabel">final</span></span><div class="ingroups"><a class="el" href="group__rpp.html">RPP</a> &raquo; <a class="el" href="group__schedulers.html">Schedulers</a></div></div></div>
 </div><!--header-->
 <div class="contents">
-<div class="dynheader">
-Inheritance diagram for rpp::details::base_disposable_impl&lt; BaseInterface &gt;:</div>
-<div class="dyncontent">
- <div class="center">
-  <img src="classrpp_1_1details_1_1base__disposable__impl.png" usemap="#rpp::details::base_5Fdisposable_5Fimpl_3C_20BaseInterface_20_3E_map" alt=""/>
-  <map id="rpp::details::base_5Fdisposable_5Fimpl_3C_20BaseInterface_20_3E_map" name="rpp::details::base_5Fdisposable_5Fimpl_3C_20BaseInterface_20_3E_map">
-<area href="classrpp_1_1callback__disposable.html" title="Disposable invokes underlying callable on disposing." alt="rpp::callback_disposable&lt; Fn &gt;" shape="rect" coords="0,112,304,136"/>
-<area href="classrpp_1_1details_1_1inner__refcount__disposable.html" alt="rpp::details::inner_refcount_disposable" shape="rect" coords="314,112,618,136"/>
-  </map>
-</div></div>
+
+<p>scheduler which schedules execution via queueing tasks, but execution of tasks should be manually dispatched  
+ <a href="classrpp_1_1schedulers_1_1run__loop.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="run__loop_8hpp_source.html">run_loop.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:abcba9605b58676bf3f8b9bb56f7b9e5e" id="r_abcba9605b58676bf3f8b9bb56f7b9e5e"><td class="memItemLeft" align="right" valign="top"><a id="abcba9605b58676bf3f8b9bb56f7b9e5e" name="abcba9605b58676bf3f8b9bb56f7b9e5e"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>base_disposable_impl</b> (const <a class="el" href="classrpp_1_1details_1_1base__disposable__impl.html">base_disposable_impl</a> &amp;)=delete</td></tr>
-<tr class="separator:abcba9605b58676bf3f8b9bb56f7b9e5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a681e98f9e4d8a8e1914730190e9f6523" id="r_a681e98f9e4d8a8e1914730190e9f6523"><td class="memItemLeft" align="right" valign="top"><a id="a681e98f9e4d8a8e1914730190e9f6523" name="a681e98f9e4d8a8e1914730190e9f6523"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>base_disposable_impl</b> (<a class="el" href="classrpp_1_1details_1_1base__disposable__impl.html">base_disposable_impl</a> &amp;&amp;) noexcept=delete</td></tr>
-<tr class="separator:a681e98f9e4d8a8e1914730190e9f6523"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa6d5071bf88674f9423c058e55e72556" id="r_aa6d5071bf88674f9423c058e55e72556"><td class="memItemLeft" align="right" valign="top"><a id="aa6d5071bf88674f9423c058e55e72556" name="aa6d5071bf88674f9423c058e55e72556"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>is_disposed</b> () const noexcept final</td></tr>
-<tr class="separator:aa6d5071bf88674f9423c058e55e72556"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6b19b27718d9674b56dc772c9c8680d1" id="r_a6b19b27718d9674b56dc772c9c8680d1"><td class="memItemLeft" align="right" valign="top"><a id="a6b19b27718d9674b56dc772c9c8680d1" name="a6b19b27718d9674b56dc772c9c8680d1"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>dispose</b> () noexcept final</td></tr>
-<tr class="separator:a6b19b27718d9674b56dc772c9c8680d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
-Protected Member Functions</h2></td></tr>
-<tr class="memitem:ac9c28ad5c6d4f8bd965b5c74f1ffeacf" id="r_ac9c28ad5c6d4f8bd965b5c74f1ffeacf"><td class="memItemLeft" align="right" valign="top"><a id="ac9c28ad5c6d4f8bd965b5c74f1ffeacf" name="ac9c28ad5c6d4f8bd965b5c74f1ffeacf"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>dispose_impl</b> () noexcept=0</td></tr>
-<tr class="separator:ac9c28ad5c6d4f8bd965b5c74f1ffeacf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aec8f5353b631e3a2973ea94d7a3d2ebb" id="r_aec8f5353b631e3a2973ea94d7a3d2ebb"><td class="memItemLeft" align="right" valign="top"><a id="aec8f5353b631e3a2973ea94d7a3d2ebb" name="aec8f5353b631e3a2973ea94d7a3d2ebb"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>is_empty</b> () const</td></tr>
+<tr class="separator:aec8f5353b631e3a2973ea94d7a3d2ebb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3d00a464935d6a0ec6b376743120b0bd" id="r_a3d00a464935d6a0ec6b376743120b0bd"><td class="memItemLeft" align="right" valign="top"><a id="a3d00a464935d6a0ec6b376743120b0bd" name="a3d00a464935d6a0ec6b376743120b0bd"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>is_any_ready_schedulable</b> () const</td></tr>
+<tr class="separator:a3d00a464935d6a0ec6b376743120b0bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a710807f588d535c1127a3bb56baad4e3" id="r_a710807f588d535c1127a3bb56baad4e3"><td class="memItemLeft" align="right" valign="top"><a id="a710807f588d535c1127a3bb56baad4e3" name="a710807f588d535c1127a3bb56baad4e3"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>dispatch_if_ready</b> () const</td></tr>
+<tr class="separator:a710807f588d535c1127a3bb56baad4e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a13486550322f494d60a006e1c57c543d" id="r_a13486550322f494d60a006e1c57c543d"><td class="memItemLeft" align="right" valign="top"><a id="a13486550322f494d60a006e1c57c543d" name="a13486550322f494d60a006e1c57c543d"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>dispatch</b> () const</td></tr>
+<tr class="separator:a13486550322f494d60a006e1c57c543d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7a0c13e28381ccd909ba65d5b5ca21a3" id="r_a7a0c13e28381ccd909ba65d5b5ca21a3"><td class="memItemLeft" align="right" valign="top"><a id="a7a0c13e28381ccd909ba65d5b5ca21a3" name="a7a0c13e28381ccd909ba65d5b5ca21a3"></a>
+<a class="el" href="classrpp_1_1schedulers_1_1worker.html">rpp::schedulers::worker</a>&lt; worker_strategy &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>create_worker</b> () const</td></tr>
+<tr class="separator:a7a0c13e28381ccd909ba65d5b5ca21a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<hr/>The documentation for this class was generated from the following file:<ul>
-<li>src/rpp/rpp/disposables/details/<a class="el" href="base__disposable_8hpp_source.html">base_disposable.hpp</a></li>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>scheduler which schedules execution via queueing tasks, but execution of tasks should be manually dispatched </p>
+<dl class="section warning"><dt>Warning</dt><dd>you need manually dispatch events for this scheduler in some thread. </dd></dl>
+</div><hr/>The documentation for this class was generated from the following file:<ul>
+<li>src/rpp/rpp/schedulers/<a class="el" href="run__loop_8hpp_source.html">run_loop.hpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>rpp</b></li><li class="navelem"><b>details</b></li><li class="navelem"><a class="el" href="classrpp_1_1details_1_1base__disposable__impl.html">base_disposable_impl</a></li>
+    <li class="navelem"><b>rpp</b></li><li class="navelem"><b>schedulers</b></li><li class="navelem"><a class="el" href="classrpp_1_1schedulers_1_1run__loop.html">run_loop</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
   </ul>
 </div>

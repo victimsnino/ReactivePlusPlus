@@ -156,6 +156,7 @@ var annotated_dup =
         [ "current_thread", "classrpp_1_1schedulers_1_1current__thread.html", "classrpp_1_1schedulers_1_1current__thread" ],
         [ "immediate", "classrpp_1_1schedulers_1_1immediate.html", "classrpp_1_1schedulers_1_1immediate" ],
         [ "new_thread", "classrpp_1_1schedulers_1_1new__thread.html", "classrpp_1_1schedulers_1_1new__thread" ],
+        [ "run_loop", "classrpp_1_1schedulers_1_1run__loop.html", null ],
         [ "worker", "classrpp_1_1schedulers_1_1worker.html", null ]
       ] ],
       [ "subjects", null, [

@@ -82,7 +82,8 @@ var NAVTREEINDEX0 =
 "classrpp_1_1schedulers_1_1immediate_1_1worker__strategy.html":[1,0,4,1,0],
 "classrpp_1_1schedulers_1_1new__thread.html":[1,0,4,2],
 "classrpp_1_1schedulers_1_1new__thread_1_1worker__strategy.html":[1,0,4,2,0],
-"classrpp_1_1schedulers_1_1worker.html":[3,0,0,3,5],
+"classrpp_1_1schedulers_1_1run__loop.html":[1,0,4,3],
+"classrpp_1_1schedulers_1_1worker.html":[3,0,0,3,6],
 "classrpp_1_1subjects_1_1details_1_1base__subject.html":[3,0,0,4,0,0],
 "classrpp_1_1subjects_1_1details_1_1publish__strategy.html":[3,0,0,4,0,3],
 "classrpp_1_1subjects_1_1details_1_1subject__state.html":[3,0,0,4,0,4],
@@ -248,6 +249,5 @@ var NAVTREEINDEX0 =
 "group__utility__operators.html#ga0cfd908889bdd68eff60f3342c89f500":[1,0,3,4,4],
 "group__utility__operators.html#ga22f3148defcabdd1935e201103644f4b":[1,0,3,4,5],
 "group__utility__operators.html#ga3feb1b1258c7e3e72c151abf176c30c4":[1,0,3,4,3],
-"group__utility__operators.html#ga49e91c6114f62ac261303814c818face":[1,0,3,4,1],
-"group__utility__operators.html#ga9df008c11eeff8c9383e56bf36e28ec2":[1,0,3,4,0]
+"group__utility__operators.html#ga49e91c6114f62ac261303814c818face":[1,0,3,4,1]
 };
