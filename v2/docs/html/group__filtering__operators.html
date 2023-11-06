@@ -129,6 +129,9 @@ requires (!utils::is_not_template_callable&lt;Fn&gt; || std::same_as&lt;bool, st
 <tr class="memitem:gaf32161437c2c6cd7d5a0e5170a333cbb" id="r_gaf32161437c2c6cd7d5a0e5170a333cbb"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__filtering__operators.html#gaf32161437c2c6cd7d5a0e5170a333cbb">rpp::operators::take</a> (size_t count)</td></tr>
 <tr class="memdesc:gaf32161437c2c6cd7d5a0e5170a333cbb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Emit only first <code>count</code> items provided by observable, then send <code>on_completed</code>  <br /></td></tr>
 <tr class="separator:gaf32161437c2c6cd7d5a0e5170a333cbb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad9c1c3326bcaf2f1f64fd7e35f00e669" id="r_gad9c1c3326bcaf2f1f64fd7e35f00e669"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__filtering__operators.html#gad9c1c3326bcaf2f1f64fd7e35f00e669">rpp::operators::take_last</a> (size_t count)</td></tr>
+<tr class="memdesc:gad9c1c3326bcaf2f1f64fd7e35f00e669"><td class="mdescLeft">&#160;</td><td class="mdescRight">Emit only last <code>count</code> items provided by observable, then send <code>on_completed</code>  <br /></td></tr>
+<tr class="separator:gad9c1c3326bcaf2f1f64fd7e35f00e669"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gada7d22ff6ee83d4aca44411561f56f98" id="r_gada7d22ff6ee83d4aca44411561f56f98"><td class="memTemplParams" colspan="2">template&lt;<a class="el" href="conceptrpp_1_1schedulers_1_1constraint_1_1scheduler.html">rpp::schedulers::constraint::scheduler</a> Scheduler = rpp::schedulers::immediate&gt; </td></tr>
 <tr class="memitem:gada7d22ff6ee83d4aca44411561f56f98"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__filtering__operators.html#gada7d22ff6ee83d4aca44411561f56f98">rpp::operators::throttle</a> (rpp::schedulers::duration period)</td></tr>
 <tr class="memdesc:gada7d22ff6ee83d4aca44411561f56f98"><td class="mdescLeft">&#160;</td><td class="mdescRight">Emit emission from an Observable and then ignore subsequent values during <code>duration</code> of time.  <br /></td></tr>
@@ -473,6 +476,51 @@ requires (!utils::is_not_template_callable&lt;Fn&gt; || std::same_as&lt;bool, st
 <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/take.html">https://reactivex.io/documentation/operators/take.html</a> </dd></dl>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="interval_8cpp-example.html#a2">interval.cpp</a>, <a class="el" href="repeat_8cpp-example.html#a2">repeat.cpp</a>, and <a class="el" href="take_8cpp-example.html#a1">take.cpp</a>.</dd>
 </dl>
+
+</div>
+</div>
+<a id="gad9c1c3326bcaf2f1f64fd7e35f00e669" name="gad9c1c3326bcaf2f1f64fd7e35f00e669"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gad9c1c3326bcaf2f1f64fd7e35f00e669">&#9670;&#160;</a></span>take_last()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto rpp::operators::take_last </td>
+          <td>(</td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>count</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Emit only last <code>count</code> items provided by observable, then send <code>on_completed</code> </p>
+<div class="image">
+<object type="image/svg+xml" data="take_last.svg" style="pointer-events: none;"></object>
+</div>
+<p>Actually this operator has buffer of requested size inside, keeps last <code>count</code> values and emit stored values on <code>on_completed</code></p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">count</td><td>amount of last items to be emitted </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="take__last_8hpp_source.html">rpp/operators/take_last.hpp</a>&gt;</dd></dl>
+<dl class="section user"><dt>Example</dt><dd><div class="fragment"><div class="line">    <a class="code hl_function" href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">rpp::source::just</a>(0, 1, 2, 3, 4, 5, 6, 7, 8, 9)</div>
+<div class="line">            | rpp::ops::take_last(2)</div>
+<div class="line">            | rpp::ops::subscribe([](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; v &lt;&lt; <span class="stringliteral">&quot; &quot;</span>; });</div>
+<div class="line">    <span class="comment">// Output: 8 9</span></div>
+</div><!-- fragment --></dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/takelast.html">https://reactivex.io/documentation/operators/takelast.html</a> </dd></dl>
 
 </div>
 </div>

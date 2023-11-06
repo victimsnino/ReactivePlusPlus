@@ -121,6 +121,8 @@ var annotated_dup =
           [ "subscribe_t< rpp::composite_disposable_wrapper, observer< Type, ObserverStrategy > >", "classrpp_1_1operators_1_1details_1_1subscribe__t_3_01rpp_1_1composite__disposable__wrapper_00_0176ebc9869815430b00b6be89aa2e2b76.html", null ],
           [ "subscribe_t< rpp::composite_disposable_wrapper, ObserverStrategy >", "classrpp_1_1operators_1_1details_1_1subscribe__t_3_01rpp_1_1composite__disposable__wrapper_00_01_observer_strategy_01_4.html", null ],
           [ "subscribe_t< rpp::composite_disposable_wrapper, OnNext, OnError, OnCompleted >", "classrpp_1_1operators_1_1details_1_1subscribe__t_3_01rpp_1_1composite__disposable__wrapper_00_015839511ef5aa7d547130d10313f4a820.html", null ],
+          [ "take_last_observer_strategy", "classrpp_1_1operators_1_1details_1_1take__last__observer__strategy.html", null ],
+          [ "take_last_t", "structrpp_1_1operators_1_1details_1_1take__last__t.html", null ],
           [ "take_observer_strategy", "structrpp_1_1operators_1_1details_1_1take__observer__strategy.html", null ],
           [ "take_t", "structrpp_1_1operators_1_1details_1_1take__t.html", null ],
           [ "take_while_observer_strategy", "structrpp_1_1operators_1_1details_1_1take__while__observer__strategy.html", null ],

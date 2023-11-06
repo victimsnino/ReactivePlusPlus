@@ -22,6 +22,8 @@ auto \mbox{\hyperlink{group__filtering__operators_ga8e20aec530e08ba64004c10b7732
 \begin{DoxyCompactList}\small\item\em Skip first {\ttfamily count} items provided by observable then send rest items as expected. \end{DoxyCompactList}\item 
 auto \mbox{\hyperlink{group__filtering__operators_gaf32161437c2c6cd7d5a0e5170a333cbb}{rpp\+::operators\+::take}} (size\+\_\+t count)
 \begin{DoxyCompactList}\small\item\em Emit only first {\ttfamily count} items provided by observable, then send {\ttfamily on\+\_\+completed} \end{DoxyCompactList}\item 
+auto \mbox{\hyperlink{group__filtering__operators_gad9c1c3326bcaf2f1f64fd7e35f00e669}{rpp\+::operators\+::take\+\_\+last}} (size\+\_\+t count)
+\begin{DoxyCompactList}\small\item\em Emit only last {\ttfamily count} items provided by observable, then send {\ttfamily on\+\_\+completed} \end{DoxyCompactList}\item 
 {\footnotesize template$<$\mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1scheduler}{rpp\+::schedulers\+::constraint\+::scheduler}} Scheduler = rpp\+::schedulers\+::immediate$>$ }\\auto \mbox{\hyperlink{group__filtering__operators_gada7d22ff6ee83d4aca44411561f56f98}{rpp\+::operators\+::throttle}} (rpp\+::schedulers\+::duration period)
 \begin{DoxyCompactList}\small\item\em Emit emission from an Observable and then ignore subsequent values during {\ttfamily duration} of time. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
@@ -354,6 +356,42 @@ Actually this operator just emits emissions while counter is not zero and decrem
 \begin{Desc}
 \item[Examples]\par
 \mbox{\hyperlink{interval_8cpp-example}{interval.\+cpp}}, \mbox{\hyperlink{repeat_8cpp-example}{repeat.\+cpp}}, and \mbox{\hyperlink{take_8cpp-example}{take.\+cpp}}.\end{Desc}
+\Hypertarget{group__filtering__operators_gad9c1c3326bcaf2f1f64fd7e35f00e669}\label{group__filtering__operators_gad9c1c3326bcaf2f1f64fd7e35f00e669} 
+\index{Filtering Operators@{Filtering Operators}!take\_last@{take\_last}}
+\index{take\_last@{take\_last}!Filtering Operators@{Filtering Operators}}
+\doxysubsubsubsubsection{\texorpdfstring{take\_last()}{take\_last()}}
+{\footnotesize\ttfamily auto rpp\+::operators\+::take\+\_\+last (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{count }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Emit only last {\ttfamily count} items provided by observable, then send {\ttfamily on\+\_\+completed} 
+
+
+
+Actually this operator has buffer of requested size inside, keeps last {\ttfamily count} values and emit stored values on {\ttfamily on\+\_\+completed}
+
+
+\begin{DoxyParams}{Parameters}
+{\em count} & amount of last items to be emitted \\
+\hline
+\end{DoxyParams}
+\begin{DoxyWarning}{Warning}
+\#include \texorpdfstring{$<$}{<}\doxylink{take__last_8hpp_source}{rpp/operators/take\+\_\+last.\+hpp}\texorpdfstring{$>$}{>}
+\end{DoxyWarning}
+\begin{DoxyParagraph}{Example}
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(0,\ 1,\ 2,\ 3,\ 4,\ 5,\ 6,\ 7,\ 8,\ 9)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ |\ rpp::ops::take\_last(2)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ |\ rpp::ops::subscribe([](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ v\ <<\ \textcolor{stringliteral}{"{}\ "{}};\ \});}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:\ 8\ 9}}
+
+\end{DoxyCodeInclude}
+
+\end{DoxyParagraph}
+\begin{DoxySeeAlso}{See also}
+\href{https://reactivex.io/documentation/operators/takelast.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/takelast.\+html}} 
+\end{DoxySeeAlso}
 \Hypertarget{group__filtering__operators_gada7d22ff6ee83d4aca44411561f56f98}\label{group__filtering__operators_gada7d22ff6ee83d4aca44411561f56f98} 
 \index{Filtering Operators@{Filtering Operators}!throttle@{throttle}}
 \index{throttle@{throttle}!Filtering Operators@{Filtering Operators}}

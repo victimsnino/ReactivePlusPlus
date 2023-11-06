@@ -5,7 +5,7 @@
 %%For: 
 %Magnification: 1.00
 %%Orientation: Portrait
-%%BoundingBox: 0 0 500 330.097076
+%%BoundingBox: 0 0 500 349.514557
 %%Pages: 0
 %%BeginSetup
 %%EndSetup
@@ -19,12 +19,12 @@
 /marginwidth 10 def
 /distx 20 def
 /disty 40 def
-/boundaspect 1.514706 def  % aspect ratio of the BoundingBox (width/height)
+/boundaspect 1.430556 def  % aspect ratio of the BoundingBox (width/height)
 /boundx 500 def
 /boundy boundx boundaspect div def
 /xspacing 0 def
 /yspacing 0 def
-/rows 17 def
+/rows 18 def
 /cols 2 def
 /scalefactor 0 def
 /boxfont /Times-Roman findfont fontheight scalefont def
@@ -186,6 +186,7 @@ boxfont setfont
 (rpp::operators::details::scan_no_seed_t< Fn >) cw
 (rpp::operators::details::scan_t< InitialValue, Fn >) cw
 (rpp::operators::details::skip_t) cw
+(rpp::operators::details::take_last_t) cw
 (rpp::operators::details::take_t) cw
 (rpp::operators::details::take_while_t< Fn >) cw
 (rpp::operators::details::throttle_t< Scheduler >) cw
@@ -201,19 +202,20 @@ boundx scalefactor div boundy scalefactor div scale
 
 % ----- classes -----
 
- (rpp::operators::details::operator_observable_strategy_base< SubscribeStrategy, Args >) 0.000000 16.000000 box
- (rpp::operators::details::buffer_t) 1.000000 15.000000 box
- (rpp::operators::details::distinct_until_changed_t< EqualityFn >) 1.000000 14.000000 box
- (rpp::operators::details::filter_t< Fn >) 1.000000 13.000000 box
- (rpp::operators::details::first_t) 1.000000 12.000000 box
- (rpp::operators::details::group_by_t< KeySelector, ValueSelector, KeyComparator >) 1.000000 11.000000 box
- (rpp::operators::details::last_t) 1.000000 10.000000 box
- (rpp::operators::details::map_t< Fn >) 1.000000 9.000000 box
- (rpp::operators::details::reduce_no_seed_t< Accumulator >) 1.000000 8.000000 box
- (rpp::operators::details::reduce_t< Seed, Accumulator >) 1.000000 7.000000 box
- (rpp::operators::details::scan_no_seed_t< Fn >) 1.000000 6.000000 box
- (rpp::operators::details::scan_t< InitialValue, Fn >) 1.000000 5.000000 box
- (rpp::operators::details::skip_t) 1.000000 4.000000 box
+ (rpp::operators::details::operator_observable_strategy_base< SubscribeStrategy, Args >) 0.000000 17.000000 box
+ (rpp::operators::details::buffer_t) 1.000000 16.000000 box
+ (rpp::operators::details::distinct_until_changed_t< EqualityFn >) 1.000000 15.000000 box
+ (rpp::operators::details::filter_t< Fn >) 1.000000 14.000000 box
+ (rpp::operators::details::first_t) 1.000000 13.000000 box
+ (rpp::operators::details::group_by_t< KeySelector, ValueSelector, KeyComparator >) 1.000000 12.000000 box
+ (rpp::operators::details::last_t) 1.000000 11.000000 box
+ (rpp::operators::details::map_t< Fn >) 1.000000 10.000000 box
+ (rpp::operators::details::reduce_no_seed_t< Accumulator >) 1.000000 9.000000 box
+ (rpp::operators::details::reduce_t< Seed, Accumulator >) 1.000000 8.000000 box
+ (rpp::operators::details::scan_no_seed_t< Fn >) 1.000000 7.000000 box
+ (rpp::operators::details::scan_t< InitialValue, Fn >) 1.000000 6.000000 box
+ (rpp::operators::details::skip_t) 1.000000 5.000000 box
+ (rpp::operators::details::take_last_t) 1.000000 4.000000 box
  (rpp::operators::details::take_t) 1.000000 3.000000 box
  (rpp::operators::details::take_while_t< Fn >) 1.000000 2.000000 box
  (rpp::operators::details::throttle_t< Scheduler >) 1.000000 1.000000 box
@@ -222,7 +224,9 @@ boundx scalefactor div boundy scalefactor div scale
 % ----- relations -----
 
 solid
-1 0.000000 15.250000 out
+1 0.000000 16.250000 out
+solid
+0 0.000000 16.500000 hedge
 solid
 0 0.000000 15.500000 hedge
 solid
@@ -256,4 +260,4 @@ solid
 solid
 0 0.000000 0.500000 hedge
 solid
-0.000000 16.000000 0.500000 vedge
+0.000000 17.000000 0.500000 vedge
