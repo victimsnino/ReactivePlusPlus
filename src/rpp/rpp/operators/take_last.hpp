@@ -35,7 +35,7 @@ public:
     void on_next(T&& v) const
     {
         // handle case "count==0"
-        if (m_data.empty())
+        if (!m_data.capacity())
             return;
 
         // handle case "count==0"
@@ -56,7 +56,7 @@ public:
     { 
         for (size_t i =0; i < m_data.size(); ++i)
         {
-            m_observer.on_next(m_data[m_current_end]);
+            m_observer.on_next(std::move(m_data[m_current_end]));
             m_current_end = get_next(m_current_end);
         }
 
@@ -92,6 +92,26 @@ struct take_last_t : public operator_observable_strategy_different_types<take_la
 
 namespace rpp::operators
 {
+/**
+ * @brief Emit only last `count` items provided by observable, then send `on_completed`
+ * 
+ * @marble take_last
+ {
+     source observable       : +--1-2-3-4-5-6-|
+     operator "take_last(3)" : +--------------456|
+ }
+ *
+ * @details Actually this operator has buffer of requested size inside, keeps last `count` values and emit stored values on `on_completed`
+ *
+ * @param count amount of last items to be emitted
+ * @warning #include <rpp/operators/take_last.hpp>
+ * 
+ * @par Example
+ * @snippet take_last.cpp take_last
+ *
+ * @ingroup filtering_operators
+ * @see https://reactivex.io/documentation/operators/takelast.html
+ */
 inline auto take_last(size_t count)
 {
     return details::take_last_t{count};
