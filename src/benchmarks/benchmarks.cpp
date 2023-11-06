@@ -424,6 +424,21 @@ int main(int argc, char* argv[]) // NOLINT(bugprone-exception-escape)
             });
         }
 
+        SECTION("immediate_just+take_last(1)+subscribe")
+        {
+            TEST_RPP([&]() {
+                rpp::immediate_just(1)
+                    | rpp::operators::take_last(1)
+                    | rpp::operators::subscribe([](int v) { ankerl::nanobench::doNotOptimizeAway(v); });
+            });
+
+            TEST_RXCPP([&]() {
+                rxcpp::immediate_just(1)
+                    | rxcpp::operators::take_last(1)
+                    | rxcpp::operators::subscribe<int>([](int v) { ankerl::nanobench::doNotOptimizeAway(v); });
+            });
+        }
+
         SECTION("immediate_just+filter(true)+subscribe")
         {
             TEST_RPP([&]() {
