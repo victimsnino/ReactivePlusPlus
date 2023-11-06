@@ -50,7 +50,7 @@ Reactive programming is a powerful way to handle input that is distributed in ti
 
 See <https://reactivex.io/intro.html> for more details.
 
-### Core concepts of Reactive Programming
+## Core concepts of Reactive Programming
 
 In short, Reactive Programming can be described as follows:
 
@@ -126,6 +126,63 @@ See <https://reactivex.io/documentation/observable.html> for more details.
 
 In such an way it is not powerful enough, so Reactive Programming provides a list of **operators**.
 
+### Observable contract
+
+Reactive programming has [Observable Contract](https://reactivex.io/documentation/contract.html). Please, read it.
+
+This contact has next important part:
+
+> Observables must issue notifications to observers serially (not in parallel). They may issue these notifications from different threads, but there must be a formal happens-before relationship between the notifications
+
+RPP follows this contract and especially this part. It means, that:
+
+1. **All** implemented in **RPP operators** are **following this contract**:<br>
+    All built-in RPP observables/operators emit emission serially
+2. Any user-provided callbacks (for operators or observers) can be not thread-safe due to thread-safety of observable is guaranteed. <br>
+   For example: internal logic of `take` operator doesn't use mutexes or atomics due to underlying observable **MUST** emit items serially
+3. When you implement your own operator via `create` be careful to **follow this contract**!
+4. It is true **EXCEPT FOR** subjects if they are used manually due to users can use subjects for its own purposes there is potentially place for breaking this concept. Be careful and use synchronized subjects instead if can't guarantee serial emissions!
+
+It means, that for example:
+
+```cpp
+    auto s1 = rpp::source::just(1) | rpp::operators::repeat() | rpp::operators::subscribe_on(rpp::schedulers::new_thread{});
+    auto s2 = rpp::source::just(2) | rpp::operators::repeat() | rpp::operators::subscribe_on(rpp::schedulers::new_thread{});
+    s1 | rpp::operators::merge_with(s2)
+       | rpp::operators::map([](int v)
+      {
+        std::cout << "enter " << v << std::endl;
+        std::this_thread::sleep_for(std::chrono::seconds{1});
+        std::cout << "exit " << v << std::endl;
+        return v;
+      })
+      | rpp::operators::as_blocking()
+      | rpp::operators::subscribe([](int){});
+
+```
+
+will never produce something like
+
+```log
+enter 1
+enter 2
+exit 2
+exit 1
+```
+
+only serially
+
+```log
+enter 1
+exit 1
+enter 1
+exit 1
+enter 2
+exit 2
+enter 2
+exit 2
+```
+
 ### Operators
 
 **Operators** are ways to modify the **Observable**'s emissions to adapt values to the **Observer**.
@@ -183,61 +240,32 @@ In most cases disposables are placed in observers. RPP's observer can use two ty
 
 2. **External disposable** - This is a disposable that allows the observer to be disposed of from outside the observer itself. This can be useful in situations where you need to cancel an ongoing operation or release resources before the observable has completed its work.
 
-## Advanced
+### Exception guarantee
 
-### Observable contract
+In non-reactive programming functions/modules throws exception in case of something invalid. As a result, user can catch it and handle it somehow while internal state of objects can be in some state (invalid/untouched/partly valid) and etc.
 
-Reactive programming has [Observable Contract](https://reactivex.io/documentation/contract.html). Please, read it.
+In reactive programming there is another way of exception mechanism: throwing exception as is from original place is useless. Notification about "something goes wrong" need to receive observer/subscriber, not owner of callstack. As a result, ANY exception obtained during emitting items and etc WOULD be delivered to subscriber/observer via `on_error` function and then unsubscribe happens. As a result, no any raw exceptions would be throws during using RPP. In case of emitting `on_error` whole internal state of observable keeps valid but it doesn't matter - whole chain would be destroyed due to `on_error` forces unsubscribe. Reactive catching mechanisms like `catch` or `retry` **re-subscribes** on observable. it means, that new chain with new states would be created, not re-used existing one.
 
-This contact has next important part:
+### Memory Model
 
-> Observables must issue notifications to observers serially (not in parallel). They may issue these notifications from different threads, but there must be a formal happens-before relationship between the notifications
+In ReactivePlusPlus there is new concept unique for this implementation: rpp::memory_model:
 
-RPP follows this contract and especially this part. It means, that:
+Some of the operators and sources like `rpp::source::just` or `rpp::operators::start_with` accepts user's variables for usage. Some of this types can be such an expensive to copy or move and it would be preferable to copy it once to heap, but some other types (like POD) are cheap enough and usage of heap would be overkill. But these variables should be saved inside somehow!
 
-1. **All** implemented in **RPP operators** are **following this contract**:<br>
-    All built-in RPP observables/operators emit emission serially
-2. Any user-provided callbacks (for operators or observers) can be not thread-safe due to thread-safety of observable is guaranteed. <br>
-   For example: internal logic of `take` operator doesn't use mutexes or atomics due to underlying observable **MUST** emit items serially
-3. When you implement your own operator via `create` be careful to **follow this contract**!
-4. It is true **EXCEPT FOR** subjects if they are used manually due to users can use subjects for its own purposes there is potentially place for breaking this concept. Be careful and use synchronized subjects instead if can't guarantee serial emissions!
+So, RPP provides ability to select strategy "how to deal with such a variables" via `rpp::memory_model` enum.
 
-It means, that for example:
+#### Examples
+
+For example, `rpp::source::just`
 
 ```cpp
-    auto s1 = rpp::source::just(1) | rpp::operators::repeat() | rpp::operators::subscribe_on(rpp::schedulers::new_thread{});
-    auto s2 = rpp::source::just(2) | rpp::operators::repeat() | rpp::operators::subscribe_on(rpp::schedulers::new_thread{});
-    s1 | rpp::operators::merge_with(s2)
-       | rpp::operators::map([](int v)
-      {
-        std::cout << "enter " << v << std::endl;
-        std::this_thread::sleep_for(std::chrono::seconds{1});
-        std::cout << "exit " << v << std::endl;
-        return v;
-      })
-      | rpp::operators::as_blocking()
-      | rpp::operators::subscribe([](int){});
-
+rpp::source::just(my_custom_variable);
 ```
+by default `just` uses `rpp::memory_model::use_stack` and `my_custom_variable` would be copied and moved everywhere when needed. On the other hand
 
-will never produce something like
-
-```log
-enter 1
-enter 2
-exit 2
-exit 1
+```cpp
+rpp::source::just<rpp::memory_model::use_shared>(my_custom_variable);
 ```
+makes only 1 copy/move to shared_ptr and then uses it instead.
 
-only serially
-
-```log
-enter 1
-exit 1
-enter 1
-exit 1
-enter 2
-exit 2
-enter 2
-exit 2
-```
+As a a result, users can select preferable way of handling of their types.
