@@ -130,6 +130,8 @@ auto take_while(Fn&& predicate);
 
 auto take(size_t count);
 
+auto take_last(size_t count);
+
 template<rpp::schedulers::constraint::scheduler Scheduler = rpp::schedulers::immediate>
 auto throttle(rpp::schedulers::duration period);
 
