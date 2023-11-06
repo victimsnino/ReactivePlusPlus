@@ -63,7 +63,7 @@ When dealing with input that is {\bfseries{distributed in time}}, there are two 
 
 Reactive programming is a powerful way to handle input that is distributed in time. Instead of constantly polling for updates or waiting for input to arrive, reactive programming allows you to register callbacks to be executed when the input becomes available.
 
-See \href{https://reactivex.io/intro.html}{\texttt{ https\+://reactivex.\+io/intro.\+html}} for more details.\hypertarget{md_docs_2readme_autotoc_md3}{}\doxysubsection{\texorpdfstring{Core concepts of Reactive Programming}{Core concepts of Reactive Programming}}\label{md_docs_2readme_autotoc_md3}
+See \href{https://reactivex.io/intro.html}{\texttt{ https\+://reactivex.\+io/intro.\+html}} for more details.\hypertarget{md_docs_2readme_autotoc_md3}{}\doxysection{\texorpdfstring{Core concepts of Reactive Programming}{Core concepts of Reactive Programming}}\label{md_docs_2readme_autotoc_md3}
 In short, Reactive Programming can be described as follows\+:
 
 
@@ -144,61 +144,7 @@ There we are creating observable that emits digits from console input\+:In case 
 
 See \href{https://reactivex.io/documentation/observable.html}{\texttt{ https\+://reactivex.\+io/documentation/observable.\+html}} for more details.
 
-In such an way it is not powerful enough, so Reactive Programming provides a list of {\bfseries{operators}}.\hypertarget{md_docs_2readme_autotoc_md4}{}\doxysubsection{\texorpdfstring{Operators}{Operators}}\label{md_docs_2readme_autotoc_md4}
-{\bfseries{Operators}} are ways to modify the {\bfseries{Observable}}\textquotesingle{}s emissions to adapt values to the {\bfseries{Observer}}.
-
-For example, we can create observable which\+: get chars from console input, do it till ‘0’ char, get only letters and send to observer this letters as UPPER. With operators it is pretty simple to do it in correct way\+:
-
-
-\begin{DoxyCode}{0}
-\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <rpp/rpp.hpp>}}
-\DoxyCodeLine{}
-\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <iostream>}}
-\DoxyCodeLine{}
-\DoxyCodeLine{\textcolor{keywordtype}{int}\ main()}
-\DoxyCodeLine{\{}
-\DoxyCodeLine{\ \ \mbox{\hyperlink{group__creational__operators_ga519523490394660d7e8c46d2d5612f75}{rpp::source::from\_callable}}(\&::getchar)}
-\DoxyCodeLine{\ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_ga22f3148defcabdd1935e201103644f4b}{rpp::operators::repeat}}()}
-\DoxyCodeLine{\ \ \ \ |\ \mbox{\hyperlink{group__conditional__operators_gac65952f7460d8f0e71a93d95810d2061}{rpp::operators::take\_while}}([](\textcolor{keywordtype}{char}\ v)\ \{\ \textcolor{keywordflow}{return}\ v\ !=\ \textcolor{charliteral}{'0'};\ \})}
-\DoxyCodeLine{\ \ \ \ |\ \mbox{\hyperlink{group__filtering__operators_ga3ad579153e7975af6ae4b75f585fb873}{rpp::operators::filter}}(std::not\_fn(\&::isdigit))}
-\DoxyCodeLine{\ \ \ \ |\ \mbox{\hyperlink{group__transforming__operators_ga1291dba2d973d4ba1061c9e0e202cb3f}{rpp::operators::map}}(\&::toupper)}
-\DoxyCodeLine{\ \ \ \ |\ rpp::operators::subscribe([](\textcolor{keywordtype}{char}\ v)\ \{\ std::cout\ <<\ v;\ \});}
-\DoxyCodeLine{}
-\DoxyCodeLine{\ \ \textcolor{comment}{//\ input:\ 12345qwer5125ttqt0}}
-\DoxyCodeLine{\ \ \textcolor{comment}{//\ output:\ QWERTTQT}}
-\DoxyCodeLine{}
-\DoxyCodeLine{\ \ \textcolor{keywordflow}{return}\ 0;}
-\DoxyCodeLine{\}}
-
-\end{DoxyCode}
-
-
-You can check documentation for each operator on \href{https://victimsnino.github.io/ReactivePlusPlus/v2/docs/html/group__rpp.html}{\texttt{ API Reference}} page. Below you can find details about how operator works and how to create your own custom operator in RPP.
-
-See \href{https://reactivex.io/documentation/operators.html}{\texttt{ https\+://reactivex.\+io/documentation/operators.\+html}} for more details about operators concept.\hypertarget{md_docs_2readme_autotoc_md5}{}\doxysubsection{\texorpdfstring{Schedulers}{Schedulers}}\label{md_docs_2readme_autotoc_md5}
-Reactive programming becomes even more powerful when observables can operate across multiple threads, rather than being confined to the thread of creation and subscription. This allows for non-\/blocking, asynchronous operations and provides significant advantages over raw iteration or other pull-\/based approaches. To enable multithreading in your observables, you can use {\bfseries{Schedulers}}.
-
-By default, an {\bfseries{Observable}} will perform its work in the thread where the {\bfseries{subscribe}} operation occurs. However, you can change this behavior using the {\bfseries{subscribe\+\_\+on}} operator. This operator forces the observable to perform the {\bfseries{subscription}} and any subsequent work in the specified {\bfseries{scheduler}}.
-
-The {\bfseries{observe\+\_\+on}} operator specifies the {\bfseries{scheduler}} that will be used for emission during the processing of further operators after {\bfseries{observe\+\_\+on}}.
-
-A {\bfseries{Scheduler}} is responsible for controlling the type of multithreading behavior (or lack thereof) used in the observable. For example, a {\bfseries{scheduler}} can utilize a new thread, a thread pool, or a raw queue to manage its processing.
-
-Checkout \href{https://victimsnino.github.io/ReactivePlusPlus/v2/docs/html/group__rpp.html}{\texttt{ API Reference}} to learn more about schedulers in RPP.
-
-See \href{https://reactivex.io/documentation/scheduler.html}{\texttt{ https\+://reactivex.\+io/documentation/scheduler.\+html}} for more details about scheduler concept.\hypertarget{md_docs_2readme_autotoc_md6}{}\doxysubsection{\texorpdfstring{Disposable}{Disposable}}\label{md_docs_2readme_autotoc_md6}
-In reactive programming, a {\bfseries{disposable}} is an object that represents a resource that needs to be released or disposed of when it is no longer needed. This can include things like file handles, network connections, or any other resource that needs to be cleaned up after use.
-
-The purpose of a disposable is to provide a way to manage resources in a safe and efficient manner. By using disposables, you can ensure that resources are released in a timely manner, preventing memory leaks and other issues that can arise from resource leaks.
-
-In most cases disposables are placed in observers. RPP\textquotesingle{}s observer can use two types of disposables\+:
-
-
-\begin{DoxyEnumerate}
-\item {\bfseries{Upstream disposable}} -\/ This is a disposable that the observable puts into the observer. The upstream disposable keeps some state or callback that should be disposed of when the observer is disposed. This ensures that any resources used by the observable are properly cleaned up when the observer obtains on\+\_\+error/on\+\_\+completed or disposed in any other way.
-\item {\bfseries{External disposable}} -\/ This is a disposable that allows the observer to be disposed of from outside the observer itself. This can be useful in situations where you need to cancel an ongoing operation or release resources before the observable has completed its work.
-\end{DoxyEnumerate}\hypertarget{md_docs_2readme_autotoc_md7}{}\doxysection{\texorpdfstring{Advanced}{Advanced}}\label{md_docs_2readme_autotoc_md7}
-\hypertarget{md_docs_2readme_autotoc_md8}{}\doxysubsection{\texorpdfstring{Observable contract}{Observable contract}}\label{md_docs_2readme_autotoc_md8}
+In such an way it is not powerful enough, so Reactive Programming provides a list of {\bfseries{operators}}.\hypertarget{md_docs_2readme_autotoc_md4}{}\doxysubsection{\texorpdfstring{Observable contract}{Observable contract}}\label{md_docs_2readme_autotoc_md4}
 Reactive programming has \href{https://reactivex.io/documentation/contract.html}{\texttt{ Observable Contract}}. Please, read it.
 
 This contact has next important part\+:
@@ -263,4 +209,82 @@ only serially
 \DoxyCodeLine{exit\ 2}
 
 \end{DoxyCode}
- 
+\hypertarget{md_docs_2readme_autotoc_md5}{}\doxysubsection{\texorpdfstring{Operators}{Operators}}\label{md_docs_2readme_autotoc_md5}
+{\bfseries{Operators}} are ways to modify the {\bfseries{Observable}}\textquotesingle{}s emissions to adapt values to the {\bfseries{Observer}}.
+
+For example, we can create observable which\+: get chars from console input, do it till ‘0’ char, get only letters and send to observer this letters as UPPER. With operators it is pretty simple to do it in correct way\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <rpp/rpp.hpp>}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{int}\ main()}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{group__creational__operators_ga519523490394660d7e8c46d2d5612f75}{rpp::source::from\_callable}}(\&::getchar)}
+\DoxyCodeLine{\ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_ga22f3148defcabdd1935e201103644f4b}{rpp::operators::repeat}}()}
+\DoxyCodeLine{\ \ \ \ |\ \mbox{\hyperlink{group__conditional__operators_gac65952f7460d8f0e71a93d95810d2061}{rpp::operators::take\_while}}([](\textcolor{keywordtype}{char}\ v)\ \{\ \textcolor{keywordflow}{return}\ v\ !=\ \textcolor{charliteral}{'0'};\ \})}
+\DoxyCodeLine{\ \ \ \ |\ \mbox{\hyperlink{group__filtering__operators_ga3ad579153e7975af6ae4b75f585fb873}{rpp::operators::filter}}(std::not\_fn(\&::isdigit))}
+\DoxyCodeLine{\ \ \ \ |\ \mbox{\hyperlink{group__transforming__operators_ga1291dba2d973d4ba1061c9e0e202cb3f}{rpp::operators::map}}(\&::toupper)}
+\DoxyCodeLine{\ \ \ \ |\ rpp::operators::subscribe([](\textcolor{keywordtype}{char}\ v)\ \{\ std::cout\ <<\ v;\ \});}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ input:\ 12345qwer5125ttqt0}}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ output:\ QWERTTQT}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+You can check documentation for each operator on \href{https://victimsnino.github.io/ReactivePlusPlus/v2/docs/html/group__rpp.html}{\texttt{ API Reference}} page. Below you can find details about how operator works and how to create your own custom operator in RPP.
+
+See \href{https://reactivex.io/documentation/operators.html}{\texttt{ https\+://reactivex.\+io/documentation/operators.\+html}} for more details about operators concept.\hypertarget{md_docs_2readme_autotoc_md6}{}\doxysubsection{\texorpdfstring{Schedulers}{Schedulers}}\label{md_docs_2readme_autotoc_md6}
+Reactive programming becomes even more powerful when observables can operate across multiple threads, rather than being confined to the thread of creation and subscription. This allows for non-\/blocking, asynchronous operations and provides significant advantages over raw iteration or other pull-\/based approaches. To enable multithreading in your observables, you can use {\bfseries{Schedulers}}.
+
+By default, an {\bfseries{Observable}} will perform its work in the thread where the {\bfseries{subscribe}} operation occurs. However, you can change this behavior using the {\bfseries{subscribe\+\_\+on}} operator. This operator forces the observable to perform the {\bfseries{subscription}} and any subsequent work in the specified {\bfseries{scheduler}}.
+
+The {\bfseries{observe\+\_\+on}} operator specifies the {\bfseries{scheduler}} that will be used for emission during the processing of further operators after {\bfseries{observe\+\_\+on}}.
+
+A {\bfseries{Scheduler}} is responsible for controlling the type of multithreading behavior (or lack thereof) used in the observable. For example, a {\bfseries{scheduler}} can utilize a new thread, a thread pool, or a raw queue to manage its processing.
+
+Checkout \href{https://victimsnino.github.io/ReactivePlusPlus/v2/docs/html/group__rpp.html}{\texttt{ API Reference}} to learn more about schedulers in RPP.
+
+See \href{https://reactivex.io/documentation/scheduler.html}{\texttt{ https\+://reactivex.\+io/documentation/scheduler.\+html}} for more details about scheduler concept.\hypertarget{md_docs_2readme_autotoc_md7}{}\doxysubsection{\texorpdfstring{Disposable}{Disposable}}\label{md_docs_2readme_autotoc_md7}
+In reactive programming, a {\bfseries{disposable}} is an object that represents a resource that needs to be released or disposed of when it is no longer needed. This can include things like file handles, network connections, or any other resource that needs to be cleaned up after use.
+
+The purpose of a disposable is to provide a way to manage resources in a safe and efficient manner. By using disposables, you can ensure that resources are released in a timely manner, preventing memory leaks and other issues that can arise from resource leaks.
+
+In most cases disposables are placed in observers. RPP\textquotesingle{}s observer can use two types of disposables\+:
+
+
+\begin{DoxyEnumerate}
+\item {\bfseries{Upstream disposable}} -\/ This is a disposable that the observable puts into the observer. The upstream disposable keeps some state or callback that should be disposed of when the observer is disposed. This ensures that any resources used by the observable are properly cleaned up when the observer obtains on\+\_\+error/on\+\_\+completed or disposed in any other way.
+\item {\bfseries{External disposable}} -\/ This is a disposable that allows the observer to be disposed of from outside the observer itself. This can be useful in situations where you need to cancel an ongoing operation or release resources before the observable has completed its work.
+\end{DoxyEnumerate}\hypertarget{md_docs_2readme_autotoc_md8}{}\doxysubsection{\texorpdfstring{Exception guarantee}{Exception guarantee}}\label{md_docs_2readme_autotoc_md8}
+In non-\/reactive programming functions/modules throws exception in case of something invalid. As a result, user can catch it and handle it somehow while internal state of objects can be in some state (invalid/untouched/partly valid) and etc.
+
+In reactive programming there is another way of exception mechanism\+: throwing exception as is from original place is useless. Notification about "{}something goes wrong"{} need to receive observer/subscriber, not owner of callstack. As a result, ANY exception obtained during emitting items and etc WOULD be delivered to subscriber/observer via {\ttfamily on\+\_\+error} function and then unsubscribe happens. As a result, no any raw exceptions would be throws during using RPP. In case of emitting {\ttfamily on\+\_\+error} whole internal state of observable keeps valid but it doesn\textquotesingle{}t matter -\/ whole chain would be destroyed due to {\ttfamily on\+\_\+error} forces unsubscribe. Reactive catching mechanisms like {\ttfamily catch} or {\ttfamily retry} {\bfseries{re-\/subscribes}} on observable. it means, that new chain with new states would be created, not re-\/used existing one.\hypertarget{md_docs_2readme_autotoc_md9}{}\doxysubsection{\texorpdfstring{Memory Model}{Memory Model}}\label{md_docs_2readme_autotoc_md9}
+In Reactive\+Plus\+Plus there is new concept unique for this implementation\+: rpp\+::memory\+\_\+model\+:
+
+Some of the operators and sources like {\ttfamily \doxylink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp\+::source\+::just}} or {\ttfamily \doxylink{group__combining__operators_gadf12c4de9702425819b0d34b5fdf7db3}{rpp\+::operators\+::start\+\_\+with}} accepts user\textquotesingle{}s variables for usage. Some of this types can be such an expensive to copy or move and it would be preferable to copy it once to heap, but some other types (like POD) are cheap enough and usage of heap would be overkill. But these variables should be saved inside somehow!
+
+So, RPP provides ability to select strategy "{}how to deal with such a variables"{} via {\ttfamily rpp\+::memory\+\_\+model} enum.\hypertarget{md_docs_2readme_autotoc_md10}{}\doxysubsubsection{\texorpdfstring{Examples}{Examples}}\label{md_docs_2readme_autotoc_md10}
+For example, {\ttfamily \doxylink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp\+::source\+::just}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(my\_custom\_variable);}
+
+\end{DoxyCode}
+ by default {\ttfamily just} uses {\ttfamily \doxylink{structrpp_1_1memory__model_1_1use__stack}{rpp\+::memory\+\_\+model\+::use\+\_\+stack}} and {\ttfamily my\+\_\+custom\+\_\+variable} would be copied and moved everywhere when needed. On the other hand
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{rpp::source::just<rpp::memory\_model::use\_shared>}}(my\_custom\_variable);}
+
+\end{DoxyCode}
+ makes only 1 copy/move to shared\+\_\+ptr and then uses it instead.
+
+As a a result, users can select preferable way of handling of their types. 

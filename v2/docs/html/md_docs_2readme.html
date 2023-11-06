@@ -136,8 +136,8 @@ What is Reactive Programming?</h2>
 </ul>
 <p>Reactive programming is a powerful way to handle input that is distributed in time. Instead of constantly polling for updates or waiting for input to arrive, reactive programming allows you to register callbacks to be executed when the input becomes available.</p>
 <p>See <a href="https://reactivex.io/intro.html">https://reactivex.io/intro.html</a> for more details.</p>
-<h2><a class="anchor" id="autotoc_md3"></a>
-Core concepts of Reactive Programming</h2>
+<h1><a class="anchor" id="autotoc_md3"></a>
+Core concepts of Reactive Programming</h1>
 <p>In short, Reactive Programming can be described as follows:</p>
 <ul>
 <li>An <b>Observer</b> subscribes to an <b>Observable</b>.</li>
@@ -209,54 +209,6 @@ Core concepts of Reactive Programming</h2>
 <p>See <a href="https://reactivex.io/documentation/observable.html">https://reactivex.io/documentation/observable.html</a> for more details.</p>
 <p>In such an way it is not powerful enough, so Reactive Programming provides a list of <b>operators</b>.</p>
 <h2><a class="anchor" id="autotoc_md4"></a>
-Operators</h2>
-<p><b>Operators</b> are ways to modify the <b>Observable</b>'s emissions to adapt values to the <b>Observer</b>.</p>
-<p>For example, we can create observable which: get chars from console input, do it till ‘0’ char, get only letters and send to observer this letters as UPPER. With operators it is pretty simple to do it in correct way:</p>
-<div class="fragment"><div class="line"><span class="preprocessor">#include &lt;rpp/rpp.hpp&gt;</span></div>
-<div class="line"> </div>
-<div class="line"><span class="preprocessor">#include &lt;iostream&gt;</span></div>
-<div class="line"> </div>
-<div class="line"><span class="keywordtype">int</span> main()</div>
-<div class="line">{</div>
-<div class="line">  <a class="code hl_function" href="group__creational__operators.html#ga519523490394660d7e8c46d2d5612f75">rpp::source::from_callable</a>(&amp;::getchar)</div>
-<div class="line">    | <a class="code hl_function" href="group__utility__operators.html#ga22f3148defcabdd1935e201103644f4b">rpp::operators::repeat</a>()</div>
-<div class="line">    | <a class="code hl_function" href="group__conditional__operators.html#gac65952f7460d8f0e71a93d95810d2061">rpp::operators::take_while</a>([](<span class="keywordtype">char</span> v) { <span class="keywordflow">return</span> v != <span class="charliteral">&#39;0&#39;</span>; })</div>
-<div class="line">    | <a class="code hl_function" href="group__filtering__operators.html#ga3ad579153e7975af6ae4b75f585fb873">rpp::operators::filter</a>(std::not_fn(&amp;::isdigit))</div>
-<div class="line">    | <a class="code hl_function" href="group__transforming__operators.html#ga1291dba2d973d4ba1061c9e0e202cb3f">rpp::operators::map</a>(&amp;::toupper)</div>
-<div class="line">    | rpp::operators::subscribe([](<span class="keywordtype">char</span> v) { std::cout &lt;&lt; v; });</div>
-<div class="line"> </div>
-<div class="line">  <span class="comment">// input: 12345qwer5125ttqt0</span></div>
-<div class="line">  <span class="comment">// output: QWERTTQT</span></div>
-<div class="line"> </div>
-<div class="line">  <span class="keywordflow">return</span> 0;</div>
-<div class="line">}</div>
-<div class="ttc" id="agroup__conditional__operators_html_gac65952f7460d8f0e71a93d95810d2061"><div class="ttname"><a href="group__conditional__operators.html#gac65952f7460d8f0e71a93d95810d2061">rpp::operators::take_while</a></div><div class="ttdeci">auto take_while(Fn &amp;&amp;predicate)</div><div class="ttdoc">Sends items from observable while items are satisfy predicate. When condition becomes false -&gt; sends ...</div><div class="ttdef"><b>Definition</b> take_while.hpp:82</div></div>
-<div class="ttc" id="agroup__creational__operators_html_ga519523490394660d7e8c46d2d5612f75"><div class="ttname"><a href="group__creational__operators.html#ga519523490394660d7e8c46d2d5612f75">rpp::source::from_callable</a></div><div class="ttdeci">auto from_callable(Callable &amp;&amp;callable)</div><div class="ttdoc">Creates rpp::specific_observable that calls provided callable and emits resulting value of this calla...</div><div class="ttdef"><b>Definition</b> from.hpp:255</div></div>
-<div class="ttc" id="agroup__filtering__operators_html_ga3ad579153e7975af6ae4b75f585fb873"><div class="ttname"><a href="group__filtering__operators.html#ga3ad579153e7975af6ae4b75f585fb873">rpp::operators::filter</a></div><div class="ttdeci">auto filter(Fn &amp;&amp;predicate)</div><div class="ttdoc">Emit only those items from an Observable that satisfies a provided predicate.</div><div class="ttdef"><b>Definition</b> filter.hpp:82</div></div>
-<div class="ttc" id="agroup__transforming__operators_html_ga1291dba2d973d4ba1061c9e0e202cb3f"><div class="ttname"><a href="group__transforming__operators.html#ga1291dba2d973d4ba1061c9e0e202cb3f">rpp::operators::map</a></div><div class="ttdeci">auto map(Fn &amp;&amp;callable)</div><div class="ttdoc">Transforms the items emitted by an Observable via applying a function to each item and emitting resul...</div><div class="ttdef"><b>Definition</b> map.hpp:86</div></div>
-<div class="ttc" id="agroup__utility__operators_html_ga22f3148defcabdd1935e201103644f4b"><div class="ttname"><a href="group__utility__operators.html#ga22f3148defcabdd1935e201103644f4b">rpp::operators::repeat</a></div><div class="ttdeci">auto repeat(size_t count, const Scheduler &amp;scheduler={})</div><div class="ttdoc">Repeats the Observabe's sequence of emissions count times via re-subscribing on it during on_complete...</div><div class="ttdef"><b>Definition</b> repeat.hpp:74</div></div>
-</div><!-- fragment --><p>You can check documentation for each operator on <a href="https://victimsnino.github.io/ReactivePlusPlus/v2/docs/html/group__rpp.html">API Reference</a> page. Below you can find details about how operator works and how to create your own custom operator in RPP.</p>
-<p>See <a href="https://reactivex.io/documentation/operators.html">https://reactivex.io/documentation/operators.html</a> for more details about operators concept.</p>
-<h2><a class="anchor" id="autotoc_md5"></a>
-Schedulers</h2>
-<p>Reactive programming becomes even more powerful when observables can operate across multiple threads, rather than being confined to the thread of creation and subscription. This allows for non-blocking, asynchronous operations and provides significant advantages over raw iteration or other pull-based approaches. To enable multithreading in your observables, you can use <b>Schedulers</b>.</p>
-<p>By default, an <b>Observable</b> will perform its work in the thread where the <b>subscribe</b> operation occurs. However, you can change this behavior using the <b>subscribe_on</b> operator. This operator forces the observable to perform the <b>subscription</b> and any subsequent work in the specified <b>scheduler</b>.</p>
-<p>The <b>observe_on</b> operator specifies the <b>scheduler</b> that will be used for emission during the processing of further operators after <b>observe_on</b>.</p>
-<p>A <b>Scheduler</b> is responsible for controlling the type of multithreading behavior (or lack thereof) used in the observable. For example, a <b>scheduler</b> can utilize a new thread, a thread pool, or a raw queue to manage its processing.</p>
-<p>Checkout <a href="https://victimsnino.github.io/ReactivePlusPlus/v2/docs/html/group__rpp.html">API Reference</a> to learn more about schedulers in RPP.</p>
-<p>See <a href="https://reactivex.io/documentation/scheduler.html">https://reactivex.io/documentation/scheduler.html</a> for more details about scheduler concept.</p>
-<h2><a class="anchor" id="autotoc_md6"></a>
-Disposable</h2>
-<p>In reactive programming, a <b>disposable</b> is an object that represents a resource that needs to be released or disposed of when it is no longer needed. This can include things like file handles, network connections, or any other resource that needs to be cleaned up after use.</p>
-<p>The purpose of a disposable is to provide a way to manage resources in a safe and efficient manner. By using disposables, you can ensure that resources are released in a timely manner, preventing memory leaks and other issues that can arise from resource leaks.</p>
-<p>In most cases disposables are placed in observers. RPP's observer can use two types of disposables:</p>
-<ol type="1">
-<li><b>Upstream disposable</b> - This is a disposable that the observable puts into the observer. The upstream disposable keeps some state or callback that should be disposed of when the observer is disposed. This ensures that any resources used by the observable are properly cleaned up when the observer obtains on_error/on_completed or disposed in any other way.</li>
-<li><b>External disposable</b> - This is a disposable that allows the observer to be disposed of from outside the observer itself. This can be useful in situations where you need to cancel an ongoing operation or release resources before the observable has completed its work.</li>
-</ol>
-<h1><a class="anchor" id="autotoc_md7"></a>
-Advanced</h1>
-<h2><a class="anchor" id="autotoc_md8"></a>
 Observable contract</h2>
 <p>Reactive programming has <a href="https://reactivex.io/documentation/contract.html">Observable Contract</a>. Please, read it.</p>
 <p>This contact has next important part:</p>
@@ -288,6 +240,8 @@ Observable contract</h2>
 <div class="ttc" id="aclassrpp_1_1schedulers_1_1new__thread_html"><div class="ttname"><a href="classrpp_1_1schedulers_1_1new__thread.html">rpp::schedulers::new_thread</a></div><div class="ttdoc">Scheduler which schedules invoking of schedulables to another thread via queueing tasks with priority...</div><div class="ttdef"><b>Definition</b> new_thread.hpp:31</div></div>
 <div class="ttc" id="agroup__combining__operators_html_ga35392a84e52bf7101d0d0445ef391db7"><div class="ttname"><a href="group__combining__operators.html#ga35392a84e52bf7101d0d0445ef391db7">rpp::operators::merge_with</a></div><div class="ttdeci">auto merge_with(TObservable &amp;&amp;observable, TObservables &amp;&amp;... observables)</div><div class="ttdoc">Combines submissions from current observable with other observables into one.</div><div class="ttdef"><b>Definition</b> merge.hpp:233</div></div>
 <div class="ttc" id="agroup__creational__operators_html_ga1edf47f176050dd414e28a1c0616b7c0"><div class="ttname"><a href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">rpp::source::just</a></div><div class="ttdeci">auto just(const TScheduler &amp;scheduler, T &amp;&amp;item, Ts &amp;&amp;... items)</div><div class="ttdoc">Creates rpp::observable that emits a particular items and completes.</div><div class="ttdef"><b>Definition</b> from.hpp:207</div></div>
+<div class="ttc" id="agroup__transforming__operators_html_ga1291dba2d973d4ba1061c9e0e202cb3f"><div class="ttname"><a href="group__transforming__operators.html#ga1291dba2d973d4ba1061c9e0e202cb3f">rpp::operators::map</a></div><div class="ttdeci">auto map(Fn &amp;&amp;callable)</div><div class="ttdoc">Transforms the items emitted by an Observable via applying a function to each item and emitting resul...</div><div class="ttdef"><b>Definition</b> map.hpp:86</div></div>
+<div class="ttc" id="agroup__utility__operators_html_ga22f3148defcabdd1935e201103644f4b"><div class="ttname"><a href="group__utility__operators.html#ga22f3148defcabdd1935e201103644f4b">rpp::operators::repeat</a></div><div class="ttdeci">auto repeat(size_t count, const Scheduler &amp;scheduler={})</div><div class="ttdoc">Repeats the Observabe's sequence of emissions count times via re-subscribing on it during on_complete...</div><div class="ttdef"><b>Definition</b> repeat.hpp:74</div></div>
 <div class="ttc" id="agroup__utility__operators_html_ga9df008c11eeff8c9383e56bf36e28ec2"><div class="ttname"><a href="group__utility__operators.html#ga9df008c11eeff8c9383e56bf36e28ec2">rpp::operators::as_blocking</a></div><div class="ttdeci">auto as_blocking()</div><div class="ttdoc">Converts rpp::observable to rpp::blocking_observable</div><div class="ttdef"><b>Definition</b> as_blocking.hpp:44</div></div>
 <div class="ttc" id="agroup__utility__operators_html_gace728cfbf71720901cb6f310edabf8b0"><div class="ttname"><a href="group__utility__operators.html#gace728cfbf71720901cb6f310edabf8b0">rpp::operators::subscribe_on</a></div><div class="ttdeci">auto subscribe_on(Scheduler &amp;&amp;scheduler)</div><div class="ttdoc">OnSubscribe function for this observable will be scheduled via provided scheduler.</div><div class="ttdef"><b>Definition</b> subscribe_on.hpp:77</div></div>
 </div><!-- fragment --><p>will never produce something like</p>
@@ -304,7 +258,68 @@ Observable contract</h2>
 <div class="line">exit 2</div>
 <div class="line">enter 2</div>
 <div class="line">exit 2</div>
-</div><!-- fragment --> </div></div><!-- contents -->
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md5"></a>
+Operators</h2>
+<p><b>Operators</b> are ways to modify the <b>Observable</b>'s emissions to adapt values to the <b>Observer</b>.</p>
+<p>For example, we can create observable which: get chars from console input, do it till ‘0’ char, get only letters and send to observer this letters as UPPER. With operators it is pretty simple to do it in correct way:</p>
+<div class="fragment"><div class="line"><span class="preprocessor">#include &lt;rpp/rpp.hpp&gt;</span></div>
+<div class="line"> </div>
+<div class="line"><span class="preprocessor">#include &lt;iostream&gt;</span></div>
+<div class="line"> </div>
+<div class="line"><span class="keywordtype">int</span> main()</div>
+<div class="line">{</div>
+<div class="line">  <a class="code hl_function" href="group__creational__operators.html#ga519523490394660d7e8c46d2d5612f75">rpp::source::from_callable</a>(&amp;::getchar)</div>
+<div class="line">    | <a class="code hl_function" href="group__utility__operators.html#ga22f3148defcabdd1935e201103644f4b">rpp::operators::repeat</a>()</div>
+<div class="line">    | <a class="code hl_function" href="group__conditional__operators.html#gac65952f7460d8f0e71a93d95810d2061">rpp::operators::take_while</a>([](<span class="keywordtype">char</span> v) { <span class="keywordflow">return</span> v != <span class="charliteral">&#39;0&#39;</span>; })</div>
+<div class="line">    | <a class="code hl_function" href="group__filtering__operators.html#ga3ad579153e7975af6ae4b75f585fb873">rpp::operators::filter</a>(std::not_fn(&amp;::isdigit))</div>
+<div class="line">    | <a class="code hl_function" href="group__transforming__operators.html#ga1291dba2d973d4ba1061c9e0e202cb3f">rpp::operators::map</a>(&amp;::toupper)</div>
+<div class="line">    | rpp::operators::subscribe([](<span class="keywordtype">char</span> v) { std::cout &lt;&lt; v; });</div>
+<div class="line"> </div>
+<div class="line">  <span class="comment">// input: 12345qwer5125ttqt0</span></div>
+<div class="line">  <span class="comment">// output: QWERTTQT</span></div>
+<div class="line"> </div>
+<div class="line">  <span class="keywordflow">return</span> 0;</div>
+<div class="line">}</div>
+<div class="ttc" id="agroup__conditional__operators_html_gac65952f7460d8f0e71a93d95810d2061"><div class="ttname"><a href="group__conditional__operators.html#gac65952f7460d8f0e71a93d95810d2061">rpp::operators::take_while</a></div><div class="ttdeci">auto take_while(Fn &amp;&amp;predicate)</div><div class="ttdoc">Sends items from observable while items are satisfy predicate. When condition becomes false -&gt; sends ...</div><div class="ttdef"><b>Definition</b> take_while.hpp:82</div></div>
+<div class="ttc" id="agroup__creational__operators_html_ga519523490394660d7e8c46d2d5612f75"><div class="ttname"><a href="group__creational__operators.html#ga519523490394660d7e8c46d2d5612f75">rpp::source::from_callable</a></div><div class="ttdeci">auto from_callable(Callable &amp;&amp;callable)</div><div class="ttdoc">Creates rpp::specific_observable that calls provided callable and emits resulting value of this calla...</div><div class="ttdef"><b>Definition</b> from.hpp:255</div></div>
+<div class="ttc" id="agroup__filtering__operators_html_ga3ad579153e7975af6ae4b75f585fb873"><div class="ttname"><a href="group__filtering__operators.html#ga3ad579153e7975af6ae4b75f585fb873">rpp::operators::filter</a></div><div class="ttdeci">auto filter(Fn &amp;&amp;predicate)</div><div class="ttdoc">Emit only those items from an Observable that satisfies a provided predicate.</div><div class="ttdef"><b>Definition</b> filter.hpp:82</div></div>
+</div><!-- fragment --><p>You can check documentation for each operator on <a href="https://victimsnino.github.io/ReactivePlusPlus/v2/docs/html/group__rpp.html">API Reference</a> page. Below you can find details about how operator works and how to create your own custom operator in RPP.</p>
+<p>See <a href="https://reactivex.io/documentation/operators.html">https://reactivex.io/documentation/operators.html</a> for more details about operators concept.</p>
+<h2><a class="anchor" id="autotoc_md6"></a>
+Schedulers</h2>
+<p>Reactive programming becomes even more powerful when observables can operate across multiple threads, rather than being confined to the thread of creation and subscription. This allows for non-blocking, asynchronous operations and provides significant advantages over raw iteration or other pull-based approaches. To enable multithreading in your observables, you can use <b>Schedulers</b>.</p>
+<p>By default, an <b>Observable</b> will perform its work in the thread where the <b>subscribe</b> operation occurs. However, you can change this behavior using the <b>subscribe_on</b> operator. This operator forces the observable to perform the <b>subscription</b> and any subsequent work in the specified <b>scheduler</b>.</p>
+<p>The <b>observe_on</b> operator specifies the <b>scheduler</b> that will be used for emission during the processing of further operators after <b>observe_on</b>.</p>
+<p>A <b>Scheduler</b> is responsible for controlling the type of multithreading behavior (or lack thereof) used in the observable. For example, a <b>scheduler</b> can utilize a new thread, a thread pool, or a raw queue to manage its processing.</p>
+<p>Checkout <a href="https://victimsnino.github.io/ReactivePlusPlus/v2/docs/html/group__rpp.html">API Reference</a> to learn more about schedulers in RPP.</p>
+<p>See <a href="https://reactivex.io/documentation/scheduler.html">https://reactivex.io/documentation/scheduler.html</a> for more details about scheduler concept.</p>
+<h2><a class="anchor" id="autotoc_md7"></a>
+Disposable</h2>
+<p>In reactive programming, a <b>disposable</b> is an object that represents a resource that needs to be released or disposed of when it is no longer needed. This can include things like file handles, network connections, or any other resource that needs to be cleaned up after use.</p>
+<p>The purpose of a disposable is to provide a way to manage resources in a safe and efficient manner. By using disposables, you can ensure that resources are released in a timely manner, preventing memory leaks and other issues that can arise from resource leaks.</p>
+<p>In most cases disposables are placed in observers. RPP's observer can use two types of disposables:</p>
+<ol type="1">
+<li><b>Upstream disposable</b> - This is a disposable that the observable puts into the observer. The upstream disposable keeps some state or callback that should be disposed of when the observer is disposed. This ensures that any resources used by the observable are properly cleaned up when the observer obtains on_error/on_completed or disposed in any other way.</li>
+<li><b>External disposable</b> - This is a disposable that allows the observer to be disposed of from outside the observer itself. This can be useful in situations where you need to cancel an ongoing operation or release resources before the observable has completed its work.</li>
+</ol>
+<h2><a class="anchor" id="autotoc_md8"></a>
+Exception guarantee</h2>
+<p>In non-reactive programming functions/modules throws exception in case of something invalid. As a result, user can catch it and handle it somehow while internal state of objects can be in some state (invalid/untouched/partly valid) and etc.</p>
+<p>In reactive programming there is another way of exception mechanism: throwing exception as is from original place is useless. Notification about "something goes wrong" need to receive observer/subscriber, not owner of callstack. As a result, ANY exception obtained during emitting items and etc WOULD be delivered to subscriber/observer via <code>on_error</code> function and then unsubscribe happens. As a result, no any raw exceptions would be throws during using RPP. In case of emitting <code>on_error</code> whole internal state of observable keeps valid but it doesn't matter - whole chain would be destroyed due to <code>on_error</code> forces unsubscribe. Reactive catching mechanisms like <code>catch</code> or <code>retry</code> <b>re-subscribes</b> on observable. it means, that new chain with new states would be created, not re-used existing one.</p>
+<h2><a class="anchor" id="autotoc_md9"></a>
+Memory Model</h2>
+<p>In ReactivePlusPlus there is new concept unique for this implementation: rpp::memory_model:</p>
+<p>Some of the operators and sources like <code><a class="el" href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0" title="Creates rpp::observable that emits a particular items and completes.">rpp::source::just</a></code> or <code><a class="el" href="group__combining__operators.html#gadf12c4de9702425819b0d34b5fdf7db3" title="Combines submissions from current observable with other observables into one but without overlapping ...">rpp::operators::start_with</a></code> accepts user's variables for usage. Some of this types can be such an expensive to copy or move and it would be preferable to copy it once to heap, but some other types (like POD) are cheap enough and usage of heap would be overkill. But these variables should be saved inside somehow!</p>
+<p>So, RPP provides ability to select strategy "how to deal with such a variables" via <code>rpp::memory_model</code> enum.</p>
+<h3><a class="anchor" id="autotoc_md10"></a>
+Examples</h3>
+<p>For example, <code><a class="el" href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0" title="Creates rpp::observable that emits a particular items and completes.">rpp::source::just</a></code></p>
+<div class="fragment"><div class="line"><a class="code hl_function" href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">rpp::source::just</a>(my_custom_variable);</div>
+</div><!-- fragment --><p> by default <code>just</code> uses <code><a class="el" href="structrpp_1_1memory__model_1_1use__stack.html">rpp::memory_model::use_stack</a></code> and <code>my_custom_variable</code> would be copied and moved everywhere when needed. On the other hand</p>
+<div class="fragment"><div class="line"><a class="code hl_function" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">rpp::source::just&lt;rpp::memory_model::use_shared&gt;</a>(my_custom_variable);</div>
+</div><!-- fragment --><p> makes only 1 copy/move to shared_ptr and then uses it instead.</p>
+<p>As a a result, users can select preferable way of handling of their types. </p>
+</div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
 <!-- start footer part -->

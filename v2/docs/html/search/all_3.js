@@ -13,7 +13,7 @@ var searchData=
   ['delay_5fdisposable_5fwrapper_10',['delay_disposable_wrapper',['../structrpp_1_1operators_1_1details_1_1delay__disposable__wrapper.html',1,'rpp::operators::details']]],
   ['delay_5fobserver_5fstrategy_11',['delay_observer_strategy',['../structrpp_1_1operators_1_1details_1_1delay__observer__strategy.html',1,'rpp::operators::details']]],
   ['delay_5ft_12',['delay_t',['../structrpp_1_1operators_1_1details_1_1delay__t.html',1,'rpp::operators::details']]],
-  ['disposable_13',['Disposable',['../md_docs_2readme.html#autotoc_md6',1,'']]],
+  ['disposable_13',['Disposable',['../md_docs_2readme.html#autotoc_md7',1,'']]],
   ['disposable_5fwrapper_5fimpl_14',['disposable_wrapper_impl',['../classrpp_1_1disposable__wrapper__impl.html',1,'rpp']]],
   ['disposable_5fwrapper_5fimpl_3c_20interface_5fcomposite_5fdisposable_20_3e_15',['disposable_wrapper_impl&lt; interface_composite_disposable &gt;',['../classrpp_1_1disposable__wrapper__impl.html',1,'rpp']]],
   ['disposables_16',['Disposables',['../group__disposables.html',1,'']]],

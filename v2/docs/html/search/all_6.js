@@ -6,5 +6,6 @@ var searchData=
   ['group_5fby_5fobserver_5fstrategy_3',['group_by_observer_strategy',['../structrpp_1_1operators_1_1details_1_1group__by__observer__strategy.html',1,'rpp::operators::details']]],
   ['group_5fby_5ft_4',['group_by_t',['../structrpp_1_1operators_1_1details_1_1group__by__t.html',1,'rpp::operators::details']]],
   ['grouped_5fobservable_5',['grouped_observable',['../classrpp_1_1grouped__observable.html',1,'rpp']]],
-  ['guide_6',['User Guide',['../md_docs_2readme.html',1,'']]]
+  ['guarantee_6',['Exception guarantee',['../md_docs_2readme.html#autotoc_md8',1,'']]],
+  ['guide_7',['User Guide',['../md_docs_2readme.html',1,'']]]
 ];
