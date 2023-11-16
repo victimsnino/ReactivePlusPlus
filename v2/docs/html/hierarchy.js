@@ -100,8 +100,8 @@ var hierarchy =
     [ "rpp::make_chain_observable< New, Old >", "structrpp_1_1make__chain__observable.html", null ],
     [ "rpp::make_chain_observable< New, observable_chain_strategy< Args... > >", "structrpp_1_1make__chain__observable_3_01_new_00_01observable__chain__strategy_3_01_args_8_8_8_01_4_01_4.html", null ],
     [ "rpp::operators::details::map_observer_strategy< TObserver, Fn >", "structrpp_1_1operators_1_1details_1_1map__observer__strategy.html", null ],
-    [ "rpp::details::observers::member_ptr_caller< Fn >", "structrpp_1_1details_1_1observers_1_1member__ptr__caller.html", null ],
-    [ "rpp::details::observers::member_ptr_caller< F >", "structrpp_1_1details_1_1observers_1_1member__ptr__caller_3_01_f_01_4.html", null ],
+    [ "rpp::details::observers::member_ptr_caller_impl< Fn, NoExcept >", "structrpp_1_1details_1_1observers_1_1member__ptr__caller__impl.html", null ],
+    [ "rpp::details::observers::member_ptr_caller_impl< F, NoExcept >", "structrpp_1_1details_1_1observers_1_1member__ptr__caller__impl_3_01_f_00_01_no_except_01_4.html", null ],
     [ "rpp::operators::details::merge_observer_base_strategy< TObserver >", "structrpp_1_1operators_1_1details_1_1merge__observer__base__strategy.html", [
       [ "rpp::operators::details::merge_observer_inner_strategy< TObserver >", "structrpp_1_1operators_1_1details_1_1merge__observer__inner__strategy.html", null ],
       [ "rpp::operators::details::merge_observer_strategy< TObserver >", "classrpp_1_1operators_1_1details_1_1merge__observer__strategy.html", null ]

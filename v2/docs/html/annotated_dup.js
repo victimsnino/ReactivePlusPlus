@@ -22,8 +22,8 @@ var annotated_dup =
           [ "dynamic_strategy", "classrpp_1_1details_1_1observers_1_1dynamic__strategy.html", null ],
           [ "lambda_strategy", "structrpp_1_1details_1_1observers_1_1lambda__strategy.html", null ],
           [ "local_disposable_strategy", "classrpp_1_1details_1_1observers_1_1local__disposable__strategy.html", null ],
-          [ "member_ptr_caller", "structrpp_1_1details_1_1observers_1_1member__ptr__caller.html", null ],
-          [ "member_ptr_caller< F >", "structrpp_1_1details_1_1observers_1_1member__ptr__caller_3_01_f_01_4.html", null ],
+          [ "member_ptr_caller_impl", "structrpp_1_1details_1_1observers_1_1member__ptr__caller__impl.html", null ],
+          [ "member_ptr_caller_impl< F, NoExcept >", "structrpp_1_1details_1_1observers_1_1member__ptr__caller__impl_3_01_f_00_01_no_except_01_4.html", null ],
           [ "non_atomic_bool", "classrpp_1_1details_1_1observers_1_1non__atomic__bool.html", null ],
           [ "none_disposable_strategy", "structrpp_1_1details_1_1observers_1_1none__disposable__strategy.html", null ]
         ] ],
