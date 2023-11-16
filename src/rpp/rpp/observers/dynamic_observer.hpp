@@ -17,20 +17,24 @@
 
 namespace rpp::details::observers
 {
+template<auto Fn, bool NoExcept>
+struct member_ptr_caller_impl;
+
+template<bool NoExcept, class T, class R, class... Args, R (T::*F)(Args...) noexcept(NoExcept)>
+struct member_ptr_caller_impl<F, NoExcept>
+{
+    static R call(void* data, Args... args) noexcept(NoExcept) { return (static_cast<T*>(data)->*F)(static_cast<Args>(args)...); }
+};
+
+template<bool NoExcept, class T, class R, class... Args, R (T::*F)(Args...) const noexcept(NoExcept)>
+struct member_ptr_caller_impl<F, NoExcept>
+{
+    static R call(const void* data, Args... args) noexcept(NoExcept) { return (static_cast<const T*>(data)->*F)(static_cast<Args>(args)...); }
+};
+
 template<auto Fn>
-struct member_ptr_caller;
+using member_ptr_caller = member_ptr_caller_impl<Fn, noexcept(Fn)>;
 
-template<class T, class R, class... Args, R (T::*F)(Args...)>
-struct member_ptr_caller<F>
-{
-    static R call(void* data, Args... args) { return (static_cast<T*>(data)->*F)(static_cast<Args>(args)...); }
-};
-
-template<class T, class R, class... Args, R (T::*F)(Args...) const>
-struct member_ptr_caller<F>
-{
-    static R call(const void* data, Args... args) { return (static_cast<const T*>(data)->*F)(static_cast<Args>(args)...); }
-};
 
 template<rpp::constraint::decayed_type Type>
 class dynamic_strategy final
