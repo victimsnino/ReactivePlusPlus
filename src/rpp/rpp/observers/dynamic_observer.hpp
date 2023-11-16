@@ -23,13 +23,13 @@ struct member_ptr_caller;
 template<bool NoExcept, class T, class R, class... Args, R (T::*F)(Args...) noexcept(NoExcept)>
 struct member_ptr_caller<F>
 {
-    static R call(void* data, Args... args) { return (static_cast<T*>(data)->*F)(static_cast<Args>(args)...); }
+    static R call(void* data, Args... args) noexcept(NoExcept) { return (static_cast<T*>(data)->*F)(static_cast<Args>(args)...); }
 };
 
 template<bool NoExcept, class T, class R, class... Args, R (T::*F)(Args...) const noexcept(NoExcept)>
 struct member_ptr_caller<F>
 {
-    static R call(const void* data, Args... args) { return (static_cast<const T*>(data)->*F)(static_cast<Args>(args)...); }
+    static R call(const void* data, Args... args) noexcept(NoExcept) { return (static_cast<const T*>(data)->*F)(static_cast<Args>(args)...); }
 };
 
 
