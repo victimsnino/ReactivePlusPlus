@@ -180,7 +180,7 @@ struct delay_t
     RPP_NO_UNIQUE_ADDRESS Scheduler scheduler;
 
     template<rpp::constraint::decayed_type Type, rpp::details::observables::constraint::disposable_strategy DisposableStrategy, rpp::constraint::observer Observer>
-    auto lift_with_disposable(Observer&& observer) const
+    auto lift_with_disposable_strategy(Observer&& observer) const
     {
         using worker_t = rpp::schedulers::utils::get_worker_t<Scheduler>;
         using container = typename DisposableStrategy::template add<worker_t::is_none_disposable ? 0 : 1>::disposable_container;
