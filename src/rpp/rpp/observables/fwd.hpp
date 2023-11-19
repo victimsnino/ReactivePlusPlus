@@ -144,16 +144,16 @@ concept operator_lift = requires(const Op& op, dynamic_observer<typename std::de
 };
 
 template<typename Op, typename Type, typename DisposableStrategy>
-concept operator_lift_with_disposable = requires(const Op& op, dynamic_observer<typename std::decay_t<Op>::template result_value<Type>>&& observer)
+concept operator_lift_with_disposable_strategy = requires(const Op& op, dynamic_observer<typename std::decay_t<Op>::template result_value<Type>>&& observer)
 {
     typename std::decay_t<Op>::template result_value<Type>;
     requires details::observables::constraint::disposable_strategy<typename std::decay_t<Op>::template updated_disposable_strategy<details::observables::bool_disposable_strategy_selector>>;
 
-    {op.template lift_with_disposable<Type, DisposableStrategy>(std::move(observer))} -> rpp::constraint::observer_of_type<Type>;
+    {op.template lift_with_disposable_strategy<Type, DisposableStrategy>(std::move(observer))} -> rpp::constraint::observer_of_type<Type>;
 };
 
 template<typename Op, typename Type, typename DisposableStrategy>
-concept operator_chain = operator_subscribe<Op, Type> || operator_lift<Op, Type> || operator_lift_with_disposable<Op, Type, DisposableStrategy>;
+concept operator_chain = operator_subscribe<Op, Type> || operator_lift<Op, Type> || operator_lift_with_disposable_strategy<Op, Type, DisposableStrategy>;
 
 template<typename TObservable, typename... TObservables>
 concept observables_of_same_type = rpp::constraint::observable<TObservable> &&

@@ -124,13 +124,16 @@ auto start_with_values(const TScheduler& scheduler, T&& v, Ts&&... vals);
 template<rpp::schedulers::constraint::scheduler Scheduler>
 auto subscribe_on(Scheduler&& scheduler);
 
+auto take(size_t count);
+
+auto take_last(size_t count);
+
 template<typename Fn>
     requires (!utils::is_not_template_callable<Fn> || std::same_as<bool, std::invoke_result_t<Fn, rpp::utils::convertible_to_any>>)
 auto take_while(Fn&& predicate);
 
-auto take(size_t count);
-
-auto take_last(size_t count);
+template<rpp::constraint::observable TObservable>
+auto take_until(TObservable&& until_observable);
 
 template<rpp::schedulers::constraint::scheduler Scheduler = rpp::schedulers::immediate>
 auto throttle(rpp::schedulers::duration period);

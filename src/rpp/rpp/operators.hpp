@@ -64,6 +64,7 @@
  */
 
 #include <rpp/operators/take_while.hpp>
+#include <rpp/operators/take_until.hpp>
 
 /**
  * @defgroup combining_operators Combining Operators
