@@ -40,9 +40,10 @@ int main() // NOLINT(bugprone-exception-escape)
     rpp::source::interval(std::chrono::seconds{1}, rpp::schedulers::new_thread{})
         | rpp::operators::map([](size_t i) { return format_message(std::string{"counter "} + std::to_string(i)); })
         | rpp::operators::merge_with(chars)
+        | rpp::operators::observe_on(rpp::schedulers::new_thread{})
         | rpp::operators::as_blocking()
         | rpp::operators::subscribe([](const std::string& event) {
-              std::cout << event << std::endl;
+              std::cout << format_message(event) << std::endl;
           });
     
     std::cout << "EXIT" << std::endl;
