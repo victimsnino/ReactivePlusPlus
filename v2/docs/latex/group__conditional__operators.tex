@@ -8,6 +8,8 @@ Conditional operators are operators that emit items based on some condition incl
 \doxysubsubsubsubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
+{\footnotesize template$<$\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp\+::constraint\+::observable}} TObservable$>$ }\\auto \mbox{\hyperlink{group__conditional__operators_gae40802b5608766bfcc1417e210f41707}{rpp\+::operators\+::take\+\_\+until}} (TObservable \&\&until\+\_\+observable)
+\begin{DoxyCompactList}\small\item\em Discard any items emitted by an Observable after a second Observable emits an item or terminates. \end{DoxyCompactList}\item 
 {\footnotesize template$<$typename Fn $>$ \newline
 requires (!utils\+::is\+\_\+not\+\_\+template\+\_\+callable$<$Fn$>$ \texorpdfstring{$\vert$}{|}\texorpdfstring{$\vert$}{|} std\+::same\+\_\+as$<$bool, std\+::invoke\+\_\+result\+\_\+t$<$Fn, rpp\+::utils\+::convertible\+\_\+to\+\_\+any$>$$>$)}\\auto \mbox{\hyperlink{group__conditional__operators_gac65952f7460d8f0e71a93d95810d2061}{rpp\+::operators\+::take\+\_\+while}} (Fn \&\&predicate)
 \begin{DoxyCompactList}\small\item\em Sends items from observable while items are satisfy predicate. When condition becomes false -\/\texorpdfstring{$>$}{>} sends {\ttfamily on\+\_\+completed} \end{DoxyCompactList}\end{DoxyCompactItemize}
@@ -22,6 +24,54 @@ Conditional operators are operators that emit items based on some condition incl
 
 
 \doxysubsubsubsection{Function Documentation}
+\Hypertarget{group__conditional__operators_gae40802b5608766bfcc1417e210f41707}\label{group__conditional__operators_gae40802b5608766bfcc1417e210f41707} 
+\index{Conditional Operators@{Conditional Operators}!take\_until@{take\_until}}
+\index{take\_until@{take\_until}!Conditional Operators@{Conditional Operators}}
+\doxysubsubsubsubsection{\texorpdfstring{take\_until()}{take\_until()}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp\+::constraint\+::observable}} TObservable$>$ \\
+auto rpp\+::operators\+::take\+\_\+until (\begin{DoxyParamCaption}\item[{TObservable \&\&}]{until\+\_\+observable }\end{DoxyParamCaption})}
+
+
+
+Discard any items emitted by an Observable after a second Observable emits an item or terminates. 
+
+\begin{DoxyWarning}{Warning}
+The take\+\_\+until subscribes and begins mirroring the source Observable. It also monitors a second Observable that you provide. If this second Observable emits an item or sends a on\+\_\+error/on\+\_\+completed notification, the Observable returned by take\+\_\+until stops mirroring the source Observable and terminates.
+\end{DoxyWarning}
+
+
+Actually this operator just subscribes on 2 observables and completes original when {\ttfamily until\+\_\+observable} emits any value
+
+
+\begin{DoxyParams}{Parameters}
+{\em until\+\_\+observable} & is the observables that stops the source observable from sending values when it emits one value or sends a on\+\_\+error/on\+\_\+completed event. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyWarning}{Warning}
+\#include \texorpdfstring{$<$}{<}\doxylink{take__until_8hpp_source}{rpp/operators/take\+\_\+until.\+hpp}\texorpdfstring{$>$}{>}
+\end{DoxyWarning}
+\begin{DoxyParagraph}{Examples}
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_ga4018b147fb99a358c6c01f21183c13e6}{rpp::source::interval}}(std::chrono::seconds\{1\},\ \mbox{\hyperlink{classrpp_1_1schedulers_1_1current__thread}{rpp::schedulers::current\_thread}}\{\})}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ rpp::ops::take\_until(\mbox{\hyperlink{group__creational__operators_ga4018b147fb99a358c6c01f21183c13e6}{rpp::source::interval}}(std::chrono::seconds\{5\},\ \mbox{\hyperlink{classrpp_1_1schedulers_1_1current__thread}{rpp::schedulers::current\_thread}}\{\}))}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ rpp::ops::subscribe([](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}-\/"{}}\ <<\ v;\ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [](\textcolor{keyword}{const}\ std::exception\_ptr\&)\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}-\/x"{}}\ <<\ std::endl;\ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ []()\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}-\/|"{}}\ <<\ std::endl;\ \});}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ source\ 1:\ -\/0-\/1-\/2-\/3-\/4-\/5-\/6-\/7-\/\ \ \ \ \ -\/-\/}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ source\ 2:\ -\/-\/-\/-\/-\/-\/-\/-\/-\/0-\/-\/-\/-\/-\/-\/-\/-\/-\/1-\/\ -\/-\/}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output\ \ :\ -\/0-\/1-\/2-\/3-\/|}}
+
+\end{DoxyCodeInclude}
+ 
+\begin{DoxyCodeInclude}{0}
+
+\end{DoxyCodeInclude}
+
+\end{DoxyParagraph}
+\begin{DoxySeeAlso}{See also}
+\href{https://reactivex.io/documentation/operators/takeuntil.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/takeuntil.\+html}} 
+\end{DoxySeeAlso}
 \Hypertarget{group__conditional__operators_gac65952f7460d8f0e71a93d95810d2061}\label{group__conditional__operators_gac65952f7460d8f0e71a93d95810d2061} 
 \index{Conditional Operators@{Conditional Operators}!take\_while@{take\_while}}
 \index{take\_while@{take\_while}!Conditional Operators@{Conditional Operators}}

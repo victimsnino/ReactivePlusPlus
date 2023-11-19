@@ -81,6 +81,7 @@ var hierarchy =
         [ "rpp::composite_disposable_impl< rpp::details::disposables::dynamic_disposables_container< 0 > >", "classrpp_1_1composite__disposable__impl.html", [
           [ "rpp::operators::details::combine_latest_disposable< Observer, TSelector, Args >", "classrpp_1_1operators_1_1details_1_1combine__latest__disposable.html", null ],
           [ "rpp::operators::details::merge_disposable< TObserver >", "classrpp_1_1operators_1_1details_1_1merge__disposable.html", null ],
+          [ "rpp::operators::details::take_until_disposable< TObserver >", "classrpp_1_1operators_1_1details_1_1take__until__disposable.html", null ],
           [ "rpp::operators::details::with_latest_from_disposable< Observer, TSelector, RestArgs >", "classrpp_1_1operators_1_1details_1_1with__latest__from__disposable.html", null ],
           [ "rpp::subjects::details::subject_state< Type >", "classrpp_1_1subjects_1_1details_1_1subject__state.html", null ]
         ] ],
@@ -182,6 +183,11 @@ var hierarchy =
     [ "rpp::operators::details::subscribe_t< rpp::composite_disposable_wrapper, OnNext, OnError, OnCompleted >", "classrpp_1_1operators_1_1details_1_1subscribe__t_3_01rpp_1_1composite__disposable__wrapper_00_015839511ef5aa7d547130d10313f4a820.html", null ],
     [ "rpp::operators::details::take_last_observer_strategy< TObserver >", "classrpp_1_1operators_1_1details_1_1take__last__observer__strategy.html", null ],
     [ "rpp::operators::details::take_observer_strategy< TObserver >", "structrpp_1_1operators_1_1details_1_1take__observer__strategy.html", null ],
+    [ "rpp::operators::details::take_until_observer_strategy_base< TObserver >", "structrpp_1_1operators_1_1details_1_1take__until__observer__strategy__base.html", [
+      [ "rpp::operators::details::take_until_observer_strategy< TObserver >", "structrpp_1_1operators_1_1details_1_1take__until__observer__strategy.html", null ],
+      [ "rpp::operators::details::take_until_throttle_observer_strategy< TObserver >", "structrpp_1_1operators_1_1details_1_1take__until__throttle__observer__strategy.html", null ]
+    ] ],
+    [ "rpp::operators::details::take_until_t< TObservable >", "structrpp_1_1operators_1_1details_1_1take__until__t.html", null ],
     [ "rpp::operators::details::take_while_observer_strategy< TObserver, Fn >", "structrpp_1_1operators_1_1details_1_1take__while__observer__strategy.html", null ],
     [ "rpp::operators::details::template_multicast_t< Subject >", "structrpp_1_1operators_1_1details_1_1template__multicast__t.html", null ],
     [ "rpp::operators::details::template_subscribe_strategy< Strategy, Types >", "structrpp_1_1operators_1_1details_1_1template__subscribe__strategy.html", null ],

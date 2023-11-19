@@ -9,7 +9,7 @@ var concepts =
         [ "operator_observable_transform", "conceptrpp_1_1constraint_1_1operator__observable__transform.html", null ],
         [ "operator_subscribe", "conceptrpp_1_1constraint_1_1operator__subscribe.html", null ],
         [ "operator_lift", "conceptrpp_1_1constraint_1_1operator__lift.html", null ],
-        [ "operator_lift_with_disposable", "conceptrpp_1_1constraint_1_1operator__lift__with__disposable.html", null ],
+        [ "operator_lift_with_disposable_strategy", "conceptrpp_1_1constraint_1_1operator__lift__with__disposable__strategy.html", null ],
         [ "operator_chain", "conceptrpp_1_1constraint_1_1operator__chain.html", null ],
         [ "observables_of_same_type", "conceptrpp_1_1constraint_1_1observables__of__same__type.html", null ],
         [ "observer_strategy_base", "conceptrpp_1_1constraint_1_1observer__strategy__base.html", null ],

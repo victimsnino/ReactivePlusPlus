@@ -12,7 +12,7 @@ var searchData=
   ['rpp_3a_3aconstraint_3a_3aon_5fsubscribe_9',['on_subscribe',['../conceptrpp_1_1constraint_1_1on__subscribe.html',1,'rpp::constraint']]],
   ['rpp_3a_3aconstraint_3a_3aoperator_5fchain_10',['operator_chain',['../conceptrpp_1_1constraint_1_1operator__chain.html',1,'rpp::constraint']]],
   ['rpp_3a_3aconstraint_3a_3aoperator_5flift_11',['operator_lift',['../conceptrpp_1_1constraint_1_1operator__lift.html',1,'rpp::constraint']]],
-  ['rpp_3a_3aconstraint_3a_3aoperator_5flift_5fwith_5fdisposable_12',['operator_lift_with_disposable',['../conceptrpp_1_1constraint_1_1operator__lift__with__disposable.html',1,'rpp::constraint']]],
+  ['rpp_3a_3aconstraint_3a_3aoperator_5flift_5fwith_5fdisposable_5fstrategy_12',['operator_lift_with_disposable_strategy',['../conceptrpp_1_1constraint_1_1operator__lift__with__disposable__strategy.html',1,'rpp::constraint']]],
   ['rpp_3a_3aconstraint_3a_3aoperator_5fobservable_5ftransform_13',['operator_observable_transform',['../conceptrpp_1_1constraint_1_1operator__observable__transform.html',1,'rpp::constraint']]],
   ['rpp_3a_3aconstraint_3a_3aoperator_5fsubscribe_14',['operator_subscribe',['../conceptrpp_1_1constraint_1_1operator__subscribe.html',1,'rpp::constraint']]],
   ['rpp_3a_3aconstraint_3a_3asubject_15',['subject',['../conceptrpp_1_1constraint_1_1subject.html',1,'rpp::constraint']]],

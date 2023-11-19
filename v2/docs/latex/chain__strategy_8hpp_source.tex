@@ -44,8 +44,8 @@
 \DoxyCodeLine{00040\ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::observer\_of\_type<value\_type>\ Observer>}
 \DoxyCodeLine{00041\ \ \ \ \ \textcolor{keywordtype}{void}\ subscribe(Observer\&\&\ \mbox{\hyperlink{classrpp_1_1observer}{observer}})\textcolor{keyword}{\ const}}
 \DoxyCodeLine{00042\ \textcolor{keyword}{\ \ \ \ }\{}
-\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keyword}{constexpr}\ (\mbox{\hyperlink{conceptrpp_1_1constraint_1_1operator__lift__with__disposable}{rpp::constraint::operator\_lift\_with\_disposable<TStrategy,\ typename\ base::value\_type,\ typename\ base::expected\_disposable\_strategy>}})}
-\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \ \ \ \ m\_strategies.subscribe(m\_strategy.template\ lift\_with\_disposable<typename\ base::value\_type,\ typename\ base::expected\_disposable\_strategy>(std::forward<Observer>(\mbox{\hyperlink{classrpp_1_1observer}{observer}})));}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keyword}{constexpr}\ (\mbox{\hyperlink{conceptrpp_1_1constraint_1_1operator__lift__with__disposable__strategy}{rpp::constraint::operator\_lift\_with\_disposable\_strategy<TStrategy,\ typename\ base::value\_type,\ typename\ base::expected\_disposable\_strategy>}})}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \ \ \ \ m\_strategies.subscribe(m\_strategy.template\ lift\_with\_disposable\_strategy<typename\ base::value\_type,\ typename\ base::expected\_disposable\_strategy>(std::forward<Observer>(\mbox{\hyperlink{classrpp_1_1observer}{observer}})));}
 \DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ \textcolor{keyword}{constexpr}\ (\mbox{\hyperlink{conceptrpp_1_1constraint_1_1operator__lift}{rpp::constraint::operator\_lift<TStrategy,\ typename\ base::value\_type>}})}
 \DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \ \ \ \ m\_strategies.subscribe(m\_strategy.template\ lift<typename\ base::value\_type>(std::forward<Observer>(\mbox{\hyperlink{classrpp_1_1observer}{observer}})));}
 \DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
