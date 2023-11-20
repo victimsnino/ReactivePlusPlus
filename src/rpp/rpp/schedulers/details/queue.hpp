@@ -19,6 +19,7 @@
 #include <condition_variable>
 #include <exception>
 #include <memory>
+#include <mutex>
 #include <optional>
 #include <queue>
 #include <utility>
@@ -91,13 +92,51 @@ private:
     RPP_NO_UNIQUE_ADDRESS Fn                                  m_fn;
 };
 
+template<typename Mutex>
+class optional_mutex
+{
+public:
+    optional_mutex() {}
+
+    optional_mutex(Mutex* mutex)
+        : m_mutex{mutex}
+    {
+    }
+
+    void lock() const
+    {
+        if (m_mutex)
+            m_mutex->lock();
+    }
+
+    void unlock() const
+    {
+        if (m_mutex)
+            m_mutex->unlock();
+    }
+
+private:
+    Mutex* m_mutex{};
+};
+
+struct shared_queue_data
+{
+    std::condition_variable_any cv{};
+    std::recursive_mutex        mutex{};
+};
+
 class schedulables_queue
 {
 public:
     schedulables_queue() = default;
+    schedulables_queue(const schedulables_queue&) = delete;
+    schedulables_queue(schedulables_queue&&) = default;
 
-    schedulables_queue(std::shared_ptr<std::condition_variable_any> cv)
-        : m_cv{std::move(cv)}
+    schedulables_queue& operator=(const schedulables_queue& other) = delete;
+    schedulables_queue& operator=(schedulables_queue&& other) noexcept = default;
+
+    schedulables_queue(std::shared_ptr<shared_queue_data> shared_data)
+        : m_shared_data{std::move(shared_data)}
     {
     }
 
@@ -107,8 +146,8 @@ public:
         using schedulable_type = specific_schedulable<std::decay_t<Fn>, std::decay_t<Handler>, std::decay_t<Args>...>;
 
         emplace_impl(std::make_shared<schedulable_type>(timepoint, std::forward<Fn>(fn), std::forward<Handler>(handler), std::forward<Args>(args)...));
-        if (m_cv)
-            m_cv->notify_all();
+        if (m_shared_data)
+            m_shared_data->cv.notify_all();
     }
 
     void emplace(const time_point& timepoint, std::shared_ptr<schedulable_base>&& schedulable)
@@ -118,8 +157,8 @@ public:
 
         schedulable->set_timepoint(timepoint);
         emplace_impl(std::move(schedulable));
-        if (m_cv)
-            m_cv->notify_all();
+        if (m_shared_data)
+            m_shared_data->cv.notify_all();
     }
 
     bool is_empty() const { return !m_head; }
@@ -137,6 +176,10 @@ public:
 private:
     void emplace_impl(std::shared_ptr<schedulable_base>&& schedulable)
     {
+        // needed in case of new_thread and current_thread shares same queue
+        optional_mutex<std::recursive_mutex> mutex{m_shared_data ? &m_shared_data->mutex : nullptr};
+        std::lock_guard lock{mutex};
+
         if (!m_head || schedulable->get_timepoint() < m_head->get_timepoint())
         {
             schedulable->set_next(std::move(m_head));
@@ -156,7 +199,7 @@ private:
     }
 
 private:
-    std::shared_ptr<schedulable_base>            m_head{};
-    std::shared_ptr<std::condition_variable_any> m_cv{};
+    std::shared_ptr<schedulable_base>  m_head{};
+    std::shared_ptr<shared_queue_data> m_shared_data{};
 };
 }
