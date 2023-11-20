@@ -81,11 +81,11 @@ namespace rpp::schedulers::constraint
 {
 // returns std::nullopt in case of don't need to re-schedule schedulable or some duration which will be added to "now" and re-scheduled
 template<typename Fn, typename... Args>
-concept schedulable_delay_from_now_fn = std::is_invocable_r_v<optional_delay_from_now, Fn, Args&...>;
+concept schedulable_delay_from_now_fn = std::is_invocable_r_v<optional_delay_from_now, Fn, Args&...> && std::same_as<std::invoke_result_t<Fn, Args&...>, optional_delay_from_now>;
 
 // returns std::nullopt in case of don't need to re-schedule schedulable or some duration which will be added to "now" and re-scheduled
 template<typename Fn, typename... Args>
-concept schedulable_delay_from_this_timepoint_fn = std::is_invocable_r_v<optional_delay_from_this_timepoint, Fn, Args&...>;
+concept schedulable_delay_from_this_timepoint_fn = std::is_invocable_r_v<optional_delay_from_this_timepoint, Fn, Args&...> && std::same_as<std::invoke_result_t<Fn, Args&...>, optional_delay_from_this_timepoint>;
 
 // returns std::nullopt in case of don't need to re-schedule schedulable or one of `delay_from_now` or `delay_from_this_timepoint`
 template<typename Fn, typename... Args>

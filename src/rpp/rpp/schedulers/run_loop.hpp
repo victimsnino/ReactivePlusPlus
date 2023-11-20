@@ -114,7 +114,7 @@ class run_loop final
         void defer_for(duration duration, Fn&& fn, Handler&& handler, Args&&... args) const
         {
             if (const auto shared = m_state.lock())
-                shared->emplace_and_notify(duration, std::forward<Fn>(fn), std::forward<Handler>(handler), std::forward<Args>(args)...);
+                shared->emplace_and_notify(now()+duration, std::forward<Fn>(fn), std::forward<Handler>(handler), std::forward<Args>(args)...);
         }
 
         rpp::disposable_wrapper get_disposable() const { return rpp::disposable_wrapper::from_weak(m_state); }
