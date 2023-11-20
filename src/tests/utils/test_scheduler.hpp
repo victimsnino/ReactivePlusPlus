@@ -17,6 +17,8 @@ inline rpp::schedulers::time_point s_current_time{std::chrono::seconds{10}};
 class test_scheduler final
 {
 public:
+    class worker_strategy;
+
     struct state : public rpp::details::base_disposable
     {
         state() = default;
@@ -43,11 +45,11 @@ public:
                 queue.pop();
 
                 executions.push_back(s_current_time);
-                if (auto duration = (*fn)()) 
+                if (auto new_timepoint = (*fn)()) 
                 {
                     if (!is_disposed()) 
                     {
-                        schedulings.push_back(std::max(s_current_time, s_current_time + duration.value()));
+                        schedulings.push_back(std::max(s_current_time, new_timepoint.value()));
                         queue.emplace(schedulings.back(), std::move(fn));
                     }
                 }
@@ -58,7 +60,7 @@ public:
 
         std::vector<rpp::schedulers::time_point>     schedulings{};
         std::vector<rpp::schedulers::time_point>     executions{};
-        rpp::schedulers::details::schedulables_queue queue{};
+        rpp::schedulers::details::schedulables_queue<worker_strategy> queue{};
     };
 
     class worker_strategy

@@ -76,7 +76,7 @@ private:
     {
         m_worker.schedule(
             m_period,
-            [](const debounce_disposable_wrapper<Observer, Worker, Container>& handler) -> schedulers::optional_duration {
+            [](const debounce_disposable_wrapper<Observer, Worker, Container>& handler) -> schedulers::optional_delay_from_now {
                 auto value_or_duration = handler.disposable->extract_value_or_time();
                 if (auto* duration = std::get_if<schedulers::duration>(&value_or_duration))
                     return *duration;

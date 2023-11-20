@@ -180,7 +180,7 @@ TEMPLATE_TEST_CASE("from iterable with different schedulers", "", rpp::memory_mo
             CHECK(mock.get_received_values() == std::vector{1,1,1});
             CHECK(mock.get_on_error_count() == 0);
             CHECK(mock.get_on_completed_count() == 1);
-            return rpp::schedulers::optional_duration{};
+            return rpp::schedulers::optional_delay_from_now{};
         }, mock);
 
         CHECK(mock.get_received_values() == std::vector{1,1,1,2,2,2});

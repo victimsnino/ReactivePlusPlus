@@ -31,7 +31,7 @@ TEST_CASE("main_thread_scheduler schedules actions to main thread")
         std::promise<std::thread::id> execution_thread{};
         std::thread{[&]
         {
-            rppqt::schedulers::main_thread_scheduler::create_worker().schedule([&](const auto&)->rpp::schedulers::optional_duration
+            rppqt::schedulers::main_thread_scheduler::create_worker().schedule([&](const auto&)->rpp::schedulers::optional_delay_from_now
             {
                 execution_thread.set_value(std::this_thread::get_id());
                 return {};
@@ -52,9 +52,9 @@ TEST_CASE("main_thread_scheduler schedules actions to main thread")
         std::string execution{};
         std::thread{[&]
         {
-            rppqt::schedulers::main_thread_scheduler::create_worker().schedule([&](const auto&)->rpp::schedulers::optional_duration
+            rppqt::schedulers::main_thread_scheduler::create_worker().schedule([&](const auto&)->rpp::schedulers::optional_delay_from_now
             {
-                rppqt::schedulers::main_thread_scheduler::create_worker().schedule([&](const auto&)->rpp::schedulers::optional_duration
+                rppqt::schedulers::main_thread_scheduler::create_worker().schedule([&](const auto&)->rpp::schedulers::optional_delay_from_now
                 {
                     execution += "inner ";
                     return {};
@@ -62,7 +62,7 @@ TEST_CASE("main_thread_scheduler schedules actions to main thread")
                 
                 const bool first_run = execution.empty();
                 execution += "outer ";
-                return first_run ? rpp::schedulers::optional_duration{std::chrono::nanoseconds{}} : std::nullopt;
+                return first_run ? rpp::schedulers::optional_delay_from_now{std::chrono::nanoseconds{}} : std::nullopt;
             }, observer);
         }}.join();
 

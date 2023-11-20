@@ -81,7 +81,7 @@ class new_thread
 
         struct state_t : public details::shared_queue_data
         {
-            std::atomic<details::schedulables_queue*> queue_ptr{};
+            std::atomic<details::schedulables_queue<current_thread::worker_strategy>*> queue_ptr{};
             std::atomic_bool                          is_disposed{};
             std::atomic_bool                          is_destroying{};
         };
@@ -109,7 +109,7 @@ class new_thread
                     continue;
                 }
 
-                if (current_thread::s_last_now_time < queue->top()->get_timepoint())
+                if (details::s_last_now_time < queue->top()->get_timepoint())
                 {
                     if (const auto now = worker_strategy::now(); now < queue->top()->get_timepoint())
                     {
@@ -121,11 +121,8 @@ class new_thread
                 auto top = queue->pop();
                 lock.unlock();
 
-                // we need to keep lock locked due to we have chance to use current_thread during invoking of this schedulable
-                if (const auto duration = (*top)())
-                {
-                    queue->emplace(worker_strategy::now() + duration.value(), std::move(top));
-                }
+                if (const auto timepoint = (*top)())
+                    queue->emplace(timepoint.value(), std::move(top));
             }
 
             std::unique_lock lock{state->mutex};
@@ -152,7 +149,7 @@ public:
 
         rpp::disposable_wrapper get_disposable() const { return rpp::disposable_wrapper{m_state}; }
 
-        static rpp::schedulers::time_point now() { return current_thread::worker_strategy::now(); }
+        static rpp::schedulers::time_point now() { return details::now(); }
 
     private:
         std::shared_ptr<disposable> m_state = std::make_shared<disposable>();

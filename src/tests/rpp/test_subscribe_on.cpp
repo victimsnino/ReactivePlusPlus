@@ -89,7 +89,7 @@ TEST_CASE("subscribe_on schedules job in another scheduler")
             d->dispose();
             CHECK(!executed);
             CHECK(d->is_disposed());
-            return rpp::schedulers::optional_duration{};
+            return rpp::schedulers::optional_delay_from_now{};
         }, mock);
 
         CHECK(!executed);
