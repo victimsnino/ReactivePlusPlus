@@ -200,7 +200,7 @@ TEST_CASE("Immediate scheduler")
         REQUIRE(execute_time - now >= diff);
     }
 
-    SECTION("immediate scheduler re-schedules action at provided timepoint")
+    SECTION("immediate scheduler re-schedules action at provided timepoint with duration")
     {
         std::vector<rpp::schedulers::time_point> executions{};
         std::chrono::milliseconds                diff = std::chrono::milliseconds{500};
@@ -209,6 +209,22 @@ TEST_CASE("Immediate scheduler")
                             executions.push_back(rpp::schedulers::clock_type::now());
                             if (++call_count <= 1)
                                 return rpp::schedulers::optional_delay_from_now{diff};
+                            return {};
+                        }, obs);
+
+        REQUIRE(call_count == 2);
+        REQUIRE(executions[1] - executions[0] >= (diff - std::chrono::milliseconds(100)));
+    }
+
+    SECTION("immediate scheduler re-schedules action at provided timepoint")
+    {
+        std::vector<rpp::schedulers::time_point> executions{};
+        std::chrono::milliseconds                diff = std::chrono::milliseconds{500};
+        worker.schedule([&call_count,&executions, &diff](const auto&) -> rpp::schedulers::optional_delay_to
+                        {
+                            executions.push_back(rpp::schedulers::clock_type::now());
+                            if (++call_count <= 1)
+                                return rpp::schedulers::optional_delay_to{rpp::schedulers::clock_type::now()+diff};
                             return {};
                         }, obs);
 
