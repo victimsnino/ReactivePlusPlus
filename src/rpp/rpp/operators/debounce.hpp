@@ -79,7 +79,7 @@ private:
             [](const debounce_disposable_wrapper<Observer, Worker, Container>& handler) -> schedulers::optional_delay_from_now {
                 auto value_or_duration = handler.disposable->extract_value_or_time();
                 if (auto* duration = std::get_if<schedulers::duration>(&value_or_duration))
-                    return *duration;
+                    return schedulers::optional_delay_from_now{*duration};
 
                 if (auto* value = std::get_if<T>(&value_or_duration))
                     handler.disposable->get_observer_under_lock()->on_next(std::move(*value));
