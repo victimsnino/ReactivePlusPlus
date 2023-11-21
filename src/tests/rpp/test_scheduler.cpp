@@ -882,4 +882,11 @@ TEST_CASE("different delaying strategies")
         CHECK(scheduler.get_schedulings() == std::vector{now, now + delay});
         CHECK(scheduler.get_executions() == std::vector{now});
     }
+
+    SECTION("return delay_to")
+    {
+        test(rpp::schedulers::optional_delay_to{now+delay});
+        CHECK(scheduler.get_schedulings() == std::vector{now, now + delay});
+        CHECK(scheduler.get_executions() == std::vector{now});
+    }
 }

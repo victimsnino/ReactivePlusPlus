@@ -29,7 +29,7 @@ inline bool sleep_until(const time_point timepoint)
     const auto now = clock_type::now();
     std::this_thread::sleep_for(timepoint - now);
     details::s_last_now_time = std::max(now, timepoint);
-    return true;
+    return timepoint > now;
 }
 
 /**
@@ -108,5 +108,52 @@ std::optional<time_point> immediate_scheduling_while_condition(duration         
     }
 
     return NowStrategy::now() + duration;
+}
+
+/**
+ * @brief Makes immediate-like scheduling for provided arguments
+ * @returns nullopt in case of subscription unsubscribed or schedulable doesn't requested to re-schedule, some value - in case of condition failed but still some duration to delay action
+ **/
+template<typename NowStrategy, rpp::schedulers::constraint::schedulable_handler Handler, typename... Args>
+std::optional<time_point> immediate_scheduling_while_condition(duration                                                     duration,
+                                                               const std::predicate auto&                                   condition,
+                                                               constraint::schedulable_delay_to_fn<Handler, Args...> auto&& fn,
+                                                               Handler&&                                                    handler,
+                                                               Args&&... args) noexcept
+{
+    std::optional<time_point> timepoint{};
+    while (condition())
+    {
+        if (handler.is_disposed())
+            return std::nullopt;
+
+        if (!timepoint.has_value())
+        {
+            if (duration > duration::zero())
+            {
+                std::this_thread::sleep_for(duration);
+
+                if (handler.is_disposed())
+                    return std::nullopt;
+            }
+        }
+        else if (sleep_until(timepoint.value()) && handler.is_disposed())
+            return std::nullopt;
+
+        try
+        {
+            if (const auto new_timepoint = fn(handler, args...))
+                timepoint = new_timepoint->value;
+            else
+                return std::nullopt;
+        }
+        catch (...)
+        {
+            handler.on_error(std::current_exception());
+            return std::nullopt;
+        }
+    }
+
+    return timepoint;
 }
 } // namespace rpp::schedulers::details

@@ -83,6 +83,10 @@ public:
                 {
                     return NowStrategy::now() + res->value;
                 }
+                else if constexpr (constraint::schedulable_delay_to_fn<Fn, Handler, Args...>)
+                {
+                    return res->value;
+                }
                 else
                 {
                     static_assert(constraint::schedulable_delay_from_this_timepoint_fn<Fn, Handler, Args...>);

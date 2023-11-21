@@ -61,8 +61,21 @@ struct delay_from_this_timepoint
     duration value;
 };
 
+/**
+ * @brief Provide timepoint of next execution explicitly
+ */
+struct delay_to
+{
+    explicit delay_to(time_point timepoint = {})
+    : value{timepoint}
+    {}
+    
+    time_point value;
+};
+
 using optional_delay_from_now = std::optional<delay_from_now>;
 using optional_delay_from_this_timepoint = std::optional<delay_from_this_timepoint>;
+using optional_delay_to = std::optional<delay_to>;
 }
 
 namespace rpp::schedulers::details
@@ -87,9 +100,13 @@ concept schedulable_delay_from_now_fn = std::is_invocable_r_v<optional_delay_fro
 template<typename Fn, typename... Args>
 concept schedulable_delay_from_this_timepoint_fn = std::is_invocable_r_v<optional_delay_from_this_timepoint, Fn, Args&...> && std::same_as<std::invoke_result_t<Fn, Args&...>, optional_delay_from_this_timepoint>;
 
+// returns std::nullopt in case of don't need to re-schedule schedulable or some duration which will be added to "now" and re-scheduled
+template<typename Fn, typename... Args>
+concept schedulable_delay_to_fn = std::is_invocable_r_v<optional_delay_to, Fn, Args&...> && std::same_as<std::invoke_result_t<Fn, Args&...>, optional_delay_to>;
+
 // returns std::nullopt in case of don't need to re-schedule schedulable or one of `delay_from_now` or `delay_from_this_timepoint`
 template<typename Fn, typename... Args>
-concept schedulable_fn = schedulable_delay_from_now_fn<Fn, Args...> || schedulable_delay_from_this_timepoint_fn<Fn, Args...>;
+concept schedulable_fn = schedulable_delay_from_now_fn<Fn, Args...> || schedulable_delay_from_this_timepoint_fn<Fn, Args...> || schedulable_delay_to_fn<Fn, Args...>;
 
 template<typename Handler>
 concept schedulable_handler = requires(const Handler& handler)
@@ -103,6 +120,7 @@ concept strategy = requires(const S& s, const details::fake_schedulable_handler&
 {
     {s.defer_for(duration{}, std::declval<optional_delay_from_now(*)(const details::fake_schedulable_handler&)>(), handler)} -> std::same_as<void>;
     {s.defer_for(duration{}, std::declval<optional_delay_from_this_timepoint(*)(const details::fake_schedulable_handler&)>(), handler)} -> std::same_as<void>;
+    {s.defer_for(duration{}, std::declval<optional_delay_to(*)(const details::fake_schedulable_handler&)>(), handler)} -> std::same_as<void>;
     {s.get_disposable()} -> rpp::constraint::any_of<rpp::disposable_wrapper, details::none_disposable>;
     {S::now()} -> std::same_as<rpp::schedulers::time_point>;
 };

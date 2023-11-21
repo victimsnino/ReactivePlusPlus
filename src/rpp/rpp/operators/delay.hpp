@@ -110,7 +110,7 @@ private:
         {
             disposable->worker.schedule(
                 delay.value(),
-                [](const delay_disposable_wrapper<Observer, Worker, Container>& wrapper) -> schedulers::optional_delay_from_now { return drain_queue(wrapper.disposable); },
+                [](const delay_disposable_wrapper<Observer, Worker, Container>& wrapper) { return drain_queue(wrapper.disposable); },
                 delay_disposable_wrapper<Observer, Worker, Container>{disposable});
         }
     }
@@ -137,7 +137,7 @@ private:
         }
     }
 
-    static schedulers::optional_delay_from_now drain_queue(const std::shared_ptr<delay_disposable<Observer, Worker, Container>>& disposable)
+    static schedulers::optional_delay_to drain_queue(const std::shared_ptr<delay_disposable<Observer, Worker, Container>>& disposable)
     {
         while (true)
         {
@@ -149,9 +149,8 @@ private:
             }
 
             auto&      top = disposable->queue.front();
-            const auto now = disposable->worker.now();
-            if (top.time_point > now)
-                return schedulers::optional_delay_from_now{top.time_point - now};
+            if (top.time_point > disposable->worker.now())
+                return schedulers::optional_delay_to{top.time_point};
 
             auto item = std::move(top.value);
             disposable->queue.pop();
