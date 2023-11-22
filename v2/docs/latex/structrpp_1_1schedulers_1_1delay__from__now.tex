@@ -1,0 +1,39 @@
+\doxysection{rpp\+::schedulers\+::delay\+\_\+from\+\_\+now Struct Reference}
+\hypertarget{structrpp_1_1schedulers_1_1delay__from__now}{}\label{structrpp_1_1schedulers_1_1delay__from__now}\index{rpp::schedulers::delay\_from\_now@{rpp::schedulers::delay\_from\_now}}
+
+
+Timepoint of next execution would be calculcated from NOW timpoint (time of returning from schedulable)  
+
+
+
+
+{\ttfamily \#include $<$fwd.\+hpp$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{structrpp_1_1schedulers_1_1delay__from__now_aac5729822f6e2ff3b3bf7d4559cc8dac}\label{structrpp_1_1schedulers_1_1delay__from__now_aac5729822f6e2ff3b3bf7d4559cc8dac} 
+{\bfseries delay\+\_\+from\+\_\+now} (duration duration=\{\})
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{structrpp_1_1schedulers_1_1delay__from__now_a77537ba26c388512fad417a97be1814e}\label{structrpp_1_1schedulers_1_1delay__from__now_a77537ba26c388512fad417a97be1814e} 
+duration {\bfseries value}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Timepoint of next execution would be calculcated from NOW timpoint (time of returning from schedulable) 
+
+Implementation looks like this 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ duration\_from\_now\ =\ schedulable();}
+\DoxyCodeLine{schedule(now()\ +\ duration\_from\_now,\ schedulable);}
+
+\end{DoxyCode}
+ 
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/rpp/rpp/schedulers/fwd.\+hpp\end{DoxyCompactItemize}

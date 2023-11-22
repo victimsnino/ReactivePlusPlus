@@ -43,6 +43,9 @@ var concepts =
       ] ],
       [ "schedulers", null, [
         [ "constraint", null, [
+          [ "schedulable_delay_from_now_fn", "conceptrpp_1_1schedulers_1_1constraint_1_1schedulable__delay__from__now__fn.html", null ],
+          [ "schedulable_delay_from_this_timepoint_fn", "conceptrpp_1_1schedulers_1_1constraint_1_1schedulable__delay__from__this__timepoint__fn.html", null ],
+          [ "schedulable_delay_to_fn", "conceptrpp_1_1schedulers_1_1constraint_1_1schedulable__delay__to__fn.html", null ],
           [ "schedulable_fn", "conceptrpp_1_1schedulers_1_1constraint_1_1schedulable__fn.html", null ],
           [ "schedulable_handler", "conceptrpp_1_1schedulers_1_1constraint_1_1schedulable__handler.html", null ],
           [ "strategy", "conceptrpp_1_1schedulers_1_1constraint_1_1strategy.html", null ],

@@ -127,10 +127,10 @@ $(document).ready(function(){initNavTree('subscribe__on_8hpp_source.html',''); i
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    <span class="keyword">using </span>Type = <span class="keyword">typename</span> TObservableChainStrategy::value_type;</div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    <span class="keyword">template</span>&lt;rpp::constra<span class="keywordtype">int</span>::observer_strategy&lt;Type&gt; ObserverStrategy&gt;</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    rpp::schedulers::optional_duration operator()(<a class="code hl_class" href="classrpp_1_1observer.html">observer&lt;Type, ObserverStrategy&gt;</a>&amp; <a class="code hl_class" href="classrpp_1_1observer.html">observer</a>)<span class="keyword"> const</span></div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    rpp::schedulers::optional_delay_from_now operator()(<a class="code hl_class" href="classrpp_1_1observer.html">observer&lt;Type, ObserverStrategy&gt;</a>&amp; <a class="code hl_class" href="classrpp_1_1observer.html">observer</a>)<span class="keyword"> const</span></div>
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="keyword">    </span>{</div>
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>        <a class="code hl_class" href="classrpp_1_1observable.html">observable</a>.<a class="code hl_function" href="classrpp_1_1observable.html#a193b0e08c516912c04afd8379ec27182">subscribe</a>(std::move(<a class="code hl_class" href="classrpp_1_1observer.html">observer</a>));</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>        <span class="keywordflow">return</span> rpp::schedulers::optional_duration{};</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>        <span class="keywordflow">return</span> rpp::schedulers::optional_delay_from_now{};</div>
 <div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    }</div>
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>};</div>
 </div>

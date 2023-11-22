@@ -9,5 +9,6 @@ var searchData=
   ['observer_5fimpl_3c_20type_2c_20rpp_3a_3adetails_3a_3aobservers_3a_3adynamic_5fstrategy_3c_20type_20_3e_2c_20details_3a_3aobservers_3a_3anone_5fdisposable_5fstrategy_20_3e_6',['observer_impl&lt; Type, rpp::details::observers::dynamic_strategy&lt; Type &gt;, details::observers::none_disposable_strategy &gt;',['../classrpp_1_1details_1_1observer__impl.html',1,'rpp::details']]],
   ['observer_5fimpl_3c_20type_2c_20strategy_2c_20details_3a_3aobservers_3a_3adeduce_5fdisposable_5fstrategy_5ft_3c_20strategy_20_3e_20_3e_7',['observer_impl&lt; Type, Strategy, details::observers::deduce_disposable_strategy_t&lt; Strategy &gt; &gt;',['../classrpp_1_1details_1_1observer__impl.html',1,'rpp::details']]],
   ['observer_5fimpl_3c_20type_2c_20strategy_2c_20disposablestrategy_20_3e_8',['observer_impl&lt; Type, Strategy, DisposableStrategy &gt;',['../classrpp_1_1details_1_1observer__impl.html',1,'rpp::details']]],
-  ['operator_5fobservable_5fstrategy_5fbase_9',['operator_observable_strategy_base',['../classrpp_1_1operators_1_1details_1_1operator__observable__strategy__base.html',1,'rpp::operators::details']]]
+  ['operator_5fobservable_5fstrategy_5fbase_9',['operator_observable_strategy_base',['../classrpp_1_1operators_1_1details_1_1operator__observable__strategy__base.html',1,'rpp::operators::details']]],
+  ['optional_5fmutex_10',['optional_mutex',['../classrpp_1_1schedulers_1_1details_1_1optional__mutex.html',1,'rpp::schedulers::details']]]
 ];

@@ -39,20 +39,20 @@ immediately calls provided schedulable or waits for time\+\_\+point (in the call
 \DoxyCodeLine{\ \ \ \ \ \ \ \ worker.schedule([](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&)}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \{}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Task\ 4"{}}\ <<\ std::endl;}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ rpp::schedulers::optional\_duration\{\};}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ rpp::schedulers::optional\_delay\_from\_now\{\};}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \},\ handler);}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Task\ 2\ ends"{}}\ <<\ std::endl;}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ rpp::schedulers::optional\_duration\{\};}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ rpp::schedulers::optional\_delay\_from\_now\{\};}
 \DoxyCodeLine{\ \ \ \ \},\ handler);}
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ \ \ worker.schedule([](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&)}
 \DoxyCodeLine{\ \ \ \ \{}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Task\ 3"{}}\ <<\ std::endl;}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ rpp::schedulers::optional\_duration\{\};}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ rpp::schedulers::optional\_delay\_from\_now\{\};}
 \DoxyCodeLine{\ \ \ \ \},\ handler);}
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Task\ 1\ ends"{}}\ <<\ std::endl;}
-\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{return}\ rpp::schedulers::optional\_duration\{\};}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{return}\ rpp::schedulers::optional\_delay\_from\_now\{\};}
 \DoxyCodeLine{\},\ handler);}
 
 \end{DoxyCode}

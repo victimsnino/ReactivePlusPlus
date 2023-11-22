@@ -156,11 +156,16 @@ var annotated_dup =
         [ "details", null, [
           [ "fake_schedulable_handler", "structrpp_1_1schedulers_1_1details_1_1fake__schedulable__handler.html", null ],
           [ "none_disposable", "structrpp_1_1schedulers_1_1details_1_1none__disposable.html", null ],
+          [ "optional_mutex", "classrpp_1_1schedulers_1_1details_1_1optional__mutex.html", null ],
           [ "schedulable_base", "classrpp_1_1schedulers_1_1details_1_1schedulable__base.html", null ],
           [ "schedulables_queue", "classrpp_1_1schedulers_1_1details_1_1schedulables__queue.html", null ],
+          [ "shared_queue_data", "structrpp_1_1schedulers_1_1details_1_1shared__queue__data.html", null ],
           [ "specific_schedulable", "classrpp_1_1schedulers_1_1details_1_1specific__schedulable.html", null ]
         ] ],
-        [ "current_thread", "classrpp_1_1schedulers_1_1current__thread.html", "classrpp_1_1schedulers_1_1current__thread" ],
+        [ "current_thread", "classrpp_1_1schedulers_1_1current__thread.html", null ],
+        [ "delay_from_now", "structrpp_1_1schedulers_1_1delay__from__now.html", null ],
+        [ "delay_from_this_timepoint", "structrpp_1_1schedulers_1_1delay__from__this__timepoint.html", null ],
+        [ "delay_to", "structrpp_1_1schedulers_1_1delay__to.html", null ],
         [ "immediate", "classrpp_1_1schedulers_1_1immediate.html", "classrpp_1_1schedulers_1_1immediate" ],
         [ "new_thread", "classrpp_1_1schedulers_1_1new__thread.html", "classrpp_1_1schedulers_1_1new__thread" ],
         [ "run_loop", "classrpp_1_1schedulers_1_1run__loop.html", null ],

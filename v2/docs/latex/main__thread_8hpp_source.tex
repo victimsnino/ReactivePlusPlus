@@ -41,7 +41,7 @@
 \DoxyCodeLine{00041\ }
 \DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \ \ \ \ QTimer::singleShot(std::chrono::duration\_cast<std::chrono::milliseconds>(duration),\ application,\ [fn\ =\ std::forward<Fn>(fn),\ handler\ =\ std::forward<Handler>(handler),\ ...\ args\ =\ std::forward<Args>(args)]()\ \textcolor{keyword}{mutable}\ \{}
 \DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ new\_duration\ =\ fn(handler,\ args...))}
-\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ defer\_for(new\_duration.value(),\ std::move(fn),\ std::move(handler),\ std::move(args)...);}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ defer\_for(new\_duration-\/>value,\ std::move(fn),\ std::move(handler),\ std::move(args)...);}
 \DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \ \ \ \ \});}
 \DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{00047\ }

@@ -1,6 +1,6 @@
-\doxysection{rpp\+::schedulers\+::details\+::specific\+\_\+schedulable\texorpdfstring{$<$}{<} Fn, Handler, Args \texorpdfstring{$>$}{>} Class Template Reference}
-\hypertarget{classrpp_1_1schedulers_1_1details_1_1specific__schedulable}{}\label{classrpp_1_1schedulers_1_1details_1_1specific__schedulable}\index{rpp::schedulers::details::specific\_schedulable$<$ Fn, Handler, Args $>$@{rpp::schedulers::details::specific\_schedulable$<$ Fn, Handler, Args $>$}}
-Inheritance diagram for rpp\+::schedulers\+::details\+::specific\+\_\+schedulable\texorpdfstring{$<$}{<} Fn, Handler, Args \texorpdfstring{$>$}{>}\+:\begin{figure}[H]
+\doxysection{rpp\+::schedulers\+::details\+::specific\+\_\+schedulable\texorpdfstring{$<$}{<} Now\+Strategy, Fn, Handler, Args \texorpdfstring{$>$}{>} Class Template Reference}
+\hypertarget{classrpp_1_1schedulers_1_1details_1_1specific__schedulable}{}\label{classrpp_1_1schedulers_1_1details_1_1specific__schedulable}\index{rpp::schedulers::details::specific\_schedulable$<$ NowStrategy, Fn, Handler, Args $>$@{rpp::schedulers::details::specific\_schedulable$<$ NowStrategy, Fn, Handler, Args $>$}}
+Inheritance diagram for rpp\+::schedulers\+::details\+::specific\+\_\+schedulable\texorpdfstring{$<$}{<} Now\+Strategy, Fn, Handler, Args \texorpdfstring{$>$}{>}\+:\begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[height=2.000000cm]{classrpp_1_1schedulers_1_1details_1_1specific__schedulable}
@@ -9,12 +9,12 @@ Inheritance diagram for rpp\+::schedulers\+::details\+::specific\+\_\+schedulabl
 \doxysubsubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\Hypertarget{classrpp_1_1schedulers_1_1details_1_1specific__schedulable_a75e165f9e1d34f4523c31a69d65bfdef}\label{classrpp_1_1schedulers_1_1details_1_1specific__schedulable_a75e165f9e1d34f4523c31a69d65bfdef} 
+\Hypertarget{classrpp_1_1schedulers_1_1details_1_1specific__schedulable_a87fe3de3aa35134c6bef6cfd459780a8}\label{classrpp_1_1schedulers_1_1details_1_1specific__schedulable_a87fe3de3aa35134c6bef6cfd459780a8} 
 {\footnotesize template$<$rpp\+::constraint\+::decayed\+\_\+same\+\_\+as$<$ Fn $>$ TFn, typename... TArgs$>$ }\\{\bfseries specific\+\_\+schedulable} (const time\+\_\+point \&time\+\_\+point, TFn \&\&in\+\_\+fn, TArgs \&\&... in\+\_\+args)
 \item 
-optional\+\_\+duration \mbox{\hyperlink{classrpp_1_1schedulers_1_1details_1_1specific__schedulable_a6e8efb65750c1203652b401ecdffbab7}{operator()}} () noexcept override
+std\+::optional$<$ time\+\_\+point $>$ \mbox{\hyperlink{classrpp_1_1schedulers_1_1details_1_1specific__schedulable_abfba05156381f19b8000401fc8784cd4}{operator()}} () noexcept override
 \item 
-bool \mbox{\hyperlink{classrpp_1_1schedulers_1_1details_1_1specific__schedulable_a7ad5bcb6a63ac746c98c7ca180fd13f0}{is\+\_\+disposed}} () const noexcept override
+bool \mbox{\hyperlink{classrpp_1_1schedulers_1_1details_1_1specific__schedulable_acef6e47e1188fb1bd4ffdd08556732be}{is\+\_\+disposed}} () const noexcept override
 \end{DoxyCompactItemize}
 \doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classrpp_1_1schedulers_1_1details_1_1schedulable__base}{rpp\+::schedulers\+::details\+::schedulable\+\_\+base}}}
 \begin{DoxyCompactItemize}
@@ -34,23 +34,23 @@ void {\bfseries update\+\_\+next} (std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{cl
 
 
 \doxysubsection{Member Function Documentation}
-\Hypertarget{classrpp_1_1schedulers_1_1details_1_1specific__schedulable_a7ad5bcb6a63ac746c98c7ca180fd13f0}\label{classrpp_1_1schedulers_1_1details_1_1specific__schedulable_a7ad5bcb6a63ac746c98c7ca180fd13f0} 
-\index{rpp::schedulers::details::specific\_schedulable$<$ Fn, Handler, Args $>$@{rpp::schedulers::details::specific\_schedulable$<$ Fn, Handler, Args $>$}!is\_disposed@{is\_disposed}}
-\index{is\_disposed@{is\_disposed}!rpp::schedulers::details::specific\_schedulable$<$ Fn, Handler, Args $>$@{rpp::schedulers::details::specific\_schedulable$<$ Fn, Handler, Args $>$}}
+\Hypertarget{classrpp_1_1schedulers_1_1details_1_1specific__schedulable_acef6e47e1188fb1bd4ffdd08556732be}\label{classrpp_1_1schedulers_1_1details_1_1specific__schedulable_acef6e47e1188fb1bd4ffdd08556732be} 
+\index{rpp::schedulers::details::specific\_schedulable$<$ NowStrategy, Fn, Handler, Args $>$@{rpp::schedulers::details::specific\_schedulable$<$ NowStrategy, Fn, Handler, Args $>$}!is\_disposed@{is\_disposed}}
+\index{is\_disposed@{is\_disposed}!rpp::schedulers::details::specific\_schedulable$<$ NowStrategy, Fn, Handler, Args $>$@{rpp::schedulers::details::specific\_schedulable$<$ NowStrategy, Fn, Handler, Args $>$}}
 \doxysubsubsection{\texorpdfstring{is\_disposed()}{is\_disposed()}}
-{\footnotesize\ttfamily template$<$rpp\+::constraint\+::decayed\+\_\+type Fn, \mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1schedulable__handler}{rpp\+::schedulers\+::constraint\+::schedulable\+\_\+handler}} Handler, rpp\+::constraint\+::decayed\+\_\+type... Args$>$ \\
-bool \mbox{\hyperlink{classrpp_1_1schedulers_1_1details_1_1specific__schedulable}{rpp\+::schedulers\+::details\+::specific\+\_\+schedulable}}$<$ Fn, Handler, Args $>$\+::is\+\_\+disposed (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}, {\ttfamily [noexcept]}}
+{\footnotesize\ttfamily template$<$typename Now\+Strategy , rpp\+::constraint\+::decayed\+\_\+type Fn, \mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1schedulable__handler}{rpp\+::schedulers\+::constraint\+::schedulable\+\_\+handler}} Handler, rpp\+::constraint\+::decayed\+\_\+type... Args$>$ \\
+bool \mbox{\hyperlink{classrpp_1_1schedulers_1_1details_1_1specific__schedulable}{rpp\+::schedulers\+::details\+::specific\+\_\+schedulable}}$<$ Now\+Strategy, Fn, Handler, Args $>$\+::is\+\_\+disposed (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}, {\ttfamily [noexcept]}}
 
 
 
 Implements \mbox{\hyperlink{classrpp_1_1schedulers_1_1details_1_1schedulable__base}{rpp\+::schedulers\+::details\+::schedulable\+\_\+base}}.
 
-\Hypertarget{classrpp_1_1schedulers_1_1details_1_1specific__schedulable_a6e8efb65750c1203652b401ecdffbab7}\label{classrpp_1_1schedulers_1_1details_1_1specific__schedulable_a6e8efb65750c1203652b401ecdffbab7} 
-\index{rpp::schedulers::details::specific\_schedulable$<$ Fn, Handler, Args $>$@{rpp::schedulers::details::specific\_schedulable$<$ Fn, Handler, Args $>$}!operator()@{operator()}}
-\index{operator()@{operator()}!rpp::schedulers::details::specific\_schedulable$<$ Fn, Handler, Args $>$@{rpp::schedulers::details::specific\_schedulable$<$ Fn, Handler, Args $>$}}
+\Hypertarget{classrpp_1_1schedulers_1_1details_1_1specific__schedulable_abfba05156381f19b8000401fc8784cd4}\label{classrpp_1_1schedulers_1_1details_1_1specific__schedulable_abfba05156381f19b8000401fc8784cd4} 
+\index{rpp::schedulers::details::specific\_schedulable$<$ NowStrategy, Fn, Handler, Args $>$@{rpp::schedulers::details::specific\_schedulable$<$ NowStrategy, Fn, Handler, Args $>$}!operator()@{operator()}}
+\index{operator()@{operator()}!rpp::schedulers::details::specific\_schedulable$<$ NowStrategy, Fn, Handler, Args $>$@{rpp::schedulers::details::specific\_schedulable$<$ NowStrategy, Fn, Handler, Args $>$}}
 \doxysubsubsection{\texorpdfstring{operator()()}{operator()()}}
-{\footnotesize\ttfamily template$<$rpp\+::constraint\+::decayed\+\_\+type Fn, \mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1schedulable__handler}{rpp\+::schedulers\+::constraint\+::schedulable\+\_\+handler}} Handler, rpp\+::constraint\+::decayed\+\_\+type... Args$>$ \\
-optional\+\_\+duration \mbox{\hyperlink{classrpp_1_1schedulers_1_1details_1_1specific__schedulable}{rpp\+::schedulers\+::details\+::specific\+\_\+schedulable}}$<$ Fn, Handler, Args $>$\+::operator() (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}, {\ttfamily [noexcept]}}
+{\footnotesize\ttfamily template$<$typename Now\+Strategy , rpp\+::constraint\+::decayed\+\_\+type Fn, \mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1schedulable__handler}{rpp\+::schedulers\+::constraint\+::schedulable\+\_\+handler}} Handler, rpp\+::constraint\+::decayed\+\_\+type... Args$>$ \\
+std\+::optional$<$ time\+\_\+point $>$ \mbox{\hyperlink{classrpp_1_1schedulers_1_1details_1_1specific__schedulable}{rpp\+::schedulers\+::details\+::specific\+\_\+schedulable}}$<$ Now\+Strategy, Fn, Handler, Args $>$\+::operator() (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}, {\ttfamily [noexcept]}}
 
 
 

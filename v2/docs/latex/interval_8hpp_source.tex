@@ -22,10 +22,10 @@
 \DoxyCodeLine{00018\ \{}
 \DoxyCodeLine{00019\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1details_1_1interval__schedulable}{interval\_schedulable}}}
 \DoxyCodeLine{00020\ \{}
-\DoxyCodeLine{00021\ \ \ \ \ rpp::schedulers::optional\_duration\ operator()(\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ \mbox{\hyperlink{classrpp_1_1observer}{observer}},\ rpp::schedulers::duration\ period,\ \textcolor{keywordtype}{size\_t}\&\ counter)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00021\ \ \ \ \ rpp::schedulers::optional\_delay\_from\_this\_timepoint\ operator()(\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ \mbox{\hyperlink{classrpp_1_1observer}{observer}},\ rpp::schedulers::duration\ period,\ \textcolor{keywordtype}{size\_t}\&\ counter)\textcolor{keyword}{\ const}}
 \DoxyCodeLine{00022\ \textcolor{keyword}{\ \ \ \ }\{}
 \DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrpp_1_1observer}{observer}}.\mbox{\hyperlink{classrpp_1_1details_1_1observer__impl_a14747a5260ecc183a6d0f1adafee4f68}{on\_next}}(counter++);}
-\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ period;}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ rpp::schedulers::optional\_delay\_from\_this\_timepoint\{period\};}
 \DoxyCodeLine{00025\ \ \ \ \ \}}
 \DoxyCodeLine{00026\ \};}
 \DoxyCodeLine{00027\ }

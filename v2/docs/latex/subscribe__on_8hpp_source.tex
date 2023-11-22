@@ -29,10 +29,10 @@
 \DoxyCodeLine{00025\ \ \ \ \ \textcolor{keyword}{using\ }Type\ =\ \textcolor{keyword}{typename}\ TObservableChainStrategy::value\_type;}
 \DoxyCodeLine{00026\ }
 \DoxyCodeLine{00027\ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::observer\_strategy<Type>\ ObserverStrategy>}
-\DoxyCodeLine{00028\ \ \ \ \ rpp::schedulers::optional\_duration\ operator()(\mbox{\hyperlink{classrpp_1_1observer}{observer<Type,\ ObserverStrategy>}}\&\ \mbox{\hyperlink{classrpp_1_1observer}{observer}})\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00028\ \ \ \ \ rpp::schedulers::optional\_delay\_from\_now\ operator()(\mbox{\hyperlink{classrpp_1_1observer}{observer<Type,\ ObserverStrategy>}}\&\ \mbox{\hyperlink{classrpp_1_1observer}{observer}})\textcolor{keyword}{\ const}}
 \DoxyCodeLine{00029\ \textcolor{keyword}{\ \ \ \ }\{}
 \DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrpp_1_1observable}{observable}}.\mbox{\hyperlink{classrpp_1_1observable_a193b0e08c516912c04afd8379ec27182}{subscribe}}(std::move(\mbox{\hyperlink{classrpp_1_1observer}{observer}}));}
-\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ rpp::schedulers::optional\_duration\{\};}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ rpp::schedulers::optional\_delay\_from\_now\{\};}
 \DoxyCodeLine{00032\ \ \ \ \ \}}
 \DoxyCodeLine{00033\ \};}
 \DoxyCodeLine{00034\ }

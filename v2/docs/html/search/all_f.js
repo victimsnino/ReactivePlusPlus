@@ -34,12 +34,15 @@ var searchData=
   ['rpp_3a_3adetails_3a_3aobservables_3a_3aconstraint_3a_3adisposable_5fstrategy_31',['disposable_strategy',['../conceptrpp_1_1details_1_1observables_1_1constraint_1_1disposable__strategy.html',1,'rpp::details::observables::constraint']]],
   ['rpp_3a_3adetails_3a_3aobservers_3a_3aconstraint_3a_3adisposable_5fstrategy_32',['disposable_strategy',['../conceptrpp_1_1details_1_1observers_1_1constraint_1_1disposable__strategy.html',1,'rpp::details::observers::constraint']]],
   ['rpp_3a_3aoperators_3a_3adetails_3a_3aon_5fnext_5flike_33',['on_next_like',['../conceptrpp_1_1operators_1_1details_1_1on__next__like.html',1,'rpp::operators::details']]],
-  ['rpp_3a_3aschedulers_3a_3aconstraint_3a_3aschedulable_5ffn_34',['schedulable_fn',['../conceptrpp_1_1schedulers_1_1constraint_1_1schedulable__fn.html',1,'rpp::schedulers::constraint']]],
-  ['rpp_3a_3aschedulers_3a_3aconstraint_3a_3aschedulable_5fhandler_35',['schedulable_handler',['../conceptrpp_1_1schedulers_1_1constraint_1_1schedulable__handler.html',1,'rpp::schedulers::constraint']]],
-  ['rpp_3a_3aschedulers_3a_3aconstraint_3a_3ascheduler_36',['scheduler',['../conceptrpp_1_1schedulers_1_1constraint_1_1scheduler.html',1,'rpp::schedulers::constraint']]],
-  ['rpp_3a_3aschedulers_3a_3aconstraint_3a_3astrategy_37',['strategy',['../conceptrpp_1_1schedulers_1_1constraint_1_1strategy.html',1,'rpp::schedulers::constraint']]],
-  ['rpp_3a_3aschedulers_3a_3aconstraint_3a_3aworker_38',['worker',['../conceptrpp_1_1schedulers_1_1constraint_1_1worker.html',1,'rpp::schedulers::constraint']]],
-  ['rpp_3a_3asubjects_3a_3adetails_3a_3aconstraint_3a_3asubject_5fstrategy_39',['subject_strategy',['../conceptrpp_1_1subjects_1_1details_1_1constraint_1_1subject__strategy.html',1,'rpp::subjects::details::constraint']]],
-  ['rppqt_40',['RPPQT',['../group__rppqt.html',1,'']]],
-  ['run_5floop_41',['run_loop',['../classrpp_1_1schedulers_1_1run__loop.html',1,'rpp::schedulers']]]
+  ['rpp_3a_3aschedulers_3a_3aconstraint_3a_3aschedulable_5fdelay_5ffrom_5fnow_5ffn_34',['schedulable_delay_from_now_fn',['../conceptrpp_1_1schedulers_1_1constraint_1_1schedulable__delay__from__now__fn.html',1,'rpp::schedulers::constraint']]],
+  ['rpp_3a_3aschedulers_3a_3aconstraint_3a_3aschedulable_5fdelay_5ffrom_5fthis_5ftimepoint_5ffn_35',['schedulable_delay_from_this_timepoint_fn',['../conceptrpp_1_1schedulers_1_1constraint_1_1schedulable__delay__from__this__timepoint__fn.html',1,'rpp::schedulers::constraint']]],
+  ['rpp_3a_3aschedulers_3a_3aconstraint_3a_3aschedulable_5fdelay_5fto_5ffn_36',['schedulable_delay_to_fn',['../conceptrpp_1_1schedulers_1_1constraint_1_1schedulable__delay__to__fn.html',1,'rpp::schedulers::constraint']]],
+  ['rpp_3a_3aschedulers_3a_3aconstraint_3a_3aschedulable_5ffn_37',['schedulable_fn',['../conceptrpp_1_1schedulers_1_1constraint_1_1schedulable__fn.html',1,'rpp::schedulers::constraint']]],
+  ['rpp_3a_3aschedulers_3a_3aconstraint_3a_3aschedulable_5fhandler_38',['schedulable_handler',['../conceptrpp_1_1schedulers_1_1constraint_1_1schedulable__handler.html',1,'rpp::schedulers::constraint']]],
+  ['rpp_3a_3aschedulers_3a_3aconstraint_3a_3ascheduler_39',['scheduler',['../conceptrpp_1_1schedulers_1_1constraint_1_1scheduler.html',1,'rpp::schedulers::constraint']]],
+  ['rpp_3a_3aschedulers_3a_3aconstraint_3a_3astrategy_40',['strategy',['../conceptrpp_1_1schedulers_1_1constraint_1_1strategy.html',1,'rpp::schedulers::constraint']]],
+  ['rpp_3a_3aschedulers_3a_3aconstraint_3a_3aworker_41',['worker',['../conceptrpp_1_1schedulers_1_1constraint_1_1worker.html',1,'rpp::schedulers::constraint']]],
+  ['rpp_3a_3asubjects_3a_3adetails_3a_3aconstraint_3a_3asubject_5fstrategy_42',['subject_strategy',['../conceptrpp_1_1subjects_1_1details_1_1constraint_1_1subject__strategy.html',1,'rpp::subjects::details::constraint']]],
+  ['rppqt_43',['RPPQT',['../group__rppqt.html',1,'']]],
+  ['run_5floop_44',['run_loop',['../classrpp_1_1schedulers_1_1run__loop.html',1,'rpp::schedulers']]]
 ];

@@ -1,5 +1,8 @@
 var NAVTREEINDEX1 =
 {
+"group__transforming__operators.html#gaced4a6e7bc0556b40b07d7efd97d7ee3":[1,0,3,0,4],
+"group__transforming__operators.html#gad34415b9aeed2ad2446e7d54b6a4081c":[1,0,3,0,5],
+"group__utility__operators.html":[1,0,3,4],
 "group__utility__operators.html#ga0cfd908889bdd68eff60f3342c89f500":[1,0,3,4,4],
 "group__utility__operators.html#ga22f3148defcabdd1935e201103644f4b":[1,0,3,4,5],
 "group__utility__operators.html#ga3feb1b1258c7e3e72c151abf176c30c4":[1,0,3,4,3],
@@ -193,8 +196,12 @@ var NAVTREEINDEX1 =
 "structrpp_1_1operators_1_1details_1_1with__latest__from__t.html":[3,0,0,2,0,88],
 "structrpp_1_1schedulers_1_1constraint_1_1details_1_1is__worker.html":[3,0,0,3,0,0,0],
 "structrpp_1_1schedulers_1_1constraint_1_1details_1_1is__worker_3_01rpp_1_1schedulers_1_1worker_3_01_strategy_01_4_01_4.html":[3,0,0,3,0,0,1],
+"structrpp_1_1schedulers_1_1delay__from__now.html":[3,0,0,3,3],
+"structrpp_1_1schedulers_1_1delay__from__this__timepoint.html":[3,0,0,3,4],
+"structrpp_1_1schedulers_1_1delay__to.html":[3,0,0,3,5],
 "structrpp_1_1schedulers_1_1details_1_1fake__schedulable__handler.html":[3,0,0,3,1,0],
 "structrpp_1_1schedulers_1_1details_1_1none__disposable.html":[3,0,0,3,1,1],
+"structrpp_1_1schedulers_1_1details_1_1shared__queue__data.html":[3,0,0,3,1,5],
 "structrpp_1_1subjects_1_1details_1_1completed.html":[3,0,0,4,0,1],
 "structrpp_1_1subjects_1_1details_1_1disposed.html":[3,0,0,4,0,2],
 "structrpp_1_1subjects_1_1utils_1_1details_1_1extract__subject__type.html":[3,0,0,4,1,0,0],

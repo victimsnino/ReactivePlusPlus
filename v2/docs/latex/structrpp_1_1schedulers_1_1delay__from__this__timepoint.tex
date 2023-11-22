@@ -1,0 +1,41 @@
+\doxysection{rpp\+::schedulers\+::delay\+\_\+from\+\_\+this\+\_\+timepoint Struct Reference}
+\hypertarget{structrpp_1_1schedulers_1_1delay__from__this__timepoint}{}\label{structrpp_1_1schedulers_1_1delay__from__this__timepoint}\index{rpp::schedulers::delay\_from\_this\_timepoint@{rpp::schedulers::delay\_from\_this\_timepoint}}
+
+
+Timepoint of next execution would be calculcated from timepoint of current scheduling.  
+
+
+
+
+{\ttfamily \#include $<$fwd.\+hpp$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{structrpp_1_1schedulers_1_1delay__from__this__timepoint_a7269bcc76bc2c35215b3fe20d03a5d35}\label{structrpp_1_1schedulers_1_1delay__from__this__timepoint_a7269bcc76bc2c35215b3fe20d03a5d35} 
+{\bfseries delay\+\_\+from\+\_\+this\+\_\+timepoint} (duration duration=\{\})
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{structrpp_1_1schedulers_1_1delay__from__this__timepoint_acbd8943a1f6b483c28ba6c1170b14213}\label{structrpp_1_1schedulers_1_1delay__from__this__timepoint_acbd8943a1f6b483c28ba6c1170b14213} 
+duration {\bfseries value}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Timepoint of next execution would be calculcated from timepoint of current scheduling. 
+
+Implementation looks like this 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ timepoint\_for\_schedulable\ =\ schedulable-\/>get\_timepoint();}
+\DoxyCodeLine{sleep\_until(timepoint\_for\_schedulable);}
+\DoxyCodeLine{\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ duration\_from\_this\_timepoint\ =\ schedulable();}
+\DoxyCodeLine{schedule(timepoint\_for\_schedulable\ +\ duration\_from\_this\_timepoint,\ schedulable);}
+
+\end{DoxyCode}
+ 
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/rpp/rpp/schedulers/fwd.\+hpp\end{DoxyCompactItemize}

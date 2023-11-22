@@ -1,24 +1,36 @@
-\doxysection{rpp\+::schedulers\+::details\+::schedulables\+\_\+queue Class Reference}
-\hypertarget{classrpp_1_1schedulers_1_1details_1_1schedulables__queue}{}\label{classrpp_1_1schedulers_1_1details_1_1schedulables__queue}\index{rpp::schedulers::details::schedulables\_queue@{rpp::schedulers::details::schedulables\_queue}}
+\doxysection{rpp\+::schedulers\+::details\+::schedulables\+\_\+queue\texorpdfstring{$<$}{<} Now\+Strategy \texorpdfstring{$>$}{>} Class Template Reference}
+\hypertarget{classrpp_1_1schedulers_1_1details_1_1schedulables__queue}{}\label{classrpp_1_1schedulers_1_1details_1_1schedulables__queue}\index{rpp::schedulers::details::schedulables\_queue$<$ NowStrategy $>$@{rpp::schedulers::details::schedulables\_queue$<$ NowStrategy $>$}}
 \doxysubsubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\Hypertarget{classrpp_1_1schedulers_1_1details_1_1schedulables__queue_a7ff493718a58839cec9e578fe0959131}\label{classrpp_1_1schedulers_1_1details_1_1schedulables__queue_a7ff493718a58839cec9e578fe0959131} 
-{\bfseries schedulables\+\_\+queue} (std\+::shared\+\_\+ptr$<$ std\+::condition\+\_\+variable\+\_\+any $>$ cv)
+\Hypertarget{classrpp_1_1schedulers_1_1details_1_1schedulables__queue_abb70b356df13aa1fd3c457e18fd6f420}\label{classrpp_1_1schedulers_1_1details_1_1schedulables__queue_abb70b356df13aa1fd3c457e18fd6f420} 
+{\bfseries schedulables\+\_\+queue} (const \mbox{\hyperlink{classrpp_1_1schedulers_1_1details_1_1schedulables__queue}{schedulables\+\_\+queue}} \&)=delete
 \item 
-\Hypertarget{classrpp_1_1schedulers_1_1details_1_1schedulables__queue_a5e04803272c1e64c8bb3cbd9a717d85e}\label{classrpp_1_1schedulers_1_1details_1_1schedulables__queue_a5e04803272c1e64c8bb3cbd9a717d85e} 
+\Hypertarget{classrpp_1_1schedulers_1_1details_1_1schedulables__queue_aee7c7c62a6c99203d8f0e93bfc0fff0f}\label{classrpp_1_1schedulers_1_1details_1_1schedulables__queue_aee7c7c62a6c99203d8f0e93bfc0fff0f} 
+{\bfseries schedulables\+\_\+queue} (\mbox{\hyperlink{classrpp_1_1schedulers_1_1details_1_1schedulables__queue}{schedulables\+\_\+queue}} \&\&) noexcept=default
+\item 
+\Hypertarget{classrpp_1_1schedulers_1_1details_1_1schedulables__queue_a2ceff57c97198d0062b39ae96a90e53b}\label{classrpp_1_1schedulers_1_1details_1_1schedulables__queue_a2ceff57c97198d0062b39ae96a90e53b} 
+\mbox{\hyperlink{classrpp_1_1schedulers_1_1details_1_1schedulables__queue}{schedulables\+\_\+queue}} \& {\bfseries operator=} (const \mbox{\hyperlink{classrpp_1_1schedulers_1_1details_1_1schedulables__queue}{schedulables\+\_\+queue}} \&other)=delete
+\item 
+\Hypertarget{classrpp_1_1schedulers_1_1details_1_1schedulables__queue_aa1365ac77bc6fe3936ba7d3245a6b134}\label{classrpp_1_1schedulers_1_1details_1_1schedulables__queue_aa1365ac77bc6fe3936ba7d3245a6b134} 
+\mbox{\hyperlink{classrpp_1_1schedulers_1_1details_1_1schedulables__queue}{schedulables\+\_\+queue}} \& {\bfseries operator=} (\mbox{\hyperlink{classrpp_1_1schedulers_1_1details_1_1schedulables__queue}{schedulables\+\_\+queue}} \&\&other) noexcept=default
+\item 
+\Hypertarget{classrpp_1_1schedulers_1_1details_1_1schedulables__queue_a9dfc2252efcf2cbaad060b533cfe5552}\label{classrpp_1_1schedulers_1_1details_1_1schedulables__queue_a9dfc2252efcf2cbaad060b533cfe5552} 
+{\bfseries schedulables\+\_\+queue} (std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{structrpp_1_1schedulers_1_1details_1_1shared__queue__data}{shared\+\_\+queue\+\_\+data}} $>$ shared\+\_\+data)
+\item 
+\Hypertarget{classrpp_1_1schedulers_1_1details_1_1schedulables__queue_a3ac40d2157ac7330f46287212e2483ac}\label{classrpp_1_1schedulers_1_1details_1_1schedulables__queue_a3ac40d2157ac7330f46287212e2483ac} 
 {\footnotesize template$<$\mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1schedulable__handler}{rpp\+::schedulers\+::constraint\+::schedulable\+\_\+handler}} Handler, typename... Args, constraint\+::schedulable\+\_\+fn$<$ Handler, Args... $>$ Fn$>$ }\\void {\bfseries emplace} (const time\+\_\+point \&timepoint, Fn \&\&fn, Handler \&\&handler, Args \&\&... args)
 \item 
-\Hypertarget{classrpp_1_1schedulers_1_1details_1_1schedulables__queue_aa8f55a98936abef42769f07c9a6608a4}\label{classrpp_1_1schedulers_1_1details_1_1schedulables__queue_aa8f55a98936abef42769f07c9a6608a4} 
+\Hypertarget{classrpp_1_1schedulers_1_1details_1_1schedulables__queue_ab062f2746ead8bc90d4e9552437037f9}\label{classrpp_1_1schedulers_1_1details_1_1schedulables__queue_ab062f2746ead8bc90d4e9552437037f9} 
 void {\bfseries emplace} (const time\+\_\+point \&timepoint, std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classrpp_1_1schedulers_1_1details_1_1schedulable__base}{schedulable\+\_\+base}} $>$ \&\&schedulable)
 \item 
-\Hypertarget{classrpp_1_1schedulers_1_1details_1_1schedulables__queue_a9d5e0bde45a008adc18896accae0d8d4}\label{classrpp_1_1schedulers_1_1details_1_1schedulables__queue_a9d5e0bde45a008adc18896accae0d8d4} 
+\Hypertarget{classrpp_1_1schedulers_1_1details_1_1schedulables__queue_ab15558134d33449cfe6edc42099041bd}\label{classrpp_1_1schedulers_1_1details_1_1schedulables__queue_ab15558134d33449cfe6edc42099041bd} 
 bool {\bfseries is\+\_\+empty} () const
 \item 
-\Hypertarget{classrpp_1_1schedulers_1_1details_1_1schedulables__queue_a08758c7b3984c0a6d62f4f7ff11d3b7c}\label{classrpp_1_1schedulers_1_1details_1_1schedulables__queue_a08758c7b3984c0a6d62f4f7ff11d3b7c} 
+\Hypertarget{classrpp_1_1schedulers_1_1details_1_1schedulables__queue_a97be2213b6382ef495cb7f7479193f1c}\label{classrpp_1_1schedulers_1_1details_1_1schedulables__queue_a97be2213b6382ef495cb7f7479193f1c} 
 std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classrpp_1_1schedulers_1_1details_1_1schedulable__base}{schedulable\+\_\+base}} $>$ {\bfseries pop} ()
 \item 
-\Hypertarget{classrpp_1_1schedulers_1_1details_1_1schedulables__queue_a4919c19bf3c18bf78c3827cbea6a45d3}\label{classrpp_1_1schedulers_1_1details_1_1schedulables__queue_a4919c19bf3c18bf78c3827cbea6a45d3} 
+\Hypertarget{classrpp_1_1schedulers_1_1details_1_1schedulables__queue_a068802920c0f44cf2d816ed8bb890ede}\label{classrpp_1_1schedulers_1_1details_1_1schedulables__queue_a068802920c0f44cf2d816ed8bb890ede} 
 const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classrpp_1_1schedulers_1_1details_1_1schedulable__base}{schedulable\+\_\+base}} $>$ \& {\bfseries top} () const
 \end{DoxyCompactItemize}
 

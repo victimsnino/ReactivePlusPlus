@@ -110,18 +110,13 @@ $(document).ready(function(){initNavTree('classrpp_1_1schedulers_1_1current__thr
 
 <p><code>#include &lt;<a class="el" href="current__thread_8hpp_source.html">current_thread.hpp</a>&gt;</code></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrpp_1_1schedulers_1_1current__thread_1_1worker__strategy.html">worker_strategy</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a534d01c481c8dc61125348b5b74724c7" id="r_a534d01c481c8dc61125348b5b74724c7"><td class="memItemLeft" align="right" valign="top"><a id="a534d01c481c8dc61125348b5b74724c7" name="a534d01c481c8dc61125348b5b74724c7"></a>
 static rpp::utils::finally_action&lt; void(*)()&gt;&#160;</td><td class="memItemRight" valign="bottom"><b>own_queue_and_drain_finally_if_not_owned</b> ()</td></tr>
 <tr class="separator:a534d01c481c8dc61125348b5b74724c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae605523439b20eff649499d40bdd459a" id="r_ae605523439b20eff649499d40bdd459a"><td class="memItemLeft" align="right" valign="top"><a id="ae605523439b20eff649499d40bdd459a" name="ae605523439b20eff649499d40bdd459a"></a>
-static <a class="el" href="classrpp_1_1schedulers_1_1worker.html">rpp::schedulers::worker</a>&lt; <a class="el" href="classrpp_1_1schedulers_1_1current__thread_1_1worker__strategy.html">worker_strategy</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>create_worker</b> ()</td></tr>
+static <a class="el" href="classrpp_1_1schedulers_1_1worker.html">rpp::schedulers::worker</a>&lt; worker_strategy &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>create_worker</b> ()</td></tr>
 <tr class="separator:ae605523439b20eff649499d40bdd459a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="friends" name="friends"></a>
@@ -145,20 +140,20 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>new_thread</b></td><
 <div class="line">        <a class="code hl_class" href="classrpp_1_1schedulers_1_1worker.html">worker</a>.schedule([](<span class="keyword">const</span> <span class="keyword">auto</span>&amp;)</div>
 <div class="line">        {</div>
 <div class="line">            std::cout &lt;&lt; <span class="stringliteral">&quot;Task 4&quot;</span> &lt;&lt; std::endl;</div>
-<div class="line">            <span class="keywordflow">return</span> rpp::schedulers::optional_duration{};</div>
+<div class="line">            <span class="keywordflow">return</span> rpp::schedulers::optional_delay_from_now{};</div>
 <div class="line">        }, handler);</div>
 <div class="line">        std::cout &lt;&lt; <span class="stringliteral">&quot;Task 2 ends&quot;</span> &lt;&lt; std::endl;</div>
-<div class="line">        <span class="keywordflow">return</span> rpp::schedulers::optional_duration{};</div>
+<div class="line">        <span class="keywordflow">return</span> rpp::schedulers::optional_delay_from_now{};</div>
 <div class="line">    }, handler);</div>
 <div class="line"> </div>
 <div class="line">    worker.schedule([](<span class="keyword">const</span> <span class="keyword">auto</span>&amp;)</div>
 <div class="line">    {</div>
 <div class="line">        std::cout &lt;&lt; <span class="stringliteral">&quot;Task 3&quot;</span> &lt;&lt; std::endl;</div>
-<div class="line">        <span class="keywordflow">return</span> rpp::schedulers::optional_duration{};</div>
+<div class="line">        <span class="keywordflow">return</span> rpp::schedulers::optional_delay_from_now{};</div>
 <div class="line">    }, handler);</div>
 <div class="line"> </div>
 <div class="line">    std::cout &lt;&lt; <span class="stringliteral">&quot;Task 1 ends&quot;</span> &lt;&lt; std::endl;</div>
-<div class="line">    <span class="keywordflow">return</span> rpp::schedulers::optional_duration{};</div>
+<div class="line">    <span class="keywordflow">return</span> rpp::schedulers::optional_delay_from_now{};</div>
 <div class="line">}, handler);</div>
 <div class="ttc" id="aclassrpp_1_1schedulers_1_1worker_html"><div class="ttname"><a href="classrpp_1_1schedulers_1_1worker.html">rpp::schedulers::worker</a></div><div class="ttdef"><b>Definition</b> worker.hpp:23</div></div>
 </div><!-- fragment --> Would lead to:<ul>

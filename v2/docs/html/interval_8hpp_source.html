@@ -120,10 +120,10 @@ $(document).ready(function(){initNavTree('interval_8hpp_source.html',''); initRe
 <div class="foldopen" id="foldopen00019" data-start="{" data-end="};">
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno"><a class="line" href="structrpp_1_1details_1_1interval__schedulable.html">   19</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structrpp_1_1details_1_1interval__schedulable.html">interval_schedulable</a></div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>{</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    rpp::schedulers::optional_duration operator()(<span class="keyword">const</span> <span class="keyword">auto</span>&amp; <a class="code hl_class" href="classrpp_1_1observer.html">observer</a>, rpp::schedulers::duration period, <span class="keywordtype">size_t</span>&amp; counter)<span class="keyword"> const</span></div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    rpp::schedulers::optional_delay_from_this_timepoint operator()(<span class="keyword">const</span> <span class="keyword">auto</span>&amp; <a class="code hl_class" href="classrpp_1_1observer.html">observer</a>, rpp::schedulers::duration period, <span class="keywordtype">size_t</span>&amp; counter)<span class="keyword"> const</span></div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="keyword">    </span>{</div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>        <a class="code hl_class" href="classrpp_1_1observer.html">observer</a>.<a class="code hl_function" href="classrpp_1_1details_1_1observer__impl.html#a14747a5260ecc183a6d0f1adafee4f68">on_next</a>(counter++);</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>        <span class="keywordflow">return</span> period;</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>        <span class="keywordflow">return</span> rpp::schedulers::optional_delay_from_this_timepoint{period};</div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    }</div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>};</div>
 </div>

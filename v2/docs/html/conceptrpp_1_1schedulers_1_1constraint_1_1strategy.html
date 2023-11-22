@@ -103,11 +103,13 @@ $(document).ready(function(){initNavTree('conceptrpp_1_1schedulers_1_1constraint
 <div class="fragment"><div class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> S&gt;</div>
 <div class="line"><span class="keyword">concept </span><a class="code hl_concept" href="conceptrpp_1_1schedulers_1_1constraint_1_1strategy.html">rpp::schedulers::constraint::strategy</a> =  <span class="keyword">requires</span>(<span class="keyword">const</span> S&amp; s, <span class="keyword">const</span> details::fake_schedulable_handler&amp; handler)</div>
 <div class="line">{</div>
-<div class="line">    {s.defer_for(duration{}, std::declval&lt;optional_duration(*)(const details::fake_schedulable_handler&amp;)&gt;(), handler)} -&gt; std::same_as&lt;void&gt;;</div>
+<div class="line">    {s.defer_for(duration{}, std::declval&lt;optional_delay_from_now(*)(const details::fake_schedulable_handler&amp;)&gt;(), handler)} -&gt; std::same_as&lt;void&gt;;</div>
+<div class="line">    {s.defer_for(duration{}, std::declval&lt;optional_delay_from_this_timepoint(*)(const details::fake_schedulable_handler&amp;)&gt;(), handler)} -&gt; std::same_as&lt;void&gt;;</div>
+<div class="line">    {s.defer_for(duration{}, std::declval&lt;optional_delay_to(*)(const details::fake_schedulable_handler&amp;)&gt;(), handler)} -&gt; std::same_as&lt;void&gt;;</div>
 <div class="line">    {s.get_disposable()} -&gt; rpp::constraint::any_of&lt;rpp::disposable_wrapper, details::none_disposable&gt;;</div>
 <div class="line">    {S::now()} -&gt; std::same_as&lt;rpp::schedulers::time_point&gt;;</div>
 <div class="line">}</div>
-<div class="ttc" id="aconceptrpp_1_1schedulers_1_1constraint_1_1strategy_html"><div class="ttname"><a href="conceptrpp_1_1schedulers_1_1constraint_1_1strategy.html">rpp::schedulers::constraint::strategy</a></div><div class="ttdef"><b>Definition</b> fwd.hpp:54</div></div>
+<div class="ttc" id="aconceptrpp_1_1schedulers_1_1constraint_1_1strategy_html"><div class="ttname"><a href="conceptrpp_1_1schedulers_1_1constraint_1_1strategy.html">rpp::schedulers::constraint::strategy</a></div><div class="ttdef"><b>Definition</b> fwd.hpp:119</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

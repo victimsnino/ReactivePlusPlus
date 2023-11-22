@@ -1,0 +1,9 @@
+\doxysection{rpp\+::schedulers\+::constraint\+::schedulable\+\_\+delay\+\_\+from\+\_\+now\+\_\+fn Concept Reference}
+\hypertarget{conceptrpp_1_1schedulers_1_1constraint_1_1schedulable__delay__from__now__fn}{}\label{conceptrpp_1_1schedulers_1_1constraint_1_1schedulable__delay__from__now__fn}\index{rpp::schedulers::constraint::schedulable\_delay\_from\_now\_fn@{rpp::schedulers::constraint::schedulable\_delay\_from\_now\_fn}}
+\doxysubsection{Concept definition}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename}\ Fn,\ \textcolor{keyword}{typename}...\ Args>}
+\DoxyCodeLine{\textcolor{keyword}{concept\ }\mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1schedulable__delay__from__now__fn}{rpp::schedulers::constraint::schedulable\_delay\_from\_now\_fn}}\ =\ \ std::is\_invocable\_r\_v<optional\_delay\_from\_now,\ Fn,\ Args\&...>\ \&\&\ std::same\_as<std::invoke\_result\_t<Fn,\ Args\&...>,\ optional\_delay\_from\_now>}
+
+\end{DoxyCode}

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ReactivePlusPlus: rpp::schedulers::current_thread::worker_strategy Class Reference</title>
+<title>ReactivePlusPlus: rpp::schedulers::delay_from_this_timepoint Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -70,7 +70,7 @@ var searchBox = new SearchBox("searchBox", "search/",'.html');
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(document).ready(function(){initNavTree('classrpp_1_1schedulers_1_1current__thread_1_1worker__strategy.html',''); initResizable(); });
+$(document).ready(function(){initNavTree('structrpp_1_1schedulers_1_1delay__from__this__timepoint.html',''); initResizable(); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -97,34 +97,45 @@ $(document).ready(function(){initNavTree('classrpp_1_1schedulers_1_1current__thr
 
 <div class="header">
   <div class="summary">
-<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
-<a href="classrpp_1_1schedulers_1_1current__thread_1_1worker__strategy-members.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">rpp::schedulers::current_thread::worker_strategy Class Reference</div></div>
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="structrpp_1_1schedulers_1_1delay__from__this__timepoint-members.html">List of all members</a>  </div>
+  <div class="headertitle"><div class="title">rpp::schedulers::delay_from_this_timepoint Struct Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Timepoint of next execution would be calculcated from timepoint of current scheduling.  
+ <a href="structrpp_1_1schedulers_1_1delay__from__this__timepoint.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="rpp_2schedulers_2fwd_8hpp_source.html">fwd.hpp</a>&gt;</code></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
-Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a752c72f6d829afa2a77d3b0a6728be34" id="r_a752c72f6d829afa2a77d3b0a6728be34"><td class="memTemplParams" colspan="2"><a id="a752c72f6d829afa2a77d3b0a6728be34" name="a752c72f6d829afa2a77d3b0a6728be34"></a>
-template&lt;<a class="el" href="conceptrpp_1_1schedulers_1_1constraint_1_1schedulable__handler.html">rpp::schedulers::constraint::schedulable_handler</a> Handler, typename... Args, constraint::schedulable_fn&lt; Handler, Args... &gt; Fn&gt; </td></tr>
-<tr class="memitem:a752c72f6d829afa2a77d3b0a6728be34"><td class="memTemplItemLeft" align="right" valign="top">static void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>defer_for</b> (duration duration, Fn &amp;&amp;fn, Handler &amp;&amp;handler, Args &amp;&amp;... args)</td></tr>
-<tr class="separator:a752c72f6d829afa2a77d3b0a6728be34"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a44c306d743389bdac9bc109fbb112d8f" id="r_a44c306d743389bdac9bc109fbb112d8f"><td class="memItemLeft" align="right" valign="top"><a id="a44c306d743389bdac9bc109fbb112d8f" name="a44c306d743389bdac9bc109fbb112d8f"></a>
-static constexpr <a class="el" href="structrpp_1_1schedulers_1_1details_1_1none__disposable.html">rpp::schedulers::details::none_disposable</a>&#160;</td><td class="memItemRight" valign="bottom"><b>get_disposable</b> ()</td></tr>
-<tr class="separator:a44c306d743389bdac9bc109fbb112d8f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0ae1c9cb9c9a64bdb425cde86657cff7" id="r_a0ae1c9cb9c9a64bdb425cde86657cff7"><td class="memItemLeft" align="right" valign="top"><a id="a0ae1c9cb9c9a64bdb425cde86657cff7" name="a0ae1c9cb9c9a64bdb425cde86657cff7"></a>
-static rpp::schedulers::time_point&#160;</td><td class="memItemRight" valign="bottom"><b>now</b> ()</td></tr>
-<tr class="separator:a0ae1c9cb9c9a64bdb425cde86657cff7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a7269bcc76bc2c35215b3fe20d03a5d35" id="r_a7269bcc76bc2c35215b3fe20d03a5d35"><td class="memItemLeft" align="right" valign="top"><a id="a7269bcc76bc2c35215b3fe20d03a5d35" name="a7269bcc76bc2c35215b3fe20d03a5d35"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>delay_from_this_timepoint</b> (duration duration={})</td></tr>
+<tr class="separator:a7269bcc76bc2c35215b3fe20d03a5d35"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:acbd8943a1f6b483c28ba6c1170b14213" id="r_acbd8943a1f6b483c28ba6c1170b14213"><td class="memItemLeft" align="right" valign="top"><a id="acbd8943a1f6b483c28ba6c1170b14213" name="acbd8943a1f6b483c28ba6c1170b14213"></a>
+duration&#160;</td><td class="memItemRight" valign="bottom"><b>value</b></td></tr>
+<tr class="separator:acbd8943a1f6b483c28ba6c1170b14213"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<hr/>The documentation for this class was generated from the following file:<ul>
-<li>src/rpp/rpp/schedulers/<a class="el" href="current__thread_8hpp_source.html">current_thread.hpp</a></li>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Timepoint of next execution would be calculcated from timepoint of current scheduling. </p>
+<p>Implementation looks like this </p><div class="fragment"><div class="line"><span class="keyword">const</span> <span class="keyword">auto</span> timepoint_for_schedulable = schedulable-&gt;get_timepoint();</div>
+<div class="line">sleep_until(timepoint_for_schedulable);</div>
+<div class="line"><span class="keyword">const</span> <span class="keyword">auto</span> duration_from_this_timepoint = schedulable();</div>
+<div class="line">schedule(timepoint_for_schedulable + duration_from_this_timepoint, schedulable);</div>
+</div><!-- fragment --> </div><hr/>The documentation for this struct was generated from the following file:<ul>
+<li>src/rpp/rpp/schedulers/<a class="el" href="rpp_2schedulers_2fwd_8hpp_source.html">fwd.hpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>rpp</b></li><li class="navelem"><b>schedulers</b></li><li class="navelem"><a class="el" href="classrpp_1_1schedulers_1_1current__thread.html">current_thread</a></li><li class="navelem"><a class="el" href="classrpp_1_1schedulers_1_1current__thread_1_1worker__strategy.html">worker_strategy</a></li>
+    <li class="navelem"><b>rpp</b></li><li class="navelem"><b>schedulers</b></li><li class="navelem"><a class="el" href="structrpp_1_1schedulers_1_1delay__from__this__timepoint.html">delay_from_this_timepoint</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
   </ul>
 </div>

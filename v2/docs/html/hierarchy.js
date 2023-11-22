@@ -30,8 +30,11 @@ var hierarchy =
     [ "rpp::details::observables::default_disposable_strategy_selector", "structrpp_1_1details_1_1observables_1_1default__disposable__strategy__selector.html", null ],
     [ "rpp::details::defer_strategy< Factory >", "structrpp_1_1details_1_1defer__strategy.html", null ],
     [ "rpp::operators::details::delay_disposable_wrapper< Observer, Worker, Container >", "structrpp_1_1operators_1_1details_1_1delay__disposable__wrapper.html", null ],
+    [ "rpp::schedulers::delay_from_now", "structrpp_1_1schedulers_1_1delay__from__now.html", null ],
+    [ "rpp::schedulers::delay_from_this_timepoint", "structrpp_1_1schedulers_1_1delay__from__this__timepoint.html", null ],
     [ "rpp::operators::details::delay_observer_strategy< Observer, Worker, Container, ClearOnError >", "structrpp_1_1operators_1_1details_1_1delay__observer__strategy.html", null ],
     [ "rpp::operators::details::delay_t< Scheduler, ClearOnError >", "structrpp_1_1operators_1_1details_1_1delay__t.html", null ],
+    [ "rpp::schedulers::delay_to", "structrpp_1_1schedulers_1_1delay__to.html", null ],
     [ "rpp::disposable_wrapper_impl< TDisposable >", "classrpp_1_1disposable__wrapper__impl.html", null ],
     [ "rpp::disposable_wrapper_impl< interface_composite_disposable >", "classrpp_1_1disposable__wrapper__impl.html", null ],
     [ "rpp::subjects::details::disposed", "structrpp_1_1subjects_1_1details_1_1disposed.html", null ],
@@ -147,6 +150,7 @@ var hierarchy =
       [ "rpp::operators::details::throttle_t< Scheduler >", "structrpp_1_1operators_1_1details_1_1throttle__t.html", null ],
       [ "rpp::operators::details::window_t", "structrpp_1_1operators_1_1details_1_1window__t.html", null ]
     ] ],
+    [ "rpp::schedulers::details::optional_mutex< Mutex >", "classrpp_1_1schedulers_1_1details_1_1optional__mutex.html", null ],
     [ "rpp::operators::details::pointer_under_lock< T >", "classrpp_1_1operators_1_1details_1_1pointer__under__lock.html", null ],
     [ "rpp::subjects::details::publish_strategy< Type >", "classrpp_1_1subjects_1_1details_1_1publish__strategy.html", null ],
     [ "rpp::operators::details::reduce_no_seed_observer_strategy< TObserver, Accumulator >", "structrpp_1_1operators_1_1details_1_1reduce__no__seed__observer__strategy.html", null ],
@@ -163,10 +167,12 @@ var hierarchy =
     [ "rpp::operators::details::scan_no_seed_observer_strategy< Seed, TObserver, Fn >", "structrpp_1_1operators_1_1details_1_1scan__no__seed__observer__strategy.html", null ],
     [ "rpp::operators::details::scan_observer_strategy< TObserver, Seed, Fn >", "structrpp_1_1operators_1_1details_1_1scan__observer__strategy.html", null ],
     [ "rpp::schedulers::details::schedulable_base", "classrpp_1_1schedulers_1_1details_1_1schedulable__base.html", [
-      [ "rpp::schedulers::details::specific_schedulable< Fn, Handler, Args >", "classrpp_1_1schedulers_1_1details_1_1specific__schedulable.html", null ]
+      [ "rpp::schedulers::details::specific_schedulable< NowStrategy, Fn, Handler, Args >", "classrpp_1_1schedulers_1_1details_1_1specific__schedulable.html", null ]
     ] ],
-    [ "rpp::schedulers::details::schedulables_queue", "classrpp_1_1schedulers_1_1details_1_1schedulables__queue.html", null ],
+    [ "rpp::schedulers::details::schedulables_queue< NowStrategy >", "classrpp_1_1schedulers_1_1details_1_1schedulables__queue.html", null ],
+    [ "rpp::schedulers::details::schedulables_queue< worker_strategy >", "classrpp_1_1schedulers_1_1details_1_1schedulables__queue.html", null ],
     [ "rpp::details::shared_container< Container >", "classrpp_1_1details_1_1shared__container.html", null ],
+    [ "rpp::schedulers::details::shared_queue_data", "structrpp_1_1schedulers_1_1details_1_1shared__queue__data.html", null ],
     [ "rpp::operators::details::skip_observer_strategy< TObserver >", "structrpp_1_1operators_1_1details_1_1skip__observer__strategy.html", null ],
     [ "rpp::operators::details::start_with_t< TObservables >", "structrpp_1_1operators_1_1details_1_1start__with__t.html", null ],
     [ "rpp::operators::details::start_with_values_t< PackedContainer, TScheduler >", "structrpp_1_1operators_1_1details_1_1start__with__values__t.html", null ],
@@ -209,7 +215,6 @@ var hierarchy =
     [ "rpp::operators::details::with_latest_from_observer_strategy< Observer, TSelector, OriginalValue, RestArgs >", "structrpp_1_1operators_1_1details_1_1with__latest__from__observer__strategy.html", null ],
     [ "rpp::operators::details::with_latest_from_t< TSelector, TObservables >", "structrpp_1_1operators_1_1details_1_1with__latest__from__t.html", null ],
     [ "rpp::schedulers::worker< Strategy >", "classrpp_1_1schedulers_1_1worker.html", null ],
-    [ "rpp::schedulers::current_thread::worker_strategy", "classrpp_1_1schedulers_1_1current__thread_1_1worker__strategy.html", null ],
     [ "rpp::schedulers::immediate::worker_strategy", "classrpp_1_1schedulers_1_1immediate_1_1worker__strategy.html", null ],
     [ "rpp::schedulers::new_thread::worker_strategy", "classrpp_1_1schedulers_1_1new__thread_1_1worker__strategy.html", null ]
 ];

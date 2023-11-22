@@ -55,7 +55,7 @@
 \DoxyCodeLine{00051\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1details_1_1from__iterable__schedulable}{from\_iterable\_schedulable}}}
 \DoxyCodeLine{00052\ \{}
 \DoxyCodeLine{00053\ \ \ \ \ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type\ PackedContainer,\ constra\textcolor{keywordtype}{int}::observer\_strategy<utils::iterable\_value\_t<PackedContainer>>\ Strategy>}
-\DoxyCodeLine{00054\ \ \ \ \ rpp::schedulers::optional\_duration\ operator()(\textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1observer}{observer}}<utils::iterable\_value\_t<PackedContainer>,\ Strategy>\&\ obs,\ \textcolor{keyword}{const}\ PackedContainer\&\ cont,\ \textcolor{keywordtype}{size\_t}\&\ index)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00054\ \ \ \ \ rpp::schedulers::optional\_delay\_from\_now\ operator()(\textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1observer}{observer}}<utils::iterable\_value\_t<PackedContainer>,\ Strategy>\&\ obs,\ \textcolor{keyword}{const}\ PackedContainer\&\ cont,\ \textcolor{keywordtype}{size\_t}\&\ index)\textcolor{keyword}{\ const}}
 \DoxyCodeLine{00055\ \textcolor{keyword}{\ \ \ \ }\{}
 \DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
 \DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \{}
@@ -69,7 +69,7 @@
 \DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (std::next(itr)\ !=\ end)\ \textcolor{comment}{//\ it\ was\ not\ last}}
 \DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
 \DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ++index;}
-\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ schedulers::duration\{\};\ \textcolor{comment}{//\ re-\/schedule\ this}}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{structrpp_1_1schedulers_1_1delay__from__now}{schedulers::delay\_from\_now}}\{\};\ \textcolor{comment}{//\ re-\/schedule\ this}}
 \DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{00071\ }
