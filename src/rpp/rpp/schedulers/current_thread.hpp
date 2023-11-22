@@ -41,20 +41,20 @@ namespace rpp::schedulers
  *         worker.schedule([](const auto&)
  *         {
  *             std::cout << "Task 4" << std::endl;
- *             return rpp::schedulers::optional_duration{};
+ *             return rpp::schedulers::optional_delay_from_now{};
  *         }, handler);
  *         std::cout << "Task 2 ends" << std::endl;
- *         return rpp::schedulers::optional_duration{};
+ *         return rpp::schedulers::optional_delay_from_now{};
  *     }, handler);
  * 
  *     worker.schedule([](const auto&)
  *     {
  *         std::cout << "Task 3" << std::endl;
- *         return rpp::schedulers::optional_duration{};
+ *         return rpp::schedulers::optional_delay_from_now{};
  *     }, handler);
  * 
  *     std::cout << "Task 1 ends" << std::endl;
- *     return rpp::schedulers::optional_duration{};
+ *     return rpp::schedulers::optional_delay_from_now{};
  * }, handler);
  * \endcode
  * Would lead to:
@@ -87,33 +87,24 @@ namespace rpp::schedulers
 class current_thread
 {
     friend class new_thread;
+    class worker_strategy;
 
-    inline static thread_local std::optional<details::schedulables_queue> s_queue{};
-    inline static thread_local time_point                                 s_last_now_time{};
+    inline static thread_local std::optional<details::schedulables_queue<worker_strategy>> s_queue{};
 
     struct is_queue_is_empty
     {
-        const details::schedulables_queue& queue;
+        const details::schedulables_queue<worker_strategy>& queue;
 
         bool operator()() const { return queue.is_empty(); }
     };
 
-    static void sleep_until(const time_point timepoint)
-    {
-        if (timepoint <= s_last_now_time)
-            return;
-
-        const auto now = clock_type::now();
-        std::this_thread::sleep_for(timepoint - now);
-        s_last_now_time = std::max(now, timepoint);
-    }
 
     static void drain_current_queue()
     {
         drain_queue(s_queue);
     }
 
-    static void drain_queue(std::optional<details::schedulables_queue>& queue)
+    static void drain_queue(std::optional<details::schedulables_queue<worker_strategy>>& queue)
     {
         while (!queue->is_empty())
         {
@@ -121,28 +112,62 @@ class current_thread
             if (top->is_disposed())
                 continue;
 
-            sleep_until(top->get_timepoint());
-
-            optional_duration duration{0};
+            std::optional<time_point> timepoint{top->get_timepoint()};
             // immediate like scheduling
             do
             {
-                if (duration.value() > duration::zero() && !top->is_disposed())
-                    std::this_thread::sleep_for(duration.value());
+                if (timepoint && !top->is_disposed())
+                    details::sleep_until(top->get_timepoint());
 
                 if (top->is_disposed())
-                    duration.reset();
+                    timepoint.reset();
                 else
-                    duration = (*top)();
+                    timepoint = (*top)();
 
-            } while (queue->is_empty() && duration.has_value());
+            } while (queue->is_empty() && timepoint.has_value());
 
-            if (duration.has_value())
-                queue->emplace(worker_strategy::now() + duration.value(), std::move(top));
+            if (timepoint.has_value())
+                queue->emplace(timepoint.value(), std::move(top));
         }
 
         queue.reset();
     }
+
+    class worker_strategy
+    {
+    public:
+        template<rpp::schedulers::constraint::schedulable_handler Handler, typename... Args, constraint::schedulable_fn<Handler, Args...> Fn>
+        static void defer_for(duration duration, Fn&& fn, Handler&& handler, Args&&... args)
+        {
+            if (handler.is_disposed())
+                return;
+
+            auto&      queue              = s_queue;
+            const bool someone_owns_queue = queue.has_value();
+            std::optional<time_point> timepoint{};
+            if (!someone_owns_queue)
+            {
+                queue.emplace();
+
+                timepoint = details::immediate_scheduling_while_condition<worker_strategy>(duration, is_queue_is_empty{queue.value()}, fn, handler, args...);
+                if (!timepoint || handler.is_disposed())
+                    return drain_queue(queue);
+            }
+            else 
+            {
+                timepoint = now() + duration;
+            }
+
+            queue->emplace(timepoint.value(), std::forward<Fn>(fn), std::forward<Handler>(handler), std::forward<Args>(args)...);
+
+            if (!someone_owns_queue)
+                drain_queue(queue);
+        }
+
+        static constexpr rpp::schedulers::details::none_disposable get_disposable() { return {}; }
+
+        static rpp::schedulers::time_point now() { return details::now(); }
+    };
 
 public:
     static rpp::utils::finally_action<void (*)()> own_queue_and_drain_finally_if_not_owned()
@@ -154,37 +179,6 @@ public:
 
         return rpp::utils::finally_action{!someone_owns_queue ? &drain_current_queue : &rpp::utils::empty_function<>};
     }
-
-    class worker_strategy
-    {
-    public:
-        template<rpp::schedulers::constraint::schedulable_handler Handler, typename... Args, constraint::schedulable_fn<Handler, Args...> Fn>
-        static void defer_for(duration duration, Fn&& fn, Handler&& handler, Args&&... args)
-        {
-            auto&      queue              = s_queue;
-            const bool someone_owns_queue = queue.has_value();
-            if (!someone_owns_queue)
-            {
-                queue.emplace();
-
-                const auto optional_duration = details::immediate_scheduling_while_condition(duration, is_queue_is_empty{queue.value()}, fn, handler, args...);
-                if (!optional_duration || handler.is_disposed())
-                    return drain_queue(queue);
-                duration = optional_duration.value();
-            }
-            else if (handler.is_disposed())
-                return;
-
-            queue->emplace(now() + duration, std::forward<Fn>(fn), std::forward<Handler>(handler), std::forward<Args>(args)...);
-
-            if (!someone_owns_queue)
-                drain_queue(queue);
-        }
-
-        static constexpr rpp::schedulers::details::none_disposable get_disposable() { return {}; }
-
-        static rpp::schedulers::time_point now() { return s_last_now_time = clock_type::now(); }
-    };
 
     static rpp::schedulers::worker<worker_strategy> create_worker()
     {

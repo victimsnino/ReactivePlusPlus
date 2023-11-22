@@ -49,7 +49,7 @@ struct concat_source_observer_strategy
 
     void on_completed() const
     {
-        worker.schedule([](TObserver& observer, const TWorker& worker, PackedContainer& container, size_t index) -> rpp::schedulers::optional_duration 
+        worker.schedule([](TObserver& observer, const TWorker& worker, PackedContainer& container, size_t index) -> rpp::schedulers::optional_delay_from_now 
         {
             drain(std::move(observer), worker, std::move(container), index);
             return std::nullopt;

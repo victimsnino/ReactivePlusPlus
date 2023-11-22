@@ -34,20 +34,20 @@ namespace rpp::schedulers
  *         worker.schedule([](const auto&)
  *         {
  *             std::cout << "Task 4" << std::endl;
- *             return rpp::schedulers::optional_duration{};
+ *             return rpp::schedulers::optional_delay_from_now{};
  *         }, handler);
  *         std::cout << "Task 2 ends" << std::endl;
- *         return rpp::schedulers::optional_duration{};
+ *         return rpp::schedulers::optional_delay_from_now{};
  *     }, handler);
  * 
  *     worker.schedule([](const auto&)
  *     {
  *         std::cout << "Task 3" << std::endl;
- *         return rpp::schedulers::optional_duration{};
+ *         return rpp::schedulers::optional_delay_from_now{};
  *     }, handler);
  * 
  *     std::cout << "Task 1 ends" << std::endl;
- *     return rpp::schedulers::optional_duration{};
+ *     return rpp::schedulers::optional_delay_from_now{};
  * }, handler);
  * \endcode
  *
@@ -70,7 +70,7 @@ public:
         template<rpp::schedulers::constraint::schedulable_handler Handler, typename... Args, constraint::schedulable_fn<Handler, Args...> Fn>
         static void defer_for(duration duration, Fn&& fn, Handler&& handler, Args&&... args)
         {
-            details::immediate_scheduling_while_condition(duration, rpp::utils::return_true{}, std::forward<Fn>(fn), std::forward<Handler>(handler), std::forward<Args>(args)...);
+            details::immediate_scheduling_while_condition<worker_strategy>(duration, rpp::utils::return_true{}, std::forward<Fn>(fn), std::forward<Handler>(handler), std::forward<Args>(args)...);
         }
 
         static constexpr rpp::schedulers::details::none_disposable get_disposable() { return {}; }

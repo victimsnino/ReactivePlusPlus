@@ -25,10 +25,10 @@ struct subscribe_on_schedulable
     using Type = typename TObservableChainStrategy::value_type;
 
     template<rpp::constraint::observer_strategy<Type> ObserverStrategy>
-    rpp::schedulers::optional_duration operator()(observer<Type, ObserverStrategy>& observer) const
+    rpp::schedulers::optional_delay_from_now operator()(observer<Type, ObserverStrategy>& observer) const
     {
         observable.subscribe(std::move(observer));
-        return rpp::schedulers::optional_duration{};
+        return rpp::schedulers::optional_delay_from_now{};
     }
 };
 

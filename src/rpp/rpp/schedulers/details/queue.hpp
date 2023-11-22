@@ -10,6 +10,7 @@
 #pragma once
 
 #include <rpp/schedulers/fwd.hpp>
+#include <rpp/schedulers/details/utils.hpp>
 
 #include <rpp/defs.hpp>
 #include <rpp/utils/constraints.hpp>
@@ -19,6 +20,7 @@
 #include <condition_variable>
 #include <exception>
 #include <memory>
+#include <mutex>
 #include <optional>
 #include <queue>
 #include <utility>
@@ -35,8 +37,8 @@ public:
 
     virtual ~schedulable_base() noexcept = default;
 
-    virtual optional_duration operator()() noexcept        = 0;
-    virtual bool              is_disposed() const noexcept = 0;
+    virtual std::optional<time_point> operator()() noexcept        = 0;
+    virtual bool                      is_disposed() const noexcept = 0;
 
     time_point get_timepoint() const { return m_time_point; }
 
@@ -58,7 +60,7 @@ private:
     time_point                        m_time_point;
 };
 
-template<rpp::constraint::decayed_type Fn, rpp::schedulers::constraint::schedulable_handler Handler, rpp::constraint::decayed_type... Args>
+template<typename NowStrategy, rpp::constraint::decayed_type Fn, rpp::schedulers::constraint::schedulable_handler Handler, rpp::constraint::decayed_type... Args>
     requires constraint::schedulable_fn<Fn, Handler, Args...>
 class specific_schedulable final : public schedulable_base
 {
@@ -71,17 +73,32 @@ public:
     {
     }
 
-    optional_duration operator()() noexcept override
+    std::optional<time_point> operator()() noexcept override
     {
         try
         {
-            return m_args.apply(m_fn);
+            if (const auto res = m_args.apply(m_fn))
+            {
+                if constexpr (constraint::schedulable_delay_from_now_fn<Fn, Handler, Args...>)
+                {
+                    return NowStrategy::now() + res->value;
+                }
+                else if constexpr (constraint::schedulable_delay_to_fn<Fn, Handler, Args...>)
+                {
+                    return res->value;
+                }
+                else
+                {
+                    static_assert(constraint::schedulable_delay_from_this_timepoint_fn<Fn, Handler, Args...>);
+                    return get_timepoint() + res->value;
+                }
+            }
         }
         catch (...)
         {
             m_args.template get<0>().on_error(std::current_exception());
-            return std::nullopt;
         }
+        return std::nullopt;
     }
 
     bool is_disposed() const noexcept override { return m_args.template get<0>().is_disposed(); }
@@ -91,24 +108,63 @@ private:
     RPP_NO_UNIQUE_ADDRESS Fn                                  m_fn;
 };
 
+template<typename Mutex>
+class optional_mutex
+{
+public:
+    optional_mutex() {}
+
+    optional_mutex(Mutex* mutex)
+        : m_mutex{mutex}
+    {
+    }
+
+    void lock() const
+    {
+        if (m_mutex)
+            m_mutex->lock();
+    }
+
+    void unlock() const
+    {
+        if (m_mutex)
+            m_mutex->unlock();
+    }
+
+private:
+    Mutex* m_mutex{};
+};
+
+struct shared_queue_data
+{
+    std::condition_variable_any cv{};
+    std::recursive_mutex        mutex{};
+};
+
+template<typename NowStrategy>
 class schedulables_queue
 {
 public:
     schedulables_queue() = default;
+    schedulables_queue(const schedulables_queue&) = delete;
+    schedulables_queue(schedulables_queue&&) noexcept = default;
 
-    schedulables_queue(std::shared_ptr<std::condition_variable_any> cv)
-        : m_cv{std::move(cv)}
+    schedulables_queue& operator=(const schedulables_queue& other) = delete;
+    schedulables_queue& operator=(schedulables_queue&& other) noexcept = default;
+
+    schedulables_queue(std::shared_ptr<shared_queue_data> shared_data)
+        : m_shared_data{std::move(shared_data)}
     {
     }
 
     template<rpp::schedulers::constraint::schedulable_handler Handler, typename... Args, constraint::schedulable_fn<Handler, Args...> Fn>
     void emplace(const time_point& timepoint, Fn&& fn, Handler&& handler, Args&&... args)
     {
-        using schedulable_type = specific_schedulable<std::decay_t<Fn>, std::decay_t<Handler>, std::decay_t<Args>...>;
+        using schedulable_type = specific_schedulable<NowStrategy, std::decay_t<Fn>, std::decay_t<Handler>, std::decay_t<Args>...>;
 
         emplace_impl(std::make_shared<schedulable_type>(timepoint, std::forward<Fn>(fn), std::forward<Handler>(handler), std::forward<Args>(args)...));
-        if (m_cv)
-            m_cv->notify_all();
+        if (m_shared_data)
+            m_shared_data->cv.notify_all();
     }
 
     void emplace(const time_point& timepoint, std::shared_ptr<schedulable_base>&& schedulable)
@@ -118,8 +174,8 @@ public:
 
         schedulable->set_timepoint(timepoint);
         emplace_impl(std::move(schedulable));
-        if (m_cv)
-            m_cv->notify_all();
+        if (m_shared_data)
+            m_shared_data->cv.notify_all();
     }
 
     bool is_empty() const { return !m_head; }
@@ -137,6 +193,10 @@ public:
 private:
     void emplace_impl(std::shared_ptr<schedulable_base>&& schedulable)
     {
+        // needed in case of new_thread and current_thread shares same queue
+        optional_mutex<std::recursive_mutex> mutex{m_shared_data ? &m_shared_data->mutex : nullptr};
+        std::lock_guard lock{mutex};
+
         if (!m_head || schedulable->get_timepoint() < m_head->get_timepoint())
         {
             schedulable->set_next(std::move(m_head));
@@ -156,7 +216,7 @@ private:
     }
 
 private:
-    std::shared_ptr<schedulable_base>            m_head{};
-    std::shared_ptr<std::condition_variable_any> m_cv{};
+    std::shared_ptr<schedulable_base>  m_head{};
+    std::shared_ptr<shared_queue_data> m_shared_data{};
 };
 }

@@ -29,18 +29,20 @@ namespace rpp::schedulers
  */
 class run_loop final
 {
+    class worker_strategy;
+    
     class state_t final : public rpp::details::base_disposable
     {
     public:
         template<typename ...Args>
-        void emplace_and_notify(duration duration, Args&& ...args)
+        void emplace_and_notify(time_point timepoint, Args&& ...args)
         {
             if (is_disposed())
                 return;
 
             {
                 std::lock_guard lock{m_mutex};
-                m_queue.emplace(worker_strategy::now() + duration, std::forward<Args>(args)...);
+                m_queue.emplace(timepoint, std::forward<Args>(args)...);
             }
             m_cv.notify_one();
         }
@@ -89,14 +91,14 @@ class run_loop final
         {
             {
                 std::lock_guard lock{m_mutex};
-                m_queue = details::schedulables_queue{};
+                m_queue = details::schedulables_queue<worker_strategy>{};
             }
             m_cv.notify_one();
         }
 
     private:
         std::mutex                  m_mutex{};
-        details::schedulables_queue m_queue{};
+        details::schedulables_queue<worker_strategy> m_queue{};
 
         std::condition_variable     m_cv{};
     };
@@ -112,12 +114,12 @@ class run_loop final
         void defer_for(duration duration, Fn&& fn, Handler&& handler, Args&&... args) const
         {
             if (const auto shared = m_state.lock())
-                shared->emplace_and_notify(duration, std::forward<Fn>(fn), std::forward<Handler>(handler), std::forward<Args>(args)...);
+                shared->emplace_and_notify(now()+duration, std::forward<Fn>(fn), std::forward<Handler>(handler), std::forward<Args>(args)...);
         }
 
         rpp::disposable_wrapper get_disposable() const { return rpp::disposable_wrapper::from_weak(m_state); }
 
-        static rpp::schedulers::time_point now() { return current_thread::worker_strategy::now(); }
+        static rpp::schedulers::time_point now() { return details::now(); }
     private:
         std::weak_ptr<state_t> m_state;
     };
@@ -155,8 +157,8 @@ private:
             if (top->is_disposed())
                 return;
 
-            if (const auto duration = (*top)())
-                m_state->emplace_and_notify(duration.value(), std::move(top));
+            if (const auto timepoint = (*top)())
+                m_state->emplace_and_notify(timepoint.value(), std::move(top));
         }
     }
 

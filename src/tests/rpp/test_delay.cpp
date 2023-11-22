@@ -26,7 +26,6 @@
 
 namespace
 {
-    rpp::schedulers::details::schedulables_queue test_queue{};
 
     class manual_scheduler final
     {
@@ -34,10 +33,11 @@ namespace
         class worker_strategy
         {
         public:
+            inline static rpp::schedulers::details::schedulables_queue<worker_strategy> s_test_queue{};
             template<rpp::schedulers::constraint::schedulable_handler Handler, typename...Args, rpp::schedulers::constraint::schedulable_fn<Handler, Args...> Fn>
             void defer_for(rpp::schedulers::duration duration, Fn&& fn, Handler&& handler, Args&&...args) const
             {
-                test_queue.emplace(rpp::schedulers::time_point{duration}, std::forward<Fn>(fn), std::forward<Handler>(handler), std::forward<Args>(args)...);
+                s_test_queue.emplace(rpp::schedulers::time_point{duration}, std::forward<Fn>(fn), std::forward<Handler>(handler), std::forward<Args>(args)...);
             }
 
             static rpp::disposable_wrapper get_disposable() {return rpp::disposable_wrapper{std::make_shared<rpp::composite_disposable>()}; }
@@ -46,7 +46,7 @@ namespace
 
         static rpp::schedulers::worker<worker_strategy> create_worker()
         {
-            test_queue = rpp::schedulers::details::schedulables_queue{};
+            worker_strategy::s_test_queue = rpp::schedulers::details::schedulables_queue<worker_strategy>{};
             return rpp::schedulers::worker<worker_strategy>{};
         }
     };
@@ -174,7 +174,7 @@ TEST_CASE("delay delays observable's emissions")
 
             SECTION("no memory leak")
             {
-                test_queue = rpp::schedulers::details::schedulables_queue{};
+                manual_scheduler::worker_strategy::s_test_queue = rpp::schedulers::details::schedulables_queue<manual_scheduler::worker_strategy>{};
                 // checked via sanitizer
             }
         }

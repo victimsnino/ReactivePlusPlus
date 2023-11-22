@@ -41,7 +41,7 @@ private:
 
             QTimer::singleShot(std::chrono::duration_cast<std::chrono::milliseconds>(duration), application, [fn = std::forward<Fn>(fn), handler = std::forward<Handler>(handler), ... args = std::forward<Args>(args)]() mutable {
                 if (const auto new_duration = fn(handler, args...))
-                    defer_for(new_duration.value(), std::move(fn), std::move(handler), std::move(args)...);
+                    defer_for(new_duration->value, std::move(fn), std::move(handler), std::move(args)...);
             });
         }
 

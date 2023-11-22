@@ -51,7 +51,7 @@ private:
 struct from_iterable_schedulable
 {
     template<constraint::decayed_type PackedContainer, constraint::observer_strategy<utils::iterable_value_t<PackedContainer>> Strategy>
-    rpp::schedulers::optional_duration operator()(const observer<utils::iterable_value_t<PackedContainer>, Strategy>& obs, const PackedContainer& cont, size_t& index) const
+    rpp::schedulers::optional_delay_from_now operator()(const observer<utils::iterable_value_t<PackedContainer>, Strategy>& obs, const PackedContainer& cont, size_t& index) const
     {
         try
         {
@@ -65,7 +65,7 @@ struct from_iterable_schedulable
                 if (std::next(itr) != end) // it was not last
                 {
                     ++index;
-                    return schedulers::duration{}; // re-schedule this
+                    return schedulers::delay_from_now{}; // re-schedule this
                 }
             }
 

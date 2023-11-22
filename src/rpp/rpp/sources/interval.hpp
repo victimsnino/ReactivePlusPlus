@@ -18,10 +18,10 @@ namespace rpp::details
 {
 struct interval_schedulable
 {
-    rpp::schedulers::optional_duration operator()(const auto& observer, rpp::schedulers::duration period, size_t& counter) const
+    rpp::schedulers::optional_delay_from_this_timepoint operator()(const auto& observer, rpp::schedulers::duration period, size_t& counter) const
     {
         observer.on_next(counter++);
-        return period;
+        return rpp::schedulers::optional_delay_from_this_timepoint{period};
     }
 };
 

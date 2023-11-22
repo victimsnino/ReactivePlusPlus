@@ -76,10 +76,10 @@ private:
     {
         m_worker.schedule(
             m_period,
-            [](const debounce_disposable_wrapper<Observer, Worker, Container>& handler) -> schedulers::optional_duration {
+            [](const debounce_disposable_wrapper<Observer, Worker, Container>& handler) -> schedulers::optional_delay_to {
                 auto value_or_duration = handler.disposable->extract_value_or_time();
-                if (auto* duration = std::get_if<schedulers::duration>(&value_or_duration))
-                    return *duration;
+                if (auto* timepoint = std::get_if<schedulers::time_point>(&value_or_duration))
+                    return schedulers::optional_delay_to{*timepoint};
 
                 if (auto* value = std::get_if<T>(&value_or_duration))
                     handler.disposable->get_observer_under_lock()->on_next(std::move(*value));
@@ -89,15 +89,14 @@ private:
             debounce_disposable_wrapper<Observer, Worker, Container>{this->shared_from_this()});
     }
 
-    std::variant<std::monostate, T, schedulers::duration> extract_value_or_time()
+    std::variant<std::monostate, T, schedulers::time_point> extract_value_or_time()
     {
         std::lock_guard lock{m_mutex};
         if (!m_time_when_value_should_be_emitted.has_value() || !m_value_to_be_emitted.has_value())
             return std::monostate{};
 
-        const auto now = m_worker.now();
-        if (m_time_when_value_should_be_emitted > now)
-            return m_time_when_value_should_be_emitted.value() - now;
+        if (m_time_when_value_should_be_emitted > m_worker.now())
+            return m_time_when_value_should_be_emitted.value();
 
         m_time_when_value_should_be_emitted.reset();
         auto v = std::move(m_value_to_be_emitted).value();

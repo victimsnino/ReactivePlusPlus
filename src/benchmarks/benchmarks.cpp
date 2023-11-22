@@ -196,7 +196,7 @@ int main(int argc, char* argv[]) // NOLINT(bugprone-exception-escape)
         SECTION("immediate scheduler create worker + schedule")
         {
             TEST_RPP([&]() {
-                rpp::schedulers::immediate::create_worker().schedule([](const auto& v) { ankerl::nanobench::doNotOptimizeAway(v); return rpp::schedulers::optional_duration{}; }, rpp::make_lambda_observer([](int) {}));
+                rpp::schedulers::immediate::create_worker().schedule([](const auto& v) { ankerl::nanobench::doNotOptimizeAway(v); return rpp::schedulers::optional_delay_from_now{}; }, rpp::make_lambda_observer([](int) {}));
             });
             TEST_RXCPP([&]() {
                 rxcpp::identity_immediate().create_coordinator().get_worker().schedule([](const auto& v) { ankerl::nanobench::doNotOptimizeAway(v); });
@@ -206,7 +206,7 @@ int main(int argc, char* argv[]) // NOLINT(bugprone-exception-escape)
         SECTION("current_thread scheduler create worker + schedule")
         {
             TEST_RPP([&]() {
-                rpp::schedulers::current_thread::create_worker().schedule([](const auto& v) { ankerl::nanobench::doNotOptimizeAway(v); return rpp::schedulers::optional_duration{}; }, rpp::make_lambda_observer([](int) {}));
+                rpp::schedulers::current_thread::create_worker().schedule([](const auto& v) { ankerl::nanobench::doNotOptimizeAway(v); return rpp::schedulers::optional_delay_from_now{}; }, rpp::make_lambda_observer([](int) {}));
             });
             TEST_RXCPP([&]() {
                 rxcpp::identity_current_thread().create_coordinator().get_worker().schedule([](const auto& v) { ankerl::nanobench::doNotOptimizeAway(v); });
@@ -223,10 +223,10 @@ int main(int argc, char* argv[]) // NOLINT(bugprone-exception-escape)
                             worker.schedule(
                                 [](const auto& v) {
                                     ankerl::nanobench::doNotOptimizeAway(v);
-                                    return rpp::schedulers::optional_duration{};
+                                    return rpp::schedulers::optional_delay_from_now{};
                                 },
                                 std::move(v));
-                            return rpp::schedulers::optional_duration{};
+                            return rpp::schedulers::optional_delay_from_now{};
                         },
                         rpp::make_lambda_observer([](int) {}));
                 });

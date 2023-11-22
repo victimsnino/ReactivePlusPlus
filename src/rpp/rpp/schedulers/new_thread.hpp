@@ -57,7 +57,7 @@ class new_thread
             if (is_disposed())
                 return;
 
-            std::lock_guard lock{m_state->queue_mutex};
+            std::lock_guard lock{m_state->mutex};
             // guarded by lock
             if (const auto queue = m_state->queue_ptr.load(std::memory_order::relaxed))
                 queue->emplace(time_point, std::forward<Fn>(fn), std::forward<Handler>(handler), std::forward<Args>(args)...);
@@ -79,24 +79,25 @@ class new_thread
                 m_thread.detach();
         }
 
-        struct state_t
+        struct state_t : public details::shared_queue_data
         {
-            // recursive due to we need to keep lock during invoking of schedulable, but there is chance of recursive scheduling
-            std::recursive_mutex                      queue_mutex{};
-            std::atomic<details::schedulables_queue*> queue_ptr{};
-            std::condition_variable_any               cv{};
+            std::atomic<details::schedulables_queue<current_thread::worker_strategy>*> queue_ptr{};
             std::atomic_bool                          is_disposed{};
             std::atomic_bool                          is_destroying{};
         };
 
         static void data_thread(std::shared_ptr<state_t> state)
         {
-            std::unique_lock lock{state->queue_mutex};
             auto&            queue = current_thread::s_queue;
-            state->queue_ptr.store(&queue.emplace(std::shared_ptr<std::condition_variable_any>{state, &state->cv}), std::memory_order::relaxed);
+            state->queue_ptr.store(&queue.emplace(state), std::memory_order::relaxed);
 
-            while (!state->is_disposed.load(std::memory_order::relaxed) && (!state->is_destroying.load(std::memory_order::relaxed) || !queue->is_empty()))
+            while (!state->is_disposed.load(std::memory_order::relaxed))
             {
+                std::unique_lock lock{state->mutex};
+                
+                if (state->is_destroying.load(std::memory_order::relaxed) && queue->is_empty())
+                    break;
+
                 state->cv.wait(lock, [&] { return state->is_disposed.load(std::memory_order::relaxed) || !queue->is_empty() || state->is_destroying.load(std::memory_order::relaxed); });
 
                 if (state->is_disposed.load(std::memory_order::relaxed) || state->is_destroying.load(std::memory_order::relaxed))
@@ -108,7 +109,7 @@ class new_thread
                     continue;
                 }
 
-                if (current_thread::s_last_now_time < queue->top()->get_timepoint())
+                if (details::s_last_now_time < queue->top()->get_timepoint())
                 {
                     if (const auto now = worker_strategy::now(); now < queue->top()->get_timepoint())
                     {
@@ -118,16 +119,15 @@ class new_thread
                 }
 
                 auto top = queue->pop();
+                lock.unlock();
 
-                // we need to keep lock locked due to we have chance to use current_thread during invoking of this schedulable
-                if (const auto duration = (*top)())
-                {
-                    queue->emplace(worker_strategy::now() + duration.value(), std::move(top));
-                }
+                if (const auto timepoint = (*top)())
+                    queue->emplace(timepoint.value(), std::move(top));
             }
 
-            queue.reset();
+            std::unique_lock lock{state->mutex};
             state->queue_ptr.store(nullptr, std::memory_order::relaxed);
+            queue.reset();
         }
 
     private:
@@ -149,7 +149,7 @@ public:
 
         rpp::disposable_wrapper get_disposable() const { return rpp::disposable_wrapper{m_state}; }
 
-        static rpp::schedulers::time_point now() { return current_thread::worker_strategy::now(); }
+        static rpp::schedulers::time_point now() { return details::now(); }
 
     private:
         std::shared_ptr<disposable> m_state = std::make_shared<disposable>();
