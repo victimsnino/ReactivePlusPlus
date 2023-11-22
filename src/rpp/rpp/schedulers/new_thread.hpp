@@ -82,8 +82,8 @@ class new_thread
         struct state_t : public details::shared_queue_data
         {
             std::atomic<details::schedulables_queue<current_thread::worker_strategy>*> queue_ptr{};
-            std::atomic_bool                          is_disposed{};
-            std::atomic_bool                          is_destroying{};
+            std::atomic_bool                                                           is_disposed{};
+            std::atomic_bool                                                           is_destroying{};
         };
 
         static void data_thread(std::shared_ptr<state_t> state)
