@@ -178,8 +178,8 @@ $(document).ready(function(){initNavTree('new__thread_8hpp_source.html',''); ini
 <div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>        <span class="keyword">struct </span>state_t : <span class="keyword">public</span> <a class="code hl_struct" href="structrpp_1_1schedulers_1_1details_1_1shared__queue__data.html">details::shared_queue_data</a></div>
 <div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>        {</div>
 <div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>            std::atomic&lt;details::schedulables_queue&lt;current_thread::worker_strategy&gt;*&gt; queue_ptr{};</div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>            std::atomic_bool                          is_disposed{};</div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>            std::atomic_bool                          is_destroying{};</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>            std::atomic_bool                                                           is_disposed{};</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>            std::atomic_bool                                                           is_destroying{};</div>
 <div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>        };</div>
 <div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span> </div>
 <div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>        <span class="keyword">static</span> <span class="keywordtype">void</span> data_thread(std::shared_ptr&lt;state_t&gt; state)</div>
