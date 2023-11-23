@@ -124,6 +124,8 @@ auto start_with_values(const TScheduler& scheduler, T&& v, Ts&&... vals);
 template<rpp::schedulers::constraint::scheduler Scheduler>
 auto subscribe_on(Scheduler&& scheduler);
 
+auto switch_on_next();
+
 auto take(size_t count);
 
 auto take_last(size_t count);

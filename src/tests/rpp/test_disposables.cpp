@@ -123,8 +123,9 @@ TEST_CASE("disposable keeps state")
 
 TEST_CASE("refcount disposable dispose underlying in case of reaching zero")
 {
+    auto refcount = std::make_shared<rpp::refcount_disposable>();
     auto underlying = std::make_shared<custom_disposable>();
-    auto refcount = std::make_shared<rpp::refcount_disposable>(underlying);
+    refcount->get_underlying().add(underlying);
 
     CHECK(!underlying->is_disposed());
     CHECK(!refcount->is_disposed());
