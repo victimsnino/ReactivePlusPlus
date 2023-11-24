@@ -32,21 +32,36 @@ private:
 
     void dispose_impl() noexcept override
     {
-        refcount.store(0, std::memory_order::relaxed);
+        m_refcount.store(0, std::memory_order::relaxed);
     }
 
 public:
     void try_dispose()
     {
         // just need atomicity, not guarding anything
-        if (refcount.fetch_sub(1, std::memory_order::relaxed) == 1)
+        if (m_refcount.fetch_sub(1, std::memory_order::relaxed) == 1)
             dispose();
     }
 
-    std::atomic_size_t refcount{1};
+    bool is_disposed_by_any() const noexcept
+    {
+        return m_refcount.load(std::memory_order::relaxed) == 0 || is_disposed();
+    }
+
+    bool add_ref() 
+    {
+        auto current_value = m_refcount.load(std::memory_order::relaxed);
+        // just need atomicity, not guarding anything
+        while (current_value && !m_refcount.compare_exchange_strong(current_value, current_value + 1, std::memory_order::relaxed, std::memory_order::relaxed)){};
+
+        return current_value;
+    }
+
+private:
+    std::atomic_size_t m_refcount{1};
 };
 
-class inner_refcount_disposable final : public details::base_composite_disposable
+class inner_refcount_disposable final : public interface_composite_disposable
 {
 public:
     explicit inner_refcount_disposable(const std::shared_ptr<refocunt_disposable_state_t>& state)
@@ -57,9 +72,10 @@ public:
     inner_refcount_disposable(const inner_refcount_disposable&)     = delete;
     inner_refcount_disposable(inner_refcount_disposable&&) noexcept = delete;
 
-    void dispose_impl() noexcept override
+    void dispose() noexcept override
     {
-        m_state->try_dispose();
+        if (m_disposed.exchange(true, std::memory_order::relaxed) == false)
+            m_state->try_dispose();
     }
 
     using interface_composite_disposable::add;
@@ -69,8 +85,14 @@ public:
         m_state->add(std::move(disposable));
     }
 
+    bool is_disposed() const noexcept override
+    {
+        return m_disposed.load(std::memory_order::relaxed) || m_state->is_disposed_by_any();
+    } 
+
 private:
     std::shared_ptr<refocunt_disposable_state_t> m_state;
+    std::atomic_bool                     m_disposed{};
 };
 }
 
@@ -82,9 +104,8 @@ namespace rpp
  *
  * @ingroup disposables
  */
-class refcount_disposable : public details::base_composite_disposable
-                          , public std::enable_shared_from_this<refcount_disposable>
-{
+class refcount_disposable : public interface_composite_disposable,
+                            public std::enable_shared_from_this<refcount_disposable> {
 
 public:
     refcount_disposable() = default;
@@ -94,26 +115,31 @@ public:
 
     bool is_disposed_underlying() const noexcept
     {
-        // just need atomicity, not guarding anything
-        return m_state.refcount.load(std::memory_order::relaxed) == 0 || m_state.is_disposed();
-    }
-
-    void dispose_impl() noexcept final
-    {
-        m_state.try_dispose();
+        return m_state.is_disposed_by_any();
     }
 
     composite_disposable_wrapper add_ref()
     {
-        auto current_value = m_state.refcount.load(std::memory_order::relaxed);
+        if (m_state.add_ref())
+            return composite_disposable_wrapper{std::make_shared<details::inner_refcount_disposable>(std::shared_ptr<details::refocunt_disposable_state_t>{this->shared_from_this(), &this->m_state})};
 
-        // just need atomicity, not guarding anything
-        while (current_value && !m_state.refcount.compare_exchange_strong(current_value, current_value + 1, std::memory_order::relaxed, std::memory_order::relaxed)){};
+        return composite_disposable_wrapper{};
+    }
 
-        if (!current_value)
-            return composite_disposable_wrapper{};
+    composite_disposable_wrapper get_underlying()
+    {
+        return composite_disposable_wrapper::from_shared(std::shared_ptr<rpp::composite_disposable>{this->shared_from_this(), &this->m_state});
+    }
 
-        return composite_disposable_wrapper{std::make_shared<details::inner_refcount_disposable>(std::shared_ptr<details::refocunt_disposable_state_t>{this->shared_from_this(), &this->m_state})};
+    bool is_disposed() const noexcept final
+    {
+        return m_disposed.load(std::memory_order::relaxed) || m_state.is_disposed_by_any();
+    } 
+
+    void dispose() noexcept final
+    {
+        if (m_disposed.exchange(true, std::memory_order::relaxed) == false)
+            m_state.try_dispose();
     }
 
     using interface_composite_disposable::add;
@@ -123,12 +149,8 @@ public:
         m_state.add(std::move(disposable));
     }
 
-    composite_disposable_wrapper get_underlying()
-    {
-        return composite_disposable_wrapper::from_shared(std::shared_ptr<rpp::composite_disposable>{this->shared_from_this(), &this->m_state});
-    }
-
 private:
     details::refocunt_disposable_state_t m_state{};
+    std::atomic_bool                     m_disposed{};
 };
 } // namespace rpp
