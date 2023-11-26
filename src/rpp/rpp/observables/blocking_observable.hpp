@@ -14,37 +14,28 @@
 #include <rpp/defs.hpp>
 #include <rpp/operators/details/strategy.hpp>
 
-#include <future>
+#include <condition_variable>
+#include <mutex>
 
 namespace rpp::details::observables
 {
-template<rpp::constraint::observer TObserver>
-struct blocking_observer_strategy
+class blocking_disposble final : public base_disposable
 {
-    RPP_NO_UNIQUE_ADDRESS TObserver observer;
-    mutable std::promise<void>      promise;
-
-    template<typename T>
-    void on_next(T&& v) const
+public:
+    void wait() 
     {
-        observer.on_next(std::forward<T>(v));
+        std::unique_lock lock{m_mutex};
+        m_cv.wait(lock, [this] { return is_disposed(); });
     }
 
-    void on_error(const std::exception_ptr& err) const
+    void dispose_impl() noexcept override 
     {
-        observer.on_error(err);
-        promise.set_value();
+        m_cv.notify_all();
     }
 
-    void on_completed() const
-    {
-        observer.on_completed();
-        promise.set_value();
-    }
-
-    void set_upstream(const disposable_wrapper& d) { observer.set_upstream(d); }
-
-    bool is_disposed() const { return observer.is_disposed(); }
+private:
+    std::mutex              m_mutex{};
+    std::condition_variable m_cv{};
 };
 
 template<rpp::constraint::decayed_type Type, rpp::constraint::observable_strategy<Type> Strategy>
@@ -52,7 +43,7 @@ class blocking_strategy
 {
 public:
     using value_type = Type;
-    using expected_disposable_strategy = rpp::details::observables::deduce_disposable_strategy_t<Strategy>;
+    using expected_disposable_strategy = typename rpp::details::observables::deduce_disposable_strategy_t<Strategy>::template add<1>;
 
     blocking_strategy(observable<Type, Strategy>&& observable)
         : m_original{std::move(observable)}
@@ -67,10 +58,12 @@ public:
     template<rpp::constraint::observer_strategy<Type> ObserverStrategy>
     void subscribe(observer<Type, ObserverStrategy>&& obs) const
     {
-        std::promise<void> promise{};
-        auto               future = promise.get_future();
-        m_original.subscribe(observer<Type, blocking_observer_strategy<observer<Type, ObserverStrategy>>>{std::move(obs), std::move(promise)});
-        future.wait();
+        auto d = std::make_shared<blocking_disposble>();
+        obs.set_upstream(d);
+        m_original.subscribe(std::move(obs));
+        
+        if (!d->is_disposed())
+            d->wait();
     }
 
 private:

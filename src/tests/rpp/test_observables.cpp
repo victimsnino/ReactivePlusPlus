@@ -18,7 +18,6 @@
 #include <rpp/sources/never.hpp>
 #include <rpp/sources/error.hpp>
 #include <rpp/sources/empty.hpp>
-#include <rpp/sources/just.hpp>
 #include <rpp/operators/as_blocking.hpp>
 #include <chrono>
 #include <thread>
@@ -138,7 +137,10 @@ TEST_CASE("blocking_observable blocks subscribe call")
     }
     SECTION("as_blocking + take(1)")
     {
-        rpp::source::just(1)
+        rpp::source::create<int>([](const auto& obs)
+        {
+            obs.on_next(1);
+        })
         | rpp::ops::as_blocking()
         | rpp::ops::take(1)
         | rpp::operators::subscribe(mock);
