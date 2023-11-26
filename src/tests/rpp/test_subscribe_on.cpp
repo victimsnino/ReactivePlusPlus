@@ -20,6 +20,7 @@
 
 #include <optional>
 #include <thread>
+#include <future>
 
 #include "mock_observer.hpp"
 #include "disposable_observable.hpp"
