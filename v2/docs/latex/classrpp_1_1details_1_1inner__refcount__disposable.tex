@@ -18,41 +18,78 @@ Inheritance diagram for rpp\+::details\+::inner\+\_\+refcount\+\_\+disposable\+:
 \Hypertarget{classrpp_1_1details_1_1inner__refcount__disposable_a55e89b9a13147c2fb35db51b1933414c}\label{classrpp_1_1details_1_1inner__refcount__disposable_a55e89b9a13147c2fb35db51b1933414c} 
 {\bfseries inner\+\_\+refcount\+\_\+disposable} (\mbox{\hyperlink{classrpp_1_1details_1_1inner__refcount__disposable}{inner\+\_\+refcount\+\_\+disposable}} \&\&) noexcept=delete
 \item 
-void \mbox{\hyperlink{classrpp_1_1details_1_1inner__refcount__disposable_a384c2b85264a00414a0a6f78e4566c10}{dispose\+\_\+impl}} () noexcept final
+void \mbox{\hyperlink{classrpp_1_1details_1_1inner__refcount__disposable_a22d49ad567b61d6eb7a481a61158aa26}{dispose}} () noexcept override
+\begin{DoxyCompactList}\small\item\em Dispose disposable and free any underlying resources and etc. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classrpp_1_1details_1_1inner__refcount__disposable_afd7d4887d89df661e6150c5eaf5e65ab}{add}} (\mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{disposable\+\_\+wrapper}} disposable) override
 \item 
-\Hypertarget{classrpp_1_1details_1_1inner__refcount__disposable_ac431029c009a1c27783cc120d824e7ef}\label{classrpp_1_1details_1_1inner__refcount__disposable_ac431029c009a1c27783cc120d824e7ef} 
-void {\bfseries add} (\mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{disposable\+\_\+wrapper}} disposable) final
-\item 
-\Hypertarget{classrpp_1_1details_1_1inner__refcount__disposable_aeabbd86e2ea58c12cbb13a2d3cf5f726}\label{classrpp_1_1details_1_1inner__refcount__disposable_aeabbd86e2ea58c12cbb13a2d3cf5f726} 
-virtual void {\bfseries add} (\mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{disposable\+\_\+wrapper}} disposable)=0
+bool \mbox{\hyperlink{classrpp_1_1details_1_1inner__refcount__disposable_af3000e86932a877851471e48b5d63bfe}{is\+\_\+disposed}} () const noexcept override
+\begin{DoxyCompactList}\small\item\em Check if this disposable is just disposed. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{classrpp_1_1details_1_1inner__refcount__disposable_aeabbd86e2ea58c12cbb13a2d3cf5f726}{add}} (\mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{disposable\+\_\+wrapper}} disposable)=0
 \item 
 \Hypertarget{classrpp_1_1details_1_1inner__refcount__disposable_a5a466624c0cf774c3fbe2f585eaf813c}\label{classrpp_1_1details_1_1inner__refcount__disposable_a5a466624c0cf774c3fbe2f585eaf813c} 
 {\footnotesize template$<$rpp\+::constraint\+::is\+\_\+nothrow\+\_\+invocable Fn$>$ }\\void {\bfseries add} (Fn \&\&invocable)
 \end{DoxyCompactItemize}
-\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classrpp_1_1details_1_1base__disposable__impl}{rpp\+::details\+::base\+\_\+disposable\+\_\+impl$<$ Base\+Interface $>$}}}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{structrpp_1_1interface__composite__disposable}{rpp\+::interface\+\_\+composite\+\_\+disposable}}}
 \begin{DoxyCompactItemize}
 \item 
-{\bfseries base\+\_\+disposable\+\_\+impl} (const \mbox{\hyperlink{classrpp_1_1details_1_1base__disposable__impl}{base\+\_\+disposable\+\_\+impl}} \&)=delete
-\item 
-{\bfseries base\+\_\+disposable\+\_\+impl} (\mbox{\hyperlink{classrpp_1_1details_1_1base__disposable__impl}{base\+\_\+disposable\+\_\+impl}} \&\&) noexcept=delete
-\item 
-bool {\bfseries is\+\_\+disposed} () const noexcept final
-\item 
-void {\bfseries dispose} () noexcept final
+{\footnotesize template$<$rpp\+::constraint\+::is\+\_\+nothrow\+\_\+invocable Fn$>$ }\\void {\bfseries add} (Fn \&\&invocable)
 \end{DoxyCompactItemize}
-\doxysubsubsection*{Additional Inherited Members}
 
 
 \doxysubsection{Member Function Documentation}
-\Hypertarget{classrpp_1_1details_1_1inner__refcount__disposable_a384c2b85264a00414a0a6f78e4566c10}\label{classrpp_1_1details_1_1inner__refcount__disposable_a384c2b85264a00414a0a6f78e4566c10} 
-\index{rpp::details::inner\_refcount\_disposable@{rpp::details::inner\_refcount\_disposable}!dispose\_impl@{dispose\_impl}}
-\index{dispose\_impl@{dispose\_impl}!rpp::details::inner\_refcount\_disposable@{rpp::details::inner\_refcount\_disposable}}
-\doxysubsubsection{\texorpdfstring{dispose\_impl()}{dispose\_impl()}}
-{\footnotesize\ttfamily void rpp\+::details\+::inner\+\_\+refcount\+\_\+disposable\+::dispose\+\_\+impl (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [final]}, {\ttfamily [virtual]}, {\ttfamily [noexcept]}}
+\Hypertarget{classrpp_1_1details_1_1inner__refcount__disposable_afd7d4887d89df661e6150c5eaf5e65ab}\label{classrpp_1_1details_1_1inner__refcount__disposable_afd7d4887d89df661e6150c5eaf5e65ab} 
+\index{rpp::details::inner\_refcount\_disposable@{rpp::details::inner\_refcount\_disposable}!add@{add}}
+\index{add@{add}!rpp::details::inner\_refcount\_disposable@{rpp::details::inner\_refcount\_disposable}}
+\doxysubsubsection{\texorpdfstring{add()}{add()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void rpp\+::details\+::inner\+\_\+refcount\+\_\+disposable\+::add (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{disposable\+\_\+wrapper}}}]{disposable }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
 
 
 
-Implements \mbox{\hyperlink{classrpp_1_1details_1_1base__disposable__impl}{rpp\+::details\+::base\+\_\+disposable\+\_\+impl$<$ Base\+Interface $>$}}.
+Implements \mbox{\hyperlink{structrpp_1_1interface__composite__disposable}{rpp\+::interface\+\_\+composite\+\_\+disposable}}.
+
+\Hypertarget{classrpp_1_1details_1_1inner__refcount__disposable_aeabbd86e2ea58c12cbb13a2d3cf5f726}\label{classrpp_1_1details_1_1inner__refcount__disposable_aeabbd86e2ea58c12cbb13a2d3cf5f726} 
+\index{rpp::details::inner\_refcount\_disposable@{rpp::details::inner\_refcount\_disposable}!add@{add}}
+\index{add@{add}!rpp::details::inner\_refcount\_disposable@{rpp::details::inner\_refcount\_disposable}}
+\doxysubsubsection{\texorpdfstring{add()}{add()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily virtual void rpp\+::interface\+\_\+composite\+\_\+disposable\+::add (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{disposable\+\_\+wrapper}}}]{disposable }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{structrpp_1_1interface__composite__disposable}{rpp\+::interface\+\_\+composite\+\_\+disposable}}.
+
+\Hypertarget{classrpp_1_1details_1_1inner__refcount__disposable_a22d49ad567b61d6eb7a481a61158aa26}\label{classrpp_1_1details_1_1inner__refcount__disposable_a22d49ad567b61d6eb7a481a61158aa26} 
+\index{rpp::details::inner\_refcount\_disposable@{rpp::details::inner\_refcount\_disposable}!dispose@{dispose}}
+\index{dispose@{dispose}!rpp::details::inner\_refcount\_disposable@{rpp::details::inner\_refcount\_disposable}}
+\doxysubsubsection{\texorpdfstring{dispose()}{dispose()}}
+{\footnotesize\ttfamily void rpp\+::details\+::inner\+\_\+refcount\+\_\+disposable\+::dispose (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}, {\ttfamily [noexcept]}}
+
+
+
+Dispose disposable and free any underlying resources and etc. 
+
+\begin{DoxyWarning}{Warning}
+This function must be thread-\/safe 
+\end{DoxyWarning}
+
+
+Implements \mbox{\hyperlink{structrpp_1_1interface__disposable_aba40958e70b43507be04f55bbd4340e9}{rpp\+::interface\+\_\+disposable}}.
+
+\Hypertarget{classrpp_1_1details_1_1inner__refcount__disposable_af3000e86932a877851471e48b5d63bfe}\label{classrpp_1_1details_1_1inner__refcount__disposable_af3000e86932a877851471e48b5d63bfe} 
+\index{rpp::details::inner\_refcount\_disposable@{rpp::details::inner\_refcount\_disposable}!is\_disposed@{is\_disposed}}
+\index{is\_disposed@{is\_disposed}!rpp::details::inner\_refcount\_disposable@{rpp::details::inner\_refcount\_disposable}}
+\doxysubsubsection{\texorpdfstring{is\_disposed()}{is\_disposed()}}
+{\footnotesize\ttfamily bool rpp\+::details\+::inner\+\_\+refcount\+\_\+disposable\+::is\+\_\+disposed (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}, {\ttfamily [noexcept]}}
+
+
+
+Check if this disposable is just disposed. 
+
+\begin{DoxyWarning}{Warning}
+This function must be thread-\/safe 
+\end{DoxyWarning}
+
+
+Implements \mbox{\hyperlink{structrpp_1_1interface__disposable_a0348da95fe5929a3861e80b6651c347f}{rpp\+::interface\+\_\+disposable}}.
 
 
 

@@ -26,6 +26,7 @@ var dir_3591f6ab25936dd3deeec05839e478ca =
     [ "start_with.hpp", "start__with_8hpp_source.html", null ],
     [ "subscribe.hpp", "subscribe_8hpp_source.html", null ],
     [ "subscribe_on.hpp", "subscribe__on_8hpp_source.html", null ],
+    [ "switch_on_next.hpp", "switch__on__next_8hpp_source.html", null ],
     [ "take.hpp", "take_8hpp_source.html", null ],
     [ "take_last.hpp", "take__last_8hpp_source.html", null ],
     [ "take_until.hpp", "take__until_8hpp_source.html", null ],

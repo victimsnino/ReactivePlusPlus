@@ -128,33 +128,35 @@
 \DoxyCodeLine{00124\ \textcolor{keyword}{template}<rpp::schedulers::constra\textcolor{keywordtype}{int}::scheduler\ Scheduler>}
 \DoxyCodeLine{00125\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__utility__operators_gace728cfbf71720901cb6f310edabf8b0}{subscribe\_on}}(Scheduler\&\&\ scheduler);}
 \DoxyCodeLine{00126\ }
-\DoxyCodeLine{00127\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__filtering__operators_gaf32161437c2c6cd7d5a0e5170a333cbb}{take}}(\textcolor{keywordtype}{size\_t}\ count);}
+\DoxyCodeLine{00127\ \textcolor{keyword}{auto}\ switch\_on\_next();}
 \DoxyCodeLine{00128\ }
-\DoxyCodeLine{00129\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__filtering__operators_gad9c1c3326bcaf2f1f64fd7e35f00e669}{take\_last}}(\textcolor{keywordtype}{size\_t}\ count);}
+\DoxyCodeLine{00129\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__filtering__operators_gaf32161437c2c6cd7d5a0e5170a333cbb}{take}}(\textcolor{keywordtype}{size\_t}\ count);}
 \DoxyCodeLine{00130\ }
-\DoxyCodeLine{00131\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ Fn>}
-\DoxyCodeLine{00132\ \ \ \ \ \textcolor{keyword}{requires}\ (!utils::is\_not\_template\_callable<Fn>\ ||\ std::same\_as<bool,\ std::invoke\_result\_t<Fn,\ rpp::utils::convertible\_to\_any>>)}
-\DoxyCodeLine{00133\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__conditional__operators_gac65952f7460d8f0e71a93d95810d2061}{take\_while}}(Fn\&\&\ predicate);}
-\DoxyCodeLine{00134\ }
-\DoxyCodeLine{00135\ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::observable\ TObservable>}
-\DoxyCodeLine{00136\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__conditional__operators_gae40802b5608766bfcc1417e210f41707}{take\_until}}(TObservable\&\&\ until\_observable);}
-\DoxyCodeLine{00137\ }
-\DoxyCodeLine{00138\ \textcolor{keyword}{template}<rpp::schedulers::constra\textcolor{keywordtype}{int}::scheduler\ Scheduler\ =\ rpp::schedulers::immediate>}
-\DoxyCodeLine{00139\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__filtering__operators_gada7d22ff6ee83d4aca44411561f56f98}{throttle}}(rpp::schedulers::duration\ period);}
-\DoxyCodeLine{00140\ }
-\DoxyCodeLine{00141\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ TSelector,\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp::constraint::observable}}\ TObservable,\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp::constraint::observable}}...\ TObservables>}
-\DoxyCodeLine{00142\ \ \ \ \ \textcolor{keyword}{requires}(!\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp::constraint::observable<TSelector>}}\ \&\&\ (!utils::is\_not\_template\_callable<TSelector>\ ||\ std::invocable<TSelector,\ rpp::utils::convertible\_to\_any,\ utils::extract\_observable\_type\_t<TObservable>,\ utils::extract\_observable\_type\_t<TObservables>...>))}
-\DoxyCodeLine{00143\ auto\ \mbox{\hyperlink{group__combining__operators_ga9345ba5faac717ba85fc88f1c5fff58b}{with\_latest\_from}}(TSelector\&\&\ selector,\ TObservable\&\&\ observable,\ TObservables\&\&...\ observables);}
-\DoxyCodeLine{00144\ }
-\DoxyCodeLine{00145\ template<rpp::constraint::observable\ TObservable,\ rpp::constraint::observable...\ TObservables>}
-\DoxyCodeLine{00146\ auto\ \mbox{\hyperlink{group__combining__operators_ga9345ba5faac717ba85fc88f1c5fff58b}{with\_latest\_from}}(TObservable\&\&\ observable,\ TObservables\&\&...\ observables);}
-\DoxyCodeLine{00147\ }
-\DoxyCodeLine{00148\ auto\ \mbox{\hyperlink{group__transforming__operators_gab947bced93ea29bcaa791904a49f43e5}{window}}(\textcolor{keywordtype}{size\_t}\ count);}
-\DoxyCodeLine{00149\ \}\ \textcolor{comment}{//\ namespace\ rpp::operators}}
-\DoxyCodeLine{00150\ }
-\DoxyCodeLine{00151\ namespace\ rpp}
-\DoxyCodeLine{00152\ \{}
-\DoxyCodeLine{00153\ \textcolor{keyword}{namespace\ }ops\ =\ operators;}
-\DoxyCodeLine{00154\ \}}
+\DoxyCodeLine{00131\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__filtering__operators_gad9c1c3326bcaf2f1f64fd7e35f00e669}{take\_last}}(\textcolor{keywordtype}{size\_t}\ count);}
+\DoxyCodeLine{00132\ }
+\DoxyCodeLine{00133\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ Fn>}
+\DoxyCodeLine{00134\ \ \ \ \ \textcolor{keyword}{requires}\ (!utils::is\_not\_template\_callable<Fn>\ ||\ std::same\_as<bool,\ std::invoke\_result\_t<Fn,\ rpp::utils::convertible\_to\_any>>)}
+\DoxyCodeLine{00135\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__conditional__operators_gac65952f7460d8f0e71a93d95810d2061}{take\_while}}(Fn\&\&\ predicate);}
+\DoxyCodeLine{00136\ }
+\DoxyCodeLine{00137\ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::observable\ TObservable>}
+\DoxyCodeLine{00138\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__conditional__operators_gae40802b5608766bfcc1417e210f41707}{take\_until}}(TObservable\&\&\ until\_observable);}
+\DoxyCodeLine{00139\ }
+\DoxyCodeLine{00140\ \textcolor{keyword}{template}<rpp::schedulers::constra\textcolor{keywordtype}{int}::scheduler\ Scheduler\ =\ rpp::schedulers::immediate>}
+\DoxyCodeLine{00141\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__filtering__operators_gada7d22ff6ee83d4aca44411561f56f98}{throttle}}(rpp::schedulers::duration\ period);}
+\DoxyCodeLine{00142\ }
+\DoxyCodeLine{00143\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ TSelector,\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp::constraint::observable}}\ TObservable,\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp::constraint::observable}}...\ TObservables>}
+\DoxyCodeLine{00144\ \ \ \ \ \textcolor{keyword}{requires}(!\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp::constraint::observable<TSelector>}}\ \&\&\ (!utils::is\_not\_template\_callable<TSelector>\ ||\ std::invocable<TSelector,\ rpp::utils::convertible\_to\_any,\ utils::extract\_observable\_type\_t<TObservable>,\ utils::extract\_observable\_type\_t<TObservables>...>))}
+\DoxyCodeLine{00145\ auto\ \mbox{\hyperlink{group__combining__operators_ga9345ba5faac717ba85fc88f1c5fff58b}{with\_latest\_from}}(TSelector\&\&\ selector,\ TObservable\&\&\ observable,\ TObservables\&\&...\ observables);}
+\DoxyCodeLine{00146\ }
+\DoxyCodeLine{00147\ template<rpp::constraint::observable\ TObservable,\ rpp::constraint::observable...\ TObservables>}
+\DoxyCodeLine{00148\ auto\ \mbox{\hyperlink{group__combining__operators_ga9345ba5faac717ba85fc88f1c5fff58b}{with\_latest\_from}}(TObservable\&\&\ observable,\ TObservables\&\&...\ observables);}
+\DoxyCodeLine{00149\ }
+\DoxyCodeLine{00150\ auto\ \mbox{\hyperlink{group__transforming__operators_gab947bced93ea29bcaa791904a49f43e5}{window}}(\textcolor{keywordtype}{size\_t}\ count);}
+\DoxyCodeLine{00151\ \}\ \textcolor{comment}{//\ namespace\ rpp::operators}}
+\DoxyCodeLine{00152\ }
+\DoxyCodeLine{00153\ namespace\ rpp}
+\DoxyCodeLine{00154\ \{}
+\DoxyCodeLine{00155\ \textcolor{keyword}{namespace\ }ops\ =\ operators;}
+\DoxyCodeLine{00156\ \}}
 
 \end{DoxyCode}
