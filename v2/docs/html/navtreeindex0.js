@@ -22,6 +22,7 @@ var NAVTREEINDEX0 =
 "classrpp_1_1details_1_1inner__refcount__disposable.html":[3,0,0,0,14],
 "classrpp_1_1details_1_1inner__refcount__disposable.html#a22d49ad567b61d6eb7a481a61158aa26":[3,0,0,0,14,0],
 "classrpp_1_1details_1_1inner__refcount__disposable.html#af3000e86932a877851471e48b5d63bfe":[3,0,0,0,14,1],
+"classrpp_1_1details_1_1observables_1_1blocking__disposble.html":[3,0,0,0,1,0],
 "classrpp_1_1details_1_1observables_1_1blocking__strategy.html":[3,0,0,0,1,1],
 "classrpp_1_1details_1_1observables_1_1dynamic__strategy.html":[3,0,0,0,1,4],
 "classrpp_1_1details_1_1observer__impl.html":[3,0,0,0,18],
@@ -248,6 +249,5 @@ var NAVTREEINDEX0 =
 "group__rppqt.html":[1,1],
 "group__schedulers.html":[1,0,4],
 "group__subjects.html":[1,0,5],
-"group__subjects.html#gaf27df80724e7c0f28ecd1a72429812b0":[1,0,5,0],
-"group__transforming__operators.html":[1,0,3,0]
+"group__subjects.html#gaf27df80724e7c0f28ecd1a72429812b0":[1,0,5,0]
 };

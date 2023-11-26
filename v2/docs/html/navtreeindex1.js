@@ -1,5 +1,6 @@
 var NAVTREEINDEX1 =
 {
+"group__transforming__operators.html":[1,0,3,0],
 "group__transforming__operators.html#ga1291dba2d973d4ba1061c9e0e202cb3f":[1,0,3,0,3],
 "group__transforming__operators.html#ga2fa21790af1c065382cd37faa3462851":[1,0,3,0,2],
 "group__transforming__operators.html#ga633883e796101ceeab821e2a4912bd5e":[1,0,3,0,1],
@@ -107,7 +108,6 @@ var NAVTREEINDEX1 =
 "structrpp_1_1details_1_1interval__schedulable.html":[3,0,0,0,15],
 "structrpp_1_1details_1_1interval__strategy.html":[3,0,0,0,16],
 "structrpp_1_1details_1_1never__strategy.html":[3,0,0,0,17],
-"structrpp_1_1details_1_1observables_1_1blocking__observer__strategy.html":[3,0,0,0,1,0],
 "structrpp_1_1details_1_1observables_1_1default__disposable__strategy__selector.html":[3,0,0,0,1,2],
 "structrpp_1_1details_1_1observables_1_1dynamic__disposable__strategy__selector.html":[3,0,0,0,1,3],
 "structrpp_1_1details_1_1observables_1_1fixed__disposable__strategy__selector.html":[3,0,0,0,1,5],

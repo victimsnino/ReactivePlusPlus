@@ -7,10 +7,10 @@ var hierarchy =
     [ "rpp::subjects::details::base_subject< value_type >", "classrpp_1_1subjects_1_1details_1_1base__subject.html", null ],
     [ "BaseInterface", null, [
       [ "rpp::details::base_disposable_impl< BaseInterface >", "classrpp_1_1details_1_1base__disposable__impl.html", [
-        [ "rpp::callback_disposable< Fn >", "classrpp_1_1callback__disposable.html", null ]
+        [ "rpp::callback_disposable< Fn >", "classrpp_1_1callback__disposable.html", null ],
+        [ "rpp::details::observables::blocking_disposble", "classrpp_1_1details_1_1observables_1_1blocking__disposble.html", null ]
       ] ]
     ] ],
-    [ "rpp::details::observables::blocking_observer_strategy< TObserver >", "structrpp_1_1details_1_1observables_1_1blocking__observer__strategy.html", null ],
     [ "rpp::details::observables::blocking_strategy< Type, Strategy >", "classrpp_1_1details_1_1observables_1_1blocking__strategy.html", null ],
     [ "rpp::operators::details::buffer_observer_strategy< TObserver >", "classrpp_1_1operators_1_1details_1_1buffer__observer__strategy.html", null ],
     [ "rpp::operators::details::combine_latest_observer_strategy< I, Observer, TSelector, Args >", "structrpp_1_1operators_1_1details_1_1combine__latest__observer__strategy.html", null ],
