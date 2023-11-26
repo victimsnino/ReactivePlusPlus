@@ -11,12 +11,14 @@
 #include "rpp/disposables/fwd.hpp"
 #include "rpp/operators/fwd.hpp"
 #include "rpp/operators/subscribe.hpp"
+#include "rpp/operators/take.hpp"
 #include <snitch/snitch.hpp>
 #include <rpp/observables.hpp>
 #include <rpp/sources/create.hpp>
 #include <rpp/sources/never.hpp>
 #include <rpp/sources/error.hpp>
 #include <rpp/sources/empty.hpp>
+#include <rpp/sources/just.hpp>
 #include <rpp/operators/as_blocking.hpp>
 #include <chrono>
 #include <thread>
@@ -133,6 +135,16 @@ TEST_CASE("blocking_observable blocks subscribe call")
         | rpp::operators::subscribe(mock);
 
         CHECK(mock.get_on_error_count() == 1);
+    }
+    SECTION("as_blocking + take(1)")
+    {
+        rpp::source::just(1)
+        | rpp::ops::as_blocking()
+        | rpp::ops::take(1)
+        | rpp::operators::subscribe(mock);
+
+        CHECK(mock.get_total_on_next_count() == 1);
+        CHECK(mock.get_on_completed_count() == 1);
     }
 }
 
