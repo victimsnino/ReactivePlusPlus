@@ -55,9 +55,8 @@ private:
         if (m_state->disposable && !m_state->disposable->is_disposed_underlying())
             return {m_state->disposable->add_ref(), std::nullopt};
 
-        rpp::composite_disposable_wrapper upstream = std::make_shared<rpp::composite_disposable>();
-        m_state->disposable                        = std::make_shared<rpp::refcount_disposable>(upstream);
-        return {m_state->disposable, upstream};
+        m_state->disposable                        = std::make_shared<rpp::refcount_disposable>();
+        return {m_state->disposable, m_state->disposable->get_underlying()};
     }
 };
 }

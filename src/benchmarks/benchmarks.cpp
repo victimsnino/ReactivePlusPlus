@@ -295,6 +295,21 @@ int main(int argc, char* argv[]) // NOLINT(bugprone-exception-escape)
             //     | rxcpp::operators::subscribe<std::tuple<int,int>>([](const std::tuple<int,int>& v){ ankerl::nanobench::doNotOptimizeAway(v); });
             // });
         }
+
+        SECTION("immediate_just(immediate_just(1),immediate_just(1)) + switch_on_next() + subscribe")
+        {
+            TEST_RPP([&]() {
+                rpp::immediate_just(rpp::immediate_just(1), rpp::immediate_just(1))
+                    | rpp::operators::switch_on_next()
+                    | rpp::operators::subscribe([](int v) { ankerl::nanobench::doNotOptimizeAway(v); });
+            });
+
+            TEST_RXCPP([&]() {
+                rxcpp::immediate_just(rxcpp::immediate_just(1), rxcpp::immediate_just(1))
+                    | rxcpp::operators::switch_on_next()
+                    | rxcpp::operators::subscribe<int>([](int v) { ankerl::nanobench::doNotOptimizeAway(v); });
+            });
+        }
     }
 
     BENCHMARK("Conditional Operators")

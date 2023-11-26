@@ -120,7 +120,7 @@ namespace rpp::operators
  * @marble take_until
  {
      source observable        : +-1--2--3--|
-     source until_observable  : +--s--s----|
+     source until_observable  : +---s--s---|
      operator "take_until"    : +-1-|
  }
  *
