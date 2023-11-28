@@ -70,3 +70,12 @@ private:
     RPP_NO_UNIQUE_ADDRESS observable<Type, Strategy> m_original;
 };
 }
+
+namespace rpp
+{
+template<constraint::decayed_type Type, constraint::observable_strategy<Type> Strategy>
+class blocking_observable : public observable<Type, details::observables::blocking_strategy<Type, Strategy>> {
+public:
+    using observable<Type, details::observables::blocking_strategy<Type, Strategy>>::observable;
+};
+}

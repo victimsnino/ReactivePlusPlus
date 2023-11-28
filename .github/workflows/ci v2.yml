@@ -77,7 +77,7 @@ jobs:
     - name: Install deps
       if: matrix.config.os == 'ubuntu-latest'
       run: |
-        sudo apt-get update -q && sudo apt-get install clang-tidy cppcheck -y -q
+        sudo apt-get update -q && sudo apt-get install clang-tidy cppcheck libsfml-dev -y -q
         pip install pyyaml
     
     - name: Install Qt

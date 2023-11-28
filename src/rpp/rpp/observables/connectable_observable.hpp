@@ -119,8 +119,6 @@ public:
                                details::ref_count_on_subscribe_t<connectable_observable<OriginalObservable, Subject>>>{*this};
     }
 
-    using base::operator|;
-
     template<rpp::constraint::operator_observable_transform<const connectable_observable&> Op>
     auto operator|(Op&& op) const &
     {
@@ -133,18 +131,17 @@ public:
         return std::forward<Op>(op)(std::move(*this));
     }
 
-    template<rpp::constraint::operator_chain<rpp::utils::extract_observable_type_t<base>, rpp::details::observables::deduce_disposable_strategy_t<base>> Op>
-    auto operator|(Op&& op) const &
+    template<typename Op>
+    decltype(std::declval<const base>() | std::declval<Op>()) operator|(Op&& op) const &
     {
         return static_cast<base>(*this) | std::forward<Op>(op);
     }
 
-    template<rpp::constraint::operator_chain<rpp::utils::extract_observable_type_t<base>, rpp::details::observables::deduce_disposable_strategy_t<base>> Op>
-    auto operator|(Op&& op) &&
+    template<typename Op>
+    decltype(std::declval<base>() | std::declval<Op>()) operator|(Op&& op) &&
     {
         return std::move(static_cast<base>(*this)) | std::forward<Op>(op);
     }
-
 
 private:
     OriginalObservable m_original_observable;
