@@ -31,6 +31,7 @@ static auto get_events_observable(sf::RenderWindow& window)
     });
 }
 
+#include <iostream>
 
 int main()
 {
@@ -40,9 +41,11 @@ int main()
     const auto events = get_events_observable(window) | rpp::ops::publish();
     const auto presents = get_presents_stream(events);
 
-    presents.subscribe([&window](const auto&)
+    auto start = rpp::schedulers::clock_type::now();
+    presents.subscribe([&window, &start](const PresentEvent& p)
     {
         window.display();
+        std::cout << "FPS: " << ((static_cast<double>(p.frame_number) / static_cast<double>(std::chrono::duration_cast<std::chrono::nanoseconds>(rpp::schedulers::clock_type::now() - start).count()))*1000000000.0) << std::endl;
         window.clear(sf::Color{0, 128, 0});
     });
 
