@@ -27,14 +27,11 @@ namespace rpp
  *
  * @ingroup disposables
  */
-template<rpp::constraint::decayed_type Container>
+template<details::disposables::constraint::disposable_container Container>
 class composite_disposable_impl : public interface_composite_disposable
 {
 public:
-    composite_disposable_impl()
-        requires details::disposables::constraint::disposable_container<Container>
-    = default;
-
+    composite_disposable_impl()= default;
     composite_disposable_impl(const composite_disposable_impl&)           = delete;
     composite_disposable_impl(composite_disposable_impl&& other) noexcept = delete;
 
@@ -113,4 +110,6 @@ private:
     Container          m_disposables{};
     std::atomic<State> m_current_state{};
 };
+
+class composite_disposable : public composite_disposable_impl<rpp::details::disposables::dynamic_disposables_container<0>>{};
 } // namespace rpp
