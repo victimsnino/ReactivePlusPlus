@@ -96,6 +96,33 @@ public:
         }
     }
 
+    void remove(const disposable_wrapper& disposable) override
+    {
+        while (true)
+        {
+            State expected{State::None};
+            // need to acquire possible disposables state changing from other `add` or `remove`
+            if (m_current_state.compare_exchange_strong(expected, State::Edit, std::memory_order::acquire, std::memory_order::relaxed))
+            {
+                try
+                {
+                    m_disposables.remove(disposable);
+                }
+                catch(...)
+                {
+                    m_current_state.store(State::None, std::memory_order::release);
+                    throw;
+                }
+                // need to propogate disposables state changing to others
+                m_current_state.store(State::None, std::memory_order::release);
+                return;
+            }
+
+            if (expected == State::Disposed)
+                return;
+        }
+    }
+
 protected:
     virtual void dispose_impl() noexcept {}
 

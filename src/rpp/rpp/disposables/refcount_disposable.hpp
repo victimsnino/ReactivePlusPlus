@@ -85,6 +85,11 @@ public:
         m_state->add(std::move(disposable));
     }
 
+    void remove(const disposable_wrapper& d) override 
+    {
+        m_state->remove(d);
+    }
+
     bool is_disposed() const noexcept override
     {
         return m_disposed.load(std::memory_order::relaxed) || m_state->is_disposed_by_any();
@@ -147,6 +152,11 @@ public:
     void add(disposable_wrapper disposable) final
     {
         m_state.add(std::move(disposable));
+    }
+
+    void remove(const disposable_wrapper& d) override 
+    {
+        m_state.remove(d);
     }
 
 private:

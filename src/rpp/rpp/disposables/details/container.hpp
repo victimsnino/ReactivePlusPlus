@@ -35,6 +35,11 @@ public:
         m_data.push_back(std::move(d));
     }
 
+    void remove(const rpp::disposable_wrapper& d)
+    {
+        m_data.erase(std::remove(m_data.begin(), m_data.end(), d), m_data.end());
+    }
+
     void dispose() const
     {
         for (auto& d : m_data) {
@@ -80,6 +85,15 @@ public:
         m_data[m_size++] = std::move(d);
     }
 
+    void remove(const rpp::disposable_wrapper& d)
+    {
+        auto itr = std::remove(m_data.begin(), m_data.end(), d);
+        while(itr != m_data.end()) {
+            (*itr++) = disposable_wrapper{};
+            --m_size;
+        }
+    }
+
     void dispose() const
     {
         for (size_t i =0; i < m_size; ++i) {
@@ -105,7 +119,8 @@ struct none_disposables_container
         throw rpp::utils::more_disposables_than_expected{"none_disposables_container expected none disposables but obtained one"};
     }
 
-    static void dispose() {};
-    static void clear() {};
+    static void remove(const rpp::disposable_wrapper&) {}
+    static void dispose() {}
+    static void clear() {}
 };
 }

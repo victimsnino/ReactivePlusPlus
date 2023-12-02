@@ -25,9 +25,9 @@ struct custom_disposable : public rpp::interface_disposable
 };
 }
 
-TEST_CASE("disposable keeps state")
+TEMPLATE_TEST_CASE("disposable keeps state", "", rpp::details::disposables::dynamic_disposables_container<0>, rpp::details::disposables::static_disposables_container<1>)
 {
-    auto d = rpp::composite_disposable_wrapper{std::make_shared<rpp::composite_disposable>()};
+    auto d = rpp::composite_disposable_wrapper{std::make_shared<rpp::composite_disposable_impl<TestType>>()};
 
     CHECK(!d.is_disposed());
 
@@ -55,6 +55,14 @@ TEST_CASE("disposable keeps state")
         {
             d.dispose();
             CHECK(other->is_disposed());
+            CHECK(d.is_disposed());
+        }
+
+        SECTION("calling remove + dispose on original disposable forces only original to be disposed")
+        {
+            d.remove(other);
+            d.dispose();
+            CHECK(!other->is_disposed());
             CHECK(d.is_disposed());
         }
 

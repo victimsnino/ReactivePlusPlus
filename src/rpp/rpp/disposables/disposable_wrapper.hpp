@@ -66,6 +66,11 @@ public:
         return disposable_wrapper_impl{weak_tag{}, std::move(disposable)};
     }
 
+    bool operator==(const disposable_wrapper_impl& other) const
+    {
+        return get_original() == other.get_original();
+    }
+
     bool is_disposed() const noexcept
     {
         if (const auto locked = get_original())
@@ -86,6 +91,13 @@ public:
             locked->add(std::move(other));
         else
             other.dispose();
+    }
+
+    void remove(const disposable_wrapper& other) const
+        requires std::derived_from<TDisposable, interface_composite_disposable>
+    {
+        if (const auto locked = get_original())
+            locked->remove(other);
     }
 
     std::shared_ptr<TDisposable> get_original() const noexcept
