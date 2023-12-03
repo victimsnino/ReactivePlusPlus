@@ -92,12 +92,14 @@ public:
         : m_state{std::make_shared<switch_on_next_state_t<TObserver>>(obs)} 
     {
         m_state->get_observer()->set_upstream(rpp::disposable_wrapper::from_weak(m_state->get_underlying().get_original()));
+        m_this_refcount = m_state->add_ref();
     }
 
     switch_on_next_observer_strategy(TObserver&& obs)
         : m_state{std::make_shared<switch_on_next_state_t<TObserver>>(std::move(obs))} 
     {
         m_state->get_observer()->set_upstream(rpp::disposable_wrapper::from_weak(m_state->get_underlying().get_original()));
+        m_this_refcount = m_state->add_ref();
     }
 
     switch_on_next_observer_strategy(const switch_on_next_observer_strategy&) = delete;
@@ -119,17 +121,18 @@ public:
 
     void on_completed() const
     {
-        m_state->get_underlying().dispose();
+        m_this_refcount.dispose();
         if (m_state->is_disposed_underlying())
             m_state->get_observer()->on_completed();
     }
 
-    void set_upstream(const disposable_wrapper& d) { m_state->get_underlying().add(d); }
+    void set_upstream(const disposable_wrapper& d) { m_this_refcount.add(d); }
 
-    bool is_disposed() const { return m_state->is_disposed_underlying(); }
+    bool is_disposed() const { return m_this_refcount.is_disposed(); }
 
 private:
     std::shared_ptr<switch_on_next_state_t<TObserver>> m_state;
+    rpp::composite_disposable_wrapper                  m_this_refcount{};
     mutable rpp::composite_disposable_wrapper          m_last_refcount{};
 };
 
