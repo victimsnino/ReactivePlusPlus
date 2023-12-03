@@ -81,12 +81,9 @@ public:
             auto inner   = std::make_shared<rpp::composite_disposable_impl<rpp::details::disposables::dynamic_disposables_container<1>>>();
             auto as_weak = rpp::disposable_wrapper::from_weak(inner);
             m_state.add(as_weak);
-            inner->add([s = this->weak_from_this(), as_weak]() noexcept {
-                if (auto d = s.lock())
-                {
-                    d->m_state.remove(as_weak);
-                    d->m_state.release();
-                }
+            inner->add([s = shared_from_this(), as_weak]() noexcept {
+                s->m_state.remove(as_weak);
+                s->m_state.release();
             });
             return composite_disposable_wrapper{inner};
         }
