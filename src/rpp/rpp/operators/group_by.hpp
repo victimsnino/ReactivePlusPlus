@@ -77,12 +77,12 @@ struct group_by_observer_strategy
 
     RPP_CALL_DURING_CONSTRUCTION(
     {
-        observer.set_upstream(rpp::disposable_wrapper{disposable});
+        observer.set_upstream(disposable->add_ref());
     });
 
     void set_upstream(const rpp::disposable_wrapper& d) const
     {
-        disposable->add(d);
+        disposable->get_underlying().add(d);
     }
 
     bool is_disposed() const
@@ -134,7 +134,7 @@ private:
 
         if (inserted)
         {
-            disposable->add(rpp::disposable_wrapper::from_weak(itr->second.get_disposable().get_original()));
+            disposable->get_underlying().add(rpp::disposable_wrapper::from_weak(itr->second.get_disposable().get_original()));
             obs.on_next(rpp::grouped_observable_group_by<TKey, Type>{
                 std::move(key),
                 group_by_observable_strategy<Type>{itr->second, disposable}
@@ -158,9 +158,10 @@ struct group_by_observable_strategy
     {
         if (const auto locked = disposable.lock())
         {
-            obs.set_upstream(locked->add_ref());
+            auto d = locked->add_ref();
+            obs.set_upstream(d);
             subj.get_observable()
-                .subscribe(rpp::observer<T, group_by_inner_observer_strategy<observer<T, Strategy>>>{std::move(obs), rpp::composite_disposable_wrapper::from_weak(disposable)});
+                .subscribe(rpp::observer<T, group_by_inner_observer_strategy<observer<T, Strategy>>>{std::move(obs), std::move(d)});
         }
     }
 };

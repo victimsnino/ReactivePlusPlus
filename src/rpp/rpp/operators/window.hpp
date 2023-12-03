@@ -42,7 +42,7 @@ public:
         : m_observer{std::move(observer)}
         , m_window_size{std::max(size_t{1}, count)}
     {
-        m_observer.set_upstream(rpp::disposable_wrapper::from_weak(m_disposble));
+        m_observer.set_upstream(m_disposble->add_ref());
     }
 
     template<typename T>
@@ -78,7 +78,7 @@ public:
         m_observer.on_completed();
     }
 
-    void set_upstream(const disposable_wrapper& d) const { m_disposble->add(d); }
+    void set_upstream(const disposable_wrapper& d) const { m_disposble->get_underlying().add(d); }
 
     bool is_disposed() const { return m_disposble->is_disposed_underlying(); }
 
