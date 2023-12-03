@@ -65,8 +65,8 @@ private:
 class refocunt_disposable_inner final : public rpp::composite_disposable, public std::enable_shared_from_this<refocunt_disposable_inner>
 {
 public:
-    refocunt_disposable_inner(const std::shared_ptr<refocunt_disposable_state_t>& state)
-        : m_state{state} {}
+    refocunt_disposable_inner(std::shared_ptr<refocunt_disposable_state_t>&& state)
+        : m_state{std::move(state)} {}
         
     void dispose_impl() noexcept override
     {
