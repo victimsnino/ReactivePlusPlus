@@ -61,6 +61,22 @@ private:
     std::atomic<size_t>     m_refcount{0};
     constexpr static size_t s_disposed = std::numeric_limits<size_t>::max();
 };
+
+class refocunt_disposable_inner final : public rpp::composite_disposable, public std::enable_shared_from_this<refocunt_disposable_inner>
+{
+public:
+    refocunt_disposable_inner(const std::shared_ptr<refocunt_disposable_state_t>& state)
+        : m_state{state} {}
+        
+    void dispose_impl() noexcept override
+    {
+        m_state->remove(rpp::disposable_wrapper::from_weak(weak_from_this()));
+        m_state->release();
+    }
+
+private:
+    std::shared_ptr<refocunt_disposable_state_t> m_state;
+};
 }
 
 namespace rpp
@@ -79,13 +95,8 @@ public:
     {
         if (m_state.add_ref())
         {
-            auto inner   = std::make_shared<rpp::composite_disposable_impl<rpp::details::disposables::dynamic_disposables_container<1>>>();
-            auto as_weak = rpp::disposable_wrapper::from_weak(inner);
-            m_state.add(as_weak);
-            inner->add([s = shared_from_this(), as_weak]() noexcept {
-                s->m_state.remove(as_weak);
-                s->m_state.release();
-            });
+            auto inner   = std::make_shared<details::refocunt_disposable_inner>(std::shared_ptr<details::refocunt_disposable_state_t>{this->shared_from_this(), &this->m_state});
+            m_state.add(rpp::disposable_wrapper::from_weak(inner));
             return composite_disposable_wrapper{inner};
         }
 
