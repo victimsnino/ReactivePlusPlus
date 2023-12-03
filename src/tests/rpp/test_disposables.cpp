@@ -25,9 +25,9 @@ struct custom_disposable : public rpp::interface_disposable
 };
 }
 
-TEST_CASE("disposable keeps state")
+TEMPLATE_TEST_CASE("disposable keeps state", "", rpp::details::disposables::dynamic_disposables_container<0>, rpp::details::disposables::static_disposables_container<1>)
 {
-    auto d = rpp::composite_disposable_wrapper{std::make_shared<rpp::composite_disposable>()};
+    auto d = rpp::composite_disposable_wrapper{std::make_shared<rpp::composite_disposable_impl<TestType>>()};
 
     CHECK(!d.is_disposed());
 
@@ -55,6 +55,14 @@ TEST_CASE("disposable keeps state")
         {
             d.dispose();
             CHECK(other->is_disposed());
+            CHECK(d.is_disposed());
+        }
+
+        SECTION("calling remove + dispose on original disposable forces only original to be disposed")
+        {
+            d.remove(other);
+            d.dispose();
+            CHECK(!other->is_disposed());
             CHECK(d.is_disposed());
         }
 
@@ -124,40 +132,48 @@ TEST_CASE("disposable keeps state")
 TEST_CASE("refcount disposable dispose underlying in case of reaching zero")
 {
     auto refcount = std::make_shared<rpp::refcount_disposable>();
+    auto refcounted = refcount->add_ref();
     auto underlying = std::make_shared<custom_disposable>();
     refcount->get_underlying().add(underlying);
 
     CHECK(!underlying->is_disposed());
-    CHECK(!refcount->is_disposed());
+    CHECK(!refcounted.is_disposed());
+    CHECK(!refcount->get_underlying().is_disposed());
 
-    SECTION("disposing refcount as is disposes underlying")
+    SECTION("disposing refcounted as is disposes underlying")
     {
-        refcount->dispose();
+        refcounted.dispose();
 
         CHECK(underlying->dispose_count == 1);
-        CHECK(refcount->is_disposed());
+        CHECK(refcounted.is_disposed());
+        CHECK(refcount->get_underlying().is_disposed());
 
         SECTION("additional disposing does nothing")
         {
-            refcount->dispose();
+            refcounted.dispose();
             CHECK(underlying->dispose_count == 1);
-            CHECK(refcount->is_disposed());
+            CHECK(refcounted.is_disposed());
+            CHECK(refcount->get_underlying().is_disposed());
         }
         SECTION("addref and disposing does nothing")
         {
-            refcount->add_ref();
-            refcount->dispose();
+            auto d = refcount->add_ref();
+            CHECK(d.is_disposed());
+            
+            refcounted.dispose();
             CHECK(underlying->dispose_count == 1);
-            CHECK(refcount->is_disposed());
+            CHECK(refcounted.is_disposed());
+            CHECK(refcount->get_underlying().is_disposed());
         }
     }
 
-    SECTION("disposing underlying not disposes refcount")
+    SECTION("disposing added to underlying not disposes refcount")
     {
         underlying->dispose();
 
         CHECK(underlying->dispose_count == 1);
-        CHECK(!refcount->is_disposed());
+        CHECK(!refcount->get_underlying().is_disposed());
+        CHECK(!refcounted.is_disposed());
     }
 
     SECTION("add_ref prevents immediate disposing")
@@ -167,12 +183,13 @@ TEST_CASE("refcount disposable dispose underlying in case of reaching zero")
         for (size_t i = 0; i < count; ++i)
             disposables.push_back(refcount->add_ref());
 
-        CHECK(!refcount->is_disposed());
+        CHECK(!refcount->get_underlying().is_disposed());
+        CHECK(!refcounted.is_disposed());
 
         for (size_t i = 0; i < 10*count; ++i)
-            refcount->dispose();
+            refcounted.dispose();
 
-        CHECK(refcount->is_disposed());
+        CHECK(refcounted.is_disposed());
         CHECK(!underlying->is_disposed());
 
         for(auto& d : disposables)

@@ -50,10 +50,7 @@ namespace constraint
 
 namespace rpp
 {
-template<rpp::constraint::decayed_type Container>
-class composite_disposable_impl;
-
-using composite_disposable = composite_disposable_impl<rpp::details::disposables::dynamic_disposables_container<0>>;
+class composite_disposable;
 
 template<rpp::constraint::is_nothrow_invocable Fn>
 class callback_disposable;

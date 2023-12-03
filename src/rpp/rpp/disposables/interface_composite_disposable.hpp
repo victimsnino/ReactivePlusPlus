@@ -23,9 +23,13 @@ struct interface_composite_disposable : public interface_disposable
     virtual void add(disposable_wrapper disposable) = 0;
 
     template<rpp::constraint::is_nothrow_invocable Fn>
-    void add(Fn&& invocable)
+    disposable_wrapper add(Fn&& invocable)
     {
-        add(make_callback_disposable(std::forward<Fn>(invocable)));
+        auto d = make_callback_disposable(std::forward<Fn>(invocable));
+        add(d);
+        return d;
     }
+
+    virtual void remove(const disposable_wrapper& d) = 0;
 };
 }

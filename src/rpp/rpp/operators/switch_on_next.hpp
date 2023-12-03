@@ -48,7 +48,7 @@ class switch_on_next_inner_observer_strategy
 public:
     using preferred_disposable_strategy = rpp::details::observers::none_disposable_strategy;
 
-    switch_on_next_inner_observer_strategy(const std::shared_ptr<switch_on_next_state_t<TObserver>>& state, const disposable_wrapper& refcounted)
+    switch_on_next_inner_observer_strategy(const std::shared_ptr<switch_on_next_state_t<TObserver>>& state, const composite_disposable_wrapper& refcounted)
         : m_state{state}
         , m_refcounted{refcounted}
     {
@@ -73,13 +73,13 @@ public:
             m_state->get_observer()->on_completed();
     }
 
-    void set_upstream(const disposable_wrapper& d) { m_state->add(d); }
+    void set_upstream(const disposable_wrapper& d) const { m_refcounted.add(d); }
 
     bool is_disposed() const { return m_refcounted.is_disposed(); }
 
 private:
     std::shared_ptr<switch_on_next_state_t<TObserver>> m_state;
-    rpp::disposable_wrapper                            m_refcounted{};
+    rpp::composite_disposable_wrapper                  m_refcounted{};
 };
 
 template<rpp::constraint::observer TObserver>
@@ -92,12 +92,14 @@ public:
         : m_state{std::make_shared<switch_on_next_state_t<TObserver>>(obs)} 
     {
         m_state->get_observer()->set_upstream(rpp::disposable_wrapper::from_weak(m_state->get_underlying().get_original()));
+        m_this_refcount = m_state->add_ref();
     }
 
     switch_on_next_observer_strategy(TObserver&& obs)
         : m_state{std::make_shared<switch_on_next_state_t<TObserver>>(std::move(obs))} 
     {
         m_state->get_observer()->set_upstream(rpp::disposable_wrapper::from_weak(m_state->get_underlying().get_original()));
+        m_this_refcount = m_state->add_ref();
     }
 
     switch_on_next_observer_strategy(const switch_on_next_observer_strategy&) = delete;
@@ -119,18 +121,19 @@ public:
 
     void on_completed() const
     {
-        m_state->dispose();
+        m_this_refcount.dispose();
         if (m_state->is_disposed_underlying())
             m_state->get_observer()->on_completed();
     }
 
-    void set_upstream(const disposable_wrapper& d) { m_state->add(d); }
+    void set_upstream(const disposable_wrapper& d) const { m_this_refcount.add(d); }
 
-    bool is_disposed() const { return m_state->is_disposed(); }
+    bool is_disposed() const { return m_this_refcount.is_disposed(); }
 
 private:
     std::shared_ptr<switch_on_next_state_t<TObserver>> m_state;
-    mutable rpp::disposable_wrapper                    m_last_refcount{};
+    rpp::composite_disposable_wrapper                  m_this_refcount{};
+    mutable rpp::composite_disposable_wrapper          m_last_refcount{};
 };
 
 struct switch_on_next_t : public operators::details::operator_observable_strategy<switch_on_next_observer_strategy>

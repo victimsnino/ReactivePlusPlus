@@ -27,14 +27,11 @@ namespace rpp
  *
  * @ingroup disposables
  */
-template<rpp::constraint::decayed_type Container>
+template<details::disposables::constraint::disposable_container Container>
 class composite_disposable_impl : public interface_composite_disposable
 {
 public:
-    composite_disposable_impl()
-        requires details::disposables::constraint::disposable_container<Container>
-    = default;
-
+    composite_disposable_impl()= default;
     composite_disposable_impl(const composite_disposable_impl&)           = delete;
     composite_disposable_impl(composite_disposable_impl&& other) noexcept = delete;
 
@@ -99,6 +96,33 @@ public:
         }
     }
 
+    void remove(const disposable_wrapper& disposable) override
+    {
+        while (true)
+        {
+            State expected{State::None};
+            // need to acquire possible disposables state changing from other `add` or `remove`
+            if (m_current_state.compare_exchange_strong(expected, State::Edit, std::memory_order::acquire, std::memory_order::relaxed))
+            {
+                try
+                {
+                    m_disposables.remove(disposable);
+                }
+                catch(...)
+                {
+                    m_current_state.store(State::None, std::memory_order::release);
+                    throw;
+                }
+                // need to propogate disposables state changing to others
+                m_current_state.store(State::None, std::memory_order::release);
+                return;
+            }
+
+            if (expected == State::Disposed)
+                return;
+        }
+    }
+
 protected:
     virtual void dispose_impl() noexcept {}
 
@@ -113,4 +137,6 @@ private:
     Container          m_disposables{};
     std::atomic<State> m_current_state{};
 };
+
+class composite_disposable : public composite_disposable_impl<rpp::details::disposables::dynamic_disposables_container<0>>{};
 } // namespace rpp

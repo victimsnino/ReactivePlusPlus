@@ -56,7 +56,7 @@ private:
             return {m_state->disposable->add_ref(), std::nullopt};
 
         m_state->disposable                        = std::make_shared<rpp::refcount_disposable>();
-        return {m_state->disposable, m_state->disposable->get_underlying()};
+        return {m_state->disposable->add_ref(), m_state->disposable->get_underlying()};
     }
 };
 }
