@@ -13,6 +13,7 @@
 #include <rpp/utils/exceptions.hpp>
 
 #include <array>
+#include <algorithm>
 #include <vector>
 
 namespace rpp::details::disposables
