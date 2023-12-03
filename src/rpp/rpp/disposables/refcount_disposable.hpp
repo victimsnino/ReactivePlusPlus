@@ -70,7 +70,7 @@ public:
         
     void dispose_impl() noexcept override
     {
-        m_state->remove(rpp::disposable_wrapper::from_weak(weak_from_this()));
+        m_state->remove(rpp::disposable_wrapper::from_shared(shared_from_this()));
         m_state->release();
         m_state.reset();
     }
