@@ -32,8 +32,15 @@ jobs:
         sudo rm -f /etc/apt/sources.list.d/ubuntu-toolchain-r-ubuntu-test-jammy.list
         sudo apt-get update
         sudo apt-get install -y --allow-downgrades libc6=2.35-0ubuntu3.4 libc6-dev=2.35-0ubuntu3.4 libstdc++6=12.3.0-1ubuntu1~22.04 libgcc-s1=12.3.0-1ubuntu1~22.04
+    
+    - name: Install Qt
+      uses: jurplel/install-qt-action@v3
+      with:
+        cache: true
 
     - name: Install tools
+      id: setup
+      continue-on-error: true
       run: |
         wget -q -O - https://files.pvs-studio.com/etc/pubkey.txt \
           | sudo gpg --no-default-keyring --keyring gnupg-ring:/etc/apt/trusted.gpg.d/PVS.gpg --import
@@ -42,26 +49,24 @@ jobs:
         sudo wget -O /etc/apt/sources.list.d/viva64.list \
           https://files.pvs-studio.com/etc/viva64.list
         sudo apt update
-        sudo apt install pvs-studio
+        sudo apt install pvs-studio libsfml-dev
         pvs-studio-analyzer credentials ${{ secrets.PVS_STUDIO_CREDENTIALS }}
     
-    - name: Install Qt
-      uses: jurplel/install-qt-action@v3
-      with:
-        cache: true
-
     - name: Run CMake
+      if: steps.setup.outcome == 'success' && steps.setup.conclusion == 'success'
       uses: lukka/run-cmake@v10
       with:
         configurePreset: ci-ubuntu-clang-tests-no-checks
         buildPreset: ci-build
 
     - name: Analyze and prepare report
+      if: steps.setup.outcome == 'success' && steps.setup.conclusion == 'success'
       run: |
           pvs-studio-analyzer analyze -f build/compile_commands.json -j -e build/_deps/
           plog-converter -t sarif -o pvs-report.sarif PVS-Studio.log
 
     - name: Publish report
+      if: steps.setup.outcome == 'success' && steps.setup.conclusion == 'success'
       uses: github/codeql-action/upload-sarif@v2
       with:
         sarif_file: pvs-report.sarif
@@ -86,7 +91,7 @@ jobs:
         ref: ${{ github.event.workflow_run.head_branch }}
     
     - name: Install llvm
-      run: sudo apt-get update -q && sudo apt-get install llvm -q -y
+      run: sudo apt-get update -q && sudo apt-get install llvm libsfml-dev -q -y
 
     # Work around https://github.com/actions/runner-images/issues/8659
     - name: "Remove GCC 13 from runner image (workaround)"
