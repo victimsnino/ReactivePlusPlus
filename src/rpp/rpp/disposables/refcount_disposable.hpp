@@ -33,11 +33,8 @@ public:
     void release()
     {
         auto current_value = m_refcount.load(std::memory_order::relaxed);
-        while (true)
+        while (current_value != s_disposed)
         {
-            if (current_value == s_disposed)
-                return;
-
             const size_t new_value = current_value == 1 ? s_disposed : current_value - 1;
             if (!m_refcount.compare_exchange_strong(current_value, new_value, std::memory_order::relaxed, std::memory_order::relaxed))
                 continue;
