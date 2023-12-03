@@ -68,7 +68,7 @@ public:
 
     bool operator==(const disposable_wrapper_impl& other) const
     {
-        return get_original() == other.get_original();
+        return raw_pointer() == other.raw_pointer();
     }
 
     bool is_disposed() const noexcept
@@ -131,6 +131,17 @@ public:
             return ptr_ptr->use_count() != 0;
 
         return false;
+    }
+private:
+    const TDisposable* raw_pointer() const {
+        if (const auto ptr_ptr = std::get_if<std::shared_ptr<TDisposable>>(&m_disposable))
+            return ptr_ptr->get();
+
+        if (const auto ptr_ptr = std::get_if<std::weak_ptr<TDisposable>>(&m_disposable))
+            if (const auto shared = ptr_ptr->lock())
+                return shared.get();
+
+        return nullptr;
     }
 
 private:
