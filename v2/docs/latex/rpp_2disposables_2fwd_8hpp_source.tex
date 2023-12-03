@@ -54,18 +54,15 @@
 \DoxyCodeLine{00050\ }
 \DoxyCodeLine{00051\ \textcolor{keyword}{namespace\ }rpp}
 \DoxyCodeLine{00052\ \{}
-\DoxyCodeLine{00053\ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type\ Container>}
-\DoxyCodeLine{00054\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1composite__disposable__impl}{composite\_disposable\_impl}};}
-\DoxyCodeLine{00055\ }
-\DoxyCodeLine{00056\ \textcolor{keyword}{using\ }\mbox{\hyperlink{classrpp_1_1composite__disposable__impl}{composite\_disposable}}\ =\ \mbox{\hyperlink{classrpp_1_1composite__disposable__impl}{composite\_disposable\_impl<rpp::details::disposables::dynamic\_disposables\_container<0>}}>;}
+\DoxyCodeLine{00053\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1composite__disposable}{composite\_disposable}};}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::is\_nothrow\_invocable\ Fn>}
+\DoxyCodeLine{00056\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1callback__disposable}{callback\_disposable}};}
 \DoxyCodeLine{00057\ }
-\DoxyCodeLine{00058\ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::is\_nothrow\_invocable\ Fn>}
-\DoxyCodeLine{00059\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1callback__disposable}{callback\_disposable}};}
-\DoxyCodeLine{00060\ }
-\DoxyCodeLine{00061\ \textcolor{keyword}{class\ }refcount\_disposable;}
-\DoxyCodeLine{00062\ }
-\DoxyCodeLine{00063\ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::is\_nothrow\_invocable\ Fn>}
-\DoxyCodeLine{00064\ \textcolor{keyword}{auto}\ make\_callback\_disposable(Fn\&\&\ invocable);}
-\DoxyCodeLine{00065\ \}\ \textcolor{comment}{//\ namespace\ rpp}}
+\DoxyCodeLine{00058\ \textcolor{keyword}{class\ }refcount\_disposable;}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::is\_nothrow\_invocable\ Fn>}
+\DoxyCodeLine{00061\ \textcolor{keyword}{auto}\ make\_callback\_disposable(Fn\&\&\ invocable);}
+\DoxyCodeLine{00062\ \}\ \textcolor{comment}{//\ namespace\ rpp}}
 
 \end{DoxyCode}

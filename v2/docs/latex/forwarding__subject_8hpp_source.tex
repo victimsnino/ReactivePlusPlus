@@ -48,7 +48,7 @@
 \DoxyCodeLine{00044\ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1forwarding__strategy}{forwarding\_strategy}}(std::shared\_ptr<rpp::refcount\_disposable>\ refcount)}
 \DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ :\ m\_refcount\{std::move(refcount)\}}
 \DoxyCodeLine{00046\ \ \ \ \ \{}
-\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ m\_refcount-\/>add(rpp::disposable\_wrapper::from\_weak(m\_state));}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ m\_refcount-\/>get\_underlying().add(rpp::disposable\_wrapper::from\_weak(m\_state));}
 \DoxyCodeLine{00048\ \ \ \ \ \}}
 \DoxyCodeLine{00049\ }
 \DoxyCodeLine{00050\ \ \ \ \ \textcolor{keyword}{auto}\ get\_observer()\textcolor{keyword}{\ const}}

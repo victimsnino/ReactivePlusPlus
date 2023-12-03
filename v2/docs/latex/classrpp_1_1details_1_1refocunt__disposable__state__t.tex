@@ -1,0 +1,62 @@
+\doxysection{rpp\+::details\+::refocunt\+\_\+disposable\+\_\+state\+\_\+t Class Reference}
+\hypertarget{classrpp_1_1details_1_1refocunt__disposable__state__t}{}\label{classrpp_1_1details_1_1refocunt__disposable__state__t}\index{rpp::details::refocunt\_disposable\_state\_t@{rpp::details::refocunt\_disposable\_state\_t}}
+Inheritance diagram for rpp\+::details\+::refocunt\+\_\+disposable\+\_\+state\+\_\+t\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=4.903678cm]{classrpp_1_1details_1_1refocunt__disposable__state__t}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classrpp_1_1details_1_1refocunt__disposable__state__t_a198ddc6744d3e8eabf18904c726ec583}{dispose\+\_\+impl}} () noexcept override
+\item 
+\Hypertarget{classrpp_1_1details_1_1refocunt__disposable__state__t_a30534f3d5bad26dfb2e88a84a9b35840}\label{classrpp_1_1details_1_1refocunt__disposable__state__t_a30534f3d5bad26dfb2e88a84a9b35840} 
+void {\bfseries release} ()
+\item 
+\Hypertarget{classrpp_1_1details_1_1refocunt__disposable__state__t_a1b8637534e6b4e56bc3c1b3b617cfe67}\label{classrpp_1_1details_1_1refocunt__disposable__state__t_a1b8637534e6b4e56bc3c1b3b617cfe67} 
+bool {\bfseries add\+\_\+ref} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classrpp_1_1composite__disposable__impl}{rpp\+::composite\+\_\+disposable\+\_\+impl$<$ rpp\+::details\+::disposables\+::dynamic\+\_\+disposables\+\_\+container$<$ 0 $>$ $>$}}}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries composite\+\_\+disposable\+\_\+impl} (const \mbox{\hyperlink{classrpp_1_1composite__disposable__impl}{composite\+\_\+disposable\+\_\+impl}} \&)=delete
+\item 
+{\bfseries composite\+\_\+disposable\+\_\+impl} (\mbox{\hyperlink{classrpp_1_1composite__disposable__impl}{composite\+\_\+disposable\+\_\+impl}} \&\&other) noexcept=delete
+\item 
+bool \mbox{\hyperlink{classrpp_1_1composite__disposable__impl_a4d8dc7195e0594586a1583e7f5308d4c}{is\+\_\+disposed}} () const noexcept final
+\begin{DoxyCompactList}\small\item\em Check if this disposable is just disposed. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classrpp_1_1composite__disposable__impl_a03ed7e9ee1fb1f05100c3996d7395fc5}{dispose}} () noexcept final
+\begin{DoxyCompactList}\small\item\em Dispose disposable and free any underlying resources and etc. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classrpp_1_1composite__disposable__impl_a878cb06214d77427297efaba4a280434}{add}} (\mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{disposable\+\_\+wrapper}} disposable) override
+\item 
+virtual void \mbox{\hyperlink{classrpp_1_1composite__disposable__impl_aeabbd86e2ea58c12cbb13a2d3cf5f726}{add}} (\mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{disposable\+\_\+wrapper}} disposable)=0
+\item 
+\mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{disposable\+\_\+wrapper}} {\bfseries add} (Fn \&\&invocable)
+\item 
+void \mbox{\hyperlink{classrpp_1_1composite__disposable__impl_a3e1ede7a066681319cc7fbec5c85d0a3}{remove}} (const \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{disposable\+\_\+wrapper}} \&disposable) override
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{structrpp_1_1interface__composite__disposable}{rpp\+::interface\+\_\+composite\+\_\+disposable}}}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$rpp\+::constraint\+::is\+\_\+nothrow\+\_\+invocable Fn$>$ }\\\mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{disposable\+\_\+wrapper}} {\bfseries add} (Fn \&\&invocable)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classrpp_1_1details_1_1refocunt__disposable__state__t_a198ddc6744d3e8eabf18904c726ec583}\label{classrpp_1_1details_1_1refocunt__disposable__state__t_a198ddc6744d3e8eabf18904c726ec583} 
+\index{rpp::details::refocunt\_disposable\_state\_t@{rpp::details::refocunt\_disposable\_state\_t}!dispose\_impl@{dispose\_impl}}
+\index{dispose\_impl@{dispose\_impl}!rpp::details::refocunt\_disposable\_state\_t@{rpp::details::refocunt\_disposable\_state\_t}}
+\doxysubsubsection{\texorpdfstring{dispose\_impl()}{dispose\_impl()}}
+{\footnotesize\ttfamily void rpp\+::details\+::refocunt\+\_\+disposable\+\_\+state\+\_\+t\+::dispose\+\_\+impl (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}, {\ttfamily [noexcept]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{classrpp_1_1composite__disposable__impl}{rpp\+::composite\+\_\+disposable\+\_\+impl$<$ rpp\+::details\+::disposables\+::dynamic\+\_\+disposables\+\_\+container$<$ 0 $>$ $>$}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/rpp/rpp/disposables/refcount\+\_\+disposable.\+hpp\end{DoxyCompactItemize}

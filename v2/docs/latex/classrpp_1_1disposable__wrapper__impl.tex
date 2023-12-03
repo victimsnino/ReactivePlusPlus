@@ -20,6 +20,9 @@ requires std\+::derived\+\_\+from$<$TT, \mbox{\hyperlink{structrpp_1_1interface_
 {\footnotesize template$<$std\+::derived\+\_\+from$<$ TDisposable $>$ TT = TDisposable$>$ \newline
 requires std\+::derived\+\_\+from$<$TT, \mbox{\hyperlink{structrpp_1_1interface__disposable}{interface\+\_\+disposable}}$>$}\\{\bfseries disposable\+\_\+wrapper\+\_\+impl} (const std\+::shared\+\_\+ptr$<$ TT $>$ \&disposable)
 \item 
+\Hypertarget{classrpp_1_1disposable__wrapper__impl_ae792d4fd650130ce14c4bf9623f1eaa3}\label{classrpp_1_1disposable__wrapper__impl_ae792d4fd650130ce14c4bf9623f1eaa3} 
+bool {\bfseries operator==} (const \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{disposable\+\_\+wrapper\+\_\+impl}} \&other) const
+\item 
 \Hypertarget{classrpp_1_1disposable__wrapper__impl_af932d96b9ebfa7b8eb6d97769219e153}\label{classrpp_1_1disposable__wrapper__impl_af932d96b9ebfa7b8eb6d97769219e153} 
 bool {\bfseries is\+\_\+disposed} () const noexcept
 \item 
@@ -28,6 +31,9 @@ void {\bfseries dispose} () const noexcept
 \item 
 \Hypertarget{classrpp_1_1disposable__wrapper__impl_a854519cba0d174d6faf3c17df32bc964}\label{classrpp_1_1disposable__wrapper__impl_a854519cba0d174d6faf3c17df32bc964} 
 void {\bfseries add} (\mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{disposable\+\_\+wrapper}} other) const
+\item 
+\Hypertarget{classrpp_1_1disposable__wrapper__impl_a4ed51e556a20d56467c92e826db865eb}\label{classrpp_1_1disposable__wrapper__impl_a4ed51e556a20d56467c92e826db865eb} 
+void {\bfseries remove} (const \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{disposable\+\_\+wrapper}} \&other) const
 \item 
 \Hypertarget{classrpp_1_1disposable__wrapper__impl_a50ef8df6a3751ade4e7ef802db1dcd81}\label{classrpp_1_1disposable__wrapper__impl_a50ef8df6a3751ade4e7ef802db1dcd81} 
 std\+::shared\+\_\+ptr$<$ TDisposable $>$ {\bfseries get\+\_\+original} () const noexcept

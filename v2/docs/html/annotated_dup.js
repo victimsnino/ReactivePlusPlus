@@ -38,14 +38,13 @@ var annotated_dup =
         [ "from_callable_invoke", "structrpp_1_1details_1_1from__callable__invoke.html", null ],
         [ "from_iterable_schedulable", "structrpp_1_1details_1_1from__iterable__schedulable.html", null ],
         [ "from_iterable_strategy", "structrpp_1_1details_1_1from__iterable__strategy.html", null ],
-        [ "inner_refcount_disposable", "classrpp_1_1details_1_1inner__refcount__disposable.html", "classrpp_1_1details_1_1inner__refcount__disposable" ],
         [ "interval_schedulable", "structrpp_1_1details_1_1interval__schedulable.html", null ],
         [ "interval_strategy", "structrpp_1_1details_1_1interval__strategy.html", null ],
         [ "never_strategy", "structrpp_1_1details_1_1never__strategy.html", null ],
         [ "observer_impl", "classrpp_1_1details_1_1observer__impl.html", "classrpp_1_1details_1_1observer__impl" ],
         [ "ref_count_on_subscribe_t", "structrpp_1_1details_1_1ref__count__on__subscribe__t.html", null ],
         [ "ref_count_on_subscribe_t< rpp::connectable_observable< OriginalObservable, Subject > >", "structrpp_1_1details_1_1ref__count__on__subscribe__t_3_01rpp_1_1connectable__observable_3_01_oria02afbb30282d4727b872472b2af56d8.html", "structrpp_1_1details_1_1ref__count__on__subscribe__t_3_01rpp_1_1connectable__observable_3_01_oria02afbb30282d4727b872472b2af56d8" ],
-        [ "refocunt_disposable_state_t", "structrpp_1_1details_1_1refocunt__disposable__state__t.html", null ],
+        [ "refocunt_disposable_state_t", "classrpp_1_1details_1_1refocunt__disposable__state__t.html", null ],
         [ "shared_container", "classrpp_1_1details_1_1shared__container.html", null ],
         [ "with_disposable_strategy", "structrpp_1_1details_1_1with__disposable__strategy.html", null ]
       ] ],
@@ -199,6 +198,7 @@ var annotated_dup =
         ] ]
       ] ],
       [ "callback_disposable", "classrpp_1_1callback__disposable.html", null ],
+      [ "composite_disposable", "classrpp_1_1composite__disposable.html", null ],
       [ "composite_disposable_impl", "classrpp_1_1composite__disposable__impl.html", "classrpp_1_1composite__disposable__impl" ],
       [ "connectable_observable", "classrpp_1_1connectable__observable.html", "classrpp_1_1connectable__observable" ],
       [ "disposable_wrapper_impl", "classrpp_1_1disposable__wrapper__impl.html", null ],
