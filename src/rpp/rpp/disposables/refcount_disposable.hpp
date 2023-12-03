@@ -18,6 +18,7 @@
 
 #include <atomic>
 #include <memory>
+#include <limits>
 
 namespace rpp::details
 {
@@ -37,7 +38,7 @@ public:
             if (current_value == s_disposed)
                 return;
 
-            const ssize_t new_value = current_value == 1 ? s_disposed : current_value - 1;
+            const size_t new_value = current_value == 1 ? s_disposed : current_value - 1;
             if (!m_refcount.compare_exchange_strong(current_value, new_value, std::memory_order::relaxed, std::memory_order::relaxed))
                 continue;
 
@@ -57,8 +58,8 @@ public:
     }
 
 private:
-    std::atomic<ssize_t>     m_refcount{0};
-    constexpr static ssize_t s_disposed = -1;
+    std::atomic<size_t>     m_refcount{0};
+    constexpr static size_t s_disposed = std::numeric_limits<size_t>::max();
 };
 }
 

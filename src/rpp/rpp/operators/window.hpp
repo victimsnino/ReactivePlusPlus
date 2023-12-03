@@ -90,7 +90,6 @@ private:
     mutable size_t                       m_items_in_current_window = m_window_size;
 };
 
-
 struct window_t : public operators::details::operator_observable_strategy_different_types<window_observer_strategy, rpp::utils::types<>, size_t>
 {
     template<rpp::constraint::decayed_type T>

@@ -126,7 +126,7 @@ public:
             m_state->get_observer()->on_completed();
     }
 
-    void set_upstream(const disposable_wrapper& d) { m_this_refcount.add(d); }
+    void set_upstream(const disposable_wrapper& d) const { m_this_refcount.add(d); }
 
     bool is_disposed() const { return m_this_refcount.is_disposed(); }
 
