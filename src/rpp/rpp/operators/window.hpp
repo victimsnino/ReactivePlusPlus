@@ -78,9 +78,9 @@ public:
         m_observer.on_completed();
     }
 
-    void set_upstream(const disposable_wrapper& d) const { m_disposble->get_underlying().add(d); }
+    void set_upstream(const disposable_wrapper& d) const { m_disposble->add(d); }
 
-    bool is_disposed() const { return m_disposble->is_disposed_underlying(); }
+    bool is_disposed() const { return m_disposble->is_disposed(); }
 
 private:
     std::shared_ptr<refcount_disposable> m_disposble = std::make_shared<refcount_disposable>();

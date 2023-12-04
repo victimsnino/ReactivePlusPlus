@@ -62,14 +62,14 @@ public:
 
     void on_error(const std::exception_ptr& err) const
     {
-        m_state->get_underlying().dispose();
+        m_state->dispose();
         m_state->get_observer()->on_error(err);
     }
 
     void on_completed() const
     {
         m_refcounted.dispose();
-        if (m_state->is_disposed_underlying())
+        if (m_state->is_disposed())
             m_state->get_observer()->on_completed();
     }
 
