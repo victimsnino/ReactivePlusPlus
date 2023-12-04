@@ -56,9 +56,6 @@ public:
     {
     }
 
-    disposable_wrapper_impl(const disposable_wrapper_impl&) = default;
-    disposable_wrapper_impl(disposable_wrapper_impl&&) noexcept = default;
-
     static disposable_wrapper_impl from_shared(std::shared_ptr<TDisposable> disposable)
     {
         return disposable_wrapper_impl{std::move(disposable)};
