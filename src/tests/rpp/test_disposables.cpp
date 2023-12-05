@@ -134,11 +134,11 @@ TEST_CASE("refcount disposable dispose underlying in case of reaching zero")
     auto refcount = std::make_shared<rpp::refcount_disposable>();
     auto refcounted = refcount->add_ref();
     auto underlying = std::make_shared<custom_disposable>();
-    refcount->get_underlying().add(underlying);
+    refcount->add(underlying);
 
     CHECK(!underlying->is_disposed());
     CHECK(!refcounted.is_disposed());
-    CHECK(!refcount->get_underlying().is_disposed());
+    CHECK(!refcount->is_disposed());
 
     SECTION("disposing refcounted as is disposes underlying")
     {
@@ -146,14 +146,14 @@ TEST_CASE("refcount disposable dispose underlying in case of reaching zero")
 
         CHECK(underlying->dispose_count == 1);
         CHECK(refcounted.is_disposed());
-        CHECK(refcount->get_underlying().is_disposed());
+        CHECK(refcount->is_disposed());
 
         SECTION("additional disposing does nothing")
         {
             refcounted.dispose();
             CHECK(underlying->dispose_count == 1);
             CHECK(refcounted.is_disposed());
-            CHECK(refcount->get_underlying().is_disposed());
+            CHECK(refcount->is_disposed());
         }
         SECTION("addref and disposing does nothing")
         {
@@ -163,7 +163,7 @@ TEST_CASE("refcount disposable dispose underlying in case of reaching zero")
             refcounted.dispose();
             CHECK(underlying->dispose_count == 1);
             CHECK(refcounted.is_disposed());
-            CHECK(refcount->get_underlying().is_disposed());
+            CHECK(refcount->is_disposed());
         }
     }
 
@@ -172,7 +172,7 @@ TEST_CASE("refcount disposable dispose underlying in case of reaching zero")
         underlying->dispose();
 
         CHECK(underlying->dispose_count == 1);
-        CHECK(!refcount->get_underlying().is_disposed());
+        CHECK(!refcount->is_disposed());
         CHECK(!refcounted.is_disposed());
     }
 
@@ -183,7 +183,7 @@ TEST_CASE("refcount disposable dispose underlying in case of reaching zero")
         for (size_t i = 0; i < count; ++i)
             disposables.push_back(refcount->add_ref());
 
-        CHECK(!refcount->get_underlying().is_disposed());
+        CHECK(!refcount->is_disposed());
         CHECK(!refcounted.is_disposed());
 
         for (size_t i = 0; i < 10*count; ++i)

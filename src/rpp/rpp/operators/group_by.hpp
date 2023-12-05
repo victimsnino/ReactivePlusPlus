@@ -82,12 +82,12 @@ struct group_by_observer_strategy
 
     void set_upstream(const rpp::disposable_wrapper& d) const
     {
-        disposable->get_underlying().add(d);
+        disposable->add(d);
     }
 
     bool is_disposed() const
     {
-        return disposable->is_disposed_underlying();
+        return disposable->is_disposed();
     }
 
     template<rpp::constraint::decayed_same_as<T> TT>
@@ -134,7 +134,7 @@ private:
 
         if (inserted)
         {
-            disposable->get_underlying().add(rpp::disposable_wrapper::from_weak(itr->second.get_disposable().get_original()));
+            disposable->add(rpp::disposable_wrapper::from_weak(itr->second.get_disposable().get_original()));
             obs.on_next(rpp::grouped_observable_group_by<TKey, Type>{
                 std::move(key),
                 group_by_observable_strategy<Type>{itr->second, disposable}

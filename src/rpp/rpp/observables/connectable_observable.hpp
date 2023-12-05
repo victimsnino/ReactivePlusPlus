@@ -52,11 +52,11 @@ private:
     std::pair<rpp::composite_disposable_wrapper, std::optional<rpp::composite_disposable_wrapper>> on_subscribe() const
     {
         std::unique_lock lock(m_state->mutex);
-        if (m_state->disposable && !m_state->disposable->is_disposed_underlying())
+        if (m_state->disposable && !m_state->disposable->is_disposed())
             return {m_state->disposable->add_ref(), std::nullopt};
 
-        m_state->disposable                        = std::make_shared<rpp::refcount_disposable>();
-        return {m_state->disposable->add_ref(), m_state->disposable->get_underlying()};
+        m_state->disposable = std::make_shared<rpp::refcount_disposable>();
+        return {m_state->disposable->add_ref(), m_state->disposable};
     }
 };
 }
