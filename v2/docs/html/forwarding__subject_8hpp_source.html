@@ -146,7 +146,7 @@ $(document).ready(function(){initNavTree('forwarding__subject_8hpp_source.html',
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    <span class="keyword">explicit</span> <a class="code hl_class" href="classrpp_1_1operators_1_1details_1_1forwarding__strategy.html">forwarding_strategy</a>(std::shared_ptr&lt;rpp::refcount_disposable&gt; refcount)</div>
 <div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>        : m_refcount{std::move(refcount)}</div>
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    {</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        m_refcount-&gt;get_underlying().add(rpp::disposable_wrapper::from_weak(m_state));</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        m_refcount-&gt;add(rpp::disposable_wrapper::from_weak(m_state));</div>
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    }</div>
 <div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
 <div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    <span class="keyword">auto</span> get_observer()<span class="keyword"> const</span></div>

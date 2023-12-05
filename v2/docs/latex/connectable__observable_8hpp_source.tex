@@ -56,11 +56,11 @@
 \DoxyCodeLine{00052\ \ \ \ \ std::pair<rpp::composite\_disposable\_wrapper,\ std::optional<rpp::composite\_disposable\_wrapper>>\ on\_subscribe()\textcolor{keyword}{\ const}}
 \DoxyCodeLine{00053\ \textcolor{keyword}{\ \ \ \ }\{}
 \DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ std::unique\_lock\ lock(m\_state-\/>mutex);}
-\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (m\_state-\/>disposable\ \&\&\ !m\_state-\/>disposable-\/>is\_disposed\_underlying())}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (m\_state-\/>disposable\ \&\&\ !m\_state-\/>disposable-\/>is\_disposed())}
 \DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \{m\_state-\/>disposable-\/>add\_ref(),\ std::nullopt\};}
 \DoxyCodeLine{00057\ }
-\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ m\_state-\/>disposable\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ std::make\_shared<rpp::refcount\_disposable>();}
-\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \{m\_state-\/>disposable-\/>add\_ref(),\ m\_state-\/>disposable-\/>get\_underlying()\};}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ m\_state-\/>disposable\ =\ std::make\_shared<rpp::refcount\_disposable>();}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \{m\_state-\/>disposable-\/>add\_ref(),\ m\_state-\/>disposable\};}
 \DoxyCodeLine{00060\ \ \ \ \ \}}
 \DoxyCodeLine{00061\ \};}
 \DoxyCodeLine{00062\ \}}

@@ -66,7 +66,7 @@
 \DoxyCodeLine{00068\ }
 \DoxyCodeLine{00069\ \ \ \ \ \textcolor{keywordtype}{bool}\ operator==(\textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{disposable\_wrapper\_impl}}\&\ other)\textcolor{keyword}{\ const}}
 \DoxyCodeLine{00070\ \textcolor{keyword}{\ \ \ \ }\{}
-\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ get\_original()\ ==\ other.get\_original();}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ raw\_pointer()\ ==\ other.raw\_pointer();}
 \DoxyCodeLine{00072\ \ \ \ \ \}}
 \DoxyCodeLine{00073\ }
 \DoxyCodeLine{00074\ \ \ \ \ \textcolor{keywordtype}{bool}\ is\_disposed()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}}
@@ -130,10 +130,21 @@
 \DoxyCodeLine{00132\ }
 \DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
 \DoxyCodeLine{00134\ \ \ \ \ \}}
-\DoxyCodeLine{00135\ }
-\DoxyCodeLine{00136\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00137\ \ \ \ \ std::variant<std::monostate,\ std::shared\_ptr<TDisposable>,\ std::weak\_ptr<TDisposable>>\ m\_disposable;}
-\DoxyCodeLine{00138\ \};}
-\DoxyCodeLine{00139\ \}}
+\DoxyCodeLine{00135\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00136\ \ \ \ \ \textcolor{keyword}{const}\ TDisposable*\ raw\_pointer()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ ptr\_ptr\ =\ std::get\_if<std::shared\_ptr<TDisposable>>(\&m\_disposable))}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ptr\_ptr-\/>get();}
+\DoxyCodeLine{00139\ }
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ ptr\_ptr\ =\ std::get\_if<std::weak\_ptr<TDisposable>>(\&m\_disposable))}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ shared\ =\ ptr\_ptr-\/>lock())}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ shared.get();}
+\DoxyCodeLine{00143\ }
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00145\ \ \ \ \ \}}
+\DoxyCodeLine{00146\ }
+\DoxyCodeLine{00147\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00148\ \ \ \ \ std::variant<std::monostate,\ std::shared\_ptr<TDisposable>,\ std::weak\_ptr<TDisposable>>\ m\_disposable;}
+\DoxyCodeLine{00149\ \};}
+\DoxyCodeLine{00150\ \}}
 
 \end{DoxyCode}

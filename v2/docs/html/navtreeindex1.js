@@ -118,7 +118,7 @@ var NAVTREEINDEX1 =
 "structrpp_1_1details_1_1ref__count__on__subscribe__t.html":[3,0,0,0,18],
 "structrpp_1_1details_1_1ref__count__on__subscribe__t_3_01rpp_1_1connectable__observable_3_01_ori08a6adc16d48deb4d454d582f87ab48e.html":[3,0,0,0,19,0],
 "structrpp_1_1details_1_1ref__count__on__subscribe__t_3_01rpp_1_1connectable__observable_3_01_oria02afbb30282d4727b872472b2af56d8.html":[3,0,0,0,19],
-"structrpp_1_1details_1_1with__disposable__strategy.html":[3,0,0,0,22],
+"structrpp_1_1details_1_1with__disposable__strategy.html":[3,0,0,0,21],
 "structrpp_1_1interface__composite__disposable.html":[3,0,0,12],
 "structrpp_1_1interface__disposable.html":[1,0,0,3],
 "structrpp_1_1interface__disposable.html#a0348da95fe5929a3861e80b6651c347f":[1,0,0,3,1],

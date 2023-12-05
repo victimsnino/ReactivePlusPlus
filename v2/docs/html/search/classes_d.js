@@ -7,7 +7,7 @@ var searchData=
   ['ref_5fcount_5fon_5fsubscribe_5ft_4',['ref_count_on_subscribe_t',['../structrpp_1_1details_1_1ref__count__on__subscribe__t.html',1,'rpp::details']]],
   ['ref_5fcount_5fon_5fsubscribe_5ft_3c_20rpp_3a_3aconnectable_5fobservable_3c_20originalobservable_2c_20subject_20_3e_20_3e_5',['ref_count_on_subscribe_t&lt; rpp::connectable_observable&lt; OriginalObservable, Subject &gt; &gt;',['../structrpp_1_1details_1_1ref__count__on__subscribe__t_3_01rpp_1_1connectable__observable_3_01_oria02afbb30282d4727b872472b2af56d8.html',1,'rpp::details']]],
   ['ref_5fcount_5ft_6',['ref_count_t',['../structrpp_1_1operators_1_1details_1_1ref__count__t.html',1,'rpp::operators::details']]],
-  ['refocunt_5fdisposable_5fstate_5ft_7',['refocunt_disposable_state_t',['../classrpp_1_1details_1_1refocunt__disposable__state__t.html',1,'rpp::details']]],
+  ['refcount_5fdisposable_7',['refcount_disposable',['../classrpp_1_1refcount__disposable.html',1,'rpp']]],
   ['repeat_5ft_8',['repeat_t',['../structrpp_1_1operators_1_1details_1_1repeat__t.html',1,'rpp::operators::details']]],
   ['run_5floop_9',['run_loop',['../classrpp_1_1schedulers_1_1run__loop.html',1,'rpp::schedulers']]]
 ];

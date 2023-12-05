@@ -156,11 +156,11 @@ $(document).ready(function(){initNavTree('connectable__observable_8hpp_source.ht
 <div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    std::pair&lt;rpp::composite_disposable_wrapper, std::optional&lt;rpp::composite_disposable_wrapper&gt;&gt; on_subscribe()<span class="keyword"> const</span></div>
 <div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span><span class="keyword">    </span>{</div>
 <div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>        std::unique_lock lock(m_state-&gt;mutex);</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>        <span class="keywordflow">if</span> (m_state-&gt;disposable &amp;&amp; !m_state-&gt;disposable-&gt;is_disposed_underlying())</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>        <span class="keywordflow">if</span> (m_state-&gt;disposable &amp;&amp; !m_state-&gt;disposable-&gt;is_disposed())</div>
 <div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>            <span class="keywordflow">return</span> {m_state-&gt;disposable-&gt;add_ref(), std::nullopt};</div>
 <div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>        m_state-&gt;disposable                        = std::make_shared&lt;rpp::refcount_disposable&gt;();</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>        <span class="keywordflow">return</span> {m_state-&gt;disposable-&gt;add_ref(), m_state-&gt;disposable-&gt;get_underlying()};</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>        m_state-&gt;disposable = std::make_shared&lt;rpp::refcount_disposable&gt;();</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>        <span class="keywordflow">return</span> {m_state-&gt;disposable-&gt;add_ref(), m_state-&gt;disposable};</div>
 <div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    }</div>
 <div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>};</div>
 </div>

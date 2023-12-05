@@ -24,7 +24,7 @@
 \DoxyCodeLine{00020\ \textcolor{keyword}{namespace\ }rpp::operators::details}
 \DoxyCodeLine{00021\ \{}
 \DoxyCodeLine{00022\ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::observer\ TObserver>}
-\DoxyCodeLine{00023\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1switch__on__next__state__t}{switch\_on\_next\_state\_t}}\ final\ :\ \textcolor{keyword}{public}\ refcount\_disposable}
+\DoxyCodeLine{00023\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1switch__on__next__state__t}{switch\_on\_next\_state\_t}}\ final\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classrpp_1_1refcount__disposable}{refcount\_disposable}}}
 \DoxyCodeLine{00024\ \{}
 \DoxyCodeLine{00025\ \textcolor{keyword}{public}:}
 \DoxyCodeLine{00026\ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_same\_as<TObserver>\ TObs>}
@@ -66,14 +66,14 @@
 \DoxyCodeLine{00062\ }
 \DoxyCodeLine{00063\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_error(\textcolor{keyword}{const}\ std::exception\_ptr\&\ err)\textcolor{keyword}{\ const}}
 \DoxyCodeLine{00064\ \textcolor{keyword}{\ \ \ \ }\{}
-\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ m\_state-\/>get\_underlying().dispose();}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ m\_state-\/>dispose();}
 \DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ m\_state-\/>get\_observer()-\/>on\_error(err);}
 \DoxyCodeLine{00067\ \ \ \ \ \}}
 \DoxyCodeLine{00068\ }
 \DoxyCodeLine{00069\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_completed()\textcolor{keyword}{\ const}}
 \DoxyCodeLine{00070\ \textcolor{keyword}{\ \ \ \ }\{}
 \DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ m\_refcounted.dispose();}
-\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (m\_state-\/>is\_disposed\_underlying())}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (m\_state-\/>is\_disposed())}
 \DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \ \ \ \ m\_state-\/>get\_observer()-\/>on\_completed();}
 \DoxyCodeLine{00074\ \ \ \ \ \}}
 \DoxyCodeLine{00075\ }
@@ -95,14 +95,14 @@
 \DoxyCodeLine{00091\ \ \ \ \ \mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1switch__on__next__observer__strategy}{switch\_on\_next\_observer\_strategy}}(\textcolor{keyword}{const}\ TObserver\&\ obs)}
 \DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ :\ m\_state\{std::make\_shared<switch\_on\_next\_state\_t<TObserver>>(obs)\}\ }
 \DoxyCodeLine{00093\ \ \ \ \ \{}
-\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ m\_state-\/>get\_observer()-\/>set\_upstream(rpp::disposable\_wrapper::from\_weak(m\_state-\/>get\_underlying().get\_original()));}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ m\_state-\/>get\_observer()-\/>set\_upstream(rpp::disposable\_wrapper::from\_weak(m\_state));}
 \DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ m\_this\_refcount\ =\ m\_state-\/>add\_ref();}
 \DoxyCodeLine{00096\ \ \ \ \ \}}
 \DoxyCodeLine{00097\ }
 \DoxyCodeLine{00098\ \ \ \ \ \mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1switch__on__next__observer__strategy}{switch\_on\_next\_observer\_strategy}}(TObserver\&\&\ obs)}
 \DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ :\ m\_state\{std::make\_shared<switch\_on\_next\_state\_t<TObserver>>(std::move(obs))\}\ }
 \DoxyCodeLine{00100\ \ \ \ \ \{}
-\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ m\_state-\/>get\_observer()-\/>set\_upstream(rpp::disposable\_wrapper::from\_weak(m\_state-\/>get\_underlying().get\_original()));}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ m\_state-\/>get\_observer()-\/>set\_upstream(rpp::disposable\_wrapper::from\_weak(m\_state));}
 \DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ m\_this\_refcount\ =\ m\_state-\/>add\_ref();}
 \DoxyCodeLine{00103\ \ \ \ \ \}}
 \DoxyCodeLine{00104\ }
@@ -119,14 +119,14 @@
 \DoxyCodeLine{00115\ }
 \DoxyCodeLine{00116\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_error(\textcolor{keyword}{const}\ std::exception\_ptr\&\ err)\textcolor{keyword}{\ const}}
 \DoxyCodeLine{00117\ \textcolor{keyword}{\ \ \ \ }\{}
-\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ m\_state-\/>get\_underlying().dispose();}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ m\_state-\/>dispose();}
 \DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ m\_state-\/>get\_observer()-\/>on\_error(err);}
 \DoxyCodeLine{00120\ \ \ \ \ \}}
 \DoxyCodeLine{00121\ }
 \DoxyCodeLine{00122\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_completed()\textcolor{keyword}{\ const}}
 \DoxyCodeLine{00123\ \textcolor{keyword}{\ \ \ \ }\{}
 \DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ m\_this\_refcount.dispose();}
-\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (m\_state-\/>is\_disposed\_underlying())}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (m\_state-\/>is\_disposed())}
 \DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \ \ \ \ m\_state-\/>get\_observer()-\/>on\_completed();}
 \DoxyCodeLine{00127\ \ \ \ \ \}}
 \DoxyCodeLine{00128\ }

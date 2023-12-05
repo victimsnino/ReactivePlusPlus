@@ -48,6 +48,9 @@ var hierarchy =
     [ "rpp::details::empty_strategy< Type >", "structrpp_1_1details_1_1empty__strategy.html", null ],
     [ "std::enable_shared_from_this", null, [
       [ "rpp::operators::details::debounce_disposable< Observer, Worker, Container >", "classrpp_1_1operators_1_1details_1_1debounce__disposable.html", null ],
+      [ "rpp::refcount_disposable", "classrpp_1_1refcount__disposable.html", [
+        [ "rpp::operators::details::switch_on_next_state_t< TObserver >", "classrpp_1_1operators_1_1details_1_1switch__on__next__state__t.html", null ]
+      ] ],
       [ "rpp::subjects::details::subject_state< Type >", "classrpp_1_1subjects_1_1details_1_1subject__state.html", null ]
     ] ],
     [ "rpp::details::error_strategy< Type >", "structrpp_1_1details_1_1error__strategy.html", null ],
@@ -82,11 +85,11 @@ var hierarchy =
       [ "rpp::interface_composite_disposable", "structrpp_1_1interface__composite__disposable.html", [
         [ "rpp::composite_disposable_impl< rpp::details::disposables::dynamic_disposables_container< 0 > >", "classrpp_1_1composite__disposable__impl.html", [
           [ "rpp::composite_disposable", "classrpp_1_1composite__disposable.html", [
-            [ "rpp::details::refocunt_disposable_state_t", "classrpp_1_1details_1_1refocunt__disposable__state__t.html", null ],
             [ "rpp::operators::details::combine_latest_disposable< Observer, TSelector, Args >", "classrpp_1_1operators_1_1details_1_1combine__latest__disposable.html", null ],
             [ "rpp::operators::details::merge_disposable< TObserver >", "classrpp_1_1operators_1_1details_1_1merge__disposable.html", null ],
             [ "rpp::operators::details::take_until_disposable< TObserver >", "classrpp_1_1operators_1_1details_1_1take__until__disposable.html", null ],
             [ "rpp::operators::details::with_latest_from_disposable< Observer, TSelector, RestArgs >", "classrpp_1_1operators_1_1details_1_1with__latest__from__disposable.html", null ],
+            [ "rpp::refcount_disposable", "classrpp_1_1refcount__disposable.html", null ],
             [ "rpp::subjects::details::subject_state< Type >", "classrpp_1_1subjects_1_1details_1_1subject__state.html", null ]
           ] ]
         ] ],
