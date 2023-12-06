@@ -42,11 +42,22 @@ int main()
     const auto presents = get_presents_stream(events);
 
     auto start = rpp::schedulers::clock_type::now();
-    presents.subscribe([&window, &start](const PresentEvent& p)
+    size_t frames_delta = 0;
+    presents.subscribe([&window](const PresentEvent&)
     {
         window.display();
-        std::cout << "FPS: " << ((static_cast<double>(p.frame_number) / static_cast<double>(std::chrono::duration_cast<std::chrono::nanoseconds>(rpp::schedulers::clock_type::now() - start).count()))*1000000000.0) << std::endl;
         window.clear(sf::Color{0, 128, 0});
+    });
+
+    presents | rpp::ops::observe_on(rpp::schedulers::new_thread{}) | rpp::ops::subscribe([&start, &frames_delta](const PresentEvent& p)
+    {
+        const auto diff = p.frame_number - frames_delta;
+        if (diff > 50) {
+            const auto now = rpp::schedulers::clock_type::now();
+            std::cout << "FPS: " << ((static_cast<double>(diff) / static_cast<double>(std::chrono::duration_cast<std::chrono::nanoseconds>(now - start).count()))*1000000000.0) << std::endl;
+            frames_delta = p.frame_number;
+            start = now;
+        }
     });
 
     get_shapes_to_draw(events).subscribe([&window](const auto& shape)
