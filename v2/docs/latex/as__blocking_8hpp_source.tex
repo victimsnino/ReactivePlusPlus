@@ -26,13 +26,13 @@
 \DoxyCodeLine{00022\ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type\ Type,\ rpp::constra\textcolor{keywordtype}{int}::observable\_strategy<Type>\ Strategy>}
 \DoxyCodeLine{00023\ \ \ \ \ \textcolor{keyword}{auto}\ operator()(\mbox{\hyperlink{classrpp_1_1observable}{rpp::observable<Type,\ Strategy>}}\&\&\ \mbox{\hyperlink{classrpp_1_1observable}{observable}})\textcolor{keyword}{\ const}}
 \DoxyCodeLine{00024\ \textcolor{keyword}{\ \ \ \ }\{}
-\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classrpp_1_1observable}{rpp::blocking\_observable<Type,\ Strategy>}}\{std::move(\mbox{\hyperlink{classrpp_1_1observable}{observable}})\};}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ rpp::blocking\_observable<Type,\ Strategy>\{std::move(\mbox{\hyperlink{classrpp_1_1observable}{observable}})\};}
 \DoxyCodeLine{00026\ \ \ \ \ \}}
 \DoxyCodeLine{00027\ }
 \DoxyCodeLine{00028\ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type\ Type,\ rpp::constra\textcolor{keywordtype}{int}::observable\_strategy<Type>\ Strategy>}
 \DoxyCodeLine{00029\ \ \ \ \ \textcolor{keyword}{auto}\ operator()(\textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1observable}{rpp::observable<Type,\ Strategy>}}\&\ \mbox{\hyperlink{classrpp_1_1observable}{observable}})\textcolor{keyword}{\ const}}
 \DoxyCodeLine{00030\ \textcolor{keyword}{\ \ \ \ }\{}
-\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classrpp_1_1observable}{rpp::blocking\_observable<Type,\ Strategy>}}\{\mbox{\hyperlink{classrpp_1_1observable}{observable}}\};}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ rpp::blocking\_observable<Type,\ Strategy>\{\mbox{\hyperlink{classrpp_1_1observable}{observable}}\};}
 \DoxyCodeLine{00032\ \ \ \ \ \}}
 \DoxyCodeLine{00033\ \};}
 \DoxyCodeLine{00034\ \}}

@@ -127,6 +127,10 @@ var hierarchy =
     [ "rpp::observable< Type, Strategy >", "classrpp_1_1observable.html", [
       [ "rpp::grouped_observable< KeyType, Type, Strategy >", "classrpp_1_1grouped__observable.html", null ]
     ] ],
+    [ "rpp::observable< Type, details::observables::blocking_strategy< Type, Strategy > >", "classrpp_1_1observable.html", null ],
+    [ "rpp::observable< Type, details::observables::dynamic_strategy< Type > >", "classrpp_1_1observable.html", [
+      [ "rpp::dynamic_observable< Type >", "classrpp_1_1dynamic__observable.html", null ]
+    ] ],
     [ "rpp::observable_chain_strategy< TStrategy, TStrategies >", "classrpp_1_1observable__chain__strategy.html", null ],
     [ "rpp::observable_chain_strategy< TStrategy >", "classrpp_1_1observable__chain__strategy_3_01_t_strategy_01_4.html", null ],
     [ "rpp::details::observer_impl< Type, Strategy, DisposablesStrategy >", "classrpp_1_1details_1_1observer__impl.html", null ],

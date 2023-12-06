@@ -1,5 +1,6 @@
 var group__observables =
 [
+    [ "rpp::dynamic_observable< Type >", "classrpp_1_1dynamic__observable.html", null ],
     [ "rpp::observable< Type, Strategy >", "classrpp_1_1observable.html", [
       [ "as_dynamic", "classrpp_1_1observable.html#a7f3a86ce4541938d7e4c7c73f883b30b", null ],
       [ "as_dynamic", "classrpp_1_1observable.html#ab820514612d4314b99528525db6afd4f", null ],
@@ -16,6 +17,5 @@ var group__observables =
       [ "subscribe_with_disposable", "classrpp_1_1observable.html#ac81ee3d805386d492ab54e40ccd6adc2", null ],
       [ "subscribe_with_disposable", "classrpp_1_1observable.html#aa264608e3b4b845fa739b32c2e44d167", null ],
       [ "subscribe_with_disposable", "classrpp_1_1observable.html#acb875b06e348c6d77706e6d04aed4944", null ]
-    ] ],
-    [ "rpp::dynamic_observable", "group__observables.html#gaf40b08a4edc0f64303aeb7ac958f876e", null ]
+    ] ]
 ];
