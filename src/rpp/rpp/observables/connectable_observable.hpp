@@ -134,13 +134,13 @@ public:
     template<typename Op>
     decltype(std::declval<const base>() | std::declval<Op>()) operator|(Op&& op) const &
     {
-        return static_cast<base>(*this) | std::forward<Op>(op);
+        return static_cast<const base&>(*this) | std::forward<Op>(op);
     }
 
     template<typename Op>
     decltype(std::declval<base>() | std::declval<Op>()) operator|(Op&& op) &&
     {
-        return std::move(static_cast<base>(*this)) | std::forward<Op>(op);
+        return static_cast<base&&>(*this) | std::forward<Op>(op);
     }
 
 private:
