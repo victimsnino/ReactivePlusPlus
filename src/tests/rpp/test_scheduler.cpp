@@ -742,7 +742,6 @@ TEST_CASE("new_thread works till end")
 
 TEST_CASE("run_loop scheduler dispatches tasks only manually")
 {
-
     auto scheduler = rpp::schedulers::run_loop{};
     auto worker = scheduler.create_worker();
     auto d = std::make_shared<rpp::composite_disposable>();
@@ -811,16 +810,6 @@ TEST_CASE("run_loop scheduler dispatches tasks only manually")
     {
         size_t schedulable_1_executed_count{};
         worker.schedule([&](const auto&) -> rpp::schedulers::optional_delay_from_now {++schedulable_1_executed_count; return {}; }, obs);
-        SECTION("call dispose on scheduler")
-        {
-            worker.get_disposable().dispose();
-            worker.schedule([&](const auto&) -> rpp::schedulers::optional_delay_from_now {++schedulable_1_executed_count; return {}; }, obs);
-
-            CHECK(schedulable_1_executed_count == 0);
-            CHECK(d->is_disposed() == false);
-            CHECK(scheduler.is_empty() == true);
-            CHECK(scheduler.is_any_ready_schedulable() == false);
-        }
 
         SECTION("call dispatch")
         {
@@ -832,21 +821,6 @@ TEST_CASE("run_loop scheduler dispatches tasks only manually")
                 CHECK(scheduler.is_empty() == true);
                 CHECK(scheduler.is_any_ready_schedulable() == false);
 
-                SECTION("call dispatch and dispose in other thread") 
-                {
-                    std::atomic_bool dispatched{};
-                    auto t = std::thread{[&]{ 
-                        std::this_thread::sleep_for(std::chrono::milliseconds{100});
-                        if(!scheduler.is_empty()) throw std::runtime_error{"!is_empty"};
-                        if(scheduler.is_any_ready_schedulable()) throw std::runtime_error{"is_any_ready_schedulable"};
-                        if(dispatched) throw std::runtime_error{"dispatched"};
-                        
-                        worker.get_disposable().dispose(); 
-                    }};
-                    scheduler.dispatch();
-                    dispatched = true;
-                    t.join();
-                }
                 SECTION("call dispatch and schedule in other thread") {
                     std::atomic_bool dispatched{};
                     size_t schedulable_2_executed_count{};

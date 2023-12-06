@@ -51,13 +51,13 @@ class observable;
  * @ingroup observables
  */
 template<constraint::decayed_type Type>
-using dynamic_observable = observable<Type, details::observables::dynamic_strategy<Type>>;
+class dynamic_observable;
 
 /**
  * @brief `rpp::blocking_observable` blocks `subscribe` call till on_completed/on_error happens.
  */
 template<constraint::decayed_type Type, constraint::observable_strategy<Type> Strategy>
-using blocking_observable = observable<Type, details::observables::blocking_strategy<Type, Strategy>>;
+class blocking_observable;
 
 /**
  * @brief Extension over raw observable which also has `get_key()` member function. Used in `group_by` operator to represent grouped observable

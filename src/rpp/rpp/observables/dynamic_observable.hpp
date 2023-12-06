@@ -74,3 +74,12 @@ private:
     const vtable*         m_vtable;
 };
 }
+
+namespace rpp
+{
+template<constraint::decayed_type Type>
+class dynamic_observable : public observable<Type, details::observables::dynamic_strategy<Type>> {
+public:
+    using observable<Type, details::observables::dynamic_strategy<Type>>::observable;
+};
+}

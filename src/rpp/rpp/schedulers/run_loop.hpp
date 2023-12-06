@@ -34,6 +34,8 @@ class run_loop final
     class state_t final : public rpp::details::base_disposable
     {
     public:
+        ~state_t() noexcept override { dispose(); }
+
         template<typename ...Args>
         void emplace_and_notify(time_point timepoint, Args&& ...args)
         {
@@ -117,9 +119,10 @@ class run_loop final
                 shared->emplace_and_notify(now()+duration, std::forward<Fn>(fn), std::forward<Handler>(handler), std::forward<Args>(args)...);
         }
 
-        rpp::disposable_wrapper get_disposable() const { return rpp::disposable_wrapper::from_weak(m_state); }
+        static constexpr rpp::schedulers::details::none_disposable get_disposable() { return {}; }
 
         static rpp::schedulers::time_point now() { return details::now(); }
+        
     private:
         std::weak_ptr<state_t> m_state;
     };
