@@ -115,7 +115,7 @@ struct concat_strategy
     void subscribe(observer<value_type, Strategy>&& obs) const
     {
         auto state = std::make_shared<concat_state_t<observer<value_type, Strategy>, PackedContainer>>(std::move(obs), container);
-        obs.set_upstream(rpp::disposable_wrapper::from_weak(state));
+        state->observer.set_upstream(rpp::disposable_wrapper::from_weak(state));
         drain(state);
     }
 };
