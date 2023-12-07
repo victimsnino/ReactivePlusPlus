@@ -163,16 +163,20 @@ TEMPLATE_TEST_CASE("concat as source", "", rpp::memory_model::use_stack, rpp::me
         auto d = std::make_shared<rpp::composite_disposable>();
         auto d1 = std::make_shared<rpp::composite_disposable>();
 
-        auto observable = rpp::source::concat<TestType>(rpp::source::create<int>([&](auto&& obs) { obs.set_upstream(rpp::disposable_wrapper{d1}); }));
+        auto observable = rpp::source::concat<TestType>(rpp::source::create<int>([&](auto&& obs)
+        {
+            obs.set_upstream(rpp::disposable_wrapper{d1});
+
+            CHECK(!d->is_disposed());
+            CHECK(!d1->is_disposed());
+
+            d->dispose();
+
+            CHECK(d->is_disposed());
+            CHECK(d1->is_disposed());
+
+        }));
         observable.subscribe(rpp::composite_disposable_wrapper{d}, mock);
-
-        CHECK(!d->is_disposed());
-        CHECK(!d1->is_disposed());
-
-        d->dispose();
-
-        CHECK(d->is_disposed());
-        CHECK(d1->is_disposed());
     }
 
     SECTION("concat tracks actual upstream for 2 upstreams")
@@ -183,17 +187,21 @@ TEMPLATE_TEST_CASE("concat as source", "", rpp::memory_model::use_stack, rpp::me
 
         auto observable =
             rpp::source::concat<TestType>(rpp::source::create<int>([&](auto&& obs) { obs.set_upstream(rpp::disposable_wrapper{d1}); obs.on_completed(); }),
-                                          rpp::source::create<int>([&](auto&& obs) { obs.set_upstream(rpp::disposable_wrapper{d2}); }));
+                                          rpp::source::create<int>([&](auto&& obs)
+                                          {
+                                            obs.set_upstream(rpp::disposable_wrapper{d2});
+
+                                            CHECK(!d->is_disposed());
+                                            CHECK(d1->is_disposed());
+                                            CHECK(!d2->is_disposed());
+
+                                            d->dispose();
+
+                                            CHECK(d->is_disposed());
+                                            CHECK(d2->is_disposed());
+                                          }));
+
         observable.subscribe(rpp::composite_disposable_wrapper{d}, mock);
-
-        CHECK(!d->is_disposed());
-        CHECK(d1->is_disposed());
-        CHECK(!d2->is_disposed());
-
-        d->dispose();
-
-        CHECK(d->is_disposed());
-        CHECK(d2->is_disposed());
     }
 
     SECTION("container with error on begin")

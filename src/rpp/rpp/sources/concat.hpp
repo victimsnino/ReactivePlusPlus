@@ -32,16 +32,25 @@ template<rpp::constraint::observer TObserver, constraint::decayed_type PackedCon
 struct concat_state_t : public rpp::composite_disposable
     , public std::enable_shared_from_this<concat_state_t<TObserver, PackedContainer>>
 {
-    concat_state_t(TObserver&& observer, const PackedContainer& container)
-        : observer(std::move(observer))
-        , container(container)
+    concat_state_t(TObserver&& in_observer, const PackedContainer& in_container)
+        : observer(std::move(in_observer))
+        , container(in_container)
     {
+        try
+        {
+            itr = std::cbegin(container);
+        }
+        catch(...)
+        {
+            this->observer.on_error(std::current_exception());
+            this->dispose();
+        }
     }
 
-    RPP_NO_UNIQUE_ADDRESS TObserver       observer;
-    RPP_NO_UNIQUE_ADDRESS PackedContainer container;
-    decltype(std::cbegin(container))      itr = std::cbegin(container);
-    std::atomic<ConcatStage>              stage{};
+    RPP_NO_UNIQUE_ADDRESS TObserver                 observer;
+    RPP_NO_UNIQUE_ADDRESS PackedContainer           container;
+    std::optional<decltype(std::cbegin(container))> itr{};
+    std::atomic<ConcatStage>                        stage{};
 };
 
 template<rpp::constraint::observer TObserver, typename PackedContainer>
@@ -80,7 +89,7 @@ void drain(const std::shared_ptr<concat_state_t<TObserver, PackedContainer>>& st
 {
     while(!state->is_disposed())
     {
-        if (state->itr == std::cend(state->container))
+        if (state->itr.value() == std::cend(state->container))
         {
             state->observer.on_completed();
             return;
@@ -89,10 +98,18 @@ void drain(const std::shared_ptr<concat_state_t<TObserver, PackedContainer>>& st
         using value_type = rpp::utils::extract_observable_type_t<utils::iterable_value_t<PackedContainer>>;
         state->clear();
         state->stage.store(ConcatStage::InsideDrain, std::memory_order::relaxed);
-        (*(state->itr++)).subscribe(observer<value_type, concat_source_observer_strategy<std::decay_t<TObserver>, std::decay_t<PackedContainer>>>{state});
+        try
+        {
+            (*(state->itr.value()++)).subscribe(observer<value_type, concat_source_observer_strategy<std::decay_t<TObserver>, std::decay_t<PackedContainer>>>{state});
 
-        if (state->stage.exchange(ConcatStage::None, std::memory_order::relaxed) == ConcatStage::InsideDrain)
+            if (state->stage.exchange(ConcatStage::None, std::memory_order::relaxed) == ConcatStage::InsideDrain)
+                return;
+        }
+        catch(...)
+        {
+            state->observer.on_error(std::current_exception());
             return;
+        }
     }
 }
 
