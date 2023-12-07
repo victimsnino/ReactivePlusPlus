@@ -86,11 +86,9 @@ auto publish();
 
 auto ref_count();
 
-template<rpp::schedulers::constraint::scheduler Scheduler = rpp::schedulers::defaults::iteration_scheduler>
-auto repeat(size_t count, const Scheduler& scheduler = {});
+auto repeat(size_t count);
 
-template<rpp::schedulers::constraint::scheduler Scheduler = rpp::schedulers::defaults::iteration_scheduler>
-auto repeat(const Scheduler& scheduler = {});
+auto repeat();
 
 template<typename InitialValue, typename Fn>
     requires (!utils::is_not_template_callable<Fn> || std::same_as<std::decay_t<InitialValue>, std::invoke_result_t<Fn, std::decay_t<InitialValue>&&, rpp::utils::convertible_to_any>>)
