@@ -31,10 +31,10 @@
 \DoxyCodeLine{00027\ \textcolor{keyword}{\ \ \ \ }\{}
 \DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ observables.apply(\&apply<TObservable>,\ std::forward<TObservable>(\mbox{\hyperlink{classrpp_1_1observable}{observable}}));}
 \DoxyCodeLine{00029\ \ \ \ \ \}}
-\DoxyCodeLine{00030\ \ \ \ \ }
+\DoxyCodeLine{00030\ }
 \DoxyCodeLine{00031\ \textcolor{keyword}{private}:}
 \DoxyCodeLine{00032\ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::observable\ TObservable>}
-\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{auto}\ apply(TObservable\&\&\ \mbox{\hyperlink{classrpp_1_1observable}{observable}},\ \textcolor{keyword}{const}\ TObservables\&\ ...observables)\ }
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{auto}\ apply(TObservable\&\&\ \mbox{\hyperlink{classrpp_1_1observable}{observable}},\ \textcolor{keyword}{const}\ TObservables\&\ ...observables)}
 \DoxyCodeLine{00034\ \ \ \ \ \{}
 \DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{rpp::source::concat}}(observables...,\ std::forward<TObservable>(\mbox{\hyperlink{classrpp_1_1observable}{observable}}));}
 \DoxyCodeLine{00036\ \ \ \ \ \}}
@@ -56,7 +56,7 @@
 \DoxyCodeLine{00052\ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::observable\_of\_type<rpp::utils::iterable\_value\_t<PackedContainer>>\ TObservable>}
 \DoxyCodeLine{00053\ \ \ \ \ \textcolor{keyword}{auto}\ operator()(TObservable\&\&\ \mbox{\hyperlink{classrpp_1_1observable}{observable}})\textcolor{keyword}{\ const}}
 \DoxyCodeLine{00054\ \textcolor{keyword}{\ \ \ \ }\{}
-\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{rpp::source::concat}}(scheduler,\ \mbox{\hyperlink{group__creational__operators_gad15a7e8bfb2f7ce0af1b44e22918116c}{rpp::source::from\_iterable}}(container,\ scheduler),\ std::forward<TObservable>(\mbox{\hyperlink{classrpp_1_1observable}{observable}}));}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{rpp::source::concat}}(\mbox{\hyperlink{group__creational__operators_gad15a7e8bfb2f7ce0af1b44e22918116c}{rpp::source::from\_iterable}}(container,\ scheduler),\ std::forward<TObservable>(\mbox{\hyperlink{classrpp_1_1observable}{observable}}));}
 \DoxyCodeLine{00056\ \ \ \ \ \}}
 \DoxyCodeLine{00057\ \};}
 \DoxyCodeLine{00058\ \}}

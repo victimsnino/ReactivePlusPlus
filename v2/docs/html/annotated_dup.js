@@ -29,6 +29,7 @@ var annotated_dup =
         ] ],
         [ "base_disposable_impl", "classrpp_1_1details_1_1base__disposable__impl.html", null ],
         [ "concat_source_observer_strategy", "structrpp_1_1details_1_1concat__source__observer__strategy.html", null ],
+        [ "concat_state_t", "structrpp_1_1details_1_1concat__state__t.html", null ],
         [ "concat_strategy", "structrpp_1_1details_1_1concat__strategy.html", null ],
         [ "create_strategy", "structrpp_1_1details_1_1create__strategy.html", null ],
         [ "defer_strategy", "structrpp_1_1details_1_1defer__strategy.html", null ],

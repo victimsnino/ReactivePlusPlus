@@ -11,7 +11,7 @@ var searchData=
   ['ref_5fcount_5fon_5fsubscribe_5ft_3c_20rpp_3a_3aconnectable_5fobservable_3c_20originalobservable_2c_20subject_20_3e_20_3e_8',['ref_count_on_subscribe_t&lt; rpp::connectable_observable&lt; OriginalObservable, Subject &gt; &gt;',['../structrpp_1_1details_1_1ref__count__on__subscribe__t_3_01rpp_1_1connectable__observable_3_01_oria02afbb30282d4727b872472b2af56d8.html',1,'rpp::details']]],
   ['ref_5fcount_5ft_9',['ref_count_t',['../structrpp_1_1operators_1_1details_1_1ref__count__t.html',1,'rpp::operators::details']]],
   ['refcount_5fdisposable_10',['refcount_disposable',['../classrpp_1_1refcount__disposable.html',1,'rpp']]],
-  ['repeat_11',['repeat',['../group__utility__operators.html#ga0cfd908889bdd68eff60f3342c89f500',1,'rpp::operators::repeat(const Scheduler &amp;scheduler)'],['../group__utility__operators.html#ga22f3148defcabdd1935e201103644f4b',1,'rpp::operators::repeat(size_t count, const Scheduler &amp;scheduler)']]],
+  ['repeat_11',['repeat',['../group__utility__operators.html#ga41ef49dc75a3eadb0eb3fda7c3692c40',1,'rpp::operators::repeat()'],['../group__utility__operators.html#ga96a3c17903a50c2f6dfd66d8b90a96f2',1,'rpp::operators::repeat(size_t count)']]],
   ['repeat_5ft_12',['repeat_t',['../structrpp_1_1operators_1_1details_1_1repeat__t.html',1,'rpp::operators::details']]],
   ['rpp_13',['RPP',['../group__rpp.html',1,'']]],
   ['rpp_3a_3aconstraint_3a_3amemory_5fmodel_14',['memory_model',['../conceptrpp_1_1constraint_1_1memory__model.html',1,'rpp::constraint']]],

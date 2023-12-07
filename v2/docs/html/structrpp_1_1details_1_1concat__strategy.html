@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ReactivePlusPlus: rpp::details::concat_strategy&lt; TScheduler, PackedContainer &gt; Struct Template Reference</title>
+<title>ReactivePlusPlus: rpp::details::concat_strategy&lt; PackedContainer &gt; Struct Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -101,36 +101,33 @@ $(document).ready(function(){initNavTree('structrpp_1_1details_1_1concat__strate
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="structrpp_1_1details_1_1concat__strategy-members.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">rpp::details::concat_strategy&lt; TScheduler, PackedContainer &gt; Struct Template Reference</div></div>
+  <div class="headertitle"><div class="title">rpp::details::concat_strategy&lt; PackedContainer &gt; Struct Template Reference</div></div>
 </div><!--header-->
 <div class="contents">
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:a688d7aeaa02576b3c4c14f98c8a9a2b8" id="r_a688d7aeaa02576b3c4c14f98c8a9a2b8"><td class="memItemLeft" align="right" valign="top"><a id="a688d7aeaa02576b3c4c14f98c8a9a2b8" name="a688d7aeaa02576b3c4c14f98c8a9a2b8"></a>
+<tr class="memitem:a7dc37cf70feb72433bb7ee7928b1eb88" id="r_a7dc37cf70feb72433bb7ee7928b1eb88"><td class="memItemLeft" align="right" valign="top"><a id="a7dc37cf70feb72433bb7ee7928b1eb88" name="a7dc37cf70feb72433bb7ee7928b1eb88"></a>
 using&#160;</td><td class="memItemRight" valign="bottom"><b>value_type</b> = rpp::utils::extract_observable_type_t&lt; utils::iterable_value_t&lt; PackedContainer &gt; &gt;</td></tr>
-<tr class="separator:a688d7aeaa02576b3c4c14f98c8a9a2b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="separator:a7dc37cf70feb72433bb7ee7928b1eb88"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:affc8231f386e932189ef3ea70e830ab7" id="r_affc8231f386e932189ef3ea70e830ab7"><td class="memTemplParams" colspan="2"><a id="affc8231f386e932189ef3ea70e830ab7" name="affc8231f386e932189ef3ea70e830ab7"></a>
+<tr class="memitem:a2a6048694bc7caaf2939670af0f321c8" id="r_a2a6048694bc7caaf2939670af0f321c8"><td class="memTemplParams" colspan="2"><a id="a2a6048694bc7caaf2939670af0f321c8" name="a2a6048694bc7caaf2939670af0f321c8"></a>
 template&lt;typename... Args&gt; <br />
-requires (!constraint::variadic_decayed_same_as&lt;<a class="el" href="structrpp_1_1details_1_1concat__strategy.html">concat_strategy</a>&lt;TScheduler, PackedContainer&gt;, Args...&gt;)</td></tr>
-<tr class="memitem:affc8231f386e932189ef3ea70e830ab7"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><b>concat_strategy</b> (const TScheduler &amp;scheduler, Args &amp;&amp;... args)</td></tr>
-<tr class="separator:affc8231f386e932189ef3ea70e830ab7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2e16e8771b1ef65a62b4d64c42fb6dce" id="r_a2e16e8771b1ef65a62b4d64c42fb6dce"><td class="memTemplParams" colspan="2"><a id="a2e16e8771b1ef65a62b4d64c42fb6dce" name="a2e16e8771b1ef65a62b4d64c42fb6dce"></a>
+requires (!constraint::variadic_decayed_same_as&lt;<a class="el" href="structrpp_1_1details_1_1concat__strategy.html">concat_strategy</a>&lt;PackedContainer&gt;, Args...&gt;)</td></tr>
+<tr class="memitem:a2a6048694bc7caaf2939670af0f321c8"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><b>concat_strategy</b> (Args &amp;&amp;... args)</td></tr>
+<tr class="separator:a2a6048694bc7caaf2939670af0f321c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a262b213bacaaff0b1ff9f631142eb252" id="r_a262b213bacaaff0b1ff9f631142eb252"><td class="memTemplParams" colspan="2"><a id="a262b213bacaaff0b1ff9f631142eb252" name="a262b213bacaaff0b1ff9f631142eb252"></a>
 template&lt;constraint::observer_strategy&lt; value_type &gt; Strategy&gt; </td></tr>
-<tr class="memitem:a2e16e8771b1ef65a62b4d64c42fb6dce"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>subscribe</b> (<a class="el" href="classrpp_1_1observer.html">observer</a>&lt; value_type, Strategy &gt; &amp;&amp;obs) const</td></tr>
-<tr class="separator:a2e16e8771b1ef65a62b4d64c42fb6dce"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a262b213bacaaff0b1ff9f631142eb252"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>subscribe</b> (<a class="el" href="classrpp_1_1observer.html">observer</a>&lt; value_type, Strategy &gt; &amp;&amp;obs) const</td></tr>
+<tr class="separator:a262b213bacaaff0b1ff9f631142eb252"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:af4adb90f4020ecbfa9d3e280f89c3c78" id="r_af4adb90f4020ecbfa9d3e280f89c3c78"><td class="memItemLeft" align="right" valign="top"><a id="af4adb90f4020ecbfa9d3e280f89c3c78" name="af4adb90f4020ecbfa9d3e280f89c3c78"></a>
+<tr class="memitem:a1e6b6c42bcdac3c0b87e66eda12c3a11" id="r_a1e6b6c42bcdac3c0b87e66eda12c3a11"><td class="memItemLeft" align="right" valign="top"><a id="a1e6b6c42bcdac3c0b87e66eda12c3a11" name="a1e6b6c42bcdac3c0b87e66eda12c3a11"></a>
 RPP_NO_UNIQUE_ADDRESS PackedContainer&#160;</td><td class="memItemRight" valign="bottom"><b>container</b></td></tr>
-<tr class="separator:af4adb90f4020ecbfa9d3e280f89c3c78"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abc7e6d9aa7936ce8a80213282c340388" id="r_abc7e6d9aa7936ce8a80213282c340388"><td class="memItemLeft" align="right" valign="top"><a id="abc7e6d9aa7936ce8a80213282c340388" name="abc7e6d9aa7936ce8a80213282c340388"></a>
-RPP_NO_UNIQUE_ADDRESS TScheduler&#160;</td><td class="memItemRight" valign="bottom"><b>scheduler</b></td></tr>
-<tr class="separator:abc7e6d9aa7936ce8a80213282c340388"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="separator:a1e6b6c42bcdac3c0b87e66eda12c3a11"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <hr/>The documentation for this struct was generated from the following file:<ul>
 <li>src/rpp/rpp/sources/<a class="el" href="concat_8hpp_source.html">concat.hpp</a></li>

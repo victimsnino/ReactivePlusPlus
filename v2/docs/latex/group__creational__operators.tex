@@ -11,11 +11,8 @@ Creational operators are operators that create new observable.
 {\footnotesize template$<$constraint\+::memory\+\_\+model Memory\+Model, \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp\+::constraint\+::observable}} TObservable, rpp\+::constraint\+::observable... TObservables$>$ \newline
 requires (std\+::same\+\_\+as$<$rpp\+::utils\+::extract\+\_\+observable\+\_\+type\+\_\+t$<$TObservable$>$, rpp\+::utils\+::extract\+\_\+observable\+\_\+type\+\_\+t$<$TObservables$>$$>$ \&\& ...)}\\auto \mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{rpp\+::source\+::concat}} (TObservable \&\&obs, TObservables \&\&... others)
 \begin{DoxyCompactList}\small\item\em Make observable which would merge emissions from underlying observables but without overlapping (current observable completes THEN next started to emit its values) \end{DoxyCompactList}\item 
-{\footnotesize template$<$constraint\+::memory\+\_\+model Memory\+Model, \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp\+::constraint\+::observable}} TObservable, rpp\+::constraint\+::observable... TObservables, \mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1scheduler}{rpp\+::schedulers\+::constraint\+::scheduler}} TScheduler$>$ \newline
-requires (std\+::same\+\_\+as$<$rpp\+::utils\+::extract\+\_\+observable\+\_\+type\+\_\+t$<$TObservable$>$, rpp\+::utils\+::extract\+\_\+observable\+\_\+type\+\_\+t$<$TObservables$>$$>$ \&\& ...)}\\auto \mbox{\hyperlink{group__creational__operators_gada99b48f2ecd189b5881a6afe5e3753b}{rpp\+::source\+::concat}} (const TScheduler \&scheduler, TObservable \&\&obs, TObservables \&\&... others)
-\begin{DoxyCompactList}\small\item\em Make observable which would merge emissions from underlying observables but without overlapping (current observable completes THEN next started to emit its values) \end{DoxyCompactList}\item 
-{\footnotesize template$<$constraint\+::memory\+\_\+model Memory\+Model, constraint\+::iterable Iterable, \mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1scheduler}{rpp\+::schedulers\+::constraint\+::scheduler}} TScheduler$>$ \newline
-requires constraint\+::observable$<$utils\+::iterable\+\_\+value\+\_\+t$<$Iterable$>$$>$}\\auto \mbox{\hyperlink{group__creational__operators_gaccd63d5e127d16a572f6d3da11d07885}{rpp\+::source\+::concat}} (Iterable \&\&iterable, const TScheduler \&scheduler)
+{\footnotesize template$<$constraint\+::memory\+\_\+model Memory\+Model, constraint\+::iterable Iterable$>$ \newline
+requires constraint\+::observable$<$utils\+::iterable\+\_\+value\+\_\+t$<$Iterable$>$$>$}\\auto \mbox{\hyperlink{group__creational__operators_ga4f9024c949765737e6a99a05f74d382e}{rpp\+::source\+::concat}} (Iterable \&\&iterable)
 \begin{DoxyCompactList}\small\item\em Make observable which would merge emissions from underlying observables but without overlapping (current observable completes THEN next started to emit its values) \end{DoxyCompactList}\item 
 {\footnotesize template$<$constraint\+::decayed\+\_\+type Type, constraint\+::on\+\_\+subscribe$<$ Type $>$ On\+Subscribe$>$ }\\\mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{auto}} \mbox{\hyperlink{group__creational__operators_gae68c87e7ae3a505258b733082bf68513}{rpp\+::source\+::create}} (On\+Subscribe \&\&on\+\_\+subscribe)
 \begin{DoxyCompactList}\small\item\em Construct observable specialized with passed callback function. Most easiesest way to construct observable "{}on the fly"{} via lambda and etc. \end{DoxyCompactList}\item 
@@ -53,58 +50,13 @@ Creational operators are operators that create new observable.
 
 
 \doxysubsubsubsection{Function Documentation}
-\Hypertarget{group__creational__operators_gada99b48f2ecd189b5881a6afe5e3753b}\label{group__creational__operators_gada99b48f2ecd189b5881a6afe5e3753b} 
+\Hypertarget{group__creational__operators_ga4f9024c949765737e6a99a05f74d382e}\label{group__creational__operators_ga4f9024c949765737e6a99a05f74d382e} 
 \index{Creational Operators@{Creational Operators}!concat@{concat}}
 \index{concat@{concat}!Creational Operators@{Creational Operators}}
-\doxysubsubsubsubsection{\texorpdfstring{concat()}{concat()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
-{\footnotesize\ttfamily template$<$constraint\+::memory\+\_\+model Memory\+Model, \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp\+::constraint\+::observable}} TObservable, rpp\+::constraint\+::observable... TObservables, \mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1scheduler}{rpp\+::schedulers\+::constraint\+::scheduler}} TScheduler$>$ \newline
-requires (std\+::same\+\_\+as$<$rpp\+::utils\+::extract\+\_\+observable\+\_\+type\+\_\+t$<$TObservable$>$, rpp\+::utils\+::extract\+\_\+observable\+\_\+type\+\_\+t$<$TObservables$>$$>$ \&\& ...)\\
-auto rpp\+::source\+::concat (\begin{DoxyParamCaption}\item[{const TScheduler \&}]{scheduler,  }\item[{TObservable \&\&}]{obs,  }\item[{TObservables \&\&...}]{others }\end{DoxyParamCaption})}
-
-
-
-Make observable which would merge emissions from underlying observables but without overlapping (current observable completes THEN next started to emit its values) 
-
-
-
-Actually it subscribes on first observable from emissions. When first observable completes, then it subscribes on second observable from emissions and etc...
-
-
-\begin{DoxyParams}{Parameters}
-{\em scheduler} & is scheduler used for scheduling of subscriptions to next observables during on\+\_\+completed \\
-\hline
-{\em obs} & first observalbe to subscribe on \\
-\hline
-{\em others} & rest list of observables to subscribe on \\
-\hline
-\end{DoxyParams}
-
-\begin{DoxyTemplParams}{Template Parameters}
-{\em Memory\+Model} & rpp\+::memory\+\_\+model strategy used to handle provided observables\\
-\hline
-\end{DoxyTemplParams}
-\begin{DoxyWarning}{Warning}
-\doxylink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{include} \texorpdfstring{$<$}{<}rpp/operators/concat.\+hpp\texorpdfstring{$>$}{>}
-\end{DoxyWarning}
-\begin{DoxyParagraph}{Example}
-
-\begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{rpp::source::concat}}(\mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(1),\ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(2),\ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(1,2,3)).subscribe([](\textcolor{keywordtype}{int}\ \mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{v}})\{std::cout\ <<\ \mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{v}}\ <<\ \textcolor{stringliteral}{"{},\ "{}};\},\ [](\textcolor{keyword}{const}\ std::exception\_ptr\&)\{\},\ []()\{std::cout\ <<\ \textcolor{stringliteral}{"{}completed\(\backslash\)n"{}};\});}
-\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:\ 1,\ 2,\ 1,\ 2,\ 3,\ completed}}
-
-\end{DoxyCodeInclude}
-
-\end{DoxyParagraph}
-\begin{DoxySeeAlso}{See also}
-\href{https://reactivex.io/documentation/operators/concat.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/concat.\+html}} 
-\end{DoxySeeAlso}
-\Hypertarget{group__creational__operators_gaccd63d5e127d16a572f6d3da11d07885}\label{group__creational__operators_gaccd63d5e127d16a572f6d3da11d07885} 
-\index{Creational Operators@{Creational Operators}!concat@{concat}}
-\index{concat@{concat}!Creational Operators@{Creational Operators}}
-\doxysubsubsubsubsection{\texorpdfstring{concat()}{concat()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
-{\footnotesize\ttfamily template$<$constraint\+::memory\+\_\+model Memory\+Model, constraint\+::iterable Iterable, \mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1scheduler}{rpp\+::schedulers\+::constraint\+::scheduler}} TScheduler$>$ \newline
+\doxysubsubsubsubsection{\texorpdfstring{concat()}{concat()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$constraint\+::memory\+\_\+model Memory\+Model, constraint\+::iterable Iterable$>$ \newline
 requires constraint\+::observable$<$utils\+::iterable\+\_\+value\+\_\+t$<$Iterable$>$$>$\\
-auto rpp\+::source\+::concat (\begin{DoxyParamCaption}\item[{Iterable \&\&}]{iterable,  }\item[{const TScheduler \&}]{scheduler }\end{DoxyParamCaption})}
+auto rpp\+::source\+::concat (\begin{DoxyParamCaption}\item[{Iterable \&\&}]{iterable }\end{DoxyParamCaption})}
 
 
 
@@ -116,9 +68,7 @@ Actually it subscribes on first observable from emissions. When first observable
 
 
 \begin{DoxyParams}{Parameters}
-{\em iterable} & is container with observables to subscribe on \\
-\hline
-{\em scheduler} & is scheduler used for scheduling of subscriptions to next observables during on\+\_\+completed\\
+{\em iterable} & is container with observables to subscribe on\\
 \hline
 \end{DoxyParams}
 
@@ -145,7 +95,7 @@ Actually it subscribes on first observable from emissions. When first observable
 \Hypertarget{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}\label{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df} 
 \index{Creational Operators@{Creational Operators}!concat@{concat}}
 \index{concat@{concat}!Creational Operators@{Creational Operators}}
-\doxysubsubsubsubsection{\texorpdfstring{concat()}{concat()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+\doxysubsubsubsubsection{\texorpdfstring{concat()}{concat()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
 {\footnotesize\ttfamily template$<$constraint\+::memory\+\_\+model Memory\+Model, \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp\+::constraint\+::observable}} TObservable, rpp\+::constraint\+::observable... TObservables$>$ \newline
 requires (std\+::same\+\_\+as$<$rpp\+::utils\+::extract\+\_\+observable\+\_\+type\+\_\+t$<$TObservable$>$, rpp\+::utils\+::extract\+\_\+observable\+\_\+type\+\_\+t$<$TObservables$>$$>$ \&\& ...)\\
 auto rpp\+::source\+::concat (\begin{DoxyParamCaption}\item[{TObservable \&\&}]{obs,  }\item[{TObservables \&\&...}]{others }\end{DoxyParamCaption})}
@@ -154,9 +104,6 @@ auto rpp\+::source\+::concat (\begin{DoxyParamCaption}\item[{TObservable \&\&}]{
 
 Make observable which would merge emissions from underlying observables but without overlapping (current observable completes THEN next started to emit its values) 
 
-\begin{DoxyWarning}{Warning}
-this overloading uses trampoline scheduler as default
-\end{DoxyWarning}
 
 
 Actually it subscribes on first observable from emissions. When first observable completes, then it subscribes on second observable from emissions and etc...

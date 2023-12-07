@@ -112,16 +112,11 @@ requires (std::same_as&lt;rpp::utils::extract_observable_type_t&lt;TObservable&g
 <tr class="memitem:gab6cfd9da2e3590fd199c9972477e04df"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">rpp::source::concat</a> (TObservable &amp;&amp;obs, TObservables &amp;&amp;... others)</td></tr>
 <tr class="memdesc:gab6cfd9da2e3590fd199c9972477e04df"><td class="mdescLeft">&#160;</td><td class="mdescRight">Make observable which would merge emissions from underlying observables but without overlapping (current observable completes THEN next started to emit its values)  <br /></td></tr>
 <tr class="separator:gab6cfd9da2e3590fd199c9972477e04df"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gada99b48f2ecd189b5881a6afe5e3753b" id="r_gada99b48f2ecd189b5881a6afe5e3753b"><td class="memTemplParams" colspan="2">template&lt;constraint::memory_model MemoryModel, <a class="el" href="conceptrpp_1_1constraint_1_1observable.html">rpp::constraint::observable</a> TObservable, rpp::constraint::observable... TObservables, <a class="el" href="conceptrpp_1_1schedulers_1_1constraint_1_1scheduler.html">rpp::schedulers::constraint::scheduler</a> TScheduler&gt; <br />
-requires (std::same_as&lt;rpp::utils::extract_observable_type_t&lt;TObservable&gt;, rpp::utils::extract_observable_type_t&lt;TObservables&gt;&gt; &amp;&amp; ...)</td></tr>
-<tr class="memitem:gada99b48f2ecd189b5881a6afe5e3753b"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__creational__operators.html#gada99b48f2ecd189b5881a6afe5e3753b">rpp::source::concat</a> (const TScheduler &amp;scheduler, TObservable &amp;&amp;obs, TObservables &amp;&amp;... others)</td></tr>
-<tr class="memdesc:gada99b48f2ecd189b5881a6afe5e3753b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Make observable which would merge emissions from underlying observables but without overlapping (current observable completes THEN next started to emit its values)  <br /></td></tr>
-<tr class="separator:gada99b48f2ecd189b5881a6afe5e3753b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaccd63d5e127d16a572f6d3da11d07885" id="r_gaccd63d5e127d16a572f6d3da11d07885"><td class="memTemplParams" colspan="2">template&lt;constraint::memory_model MemoryModel, constraint::iterable Iterable, <a class="el" href="conceptrpp_1_1schedulers_1_1constraint_1_1scheduler.html">rpp::schedulers::constraint::scheduler</a> TScheduler&gt; <br />
+<tr class="memitem:ga4f9024c949765737e6a99a05f74d382e" id="r_ga4f9024c949765737e6a99a05f74d382e"><td class="memTemplParams" colspan="2">template&lt;constraint::memory_model MemoryModel, constraint::iterable Iterable&gt; <br />
 requires constraint::observable&lt;utils::iterable_value_t&lt;Iterable&gt;&gt;</td></tr>
-<tr class="memitem:gaccd63d5e127d16a572f6d3da11d07885"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__creational__operators.html#gaccd63d5e127d16a572f6d3da11d07885">rpp::source::concat</a> (Iterable &amp;&amp;iterable, const TScheduler &amp;scheduler)</td></tr>
-<tr class="memdesc:gaccd63d5e127d16a572f6d3da11d07885"><td class="mdescLeft">&#160;</td><td class="mdescRight">Make observable which would merge emissions from underlying observables but without overlapping (current observable completes THEN next started to emit its values)  <br /></td></tr>
-<tr class="separator:gaccd63d5e127d16a572f6d3da11d07885"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga4f9024c949765737e6a99a05f74d382e"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__creational__operators.html#ga4f9024c949765737e6a99a05f74d382e">rpp::source::concat</a> (Iterable &amp;&amp;iterable)</td></tr>
+<tr class="memdesc:ga4f9024c949765737e6a99a05f74d382e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Make observable which would merge emissions from underlying observables but without overlapping (current observable completes THEN next started to emit its values)  <br /></td></tr>
+<tr class="separator:ga4f9024c949765737e6a99a05f74d382e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gae68c87e7ae3a505258b733082bf68513" id="r_gae68c87e7ae3a505258b733082bf68513"><td class="memTemplParams" colspan="2">template&lt;constraint::decayed_type Type, constraint::on_subscribe&lt; Type &gt; OnSubscribe&gt; </td></tr>
 <tr class="memitem:gae68c87e7ae3a505258b733082bf68513"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">auto</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__creational__operators.html#gae68c87e7ae3a505258b733082bf68513">rpp::source::create</a> (OnSubscribe &amp;&amp;on_subscribe)</td></tr>
 <tr class="memdesc:gae68c87e7ae3a505258b733082bf68513"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct observable specialized with passed callback function. Most easiesest way to construct observable "on the fly" via lambda and etc.  <br /></td></tr>
@@ -174,95 +169,21 @@ requires (constraint::decayed_same_as&lt;T, <a class="el" href="group__creationa
 <p>Creational operators are operators that create new observable. </p>
 <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators.html#creating">https://reactivex.io/documentation/operators.html#creating</a> </dd></dl>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="gada99b48f2ecd189b5881a6afe5e3753b" name="gada99b48f2ecd189b5881a6afe5e3753b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gada99b48f2ecd189b5881a6afe5e3753b">&#9670;&#160;</a></span>concat() <span class="overload">[1/3]</span></h2>
+<a id="ga4f9024c949765737e6a99a05f74d382e" name="ga4f9024c949765737e6a99a05f74d382e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga4f9024c949765737e6a99a05f74d382e">&#9670;&#160;</a></span>concat() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;constraint::memory_model MemoryModel, <a class="el" href="conceptrpp_1_1constraint_1_1observable.html">rpp::constraint::observable</a> TObservable, rpp::constraint::observable... TObservables, <a class="el" href="conceptrpp_1_1schedulers_1_1constraint_1_1scheduler.html">rpp::schedulers::constraint::scheduler</a> TScheduler&gt; <br />
-requires (std::same_as&lt;rpp::utils::extract_observable_type_t&lt;TObservable&gt;, rpp::utils::extract_observable_type_t&lt;TObservables&gt;&gt; &amp;&amp; ...)</div>
-      <table class="memname">
-        <tr>
-          <td class="memname">auto rpp::source::concat </td>
-          <td>(</td>
-          <td class="paramtype">const TScheduler &amp;&#160;</td>
-          <td class="paramname"><em>scheduler</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">TObservable &amp;&amp;&#160;</td>
-          <td class="paramname"><em>obs</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">TObservables &amp;&amp;...&#160;</td>
-          <td class="paramname"><em>others</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Make observable which would merge emissions from underlying observables but without overlapping (current observable completes THEN next started to emit its values) </p>
-<div class="image">
-<object type="image/svg+xml" data="concat.svg" style="pointer-events: none;"></object>
-</div>
-<p>Actually it subscribes on first observable from emissions. When first observable completes, then it subscribes on second observable from emissions and etc...</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">scheduler</td><td>is scheduler used for scheduling of subscriptions to next observables during on_completed </td></tr>
-    <tr><td class="paramname">obs</td><td>first observalbe to subscribe on </td></tr>
-    <tr><td class="paramname">others</td><td>rest list of observables to subscribe on </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">MemoryModel</td><td>rpp::memory_model strategy used to handle provided observables</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section warning"><dt>Warning</dt><dd><a class="el" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df" title="Make observable which would merge emissions from underlying observables but without overlapping (curr...">include</a> &lt;rpp/operators/concat.hpp&gt;</dd></dl>
-<dl class="section user"><dt>Example</dt><dd><div class="fragment"><div class="line">    <a class="code hl_function" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">rpp::source::concat</a>(<a class="code hl_function" href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">rpp::source::just</a>(1), <a class="code hl_function" href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">rpp::source::just</a>(2), <a class="code hl_function" href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">rpp::source::just</a>(1,2,3)).subscribe([](<span class="keywordtype">int</span> <a class="code hl_function" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">v</a>){std::cout &lt;&lt; <a class="code hl_function" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">v</a> &lt;&lt; <span class="stringliteral">&quot;, &quot;</span>;}, [](<span class="keyword">const</span> std::exception_ptr&amp;){}, [](){std::cout &lt;&lt; <span class="stringliteral">&quot;completed\n&quot;</span>;});</div>
-<div class="line">    <span class="comment">// Output: 1, 2, 1, 2, 3, completed</span></div>
-<div class="ttc" id="agroup__creational__operators_html_ga1edf47f176050dd414e28a1c0616b7c0"><div class="ttname"><a href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">rpp::source::just</a></div><div class="ttdeci">auto just(const TScheduler &amp;scheduler, T &amp;&amp;item, Ts &amp;&amp;... items)</div><div class="ttdoc">Creates rpp::observable that emits a particular items and completes.</div><div class="ttdef"><b>Definition</b> from.hpp:207</div></div>
-<div class="ttc" id="agroup__creational__operators_html_gab6cfd9da2e3590fd199c9972477e04df"><div class="ttname"><a href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">rpp::source::concat</a></div><div class="ttdeci">auto concat(TObservable &amp;&amp;obs, TObservables &amp;&amp;... others)</div><div class="ttdoc">Make observable which would merge emissions from underlying observables but without overlapping (curr...</div><div class="ttdef"><b>Definition</b> concat.hpp:161</div></div>
-</div><!-- fragment --></dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/concat.html">https://reactivex.io/documentation/operators/concat.html</a> </dd></dl>
-
-</div>
-</div>
-<a id="gaccd63d5e127d16a572f6d3da11d07885" name="gaccd63d5e127d16a572f6d3da11d07885"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gaccd63d5e127d16a572f6d3da11d07885">&#9670;&#160;</a></span>concat() <span class="overload">[2/3]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;constraint::memory_model MemoryModel, constraint::iterable Iterable, <a class="el" href="conceptrpp_1_1schedulers_1_1constraint_1_1scheduler.html">rpp::schedulers::constraint::scheduler</a> TScheduler&gt; <br />
+template&lt;constraint::memory_model MemoryModel, constraint::iterable Iterable&gt; <br />
 requires constraint::observable&lt;utils::iterable_value_t&lt;Iterable&gt;&gt;</div>
       <table class="memname">
         <tr>
           <td class="memname">auto rpp::source::concat </td>
           <td>(</td>
           <td class="paramtype">Iterable &amp;&amp;&#160;</td>
-          <td class="paramname"><em>iterable</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramname"><em>iterable</em></td><td>)</td>
           <td></td>
-          <td class="paramtype">const TScheduler &amp;&#160;</td>
-          <td class="paramname"><em>scheduler</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -274,8 +195,7 @@ requires constraint::observable&lt;utils::iterable_value_t&lt;Iterable&gt;&gt;</
 <p>Actually it subscribes on first observable from emissions. When first observable completes, then it subscribes on second observable from emissions and etc...</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">iterable</td><td>is container with observables to subscribe on </td></tr>
-    <tr><td class="paramname">scheduler</td><td>is scheduler used for scheduling of subscriptions to next observables during on_completed</td></tr>
+    <tr><td class="paramname">iterable</td><td>is container with observables to subscribe on</td></tr>
   </table>
   </dd>
 </dl>
@@ -289,13 +209,15 @@ requires constraint::observable&lt;utils::iterable_value_t&lt;Iterable&gt;&gt;</
 <dl class="section user"><dt>Example</dt><dd><div class="fragment"><div class="line">    <span class="keyword">auto</span> observables = std::vector{<a class="code hl_function" href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">rpp::source::just</a>(1), <a class="code hl_function" href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">rpp::source::just</a>(2)};</div>
 <div class="line">    <a class="code hl_function" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">rpp::source::concat&lt;rpp::memory_model::use_shared&gt;</a>(observables).subscribe([](<span class="keywordtype">int</span> <a class="code hl_function" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">v</a>){std::cout &lt;&lt; <a class="code hl_function" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">v</a> &lt;&lt; <span class="stringliteral">&quot;, &quot;</span>;}, [](<span class="keyword">const</span> std::exception_ptr&amp;){}, [](){std::cout &lt;&lt; <span class="stringliteral">&quot;completed\n&quot;</span>;});</div>
 <div class="line">    <span class="comment">// Output: 1, 2, completed</span></div>
+<div class="ttc" id="agroup__creational__operators_html_ga1edf47f176050dd414e28a1c0616b7c0"><div class="ttname"><a href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">rpp::source::just</a></div><div class="ttdeci">auto just(const TScheduler &amp;scheduler, T &amp;&amp;item, Ts &amp;&amp;... items)</div><div class="ttdoc">Creates rpp::observable that emits a particular items and completes.</div><div class="ttdef"><b>Definition</b> from.hpp:207</div></div>
+<div class="ttc" id="agroup__creational__operators_html_gab6cfd9da2e3590fd199c9972477e04df"><div class="ttname"><a href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">rpp::source::concat</a></div><div class="ttdeci">auto concat(TObservable &amp;&amp;obs, TObservables &amp;&amp;... others)</div><div class="ttdoc">Make observable which would merge emissions from underlying observables but without overlapping (curr...</div><div class="ttdef"><b>Definition</b> concat.hpp:169</div></div>
 </div><!-- fragment --></dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/concat.html">https://reactivex.io/documentation/operators/concat.html</a> </dd></dl>
 
 </div>
 </div>
 <a id="gab6cfd9da2e3590fd199c9972477e04df" name="gab6cfd9da2e3590fd199c9972477e04df"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gab6cfd9da2e3590fd199c9972477e04df">&#9670;&#160;</a></span>concat() <span class="overload">[3/3]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#gab6cfd9da2e3590fd199c9972477e04df">&#9670;&#160;</a></span>concat() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -324,7 +246,6 @@ requires (std::same_as&lt;rpp::utils::extract_observable_type_t&lt;TObservable&g
 </div><div class="memdoc">
 
 <p>Make observable which would merge emissions from underlying observables but without overlapping (current observable completes THEN next started to emit its values) </p>
-<dl class="section warning"><dt>Warning</dt><dd>this overloading uses trampoline scheduler as default</dd></dl>
 <div class="image">
 <object type="image/svg+xml" data="concat.svg" style="pointer-events: none;"></object>
 </div>
