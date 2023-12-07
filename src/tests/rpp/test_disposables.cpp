@@ -58,6 +58,30 @@ TEMPLATE_TEST_CASE("disposable keeps state", "", rpp::details::disposables::dyna
             CHECK(d.is_disposed());
         }
 
+        SECTION("calling clear on original disposable forces inner to be disposed")
+        {
+            d.clear();
+            CHECK(other->is_disposed());
+            CHECK(!d.is_disposed());
+
+            other = std::make_shared<rpp::composite_disposable>();
+            CHECK(!other->is_disposed());
+            d.add(other);
+            CHECK(!other->is_disposed());
+            
+            d.clear();
+            CHECK(other->is_disposed());
+           
+            CHECK(!d.is_disposed());
+        }
+        SECTION("calling clear on disposed disposable")
+        {
+            d.dispose();
+            CHECK(other->is_disposed());
+            CHECK(d.is_disposed());
+            d.clear();
+        }
+
         SECTION("calling remove + dispose on original disposable forces only original to be disposed")
         {
             d.remove(other);

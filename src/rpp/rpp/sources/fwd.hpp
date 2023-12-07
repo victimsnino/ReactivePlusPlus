@@ -56,13 +56,9 @@ template<constraint::memory_model MemoryModel = memory_model::use_stack, rpp::co
     requires (std::same_as<rpp::utils::extract_observable_type_t<TObservable>, rpp::utils::extract_observable_type_t<TObservables>> && ...)
 auto concat(TObservable&& obs, TObservables&&... others);
 
-template<constraint::memory_model MemoryModel = memory_model::use_stack, rpp::constraint::observable TObservable, rpp::constraint::observable... TObservables, rpp::schedulers::constraint::scheduler TScheduler>
-    requires (std::same_as<rpp::utils::extract_observable_type_t<TObservable>, rpp::utils::extract_observable_type_t<TObservables>> && ...)
-auto concat(const TScheduler& scheduler, TObservable&& obs, TObservables&&... others);
-
-template<constraint::memory_model MemoryModel = memory_model::use_stack, constraint::iterable Iterable, rpp::schedulers::constraint::scheduler TScheduler = rpp::schedulers::defaults::iteration_scheduler>
+template<constraint::memory_model MemoryModel = memory_model::use_stack, constraint::iterable Iterable>
     requires constraint::observable<utils::iterable_value_t<Iterable>>
-auto concat(Iterable&& iterable, const TScheduler& scheduler = TScheduler{});
+auto concat(Iterable&& iterable);
 
 template<constraint::decayed_type Type>
 auto never();

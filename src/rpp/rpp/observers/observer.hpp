@@ -72,8 +72,8 @@ public:
         {
             m_disposable.add(d);
             m_strategy.set_upstream(d);
-        } 
-        catch(...) 
+        }
+        catch(...)
         {
             on_error(std::current_exception());
         }

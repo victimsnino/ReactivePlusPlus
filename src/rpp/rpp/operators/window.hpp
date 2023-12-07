@@ -43,6 +43,7 @@ public:
         , m_window_size{std::max(size_t{1}, count)}
     {
         m_observer.set_upstream(m_disposble->add_ref());
+        m_disposble->add(m_subject.get_disposable());
     }
 
     template<typename T>
@@ -52,7 +53,10 @@ public:
         if (m_items_in_current_window == m_window_size)
         {
             if (m_subject.get_disposable().is_disposed())
+            {
                 m_subject = Subject{m_disposble};
+                m_disposble->add(m_subject.get_disposable());
+            }
 
             m_observer.on_next(m_subject.get_observable());
             m_items_in_current_window = 0;
@@ -63,7 +67,10 @@ public:
 
         // cleanup current subject, but don't send due to wait for new value
         if (m_items_in_current_window == m_window_size)
+        {
             m_subject.get_observer().on_completed();
+            m_disposble->remove(m_subject.get_disposable());
+        }
     }
 
     void on_error(const std::exception_ptr& err) const

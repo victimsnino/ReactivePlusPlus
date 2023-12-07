@@ -44,12 +44,11 @@ public:
     explicit forwarding_strategy(std::shared_ptr<rpp::refcount_disposable> refcount)
         : m_refcount{std::move(refcount)}
     {
-        m_refcount->add(rpp::disposable_wrapper::from_weak(m_state));
     }
 
     auto get_observer() const
     {
-        return rpp::observer<Type, rpp::details::with_external_disposable<observer_strategy>>{composite_disposable_wrapper{m_state}, observer_strategy{m_state}};
+        return rpp::observer<Type, rpp::details::with_external_disposable<observer_strategy>>{composite_disposable_wrapper::from_shared(m_state), observer_strategy{m_state}};
     }
 
     template<rpp::constraint::observer_of_type<Type> TObs>
@@ -61,7 +60,7 @@ public:
 
     rpp::disposable_wrapper get_disposable() const
     {
-        return rpp::disposable_wrapper{m_state};
+        return rpp::disposable_wrapper::from_weak(m_state);
     }
 
 private:
@@ -71,4 +70,4 @@ private:
 
 template<rpp::constraint::decayed_type Type>
 using forwarding_subject = subjects::details::base_subject<Type, forwarding_strategy<Type>>;
-} 
+}

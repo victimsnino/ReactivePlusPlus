@@ -100,6 +100,13 @@ public:
             locked->remove(other);
     }
 
+    void clear() const
+        requires std::derived_from<TDisposable, interface_composite_disposable>
+    {
+        if (const auto locked = get_original())
+            locked->clear();
+    }
+
     std::shared_ptr<TDisposable> get_original() const noexcept
     {
         if (const auto ptr_ptr = std::get_if<std::shared_ptr<TDisposable>>(&m_disposable))
