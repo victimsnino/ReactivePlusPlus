@@ -58,6 +58,13 @@ TEMPLATE_TEST_CASE("disposable keeps state", "", rpp::details::disposables::dyna
             CHECK(d.is_disposed());
         }
 
+        SECTION("calling clear on original disposable forces inner to be disposed")
+        {
+            d.clear();
+            CHECK(other->is_disposed());
+            CHECK(!d.is_disposed());
+        }
+
         SECTION("calling remove + dispose on original disposable forces only original to be disposed")
         {
             d.remove(other);
