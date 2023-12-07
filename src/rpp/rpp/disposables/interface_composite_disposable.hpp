@@ -31,5 +31,7 @@ struct interface_composite_disposable : public interface_disposable
     }
 
     virtual void remove(const disposable_wrapper& d) = 0;
+    // dispose all added disposables, clear container but not dispose original disposable
+    virtual void clear() = 0;
 };
 }
