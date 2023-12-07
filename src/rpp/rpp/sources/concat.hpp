@@ -18,7 +18,6 @@
 #include <rpp/sources/from.hpp>
 
 #include <exception>
-#include <optional>
 
 namespace rpp::details
 {
