@@ -63,6 +63,7 @@ struct merge_observer_base_strategy
     void set_upstream(const rpp::disposable_wrapper& d) const
     {
         m_disposable->add(d);
+        m_disposables.push_back(d);
     }
 
     bool is_disposed() const
@@ -80,6 +81,9 @@ struct merge_observer_base_strategy
     {
         if (m_disposable->decrement_on_completed())
         {
+            for (const auto& v : m_disposables) {
+                m_disposable->remove(v);
+            }
             m_disposable->dispose();
             m_disposable->get_observer_under_lock()->on_completed();
         }
@@ -87,6 +91,7 @@ struct merge_observer_base_strategy
 
 protected:
     std::shared_ptr<merge_disposable<TObserver>> m_disposable;
+    mutable std::vector<rpp::disposable_wrapper> m_disposables{};
 };
 
 template<rpp::constraint::observer TObserver>
