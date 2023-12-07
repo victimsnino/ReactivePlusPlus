@@ -23,9 +23,9 @@ namespace rpp::details
 {
 enum ConcatStage : uint8_t
 {
-    NONE         = 0,
-    INSIDE_DRAIN = 1,
-    COMPLETED    = 2
+    None         = 0,
+    InsideDrain = 1,
+    Completed    = 2
 };
 
 template<rpp::constraint::observer TObserver, constraint::decayed_type PackedContainer>
@@ -68,7 +68,7 @@ struct concat_source_observer_strategy
 
     void on_completed() const
     {
-        if (state->stage.exchange(ConcatStage::COMPLETED, std::memory_order::relaxed) == ConcatStage::INSIDE_DRAIN)
+        if (state->stage.exchange(ConcatStage::Completed, std::memory_order::relaxed) == ConcatStage::InsideDrain)
             return;
 
         drain(state);
@@ -88,10 +88,10 @@ void drain(const std::shared_ptr<concat_state_t<TObserver, PackedContainer>>& st
 
         using value_type = rpp::utils::extract_observable_type_t<utils::iterable_value_t<PackedContainer>>;
         state->clear();
-        state->stage.store(ConcatStage::INSIDE_DRAIN, std::memory_order::relaxed);
+        state->stage.store(ConcatStage::InsideDrain, std::memory_order::relaxed);
         (*(state->itr++)).subscribe(observer<value_type, concat_source_observer_strategy<std::decay_t<TObserver>, std::decay_t<PackedContainer>>>{state});
 
-        if (state->stage.exchange(ConcatStage::NONE, std::memory_order::relaxed) == ConcatStage::INSIDE_DRAIN)
+        if (state->stage.exchange(ConcatStage::None, std::memory_order::relaxed) == ConcatStage::InsideDrain)
             return;
     }
 }
