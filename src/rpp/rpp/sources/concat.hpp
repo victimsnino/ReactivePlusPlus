@@ -69,7 +69,7 @@ struct concat_source_observer_strategy
 
     void on_completed() const
     {
-        if (state->inside_drain.exchange(ConcatStage::COMPLETED, std::memory_order::relaxed) == ConcatStage::INSIDE_DRAIN)
+        if (state->stage.exchange(ConcatStage::COMPLETED, std::memory_order::relaxed) == ConcatStage::INSIDE_DRAIN)
             return;
 
         drain(state);
@@ -89,10 +89,10 @@ void drain(const std::shared_ptr<concat_state_t<TObserver, PackedContainer>>& st
 
         using value_type = rpp::utils::extract_observable_type_t<utils::iterable_value_t<PackedContainer>>;
         state->clear();
-        state->inside_drain.store(ConcatStage::INSIDE_DRAIN, std::memory_order::relaxed);
+        state->stage.store(ConcatStage::INSIDE_DRAIN, std::memory_order::relaxed);
         (state->itr++)->subscribe(observer<value_type, concat_source_observer_strategy<std::decay_t<TObserver>, std::decay_t<PackedContainer>>>{state});
 
-        if (state->inside_drain.exchange(ConcatStage::NONE, std::memory_order::relaxed) == ConcatStage::INSIDE_DRAIN)
+        if (state->stage.exchange(ConcatStage::NONE, std::memory_order::relaxed) == ConcatStage::INSIDE_DRAIN)
             return;
     }
 }
