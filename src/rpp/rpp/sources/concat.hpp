@@ -69,7 +69,7 @@ struct concat_source_observer_strategy
 
     void on_completed() const
     {
-        if (state->inside_drain.exchange(ConcatStage::COMPLETED, std::memory_order::acq_rel) == ConcatStage::INSIDE_DRAIN)
+        if (state->inside_drain.exchange(ConcatStage::COMPLETED, std::memory_order::relaxed) == ConcatStage::INSIDE_DRAIN)
             return;
 
         drain(state);
@@ -92,7 +92,7 @@ void drain(const std::shared_ptr<concat_state_t<TObserver, PackedContainer>>& st
         state->inside_drain.store(ConcatStage::INSIDE_DRAIN, std::memory_order::relaxed);
         (state->itr++)->subscribe(observer<value_type, concat_source_observer_strategy<std::decay_t<TObserver>, std::decay_t<PackedContainer>>>{state});
 
-        if (state->inside_drain.exchange(ConcatStage::NONE, std::memory_order::acq_rel) == ConcatStage::INSIDE_DRAIN)
+        if (state->inside_drain.exchange(ConcatStage::NONE, std::memory_order::relaxed) == ConcatStage::INSIDE_DRAIN)
             return;
     }
 }
