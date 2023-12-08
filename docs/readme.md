@@ -309,11 +309,39 @@ rpp::source::just(1,2,3,4,5)                                  // 1
 | rpp::operators::subscribe([](auto){});                      // 3
 ```
 
-<!-- In this case subscribe (`3`) would happen in current thread (where subscribe invoked). But then -->
+In this case subscribe to `3` happens in current thread (where subscribe invoked). But during subscription to `2` it schedules subscription to `1` to provided `new_thread` scheduler. So, subscription to final observable and it's internal logic (iterating and emitting of values) happens inside new_thread. Actually it is something like this:
+```cpp
+rpp::source::create<int>([](const auto& observer)
+{
+  rpp::schedulers::new_thread{}.create_worker([](...) {
+    rpp::source::just(1,2,3,4,5).subscribe(observer);
+  })
+}).subscribe(...);
+```
 
-The **observe_on** operator specifies the **scheduler** that will be used for emission during the processing of further operators after **observe_on**.
+The **observe_on** operator specifies the **scheduler** that will be used for emission during the processing of further operators after **observe_on**. For example
+
+```cpp
+rpp::source::just(1,2,3,4,5)
+| rpp::operators::observe_on(rpp::schedulers::new_thread{})
+| rpp::operators::subscribe([](auto){});
+```
+
+In this case whole subscription flow happens in thread of subscription, but emission of values transfers to another thread. Actually it is something like this:
+```cpp
+rpp::source::create<int>([](const auto& observer)
+{
+  auto worker = rpp::schedulers::new_thread{}.create_worker();
+  rpp::source::just(1,2,3,4,5).subscribe([](int v) {
+    worker.scheduler([](...) {
+      observer.on_next(v);
+    }
+  })
+}).subscribe(...);
+```
 
 A **Scheduler** is responsible for controlling the type of multithreading behavior (or lack thereof) used in the observable. For example, a **scheduler** can utilize a new thread, a thread pool, or a raw queue to manage its processing.
+
 
 Checkout [API Reference](https://victimsnino.github.io/ReactivePlusPlus/v2/docs/html/group__rpp.html) to learn more about schedulers in RPP.
 
