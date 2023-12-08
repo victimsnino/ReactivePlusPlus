@@ -127,28 +127,26 @@ concept operator_observable_transform = requires(const Op& op, TObs obs)
 };
 
 template<typename Op, typename Type>
-concept operator_subscribe = requires(const Op& op, dynamic_observer<typename std::decay_t<Op>::template result_value<Type>>&& observer, const observable_chain_strategy<details::observables::dynamic_strategy<Type>>& chain)
-{
+concept operator_base = requires(const Op& op) {
     typename std::decay_t<Op>::template result_value<Type>;
-    requires details::observables::constraint::disposable_strategy<typename std::decay_t<Op>::template updated_disposable_strategy<typename observable_chain_strategy<details::observables::dynamic_strategy<Type>>::expected_disposable_strategy>>;
+    requires details::observables::constraint::disposable_strategy<details::observables::deduce_updated_disposable_strategy<std::decay_t<Op>, typename observable_chain_strategy<details::observables::dynamic_strategy<Type>>::expected_disposable_strategy>>;
+};
+
+template<typename Op, typename Type>
+concept operator_subscribe = operator_base<Op, Type> && requires(const Op& op, dynamic_observer<typename std::decay_t<Op>::template result_value<Type>>&& observer, const observable_chain_strategy<details::observables::dynamic_strategy<Type>>& chain)
+{
     {op.subscribe(std::move(observer), chain)};
 };
 
 template<typename Op, typename Type>
-concept operator_lift = requires(const Op& op, dynamic_observer<typename std::decay_t<Op>::template result_value<Type>>&& observer)
+concept operator_lift = operator_base<Op, Type> && requires(const Op& op, dynamic_observer<typename std::decay_t<Op>::template result_value<Type>>&& observer)
 {
-    typename std::decay_t<Op>::template result_value<Type>;
-    requires details::observables::constraint::disposable_strategy<typename std::decay_t<Op>::template updated_disposable_strategy<details::observables::bool_disposable_strategy_selector>>;
-
     {op.template lift<Type>(std::move(observer))} -> rpp::constraint::observer_of_type<Type>;
 };
 
 template<typename Op, typename Type, typename DisposableStrategy>
-concept operator_lift_with_disposable_strategy = requires(const Op& op, dynamic_observer<typename std::decay_t<Op>::template result_value<Type>>&& observer)
+concept operator_lift_with_disposable_strategy = operator_base<Op, Type> && requires(const Op& op, dynamic_observer<typename std::decay_t<Op>::template result_value<Type>>&& observer)
 {
-    typename std::decay_t<Op>::template result_value<Type>;
-    requires details::observables::constraint::disposable_strategy<typename std::decay_t<Op>::template updated_disposable_strategy<details::observables::bool_disposable_strategy_selector>>;
-
     {op.template lift_with_disposable_strategy<Type, DisposableStrategy>(std::move(observer))} -> rpp::constraint::observer_of_type<Type>;
 };
 

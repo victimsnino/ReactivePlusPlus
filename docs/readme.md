@@ -25,7 +25,7 @@ Input/output itself can be split into the following two types:
 int sum(int a, int b) { return a + b; }
 ```
 
-- **Distributed in time** - Your application or function doesn't know **when** input (or parts of input) will arrive, but knows **what** to do when it happens:
+- **Distributed in time** - Your application or function doesn't know exact length of input, **when** input (or any parts of it) would arrive, but knows **what** to do when it happens:
 
 ```cpp
 #include <iostream>
@@ -42,11 +42,11 @@ int main()
 
 When dealing with input that is **distributed in time**, there are two ways to handle it:
 
-- **Pulling** - You decide **when** you need extra data (e.g., to get something, request, iterate, etc.) and you are simply **checking/requesting** some data. In most cases, this is a blocking operation where you request data and wait for it to be available or periodically check its current status. For example, if you like a blog with non-periodical posts, you may check it daily for new posts manually.
+- **Pulling** - You decide **when** you need extra data (e.g., to get something, request, iterate, etc.) and you are simply **checking/requesting** some data. In most cases, this is a blocking operation of requesting data and waitign to be available or periodically checking its current status. For example, if you like a blog with non-periodical posts, you may check it daily for new posts manually.
 
 - **Pushing** - You decide **once** that you are interested in a source of data, notify this source somehow (e.g., register, subscribe, etc.), and **react** when new data **becomes available** to you. For example, you might **subscribe** to a blog and **react** to new posts only after receiving a notification on your smartphone, rather than manually checking for updates.
 
-Reactive programming is a powerful way to handle input that is distributed in time. Instead of constantly polling for updates or waiting for input to arrive, reactive programming allows you to register callbacks to be executed when the input becomes available.
+Reactive programming is a powerful way to handle input that is **distributed in time**. Instead of constantly polling for updates or waiting for input to arrive, reactive programming allows you to **register** callbacks to be executed **when the input becomes available**.
 
 See <https://reactivex.io/intro.html> for more details.
 
@@ -55,11 +55,13 @@ See <https://reactivex.io/intro.html> for more details.
 In short, Reactive Programming can be described as follows:
 
 - An **Observer** subscribes to an **Observable**.
-- The **Observable** automatically notifies its subscribed **Observers** of any new events/emissions. **Observable** could invoke next **observer**'s method:
+- The **Observable** automatically notifies its subscribed **Observers** about any new events/emissions. **Observable** could invoke next **observer**'s method:
   - **on_next(T)** - notifies about new event/emission
   - **on_error(std::exception_ptr)** - notified about error during work. It is termination event (no more calls from this observable should be expected)
   - **on_completed()**  - notified about successful completion.It is termination event (no more calls from this observable should be expected)
-- During subscription, the **Observable** can return a **Disposable** (== subscription), which gives the ability to track and dispose of the subscription.
+  - **set_upstream(disposable)** - observable could pass to observer it's own disposable to provide ability for observer to terminate observable's internal actions/state.
+  - **is_disposed()** - observable could check if observer is still interested in this source data (==false) or disposed and not listening anymore (==true)
+- During subscription, the **Observable** can return/provide a **Disposable** for **Observer** to provide ability to check if observable is still alive or make early termination (==dispose) if needed.
 
 For example:
 
@@ -72,10 +74,10 @@ int main()
 {
     rpp::source::create<int>([](const auto& observer)
     {
-        while (true)
+        while (!observer.is_disposed())
         {
             char ch = ::getchar();
-            if (!::isdigit(ch)) 
+            if (!::isdigit(ch))
             {
               observer.on_error(std::make_exception_ptr(std::runtime_error{"Invalid symbol"}));
               return;
@@ -137,7 +139,7 @@ This contact has next important part:
 RPP follows this contract and especially this part. It means, that:
 
 1. **All** implemented in **RPP operators** are **following this contract**:<br>
-    All built-in RPP observables/operators emit emission serially
+    All built-in RPP observables/operators emit emissions serially
 2. Any user-provided callbacks (for operators or observers) can be not thread-safe due to thread-safety of observable is guaranteed. <br>
    For example: internal logic of `take` operator doesn't use mutexes or atomics due to underlying observable **MUST** emit items serially
 3. When you implement your own operator via `create` be careful to **follow this contract**!
@@ -185,9 +187,9 @@ exit 2
 
 ### Operators
 
-**Operators** are ways to modify the **Observable**'s emissions to adapt values to the **Observer**.
+**Operators** are way to modify the **Observable**'s emissions to adapt values to the **Observer**.
 
-For example, we can create observable which: get chars from console input, do it till ‘0’ char, get only letters and send to observer this letters as UPPER. With operators it is pretty simple to do it in correct way:
+For example, we can create observable to get chars from console input, do it till ‘0’ char, get only letters and send to observer this letters as UPPER. With operators it is pretty simple to do it in correct way:
 
 ```cpp
 #include <rpp/rpp.hpp>
@@ -214,15 +216,132 @@ You can check documentation for each operator on [API Reference](https://victims
 
 See <https://reactivex.io/documentation/operators.html> for more details about operators concept.
 
+
+#### How operator works?
+
+Let's check this example:
+
+```cpp
+rpp::source::create<int>([](const auto& observer){
+  observer.on_next(1);
+  observer.on_completed();
+});
+```
+
+This example shows next: we create observble of `int` via operator `create`. This observable just emits to observer value `1` and then completes. Type of this observable is `rpp::observable<int, ...>` where `...` implementation defined type. So, actually it is `observable of ints`. Let's say we want to convert `int` to `std::string`. We could subscribe and then convert it or use `map` operator (also known as `transform`) to transform some original value to some another value:
+
+```cpp
+rpp::source::create<int>([](const auto& observer){
+  observer.on_next(1);
+  observer.on_completed();
+})
+| rpp::operators::map([](int v){ return std::string{v}; });
+```
+
+For now it is `observable of strings` due to it is `rpp::observable<std::string, ...>`. But what is `rpp::operators::map` then? Actually it is functor-adaptor - just functor accepting observable and returning another observable. It accepts original observable and converts it to observable of "final type". "final type" is result of invocation of passed function against original observable's type. In our case it is `decltype([](int v){ return std::string{v}; }(int{}))` is it is `std::string`. So, `map` can be implemented in the following way:
+
+```cpp
+template<typename Fn>
+struct map
+{
+  Fn fn{};
+  template<typename Type, typename Internal>
+  auto operator()(const rpp::observable<Type, Internal>& observable) const {
+    using FinalType = std::invoke_result_t<Fn, Type>;
+    return rpp::source::create<FinalType>([observable, fn](const auto& observer)
+    {
+      observable.subscribe([observer, fn](const auto& v) { observer.on_next(fn(v)); },
+                           [observer](const std::exception_ptr& err) { observer.on_error(err); },
+                           [observer]() { observer.on_completed(); });
+    };);
+  }
+}
+```
+
+It is template for such an functor-adaptor. It is actually valid except of the one thing: observer is not copyable by default and we need to handle it, for example, call `as_dynamic()`  or to place in some shared_ptr, but it is out of current explanation.
+
+Provided example - is simplest possible way to implement new operators - just provide function for transformation of observable. For example, it is fully valid example:
+```cpp
+rpp::source::just(1)
+    | [](const auto& observable) { return rpp::source::concat(observable, rpp::source::just(2)); };
+```
+
+There we convert observable to concatenation of original observable and `just(2)`.
+
+One more posible but a bit more advanced way to implement operators - is to lift observer. To do this, your functor-adapter must to satisfy `rpp::constraint::operator_lift` concept. Actually, your class must to have:
+- member function `lift` accepting downstream observer and returning new upstream observer
+- using `result_value<T>` accepting typename of upstream and providing new value for downstream (== typename of original observable and return new resulting type for new observable)
+
+Example:
+```cpp
+template<typename Fn>
+struct map
+{
+  template<typename T>
+  using result_value = std::invoke_result_t<Fn, T>;
+
+  Fn fn{};
+
+  template<typename Upstream, typename Downstream>
+  auto lift(rpp::constraint::observer_of_type<Downstream> auto&& observer) const
+  {
+      return rpp::make_lambda_observer<Upstream>([observer, fn](const auto& v){ observer.on_next(fn(v)); },
+                                                 [observer](const std::exception_ptr& err) { observer.on_error(err); },
+                                                 [observer]() { observer.on_completed(); });
+  }
+}
+
+```
+In this case you providing logic how to convert downstream observer to upstream observer. Actually this implementation is equal to previous one, but without handling of observable.
+
+**(Advanced)**
+In case of implementing operator via `lift` you can control disposable strategy via `updated_disposable_strategy` parameter. It accepts disposable strategy of upstream and returns disposable strategy for downstream. It needed only for optimization and reducing disposables handling cost and it is purely advanced thing. Not sure if anyone is going to use it by its own for now =)
+
 ### Schedulers
 
 Reactive programming becomes even more powerful when observables can operate across multiple threads, rather than being confined to the thread of creation and subscription. This allows for non-blocking, asynchronous operations and provides significant advantages over raw iteration or other pull-based approaches. To enable multithreading in your observables, you can use **Schedulers**.
 
-By default, an **Observable** will perform its work in the thread where the **subscribe** operation occurs. However, you can change this behavior using the **subscribe_on** operator. This operator forces the observable to perform the **subscription** and any subsequent work in the specified **scheduler**.
+By default, an **Observable** will perform its work in the thread where the **subscribe** operation occurs. However, you can change this behavior using the **subscribe_on** operator. This operator forces the observable to perform the **subscription** and any subsequent work in the specified **scheduler**. For example:
 
-The **observe_on** operator specifies the **scheduler** that will be used for emission during the processing of further operators after **observe_on**.
+```cpp
+rpp::source::just(1,2,3,4,5)                                  // 1
+| rpp::operators::subscribe_on(rpp::schedulers::new_thread{}) // 2
+| rpp::operators::subscribe([](auto){});                      // 3
+```
+
+In this case subscribe to `3` happens in current thread (where subscribe invoked). But during subscription to `2` it schedules subscription to `1` to provided `new_thread` scheduler. So, subscription to final observable and it's internal logic (iterating and emitting of values) happens inside new_thread. Actually it is something like this:
+```cpp
+rpp::source::create<int>([](const auto& observer)
+{
+  rpp::schedulers::new_thread{}.create_worker([](...) {
+    rpp::source::just(1,2,3,4,5).subscribe(observer);
+  })
+}).subscribe(...);
+```
+
+The **observe_on** operator specifies the **scheduler** that will be used for emission during the processing of further operators after **observe_on**. For example
+
+```cpp
+rpp::source::just(1,2,3,4,5)
+| rpp::operators::observe_on(rpp::schedulers::new_thread{})
+| rpp::operators::subscribe([](auto){});
+```
+
+In this case whole subscription flow happens in thread of subscription, but emission of values transfers to another thread. Actually it is something like this:
+```cpp
+rpp::source::create<int>([](const auto& observer)
+{
+  auto worker = rpp::schedulers::new_thread{}.create_worker();
+  rpp::source::just(1,2,3,4,5).subscribe([](int v) {
+    worker.scheduler([](...) {
+      observer.on_next(v);
+    }
+  })
+}).subscribe(...);
+```
 
 A **Scheduler** is responsible for controlling the type of multithreading behavior (or lack thereof) used in the observable. For example, a **scheduler** can utilize a new thread, a thread pool, or a raw queue to manage its processing.
+
 
 Checkout [API Reference](https://victimsnino.github.io/ReactivePlusPlus/v2/docs/html/group__rpp.html) to learn more about schedulers in RPP.
 

@@ -82,10 +82,22 @@ namespace details
         else
             return static_cast<default_disposable_strategy_selector*>(nullptr);
     }
+
+    template<typename T, typename Prev>
+    auto* deduce_updated_disposable_strategy()
+    {
+        if constexpr (requires { typename T::template updated_disposable_strategy<Prev>; })
+            return static_cast<typename T::template updated_disposable_strategy<Prev>*>(nullptr);
+        else
+            return static_cast<default_disposable_strategy_selector*>(nullptr);
+    }
 }
 
 template<typename T>
 using deduce_disposable_strategy_t = std::remove_pointer_t<decltype(details::deduce_disposable_strategy<T>())>;
+
+template<typename T, typename Prev>
+using deduce_updated_disposable_strategy = std::remove_pointer_t<decltype(details::deduce_updated_disposable_strategy<T, Prev>())>;
 
 namespace constraint
 {
