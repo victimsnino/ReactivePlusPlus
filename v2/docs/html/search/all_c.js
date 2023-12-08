@@ -1,25 +1,11 @@
 var searchData=
 [
-  ['observable_0',['observable',['../classrpp_1_1observable.html',1,'rpp']]],
-  ['observable_20contract_1',['Observable contract',['../md_docs_2readme.html#autotoc_md4',1,'']]],
-  ['observable_3c_20type_2c_20details_3a_3aobservables_3a_3ablocking_5fstrategy_3c_20type_2c_20strategy_20_3e_20_3e_2',['observable&lt; Type, details::observables::blocking_strategy&lt; Type, Strategy &gt; &gt;',['../classrpp_1_1observable.html',1,'rpp']]],
-  ['observable_3c_20type_2c_20details_3a_3aobservables_3a_3adynamic_5fstrategy_3c_20type_20_3e_20_3e_3',['observable&lt; Type, details::observables::dynamic_strategy&lt; Type &gt; &gt;',['../classrpp_1_1observable.html',1,'rpp']]],
-  ['observable_5fchain_5fstrategy_4',['observable_chain_strategy',['../classrpp_1_1observable__chain__strategy.html',1,'rpp']]],
-  ['observable_5fchain_5fstrategy_3c_20tstrategy_20_3e_5',['observable_chain_strategy&lt; TStrategy &gt;',['../classrpp_1_1observable__chain__strategy_3_01_t_strategy_01_4.html',1,'rpp']]],
-  ['observables_6',['Observables',['../group__observables.html',1,'']]],
-  ['observe_5fon_7',['observe_on',['../group__utility__operators.html#ga3feb1b1258c7e3e72c151abf176c30c4',1,'rpp::operators']]],
-  ['observer_8',['observer',['../classrpp_1_1observer.html',1,'rpp']]],
-  ['observer_3c_20type_2c_20observerstrategy_20_3e_9',['observer&lt; Type, ObserverStrategy &gt;',['../classrpp_1_1observer.html',1,'rpp']]],
-  ['observer_5fimpl_10',['observer_impl',['../classrpp_1_1details_1_1observer__impl.html',1,'rpp::details']]],
-  ['observer_5fimpl_3c_20type_2c_20rpp_3a_3adetails_3a_3aobservers_3a_3adynamic_5fstrategy_3c_20type_20_3e_2c_20details_3a_3aobservers_3a_3anone_5fdisposable_5fstrategy_20_3e_11',['observer_impl&lt; Type, rpp::details::observers::dynamic_strategy&lt; Type &gt;, details::observers::none_disposable_strategy &gt;',['../classrpp_1_1details_1_1observer__impl.html',1,'rpp::details']]],
-  ['observer_5fimpl_3c_20type_2c_20strategy_2c_20details_3a_3aobservers_3a_3adeduce_5fdisposable_5fstrategy_5ft_3c_20strategy_20_3e_20_3e_12',['observer_impl&lt; Type, Strategy, details::observers::deduce_disposable_strategy_t&lt; Strategy &gt; &gt;',['../classrpp_1_1details_1_1observer__impl.html',1,'rpp::details']]],
-  ['observer_5fimpl_3c_20type_2c_20strategy_2c_20disposablestrategy_20_3e_13',['observer_impl&lt; Type, Strategy, DisposableStrategy &gt;',['../classrpp_1_1details_1_1observer__impl.html',1,'rpp::details']]],
-  ['observers_14',['Observers',['../group__observers.html',1,'']]],
-  ['of_20reactive_20programming_15',['Core concepts of Reactive Programming',['../md_docs_2readme.html#autotoc_md3',1,'']]],
-  ['on_5fcompleted_16',['on_completed',['../classrpp_1_1details_1_1observer__impl.html#a7a73f13eae52effde01a2d3b2cf1d1b4',1,'rpp::details::observer_impl']]],
-  ['on_5ferror_17',['on_error',['../classrpp_1_1details_1_1observer__impl.html#aa55c5a334bc39c92218f7b51e5126bbc',1,'rpp::details::observer_impl']]],
-  ['on_5fnext_18',['on_next',['../classrpp_1_1details_1_1observer__impl.html#a14747a5260ecc183a6d0f1adafee4f68',1,'rpp::details::observer_impl::on_next(const Type &amp;v) const noexcept'],['../classrpp_1_1details_1_1observer__impl.html#a3f97f7bceb8484af908ed4134d88104b',1,'rpp::details::observer_impl::on_next(Type &amp;&amp;v) const noexcept']]],
-  ['operator_5fobservable_5fstrategy_5fbase_19',['operator_observable_strategy_base',['../classrpp_1_1operators_1_1details_1_1operator__observable__strategy__base.html',1,'rpp::operators::details']]],
-  ['operators_20',['operators',['../group__aggregate__operators.html',1,'Aggregate Operators'],['../group__combining__operators.html',1,'Combining Operators'],['../group__conditional__operators.html',1,'Conditional Operators'],['../group__connectable__operators.html',1,'Connectable Operators'],['../group__creational__operators.html',1,'Creational Operators'],['../group__filtering__operators.html',1,'Filtering Operators'],['../md_docs_2readme.html#autotoc_md5',1,'Operators'],['../group__operators.html',1,'Operators'],['../group__qt__creational__operators.html',1,'QT Creational Operators'],['../group__qt__operators.html',1,'QT Operators'],['../group__transforming__operators.html',1,'Transforming Operators'],['../group__utility__operators.html',1,'Utility Operators']]],
-  ['optional_5fmutex_21',['optional_mutex',['../classrpp_1_1schedulers_1_1details_1_1optional__mutex.html',1,'rpp::schedulers::details']]]
+  ['never_0',['never',['../group__creational__operators.html#ga16c57281cc1b24605ec23b09ec880416',1,'rpp::source']]],
+  ['never_5fstrategy_1',['never_strategy',['../structrpp_1_1details_1_1never__strategy.html',1,'rpp::details']]],
+  ['new_5fthread_2',['new_thread',['../classrpp_1_1schedulers_1_1new__thread.html',1,'rpp::schedulers']]],
+  ['no_5factive_5fqapplication_3',['no_active_qapplication',['../structrppqt_1_1utils_1_1no__active__qapplication.html',1,'rppqt::utils']]],
+  ['non_5fatomic_5fbool_4',['non_atomic_bool',['../classrpp_1_1details_1_1observers_1_1non__atomic__bool.html',1,'rpp::details::observers']]],
+  ['none_5fdisposable_5',['none_disposable',['../structrpp_1_1schedulers_1_1details_1_1none__disposable.html',1,'rpp::schedulers::details']]],
+  ['none_5fdisposable_5fstrategy_6',['none_disposable_strategy',['../structrpp_1_1details_1_1observers_1_1none__disposable__strategy.html',1,'rpp::details::observers']]],
+  ['none_5fdisposables_5fcontainer_7',['none_disposables_container',['../structrpp_1_1details_1_1disposables_1_1none__disposables__container.html',1,'rpp::details::disposables']]]
 ];

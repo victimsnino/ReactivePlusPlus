@@ -26,7 +26,7 @@
 \DoxyCodeLine{00022\ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{classrpp_1_1observable__chain__strategy}{base}}\ =\ \mbox{\hyperlink{classrpp_1_1observable__chain__strategy}{observable\_chain\_strategy}}<TStrategies...>;}
 \DoxyCodeLine{00023\ }
 \DoxyCodeLine{00024\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keyword}{using\ }expected\_disposable\_strategy\ =\ \textcolor{keyword}{typename}\ TStrategy::template\ updated\_disposable\_strategy<typename\ base::expected\_disposable\_strategy>;}
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keyword}{using\ }expected\_disposable\_strategy\ =\ details::observables::deduce\_updated\_disposable\_strategy<TStrategy,\ typename\ base::expected\_disposable\_strategy>;}
 \DoxyCodeLine{00026\ \ \ \ \ \textcolor{keyword}{using\ }value\_type\ =\ \textcolor{keyword}{typename}\ TStrategy::template\ result\_value<typename\ base::value\_type>;}
 \DoxyCodeLine{00027\ }
 \DoxyCodeLine{00028\ \ \ \ \ \mbox{\hyperlink{classrpp_1_1observable__chain__strategy}{observable\_chain\_strategy}}(\textcolor{keyword}{const}\ TStrategy\&\ strategy,\ \textcolor{keyword}{const}\ TStrategies\&...\ strategies)}

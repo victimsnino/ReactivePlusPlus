@@ -191,29 +191,41 @@ $(document).ready(function(){initNavTree('observables_2details_2disposable__stra
 <div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>        <span class="keywordflow">else</span></div>
 <div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>            <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span>default_disposable_strategy_selector*<span class="keyword">&gt;</span>(<span class="keyword">nullptr</span>);</div>
 <div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    }</div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>}</div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span> </div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span><span class="keyword">using </span>deduce_disposable_strategy_t = std::remove_pointer_t&lt;decltype(details::deduce_disposable_strategy&lt;T&gt;())&gt;;</div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span> </div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span><span class="keyword">namespace </span>constraint</div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>{</div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="foldopen" id="foldopen00093" data-start="{" data-end="}">
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno"><a class="line" href="conceptrpp_1_1details_1_1observables_1_1constraint_1_1disposable__strategy.html">   93</a></span><span class="keyword">concept </span><a class="code hl_concept" href="conceptrpp_1_1details_1_1observables_1_1constraint_1_1disposable__strategy.html">disposable_strategy</a> = <span class="keyword">requires</span>(<span class="keyword">const</span> T&amp;)</div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>{</div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>    <span class="keyword">typename</span> T::template add&lt;<span class="keywordtype">size_t</span>{}&gt;;</div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>    <span class="keyword">typename</span> T::disposable_strategy;</div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    <span class="keyword">typename</span> T::disposable_container;</div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>    <span class="keyword">requires</span> <a class="code hl_concept" href="conceptrpp_1_1details_1_1observers_1_1constraint_1_1disposable__strategy.html">observers::constraint::disposable_strategy&lt;typename T::disposable_strategy&gt;</a>;</div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>};</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span> </div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span> Prev&gt;</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    <span class="keyword">auto</span>* deduce_updated_disposable_strategy()</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    {</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>        <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (<span class="keyword">requires</span> { <span class="keyword">typename</span> T::template updated_disposable_strategy&lt;Prev&gt;; })</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>            <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span>typename T::template updated_disposable_strategy&lt;Prev&gt;*<span class="keyword">&gt;</span>(<span class="keyword">nullptr</span>);</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>        <span class="keywordflow">else</span></div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>            <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span>default_disposable_strategy_selector*<span class="keyword">&gt;</span>(<span class="keyword">nullptr</span>);</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    }</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>}</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span> </div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span><span class="keyword">using </span>deduce_disposable_strategy_t = std::remove_pointer_t&lt;decltype(details::deduce_disposable_strategy&lt;T&gt;())&gt;;</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span> </div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span> Prev&gt;</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span><span class="keyword">using </span>deduce_updated_disposable_strategy = std::remove_pointer_t&lt;decltype(details::deduce_updated_disposable_strategy&lt;T, Prev&gt;())&gt;;</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span> </div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span><span class="keyword">namespace </span>constraint</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>{</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="foldopen" id="foldopen00105" data-start="{" data-end="}">
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno"><a class="line" href="conceptrpp_1_1details_1_1observables_1_1constraint_1_1disposable__strategy.html">  105</a></span><span class="keyword">concept </span><a class="code hl_concept" href="conceptrpp_1_1details_1_1observables_1_1constraint_1_1disposable__strategy.html">disposable_strategy</a> = <span class="keyword">requires</span>(<span class="keyword">const</span> T&amp;)</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>{</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>    <span class="keyword">typename</span> T::template add&lt;<span class="keywordtype">size_t</span>{}&gt;;</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>    <span class="keyword">typename</span> T::disposable_strategy;</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>    <span class="keyword">typename</span> T::disposable_container;</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>    <span class="keyword">requires</span> <a class="code hl_concept" href="conceptrpp_1_1details_1_1observers_1_1constraint_1_1disposable__strategy.html">observers::constraint::disposable_strategy&lt;typename T::disposable_strategy&gt;</a>;</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>};</div>
 </div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>}</div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>}</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>}</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>}</div>
 <div class="ttc" id="aclassrpp_1_1details_1_1disposables_1_1dynamic__disposables__container_html"><div class="ttname"><a href="classrpp_1_1details_1_1disposables_1_1dynamic__disposables__container.html">rpp::details::disposables::dynamic_disposables_container</a></div><div class="ttdef"><b>Definition</b> container.hpp:62</div></div>
 <div class="ttc" id="aclassrpp_1_1details_1_1disposables_1_1static__disposables__container_html"><div class="ttname"><a href="classrpp_1_1details_1_1disposables_1_1static__disposables__container.html">rpp::details::disposables::static_disposables_container</a></div><div class="ttdef"><b>Definition</b> container.hpp:71</div></div>
 <div class="ttc" id="aclassrpp_1_1details_1_1observers_1_1local__disposable__strategy_html"><div class="ttname"><a href="classrpp_1_1details_1_1observers_1_1local__disposable__strategy.html">rpp::details::observers::local_disposable_strategy</a></div><div class="ttdef"><b>Definition</b> disposable_strategy.hpp:68</div></div>
-<div class="ttc" id="aconceptrpp_1_1details_1_1observables_1_1constraint_1_1disposable__strategy_html"><div class="ttname"><a href="conceptrpp_1_1details_1_1observables_1_1constraint_1_1disposable__strategy.html">rpp::details::observables::constraint::disposable_strategy</a></div><div class="ttdef"><b>Definition</b> disposable_strategy.hpp:93</div></div>
+<div class="ttc" id="aconceptrpp_1_1details_1_1observables_1_1constraint_1_1disposable__strategy_html"><div class="ttname"><a href="conceptrpp_1_1details_1_1observables_1_1constraint_1_1disposable__strategy.html">rpp::details::observables::constraint::disposable_strategy</a></div><div class="ttdef"><b>Definition</b> disposable_strategy.hpp:105</div></div>
 <div class="ttc" id="aconceptrpp_1_1details_1_1observers_1_1constraint_1_1disposable__strategy_html"><div class="ttname"><a href="conceptrpp_1_1details_1_1observers_1_1constraint_1_1disposable__strategy.html">rpp::details::observers::constraint::disposable_strategy</a></div><div class="ttdef"><b>Definition</b> fwd.hpp:57</div></div>
 <div class="ttc" id="astructrpp_1_1details_1_1observables_1_1default__disposable__strategy__selector_html"><div class="ttname"><a href="structrpp_1_1details_1_1observables_1_1default__disposable__strategy__selector.html">rpp::details::observables::default_disposable_strategy_selector</a></div><div class="ttdef"><b>Definition</b> disposable_strategy.hpp:40</div></div>
 <div class="ttc" id="astructrpp_1_1details_1_1observables_1_1dynamic__disposable__strategy__selector_html"><div class="ttname"><a href="structrpp_1_1details_1_1observables_1_1dynamic__disposable__strategy__selector.html">rpp::details::observables::dynamic_disposable_strategy_selector</a></div><div class="ttdef"><b>Definition</b> disposable_strategy.hpp:28</div></div>

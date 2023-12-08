@@ -34,7 +34,7 @@ Input/output itself can be split into the following two types\+:
 
 
 \begin{DoxyItemize}
-\item {\bfseries{Distributed in time}} -\/ Your application or function doesn\textquotesingle{}t know {\bfseries{when}} input (or parts of input) will arrive, but knows {\bfseries{what}} to do when it happens\+:
+\item {\bfseries{Distributed in time}} -\/ Your application or function doesn\textquotesingle{}t know exact length of input, {\bfseries{when}} input (or any parts of it) would arrive, but knows {\bfseries{what}} to do when it happens\+:
 \end{DoxyItemize}
 
 
@@ -57,11 +57,11 @@ When dealing with input that is {\bfseries{distributed in time}}, there are two 
 
 
 \begin{DoxyItemize}
-\item {\bfseries{Pulling}} -\/ You decide {\bfseries{when}} you need extra data (e.\+g., to get something, request, iterate, etc.) and you are simply {\bfseries{checking/requesting}} some data. In most cases, this is a blocking operation where you request data and wait for it to be available or periodically check its current status. For example, if you like a blog with non-\/periodical posts, you may check it daily for new posts manually.
+\item {\bfseries{Pulling}} -\/ You decide {\bfseries{when}} you need extra data (e.\+g., to get something, request, iterate, etc.) and you are simply {\bfseries{checking/requesting}} some data. In most cases, this is a blocking operation of requesting data and waitign to be available or periodically checking its current status. For example, if you like a blog with non-\/periodical posts, you may check it daily for new posts manually.
 \item {\bfseries{Pushing}} -\/ You decide {\bfseries{once}} that you are interested in a source of data, notify this source somehow (e.\+g., register, subscribe, etc.), and {\bfseries{react}} when new data {\bfseries{becomes available}} to you. For example, you might {\bfseries{subscribe}} to a blog and {\bfseries{react}} to new posts only after receiving a notification on your smartphone, rather than manually checking for updates.
 \end{DoxyItemize}
 
-Reactive programming is a powerful way to handle input that is distributed in time. Instead of constantly polling for updates or waiting for input to arrive, reactive programming allows you to register callbacks to be executed when the input becomes available.
+Reactive programming is a powerful way to handle input that is {\bfseries{distributed in time}}. Instead of constantly polling for updates or waiting for input to arrive, reactive programming allows you to {\bfseries{register}} callbacks to be executed {\bfseries{when the input becomes available}}.
 
 See \href{https://reactivex.io/intro.html}{\texttt{ https\+://reactivex.\+io/intro.\+html}} for more details.\hypertarget{md_docs_2readme_autotoc_md3}{}\doxysection{\texorpdfstring{Core concepts of Reactive Programming}{Core concepts of Reactive Programming}}\label{md_docs_2readme_autotoc_md3}
 In short, Reactive Programming can be described as follows\+:
@@ -69,13 +69,15 @@ In short, Reactive Programming can be described as follows\+:
 
 \begin{DoxyItemize}
 \item An {\bfseries{Observer}} subscribes to an {\bfseries{Observable}}.
-\item The {\bfseries{Observable}} automatically notifies its subscribed {\bfseries{Observers}} of any new events/emissions. {\bfseries{Observable}} could invoke next {\bfseries{observer}}\textquotesingle{}s method\+:
+\item The {\bfseries{Observable}} automatically notifies its subscribed {\bfseries{Observers}} about any new events/emissions. {\bfseries{Observable}} could invoke next {\bfseries{observer}}\textquotesingle{}s method\+:
 \begin{DoxyItemize}
 \item {\bfseries{on\+\_\+next(\+T)}} -\/ notifies about new event/emission
 \item {\bfseries{on\+\_\+error(std\+::exception\+\_\+ptr)}} -\/ notified about error during work. It is termination event (no more calls from this observable should be expected)
 \item {\bfseries{on\+\_\+completed()}} -\/ notified about successful completion.\+It is termination event (no more calls from this observable should be expected)
+\item {\bfseries{set\+\_\+upstream(disposable)}} -\/ observable could pass to observer it\textquotesingle{}s own disposable to provide ability for observer to terminate observable\textquotesingle{}s internal actions/state.
+\item {\bfseries{is\+\_\+disposed()}} -\/ observable could check if observer is still interested in this source data (==false) or disposed and not listening anymore (==true)
 \end{DoxyItemize}
-\item During subscription, the {\bfseries{Observable}} can return a {\bfseries{Disposable}} (== subscription), which gives the ability to track and dispose of the subscription.
+\item During subscription, the {\bfseries{Observable}} can return/provide a {\bfseries{Disposable}} for {\bfseries{Observer}} to provide ability to check if observable is still alive or make early termination (==dispose) if needed.
 \end{DoxyItemize}
 
 For example\+:
@@ -90,13 +92,13 @@ For example\+:
 \DoxyCodeLine{\{}
 \DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{rpp::source::create<int>}}([](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ observer)}
 \DoxyCodeLine{\ \ \ \ \{}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (\textcolor{keyword}{true})}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (!observer.is\_disposed())}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ ch\ =\ ::getchar();}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!::isdigit(ch))\ }
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ char\ ch\ =\ ::getchar();}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ if\ (!::isdigit(ch))}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \{}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ observer.on\_error(std::make\_exception\_ptr(std::runtime\_error\{\textcolor{stringliteral}{"{}Invalid\ symbol"{}}\}));}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ return;}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ digit\ =\ ch\ -\/\ \textcolor{charliteral}{'0'};}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (digit\ ==\ 0)}
@@ -156,7 +158,7 @@ RPP follows this contract and especially this part. It means, that\+:
 
 \begin{DoxyEnumerate}
 \item {\bfseries{All}} implemented in {\bfseries{RPP operators}} are {\bfseries{following this contract}}\+:~\newline
- All built-\/in RPP observables/operators emit emission serially
+ All built-\/in RPP observables/operators emit emissions serially
 \item Any user-\/provided callbacks (for operators or observers) can be not thread-\/safe due to thread-\/safety of observable is guaranteed. ~\newline
  For example\+: internal logic of {\ttfamily take} operator doesn\textquotesingle{}t use mutexes or atomics due to underlying observable {\bfseries{MUST}} emit items serially
 \item When you implement your own operator via {\ttfamily create} be careful to {\bfseries{follow this contract}}!
@@ -210,9 +212,9 @@ only serially
 
 \end{DoxyCode}
 \hypertarget{md_docs_2readme_autotoc_md5}{}\doxysubsection{\texorpdfstring{Operators}{Operators}}\label{md_docs_2readme_autotoc_md5}
-{\bfseries{Operators}} are ways to modify the {\bfseries{Observable}}\textquotesingle{}s emissions to adapt values to the {\bfseries{Observer}}.
+{\bfseries{Operators}} are way to modify the {\bfseries{Observable}}\textquotesingle{}s emissions to adapt values to the {\bfseries{Observer}}.
 
-For example, we can create observable which\+: get chars from console input, do it till ‘0’ char, get only letters and send to observer this letters as UPPER. With operators it is pretty simple to do it in correct way\+:
+For example, we can create observable to get chars from console input, do it till ‘0’ char, get only letters and send to observer this letters as UPPER. With operators it is pretty simple to do it in correct way\+:
 
 
 \begin{DoxyCode}{0}
@@ -240,18 +242,152 @@ For example, we can create observable which\+: get chars from console input, do 
 
 You can check documentation for each operator on \href{https://victimsnino.github.io/ReactivePlusPlus/v2/docs/html/group__rpp.html}{\texttt{ API Reference}} page. Below you can find details about how operator works and how to create your own custom operator in RPP.
 
-See \href{https://reactivex.io/documentation/operators.html}{\texttt{ https\+://reactivex.\+io/documentation/operators.\+html}} for more details about operators concept.\hypertarget{md_docs_2readme_autotoc_md6}{}\doxysubsection{\texorpdfstring{Schedulers}{Schedulers}}\label{md_docs_2readme_autotoc_md6}
+See \href{https://reactivex.io/documentation/operators.html}{\texttt{ https\+://reactivex.\+io/documentation/operators.\+html}} for more details about operators concept.\hypertarget{md_docs_2readme_autotoc_md6}{}\doxysubsubsection{\texorpdfstring{How operator works?}{How operator works?}}\label{md_docs_2readme_autotoc_md6}
+Let\textquotesingle{}s check this example\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{rpp::source::create<int>}}([](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ observer)\{}
+\DoxyCodeLine{\ \ observer.on\_next(1);}
+\DoxyCodeLine{\ \ observer.on\_completed();}
+\DoxyCodeLine{\});}
+
+\end{DoxyCode}
+
+
+This example shows next\+: we create observble of {\ttfamily int} via operator {\ttfamily create}. This observable just emits to observer value {\ttfamily 1} and then completes. Type of this observable is {\ttfamily \doxylink{classrpp_1_1observable}{rpp\+::observable}\texorpdfstring{$<$}{<}int, ...\texorpdfstring{$>$}{>}} where {\ttfamily ...} implementation defined type. So, actually it is {\ttfamily observable of ints}. Let\textquotesingle{}s say we want to convert {\ttfamily int} to {\ttfamily std\+::string}. We could subscribe and then convert it or use {\ttfamily map} operator (also known as {\ttfamily transform}) to transform some original value to some another value\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{rpp::source::create<int>}}([](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ observer)\{}
+\DoxyCodeLine{\ \ observer.on\_next(1);}
+\DoxyCodeLine{\ \ observer.on\_completed();}
+\DoxyCodeLine{\})}
+\DoxyCodeLine{|\ \mbox{\hyperlink{group__transforming__operators_ga1291dba2d973d4ba1061c9e0e202cb3f}{rpp::operators::map}}([](\textcolor{keywordtype}{int}\ v)\{\ \textcolor{keywordflow}{return}\ std::string\{v\};\ \});}
+
+\end{DoxyCode}
+
+
+For now it is {\ttfamily observable of strings} due to it is {\ttfamily \doxylink{classrpp_1_1observable}{rpp\+::observable}\texorpdfstring{$<$}{<}std\+::string, ...\texorpdfstring{$>$}{>}}. But what is {\ttfamily \doxylink{group__transforming__operators_ga1291dba2d973d4ba1061c9e0e202cb3f}{rpp\+::operators\+::map}} then? Actually it is functor-\/adaptor -\/ just functor accepting observable and returning another observable. It accepts original observable and converts it to observable of "{}final type"{}. "{}final type"{} is result of invocation of passed function against original observable\textquotesingle{}s type. In our case it is {\ttfamily decltype(\mbox{[}\mbox{]}(int v)\{ return std\+::string\{v\}; \}(int\{\}))} is it is {\ttfamily std\+::string}. So, {\ttfamily map} can be implemented in the following way\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename}\ Fn>}
+\DoxyCodeLine{\textcolor{keyword}{struct\ }\mbox{\hyperlink{group__transforming__operators_ga1291dba2d973d4ba1061c9e0e202cb3f}{map}}}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ Fn\ fn\{\};}
+\DoxyCodeLine{\ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ Type,\ \textcolor{keyword}{typename}\ Internal>}
+\DoxyCodeLine{\ \ \textcolor{keyword}{auto}\ operator()(\textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1observable}{rpp::observable<Type,\ Internal>}}\&\ observable)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{using\ }FinalType\ =\ std::invoke\_result\_t<Fn,\ Type>;}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{rpp::source::create<FinalType>}}([observable,\ fn](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ observer)}
+\DoxyCodeLine{\ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ observable.\mbox{\hyperlink{classrpp_1_1observable_a193b0e08c516912c04afd8379ec27182}{subscribe}}([observer,\ fn](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ v)\ \{\ observer.on\_next(fn(v));\ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [observer](\textcolor{keyword}{const}\ std::exception\_ptr\&\ err)\ \{\ observer.on\_error(err);\ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [observer]()\ \{\ observer.on\_completed();\ \});}
+\DoxyCodeLine{\ \ \ \ \};);}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+It is template for such an functor-\/adaptor. It is actually valid except of the one thing\+: observer is not copyable by default and we need to handle it, for example, call {\ttfamily as\+\_\+dynamic()} or to place in some shared\+\_\+ptr, but it is out of current explanation.
+
+Provided example -\/ is simplest possible way to implement new operators -\/ just provide function for transformation of observable. For example, it is fully valid example\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(1)}
+\DoxyCodeLine{\ \ \ \ |\ [](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ observable)\ \{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{rpp::source::concat}}(observable,\ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(2));\ \};}
+
+\end{DoxyCode}
+
+
+There we convert observable to concatenation of original observable and {\ttfamily just(2)}.
+
+One more posible but a bit more advanced way to implement operators -\/ is to lift observer. To do this, your functor-\/adapter must to satisfy {\ttfamily \doxylink{conceptrpp_1_1constraint_1_1operator__lift}{rpp\+::constraint\+::operator\+\_\+lift}} concept. Actually, your class must to have\+:
+\begin{DoxyItemize}
+\item member function {\ttfamily lift} accepting downstream observer and returning new upstream observer
+\item using {\ttfamily result\+\_\+value\texorpdfstring{$<$}{<}T\texorpdfstring{$>$}{>}} accepting typename of upstream and providing new value for downstream (== typename of original observable and return new resulting type for new observable)
+\end{DoxyItemize}
+
+Example\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename}\ Fn>}
+\DoxyCodeLine{\textcolor{keyword}{struct\ }\mbox{\hyperlink{group__transforming__operators_ga1291dba2d973d4ba1061c9e0e202cb3f}{map}}}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{\ \ \textcolor{keyword}{using\ }result\_value\ =\ std::invoke\_result\_t<Fn,\ T>;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ Fn\ fn\{\};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ Upstream,\ \textcolor{keyword}{typename}\ Downstream>}
+\DoxyCodeLine{\ \ \textcolor{keyword}{auto}\ lift(\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer__of__type}{rpp::constraint::observer\_of\_type<Downstream>}}\ \textcolor{keyword}{auto}\&\&\ observer)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{\textcolor{keyword}{\ \ }\{}
+\DoxyCodeLine{\ \ \ \ \ \ \textcolor{keywordflow}{return}\ rpp::make\_lambda\_observer<Upstream>([observer,\ fn](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ v)\{\ observer.on\_next(fn(v));\ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [observer](\textcolor{keyword}{const}\ std::exception\_ptr\&\ err)\ \{\ observer.on\_error(err);\ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [observer]()\ \{\ observer.on\_completed();\ \});}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+ In this case you providing logic how to convert downstream observer to upstream observer. Actually this implementation is equal to previous one, but without handling of observable.
+
+\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}(Advanced)\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} In case of implementing operator via {\ttfamily lift} you can control disposable strategy via {\ttfamily updated\+\_\+disposable\+\_\+strategy} parameter. It accepts disposable strategy of upstream and returns disposable strategy for downstream. It needed only for optimization and reducing disposables handling cost and it is purely advanced thing. Not sure if anyone is going to use it by its own for now =)\hypertarget{md_docs_2readme_autotoc_md7}{}\doxysubsection{\texorpdfstring{Schedulers}{Schedulers}}\label{md_docs_2readme_autotoc_md7}
 Reactive programming becomes even more powerful when observables can operate across multiple threads, rather than being confined to the thread of creation and subscription. This allows for non-\/blocking, asynchronous operations and provides significant advantages over raw iteration or other pull-\/based approaches. To enable multithreading in your observables, you can use {\bfseries{Schedulers}}.
 
-By default, an {\bfseries{Observable}} will perform its work in the thread where the {\bfseries{subscribe}} operation occurs. However, you can change this behavior using the {\bfseries{subscribe\+\_\+on}} operator. This operator forces the observable to perform the {\bfseries{subscription}} and any subsequent work in the specified {\bfseries{scheduler}}.
+By default, an {\bfseries{Observable}} will perform its work in the thread where the {\bfseries{subscribe}} operation occurs. However, you can change this behavior using the {\bfseries{subscribe\+\_\+on}} operator. This operator forces the observable to perform the {\bfseries{subscription}} and any subsequent work in the specified {\bfseries{scheduler}}. For example\+:
 
-The {\bfseries{observe\+\_\+on}} operator specifies the {\bfseries{scheduler}} that will be used for emission during the processing of further operators after {\bfseries{observe\+\_\+on}}.
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(1,2,3,4,5)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 1}}
+\DoxyCodeLine{|\ \mbox{\hyperlink{group__utility__operators_gace728cfbf71720901cb6f310edabf8b0}{rpp::operators::subscribe\_on}}(\mbox{\hyperlink{classrpp_1_1schedulers_1_1new__thread}{rpp::schedulers::new\_thread}}\{\})\ \textcolor{comment}{//\ 2}}
+\DoxyCodeLine{|\ rpp::operators::subscribe([](\textcolor{keyword}{auto})\{\});\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 3}}
+
+\end{DoxyCode}
+
+
+In this case subscribe to {\ttfamily 3} happens in current thread (where subscribe invoked). But during subscription to {\ttfamily 2} it schedules subscription to {\ttfamily 1} to provided {\ttfamily new\+\_\+thread} scheduler. So, subscription to final observable and it\textquotesingle{}s internal logic (iterating and emitting of values) happens inside new\+\_\+thread. Actually it is something like this\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{rpp::source::create<int>}}([](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ observer)}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{classrpp_1_1schedulers_1_1new__thread}{rpp::schedulers::new\_thread}}\{\}.create\_worker([](...)\ \{}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(1,2,3,4,5).subscribe(observer);}
+\DoxyCodeLine{\ \ \})}
+\DoxyCodeLine{\}).subscribe(...);}
+
+\end{DoxyCode}
+
+
+The {\bfseries{observe\+\_\+on}} operator specifies the {\bfseries{scheduler}} that will be used for emission during the processing of further operators after {\bfseries{observe\+\_\+on}}. For example
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(1,2,3,4,5)}
+\DoxyCodeLine{|\ \mbox{\hyperlink{group__utility__operators_ga3feb1b1258c7e3e72c151abf176c30c4}{rpp::operators::observe\_on}}(\mbox{\hyperlink{classrpp_1_1schedulers_1_1new__thread}{rpp::schedulers::new\_thread}}\{\})}
+\DoxyCodeLine{|\ rpp::operators::subscribe([](\textcolor{keyword}{auto})\{\});}
+
+\end{DoxyCode}
+
+
+In this case whole subscription flow happens in thread of subscription, but emission of values transfers to another thread. Actually it is something like this\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{rpp::source::create<int>}}([](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ observer)}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ \textcolor{keyword}{auto}\ worker\ =\ \mbox{\hyperlink{classrpp_1_1schedulers_1_1new__thread}{rpp::schedulers::new\_thread}}\{\}.create\_worker();}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(1,2,3,4,5).subscribe([](\textcolor{keywordtype}{int}\ v)\ \{}
+\DoxyCodeLine{\ \ \ \ worker.scheduler([](...)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ observer.on\_next(v);}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\ \ \})}
+\DoxyCodeLine{\}).subscribe(...);}
+
+\end{DoxyCode}
+
 
 A {\bfseries{Scheduler}} is responsible for controlling the type of multithreading behavior (or lack thereof) used in the observable. For example, a {\bfseries{scheduler}} can utilize a new thread, a thread pool, or a raw queue to manage its processing.
 
 Checkout \href{https://victimsnino.github.io/ReactivePlusPlus/v2/docs/html/group__rpp.html}{\texttt{ API Reference}} to learn more about schedulers in RPP.
 
-See \href{https://reactivex.io/documentation/scheduler.html}{\texttt{ https\+://reactivex.\+io/documentation/scheduler.\+html}} for more details about scheduler concept.\hypertarget{md_docs_2readme_autotoc_md7}{}\doxysubsection{\texorpdfstring{Disposable}{Disposable}}\label{md_docs_2readme_autotoc_md7}
+See \href{https://reactivex.io/documentation/scheduler.html}{\texttt{ https\+://reactivex.\+io/documentation/scheduler.\+html}} for more details about scheduler concept.\hypertarget{md_docs_2readme_autotoc_md8}{}\doxysubsection{\texorpdfstring{Disposable}{Disposable}}\label{md_docs_2readme_autotoc_md8}
 In reactive programming, a {\bfseries{disposable}} is an object that represents a resource that needs to be released or disposed of when it is no longer needed. This can include things like file handles, network connections, or any other resource that needs to be cleaned up after use.
 
 The purpose of a disposable is to provide a way to manage resources in a safe and efficient manner. By using disposables, you can ensure that resources are released in a timely manner, preventing memory leaks and other issues that can arise from resource leaks.
@@ -262,15 +398,15 @@ In most cases disposables are placed in observers. RPP\textquotesingle{}s observ
 \begin{DoxyEnumerate}
 \item {\bfseries{Upstream disposable}} -\/ This is a disposable that the observable puts into the observer. The upstream disposable keeps some state or callback that should be disposed of when the observer is disposed. This ensures that any resources used by the observable are properly cleaned up when the observer obtains on\+\_\+error/on\+\_\+completed or disposed in any other way.
 \item {\bfseries{External disposable}} -\/ This is a disposable that allows the observer to be disposed of from outside the observer itself. This can be useful in situations where you need to cancel an ongoing operation or release resources before the observable has completed its work.
-\end{DoxyEnumerate}\hypertarget{md_docs_2readme_autotoc_md8}{}\doxysubsection{\texorpdfstring{Exception guarantee}{Exception guarantee}}\label{md_docs_2readme_autotoc_md8}
+\end{DoxyEnumerate}\hypertarget{md_docs_2readme_autotoc_md9}{}\doxysubsection{\texorpdfstring{Exception guarantee}{Exception guarantee}}\label{md_docs_2readme_autotoc_md9}
 In non-\/reactive programming functions/modules throws exception in case of something invalid. As a result, user can catch it and handle it somehow while internal state of objects can be in some state (invalid/untouched/partly valid) and etc.
 
-In reactive programming there is another way of exception mechanism\+: throwing exception as is from original place is useless. Notification about "{}something goes wrong"{} need to receive observer/subscriber, not owner of callstack. As a result, ANY exception obtained during emitting items and etc WOULD be delivered to subscriber/observer via {\ttfamily on\+\_\+error} function and then unsubscribe happens. As a result, no any raw exceptions would be throws during using RPP. In case of emitting {\ttfamily on\+\_\+error} whole internal state of observable keeps valid but it doesn\textquotesingle{}t matter -\/ whole chain would be destroyed due to {\ttfamily on\+\_\+error} forces unsubscribe. Reactive catching mechanisms like {\ttfamily catch} or {\ttfamily retry} {\bfseries{re-\/subscribes}} on observable. it means, that new chain with new states would be created, not re-\/used existing one.\hypertarget{md_docs_2readme_autotoc_md9}{}\doxysubsection{\texorpdfstring{Memory Model}{Memory Model}}\label{md_docs_2readme_autotoc_md9}
+In reactive programming there is another way of exception mechanism\+: throwing exception as is from original place is useless. Notification about "{}something goes wrong"{} need to receive observer/subscriber, not owner of callstack. As a result, ANY exception obtained during emitting items and etc WOULD be delivered to subscriber/observer via {\ttfamily on\+\_\+error} function and then unsubscribe happens. As a result, no any raw exceptions would be throws during using RPP. In case of emitting {\ttfamily on\+\_\+error} whole internal state of observable keeps valid but it doesn\textquotesingle{}t matter -\/ whole chain would be destroyed due to {\ttfamily on\+\_\+error} forces unsubscribe. Reactive catching mechanisms like {\ttfamily catch} or {\ttfamily retry} {\bfseries{re-\/subscribes}} on observable. it means, that new chain with new states would be created, not re-\/used existing one.\hypertarget{md_docs_2readme_autotoc_md10}{}\doxysubsection{\texorpdfstring{Memory Model}{Memory Model}}\label{md_docs_2readme_autotoc_md10}
 In Reactive\+Plus\+Plus there is new concept unique for this implementation\+: rpp\+::memory\+\_\+model\+:
 
 Some of the operators and sources like {\ttfamily \doxylink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp\+::source\+::just}} or {\ttfamily \doxylink{group__combining__operators_gadf12c4de9702425819b0d34b5fdf7db3}{rpp\+::operators\+::start\+\_\+with}} accepts user\textquotesingle{}s variables for usage. Some of this types can be such an expensive to copy or move and it would be preferable to copy it once to heap, but some other types (like POD) are cheap enough and usage of heap would be overkill. But these variables should be saved inside somehow!
 
-So, RPP provides ability to select strategy "{}how to deal with such a variables"{} via {\ttfamily rpp\+::memory\+\_\+model} enum.\hypertarget{md_docs_2readme_autotoc_md10}{}\doxysubsubsection{\texorpdfstring{Examples}{Examples}}\label{md_docs_2readme_autotoc_md10}
+So, RPP provides ability to select strategy "{}how to deal with such a variables"{} via {\ttfamily rpp\+::memory\+\_\+model} enum.\hypertarget{md_docs_2readme_autotoc_md11}{}\doxysubsubsection{\texorpdfstring{Examples}{Examples}}\label{md_docs_2readme_autotoc_md11}
 For example, {\ttfamily \doxylink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp\+::source\+::just}}
 
 

@@ -117,7 +117,7 @@ What is Reactive Programming?</h2>
 </ul>
 <div class="fragment"><div class="line"><span class="keywordtype">int</span> sum(<span class="keywordtype">int</span> a, <span class="keywordtype">int</span> b) { <span class="keywordflow">return</span> a + b; }</div>
 </div><!-- fragment --><ul>
-<li><b>Distributed in time</b> - Your application or function doesn't know <b>when</b> input (or parts of input) will arrive, but knows <b>what</b> to do when it happens:</li>
+<li><b>Distributed in time</b> - Your application or function doesn't know exact length of input, <b>when</b> input (or any parts of it) would arrive, but knows <b>what</b> to do when it happens:</li>
 </ul>
 <div class="fragment"><div class="line"><span class="preprocessor">#include &lt;iostream&gt;</span></div>
 <div class="line"> </div>
@@ -131,23 +131,25 @@ What is Reactive Programming?</h2>
 <div class="line">}</div>
 </div><!-- fragment --><p>When dealing with input that is <b>distributed in time</b>, there are two ways to handle it:</p>
 <ul>
-<li><b>Pulling</b> - You decide <b>when</b> you need extra data (e.g., to get something, request, iterate, etc.) and you are simply <b>checking/requesting</b> some data. In most cases, this is a blocking operation where you request data and wait for it to be available or periodically check its current status. For example, if you like a blog with non-periodical posts, you may check it daily for new posts manually.</li>
+<li><b>Pulling</b> - You decide <b>when</b> you need extra data (e.g., to get something, request, iterate, etc.) and you are simply <b>checking/requesting</b> some data. In most cases, this is a blocking operation of requesting data and waitign to be available or periodically checking its current status. For example, if you like a blog with non-periodical posts, you may check it daily for new posts manually.</li>
 <li><b>Pushing</b> - You decide <b>once</b> that you are interested in a source of data, notify this source somehow (e.g., register, subscribe, etc.), and <b>react</b> when new data <b>becomes available</b> to you. For example, you might <b>subscribe</b> to a blog and <b>react</b> to new posts only after receiving a notification on your smartphone, rather than manually checking for updates.</li>
 </ul>
-<p>Reactive programming is a powerful way to handle input that is distributed in time. Instead of constantly polling for updates or waiting for input to arrive, reactive programming allows you to register callbacks to be executed when the input becomes available.</p>
+<p>Reactive programming is a powerful way to handle input that is <b>distributed in time</b>. Instead of constantly polling for updates or waiting for input to arrive, reactive programming allows you to <b>register</b> callbacks to be executed <b>when the input becomes available</b>.</p>
 <p>See <a href="https://reactivex.io/intro.html">https://reactivex.io/intro.html</a> for more details.</p>
 <h1><a class="anchor" id="autotoc_md3"></a>
 Core concepts of Reactive Programming</h1>
 <p>In short, Reactive Programming can be described as follows:</p>
 <ul>
 <li>An <b>Observer</b> subscribes to an <b>Observable</b>.</li>
-<li>The <b>Observable</b> automatically notifies its subscribed <b>Observers</b> of any new events/emissions. <b>Observable</b> could invoke next <b>observer</b>'s method:<ul>
+<li>The <b>Observable</b> automatically notifies its subscribed <b>Observers</b> about any new events/emissions. <b>Observable</b> could invoke next <b>observer</b>'s method:<ul>
 <li><b>on_next(T)</b> - notifies about new event/emission</li>
 <li><b>on_error(std::exception_ptr)</b> - notified about error during work. It is termination event (no more calls from this observable should be expected)</li>
 <li><b>on_completed()</b> - notified about successful completion.It is termination event (no more calls from this observable should be expected)</li>
+<li><b>set_upstream(disposable)</b> - observable could pass to observer it's own disposable to provide ability for observer to terminate observable's internal actions/state.</li>
+<li><b>is_disposed()</b> - observable could check if observer is still interested in this source data (==false) or disposed and not listening anymore (==true)</li>
 </ul>
 </li>
-<li>During subscription, the <b>Observable</b> can return a <b>Disposable</b> (== subscription), which gives the ability to track and dispose of the subscription.</li>
+<li>During subscription, the <b>Observable</b> can return/provide a <b>Disposable</b> for <b>Observer</b> to provide ability to check if observable is still alive or make early termination (==dispose) if needed.</li>
 </ul>
 <p>For example:</p>
 <div class="fragment"><div class="line"><span class="preprocessor">#include &lt;rpp/rpp.hpp&gt;</span></div>
@@ -158,13 +160,13 @@ Core concepts of Reactive Programming</h1>
 <div class="line">{</div>
 <div class="line">    <a class="code hl_function" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">rpp::source::create&lt;int&gt;</a>([](<span class="keyword">const</span> <span class="keyword">auto</span>&amp; observer)</div>
 <div class="line">    {</div>
-<div class="line">        <span class="keywordflow">while</span> (<span class="keyword">true</span>)</div>
+<div class="line">        <span class="keywordflow">while</span> (!observer.is_disposed())</div>
 <div class="line">        {</div>
-<div class="line">            <span class="keywordtype">char</span> ch = ::getchar();</div>
-<div class="line">            <span class="keywordflow">if</span> (!::isdigit(ch)) </div>
+<div class="line">            char ch = ::getchar();</div>
+<div class="line">            if (!::isdigit(ch))</div>
 <div class="line">            {</div>
 <div class="line">              observer.on_error(std::make_exception_ptr(std::runtime_error{<span class="stringliteral">&quot;Invalid symbol&quot;</span>}));</div>
-<div class="line">              <span class="keywordflow">return</span>;</div>
+<div class="line">              return;</div>
 <div class="line">            }</div>
 <div class="line">            <span class="keywordtype">int</span> digit = ch - <span class="charliteral">&#39;0&#39;</span>;</div>
 <div class="line">            <span class="keywordflow">if</span> (digit == 0)</div>
@@ -218,7 +220,7 @@ Observable contract</h2>
 <p>RPP follows this contract and especially this part. It means, that:</p>
 <ol type="1">
 <li><b>All</b> implemented in <b>RPP operators</b> are <b>following this contract</b>:<br  />
- All built-in RPP observables/operators emit emission serially</li>
+ All built-in RPP observables/operators emit emissions serially</li>
 <li>Any user-provided callbacks (for operators or observers) can be not thread-safe due to thread-safety of observable is guaranteed. <br  />
  For example: internal logic of <code>take</code> operator doesn't use mutexes or atomics due to underlying observable <b>MUST</b> emit items serially</li>
 <li>When you implement your own operator via <code>create</code> be careful to <b>follow this contract</b>!</li>
@@ -260,8 +262,8 @@ Observable contract</h2>
 <div class="line">exit 2</div>
 </div><!-- fragment --><h2><a class="anchor" id="autotoc_md5"></a>
 Operators</h2>
-<p><b>Operators</b> are ways to modify the <b>Observable</b>'s emissions to adapt values to the <b>Observer</b>.</p>
-<p>For example, we can create observable which: get chars from console input, do it till ‘0’ char, get only letters and send to observer this letters as UPPER. With operators it is pretty simple to do it in correct way:</p>
+<p><b>Operators</b> are way to modify the <b>Observable</b>'s emissions to adapt values to the <b>Observer</b>.</p>
+<p>For example, we can create observable to get chars from console input, do it till ‘0’ char, get only letters and send to observer this letters as UPPER. With operators it is pretty simple to do it in correct way:</p>
 <div class="fragment"><div class="line"><span class="preprocessor">#include &lt;rpp/rpp.hpp&gt;</span></div>
 <div class="line"> </div>
 <div class="line"><span class="preprocessor">#include &lt;iostream&gt;</span></div>
@@ -285,15 +287,95 @@ Operators</h2>
 <div class="ttc" id="agroup__filtering__operators_html_ga3ad579153e7975af6ae4b75f585fb873"><div class="ttname"><a href="group__filtering__operators.html#ga3ad579153e7975af6ae4b75f585fb873">rpp::operators::filter</a></div><div class="ttdeci">auto filter(Fn &amp;&amp;predicate)</div><div class="ttdoc">Emit only those items from an Observable that satisfies a provided predicate.</div><div class="ttdef"><b>Definition</b> filter.hpp:82</div></div>
 </div><!-- fragment --><p>You can check documentation for each operator on <a href="https://victimsnino.github.io/ReactivePlusPlus/v2/docs/html/group__rpp.html">API Reference</a> page. Below you can find details about how operator works and how to create your own custom operator in RPP.</p>
 <p>See <a href="https://reactivex.io/documentation/operators.html">https://reactivex.io/documentation/operators.html</a> for more details about operators concept.</p>
-<h2><a class="anchor" id="autotoc_md6"></a>
+<h3><a class="anchor" id="autotoc_md6"></a>
+How operator works?</h3>
+<p>Let's check this example:</p>
+<div class="fragment"><div class="line"><a class="code hl_function" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">rpp::source::create&lt;int&gt;</a>([](<span class="keyword">const</span> <span class="keyword">auto</span>&amp; observer){</div>
+<div class="line">  observer.on_next(1);</div>
+<div class="line">  observer.on_completed();</div>
+<div class="line">});</div>
+</div><!-- fragment --><p>This example shows next: we create observble of <code>int</code> via operator <code>create</code>. This observable just emits to observer value <code>1</code> and then completes. Type of this observable is <code><a class="el" href="classrpp_1_1observable.html" title="Base class for any observable used in RPP. It handles core callbacks of observable.">rpp::observable</a>&lt;int, ...&gt;</code> where <code>...</code> implementation defined type. So, actually it is <code>observable of ints</code>. Let's say we want to convert <code>int</code> to <code>std::string</code>. We could subscribe and then convert it or use <code>map</code> operator (also known as <code>transform</code>) to transform some original value to some another value:</p>
+<div class="fragment"><div class="line"><a class="code hl_function" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">rpp::source::create&lt;int&gt;</a>([](<span class="keyword">const</span> <span class="keyword">auto</span>&amp; observer){</div>
+<div class="line">  observer.on_next(1);</div>
+<div class="line">  observer.on_completed();</div>
+<div class="line">})</div>
+<div class="line">| <a class="code hl_function" href="group__transforming__operators.html#ga1291dba2d973d4ba1061c9e0e202cb3f">rpp::operators::map</a>([](<span class="keywordtype">int</span> v){ <span class="keywordflow">return</span> std::string{v}; });</div>
+</div><!-- fragment --><p>For now it is <code>observable of strings</code> due to it is <code><a class="el" href="classrpp_1_1observable.html" title="Base class for any observable used in RPP. It handles core callbacks of observable.">rpp::observable</a>&lt;std::string, ...&gt;</code>. But what is <code><a class="el" href="group__transforming__operators.html#ga1291dba2d973d4ba1061c9e0e202cb3f" title="Transforms the items emitted by an Observable via applying a function to each item and emitting resul...">rpp::operators::map</a></code> then? Actually it is functor-adaptor - just functor accepting observable and returning another observable. It accepts original observable and converts it to observable of "final type". "final type" is result of invocation of passed function against original observable's type. In our case it is <code>decltype([](int v){ return std::string{v}; }(int{}))</code> is it is <code>std::string</code>. So, <code>map</code> can be implemented in the following way:</p>
+<div class="fragment"><div class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> Fn&gt;</div>
+<div class="line"><span class="keyword">struct </span>map</div>
+<div class="line">{</div>
+<div class="line">  Fn fn{};</div>
+<div class="line">  <span class="keyword">template</span>&lt;<span class="keyword">typename</span> Type, <span class="keyword">typename</span> Internal&gt;</div>
+<div class="line">  <span class="keyword">auto</span> operator()(<span class="keyword">const</span> <a class="code hl_class" href="classrpp_1_1observable.html">rpp::observable&lt;Type, Internal&gt;</a>&amp; observable)<span class="keyword"> const </span>{</div>
+<div class="line">    <span class="keyword">using </span>FinalType = std::invoke_result_t&lt;Fn, Type&gt;;</div>
+<div class="line">    <span class="keywordflow">return</span> <a class="code hl_function" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">rpp::source::create&lt;FinalType&gt;</a>([observable, fn](<span class="keyword">const</span> <span class="keyword">auto</span>&amp; observer)</div>
+<div class="line">    {</div>
+<div class="line">      observable.<a class="code hl_function" href="classrpp_1_1observable.html#a193b0e08c516912c04afd8379ec27182">subscribe</a>([observer, fn](<span class="keyword">const</span> <span class="keyword">auto</span>&amp; v) { observer.on_next(fn(v)); },</div>
+<div class="line">                           [observer](<span class="keyword">const</span> std::exception_ptr&amp; err) { observer.on_error(err); },</div>
+<div class="line">                           [observer]() { observer.on_completed(); });</div>
+<div class="line">    };);</div>
+<div class="line">  }</div>
+<div class="line">}</div>
+<div class="ttc" id="aclassrpp_1_1observable_html"><div class="ttname"><a href="classrpp_1_1observable.html">rpp::observable</a></div><div class="ttdoc">Base class for any observable used in RPP. It handles core callbacks of observable.</div><div class="ttdef"><b>Definition</b> observable.hpp:38</div></div>
+<div class="ttc" id="aclassrpp_1_1observable_html_a193b0e08c516912c04afd8379ec27182"><div class="ttname"><a href="classrpp_1_1observable.html#a193b0e08c516912c04afd8379ec27182">rpp::observable::subscribe</a></div><div class="ttdeci">void subscribe(observer&lt; Type, ObserverStrategy &gt; &amp;&amp;observer) const</div><div class="ttdoc">Subscribes passed observer to emissions from this observable.</div><div class="ttdef"><b>Definition</b> observable.hpp:58</div></div>
+</div><!-- fragment --><p>It is template for such an functor-adaptor. It is actually valid except of the one thing: observer is not copyable by default and we need to handle it, for example, call <code>as_dynamic()</code> or to place in some shared_ptr, but it is out of current explanation.</p>
+<p>Provided example - is simplest possible way to implement new operators - just provide function for transformation of observable. For example, it is fully valid example: </p><div class="fragment"><div class="line"><a class="code hl_function" href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">rpp::source::just</a>(1)</div>
+<div class="line">    | [](<span class="keyword">const</span> <span class="keyword">auto</span>&amp; observable) { <span class="keywordflow">return</span> <a class="code hl_function" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">rpp::source::concat</a>(observable, <a class="code hl_function" href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">rpp::source::just</a>(2)); };</div>
+</div><!-- fragment --><p>There we convert observable to concatenation of original observable and <code>just(2)</code>.</p>
+<p>One more posible but a bit more advanced way to implement operators - is to lift observer. To do this, your functor-adapter must to satisfy <code><a class="el" href="conceptrpp_1_1constraint_1_1operator__lift.html">rpp::constraint::operator_lift</a></code> concept. Actually, your class must to have:</p><ul>
+<li>member function <code>lift</code> accepting downstream observer and returning new upstream observer</li>
+<li>using <code>result_value&lt;T&gt;</code> accepting typename of upstream and providing new value for downstream (== typename of original observable and return new resulting type for new observable)</li>
+</ul>
+<p>Example: </p><div class="fragment"><div class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> Fn&gt;</div>
+<div class="line"><span class="keyword">struct </span>map</div>
+<div class="line">{</div>
+<div class="line">  <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line">  <span class="keyword">using </span>result_value = std::invoke_result_t&lt;Fn, T&gt;;</div>
+<div class="line"> </div>
+<div class="line">  Fn fn{};</div>
+<div class="line"> </div>
+<div class="line">  <span class="keyword">template</span>&lt;<span class="keyword">typename</span> Upstream, <span class="keyword">typename</span> Downstream&gt;</div>
+<div class="line">  <span class="keyword">auto</span> lift(<a class="code hl_concept" href="conceptrpp_1_1constraint_1_1observer__of__type.html">rpp::constraint::observer_of_type&lt;Downstream&gt;</a> <span class="keyword">auto</span>&amp;&amp; observer)<span class="keyword"> const</span></div>
+<div class="line"><span class="keyword">  </span>{</div>
+<div class="line">      <span class="keywordflow">return</span> rpp::make_lambda_observer&lt;Upstream&gt;([observer, fn](<span class="keyword">const</span> <span class="keyword">auto</span>&amp; v){ observer.on_next(fn(v)); },</div>
+<div class="line">                                                 [observer](<span class="keyword">const</span> std::exception_ptr&amp; err) { observer.on_error(err); },</div>
+<div class="line">                                                 [observer]() { observer.on_completed(); });</div>
+<div class="line">  }</div>
+<div class="line">}</div>
+<div class="ttc" id="aconceptrpp_1_1constraint_1_1observer__of__type_html"><div class="ttname"><a href="conceptrpp_1_1constraint_1_1observer__of__type.html">rpp::constraint::observer_of_type</a></div><div class="ttdef"><b>Definition</b> fwd.hpp:257</div></div>
+</div><!-- fragment --><p> In this case you providing logic how to convert downstream observer to upstream observer. Actually this implementation is equal to previous one, but without handling of observable.</p>
+<p>**(Advanced)** In case of implementing operator via <code>lift</code> you can control disposable strategy via <code>updated_disposable_strategy</code> parameter. It accepts disposable strategy of upstream and returns disposable strategy for downstream. It needed only for optimization and reducing disposables handling cost and it is purely advanced thing. Not sure if anyone is going to use it by its own for now =)</p>
+<h2><a class="anchor" id="autotoc_md7"></a>
 Schedulers</h2>
 <p>Reactive programming becomes even more powerful when observables can operate across multiple threads, rather than being confined to the thread of creation and subscription. This allows for non-blocking, asynchronous operations and provides significant advantages over raw iteration or other pull-based approaches. To enable multithreading in your observables, you can use <b>Schedulers</b>.</p>
-<p>By default, an <b>Observable</b> will perform its work in the thread where the <b>subscribe</b> operation occurs. However, you can change this behavior using the <b>subscribe_on</b> operator. This operator forces the observable to perform the <b>subscription</b> and any subsequent work in the specified <b>scheduler</b>.</p>
-<p>The <b>observe_on</b> operator specifies the <b>scheduler</b> that will be used for emission during the processing of further operators after <b>observe_on</b>.</p>
-<p>A <b>Scheduler</b> is responsible for controlling the type of multithreading behavior (or lack thereof) used in the observable. For example, a <b>scheduler</b> can utilize a new thread, a thread pool, or a raw queue to manage its processing.</p>
+<p>By default, an <b>Observable</b> will perform its work in the thread where the <b>subscribe</b> operation occurs. However, you can change this behavior using the <b>subscribe_on</b> operator. This operator forces the observable to perform the <b>subscription</b> and any subsequent work in the specified <b>scheduler</b>. For example:</p>
+<div class="fragment"><div class="line"><a class="code hl_function" href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">rpp::source::just</a>(1,2,3,4,5)                                  <span class="comment">// 1</span></div>
+<div class="line">| <a class="code hl_function" href="group__utility__operators.html#gace728cfbf71720901cb6f310edabf8b0">rpp::operators::subscribe_on</a>(<a class="code hl_class" href="classrpp_1_1schedulers_1_1new__thread.html">rpp::schedulers::new_thread</a>{}) <span class="comment">// 2</span></div>
+<div class="line">| rpp::operators::subscribe([](<span class="keyword">auto</span>){});                      <span class="comment">// 3</span></div>
+</div><!-- fragment --><p>In this case subscribe to <code>3</code> happens in current thread (where subscribe invoked). But during subscription to <code>2</code> it schedules subscription to <code>1</code> to provided <code>new_thread</code> scheduler. So, subscription to final observable and it's internal logic (iterating and emitting of values) happens inside new_thread. Actually it is something like this: </p><div class="fragment"><div class="line"><a class="code hl_function" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">rpp::source::create&lt;int&gt;</a>([](<span class="keyword">const</span> <span class="keyword">auto</span>&amp; observer)</div>
+<div class="line">{</div>
+<div class="line">  <a class="code hl_class" href="classrpp_1_1schedulers_1_1new__thread.html">rpp::schedulers::new_thread</a>{}.create_worker([](...) {</div>
+<div class="line">    <a class="code hl_function" href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">rpp::source::just</a>(1,2,3,4,5).subscribe(observer);</div>
+<div class="line">  })</div>
+<div class="line">}).subscribe(...);</div>
+</div><!-- fragment --><p>The <b>observe_on</b> operator specifies the <b>scheduler</b> that will be used for emission during the processing of further operators after <b>observe_on</b>. For example</p>
+<div class="fragment"><div class="line"><a class="code hl_function" href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">rpp::source::just</a>(1,2,3,4,5)</div>
+<div class="line">| <a class="code hl_function" href="group__utility__operators.html#ga3feb1b1258c7e3e72c151abf176c30c4">rpp::operators::observe_on</a>(<a class="code hl_class" href="classrpp_1_1schedulers_1_1new__thread.html">rpp::schedulers::new_thread</a>{})</div>
+<div class="line">| rpp::operators::subscribe([](<span class="keyword">auto</span>){});</div>
+<div class="ttc" id="agroup__utility__operators_html_ga3feb1b1258c7e3e72c151abf176c30c4"><div class="ttname"><a href="group__utility__operators.html#ga3feb1b1258c7e3e72c151abf176c30c4">rpp::operators::observe_on</a></div><div class="ttdeci">auto observe_on(Scheduler &amp;&amp;scheduler, rpp::schedulers::duration delay_duration={})</div><div class="ttdoc">Specify the Scheduler on which an observer will observe this Observable.</div><div class="ttdef"><b>Definition</b> observe_on.hpp:37</div></div>
+</div><!-- fragment --><p>In this case whole subscription flow happens in thread of subscription, but emission of values transfers to another thread. Actually it is something like this: </p><div class="fragment"><div class="line"><a class="code hl_function" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">rpp::source::create&lt;int&gt;</a>([](<span class="keyword">const</span> <span class="keyword">auto</span>&amp; observer)</div>
+<div class="line">{</div>
+<div class="line">  <span class="keyword">auto</span> worker = <a class="code hl_class" href="classrpp_1_1schedulers_1_1new__thread.html">rpp::schedulers::new_thread</a>{}.create_worker();</div>
+<div class="line">  <a class="code hl_function" href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">rpp::source::just</a>(1,2,3,4,5).subscribe([](<span class="keywordtype">int</span> v) {</div>
+<div class="line">    worker.scheduler([](...) {</div>
+<div class="line">      observer.on_next(v);</div>
+<div class="line">    }</div>
+<div class="line">  })</div>
+<div class="line">}).subscribe(...);</div>
+</div><!-- fragment --><p>A <b>Scheduler</b> is responsible for controlling the type of multithreading behavior (or lack thereof) used in the observable. For example, a <b>scheduler</b> can utilize a new thread, a thread pool, or a raw queue to manage its processing.</p>
 <p>Checkout <a href="https://victimsnino.github.io/ReactivePlusPlus/v2/docs/html/group__rpp.html">API Reference</a> to learn more about schedulers in RPP.</p>
 <p>See <a href="https://reactivex.io/documentation/scheduler.html">https://reactivex.io/documentation/scheduler.html</a> for more details about scheduler concept.</p>
-<h2><a class="anchor" id="autotoc_md7"></a>
+<h2><a class="anchor" id="autotoc_md8"></a>
 Disposable</h2>
 <p>In reactive programming, a <b>disposable</b> is an object that represents a resource that needs to be released or disposed of when it is no longer needed. This can include things like file handles, network connections, or any other resource that needs to be cleaned up after use.</p>
 <p>The purpose of a disposable is to provide a way to manage resources in a safe and efficient manner. By using disposables, you can ensure that resources are released in a timely manner, preventing memory leaks and other issues that can arise from resource leaks.</p>
@@ -302,16 +384,16 @@ Disposable</h2>
 <li><b>Upstream disposable</b> - This is a disposable that the observable puts into the observer. The upstream disposable keeps some state or callback that should be disposed of when the observer is disposed. This ensures that any resources used by the observable are properly cleaned up when the observer obtains on_error/on_completed or disposed in any other way.</li>
 <li><b>External disposable</b> - This is a disposable that allows the observer to be disposed of from outside the observer itself. This can be useful in situations where you need to cancel an ongoing operation or release resources before the observable has completed its work.</li>
 </ol>
-<h2><a class="anchor" id="autotoc_md8"></a>
+<h2><a class="anchor" id="autotoc_md9"></a>
 Exception guarantee</h2>
 <p>In non-reactive programming functions/modules throws exception in case of something invalid. As a result, user can catch it and handle it somehow while internal state of objects can be in some state (invalid/untouched/partly valid) and etc.</p>
 <p>In reactive programming there is another way of exception mechanism: throwing exception as is from original place is useless. Notification about "something goes wrong" need to receive observer/subscriber, not owner of callstack. As a result, ANY exception obtained during emitting items and etc WOULD be delivered to subscriber/observer via <code>on_error</code> function and then unsubscribe happens. As a result, no any raw exceptions would be throws during using RPP. In case of emitting <code>on_error</code> whole internal state of observable keeps valid but it doesn't matter - whole chain would be destroyed due to <code>on_error</code> forces unsubscribe. Reactive catching mechanisms like <code>catch</code> or <code>retry</code> <b>re-subscribes</b> on observable. it means, that new chain with new states would be created, not re-used existing one.</p>
-<h2><a class="anchor" id="autotoc_md9"></a>
+<h2><a class="anchor" id="autotoc_md10"></a>
 Memory Model</h2>
 <p>In ReactivePlusPlus there is new concept unique for this implementation: rpp::memory_model:</p>
 <p>Some of the operators and sources like <code><a class="el" href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0" title="Creates rpp::observable that emits a particular items and completes.">rpp::source::just</a></code> or <code><a class="el" href="group__combining__operators.html#gadf12c4de9702425819b0d34b5fdf7db3" title="Combines submissions from current observable with other observables into one but without overlapping ...">rpp::operators::start_with</a></code> accepts user's variables for usage. Some of this types can be such an expensive to copy or move and it would be preferable to copy it once to heap, but some other types (like POD) are cheap enough and usage of heap would be overkill. But these variables should be saved inside somehow!</p>
 <p>So, RPP provides ability to select strategy "how to deal with such a variables" via <code>rpp::memory_model</code> enum.</p>
-<h3><a class="anchor" id="autotoc_md10"></a>
+<h3><a class="anchor" id="autotoc_md11"></a>
 Examples</h3>
 <p>For example, <code><a class="el" href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0" title="Creates rpp::observable that emits a particular items and completes.">rpp::source::just</a></code></p>
 <div class="fragment"><div class="line"><a class="code hl_function" href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">rpp::source::just</a>(my_custom_variable);</div>

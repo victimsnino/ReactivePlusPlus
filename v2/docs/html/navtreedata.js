@@ -31,12 +31,14 @@ var NAVTREE =
       ] ],
       [ "Core concepts of Reactive Programming", "md_docs_2readme.html#autotoc_md3", [
         [ "Observable contract", "md_docs_2readme.html#autotoc_md4", null ],
-        [ "Operators", "md_docs_2readme.html#autotoc_md5", null ],
-        [ "Schedulers", "md_docs_2readme.html#autotoc_md6", null ],
-        [ "Disposable", "md_docs_2readme.html#autotoc_md7", null ],
-        [ "Exception guarantee", "md_docs_2readme.html#autotoc_md8", null ],
-        [ "Memory Model", "md_docs_2readme.html#autotoc_md9", [
-          [ "Examples", "md_docs_2readme.html#autotoc_md10", null ]
+        [ "Operators", "md_docs_2readme.html#autotoc_md5", [
+          [ "How operator works?", "md_docs_2readme.html#autotoc_md6", null ]
+        ] ],
+        [ "Schedulers", "md_docs_2readme.html#autotoc_md7", null ],
+        [ "Disposable", "md_docs_2readme.html#autotoc_md8", null ],
+        [ "Exception guarantee", "md_docs_2readme.html#autotoc_md9", null ],
+        [ "Memory Model", "md_docs_2readme.html#autotoc_md10", [
+          [ "Examples", "md_docs_2readme.html#autotoc_md11", null ]
         ] ]
       ] ]
     ] ],
@@ -61,7 +63,7 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "annotated.html",
-"group__transforming__operators.html#ga2fa21790af1c065382cd37faa3462851"
+"group__transforming__operators.html#ga1291dba2d973d4ba1061c9e0e202cb3f"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
