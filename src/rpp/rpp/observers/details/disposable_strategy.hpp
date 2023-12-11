@@ -26,19 +26,19 @@ public:
     atomic_bool() = default;
     atomic_bool(atomic_bool&& other) noexcept
         // just need atomicity, not guarding anything
-        : m_value{other.m_value.load(std::memory_order::relaxed)}
+        : m_value{other.m_value.load(std::memory_order::seq_cst)}
     {}
 
     bool test() const noexcept 
     {
         // just need atomicity, not guarding anything
-        return m_value.load(std::memory_order::relaxed);
+        return m_value.load(std::memory_order::seq_cst);
     }
 
     void set() noexcept
     {
         // just need atomicity, not guarding anything
-        m_value.store(true, std::memory_order::relaxed);
+        m_value.store(true, std::memory_order::seq_cst);
     }
 private:
     std::atomic_bool m_value{};
