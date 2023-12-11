@@ -44,11 +44,11 @@ class refcount_disposable : public std::enable_shared_from_this<refcount_disposa
 
     void release()
     {
-        auto current_value = m_refcount.load(std::memory_order::relaxed);
+        auto current_value = m_refcount.load(std::memory_order::seq_cst);
         while (current_value != s_disposed)
         {
             const size_t new_value = current_value == 1 ? s_disposed : current_value - 1;
-            if (!m_refcount.compare_exchange_strong(current_value, new_value, std::memory_order::relaxed, std::memory_order::relaxed))
+            if (!m_refcount.compare_exchange_strong(current_value, new_value, std::memory_order::seq_cst))
                 continue;
 
             if (new_value == s_disposed)
@@ -59,7 +59,7 @@ class refcount_disposable : public std::enable_shared_from_this<refcount_disposa
 
     void dispose_impl() noexcept override
     {
-        m_refcount.store(s_disposed, std::memory_order::relaxed);
+        m_refcount.store(s_disposed, std::memory_order::seq_cst);
     }
 
 public:
@@ -67,14 +67,14 @@ public:
 
     composite_disposable_wrapper add_ref()
     {
-        auto current_value = m_refcount.load(std::memory_order::relaxed);
+        auto current_value = m_refcount.load(std::memory_order::seq_cst);
         while (true)
         {
             if (current_value == s_disposed)
                 return {};
 
             // just need atomicity, not guarding anything
-            if (m_refcount.compare_exchange_strong(current_value, current_value + 1, std::memory_order::relaxed, std::memory_order::relaxed))
+            if (m_refcount.compare_exchange_strong(current_value, current_value + 1, std::memory_order::seq_cst))
             {
                 auto inner = std::make_shared<refocunt_disposable_inner>(shared_from_this());
                 add(rpp::disposable_wrapper::from_weak(inner));

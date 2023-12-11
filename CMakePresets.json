@@ -270,37 +270,36 @@
   ,
   "testPresets": [
     {
-      "name": "ci-tests",
-            "environment": {
-        "QT_QPA_PLATFORM":"offscreen"
+      "name": "ci-tests-base",
+      "hidden": true,
+      "configurePreset" : "ci-build",
+      "environment": {
+        "QT_QPA_PLATFORM": "offscreen"
       },
       "output": {
         "outputOnFailure": true
       },
-		  "configurePreset" : "ci-build",
+      "execution": {
+        "timeout": 30
+      }
+    },
+    {
+      "name": "ci-tests",
+      "inherits": ["ci-tests-base"],
       "configuration": "Release"
     },
     {
       "name": "ci-tests-debug",
-      "environment": {
-        "QT_QPA_PLATFORM":"offscreen"
-      },
-      "output": {
-        "outputOnFailure": true
-      },
-		  "configurePreset" : "ci-build",
+      "inherits": ["ci-tests-base"],
       "configuration": "Debug"
     },
     {
       "name": "ci-sanitize",
-      "inherits" : "ci-tests",
+      "inherits" : ["ci-tests"],
       "environment": {
         "ASAN_OPTIONS": "strict_string_checks=1:detect_stack_use_after_return=1:check_initialization_order=1:strict_init_order=1:detect_leaks=1",
         "UBSAN_OPTIONS": "print_stacktrace=1",
         "TSAN_OPTIONS": "second_deadlock_stack=1"
-      },
-      "output": {
-        "outputOnFailure": true
       }
     }
   ]
