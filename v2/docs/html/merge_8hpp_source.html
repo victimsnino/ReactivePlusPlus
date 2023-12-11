@@ -137,10 +137,10 @@ $(document).ready(function(){initNavTree('merge_8hpp_source.html',''); initResiz
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    }</div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <span class="comment">// just need atomicity, not guarding anything</span></div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    <span class="keywordtype">void</span> increment_on_completed() { m_on_completed_needed.fetch_add(1, std::memory_order::relaxed); }</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    <span class="keywordtype">void</span> increment_on_completed() { m_on_completed_needed.fetch_add(1, std::memory_order::seq_cst); }</div>
 <div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <span class="comment">// just need atomicity, not guarding anything</span></div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <span class="keywordtype">bool</span> decrement_on_completed() { <span class="keywordflow">return</span> m_on_completed_needed.fetch_sub(1, std::memory_order::relaxed) == 1; }</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <span class="keywordtype">bool</span> decrement_on_completed() { <span class="keywordflow">return</span> m_on_completed_needed.fetch_sub(1, std::memory_order::seq_cst) == 1; }</div>
 <div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
 <div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    <a class="code hl_class" href="classrpp_1_1operators_1_1details_1_1pointer__under__lock.html">pointer_under_lock&lt;TObserver&gt;</a> get_observer_under_lock() { <span class="keywordflow">return</span> <a class="code hl_class" href="classrpp_1_1operators_1_1details_1_1pointer__under__lock.html">pointer_under_lock</a>{m_observer}; }</div>
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>

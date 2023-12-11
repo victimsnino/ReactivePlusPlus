@@ -81,7 +81,7 @@
 \DoxyCodeLine{00077\ }
 \DoxyCodeLine{00078\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_completed()\textcolor{keyword}{\ const}}
 \DoxyCodeLine{00079\ \textcolor{keyword}{\ \ \ \ }\{}
-\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (state-\/>stage.exchange(ConcatStage::Completed,\ std::memory\_order::relaxed)\ ==\ ConcatStage::InsideDrain)}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (state-\/>stage.exchange(ConcatStage::Completed,\ std::memory\_order::seq\_cst)\ ==\ ConcatStage::InsideDrain)}
 \DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
 \DoxyCodeLine{00082\ }
 \DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ drain(state);}
@@ -101,12 +101,12 @@
 \DoxyCodeLine{00097\ }
 \DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }value\_type\ =\ rpp::utils::extract\_observable\_type\_t<utils::iterable\_value\_t<PackedContainer>>;}
 \DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ state-\/>clear();}
-\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ state-\/>stage.store(ConcatStage::InsideDrain,\ std::memory\_order::relaxed);}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ state-\/>stage.store(ConcatStage::InsideDrain,\ std::memory\_order::seq\_cst);}
 \DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
 \DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \{}
 \DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \ \ \ \ (*(state-\/>itr.value()++)).subscribe(\mbox{\hyperlink{classrpp_1_1observer}{observer}}<value\_type,\ concat\_source\_observer\_strategy<std::decay\_t<TObserver>,\ std::decay\_t<PackedContainer>>>\{state\});}
 \DoxyCodeLine{00104\ }
-\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (state-\/>stage.exchange(ConcatStage::None,\ std::memory\_order::relaxed)\ ==\ ConcatStage::InsideDrain)}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (state-\/>stage.exchange(ConcatStage::None,\ std::memory\_order::seq\_cst)\ ==\ ConcatStage::InsideDrain)}
 \DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
 \DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}(...)}

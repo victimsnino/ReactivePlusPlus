@@ -33,7 +33,7 @@
 \DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ disposable()}
 \DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \{}
 \DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ just\ waiting}}
-\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (!m\_state-\/>queue\_ptr.load(std::memory\_order::relaxed))}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (!m\_state-\/>queue\_ptr.load(std::memory\_order::seq\_cst))}
 \DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
 \DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \ \ \ \ \};}
 \DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \}}
@@ -44,7 +44,7 @@
 \DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
 \DoxyCodeLine{00047\ }
 \DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ just\ notify}}
-\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \ \ \ \ m\_state-\/>is\_destroying.store(\textcolor{keyword}{true},\ std::memory\_order::relaxed);}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \ \ \ \ m\_state-\/>is\_destroying.store(\textcolor{keyword}{true},\ std::memory\_order::seq\_cst);}
 \DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \ \ \ \ m\_state-\/>cv.notify\_all();}
 \DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \ \ \ \ m\_thread.detach();}
 \DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \}}
@@ -57,7 +57,7 @@
 \DoxyCodeLine{00059\ }
 \DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \ \ \ \ std::lock\_guard\ lock\{m\_state-\/>mutex\};}
 \DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ guarded\ by\ lock}}
-\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ queue\ =\ m\_state-\/>queue\_ptr.load(std::memory\_order::relaxed))}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ queue\ =\ m\_state-\/>queue\_ptr.load(std::memory\_order::seq\_cst))}
 \DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ queue-\/>emplace(time\_point,\ std::forward<Fn>(fn),\ std::forward<Handler>(handler),\ std::forward<Args>(args)...);}
 \DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{00065\ }
@@ -68,7 +68,7 @@
 \DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
 \DoxyCodeLine{00071\ }
 \DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ just\ need\ atomicity,\ not\ guarding\ anything}}
-\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \ \ \ \ m\_state-\/>is\_disposed.store(\textcolor{keyword}{true},\ std::memory\_order::relaxed);}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \ \ \ \ m\_state-\/>is\_disposed.store(\textcolor{keyword}{true},\ std::memory\_order::seq\_cst);}
 \DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \ \ \ \ m\_state-\/>cv.notify\_all();}
 \DoxyCodeLine{00075\ }
 \DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (m\_thread.get\_id()\ !=\ std::this\_thread::get\_id())}
@@ -87,18 +87,18 @@
 \DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ data\_thread(std::shared\_ptr<state\_t>\ state)}
 \DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \{}
 \DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\&\ \ \ \ \ \ \ \ \ \ \ \ queue\ =\ current\_thread::s\_queue;}
-\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \ \ \ \ state-\/>queue\_ptr.store(\&queue.emplace(state),\ std::memory\_order::relaxed);}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \ \ \ \ state-\/>queue\_ptr.store(\&queue.emplace(state),\ std::memory\_order::seq\_cst);}
 \DoxyCodeLine{00093\ }
-\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (!state-\/>is\_disposed.load(std::memory\_order::relaxed))}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (!state-\/>is\_disposed.load(std::memory\_order::seq\_cst))}
 \DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
 \DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::unique\_lock\ lock\{state-\/>mutex\};}
 \DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
-\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (state-\/>is\_destroying.load(std::memory\_order::relaxed)\ \&\&\ queue-\/>is\_empty())}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (state-\/>is\_destroying.load(std::memory\_order::seq\_cst)\ \&\&\ queue-\/>is\_empty())}
 \DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
 \DoxyCodeLine{00100\ }
-\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ state-\/>cv.wait(lock,\ [\&]\ \{\ \textcolor{keywordflow}{return}\ state-\/>is\_disposed.load(std::memory\_order::relaxed)\ ||\ !queue-\/>is\_empty()\ ||\ state-\/>is\_destroying.load(std::memory\_order::relaxed);\ \});}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ state-\/>cv.wait(lock,\ [\&]\ \{\ \textcolor{keywordflow}{return}\ state-\/>is\_disposed.load(std::memory\_order::seq\_cst)\ ||\ !queue-\/>is\_empty()\ ||\ state-\/>is\_destroying.load(std::memory\_order::seq\_cst);\ \});}
 \DoxyCodeLine{00102\ }
-\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (state-\/>is\_disposed.load(std::memory\_order::relaxed)\ ||\ state-\/>is\_destroying.load(std::memory\_order::relaxed))}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (state-\/>is\_disposed.load(std::memory\_order::seq\_cst)\ ||\ state-\/>is\_destroying.load(std::memory\_order::seq\_cst))}
 \DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
 \DoxyCodeLine{00105\ }
 \DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (queue-\/>top()-\/>is\_disposed())}
@@ -111,7 +111,7 @@
 \DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
 \DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ now\ =\ worker\_strategy::now();\ now\ <\ queue-\/>top()-\/>get\_timepoint())}
 \DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ state-\/>cv.wait\_for(lock,\ queue-\/>top()-\/>get\_timepoint()\ -\/\ now,\ [\&]\ \{\ \textcolor{keywordflow}{return}\ state-\/>is\_disposed.load(std::memory\_order::relaxed)\ ||\ state-\/>is\_destroying.load(std::memory\_order::relaxed)\ ||\ worker\_strategy::now()\ >=\ queue-\/>top()-\/>get\_timepoint();\ \});}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ state-\/>cv.wait\_for(lock,\ queue-\/>top()-\/>get\_timepoint()\ -\/\ now,\ [\&]\ \{\ \textcolor{keywordflow}{return}\ state-\/>is\_disposed.load(std::memory\_order::seq\_cst)\ ||\ state-\/>is\_destroying.load(std::memory\_order::seq\_cst)\ ||\ worker\_strategy::now()\ >=\ queue-\/>top()-\/>get\_timepoint();\ \});}
 \DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{continue};}
 \DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
@@ -124,7 +124,7 @@
 \DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{00127\ }
 \DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \ \ \ \ std::unique\_lock\ lock\{state-\/>mutex\};}
-\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \ \ \ \ state-\/>queue\_ptr.store(\textcolor{keyword}{nullptr},\ std::memory\_order::relaxed);}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \ \ \ \ state-\/>queue\_ptr.store(\textcolor{keyword}{nullptr},\ std::memory\_order::seq\_cst);}
 \DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \ \ \ \ queue.reset();}
 \DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{00132\ }

@@ -37,7 +37,7 @@
 \DoxyCodeLine{00038\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classrpp_1_1composite__disposable__impl_a4d8dc7195e0594586a1583e7f5308d4c}{is\_disposed}}()\ const\ noexcept\ final}
 \DoxyCodeLine{00039\ \ \ \ \ \{}
 \DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ just\ need\ atomicity,\ not\ guarding\ anything}}
-\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ m\_current\_state.load(std::memory\_order::relaxed)\ ==\ State::Disposed;}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ m\_current\_state.load(std::memory\_order::seq\_cst)\ ==\ State::Disposed;}
 \DoxyCodeLine{00042\ \ \ \ \ \}}
 \DoxyCodeLine{00043\ }
 \DoxyCodeLine{00044\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classrpp_1_1composite__disposable__impl_a03ed7e9ee1fb1f05100c3996d7395fc5}{dispose}}()\ noexcept\ final}
@@ -46,7 +46,7 @@
 \DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \{}
 \DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ State\ expected\{State::None\};}
 \DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ need\ to\ acquire\ possible\ state\ changing\ from\ \`{}add`}}
-\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (m\_current\_state.compare\_exchange\_strong(expected,\ State::Disposed,\ std::memory\_order::acquire,\ std::memory\_order::relaxed))}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (m\_current\_state.compare\_exchange\_strong(expected,\ State::Disposed,\ std::memory\_order::seq\_cst))}
 \DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
 \DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dispose\_impl();}
 \DoxyCodeLine{00053\ }
@@ -71,7 +71,7 @@
 \DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \{}
 \DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \ \ \ \ State\ expected\{State::None\};}
 \DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ need\ to\ acquire\ possible\ disposables\ state\ changing\ from\ other\ \`{}add`}}
-\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (m\_current\_state.compare\_exchange\_strong(expected,\ State::Edit,\ std::memory\_order::acquire,\ std::memory\_order::relaxed))}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (m\_current\_state.compare\_exchange\_strong(expected,\ State::Edit,\ std::memory\_order::seq\_cst))}
 \DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
 \DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
 \DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
@@ -79,11 +79,11 @@
 \DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}(...)}
 \DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ m\_current\_state.store(State::None,\ std::memory\_order::release);}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ m\_current\_state.store(State::None,\ std::memory\_order::seq\_cst);}
 \DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw};}
 \DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ need\ to\ propogate\ disposables\ state\ changing\ to\ others}}
-\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ m\_current\_state.store(State::None,\ std::memory\_order::release);}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ m\_current\_state.store(State::None,\ std::memory\_order::seq\_cst);}
 \DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
 \DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{00090\ }
@@ -101,7 +101,7 @@
 \DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \{}
 \DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \ \ \ \ State\ expected\{State::None\};}
 \DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ need\ to\ acquire\ possible\ disposables\ state\ changing\ from\ other\ \`{}add`\ or\ \`{}remove`}}
-\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (m\_current\_state.compare\_exchange\_strong(expected,\ State::Edit,\ std::memory\_order::acquire,\ std::memory\_order::relaxed))}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (m\_current\_state.compare\_exchange\_strong(expected,\ State::Edit,\ std::memory\_order::seq\_cst))}
 \DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
 \DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
 \DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
@@ -109,11 +109,11 @@
 \DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}(...)}
 \DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ m\_current\_state.store(State::None,\ std::memory\_order::release);}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ m\_current\_state.store(State::None,\ std::memory\_order::seq\_cst);}
 \DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw};}
 \DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ need\ to\ propogate\ disposables\ state\ changing\ to\ others}}
-\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ m\_current\_state.store(State::None,\ std::memory\_order::release);}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ m\_current\_state.store(State::None,\ std::memory\_order::seq\_cst);}
 \DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
 \DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{00120\ }
@@ -128,7 +128,7 @@
 \DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \{}
 \DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \ \ \ \ State\ expected\{State::None\};}
 \DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ need\ to\ acquire\ possible\ disposables\ state\ changing\ from\ other\ \`{}add`\ or\ \`{}remove`}}
-\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (m\_current\_state.compare\_exchange\_strong(expected,\ State::Edit,\ std::memory\_order::acquire,\ std::memory\_order::relaxed))}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (m\_current\_state.compare\_exchange\_strong(expected,\ State::Edit,\ std::memory\_order::seq\_cst))}
 \DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
 \DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
 \DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
@@ -137,11 +137,11 @@
 \DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}(...)}
 \DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ m\_current\_state.store(State::None,\ std::memory\_order::release);}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ m\_current\_state.store(State::None,\ std::memory\_order::seq\_cst);}
 \DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw};}
 \DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ need\ to\ propogate\ disposables\ state\ changing\ to\ others}}
-\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ m\_current\_state.store(State::None,\ std::memory\_order::release);}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ m\_current\_state.store(State::None,\ std::memory\_order::seq\_cst);}
 \DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
 \DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{00148\ }

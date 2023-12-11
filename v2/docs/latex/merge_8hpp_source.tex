@@ -39,10 +39,10 @@
 \DoxyCodeLine{00035\ \ \ \ \ \}}
 \DoxyCodeLine{00036\ }
 \DoxyCodeLine{00037\ \ \ \ \ \textcolor{comment}{//\ just\ need\ atomicity,\ not\ guarding\ anything}}
-\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keywordtype}{void}\ increment\_on\_completed()\ \{\ m\_on\_completed\_needed.fetch\_add(1,\ std::memory\_order::relaxed);\ \}}
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keywordtype}{void}\ increment\_on\_completed()\ \{\ m\_on\_completed\_needed.fetch\_add(1,\ std::memory\_order::seq\_cst);\ \}}
 \DoxyCodeLine{00039\ }
 \DoxyCodeLine{00040\ \ \ \ \ \textcolor{comment}{//\ just\ need\ atomicity,\ not\ guarding\ anything}}
-\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keywordtype}{bool}\ decrement\_on\_completed()\ \{\ \textcolor{keywordflow}{return}\ m\_on\_completed\_needed.fetch\_sub(1,\ std::memory\_order::relaxed)\ ==\ 1;\ \}}
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keywordtype}{bool}\ decrement\_on\_completed()\ \{\ \textcolor{keywordflow}{return}\ m\_on\_completed\_needed.fetch\_sub(1,\ std::memory\_order::seq\_cst)\ ==\ 1;\ \}}
 \DoxyCodeLine{00042\ }
 \DoxyCodeLine{00043\ \ \ \ \ \mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1pointer__under__lock}{pointer\_under\_lock<TObserver>}}\ get\_observer\_under\_lock()\ \{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1pointer__under__lock}{pointer\_under\_lock}}\{m\_observer\};\ \}}
 \DoxyCodeLine{00044\ }

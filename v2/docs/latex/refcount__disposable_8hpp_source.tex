@@ -48,11 +48,11 @@
 \DoxyCodeLine{00044\ }
 \DoxyCodeLine{00045\ \ \ \ \ \textcolor{keywordtype}{void}\ release()}
 \DoxyCodeLine{00046\ \ \ \ \ \{}
-\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ current\_value\ =\ m\_refcount.load(std::memory\_order::relaxed);}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ current\_value\ =\ m\_refcount.load(std::memory\_order::seq\_cst);}
 \DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (current\_value\ !=\ s\_disposed)}
 \DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \{}
 \DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ new\_value\ =\ current\_value\ ==\ 1\ ?\ s\_disposed\ :\ current\_value\ -\/\ 1;}
-\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!m\_refcount.compare\_exchange\_strong(current\_value,\ new\_value,\ std::memory\_order::relaxed,\ std::memory\_order::relaxed))}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!m\_refcount.compare\_exchange\_strong(current\_value,\ new\_value,\ std::memory\_order::seq\_cst))}
 \DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{continue};}
 \DoxyCodeLine{00053\ }
 \DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (new\_value\ ==\ s\_disposed)}
@@ -63,7 +63,7 @@
 \DoxyCodeLine{00059\ }
 \DoxyCodeLine{00060\ \ \ \ \ \textcolor{keywordtype}{void}\ dispose\_impl()\ \textcolor{keyword}{noexcept}\ \textcolor{keyword}{override}}
 \DoxyCodeLine{00061\ \ \ \ \ \{}
-\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ m\_refcount.store(s\_disposed,\ std::memory\_order::relaxed);}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ m\_refcount.store(s\_disposed,\ std::memory\_order::seq\_cst);}
 \DoxyCodeLine{00063\ \ \ \ \ \}}
 \DoxyCodeLine{00064\ }
 \DoxyCodeLine{00065\ \textcolor{keyword}{public}:}
@@ -71,14 +71,14 @@
 \DoxyCodeLine{00067\ }
 \DoxyCodeLine{00068\ \ \ \ \ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{composite\_disposable\_wrapper}}\ add\_ref()}
 \DoxyCodeLine{00069\ \ \ \ \ \{}
-\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ current\_value\ =\ m\_refcount.load(std::memory\_order::relaxed);}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ current\_value\ =\ m\_refcount.load(std::memory\_order::seq\_cst);}
 \DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (\textcolor{keyword}{true})}
 \DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \{}
 \DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (current\_value\ ==\ s\_disposed)}
 \DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \{\};}
 \DoxyCodeLine{00075\ }
 \DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ just\ need\ atomicity,\ not\ guarding\ anything}}
-\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (m\_refcount.compare\_exchange\_strong(current\_value,\ current\_value\ +\ 1,\ std::memory\_order::relaxed,\ std::memory\_order::relaxed))}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (m\_refcount.compare\_exchange\_strong(current\_value,\ current\_value\ +\ 1,\ std::memory\_order::seq\_cst))}
 \DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
 \DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ inner\ =\ std::make\_shared<refocunt\_disposable\_inner>(shared\_from\_this());}
 \DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ add(rpp::disposable\_wrapper::from\_weak(inner));}

@@ -46,7 +46,7 @@
 \DoxyCodeLine{00042\ \ \ \ \ \textcolor{keywordtype}{bool}\ decrement\_on\_completed()}
 \DoxyCodeLine{00043\ \ \ \ \ \{}
 \DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ just\ need\ atomicity,\ not\ guarding\ anything}}
-\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ m\_on\_completed\_needed.fetch\_sub(1,\ std::memory\_order::relaxed)\ ==\ 1;}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ m\_on\_completed\_needed.fetch\_sub(1,\ std::memory\_order::seq\_cst)\ ==\ 1;}
 \DoxyCodeLine{00046\ \ \ \ \ \}}
 \DoxyCodeLine{00047\ }
 \DoxyCodeLine{00048\ \textcolor{keyword}{private}:}

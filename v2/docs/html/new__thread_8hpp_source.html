@@ -131,7 +131,7 @@ $(document).ready(function(){initNavTree('new__thread_8hpp_source.html',''); ini
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>        disposable()</div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>        {</div>
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>            <span class="comment">// just waiting</span></div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>            <span class="keywordflow">while</span> (!m_state-&gt;queue_ptr.load(std::memory_order::relaxed))</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>            <span class="keywordflow">while</span> (!m_state-&gt;queue_ptr.load(std::memory_order::seq_cst))</div>
 <div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>            {</div>
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>            };</div>
 <div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        }</div>
@@ -142,7 +142,7 @@ $(document).ready(function(){initNavTree('new__thread_8hpp_source.html',''); ini
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>                <span class="keywordflow">return</span>;</div>
 <div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>            <span class="comment">// just notify</span></div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>            m_state-&gt;is_destroying.store(<span class="keyword">true</span>, std::memory_order::relaxed);</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>            m_state-&gt;is_destroying.store(<span class="keyword">true</span>, std::memory_order::seq_cst);</div>
 <div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>            m_state-&gt;cv.notify_all();</div>
 <div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>            m_thread.detach();</div>
 <div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>        }</div>
@@ -155,7 +155,7 @@ $(document).ready(function(){initNavTree('new__thread_8hpp_source.html',''); ini
 <div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
 <div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>            std::lock_guard lock{m_state-&gt;mutex};</div>
 <div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>            <span class="comment">// guarded by lock</span></div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>            <span class="keywordflow">if</span> (<span class="keyword">const</span> <span class="keyword">auto</span> queue = m_state-&gt;queue_ptr.load(std::memory_order::relaxed))</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>            <span class="keywordflow">if</span> (<span class="keyword">const</span> <span class="keyword">auto</span> queue = m_state-&gt;queue_ptr.load(std::memory_order::seq_cst))</div>
 <div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>                queue-&gt;emplace(time_point, std::forward&lt;Fn&gt;(fn), std::forward&lt;Handler&gt;(handler), std::forward&lt;Args&gt;(args)...);</div>
 <div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>        }</div>
 <div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
@@ -166,7 +166,7 @@ $(document).ready(function(){initNavTree('new__thread_8hpp_source.html',''); ini
 <div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>                <span class="keywordflow">return</span>;</div>
 <div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
 <div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>            <span class="comment">// just need atomicity, not guarding anything</span></div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>            m_state-&gt;is_disposed.store(<span class="keyword">true</span>, std::memory_order::relaxed);</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>            m_state-&gt;is_disposed.store(<span class="keyword">true</span>, std::memory_order::seq_cst);</div>
 <div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>            m_state-&gt;cv.notify_all();</div>
 <div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span> </div>
 <div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>            <span class="keywordflow">if</span> (m_thread.get_id() != std::this_thread::get_id())</div>
@@ -185,18 +185,18 @@ $(document).ready(function(){initNavTree('new__thread_8hpp_source.html',''); ini
 <div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>        <span class="keyword">static</span> <span class="keywordtype">void</span> data_thread(std::shared_ptr&lt;state_t&gt; state)</div>
 <div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>        {</div>
 <div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>            <span class="keyword">auto</span>&amp;            queue = current_thread::s_queue;</div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>            state-&gt;queue_ptr.store(&amp;queue.emplace(state), std::memory_order::relaxed);</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>            state-&gt;queue_ptr.store(&amp;queue.emplace(state), std::memory_order::seq_cst);</div>
 <div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span> </div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>            <span class="keywordflow">while</span> (!state-&gt;is_disposed.load(std::memory_order::relaxed))</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>            <span class="keywordflow">while</span> (!state-&gt;is_disposed.load(std::memory_order::seq_cst))</div>
 <div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>            {</div>
 <div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>                std::unique_lock lock{state-&gt;mutex};</div>
 <div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>                </div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>                <span class="keywordflow">if</span> (state-&gt;is_destroying.load(std::memory_order::relaxed) &amp;&amp; queue-&gt;is_empty())</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>                <span class="keywordflow">if</span> (state-&gt;is_destroying.load(std::memory_order::seq_cst) &amp;&amp; queue-&gt;is_empty())</div>
 <div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>                    <span class="keywordflow">break</span>;</div>
 <div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span> </div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>                state-&gt;cv.wait(lock, [&amp;] { <span class="keywordflow">return</span> state-&gt;is_disposed.load(std::memory_order::relaxed) || !queue-&gt;is_empty() || state-&gt;is_destroying.load(std::memory_order::relaxed); });</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>                state-&gt;cv.wait(lock, [&amp;] { <span class="keywordflow">return</span> state-&gt;is_disposed.load(std::memory_order::seq_cst) || !queue-&gt;is_empty() || state-&gt;is_destroying.load(std::memory_order::seq_cst); });</div>
 <div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span> </div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>                <span class="keywordflow">if</span> (state-&gt;is_disposed.load(std::memory_order::relaxed) || state-&gt;is_destroying.load(std::memory_order::relaxed))</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>                <span class="keywordflow">if</span> (state-&gt;is_disposed.load(std::memory_order::seq_cst) || state-&gt;is_destroying.load(std::memory_order::seq_cst))</div>
 <div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>                    <span class="keywordflow">break</span>;</div>
 <div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span> </div>
 <div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>                <span class="keywordflow">if</span> (queue-&gt;top()-&gt;is_disposed())</div>
@@ -209,7 +209,7 @@ $(document).ready(function(){initNavTree('new__thread_8hpp_source.html',''); ini
 <div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>                {</div>
 <div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>                    <span class="keywordflow">if</span> (<span class="keyword">const</span> <span class="keyword">auto</span> now = worker_strategy::now(); now &lt; queue-&gt;top()-&gt;get_timepoint())</div>
 <div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>                    {</div>
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>                        state-&gt;cv.wait_for(lock, queue-&gt;top()-&gt;get_timepoint() - now, [&amp;] { <span class="keywordflow">return</span> state-&gt;is_disposed.load(std::memory_order::relaxed) || state-&gt;is_destroying.load(std::memory_order::relaxed) || worker_strategy::now() &gt;= queue-&gt;top()-&gt;get_timepoint(); });</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>                        state-&gt;cv.wait_for(lock, queue-&gt;top()-&gt;get_timepoint() - now, [&amp;] { <span class="keywordflow">return</span> state-&gt;is_disposed.load(std::memory_order::seq_cst) || state-&gt;is_destroying.load(std::memory_order::seq_cst) || worker_strategy::now() &gt;= queue-&gt;top()-&gt;get_timepoint(); });</div>
 <div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>                        <span class="keywordflow">continue</span>;</div>
 <div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>                    }</div>
 <div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>                }</div>
@@ -222,7 +222,7 @@ $(document).ready(function(){initNavTree('new__thread_8hpp_source.html',''); ini
 <div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>            }</div>
 <div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span> </div>
 <div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>            std::unique_lock lock{state-&gt;mutex};</div>
-<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>            state-&gt;queue_ptr.store(<span class="keyword">nullptr</span>, std::memory_order::relaxed);</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>            state-&gt;queue_ptr.store(<span class="keyword">nullptr</span>, std::memory_order::seq_cst);</div>
 <div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>            queue.reset();</div>
 <div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>        }</div>
 <div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span> </div>

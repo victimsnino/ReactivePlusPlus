@@ -30,19 +30,19 @@
 \DoxyCodeLine{00026\ \ \ \ \ \mbox{\hyperlink{classrpp_1_1details_1_1observers_1_1atomic__bool}{atomic\_bool}}()\ =\ \textcolor{keywordflow}{default};}
 \DoxyCodeLine{00027\ \ \ \ \ \mbox{\hyperlink{classrpp_1_1details_1_1observers_1_1atomic__bool}{atomic\_bool}}(\mbox{\hyperlink{classrpp_1_1details_1_1observers_1_1atomic__bool}{atomic\_bool}}\&\&\ other)\ \textcolor{keyword}{noexcept}}
 \DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ just\ need\ atomicity,\ not\ guarding\ anything}}
-\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ :\ m\_value\{other.m\_value.load(std::memory\_order::relaxed)\}}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ :\ m\_value\{other.m\_value.load(std::memory\_order::seq\_cst)\}}
 \DoxyCodeLine{00030\ \ \ \ \ \{\}}
 \DoxyCodeLine{00031\ }
 \DoxyCodeLine{00032\ \ \ \ \ \textcolor{keywordtype}{bool}\ test()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ }
 \DoxyCodeLine{00033\ \ \ \ \ \{}
 \DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ just\ need\ atomicity,\ not\ guarding\ anything}}
-\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ m\_value.load(std::memory\_order::relaxed);}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ m\_value.load(std::memory\_order::seq\_cst);}
 \DoxyCodeLine{00036\ \ \ \ \ \}}
 \DoxyCodeLine{00037\ }
 \DoxyCodeLine{00038\ \ \ \ \ \textcolor{keywordtype}{void}\ set()\ \textcolor{keyword}{noexcept}}
 \DoxyCodeLine{00039\ \ \ \ \ \{}
 \DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ just\ need\ atomicity,\ not\ guarding\ anything}}
-\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ m\_value.store(\textcolor{keyword}{true},\ std::memory\_order::relaxed);}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ m\_value.store(\textcolor{keyword}{true},\ std::memory\_order::seq\_cst);}
 \DoxyCodeLine{00042\ \ \ \ \ \}}
 \DoxyCodeLine{00043\ \textcolor{keyword}{private}:}
 \DoxyCodeLine{00044\ \ \ \ \ std::atomic\_bool\ m\_value\{\};}
