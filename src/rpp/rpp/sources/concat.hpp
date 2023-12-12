@@ -59,9 +59,10 @@ void drain(TObserver&& observer, PackedContainer&& container, size_t index);
 template<rpp::constraint::observer TObserver, constraint::decayed_type PackedContainer>
 struct concat_source_observer_strategy
 {
-    using value_type = rpp::utils::extract_observable_type_t<utils::iterable_value_t<PackedContainer>>;
+    using preferred_disposable_strategy = rpp::details::observers::none_disposable_strategy;
 
     std::shared_ptr<concat_state_t<TObserver, PackedContainer>> state{};
+    mutable bool                                                locally_disposed{};
 
     template<typename T>
     void on_next(T&& v) const
@@ -69,14 +70,19 @@ struct concat_source_observer_strategy
         state->observer.on_next(std::forward<T>(v));
     }
 
-    void on_error(const std::exception_ptr& err) const { state->observer.on_error(err); }
+    void on_error(const std::exception_ptr& err) const
+    {
+        locally_disposed = true;
+        state->observer.on_error(err);
+    }
 
     void set_upstream(const disposable_wrapper& d) { state->add(d); }
 
-    bool is_disposed() const { return state->is_disposed(); }
+    bool is_disposed() const { return locally_disposed || state->is_disposed(); }
 
     void on_completed() const
     {
+        locally_disposed = true;
         if (state->stage.exchange(ConcatStage::Completed, std::memory_order::seq_cst) == ConcatStage::InsideDrain)
             return;
 

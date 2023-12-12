@@ -24,6 +24,8 @@ auto as_blocking();
 
 auto buffer(size_t count);
 
+auto concat();
+
 template<typename TSelector, rpp::constraint::observable TObservable, rpp::constraint::observable... TObservables>
     requires (!rpp::constraint::observable<TSelector> && (!utils::is_not_template_callable<TSelector> || std::invocable<TSelector, rpp::utils::convertible_to_any, utils::extract_observable_type_t<TObservable>, utils::extract_observable_type_t<TObservables>...>))
 auto combine_latest(TSelector&& selector, TObservable&& observable, TObservables&&... observables);
