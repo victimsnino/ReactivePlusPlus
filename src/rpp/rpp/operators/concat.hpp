@@ -17,38 +17,48 @@
 
 #include <rpp/disposables/refcount_disposable.hpp>
 
+#include <queue>
+#include <cassert>
+
 
 namespace rpp::operators::details
 {
 enum ConcatStage : uint8_t
 {
-    None         = 0,
+    None        = 0,
     InsideDrain = 1,
-    Completed    = 2
+    Active      = 2
 };
 
-template<rpp::constraint::observer TObserver>
+template<rpp::constraint::observable TObservable, rpp::constraint::observer TObserver>
 class concat_state_t final : public rpp::refcount_disposable
 {
 public:
     concat_state_t(TObserver&& observer)
         : m_observer{std::move(observer)}
-    {}
+    {
+    }
 
     pointer_under_lock<TObserver> get_observer() { return pointer_under_lock{m_observer}; }
+    pointer_under_lock<std::queue<TObservable>> get_queue() { return pointer_under_lock{m_queue}; }
+
+    std::atomic<ConcatStage>& stage() { return m_stage; }
+
 private:
-    value_with_mutex<TObserver> m_observer;
+    value_with_mutex<TObserver>               m_observer;
+    value_with_mutex<std::queue<TObservable>> m_queue;
+    std::atomic<ConcatStage>                  m_stage{};
 };
 
-template<rpp::constraint::observer TObserver>
+template<rpp::constraint::observable TObservable, rpp::constraint::observer TObserver>
 struct concat_observer_strategy_base
 {
-    concat_observer_strategy_base(std::shared_ptr<concat_state_t<TObserver>> state)
+    concat_observer_strategy_base(std::shared_ptr<concat_state_t<TObservable, TObserver>> state)
         : state{std::move(state)}
     {
     }
 
-    std::shared_ptr<concat_state_t<TObserver>> state{};
+    std::shared_ptr<concat_state_t<TObservable, TObserver>> state{};
     rpp::composite_disposable_wrapper          refcounted = state->add_ref();
 
     template<typename T>
@@ -65,10 +75,10 @@ struct concat_observer_strategy_base
     bool is_disposed() const { return refcounted.is_disposed(); }
 };
 
-template<rpp::constraint::observer TObserver>
-struct concat_inner_observer_strategy : public concat_observer_strategy_base<TObserver>
+template<rpp::constraint::observable TObservable, rpp::constraint::observer TObserver>
+struct concat_inner_observer_strategy : public concat_observer_strategy_base<TObservable, TObserver>
 {
-    using base = concat_observer_strategy_base<TObserver>;
+    using base = concat_observer_strategy_base<TObservable, TObserver>;
 
     using base::base;
 
@@ -83,25 +93,49 @@ struct concat_inner_observer_strategy : public concat_observer_strategy_base<TOb
         base::refcounted.dispose();
         if (base::state->is_disposed())
             base::state->get_observer()->on_completed();
-        else
-            base::drain();
+
+        ConcatStage current = base::state->stage().load(std::memory_order::seq_cst);
+        if (current == ConcatStage::InsideDrain)
+            return;
+
+        assert(current == ConcatStage::Active);
+        const auto queue = base::state->queue();
+
+        if (base::state->stage().compare_exchange_strong(current, queue->empty() ? ConcatStage::None : ConcatStage::InsideDrain, std::memory_order::seq_cst)) 
+        {
+            if (queue->empty())
+                return;
+            // immediate drain with unlock of queue
+        }
+        
     }
 };
 
-template<rpp::constraint::observer TObserver>
-struct concat_observer_strategy : public concat_observer_strategy_base<TObserver>
+template<rpp::constraint::observable TObservable, rpp::constraint::observer TObserver>
+struct concat_observer_strategy : public concat_observer_strategy_base<TObservable, TObserver>
 {
-    using base = concat_observer_strategy_base<TObserver>;
+    using base = concat_observer_strategy_base<TObservable, TObserver>;
     using preferred_disposable_strategy = rpp::details::observers::none_disposable_strategy;
 
     concat_observer_strategy(TObserver&& observer)
-        : base{std::make_shared<concat_state_t<TObserver>>(std::move(observer))}
+        : base{std::make_shared<concat_state_t<TObservable, TObserver>>(std::move(observer))}
     {
-        base::state->get_observer()->set_upstream(rpp::disposable_wrapper::from_weak(state));
+        base::state->get_observer()->set_upstream(rpp::disposable_wrapper::from_weak(base::state));
     }
 
     template<typename T>
-    void on_next(T&& v) const { }
+    void on_next(T&& v) const 
+    { 
+        ConcatStage current = ConcatStage::None;
+        if (base::state->stage().compare_exchange_strong(current, ConcatStage::InsideDrain, std::memory_order::seq_cst)) 
+        {
+            // immediate drain
+        } 
+        else 
+        {
+            base::state->queue()->push(std::forward<T>(v));
+        }
+    }
 
     void on_completed() const
     {
@@ -111,7 +145,7 @@ struct concat_observer_strategy : public concat_observer_strategy_base<TObserver
     }
 };
 
-struct concat_t: public operators::details::operator_observable_strategy<concat_observer_strategy>
+struct concat_t: public operators::details::template_operator_observable_strategy<concat_observer_strategy>
 {
     template<rpp::constraint::decayed_type T>
         requires rpp::constraint::observable<T>
