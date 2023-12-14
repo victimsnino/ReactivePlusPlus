@@ -48,7 +48,7 @@ public:
 
     std::atomic<ConcatStage>& stage() { return m_stage; }
 
-    void drain(rpp::composite_disposable refcounted)
+    void drain(rpp::composite_disposable_wrapper refcounted)
     {
         while(true)
         {
@@ -68,7 +68,7 @@ public:
         }
     }
 
-    void handle_observable(const rpp::constraint::decayed_same_as<TObservable> auto& observable, rpp::composite_disposable refcounted)
+    void handle_observable(const rpp::constraint::decayed_same_as<TObservable> auto& observable, rpp::composite_disposable_wrapper refcounted)
     {
         if (!handle_observable_impl(observable, refcounted))
             return;
@@ -77,9 +77,9 @@ public:
     }
 
 private:
-    bool handle_observable_impl(const rpp::constraint::decayed_same_as<TObservable> auto& observable, rpp::composite_disposable refcounted)
+    bool handle_observable_impl(const rpp::constraint::decayed_same_as<TObservable> auto& observable, rpp::composite_disposable_wrapper refcounted)
     {
-        observable->subscribe(concat_inner_observer_strategy<TObservable, TObserver>{shared_from_this(), std::move(refcounted)});
+        observable.subscribe(concat_inner_observer_strategy<TObservable, TObserver>{shared_from_this(), std::move(refcounted)});
 
         ConcatStage current = ConcatStage::Draining;
         if (stage().compare_exchange_strong(current, ConcatStage::Processing, std::memory_order::seq_cst))
@@ -92,11 +92,11 @@ private:
 private:
     std::optional<TObservable> get_observable()
     {
-        const auto queue = get_queue();
-        if (queue.is_empty())
+        auto queue = get_queue();
+        if (queue->iempty())
             return {};
-        auto observable = queue.front();
-        queue.pop();
+        auto observable = queue->front();
+        queue->pop();
         return observable;
     }
 
@@ -179,7 +179,7 @@ struct concat_observer_strategy : public concat_observer_strategy_base<TObservab
         if (base::state->stage().compare_exchange_strong(current, ConcatStage::Draining, std::memory_order::seq_cst))
             base::state->handle_observable(std::forward<T>(v), base::state->add_ref());
         else 
-            base::state->queue()->push(std::forward<T>(v));
+            base::state->get_queue()->push(std::forward<T>(v));
     }
 
     void on_completed() const
