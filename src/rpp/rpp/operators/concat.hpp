@@ -68,16 +68,16 @@ public:
         }
     }
 
-    void handle_observable(rpp::constraint::decayed_same_as<TObservable> auto&& observable, rpp::composite_disposable refcounted)
+    void handle_observable(const rpp::constraint::decayed_same_as<TObservable> auto& observable, rpp::composite_disposable refcounted)
     {
-        if (!handle_observable_impl(std::forward<decltype(observable)>(observable), refcounted))
+        if (!handle_observable_impl(observable, refcounted))
             return;
         
         drain(refcounted);
     }
 
 private:
-    bool handle_observable_impl(rpp::constraint::decayed_same_as<TObservable> auto&& observable, rpp::composite_disposable refcounted)
+    bool handle_observable_impl(const rpp::constraint::decayed_same_as<TObservable> auto& observable, rpp::composite_disposable refcounted)
     {
         observable->subscribe(concat_inner_observer_strategy<TObservable, TObserver>{shared_from_this(), std::move(refcounted)});
 
