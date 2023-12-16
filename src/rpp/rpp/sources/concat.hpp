@@ -96,7 +96,7 @@ void drain(const std::shared_ptr<concat_state_t<TObserver, PackedContainer>>& st
 
         using value_type = rpp::utils::extract_observable_type_t<utils::iterable_value_t<PackedContainer>>;
         state->clear();
-        state->is_inside_drain.store(false, std::memory_order::seq_cst);
+        state->is_inside_drain.store(true, std::memory_order::seq_cst);
         try
         {
             (*(state->itr.value()++)).subscribe(observer<value_type, concat_source_observer_strategy<std::decay_t<TObserver>, std::decay_t<PackedContainer>>>{state});

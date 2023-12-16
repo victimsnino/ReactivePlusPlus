@@ -35,7 +35,7 @@ enum ConcatStage : uint8_t
 };
 
 template<rpp::constraint::observable TObservable, rpp::constraint::observer TObserver>
-class concat_state_t final : public rpp::refcount_disposable, public std::enable_shared_from_this<concat_state_t<TObservable, TObserver>>
+class concat_state_t final : public rpp::refcount_disposable
 {
 public:
     concat_state_t(TObserver&& observer)
@@ -79,6 +79,7 @@ public:
 private:
     bool handle_observable_impl(const rpp::constraint::decayed_same_as<TObservable> auto& observable, rpp::composite_disposable_wrapper refcounted)
     {
+        
         observable.subscribe(concat_inner_observer_strategy<TObservable, TObserver>{std::static_pointer_cast<concat_state_t>(shared_from_this()), std::move(refcounted)});
 
         ConcatStage current = ConcatStage::Draining;
@@ -86,6 +87,7 @@ private:
             return false;
 
         assert(current == ConcatStage::CompletedWhileDraining);
+        stage().store(ConcatStage::Draining, std::memory_order::relaxed);
         return true;
     }
 
