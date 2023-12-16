@@ -206,6 +206,31 @@ struct concat_t: public operators::details::template_operator_observable_strateg
 
 namespace rpp::operators
 {
+/**
+ * @brief Make observable which would merge emissions from underlying observables but without overlapping (current observable completes THEN next started to emit its values)
+ *
+ * @marble concat
+ {
+     source observable :
+     {
+         +--1-2-3-|
+         .....+4--6-|
+     }
+     operator "concat" : +--1-2-3-4--6-|
+ }
+ *
+ * @details Actually it subscribes on first observable from emissions. When first observable completes, then it subscribes on second observable from emissions and etc...
+ *
+ * @tparam MemoryModel rpp::memory_model strategy used to handle provided observables
+ *
+ * @warning #include <rpp/operators/concat.hpp>
+ *
+ * @par Example
+ * @snippet concat.cpp concat_as_operator
+ *
+ * @ingroup creational_operators
+ * @see https://reactivex.io/documentation/operators/concat.html
+ */
 inline auto concat()
 {
     return details::concat_t{};

@@ -421,3 +421,9 @@ TEST_CASE("concat satisfies disposable contracts")
 {
     test_operator_over_observable_with_disposable<int>([](auto&& observable){return rpp::source::concat(observable);});
 }
+
+TEST_CASE("concat as operator satisfies disposable contracts")
+{
+    test_operator_over_observable_with_disposable<int>([](auto&& observable){return rpp::source::just(observable) | rpp::ops::concat();});
+    test_operator_over_observable_with_disposable<rpp::dynamic_observable<int>>([](auto&& observable){return observable | rpp::ops::concat();});
+}
