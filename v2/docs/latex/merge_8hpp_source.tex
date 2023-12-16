@@ -30,7 +30,7 @@
 \DoxyCodeLine{00026\ \textcolor{keyword}{namespace\ }rpp::operators::details}
 \DoxyCodeLine{00027\ \{}
 \DoxyCodeLine{00028\ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::observer\ TObserver>}
-\DoxyCodeLine{00029\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1merge__disposable}{merge\_disposable}}\ final\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classrpp_1_1composite__disposable}{composite\_disposable}}}
+\DoxyCodeLine{00029\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1merge__disposable}{merge\_disposable}}\ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{final}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classrpp_1_1composite__disposable}{composite\_disposable}}}
 \DoxyCodeLine{00030\ \{}
 \DoxyCodeLine{00031\ \textcolor{keyword}{public}:}
 \DoxyCodeLine{00032\ \ \ \ \ \mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1merge__disposable}{merge\_disposable}}(TObserver\&\&\ \mbox{\hyperlink{classrpp_1_1observer}{observer}})}
@@ -64,10 +64,10 @@
 \DoxyCodeLine{00060\ \ \ \ \ \{}
 \DoxyCodeLine{00061\ \ \ \ \ \}}
 \DoxyCodeLine{00062\ }
-\DoxyCodeLine{00063\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_upstream(\textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp::disposable\_wrapper}}\&\ d)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_upstream(\textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp::disposable\_wrapper}}\&\ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{d}})\textcolor{keyword}{\ const}}
 \DoxyCodeLine{00064\ \textcolor{keyword}{\ \ \ \ }\{}
-\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ m\_disposable-\/>add(d);}
-\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ m\_disposables.push\_back(d);}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ m\_disposable-\/>add(\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{d}});}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ m\_disposables.push\_back(\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{d}});}
 \DoxyCodeLine{00067\ \ \ \ \ \}}
 \DoxyCodeLine{00068\ }
 \DoxyCodeLine{00069\ \ \ \ \ \textcolor{keywordtype}{bool}\ is\_disposed()\textcolor{keyword}{\ const}}
@@ -85,8 +85,8 @@
 \DoxyCodeLine{00081\ \textcolor{keyword}{\ \ \ \ }\{}
 \DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (m\_disposable-\/>decrement\_on\_completed())}
 \DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ v\ :\ m\_disposables)\ \{}
-\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ m\_disposable-\/>remove(v);}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{v}}\ :\ m\_disposables)\ \{}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ m\_disposable-\/>remove(\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{v}});}
 \DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \ \ \ \ m\_disposable-\/>dispose();}
 \DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \ \ \ \ m\_disposable-\/>get\_observer\_under\_lock()-\/>on\_completed();}
@@ -99,19 +99,19 @@
 \DoxyCodeLine{00095\ \};}
 \DoxyCodeLine{00096\ }
 \DoxyCodeLine{00097\ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::observer\ TObserver>}
-\DoxyCodeLine{00098\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1merge__observer__inner__strategy}{merge\_observer\_inner\_strategy}}\ final\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1merge__observer__base__strategy}{merge\_observer\_base\_strategy}}<TObserver>}
+\DoxyCodeLine{00098\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1merge__observer__inner__strategy}{merge\_observer\_inner\_strategy}}\ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{final}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1merge__observer__base__strategy}{merge\_observer\_base\_strategy}}<TObserver>}
 \DoxyCodeLine{00099\ \{}
 \DoxyCodeLine{00100\ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1merge__observer__base__strategy}{merge\_observer\_base\_strategy}}<TObserver>::merge\_observer\_base\_strategy;}
 \DoxyCodeLine{00101\ }
 \DoxyCodeLine{00102\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
-\DoxyCodeLine{00103\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_next(T\&\&\ v)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00103\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_next(T\&\&\ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{v}})\textcolor{keyword}{\ const}}
 \DoxyCodeLine{00104\ \textcolor{keyword}{\ \ \ \ }\{}
-\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1merge__observer__base__strategy}{merge\_observer\_base\_strategy<TObserver>::m\_disposable}}-\/>get\_observer\_under\_lock()-\/>on\_next(std::forward<T>(v));}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1merge__observer__base__strategy}{merge\_observer\_base\_strategy<TObserver>::m\_disposable}}-\/>get\_observer\_under\_lock()-\/>on\_next(std::forward<T>(\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{v}}));}
 \DoxyCodeLine{00106\ \ \ \ \ \}}
 \DoxyCodeLine{00107\ \};}
 \DoxyCodeLine{00108\ }
 \DoxyCodeLine{00109\ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::observer\ TObserver>}
-\DoxyCodeLine{00110\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1merge__observer__strategy}{merge\_observer\_strategy}}\ final\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1merge__observer__base__strategy}{merge\_observer\_base\_strategy}}<TObserver>}
+\DoxyCodeLine{00110\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1merge__observer__strategy}{merge\_observer\_strategy}}\ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{final}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1merge__observer__base__strategy}{merge\_observer\_base\_strategy}}<TObserver>}
 \DoxyCodeLine{00111\ \{}
 \DoxyCodeLine{00112\ \textcolor{keyword}{public}:}
 \DoxyCodeLine{00113\ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1merge__observer__strategy}{merge\_observer\_strategy}}(TObserver\&\&\ \mbox{\hyperlink{classrpp_1_1observer}{observer}})}
@@ -121,10 +121,10 @@
 \DoxyCodeLine{00117\ \ \ \ \ \}}
 \DoxyCodeLine{00118\ }
 \DoxyCodeLine{00119\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
-\DoxyCodeLine{00120\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_next(T\&\&\ v)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00120\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_next(T\&\&\ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{v}})\textcolor{keyword}{\ const}}
 \DoxyCodeLine{00121\ \textcolor{keyword}{\ \ \ \ }\{}
 \DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1merge__observer__base__strategy}{merge\_observer\_base\_strategy<TObserver>::m\_disposable}}-\/>increment\_on\_completed();}
-\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ std::forward<T>(v).subscribe(\mbox{\hyperlink{classrpp_1_1observer}{rpp::observer}}<rpp::utils::extract\_observer\_type\_t<TObserver>,\ \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1merge__observer__inner__strategy}{merge\_observer\_inner\_strategy<TObserver>}}>\{\mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1merge__observer__inner__strategy}{merge\_observer\_inner\_strategy<TObserver>}}\{\mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1merge__observer__base__strategy}{merge\_observer\_base\_strategy<TObserver>::m\_disposable}}\}\});}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ std::forward<T>(\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{v}}).subscribe(\mbox{\hyperlink{classrpp_1_1observer}{rpp::observer}}<rpp::utils::extract\_observer\_type\_t<TObserver>,\ \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1merge__observer__inner__strategy}{merge\_observer\_inner\_strategy<TObserver>}}>\{\mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1merge__observer__inner__strategy}{merge\_observer\_inner\_strategy<TObserver>}}\{\mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1merge__observer__base__strategy}{merge\_observer\_base\_strategy<TObserver>::m\_disposable}}\}\});}
 \DoxyCodeLine{00124\ \ \ \ \ \}}
 \DoxyCodeLine{00125\ \};}
 \DoxyCodeLine{00126\ }
@@ -137,22 +137,22 @@
 \DoxyCodeLine{00133\ \ \ \ \ \textcolor{keyword}{template}<rpp::details::observables::constra\textcolor{keywordtype}{int}::disposable\_strategy\ Prev>}
 \DoxyCodeLine{00134\ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{structrpp_1_1details_1_1observables_1_1fixed__disposable__strategy__selector}{updated\_disposable\_strategy}}\ =\ \mbox{\hyperlink{structrpp_1_1details_1_1observables_1_1fixed__disposable__strategy__selector}{rpp::details::observables::fixed\_disposable\_strategy\_selector<1>}};}
 \DoxyCodeLine{00135\ }
-\DoxyCodeLine{00136\ \ \ \ \ \textcolor{keyword}{template}<\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer}{rpp::constraint::observer}}\ Observer,\ \textcolor{keyword}{typename}...\ Strategies>}
+\DoxyCodeLine{00136\ \ \ \ \ \textcolor{keyword}{template}<\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer}{rpp::constraint::observer}}\ Observer,\ \textcolor{keyword}{typename}...\ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{Strategies}}>}
 \DoxyCodeLine{00137\ \ \ \ \ \textcolor{keywordtype}{void}\ subscribe(Observer\&\&\ \mbox{\hyperlink{classrpp_1_1observer}{observer}},\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1observable__chain__strategy}{observable\_chain\_strategy<Strategies...>}}\&\ strategy)\textcolor{keyword}{\ const}}
 \DoxyCodeLine{00138\ \textcolor{keyword}{\ \ \ \ }\{}
 \DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Need\ to\ take\ ownership\ over\ current\_thread\ in\ case\ of\ inner-\/observables\ also\ uses\ them}}
-\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ drain\_on\_exit\ =\ rpp::schedulers::current\_thread::own\_queue\_and\_drain\_finally\_if\_not\_owned();}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{drain\_on\_exit}}\ =\ rpp::schedulers::current\_thread::own\_queue\_and\_drain\_finally\_if\_not\_owned();}
 \DoxyCodeLine{00141\ }
-\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }InnerObservable\ =\ \textcolor{keyword}{typename}\ \mbox{\hyperlink{classrpp_1_1observable__chain__strategy}{observable\_chain\_strategy}}<Strategies...>::value\_type;}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{InnerObservable}}\ =\ \textcolor{keyword}{typename}\ \mbox{\hyperlink{classrpp_1_1observable__chain__strategy}{observable\_chain\_strategy}}<\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{Strategies}}...>::value\_type;}
 \DoxyCodeLine{00143\ }
-\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ strategy.subscribe(\mbox{\hyperlink{classrpp_1_1observer}{rpp::observer}}<InnerObservable,\ \mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1merge__observer__strategy}{merge\_observer\_strategy}}<std::decay\_t<Observer>>>\{std::forward<Observer>(\mbox{\hyperlink{classrpp_1_1observer}{observer}})\});}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ strategy.subscribe(\mbox{\hyperlink{classrpp_1_1observer}{rpp::observer}}<\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{InnerObservable}},\ \mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1merge__observer__strategy}{merge\_observer\_strategy}}<std::decay\_t<Observer>>>\{std::forward<Observer>(\mbox{\hyperlink{classrpp_1_1observer}{observer}})\});}
 \DoxyCodeLine{00145\ \ \ \ \ \}}
 \DoxyCodeLine{00146\ \};}
 \DoxyCodeLine{00147\ }
-\DoxyCodeLine{00148\ \textcolor{keyword}{template}<\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp::constraint::observable}}...\ TObservables>}
+\DoxyCodeLine{00148\ \textcolor{keyword}{template}<\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp::constraint::observable}}...\ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{TObservables}}>}
 \DoxyCodeLine{00149\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1merge__with__t}{merge\_with\_t}}}
 \DoxyCodeLine{00150\ \{}
-\DoxyCodeLine{00151\ \ \ \ \ RPP\_NO\_UNIQUE\_ADDRESS\ rpp::utils::tuple<TObservables...>\ observables\{\};}
+\DoxyCodeLine{00151\ \ \ \ \ RPP\_NO\_UNIQUE\_ADDRESS\ rpp::utils::tuple<\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{TObservables}}...>\ observables\{\};}
 \DoxyCodeLine{00152\ }
 \DoxyCodeLine{00153\ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type\ T>}
 \DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ \textcolor{keyword}{requires}\ (std::same\_as<T,\ rpp::utils::extract\_observable\_type\_t<TObservables>>\ \&\&\ ...)}
@@ -161,13 +161,13 @@
 \DoxyCodeLine{00157\ \ \ \ \ \textcolor{keyword}{template}<rpp::details::observables::constra\textcolor{keywordtype}{int}::disposable\_strategy\ Prev>}
 \DoxyCodeLine{00158\ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{structrpp_1_1details_1_1observables_1_1fixed__disposable__strategy__selector}{updated\_disposable\_strategy}}\ =\ \mbox{\hyperlink{structrpp_1_1details_1_1observables_1_1fixed__disposable__strategy__selector}{rpp::details::observables::fixed\_disposable\_strategy\_selector<1>}};}
 \DoxyCodeLine{00159\ }
-\DoxyCodeLine{00160\ \ \ \ \ \textcolor{keyword}{template}<\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer}{rpp::constraint::observer}}\ Observer,\ \textcolor{keyword}{typename}...\ Strategies>}
+\DoxyCodeLine{00160\ \ \ \ \ \textcolor{keyword}{template}<\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer}{rpp::constraint::observer}}\ Observer,\ \textcolor{keyword}{typename}...\ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{Strategies}}>}
 \DoxyCodeLine{00161\ \ \ \ \ \textcolor{keywordtype}{void}\ subscribe(Observer\&\&\ \mbox{\hyperlink{classrpp_1_1observer}{observer}},\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1observable__chain__strategy}{observable\_chain\_strategy<Strategies...>}}\&\ observable\_strategy)\textcolor{keyword}{\ const}}
 \DoxyCodeLine{00162\ \textcolor{keyword}{\ \ \ \ }\{}
 \DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1merge__observer__strategy}{merge\_observer\_strategy<std::decay\_t<Observer>}}>\ strategy\{std::forward<Observer>(\mbox{\hyperlink{classrpp_1_1observer}{observer}})\};}
 \DoxyCodeLine{00164\ }
 \DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Need\ to\ take\ ownership\ over\ current\_thread\ in\ case\ of\ inner-\/observables\ also\ uses\ them}}
-\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ drain\_on\_exit\ =\ rpp::schedulers::current\_thread::own\_queue\_and\_drain\_finally\_if\_not\_owned();}
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{drain\_on\_exit}}\ =\ rpp::schedulers::current\_thread::own\_queue\_and\_drain\_finally\_if\_not\_owned();}
 \DoxyCodeLine{00167\ }
 \DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ strategy.on\_next(observable\_strategy);}
 \DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ observables.apply(\&apply<std::decay\_t<Observer>>,\ strategy);}
@@ -176,7 +176,7 @@
 \DoxyCodeLine{00172\ }
 \DoxyCodeLine{00173\ \textcolor{keyword}{private}:}
 \DoxyCodeLine{00174\ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::observer\ Observer>}
-\DoxyCodeLine{00175\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ apply(\textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1merge__observer__strategy}{merge\_observer\_strategy<Observer>}}\&\ strategy,\ \textcolor{keyword}{const}\ TObservables\&...\ observables)}
+\DoxyCodeLine{00175\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ apply(\textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1merge__observer__strategy}{merge\_observer\_strategy<Observer>}}\&\ strategy,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{TObservables}}\&...\ observables)}
 \DoxyCodeLine{00176\ \ \ \ \ \{}
 \DoxyCodeLine{00177\ \ \ \ \ \ \ \ \ (strategy.on\_next(observables),\ ...);}
 \DoxyCodeLine{00178\ \ \ \ \ \}}
@@ -190,9 +190,9 @@
 \DoxyCodeLine{00217\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1merge__t}{details::merge\_t}}\{\};}
 \DoxyCodeLine{00218\ \}}
 \DoxyCodeLine{00219\ }
-\DoxyCodeLine{00249\ \textcolor{keyword}{template}<\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp::constraint::observable}}\ TObservable,\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp::constraint::observable}}...\ TObservables>}
+\DoxyCodeLine{00249\ \textcolor{keyword}{template}<\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp::constraint::observable}}\ TObservable,\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp::constraint::observable}}...\ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{TObservables}}>}
 \DoxyCodeLine{00250\ \ \ \ \ \textcolor{keyword}{requires}\ constraint::observables\_of\_same\_type<std::decay\_t<TObservable>,\ std::decay\_t<TObservables>...>}
-\DoxyCodeLine{00251\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__combining__operators_ga35392a84e52bf7101d0d0445ef391db7}{merge\_with}}(TObservable\&\&\ observable,\ TObservables\&\&...\ observables)}
+\DoxyCodeLine{00251\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__combining__operators_ga35392a84e52bf7101d0d0445ef391db7}{merge\_with}}(TObservable\&\&\ observable,\ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{TObservables}}\&\&...\ observables)}
 \DoxyCodeLine{00252\ \{}
 \DoxyCodeLine{00253\ \ \ \ \ \textcolor{keywordflow}{return}\ details::merge\_with\_t<std::decay\_t<TObservable>,\ std::decay\_t<TObservables>...>\{}
 \DoxyCodeLine{00254\ \ \ \ \ \ \ \ \ rpp::utils::tuple\{std::forward<TObservable>(observable),\ std::forward<TObservables>(observables)...\}}

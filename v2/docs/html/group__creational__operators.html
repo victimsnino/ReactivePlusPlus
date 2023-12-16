@@ -107,6 +107,9 @@ $(document).ready(function(){initNavTree('group__creational__operators.html','')
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:gab5cc2df8f7221b124d67d66de60a7bcd" id="r_gab5cc2df8f7221b124d67d66de60a7bcd"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__creational__operators.html#gab5cc2df8f7221b124d67d66de60a7bcd">rpp::operators::concat</a> ()</td></tr>
+<tr class="memdesc:gab5cc2df8f7221b124d67d66de60a7bcd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Make observable which would merge emissions from underlying observables but without overlapping (current observable completes THEN next started to emit its values)  <br /></td></tr>
+<tr class="separator:gab5cc2df8f7221b124d67d66de60a7bcd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gab6cfd9da2e3590fd199c9972477e04df" id="r_gab6cfd9da2e3590fd199c9972477e04df"><td class="memTemplParams" colspan="2">template&lt;constraint::memory_model MemoryModel, <a class="el" href="conceptrpp_1_1constraint_1_1observable.html">rpp::constraint::observable</a> TObservable, rpp::constraint::observable... TObservables&gt; <br />
 requires (std::same_as&lt;rpp::utils::extract_observable_type_t&lt;TObservable&gt;, rpp::utils::extract_observable_type_t&lt;TObservables&gt;&gt; &amp;&amp; ...)</td></tr>
 <tr class="memitem:gab6cfd9da2e3590fd199c9972477e04df"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">rpp::source::concat</a> (TObservable &amp;&amp;obs, TObservables &amp;&amp;... others)</td></tr>
@@ -169,8 +172,58 @@ requires (constraint::decayed_same_as&lt;T, <a class="el" href="group__creationa
 <p>Creational operators are operators that create new observable. </p>
 <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators.html#creating">https://reactivex.io/documentation/operators.html#creating</a> </dd></dl>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="gab5cc2df8f7221b124d67d66de60a7bcd" name="gab5cc2df8f7221b124d67d66de60a7bcd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gab5cc2df8f7221b124d67d66de60a7bcd">&#9670;&#160;</a></span>concat() <span class="overload">[1/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto rpp::operators::concat </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Make observable which would merge emissions from underlying observables but without overlapping (current observable completes THEN next started to emit its values) </p>
+<div class="image">
+<object type="image/svg+xml" data="concat.svg" style="pointer-events: none;"></object>
+</div>
+<p>Actually it subscribes on first observable from emissions. When first observable completes, then it subscribes on second observable from emissions and etc...</p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">MemoryModel</td><td>rpp::memory_model strategy used to handle provided observables</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section warning"><dt>Warning</dt><dd><a class="el" href="group__creational__operators.html#gab5cc2df8f7221b124d67d66de60a7bcd" title="Make observable which would merge emissions from underlying observables but without overlapping (curr...">include</a> &lt;<a class="el" href="operators_2concat_8hpp_source.html">rpp/operators/concat.hpp</a>&gt;</dd></dl>
+<dl class="section user"><dt>Example</dt><dd><div class="fragment"><div class="line">    <a class="code hl_function" href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">rpp::source::just</a>(<a class="code hl_function" href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">rpp::source::just</a>(1).as_dynamic(), </div>
+<div class="line">                      <a class="code hl_function" href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">rpp::source::just</a>(2).as_dynamic(), </div>
+<div class="line">                      <a class="code hl_function" href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">rpp::source::just</a>(1, 2, 3).as_dynamic())</div>
+<div class="line">        | <a class="code hl_function" href="group__creational__operators.html#gab5cc2df8f7221b124d67d66de60a7bcd">rpp::operators::concat</a>()</div>
+<div class="line">        | rpp::operators::subscribe([](<span class="keywordtype">int</span> <a class="code hl_function" href="group__creational__operators.html#gab5cc2df8f7221b124d67d66de60a7bcd">v</a>) { std::cout &lt;&lt; <a class="code hl_function" href="group__creational__operators.html#gab5cc2df8f7221b124d67d66de60a7bcd">v</a> &lt;&lt; <span class="stringliteral">&quot;, &quot;</span>; }, [](<span class="keyword">const</span> std::exception_ptr&amp;) {}, []() { std::cout &lt;&lt; <span class="stringliteral">&quot;completed\n&quot;</span>; });</div>
+<div class="line">    <span class="comment">// Output: 1, 2, 1, 2, 3, completed</span></div>
+<div class="ttc" id="agroup__creational__operators_html_ga1edf47f176050dd414e28a1c0616b7c0"><div class="ttname"><a href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">rpp::source::just</a></div><div class="ttdeci">auto just(const TScheduler &amp;scheduler, T &amp;&amp;item, Ts &amp;&amp;... items)</div><div class="ttdoc">Creates rpp::observable that emits a particular items and completes.</div><div class="ttdef"><b>Definition</b> from.hpp:207</div></div>
+<div class="ttc" id="agroup__creational__operators_html_gab5cc2df8f7221b124d67d66de60a7bcd"><div class="ttname"><a href="group__creational__operators.html#gab5cc2df8f7221b124d67d66de60a7bcd">rpp::operators::concat</a></div><div class="ttdeci">auto concat()</div><div class="ttdoc">Make observable which would merge emissions from underlying observables but without overlapping (curr...</div><div class="ttdef"><b>Definition</b> concat.hpp:220</div></div>
+</div><!-- fragment --></dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/concat.html">https://reactivex.io/documentation/operators/concat.html</a> </dd></dl>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="concat_8cpp-example.html#a2">concat.cpp</a>, and <a class="el" href="multicast_8cpp-example.html#a3">multicast.cpp</a>.</dd>
+</dl>
+
+</div>
+</div>
 <a id="ga4f9024c949765737e6a99a05f74d382e" name="ga4f9024c949765737e6a99a05f74d382e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga4f9024c949765737e6a99a05f74d382e">&#9670;&#160;</a></span>concat() <span class="overload">[1/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ga4f9024c949765737e6a99a05f74d382e">&#9670;&#160;</a></span>concat() <span class="overload">[2/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -205,19 +258,18 @@ requires constraint::observable&lt;utils::iterable_value_t&lt;Iterable&gt;&gt;</
   </table>
   </dd>
 </dl>
-<dl class="section warning"><dt>Warning</dt><dd><a class="el" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df" title="Make observable which would merge emissions from underlying observables but without overlapping (curr...">include</a> &lt;rpp/operators/concat.hpp&gt;</dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd><a class="el" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df" title="Make observable which would merge emissions from underlying observables but without overlapping (curr...">include</a> &lt;<a class="el" href="operators_2concat_8hpp_source.html">rpp/operators/concat.hpp</a>&gt;</dd></dl>
 <dl class="section user"><dt>Example</dt><dd><div class="fragment"><div class="line">    <span class="keyword">auto</span> observables = std::vector{<a class="code hl_function" href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">rpp::source::just</a>(1), <a class="code hl_function" href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">rpp::source::just</a>(2)};</div>
 <div class="line">    <a class="code hl_function" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">rpp::source::concat&lt;rpp::memory_model::use_shared&gt;</a>(observables).subscribe([](<span class="keywordtype">int</span> <a class="code hl_function" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">v</a>){std::cout &lt;&lt; <a class="code hl_function" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">v</a> &lt;&lt; <span class="stringliteral">&quot;, &quot;</span>;}, [](<span class="keyword">const</span> std::exception_ptr&amp;){}, [](){std::cout &lt;&lt; <span class="stringliteral">&quot;completed\n&quot;</span>;});</div>
 <div class="line">    <span class="comment">// Output: 1, 2, completed</span></div>
-<div class="ttc" id="agroup__creational__operators_html_ga1edf47f176050dd414e28a1c0616b7c0"><div class="ttname"><a href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">rpp::source::just</a></div><div class="ttdeci">auto just(const TScheduler &amp;scheduler, T &amp;&amp;item, Ts &amp;&amp;... items)</div><div class="ttdoc">Creates rpp::observable that emits a particular items and completes.</div><div class="ttdef"><b>Definition</b> from.hpp:207</div></div>
-<div class="ttc" id="agroup__creational__operators_html_gab6cfd9da2e3590fd199c9972477e04df"><div class="ttname"><a href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">rpp::source::concat</a></div><div class="ttdeci">auto concat(TObservable &amp;&amp;obs, TObservables &amp;&amp;... others)</div><div class="ttdoc">Make observable which would merge emissions from underlying observables but without overlapping (curr...</div><div class="ttdef"><b>Definition</b> concat.hpp:169</div></div>
+<div class="ttc" id="agroup__creational__operators_html_gab6cfd9da2e3590fd199c9972477e04df"><div class="ttname"><a href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">rpp::source::concat</a></div><div class="ttdeci">auto concat(TObservable &amp;&amp;obs, TObservables &amp;&amp;... others)</div><div class="ttdoc">Make observable which would merge emissions from underlying observables but without overlapping (curr...</div><div class="ttdef"><b>Definition</b> concat.hpp:168</div></div>
 </div><!-- fragment --></dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/concat.html">https://reactivex.io/documentation/operators/concat.html</a> </dd></dl>
 
 </div>
 </div>
 <a id="gab6cfd9da2e3590fd199c9972477e04df" name="gab6cfd9da2e3590fd199c9972477e04df"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gab6cfd9da2e3590fd199c9972477e04df">&#9670;&#160;</a></span>concat() <span class="overload">[2/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#gab6cfd9da2e3590fd199c9972477e04df">&#9670;&#160;</a></span>concat() <span class="overload">[3/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -263,7 +315,7 @@ requires (std::same_as&lt;rpp::utils::extract_observable_type_t&lt;TObservable&g
   </table>
   </dd>
 </dl>
-<dl class="section warning"><dt>Warning</dt><dd><a class="el" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df" title="Make observable which would merge emissions from underlying observables but without overlapping (curr...">include</a> &lt;rpp/operators/concat.hpp&gt;</dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd><a class="el" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df" title="Make observable which would merge emissions from underlying observables but without overlapping (curr...">include</a> &lt;<a class="el" href="operators_2concat_8hpp_source.html">rpp/operators/concat.hpp</a>&gt;</dd></dl>
 <dl class="section user"><dt>Example</dt><dd><div class="fragment"><div class="line">    <a class="code hl_function" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">rpp::source::concat</a>(<a class="code hl_function" href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">rpp::source::just</a>(1), <a class="code hl_function" href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">rpp::source::just</a>(2), <a class="code hl_function" href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">rpp::source::just</a>(1,2,3)).subscribe([](<span class="keywordtype">int</span> <a class="code hl_function" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">v</a>){std::cout &lt;&lt; <a class="code hl_function" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">v</a> &lt;&lt; <span class="stringliteral">&quot;, &quot;</span>;}, [](<span class="keyword">const</span> std::exception_ptr&amp;){}, [](){std::cout &lt;&lt; <span class="stringliteral">&quot;completed\n&quot;</span>;});</div>
 <div class="line">    <span class="comment">// Output: 1, 2, 1, 2, 3, completed</span></div>
 </div><!-- fragment --></dd></dl>

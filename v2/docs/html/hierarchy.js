@@ -16,6 +16,10 @@ var hierarchy =
     [ "rpp::operators::details::combine_latest_observer_strategy< I, Observer, TSelector, Args >", "structrpp_1_1operators_1_1details_1_1combine__latest__observer__strategy.html", null ],
     [ "rpp::operators::details::combine_latest_t< TSelector, TObservables >", "structrpp_1_1operators_1_1details_1_1combine__latest__t.html", null ],
     [ "rpp::subjects::details::completed", "structrpp_1_1subjects_1_1details_1_1completed.html", null ],
+    [ "rpp::operators::details::concat_observer_strategy_base< TObservable, TObserver >", "structrpp_1_1operators_1_1details_1_1concat__observer__strategy__base.html", [
+      [ "rpp::operators::details::concat_inner_observer_strategy< TObservable, TObserver >", "structrpp_1_1operators_1_1details_1_1concat__inner__observer__strategy.html", null ],
+      [ "rpp::operators::details::concat_observer_strategy< TObservable, TObserver >", "structrpp_1_1operators_1_1details_1_1concat__observer__strategy.html", null ]
+    ] ],
     [ "rpp::details::concat_source_observer_strategy< TObserver, PackedContainer >", "structrpp_1_1details_1_1concat__source__observer__strategy.html", null ],
     [ "rpp::details::concat_strategy< PackedContainer >", "structrpp_1_1details_1_1concat__strategy.html", null ],
     [ "rpp::details::create_strategy< Type, OnSubscribe >", "structrpp_1_1details_1_1create__strategy.html", null ],
@@ -50,6 +54,7 @@ var hierarchy =
       [ "rpp::details::concat_state_t< TObserver, PackedContainer >", "structrpp_1_1details_1_1concat__state__t.html", null ],
       [ "rpp::operators::details::debounce_disposable< Observer, Worker, Container >", "classrpp_1_1operators_1_1details_1_1debounce__disposable.html", null ],
       [ "rpp::refcount_disposable", "classrpp_1_1refcount__disposable.html", [
+        [ "rpp::operators::details::concat_state_t< TObservable, TObserver >", "classrpp_1_1operators_1_1details_1_1concat__state__t.html", null ],
         [ "rpp::operators::details::switch_on_next_state_t< TObserver >", "classrpp_1_1operators_1_1details_1_1switch__on__next__state__t.html", null ]
       ] ],
       [ "rpp::subjects::details::subject_state< Type >", "classrpp_1_1subjects_1_1details_1_1subject__state.html", null ]
@@ -144,6 +149,7 @@ var hierarchy =
     [ "rpp::details::observer_impl< Type, Strategy, DisposableStrategy >", "classrpp_1_1details_1_1observer__impl.html", null ],
     [ "rpp::operators::details::operator_observable_strategy_base< SubscribeStrategy, Args >", "classrpp_1_1operators_1_1details_1_1operator__observable__strategy__base.html", [
       [ "rpp::operators::details::buffer_t", "structrpp_1_1operators_1_1details_1_1buffer__t.html", null ],
+      [ "rpp::operators::details::concat_t", "structrpp_1_1operators_1_1details_1_1concat__t.html", null ],
       [ "rpp::operators::details::distinct_until_changed_t< EqualityFn >", "structrpp_1_1operators_1_1details_1_1distinct__until__changed__t.html", null ],
       [ "rpp::operators::details::filter_t< Fn >", "structrpp_1_1operators_1_1details_1_1filter__t.html", null ],
       [ "rpp::operators::details::first_t", "structrpp_1_1operators_1_1details_1_1first__t.html", null ],
@@ -221,6 +227,7 @@ var hierarchy =
     [ "rpp::memory_model::use_stack", "structrpp_1_1memory__model_1_1use__stack.html", null ],
     [ "rpp::operators::details::value_with_mutex< T >", "structrpp_1_1operators_1_1details_1_1value__with__mutex.html", null ],
     [ "rpp::operators::details::value_with_mutex< Observer >", "structrpp_1_1operators_1_1details_1_1value__with__mutex.html", null ],
+    [ "rpp::operators::details::value_with_mutex< std::queue< TObservable > >", "structrpp_1_1operators_1_1details_1_1value__with__mutex.html", null ],
     [ "rpp::operators::details::value_with_mutex< TObserver >", "structrpp_1_1operators_1_1details_1_1value__with__mutex.html", null ],
     [ "rpp::operators::details::window_observer_strategy< TObserver >", "classrpp_1_1operators_1_1details_1_1window__observer__strategy.html", null ],
     [ "rpp::details::with_disposable_strategy< S, Strategy >", "structrpp_1_1details_1_1with__disposable__strategy.html", null ],

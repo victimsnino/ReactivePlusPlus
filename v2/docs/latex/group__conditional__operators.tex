@@ -8,10 +8,10 @@ Conditional operators are operators that emit items based on some condition incl
 \doxysubsubsubsubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-{\footnotesize template$<$\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp\+::constraint\+::observable}} TObservable$>$ }\\auto \mbox{\hyperlink{group__conditional__operators_gae40802b5608766bfcc1417e210f41707}{rpp\+::operators\+::take\+\_\+until}} (TObservable \&\&until\+\_\+observable)
+{\footnotesize template$<$\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp\+::constraint\+::observable}} TObservable$>$ }\\\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{auto}} \mbox{\hyperlink{group__conditional__operators_gae40802b5608766bfcc1417e210f41707}{rpp\+::operators\+::take\+\_\+until}} (TObservable \&\&\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{until\+\_\+observable}})
 \begin{DoxyCompactList}\small\item\em Discard any items emitted by an Observable after a second Observable emits an item or terminates. \end{DoxyCompactList}\item 
-{\footnotesize template$<$typename Fn $>$ \newline
-requires (!utils\+::is\+\_\+not\+\_\+template\+\_\+callable$<$Fn$>$ \texorpdfstring{$\vert$}{|}\texorpdfstring{$\vert$}{|} std\+::same\+\_\+as$<$bool, std\+::invoke\+\_\+result\+\_\+t$<$Fn, rpp\+::utils\+::convertible\+\_\+to\+\_\+any$>$$>$)}\\auto \mbox{\hyperlink{group__conditional__operators_gac65952f7460d8f0e71a93d95810d2061}{rpp\+::operators\+::take\+\_\+while}} (Fn \&\&predicate)
+{\footnotesize template$<$\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{typename}} Fn $>$ \newline
+requires (!utils\+::is\+\_\+not\+\_\+template\+\_\+callable$<$Fn$>$ \texorpdfstring{$\vert$}{|}\texorpdfstring{$\vert$}{|} std\+::same\+\_\+as$<$\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{bool}}, std\+::invoke\+\_\+result\+\_\+t$<$Fn, rpp\+::utils\+::convertible\+\_\+to\+\_\+any$>$$>$)}\\\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{auto}} \mbox{\hyperlink{group__conditional__operators_gac65952f7460d8f0e71a93d95810d2061}{rpp\+::operators\+::take\+\_\+while}} (Fn \&\&\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{predicate}})
 \begin{DoxyCompactList}\small\item\em Sends items from observable while items are satisfy predicate. When condition becomes false -\/\texorpdfstring{$>$}{>} sends {\ttfamily on\+\_\+completed} \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
@@ -29,7 +29,7 @@ Conditional operators are operators that emit items based on some condition incl
 \index{take\_until@{take\_until}!Conditional Operators@{Conditional Operators}}
 \doxysubsubsubsubsection{\texorpdfstring{take\_until()}{take\_until()}}
 {\footnotesize\ttfamily template$<$\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp\+::constraint\+::observable}} TObservable$>$ \\
-auto rpp\+::operators\+::take\+\_\+until (\begin{DoxyParamCaption}\item[{TObservable \&\&}]{until\+\_\+observable }\end{DoxyParamCaption})}
+\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{auto}} rpp\+::operators\+::take\+\_\+until (\begin{DoxyParamCaption}\item[{TObservable \&\&}]{until\+\_\+observable }\end{DoxyParamCaption})}
 
 
 
@@ -48,14 +48,14 @@ Actually this operator just subscribes on 2 observables and completes original w
 \hline
 \end{DoxyParams}
 \begin{DoxyWarning}{Warning}
-\#include \texorpdfstring{$<$}{<}\doxylink{take__until_8hpp_source}{rpp/operators/take\+\_\+until.\+hpp}\texorpdfstring{$>$}{>}
+\doxylink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{include} \texorpdfstring{$<$}{<}\doxylink{take__until_8hpp_source}{rpp/operators/take\+\_\+until.\+hpp}\texorpdfstring{$>$}{>}
 \end{DoxyWarning}
 \begin{DoxyParagraph}{Examples}
 
 \begin{DoxyCodeInclude}{0}
 \DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_ga4018b147fb99a358c6c01f21183c13e6}{rpp::source::interval}}(std::chrono::seconds\{1\},\ \mbox{\hyperlink{classrpp_1_1schedulers_1_1current__thread}{rpp::schedulers::current\_thread}}\{\})}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ |\ rpp::ops::take\_until(\mbox{\hyperlink{group__creational__operators_ga4018b147fb99a358c6c01f21183c13e6}{rpp::source::interval}}(std::chrono::seconds\{5\},\ \mbox{\hyperlink{classrpp_1_1schedulers_1_1current__thread}{rpp::schedulers::current\_thread}}\{\}))}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ rpp::ops::subscribe([](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}-\/"{}}\ <<\ v;\ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ rpp::ops::subscribe([](\textcolor{keywordtype}{int}\ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{v}})\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}-\/"{}}\ <<\ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{v}};\ \},}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [](\textcolor{keyword}{const}\ std::exception\_ptr\&)\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}-\/x"{}}\ <<\ std::endl;\ \},}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ []()\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}-\/|"{}}\ <<\ std::endl;\ \});}
 \DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ source\ 1:\ -\/0-\/1-\/2-\/3-\/4-\/5-\/6-\/7-\/\ \ \ \ \ -\/-\/}}
@@ -76,9 +76,9 @@ Actually this operator just subscribes on 2 observables and completes original w
 \index{Conditional Operators@{Conditional Operators}!take\_while@{take\_while}}
 \index{take\_while@{take\_while}!Conditional Operators@{Conditional Operators}}
 \doxysubsubsubsubsection{\texorpdfstring{take\_while()}{take\_while()}}
-{\footnotesize\ttfamily template$<$typename Fn $>$ \newline
-requires (!utils\+::is\+\_\+not\+\_\+template\+\_\+callable$<$Fn$>$ \texorpdfstring{$\vert$}{|}\texorpdfstring{$\vert$}{|} std\+::same\+\_\+as$<$bool, std\+::invoke\+\_\+result\+\_\+t$<$Fn, rpp\+::utils\+::convertible\+\_\+to\+\_\+any$>$$>$)\\
-auto rpp\+::operators\+::take\+\_\+while (\begin{DoxyParamCaption}\item[{Fn \&\&}]{predicate }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{typename}} Fn $>$ \newline
+requires (!utils\+::is\+\_\+not\+\_\+template\+\_\+callable$<$Fn$>$ \texorpdfstring{$\vert$}{|}\texorpdfstring{$\vert$}{|} std\+::same\+\_\+as$<$\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{bool}}, std\+::invoke\+\_\+result\+\_\+t$<$Fn, rpp\+::utils\+::convertible\+\_\+to\+\_\+any$>$$>$)\\
+\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{auto}} rpp\+::operators\+::take\+\_\+while (\begin{DoxyParamCaption}\item[{Fn \&\&}]{predicate }\end{DoxyParamCaption})}
 
 
 
@@ -101,14 +101,14 @@ Actually this operator just emits values while predicate returns true
 \hline
 \end{DoxyParams}
 \begin{DoxyWarning}{Warning}
-\#include \texorpdfstring{$<$}{<}\doxylink{take__while_8hpp_source}{rpp/operators/take\+\_\+while.\+hpp}\texorpdfstring{$>$}{>}
+\doxylink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{include} \texorpdfstring{$<$}{<}\doxylink{take__while_8hpp_source}{rpp/operators/take\+\_\+while.\+hpp}\texorpdfstring{$>$}{>}
 \end{DoxyWarning}
 \begin{DoxyParagraph}{Example\+:}
 
 \begin{DoxyCodeInclude}{0}
 \DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(0,\ 1,\ 2,\ 3,\ 4,\ 5,\ 6,\ 7,\ 8,\ 9)}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__conditional__operators_gac65952f7460d8f0e71a93d95810d2061}{rpp::operators::take\_while}}([](\textcolor{keywordtype}{int}\ v)\ \{\ \textcolor{keywordflow}{return}\ v\ !=\ 5;\ \})}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ |\ rpp::operators::subscribe([](\textcolor{keywordtype}{int}\ \ v)\ \{\ std::cout\ <<\ v\ <<\ \textcolor{stringliteral}{"{}\ "{}};\ \});}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__conditional__operators_gac65952f7460d8f0e71a93d95810d2061}{rpp::operators::take\_while}}([](\textcolor{keywordtype}{int}\ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{v}})\ \{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{v}}\ !=\ 5;\ \})}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ |\ rpp::operators::subscribe([](\textcolor{keywordtype}{int}\ \ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{v}})\ \{\ std::cout\ <<\ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{v}}\ <<\ \textcolor{stringliteral}{"{}\ "{}};\ \});}
 \DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:\ 0\ 1\ 2\ 3\ 4}}
 
 \end{DoxyCodeInclude}

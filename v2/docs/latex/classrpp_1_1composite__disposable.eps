@@ -184,6 +184,7 @@ boxfont setfont
 (rpp::operators::details::with_latest_from_disposable< Observer, TSelector, RestArgs >) cw
 (rpp::refcount_disposable) cw
 (rpp::subjects::details::subject_state< Type >) cw
+(rpp::operators::details::concat_state_t< TObservable, TObserver >) cw
 (rpp::operators::details::switch_on_next_state_t< TObserver >) cw
 /boxwidth boxwidth marginwidth 2 mul add def
 /xspacing boxwidth distx add def
@@ -207,7 +208,8 @@ boundx scalefactor div boundy scalefactor div scale
  (rpp::operators::details::with_latest_from_disposable< Observer, TSelector, RestArgs >) 4.000000 1.000000 box
  (rpp::refcount_disposable) 5.000000 1.000000 box
  (rpp::subjects::details::subject_state< Type >) 6.000000 1.000000 box
- (rpp::operators::details::switch_on_next_state_t< TObserver >) 5.000000 0.000000 box
+ (rpp::operators::details::concat_state_t< TObservable, TObserver >) 4.500000 0.000000 box
+ (rpp::operators::details::switch_on_next_state_t< TObserver >) 5.500000 0.000000 box
 
 % ----- relations -----
 
@@ -242,6 +244,10 @@ solid
 solid
 1 5.000000 0.250000 out
 solid
+4.500000 5.500000 1.000000 conn
+solid
 0 6.000000 1.750000 in
 solid
-0 5.000000 0.750000 in
+0 4.500000 0.750000 in
+solid
+0 5.500000 0.750000 in

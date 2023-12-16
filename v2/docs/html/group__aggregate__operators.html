@@ -107,13 +107,13 @@ $(document).ready(function(){initNavTree('group__aggregate__operators.html','');
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ga3cc33d76bf794bda80244882bb3fec3d" id="r_ga3cc33d76bf794bda80244882bb3fec3d"><td class="memTemplParams" colspan="2">template&lt;typename Seed , typename Accumulator &gt; <br />
+<tr class="memitem:ga3cc33d76bf794bda80244882bb3fec3d" id="r_ga3cc33d76bf794bda80244882bb3fec3d"><td class="memTemplParams" colspan="2">template&lt;<a class="el" href="group__creational__operators.html#gab5cc2df8f7221b124d67d66de60a7bcd">typename</a> Seed , <a class="el" href="group__creational__operators.html#gab5cc2df8f7221b124d67d66de60a7bcd">typename</a> Accumulator &gt; <br />
 requires (!utils::is_not_template_callable&lt;Accumulator&gt; || std::same_as&lt;std::decay_t&lt;Seed&gt;, std::invoke_result_t&lt;Accumulator, std::decay_t&lt;Seed&gt;&amp;&amp;, rpp::utils::convertible_to_any&gt;&gt;)</td></tr>
-<tr class="memitem:ga3cc33d76bf794bda80244882bb3fec3d"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__aggregate__operators.html#ga3cc33d76bf794bda80244882bb3fec3d">rpp::operators::reduce</a> (Seed &amp;&amp;seed, Accumulator &amp;&amp;accumulator)</td></tr>
+<tr class="memitem:ga3cc33d76bf794bda80244882bb3fec3d"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__creational__operators.html#gab5cc2df8f7221b124d67d66de60a7bcd">auto</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__aggregate__operators.html#ga3cc33d76bf794bda80244882bb3fec3d">rpp::operators::reduce</a> (Seed &amp;&amp;seed, Accumulator &amp;&amp;accumulator)</td></tr>
 <tr class="memdesc:ga3cc33d76bf794bda80244882bb3fec3d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Apply a function to each item emitted by an Observable, sequentially, and emit the final value.  <br /></td></tr>
 <tr class="separator:ga3cc33d76bf794bda80244882bb3fec3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gab78e390657e26675457156b21112d344" id="r_gab78e390657e26675457156b21112d344"><td class="memTemplParams" colspan="2">template&lt;typename Accumulator &gt; </td></tr>
-<tr class="memitem:gab78e390657e26675457156b21112d344"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__aggregate__operators.html#gab78e390657e26675457156b21112d344">rpp::operators::reduce</a> (Accumulator &amp;&amp;accumulator)</td></tr>
+<tr class="memitem:gab78e390657e26675457156b21112d344" id="r_gab78e390657e26675457156b21112d344"><td class="memTemplParams" colspan="2">template&lt;<a class="el" href="group__creational__operators.html#gab5cc2df8f7221b124d67d66de60a7bcd">typename</a> Accumulator &gt; </td></tr>
+<tr class="memitem:gab78e390657e26675457156b21112d344"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__creational__operators.html#gab5cc2df8f7221b124d67d66de60a7bcd">auto</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__aggregate__operators.html#gab78e390657e26675457156b21112d344">rpp::operators::reduce</a> (Accumulator &amp;&amp;accumulator)</td></tr>
 <tr class="memdesc:gab78e390657e26675457156b21112d344"><td class="mdescLeft">&#160;</td><td class="mdescRight">Apply a function to each item emitted by an Observable, sequentially, and emit the final value.  <br /></td></tr>
 <tr class="separator:gab78e390657e26675457156b21112d344"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -127,10 +127,10 @@ requires (!utils::is_not_template_callable&lt;Accumulator&gt; || std::same_as&lt
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename Accumulator &gt; </div>
+template&lt;<a class="el" href="group__creational__operators.html#gab5cc2df8f7221b124d67d66de60a7bcd">typename</a> Accumulator &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">auto rpp::operators::reduce </td>
+          <td class="memname"><a class="el" href="group__creational__operators.html#gab5cc2df8f7221b124d67d66de60a7bcd">auto</a> rpp::operators::reduce </td>
           <td>(</td>
           <td class="paramtype">Accumulator &amp;&amp;&#160;</td>
           <td class="paramname"><em>accumulator</em></td><td>)</td>
@@ -151,13 +151,14 @@ template&lt;typename Accumulator &gt; </div>
   </table>
   </dd>
 </dl>
-<dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="reduce_8hpp_source.html">rpp/operators/reduce.hpp</a>&gt;</dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd><a class="el" href="group__creational__operators.html#gab5cc2df8f7221b124d67d66de60a7bcd" title="Make observable which would merge emissions from underlying observables but without overlapping (curr...">include</a> &lt;<a class="el" href="reduce_8hpp_source.html">rpp/operators/reduce.hpp</a>&gt;</dd></dl>
 <dl class="section user"><dt>Example</dt><dd><div class="fragment"><div class="line">    <a class="code hl_function" href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">rpp::source::just</a>(1, 2, 3)</div>
 <div class="line">        | <a class="code hl_function" href="group__aggregate__operators.html#ga3cc33d76bf794bda80244882bb3fec3d">rpp::operators::reduce</a>(std::plus&lt;int&gt;{})</div>
-<div class="line">        | rpp::operators::subscribe([](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; v &lt;&lt; std::endl; });</div>
+<div class="line">        | rpp::operators::subscribe([](<span class="keywordtype">int</span> <a class="code hl_function" href="group__creational__operators.html#gab5cc2df8f7221b124d67d66de60a7bcd">v</a>) { std::cout &lt;&lt; <a class="code hl_function" href="group__creational__operators.html#gab5cc2df8f7221b124d67d66de60a7bcd">v</a> &lt;&lt; std::endl; });</div>
 <div class="line">    <span class="comment">// Output: 6</span></div>
 <div class="ttc" id="agroup__aggregate__operators_html_ga3cc33d76bf794bda80244882bb3fec3d"><div class="ttname"><a href="group__aggregate__operators.html#ga3cc33d76bf794bda80244882bb3fec3d">rpp::operators::reduce</a></div><div class="ttdeci">auto reduce(Seed &amp;&amp;seed, Accumulator &amp;&amp;accumulator)</div><div class="ttdoc">Apply a function to each item emitted by an Observable, sequentially, and emit the final value.</div><div class="ttdef"><b>Definition</b> reduce.hpp:126</div></div>
 <div class="ttc" id="agroup__creational__operators_html_ga1edf47f176050dd414e28a1c0616b7c0"><div class="ttname"><a href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">rpp::source::just</a></div><div class="ttdeci">auto just(const TScheduler &amp;scheduler, T &amp;&amp;item, Ts &amp;&amp;... items)</div><div class="ttdoc">Creates rpp::observable that emits a particular items and completes.</div><div class="ttdef"><b>Definition</b> from.hpp:207</div></div>
+<div class="ttc" id="agroup__creational__operators_html_gab5cc2df8f7221b124d67d66de60a7bcd"><div class="ttname"><a href="group__creational__operators.html#gab5cc2df8f7221b124d67d66de60a7bcd">rpp::operators::concat</a></div><div class="ttdeci">auto concat()</div><div class="ttdoc">Make observable which would merge emissions from underlying observables but without overlapping (curr...</div><div class="ttdef"><b>Definition</b> concat.hpp:220</div></div>
 </div><!-- fragment --></dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/reduce.html">https://reactivex.io/documentation/operators/reduce.html</a> </dd></dl>
 
@@ -169,11 +170,11 @@ template&lt;typename Accumulator &gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename Seed , typename Accumulator &gt; <br />
+template&lt;<a class="el" href="group__creational__operators.html#gab5cc2df8f7221b124d67d66de60a7bcd">typename</a> Seed , <a class="el" href="group__creational__operators.html#gab5cc2df8f7221b124d67d66de60a7bcd">typename</a> Accumulator &gt; <br />
 requires (!utils::is_not_template_callable&lt;Accumulator&gt; || std::same_as&lt;std::decay_t&lt;Seed&gt;, std::invoke_result_t&lt;Accumulator, std::decay_t&lt;Seed&gt;&amp;&amp;, rpp::utils::convertible_to_any&gt;&gt;)</div>
       <table class="memname">
         <tr>
-          <td class="memname">auto rpp::operators::reduce </td>
+          <td class="memname"><a class="el" href="group__creational__operators.html#gab5cc2df8f7221b124d67d66de60a7bcd">auto</a> rpp::operators::reduce </td>
           <td>(</td>
           <td class="paramtype">Seed &amp;&amp;&#160;</td>
           <td class="paramname"><em>seed</em>, </td>
@@ -203,10 +204,10 @@ requires (!utils::is_not_template_callable&lt;Accumulator&gt; || std::same_as&lt
   </table>
   </dd>
 </dl>
-<dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="reduce_8hpp_source.html">rpp/operators/reduce.hpp</a>&gt;</dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd><a class="el" href="group__creational__operators.html#gab5cc2df8f7221b124d67d66de60a7bcd" title="Make observable which would merge emissions from underlying observables but without overlapping (curr...">include</a> &lt;<a class="el" href="reduce_8hpp_source.html">rpp/operators/reduce.hpp</a>&gt;</dd></dl>
 <dl class="section user"><dt>Example</dt><dd><div class="fragment"><div class="line">    <a class="code hl_function" href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">rpp::source::just</a>(1, 2, 3)</div>
-<div class="line">        | <a class="code hl_function" href="group__aggregate__operators.html#ga3cc33d76bf794bda80244882bb3fec3d">rpp::operators::reduce</a>(std::string{}, [](std::string&amp;&amp; seed, <span class="keywordtype">int</span> v) {<span class="keywordflow">return</span> std::move(seed) + std::to_string(v) + <span class="stringliteral">&quot;,&quot;</span>; })</div>
-<div class="line">        | rpp::operators::subscribe([](<span class="keyword">const</span> std::string&amp; v) { std::cout &lt;&lt; v &lt;&lt; std::endl; });</div>
+<div class="line">        | <a class="code hl_function" href="group__aggregate__operators.html#ga3cc33d76bf794bda80244882bb3fec3d">rpp::operators::reduce</a>(std::string{}, [](std::string&amp;&amp; seed, <span class="keywordtype">int</span> <a class="code hl_function" href="group__creational__operators.html#gab5cc2df8f7221b124d67d66de60a7bcd">v</a>) {<span class="keywordflow">return</span> std::move(seed) + std::to_string(<a class="code hl_function" href="group__creational__operators.html#gab5cc2df8f7221b124d67d66de60a7bcd">v</a>) + <span class="stringliteral">&quot;,&quot;</span>; })</div>
+<div class="line">        | rpp::operators::subscribe([](<span class="keyword">const</span> std::string&amp; <a class="code hl_function" href="group__creational__operators.html#gab5cc2df8f7221b124d67d66de60a7bcd">v</a>) { std::cout &lt;&lt; <a class="code hl_function" href="group__creational__operators.html#gab5cc2df8f7221b124d67d66de60a7bcd">v</a> &lt;&lt; std::endl; });</div>
 <div class="line">    <span class="comment">// Output: 1,2,3,</span></div>
 </div><!-- fragment --></dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/reduce.html">https://reactivex.io/documentation/operators/reduce.html</a> </dd></dl>

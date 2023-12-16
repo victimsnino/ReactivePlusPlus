@@ -8,24 +8,24 @@ Combining operators are operators that combines emissions of multiple observable
 \doxysubsubsubsubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-auto \mbox{\hyperlink{group__combining__operators_ga3f8a04b4c8eb945534eddde5a25eec74}{rpp\+::operators\+::merge}} ()
+\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{auto}} \mbox{\hyperlink{group__combining__operators_ga3f8a04b4c8eb945534eddde5a25eec74}{rpp\+::operators\+::merge}} ()
 \begin{DoxyCompactList}\small\item\em Converts observable of observables of items into observable of items via merging emissions. \end{DoxyCompactList}\item 
 {\footnotesize template$<$\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp\+::constraint\+::observable}} TObservable, rpp\+::constraint\+::observable... TObservables$>$ \newline
-requires constraint\+::observables\+\_\+of\+\_\+same\+\_\+type$<$std\+::decay\+\_\+t$<$TObservable$>$, std\+::decay\+\_\+t$<$TObservables$>$...$>$}\\auto \mbox{\hyperlink{group__combining__operators_ga35392a84e52bf7101d0d0445ef391db7}{rpp\+::operators\+::merge\+\_\+with}} (TObservable \&\&\mbox{\hyperlink{classrpp_1_1observable}{observable}}, TObservables \&\&... observables)
+requires constraint\+::observables\+\_\+of\+\_\+same\+\_\+type$<$std\+::decay\+\_\+t$<$TObservable$>$, std\+::decay\+\_\+t$<$\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{TObservables}}$>$...$>$}\\\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{auto}} \mbox{\hyperlink{group__combining__operators_ga35392a84e52bf7101d0d0445ef391db7}{rpp\+::operators\+::merge\+\_\+with}} (TObservable \&\&\mbox{\hyperlink{classrpp_1_1observable}{observable}}, \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{TObservables}} \&\&... observables)
 \begin{DoxyCompactList}\small\item\em Combines submissions from current observable with other observables into one. \end{DoxyCompactList}\item 
 {\footnotesize template$<$\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp\+::constraint\+::observable}} TObservable, rpp\+::constraint\+::observable... TObservables$>$ \newline
-requires constraint\+::observables\+\_\+of\+\_\+same\+\_\+type$<$std\+::decay\+\_\+t$<$TObservable$>$, std\+::decay\+\_\+t$<$TObservables$>$...$>$}\\auto \mbox{\hyperlink{group__combining__operators_gadf12c4de9702425819b0d34b5fdf7db3}{rpp\+::operators\+::start\+\_\+with}} (TObservable \&\&\mbox{\hyperlink{classrpp_1_1observable}{observable}}, TObservables \&\&... observables)
+requires constraint\+::observables\+\_\+of\+\_\+same\+\_\+type$<$std\+::decay\+\_\+t$<$TObservable$>$, std\+::decay\+\_\+t$<$\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{TObservables}}$>$...$>$}\\\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{auto}} \mbox{\hyperlink{group__combining__operators_gadf12c4de9702425819b0d34b5fdf7db3}{rpp\+::operators\+::start\+\_\+with}} (TObservable \&\&\mbox{\hyperlink{classrpp_1_1observable}{observable}}, \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{TObservables}} \&\&... observables)
 \begin{DoxyCompactList}\small\item\em Combines submissions from current observable with other observables into one but without overlapping and starting from observables provided as arguments. \end{DoxyCompactList}\item 
-{\footnotesize template$<$constraint\+::memory\+\_\+model Memory\+Model = memory\+\_\+model\+::use\+\_\+stack, typename T , typename ... Ts$>$ \newline
-requires (rpp\+::constraint\+::decayed\+\_\+same\+\_\+as$<$T, Ts$>$ \&\& ...)}\\auto \mbox{\hyperlink{group__combining__operators_ga7bb4fbf5e43b500471881a900ef1d6b9}{rpp\+::operators\+::start\+\_\+with\+\_\+values}} (T \&\&v, Ts \&\&... vals)
+{\footnotesize template$<$constraint\+::memory\+\_\+model Memory\+Model = memory\+\_\+model\+::use\+\_\+stack, \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{typename}} T , \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{typename}} ... Ts$>$ \newline
+requires (rpp\+::constraint\+::decayed\+\_\+same\+\_\+as$<$T, \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{Ts}}$>$ \&\& ...)}\\\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{auto}} \mbox{\hyperlink{group__combining__operators_ga7bb4fbf5e43b500471881a900ef1d6b9}{rpp\+::operators\+::start\+\_\+with\+\_\+values}} (T \&\&\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{v}}, \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{Ts}} \&\&... \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{vals}})
 \begin{DoxyCompactList}\small\item\em Combines submissions from current observable with values into one but without overlapping and starting from values provided as arguments. \end{DoxyCompactList}\item 
-{\footnotesize template$<$constraint\+::memory\+\_\+model Memory\+Model = memory\+\_\+model\+::use\+\_\+stack, \mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1scheduler}{rpp\+::schedulers\+::constraint\+::scheduler}} TScheduler, typename T , typename ... Ts$>$ \newline
-requires (rpp\+::constraint\+::decayed\+\_\+same\+\_\+as$<$T, Ts$>$ \&\& ...)}\\auto \mbox{\hyperlink{group__combining__operators_ga04a8768b213581b77f025c39c42e1e78}{rpp\+::operators\+::start\+\_\+with\+\_\+values}} (const TScheduler \&scheduler, T \&\&v, Ts \&\&... vals)
+{\footnotesize template$<$constraint\+::memory\+\_\+model Memory\+Model = memory\+\_\+model\+::use\+\_\+stack, \mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1scheduler}{rpp\+::schedulers\+::constraint\+::scheduler}} TScheduler, \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{typename}} T , \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{typename}} ... Ts$>$ \newline
+requires (rpp\+::constraint\+::decayed\+\_\+same\+\_\+as$<$T, \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{Ts}}$>$ \&\& ...)}\\\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{auto}} \mbox{\hyperlink{group__combining__operators_ga04a8768b213581b77f025c39c42e1e78}{rpp\+::operators\+::start\+\_\+with\+\_\+values}} (\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{const}} TScheduler \&scheduler, T \&\&\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{v}}, \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{Ts}} \&\&... \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{vals}})
 \begin{DoxyCompactList}\small\item\em Combines submissions from current observable with values into one but without overlapping and starting from values provided as arguments. \end{DoxyCompactList}\item 
-{\footnotesize template$<$typename TSelector , \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp\+::constraint\+::observable}} TObservable, rpp\+::constraint\+::observable... TObservables$>$ \newline
-requires (!\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp\+::constraint\+::observable}}$<$TSelector$>$ \&\& (!utils\+::is\+\_\+not\+\_\+template\+\_\+callable$<$TSelector$>$ \texorpdfstring{$\vert$}{|}\texorpdfstring{$\vert$}{|} std\+::invocable$<$TSelector, rpp\+::utils\+::convertible\+\_\+to\+\_\+any, utils\+::extract\+\_\+observable\+\_\+type\+\_\+t$<$TObservable$>$, utils\+::extract\+\_\+observable\+\_\+type\+\_\+t$<$TObservables$>$...$>$))}\\auto \mbox{\hyperlink{group__combining__operators_ga9345ba5faac717ba85fc88f1c5fff58b}{rpp\+::operators\+::with\+\_\+latest\+\_\+from}} (TSelector \&\&selector, TObservable \&\&\mbox{\hyperlink{classrpp_1_1observable}{observable}}, TObservables \&\&... observables)
+{\footnotesize template$<$\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{typename}} \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{TSelector}} , \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp\+::constraint\+::observable}} TObservable, rpp\+::constraint\+::observable... TObservables$>$ \newline
+requires (!\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp\+::constraint\+::observable}}$<$\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{TSelector}}$>$ \&\& (!utils\+::is\+\_\+not\+\_\+template\+\_\+callable$<$\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{TSelector}}$>$ \texorpdfstring{$\vert$}{|}\texorpdfstring{$\vert$}{|} std\+::invocable$<$\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{TSelector}}, rpp\+::utils\+::convertible\+\_\+to\+\_\+any, utils\+::extract\+\_\+observable\+\_\+type\+\_\+t$<$TObservable$>$, utils\+::extract\+\_\+observable\+\_\+type\+\_\+t$<$\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{TObservables}}$>$...$>$))}\\\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{auto}} \mbox{\hyperlink{group__combining__operators_ga9345ba5faac717ba85fc88f1c5fff58b}{rpp\+::operators\+::with\+\_\+latest\+\_\+from}} (\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{TSelector}} \&\&selector, TObservable \&\&\mbox{\hyperlink{classrpp_1_1observable}{observable}}, \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{TObservables}} \&\&... observables)
 \begin{DoxyCompactList}\small\item\em Combines latest emissions from observables with emission from current observable when it sends new value via applying selector. \end{DoxyCompactList}\item 
-{\footnotesize template$<$\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp\+::constraint\+::observable}} TObservable, rpp\+::constraint\+::observable... TObservables$>$ }\\auto \mbox{\hyperlink{group__combining__operators_ga20acc2f23cb06163f9d5e56c5522ce6c}{rpp\+::operators\+::with\+\_\+latest\+\_\+from}} (TObservable \&\&\mbox{\hyperlink{classrpp_1_1observable}{observable}}, TObservables \&\&... observables)
+{\footnotesize template$<$\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp\+::constraint\+::observable}} TObservable, rpp\+::constraint\+::observable... TObservables$>$ }\\\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{auto}} \mbox{\hyperlink{group__combining__operators_ga20acc2f23cb06163f9d5e56c5522ce6c}{rpp\+::operators\+::with\+\_\+latest\+\_\+from}} (TObservable \&\&\mbox{\hyperlink{classrpp_1_1observable}{observable}}, \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{TObservables}} \&\&... observables)
 \begin{DoxyCompactList}\small\item\em Combines latest emissions from observables with emission from current observable when it sends new value via making tuple. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
@@ -42,7 +42,7 @@ Combining operators are operators that combines emissions of multiple observable
 \index{Combining Operators@{Combining Operators}!merge@{merge}}
 \index{merge@{merge}!Combining Operators@{Combining Operators}}
 \doxysubsubsubsubsection{\texorpdfstring{merge()}{merge()}}
-{\footnotesize\ttfamily auto rpp\+::operators\+::merge (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{auto}} rpp\+::operators\+::merge (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -65,7 +65,7 @@ Actually it subscribes on each observable from emissions. Resulting observables 
 \end{DoxyItemize}
 \end{DoxyParagraph}
 \begin{DoxyWarning}{Warning}
-\#include \texorpdfstring{$<$}{<}\doxylink{merge_8hpp_source}{rpp/operators/merge.\+hpp}\texorpdfstring{$>$}{>}
+\doxylink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{include} \texorpdfstring{$<$}{<}\doxylink{merge_8hpp_source}{rpp/operators/merge.\+hpp}\texorpdfstring{$>$}{>}
 \end{DoxyWarning}
 \begin{DoxyParagraph}{Example\+:}
 
@@ -74,7 +74,7 @@ Actually it subscribes on each observable from emissions. Resulting observables 
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{rpp::source::never<int>}}().as\_dynamic(),}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(2).as\_dynamic())}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__combining__operators_ga3f8a04b4c8eb945534eddde5a25eec74}{rpp::operators::merge}}()}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ |\ rpp::operators::subscribe([](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ v\ <<\ \textcolor{stringliteral}{"{}\ "{}};\ \});}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ |\ rpp::operators::subscribe([](\textcolor{keywordtype}{int}\ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{v}})\ \{\ std::cout\ <<\ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{v}}\ <<\ \textcolor{stringliteral}{"{}\ "{}};\ \});}
 \DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:\ 1\ 2}}
 
 \end{DoxyCodeInclude}
@@ -91,8 +91,8 @@ Actually it subscribes on each observable from emissions. Resulting observables 
 \index{merge\_with@{merge\_with}!Combining Operators@{Combining Operators}}
 \doxysubsubsubsubsection{\texorpdfstring{merge\_with()}{merge\_with()}}
 {\footnotesize\ttfamily template$<$\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp\+::constraint\+::observable}} TObservable, rpp\+::constraint\+::observable... TObservables$>$ \newline
-requires constraint\+::observables\+\_\+of\+\_\+same\+\_\+type$<$std\+::decay\+\_\+t$<$TObservable$>$, std\+::decay\+\_\+t$<$TObservables$>$...$>$\\
-auto rpp\+::operators\+::merge\+\_\+with (\begin{DoxyParamCaption}\item[{TObservable \&\&}]{observable,  }\item[{TObservables \&\&...}]{observables }\end{DoxyParamCaption})}
+requires constraint\+::observables\+\_\+of\+\_\+same\+\_\+type$<$std\+::decay\+\_\+t$<$TObservable$>$, std\+::decay\+\_\+t$<$\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{TObservables}}$>$...$>$\\
+\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{auto}} rpp\+::operators\+::merge\+\_\+with (\begin{DoxyParamCaption}\item[{TObservable \&\&}]{observable,  }\item[{\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{TObservables}} \&\&...}]{observables }\end{DoxyParamCaption})}
 
 
 
@@ -120,14 +120,14 @@ Actually it subscribes on each observable. Resulting observables completes when 
 \hline
 \end{DoxyParams}
 \begin{DoxyWarning}{Warning}
-\#include \texorpdfstring{$<$}{<}\doxylink{merge_8hpp_source}{rpp/operators/merge.\+hpp}\texorpdfstring{$>$}{>}
+\doxylink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{include} \texorpdfstring{$<$}{<}\doxylink{merge_8hpp_source}{rpp/operators/merge.\+hpp}\texorpdfstring{$>$}{>}
 \end{DoxyWarning}
 \begin{DoxyParagraph}{Example\+:}
 
 \begin{DoxyCodeInclude}{0}
 \DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(1)}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__combining__operators_ga35392a84e52bf7101d0d0445ef391db7}{rpp::operators::merge\_with}}(\mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(2))}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ |\ rpp::operators::subscribe([](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ v\ <<\ \textcolor{stringliteral}{"{}\ "{}};\ \});}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ |\ rpp::operators::subscribe([](\textcolor{keywordtype}{int}\ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{v}})\ \{\ std::cout\ <<\ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{v}}\ <<\ \textcolor{stringliteral}{"{}\ "{}};\ \});}
 \DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:\ 1\ 2}}
 
 \end{DoxyCodeInclude}
@@ -144,8 +144,8 @@ Actually it subscribes on each observable. Resulting observables completes when 
 \index{start\_with@{start\_with}!Combining Operators@{Combining Operators}}
 \doxysubsubsubsubsection{\texorpdfstring{start\_with()}{start\_with()}}
 {\footnotesize\ttfamily template$<$\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp\+::constraint\+::observable}} TObservable, rpp\+::constraint\+::observable... TObservables$>$ \newline
-requires constraint\+::observables\+\_\+of\+\_\+same\+\_\+type$<$std\+::decay\+\_\+t$<$TObservable$>$, std\+::decay\+\_\+t$<$TObservables$>$...$>$\\
-auto rpp\+::operators\+::start\+\_\+with (\begin{DoxyParamCaption}\item[{TObservable \&\&}]{observable,  }\item[{TObservables \&\&...}]{observables }\end{DoxyParamCaption})}
+requires constraint\+::observables\+\_\+of\+\_\+same\+\_\+type$<$std\+::decay\+\_\+t$<$TObservable$>$, std\+::decay\+\_\+t$<$\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{TObservables}}$>$...$>$\\
+\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{auto}} rpp\+::operators\+::start\+\_\+with (\begin{DoxyParamCaption}\item[{TObservable \&\&}]{observable,  }\item[{\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{TObservables}} \&\&...}]{observables }\end{DoxyParamCaption})}
 
 
 
@@ -164,7 +164,7 @@ Actually it makes concat(observables\+\_\+to\+\_\+start\+\_\+with..., current\+\
 \hline
 \end{DoxyParams}
 \begin{DoxyWarning}{Warning}
-\#include \texorpdfstring{$<$}{<}\doxylink{start__with_8hpp_source}{rpp/operators/start\+\_\+with.\+hpp}\texorpdfstring{$>$}{>}
+\doxylink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{include} \texorpdfstring{$<$}{<}\doxylink{start__with_8hpp_source}{rpp/operators/start\+\_\+with.\+hpp}\texorpdfstring{$>$}{>}
 \end{DoxyWarning}
 \begin{DoxyParagraph}{Example}
 
@@ -184,9 +184,9 @@ Actually it makes concat(observables\+\_\+to\+\_\+start\+\_\+with..., current\+\
 \index{Combining Operators@{Combining Operators}!start\_with\_values@{start\_with\_values}}
 \index{start\_with\_values@{start\_with\_values}!Combining Operators@{Combining Operators}}
 \doxysubsubsubsubsection{\texorpdfstring{start\_with\_values()}{start\_with\_values()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
-{\footnotesize\ttfamily template$<$constraint\+::memory\+\_\+model Memory\+Model = memory\+\_\+model\+::use\+\_\+stack, \mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1scheduler}{rpp\+::schedulers\+::constraint\+::scheduler}} TScheduler, typename T , typename ... Ts$>$ \newline
-requires (rpp\+::constraint\+::decayed\+\_\+same\+\_\+as$<$T, Ts$>$ \&\& ...)\\
-auto rpp\+::operators\+::start\+\_\+with\+\_\+values (\begin{DoxyParamCaption}\item[{const TScheduler \&}]{scheduler,  }\item[{T \&\&}]{v,  }\item[{Ts \&\&...}]{vals }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily template$<$constraint\+::memory\+\_\+model Memory\+Model = memory\+\_\+model\+::use\+\_\+stack, \mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1scheduler}{rpp\+::schedulers\+::constraint\+::scheduler}} TScheduler, \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{typename}} T , \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{typename}} ... Ts$>$ \newline
+requires (rpp\+::constraint\+::decayed\+\_\+same\+\_\+as$<$T, \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{Ts}}$>$ \&\& ...)\\
+\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{auto}} rpp\+::operators\+::start\+\_\+with\+\_\+values (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{const}} TScheduler \&}]{scheduler,  }\item[{T \&\&}]{v,  }\item[{\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{Ts}} \&\&...}]{vals }\end{DoxyParamCaption})}
 
 
 
@@ -207,7 +207,7 @@ Actually it makes concat(rpp\+::source\+::just(vals\+\_\+to\+\_\+start\+\_\+with
 \hline
 \end{DoxyParams}
 \begin{DoxyWarning}{Warning}
-\#include \texorpdfstring{$<$}{<}\doxylink{start__with_8hpp_source}{rpp/operators/start\+\_\+with.\+hpp}\texorpdfstring{$>$}{>}
+\doxylink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{include} \texorpdfstring{$<$}{<}\doxylink{start__with_8hpp_source}{rpp/operators/start\+\_\+with.\+hpp}\texorpdfstring{$>$}{>}
 \end{DoxyWarning}
 \begin{DoxyParagraph}{Example}
 
@@ -223,9 +223,9 @@ Actually it makes concat(rpp\+::source\+::just(vals\+\_\+to\+\_\+start\+\_\+with
 \index{Combining Operators@{Combining Operators}!start\_with\_values@{start\_with\_values}}
 \index{start\_with\_values@{start\_with\_values}!Combining Operators@{Combining Operators}}
 \doxysubsubsubsubsection{\texorpdfstring{start\_with\_values()}{start\_with\_values()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
-{\footnotesize\ttfamily template$<$constraint\+::memory\+\_\+model Memory\+Model = memory\+\_\+model\+::use\+\_\+stack, typename T , typename ... Ts$>$ \newline
-requires (rpp\+::constraint\+::decayed\+\_\+same\+\_\+as$<$T, Ts$>$ \&\& ...)\\
-auto rpp\+::operators\+::start\+\_\+with\+\_\+values (\begin{DoxyParamCaption}\item[{T \&\&}]{v,  }\item[{Ts \&\&...}]{vals }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily template$<$constraint\+::memory\+\_\+model Memory\+Model = memory\+\_\+model\+::use\+\_\+stack, \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{typename}} T , \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{typename}} ... Ts$>$ \newline
+requires (rpp\+::constraint\+::decayed\+\_\+same\+\_\+as$<$T, \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{Ts}}$>$ \&\& ...)\\
+\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{auto}} rpp\+::operators\+::start\+\_\+with\+\_\+values (\begin{DoxyParamCaption}\item[{T \&\&}]{v,  }\item[{\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{Ts}} \&\&...}]{vals }\end{DoxyParamCaption})}
 
 
 
@@ -248,7 +248,7 @@ This overloading operates on \doxylink{classrpp_1_1schedulers_1_1current__thread
 \hline
 \end{DoxyParams}
 \begin{DoxyWarning}{Warning}
-\#include \texorpdfstring{$<$}{<}\doxylink{start__with_8hpp_source}{rpp/operators/start\+\_\+with.\+hpp}\texorpdfstring{$>$}{>}
+\doxylink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{include} \texorpdfstring{$<$}{<}\doxylink{start__with_8hpp_source}{rpp/operators/start\+\_\+with.\+hpp}\texorpdfstring{$>$}{>}
 \end{DoxyWarning}
 \begin{DoxyParagraph}{Example}
 
@@ -269,7 +269,7 @@ This overloading operates on \doxylink{classrpp_1_1schedulers_1_1current__thread
 \index{with\_latest\_from@{with\_latest\_from}!Combining Operators@{Combining Operators}}
 \doxysubsubsubsubsection{\texorpdfstring{with\_latest\_from()}{with\_latest\_from()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
 {\footnotesize\ttfamily template$<$\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp\+::constraint\+::observable}} TObservable, rpp\+::constraint\+::observable... TObservables$>$ \\
-auto rpp\+::operators\+::with\+\_\+latest\+\_\+from (\begin{DoxyParamCaption}\item[{TObservable \&\&}]{observable,  }\item[{TObservables \&\&...}]{observables }\end{DoxyParamCaption})}
+\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{auto}} rpp\+::operators\+::with\+\_\+latest\+\_\+from (\begin{DoxyParamCaption}\item[{TObservable \&\&}]{observable,  }\item[{\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{TObservables}} \&\&...}]{observables }\end{DoxyParamCaption})}
 
 
 
@@ -294,21 +294,21 @@ Selector is just packing values to tuple in this case
 \hline
 \end{DoxyParams}
 \begin{DoxyWarning}{Warning}
-\#include \texorpdfstring{$<$}{<}\doxylink{with__latest__from_8hpp_source}{rpp/operators/with\+\_\+latest\+\_\+from.\+hpp}\texorpdfstring{$>$}{>}
+\doxylink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{include} \texorpdfstring{$<$}{<}\doxylink{with__latest__from_8hpp_source}{rpp/operators/with\+\_\+latest\+\_\+from.\+hpp}\texorpdfstring{$>$}{>}
 \end{DoxyWarning}
 \begin{DoxyParagraph}{Examples}
 
 \begin{DoxyCodeInclude}{0}
 \DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(1,\ 2,\ 3,\ 4,\ 5,\ 6)}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__combining__operators_ga9345ba5faac717ba85fc88f1c5fff58b}{rpp::operators::with\_latest\_from}}(\mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(3,\ 4,\ 5))}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ rpp::operators::subscribe([](std::tuple<int,int>\ v)\ \{\ std::cout\ <<\ std::get<0>(v)\ <<\ \textcolor{stringliteral}{"{}:"{}}\ <<\ std::get<1>(v)\ <<\ \textcolor{stringliteral}{"{}\ "{}};\ \});}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ rpp::operators::subscribe([](std::tuple<int,int>\ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{v}})\ \{\ std::cout\ <<\ std::get<0>(\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{v}})\ <<\ \textcolor{stringliteral}{"{}:"{}}\ <<\ std::get<1>(\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{v}})\ <<\ \textcolor{stringliteral}{"{}\ "{}};\ \});}
 \DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:\ 1:3\ 2:4\ 3:5\ 4:5\ 5:5\ 6:5}}
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ \ \ std::cout\ <<\ std::endl;}
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(1,\ 2,\ 3)}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__combining__operators_ga9345ba5faac717ba85fc88f1c5fff58b}{rpp::operators::with\_latest\_from}}(\mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(3,\ 4,\ 5,\ 6,\ 7,\ 8))}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ rpp::operators::subscribe([](std::tuple<int,int>\ v)\ \{\ std::cout\ <<\ std::get<0>(v)\ <<\ \textcolor{stringliteral}{"{}:"{}}\ <<\ std::get<1>(v)\ <<\ \textcolor{stringliteral}{"{}\ "{}};\ \});}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ rpp::operators::subscribe([](std::tuple<int,int>\ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{v}})\ \{\ std::cout\ <<\ std::get<0>(\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{v}})\ <<\ \textcolor{stringliteral}{"{}:"{}}\ <<\ std::get<1>(\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{v}})\ <<\ \textcolor{stringliteral}{"{}\ "{}};\ \});}
 \DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:\ 1:3\ 2:4\ 3:5}}
 
 \end{DoxyCodeInclude}
@@ -321,9 +321,9 @@ Selector is just packing values to tuple in this case
 \index{Combining Operators@{Combining Operators}!with\_latest\_from@{with\_latest\_from}}
 \index{with\_latest\_from@{with\_latest\_from}!Combining Operators@{Combining Operators}}
 \doxysubsubsubsubsection{\texorpdfstring{with\_latest\_from()}{with\_latest\_from()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
-{\footnotesize\ttfamily template$<$typename TSelector , \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp\+::constraint\+::observable}} TObservable, rpp\+::constraint\+::observable... TObservables$>$ \newline
-requires (!\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp\+::constraint\+::observable}}$<$TSelector$>$ \&\& (!utils\+::is\+\_\+not\+\_\+template\+\_\+callable$<$TSelector$>$ \texorpdfstring{$\vert$}{|}\texorpdfstring{$\vert$}{|} std\+::invocable$<$TSelector, rpp\+::utils\+::convertible\+\_\+to\+\_\+any, utils\+::extract\+\_\+observable\+\_\+type\+\_\+t$<$TObservable$>$, utils\+::extract\+\_\+observable\+\_\+type\+\_\+t$<$TObservables$>$...$>$))\\
-auto rpp\+::operators\+::with\+\_\+latest\+\_\+from (\begin{DoxyParamCaption}\item[{TSelector \&\&}]{selector,  }\item[{TObservable \&\&}]{observable,  }\item[{TObservables \&\&...}]{observables }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{typename}} \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{TSelector}} , \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp\+::constraint\+::observable}} TObservable, rpp\+::constraint\+::observable... TObservables$>$ \newline
+requires (!\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp\+::constraint\+::observable}}$<$\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{TSelector}}$>$ \&\& (!utils\+::is\+\_\+not\+\_\+template\+\_\+callable$<$\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{TSelector}}$>$ \texorpdfstring{$\vert$}{|}\texorpdfstring{$\vert$}{|} std\+::invocable$<$\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{TSelector}}, rpp\+::utils\+::convertible\+\_\+to\+\_\+any, utils\+::extract\+\_\+observable\+\_\+type\+\_\+t$<$TObservable$>$, utils\+::extract\+\_\+observable\+\_\+type\+\_\+t$<$\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{TObservables}}$>$...$>$))\\
+\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{auto}} rpp\+::operators\+::with\+\_\+latest\+\_\+from (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{TSelector}} \&\&}]{selector,  }\item[{TObservable \&\&}]{observable,  }\item[{\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{TObservables}} \&\&...}]{observables }\end{DoxyParamCaption})}
 
 
 
@@ -349,15 +349,15 @@ Actually this operator just keeps last values from all other observables and com
 \hline
 \end{DoxyParams}
 \begin{DoxyWarning}{Warning}
-\#include \texorpdfstring{$<$}{<}\doxylink{with__latest__from_8hpp_source}{rpp/operators/with\+\_\+latest\+\_\+from.\+hpp}\texorpdfstring{$>$}{>}
+\doxylink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{include} \texorpdfstring{$<$}{<}\doxylink{with__latest__from_8hpp_source}{rpp/operators/with\+\_\+latest\+\_\+from.\+hpp}\texorpdfstring{$>$}{>}
 \end{DoxyWarning}
 \begin{DoxyParagraph}{Examples}
 
 \begin{DoxyCodeInclude}{0}
 \DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(1,\ 2,\ 3,\ 4)}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__combining__operators_ga9345ba5faac717ba85fc88f1c5fff58b}{rpp::operators::with\_latest\_from}}([](\textcolor{keywordtype}{int}\ left,\ \textcolor{keywordtype}{int}\ right)\ \{\ \textcolor{keywordflow}{return}\ left\ +\ right;\ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__combining__operators_ga9345ba5faac717ba85fc88f1c5fff58b}{rpp::operators::with\_latest\_from}}([](\textcolor{keywordtype}{int}\ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{left}},\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{right}})\ \{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{left}}\ +\ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{right}};\ \},}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(3,\ 4,\ 5))}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ rpp::operators::subscribe([](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ v\ <<\ \textcolor{stringliteral}{"{}\ "{}};\ \});}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ rpp::operators::subscribe([](\textcolor{keywordtype}{int}\ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{v}})\ \{\ std::cout\ <<\ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{v}}\ <<\ \textcolor{stringliteral}{"{}\ "{}};\ \});}
 \DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:\ 4\ 6\ 8\ 9}}
 
 \end{DoxyCodeInclude}

@@ -36,32 +36,32 @@
 \DoxyCodeLine{00032\ \};}
 \DoxyCodeLine{00033\ }
 \DoxyCodeLine{00034\ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::observer\ Observer,\ \textcolor{keyword}{typename}\ Worker,\ rpp::details::disposables::constra\textcolor{keywordtype}{int}::disposable\_container\ Container>}
-\DoxyCodeLine{00035\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1debounce__disposable}{debounce\_disposable}}\ final\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classrpp_1_1composite__disposable__impl}{rpp::composite\_disposable\_impl}}<Container>}
+\DoxyCodeLine{00035\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1debounce__disposable}{debounce\_disposable}}\ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{final}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classrpp_1_1composite__disposable__impl}{rpp::composite\_disposable\_impl}}<Container>}
 \DoxyCodeLine{00036\ \ \ \ \ ,\ \textcolor{keyword}{public}\ std::enable\_shared\_from\_this<debounce\_disposable<Observer,\ Worker,\ Container>>}
 \DoxyCodeLine{00037\ \{}
 \DoxyCodeLine{00038\ \ \ \ \ \textcolor{keyword}{using\ }T\ =\ rpp::utils::extract\_observer\_type\_t<Observer>;}
 \DoxyCodeLine{00039\ }
 \DoxyCodeLine{00040\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00041\ \ \ \ \ \mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1debounce__disposable}{debounce\_disposable}}(Observer\&\&\ in\_observer,\ Worker\&\&\ in\_worker,\ rpp::schedulers::duration\ period)}
-\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ :\ m\_observer(std::move(in\_observer))}
-\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ ,\ m\_worker\{std::move(in\_worker)\}}
+\DoxyCodeLine{00041\ \ \ \ \ \mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1debounce__disposable}{debounce\_disposable}}(Observer\&\&\ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{in\_observer}},\ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{Worker}}\&\&\ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{in\_worker}},\ rpp::schedulers::duration\ period)}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ :\ m\_observer(std::move(\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{in\_observer}}))}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ ,\ m\_worker\{std::move(\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{in\_worker}})\}}
 \DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ ,\ m\_period\{period\}}
 \DoxyCodeLine{00045\ \ \ \ \ \{}
 \DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keyword}{constexpr}\ (!Worker::is\_none\_disposable)}
 \DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{auto}\ d\ =\ m\_worker.get\_disposable();\ !d.is\_disposed())}
-\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrpp_1_1composite__disposable__impl}{rpp::composite\_disposable\_impl<Container>::add}}(std::move(d));}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{auto}\ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{d}}\ =\ m\_worker.get\_disposable();\ !\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{d}}.is\_disposed())}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrpp_1_1composite__disposable__impl}{rpp::composite\_disposable\_impl<Container>::add}}(std::move(\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{d}}));}
 \DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{00051\ \ \ \ \ \}}
 \DoxyCodeLine{00052\ }
 \DoxyCodeLine{00053\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ TT>}
-\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keywordtype}{void}\ emplace\_safe(TT\&\&\ v)}
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keywordtype}{void}\ emplace\_safe(\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{TT}}\&\&\ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{v}})}
 \DoxyCodeLine{00055\ \ \ \ \ \{}
 \DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ std::lock\_guard\ lock\{m\_mutex\};}
-\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ m\_value\_to\_be\_emitted.emplace(std::forward<TT>(v));}
-\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ need\_to\_scheduled\ \ \ \ \ \ \ \ =\ !m\_time\_when\_value\_should\_be\_emitted.has\_value()\ ||\ !m\_value\_to\_be\_emitted.has\_value();}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ m\_value\_to\_be\_emitted.emplace(std::forward<TT>(\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{v}}));}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{need\_to\_scheduled}}\ \ \ \ \ \ \ \ =\ !m\_time\_when\_value\_should\_be\_emitted.has\_value()\ ||\ !m\_value\_to\_be\_emitted.has\_value();}
 \DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ m\_time\_when\_value\_should\_be\_emitted\ =\ m\_worker.now()\ +\ m\_period;}
-\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (need\_to\_scheduled)}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{need\_to\_scheduled}})}
 \DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \{}
 \DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \ \ \ \ schedule();}
 \DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \}}
@@ -80,17 +80,17 @@
 \DoxyCodeLine{00076\ \ \ \ \ \{}
 \DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ m\_worker.schedule(}
 \DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \ \ \ \ m\_period,}
-\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \ \ \ \ [](\textcolor{keyword}{const}\ \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1debounce__disposable__wrapper}{debounce\_disposable\_wrapper<Observer,\ Worker,\ Container>}}\&\ handler)\ -\/>\ schedulers::optional\_delay\_to\ \{}
-\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ value\_or\_duration\ =\ handler.disposable-\/>extract\_value\_or\_time();}
-\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{auto}*\ timepoint\ =\ std::get\_if<schedulers::time\_point>(\&value\_or\_duration))}
-\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ schedulers::optional\_delay\_to\{*timepoint\};}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \ \ \ \ [](\textcolor{keyword}{const}\ \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1debounce__disposable__wrapper}{debounce\_disposable\_wrapper<Observer,\ Worker,\ Container>}}\&\ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{handler}})\ -\/>\ schedulers::optional\_delay\_to\ \{}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{value\_or\_duration}}\ =\ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{handler}}.disposable-\/>extract\_value\_or\_time();}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{auto}*\ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{timepoint}}\ =\ std::get\_if<schedulers::time\_point>(\&\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{value\_or\_duration}}))}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ schedulers::optional\_delay\_to\{*\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{timepoint}}\};}
 \DoxyCodeLine{00083\ }
-\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{auto}*\ value\ =\ std::get\_if<T>(\&value\_or\_duration))}
-\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ handler.disposable-\/>get\_observer\_under\_lock()-\/>on\_next(std::move(*value));}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{auto}*\ value\ =\ std::get\_if<T>(\&\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{value\_or\_duration}}))}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{handler}}.disposable-\/>get\_observer\_under\_lock()-\/>on\_next(std::move(*value));}
 \DoxyCodeLine{00086\ }
 \DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::nullopt;}
 \DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \ \ \ \ \},}
-\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1debounce__disposable__wrapper}{debounce\_disposable\_wrapper<Observer,\ Worker,\ Container>}}\{this-\/>shared\_from\_this()\});}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1debounce__disposable__wrapper}{debounce\_disposable\_wrapper<Observer,\ Worker,\ Container>}}\{this-\/>\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{shared\_from\_this}}()\});}
 \DoxyCodeLine{00090\ \ \ \ \ \}}
 \DoxyCodeLine{00091\ }
 \DoxyCodeLine{00092\ \ \ \ \ std::variant<std::monostate,\ T,\ schedulers::time\_point>\ extract\_value\_or\_time()}
@@ -103,13 +103,13 @@
 \DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ m\_time\_when\_value\_should\_be\_emitted.value();}
 \DoxyCodeLine{00100\ }
 \DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ m\_time\_when\_value\_should\_be\_emitted.reset();}
-\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ v\ =\ std::move(m\_value\_to\_be\_emitted).value();}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{v}}\ =\ std::move(m\_value\_to\_be\_emitted).value();}
 \DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ m\_value\_to\_be\_emitted.reset();}
-\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ v;}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{v}};}
 \DoxyCodeLine{00105\ \ \ \ \ \}}
 \DoxyCodeLine{00106\ }
 \DoxyCodeLine{00107\ \ \ \ \ \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1value__with__mutex}{value\_with\_mutex<Observer>}}\ \ \ m\_observer;}
-\DoxyCodeLine{00108\ \ \ \ \ RPP\_NO\_UNIQUE\_ADDRESS\ Worker\ m\_worker;}
+\DoxyCodeLine{00108\ \ \ \ \ RPP\_NO\_UNIQUE\_ADDRESS\ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{Worker}}\ m\_worker;}
 \DoxyCodeLine{00109\ \ \ \ \ rpp::schedulers::duration\ \ \ \ m\_period;}
 \DoxyCodeLine{00110\ }
 \DoxyCodeLine{00111\ \ \ \ \ std::mutex\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ m\_mutex\{\};}
@@ -124,9 +124,9 @@
 \DoxyCodeLine{00120\ }
 \DoxyCodeLine{00121\ \ \ \ \ std::shared\_ptr<debounce\_disposable<Observer,\ Worker,\ Container>>\ disposable\{\};}
 \DoxyCodeLine{00122\ }
-\DoxyCodeLine{00123\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_upstream(\textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp::disposable\_wrapper}}\&\ d)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00123\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_upstream(\textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp::disposable\_wrapper}}\&\ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{d}})\textcolor{keyword}{\ const}}
 \DoxyCodeLine{00124\ \textcolor{keyword}{\ \ \ \ }\{}
-\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ disposable-\/>add(d);}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ disposable-\/>add(\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{d}});}
 \DoxyCodeLine{00126\ \ \ \ \ \}}
 \DoxyCodeLine{00127\ }
 \DoxyCodeLine{00128\ \ \ \ \ \textcolor{keywordtype}{bool}\ is\_disposed()\textcolor{keyword}{\ const}}
@@ -135,9 +135,9 @@
 \DoxyCodeLine{00131\ \ \ \ \ \}}
 \DoxyCodeLine{00132\ }
 \DoxyCodeLine{00133\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
-\DoxyCodeLine{00134\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_next(T\&\&\ v)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00134\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_next(T\&\&\ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{v}})\textcolor{keyword}{\ const}}
 \DoxyCodeLine{00135\ \textcolor{keyword}{\ \ \ \ }\{}
-\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ disposable-\/>emplace\_safe(std::forward<T>(v));}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ disposable-\/>emplace\_safe(std::forward<T>(\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{v}}));}
 \DoxyCodeLine{00137\ \ \ \ \ \}}
 \DoxyCodeLine{00138\ }
 \DoxyCodeLine{00139\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_error(\textcolor{keyword}{const}\ std::exception\_ptr\&\ err)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}}
@@ -172,12 +172,12 @@
 \DoxyCodeLine{00168\ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type\ Type,\ rpp::details::observables::constra\textcolor{keywordtype}{int}::disposable\_strategy\ DisposableStrategy,\ rpp::constra\textcolor{keywordtype}{int}::observer\ Observer>}
 \DoxyCodeLine{00169\ \ \ \ \ \textcolor{keyword}{auto}\ lift\_with\_disposable\_strategy(Observer\&\&\ \mbox{\hyperlink{classrpp_1_1observer}{observer}})\textcolor{keyword}{\ const}}
 \DoxyCodeLine{00170\ \textcolor{keyword}{\ \ \ \ }\{}
-\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }worker\_t\ =\ rpp::schedulers::utils::get\_worker\_t<Scheduler>;}
+\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{worker\_t}}\ =\ rpp::schedulers::utils::get\_worker\_t<Scheduler>;}
 \DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }container\ =\ \textcolor{keyword}{typename}\ DisposableStrategy::template\ add<worker\_t::is\_none\_disposable\ ?\ 0\ :\ 1>::disposable\_container;}
 \DoxyCodeLine{00173\ }
-\DoxyCodeLine{00174\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ disposable\ =\ std::make\_shared<debounce\_disposable<std::decay\_t<Observer>,\ worker\_t,\ container>>(std::forward<Observer>(\mbox{\hyperlink{classrpp_1_1observer}{observer}}),\ scheduler.create\_worker(),\ duration);}
+\DoxyCodeLine{00174\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ disposable\ =\ std::make\_shared<debounce\_disposable<std::decay\_t<Observer>,\ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{worker\_t}},\ container>>(std::forward<Observer>(\mbox{\hyperlink{classrpp_1_1observer}{observer}}),\ scheduler.create\_worker(),\ duration);}
 \DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ disposable-\/>get\_observer\_under\_lock()-\/>set\_upstream(rpp::disposable\_wrapper::from\_weak(disposable));}
-\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classrpp_1_1observer}{rpp::observer<Type,\ debounce\_observer\_strategy<std::decay\_t<Observer>}},\ worker\_t,\ container>>\{std::move(disposable)\};}
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classrpp_1_1observer}{rpp::observer<Type,\ debounce\_observer\_strategy<std::decay\_t<Observer>}},\ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{worker\_t}},\ container>>\{std::move(disposable)\};}
 \DoxyCodeLine{00177\ \ \ \ \ \}}
 \DoxyCodeLine{00178\ \};}
 \DoxyCodeLine{00179\ \}}

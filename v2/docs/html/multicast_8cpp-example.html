@@ -119,7 +119,7 @@ $(document).ready(function(){initNavTree('multicast_8cpp-example.html',''); init
 <div class="line">        <span class="comment">// #2 3</span></div>
 <div class="line">    }</div>
 <div class="line">    {</div>
-<div class="line">        <span class="keyword">auto</span> observable = <a class="code hl_function" href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">rpp::source::just</a>(1, 2, 3) | rpp::operators::multicast&lt;rpp::subjects::publish_subject&gt;();</div>
+<div class="line">        <span class="keyword">auto</span> observable = <a class="code hl_function" href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">rpp::source::just</a>(1, 2, 3) | <a id="a3" name="a3"></a><a class="code hl_function" href="group__creational__operators.html#gab5cc2df8f7221b124d67d66de60a7bcd">rpp::operators::multicast&lt;rpp::subjects::publish_subject&gt;</a>();</div>
 <div class="line">        observable.subscribe([](<span class="keywordtype">int</span> v) {std::cout &lt;&lt; <span class="stringliteral">&quot;#1 &quot;</span> &lt;&lt; v &lt;&lt; std::endl; });</div>
 <div class="line">        observable.subscribe([](<span class="keywordtype">int</span> v) {std::cout &lt;&lt; <span class="stringliteral">&quot;#2 &quot;</span> &lt;&lt; v &lt;&lt; std::endl; });</div>
 <div class="line">        observable.connect();</div>
@@ -132,7 +132,7 @@ $(document).ready(function(){initNavTree('multicast_8cpp-example.html',''); init
 <div class="line">        <span class="comment">// #2 3</span></div>
 <div class="line">    }</div>
 <div class="line">    {</div>
-<div class="line">        <span class="keyword">auto</span> observable = <a class="code hl_function" href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">rpp::source::just</a>(1, 2, 3) | <a id="a3" name="a3"></a><a class="code hl_function" href="group__connectable__operators.html#ga42498cc0bc565116e9deece3c3afa66f">rpp::operators::publish</a>();</div>
+<div class="line">        <span class="keyword">auto</span> observable = <a class="code hl_function" href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">rpp::source::just</a>(1, 2, 3) | <a id="a4" name="a4"></a><a class="code hl_function" href="group__connectable__operators.html#ga42498cc0bc565116e9deece3c3afa66f">rpp::operators::publish</a>();</div>
 <div class="line">        observable.subscribe([](<span class="keywordtype">int</span> v) {std::cout &lt;&lt; <span class="stringliteral">&quot;#1 &quot;</span> &lt;&lt; v &lt;&lt; std::endl; });</div>
 <div class="line">        observable.subscribe([](<span class="keywordtype">int</span> v) {std::cout &lt;&lt; <span class="stringliteral">&quot;#2 &quot;</span> &lt;&lt; v &lt;&lt; std::endl; });</div>
 <div class="line">        observable.connect();</div>
@@ -150,6 +150,7 @@ $(document).ready(function(){initNavTree('multicast_8cpp-example.html',''); init
 <div class="ttc" id="agroup__connectable__operators_html_ga42498cc0bc565116e9deece3c3afa66f"><div class="ttname"><a href="group__connectable__operators.html#ga42498cc0bc565116e9deece3c3afa66f">rpp::operators::publish</a></div><div class="ttdeci">auto publish()</div><div class="ttdoc">Converts ordinary observable to rpp::connectable_observable with help of inline instsantiated publish...</div><div class="ttdef"><b>Definition</b> publish.hpp:21</div></div>
 <div class="ttc" id="agroup__connectable__operators_html_gac7b150abbdae0a5084dd3784d9c7babf"><div class="ttname"><a href="group__connectable__operators.html#gac7b150abbdae0a5084dd3784d9c7babf">rpp::operators::multicast</a></div><div class="ttdeci">auto multicast()</div><div class="ttdoc">Converts ordinary observable to rpp::connectable_observable with help of inline instsantiated subject...</div><div class="ttdef"><b>Definition</b> multicast.hpp:84</div></div>
 <div class="ttc" id="agroup__creational__operators_html_ga1edf47f176050dd414e28a1c0616b7c0"><div class="ttname"><a href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">rpp::source::just</a></div><div class="ttdeci">auto just(const TScheduler &amp;scheduler, T &amp;&amp;item, Ts &amp;&amp;... items)</div><div class="ttdoc">Creates rpp::observable that emits a particular items and completes.</div><div class="ttdef"><b>Definition</b> from.hpp:207</div></div>
+<div class="ttc" id="agroup__creational__operators_html_gab5cc2df8f7221b124d67d66de60a7bcd"><div class="ttname"><a href="group__creational__operators.html#gab5cc2df8f7221b124d67d66de60a7bcd">rpp::operators::concat</a></div><div class="ttdeci">auto concat()</div><div class="ttdoc">Make observable which would merge emissions from underlying observables but without overlapping (curr...</div><div class="ttdef"><b>Definition</b> concat.hpp:220</div></div>
 </div><!-- fragment --> </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
