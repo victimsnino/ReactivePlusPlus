@@ -25,17 +25,22 @@ public:
     void wait() 
     {
         std::unique_lock lock{m_mutex};
-        m_cv.wait(lock, [this] { return is_disposed(); });
+        m_cv.wait(lock, [this] { return m_completed; });
     }
 
     void dispose_impl() noexcept override 
     {
+        {
+            std::lock_guard lock{m_mutex};
+            m_completed = true;
+        }
         m_cv.notify_all();
     }
 
 private:
     std::mutex              m_mutex{};
     std::condition_variable m_cv{};
+    bool                    m_completed{};
 };
 
 template<rpp::constraint::decayed_type Type, rpp::constraint::observable_strategy<Type> Strategy>
