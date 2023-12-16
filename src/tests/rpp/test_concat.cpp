@@ -301,13 +301,13 @@ TEST_CASE("concat as operator")
         auto d = std::make_shared<rpp::composite_disposable>();
         auto observable =
             rpp::source::just(rpp::source::just(1).as_dynamic(),
-                              rpp::source::create<int>([&](auto&& obs) { d->dispose(); obs.on_completed(); }).as_dynamic(),
+                              rpp::source::create<int>([&](auto&& obs) { obs.on_next(2); d->dispose(); obs.on_completed(); }).as_dynamic(),
                               rpp::source::create<int>([&](auto&&) { FAIL("Shouldn't be called"); }).as_dynamic(),
                               rpp::source::just(3).as_dynamic())
             | rpp::operators::concat();
         observable.subscribe(rpp::composite_disposable_wrapper{d}, mock);
 
-        CHECK(mock.get_received_values() == std::vector{1});
+        CHECK(mock.get_received_values() == std::vector{1, 2});
         CHECK(mock.get_on_error_count() == 0);
         CHECK(mock.get_on_completed_count() == 0);
     }

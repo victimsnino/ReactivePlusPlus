@@ -50,13 +50,14 @@ public:
 
     void drain(rpp::composite_disposable_wrapper refcounted)
     {
-        while(true)
+        while(!is_disposed())
         {
             stage().store(ConcatStage::Draining, std::memory_order::relaxed);
 
             const auto observable = get_observable();
             if (!observable)
             {
+                stage().store(ConcatStage::None, std::memory_order::seq_cst);
                 refcounted.dispose();
                 if (is_disposed())
                     get_observer()->on_completed();
