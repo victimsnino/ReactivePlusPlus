@@ -14,6 +14,7 @@
 #include <rpp/sources/create.hpp>
 #include <rpp/sources/just.hpp>
 #include <rpp/schedulers/immediate.hpp>
+#include <rpp/subjects/publish_subject.hpp>
 
 #include <rpp/operators/concat.hpp>
 #include <snitch/snitch_macros_check.hpp>
@@ -310,7 +311,6 @@ TEST_CASE("concat as operator")
         CHECK(mock.get_on_error_count() == 0);
         CHECK(mock.get_on_completed_count() == 0);
     }
-
     SECTION("concat tracks actual upstream")
     {
         auto d = std::make_shared<rpp::composite_disposable>();
@@ -331,7 +331,6 @@ TEST_CASE("concat as operator")
         })) | rpp::operators::concat();
         observable.subscribe(rpp::composite_disposable_wrapper{d}, mock);
     }
-
     SECTION("concat tracks actual upstream for 2 upstreams")
     {
         auto d = std::make_shared<rpp::composite_disposable>();
@@ -355,6 +354,36 @@ TEST_CASE("concat as operator")
             | rpp::operators::concat();
 
         observable.subscribe(rpp::composite_disposable_wrapper{d}, mock);
+    }
+}
+
+TEST_CASE("concat as operator async completiton")
+{
+    mock_observer_strategy<int> mock{};
+    rpp::subjects::publish_subject<int> subj{};
+    rpp::source::just(subj.get_observable().as_dynamic(), rpp::source::just(100).as_dynamic()) 
+        | rpp::ops::concat()
+        | rpp::ops::subscribe(mock);
+
+    SECTION("nothing happens before emitting values from subj")
+    {
+        CHECK(mock.get_received_values() == std::vector<int>{});
+        CHECK(mock.get_on_error_count() == 0);
+        CHECK(mock.get_on_completed_count() == 0);
+    }
+    subj.get_observer().on_next(1);
+    SECTION("observer see first value from subject")
+    {
+        CHECK(mock.get_received_values() == std::vector<int>{1});
+        CHECK(mock.get_on_error_count() == 0);
+        CHECK(mock.get_on_completed_count() == 0);
+    }
+    subj.get_observer().on_completed();
+    SECTION("observer see values from first observable when first completes")
+    {
+        CHECK(mock.get_received_values() == std::vector<int>{1, 100});
+        CHECK(mock.get_on_error_count() == 0);
+        CHECK(mock.get_on_completed_count() == 1);
     }
 }
 
