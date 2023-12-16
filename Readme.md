@@ -21,7 +21,7 @@ Try out rpp on [godbolt.org](https://godbolt.org/z/48fh1hcbn)!
 
 ## Documentation:
 
-Refer to [User Guide](https://victimsnino.github.io/ReactivePlusPlus/v2/docs/html/md_docs_2readme.html) for better understanding of concepts of Reactive Programming and [API Reference of RPP](https://victimsnino.github.io/ReactivePlusPlus/v2/docs/html/group__rpp.html) itself.
+Check [User Guide](https://victimsnino.github.io/ReactivePlusPlus/v2/docs/html/md_docs_2readme.html) and [API Reference of RPP](https://victimsnino.github.io/ReactivePlusPlus/v2/docs/html/group__rpp.html).
 
 ## Note about V2:
 Currently I'm working on RPP v2 (`v2` branch). RPP v2 follows [**"zero-overhead principle"**](https://en.cppreference.com/w/cpp/language/Zero-overhead_principle) and most of the operators are (and will) minimize overhead.
@@ -60,6 +60,65 @@ rpp::source::from_callable(&::getchar)
 ```
 
 There we are creating observable which emits value via invoking of `getchar` function, then `repeat`s it infinite amount of time till termination event happes. It emits values while symbol is not equal to `0`, takes only not digits, maps them to upper case and then just prints to console.
+
+## Why do you need it?
+
+Check the [User Guide](https://victimsnino.github.io/ReactivePlusPlus/v2/docs/html/md_docs_2readme.html) for a detailed overview of the Reactive Programming concept and RPP itself. 
+
+In short, RPP can help you build complex pipelines to distribute values over time, connect "some sources of data" without directly connecting them.
+
+Take a look at the example code for using RPP with QT. Here, you can see how to connect a button to a label and update it based on the number of clicks.
+```cpp
+auto button          = new QPushButton("Click me!");
+auto clicks_count_label = new QLabel();
+QObject::connect(button, &QPushButton::clicked, [&clicks_count_label, count = 0]() mutable {
+   clicks_count_label->setText(QString{"Clicked %1 times!"}.arg(++count));
+});
+```
+
+In this example, the button is directly connected to the label. What if you want to link another widget to the same button?
+
+```cpp
+auto button          = new QPushButton("Click me!");
+auto clicks_count_label = new QLabel();
+auto clicks_duration_label = new QLabel();
+QObject::connect(button, &QPushButton::clicked, [&clicks_count_label, count = 0]() mutable {
+   clicks_count_label->setText(QString{"Clicked %1 times!"}.arg(++count));
+});
+QObject::connect(button, &QPushButton::clicked, [&clicks_duration_label, now = std::chrono::high_resolution_clock::now()]() mutable {
+   const auto old = std::exchange(now, std::chrono::high_resolution_clock::now());
+   clicks_duration_label->setText(QString{"MS since last click %1!"}.arg(std::chrono::duration_cast<std::chrono::milliseconds>(now-old).count()));
+});
+```
+Again directly connected... and it becomes a bit complex.. what if i want to accumulate two buttons at the same time? should i make a separate variable for this case? Build complex state to track it? Ideally it would be nice also to update "MS since last click %1!" at runtime each 1ms... So, looks like each label have to depend on multiple sources of data. It is not a trivial case. In this case it is nice opportunity to try RPP!
+```cpp
+auto button_1              = new QPushButton("Click me!");
+auto button_2              = new QPushButton("Click me!");
+auto clicks_count_label    = new QLabel();
+auto clicks_duration_label = new QLabel();
+
+const auto clicks_1      = rppqt::source::from_signal(*button_1, &QPushButton::clicked);
+const auto clicks_2      = rppqt::source::from_signal(*button_2, &QPushButton::clicked);
+const auto merged_clicks = clicks_1 | rpp::operators::merge_with(clicks_2);
+
+const auto total_clicks     = merged_clicks | rpp::operators::scan(0, [](int seed, auto) { return ++seed; });
+const auto click_times      = merged_clicks | rpp::operators::map([](auto) { return std::chrono::high_resolution_clock::now(); });
+const auto time_since_click = rpp::source::interval(std::chrono::milliseconds{1}, rppqt::schedulers::main_thread_scheduler{})
+                              | rpp::operators::with_latest_from([](auto, const auto click_time) { return std::chrono::high_resolution_clock::now() - click_time; }, click_times);
+
+// .....
+
+total_clicks.subscribe([&clicks_count_label](int clicks)
+{
+   clicks_count_label->setText(QString{"Clicked %1 times in total!"}.arg(clicks));
+});
+
+time_since_click.subscribe([&clicks_duration_label](std::chrono::high_resolution_clock::duration ms) {
+   clicks_duration_label->setText(QString{"MS since last click %1!"}.arg(std::chrono::duration_cast<std::chrono::milliseconds>(ms).count()));
+});
+```
+Now we have separate observables for separate sources of dynamic data like clicks itself, clicks count and time of clicks. As a result, we can combine them in any way we want. At the same time now observables and actions for events can be separated easily - we have "some observable of some clicks or any counted event" and "some observable of durations". How this observables was obtained - doesn't matter. Also we easily built a much more complex pipeline without any difficulties.
+
 
 # Useful links
 - [User Guide](https://victimsnino.github.io/ReactivePlusPlus/v2/docs/html/md_docs_2readme.html)
