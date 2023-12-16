@@ -57,7 +57,7 @@ public:
             const auto observable = get_observable();
             if (!observable)
             {
-                stage().store(ConcatStage::None, std::memory_order::seq_cst);
+                stage().store(ConcatStage::None, std::memory_order::relaxed);
                 refcounted.dispose();
                 if (is_disposed())
                     get_observer()->on_completed();
