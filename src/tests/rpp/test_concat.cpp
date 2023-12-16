@@ -12,21 +12,21 @@
 #include <rpp/sources/just.hpp>
 #include <rpp/sources/concat.hpp>
 #include <rpp/sources/create.hpp>
+#include <rpp/sources/just.hpp>
+#include <rpp/schedulers/immediate.hpp>
+
 #include <rpp/operators/concat.hpp>
 #include <snitch/snitch_macros_check.hpp>
 #include <snitch/snitch_macros_test_case.hpp>
 
-#include "mock_observer.hpp"
-#include "copy_count_tracker.hpp"
-#include "disposable_observable.hpp"
-
 
 #include <rpp/disposables/composite_disposable.hpp>
 #include <rpp/disposables/disposable_wrapper.hpp>
-#include "rpp/disposables/fwd.hpp"
-#include "rpp/observables/fwd.hpp"
-#include "rpp/operators/subscribe.hpp"
-#include "rpp/schedulers/immediate.hpp"
+
+#include "mock_observer.hpp"
+#include "copy_count_tracker.hpp"
+#include "disposable_observable.hpp"
+#include "snitch_logging.hpp"
 
 #include <memory>
 #include <optional>
@@ -339,20 +339,20 @@ TEST_CASE("concat as operator")
         auto d2 = std::make_shared<rpp::composite_disposable>();
 
         auto observable =
-            rpp::source::just(rpp::source::create<int>([&](auto&& obs) { obs.set_upstream(rpp::disposable_wrapper{d1}); obs.on_completed(); }),
-                                          rpp::source::create<int>([&](auto&& obs)
-                                          {
-                                            obs.set_upstream(rpp::disposable_wrapper{d2});
+            rpp::source::just(rpp::source::create<int>([&](auto&& obs) { obs.set_upstream(rpp::disposable_wrapper{d1}); obs.on_completed(); }).as_dynamic(),
+                              rpp::source::create<int>([&](auto&& obs) {
+                                  obs.set_upstream(rpp::disposable_wrapper{d2});
 
-                                            CHECK(!d->is_disposed());
-                                            CHECK(d1->is_disposed());
-                                            CHECK(!d2->is_disposed());
+                                  CHECK(!d->is_disposed());
+                                  CHECK(d1->is_disposed());
+                                  CHECK(!d2->is_disposed());
 
-                                            d->dispose();
+                                  d->dispose();
 
-                                            CHECK(d->is_disposed());
-                                            CHECK(d2->is_disposed());
-                                          })) | rpp::operators::concat();;
+                                  CHECK(d->is_disposed());
+                                  CHECK(d2->is_disposed());
+                              }).as_dynamic())
+            | rpp::operators::concat();
 
         observable.subscribe(rpp::composite_disposable_wrapper{d}, mock);
     }

@@ -79,7 +79,7 @@ public:
 private:
     bool handle_observable_impl(const rpp::constraint::decayed_same_as<TObservable> auto& observable, rpp::composite_disposable_wrapper refcounted)
     {
-        observable.subscribe(concat_inner_observer_strategy<TObservable, TObserver>{shared_from_this(), std::move(refcounted)});
+        observable.subscribe(concat_inner_observer_strategy<TObservable, TObserver>{std::static_pointer_cast<concat_state_t>(shared_from_this()), std::move(refcounted)});
 
         ConcatStage current = ConcatStage::Draining;
         if (stage().compare_exchange_strong(current, ConcatStage::Processing, std::memory_order::seq_cst))
@@ -93,7 +93,7 @@ private:
     std::optional<TObservable> get_observable()
     {
         auto queue = get_queue();
-        if (queue->iempty())
+        if (queue->empty())
             return {};
         auto observable = queue->front();
         queue->pop();
@@ -139,7 +139,7 @@ struct concat_inner_observer_strategy : public concat_observer_strategy_base<TOb
 {
     using base = concat_observer_strategy_base<TObservable, TObserver>;
 
-    using base::base;
+    using base::concat_observer_strategy_base;
 
     template<typename T>
     void on_next(T&& v) const
