@@ -52,25 +52,25 @@ public:
     {
         while(true)
         {
+            stage().store(ConcatStage::Draining, std::memory_order::relaxed);
+
             const auto observable = get_observable();
             if (!observable)
             {
-                assert(stage().exchange(ConcatStage::None, std::memory_order::seq_cst) == ConcatStage::Draining);
                 refcounted.dispose();
                 if (is_disposed())
                     get_observer()->on_completed();
                 return;
             }
 
-            refcounted.clear();
-            if (!handle_observable_impl(observable.value(), refcounted))
+            if (handle_observable_impl(observable.value(), refcounted))
                 return;
         }
     }
 
     void handle_observable(const rpp::constraint::decayed_same_as<TObservable> auto& observable, rpp::composite_disposable_wrapper refcounted)
     {
-        if (!handle_observable_impl(observable, refcounted))
+        if (handle_observable_impl(observable, refcounted))
             return;
         
         drain(refcounted);
@@ -79,16 +79,11 @@ public:
 private:
     bool handle_observable_impl(const rpp::constraint::decayed_same_as<TObservable> auto& observable, rpp::composite_disposable_wrapper refcounted)
     {
-        
+        refcounted.clear();
         observable.subscribe(concat_inner_observer_strategy<TObservable, TObserver>{std::static_pointer_cast<concat_state_t>(shared_from_this()), std::move(refcounted)});
 
         ConcatStage current = ConcatStage::Draining;
-        if (stage().compare_exchange_strong(current, ConcatStage::Processing, std::memory_order::seq_cst))
-            return false;
-
-        assert(current == ConcatStage::CompletedWhileDraining);
-        stage().store(ConcatStage::Draining, std::memory_order::relaxed);
-        return true;
+        return stage().compare_exchange_strong(current, ConcatStage::Processing, std::memory_order::seq_cst);
     }
 
 private:
@@ -131,7 +126,7 @@ struct concat_observer_strategy_base
         state->get_observer()->on_error(err);
     }
 
-    void set_upstream(const disposable_wrapper& d) { refcounted.add(d); }
+    void set_upstream(const disposable_wrapper& d) const { refcounted.add(d); }
 
     bool is_disposed() const { return refcounted.is_disposed(); }
 };
@@ -156,7 +151,6 @@ struct concat_inner_observer_strategy : public concat_observer_strategy_base<TOb
             return;
 
         assert(current == ConcatStage::Processing);
-        assert(base::state->stage().compare_exchange_strong(current, ConcatStage::Draining, std::memory_order::seq_cst));
 
         base::state->drain(base::refcounted);
     }
