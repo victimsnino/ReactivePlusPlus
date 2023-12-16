@@ -52,8 +52,6 @@ public:
     {
         while(!is_disposed())
         {
-            stage().store(ConcatStage::Draining, std::memory_order::relaxed);
-
             const auto observable = get_observable();
             if (!observable)
             {
@@ -80,6 +78,7 @@ public:
 private:
     bool handle_observable_impl(const rpp::constraint::decayed_same_as<TObservable> auto& observable, rpp::composite_disposable_wrapper refcounted)
     {
+        stage().store(ConcatStage::Draining, std::memory_order::relaxed);
         refcounted.clear();
         observable.subscribe(concat_inner_observer_strategy<TObservable, TObserver>{std::static_pointer_cast<concat_state_t>(shared_from_this()), std::move(refcounted)});
 
