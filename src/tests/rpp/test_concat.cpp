@@ -221,12 +221,12 @@ TEMPLATE_TEST_CASE("concat as source", "", rpp::memory_model::use_stack, rpp::me
     }
 }
 
-TEST_CASE("concat as operator")
+TEMPLATE_TEST_CASE("concat as operator", "", rpp::schedulers::current_thread, rpp::schedulers::immediate)
 {
     mock_observer_strategy<int> mock{};
     SECTION("concat of solo observable")
     {
-        auto observable = rpp::source::just(rpp::source::just(1, 2)) | rpp::operators::concat();
+        auto observable = rpp::source::just(TestType{}, rpp::source::just(TestType{}, 1, 2)) | rpp::operators::concat();
         observable.subscribe(mock);
 
         CHECK(mock.get_received_values() == std::vector{1,2});
@@ -235,7 +235,7 @@ TEST_CASE("concat as operator")
     }
     SECTION("concat of multiple same observables")
     {
-        auto observable = rpp::source::just(rpp::source::just(1, 2), rpp::source::just(1, 2)) | rpp::operators::concat();
+        auto observable = rpp::source::just(TestType{}, rpp::source::just(TestType{}, 1, 2), rpp::source::just(TestType{}, 1, 2)) | rpp::operators::concat();
         observable.subscribe(mock);
 
         CHECK(mock.get_received_values() == std::vector{1,2, 1, 2});
@@ -244,7 +244,7 @@ TEST_CASE("concat as operator")
     }
     SECTION("concat of multiple different observables")
     {
-        auto observable = rpp::source::just(rpp::source::just(1, 2).as_dynamic(), rpp::source::just(1).as_dynamic()) | rpp::operators::concat();
+        auto observable = rpp::source::just(TestType{}, rpp::source::just(TestType{}, 1, 2).as_dynamic(), rpp::source::just(TestType{}, 1).as_dynamic()) | rpp::operators::concat();
         observable.subscribe(mock);
 
         CHECK(mock.get_received_values() == std::vector{1,2,1});
@@ -253,7 +253,7 @@ TEST_CASE("concat as operator")
     }
     SECTION("concat of array of different observables")
     {
-        auto observable = rpp::source::from_iterable(std::array{rpp::source::just(1, 2), rpp::source::just(1, 1)}) | rpp::operators::concat();
+        auto observable = rpp::source::from_iterable(std::array{rpp::source::just(TestType{}, 1, 2), rpp::source::just(TestType{}, 1, 1)}) | rpp::operators::concat();
         observable.subscribe(mock);
 
         CHECK(mock.get_received_values() == std::vector{1,2,1, 1});
@@ -263,7 +263,7 @@ TEST_CASE("concat as operator")
     SECTION("concat stop if no completion")
     {
         std::optional<rpp::dynamic_observer<int>> observer{};
-        auto                                      observable = rpp::source::just(rpp::source::just(1, 2).as_dynamic(), rpp::source::create<int>([&](auto&& obs) { observer.emplace(std::forward<decltype(obs)>(obs).as_dynamic()); }).as_dynamic(), rpp::source::just(3).as_dynamic()) | rpp::operators::concat();
+        auto                                      observable = rpp::source::just(TestType{}, rpp::source::just(TestType{}, 1, 2).as_dynamic(), rpp::source::create<int>([&](auto&& obs) { observer.emplace(std::forward<decltype(obs)>(obs).as_dynamic()); }).as_dynamic(), rpp::source::just(TestType{}, 3).as_dynamic()) | rpp::operators::concat();
         observable.subscribe(mock);
 
         CHECK(mock.get_received_values() == std::vector{1,2});
@@ -300,10 +300,10 @@ TEST_CASE("concat as operator")
     {
         auto d = std::make_shared<rpp::composite_disposable>();
         auto observable =
-            rpp::source::just(rpp::source::just(1).as_dynamic(),
+            rpp::source::just(TestType{}, rpp::source::just(TestType{}, 1).as_dynamic(),
                               rpp::source::create<int>([&](auto&& obs) { obs.on_next(2); d->dispose(); obs.on_completed(); }).as_dynamic(),
                               rpp::source::create<int>([&](auto&&) { FAIL("Shouldn't be called"); }).as_dynamic(),
-                              rpp::source::just(3).as_dynamic())
+                              rpp::source::just(TestType{}, 3).as_dynamic())
             | rpp::operators::concat();
         observable.subscribe(rpp::composite_disposable_wrapper{d}, mock);
 
@@ -316,7 +316,7 @@ TEST_CASE("concat as operator")
         auto d = std::make_shared<rpp::composite_disposable>();
         auto d1 = std::make_shared<rpp::composite_disposable>();
 
-        auto observable = rpp::source::just(rpp::source::create<int>([&](auto&& obs)
+        auto observable = rpp::source::just(TestType{}, rpp::source::create<int>([&](auto&& obs)
         {
             obs.set_upstream(rpp::disposable_wrapper{d1});
 
@@ -338,7 +338,7 @@ TEST_CASE("concat as operator")
         auto d2 = std::make_shared<rpp::composite_disposable>();
 
         auto observable =
-            rpp::source::just(rpp::source::create<int>([&](auto&& obs) { obs.set_upstream(rpp::disposable_wrapper{d1}); obs.on_completed(); }).as_dynamic(),
+            rpp::source::just(TestType{}, rpp::source::create<int>([&](auto&& obs) { obs.set_upstream(rpp::disposable_wrapper{d1}); obs.on_completed(); }).as_dynamic(),
                               rpp::source::create<int>([&](auto&& obs) {
                                   obs.set_upstream(rpp::disposable_wrapper{d2});
 
