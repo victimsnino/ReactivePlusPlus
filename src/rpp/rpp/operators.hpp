@@ -111,4 +111,5 @@
  * @ingroup operators
  */
 
+#include <rpp/operators/concat.hpp>
 #include <rpp/operators/reduce.hpp>

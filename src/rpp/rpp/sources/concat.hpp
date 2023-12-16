@@ -21,13 +21,6 @@
 
 namespace rpp::details
 {
-enum ConcatStage : uint8_t
-{
-    None         = 0,
-    InsideDrain = 1,
-    Completed    = 2
-};
-
 template<rpp::constraint::observer TObserver, constraint::decayed_type PackedContainer>
 struct concat_state_t : public rpp::composite_disposable
     , public std::enable_shared_from_this<concat_state_t<TObserver, PackedContainer>>
@@ -50,7 +43,7 @@ struct concat_state_t : public rpp::composite_disposable
     RPP_NO_UNIQUE_ADDRESS TObserver                 observer;
     RPP_NO_UNIQUE_ADDRESS PackedContainer           container;
     std::optional<decltype(std::cbegin(container))> itr{};
-    std::atomic<ConcatStage>                        stage{};
+    std::atomic<bool>                               is_inside_drain{};
 };
 
 template<rpp::constraint::observer TObserver, typename PackedContainer>
@@ -59,9 +52,10 @@ void drain(TObserver&& observer, PackedContainer&& container, size_t index);
 template<rpp::constraint::observer TObserver, constraint::decayed_type PackedContainer>
 struct concat_source_observer_strategy
 {
-    using value_type = rpp::utils::extract_observable_type_t<utils::iterable_value_t<PackedContainer>>;
+    using preferred_disposable_strategy = rpp::details::observers::none_disposable_strategy;
 
     std::shared_ptr<concat_state_t<TObserver, PackedContainer>> state{};
+    mutable bool                                                locally_disposed{};
 
     template<typename T>
     void on_next(T&& v) const
@@ -69,15 +63,20 @@ struct concat_source_observer_strategy
         state->observer.on_next(std::forward<T>(v));
     }
 
-    void on_error(const std::exception_ptr& err) const { state->observer.on_error(err); }
+    void on_error(const std::exception_ptr& err) const
+    {
+        locally_disposed = true;
+        state->observer.on_error(err);
+    }
 
     void set_upstream(const disposable_wrapper& d) { state->add(d); }
 
-    bool is_disposed() const { return state->is_disposed(); }
+    bool is_disposed() const { return locally_disposed || state->is_disposed(); }
 
     void on_completed() const
     {
-        if (state->stage.exchange(ConcatStage::Completed, std::memory_order::seq_cst) == ConcatStage::InsideDrain)
+        locally_disposed = true;
+        if (state->is_inside_drain.exchange(false, std::memory_order::seq_cst))
             return;
 
         drain(state);
@@ -97,12 +96,12 @@ void drain(const std::shared_ptr<concat_state_t<TObserver, PackedContainer>>& st
 
         using value_type = rpp::utils::extract_observable_type_t<utils::iterable_value_t<PackedContainer>>;
         state->clear();
-        state->stage.store(ConcatStage::InsideDrain, std::memory_order::seq_cst);
+        state->is_inside_drain.store(true, std::memory_order::seq_cst);
         try
         {
             (*(state->itr.value()++)).subscribe(observer<value_type, concat_source_observer_strategy<std::decay_t<TObserver>, std::decay_t<PackedContainer>>>{state});
 
-            if (state->stage.exchange(ConcatStage::None, std::memory_order::seq_cst) == ConcatStage::InsideDrain)
+            if (state->is_inside_drain.exchange(false, std::memory_order::seq_cst))
                 return;
         }
         catch(...)

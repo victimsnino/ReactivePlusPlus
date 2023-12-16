@@ -12,20 +12,22 @@
 #include <rpp/sources/just.hpp>
 #include <rpp/sources/concat.hpp>
 #include <rpp/sources/create.hpp>
+#include <rpp/sources/just.hpp>
+#include <rpp/schedulers/immediate.hpp>
+#include <rpp/subjects/publish_subject.hpp>
+
+#include <rpp/operators/concat.hpp>
 #include <snitch/snitch_macros_check.hpp>
 #include <snitch/snitch_macros_test_case.hpp>
-
-#include "mock_observer.hpp"
-#include "copy_count_tracker.hpp"
-#include "disposable_observable.hpp"
 
 
 #include <rpp/disposables/composite_disposable.hpp>
 #include <rpp/disposables/disposable_wrapper.hpp>
-#include "rpp/disposables/fwd.hpp"
-#include "rpp/observables/fwd.hpp"
-#include "rpp/operators/subscribe.hpp"
-#include "rpp/schedulers/immediate.hpp"
+
+#include "mock_observer.hpp"
+#include "copy_count_tracker.hpp"
+#include "disposable_observable.hpp"
+#include "snitch_logging.hpp"
 
 #include <memory>
 #include <optional>
@@ -219,6 +221,172 @@ TEMPLATE_TEST_CASE("concat as source", "", rpp::memory_model::use_stack, rpp::me
     }
 }
 
+TEMPLATE_TEST_CASE("concat as operator", "", rpp::schedulers::current_thread, rpp::schedulers::immediate)
+{
+    mock_observer_strategy<int> mock{};
+    SECTION("concat of solo observable")
+    {
+        auto observable = rpp::source::just(TestType{}, rpp::source::just(TestType{}, 1, 2)) | rpp::operators::concat();
+        observable.subscribe(mock);
+
+        CHECK(mock.get_received_values() == std::vector{1,2});
+        CHECK(mock.get_on_error_count() == 0);
+        CHECK(mock.get_on_completed_count() == 1);
+    }
+    SECTION("concat of multiple same observables")
+    {
+        auto observable = rpp::source::just(TestType{}, rpp::source::just(TestType{}, 1, 2), rpp::source::just(TestType{}, 1, 2)) | rpp::operators::concat();
+        observable.subscribe(mock);
+
+        CHECK(mock.get_received_values() == std::vector{1,2, 1, 2});
+        CHECK(mock.get_on_error_count() == 0);
+        CHECK(mock.get_on_completed_count() == 1);
+    }
+    SECTION("concat of multiple different observables")
+    {
+        auto observable = rpp::source::just(TestType{}, rpp::source::just(TestType{}, 1, 2).as_dynamic(), rpp::source::just(TestType{}, 1).as_dynamic()) | rpp::operators::concat();
+        observable.subscribe(mock);
+
+        CHECK(mock.get_received_values() == std::vector{1,2,1});
+        CHECK(mock.get_on_error_count() == 0);
+        CHECK(mock.get_on_completed_count() == 1);
+    }
+    SECTION("concat of array of different observables")
+    {
+        auto observable = rpp::source::from_iterable(std::array{rpp::source::just(TestType{}, 1, 2), rpp::source::just(TestType{}, 1, 1)}) | rpp::operators::concat();
+        observable.subscribe(mock);
+
+        CHECK(mock.get_received_values() == std::vector{1,2,1, 1});
+        CHECK(mock.get_on_error_count() == 0);
+        CHECK(mock.get_on_completed_count() == 1);
+    }
+    SECTION("concat stop if no completion")
+    {
+        std::optional<rpp::dynamic_observer<int>> observer{};
+        auto                                      observable = rpp::source::just(TestType{}, rpp::source::just(TestType{}, 1, 2).as_dynamic(), rpp::source::create<int>([&](auto&& obs) { observer.emplace(std::forward<decltype(obs)>(obs).as_dynamic()); }).as_dynamic(), rpp::source::just(TestType{}, 3).as_dynamic()) | rpp::operators::concat();
+        observable.subscribe(mock);
+
+        CHECK(mock.get_received_values() == std::vector{1,2});
+        CHECK(mock.get_on_error_count() == 0);
+        CHECK(mock.get_on_completed_count() == 0);
+        REQUIRE(observer.has_value());
+
+        SECTION("send completion later")
+        {
+            observer->on_completed();
+
+            CHECK(mock.get_received_values() == std::vector{1,2,3});
+            CHECK(mock.get_on_error_count() == 0);
+            CHECK(mock.get_on_completed_count() == 1);
+        }
+        SECTION("send emission later")
+        {
+            observer->on_next(10);
+
+            CHECK(mock.get_received_values() == std::vector{1,2,10});
+            CHECK(mock.get_on_error_count() == 0);
+            CHECK(mock.get_on_completed_count() == 0);
+        }
+        SECTION("send error later")
+        {
+            observer->on_error({});
+
+            CHECK(mock.get_received_values() == std::vector{1,2});
+            CHECK(mock.get_on_error_count() == 1);
+            CHECK(mock.get_on_completed_count() == 0);
+        }
+    }
+    SECTION("concat stoped if disposed")
+    {
+        auto d = std::make_shared<rpp::composite_disposable>();
+        auto observable =
+            rpp::source::just(TestType{}, rpp::source::just(TestType{}, 1).as_dynamic(),
+                              rpp::source::create<int>([&](auto&& obs) { obs.on_next(2); d->dispose(); obs.on_completed(); }).as_dynamic(),
+                              rpp::source::create<int>([&](auto&&) { FAIL("Shouldn't be called"); }).as_dynamic(),
+                              rpp::source::just(TestType{}, 3).as_dynamic())
+            | rpp::operators::concat();
+        observable.subscribe(rpp::composite_disposable_wrapper{d}, mock);
+
+        CHECK(mock.get_received_values() == std::vector{1, 2});
+        CHECK(mock.get_on_error_count() == 0);
+        CHECK(mock.get_on_completed_count() == 0);
+    }
+    SECTION("concat tracks actual upstream")
+    {
+        auto d = std::make_shared<rpp::composite_disposable>();
+        auto d1 = std::make_shared<rpp::composite_disposable>();
+
+        auto observable = rpp::source::just(TestType{}, rpp::source::create<int>([&](auto&& obs)
+        {
+            obs.set_upstream(rpp::disposable_wrapper{d1});
+
+            CHECK(!d->is_disposed());
+            CHECK(!d1->is_disposed());
+
+            d->dispose();
+
+            CHECK(d->is_disposed());
+            CHECK(d1->is_disposed());
+
+        })) | rpp::operators::concat();
+        observable.subscribe(rpp::composite_disposable_wrapper{d}, mock);
+    }
+    SECTION("concat tracks actual upstream for 2 upstreams")
+    {
+        auto d = std::make_shared<rpp::composite_disposable>();
+        auto d1 = std::make_shared<rpp::composite_disposable>();
+        auto d2 = std::make_shared<rpp::composite_disposable>();
+
+        auto observable =
+            rpp::source::just(TestType{}, rpp::source::create<int>([&](auto&& obs) { obs.set_upstream(rpp::disposable_wrapper{d1}); obs.on_completed(); }).as_dynamic(),
+                              rpp::source::create<int>([&](auto&& obs) {
+                                  obs.set_upstream(rpp::disposable_wrapper{d2});
+
+                                  CHECK(!d->is_disposed());
+                                  CHECK(d1->is_disposed());
+                                  CHECK(!d2->is_disposed());
+
+                                  d->dispose();
+
+                                  CHECK(d->is_disposed());
+                                  CHECK(d2->is_disposed());
+                              }).as_dynamic())
+            | rpp::operators::concat();
+
+        observable.subscribe(rpp::composite_disposable_wrapper{d}, mock);
+    }
+}
+
+TEST_CASE("concat as operator async completiton")
+{
+    mock_observer_strategy<int> mock{};
+    rpp::subjects::publish_subject<int> subj{};
+    rpp::source::just(subj.get_observable().as_dynamic(), rpp::source::just(100).as_dynamic()) 
+        | rpp::ops::concat()
+        | rpp::ops::subscribe(mock);
+
+    SECTION("nothing happens before emitting values from subj")
+    {
+        CHECK(mock.get_received_values() == std::vector<int>{});
+        CHECK(mock.get_on_error_count() == 0);
+        CHECK(mock.get_on_completed_count() == 0);
+    }
+    subj.get_observer().on_next(1);
+    SECTION("observer see first value from subject")
+    {
+        CHECK(mock.get_received_values() == std::vector<int>{1});
+        CHECK(mock.get_on_error_count() == 0);
+        CHECK(mock.get_on_completed_count() == 0);
+    }
+    subj.get_observer().on_completed();
+    SECTION("observer see values from first observable when first completes")
+    {
+        CHECK(mock.get_received_values() == std::vector<int>{1, 100});
+        CHECK(mock.get_on_error_count() == 0);
+        CHECK(mock.get_on_completed_count() == 1);
+    }
+}
+
 TEST_CASE("concat doesn't produce extra copies")
 {
     copy_count_tracker tracker{};
@@ -252,4 +420,10 @@ TEST_CASE("concat of iterable doesn't produce extra copies")
 TEST_CASE("concat satisfies disposable contracts")
 {
     test_operator_over_observable_with_disposable<int>([](auto&& observable){return rpp::source::concat(observable);});
+}
+
+TEST_CASE("concat as operator satisfies disposable contracts")
+{
+    test_operator_over_observable_with_disposable<int>([](auto&& observable){return rpp::source::just(observable) | rpp::ops::concat();});
+    test_operator_over_observable_with_disposable<rpp::dynamic_observable<int>>([](auto&& observable){return observable | rpp::ops::concat();});
 }
