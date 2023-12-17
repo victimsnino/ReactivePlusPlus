@@ -131,7 +131,7 @@ Reactive programming is excelent programming paradigm and approach for creation 
 
 Another implementation of RX for c++: [another-rxcpp](https://github.com/CODIANZ/another-rxcpp). It partly solves issues of RxCpp via **eliminating of template parameter**  with help of **type-erasing** and making each callback as `std::function`. As a result issue with templates resvoled, but this approach has disadvantages related to runtime: resulting size of observers/observables becomes greater due to heavy `std::function` object, usage of heap for storing everything causes perfomance issues, implementation is just pretty simple and provides a lot of copies of passed objects.
 
-## Why ReactivePlusPlus?
+### Why ReactivePlusPlus?
 
 **ReactivePlusPlus** tries to solve all mentioned issues:
 - **ReactivePlusPlus** written in **Modern C++ (C++20)** with concepts which makes code-base a lot more understandable and clean:
