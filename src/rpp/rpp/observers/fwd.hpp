@@ -212,6 +212,8 @@ namespace rpp::details
 {
 struct fake_strategy
 {
+    using preferred_disposable_strategy = rpp::details::observers::none_disposable_strategy;
+    
     static void on_next(const auto&) noexcept {}
 
     static void on_error(const std::exception_ptr&) noexcept {}
