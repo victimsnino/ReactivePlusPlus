@@ -67,7 +67,7 @@ Check the [User Guide](https://victimsnino.github.io/ReactivePlusPlus/v2/docs/ht
 
 In short, RPP can help you build complex pipelines to distribute values over time, connect "some sources of data" without directly connecting them.
 
-Take a look at the example code for using RPP with QT. Here, you can see how to connect a button to a label and update it based on the number of clicks.
+Take a look at the example code for  QT. Here, you can see how to connect a button to a label and update it based on the number of clicks.
 ```cpp
 auto button          = new QPushButton("Click me!");
 auto clicks_count_label = new QLabel();
