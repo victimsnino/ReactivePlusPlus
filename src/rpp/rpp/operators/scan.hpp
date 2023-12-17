@@ -69,6 +69,8 @@ struct scan_t : public operators::details::operator_observable_strategy<scan_obs
 template<rpp::constraint::decayed_type Seed, rpp::constraint::observer TObserver, rpp::constraint::decayed_type Fn>
 struct scan_no_seed_observer_strategy
 {
+    using preferred_disposable_strategy = rpp::details::observers::none_disposable_strategy;
+
     RPP_NO_UNIQUE_ADDRESS TObserver observer;
     RPP_NO_UNIQUE_ADDRESS Fn        fn;
     mutable std::optional<Seed>     seed{};

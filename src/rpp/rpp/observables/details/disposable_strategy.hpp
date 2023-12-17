@@ -75,18 +75,24 @@ using atomic_bool_disposable_strategy_selector = fixed_disposable_strategy_selec
 namespace details
 {
     template<typename T>
+    concept has_expected_disposable_strategy = requires { typename T::expected_disposable_strategy; };
+
+    template<typename T>
     auto* deduce_disposable_strategy()
     {
-        if constexpr (requires { typename T::expected_disposable_strategy; })
+        if constexpr (has_expected_disposable_strategy<T>)
             return static_cast<typename T::expected_disposable_strategy*>(nullptr);
         else
             return static_cast<default_disposable_strategy_selector*>(nullptr);
     }
 
     template<typename T, typename Prev>
+    concept has_updated_disposable_strategy = requires { typename T::template updated_disposable_strategy<Prev>; };
+    
+    template<typename T, typename Prev>
     auto* deduce_updated_disposable_strategy()
     {
-        if constexpr (requires { typename T::template updated_disposable_strategy<Prev>; })
+        if constexpr(has_updated_disposable_strategy<T, Prev>)
             return static_cast<typename T::template updated_disposable_strategy<Prev>*>(nullptr);
         else
             return static_cast<default_disposable_strategy_selector*>(nullptr);

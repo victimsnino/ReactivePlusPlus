@@ -63,14 +63,14 @@ namespace constraint
 }
 
 template<typename T>
-static constexpr bool has_disposable_strategy_v = requires { typename T::preferred_disposable_strategy; };
+concept has_disposable_strategy = requires { typename T::preferred_disposable_strategy; };
 
 namespace details
 {
     template<typename T>
     auto* deduce_disposable_strategy()
     {
-        if constexpr (has_disposable_strategy_v<T>)
+        if constexpr (has_disposable_strategy<T>)
             return static_cast<typename T::preferred_disposable_strategy*>(nullptr);
         else
             return static_cast<dynamic_local_disposable_strategy<0, atomic_bool>*>(nullptr);

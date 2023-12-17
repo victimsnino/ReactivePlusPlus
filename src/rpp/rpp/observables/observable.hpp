@@ -77,7 +77,7 @@ public:
         requires (!constraint::observer<ObserverStrategy>)
     void subscribe(ObserverStrategy&& observer_strategy) const
     {
-        if constexpr (details::observers::has_disposable_strategy_v<ObserverStrategy>)
+        if constexpr (details::observers::has_disposable_strategy<ObserverStrategy>)
             subscribe(rpp::observer<Type, std::decay_t<ObserverStrategy>>{std::forward<ObserverStrategy>(observer_strategy)});
         else
             subscribe(rpp::observer<Type, details::with_disposable_strategy<std::decay_t<ObserverStrategy>, typename expected_disposable_strategy::disposable_strategy>>{std::forward<ObserverStrategy>(observer_strategy)});
