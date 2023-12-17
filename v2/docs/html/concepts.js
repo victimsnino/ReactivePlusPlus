@@ -29,12 +29,17 @@ var concepts =
         [ "observables", null, [
           [ "constraint", null, [
             [ "disposable_strategy", "conceptrpp_1_1details_1_1observables_1_1constraint_1_1disposable__strategy.html", null ]
+          ] ],
+          [ "details", null, [
+            [ "has_expected_disposable_strategy", "conceptrpp_1_1details_1_1observables_1_1details_1_1has__expected__disposable__strategy.html", null ],
+            [ "has_updated_disposable_strategy", "conceptrpp_1_1details_1_1observables_1_1details_1_1has__updated__disposable__strategy.html", null ]
           ] ]
         ] ],
         [ "observers", null, [
           [ "constraint", null, [
             [ "disposable_strategy", "conceptrpp_1_1details_1_1observers_1_1constraint_1_1disposable__strategy.html", null ]
-          ] ]
+          ] ],
+          [ "has_disposable_strategy", "conceptrpp_1_1details_1_1observers_1_1has__disposable__strategy.html", null ]
         ] ]
       ] ],
       [ "operators", null, [

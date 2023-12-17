@@ -1,5 +1,8 @@
 var NAVTREEINDEX1 =
 {
+"group__schedulers.html":[1,0,4],
+"group__subjects.html":[1,0,5],
+"group__subjects.html#gaf27df80724e7c0f28ecd1a72429812b0":[1,0,5,0],
 "group__transforming__operators.html":[1,0,3,0],
 "group__transforming__operators.html#ga1291dba2d973d4ba1061c9e0e202cb3f":[1,0,3,0,3],
 "group__transforming__operators.html#ga2fa21790af1c065382cd37faa3462851":[1,0,3,0,2],
@@ -246,8 +249,5 @@ var NAVTREEINDEX1 =
 "take_last_8cpp-example.html":[5,27],
 "take_until_8cpp-example.html":[5,28],
 "take_while_8cpp-example.html":[5,29],
-"throttle_8cpp-example.html":[5,30],
-"throttle_8hpp_source.html":[4,0,0,0,0,3,32],
-"topics.html":[1],
-"window_8cpp-example.html":[5,31]
+"throttle_8cpp-example.html":[5,30]
 };

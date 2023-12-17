@@ -79,41 +79,47 @@
 \DoxyCodeLine{00075\ \textcolor{keyword}{namespace\ }details}
 \DoxyCodeLine{00076\ \{}
 \DoxyCodeLine{00077\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
-\DoxyCodeLine{00078\ \ \ \ \ \textcolor{keyword}{auto}*\ deduce\_disposable\_strategy()}
-\DoxyCodeLine{00079\ \ \ \ \ \{}
-\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keyword}{constexpr}\ (\textcolor{keyword}{requires}\ \{\ \textcolor{keyword}{typename}\ T::expected\_disposable\_strategy;\ \})}
-\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{static\_cast<}typename\ T::expected\_disposable\_strategy*\textcolor{keyword}{>}(\textcolor{keyword}{nullptr});}
-\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
-\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{static\_cast<}default\_disposable\_strategy\_selector*\textcolor{keyword}{>}(\textcolor{keyword}{nullptr});}
-\DoxyCodeLine{00084\ \ \ \ \ \}}
-\DoxyCodeLine{00085\ }
-\DoxyCodeLine{00086\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T,\ \textcolor{keyword}{typename}\ Prev>}
-\DoxyCodeLine{00087\ \ \ \ \ \textcolor{keyword}{auto}*\ deduce\_updated\_disposable\_strategy()}
-\DoxyCodeLine{00088\ \ \ \ \ \{}
-\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keyword}{constexpr}\ (\textcolor{keyword}{requires}\ \{\ \textcolor{keyword}{typename}\ T::template\ updated\_disposable\_strategy<Prev>;\ \})}
-\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{static\_cast<}typename\ T::template\ updated\_disposable\_strategy<Prev>*\textcolor{keyword}{>}(\textcolor{keyword}{nullptr});}
-\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
-\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{static\_cast<}default\_disposable\_strategy\_selector*\textcolor{keyword}{>}(\textcolor{keyword}{nullptr});}
-\DoxyCodeLine{00093\ \ \ \ \ \}}
-\DoxyCodeLine{00094\ \}}
-\DoxyCodeLine{00095\ }
-\DoxyCodeLine{00096\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
-\DoxyCodeLine{00097\ \textcolor{keyword}{using\ }deduce\_disposable\_strategy\_t\ =\ std::remove\_pointer\_t<decltype(details::deduce\_disposable\_strategy<T>())>;}
-\DoxyCodeLine{00098\ }
-\DoxyCodeLine{00099\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T,\ \textcolor{keyword}{typename}\ Prev>}
-\DoxyCodeLine{00100\ \textcolor{keyword}{using\ }deduce\_updated\_disposable\_strategy\ =\ std::remove\_pointer\_t<decltype(details::deduce\_updated\_disposable\_strategy<T,\ Prev>())>;}
+\DoxyCodeLine{00078\ \ \ \ \ \textcolor{keyword}{concept\ }\mbox{\hyperlink{conceptrpp_1_1details_1_1observables_1_1details_1_1has__expected__disposable__strategy}{has\_expected\_disposable\_strategy}}\ =\ \textcolor{keyword}{requires}\ \{\ \textcolor{keyword}{typename}\ T::expected\_disposable\_strategy;\ \};}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00080\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00081\ \ \ \ \ \textcolor{keyword}{auto}*\ deduce\_disposable\_strategy()}
+\DoxyCodeLine{00082\ \ \ \ \ \{}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keyword}{constexpr}\ (\mbox{\hyperlink{conceptrpp_1_1details_1_1observables_1_1details_1_1has__expected__disposable__strategy}{has\_expected\_disposable\_strategy<T>}})}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{static\_cast<}typename\ T::expected\_disposable\_strategy*\textcolor{keyword}{>}(\textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{static\_cast<}\mbox{\hyperlink{structrpp_1_1details_1_1observables_1_1default__disposable__strategy__selector}{default\_disposable\_strategy\_selector}}*\textcolor{keyword}{>}(\textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00087\ \ \ \ \ \}}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00089\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T,\ \textcolor{keyword}{typename}\ Prev>}
+\DoxyCodeLine{00090\ \ \ \ \ \textcolor{keyword}{concept\ }\mbox{\hyperlink{conceptrpp_1_1details_1_1observables_1_1details_1_1has__updated__disposable__strategy}{has\_updated\_disposable\_strategy}}\ =\ \textcolor{keyword}{requires}\ \{\ \textcolor{keyword}{typename}\ T::template\ updated\_disposable\_strategy<Prev>;\ \};}
+\DoxyCodeLine{00091\ \ \ \ \ }
+\DoxyCodeLine{00092\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T,\ \textcolor{keyword}{typename}\ Prev>}
+\DoxyCodeLine{00093\ \ \ \ \ \textcolor{keyword}{auto}*\ deduce\_updated\_disposable\_strategy()}
+\DoxyCodeLine{00094\ \ \ \ \ \{}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keyword}{constexpr}(\mbox{\hyperlink{conceptrpp_1_1details_1_1observables_1_1details_1_1has__updated__disposable__strategy}{has\_updated\_disposable\_strategy<T,\ Prev>}})}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{static\_cast<}typename\ T::template\ updated\_disposable\_strategy<Prev>*\textcolor{keyword}{>}(\textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{static\_cast<}\mbox{\hyperlink{structrpp_1_1details_1_1observables_1_1default__disposable__strategy__selector}{default\_disposable\_strategy\_selector}}*\textcolor{keyword}{>}(\textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00099\ \ \ \ \ \}}
+\DoxyCodeLine{00100\ \}}
 \DoxyCodeLine{00101\ }
-\DoxyCodeLine{00102\ \textcolor{keyword}{namespace\ }constraint}
-\DoxyCodeLine{00103\ \{}
-\DoxyCodeLine{00104\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
-\DoxyCodeLine{00105\ \textcolor{keyword}{concept\ }\mbox{\hyperlink{conceptrpp_1_1details_1_1observables_1_1constraint_1_1disposable__strategy}{disposable\_strategy}}\ =\ \textcolor{keyword}{requires}(\textcolor{keyword}{const}\ T\&)}
-\DoxyCodeLine{00106\ \{}
-\DoxyCodeLine{00107\ \ \ \ \ \textcolor{keyword}{typename}\ T::template\ add<\textcolor{keywordtype}{size\_t}\{\}>;}
-\DoxyCodeLine{00108\ \ \ \ \ \textcolor{keyword}{typename}\ T::disposable\_strategy;}
-\DoxyCodeLine{00109\ \ \ \ \ \textcolor{keyword}{typename}\ T::disposable\_container;}
-\DoxyCodeLine{00110\ \ \ \ \ \textcolor{keyword}{requires}\ \mbox{\hyperlink{conceptrpp_1_1details_1_1observers_1_1constraint_1_1disposable__strategy}{observers::constraint::disposable\_strategy<typename\ T::disposable\_strategy>}};}
-\DoxyCodeLine{00111\ \};}
-\DoxyCodeLine{00112\ \}}
-\DoxyCodeLine{00113\ \}}
+\DoxyCodeLine{00102\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00103\ \textcolor{keyword}{using\ }deduce\_disposable\_strategy\_t\ =\ std::remove\_pointer\_t<decltype(details::deduce\_disposable\_strategy<T>())>;}
+\DoxyCodeLine{00104\ }
+\DoxyCodeLine{00105\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T,\ \textcolor{keyword}{typename}\ Prev>}
+\DoxyCodeLine{00106\ \textcolor{keyword}{using\ }deduce\_updated\_disposable\_strategy\ =\ std::remove\_pointer\_t<decltype(details::deduce\_updated\_disposable\_strategy<T,\ Prev>())>;}
+\DoxyCodeLine{00107\ }
+\DoxyCodeLine{00108\ \textcolor{keyword}{namespace\ }constraint}
+\DoxyCodeLine{00109\ \{}
+\DoxyCodeLine{00110\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00111\ \textcolor{keyword}{concept\ }\mbox{\hyperlink{conceptrpp_1_1details_1_1observables_1_1constraint_1_1disposable__strategy}{disposable\_strategy}}\ =\ \textcolor{keyword}{requires}(\textcolor{keyword}{const}\ T\&)}
+\DoxyCodeLine{00112\ \{}
+\DoxyCodeLine{00113\ \ \ \ \ \textcolor{keyword}{typename}\ T::template\ add<\textcolor{keywordtype}{size\_t}\{\}>;}
+\DoxyCodeLine{00114\ \ \ \ \ \textcolor{keyword}{typename}\ T::disposable\_strategy;}
+\DoxyCodeLine{00115\ \ \ \ \ \textcolor{keyword}{typename}\ T::disposable\_container;}
+\DoxyCodeLine{00116\ \ \ \ \ \textcolor{keyword}{requires}\ \mbox{\hyperlink{conceptrpp_1_1details_1_1observers_1_1constraint_1_1disposable__strategy}{observers::constraint::disposable\_strategy<typename\ T::disposable\_strategy>}};}
+\DoxyCodeLine{00117\ \};}
+\DoxyCodeLine{00118\ \}}
+\DoxyCodeLine{00119\ \}}
 
 \end{DoxyCode}

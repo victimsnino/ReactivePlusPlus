@@ -120,7 +120,10 @@ var NAVTREEINDEX0 =
 "conceptrpp_1_1constraint_1_1subject.html":[2,0,0,16],
 "conceptrpp_1_1details_1_1disposables_1_1constraint_1_1disposable__container.html":[2,0,1,0,0,0],
 "conceptrpp_1_1details_1_1observables_1_1constraint_1_1disposable__strategy.html":[2,0,1,1,0,0],
+"conceptrpp_1_1details_1_1observables_1_1details_1_1has__expected__disposable__strategy.html":[2,0,1,1,1,0],
+"conceptrpp_1_1details_1_1observables_1_1details_1_1has__updated__disposable__strategy.html":[2,0,1,1,1,1],
 "conceptrpp_1_1details_1_1observers_1_1constraint_1_1disposable__strategy.html":[2,0,1,2,0,0],
+"conceptrpp_1_1details_1_1observers_1_1has__disposable__strategy.html":[2,0,1,2,1],
 "conceptrpp_1_1operators_1_1details_1_1on__next__like.html":[2,0,2,0,0],
 "conceptrpp_1_1schedulers_1_1constraint_1_1schedulable__delay__from__now__fn.html":[2,0,3,0,0],
 "conceptrpp_1_1schedulers_1_1constraint_1_1schedulable__delay__from__this__timepoint__fn.html":[2,0,3,0,1],
@@ -246,8 +249,5 @@ var NAVTREEINDEX0 =
 "group__qt__operators.html":[1,1,0],
 "group__qt__schedulers.html":[1,1,1],
 "group__rpp.html":[1,0],
-"group__rppqt.html":[1,1],
-"group__schedulers.html":[1,0,4],
-"group__subjects.html":[1,0,5],
-"group__subjects.html#gaf27df80724e7c0f28ecd1a72429812b0":[1,0,5,0]
+"group__rppqt.html":[1,1]
 };

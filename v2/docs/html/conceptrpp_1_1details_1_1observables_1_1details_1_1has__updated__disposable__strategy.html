@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ReactivePlusPlus: rpp::operators::details::on_next_like Concept Reference</title>
+<title>ReactivePlusPlus: rpp::details::observables::details::has_updated_disposable_strategy Concept Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -70,7 +70,7 @@ var searchBox = new SearchBox("searchBox", "search/",'.html');
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(document).ready(function(){initNavTree('conceptrpp_1_1operators_1_1details_1_1on__next__like.html',''); initResizable(); });
+$(document).ready(function(){initNavTree('conceptrpp_1_1details_1_1observables_1_1details_1_1has__updated__disposable__strategy.html',''); initResizable(); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -96,24 +96,19 @@ $(document).ready(function(){initNavTree('conceptrpp_1_1operators_1_1details_1_1
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">rpp::operators::details::on_next_like Concept Reference</div></div>
+  <div class="headertitle"><div class="title">rpp::details::observables::details::has_updated_disposable_strategy Concept Reference</div></div>
 </div><!--header-->
 <div class="contents">
 <h2 class="groupheader">Concept definition</h2>
-<div class="fragment"><div class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> OnNext&gt;</div>
-<div class="line"><span class="keyword">concept </span><a class="code hl_concept" href="conceptrpp_1_1operators_1_1details_1_1on__next__like.html">rpp::operators::details::on_next_like</a> =  (rpp::utils::is_not_template_callable&lt;OnNext&gt; &amp;&amp; std::invocable&lt;OnNext, rpp::utils::convertible_to_any&gt;) || </div>
-<div class="line">                        (!rpp::constraint::decayed_same_as&lt;OnNext, rpp::composite_disposable_wrapper&gt; &amp;&amp; </div>
-<div class="line">                         !<a class="code hl_concept" href="conceptrpp_1_1constraint_1_1observer__strategy__base.html">rpp::constraint::observer_strategy_base&lt;OnNext&gt;</a> &amp;&amp;</div>
-<div class="line">                         !<a class="code hl_concept" href="conceptrpp_1_1constraint_1_1observer.html">rpp::constraint::observer&lt;OnNext&gt;</a>)</div>
-<div class="ttc" id="aconceptrpp_1_1constraint_1_1observer__strategy__base_html"><div class="ttname"><a href="conceptrpp_1_1constraint_1_1observer__strategy__base.html">rpp::constraint::observer_strategy_base</a></div><div class="ttdef"><b>Definition</b> fwd.hpp:26</div></div>
-<div class="ttc" id="aconceptrpp_1_1constraint_1_1observer_html"><div class="ttname"><a href="conceptrpp_1_1constraint_1_1observer.html">rpp::constraint::observer</a></div><div class="ttdef"><b>Definition</b> fwd.hpp:256</div></div>
-<div class="ttc" id="aconceptrpp_1_1operators_1_1details_1_1on__next__like_html"><div class="ttname"><a href="conceptrpp_1_1operators_1_1details_1_1on__next__like.html">rpp::operators::details::on_next_like</a></div><div class="ttdef"><b>Definition</b> subscribe.hpp:212</div></div>
+<div class="fragment"><div class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span> Prev&gt;</div>
+<div class="line"><span class="keyword">concept </span><a class="code hl_concept" href="conceptrpp_1_1details_1_1observables_1_1details_1_1has__updated__disposable__strategy.html">rpp::details::observables::details::has_updated_disposable_strategy</a> =  <span class="keyword">requires</span> { <span class="keyword">typename</span> T::template updated_disposable_strategy&lt;Prev&gt;; }</div>
+<div class="ttc" id="aconceptrpp_1_1details_1_1observables_1_1details_1_1has__updated__disposable__strategy_html"><div class="ttname"><a href="conceptrpp_1_1details_1_1observables_1_1details_1_1has__updated__disposable__strategy.html">rpp::details::observables::details::has_updated_disposable_strategy</a></div><div class="ttdef"><b>Definition</b> disposable_strategy.hpp:90</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>rpp</b></li><li class="navelem"><b>operators</b></li><li class="navelem"><b>details</b></li><li class="navelem"><a class="el" href="conceptrpp_1_1operators_1_1details_1_1on__next__like.html">on_next_like</a></li>
+    <li class="navelem"><b>rpp</b></li><li class="navelem"><b>details</b></li><li class="navelem"><b>observables</b></li><li class="navelem"><b>details</b></li><li class="navelem"><a class="el" href="conceptrpp_1_1details_1_1observables_1_1details_1_1has__updated__disposable__strategy.html">has_updated_disposable_strategy</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
   </ul>
 </div>

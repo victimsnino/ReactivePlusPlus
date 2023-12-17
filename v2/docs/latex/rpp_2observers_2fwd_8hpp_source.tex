@@ -146,49 +146,51 @@
 \DoxyCodeLine{00212\ \{}
 \DoxyCodeLine{00213\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1details_1_1fake__strategy}{fake\_strategy}}}
 \DoxyCodeLine{00214\ \{}
-\DoxyCodeLine{00215\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ on\_next(\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&)\ \textcolor{keyword}{noexcept}\ \{\}}
-\DoxyCodeLine{00216\ }
-\DoxyCodeLine{00217\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ on\_error(\textcolor{keyword}{const}\ std::exception\_ptr\&)\ \textcolor{keyword}{noexcept}\ \{\}}
+\DoxyCodeLine{00215\ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{structrpp_1_1details_1_1observers_1_1none__disposable__strategy}{preferred\_disposable\_strategy}}\ =\ \mbox{\hyperlink{structrpp_1_1details_1_1observers_1_1none__disposable__strategy}{rpp::details::observers::none\_disposable\_strategy}};}
+\DoxyCodeLine{00216\ \ \ \ \ }
+\DoxyCodeLine{00217\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ on\_next(\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&)\ \textcolor{keyword}{noexcept}\ \{\}}
 \DoxyCodeLine{00218\ }
-\DoxyCodeLine{00219\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ on\_completed()\ \textcolor{keyword}{noexcept}\ \{\}}
+\DoxyCodeLine{00219\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ on\_error(\textcolor{keyword}{const}\ std::exception\_ptr\&)\ \textcolor{keyword}{noexcept}\ \{\}}
 \DoxyCodeLine{00220\ }
-\DoxyCodeLine{00221\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ set\_upstream(\textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{disposable\_wrapper}}\&)\ \textcolor{keyword}{noexcept}\ \{\}}
+\DoxyCodeLine{00221\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ on\_completed()\ \textcolor{keyword}{noexcept}\ \{\}}
 \DoxyCodeLine{00222\ }
-\DoxyCodeLine{00223\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ is\_disposed()\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};\ \}}
-\DoxyCodeLine{00224\ \};}
-\DoxyCodeLine{00225\ }
-\DoxyCodeLine{00226\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
-\DoxyCodeLine{00227\ \textcolor{keyword}{using\ }\mbox{\hyperlink{classrpp_1_1observer}{fake\_observer}}\ =\ \mbox{\hyperlink{classrpp_1_1observer}{rpp::observer<T,\ fake\_strategy>}};}
-\DoxyCodeLine{00228\ \}}
-\DoxyCodeLine{00229\ }
-\DoxyCodeLine{00230\ \textcolor{keyword}{namespace\ }rpp::utils}
-\DoxyCodeLine{00231\ \{}
-\DoxyCodeLine{00232\ \textcolor{keyword}{namespace\ }details}
+\DoxyCodeLine{00223\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ set\_upstream(\textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{disposable\_wrapper}}\&)\ \textcolor{keyword}{noexcept}\ \{\}}
+\DoxyCodeLine{00224\ }
+\DoxyCodeLine{00225\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ is\_disposed()\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};\ \}}
+\DoxyCodeLine{00226\ \};}
+\DoxyCodeLine{00227\ }
+\DoxyCodeLine{00228\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00229\ \textcolor{keyword}{using\ }\mbox{\hyperlink{classrpp_1_1observer}{fake\_observer}}\ =\ \mbox{\hyperlink{classrpp_1_1observer}{rpp::observer<T,\ fake\_strategy>}};}
+\DoxyCodeLine{00230\ \}}
+\DoxyCodeLine{00231\ }
+\DoxyCodeLine{00232\ \textcolor{keyword}{namespace\ }rpp::utils}
 \DoxyCodeLine{00233\ \{}
-\DoxyCodeLine{00234\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
-\DoxyCodeLine{00235\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1utils_1_1details_1_1extract__observer__type}{extract\_observer\_type}}\ :\ std::false\_type}
-\DoxyCodeLine{00236\ \ \ \ \ \{}
-\DoxyCodeLine{00237\ \ \ \ \ \};}
-\DoxyCodeLine{00238\ }
-\DoxyCodeLine{00239\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ TT,\ \textcolor{keyword}{typename}\ Strategy>}
-\DoxyCodeLine{00240\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1utils_1_1details_1_1extract__observer__type}{extract\_observer\_type}}<rpp::\mbox{\hyperlink{classrpp_1_1observer}{observer}}<TT,\ Strategy>>\ :\ std::true\_type}
-\DoxyCodeLine{00241\ \ \ \ \ \{}
-\DoxyCodeLine{00242\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }type\ =\ TT;}
-\DoxyCodeLine{00243\ \ \ \ \ \};}
-\DoxyCodeLine{00244\ }
-\DoxyCodeLine{00245\ \}\ \textcolor{comment}{//\ namespace\ details}}
+\DoxyCodeLine{00234\ \textcolor{keyword}{namespace\ }details}
+\DoxyCodeLine{00235\ \{}
+\DoxyCodeLine{00236\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00237\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1utils_1_1details_1_1extract__observer__type}{extract\_observer\_type}}\ :\ std::false\_type}
+\DoxyCodeLine{00238\ \ \ \ \ \{}
+\DoxyCodeLine{00239\ \ \ \ \ \};}
+\DoxyCodeLine{00240\ }
+\DoxyCodeLine{00241\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ TT,\ \textcolor{keyword}{typename}\ Strategy>}
+\DoxyCodeLine{00242\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1utils_1_1details_1_1extract__observer__type}{extract\_observer\_type}}<rpp::\mbox{\hyperlink{classrpp_1_1observer}{observer}}<TT,\ Strategy>>\ :\ std::true\_type}
+\DoxyCodeLine{00243\ \ \ \ \ \{}
+\DoxyCodeLine{00244\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }type\ =\ TT;}
+\DoxyCodeLine{00245\ \ \ \ \ \};}
 \DoxyCodeLine{00246\ }
-\DoxyCodeLine{00247\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
-\DoxyCodeLine{00248\ \textcolor{keyword}{using\ }extract\_observer\_type\_t\ =\ \textcolor{keyword}{typename}\ \mbox{\hyperlink{structrpp_1_1utils_1_1details_1_1extract__observer__type}{details::extract\_observer\_type<T>::type}};}
-\DoxyCodeLine{00249\ \}\ \textcolor{comment}{//\ namespace\ rpp::utils}}
-\DoxyCodeLine{00250\ }
-\DoxyCodeLine{00251\ \textcolor{keyword}{namespace\ }rpp::constraint}
-\DoxyCodeLine{00252\ \{}
-\DoxyCodeLine{00253\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
-\DoxyCodeLine{00254\ \textcolor{keyword}{concept\ }\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer}{observer}}\ =\ \mbox{\hyperlink{structrpp_1_1utils_1_1details_1_1extract__observer__type}{rpp::utils::details::extract\_observer\_type<std::decay\_t<T>}}>::value;}
-\DoxyCodeLine{00255\ }
-\DoxyCodeLine{00256\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T,\ \textcolor{keyword}{typename}\ Type>}
-\DoxyCodeLine{00257\ \textcolor{keyword}{concept\ }\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer__of__type}{observer\_of\_type}}\ =\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer}{observer<std::decay\_t<T>}}>\ \&\&\ std::same\_as<rpp::utils::extract\_observer\_type\_t<std::decay\_t<T>>,\ Type>;}
-\DoxyCodeLine{00258\ \}}
+\DoxyCodeLine{00247\ \}\ \textcolor{comment}{//\ namespace\ details}}
+\DoxyCodeLine{00248\ }
+\DoxyCodeLine{00249\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00250\ \textcolor{keyword}{using\ }extract\_observer\_type\_t\ =\ \textcolor{keyword}{typename}\ \mbox{\hyperlink{structrpp_1_1utils_1_1details_1_1extract__observer__type}{details::extract\_observer\_type<T>::type}};}
+\DoxyCodeLine{00251\ \}\ \textcolor{comment}{//\ namespace\ rpp::utils}}
+\DoxyCodeLine{00252\ }
+\DoxyCodeLine{00253\ \textcolor{keyword}{namespace\ }rpp::constraint}
+\DoxyCodeLine{00254\ \{}
+\DoxyCodeLine{00255\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00256\ \textcolor{keyword}{concept\ }\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer}{observer}}\ =\ \mbox{\hyperlink{structrpp_1_1utils_1_1details_1_1extract__observer__type}{rpp::utils::details::extract\_observer\_type<std::decay\_t<T>}}>::value;}
+\DoxyCodeLine{00257\ }
+\DoxyCodeLine{00258\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T,\ \textcolor{keyword}{typename}\ Type>}
+\DoxyCodeLine{00259\ \textcolor{keyword}{concept\ }\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer__of__type}{observer\_of\_type}}\ =\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer}{observer<std::decay\_t<T>}}>\ \&\&\ std::same\_as<rpp::utils::extract\_observer\_type\_t<std::decay\_t<T>>,\ Type>;}
+\DoxyCodeLine{00260\ \}}
 
 \end{DoxyCode}

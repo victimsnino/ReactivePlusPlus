@@ -52,17 +52,17 @@
 \DoxyCodeLine{00063\ \}}
 \DoxyCodeLine{00064\ }
 \DoxyCodeLine{00065\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
-\DoxyCodeLine{00066\ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{bool}\ has\_disposable\_strategy\_v\ =\ \textcolor{keyword}{requires}\ \{\ \textcolor{keyword}{typename}\ T::preferred\_disposable\_strategy;\ \};}
+\DoxyCodeLine{00066\ \textcolor{keyword}{concept\ }\mbox{\hyperlink{conceptrpp_1_1details_1_1observers_1_1has__disposable__strategy}{has\_disposable\_strategy}}\ =\ \textcolor{keyword}{requires}\ \{\ \textcolor{keyword}{typename}\ T::preferred\_disposable\_strategy;\ \};}
 \DoxyCodeLine{00067\ }
 \DoxyCodeLine{00068\ \textcolor{keyword}{namespace\ }details}
 \DoxyCodeLine{00069\ \{}
 \DoxyCodeLine{00070\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
 \DoxyCodeLine{00071\ \ \ \ \ \textcolor{keyword}{auto}*\ deduce\_disposable\_strategy()}
 \DoxyCodeLine{00072\ \ \ \ \ \{}
-\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keyword}{constexpr}\ (has\_disposable\_strategy\_v<T>)}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keyword}{constexpr}\ (\mbox{\hyperlink{conceptrpp_1_1details_1_1observers_1_1has__disposable__strategy}{has\_disposable\_strategy<T>}})}
 \DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{static\_cast<}typename\ T::preferred\_disposable\_strategy*\textcolor{keyword}{>}(\textcolor{keyword}{nullptr});}
 \DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
-\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{static\_cast<}dynamic\_local\_disposable\_strategy<0,\ atomic\_bool>*\textcolor{keyword}{>}(\textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{static\_cast<}\mbox{\hyperlink{classrpp_1_1details_1_1observers_1_1local__disposable__strategy}{dynamic\_local\_disposable\_strategy<0,\ atomic\_bool>}}*\textcolor{keyword}{>}(\textcolor{keyword}{nullptr});}
 \DoxyCodeLine{00077\ \ \ \ \ \}}
 \DoxyCodeLine{00078\ \}}
 \DoxyCodeLine{00079\ }

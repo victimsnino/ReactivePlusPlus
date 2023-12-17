@@ -342,7 +342,7 @@ How operator works?</h3>
 <div class="line">                                                 [observer]() { observer.on_completed(); });</div>
 <div class="line">  }</div>
 <div class="line">}</div>
-<div class="ttc" id="aconceptrpp_1_1constraint_1_1observer__of__type_html"><div class="ttname"><a href="conceptrpp_1_1constraint_1_1observer__of__type.html">rpp::constraint::observer_of_type</a></div><div class="ttdef"><b>Definition</b> fwd.hpp:257</div></div>
+<div class="ttc" id="aconceptrpp_1_1constraint_1_1observer__of__type_html"><div class="ttname"><a href="conceptrpp_1_1constraint_1_1observer__of__type.html">rpp::constraint::observer_of_type</a></div><div class="ttdef"><b>Definition</b> fwd.hpp:259</div></div>
 </div><!-- fragment --><p> In this case you providing logic how to convert downstream observer to upstream observer. Actually this implementation is equal to previous one, but without handling of observable.</p>
 <p>**(Advanced)** In case of implementing operator via <code>lift</code> you can control disposable strategy via <code>updated_disposable_strategy</code> parameter. It accepts disposable strategy of upstream and returns disposable strategy for downstream. It needed only for optimization and reducing disposables handling cost and it is purely advanced thing. Not sure if anyone is going to use it by its own for now =)</p>
 <h2><a class="anchor" id="autotoc_md7"></a>
