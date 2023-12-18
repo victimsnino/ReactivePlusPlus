@@ -77,7 +77,7 @@ jobs:
           edit-mode: replace
 
       - name: Upload html
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         if: github.event.workflow_run.event == 'push'
         with:
           name: benchmark.html
