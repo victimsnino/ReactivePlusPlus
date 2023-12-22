@@ -1,5 +1,14 @@
 \doxysection{rpp\+::connectable\+\_\+observable\texorpdfstring{$<$}{<} Original\+Observable, Subject \texorpdfstring{$>$}{>} Class Template Reference}
 \hypertarget{classrpp_1_1connectable__observable}{}\label{classrpp_1_1connectable__observable}\index{rpp::connectable\_observable$<$ OriginalObservable, Subject $>$@{rpp::connectable\_observable$<$ OriginalObservable, Subject $>$}}
+
+
+Extension over raw observable with ability to be manually connected at any time or ref\+\_\+counting (sharing same observable between multiple observers)  
+
+
+
+
+{\ttfamily \#include $<$connectable\+\_\+observable.\+hpp$>$}
+
 Inheritance diagram for rpp\+::connectable\+\_\+observable\texorpdfstring{$<$}{<} Original\+Observable, Subject \texorpdfstring{$>$}{>}\+:\begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -15,9 +24,8 @@ Inheritance diagram for rpp\+::connectable\+\_\+observable\texorpdfstring{$<$}{<
 \Hypertarget{classrpp_1_1connectable__observable_a506f22df1f41ff4ca2f92c3b082e1eed}\label{classrpp_1_1connectable__observable_a506f22df1f41ff4ca2f92c3b082e1eed} 
 {\bfseries connectable\+\_\+observable} (Original\+Observable \&\&original\+\_\+observable, const Subject \&subject=Subject\{\})
 \item 
-\Hypertarget{classrpp_1_1connectable__observable_a1b4150a5dd02eaf398a9cca269dac07e}\label{classrpp_1_1connectable__observable_a1b4150a5dd02eaf398a9cca269dac07e} 
-\mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp\+::disposable\+\_\+wrapper}} {\bfseries connect} (\mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp\+::composite\+\_\+disposable\+\_\+wrapper}} wrapper=\{\}) const
-\item 
+\mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp\+::disposable\+\_\+wrapper}} \mbox{\hyperlink{classrpp_1_1connectable__observable_a1b4150a5dd02eaf398a9cca269dac07e}{connect}} (\mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp\+::composite\+\_\+disposable\+\_\+wrapper}} wrapper=\{\}) const
+\begin{DoxyCompactList}\small\item\em Connects to underlying observable right-\/now making it hot-\/observable. \end{DoxyCompactList}\item 
 auto \mbox{\hyperlink{group__connectable__operators_gadac4721de7506cc9a1c2a4453a6c28cf}{ref\+\_\+count}} () const
 \begin{DoxyCompactList}\small\item\em Forces \doxylink{classrpp_1_1connectable__observable}{rpp\+::connectable\+\_\+observable} to behave like common observable. \end{DoxyCompactList}\item 
 \Hypertarget{classrpp_1_1connectable__observable_a372b60dec0bd049e24b7822a49dd307f}\label{classrpp_1_1connectable__observable_a372b60dec0bd049e24b7822a49dd307f} 
@@ -32,6 +40,67 @@ auto \mbox{\hyperlink{group__connectable__operators_gadac4721de7506cc9a1c2a4453a
 \Hypertarget{classrpp_1_1connectable__observable_aefc1ea91ce3ffa60a28f98425d746c60}\label{classrpp_1_1connectable__observable_aefc1ea91ce3ffa60a28f98425d746c60} 
 {\footnotesize template$<$typename Op $>$ }\\decltype(std\+::declval$<$ base $>$()\texorpdfstring{$\vert$}{|}std\+::declval$<$ Op $>$()) {\bfseries operator\texorpdfstring{$\vert$}{|}} (Op \&\&op) \&\&
 \end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp\+::constraint\+::observable}} Original\+Observable, \mbox{\hyperlink{conceptrpp_1_1constraint_1_1subject}{rpp\+::constraint\+::subject}} Subject$>$\newline
+class rpp\+::connectable\+\_\+observable$<$ Original\+Observable, Subject $>$}
+Extension over raw observable with ability to be manually connected at any time or ref\+\_\+counting (sharing same observable between multiple observers) 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classrpp_1_1connectable__observable_a1b4150a5dd02eaf398a9cca269dac07e}\label{classrpp_1_1connectable__observable_a1b4150a5dd02eaf398a9cca269dac07e} 
+\index{rpp::connectable\_observable$<$ OriginalObservable, Subject $>$@{rpp::connectable\_observable$<$ OriginalObservable, Subject $>$}!connect@{connect}}
+\index{connect@{connect}!rpp::connectable\_observable$<$ OriginalObservable, Subject $>$@{rpp::connectable\_observable$<$ OriginalObservable, Subject $>$}}
+\doxysubsubsection{\texorpdfstring{connect()}{connect()}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp\+::constraint\+::observable}} Original\+Observable, \mbox{\hyperlink{conceptrpp_1_1constraint_1_1subject}{rpp\+::constraint\+::subject}} Subject$>$ \\
+\mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp\+::disposable\+\_\+wrapper}} \mbox{\hyperlink{classrpp_1_1connectable__observable}{rpp\+::connectable\+\_\+observable}}$<$ Original\+Observable, Subject $>$\+::connect (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp\+::composite\+\_\+disposable\+\_\+wrapper}}}]{wrapper = {\ttfamily \{\}} }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Connects to underlying observable right-\/now making it hot-\/observable. 
+
+\begin{DoxyParagraph}{Example\+:}
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ observable\ =\ \mbox{\hyperlink{group__creational__operators_ga4018b147fb99a358c6c01f21183c13e6}{rpp::source::interval}}(std::chrono::milliseconds\{50\},\ \mbox{\hyperlink{classrpp_1_1schedulers_1_1new__thread}{rpp::schedulers::new\_thread}}\{\})}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |\ rpp::ops::map([](\textcolor{keywordtype}{int}\ v)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}value\ in\ map"{}}\ <<\ v\ <<\ std::endl;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ v;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \})}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |\ rpp::ops::publish();}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}CONNECT"{}}\ <<\ std::endl;}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{auto}\ d\ =\ observable.connect();\ \textcolor{comment}{//\ subscribe\ happens\ right\ now}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ std::this\_thread::sleep\_for(std::chrono::milliseconds\{150\});}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}SUBSCRIBE"{}}\ <<\ std::endl;}
+\DoxyCodeLine{\ \ \ \ observable.subscribe([](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}observer\ value\ "{}}\ <<\ v\ <<\ std::endl;\ \});}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ std::this\_thread::sleep\_for(std::chrono::milliseconds\{150\});}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ d.dispose();}
+\DoxyCodeLine{\ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}DISPOSE"{}}\ <<\ std::endl;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ std::this\_thread::sleep\_for(std::chrono::milliseconds\{150\});}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ possible\ output:}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ CONNECT}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ value\ in\ map0}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ value\ in\ map1}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ value\ in\ map2}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ SUBSCRIBE}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ value\ in\ map3}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ observer\ value\ 3}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ value\ in\ map4}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ observer\ value\ 4}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ value\ in\ map5}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ observer\ value\ 5}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ DISPOSE}}
+
+\end{DoxyCodeInclude}
+ 
+\end{DoxyParagraph}
 
 
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}

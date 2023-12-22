@@ -8,8 +8,12 @@ Observable is the source of any Reactive Stream.
 \doxysubsubsubsection*{Classes}
 \begin{DoxyCompactItemize}
 \item 
+class \mbox{\hyperlink{classrpp_1_1connectable__observable}{rpp\+::connectable\+\_\+observable$<$ Original\+Observable, Subject $>$}}
+\begin{DoxyCompactList}\small\item\em Extension over raw observable with ability to be manually connected at any time or ref\+\_\+counting (sharing same observable between multiple observers) \end{DoxyCompactList}\item 
 class \mbox{\hyperlink{classrpp_1_1dynamic__observable}{rpp\+::dynamic\+\_\+observable$<$ Type $>$}}
 \begin{DoxyCompactList}\small\item\em Type-\/erased version of the {\ttfamily \doxylink{classrpp_1_1observable}{rpp\+::observable}}. Any observable can be converted to \doxylink{classrpp_1_1dynamic__observable}{dynamic\+\_\+observable} via {\ttfamily \doxylink{classrpp_1_1observable_ab820514612d4314b99528525db6afd4f}{rpp\+::observable\+::as\+\_\+dynamic}} member function. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classrpp_1_1grouped__observable}{rpp\+::grouped\+\_\+observable$<$ Key\+Type, Type, Strategy $>$}}
+\begin{DoxyCompactList}\small\item\em Extension over \doxylink{classrpp_1_1observable}{rpp\+::observable} for some "{}subset"{} of values from original observable grouped by some key. It has {\ttfamily get\+\_\+key()} member function. Used in {\ttfamily group\+\_\+by} operator to represent grouped observable. \end{DoxyCompactList}\item 
 class \mbox{\hyperlink{classrpp_1_1observable}{rpp\+::observable$<$ Type, Strategy $>$}}
 \begin{DoxyCompactList}\small\item\em Base class for any observable used in RPP. It handles core callbacks of observable. \end{DoxyCompactList}\end{DoxyCompactItemize}
 

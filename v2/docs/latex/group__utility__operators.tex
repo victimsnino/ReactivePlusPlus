@@ -43,9 +43,24 @@ Utility operators are operators that provide some extra functionality without ch
 
 Converts {\ttfamily \doxylink{classrpp_1_1observable}{rpp\+::observable}} to {\ttfamily rpp\+::blocking\+\_\+observable} 
 
-{\ttfamily rpp\+::blocking\+\_\+observable} blocks {\ttfamily subscribe} call till on\+\_\+completed/on\+\_\+error happens. \begin{Desc}
+{\ttfamily rpp\+::blocking\+\_\+observable} blocks {\ttfamily subscribe} call till on\+\_\+completed/on\+\_\+error happens.
+
+\begin{DoxyParagraph}{Example\+:}
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(1)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_gae38caa489cf43c0aca1aa1c8822aed60}{rpp::operators::delay}}(std::chrono::seconds\{1\},\ \mbox{\hyperlink{classrpp_1_1schedulers_1_1new__thread}{rpp::schedulers::new\_thread}}\{\})\ \textcolor{comment}{//\ <-\/-\/\ emit\ from\ another\ thread\ with\ delay}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_ga9df008c11eeff8c9383e56bf36e28ec2}{rpp::operators::as\_blocking}}()}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ rpp::operators::subscribe([](\textcolor{keywordtype}{int})\{\},\ []()\{std::cout\ <<\ \textcolor{stringliteral}{"{}COMPLETED"{}}\ <<\ std::endl;\ \});}
+\DoxyCodeLine{\ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}done"{}}\ <<\ std::endl;}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ output:\ COMPLETED\ done}}
+
+\end{DoxyCodeInclude}
+ 
+\end{DoxyParagraph}
+\begin{Desc}
 \item[Examples]\par
-\mbox{\hyperlink{delay_8cpp-example}{delay.\+cpp}}, \mbox{\hyperlink{observe_on_8cpp-example}{observe\+\_\+on.\+cpp}}, and \mbox{\hyperlink{subscribe_on_8cpp-example}{subscribe\+\_\+on.\+cpp}}.\end{Desc}
+\mbox{\hyperlink{as_blocking_8cpp-example}{as\+\_\+blocking.\+cpp}}, \mbox{\hyperlink{delay_8cpp-example}{delay.\+cpp}}, \mbox{\hyperlink{observe_on_8cpp-example}{observe\+\_\+on.\+cpp}}, and \mbox{\hyperlink{subscribe_on_8cpp-example}{subscribe\+\_\+on.\+cpp}}.\end{Desc}
 \Hypertarget{group__utility__operators_ga49e91c6114f62ac261303814c818face}\label{group__utility__operators_ga49e91c6114f62ac261303814c818face} 
 \index{Utility Operators@{Utility Operators}!debounce@{debounce}}
 \index{debounce@{debounce}!Utility Operators@{Utility Operators}}
@@ -192,7 +207,7 @@ on\+\_\+error/on\+\_\+completed invoking also would be delayed as any other emis
 \end{DoxySeeAlso}
 \begin{Desc}
 \item[Examples]\par
-\mbox{\hyperlink{debounce_8cpp-example}{debounce.\+cpp}}, \mbox{\hyperlink{delay_8cpp-example}{delay.\+cpp}}, and \mbox{\hyperlink{throttle_8cpp-example}{throttle.\+cpp}}.\end{Desc}
+\mbox{\hyperlink{as_blocking_8cpp-example}{as\+\_\+blocking.\+cpp}}, \mbox{\hyperlink{debounce_8cpp-example}{debounce.\+cpp}}, \mbox{\hyperlink{delay_8cpp-example}{delay.\+cpp}}, and \mbox{\hyperlink{throttle_8cpp-example}{throttle.\+cpp}}.\end{Desc}
 \Hypertarget{group__utility__operators_ga3feb1b1258c7e3e72c151abf176c30c4}\label{group__utility__operators_ga3feb1b1258c7e3e72c151abf176c30c4} 
 \index{Utility Operators@{Utility Operators}!observe\_on@{observe\_on}}
 \index{observe\_on@{observe\_on}!Utility Operators@{Utility Operators}}

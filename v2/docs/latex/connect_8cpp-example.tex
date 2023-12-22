@@ -1,0 +1,49 @@
+\doxysection{connect.\+cpp}
+\hypertarget{connect_8cpp-example}{}\label{connect_8cpp-example}
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ "{}rpp/sources/fwd.hpp"{}}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <rpp/rpp.hpp>}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{int}\ main()\ \textcolor{comment}{//\ NOLINT(bugprone-\/exception-\/escape)}}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ observable\ =\ \mbox{\hyperlink{group__creational__operators_ga4018b147fb99a358c6c01f21183c13e6}{rpp::source::interval}}(std::chrono::milliseconds\{50\},\ \mbox{\hyperlink{classrpp_1_1schedulers_1_1new__thread}{rpp::schedulers::new\_thread}}\{\})}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |\ rpp::ops::map([](\textcolor{keywordtype}{int}\ v)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}value\ in\ map"{}}\ <<\ v\ <<\ std::endl;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ v;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \})}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |\ rpp::ops::publish();}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}CONNECT"{}}\ <<\ std::endl;}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{auto}\ d\ =\ observable.connect();\ \textcolor{comment}{//\ subscribe\ happens\ right\ now}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ std::this\_thread::sleep\_for(std::chrono::milliseconds\{150\});}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}SUBSCRIBE"{}}\ <<\ std::endl;}
+\DoxyCodeLine{\ \ \ \ observable.subscribe([](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}observer\ value\ "{}}\ <<\ v\ <<\ std::endl;\ \});}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ std::this\_thread::sleep\_for(std::chrono::milliseconds\{150\});}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ d.dispose();}
+\DoxyCodeLine{\ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}DISPOSE"{}}\ <<\ std::endl;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ std::this\_thread::sleep\_for(std::chrono::milliseconds\{150\});}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ possible\ output:}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ CONNECT}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ value\ in\ map0}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ value\ in\ map1}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ value\ in\ map2}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ SUBSCRIBE}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ value\ in\ map3}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ observer\ value\ 3}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ value\ in\ map4}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ observer\ value\ 4}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ value\ in\ map5}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ observer\ value\ 5}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ DISPOSE}}
+\DoxyCodeLine{\}}
+
+\end{DoxyCodeInclude}
+ 

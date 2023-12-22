@@ -105,22 +105,35 @@ $(document).ready(function(){initNavTree('ref_count_8cpp-example.html',''); init
 <div class="line"><span class="keywordtype">int</span> main() <span class="comment">// NOLINT(bugprone-exception-escape)</span></div>
 <div class="line">{</div>
 <div class="line">    {</div>
-<div class="line">        <span class="keyword">auto</span> observable = <a id="a0" name="a0"></a><a class="code hl_function" href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">rpp::source::just</a>(1, 2, 3) | <a id="a1" name="a1"></a><a class="code hl_function" href="group__connectable__operators.html#gac7b150abbdae0a5084dd3784d9c7babf">rpp::operators::multicast</a>();</div>
+<div class="line">        <span class="keyword">auto</span> observable = <a id="a0" name="a0"></a><a class="code hl_function" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">rpp::source::create&lt;int&gt;</a>([](<span class="keyword">const</span> <span class="keyword">auto</span>&amp; observer)</div>
+<div class="line">        {</div>
+<div class="line">            std::cout &lt;&lt; <span class="stringliteral">&quot;SUBSCRIBE&quot;</span> &lt;&lt; std::endl;</div>
+<div class="line">            <span class="keywordflow">for</span>(<span class="keywordtype">int</span> i =0; i &lt; 3; ++i) {</div>
+<div class="line">                observer.on_next(i);</div>
+<div class="line">            }</div>
+<div class="line">            observer.on_completed();</div>
+<div class="line">        }) | <a id="a1" name="a1"></a><a class="code hl_function" href="group__connectable__operators.html#gac7b150abbdae0a5084dd3784d9c7babf">rpp::operators::multicast</a>();</div>
+<div class="line"> </div>
+<div class="line">        std::cout &lt;&lt; <span class="stringliteral">&quot;subscribe first&quot;</span> &lt;&lt; std::endl;</div>
 <div class="line">        observable.subscribe([](<span class="keywordtype">int</span> v) {std::cout &lt;&lt; <span class="stringliteral">&quot;#1 &quot;</span> &lt;&lt; v &lt;&lt; std::endl; });</div>
 <div class="line">        <span class="comment">// No Output</span></div>
 <div class="line"> </div>
+<div class="line">        std::cout &lt;&lt; <span class="stringliteral">&quot;subscribe with ref_count&quot;</span> &lt;&lt; std::endl;</div>
 <div class="line">        observable.ref_count().subscribe([](<span class="keywordtype">int</span> v) {std::cout &lt;&lt; <span class="stringliteral">&quot;#2 &quot;</span> &lt;&lt; v &lt;&lt; std::endl; });</div>
 <div class="line">        <span class="comment">// Output:</span></div>
+<div class="line">        <span class="comment">// subscribe first</span></div>
+<div class="line">        <span class="comment">// subscribe with ref_count</span></div>
+<div class="line">        <span class="comment">// SUBSCRIBE</span></div>
+<div class="line">        <span class="comment">// #1 0</span></div>
+<div class="line">        <span class="comment">// #2 0</span></div>
 <div class="line">        <span class="comment">// #1 1</span></div>
 <div class="line">        <span class="comment">// #2 1</span></div>
 <div class="line">        <span class="comment">// #1 2</span></div>
 <div class="line">        <span class="comment">// #2 2</span></div>
-<div class="line">        <span class="comment">// #1 3</span></div>
-<div class="line">        <span class="comment">// #2 3</span></div>
 <div class="line"> </div>
 <div class="line">    }</div>
 <div class="line">    {</div>
-<div class="line">        <span class="keyword">auto</span> observable = <a class="code hl_function" href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">rpp::source::just</a>(1, 2, 3) | <a class="code hl_function" href="group__connectable__operators.html#gac7b150abbdae0a5084dd3784d9c7babf">rpp::operators::multicast</a>();</div>
+<div class="line">        <span class="keyword">auto</span> observable = <a id="a2" name="a2"></a><a class="code hl_function" href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">rpp::source::just</a>(1, 2, 3) | <a class="code hl_function" href="group__connectable__operators.html#gac7b150abbdae0a5084dd3784d9c7babf">rpp::operators::multicast</a>();</div>
 <div class="line">        observable.subscribe([](<span class="keywordtype">int</span> v) {std::cout &lt;&lt; <span class="stringliteral">&quot;#1 &quot;</span> &lt;&lt; v &lt;&lt; std::endl; });</div>
 <div class="line">        <span class="comment">// No Output</span></div>
 <div class="line"> </div>
@@ -138,6 +151,7 @@ $(document).ready(function(){initNavTree('ref_count_8cpp-example.html',''); init
 <div class="line">}</div>
 <div class="ttc" id="agroup__connectable__operators_html_gac7b150abbdae0a5084dd3784d9c7babf"><div class="ttname"><a href="group__connectable__operators.html#gac7b150abbdae0a5084dd3784d9c7babf">rpp::operators::multicast</a></div><div class="ttdeci">auto multicast()</div><div class="ttdoc">Converts ordinary observable to rpp::connectable_observable with help of inline instsantiated subject...</div><div class="ttdef"><b>Definition</b> multicast.hpp:84</div></div>
 <div class="ttc" id="agroup__creational__operators_html_ga1edf47f176050dd414e28a1c0616b7c0"><div class="ttname"><a href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">rpp::source::just</a></div><div class="ttdeci">auto just(const TScheduler &amp;scheduler, T &amp;&amp;item, Ts &amp;&amp;... items)</div><div class="ttdoc">Creates rpp::observable that emits a particular items and completes.</div><div class="ttdef"><b>Definition</b> from.hpp:207</div></div>
+<div class="ttc" id="agroup__creational__operators_html_gab6cfd9da2e3590fd199c9972477e04df"><div class="ttname"><a href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">rpp::source::concat</a></div><div class="ttdeci">auto concat(TObservable &amp;&amp;obs, TObservables &amp;&amp;... others)</div><div class="ttdoc">Make observable which would merge emissions from underlying observables but without overlapping (curr...</div><div class="ttdef"><b>Definition</b> concat.hpp:168</div></div>
 </div><!-- fragment --> </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

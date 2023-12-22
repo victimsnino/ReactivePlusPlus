@@ -1,8 +1,10 @@
 var examples =
 [
+    [ "as_blocking.cpp", "as_blocking_8cpp-example.html", null ],
     [ "buffer.cpp", "buffer_8cpp-example.html", null ],
     [ "combine_latest.cpp", "combine_latest_8cpp-example.html", null ],
     [ "concat.cpp", "concat_8cpp-example.html", null ],
+    [ "connect.cpp", "connect_8cpp-example.html", null ],
     [ "create.cpp", "create_8cpp-example.html", null ],
     [ "debounce.cpp", "debounce_8cpp-example.html", null ],
     [ "defer.cpp", "defer_8cpp-example.html", null ],

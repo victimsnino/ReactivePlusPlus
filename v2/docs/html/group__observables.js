@@ -1,6 +1,11 @@
 var group__observables =
 [
+    [ "rpp::connectable_observable< OriginalObservable, Subject >", "classrpp_1_1connectable__observable.html", [
+      [ "connect", "classrpp_1_1connectable__observable.html#a1b4150a5dd02eaf398a9cca269dac07e", null ],
+      [ "ref_count", "group__connectable__operators.html#gadac4721de7506cc9a1c2a4453a6c28cf", null ]
+    ] ],
     [ "rpp::dynamic_observable< Type >", "classrpp_1_1dynamic__observable.html", null ],
+    [ "rpp::grouped_observable< KeyType, Type, Strategy >", "classrpp_1_1grouped__observable.html", null ],
     [ "rpp::observable< Type, Strategy >", "classrpp_1_1observable.html", [
       [ "as_dynamic", "classrpp_1_1observable.html#a7f3a86ce4541938d7e4c7c73f883b30b", null ],
       [ "as_dynamic", "classrpp_1_1observable.html#ab820514612d4314b99528525db6afd4f", null ],

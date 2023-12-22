@@ -100,9 +100,14 @@ $(document).ready(function(){initNavTree('classrpp_1_1connectable__observable.ht
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="classrpp_1_1connectable__observable-members.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">rpp::connectable_observable&lt; OriginalObservable, Subject &gt; Class Template Reference<span class="mlabels"><span class="mlabel">final</span></span></div></div>
+  <div class="headertitle"><div class="title">rpp::connectable_observable&lt; OriginalObservable, Subject &gt; Class Template Reference<span class="mlabels"><span class="mlabel">final</span></span><div class="ingroups"><a class="el" href="group__rpp.html">RPP</a> &raquo; <a class="el" href="group__observables.html">Observables</a></div></div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Extension over raw observable with ability to be manually connected at any time or ref_counting (sharing same observable between multiple observers)  
+ <a href="classrpp_1_1connectable__observable.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="connectable__observable_8hpp_source.html">connectable_observable.hpp</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for rpp::connectable_observable&lt; OriginalObservable, Subject &gt;:</div>
 <div class="dyncontent">
@@ -118,11 +123,11 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a506f22df1f41ff4ca2f92c3b082e1eed" id="r_a506f22df1f41ff4ca2f92c3b082e1eed"><td class="memItemLeft" align="right" valign="top"><a id="a506f22df1f41ff4ca2f92c3b082e1eed" name="a506f22df1f41ff4ca2f92c3b082e1eed"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>connectable_observable</b> (OriginalObservable &amp;&amp;original_observable, const Subject &amp;subject=Subject{})</td></tr>
 <tr class="separator:a506f22df1f41ff4ca2f92c3b082e1eed"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1b4150a5dd02eaf398a9cca269dac07e" id="r_a1b4150a5dd02eaf398a9cca269dac07e"><td class="memItemLeft" align="right" valign="top"><a id="a1b4150a5dd02eaf398a9cca269dac07e" name="a1b4150a5dd02eaf398a9cca269dac07e"></a>
-<a class="el" href="classrpp_1_1disposable__wrapper__impl.html">rpp::disposable_wrapper</a>&#160;</td><td class="memItemRight" valign="bottom"><b>connect</b> (<a class="el" href="classrpp_1_1disposable__wrapper__impl.html">rpp::composite_disposable_wrapper</a> wrapper={}) const</td></tr>
+<tr class="memitem:a1b4150a5dd02eaf398a9cca269dac07e" id="r_a1b4150a5dd02eaf398a9cca269dac07e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classrpp_1_1disposable__wrapper__impl.html">rpp::disposable_wrapper</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrpp_1_1connectable__observable.html#a1b4150a5dd02eaf398a9cca269dac07e">connect</a> (<a class="el" href="classrpp_1_1disposable__wrapper__impl.html">rpp::composite_disposable_wrapper</a> wrapper={}) const</td></tr>
+<tr class="memdesc:a1b4150a5dd02eaf398a9cca269dac07e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Connects to underlying observable right-now making it hot-observable.  <br /></td></tr>
 <tr class="separator:a1b4150a5dd02eaf398a9cca269dac07e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gadac4721de7506cc9a1c2a4453a6c28cf" id="r_gadac4721de7506cc9a1c2a4453a6c28cf"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__connectable__operators.html#gadac4721de7506cc9a1c2a4453a6c28cf">ref_count</a> () const</td></tr>
-<tr class="memdesc:gadac4721de7506cc9a1c2a4453a6c28cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Forces <a class="el" href="classrpp_1_1connectable__observable.html">rpp::connectable_observable</a> to behave like common observable.  <br /></td></tr>
+<tr class="memdesc:gadac4721de7506cc9a1c2a4453a6c28cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Forces <a class="el" href="classrpp_1_1connectable__observable.html" title="Extension over raw observable with ability to be manually connected at any time or ref_counting (shar...">rpp::connectable_observable</a> to behave like common observable.  <br /></td></tr>
 <tr class="separator:gadac4721de7506cc9a1c2a4453a6c28cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a372b60dec0bd049e24b7822a49dd307f" id="r_a372b60dec0bd049e24b7822a49dd307f"><td class="memTemplParams" colspan="2"><a id="a372b60dec0bd049e24b7822a49dd307f" name="a372b60dec0bd049e24b7822a49dd307f"></a>
 template&lt;<a class="el" href="conceptrpp_1_1constraint_1_1operator__observable__transform.html">rpp::constraint::operator_observable_transform</a>&lt; const <a class="el" href="classrpp_1_1connectable__observable.html">connectable_observable</a> &amp; &gt; Op&gt; </td></tr>
@@ -141,6 +146,79 @@ template&lt;typename Op &gt; </td></tr>
 <tr class="memitem:aefc1ea91ce3ffa60a28f98425d746c60"><td class="memTemplItemLeft" align="right" valign="top">decltype(std::declval&lt; base &gt;()|std::declval&lt; Op &gt;())&#160;</td><td class="memTemplItemRight" valign="bottom"><b>operator|</b> (Op &amp;&amp;op) &amp;&amp;</td></tr>
 <tr class="separator:aefc1ea91ce3ffa60a28f98425d746c60"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><div class="compoundTemplParams">template&lt;<a class="el" href="conceptrpp_1_1constraint_1_1observable.html">rpp::constraint::observable</a> OriginalObservable, <a class="el" href="conceptrpp_1_1constraint_1_1subject.html">rpp::constraint::subject</a> Subject&gt;<br />
+class rpp::connectable_observable&lt; OriginalObservable, Subject &gt;</div><p>Extension over raw observable with ability to be manually connected at any time or ref_counting (sharing same observable between multiple observers) </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a1b4150a5dd02eaf398a9cca269dac07e" name="a1b4150a5dd02eaf398a9cca269dac07e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1b4150a5dd02eaf398a9cca269dac07e">&#9670;&#160;</a></span>connect()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;<a class="el" href="conceptrpp_1_1constraint_1_1observable.html">rpp::constraint::observable</a> OriginalObservable, <a class="el" href="conceptrpp_1_1constraint_1_1subject.html">rpp::constraint::subject</a> Subject&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classrpp_1_1disposable__wrapper__impl.html">rpp::disposable_wrapper</a> <a class="el" href="classrpp_1_1connectable__observable.html">rpp::connectable_observable</a>&lt; OriginalObservable, Subject &gt;::connect </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classrpp_1_1disposable__wrapper__impl.html">rpp::composite_disposable_wrapper</a>&#160;</td>
+          <td class="paramname"><em>wrapper</em> = <code>{}</code></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Connects to underlying observable right-now making it hot-observable. </p>
+<dl class="section user"><dt>Example:</dt><dd><div class="fragment"><div class="line">    <span class="keyword">const</span> <span class="keyword">auto</span> <a class="code hl_class" href="classrpp_1_1observable.html">observable</a> = <a class="code hl_function" href="group__creational__operators.html#ga4018b147fb99a358c6c01f21183c13e6">rpp::source::interval</a>(std::chrono::milliseconds{50}, <a class="code hl_class" href="classrpp_1_1schedulers_1_1new__thread.html">rpp::schedulers::new_thread</a>{})</div>
+<div class="line">                          | rpp::ops::map([](<span class="keywordtype">int</span> v) {</div>
+<div class="line">                                std::cout &lt;&lt; <span class="stringliteral">&quot;value in map&quot;</span> &lt;&lt; v &lt;&lt; std::endl;</div>
+<div class="line">                                <span class="keywordflow">return</span> v;</div>
+<div class="line">                            })</div>
+<div class="line">                          | rpp::ops::publish();</div>
+<div class="line"> </div>
+<div class="line">    std::cout &lt;&lt; <span class="stringliteral">&quot;CONNECT&quot;</span> &lt;&lt; std::endl;</div>
+<div class="line">    <span class="keyword">auto</span> d = observable.connect(); <span class="comment">// subscribe happens right now</span></div>
+<div class="line"> </div>
+<div class="line">    std::this_thread::sleep_for(std::chrono::milliseconds{150});</div>
+<div class="line"> </div>
+<div class="line">    std::cout &lt;&lt; <span class="stringliteral">&quot;SUBSCRIBE&quot;</span> &lt;&lt; std::endl;</div>
+<div class="line">    observable.subscribe([](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; <span class="stringliteral">&quot;observer value &quot;</span> &lt;&lt; v &lt;&lt; std::endl; });</div>
+<div class="line"> </div>
+<div class="line">    std::this_thread::sleep_for(std::chrono::milliseconds{150});</div>
+<div class="line"> </div>
+<div class="line">    d.dispose();</div>
+<div class="line">    std::cout &lt;&lt; <span class="stringliteral">&quot;DISPOSE&quot;</span> &lt;&lt; std::endl;</div>
+<div class="line"> </div>
+<div class="line">    std::this_thread::sleep_for(std::chrono::milliseconds{150});</div>
+<div class="line"> </div>
+<div class="line">    <span class="comment">// possible output:</span></div>
+<div class="line">    <span class="comment">// CONNECT</span></div>
+<div class="line">    <span class="comment">// value in map0</span></div>
+<div class="line">    <span class="comment">// value in map1</span></div>
+<div class="line">    <span class="comment">// value in map2</span></div>
+<div class="line">    <span class="comment">// SUBSCRIBE</span></div>
+<div class="line">    <span class="comment">// value in map3</span></div>
+<div class="line">    <span class="comment">// observer value 3</span></div>
+<div class="line">    <span class="comment">// value in map4</span></div>
+<div class="line">    <span class="comment">// observer value 4</span></div>
+<div class="line">    <span class="comment">// value in map5</span></div>
+<div class="line">    <span class="comment">// observer value 5</span></div>
+<div class="line">    <span class="comment">// DISPOSE</span></div>
+<div class="ttc" id="aclassrpp_1_1observable_html"><div class="ttname"><a href="classrpp_1_1observable.html">rpp::observable</a></div><div class="ttdoc">Base class for any observable used in RPP. It handles core callbacks of observable.</div><div class="ttdef"><b>Definition</b> observable.hpp:38</div></div>
+<div class="ttc" id="aclassrpp_1_1schedulers_1_1new__thread_html"><div class="ttname"><a href="classrpp_1_1schedulers_1_1new__thread.html">rpp::schedulers::new_thread</a></div><div class="ttdoc">Scheduler which schedules invoking of schedulables to another thread via queueing tasks with priority...</div><div class="ttdef"><b>Definition</b> new_thread.hpp:31</div></div>
+<div class="ttc" id="agroup__creational__operators_html_ga4018b147fb99a358c6c01f21183c13e6"><div class="ttname"><a href="group__creational__operators.html#ga4018b147fb99a358c6c01f21183c13e6">rpp::source::interval</a></div><div class="ttdeci">auto interval(rpp::schedulers::duration initial, rpp::schedulers::duration period, TScheduler &amp;&amp;scheduler)</div><div class="ttdoc">Creates rpp::observable that emits a sequential integer every specified time interval,...</div><div class="ttdef"><b>Definition</b> interval.hpp:77</div></div>
+</div><!-- fragment --> </dd></dl>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li>src/rpp/rpp/observables/<a class="el" href="connectable__observable_8hpp_source.html">connectable_observable.hpp</a></li>
 </ul>

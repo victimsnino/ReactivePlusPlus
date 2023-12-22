@@ -63,8 +63,8 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "annotated.html",
-"group__schedulers.html",
-"throttle_8hpp_source.html"
+"group__qt__schedulers.html",
+"take_until_8cpp-example.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

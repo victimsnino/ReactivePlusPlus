@@ -99,12 +99,14 @@ $(document).ready(function(){initNavTree('classrpp_1_1grouped__observable.html',
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="classrpp_1_1grouped__observable-members.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">rpp::grouped_observable&lt; KeyType, Type, Strategy &gt; Class Template Reference</div></div>
+  <div class="headertitle"><div class="title">rpp::grouped_observable&lt; KeyType, Type, Strategy &gt; Class Template Reference<div class="ingroups"><a class="el" href="group__rpp.html">RPP</a> &raquo; <a class="el" href="group__observables.html">Observables</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Extension over raw observable which also has <code>get_key()</code> member function. Used in <code>group_by</code> operator to represent grouped observable.  
+<p>Extension over <a class="el" href="classrpp_1_1observable.html" title="Base class for any observable used in RPP. It handles core callbacks of observable.">rpp::observable</a> for some "subset" of values from original observable grouped by some key. It has <code>get_key()</code> member function. Used in <code>group_by</code> operator to represent grouped observable.  
  <a href="classrpp_1_1grouped__observable.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="grouped__observable_8hpp_source.html">grouped_observable.hpp</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for rpp::grouped_observable&lt; KeyType, Type, Strategy &gt;:</div>
 <div class="dyncontent">
@@ -243,7 +245,7 @@ using&#160;</td><td class="memItemRight" valign="bottom"><b>expected_disposable_
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><div class="compoundTemplParams">template&lt;constraint::decayed_type KeyType, constraint::decayed_type Type, constraint::observable_strategy&lt; Type &gt; Strategy&gt;<br />
-class rpp::grouped_observable&lt; KeyType, Type, Strategy &gt;</div><p>Extension over raw observable which also has <code>get_key()</code> member function. Used in <code>group_by</code> operator to represent grouped observable. </p>
+class rpp::grouped_observable&lt; KeyType, Type, Strategy &gt;</div><p>Extension over <a class="el" href="classrpp_1_1observable.html" title="Base class for any observable used in RPP. It handles core callbacks of observable.">rpp::observable</a> for some "subset" of values from original observable grouped by some key. It has <code>get_key()</code> member function. Used in <code>group_by</code> operator to represent grouped observable. </p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
     <tr><td class="paramname">KeyType</td><td>is type of key </td></tr>
