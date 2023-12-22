@@ -22,13 +22,13 @@ namespace rpp::details::observables
 class blocking_disposble final : public base_disposable
 {
 public:
-    void wait() 
+    void wait()
     {
         std::unique_lock lock{m_mutex};
         m_cv.wait(lock, [this] { return m_completed; });
     }
 
-    void dispose_impl() noexcept override 
+    void dispose_impl() noexcept override
     {
         {
             std::lock_guard lock{m_mutex};
@@ -66,7 +66,7 @@ public:
         auto d = std::make_shared<blocking_disposble>();
         obs.set_upstream(d);
         m_original.subscribe(std::move(obs));
-        
+
         if (!d->is_disposed())
             d->wait();
     }
@@ -78,6 +78,14 @@ private:
 
 namespace rpp
 {
+/**
+ * @brief Extension over rpp::observable with set of blocking operators - it waits till completion of underlying observable
+ *
+ * @par Example:
+ * @snippet as_blocking.cpp as_blocking
+ *
+ * @ingroup observables
+ */
 template<constraint::decayed_type Type, constraint::observable_strategy<Type> Strategy>
 class blocking_observable : public observable<Type, details::observables::blocking_strategy<Type, Strategy>> {
 public:

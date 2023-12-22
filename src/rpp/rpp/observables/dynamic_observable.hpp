@@ -77,6 +77,14 @@ private:
 
 namespace rpp
 {
+/**
+ * @brief Type-erased version of the `rpp::observable`. Any observable can be converted to dynamic_observable via `rpp::observable::as_dynamic` member function.
+ * @details To provide type-erasure it uses `std::shared_ptr`. As a result it has worse performance.
+ *
+ * @tparam Type of value this obsevalbe can provide
+ *
+ * @ingroup observables
+ */
 template<constraint::decayed_type Type>
 class dynamic_observable : public observable<Type, details::observables::dynamic_strategy<Type>> {
 public:
