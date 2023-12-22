@@ -63,6 +63,11 @@ private:
 
 namespace rpp
 {
+/**
+ * @brief Extension over raw observable with ability to be manually connected at any time or ref_counting (sharing same observable between multiple observers)
+ *
+ * @ingroup observables
+ */
 template<rpp::constraint::observable OriginalObservable, rpp::constraint::subject Subject>
 class connectable_observable final : public decltype(std::declval<Subject>().get_observable())
 {
@@ -83,6 +88,13 @@ public:
     {
     }
 
+    /**
+     * @brief Connects to underlying observable right-now making it hot-observable
+     *
+     * @par Example:
+     * @snippet connect.cpp connect
+     *
+     */
     rpp::disposable_wrapper connect(rpp::composite_disposable_wrapper wrapper = {}) const
     {
         std::unique_lock lock(m_state->mutex);

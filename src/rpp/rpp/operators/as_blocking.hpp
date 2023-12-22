@@ -39,6 +39,9 @@ namespace rpp::operators
  * @brief Converts `rpp::observable` to `rpp::blocking_observable`
  * @details `rpp::blocking_observable` blocks `subscribe` call till on_completed/on_error happens.
  *
+ * @par Example:
+ * @snippet as_blocking.cpp as_blocking
+ *
  * @ingroup utility_operators
  */
 inline auto as_blocking()

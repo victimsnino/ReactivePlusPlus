@@ -13,6 +13,16 @@
 
 namespace rpp
 {
+
+/**
+ * @brief Extension over rpp::observable for some "subset" of values from original observable grouped by some key. It has `get_key()` member function. Used in `group_by` operator to represent grouped observable
+ *
+ * @tparam KeyType is type of key
+ * @tparam Type of value this obsevalbe can provide
+ * @tparam Strategy is observable strategy
+ *
+ * @ingroup observables
+ */
 template<constraint::decayed_type KeyType, constraint::decayed_type Type, constraint::observable_strategy<Type> Strategy>
 class grouped_observable final : public observable<Type, Strategy>
 {

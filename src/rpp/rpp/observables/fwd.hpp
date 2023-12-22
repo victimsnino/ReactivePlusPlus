@@ -42,30 +42,12 @@ class observable_chain_strategy;
 template<constraint::decayed_type Type, constraint::observable_strategy<Type> Strategy>
 class observable;
 
-/**
- * @brief Type-erased version of the `rpp::observable`. Any observable can be converted to dynamic_observable via `rpp::observable::as_dynamic` member function.
- * @details To provide type-erasure it uses `std::shared_ptr`. As a result it has worse performance.
- *
- * @tparam Type of value this obsevalbe can provide
- *
- * @ingroup observables
- */
 template<constraint::decayed_type Type>
 class dynamic_observable;
 
-/**
- * @brief `rpp::blocking_observable` blocks `subscribe` call till on_completed/on_error happens.
- */
 template<constraint::decayed_type Type, constraint::observable_strategy<Type> Strategy>
 class blocking_observable;
 
-/**
- * @brief Extension over raw observable which also has `get_key()` member function. Used in `group_by` operator to represent grouped observable
- *
- * @tparam KeyType is type of key
- * @tparam Type of value this obsevalbe can provide
- * @tparam Strategy is observable strategy
- */
 template<constraint::decayed_type KeyType, constraint::decayed_type Type, constraint::observable_strategy<Type> Strategy>
 class grouped_observable;
 }
