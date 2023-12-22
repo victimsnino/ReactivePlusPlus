@@ -40,7 +40,10 @@ namespace rpp::source
        operator "create:  on_next(1), on_next(3), on_completed()": +--1--3--|
    }
  *
- * @warning Be sure, that your callback doesn't violates observable rule - observable must to emit emissions in serial way
+ * @warning Be sure, that your callback doesn't violates observable rules:
+ * 1) observable must to emit emissions in serial way
+ * 2) observable must not to call any callbacks after termination events - on_error/on_completed
+ * @warning Keep in mind, obtained observer is non-copyable, but movable by default. So, prefer perfect-forwarding. In case of you need to copy observer, cast it it dynamic_observer via passing it as argument type or via as_dynamic() member function
  *
  * @tparam Type is type of values observable would emit
  * @tparam OnSubscribe is callback function to implement core logic of observable
@@ -69,6 +72,7 @@ auto create(OnSubscribe&& on_subscribe)
  * @warning Be sure, that your callback doesn't violates observable rules:
  * 1) observable must to emit emissions in serial way
  * 2) observable must not to call any callbacks after termination events - on_error/on_completed
+ * @warning Keep in mind, obtained observer is non-copyable, but movable by default. So, prefer perfect-forwarding. In case of you need to copy observer, cast it it dynamic_observer via passing it as argument type or via as_dynamic() member function
  *
  * @tparam Type is type of values observable would emit
  * @tparam OnSubscribe is callback function to implement core logic of observable
