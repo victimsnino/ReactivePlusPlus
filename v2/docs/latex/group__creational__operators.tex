@@ -195,46 +195,9 @@ Construct observable specialized with passed callback function. Most easiesest w
 
 
 \begin{DoxyWarning}{Warning}
-Be sure, that your callback doesn\textquotesingle{}t violates observable rule -\/ observable must to emit emissions in serial way
-\end{DoxyWarning}
+Be sure, that your callback doesn\textquotesingle{}t violates observable rules\+: 1) observable must to emit emissions in serial way 2) observable must not to call any callbacks after termination events -\/ on\+\_\+error/on\+\_\+completed 
 
-\begin{DoxyTemplParams}{Template Parameters}
-{\em Type} & is type of values observable would emit \\
-\hline
-{\em On\+Subscribe} & is callback function to implement core logic of observable\\
-\hline
-\end{DoxyTemplParams}
-\begin{DoxyParagraph}{Examples\+:}
-
-\begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{rpp::source::create<int>}}([](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ \mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{sub}})}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{sub}}.on\_next(42);}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \})}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ .subscribe([](\textcolor{keywordtype}{int}\ \mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{v}})\ \{\ std::cout\ <<\ \mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{v}}\ <<\ std::endl;\ \});}
-\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:\ 42}}
-
-\end{DoxyCodeInclude}
- 
-\begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{\ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{val}}\ =\ 42;}
-\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{rpp::source::create<int>}}([\mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{val}}](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ \mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{sub}})}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{sub}}.on\_next(\mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{val}});}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \})}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ .subscribe([](\textcolor{keywordtype}{int}\ \mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{v}})\ \{\ std::cout\ <<\ \mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{v}}\ <<\ std::endl;\ \});}
-\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:\ 42}}
-
-\end{DoxyCodeInclude}
-
-\end{DoxyParagraph}
-\begin{DoxySeeAlso}{See also}
-\href{https://reactivex.io/documentation/operators/create.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/create.\+html}}
-\end{DoxySeeAlso}
-
-
-\begin{DoxyWarning}{Warning}
-Be sure, that your callback doesn\textquotesingle{}t violates observable rules\+: 1) observable must to emit emissions in serial way 2) observable must not to call any callbacks after termination events -\/ on\+\_\+error/on\+\_\+completed
+Keep in mind, obtained observer is non-\/copyable, but movable by default. So, prefer perfect-\/forwarding. In case of you need to copy observer, cast it it dynamic\+\_\+observer via passing it as argument type or via as\+\_\+dynamic() member function
 \end{DoxyWarning}
 
 \begin{DoxyTemplParams}{Template Parameters}
