@@ -22,6 +22,14 @@ template<rpp::constraint::decayed_type             Type,
          std::invocable<>                          OnCompleted>
 struct lambda_strategy
 {
+    template<rpp::constraint::decayed_same_as<OnNext> TOnNext, rpp::constraint::decayed_same_as<OnError> TOnError, rpp::constraint::decayed_same_as<OnCompleted> TOnCompleted>
+    explicit lambda_strategy(TOnNext&& on_next, TOnError&& on_error, TOnCompleted&& on_completed)
+        : on_next{std::forward<TOnNext>(on_next)}
+        , on_error{std::forward<TOnError>(on_error)}
+        , on_completed{std::forward<TOnCompleted>(on_completed)}
+    {
+    }
+
     RPP_NO_UNIQUE_ADDRESS OnNext      on_next{};
     RPP_NO_UNIQUE_ADDRESS OnError     on_error{};
     RPP_NO_UNIQUE_ADDRESS OnCompleted on_completed{};
