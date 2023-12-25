@@ -276,14 +276,15 @@ For now it is {\ttfamily observable of strings} due to it is {\ttfamily \doxylin
 \DoxyCodeLine{\textcolor{keyword}{struct\ }\mbox{\hyperlink{group__transforming__operators_ga1291dba2d973d4ba1061c9e0e202cb3f}{map}}}
 \DoxyCodeLine{\{}
 \DoxyCodeLine{\ \ Fn\ fn\{\};}
+\DoxyCodeLine{}
 \DoxyCodeLine{\ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ Type,\ \textcolor{keyword}{typename}\ Internal>}
 \DoxyCodeLine{\ \ \textcolor{keyword}{auto}\ operator()(\textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1observable}{rpp::observable<Type,\ Internal>}}\&\ observable)\textcolor{keyword}{\ const\ }\{}
 \DoxyCodeLine{\ \ \ \ \textcolor{keyword}{using\ }FinalType\ =\ std::invoke\_result\_t<Fn,\ Type>;}
-\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{rpp::source::create<FinalType>}}([observable,\ fn](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ observer)}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{rpp::source::create<FinalType>}}([observable,\ fn](\textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1observer}{rpp::dynamic\_observer<FinalType>}}\&\ observer)}
 \DoxyCodeLine{\ \ \ \ \{}
-\DoxyCodeLine{\ \ \ \ \ \ observable.\mbox{\hyperlink{classrpp_1_1observable_a193b0e08c516912c04afd8379ec27182}{subscribe}}([observer,\ fn](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ v)\ \{\ observer.on\_next(fn(v));\ \},}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [observer](\textcolor{keyword}{const}\ std::exception\_ptr\&\ err)\ \{\ observer.on\_error(err);\ \},}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [observer]()\ \{\ observer.on\_completed();\ \});}
+\DoxyCodeLine{\ \ \ \ \ \ observable.\mbox{\hyperlink{classrpp_1_1observable_a193b0e08c516912c04afd8379ec27182}{subscribe}}([observer,\ fn](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ v)\ \{\ observer.\mbox{\hyperlink{classrpp_1_1details_1_1observer__impl_a14747a5260ecc183a6d0f1adafee4f68}{on\_next}}(fn(v));\ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [observer](\textcolor{keyword}{const}\ std::exception\_ptr\&\ err)\ \{\ observer.\mbox{\hyperlink{classrpp_1_1details_1_1observer__impl_aa55c5a334bc39c92218f7b51e5126bbc}{on\_error}}(err);\ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [observer]()\ \{\ observer.\mbox{\hyperlink{classrpp_1_1details_1_1observer__impl_a7a73f13eae52effde01a2d3b2cf1d1b4}{on\_completed}}();\ \});}
 \DoxyCodeLine{\ \ \ \ \};);}
 \DoxyCodeLine{\ \ \}}
 \DoxyCodeLine{\}}
@@ -291,9 +292,7 @@ For now it is {\ttfamily observable of strings} due to it is {\ttfamily \doxylin
 \end{DoxyCode}
 
 
-It is template for such an functor-\/adaptor. It is actually valid except of the one thing\+: observer is not copyable by default and we need to handle it, for example, call {\ttfamily as\+\_\+dynamic()} or to place in some shared\+\_\+ptr, but it is out of current explanation.
-
-Provided example -\/ is simplest possible way to implement new operators -\/ just provide function for transformation of observable. For example, it is fully valid example\+: 
+It is template for such an functor-\/adaptor. Provided example -\/ is simplest possible way to implement new operators -\/ just provide function for transformation of observable. For example, it is fully valid example\+: 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{\mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(1)}
 \DoxyCodeLine{\ \ \ \ |\ [](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ observable)\ \{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{rpp::source::concat}}(observable,\ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(2));\ \};}
@@ -320,16 +319,16 @@ Example\+:
 \DoxyCodeLine{\ \ Fn\ fn\{\};}
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ Upstream,\ \textcolor{keyword}{typename}\ Downstream>}
-\DoxyCodeLine{\ \ \textcolor{keyword}{auto}\ lift(\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer__of__type}{rpp::constraint::observer\_of\_type<Downstream>}}\ \textcolor{keyword}{auto}\&\&\ observer)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{\ \ \textcolor{keyword}{auto}\ lift(\textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1observer}{rpp::dynamic\_observer<Downstream>}}\&\ observer)\textcolor{keyword}{\ const}}
 \DoxyCodeLine{\textcolor{keyword}{\ \ }\{}
-\DoxyCodeLine{\ \ \ \ \ \ \textcolor{keywordflow}{return}\ rpp::make\_lambda\_observer<Upstream>([observer,\ fn](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ v)\{\ observer.on\_next(fn(v));\ \},}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [observer](\textcolor{keyword}{const}\ std::exception\_ptr\&\ err)\ \{\ observer.on\_error(err);\ \},}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [observer]()\ \{\ observer.on\_completed();\ \});}
+\DoxyCodeLine{\ \ \ \ \ \ \textcolor{keywordflow}{return}\ rpp::make\_lambda\_observer<Upstream>([observer,\ fn](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ v)\{\ observer.\mbox{\hyperlink{classrpp_1_1details_1_1observer__impl_a14747a5260ecc183a6d0f1adafee4f68}{on\_next}}(fn(v));\ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [observer](\textcolor{keyword}{const}\ std::exception\_ptr\&\ err)\ \{\ observer.\mbox{\hyperlink{classrpp_1_1details_1_1observer__impl_aa55c5a334bc39c92218f7b51e5126bbc}{on\_error}}(err);\ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [observer]()\ \{\ observer.\mbox{\hyperlink{classrpp_1_1details_1_1observer__impl_a7a73f13eae52effde01a2d3b2cf1d1b4}{on\_completed}}();\ \});}
 \DoxyCodeLine{\ \ \}}
 \DoxyCodeLine{\}}
 
 \end{DoxyCode}
- In this case you providing logic how to convert downstream observer to upstream observer. Actually this implementation is equal to previous one, but without handling of observable.
+ In this case you providing logic how to convert downstream observer to upstream observer. Actually this implementation is equal to previous one, but without handling of observable -\/ you are expressing your operator in terms of observers
 
 \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}(Advanced)\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} In case of implementing operator via {\ttfamily lift} you can control disposable strategy via {\ttfamily updated\+\_\+disposable\+\_\+strategy} parameter. It accepts disposable strategy of upstream and returns disposable strategy for downstream. It needed only for optimization and reducing disposables handling cost and it is purely advanced thing. Not sure if anyone is going to use it by its own for now =)\hypertarget{md_docs_2readme_autotoc_md7}{}\doxysubsection{\texorpdfstring{Schedulers}{Schedulers}}\label{md_docs_2readme_autotoc_md7}
 Reactive programming becomes even more powerful when observables can operate across multiple threads, rather than being confined to the thread of creation and subscription. This allows for non-\/blocking, asynchronous operations and provides significant advantages over raw iteration or other pull-\/based approaches. To enable multithreading in your observables, you can use {\bfseries{Schedulers}}.
@@ -375,7 +374,7 @@ In this case whole subscription flow happens in thread of subscription, but emis
 \DoxyCodeLine{\ \ \textcolor{keyword}{auto}\ worker\ =\ \mbox{\hyperlink{classrpp_1_1schedulers_1_1new__thread}{rpp::schedulers::new\_thread}}\{\}.create\_worker();}
 \DoxyCodeLine{\ \ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(1,2,3,4,5).subscribe([](\textcolor{keywordtype}{int}\ v)\ \{}
 \DoxyCodeLine{\ \ \ \ worker.scheduler([](...)\ \{}
-\DoxyCodeLine{\ \ \ \ \ \ observer.on\_next(v);}
+\DoxyCodeLine{\ \ \ \ \ \ observer.\mbox{\hyperlink{classrpp_1_1details_1_1observer__impl_a14747a5260ecc183a6d0f1adafee4f68}{on\_next}}(v);}
 \DoxyCodeLine{\ \ \ \ \}}
 \DoxyCodeLine{\ \ \})}
 \DoxyCodeLine{\}).subscribe(...);}
