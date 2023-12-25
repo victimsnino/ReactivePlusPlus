@@ -245,10 +245,11 @@ template<typename Fn>
 struct map
 {
   Fn fn{};
+
   template<typename Type, typename Internal>
   auto operator()(const rpp::observable<Type, Internal>& observable) const {
     using FinalType = std::invoke_result_t<Fn, Type>;
-    return rpp::source::create<FinalType>([observable, fn](const auto& observer)
+    return rpp::source::create<FinalType>([observable, fn](const rpp::dynamic_observer<FinalType>& observer)
     {
       observable.subscribe([observer, fn](const auto& v) { observer.on_next(fn(v)); },
                            [observer](const std::exception_ptr& err) { observer.on_error(err); },
@@ -258,9 +259,7 @@ struct map
 }
 ```
 
-It is template for such an functor-adaptor. It is actually valid except of the one thing: observer is not copyable by default and we need to handle it, for example, call `as_dynamic()`  or to place in some shared_ptr, but it is out of current explanation.
-
-Provided example - is simplest possible way to implement new operators - just provide function for transformation of observable. For example, it is fully valid example:
+It is template for such an functor-adaptor. Provided example - is simplest possible way to implement new operators - just provide function for transformation of observable. For example, it is fully valid example:
 ```cpp
 rpp::source::just(1)
     | [](const auto& observable) { return rpp::source::concat(observable, rpp::source::just(2)); };
@@ -283,7 +282,7 @@ struct map
   Fn fn{};
 
   template<typename Upstream, typename Downstream>
-  auto lift(rpp::constraint::observer_of_type<Downstream> auto&& observer) const
+  auto lift(const rpp::dynamic_observer<Downstream>& observer) const
   {
       return rpp::make_lambda_observer<Upstream>([observer, fn](const auto& v){ observer.on_next(fn(v)); },
                                                  [observer](const std::exception_ptr& err) { observer.on_error(err); },
@@ -292,7 +291,7 @@ struct map
 }
 
 ```
-In this case you providing logic how to convert downstream observer to upstream observer. Actually this implementation is equal to previous one, but without handling of observable.
+In this case you providing logic how to convert downstream observer to upstream observer. Actually this implementation is equal to previous one, but without handling of observable - you are expressing your operator in terms of observers
 
 **(Advanced)**
 In case of implementing operator via `lift` you can control disposable strategy via `updated_disposable_strategy` parameter. It accepts disposable strategy of upstream and returns disposable strategy for downstream. It needed only for optimization and reducing disposables handling cost and it is purely advanced thing. Not sure if anyone is going to use it by its own for now =)
