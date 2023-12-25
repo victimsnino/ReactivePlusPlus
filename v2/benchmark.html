@@ -67,7 +67,7 @@
                         var d3colors = Plotly.d3.scale.category20();
                         var colorNum = 0;
                         var data = Object.entries(resultsPerName)
-                                         .flatMap(([name, results]) => {
+                                         .flatMap(([name, results], i) => {
                                             color = d3colors(colorNum);
                                             colorNum += 1;
                                             return Object.entries(groupBy(results, "source"))
@@ -79,7 +79,7 @@
                                                  })
                                                  .map(([source, results]) => {
                                                      return {
-                                                         name: "[" + source + "] " + name,
+                                                         name: "#" + (i+1) + " [" + source + "] " + name,
                                                          x: results.map(v => commitKeys.indexOf(v["commit"])),
                                                          y: results.map(v => v["median(elapsed)"].toFixed(2)),
                                                          type: "scatter",
