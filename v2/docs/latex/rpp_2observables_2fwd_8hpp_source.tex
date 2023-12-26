@@ -62,8 +62,8 @@
 \DoxyCodeLine{00058\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1utils_1_1details_1_1is__observable__t}{is\_observable\_t}}}
 \DoxyCodeLine{00059\ \{}
 \DoxyCodeLine{00060\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T,\ \textcolor{keyword}{typename}\ Strategy>}
-\DoxyCodeLine{00061\ \ \ \ \ \textcolor{keyword}{consteval}\ \textcolor{keyword}{static}\ std::true\_type\ \ deduce(\textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1observable}{rpp::observable<T,\ Strategy>}}*);}
-\DoxyCodeLine{00062\ \ \ \ \ \textcolor{keyword}{consteval}\ \textcolor{keyword}{static}\ std::false\_type\ deduce(...);}
+\DoxyCodeLine{00061\ \ \ \ \ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{static}\ std::true\_type\ \ deduce(\textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1observable}{rpp::observable<T,\ Strategy>}}*);}
+\DoxyCodeLine{00062\ \ \ \ \ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{static}\ std::false\_type\ deduce(...);}
 \DoxyCodeLine{00063\ }
 \DoxyCodeLine{00064\ \ \ \ \ \textcolor{keyword}{using\ }type\ =\ \textcolor{keyword}{decltype}(deduce(std::declval<std::decay\_t<TObservable>*>()));}
 \DoxyCodeLine{00065\ \};}
@@ -90,7 +90,7 @@
 \DoxyCodeLine{00086\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1utils_1_1details_1_1extract__observable__type}{extract\_observable\_type}}}
 \DoxyCodeLine{00087\ \ \ \ \ \{}
 \DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T,\ \textcolor{keyword}{typename}\ Strategy>}
-\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \textcolor{keyword}{consteval}\ \textcolor{keyword}{static}\ T\ deduce(\textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1observable}{rpp::observable<T,\ Strategy>}}\&);}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{static}\ T\ deduce(\textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1observable}{rpp::observable<T,\ Strategy>}}\&);}
 \DoxyCodeLine{00090\ }
 \DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }type\ =\ \textcolor{keyword}{decltype}(deduce(std::declval<std::decay\_t<TObservable>>()));}
 \DoxyCodeLine{00092\ \ \ \ \ \};}
