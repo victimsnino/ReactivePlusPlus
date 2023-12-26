@@ -86,7 +86,7 @@ public:
 
 private:
     template<size_t I, typename T>
-    consteval static T type_at_index(const tuple_leaf<I, T>&);
+    constexpr static T type_at_index(const tuple_leaf<I, T>&);
 
 public:
     template<size_t I>
