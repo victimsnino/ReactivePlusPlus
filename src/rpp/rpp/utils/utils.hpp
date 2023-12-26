@@ -49,6 +49,15 @@ struct convertible_to_any
 
     template<typename T>
     operator T();
+
+    template<typename T>
+    operator const T&();
+
+    template<typename T>
+    operator T&();
+
+    template<typename T>
+    operator T&&();
 };
 
 template<typename Cont, std::invocable<iterable_value_t<Cont>> Fn>
