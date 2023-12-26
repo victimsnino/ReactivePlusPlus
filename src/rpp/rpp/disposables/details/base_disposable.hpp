@@ -11,7 +11,6 @@
 #pragma once
 
 #include <rpp/disposables/fwd.hpp>
-
 #include <rpp/disposables/interface_disposable.hpp>
 
 #include <atomic>

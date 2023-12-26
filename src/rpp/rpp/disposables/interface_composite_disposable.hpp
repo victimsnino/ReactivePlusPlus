@@ -14,8 +14,6 @@
 #include <rpp/disposables/disposable_wrapper.hpp>
 #include <rpp/disposables/interface_disposable.hpp>
 
-#include <memory>
-
 namespace rpp
 {
 struct interface_composite_disposable : public interface_disposable

@@ -13,7 +13,7 @@
 
 #include <rpp/observables/observable.hpp>
 
-#include "rpp/disposables/fwd.hpp"
+#include <rpp/disposables/fwd.hpp>
 
 namespace rpp::subjects::details
 {

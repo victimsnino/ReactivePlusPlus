@@ -11,14 +11,13 @@
 #pragma once
 
 #include <rpp/disposables/fwd.hpp>
-
 #include <rpp/disposables/details/base_disposable.hpp>
 
 namespace rpp
 {
 /**
  * @brief Disposable invokes underlying callable on disposing.
- * 
+ *
  * @ingroup disposables
  */
 template<rpp::constraint::is_nothrow_invocable Fn>

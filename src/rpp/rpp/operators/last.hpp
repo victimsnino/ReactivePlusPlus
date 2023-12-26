@@ -15,7 +15,6 @@
 #include <rpp/defs.hpp>
 #include <rpp/operators/details/strategy.hpp>
 
-#include <cstddef>
 #include <optional>
 
 namespace rpp::operators::details

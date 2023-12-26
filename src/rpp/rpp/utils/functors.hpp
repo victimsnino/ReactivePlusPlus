@@ -10,7 +10,6 @@
 
 #pragma once
 
-#include <stdexcept>
 #include <tuple>
 
 namespace rpp::utils

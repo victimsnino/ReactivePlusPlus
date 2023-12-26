@@ -16,7 +16,6 @@
 #include <rpp/utils/utils.hpp>
 
 #include <cstddef>
-#include <type_traits>
 
 namespace rpp::operators::details
 {
