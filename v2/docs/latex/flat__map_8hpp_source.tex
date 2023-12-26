@@ -20,45 +20,44 @@
 \DoxyCodeLine{00016\ }
 \DoxyCodeLine{00017\ \textcolor{keyword}{namespace\ }rpp::operators::details}
 \DoxyCodeLine{00018\ \{}
-\DoxyCodeLine{00019\ }
-\DoxyCodeLine{00020\ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type\ Fn>}
-\DoxyCodeLine{00021\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1flat__map__t}{flat\_map\_t}}}
-\DoxyCodeLine{00022\ \{}
-\DoxyCodeLine{00023\ \ \ \ \ RPP\_NO\_UNIQUE\_ADDRESS\ Fn\ m\_fn;}
-\DoxyCodeLine{00024\ }
-\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::observable\ TObservable>}
-\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \textcolor{keyword}{requires}\ (std::invocable<Fn,\ rpp::utils::extract\_observable\_type\_t<TObservable>>}
-\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&\&\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp::constraint::observable<std::invoke\_result\_t<Fn,\ rpp::utils::extract\_observable\_type\_t<TObservable>}}>>)}
-\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{operator}()(TObservable\&\&\ \mbox{\hyperlink{classrpp_1_1observable}{observable}})\ \textcolor{keyword}{const}\ \&}
-\DoxyCodeLine{00029\ \ \ \ \ \{}
-\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::forward<TObservable>(\mbox{\hyperlink{classrpp_1_1observable}{observable}})}
-\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \ \ \ \ \ |\ rpp::ops::map(m\_fn)}
-\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \ \ \ \ \ |\ rpp::ops::merge();}
-\DoxyCodeLine{00033\ \ \ \ \ \}}
-\DoxyCodeLine{00034\ }
-\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::observable\ TObservable>}
-\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \textcolor{keyword}{requires}\ (std::invocable<Fn,\ rpp::utils::extract\_observable\_type\_t<TObservable>>}
-\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&\&\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp::constraint::observable<std::invoke\_result\_t<Fn,\ rpp::utils::extract\_observable\_type\_t<TObservable>}}>>)}
-\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{operator}()(TObservable\&\&\ \mbox{\hyperlink{classrpp_1_1observable}{observable}})\ \&\&}
-\DoxyCodeLine{00039\ \ \ \ \ \{}
-\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::forward<TObservable>(\mbox{\hyperlink{classrpp_1_1observable}{observable}})}
-\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \ \ \ \ \ |\ rpp::ops::map(std::move(m\_fn))}
-\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \ \ \ \ \ |\ rpp::ops::merge();}
-\DoxyCodeLine{00043\ \ \ \ \ \}}
-\DoxyCodeLine{00044\ \};}
-\DoxyCodeLine{00045\ }
-\DoxyCodeLine{00046\ \}\ \textcolor{comment}{//\ namespace\ rpp::operators::details}}
-\DoxyCodeLine{00047\ }
-\DoxyCodeLine{00048\ \textcolor{keyword}{namespace\ }rpp::operators}
-\DoxyCodeLine{00049\ \{}
-\DoxyCodeLine{00050\ }
-\DoxyCodeLine{00069\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ Fn>}
-\DoxyCodeLine{00070\ \ \ \ \ \textcolor{keyword}{requires}\ (!utils::is\_not\_template\_callable<Fn>\ ||\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp::constraint::observable<std::invoke\_result\_t<Fn,\ rpp::utils::convertible\_to\_any>}}>)}
-\DoxyCodeLine{00071\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__transforming__operators_ga633883e796101ceeab821e2a4912bd5e}{flat\_map}}(Fn\&\&\ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{callable}})}
-\DoxyCodeLine{00072\ \{}
-\DoxyCodeLine{00073\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1flat__map__t}{details::flat\_map\_t<std::decay\_t<Fn>}}>\{std::forward<Fn>(\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{callable}})\};}
-\DoxyCodeLine{00074\ \}}
-\DoxyCodeLine{00075\ }
-\DoxyCodeLine{00076\ \}\ \textcolor{comment}{//\ namespace\ rpp::operators}}
+\DoxyCodeLine{00019\ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type\ Fn>}
+\DoxyCodeLine{00020\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1flat__map__t}{flat\_map\_t}}}
+\DoxyCodeLine{00021\ \{}
+\DoxyCodeLine{00022\ \ \ \ \ RPP\_NO\_UNIQUE\_ADDRESS\ Fn\ m\_fn;}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::observable\ TObservable>}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \textcolor{keyword}{requires}\ (std::invocable<Fn,\ rpp::utils::extract\_observable\_type\_t<TObservable>>}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&\&\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp::constraint::observable<std::invoke\_result\_t<Fn,\ rpp::utils::extract\_observable\_type\_t<TObservable>}}>>)}
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{operator}()(TObservable\&\&\ \mbox{\hyperlink{classrpp_1_1observable}{observable}})\ \textcolor{keyword}{const}\ \&}
+\DoxyCodeLine{00028\ \ \ \ \ \{}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::forward<TObservable>(\mbox{\hyperlink{classrpp_1_1observable}{observable}})}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \ \ \ \ \ |\ rpp::ops::map(m\_fn)}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \ \ \ \ \ |\ rpp::ops::merge();}
+\DoxyCodeLine{00032\ \ \ \ \ \}}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::observable\ TObservable>}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \textcolor{keyword}{requires}\ (std::invocable<Fn,\ rpp::utils::extract\_observable\_type\_t<TObservable>>}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&\&\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp::constraint::observable<std::invoke\_result\_t<Fn,\ rpp::utils::extract\_observable\_type\_t<TObservable>}}>>)}
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keyword}{auto}\ \textcolor{keyword}{operator}()(TObservable\&\&\ \mbox{\hyperlink{classrpp_1_1observable}{observable}})\ \&\&}
+\DoxyCodeLine{00038\ \ \ \ \ \{}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::forward<TObservable>(\mbox{\hyperlink{classrpp_1_1observable}{observable}})}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \ \ \ \ \ |\ rpp::ops::map(std::move(m\_fn))}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \ \ \ \ \ |\ rpp::ops::merge();}
+\DoxyCodeLine{00042\ \ \ \ \ \}}
+\DoxyCodeLine{00043\ \};}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \}\ \textcolor{comment}{//\ namespace\ rpp::operators::details}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{keyword}{namespace\ }rpp::operators}
+\DoxyCodeLine{00048\ \{}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00068\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ Fn>}
+\DoxyCodeLine{00069\ \ \ \ \ \textcolor{keyword}{requires}\ (!utils::is\_not\_template\_callable<Fn>\ ||\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp::constraint::observable<std::invoke\_result\_t<Fn,\ rpp::utils::convertible\_to\_any>}}>)}
+\DoxyCodeLine{00070\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__transforming__operators_ga633883e796101ceeab821e2a4912bd5e}{flat\_map}}(Fn\&\&\ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{callable}})}
+\DoxyCodeLine{00071\ \{}
+\DoxyCodeLine{00072\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1flat__map__t}{details::flat\_map\_t<std::decay\_t<Fn>}}>\{std::forward<Fn>(\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{callable}})\};}
+\DoxyCodeLine{00073\ \}}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \}\ \textcolor{comment}{//\ namespace\ rpp::operators}}
 
 \end{DoxyCode}
