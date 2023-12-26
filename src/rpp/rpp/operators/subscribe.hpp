@@ -65,7 +65,7 @@ public:
     {
         observable.subscribe(m_observer_strategy);
     }
-    
+
     template<rpp::constraint::observable Observable>
         requires rpp::constraint::observer_strategy<ObserverStrategy, rpp::utils::extract_observable_type_t<Observable>>
     void operator()(const Observable& observable) &&
@@ -122,7 +122,7 @@ public:
         observable.subscribe(m_disposable, m_observer_strategy);
         return m_disposable;
     }
-    
+
     template<rpp::constraint::observable Observable>
         requires rpp::constraint::observer_strategy<ObserverStrategy, rpp::utils::extract_observable_type_t<Observable>>
     rpp::composite_disposable_wrapper operator()(const Observable& observable) &&
@@ -209,8 +209,8 @@ template<typename... Args>
 subscribe_t(const Args&...) -> subscribe_t<Args...>;
 
 template<typename OnNext>
-concept on_next_like = (rpp::utils::is_not_template_callable<OnNext> && std::invocable<OnNext, rpp::utils::convertible_to_any>) || 
-                        (!rpp::constraint::decayed_same_as<OnNext, rpp::composite_disposable_wrapper> && 
+concept on_next_like = (!rpp::utils::is_not_template_callable<OnNext> || std::invocable<OnNext, rpp::utils::convertible_to_any>) &&
+                        (!rpp::constraint::decayed_same_as<OnNext, rpp::composite_disposable_wrapper> &&
                          !rpp::constraint::observer_strategy_base<OnNext> &&
                          !rpp::constraint::observer<OnNext>);
 }
@@ -306,7 +306,6 @@ auto subscribe(rpp::composite_disposable_wrapper disposable, ObserverStrategy&& 
  * @ingroup utility_operators
  */
 template<details::on_next_like OnNext = rpp::utils::empty_function_any_t, std::invocable<const std::exception_ptr&> OnError = rpp::utils::rethrow_error_t, std::invocable<> OnCompleted = rpp::utils::empty_function_t<>>
-    
 auto subscribe(OnNext&& on_next = {}, OnError&& on_error = {}, OnCompleted&& on_completed = {})
 {
     return details::subscribe_t{std::forward<OnNext>(on_next), std::forward<OnError>(on_error), std::forward<OnCompleted>(on_completed)};
@@ -318,7 +317,6 @@ auto subscribe(OnNext&& on_next = {}, OnError&& on_error = {}, OnCompleted&& on_
  * @ingroup utility_operators
  */
 template<details::on_next_like OnNext, std::invocable<> OnCompleted>
-    
 auto subscribe(OnNext&& on_next, OnCompleted&& on_completed)
 {
     return details::subscribe_t{std::forward<OnNext>(on_next), rpp::utils::rethrow_error_t{}, std::forward<OnCompleted>(on_completed)};
