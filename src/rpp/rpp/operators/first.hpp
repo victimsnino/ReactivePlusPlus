@@ -15,8 +15,6 @@
 #include <rpp/defs.hpp>
 #include <rpp/operators/details/strategy.hpp>
 
-#include <cstddef>
-
 namespace rpp::operators::details
 {
 template<rpp::constraint::observer TObserver>

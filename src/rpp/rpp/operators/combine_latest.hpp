@@ -19,7 +19,6 @@
 #include <rpp/schedulers/current_thread.hpp>
 
 #include <memory>
-#include <tuple>
 
 namespace rpp::operators::details
 {

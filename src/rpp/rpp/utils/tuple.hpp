@@ -13,7 +13,6 @@
 #include <rpp/defs.hpp>
 #include <rpp/utils/constraints.hpp>
 
-#include <concepts>
 #include <cstddef>
 #include <utility>
 

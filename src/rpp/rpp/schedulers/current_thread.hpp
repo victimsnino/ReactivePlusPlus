@@ -17,8 +17,6 @@
 #include <rpp/schedulers/details/worker.hpp>
 #include <rpp/utils/functors.hpp>
 
-#include <thread>
-
 namespace rpp::schedulers
 {
 /**
@@ -34,7 +32,7 @@ namespace rpp::schedulers
  * worker.schedule([&worker](const auto& handler)
  * {
  *     std::cout << "Task 1 starts" << std::endl;
- * 
+ *
  *     worker.schedule([&worker](const auto& handler)
  *     {
  *         std::cout << "Task 2 starts" << std::endl;
@@ -46,13 +44,13 @@ namespace rpp::schedulers
  *         std::cout << "Task 2 ends" << std::endl;
  *         return rpp::schedulers::optional_delay_from_now{};
  *     }, handler);
- * 
+ *
  *     worker.schedule([](const auto&)
  *     {
  *         std::cout << "Task 3" << std::endl;
  *         return rpp::schedulers::optional_delay_from_now{};
  *     }, handler);
- * 
+ *
  *     std::cout << "Task 1 ends" << std::endl;
  *     return rpp::schedulers::optional_delay_from_now{};
  * }, handler);
@@ -64,20 +62,20 @@ namespace rpp::schedulers
  * - "Task 2 ends"
  * - "Task 3"
  * - "Task 4"
- * 
+ *
  * @par How to use it properly?
  * To have any visible impact you need to use it at least **twice** during same observable. For example, `rpp::source::just` source uses it as default scheduler as well as `rpp::operators::merge` operator (which just "owns" it during subscription).
  *
  * For example, this one
  * \code{.cpp}
- * rpp::source::just(1, 2, 3) 
- *  | rpp::operators::merge_with(rpp::source::just(4, 5, 6)) 
+ * rpp::source::just(1, 2, 3)
+ *  | rpp::operators::merge_with(rpp::source::just(4, 5, 6))
  *  | rpp::operators::subscribe([](int v) { std::cout << v << " "; });
  * \endcode
  * Procedes output `1 4 2 5 3 6` due to `merge_with` takes ownership over this scheduler during subscription, both sources schedule their first emissions into scheduler, then `merge_with` frees scheduler and it starts to proceed scheduled actions. As a result it continues interleaving of values. In case of usingg `rpp::schedulers::immediate` it would be:
  * \code{.cpp}
- * rpp::source::just(rpp::schedulers::immediate{}, 1, 2, 3) 
- *  | rpp::operators::merge_with(rpp::source::just(rpp::schedulers::immediate{}, 4, 5, 6)) 
+ * rpp::source::just(rpp::schedulers::immediate{}, 1, 2, 3)
+ *  | rpp::operators::merge_with(rpp::source::just(rpp::schedulers::immediate{}, 4, 5, 6))
  *  | rpp::operators::subscribe([](int v) { std::cout << v << " "; });
  * \endcode
  * With output `1 2 3 4 5 6`
@@ -153,7 +151,7 @@ class current_thread
                 if (!timepoint || handler.is_disposed())
                     return drain_queue(queue);
             }
-            else 
+            else
             {
                 timepoint = now() + duration;
             }

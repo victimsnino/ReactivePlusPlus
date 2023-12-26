@@ -16,7 +16,6 @@
 #include <rpp/disposables/disposable_wrapper.hpp>
 
 #include <atomic>
-#include <vector>
 
 namespace rpp::details::observers
 {
@@ -29,7 +28,7 @@ public:
         : m_value{other.m_value.load(std::memory_order::seq_cst)}
     {}
 
-    bool test() const noexcept 
+    bool test() const noexcept
     {
         // just need atomicity, not guarding anything
         return m_value.load(std::memory_order::seq_cst);
@@ -50,7 +49,7 @@ public:
     non_atomic_bool() = default;
     non_atomic_bool(non_atomic_bool&& other) noexcept = default;
 
-    bool test() const noexcept 
+    bool test() const noexcept
     {
         return m_value;
     }

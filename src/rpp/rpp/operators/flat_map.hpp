@@ -16,7 +16,6 @@
 
 namespace rpp::operators::details
 {
-
 template<rpp::constraint::decayed_type Fn>
 struct flat_map_t
 {
@@ -58,9 +57,9 @@ namespace rpp::operators
         }
  *
  * @details Actually it makes `map(callable)` and then `merge`.
- * @details Note that flat_map merges the emissions of these Observables, so that they may interleave. 
+ * @details Note that flat_map merges the emissions of these Observables, so that they may interleave.
  *
- * @param callable function that returns an observable for each item emitted by the source observable. 
+ * @param callable function that returns an observable for each item emitted by the source observable.
  * @warning #include <rpp/operators/flat_map.hpp>
  *
  * @ingroup transforming_operators

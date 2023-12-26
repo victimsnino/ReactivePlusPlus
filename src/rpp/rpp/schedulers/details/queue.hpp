@@ -22,7 +22,6 @@
 #include <memory>
 #include <mutex>
 #include <optional>
-#include <queue>
 #include <utility>
 
 namespace rpp::schedulers::details
