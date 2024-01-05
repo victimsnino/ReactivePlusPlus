@@ -12,7 +12,9 @@
 #include <rpp/subjects/fwd.hpp>
 
 #include <rpp/observers/observer.hpp>
+#include <rpp/subjects/details/base_subject.hpp>
 #include <rpp/subjects/details/subject_state.hpp>
+#include <rpp/disposables/disposable_wrapper.hpp>
 
 #include <memory>
 
@@ -63,7 +65,7 @@ public:
 
     auto get_observer() const
     {
-        return rpp::observer<Type, rpp::details::with_external_disposable<observer_strategy>>{composite_disposable_wrapper{m_state->state}, observer_strategy{m_state}};
+        return rpp::observer<Type, rpp::details::with_external_disposable<observer_strategy>>{composite_disposable_wrapper{std::shared_ptr<subject_state<Type>>{m_state, &m_state->state}}, observer_strategy{m_state}};
     }
 
     template<rpp::constraint::observer_of_type<Type> TObs>
