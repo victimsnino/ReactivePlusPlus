@@ -19,6 +19,8 @@
 
 #include "mock_observer.hpp"
 
+#include <thread>
+
 TEST_CASE("publish subject multicasts values")
 {
     auto mock_1 = mock_observer_strategy<int>{};
