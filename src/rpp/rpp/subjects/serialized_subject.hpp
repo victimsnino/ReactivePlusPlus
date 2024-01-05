@@ -93,5 +93,9 @@ namespace rpp::subjects
  * @see https://reactivex.io/documentation/subject.html
  */
 template<rpp::constraint::decayed_type Type>
-class serialized_subject final : public details::base_subject<Type, details::serialized_strategy<Type>>{};
+class serialized_subject final : public details::base_subject<Type, details::serialized_strategy<Type>>
+{
+public:
+    using details::base_subject<Type, details::serialized_strategy<Type>>::base_subject;
+};
 }

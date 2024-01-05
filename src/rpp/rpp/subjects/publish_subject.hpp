@@ -78,5 +78,9 @@ namespace rpp::subjects
  * @see https://reactivex.io/documentation/subject.html
  */
 template<rpp::constraint::decayed_type Type>
-class publish_subject final : public details::base_subject<Type, details::publish_strategy<Type>>{};
+class publish_subject final : public details::base_subject<Type, details::publish_strategy<Type>>
+{
+public:
+    using details::base_subject<Type, details::publish_strategy<Type>>::base_subject;
+};
 }
