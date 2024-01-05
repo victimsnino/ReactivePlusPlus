@@ -14,6 +14,7 @@
 #include <rpp/observers/observer.hpp>
 #include <rpp/subjects/details/base_subject.hpp>
 #include <rpp/subjects/details/subject_state.hpp>
+#include <rpp/disposables/disposable_wrapper.hpp>
 
 #include <memory>
 

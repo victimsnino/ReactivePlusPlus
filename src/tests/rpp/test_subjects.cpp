@@ -10,10 +10,16 @@
 
 #include <snitch/snitch.hpp>
 
+#include <rpp/operators/as_blocking.hpp>
+#include <rpp/disposables/composite_disposable.hpp>
+#include <rpp/subjects/serialized_subject.hpp>
 #include <rpp/subjects/publish_subject.hpp>
+#include <rpp/sources/create.hpp>
+
 
 #include "mock_observer.hpp"
-#include <rpp/disposables/composite_disposable.hpp>
+
+#include <thread>
 
 TEST_CASE("publish subject multicasts values")
 {
@@ -222,5 +228,31 @@ TEST_CASE("publish subject caches error/completed")
                 CHECK(mock.get_on_completed_count() == 1);
             }
         }
+    }
+}
+
+TEST_CASE("serialized_subject handles race condition")
+{
+    auto subj = rpp::subjects::serialized_subject<int>{};
+    SECTION("call on_next from 2 threads")
+    {
+        bool on_error_called{};
+        rpp::source::create<int>([&](auto&& obs)
+        {
+            subj.get_observable().subscribe(std::forward<decltype(obs)>(obs));
+            subj.get_observer().on_next(1);
+        })
+            | rpp::operators::as_blocking()
+            | rpp::operators::subscribe([&](int)
+        {
+            CHECK(!on_error_called);
+            std::thread{[&]{ subj.get_observer().on_error({}); }}.detach();
+
+            std::this_thread::sleep_for(std::chrono::seconds{1});
+            CHECK(!on_error_called);
+        },
+        [&](const std::exception_ptr&){ on_error_called = true; });
+
+        CHECK(on_error_called);
     }
 }

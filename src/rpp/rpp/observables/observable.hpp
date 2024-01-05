@@ -37,6 +37,8 @@ template<constraint::decayed_type Type, constraint::observable_strategy<Type> St
 class observable
 {
 public:
+    using value_type = Type;
+    
     using expected_disposable_strategy = rpp::details::observables::deduce_disposable_strategy_t<Strategy>;
 
     template<typename... Args>
