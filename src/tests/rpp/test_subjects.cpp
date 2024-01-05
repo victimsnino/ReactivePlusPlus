@@ -224,3 +224,8 @@ TEST_CASE("publish subject caches error/completed")
         }
     }
 }
+
+TEST_CASE("serialized_subject handles race condition")
+{
+    
+}

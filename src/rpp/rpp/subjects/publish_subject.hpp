@@ -12,7 +12,6 @@
 #include <rpp/subjects/fwd.hpp>
 
 #include <rpp/observers/observer.hpp>
-#include <rpp/subjects/details/base_subject.hpp>
 #include <rpp/subjects/details/subject_state.hpp>
 
 #include <memory>

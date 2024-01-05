@@ -31,6 +31,9 @@ class base_subject;
 
 template<rpp::constraint::decayed_type Type>
 class publish_strategy;
+
+template<rpp::constraint::decayed_type Type>
+class serialized_strategy;
 }
 
 namespace rpp::subjects
@@ -49,6 +52,15 @@ namespace rpp::subjects
  */
 template<rpp::constraint::decayed_type Type>
 using publish_subject = details::base_subject<Type, details::publish_strategy<Type>>;
+
+/**
+ * @brief Same as rpp::subjects::publish_subject, but on_next/on_error/on_completed calls are serialized via mutex
+ *
+ * @ingroup subjects
+ * @see https://reactivex.io/documentation/subject.html
+ */
+template<rpp::constraint::decayed_type Type>
+using serialized_subject = details::base_subject<Type, details::serialized_strategy<Type>>;
 }
 
 namespace rpp::subjects::utils
