@@ -38,29 +38,11 @@ class serialized_strategy;
 
 namespace rpp::subjects
 {
-/**
- * @brief Subject which just multicasts values to observers subscribed on it. It contains two parts: observer and observable at the same time.
- *
- * @details Each observer obtains only values which emitted after corresponding subscribe. on_error/on_completer/unsubscribe cached and provided to new observers if any
- *
- * @warning this subject is not synchronized/serialized! It means, that expected to call callbacks of observer in the serialized way to follow observable contract: "Observables must issue notifications to observers serially (not in parallel).". If you are not sure or need extra serialization, please, use serialized_subject.
- *
- * @tparam Type value provided by this subject
- *
- * @ingroup subjects
- * @see https://reactivex.io/documentation/subject.html
- */
 template<rpp::constraint::decayed_type Type>
-using publish_subject = details::base_subject<Type, details::publish_strategy<Type>>;
+class publish_subject;
 
-/**
- * @brief Same as rpp::subjects::publish_subject, but on_next/on_error/on_completed calls are serialized via mutex
- *
- * @ingroup subjects
- * @see https://reactivex.io/documentation/subject.html
- */
 template<rpp::constraint::decayed_type Type>
-using serialized_subject = details::base_subject<Type, details::serialized_strategy<Type>>;
+class serialized_subject;
 }
 
 namespace rpp::subjects::utils

@@ -83,3 +83,15 @@ private:
     std::shared_ptr<serialized_state> m_state = std::make_shared<serialized_state>();
 };
 } // namespace rpp::subjects::details
+
+namespace rpp::subjects
+{
+/**
+ * @brief Same as rpp::subjects::publish_subject, but on_next/on_error/on_completed calls are serialized via mutex
+ *
+ * @ingroup subjects
+ * @see https://reactivex.io/documentation/subject.html
+ */
+template<rpp::constraint::decayed_type Type>
+class serialized_subject final : public details::base_subject<Type, details::serialized_strategy<Type>>{};
+}
