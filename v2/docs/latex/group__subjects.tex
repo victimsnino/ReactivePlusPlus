@@ -9,7 +9,9 @@ Observable is the observable and observer at the same time. Uses as a bridge and
 \begin{DoxyCompactItemize}
 \item 
 {\footnotesize template$<$rpp\+::constraint\+::decayed\+\_\+type Type$>$ }\\using \mbox{\hyperlink{group__subjects_gaf27df80724e7c0f28ecd1a72429812b0}{rpp\+::subjects\+::publish\+\_\+subject}} = \mbox{\hyperlink{classrpp_1_1subjects_1_1details_1_1base__subject}{details\+::base\+\_\+subject}}$<$ Type, \mbox{\hyperlink{classrpp_1_1subjects_1_1details_1_1publish__strategy}{details\+::publish\+\_\+strategy}}$<$ Type $>$ $>$
-\begin{DoxyCompactList}\small\item\em Subject which just multicasts values to observers subscribed on it. It contains two parts\+: observer and observable at the same time. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Subject which just multicasts values to observers subscribed on it. It contains two parts\+: observer and observable at the same time. \end{DoxyCompactList}\item 
+{\footnotesize template$<$rpp\+::constraint\+::decayed\+\_\+type Type$>$ }\\using \mbox{\hyperlink{group__subjects_ga510d99740d11e23caa1deee3bdebba38}{rpp\+::subjects\+::serialized\+\_\+subject}} = \mbox{\hyperlink{classrpp_1_1subjects_1_1details_1_1base__subject}{details\+::base\+\_\+subject}}$<$ Type, \mbox{\hyperlink{classrpp_1_1subjects_1_1details_1_1serialized__strategy}{details\+::serialized\+\_\+strategy}}$<$ Type $>$ $>$
+\begin{DoxyCompactList}\small\item\em Same as \doxylink{group__subjects_gaf27df80724e7c0f28ecd1a72429812b0}{rpp\+::subjects\+::publish\+\_\+subject}, but on\+\_\+next/on\+\_\+error/on\+\_\+completed calls are serialized via mutex. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsubsection{Detailed Description}
@@ -42,6 +44,20 @@ this subject is not synchronized/serialized! It means, that expected to call cal
 {\em Type} & value provided by this subject\\
 \hline
 \end{DoxyTemplParams}
+\begin{DoxySeeAlso}{See also}
+\href{https://reactivex.io/documentation/subject.html}{\texttt{ https\+://reactivex.\+io/documentation/subject.\+html}} 
+\end{DoxySeeAlso}
+\Hypertarget{group__subjects_ga510d99740d11e23caa1deee3bdebba38}\label{group__subjects_ga510d99740d11e23caa1deee3bdebba38} 
+\index{Subjects@{Subjects}!serialized\_subject@{serialized\_subject}}
+\index{serialized\_subject@{serialized\_subject}!Subjects@{Subjects}}
+\doxysubsubsubsection{\texorpdfstring{serialized\_subject}{serialized\_subject}}
+{\footnotesize\ttfamily template$<$rpp\+::constraint\+::decayed\+\_\+type Type$>$ \\
+using \mbox{\hyperlink{group__subjects_ga510d99740d11e23caa1deee3bdebba38}{rpp\+::subjects\+::serialized\+\_\+subject}} = typedef \mbox{\hyperlink{classrpp_1_1subjects_1_1details_1_1base__subject}{details\+::base\+\_\+subject}}$<$Type, \mbox{\hyperlink{classrpp_1_1subjects_1_1details_1_1serialized__strategy}{details\+::serialized\+\_\+strategy}}$<$Type$>$ $>$}
+
+
+
+Same as \doxylink{group__subjects_gaf27df80724e7c0f28ecd1a72429812b0}{rpp\+::subjects\+::publish\+\_\+subject}, but on\+\_\+next/on\+\_\+error/on\+\_\+completed calls are serialized via mutex. 
+
 \begin{DoxySeeAlso}{See also}
 \href{https://reactivex.io/documentation/subject.html}{\texttt{ https\+://reactivex.\+io/documentation/subject.\+html}} 
 \end{DoxySeeAlso}

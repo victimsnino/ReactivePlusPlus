@@ -188,6 +188,7 @@ var hierarchy =
     ] ],
     [ "rpp::schedulers::details::schedulables_queue< NowStrategy >", "classrpp_1_1schedulers_1_1details_1_1schedulables__queue.html", null ],
     [ "rpp::schedulers::details::schedulables_queue< worker_strategy >", "classrpp_1_1schedulers_1_1details_1_1schedulables__queue.html", null ],
+    [ "rpp::subjects::details::serialized_strategy< Type >", "classrpp_1_1subjects_1_1details_1_1serialized__strategy.html", null ],
     [ "rpp::details::shared_container< Container >", "classrpp_1_1details_1_1shared__container.html", null ],
     [ "rpp::schedulers::details::shared_queue_data", "structrpp_1_1schedulers_1_1details_1_1shared__queue__data.html", null ],
     [ "rpp::operators::details::skip_observer_strategy< TObserver >", "structrpp_1_1operators_1_1details_1_1skip__observer__strategy.html", null ],

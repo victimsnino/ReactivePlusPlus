@@ -97,7 +97,8 @@ var NAVTREEINDEX0 =
 "classrpp_1_1schedulers_1_1worker.html":[3,0,0,3,9],
 "classrpp_1_1subjects_1_1details_1_1base__subject.html":[3,0,0,4,0,0],
 "classrpp_1_1subjects_1_1details_1_1publish__strategy.html":[3,0,0,4,0,3],
-"classrpp_1_1subjects_1_1details_1_1subject__state.html":[3,0,0,4,0,4],
+"classrpp_1_1subjects_1_1details_1_1serialized__strategy.html":[3,0,0,4,0,4],
+"classrpp_1_1subjects_1_1details_1_1subject__state.html":[3,0,0,4,0,5],
 "classrppqt_1_1schedulers_1_1main__thread__scheduler.html":[1,1,1,0],
 "combine__latest_8hpp_source.html":[4,0,0,0,0,3,3],
 "combine_latest_8cpp-example.html":[5,2],
@@ -248,6 +249,5 @@ var NAVTREEINDEX0 =
 "group__observers.html#gae17f62f64102925f4cd2eb29c4c27028":[1,0,2,4],
 "group__operators.html":[1,0,3],
 "group__qt__creational__operators.html":[1,1,0,0],
-"group__qt__creational__operators.html#ga8c635ee2f69919f16390b1b4002d00ae":[1,1,0,0,0],
-"group__qt__operators.html":[1,1,0]
+"group__qt__creational__operators.html#ga8c635ee2f69919f16390b1b4002d00ae":[1,1,0,0,0]
 };

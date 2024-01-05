@@ -111,6 +111,10 @@ Typedefs</h2></td></tr>
 <tr class="memitem:gaf27df80724e7c0f28ecd1a72429812b0"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__subjects.html#gaf27df80724e7c0f28ecd1a72429812b0">rpp::subjects::publish_subject</a> = <a class="el" href="classrpp_1_1subjects_1_1details_1_1base__subject.html">details::base_subject</a>&lt; Type, <a class="el" href="classrpp_1_1subjects_1_1details_1_1publish__strategy.html">details::publish_strategy</a>&lt; Type &gt; &gt;</td></tr>
 <tr class="memdesc:gaf27df80724e7c0f28ecd1a72429812b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Subject which just multicasts values to observers subscribed on it. It contains two parts: observer and observable at the same time.  <br /></td></tr>
 <tr class="separator:gaf27df80724e7c0f28ecd1a72429812b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga510d99740d11e23caa1deee3bdebba38" id="r_ga510d99740d11e23caa1deee3bdebba38"><td class="memTemplParams" colspan="2">template&lt;rpp::constraint::decayed_type Type&gt; </td></tr>
+<tr class="memitem:ga510d99740d11e23caa1deee3bdebba38"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__subjects.html#ga510d99740d11e23caa1deee3bdebba38">rpp::subjects::serialized_subject</a> = <a class="el" href="classrpp_1_1subjects_1_1details_1_1base__subject.html">details::base_subject</a>&lt; Type, <a class="el" href="classrpp_1_1subjects_1_1details_1_1serialized__strategy.html">details::serialized_strategy</a>&lt; Type &gt; &gt;</td></tr>
+<tr class="memdesc:ga510d99740d11e23caa1deee3bdebba38"><td class="mdescLeft">&#160;</td><td class="mdescRight">Same as <a class="el" href="group__subjects.html#gaf27df80724e7c0f28ecd1a72429812b0" title="Subject which just multicasts values to observers subscribed on it. It contains two parts: observer a...">rpp::subjects::publish_subject</a>, but on_next/on_error/on_completed calls are serialized via mutex.  <br /></td></tr>
+<tr class="separator:ga510d99740d11e23caa1deee3bdebba38"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p>Observable is the observable and observer at the same time. Uses as a bridge and for manual sending of values. </p>
@@ -139,6 +143,25 @@ template&lt;rpp::constraint::decayed_type Type&gt; </div>
   </table>
   </dd>
 </dl>
+<dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/subject.html">https://reactivex.io/documentation/subject.html</a> </dd></dl>
+
+</div>
+</div>
+<a id="ga510d99740d11e23caa1deee3bdebba38" name="ga510d99740d11e23caa1deee3bdebba38"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga510d99740d11e23caa1deee3bdebba38">&#9670;&#160;</a></span>serialized_subject</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;rpp::constraint::decayed_type Type&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="group__subjects.html#ga510d99740d11e23caa1deee3bdebba38">rpp::subjects::serialized_subject</a> = typedef <a class="el" href="classrpp_1_1subjects_1_1details_1_1base__subject.html">details::base_subject</a>&lt;Type, <a class="el" href="classrpp_1_1subjects_1_1details_1_1serialized__strategy.html">details::serialized_strategy</a>&lt;Type&gt; &gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Same as <a class="el" href="group__subjects.html#gaf27df80724e7c0f28ecd1a72429812b0" title="Subject which just multicasts values to observers subscribed on it. It contains two parts: observer a...">rpp::subjects::publish_subject</a>, but on_next/on_error/on_completed calls are serialized via mutex. </p>
 <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/subject.html">https://reactivex.io/documentation/subject.html</a> </dd></dl>
 
 </div>

@@ -185,6 +185,7 @@ var annotated_dup =
           [ "completed", "structrpp_1_1subjects_1_1details_1_1completed.html", null ],
           [ "disposed", "structrpp_1_1subjects_1_1details_1_1disposed.html", null ],
           [ "publish_strategy", "classrpp_1_1subjects_1_1details_1_1publish__strategy.html", null ],
+          [ "serialized_strategy", "classrpp_1_1subjects_1_1details_1_1serialized__strategy.html", null ],
           [ "subject_state", "classrpp_1_1subjects_1_1details_1_1subject__state.html", null ]
         ] ],
         [ "utils", null, [
