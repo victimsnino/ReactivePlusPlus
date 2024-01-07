@@ -10,7 +10,7 @@
 
 #pragma once
 
-#include <tuple>
+#include <rpp/utils/tuple.hpp>
 #include <type_traits>
 
 namespace rpp::utils
@@ -73,19 +73,15 @@ template<class R, class... Args>
 struct function_traits<R (*)(Args...)>
 {
     using result    = R;
-    using arguments = std::tuple<Args...>;
+    using arguments = rpp::utils::tuple<std::decay_t<Args>...>;
 
-    template<std::size_t i = 0>
-        requires (sizeof...(Args) > i)
-    using argument = std::tuple_element_t<i, arguments>;
+    template<std::size_t I = 0>
+        requires (sizeof...(Args) > I)
+    using argument = typename arguments::template type_at_index_t<I>;
 };
 
-template<typename T, std::size_t i = 0>
-using function_argument_t = typename function_traits<T>::template argument<i>;
-
-
-template<typename T, std::size_t i = 0>
-using decayed_function_argument_t = std::decay_t<function_argument_t<T, i>>;
+template<typename T, std::size_t I = 0>
+using decayed_function_argument_t = typename function_traits<T>::template argument<I>;
 
 template<typename Fn, typename... Args>
 using decayed_invoke_result_t = std::decay_t<std::invoke_result_t<Fn, Args...>>;
