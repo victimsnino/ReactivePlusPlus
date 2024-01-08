@@ -62,3 +62,25 @@ private:
     std::shared_ptr<subject_state<Type>> m_state = std::make_shared<subject_state<Type>>();
 };
 } // namespace rpp::subjects::details
+
+namespace rpp::subjects 
+{
+/**
+ * @brief Subject which just multicasts values to observers subscribed on it. It contains two parts: observer and observable at the same time.
+ *
+ * @details Each observer obtains only values which emitted after corresponding subscribe. on_error/on_completer/unsubscribe cached and provided to new observers if any
+ *
+ * @warning this subject is not synchronized/serialized! It means, that expected to call callbacks of observer in the serialized way to follow observable contract: "Observables must issue notifications to observers serially (not in parallel).". If you are not sure or need extra serialization, please, use serialized_subject.
+ *
+ * @tparam Type value provided by this subject
+ *
+ * @ingroup subjects
+ * @see https://reactivex.io/documentation/subject.html
+ */
+template<rpp::constraint::decayed_type Type>
+class publish_subject final : public details::base_subject<Type, details::publish_strategy<Type>>
+{
+public:
+    using details::base_subject<Type, details::publish_strategy<Type>>::base_subject;
+};
+}

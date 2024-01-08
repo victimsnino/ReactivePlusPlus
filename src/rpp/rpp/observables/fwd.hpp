@@ -14,6 +14,7 @@
 #include <rpp/subjects/fwd.hpp>
 
 #include <rpp/utils/constraints.hpp>
+#include <rpp/utils/utils.hpp>
 
 namespace rpp::constraint
 {
@@ -52,24 +53,10 @@ template<constraint::decayed_type KeyType, constraint::decayed_type Type, constr
 class grouped_observable;
 }
 
-namespace rpp::utils::details
-{
-template<typename TObservable>
-struct is_observable_t
-{
-    template<typename T, typename Strategy>
-    constexpr static std::true_type  deduce(const rpp::observable<T, Strategy>*);
-    constexpr static std::false_type deduce(...);
-
-    using type = decltype(deduce(std::declval<std::decay_t<TObservable>*>()));
-};
-
-} // namespace rpp::utils::details
-
 namespace rpp::constraint
 {
 template<typename T>
-concept observable = rpp::utils::details::is_observable_t<std::decay_t<T>>::type::value;
+concept observable = rpp::utils::is_base_of_v<T, rpp::observable>;
 }
 
 namespace rpp
@@ -80,21 +67,8 @@ class connectable_observable;
 
 namespace rpp::utils
 {
-namespace details
-{
-    template<rpp::constraint::observable TObservable>
-    struct extract_observable_type
-    {
-        template<typename T, typename Strategy>
-        constexpr static T deduce(const rpp::observable<T, Strategy>&);
-
-        using type = decltype(deduce(std::declval<std::decay_t<TObservable>>()));
-    };
-
-} // namespace details
-
 template<typename T>
-using extract_observable_type_t = typename details::extract_observable_type<std::decay_t<T>>::type;
+using extract_observable_type_t = typename rpp::utils::extract_base_type_params_t<T, rpp::observable>::template type_at_index_t<0>;
 } // namespace rpp::utils
 
 namespace rpp::constraint

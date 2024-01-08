@@ -17,6 +17,7 @@
 #include <rpp/utils/constraints.hpp>
 #include <rpp/utils/function_traits.hpp>
 #include <rpp/utils/functors.hpp>
+#include <rpp/utils/utils.hpp>
 
 #include <exception>
 
@@ -231,29 +232,14 @@ using fake_observer = rpp::observer<T, fake_strategy>;
 
 namespace rpp::utils
 {
-namespace details
-{
-    template<typename T>
-    struct extract_observer_type : std::false_type
-    {
-    };
-
-    template<typename TT, typename Strategy>
-    struct extract_observer_type<rpp::observer<TT, Strategy>> : std::true_type
-    {
-        using type = TT;
-    };
-
-} // namespace details
-
 template<typename T>
-using extract_observer_type_t = typename details::extract_observer_type<T>::type;
+using extract_observer_type_t = typename rpp::utils::extract_base_type_params_t<T, rpp::observer>::template type_at_index_t<0>;
 } // namespace rpp::utils
 
 namespace rpp::constraint
 {
 template<typename T>
-concept observer = rpp::utils::details::extract_observer_type<std::decay_t<T>>::value;
+concept observer = rpp::utils::is_base_of_v<T, rpp::observer>;
 
 template<typename T, typename Type>
 concept observer_of_type = observer<std::decay_t<T>> && std::same_as<rpp::utils::extract_observer_type_t<std::decay_t<T>>, Type>;

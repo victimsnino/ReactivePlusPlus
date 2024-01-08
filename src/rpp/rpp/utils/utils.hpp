@@ -12,6 +12,7 @@
 
 #include <rpp/defs.hpp>
 #include <rpp/utils/constraints.hpp>
+#include <rpp/utils/tuple.hpp>
 
 #include <algorithm>
 
@@ -29,6 +30,24 @@ struct types
 
 template<constraint::iterable T>
 using iterable_value_t = std::iter_value_t<decltype(std::begin(std::declval<T>()))>;
+
+namespace details
+{
+    template<template<typename...> typename Base>
+    struct traits
+    {
+        template<typename... Types>
+        constexpr static rpp::utils::tuple<Types...> extract_params(const Base<Types...>*);
+        constexpr static std::false_type             extract_params(...);
+    };
+}
+
+template<typename T, template <typename...> typename Base>
+concept is_base_of_v = !std::is_same_v<decltype(details::traits<Base>::extract_params(std::declval<std::decay_t<T>*>())), std::false_type>;
+
+template<typename T, template <typename...> typename Base>
+    requires is_base_of_v<T, Base>
+using extract_base_type_params_t = decltype(details::traits<Base>::extract_params(std::declval<std::decay_t<T>*>()));
 
 template<class T>
 constexpr std::add_const_t<T>& as_const(const T& v) noexcept
