@@ -37,16 +37,13 @@ namespace details
     struct traits
     {
         template<typename... Types>
-        constexpr static std::true_type  convertible_from(const Base<Types...>*);
-        constexpr static std::false_type convertible_from(...);
-
-        template<typename... Types>
         constexpr static rpp::utils::tuple<Types...> extract_params(const Base<Types...>*);
+        constexpr static std::false_type             extract_params(...);
     };
 }
 
 template<typename T, template <typename...> typename Base>
-concept is_base_of_v = decltype(details::traits<Base>::convertible_from(std::declval<std::decay_t<T>*>()))::value;
+concept is_base_of_v = !std::is_same_v<decltype(details::traits<Base>::extract_params(std::declval<std::decay_t<T>*>())), std::false_type>;
 
 template<typename T, template <typename...> typename Base>
     requires is_base_of_v<T, Base>
