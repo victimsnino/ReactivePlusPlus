@@ -4,6 +4,6 @@
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
-\DoxyCodeLine{\textcolor{keyword}{concept\ }\mbox{\hyperlink{conceptrpp_1_1constraint_1_1subject}{rpp::constraint::subject}}\ =\ \ \mbox{\hyperlink{structrpp_1_1subjects_1_1utils_1_1details_1_1extract__subject__type}{rpp::subjects::utils::details::extract\_subject\_type<std::decay\_t<T>}}>::value}
+\DoxyCodeLine{\textcolor{keyword}{concept\ }\mbox{\hyperlink{conceptrpp_1_1constraint_1_1subject}{rpp::constraint::subject}}\ =\ \ rpp::utils::is\_base\_of\_v<T,\ rpp::subjects::details::base\_subject>}
 
 \end{DoxyCode}

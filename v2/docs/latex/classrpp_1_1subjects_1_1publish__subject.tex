@@ -1,0 +1,57 @@
+\doxysection{rpp\+::subjects\+::publish\+\_\+subject\texorpdfstring{$<$}{<} Type \texorpdfstring{$>$}{>} Class Template Reference}
+\hypertarget{classrpp_1_1subjects_1_1publish__subject}{}\label{classrpp_1_1subjects_1_1publish__subject}\index{rpp::subjects::publish\_subject$<$ Type $>$@{rpp::subjects::publish\_subject$<$ Type $>$}}
+
+
+Subject which just multicasts values to observers subscribed on it. It contains two parts\+: observer and observable at the same time.  
+
+
+
+
+{\ttfamily \#include $<$publish\+\_\+subject.\+hpp$>$}
+
+Inheritance diagram for rpp\+::subjects\+::publish\+\_\+subject\texorpdfstring{$<$}{<} Type \texorpdfstring{$>$}{>}\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classrpp_1_1subjects_1_1publish__subject}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classrpp_1_1subjects_1_1details_1_1base__subject}{rpp\+::subjects\+::details\+::base\+\_\+subject$<$ Type, details\+::publish\+\_\+strategy$<$ Type $>$ $>$}}}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries base\+\_\+subject} (Args \&\&... args)
+\item 
+auto {\bfseries get\+\_\+observer} () const
+\item 
+auto {\bfseries get\+\_\+observable} () const
+\item 
+\mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp\+::disposable\+\_\+wrapper}} {\bfseries get\+\_\+disposable} () const
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$rpp\+::constraint\+::decayed\+\_\+type Type$>$\newline
+class rpp\+::subjects\+::publish\+\_\+subject$<$ Type $>$}
+Subject which just multicasts values to observers subscribed on it. It contains two parts\+: observer and observable at the same time. 
+
+Each observer obtains only values which emitted after corresponding subscribe. on\+\_\+error/on\+\_\+completer/unsubscribe cached and provided to new observers if any
+
+\begin{DoxyWarning}{Warning}
+this subject is not synchronized/serialized! It means, that expected to call callbacks of observer in the serialized way to follow observable contract\+: "{}\+Observables must issue notifications to observers serially (not in parallel)."{}. If you are not sure or need extra serialization, please, use \doxylink{classrpp_1_1subjects_1_1serialized__subject}{serialized\+\_\+subject}.
+\end{DoxyWarning}
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Type} & value provided by this subject\\
+\hline
+\end{DoxyTemplParams}
+\begin{DoxySeeAlso}{See also}
+\href{https://reactivex.io/documentation/subject.html}{\texttt{ https\+://reactivex.\+io/documentation/subject.\+html}} 
+\end{DoxySeeAlso}
+\begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{multicast_8cpp-example}{multicast.\+cpp}}.\end{Desc}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/rpp/rpp/subjects/fwd.\+hpp\end{DoxyCompactItemize}

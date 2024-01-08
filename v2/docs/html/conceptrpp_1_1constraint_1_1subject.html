@@ -101,9 +101,8 @@ $(document).ready(function(){initNavTree('conceptrpp_1_1constraint_1_1subject.ht
 <div class="contents">
 <h2 class="groupheader">Concept definition</h2>
 <div class="fragment"><div class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><span class="keyword">concept </span><a class="code hl_concept" href="conceptrpp_1_1constraint_1_1subject.html">rpp::constraint::subject</a> =  <a class="code hl_struct" href="structrpp_1_1subjects_1_1utils_1_1details_1_1extract__subject__type.html">rpp::subjects::utils::details::extract_subject_type&lt;std::decay_t&lt;T&gt;</a>&gt;::value</div>
-<div class="ttc" id="aconceptrpp_1_1constraint_1_1subject_html"><div class="ttname"><a href="conceptrpp_1_1constraint_1_1subject.html">rpp::constraint::subject</a></div><div class="ttdef"><b>Definition</b> fwd.hpp:90</div></div>
-<div class="ttc" id="astructrpp_1_1subjects_1_1utils_1_1details_1_1extract__subject__type_html"><div class="ttname"><a href="structrpp_1_1subjects_1_1utils_1_1details_1_1extract__subject__type.html">rpp::subjects::utils::details::extract_subject_type</a></div><div class="ttdef"><b>Definition</b> fwd.hpp:72</div></div>
+<div class="line"><span class="keyword">concept </span><a class="code hl_concept" href="conceptrpp_1_1constraint_1_1subject.html">rpp::constraint::subject</a> =  rpp::utils::is_base_of_v&lt;T, rpp::subjects::details::base_subject&gt;</div>
+<div class="ttc" id="aconceptrpp_1_1constraint_1_1subject_html"><div class="ttname"><a href="conceptrpp_1_1constraint_1_1subject.html">rpp::constraint::subject</a></div><div class="ttdef"><b>Definition</b> fwd.hpp:59</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

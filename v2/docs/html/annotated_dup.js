@@ -188,20 +188,8 @@ var annotated_dup =
           [ "serialized_strategy", "classrpp_1_1subjects_1_1details_1_1serialized__strategy.html", null ],
           [ "subject_state", "classrpp_1_1subjects_1_1details_1_1subject__state.html", null ]
         ] ],
-        [ "utils", null, [
-          [ "details", null, [
-            [ "extract_subject_type", "structrpp_1_1subjects_1_1utils_1_1details_1_1extract__subject__type.html", null ],
-            [ "extract_subject_type< rpp::subjects::details::base_subject< TT, Strategy > >", "structrpp_1_1subjects_1_1utils_1_1details_1_1extract__subject__type_3_01rpp_1_1subjects_1_1detaie00a4443681b018e69b041137386dfb4.html", null ]
-          ] ]
-        ] ]
-      ] ],
-      [ "utils", null, [
-        [ "details", null, [
-          [ "extract_observable_type", "structrpp_1_1utils_1_1details_1_1extract__observable__type.html", null ],
-          [ "extract_observer_type", "structrpp_1_1utils_1_1details_1_1extract__observer__type.html", null ],
-          [ "extract_observer_type< rpp::observer< TT, Strategy > >", "structrpp_1_1utils_1_1details_1_1extract__observer__type_3_01rpp_1_1observer_3_01_t_t_00_01_strategy_01_4_01_4.html", null ],
-          [ "is_observable_t", "structrpp_1_1utils_1_1details_1_1is__observable__t.html", null ]
-        ] ]
+        [ "publish_subject", "classrpp_1_1subjects_1_1publish__subject.html", null ],
+        [ "serialized_subject", "classrpp_1_1subjects_1_1serialized__subject.html", null ]
       ] ],
       [ "callback_disposable", "classrpp_1_1callback__disposable.html", null ],
       [ "composite_disposable", "classrpp_1_1composite__disposable.html", null ],

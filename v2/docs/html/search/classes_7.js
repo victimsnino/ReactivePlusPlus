@@ -8,7 +8,6 @@ var searchData=
   ['interface_5fdisposable_5',['interface_disposable',['../structrpp_1_1interface__disposable.html',1,'rpp']]],
   ['interval_5fschedulable_6',['interval_schedulable',['../structrpp_1_1details_1_1interval__schedulable.html',1,'rpp::details']]],
   ['interval_5fstrategy_7',['interval_strategy',['../structrpp_1_1details_1_1interval__strategy.html',1,'rpp::details']]],
-  ['is_5fobservable_5ft_8',['is_observable_t',['../structrpp_1_1utils_1_1details_1_1is__observable__t.html',1,'rpp::utils::details']]],
-  ['is_5fworker_9',['is_worker',['../structrpp_1_1schedulers_1_1constraint_1_1details_1_1is__worker.html',1,'rpp::schedulers::constraint::details']]],
-  ['is_5fworker_3c_20rpp_3a_3aschedulers_3a_3aworker_3c_20strategy_20_3e_20_3e_10',['is_worker&lt; rpp::schedulers::worker&lt; Strategy &gt; &gt;',['../structrpp_1_1schedulers_1_1constraint_1_1details_1_1is__worker_3_01rpp_1_1schedulers_1_1worker_3_01_strategy_01_4_01_4.html',1,'rpp::schedulers::constraint::details']]]
+  ['is_5fworker_8',['is_worker',['../structrpp_1_1schedulers_1_1constraint_1_1details_1_1is__worker.html',1,'rpp::schedulers::constraint::details']]],
+  ['is_5fworker_3c_20rpp_3a_3aschedulers_3a_3aworker_3c_20strategy_20_3e_20_3e_9',['is_worker&lt; rpp::schedulers::worker&lt; Strategy &gt; &gt;',['../structrpp_1_1schedulers_1_1constraint_1_1details_1_1is__worker_3_01rpp_1_1schedulers_1_1worker_3_01_strategy_01_4_01_4.html',1,'rpp::schedulers::constraint::details']]]
 ];

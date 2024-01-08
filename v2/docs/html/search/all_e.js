@@ -4,5 +4,6 @@ var searchData=
   ['programming_1',['programming',['../md_docs_2readme.html#autotoc_md3',1,'Core concepts of Reactive Programming'],['../md_docs_2readme.html#autotoc_md2',1,'What is Reactive Programming?']]],
   ['publish_2',['publish',['../group__connectable__operators.html#ga42498cc0bc565116e9deece3c3afa66f',1,'rpp::operators']]],
   ['publish_5fstrategy_3',['publish_strategy',['../classrpp_1_1subjects_1_1details_1_1publish__strategy.html',1,'rpp::subjects::details']]],
-  ['publish_5fsubject_4',['publish_subject',['../group__subjects.html#gaf27df80724e7c0f28ecd1a72429812b0',1,'rpp::subjects']]]
+  ['publish_5fsubject_4',['publish_subject',['../classrpp_1_1subjects_1_1publish__subject.html',1,'rpp::subjects']]],
+  ['publish_5fsubject_3c_20t_20_3e_5',['publish_subject&lt; T &gt;',['../classrpp_1_1subjects_1_1publish__subject.html',1,'rpp::subjects']]]
 ];

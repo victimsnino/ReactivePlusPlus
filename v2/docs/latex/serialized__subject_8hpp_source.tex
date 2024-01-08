@@ -87,5 +87,15 @@
 \DoxyCodeLine{00083\ \ \ \ \ std::shared\_ptr<serialized\_state>\ m\_state\ =\ std::make\_shared<serialized\_state>();}
 \DoxyCodeLine{00084\ \};}
 \DoxyCodeLine{00085\ \}\ \textcolor{comment}{//\ namespace\ rpp::subjects::details}}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00087\ \textcolor{keyword}{namespace\ }rpp::subjects}
+\DoxyCodeLine{00088\ \{}
+\DoxyCodeLine{00095\ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type\ Type>}
+\DoxyCodeLine{00096\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1subjects_1_1serialized__subject}{serialized\_subject}}\ final\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classrpp_1_1subjects_1_1details_1_1base__subject}{details::base\_subject}}<Type,\ details::serialized\_strategy<Type>>}
+\DoxyCodeLine{00097\ \{}
+\DoxyCodeLine{00098\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00099\ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{classrpp_1_1subjects_1_1details_1_1base__subject}{details::base\_subject}}<Type,\ \mbox{\hyperlink{classrpp_1_1subjects_1_1details_1_1serialized__strategy}{details::serialized\_strategy<Type>}}>::base\_subject;}
+\DoxyCodeLine{00100\ \};}
+\DoxyCodeLine{00101\ \}}
 
 \end{DoxyCode}
