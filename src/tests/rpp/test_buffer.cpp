@@ -14,6 +14,7 @@
 #include <rpp/sources/error.hpp>
 #include <rpp/operators/buffer.hpp>
 #include <rpp/operators/merge.hpp>
+#include <rpp/observables/dynamic_observable.hpp>
 
 #include "mock_observer.hpp"
 #include "disposable_observable.hpp"

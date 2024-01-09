@@ -15,8 +15,6 @@
 #include <rpp/disposables/composite_disposable.hpp>
 #include <rpp/disposables/disposable_wrapper.hpp>
 #include <rpp/observables/details/chain_strategy.hpp>
-#include <rpp/observables/dynamic_observable.hpp>
-#include <rpp/observers/dynamic_observer.hpp>
 #include <rpp/observers/lambda_observer.hpp>
 #include <rpp/operators/subscribe.hpp>
 

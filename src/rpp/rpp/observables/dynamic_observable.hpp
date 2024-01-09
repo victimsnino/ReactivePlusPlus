@@ -91,11 +91,11 @@ class dynamic_observable : public observable<Type, details::observables::dynamic
 public:
     using base::base;
 
-    explicit dynamic_observable(base&& b)
+    dynamic_observable(base&& b)
         : base{std::move(b)}
     {}
 
-    explicit dynamic_observable(const base& b)
+    dynamic_observable(const base& b)
         : base{b}
     {}
 };

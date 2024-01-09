@@ -18,6 +18,7 @@
 #include <rpp/sources/error.hpp>
 #include <rpp/sources/never.hpp>
 #include <rpp/schedulers/immediate.hpp>
+#include <rpp/observables/dynamic_observable.hpp>
 
 #include "copy_count_tracker.hpp"
 #include "mock_observer.hpp"

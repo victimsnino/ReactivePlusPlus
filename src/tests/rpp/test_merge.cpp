@@ -10,6 +10,7 @@
 
 #include <snitch/snitch.hpp>
 
+#include <rpp/observables/dynamic_observable.hpp>
 #include <rpp/operators/as_blocking.hpp>
 #include <rpp/operators/merge.hpp>
 #include <rpp/sources/create.hpp>

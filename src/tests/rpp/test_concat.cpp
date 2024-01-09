@@ -15,6 +15,7 @@
 #include <rpp/sources/just.hpp>
 #include <rpp/schedulers/immediate.hpp>
 #include <rpp/subjects/publish_subject.hpp>
+#include <rpp/observables/dynamic_observable.hpp>
 
 #include <rpp/operators/concat.hpp>
 #include <snitch/snitch_macros_check.hpp>

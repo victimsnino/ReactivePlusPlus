@@ -201,7 +201,7 @@ auto make_lambda_observer(const rpp::composite_disposable_wrapper& d,
 }
 } // namespace rpp
 
-namespace rpp::details
+namespace rpp::details::observers
 {
 struct fake_strategy
 {

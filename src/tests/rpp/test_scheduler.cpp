@@ -15,6 +15,8 @@
 #include <snitch/snitch.hpp>
 #include <rpp/schedulers.hpp>
 #include <rpp/observers/lambda_observer.hpp>
+#include <rpp/observers/dynamic_observer.hpp>
+
 #include <rpp/sources/just.hpp>
 #include <rpp/operators/as_blocking.hpp>
 #include <rpp/operators/subscribe_on.hpp>

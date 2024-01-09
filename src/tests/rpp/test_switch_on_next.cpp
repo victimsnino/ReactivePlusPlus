@@ -15,6 +15,7 @@
 #include <rpp/sources/empty.hpp>
 #include <rpp/sources/never.hpp>
 
+#include <rpp/observables/dynamic_observable.hpp>
 #include <rpp/operators/switch_on_next.hpp>
 
 #include <rpp/subjects/publish_subject.hpp>

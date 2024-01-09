@@ -114,11 +114,11 @@ class dynamic_observer final : public observer<Type, details::observers::dynamic
 public:
     using base::base;
 
-    explicit dynamic_observer(base&& b)
+    dynamic_observer(base&& b)
         : base{std::move(b)}
     {}
 
-    explicit dynamic_observer(const base& b)
+    dynamic_observer(const base& b)
         : base{b}
     {}
 };
