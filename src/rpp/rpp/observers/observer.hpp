@@ -178,7 +178,7 @@ template<constraint::decayed_type Type, constraint::observer_strategy<Type> Stra
 class observer;
 
 template<constraint::decayed_type Type, constraint::observer_strategy<Type> Strategy>
-class observer final : public details::observer_impl<Type, Strategy, details::observers::deduce_disposable_strategy_t<Strategy>>
+class observer : public details::observer_impl<Type, Strategy, details::observers::deduce_disposable_strategy_t<Strategy>>
 {
 public:
     template<typename... Args>
