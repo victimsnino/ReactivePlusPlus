@@ -90,16 +90,8 @@ namespace rpp
 template<constraint::decayed_type Type, constraint::observer_strategy<Type> Strategy>
 class observer;
 
-/**
- * @brief Type-erased version of the `rpp::observer`. Any observer can be converted to dynamic_observer via `rpp::observer::as_dynamic` member function.
- * @details To provide type-erasure it uses `std::shared_ptr`. As a result it has worse performance, but it is **ONLY** way to copy observer.
- *
- * @tparam Type of value this observer can handle
- *
- * @ingroup observers
- */
 template<constraint::decayed_type Type>
-using dynamic_observer = observer<Type, details::observers::dynamic_strategy<Type>>;
+class dynamic_observer;
 
 /**
  * @brief Observer specialized with passed callbacks. Most easiesest way to construct observer "on the fly" via lambdas and etc.

@@ -10,7 +10,7 @@
 #pragma once
 
 #include <rpp/observables/fwd.hpp>
-
+#include <rpp/observables/observable.hpp>
 #include <rpp/observers/dynamic_observer.hpp>
 
 #include <memory>
@@ -87,7 +87,16 @@ namespace rpp
  */
 template<constraint::decayed_type Type>
 class dynamic_observable : public observable<Type, details::observables::dynamic_strategy<Type>> {
+    using base = observable<Type, details::observables::dynamic_strategy<Type>>;
 public:
-    using observable<Type, details::observables::dynamic_strategy<Type>>::observable;
+    using base::base;
+
+    explicit dynamic_observable(base&& b)
+        : base{std::move(b)}
+    {}
+
+    explicit dynamic_observable(const base& b)
+        : base{b}
+    {}
 };
 }
