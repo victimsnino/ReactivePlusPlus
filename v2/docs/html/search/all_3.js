@@ -29,6 +29,6 @@ var searchData=
   ['dynamic_5fdisposables_5fcontainer_26',['dynamic_disposables_container',['../classrpp_1_1details_1_1disposables_1_1dynamic__disposables__container.html',1,'rpp::details::disposables']]],
   ['dynamic_5fdisposables_5fcontainer_5fbase_27',['dynamic_disposables_container_base',['../classrpp_1_1details_1_1disposables_1_1dynamic__disposables__container__base.html',1,'rpp::details::disposables']]],
   ['dynamic_5fobservable_28',['dynamic_observable',['../classrpp_1_1dynamic__observable.html',1,'rpp']]],
-  ['dynamic_5fobserver_29',['dynamic_observer',['../group__observers.html#gaccd025034d57327e6a31b2106619197b',1,'rpp']]],
+  ['dynamic_5fobserver_29',['dynamic_observer',['../classrpp_1_1dynamic__observer.html',1,'rpp']]],
   ['dynamic_5fstrategy_30',['dynamic_strategy',['../classrpp_1_1details_1_1observables_1_1dynamic__strategy.html',1,'rpp::details::observables::dynamic_strategy&lt; Type &gt;'],['../classrpp_1_1details_1_1observers_1_1dynamic__strategy.html',1,'rpp::details::observers::dynamic_strategy&lt; Type &gt;']]]
 ];

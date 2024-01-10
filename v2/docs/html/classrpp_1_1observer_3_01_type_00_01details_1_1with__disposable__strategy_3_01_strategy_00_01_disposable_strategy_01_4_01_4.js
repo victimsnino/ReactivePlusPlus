@@ -1,0 +1,4 @@
+var classrpp_1_1observer_3_01_type_00_01details_1_1with__disposable__strategy_3_01_strategy_00_01_disposable_strategy_01_4_01_4 =
+[
+    [ "as_dynamic", "classrpp_1_1observer_3_01_type_00_01details_1_1with__disposable__strategy_3_01_strategy_00_01_disposable_strategy_01_4_01_4.html#a4527ce1eb5a5520cd73b3db5dcc24c08", null ]
+];

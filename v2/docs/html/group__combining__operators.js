@@ -1,5 +1,7 @@
 var group__combining__operators =
 [
+    [ "rpp::operators::combine_latest", "group__combining__operators.html#ga5c6073a2a2858a3f037a5ec930da33d2", null ],
+    [ "rpp::operators::combine_latest", "group__combining__operators.html#gab241e6bd601f534355a2833d38cfd669", null ],
     [ "rpp::operators::merge", "group__combining__operators.html#ga3f8a04b4c8eb945534eddde5a25eec74", null ],
     [ "rpp::operators::merge_with", "group__combining__operators.html#ga35392a84e52bf7101d0d0445ef391db7", null ],
     [ "rpp::operators::start_with", "group__combining__operators.html#gadf12c4de9702425819b0d34b5fdf7db3", null ],

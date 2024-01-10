@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['dynamic_5fobserver_0',['dynamic_observer',['../group__observers.html#gaccd025034d57327e6a31b2106619197b',1,'rpp']]]
+  ['lambda_5fobserver_0',['lambda_observer',['../group__observers.html#ga76d808086fac28fdb0b00fc7513c741a',1,'rpp']]]
 ];

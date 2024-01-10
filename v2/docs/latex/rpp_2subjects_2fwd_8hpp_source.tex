@@ -25,7 +25,7 @@
 \DoxyCodeLine{00021\ \textcolor{keyword}{namespace\ }constraint}
 \DoxyCodeLine{00022\ \{}
 \DoxyCodeLine{00023\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ Strategy,\ \textcolor{keyword}{typename}\ T>}
-\DoxyCodeLine{00024\ \textcolor{keyword}{concept\ }\mbox{\hyperlink{conceptrpp_1_1subjects_1_1details_1_1constraint_1_1subject__strategy}{subject\_strategy}}\ =\ \textcolor{keyword}{requires}(Strategy\ t,\ \mbox{\hyperlink{classrpp_1_1observer}{rpp::details::fake\_observer<T>}}\&\&\ obs)}
+\DoxyCodeLine{00024\ \textcolor{keyword}{concept\ }\mbox{\hyperlink{conceptrpp_1_1subjects_1_1details_1_1constraint_1_1subject__strategy}{subject\_strategy}}\ =\ \textcolor{keyword}{requires}(Strategy\ t,\ \mbox{\hyperlink{classrpp_1_1observer}{rpp::details::observers::fake\_observer<T>}}\&\&\ obs)}
 \DoxyCodeLine{00025\ \{}
 \DoxyCodeLine{00026\ \ \ \ \ \{t.get\_observer()\}\ -\/>\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer}{rpp::constraint::observer}};}
 \DoxyCodeLine{00027\ \ \ \ \ t.on\_subscribe(std::move(obs));}

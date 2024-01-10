@@ -9,7 +9,7 @@ Utility operators are operators that provide some extra functionality without ch
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{auto}} \mbox{\hyperlink{group__utility__operators_ga9df008c11eeff8c9383e56bf36e28ec2}{rpp\+::operators\+::as\+\_\+blocking}} ()
-\begin{DoxyCompactList}\small\item\em Converts {\ttfamily \doxylink{classrpp_1_1observable}{rpp\+::observable}} to {\ttfamily rpp\+::blocking\+\_\+observable} \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Converts {\ttfamily \doxylink{classrpp_1_1observable}{rpp\+::observable}} to {\ttfamily \doxylink{classrpp_1_1blocking__observable}{rpp\+::blocking\+\_\+observable}} \end{DoxyCompactList}\item 
 {\footnotesize template$<$\mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1scheduler}{rpp\+::schedulers\+::constraint\+::scheduler}} Scheduler$>$ }\\\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{auto}} \mbox{\hyperlink{group__utility__operators_ga49e91c6114f62ac261303814c818face}{rpp\+::operators\+::debounce}} (rpp\+::schedulers\+::duration period, Scheduler \&\&scheduler)
 \begin{DoxyCompactList}\small\item\em Only emit emission if specified period of time has passed without any other emission. On each new emission timer reset. \end{DoxyCompactList}\item 
 {\footnotesize template$<$\mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1scheduler}{rpp\+::schedulers\+::constraint\+::scheduler}} Scheduler$>$ }\\\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{auto}} \mbox{\hyperlink{group__utility__operators_gae38caa489cf43c0aca1aa1c8822aed60}{rpp\+::operators\+::delay}} (rpp\+::schedulers\+::duration \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{delay\+\_\+duration}}, Scheduler \&\&scheduler)
@@ -20,6 +20,40 @@ Utility operators are operators that provide some extra functionality without ch
 \begin{DoxyCompactList}\small\item\em Repeats the Observabe\textquotesingle{}s sequence of emissions {\ttfamily count} times via re-\/subscribing on it during {\ttfamily on\+\_\+completed} call while {\ttfamily count} not reached. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{auto}} \mbox{\hyperlink{group__utility__operators_ga41ef49dc75a3eadb0eb3fda7c3692c40}{rpp\+::operators\+::repeat}} ()
 \begin{DoxyCompactList}\small\item\em Repeats the Observabe\textquotesingle{}s sequence of emissions infinite amount of times via re-\/subscribing on it during {\ttfamily on\+\_\+completed}. \end{DoxyCompactList}\item 
+{\footnotesize template$<$rpp\+::constraint\+::decayed\+\_\+type Type, \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer__strategy}{rpp\+::constraint\+::observer\+\_\+strategy}}$<$ Type $>$ Observer\+Strategy$>$ }\\\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{auto}} \mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{rpp\+::operators\+::subscribe}} (\mbox{\hyperlink{classrpp_1_1observer}{observer}}$<$ Type, Observer\+Strategy $>$ \&\&\mbox{\hyperlink{classrpp_1_1observer}{observer}})
+\begin{DoxyCompactList}\small\item\em Subscribes passed observer to emissions from this observable. \end{DoxyCompactList}\item 
+{\footnotesize template$<$rpp\+::constraint\+::decayed\+\_\+type Type, \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer__strategy}{rpp\+::constraint\+::observer\+\_\+strategy}}$<$ Type $>$ Observer\+Strategy$>$ }\\\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{auto}} \mbox{\hyperlink{group__utility__operators_ga879876e1f0a7a421d4153224e144ba88}{rpp\+::operators\+::subscribe}} (\mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp\+::composite\+\_\+disposable\+\_\+wrapper}} disposable, \mbox{\hyperlink{classrpp_1_1observer}{observer}}$<$ Type, Observer\+Strategy $>$ \&\&\mbox{\hyperlink{classrpp_1_1observer}{observer}})
+\begin{DoxyCompactList}\small\item\em Subscribe passed observer to emissions from observable. \end{DoxyCompactList}\item 
+\Hypertarget{group__utility__operators_gac5f97d436e04e578406fc86af36cab79}\label{group__utility__operators_gac5f97d436e04e578406fc86af36cab79} 
+{\footnotesize template$<$rpp\+::constraint\+::decayed\+\_\+type Type$>$ }\\\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{auto}} {\bfseries rpp\+::operators\+::subscribe} (\mbox{\hyperlink{classrpp_1_1dynamic__observer}{dynamic\+\_\+observer}}$<$ Type $>$ \mbox{\hyperlink{classrpp_1_1observer}{observer}})
+\begin{DoxyCompactList}\small\item\em Subscribes passed observer to emissions from this observable. \end{DoxyCompactList}\item 
+\Hypertarget{group__utility__operators_ga0feb478d994eb22d20dc4f66b340bddc}\label{group__utility__operators_ga0feb478d994eb22d20dc4f66b340bddc} 
+{\footnotesize template$<$\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer__strategy__base}{rpp\+::constraint\+::observer\+\_\+strategy\+\_\+base}} Observer\+Strategy$>$ \newline
+requires (!constraint\+::observer$<$Observer\+Strategy$>$)}\\\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{auto}} {\bfseries rpp\+::operators\+::subscribe} (Observer\+Strategy \&\&observer\+\_\+strategy)
+\begin{DoxyCompactList}\small\item\em Subscribes passed observer strategy to emissions from this observable via construction of observer. \end{DoxyCompactList}\item 
+{\footnotesize template$<$rpp\+::constraint\+::decayed\+\_\+type Type$>$ }\\\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{auto}} \mbox{\hyperlink{group__utility__operators_gaf47528e3e0556c51cfb24722be454179}{rpp\+::operators\+::subscribe}} (\mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp\+::composite\+\_\+disposable\+\_\+wrapper}} disposable, \mbox{\hyperlink{classrpp_1_1dynamic__observer}{dynamic\+\_\+observer}}$<$ Type $>$ \mbox{\hyperlink{classrpp_1_1observer}{observer}})
+\begin{DoxyCompactList}\small\item\em Subscribe passed observer to emissions from observable. \end{DoxyCompactList}\item 
+{\footnotesize template$<$\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer__strategy__base}{rpp\+::constraint\+::observer\+\_\+strategy\+\_\+base}} Observer\+Strategy$>$ \newline
+requires (!constraint\+::observer$<$Observer\+Strategy$>$)}\\\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{auto}} \mbox{\hyperlink{group__utility__operators_gac133e42caad03b922fc95722ef064264}{rpp\+::operators\+::subscribe}} (\mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp\+::composite\+\_\+disposable\+\_\+wrapper}} disposable, Observer\+Strategy \&\&observer\+\_\+strategy)
+\begin{DoxyCompactList}\small\item\em Subscribes passed observer strategy to emissions from this observable via construction of observer. \end{DoxyCompactList}\item 
+\Hypertarget{group__utility__operators_ga6344f4f85f89533d2409450774a91843}\label{group__utility__operators_ga6344f4f85f89533d2409450774a91843} 
+{\footnotesize template$<$details\+::on\+\_\+next\+\_\+like On\+Next = rpp\+::utils\+::empty\+\_\+function\+\_\+any\+\_\+t, std\+::invocable$<$ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{const}} std\+::exception\+\_\+ptr \& $>$ On\+Error = rpp\+::utils\+::rethrow\+\_\+error\+\_\+t, std\+::invocable$<$$>$ On\+Completed = rpp\+::utils\+::empty\+\_\+function\+\_\+t$<$$>$$>$ }\\\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{auto}} {\bfseries rpp\+::operators\+::subscribe} (On\+Next \&\&on\+\_\+next=\{\}, On\+Error \&\&on\+\_\+error=\{\}, On\+Completed \&\&on\+\_\+completed=\{\})
+\begin{DoxyCompactList}\small\item\em Construct \doxylink{group__observers_ga76d808086fac28fdb0b00fc7513c741a}{rpp\+::lambda\+\_\+observer} on the fly and subscribe it to emissions from observable. \end{DoxyCompactList}\item 
+\Hypertarget{group__utility__operators_ga63eedc79b749254d053bf124cdc1bba4}\label{group__utility__operators_ga63eedc79b749254d053bf124cdc1bba4} 
+{\footnotesize template$<$details\+::on\+\_\+next\+\_\+like On\+Next, std\+::invocable$<$$>$ On\+Completed$>$ }\\\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{auto}} {\bfseries rpp\+::operators\+::subscribe} (On\+Next \&\&on\+\_\+next, On\+Completed \&\&on\+\_\+completed)
+\begin{DoxyCompactList}\small\item\em Construct \doxylink{group__observers_ga76d808086fac28fdb0b00fc7513c741a}{rpp\+::lambda\+\_\+observer} on the fly and subscribe it to emissions from observable. \end{DoxyCompactList}\item 
+{\footnotesize template$<$details\+::on\+\_\+next\+\_\+like On\+Next = rpp\+::utils\+::empty\+\_\+function\+\_\+any\+\_\+t, std\+::invocable$<$ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{const}} std\+::exception\+\_\+ptr \& $>$ On\+Error = rpp\+::utils\+::rethrow\+\_\+error\+\_\+t, std\+::invocable$<$$>$ On\+Completed = rpp\+::utils\+::empty\+\_\+function\+\_\+t$<$$>$$>$ }\\\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{auto}} \mbox{\hyperlink{group__utility__operators_ga5b742d7c99c0f577e5a6467c826384f7}{rpp\+::operators\+::subscribe}} (\mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp\+::composite\+\_\+disposable\+\_\+wrapper}} \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{d}}, On\+Next \&\&on\+\_\+next=\{\}, On\+Error \&\&on\+\_\+error=\{\}, On\+Completed \&\&on\+\_\+completed=\{\})
+\begin{DoxyCompactList}\small\item\em Construct \doxylink{group__observers_ga76d808086fac28fdb0b00fc7513c741a}{rpp\+::lambda\+\_\+observer} on the fly and subscribe it to emissions from observable. \end{DoxyCompactList}\item 
+{\footnotesize template$<$details\+::on\+\_\+next\+\_\+like On\+Next, std\+::invocable$<$$>$ On\+Completed$>$ }\\\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{auto}} \mbox{\hyperlink{group__utility__operators_ga0966f5805b841c809c47a797bfc0e2f5}{rpp\+::operators\+::subscribe}} (\mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp\+::composite\+\_\+disposable\+\_\+wrapper}} \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{d}}, On\+Next \&\&on\+\_\+next, On\+Completed \&\&on\+\_\+completed)
+\begin{DoxyCompactList}\small\item\em Construct \doxylink{group__observers_ga76d808086fac28fdb0b00fc7513c741a}{rpp\+::lambda\+\_\+observer} on the fly and subscribe it to emissions from observable. \end{DoxyCompactList}\item 
+{\footnotesize template$<$rpp\+::constraint\+::decayed\+\_\+type Type, \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer__strategy}{rpp\+::constraint\+::observer\+\_\+strategy}}$<$ Type $>$ Observer\+Strategy$>$ }\\\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{auto}} \mbox{\hyperlink{group__utility__operators_ga8d5522fa0644d34943fee364429677fd}{rpp\+::operators\+::subscribe\+\_\+with\+\_\+disposable}} (\mbox{\hyperlink{classrpp_1_1observer}{observer}}$<$ Type, Observer\+Strategy $>$ \&\&\mbox{\hyperlink{classrpp_1_1observer}{observer}})
+\begin{DoxyCompactList}\small\item\em Subscribes passed observer to emissions from this observable. \end{DoxyCompactList}\item 
+{\footnotesize template$<$rpp\+::constraint\+::decayed\+\_\+type Type$>$ }\\\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{auto}} \mbox{\hyperlink{group__utility__operators_ga33a523ff5b8bccc9e4e8d9e477e8cf90}{rpp\+::operators\+::subscribe\+\_\+with\+\_\+disposable}} (\mbox{\hyperlink{classrpp_1_1dynamic__observer}{dynamic\+\_\+observer}}$<$ Type $>$ \mbox{\hyperlink{classrpp_1_1observer}{observer}})
+\begin{DoxyCompactList}\small\item\em Subscribes passed observer to emissions from this observable. \end{DoxyCompactList}\item 
+{\footnotesize template$<$details\+::on\+\_\+next\+\_\+like On\+Next = rpp\+::utils\+::empty\+\_\+function\+\_\+any\+\_\+t, std\+::invocable$<$ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{const}} std\+::exception\+\_\+ptr \& $>$ On\+Error = rpp\+::utils\+::rethrow\+\_\+error\+\_\+t, std\+::invocable$<$$>$ On\+Completed = rpp\+::utils\+::empty\+\_\+function\+\_\+t$<$$>$$>$ }\\\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{auto}} \mbox{\hyperlink{group__utility__operators_gac87a7d53a94e23c8e444a431a2473a33}{rpp\+::operators\+::subscribe\+\_\+with\+\_\+disposable}} (On\+Next \&\&on\+\_\+next=\{\}, On\+Error \&\&on\+\_\+error=\{\}, On\+Completed \&\&on\+\_\+completed=\{\})
+\begin{DoxyCompactList}\small\item\em Construct \doxylink{group__observers_ga76d808086fac28fdb0b00fc7513c741a}{rpp\+::lambda\+\_\+observer} on the fly and subscribe it to emissions from observable. \end{DoxyCompactList}\item 
+{\footnotesize template$<$details\+::on\+\_\+next\+\_\+like On\+Next, std\+::invocable$<$$>$ On\+Completed$>$ }\\\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{auto}} \mbox{\hyperlink{group__utility__operators_ga6c527da45630e08a1ee2a9bad47d562d}{rpp\+::operators\+::subscribe\+\_\+with\+\_\+disposable}} (On\+Next \&\&on\+\_\+next, On\+Completed \&\&on\+\_\+completed)
+\begin{DoxyCompactList}\small\item\em Construct \doxylink{group__observers_ga76d808086fac28fdb0b00fc7513c741a}{rpp\+::lambda\+\_\+observer} on the fly and subscribe it to emissions from observable. \end{DoxyCompactList}\item 
 {\footnotesize template$<$\mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1scheduler}{rpp\+::schedulers\+::constraint\+::scheduler}} Scheduler$>$ }\\\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{auto}} \mbox{\hyperlink{group__utility__operators_gace728cfbf71720901cb6f310edabf8b0}{rpp\+::operators\+::subscribe\+\_\+on}} (Scheduler \&\&scheduler)
 \begin{DoxyCompactList}\small\item\em On\+Subscribe function for this observable will be scheduled via provided scheduler. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
@@ -41,9 +75,9 @@ Utility operators are operators that provide some extra functionality without ch
 
 
 
-Converts {\ttfamily \doxylink{classrpp_1_1observable}{rpp\+::observable}} to {\ttfamily rpp\+::blocking\+\_\+observable} 
+Converts {\ttfamily \doxylink{classrpp_1_1observable}{rpp\+::observable}} to {\ttfamily \doxylink{classrpp_1_1blocking__observable}{rpp\+::blocking\+\_\+observable}} 
 
-{\ttfamily rpp\+::blocking\+\_\+observable} blocks {\ttfamily subscribe} call till on\+\_\+completed/on\+\_\+error happens.
+{\ttfamily \doxylink{classrpp_1_1blocking__observable}{rpp\+::blocking\+\_\+observable}} blocks {\ttfamily subscribe} call till on\+\_\+completed/on\+\_\+error happens.
 
 \begin{DoxyParagraph}{Example\+:}
 
@@ -51,7 +85,7 @@ Converts {\ttfamily \doxylink{classrpp_1_1observable}{rpp\+::observable}} to {\t
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(1)}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_gae38caa489cf43c0aca1aa1c8822aed60}{rpp::operators::delay}}(std::chrono::seconds\{1\},\ \mbox{\hyperlink{classrpp_1_1schedulers_1_1new__thread}{rpp::schedulers::new\_thread}}\{\})\ \textcolor{comment}{//\ <-\/-\/\ emit\ from\ another\ thread\ with\ delay}}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_ga9df008c11eeff8c9383e56bf36e28ec2}{rpp::operators::as\_blocking}}()}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ rpp::operators::subscribe([](\textcolor{keywordtype}{int})\{\},\ []()\{std::cout\ <<\ \textcolor{stringliteral}{"{}COMPLETED"{}}\ <<\ std::endl;\ \});}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{rpp::operators::subscribe}}([](\textcolor{keywordtype}{int})\{\},\ []()\{std::cout\ <<\ \textcolor{stringliteral}{"{}COMPLETED"{}}\ <<\ std::endl;\ \});}
 \DoxyCodeLine{\ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}done"{}}\ <<\ std::endl;}
 \DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ output:\ COMPLETED\ done}}
 
@@ -89,21 +123,21 @@ Actually this operator resets time of last emission, schedules action to send th
 \begin{DoxyParagraph}{Example}
 
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{\ \ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{start}}\ =\ rpp::schedulers::clock\_type::now();}
+\DoxyCodeLine{\ \ \ \ \ \ \textcolor{keyword}{auto}\ start\ =\ rpp::schedulers::clock\_type::now();}
 \DoxyCodeLine{\ \ \ \ \ \ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(\mbox{\hyperlink{classrpp_1_1schedulers_1_1current__thread}{rpp::schedulers::current\_thread}}\{\},\ 1,\ 2,\ 5,\ 6,\ 9,\ 10)}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__transforming__operators_ga633883e796101ceeab821e2a4912bd5e}{rpp::operators::flat\_map}}([](\textcolor{keywordtype}{int}\ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{v}})}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__transforming__operators_ga633883e796101ceeab821e2a4912bd5e}{rpp::operators::flat\_map}}([](\textcolor{keywordtype}{int}\ v)}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{v}})\ |\ \mbox{\hyperlink{group__utility__operators_gae38caa489cf43c0aca1aa1c8822aed60}{rpp::operators::delay}}(std::chrono::milliseconds(500)\ *\ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{v}},\ \mbox{\hyperlink{classrpp_1_1schedulers_1_1current__thread}{rpp::schedulers::current\_thread}}\{\});}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(v)\ |\ \mbox{\hyperlink{group__utility__operators_gae38caa489cf43c0aca1aa1c8822aed60}{rpp::operators::delay}}(std::chrono::milliseconds(500)\ *\ v,\ \mbox{\hyperlink{classrpp_1_1schedulers_1_1current__thread}{rpp::schedulers::current\_thread}}\{\});}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \})}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__filtering__operators_ga3ad579153e7975af6ae4b75f585fb873}{rpp::operators::filter}}([\&](\textcolor{keywordtype}{int}\ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{v}})}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__filtering__operators_ga3ad579153e7975af6ae4b75f585fb873}{rpp::operators::filter}}([\&](\textcolor{keywordtype}{int}\ v)}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}>\ Sent\ value\ "{}}\ <<\ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{v}}\ <<\ \textcolor{stringliteral}{"{}\ at\ "{}}\ <<\ std::chrono::duration\_cast<std::chrono::milliseconds>(rpp::schedulers::clock\_type::now()\ -\/\ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{start}}).count()\ <<\ std::endl;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}>\ Sent\ value\ "{}}\ <<\ v\ <<\ \textcolor{stringliteral}{"{}\ at\ "{}}\ <<\ std::chrono::duration\_cast<std::chrono::milliseconds>(rpp::schedulers::clock\_type::now()\ -\/\ start).count()\ <<\ std::endl;}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \})}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_ga49e91c6114f62ac261303814c818face}{rpp::operators::debounce}}(std::chrono::milliseconds\{700\},\ \mbox{\hyperlink{classrpp_1_1schedulers_1_1current__thread}{rpp::schedulers::current\_thread}}\{\})}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ |\ rpp::operators::subscribe([\&](\textcolor{keywordtype}{int}\ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{v}})\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}>>>\ new\ value\ "{}}\ <<\ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{v}}\ <<\ \textcolor{stringliteral}{"{}\ at\ "{}}\ <<\ std::chrono::duration\_cast<std::chrono::milliseconds>(rpp::schedulers::clock\_type::now()\ -\/\ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{start}}).count()\ <<\ std::endl;\},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{rpp::operators::subscribe}}([\&](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}>>>\ new\ value\ "{}}\ <<\ v\ <<\ \textcolor{stringliteral}{"{}\ at\ "{}}\ <<\ std::chrono::duration\_cast<std::chrono::milliseconds>(rpp::schedulers::clock\_type::now()\ -\/\ start).count()\ <<\ std::endl;\},}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [](\textcolor{keyword}{const}\ std::exception\_ptr\&)\{\},}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [\&]()\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}>>>\ completed\ at\ "{}}\ <<\ std::chrono::duration\_cast<std::chrono::milliseconds>(rpp::schedulers::clock\_type::now()\ -\/\ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{start}}).count()\ <<\ std::endl;\ \});}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [\&]()\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}>>>\ completed\ at\ "{}}\ <<\ std::chrono::duration\_cast<std::chrono::milliseconds>(rpp::schedulers::clock\_type::now()\ -\/\ start).count()\ <<\ std::endl;\ \});}
 \DoxyCodeLine{}
 \DoxyCodeLine{}
 \DoxyCodeLine{}
@@ -160,33 +194,33 @@ on\+\_\+error/on\+\_\+completed invoking also would be delayed as any other emis
 
 \begin{DoxyCodeInclude}{0}
 \DoxyCodeLine{}
-\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{start}}\ =\ rpp::schedulers::clock\_type::now();}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{auto}\ start\ =\ rpp::schedulers::clock\_type::now();}
 \DoxyCodeLine{}
-\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{rpp::source::create<int>}}([\&\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{start}}](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{obs}})}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{rpp::source::create<int>}}([\&start](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ obs)}
 \DoxyCodeLine{\ \ \ \ \{}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{i}}\ =\ 0;\ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{i}}\ <\ 3;\ ++\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{i}})}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ 3;\ ++i)}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{emitting\_time}}\ =\ rpp::schedulers::clock\_type::now();}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}emit\ "{}}\ <<\ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{i}}\ <<\ \textcolor{stringliteral}{"{}\ in\ thread\{"{}}\ <<\ std::this\_thread::get\_id()\ <<\ \textcolor{stringliteral}{"{}\}\ duration\ since\ start\ "{}}\ <<\ std::chrono::duration\_cast<std::chrono::seconds>(\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{emitting\_time}}\ -\/\ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{start}}).count()\ <<\ \textcolor{stringliteral}{"{}s"{}}<<\ std::endl;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ emitting\_time\ =\ rpp::schedulers::clock\_type::now();}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}emit\ "{}}\ <<\ i\ <<\ \textcolor{stringliteral}{"{}\ in\ thread\{"{}}\ <<\ std::this\_thread::get\_id()\ <<\ \textcolor{stringliteral}{"{}\}\ duration\ since\ start\ "{}}\ <<\ std::chrono::duration\_cast<std::chrono::seconds>(emitting\_time\ -\/\ start).count()\ <<\ \textcolor{stringliteral}{"{}s"{}}<<\ std::endl;}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ }
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{obs}}.on\_next(\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{i}});}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ obs.on\_next(i);}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ std::this\_thread::sleep\_for(std::chrono::seconds\{1\});}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{emitting\_time}}\ =\ rpp::schedulers::clock\_type::now();}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}emit\ error\ in\ thread\{"{}}\ <<\ std::this\_thread::get\_id()\ <<\ \textcolor{stringliteral}{"{}\}\ duration\ since\ start\ "{}}\ <<\ std::chrono::duration\_cast<std::chrono::seconds>(\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{emitting\_time}}\ -\/\ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{start}}).count()\ <<\ \textcolor{stringliteral}{"{}s"{}}<<\ std::endl;}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{obs}}.on\_error(\{\});}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ emitting\_time\ =\ rpp::schedulers::clock\_type::now();}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}emit\ error\ in\ thread\{"{}}\ <<\ std::this\_thread::get\_id()\ <<\ \textcolor{stringliteral}{"{}\}\ duration\ since\ start\ "{}}\ <<\ std::chrono::duration\_cast<std::chrono::seconds>(emitting\_time\ -\/\ start).count()\ <<\ \textcolor{stringliteral}{"{}s"{}}<<\ std::endl;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ obs.on\_error(\{\});}
 \DoxyCodeLine{\ \ \ \ \})}
 \DoxyCodeLine{\ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_gae38caa489cf43c0aca1aa1c8822aed60}{rpp::operators::delay}}(std::chrono::seconds\{3\},\ \mbox{\hyperlink{classrpp_1_1schedulers_1_1new__thread}{rpp::schedulers::new\_thread}}\{\})}
 \DoxyCodeLine{\ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_ga9df008c11eeff8c9383e56bf36e28ec2}{rpp::operators::as\_blocking}}()}
-\DoxyCodeLine{\ \ \ \ |\ rpp::operators::subscribe([\&](\textcolor{keywordtype}{int}\ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{v}})}
+\DoxyCodeLine{\ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{rpp::operators::subscribe}}([\&](\textcolor{keywordtype}{int}\ v)}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{observing\_time}}\ =\ rpp::schedulers::clock\_type::now();}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}observe\ "{}}\ <<\ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{v}}\ <<\ \textcolor{stringliteral}{"{}\ in\ thread\{"{}}\ <<\ std::this\_thread::get\_id()\ <<\ \textcolor{stringliteral}{"{}\}\ duration\ since\ start\ "{}}\ <<\ std::chrono::duration\_cast<std::chrono::seconds>(\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{observing\_time}}\ -\/\ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{start}}).count()\ <<\textcolor{stringliteral}{"{}s"{}}\ <<\ std::endl;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ observing\_time\ =\ rpp::schedulers::clock\_type::now();}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}observe\ "{}}\ <<\ v\ <<\ \textcolor{stringliteral}{"{}\ in\ thread\{"{}}\ <<\ std::this\_thread::get\_id()\ <<\ \textcolor{stringliteral}{"{}\}\ duration\ since\ start\ "{}}\ <<\ std::chrono::duration\_cast<std::chrono::seconds>(observing\_time\ -\/\ start).count()\ <<\textcolor{stringliteral}{"{}s"{}}\ <<\ std::endl;}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \},}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [\&](\textcolor{keyword}{const}\ std::exception\_ptr\&)}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{observing\_time}}\ =\ rpp::schedulers::clock\_type::now();}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}observe\ error\ in\ thread\{"{}}\ <<\ std::this\_thread::get\_id()\ <<\ \textcolor{stringliteral}{"{}\}\ duration\ since\ start\ "{}}\ <<\ std::chrono::duration\_cast<std::chrono::seconds>(\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{observing\_time}}\ -\/\ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{start}}).count()\ <<\textcolor{stringliteral}{"{}s"{}}\ <<\ std::endl;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ observing\_time\ =\ rpp::schedulers::clock\_type::now();}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}observe\ error\ in\ thread\{"{}}\ <<\ std::this\_thread::get\_id()\ <<\ \textcolor{stringliteral}{"{}\}\ duration\ since\ start\ "{}}\ <<\ std::chrono::duration\_cast<std::chrono::seconds>(observing\_time\ -\/\ start).count()\ <<\textcolor{stringliteral}{"{}s"{}}\ <<\ std::endl;}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \});}
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Template\ for\ output:}}
@@ -239,34 +273,34 @@ Actually this operator is just {\ttfamily delay}, but in case of obtaining {\ttf
 
 \begin{DoxyCodeInclude}{0}
 \DoxyCodeLine{}
-\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{start}}\ =\ rpp::schedulers::clock\_type::now();}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{auto}\ start\ =\ rpp::schedulers::clock\_type::now();}
 \DoxyCodeLine{}
-\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{rpp::source::create<int>}}([\&\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{start}}](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{obs}})}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{rpp::source::create<int>}}([\&start](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ obs)}
 \DoxyCodeLine{\ \ \ \ \{}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{i}}\ =\ 0;\ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{i}}\ <\ 3;\ ++\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{i}})}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ 3;\ ++i)}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{emitting\_time}}\ =\ rpp::schedulers::clock\_type::now();}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}emit\ "{}}\ <<\ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{i}}\ <<\ \textcolor{stringliteral}{"{}\ in\ thread\{"{}}\ <<\ std::this\_thread::get\_id()\ <<\ \textcolor{stringliteral}{"{}\}\ duration\ since\ start\ "{}}\ <<\ std::chrono::duration\_cast<std::chrono::seconds>(\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{emitting\_time}}\ -\/\ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{start}}).count()\ <<\ \textcolor{stringliteral}{"{}s"{}}<<\ std::endl;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ emitting\_time\ =\ rpp::schedulers::clock\_type::now();}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}emit\ "{}}\ <<\ i\ <<\ \textcolor{stringliteral}{"{}\ in\ thread\{"{}}\ <<\ std::this\_thread::get\_id()\ <<\ \textcolor{stringliteral}{"{}\}\ duration\ since\ start\ "{}}\ <<\ std::chrono::duration\_cast<std::chrono::seconds>(emitting\_time\ -\/\ start).count()\ <<\ \textcolor{stringliteral}{"{}s"{}}<<\ std::endl;}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ }
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{obs}}.on\_next(\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{i}});}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ obs.on\_next(i);}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ std::this\_thread::sleep\_for(std::chrono::seconds\{1\});}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{emitting\_time}}\ =\ rpp::schedulers::clock\_type::now();}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}emit\ error\ in\ thread\{"{}}\ <<\ std::this\_thread::get\_id()\ <<\ \textcolor{stringliteral}{"{}\}\ duration\ since\ start\ "{}}\ <<\ std::chrono::duration\_cast<std::chrono::seconds>(\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{emitting\_time}}\ -\/\ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{start}}).count()\ <<\ \textcolor{stringliteral}{"{}s"{}}<<\ std::endl;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ emitting\_time\ =\ rpp::schedulers::clock\_type::now();}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}emit\ error\ in\ thread\{"{}}\ <<\ std::this\_thread::get\_id()\ <<\ \textcolor{stringliteral}{"{}\}\ duration\ since\ start\ "{}}\ <<\ std::chrono::duration\_cast<std::chrono::seconds>(emitting\_time\ -\/\ start).count()\ <<\ \textcolor{stringliteral}{"{}s"{}}<<\ std::endl;}
 \DoxyCodeLine{}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{obs}}.on\_error(\{\});}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ obs.on\_error(\{\});}
 \DoxyCodeLine{\ \ \ \ \})}
 \DoxyCodeLine{\ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_ga3feb1b1258c7e3e72c151abf176c30c4}{rpp::operators::observe\_on}}(\mbox{\hyperlink{classrpp_1_1schedulers_1_1new__thread}{rpp::schedulers::new\_thread}}\{\},\ std::chrono::seconds\{3\})}
 \DoxyCodeLine{\ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_ga9df008c11eeff8c9383e56bf36e28ec2}{rpp::operators::as\_blocking}}()}
-\DoxyCodeLine{\ \ \ \ |\ rpp::operators::subscribe([\&](\textcolor{keywordtype}{int}\ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{v}})}
+\DoxyCodeLine{\ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{rpp::operators::subscribe}}([\&](\textcolor{keywordtype}{int}\ v)}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{observing\_time}}\ =\ rpp::schedulers::clock\_type::now();}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}observe\ "{}}\ <<\ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{v}}\ <<\ \textcolor{stringliteral}{"{}\ in\ thread\{"{}}\ <<\ std::this\_thread::get\_id()\ <<\ \textcolor{stringliteral}{"{}\}\ duration\ since\ start\ "{}}\ <<\ std::chrono::duration\_cast<std::chrono::seconds>(\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{observing\_time}}\ -\/\ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{start}}).count()\ <<\textcolor{stringliteral}{"{}s"{}}\ <<\ std::endl;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ observing\_time\ =\ rpp::schedulers::clock\_type::now();}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}observe\ "{}}\ <<\ v\ <<\ \textcolor{stringliteral}{"{}\ in\ thread\{"{}}\ <<\ std::this\_thread::get\_id()\ <<\ \textcolor{stringliteral}{"{}\}\ duration\ since\ start\ "{}}\ <<\ std::chrono::duration\_cast<std::chrono::seconds>(observing\_time\ -\/\ start).count()\ <<\textcolor{stringliteral}{"{}s"{}}\ <<\ std::endl;}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \},}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [\&](\textcolor{keyword}{const}\ std::exception\_ptr\&)}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{observing\_time}}\ =\ rpp::schedulers::clock\_type::now();}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}observe\ error\ in\ thread\{"{}}\ <<\ std::this\_thread::get\_id()\ <<\ \textcolor{stringliteral}{"{}\}\ duration\ since\ start\ "{}}\ <<\ std::chrono::duration\_cast<std::chrono::seconds>(\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{observing\_time}}\ -\/\ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{start}}).count()\ <<\textcolor{stringliteral}{"{}s"{}}\ <<\ std::endl;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ observing\_time\ =\ rpp::schedulers::clock\_type::now();}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}observe\ error\ in\ thread\{"{}}\ <<\ std::this\_thread::get\_id()\ <<\ \textcolor{stringliteral}{"{}\}\ duration\ since\ start\ "{}}\ <<\ std::chrono::duration\_cast<std::chrono::seconds>(observing\_time\ -\/\ start).count()\ <<\textcolor{stringliteral}{"{}s"{}}\ <<\ std::endl;}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \});}
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Template\ for\ output:}}
@@ -309,7 +343,7 @@ Actually this operator is kind of {\ttfamily concat(obs, obs...)}
 \DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(1,\ 2,\ 3)}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_ga41ef49dc75a3eadb0eb3fda7c3692c40}{rpp::operators::repeat}}()}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__filtering__operators_gaf32161437c2c6cd7d5a0e5170a333cbb}{rpp::operators::take}}(10)}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ |\ rpp::operators::subscribe([](\textcolor{keywordtype}{int}\ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{v}})\ \{\ std::cout\ <<\ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{v}}\ <<\ \textcolor{stringliteral}{"{}\ "{}};\ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{rpp::operators::subscribe}}([](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ v\ <<\ \textcolor{stringliteral}{"{}\ "{}};\ \},}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [](\textcolor{keyword}{const}\ std::exception\_ptr\&)\{\},}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ []()}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
@@ -358,7 +392,7 @@ Actually this operator is kind of {\ttfamily concat(obs, obs...)} where obs repe
 \begin{DoxyCodeInclude}{0}
 \DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(1,\ 2,\ 3)}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_ga41ef49dc75a3eadb0eb3fda7c3692c40}{rpp::operators::repeat}}(2)}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ |\ rpp::operators::subscribe([](\textcolor{keywordtype}{int}\ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{v}})\ \{\ std::cout\ <<\ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{v}}\ <<\ \textcolor{stringliteral}{"{}\ "{}};\ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{rpp::operators::subscribe}}([](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ v\ <<\ \textcolor{stringliteral}{"{}\ "{}};\ \},}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [](\textcolor{keyword}{const}\ std::exception\_ptr\&)\{\},}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ []()\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}completed"{}}\ <<\ std::endl;\ \});}
 \DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:\ 1\ 2\ 3\ 1\ 2\ 3\ completed}}
@@ -369,6 +403,119 @@ Actually this operator is kind of {\ttfamily concat(obs, obs...)} where obs repe
 \begin{DoxySeeAlso}{See also}
 \href{https://reactivex.io/documentation/operators/repeat.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/repeat.\+html}} 
 \end{DoxySeeAlso}
+\Hypertarget{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}\label{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac} 
+\index{Utility Operators@{Utility Operators}!subscribe@{subscribe}}
+\index{subscribe@{subscribe}!Utility Operators@{Utility Operators}}
+\doxysubsubsubsubsection{\texorpdfstring{subscribe()}{subscribe()}\hspace{0.1cm}{\footnotesize\ttfamily [1/6]}}
+{\footnotesize\ttfamily template$<$rpp\+::constraint\+::decayed\+\_\+type Type, \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer__strategy}{rpp\+::constraint\+::observer\+\_\+strategy}}$<$ Type $>$ Observer\+Strategy$>$ \\
+\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{auto}} rpp\+::operators\+::subscribe (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classrpp_1_1observer}{observer}}$<$ Type, Observer\+Strategy $>$ \&\&}]{observer }\end{DoxyParamCaption})}
+
+
+
+Subscribes passed observer to emissions from this observable. 
+
+\begin{DoxyWarning}{Warning}
+Observer must be moved in to subscribe method. (Not recommended) If you need to copy observer, convert it to \doxylink{classrpp_1_1dynamic__observer}{dynamic\+\_\+observer} 
+\end{DoxyWarning}
+\begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{as_blocking_8cpp-example}{as\+\_\+blocking.\+cpp}}, \mbox{\hyperlink{concat_8cpp-example}{concat.\+cpp}}, \mbox{\hyperlink{debounce_8cpp-example}{debounce.\+cpp}}, \mbox{\hyperlink{delay_8cpp-example}{delay.\+cpp}}, \mbox{\hyperlink{distinct_until_changed_8cpp-example}{distinct\+\_\+until\+\_\+changed.\+cpp}}, \mbox{\hyperlink{filter_8cpp-example}{filter.\+cpp}}, \mbox{\hyperlink{first_8cpp-example}{first.\+cpp}}, \mbox{\hyperlink{group_by_8cpp-example}{group\+\_\+by.\+cpp}}, \mbox{\hyperlink{interval_8cpp-example}{interval.\+cpp}}, \mbox{\hyperlink{last_8cpp-example}{last.\+cpp}}, \mbox{\hyperlink{map_8cpp-example}{map.\+cpp}}, \mbox{\hyperlink{merge_8cpp-example}{merge.\+cpp}}, \mbox{\hyperlink{observe_on_8cpp-example}{observe\+\_\+on.\+cpp}}, \mbox{\hyperlink{reduce_8cpp-example}{reduce.\+cpp}}, \mbox{\hyperlink{repeat_8cpp-example}{repeat.\+cpp}}, \mbox{\hyperlink{scan_8cpp-example}{scan.\+cpp}}, \mbox{\hyperlink{skip_8cpp-example}{skip.\+cpp}}, \mbox{\hyperlink{subscribe_on_8cpp-example}{subscribe\+\_\+on.\+cpp}}, \mbox{\hyperlink{take_8cpp-example}{take.\+cpp}}, \mbox{\hyperlink{take_while_8cpp-example}{take\+\_\+while.\+cpp}}, \mbox{\hyperlink{throttle_8cpp-example}{throttle.\+cpp}}, \mbox{\hyperlink{window_8cpp-example}{window.\+cpp}}, and \mbox{\hyperlink{with_latest_from_8cpp-example}{with\+\_\+latest\+\_\+from.\+cpp}}.\end{Desc}
+\Hypertarget{group__utility__operators_ga0966f5805b841c809c47a797bfc0e2f5}\label{group__utility__operators_ga0966f5805b841c809c47a797bfc0e2f5} 
+\index{Utility Operators@{Utility Operators}!subscribe@{subscribe}}
+\index{subscribe@{subscribe}!Utility Operators@{Utility Operators}}
+\doxysubsubsubsubsection{\texorpdfstring{subscribe()}{subscribe()}\hspace{0.1cm}{\footnotesize\ttfamily [2/6]}}
+{\footnotesize\ttfamily template$<$details\+::on\+\_\+next\+\_\+like On\+Next, std\+::invocable$<$$>$ On\+Completed$>$ \\
+\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{auto}} rpp\+::operators\+::subscribe (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp\+::composite\+\_\+disposable\+\_\+wrapper}}}]{d,  }\item[{On\+Next \&\&}]{on\+\_\+next,  }\item[{On\+Completed \&\&}]{on\+\_\+completed }\end{DoxyParamCaption})}
+
+
+
+Construct \doxylink{group__observers_ga76d808086fac28fdb0b00fc7513c741a}{rpp\+::lambda\+\_\+observer} on the fly and subscribe it to emissions from observable. 
+
+This overloading attaches passed disposable to observer and return it to provide ability to dispose observer early if needed. \begin{DoxyWarning}{Warning}
+This overloading has some performance penalties, use it only when you really need to use disposable
+\end{DoxyWarning}
+
+\begin{DoxyParams}{Parameters}
+{\em d} & is disposable to be attached to observer. If disposable is nullptr or disposed -\/\texorpdfstring{$>$}{>} no any subscription happens \\
+\hline
+\end{DoxyParams}
+\Hypertarget{group__utility__operators_ga5b742d7c99c0f577e5a6467c826384f7}\label{group__utility__operators_ga5b742d7c99c0f577e5a6467c826384f7} 
+\index{Utility Operators@{Utility Operators}!subscribe@{subscribe}}
+\index{subscribe@{subscribe}!Utility Operators@{Utility Operators}}
+\doxysubsubsubsubsection{\texorpdfstring{subscribe()}{subscribe()}\hspace{0.1cm}{\footnotesize\ttfamily [3/6]}}
+{\footnotesize\ttfamily template$<$details\+::on\+\_\+next\+\_\+like On\+Next = rpp\+::utils\+::empty\+\_\+function\+\_\+any\+\_\+t, std\+::invocable$<$ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{const}} std\+::exception\+\_\+ptr \& $>$ On\+Error = rpp\+::utils\+::rethrow\+\_\+error\+\_\+t, std\+::invocable$<$$>$ On\+Completed = rpp\+::utils\+::empty\+\_\+function\+\_\+t$<$$>$$>$ \\
+\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{auto}} rpp\+::operators\+::subscribe (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp\+::composite\+\_\+disposable\+\_\+wrapper}}}]{d,  }\item[{On\+Next \&\&}]{on\+\_\+next = {\ttfamily \{\}},  }\item[{On\+Error \&\&}]{on\+\_\+error = {\ttfamily \{\}},  }\item[{On\+Completed \&\&}]{on\+\_\+completed = {\ttfamily \{\}} }\end{DoxyParamCaption})}
+
+
+
+Construct \doxylink{group__observers_ga76d808086fac28fdb0b00fc7513c741a}{rpp\+::lambda\+\_\+observer} on the fly and subscribe it to emissions from observable. 
+
+This overloading attaches passed disposable to observer and return it to provide ability to dispose observer early if needed. \begin{DoxyWarning}{Warning}
+This overloading has some performance penalties, use it only when you really need to use disposable
+\end{DoxyWarning}
+
+\begin{DoxyParams}{Parameters}
+{\em d} & is disposable to be attached to observer. If disposable is nullptr or disposed -\/\texorpdfstring{$>$}{>} no any subscription happens \\
+\hline
+\end{DoxyParams}
+\Hypertarget{group__utility__operators_gaf47528e3e0556c51cfb24722be454179}\label{group__utility__operators_gaf47528e3e0556c51cfb24722be454179} 
+\index{Utility Operators@{Utility Operators}!subscribe@{subscribe}}
+\index{subscribe@{subscribe}!Utility Operators@{Utility Operators}}
+\doxysubsubsubsubsection{\texorpdfstring{subscribe()}{subscribe()}\hspace{0.1cm}{\footnotesize\ttfamily [4/6]}}
+{\footnotesize\ttfamily template$<$rpp\+::constraint\+::decayed\+\_\+type Type$>$ \\
+\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{auto}} rpp\+::operators\+::subscribe (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp\+::composite\+\_\+disposable\+\_\+wrapper}}}]{disposable,  }\item[{\mbox{\hyperlink{classrpp_1_1dynamic__observer}{dynamic\+\_\+observer}}$<$ Type $>$}]{observer }\end{DoxyParamCaption})}
+
+
+
+Subscribe passed observer to emissions from observable. 
+
+This overloading attaches passed disposable to observer and return it to provide ability to dispose observer early if needed. \begin{DoxyWarning}{Warning}
+This overloading has some performance penalties, use it only when you really need to use disposable
+\end{DoxyWarning}
+
+\begin{DoxyParams}{Parameters}
+{\em d} & is disposable to be attached to observer. If disposable is nullptr or disposed -\/\texorpdfstring{$>$}{>} no any subscription happens \\
+\hline
+\end{DoxyParams}
+\Hypertarget{group__utility__operators_ga879876e1f0a7a421d4153224e144ba88}\label{group__utility__operators_ga879876e1f0a7a421d4153224e144ba88} 
+\index{Utility Operators@{Utility Operators}!subscribe@{subscribe}}
+\index{subscribe@{subscribe}!Utility Operators@{Utility Operators}}
+\doxysubsubsubsubsection{\texorpdfstring{subscribe()}{subscribe()}\hspace{0.1cm}{\footnotesize\ttfamily [5/6]}}
+{\footnotesize\ttfamily template$<$rpp\+::constraint\+::decayed\+\_\+type Type, \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer__strategy}{rpp\+::constraint\+::observer\+\_\+strategy}}$<$ Type $>$ Observer\+Strategy$>$ \\
+\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{auto}} rpp\+::operators\+::subscribe (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp\+::composite\+\_\+disposable\+\_\+wrapper}}}]{disposable,  }\item[{\mbox{\hyperlink{classrpp_1_1observer}{observer}}$<$ Type, Observer\+Strategy $>$ \&\&}]{observer }\end{DoxyParamCaption})}
+
+
+
+Subscribe passed observer to emissions from observable. 
+
+This overloading attaches passed disposable to observer and return it to provide ability to dispose observer early if needed. \begin{DoxyWarning}{Warning}
+This overloading has some performance penalties, use it only when you really need to use disposable
+\end{DoxyWarning}
+
+\begin{DoxyParams}{Parameters}
+{\em d} & is disposable to be attached to observer. If disposable is nullptr or disposed -\/\texorpdfstring{$>$}{>} no any subscription happens \\
+\hline
+\end{DoxyParams}
+\Hypertarget{group__utility__operators_gac133e42caad03b922fc95722ef064264}\label{group__utility__operators_gac133e42caad03b922fc95722ef064264} 
+\index{Utility Operators@{Utility Operators}!subscribe@{subscribe}}
+\index{subscribe@{subscribe}!Utility Operators@{Utility Operators}}
+\doxysubsubsubsubsection{\texorpdfstring{subscribe()}{subscribe()}\hspace{0.1cm}{\footnotesize\ttfamily [6/6]}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer__strategy__base}{rpp\+::constraint\+::observer\+\_\+strategy\+\_\+base}} Observer\+Strategy$>$ \newline
+requires (!constraint\+::observer$<$Observer\+Strategy$>$)\\
+\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{auto}} rpp\+::operators\+::subscribe (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp\+::composite\+\_\+disposable\+\_\+wrapper}}}]{disposable,  }\item[{Observer\+Strategy \&\&}]{observer\+\_\+strategy }\end{DoxyParamCaption})}
+
+
+
+Subscribes passed observer strategy to emissions from this observable via construction of observer. 
+
+This overloading attaches passed disposable to observer and return it to provide ability to dispose observer early if needed. \begin{DoxyWarning}{Warning}
+This overloading has some performance penalties, use it only when you really need to use disposable
+\end{DoxyWarning}
+
+\begin{DoxyParams}{Parameters}
+{\em d} & is disposable to be attached to observer. If disposable is nullptr or disposed -\/\texorpdfstring{$>$}{>} no any subscription happens \\
+\hline
+\end{DoxyParams}
 \Hypertarget{group__utility__operators_gace728cfbf71720901cb6f310edabf8b0}\label{group__utility__operators_gace728cfbf71720901cb6f310edabf8b0} 
 \index{Utility Operators@{Utility Operators}!subscribe\_on@{subscribe\_on}}
 \index{subscribe\_on@{subscribe\_on}!Utility Operators@{Utility Operators}}
@@ -394,15 +541,15 @@ Actually this operator just schedules subscription on original observable to pro
 
 \begin{DoxyCodeInclude}{0}
 \DoxyCodeLine{\ \ \ \ std::cout\ <<\ std::this\_thread::get\_id()\ <<\ std::endl;}
-\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{rpp::source::create<int>}}([](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{sub}})}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{rpp::source::create<int>}}([](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ sub)}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \{}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}on\_subscribe\ thread\ "{}}\ <<\ std::this\_thread::get\_id()\ <<\ std::endl;}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{sub}}.on\_next(1);}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{sub}}.on\_completed();}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sub.on\_next(1);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sub.on\_completed();}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \})}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_gace728cfbf71720901cb6f310edabf8b0}{rpp::operators::subscribe\_on}}(\mbox{\hyperlink{classrpp_1_1schedulers_1_1new__thread}{rpp::schedulers::new\_thread}}\{\})}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_ga9df008c11eeff8c9383e56bf36e28ec2}{rpp::operators::as\_blocking}}()}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ |\ rpp::operators::subscribe([](\textcolor{keywordtype}{int}\ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{v}})\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}["{}}\ <<\ std::this\_thread::get\_id()\ <<\ \textcolor{stringliteral}{"{}]\ :\ "{}}\ <<\ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{v}}\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};\ \});}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{rpp::operators::subscribe}}([](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}["{}}\ <<\ std::this\_thread::get\_id()\ <<\ \textcolor{stringliteral}{"{}]\ :\ "{}}\ <<\ v\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};\ \});}
 \DoxyCodeLine{\ \ \ \ std::cout\ <<\ std::this\_thread::get\_id()\ <<\ std::endl;}
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Template\ for\ output:}}
@@ -420,3 +567,61 @@ Actually this operator just schedules subscription on original observable to pro
 \begin{Desc}
 \item[Examples]\par
 \mbox{\hyperlink{subscribe_on_8cpp-example}{subscribe\+\_\+on.\+cpp}}.\end{Desc}
+\Hypertarget{group__utility__operators_ga33a523ff5b8bccc9e4e8d9e477e8cf90}\label{group__utility__operators_ga33a523ff5b8bccc9e4e8d9e477e8cf90} 
+\index{Utility Operators@{Utility Operators}!subscribe\_with\_disposable@{subscribe\_with\_disposable}}
+\index{subscribe\_with\_disposable@{subscribe\_with\_disposable}!Utility Operators@{Utility Operators}}
+\doxysubsubsubsubsection{\texorpdfstring{subscribe\_with\_disposable()}{subscribe\_with\_disposable()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
+{\footnotesize\ttfamily template$<$rpp\+::constraint\+::decayed\+\_\+type Type$>$ \\
+\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{auto}} rpp\+::operators\+::subscribe\+\_\+with\+\_\+disposable (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classrpp_1_1dynamic__observer}{dynamic\+\_\+observer}}$<$ Type $>$}]{observer }\end{DoxyParamCaption})}
+
+
+
+Subscribes passed observer to emissions from this observable. 
+
+This overloading attaches disposable to observer and return it to provide ability to dispose/disconnect observer early if needed. \begin{DoxyWarning}{Warning}
+This overloading has some performance penalties, use it only when you really need to use disposable 
+\end{DoxyWarning}
+\Hypertarget{group__utility__operators_ga8d5522fa0644d34943fee364429677fd}\label{group__utility__operators_ga8d5522fa0644d34943fee364429677fd} 
+\index{Utility Operators@{Utility Operators}!subscribe\_with\_disposable@{subscribe\_with\_disposable}}
+\index{subscribe\_with\_disposable@{subscribe\_with\_disposable}!Utility Operators@{Utility Operators}}
+\doxysubsubsubsubsection{\texorpdfstring{subscribe\_with\_disposable()}{subscribe\_with\_disposable()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
+{\footnotesize\ttfamily template$<$rpp\+::constraint\+::decayed\+\_\+type Type, \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer__strategy}{rpp\+::constraint\+::observer\+\_\+strategy}}$<$ Type $>$ Observer\+Strategy$>$ \\
+\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{auto}} rpp\+::operators\+::subscribe\+\_\+with\+\_\+disposable (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classrpp_1_1observer}{observer}}$<$ Type, Observer\+Strategy $>$ \&\&}]{observer }\end{DoxyParamCaption})}
+
+
+
+Subscribes passed observer to emissions from this observable. 
+
+This overloading attaches disposable to observer and return it to provide ability to dispose/disconnect observer early if needed. \begin{DoxyWarning}{Warning}
+This overloading has some performance penalties, use it only when you really need to use disposable
+
+Observer must be moved in to subscribe method. (Not recommended) If you need to copy observer, convert it to \doxylink{classrpp_1_1dynamic__observer}{dynamic\+\_\+observer} 
+\end{DoxyWarning}
+\Hypertarget{group__utility__operators_ga6c527da45630e08a1ee2a9bad47d562d}\label{group__utility__operators_ga6c527da45630e08a1ee2a9bad47d562d} 
+\index{Utility Operators@{Utility Operators}!subscribe\_with\_disposable@{subscribe\_with\_disposable}}
+\index{subscribe\_with\_disposable@{subscribe\_with\_disposable}!Utility Operators@{Utility Operators}}
+\doxysubsubsubsubsection{\texorpdfstring{subscribe\_with\_disposable()}{subscribe\_with\_disposable()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+{\footnotesize\ttfamily template$<$details\+::on\+\_\+next\+\_\+like On\+Next, std\+::invocable$<$$>$ On\+Completed$>$ \\
+\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{auto}} rpp\+::operators\+::subscribe\+\_\+with\+\_\+disposable (\begin{DoxyParamCaption}\item[{On\+Next \&\&}]{on\+\_\+next,  }\item[{On\+Completed \&\&}]{on\+\_\+completed }\end{DoxyParamCaption})}
+
+
+
+Construct \doxylink{group__observers_ga76d808086fac28fdb0b00fc7513c741a}{rpp\+::lambda\+\_\+observer} on the fly and subscribe it to emissions from observable. 
+
+This overloading attaches disposable to observer and return it to provide ability to dispose/disconnect observer early if needed. \begin{DoxyWarning}{Warning}
+This overloading has some performance penalties, use it only when you really need to use disposable 
+\end{DoxyWarning}
+\Hypertarget{group__utility__operators_gac87a7d53a94e23c8e444a431a2473a33}\label{group__utility__operators_gac87a7d53a94e23c8e444a431a2473a33} 
+\index{Utility Operators@{Utility Operators}!subscribe\_with\_disposable@{subscribe\_with\_disposable}}
+\index{subscribe\_with\_disposable@{subscribe\_with\_disposable}!Utility Operators@{Utility Operators}}
+\doxysubsubsubsubsection{\texorpdfstring{subscribe\_with\_disposable()}{subscribe\_with\_disposable()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+{\footnotesize\ttfamily template$<$details\+::on\+\_\+next\+\_\+like On\+Next = rpp\+::utils\+::empty\+\_\+function\+\_\+any\+\_\+t, std\+::invocable$<$ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{const}} std\+::exception\+\_\+ptr \& $>$ On\+Error = rpp\+::utils\+::rethrow\+\_\+error\+\_\+t, std\+::invocable$<$$>$ On\+Completed = rpp\+::utils\+::empty\+\_\+function\+\_\+t$<$$>$$>$ \\
+\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{auto}} rpp\+::operators\+::subscribe\+\_\+with\+\_\+disposable (\begin{DoxyParamCaption}\item[{On\+Next \&\&}]{on\+\_\+next = {\ttfamily \{\}},  }\item[{On\+Error \&\&}]{on\+\_\+error = {\ttfamily \{\}},  }\item[{On\+Completed \&\&}]{on\+\_\+completed = {\ttfamily \{\}} }\end{DoxyParamCaption})}
+
+
+
+Construct \doxylink{group__observers_ga76d808086fac28fdb0b00fc7513c741a}{rpp\+::lambda\+\_\+observer} on the fly and subscribe it to emissions from observable. 
+
+This overloading attaches disposable to observer and return it to provide ability to dispose/disconnect observer early if needed. \begin{DoxyWarning}{Warning}
+This overloading has some performance penalties, use it only when you really need to use disposable 
+\end{DoxyWarning}

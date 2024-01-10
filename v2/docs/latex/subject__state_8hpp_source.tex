@@ -88,7 +88,7 @@
 \DoxyCodeLine{00084\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_completed()}
 \DoxyCodeLine{00085\ \ \ \ \ \{}
 \DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ observers\ =\ exchange\_observers\_under\_lock\_if\_there(\mbox{\hyperlink{structrpp_1_1subjects_1_1details_1_1completed}{completed}}\{\}))}
-\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \ \ \ \ rpp::utils::for\_each(*observers,\ rpp::utils::static\_mem\_fn<\&\mbox{\hyperlink{classrpp_1_1observer}{dynamic\_observer<Type>::on\_completed}}>\{\});}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \ \ \ \ rpp::utils::for\_each(*observers,\ rpp::utils::static\_mem\_fn<\&\mbox{\hyperlink{classrpp_1_1dynamic__observer}{dynamic\_observer<Type>::on\_completed}}>\{\});}
 \DoxyCodeLine{00088\ \ \ \ \ \}}
 \DoxyCodeLine{00089\ }
 \DoxyCodeLine{00090\ \textcolor{keyword}{private}:}
@@ -97,7 +97,7 @@
 \DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ exchange\_observers\_under\_lock\_if\_there(\mbox{\hyperlink{structrpp_1_1subjects_1_1details_1_1disposed}{disposed}}\{\});}
 \DoxyCodeLine{00094\ \ \ \ \ \}}
 \DoxyCodeLine{00095\ }
-\DoxyCodeLine{00096\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_upstream(\mbox{\hyperlink{classrpp_1_1observer}{rpp::dynamic\_observer<Type>}}\&\ obs)}
+\DoxyCodeLine{00096\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_upstream(\mbox{\hyperlink{classrpp_1_1dynamic__observer}{rpp::dynamic\_observer<Type>}}\&\ obs)}
 \DoxyCodeLine{00097\ \ \ \ \ \{}
 \DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ obs.\mbox{\hyperlink{classrpp_1_1details_1_1observer__impl_a3ae7822fe5f962a69ee190af8ff8f0e2}{set\_upstream}}(\mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp::disposable\_wrapper}}\{make\_callback\_disposable(}
 \DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \ \ \ \ [weak\ =\ this-\/>weak\_from\_this()]()\ \textcolor{keyword}{noexcept}\ \textcolor{comment}{//\ NOLINT(bugprone-\/exception-\/escape)}}
@@ -122,7 +122,7 @@
 \DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \ \ \ \ std::copy\_if(current\_subs-\/>cbegin(),}
 \DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ current\_subs-\/>cend(),}
 \DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::back\_inserter(*subs),}
-\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ rpp::utils::static\_not\_mem\_fn<\&\mbox{\hyperlink{classrpp_1_1observer}{dynamic\_observer<Type>::is\_disposed}}>\{\});}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ rpp::utils::static\_not\_mem\_fn<\&\mbox{\hyperlink{classrpp_1_1dynamic__observer}{dynamic\_observer<Type>::is\_disposed}}>\{\});}
 \DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ subs;}
 \DoxyCodeLine{00124\ \ \ \ \ \}}

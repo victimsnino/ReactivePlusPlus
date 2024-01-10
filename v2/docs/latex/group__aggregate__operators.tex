@@ -54,7 +54,7 @@ There is no initial value for seed, so, first value would be used as seed value 
 \begin{DoxyCodeInclude}{0}
 \DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(1,\ 2,\ 3)}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__aggregate__operators_ga3cc33d76bf794bda80244882bb3fec3d}{rpp::operators::reduce}}(std::plus<int>\{\})}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ rpp::operators::subscribe([](\textcolor{keywordtype}{int}\ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{v}})\ \{\ std::cout\ <<\ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{v}}\ <<\ std::endl;\ \});}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{rpp::operators::subscribe}}([](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ v\ <<\ std::endl;\ \});}
 \DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:\ 6}}
 
 \end{DoxyCodeInclude}
@@ -91,8 +91,8 @@ Apply a function to each item emitted by an Observable, sequentially, and emit t
 
 \begin{DoxyCodeInclude}{0}
 \DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(1,\ 2,\ 3)}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__aggregate__operators_ga3cc33d76bf794bda80244882bb3fec3d}{rpp::operators::reduce}}(std::string\{\},\ [](std::string\&\&\ seed,\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{v}})\ \{\textcolor{keywordflow}{return}\ std::move(seed)\ +\ std::to\_string(\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{v}})\ +\ \textcolor{stringliteral}{"{},"{}};\ \})}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ rpp::operators::subscribe([](\textcolor{keyword}{const}\ std::string\&\ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{v}})\ \{\ std::cout\ <<\ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{v}}\ <<\ std::endl;\ \});}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__aggregate__operators_ga3cc33d76bf794bda80244882bb3fec3d}{rpp::operators::reduce}}(std::string\{\},\ [](std::string\&\&\ seed,\ \textcolor{keywordtype}{int}\ v)\ \{\textcolor{keywordflow}{return}\ std::move(seed)\ +\ std::to\_string(v)\ +\ \textcolor{stringliteral}{"{},"{}};\ \})}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{rpp::operators::subscribe}}([](\textcolor{keyword}{const}\ std::string\&\ v)\ \{\ std::cout\ <<\ v\ <<\ std::endl;\ \});}
 \DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:\ 1,2,3,}}
 
 \end{DoxyCodeInclude}

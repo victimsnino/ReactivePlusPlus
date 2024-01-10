@@ -8,7 +8,7 @@
 \DoxyCodeLine{\{}
 \DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(1,\ 2,\ 3,\ 4,\ 5,\ 6,\ 7,\ 8)}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__transforming__operators_ga2fa21790af1c065382cd37faa3462851}{rpp::operators::group\_by}}([](\textcolor{keywordtype}{int}\ \ \ v)\ \{\ \textcolor{keywordflow}{return}\ v\ \%\ 2\ ==\ 0;\ \})}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ rpp::operators::subscribe([](\textcolor{keyword}{auto}\ grouped\_observable)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{rpp::operators::subscribe}}([](\textcolor{keyword}{auto}\ grouped\_observable)}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \{}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ key\ =\ grouped\_observable.get\_key();}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}new\ grouped\ observable\ "{}}\ <<\ key\ <<\ std::endl;}
@@ -40,7 +40,7 @@
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Person\{\textcolor{stringliteral}{"{}Tom"{}},\ 30\},}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Person\{\textcolor{stringliteral}{"{}Vanda"{}},\ 18\})}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__transforming__operators_ga2fa21790af1c065382cd37faa3462851}{rpp::operators::group\_by}}([](\textcolor{keyword}{const}\ Person\&\ v)\ \{\ \textcolor{keywordflow}{return}\ v.age;\ \},\ [](\textcolor{keyword}{const}\ Person\&\ v)\ \{\ \textcolor{keywordflow}{return}\ v.name;\ \})}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ rpp::operators::subscribe([](\textcolor{keyword}{auto}\ grouped\_observable)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{rpp::operators::subscribe}}([](\textcolor{keyword}{auto}\ grouped\_observable)}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \{}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ grouped\_observable.subscribe([age\ =\ grouped\_observable.get\_key()](\textcolor{keyword}{const}\ std::string\&\ name)}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \{}

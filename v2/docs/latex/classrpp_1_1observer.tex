@@ -25,7 +25,7 @@ requires (!constraint\+::variadic\+\_\+decayed\+\_\+same\+\_\+as$<$\mbox{\hyperl
 {\bfseries observer} (\mbox{\hyperlink{classrpp_1_1observer}{observer}} \&\&) noexcept=default
 \item 
 \Hypertarget{classrpp_1_1observer_ab008a79c1c7825554c91dbc6d130ece4}\label{classrpp_1_1observer_ab008a79c1c7825554c91dbc6d130ece4} 
-\mbox{\hyperlink{group__observers_gaccd025034d57327e6a31b2106619197b}{dynamic\+\_\+observer}}$<$ Type $>$ {\bfseries as\+\_\+dynamic} () \&\&
+\mbox{\hyperlink{classrpp_1_1dynamic__observer}{dynamic\+\_\+observer}}$<$ Type $>$ {\bfseries as\+\_\+dynamic} () \&\&
 \begin{DoxyCompactList}\small\item\em Convert current observer to type-\/erased version. Useful if you need to COPY your observer or to store different observers in same container. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classrpp_1_1details_1_1observer__impl}{rpp\+::details\+::observer\+\_\+impl$<$ Type, Strategy, details\+::observers\+::deduce\+\_\+disposable\+\_\+strategy\+\_\+t$<$ Strategy $>$ $>$}}}
 \begin{DoxyCompactItemize}
@@ -46,11 +46,11 @@ void \mbox{\hyperlink{classrpp_1_1details_1_1observer__impl_a7a73f13eae52effde01
 \doxysubsection*{Public Types inherited from \mbox{\hyperlink{classrpp_1_1details_1_1observer__impl}{rpp\+::details\+::observer\+\_\+impl$<$ Type, Strategy, details\+::observers\+::deduce\+\_\+disposable\+\_\+strategy\+\_\+t$<$ Strategy $>$ $>$}}}
 \begin{DoxyCompactItemize}
 \item 
-using {\bfseries preferred\+\_\+disposable\+\_\+strategy} = \mbox{\hyperlink{structrpp_1_1details_1_1observers_1_1none__disposable__strategy}{observers\+::none\+\_\+disposable\+\_\+strategy}}
+using {\bfseries preferred\+\_\+disposable\+\_\+strategy}
 \item 
-using {\bfseries on\+\_\+next\+\_\+lvalue} = void(observer\+\_\+impl\+::\texorpdfstring{$\ast$}{*})(const Type \&) const noexcept
+using {\bfseries on\+\_\+next\+\_\+lvalue}
 \item 
-using {\bfseries on\+\_\+next\+\_\+rvalue} = void(observer\+\_\+impl\+::\texorpdfstring{$\ast$}{*})(Type \&\&) const noexcept
+using {\bfseries on\+\_\+next\+\_\+rvalue}
 \end{DoxyCompactItemize}
 \doxysubsection*{Protected Member Functions inherited from \mbox{\hyperlink{classrpp_1_1details_1_1observer__impl}{rpp\+::details\+::observer\+\_\+impl$<$ Type, Strategy, details\+::observers\+::deduce\+\_\+disposable\+\_\+strategy\+\_\+t$<$ Strategy $>$ $>$}}}
 \begin{DoxyCompactItemize}
@@ -71,7 +71,7 @@ class rpp\+::observer$<$ Type, Strategy $>$}
 Base class for any observer used in RPP. It handles core callbacks of observers. Objects of this class would be passed to subscribe of observable. 
 
 \begin{DoxyWarning}{Warning}
-By default observer is not copyable, only movable. If you need to COPY your observer, you need to convert it to \doxylink{group__observers_gaccd025034d57327e6a31b2106619197b}{rpp\+::dynamic\+\_\+observer} via \doxylink{classrpp_1_1observer_ab008a79c1c7825554c91dbc6d130ece4}{rpp\+::observer\+::as\+\_\+dynamic} 
+By default observer is not copyable, only movable. If you need to COPY your observer, you need to convert it to \doxylink{classrpp_1_1dynamic__observer}{rpp\+::dynamic\+\_\+observer} via \doxylink{classrpp_1_1observer_ab008a79c1c7825554c91dbc6d130ece4}{rpp\+::observer\+::as\+\_\+dynamic} 
 
 Expected that observer would be subscribed only to ONE observable ever. It can keep internal state and track it it was disposed or not. So, subscribing same observer multiple time follows unspecified behavior. 
 

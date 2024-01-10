@@ -14,7 +14,7 @@
 \DoxyCodeLine{00010\ \textcolor{preprocessor}{\#pragma\ once}}
 \DoxyCodeLine{00011\ }
 \DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <rpp/observables/fwd.hpp>}}
-\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <rpp/observables/observable.hpp>}}
 \DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <rpp/observers/dynamic\_observer.hpp>}}
 \DoxyCodeLine{00015\ }
 \DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ <memory>}}
@@ -25,7 +25,7 @@
 \DoxyCodeLine{00021\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T,\ \textcolor{keyword}{typename}\ Observable>}
 \DoxyCodeLine{00022\ \textcolor{keywordtype}{void}\ forwarding\_subscribe(\textcolor{keyword}{const}\ \textcolor{keywordtype}{void}*\ \textcolor{keyword}{const}\ ptr,\ dynamic\_observer<T>\&\&\ obs)}
 \DoxyCodeLine{00023\ \{}
-\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keyword}{static\_cast<}\textcolor{keyword}{const\ }Observable*\textcolor{keyword}{>}(ptr)-\/>subscribe(std::move(obs));}
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keyword}{static\_cast<}\textcolor{keyword}{const\ }Observable*\textcolor{keyword}{>}(ptr)-\/>\mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{subscribe}}(std::move(obs));}
 \DoxyCodeLine{00025\ \}}
 \DoxyCodeLine{00026\ }
 \DoxyCodeLine{00027\ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type\ Type>}
@@ -62,7 +62,7 @@
 \DoxyCodeLine{00058\ \textcolor{keyword}{private}:}
 \DoxyCodeLine{00059\ \ \ \ \ \textcolor{keyword}{struct\ }vtable}
 \DoxyCodeLine{00060\ \ \ \ \ \{}
-\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ void\ (*subscribe)(\textcolor{keyword}{const}\ \textcolor{keywordtype}{void}*,\ \mbox{\hyperlink{classrpp_1_1observer}{dynamic\_observer<Type>}}\&\&)\{\};}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ void\ (*subscribe)(\textcolor{keyword}{const}\ \textcolor{keywordtype}{void}*,\ \mbox{\hyperlink{classrpp_1_1dynamic__observer}{dynamic\_observer<Type>}}\&\&)\{\};}
 \DoxyCodeLine{00062\ }
 \DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::observable\ Observable>}
 \DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ vtable*\ create()\ \textcolor{keyword}{noexcept}}
@@ -83,9 +83,18 @@
 \DoxyCodeLine{00079\ \{}
 \DoxyCodeLine{00088\ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type\ Type>}
 \DoxyCodeLine{00089\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1dynamic__observable}{dynamic\_observable}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classrpp_1_1observable}{observable}}<Type,\ details::observables::dynamic\_strategy<Type>>\ \{}
-\DoxyCodeLine{00090\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00091\ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{classrpp_1_1observable}{observable}}<Type,\ \mbox{\hyperlink{classrpp_1_1details_1_1observables_1_1dynamic__strategy}{details::observables::dynamic\_strategy<Type>}}>::observable;}
-\DoxyCodeLine{00092\ \};}
-\DoxyCodeLine{00093\ \}}
+\DoxyCodeLine{00090\ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{classrpp_1_1observable}{base}}\ =\ \mbox{\hyperlink{classrpp_1_1observable}{observable<Type,\ details::observables::dynamic\_strategy<Type>}}>;}
+\DoxyCodeLine{00091\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00092\ \ \ \ \ \textcolor{keyword}{using\ }base::base;}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00094\ \ \ \ \ \mbox{\hyperlink{classrpp_1_1dynamic__observable}{dynamic\_observable}}(\mbox{\hyperlink{classrpp_1_1observable}{base}}\&\&\ b)}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ :\ \mbox{\hyperlink{classrpp_1_1observable}{base}}\{std::move(b)\}}
+\DoxyCodeLine{00096\ \ \ \ \ \{\}}
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00098\ \ \ \ \ \mbox{\hyperlink{classrpp_1_1dynamic__observable}{dynamic\_observable}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1observable}{base}}\&\ b)}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ :\ \mbox{\hyperlink{classrpp_1_1observable}{base}}\{b\}}
+\DoxyCodeLine{00100\ \ \ \ \ \{\}}
+\DoxyCodeLine{00101\ \};}
+\DoxyCodeLine{00102\ \}}
 
 \end{DoxyCode}

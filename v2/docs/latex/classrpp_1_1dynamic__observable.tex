@@ -15,13 +15,14 @@ Inheritance diagram for rpp\+::dynamic\+\_\+observable\texorpdfstring{$<$}{<} Ty
 \includegraphics[height=2.000000cm]{classrpp_1_1dynamic__observable}
 \end{center}
 \end{figure}
-\doxysubsubsection*{Additional Inherited Members}
-\doxysubsection*{Public Types inherited from \mbox{\hyperlink{classrpp_1_1observable}{rpp\+::observable$<$ Type, details\+::observables\+::dynamic\+\_\+strategy$<$ Type $>$ $>$}}}
+\doxysubsubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-using {\bfseries value\+\_\+type} = Type
+\Hypertarget{classrpp_1_1dynamic__observable_aeaf9e7ab730cd71599d0d8223dccce47}\label{classrpp_1_1dynamic__observable_aeaf9e7ab730cd71599d0d8223dccce47} 
+{\bfseries dynamic\+\_\+observable} (\mbox{\hyperlink{classrpp_1_1observable}{base}} \&\&b)
 \item 
-using {\bfseries expected\+\_\+disposable\+\_\+strategy} = rpp\+::details\+::observables\+::deduce\+\_\+disposable\+\_\+strategy\+\_\+t$<$ Strategy $>$
+\Hypertarget{classrpp_1_1dynamic__observable_a168f34d99690e9368bdc788b7dca1759}\label{classrpp_1_1dynamic__observable_a168f34d99690e9368bdc788b7dca1759} 
+{\bfseries dynamic\+\_\+observable} (const \mbox{\hyperlink{classrpp_1_1observable}{base}} \&b)
 \end{DoxyCompactItemize}
 \doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classrpp_1_1observable}{rpp\+::observable$<$ Type, details\+::observables\+::dynamic\+\_\+strategy$<$ Type $>$ $>$}}}
 \begin{DoxyCompactItemize}
@@ -34,7 +35,7 @@ using {\bfseries expected\+\_\+disposable\+\_\+strategy} = rpp\+::details\+::obs
 \item 
 void \mbox{\hyperlink{classrpp_1_1observable_a193b0e08c516912c04afd8379ec27182}{subscribe}} (\mbox{\hyperlink{classrpp_1_1observer}{observer}}$<$ Type, Observer\+Strategy $>$ \&\&\mbox{\hyperlink{classrpp_1_1observer}{observer}}) const
 \begin{DoxyCompactList}\small\item\em Subscribes passed observer to emissions from this observable. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{classrpp_1_1observable_aa2621e98393f224a7689c6e08003c027}{subscribe}} (\mbox{\hyperlink{group__observers_gaccd025034d57327e6a31b2106619197b}{dynamic\+\_\+observer}}$<$ Type $>$ \mbox{\hyperlink{classrpp_1_1observer}{observer}}) const
+void \mbox{\hyperlink{classrpp_1_1observable_aa2621e98393f224a7689c6e08003c027}{subscribe}} (\mbox{\hyperlink{classrpp_1_1dynamic__observer}{dynamic\+\_\+observer}}$<$ Type $>$ \mbox{\hyperlink{classrpp_1_1observer}{observer}}) const
 \begin{DoxyCompactList}\small\item\em Subscribe passed observer to emissions from this observable. \end{DoxyCompactList}\item 
 void {\bfseries subscribe} (Observer\+Strategy \&\&observer\+\_\+strategy) const
 \begin{DoxyCompactList}\small\item\em Subscribes passed observer strategy to emissions from this observable via construction of observer. \end{DoxyCompactList}\item 
@@ -43,21 +44,21 @@ void {\bfseries subscribe} (Observer\+Strategy \&\&observer\+\_\+strategy) const
 \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{composite\+\_\+disposable\+\_\+wrapper}} \mbox{\hyperlink{classrpp_1_1observable_a6bf5caf76b18d197fc56780b924b709c}{subscribe}} (const \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{composite\+\_\+disposable\+\_\+wrapper}} \&d, Observer\+Strategy \&\&observer\+\_\+strategy) const
 \begin{DoxyCompactList}\small\item\em Subscribes passed observer strategy to emissions from this observable via construction of observer. \end{DoxyCompactList}\item 
 void {\bfseries subscribe} (On\+Next \&\&on\+\_\+next, On\+Error \&\&on\+\_\+error=\{\}, On\+Completed \&\&on\+\_\+completed=\{\}) const
-\begin{DoxyCompactList}\small\item\em Construct \doxylink{group__observers_gad7a2b4cbca14301bec3f5a5f59146c94}{rpp\+::lambda\+\_\+observer} on the fly and subscribe it to emissions from this observable. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Construct \doxylink{group__observers_ga76d808086fac28fdb0b00fc7513c741a}{rpp\+::lambda\+\_\+observer} on the fly and subscribe it to emissions from this observable. \end{DoxyCompactList}\item 
 void {\bfseries subscribe} (On\+Next \&\&on\+\_\+next, On\+Completed \&\&on\+\_\+completed) const
-\begin{DoxyCompactList}\small\item\em Construct \doxylink{group__observers_gad7a2b4cbca14301bec3f5a5f59146c94}{rpp\+::lambda\+\_\+observer} on the fly and subscribe it to emissions from this observable. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Construct \doxylink{group__observers_ga76d808086fac28fdb0b00fc7513c741a}{rpp\+::lambda\+\_\+observer} on the fly and subscribe it to emissions from this observable. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{composite\+\_\+disposable\+\_\+wrapper}} \mbox{\hyperlink{classrpp_1_1observable_ace715f6f4dbbee4f7b0000fd32f75c8c}{subscribe}} (const \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{composite\+\_\+disposable\+\_\+wrapper}} \&d, On\+Next \&\&on\+\_\+next, On\+Error \&\&on\+\_\+error=\{\}, On\+Completed \&\&on\+\_\+completed=\{\}) const
-\begin{DoxyCompactList}\small\item\em Construct \doxylink{group__observers_gad7a2b4cbca14301bec3f5a5f59146c94}{rpp\+::lambda\+\_\+observer} on the fly and subscribe it to emissions from this observable. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Construct \doxylink{group__observers_ga76d808086fac28fdb0b00fc7513c741a}{rpp\+::lambda\+\_\+observer} on the fly and subscribe it to emissions from this observable. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{composite\+\_\+disposable\+\_\+wrapper}} \mbox{\hyperlink{classrpp_1_1observable_a09b6bd77bdb6b86f06b7f21897db4b0b}{subscribe}} (const \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{composite\+\_\+disposable\+\_\+wrapper}} \&d, On\+Next \&\&on\+\_\+next, On\+Completed \&\&on\+\_\+completed) const
-\begin{DoxyCompactList}\small\item\em Construct \doxylink{group__observers_gad7a2b4cbca14301bec3f5a5f59146c94}{rpp\+::lambda\+\_\+observer} on the fly and subscribe it to emissions from this observable. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Construct \doxylink{group__observers_ga76d808086fac28fdb0b00fc7513c741a}{rpp\+::lambda\+\_\+observer} on the fly and subscribe it to emissions from this observable. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{composite\+\_\+disposable\+\_\+wrapper}} \mbox{\hyperlink{classrpp_1_1observable_ac81ee3d805386d492ab54e40ccd6adc2}{subscribe\+\_\+with\+\_\+disposable}} (\mbox{\hyperlink{classrpp_1_1observer}{observer}}$<$ Type, Observer\+Strategy $>$ \&\&\mbox{\hyperlink{classrpp_1_1observer}{observer}}) const
 \begin{DoxyCompactList}\small\item\em Subscribes passed observer to emissions from this observable. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{composite\+\_\+disposable\+\_\+wrapper}} \mbox{\hyperlink{classrpp_1_1observable_afb9bea529786c85a6bc9b0647bde2ef5}{subscribe\+\_\+with\+\_\+disposable}} (\mbox{\hyperlink{group__observers_gaccd025034d57327e6a31b2106619197b}{dynamic\+\_\+observer}}$<$ Type $>$ \mbox{\hyperlink{classrpp_1_1observer}{observer}}) const
+\mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{composite\+\_\+disposable\+\_\+wrapper}} \mbox{\hyperlink{classrpp_1_1observable_afb9bea529786c85a6bc9b0647bde2ef5}{subscribe\+\_\+with\+\_\+disposable}} (\mbox{\hyperlink{classrpp_1_1dynamic__observer}{dynamic\+\_\+observer}}$<$ Type $>$ \mbox{\hyperlink{classrpp_1_1observer}{observer}}) const
 \begin{DoxyCompactList}\small\item\em Subscribe passed observer to emissions from this observable. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{composite\+\_\+disposable\+\_\+wrapper}} \mbox{\hyperlink{classrpp_1_1observable_acb875b06e348c6d77706e6d04aed4944}{subscribe\+\_\+with\+\_\+disposable}} (On\+Next \&\&on\+\_\+next, On\+Error \&\&on\+\_\+error=\{\}, On\+Completed \&\&on\+\_\+completed=\{\}) const
-\begin{DoxyCompactList}\small\item\em Construct \doxylink{group__observers_gad7a2b4cbca14301bec3f5a5f59146c94}{rpp\+::lambda\+\_\+observer} on the fly and subscribe it to emissions from this observable. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Construct \doxylink{group__observers_ga76d808086fac28fdb0b00fc7513c741a}{rpp\+::lambda\+\_\+observer} on the fly and subscribe it to emissions from this observable. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{composite\+\_\+disposable\+\_\+wrapper}} \mbox{\hyperlink{classrpp_1_1observable_aa264608e3b4b845fa739b32c2e44d167}{subscribe\+\_\+with\+\_\+disposable}} (On\+Next \&\&on\+\_\+next, On\+Completed \&\&on\+\_\+completed) const
-\begin{DoxyCompactList}\small\item\em Construct \doxylink{group__observers_gad7a2b4cbca14301bec3f5a5f59146c94}{rpp\+::lambda\+\_\+observer} on the fly and subscribe it to emissions from this observable. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Construct \doxylink{group__observers_ga76d808086fac28fdb0b00fc7513c741a}{rpp\+::lambda\+\_\+observer} on the fly and subscribe it to emissions from this observable. \end{DoxyCompactList}\item 
 auto {\bfseries as\+\_\+dynamic} () const \&
 \begin{DoxyCompactList}\small\item\em Convert observable to type-\/erased version. \end{DoxyCompactList}\item 
 auto {\bfseries as\+\_\+dynamic} () \&\&
@@ -77,6 +78,14 @@ auto {\bfseries operator\texorpdfstring{$\vert$}{|}} (\mbox{\hyperlink{classrpp_
 auto {\bfseries pipe} (Op \&\&op) const \&
 \item 
 auto {\bfseries pipe} (Op \&\&op) \&\&
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Public Types inherited from \mbox{\hyperlink{classrpp_1_1observable}{rpp\+::observable$<$ Type, details\+::observables\+::dynamic\+\_\+strategy$<$ Type $>$ $>$}}}
+\begin{DoxyCompactItemize}
+\item 
+using {\bfseries value\+\_\+type}
+\item 
+using {\bfseries expected\+\_\+disposable\+\_\+strategy}
 \end{DoxyCompactItemize}
 
 

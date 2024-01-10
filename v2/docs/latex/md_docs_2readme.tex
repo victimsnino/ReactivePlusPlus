@@ -109,7 +109,7 @@ For example\+:
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ observer.on\_next(digit);}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{\ \ \ \ \})}
-\DoxyCodeLine{\ \ \ \ .subscribe([](\textcolor{keywordtype}{int}\ val)}
+\DoxyCodeLine{\ \ \ \ .\mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{subscribe}}([](\textcolor{keywordtype}{int}\ val)}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}obtained\ val\ "{}}\ <<\ val\ <<\ std::endl;}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \},}
@@ -180,7 +180,7 @@ It means, that for example\+:
 \DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{return}\ v;}
 \DoxyCodeLine{\ \ \})}
 \DoxyCodeLine{\ \ |\ \mbox{\hyperlink{group__utility__operators_ga9df008c11eeff8c9383e56bf36e28ec2}{rpp::operators::as\_blocking}}()}
-\DoxyCodeLine{\ \ |\ rpp::operators::subscribe([](\textcolor{keywordtype}{int})\{\});}
+\DoxyCodeLine{\ \ |\ \mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{rpp::operators::subscribe}}([](\textcolor{keywordtype}{int})\{\});}
 
 \end{DoxyCode}
 
@@ -229,7 +229,7 @@ For example, we can create observable to get chars from console input, do it til
 \DoxyCodeLine{\ \ \ \ |\ \mbox{\hyperlink{group__conditional__operators_gac65952f7460d8f0e71a93d95810d2061}{rpp::operators::take\_while}}([](\textcolor{keywordtype}{char}\ v)\ \{\ \textcolor{keywordflow}{return}\ v\ !=\ \textcolor{charliteral}{'0'};\ \})}
 \DoxyCodeLine{\ \ \ \ |\ \mbox{\hyperlink{group__filtering__operators_ga3ad579153e7975af6ae4b75f585fb873}{rpp::operators::filter}}(std::not\_fn(\&::isdigit))}
 \DoxyCodeLine{\ \ \ \ |\ \mbox{\hyperlink{group__transforming__operators_ga1291dba2d973d4ba1061c9e0e202cb3f}{rpp::operators::map}}(\&::toupper)}
-\DoxyCodeLine{\ \ \ \ |\ rpp::operators::subscribe([](\textcolor{keywordtype}{char}\ v)\ \{\ std::cout\ <<\ v;\ \});}
+\DoxyCodeLine{\ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{rpp::operators::subscribe}}([](\textcolor{keywordtype}{char}\ v)\ \{\ std::cout\ <<\ v;\ \});}
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ \textcolor{comment}{//\ input:\ 12345qwer5125ttqt0}}
 \DoxyCodeLine{\ \ \textcolor{comment}{//\ output:\ QWERTTQT}}
@@ -280,7 +280,7 @@ For now it is {\ttfamily observable of strings} due to it is {\ttfamily \doxylin
 \DoxyCodeLine{\ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ Type,\ \textcolor{keyword}{typename}\ Internal>}
 \DoxyCodeLine{\ \ \textcolor{keyword}{auto}\ operator()(\textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1observable}{rpp::observable<Type,\ Internal>}}\&\ observable)\textcolor{keyword}{\ const\ }\{}
 \DoxyCodeLine{\ \ \ \ \textcolor{keyword}{using\ }FinalType\ =\ std::invoke\_result\_t<Fn,\ Type>;}
-\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{rpp::source::create<FinalType>}}([observable,\ fn](\textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1observer}{rpp::dynamic\_observer<FinalType>}}\&\ observer)}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{rpp::source::create<FinalType>}}([observable,\ fn](\textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1dynamic__observer}{rpp::dynamic\_observer<FinalType>}}\&\ observer)}
 \DoxyCodeLine{\ \ \ \ \{}
 \DoxyCodeLine{\ \ \ \ \ \ observable.\mbox{\hyperlink{classrpp_1_1observable_a193b0e08c516912c04afd8379ec27182}{subscribe}}([observer,\ fn](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ v)\ \{\ observer.\mbox{\hyperlink{classrpp_1_1details_1_1observer__impl_a14747a5260ecc183a6d0f1adafee4f68}{on\_next}}(fn(v));\ \},}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [observer](\textcolor{keyword}{const}\ std::exception\_ptr\&\ err)\ \{\ observer.\mbox{\hyperlink{classrpp_1_1details_1_1observer__impl_aa55c5a334bc39c92218f7b51e5126bbc}{on\_error}}(err);\ \},}
@@ -319,7 +319,7 @@ Example\+:
 \DoxyCodeLine{\ \ Fn\ fn\{\};}
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ Upstream,\ \textcolor{keyword}{typename}\ Downstream>}
-\DoxyCodeLine{\ \ \textcolor{keyword}{auto}\ lift(\textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1observer}{rpp::dynamic\_observer<Downstream>}}\&\ observer)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{\ \ \textcolor{keyword}{auto}\ lift(\textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1dynamic__observer}{rpp::dynamic\_observer<Downstream>}}\&\ observer)\textcolor{keyword}{\ const}}
 \DoxyCodeLine{\textcolor{keyword}{\ \ }\{}
 \DoxyCodeLine{\ \ \ \ \ \ \textcolor{keywordflow}{return}\ rpp::make\_lambda\_observer<Upstream>([observer,\ fn](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ v)\{\ observer.\mbox{\hyperlink{classrpp_1_1details_1_1observer__impl_a14747a5260ecc183a6d0f1adafee4f68}{on\_next}}(fn(v));\ \},}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [observer](\textcolor{keyword}{const}\ std::exception\_ptr\&\ err)\ \{\ observer.\mbox{\hyperlink{classrpp_1_1details_1_1observer__impl_aa55c5a334bc39c92218f7b51e5126bbc}{on\_error}}(err);\ \},}
@@ -339,7 +339,7 @@ By default, an {\bfseries{Observable}} will perform its work in the thread where
 \begin{DoxyCode}{0}
 \DoxyCodeLine{\mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(1,2,3,4,5)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 1}}
 \DoxyCodeLine{|\ \mbox{\hyperlink{group__utility__operators_gace728cfbf71720901cb6f310edabf8b0}{rpp::operators::subscribe\_on}}(\mbox{\hyperlink{classrpp_1_1schedulers_1_1new__thread}{rpp::schedulers::new\_thread}}\{\})\ \textcolor{comment}{//\ 2}}
-\DoxyCodeLine{|\ rpp::operators::subscribe([](\textcolor{keyword}{auto})\{\});\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 3}}
+\DoxyCodeLine{|\ \mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{rpp::operators::subscribe}}([](\textcolor{keyword}{auto})\{\});\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 3}}
 
 \end{DoxyCode}
 
@@ -351,7 +351,7 @@ In this case subscribe to {\ttfamily 3} happens in current thread (where subscri
 \DoxyCodeLine{\ \ \mbox{\hyperlink{classrpp_1_1schedulers_1_1new__thread}{rpp::schedulers::new\_thread}}\{\}.create\_worker([](...)\ \{}
 \DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(1,2,3,4,5).subscribe(observer);}
 \DoxyCodeLine{\ \ \})}
-\DoxyCodeLine{\}).subscribe(...);}
+\DoxyCodeLine{\}).\mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{subscribe}}(...);}
 
 \end{DoxyCode}
 
@@ -362,7 +362,7 @@ The {\bfseries{observe\+\_\+on}} operator specifies the {\bfseries{scheduler}} t
 \begin{DoxyCode}{0}
 \DoxyCodeLine{\mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(1,2,3,4,5)}
 \DoxyCodeLine{|\ \mbox{\hyperlink{group__utility__operators_ga3feb1b1258c7e3e72c151abf176c30c4}{rpp::operators::observe\_on}}(\mbox{\hyperlink{classrpp_1_1schedulers_1_1new__thread}{rpp::schedulers::new\_thread}}\{\})}
-\DoxyCodeLine{|\ rpp::operators::subscribe([](\textcolor{keyword}{auto})\{\});}
+\DoxyCodeLine{|\ \mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{rpp::operators::subscribe}}([](\textcolor{keyword}{auto})\{\});}
 
 \end{DoxyCode}
 
@@ -377,7 +377,7 @@ In this case whole subscription flow happens in thread of subscription, but emis
 \DoxyCodeLine{\ \ \ \ \ \ observer.\mbox{\hyperlink{classrpp_1_1details_1_1observer__impl_a14747a5260ecc183a6d0f1adafee4f68}{on\_next}}(v);}
 \DoxyCodeLine{\ \ \ \ \}}
 \DoxyCodeLine{\ \ \})}
-\DoxyCodeLine{\}).subscribe(...);}
+\DoxyCodeLine{\}).\mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{subscribe}}(...);}
 
 \end{DoxyCode}
 

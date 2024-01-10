@@ -1,0 +1,92 @@
+\doxysection{rpp\+::dynamic\+\_\+observer\texorpdfstring{$<$}{<} Type \texorpdfstring{$>$}{>} Class Template Reference}
+\hypertarget{classrpp_1_1dynamic__observer}{}\label{classrpp_1_1dynamic__observer}\index{rpp::dynamic\_observer$<$ Type $>$@{rpp::dynamic\_observer$<$ Type $>$}}
+
+
+Type-\/erased version of the {\ttfamily \doxylink{classrpp_1_1observer}{rpp\+::observer}}. Any observer can be converted to \doxylink{classrpp_1_1dynamic__observer}{dynamic\+\_\+observer} via {\ttfamily \doxylink{classrpp_1_1observer_ab008a79c1c7825554c91dbc6d130ece4}{rpp\+::observer\+::as\+\_\+dynamic}} member function.  
+
+
+
+
+{\ttfamily \#include $<$dynamic\+\_\+observer.\+hpp$>$}
+
+Inheritance diagram for rpp\+::dynamic\+\_\+observer\texorpdfstring{$<$}{<} Type \texorpdfstring{$>$}{>}\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.662441cm]{classrpp_1_1dynamic__observer}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classrpp_1_1dynamic__observer_af73573a3ec663390004adb4de45ea317}\label{classrpp_1_1dynamic__observer_af73573a3ec663390004adb4de45ea317} 
+{\bfseries dynamic\+\_\+observer} (\mbox{\hyperlink{classrpp_1_1observer}{base}} \&\&b)
+\item 
+\Hypertarget{classrpp_1_1dynamic__observer_a386de3ed61034dcb88ff100861ce8992}\label{classrpp_1_1dynamic__observer_a386de3ed61034dcb88ff100861ce8992} 
+{\bfseries dynamic\+\_\+observer} (const \mbox{\hyperlink{classrpp_1_1observer}{base}} \&b)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classrpp_1_1observer}{rpp\+::observer$<$ Type, details\+::observers\+::dynamic\+\_\+strategy$<$ Type $>$ $>$}}}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries observer} (Args \&\&... args)
+\item 
+{\bfseries observer} (const \mbox{\hyperlink{classrpp_1_1observer}{observer}} \&)=delete
+\item 
+{\bfseries observer} (\mbox{\hyperlink{classrpp_1_1observer}{observer}} \&\&) noexcept=default
+\item 
+\mbox{\hyperlink{classrpp_1_1dynamic__observer}{dynamic\+\_\+observer}}$<$ Type $>$ {\bfseries as\+\_\+dynamic} () \&\&
+\begin{DoxyCompactList}\small\item\em Convert current observer to type-\/erased version. Useful if you need to COPY your observer or to store different observers in same container. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classrpp_1_1details_1_1observer__impl}{rpp\+::details\+::observer\+\_\+impl$<$ Type, Strategy, details\+::observers\+::deduce\+\_\+disposable\+\_\+strategy\+\_\+t$<$ Strategy $>$ $>$}}}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classrpp_1_1details_1_1observer__impl_a3ae7822fe5f962a69ee190af8ff8f0e2}{set\+\_\+upstream}} (const \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{disposable\+\_\+wrapper}} \&d) noexcept
+\begin{DoxyCompactList}\small\item\em Observable calls this method to pass disposable. Observer disposes this disposable WHEN observer wants to unsubscribe. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classrpp_1_1details_1_1observer__impl_ab4d6f3e513e55f94547c8fa4d042f0cb}{is\+\_\+disposed}} () const noexcept
+\begin{DoxyCompactList}\small\item\em Observable calls this method to check if observer interested or not in emissions. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classrpp_1_1details_1_1observer__impl_a14747a5260ecc183a6d0f1adafee4f68}{on\+\_\+next}} (const Type \&v) const noexcept
+\begin{DoxyCompactList}\small\item\em Observable calls this method to notify observer about new value. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classrpp_1_1details_1_1observer__impl_a3f97f7bceb8484af908ed4134d88104b}{on\+\_\+next}} (Type \&\&v) const noexcept
+\begin{DoxyCompactList}\small\item\em Observable calls this method to notify observer about new value. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classrpp_1_1details_1_1observer__impl_aa55c5a334bc39c92218f7b51e5126bbc}{on\+\_\+error}} (const std\+::exception\+\_\+ptr \&err) const noexcept
+\begin{DoxyCompactList}\small\item\em Observable calls this method to notify observer about some error during generation next data. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classrpp_1_1details_1_1observer__impl_a7a73f13eae52effde01a2d3b2cf1d1b4}{on\+\_\+completed}} () const noexcept
+\begin{DoxyCompactList}\small\item\em Observable calls this method to notify observer about completion of emissions. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Public Types inherited from \mbox{\hyperlink{classrpp_1_1details_1_1observer__impl}{rpp\+::details\+::observer\+\_\+impl$<$ Type, Strategy, details\+::observers\+::deduce\+\_\+disposable\+\_\+strategy\+\_\+t$<$ Strategy $>$ $>$}}}
+\begin{DoxyCompactItemize}
+\item 
+using {\bfseries preferred\+\_\+disposable\+\_\+strategy}
+\item 
+using {\bfseries on\+\_\+next\+\_\+lvalue}
+\item 
+using {\bfseries on\+\_\+next\+\_\+rvalue}
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions inherited from \mbox{\hyperlink{classrpp_1_1details_1_1observer__impl}{rpp\+::details\+::observer\+\_\+impl$<$ Type, Strategy, details\+::observers\+::deduce\+\_\+disposable\+\_\+strategy\+\_\+t$<$ Strategy $>$ $>$}}}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries observer\+\_\+impl} (Disposables\+Strategy strategy, Args \&\&... args)
+\item 
+{\bfseries observer\+\_\+impl} (Args \&\&... args)
+\item 
+{\bfseries observer\+\_\+impl} (const \mbox{\hyperlink{classrpp_1_1details_1_1observer__impl}{observer\+\_\+impl}} \&)=default
+\item 
+{\bfseries observer\+\_\+impl} (\mbox{\hyperlink{classrpp_1_1details_1_1observer__impl}{observer\+\_\+impl}} \&\&) noexcept=default
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$constraint\+::decayed\+\_\+type Type$>$\newline
+class rpp\+::dynamic\+\_\+observer$<$ Type $>$}
+Type-\/erased version of the {\ttfamily \doxylink{classrpp_1_1observer}{rpp\+::observer}}. Any observer can be converted to \doxylink{classrpp_1_1dynamic__observer}{dynamic\+\_\+observer} via {\ttfamily \doxylink{classrpp_1_1observer_ab008a79c1c7825554c91dbc6d130ece4}{rpp\+::observer\+::as\+\_\+dynamic}} member function. 
+
+To provide type-\/erasure it uses {\ttfamily std\+::shared\+\_\+ptr}. As a result it has worse performance, but it is {\bfseries{ONLY}} way to copy observer.
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Type} & of value this observer can handle \\
+\hline
+\end{DoxyTemplParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/rpp/rpp/observers/dynamic\+\_\+observer.\+hpp\end{DoxyCompactItemize}

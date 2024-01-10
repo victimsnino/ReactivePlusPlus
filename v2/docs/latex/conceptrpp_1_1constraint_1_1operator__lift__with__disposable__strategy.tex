@@ -4,7 +4,7 @@
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename}\ Op,\ \textcolor{keyword}{typename}\ Type,\ \textcolor{keyword}{typename}\ DisposableStrategy>}
-\DoxyCodeLine{\textcolor{keyword}{concept\ }\mbox{\hyperlink{conceptrpp_1_1constraint_1_1operator__lift__with__disposable__strategy}{rpp::constraint::operator\_lift\_with\_disposable\_strategy}}\ =\ \ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1operator__base}{operator\_base<Op,\ Type>}}\ \&\&\ \textcolor{keyword}{requires}(\textcolor{keyword}{const}\ Op\&\ op,\ dynamic\_observer<typename\ std::decay\_t<Op>::template\ result\_value<Type>>\&\&\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer}{observer}})}
+\DoxyCodeLine{\textcolor{keyword}{concept\ }\mbox{\hyperlink{conceptrpp_1_1constraint_1_1operator__lift__with__disposable__strategy}{rpp::constraint::operator\_lift\_with\_disposable\_strategy}}\ =\ \ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1operator__base}{operator\_base<Op,\ Type>}}\ \&\&\ \textcolor{keyword}{requires}(\textcolor{keyword}{const}\ Op\&\ op,\ \mbox{\hyperlink{classrpp_1_1observer}{rpp::details::observers::fake\_observer<typename\ std::decay\_t<Op>::template}}\ result\_value<Type>>\&\&\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer}{observer}})}
 \DoxyCodeLine{\{}
 \DoxyCodeLine{\ \ \ \ \{op.template\ lift\_with\_disposable\_strategy<Type,\ DisposableStrategy>(std::move(\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer}{observer}}))\}\ -\/>\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer__of__type}{rpp::constraint::observer\_of\_type<Type>}};}
 \DoxyCodeLine{\}}

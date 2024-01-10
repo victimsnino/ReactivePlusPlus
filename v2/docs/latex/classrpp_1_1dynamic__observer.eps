@@ -5,7 +5,7 @@
 %%For: 
 %Magnification: 1.00
 %%Orientation: Portrait
-%%BoundingBox: 0 0 500 108.108109
+%%BoundingBox: 0 0 500 95.087166
 %%Pages: 0
 %%BeginSetup
 %%EndSetup
@@ -19,12 +19,12 @@
 /marginwidth 10 def
 /distx 20 def
 /disty 40 def
-/boundaspect 4.625000 def  % aspect ratio of the BoundingBox (width/height)
+/boundaspect 5.258333 def  % aspect ratio of the BoundingBox (width/height)
 /boundx 500 def
 /boundy boundx boundaspect div def
 /xspacing 0 def
 /yspacing 0 def
-/rows 2 def
+/rows 3 def
 /cols 1 def
 /scalefactor 0 def
 /boxfont /Times-Roman findfont fontheight scalefont def
@@ -173,8 +173,9 @@
 
 boxfont setfont
 1 boundaspect scale
-(rpp::connectable_observable< OriginalObservable, Subject >) cw
-(decltypestd::declval< Subject >get_observable) cw
+(rpp::dynamic_observer< Type >) cw
+(rpp::observer< Type, details::observers::dynamic_strategy< Type > >) cw
+(rpp::details::observer_impl< Type, Strategy, details::observers::deduce_disposable_strategy_t< Strategy > >) cw
 /boxwidth boxwidth marginwidth 2 mul add def
 /xspacing boxwidth distx add def
 /yspacing boxheight disty add def
@@ -186,8 +187,9 @@ boundx scalefactor div boundy scalefactor div scale
 
 % ----- classes -----
 
- (rpp::connectable_observable< OriginalObservable, Subject >) 0.000000 0.000000 box
- (decltypestd::declval< Subject >get_observable) 0.000000 1.000000 box
+ (rpp::dynamic_observer< Type >) 0.000000 0.000000 box
+ (rpp::observer< Type, details::observers::dynamic_strategy< Type > >) 0.000000 1.000000 box
+ (rpp::details::observer_impl< Type, Strategy, details::observers::deduce_disposable_strategy_t< Strategy > >) 0.000000 2.000000 box
 
 % ----- relations -----
 
@@ -195,3 +197,7 @@ solid
 0 0.000000 0.000000 out
 solid
 1 0.000000 1.000000 in
+solid
+0 0.000000 1.000000 out
+solid
+1 0.000000 2.000000 in

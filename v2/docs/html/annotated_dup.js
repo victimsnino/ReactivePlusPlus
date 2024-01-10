@@ -14,12 +14,14 @@ var annotated_dup =
           [ "default_disposable_strategy_selector", "structrpp_1_1details_1_1observables_1_1default__disposable__strategy__selector.html", null ],
           [ "dynamic_disposable_strategy_selector", "structrpp_1_1details_1_1observables_1_1dynamic__disposable__strategy__selector.html", null ],
           [ "dynamic_strategy", "classrpp_1_1details_1_1observables_1_1dynamic__strategy.html", null ],
+          [ "fake_strategy", "structrpp_1_1details_1_1observables_1_1fake__strategy.html", null ],
           [ "fixed_disposable_strategy_selector", "structrpp_1_1details_1_1observables_1_1fixed__disposable__strategy__selector.html", null ],
           [ "fixed_disposable_strategy_selector< 0, Mode >", "structrpp_1_1details_1_1observables_1_1fixed__disposable__strategy__selector_3_010_00_01_mode_01_4.html", null ]
         ] ],
         [ "observers", null, [
           [ "atomic_bool", "classrpp_1_1details_1_1observers_1_1atomic__bool.html", null ],
           [ "dynamic_strategy", "classrpp_1_1details_1_1observers_1_1dynamic__strategy.html", null ],
+          [ "fake_strategy", "structrpp_1_1details_1_1observers_1_1fake__strategy.html", null ],
           [ "lambda_strategy", "structrpp_1_1details_1_1observers_1_1lambda__strategy.html", null ],
           [ "local_disposable_strategy", "classrpp_1_1details_1_1observers_1_1local__disposable__strategy.html", null ],
           [ "member_ptr_caller_impl", "structrpp_1_1details_1_1observers_1_1member__ptr__caller__impl.html", null ],
@@ -35,7 +37,6 @@ var annotated_dup =
         [ "defer_strategy", "structrpp_1_1details_1_1defer__strategy.html", null ],
         [ "empty_strategy", "structrpp_1_1details_1_1empty__strategy.html", null ],
         [ "error_strategy", "structrpp_1_1details_1_1error__strategy.html", null ],
-        [ "fake_strategy", "structrpp_1_1details_1_1fake__strategy.html", null ],
         [ "from_callable_invoke", "structrpp_1_1details_1_1from__callable__invoke.html", null ],
         [ "from_iterable_schedulable", "structrpp_1_1details_1_1from__iterable__schedulable.html", null ],
         [ "from_iterable_strategy", "structrpp_1_1details_1_1from__iterable__strategy.html", null ],
@@ -191,12 +192,14 @@ var annotated_dup =
         [ "publish_subject", "classrpp_1_1subjects_1_1publish__subject.html", null ],
         [ "serialized_subject", "classrpp_1_1subjects_1_1serialized__subject.html", null ]
       ] ],
+      [ "blocking_observable", "classrpp_1_1blocking__observable.html", null ],
       [ "callback_disposable", "classrpp_1_1callback__disposable.html", null ],
       [ "composite_disposable", "classrpp_1_1composite__disposable.html", null ],
       [ "composite_disposable_impl", "classrpp_1_1composite__disposable__impl.html", "classrpp_1_1composite__disposable__impl" ],
       [ "connectable_observable", "classrpp_1_1connectable__observable.html", "classrpp_1_1connectable__observable" ],
       [ "disposable_wrapper_impl", "classrpp_1_1disposable__wrapper__impl.html", null ],
       [ "dynamic_observable", "classrpp_1_1dynamic__observable.html", null ],
+      [ "dynamic_observer", "classrpp_1_1dynamic__observer.html", null ],
       [ "grouped_observable", "classrpp_1_1grouped__observable.html", null ],
       [ "interface_composite_disposable", "structrpp_1_1interface__composite__disposable.html", null ],
       [ "interface_disposable", "structrpp_1_1interface__disposable.html", "structrpp_1_1interface__disposable" ],
@@ -206,6 +209,8 @@ var annotated_dup =
       [ "observable_chain_strategy", "classrpp_1_1observable__chain__strategy.html", null ],
       [ "observable_chain_strategy< TStrategy >", "classrpp_1_1observable__chain__strategy_3_01_t_strategy_01_4.html", null ],
       [ "observer", "classrpp_1_1observer.html", "classrpp_1_1observer" ],
+      [ "observer< Type, details::with_disposable_strategy< Strategy, DisposableStrategy > >", "classrpp_1_1observer_3_01_type_00_01details_1_1with__disposable__strategy_3_01_strategy_00_01_disposable_strategy_01_4_01_4.html", "classrpp_1_1observer_3_01_type_00_01details_1_1with__disposable__strategy_3_01_strategy_00_01_disposable_strategy_01_4_01_4" ],
+      [ "observer< Type, rpp::details::observers::dynamic_strategy< Type > >", "classrpp_1_1observer_3_01_type_00_01rpp_1_1details_1_1observers_1_1dynamic__strategy_3_01_type_01_4_01_4.html", null ],
       [ "refcount_disposable", "classrpp_1_1refcount__disposable.html", null ]
     ] ],
     [ "rppqt", null, [

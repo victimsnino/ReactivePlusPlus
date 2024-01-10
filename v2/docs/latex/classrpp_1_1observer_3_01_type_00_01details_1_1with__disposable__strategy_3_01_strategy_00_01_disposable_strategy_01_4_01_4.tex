@@ -1,0 +1,65 @@
+\doxysection{rpp\+::observer\texorpdfstring{$<$}{<} Type, details\+::with\+\_\+disposable\+\_\+strategy\texorpdfstring{$<$}{<} Strategy, Disposable\+Strategy \texorpdfstring{$>$}{>} \texorpdfstring{$>$}{>} Class Template Reference}
+\hypertarget{classrpp_1_1observer_3_01_type_00_01details_1_1with__disposable__strategy_3_01_strategy_00_01_disposable_strategy_01_4_01_4}{}\label{classrpp_1_1observer_3_01_type_00_01details_1_1with__disposable__strategy_3_01_strategy_00_01_disposable_strategy_01_4_01_4}\index{rpp::observer$<$ Type, details::with\_disposable\_strategy$<$ Strategy, DisposableStrategy $>$ $>$@{rpp::observer$<$ Type, details::with\_disposable\_strategy$<$ Strategy, DisposableStrategy $>$ $>$}}
+Inheritance diagram for rpp\+::observer\texorpdfstring{$<$}{<} Type, details\+::with\+\_\+disposable\+\_\+strategy\texorpdfstring{$<$}{<} Strategy, Disposable\+Strategy \texorpdfstring{$>$}{>} \texorpdfstring{$>$}{>}\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classrpp_1_1observer_3_01_type_00_01details_1_1with__disposable__strategy_3_01_strategy_00_01_disposable_strategy_01_4_01_4}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classrpp_1_1observer_3_01_type_00_01details_1_1with__disposable__strategy_3_01_strategy_00_01_disposable_strategy_01_4_01_4_aec4ac1d9d680fb250553f2ef1a95e969}\label{classrpp_1_1observer_3_01_type_00_01details_1_1with__disposable__strategy_3_01_strategy_00_01_disposable_strategy_01_4_01_4_aec4ac1d9d680fb250553f2ef1a95e969} 
+{\footnotesize template$<$typename... Args$>$ \newline
+requires (!rpp\+::constraint\+::variadic\+\_\+decayed\+\_\+same\+\_\+as$<$\mbox{\hyperlink{classrpp_1_1observer}{observer}}$<$Type, \mbox{\hyperlink{structrpp_1_1details_1_1with__disposable__strategy}{details\+::with\+\_\+disposable\+\_\+strategy}}$<$Strategy, Disposable\+Strategy$>$$>$ , Args...$>$)}\\{\bfseries observer} (Args \&\&... args)
+\item 
+\Hypertarget{classrpp_1_1observer_3_01_type_00_01details_1_1with__disposable__strategy_3_01_strategy_00_01_disposable_strategy_01_4_01_4_a32600238c190a3596d986f834503ce3b}\label{classrpp_1_1observer_3_01_type_00_01details_1_1with__disposable__strategy_3_01_strategy_00_01_disposable_strategy_01_4_01_4_a32600238c190a3596d986f834503ce3b} 
+{\bfseries observer} (const \mbox{\hyperlink{classrpp_1_1observer}{observer}} \&)=delete
+\item 
+\Hypertarget{classrpp_1_1observer_3_01_type_00_01details_1_1with__disposable__strategy_3_01_strategy_00_01_disposable_strategy_01_4_01_4_ab8bf5d10bf02d0b6a64c2a898705f785}\label{classrpp_1_1observer_3_01_type_00_01details_1_1with__disposable__strategy_3_01_strategy_00_01_disposable_strategy_01_4_01_4_ab8bf5d10bf02d0b6a64c2a898705f785} 
+{\bfseries observer} (\mbox{\hyperlink{classrpp_1_1observer}{observer}} \&\&) noexcept=default
+\item 
+\Hypertarget{classrpp_1_1observer_3_01_type_00_01details_1_1with__disposable__strategy_3_01_strategy_00_01_disposable_strategy_01_4_01_4_a4527ce1eb5a5520cd73b3db5dcc24c08}\label{classrpp_1_1observer_3_01_type_00_01details_1_1with__disposable__strategy_3_01_strategy_00_01_disposable_strategy_01_4_01_4_a4527ce1eb5a5520cd73b3db5dcc24c08} 
+\mbox{\hyperlink{classrpp_1_1dynamic__observer}{dynamic\+\_\+observer}}$<$ Type $>$ {\bfseries as\+\_\+dynamic} () \&\&
+\begin{DoxyCompactList}\small\item\em Convert current observer to type-\/erased version. Useful if you need to COPY your observer or to store different observers in same container. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classrpp_1_1details_1_1observer__impl}{rpp\+::details\+::observer\+\_\+impl$<$ Type, Strategy, Disposable\+Strategy $>$}}}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classrpp_1_1details_1_1observer__impl_a3ae7822fe5f962a69ee190af8ff8f0e2}{set\+\_\+upstream}} (const \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{disposable\+\_\+wrapper}} \&d) noexcept
+\begin{DoxyCompactList}\small\item\em Observable calls this method to pass disposable. Observer disposes this disposable WHEN observer wants to unsubscribe. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classrpp_1_1details_1_1observer__impl_ab4d6f3e513e55f94547c8fa4d042f0cb}{is\+\_\+disposed}} () const noexcept
+\begin{DoxyCompactList}\small\item\em Observable calls this method to check if observer interested or not in emissions. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classrpp_1_1details_1_1observer__impl_a14747a5260ecc183a6d0f1adafee4f68}{on\+\_\+next}} (const Type \&v) const noexcept
+\begin{DoxyCompactList}\small\item\em Observable calls this method to notify observer about new value. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classrpp_1_1details_1_1observer__impl_a3f97f7bceb8484af908ed4134d88104b}{on\+\_\+next}} (Type \&\&v) const noexcept
+\begin{DoxyCompactList}\small\item\em Observable calls this method to notify observer about new value. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classrpp_1_1details_1_1observer__impl_aa55c5a334bc39c92218f7b51e5126bbc}{on\+\_\+error}} (const std\+::exception\+\_\+ptr \&err) const noexcept
+\begin{DoxyCompactList}\small\item\em Observable calls this method to notify observer about some error during generation next data. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classrpp_1_1details_1_1observer__impl_a7a73f13eae52effde01a2d3b2cf1d1b4}{on\+\_\+completed}} () const noexcept
+\begin{DoxyCompactList}\small\item\em Observable calls this method to notify observer about completion of emissions. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Public Types inherited from \mbox{\hyperlink{classrpp_1_1details_1_1observer__impl}{rpp\+::details\+::observer\+\_\+impl$<$ Type, Strategy, Disposable\+Strategy $>$}}}
+\begin{DoxyCompactItemize}
+\item 
+using {\bfseries preferred\+\_\+disposable\+\_\+strategy}
+\item 
+using {\bfseries on\+\_\+next\+\_\+lvalue}
+\item 
+using {\bfseries on\+\_\+next\+\_\+rvalue}
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions inherited from \mbox{\hyperlink{classrpp_1_1details_1_1observer__impl}{rpp\+::details\+::observer\+\_\+impl$<$ Type, Strategy, Disposable\+Strategy $>$}}}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries observer\+\_\+impl} (Disposables\+Strategy strategy, Args \&\&... args)
+\item 
+{\bfseries observer\+\_\+impl} (Args \&\&... args)
+\item 
+{\bfseries observer\+\_\+impl} (const \mbox{\hyperlink{classrpp_1_1details_1_1observer__impl}{observer\+\_\+impl}} \&)=default
+\item 
+{\bfseries observer\+\_\+impl} (\mbox{\hyperlink{classrpp_1_1details_1_1observer__impl}{observer\+\_\+impl}} \&\&) noexcept=default
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/rpp/rpp/observers/observer.\+hpp\end{DoxyCompactItemize}

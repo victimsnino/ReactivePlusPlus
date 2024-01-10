@@ -4,7 +4,7 @@
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename}\ S,\ \textcolor{keyword}{typename}\ T>}
-\DoxyCodeLine{\textcolor{keyword}{concept\ }\mbox{\hyperlink{conceptrpp_1_1constraint_1_1on__subscribe}{rpp::constraint::on\_subscribe}}\ =\ \ \textcolor{keyword}{requires}(\textcolor{keyword}{const}\ S\&\ strategy,\ \mbox{\hyperlink{classrpp_1_1observer}{rpp::details::fake\_observer<T>}}\&\&\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer}{observer}})}
+\DoxyCodeLine{\textcolor{keyword}{concept\ }\mbox{\hyperlink{conceptrpp_1_1constraint_1_1on__subscribe}{rpp::constraint::on\_subscribe}}\ =\ \ \textcolor{keyword}{requires}(\textcolor{keyword}{const}\ S\&\ strategy,\ \mbox{\hyperlink{classrpp_1_1observer}{rpp::details::observers::fake\_observer<T>}}\&\&\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer}{observer}})}
 \DoxyCodeLine{\{}
 \DoxyCodeLine{\ \ \ \ \{strategy(std::move(\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer}{observer}}))\}\ -\/>\ std::same\_as<void>;}
 \DoxyCodeLine{\}}
