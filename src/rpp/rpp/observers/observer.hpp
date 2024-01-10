@@ -16,7 +16,6 @@
 #include <rpp/defs.hpp>
 #include <rpp/disposables/composite_disposable.hpp>
 #include <rpp/disposables/disposable_wrapper.hpp>
-#include <rpp/observers/dynamic_observer.hpp>
 #include <rpp/utils/exceptions.hpp>
 #include <rpp/utils/functors.hpp>
 #include <rpp/utils/utils.hpp>
@@ -225,7 +224,7 @@ public:
 };
 
 template<constraint::decayed_type Type>
-class observer<Type, rpp::details::observers::dynamic_strategy<Type>> final
+class observer<Type, rpp::details::observers::dynamic_strategy<Type>>
     : public details::observer_impl<Type, rpp::details::observers::dynamic_strategy<Type>, details::observers::none_disposable_strategy>
 {
 public:
@@ -241,12 +240,12 @@ public:
 
     dynamic_observer<Type> as_dynamic() &&
     {
-        return std::move(*this);
+        return dynamic_observer<Type>{std::move(*this)};
     }
 
     const dynamic_observer<Type>& as_dynamic() &
     {
-        return *this;
+        return dynamic_observer<Type>{*this};
     }
 };
 

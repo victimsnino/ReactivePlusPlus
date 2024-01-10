@@ -16,6 +16,7 @@
 #include <rpp/sources/create.hpp>
 #include <rpp/sources/just.hpp>
 #include <rpp/schedulers/immediate.hpp>
+#include <rpp/observables/dynamic_observable.hpp>
 
 #include "mock_observer.hpp"
 #include "disposable_observable.hpp"

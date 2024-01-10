@@ -10,6 +10,8 @@
 
 #include <snitch/snitch.hpp>
 #include <rpp/sources/just.hpp>
+#include <rpp/observers/dynamic_observer.hpp>
+
 #include <exception>
 #include "mock_observer.hpp"
 

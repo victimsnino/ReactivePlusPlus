@@ -9,8 +9,9 @@
 
 #pragma once
 
-#include <rpp/disposables/fwd.hpp>
 #include <rpp/observers/fwd.hpp>
+#include <rpp/observers/observer.hpp>
+#include <rpp/disposables/fwd.hpp>
 
 #include <memory>
 #include <utility>
@@ -92,5 +93,33 @@ private:
 private:
     std::shared_ptr<void> m_forwarder;
     const vtable*         m_vtable;
+};
+}
+
+
+namespace rpp
+{
+/**
+ * @brief Type-erased version of the `rpp::observer`. Any observer can be converted to dynamic_observer via `rpp::observer::as_dynamic` member function.
+ * @details To provide type-erasure it uses `std::shared_ptr`. As a result it has worse performance, but it is **ONLY** way to copy observer.
+ *
+ * @tparam Type of value this observer can handle
+ *
+ * @ingroup observers
+ */
+template<constraint::decayed_type Type>
+class dynamic_observer final : public observer<Type, details::observers::dynamic_strategy<Type>>
+{
+    using base = observer<Type, details::observers::dynamic_strategy<Type>>;
+public:
+    using base::base;
+
+    dynamic_observer(base&& b)
+        : base{std::move(b)}
+    {}
+
+    dynamic_observer(const base& b)
+        : base{b}
+    {}
 };
 }

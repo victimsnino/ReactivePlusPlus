@@ -21,7 +21,7 @@ namespace rpp::subjects::details
 namespace constraint
 {
 template<typename Strategy, typename T>
-concept subject_strategy = requires(Strategy t, rpp::details::fake_observer<T>&& obs)
+concept subject_strategy = requires(Strategy t, rpp::details::observers::fake_observer<T>&& obs)
 {
     {t.get_observer()} -> rpp::constraint::observer;
     t.on_subscribe(std::move(obs));

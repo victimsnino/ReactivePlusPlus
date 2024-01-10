@@ -12,6 +12,7 @@
 #include <snitch/snitch.hpp>
 
 #include <rppqt/schedulers/main_thread.hpp>
+#include <rpp/observers/dynamic_observer.hpp>
 
 #include <future>
 
