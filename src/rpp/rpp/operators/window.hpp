@@ -53,6 +53,7 @@ public:
         {
             Subject subject{m_disposble};
             m_subject_data.emplace(subject_data{subject.get_observer(), subject.get_disposable()});
+            m_disposble->add(m_subject_data.disposable);
             m_observer.on_next(subject.get_observable());
             m_items_in_current_window = 0;
         }
