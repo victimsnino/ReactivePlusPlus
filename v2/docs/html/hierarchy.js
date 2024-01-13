@@ -10,7 +10,6 @@ var hierarchy =
     [ "rpp::subjects::details::base_subject< Type, details::serialized_strategy< Type > >", "classrpp_1_1subjects_1_1details_1_1base__subject.html", [
       [ "rpp::subjects::serialized_subject< Type >", "classrpp_1_1subjects_1_1serialized__subject.html", null ]
     ] ],
-    [ "rpp::subjects::details::base_subject< value_type >", "classrpp_1_1subjects_1_1details_1_1base__subject.html", null ],
     [ "BaseInterface", null, [
       [ "rpp::details::base_disposable_impl< BaseInterface >", "classrpp_1_1details_1_1base__disposable__impl.html", [
         [ "rpp::callback_disposable< Fn >", "classrpp_1_1callback__disposable.html", null ],
@@ -44,6 +43,7 @@ var hierarchy =
     [ "rpp::schedulers::delay_to", "structrpp_1_1schedulers_1_1delay__to.html", null ],
     [ "rpp::disposable_wrapper_impl< TDisposable >", "classrpp_1_1disposable__wrapper__impl.html", null ],
     [ "rpp::disposable_wrapper_impl< interface_composite_disposable >", "classrpp_1_1disposable__wrapper__impl.html", null ],
+    [ "rpp::disposable_wrapper_impl< interface_disposable >", "classrpp_1_1disposable__wrapper__impl.html", null ],
     [ "rpp::subjects::details::disposed", "structrpp_1_1subjects_1_1details_1_1disposed.html", null ],
     [ "rpp::operators::details::distinct_until_changed_observer_strategy< Type, TObserver, EqualityFn >", "structrpp_1_1operators_1_1details_1_1distinct__until__changed__observer__strategy.html", null ],
     [ "rpp::details::observables::dynamic_disposable_strategy_selector< PreallocatedCount, Mode >", "structrpp_1_1details_1_1observables_1_1dynamic__disposable__strategy__selector.html", null ],

@@ -118,6 +118,9 @@ Public Types</h2></td></tr>
 <tr class="memitem:a7b5849072b7db88b917a109e7aa341de" id="r_a7b5849072b7db88b917a109e7aa341de"><td class="memItemLeft" align="right" valign="top"><a id="a7b5849072b7db88b917a109e7aa341de" name="a7b5849072b7db88b917a109e7aa341de"></a>
 <a class="el" href="group__creational__operators.html#gab5cc2df8f7221b124d67d66de60a7bcd">using</a>&#160;</td><td class="memItemRight" valign="bottom"><b>Type</b> = rpp::utils::decayed_invoke_result_t&lt;ValueSelector, T&gt;</td></tr>
 <tr class="separator:a7b5849072b7db88b917a109e7aa341de"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2c8cca719177401a8f9e5d580d03b857" id="r_a2c8cca719177401a8f9e5d580d03b857"><td class="memItemLeft" align="right" valign="top"><a id="a2c8cca719177401a8f9e5d580d03b857" name="a2c8cca719177401a8f9e5d580d03b857"></a>
+<a class="el" href="group__creational__operators.html#gab5cc2df8f7221b124d67d66de60a7bcd">using</a>&#160;</td><td class="memItemRight" valign="bottom"><b>subject_observer</b> = <a class="el" href="group__creational__operators.html#gab5cc2df8f7221b124d67d66de60a7bcd">decltype</a>(std::declval&lt;<a class="el" href="classrpp_1_1subjects_1_1publish__subject.html">subjects::publish_subject</a>&lt;Type&gt;&gt;().get_observer())</td></tr>
+<tr class="separator:a2c8cca719177401a8f9e5d580d03b857"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -155,9 +158,9 @@ RPP_NO_UNIQUE_ADDRESS ValueSelector&#160;</td><td class="memItemRight" valign="b
 <tr class="memitem:af889dc68a2a4ef95caf66d56bfdccbc4" id="r_af889dc68a2a4ef95caf66d56bfdccbc4"><td class="memItemLeft" align="right" valign="top"><a id="af889dc68a2a4ef95caf66d56bfdccbc4" name="af889dc68a2a4ef95caf66d56bfdccbc4"></a>
 RPP_NO_UNIQUE_ADDRESS KeyComparator&#160;</td><td class="memItemRight" valign="bottom"><b>comparator</b></td></tr>
 <tr class="separator:af889dc68a2a4ef95caf66d56bfdccbc4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab74ba0f126cc121bcd10768d234fd78a" id="r_ab74ba0f126cc121bcd10768d234fd78a"><td class="memItemLeft" align="right" valign="top"><a id="ab74ba0f126cc121bcd10768d234fd78a" name="ab74ba0f126cc121bcd10768d234fd78a"></a>
-std::map&lt; TKey, <a class="el" href="classrpp_1_1subjects_1_1publish__subject.html">subjects::publish_subject</a>&lt; Type &gt;, KeyComparator &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>key_to_subject</b> {}</td></tr>
-<tr class="separator:ab74ba0f126cc121bcd10768d234fd78a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a68c6d3550b556b8e42b4b647304a7db5" id="r_a68c6d3550b556b8e42b4b647304a7db5"><td class="memItemLeft" align="right" valign="top"><a id="a68c6d3550b556b8e42b4b647304a7db5" name="a68c6d3550b556b8e42b4b647304a7db5"></a>
+std::map&lt; TKey, subject_observer, KeyComparator &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>key_to_observer</b> {}</td></tr>
+<tr class="separator:a68c6d3550b556b8e42b4b647304a7db5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a574e578d126bb2dc9eb9d52101f1c513" id="r_a574e578d126bb2dc9eb9d52101f1c513"><td class="memItemLeft" align="right" valign="top"><a id="a574e578d126bb2dc9eb9d52101f1c513" name="a574e578d126bb2dc9eb9d52101f1c513"></a>
 std::shared_ptr&lt; <a class="el" href="classrpp_1_1refcount__disposable.html">refcount_disposable</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>disposable</b> = std::make_shared&lt;<a class="el" href="classrpp_1_1refcount__disposable.html">refcount_disposable</a>&gt;()</td></tr>
 <tr class="separator:a574e578d126bb2dc9eb9d52101f1c513"><td class="memSeparator" colspan="2">&#160;</td></tr>

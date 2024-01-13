@@ -11,6 +11,9 @@
 \item 
 \Hypertarget{structrpp_1_1operators_1_1details_1_1group__by__observer__strategy_a7b5849072b7db88b917a109e7aa341de}\label{structrpp_1_1operators_1_1details_1_1group__by__observer__strategy_a7b5849072b7db88b917a109e7aa341de} 
 \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{using}} {\bfseries Type} = rpp\+::utils\+::decayed\+\_\+invoke\+\_\+result\+\_\+t$<$Value\+Selector, T$>$
+\item 
+\Hypertarget{structrpp_1_1operators_1_1details_1_1group__by__observer__strategy_a2c8cca719177401a8f9e5d580d03b857}\label{structrpp_1_1operators_1_1details_1_1group__by__observer__strategy_a2c8cca719177401a8f9e5d580d03b857} 
+\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{using}} {\bfseries subject\+\_\+observer} = \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{decltype}}(std\+::declval$<$\mbox{\hyperlink{classrpp_1_1subjects_1_1publish__subject}{subjects\+::publish\+\_\+subject}}$<$Type$>$$>$().get\+\_\+observer())
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
@@ -48,8 +51,8 @@ RPP\+\_\+\+NO\+\_\+\+UNIQUE\+\_\+\+ADDRESS Value\+Selector {\bfseries value\+\_\
 \Hypertarget{structrpp_1_1operators_1_1details_1_1group__by__observer__strategy_af889dc68a2a4ef95caf66d56bfdccbc4}\label{structrpp_1_1operators_1_1details_1_1group__by__observer__strategy_af889dc68a2a4ef95caf66d56bfdccbc4} 
 RPP\+\_\+\+NO\+\_\+\+UNIQUE\+\_\+\+ADDRESS Key\+Comparator {\bfseries comparator}
 \item 
-\Hypertarget{structrpp_1_1operators_1_1details_1_1group__by__observer__strategy_ab74ba0f126cc121bcd10768d234fd78a}\label{structrpp_1_1operators_1_1details_1_1group__by__observer__strategy_ab74ba0f126cc121bcd10768d234fd78a} 
-std\+::map$<$ TKey, \mbox{\hyperlink{classrpp_1_1subjects_1_1publish__subject}{subjects\+::publish\+\_\+subject}}$<$ Type $>$, Key\+Comparator $>$ {\bfseries key\+\_\+to\+\_\+subject} \{\}
+\Hypertarget{structrpp_1_1operators_1_1details_1_1group__by__observer__strategy_a68c6d3550b556b8e42b4b647304a7db5}\label{structrpp_1_1operators_1_1details_1_1group__by__observer__strategy_a68c6d3550b556b8e42b4b647304a7db5} 
+std\+::map$<$ TKey, subject\+\_\+observer, Key\+Comparator $>$ {\bfseries key\+\_\+to\+\_\+observer} \{\}
 \item 
 \Hypertarget{structrpp_1_1operators_1_1details_1_1group__by__observer__strategy_a574e578d126bb2dc9eb9d52101f1c513}\label{structrpp_1_1operators_1_1details_1_1group__by__observer__strategy_a574e578d126bb2dc9eb9d52101f1c513} 
 std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classrpp_1_1refcount__disposable}{refcount\+\_\+disposable}} $>$ {\bfseries disposable} = std\+::make\+\_\+shared$<$\mbox{\hyperlink{classrpp_1_1refcount__disposable}{refcount\+\_\+disposable}}$>$()
