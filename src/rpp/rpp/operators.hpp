@@ -37,6 +37,7 @@
 #include <rpp/operators/scan.hpp>
 #include <rpp/operators/subscribe.hpp>
 #include <rpp/operators/window.hpp>
+#include <rpp/operators/window_toggle.hpp>
 
 /**
  * @defgroup filtering_operators Filtering Operators
