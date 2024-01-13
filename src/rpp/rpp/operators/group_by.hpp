@@ -72,8 +72,10 @@ struct group_by_observer_strategy
     RPP_NO_UNIQUE_ADDRESS ValueSelector value_selector;
     RPP_NO_UNIQUE_ADDRESS KeyComparator comparator;
 
-    mutable std::map<TKey, subjects::publish_subject<Type>, KeyComparator> key_to_subject{};
-    std::shared_ptr<refcount_disposable>                                   disposable = std::make_shared<refcount_disposable>();
+    using subject_observer = decltype(std::declval<subjects::publish_subject<Type>>().get_observer());
+
+    mutable std::map<TKey, subject_observer, KeyComparator> key_to_observer{};
+    std::shared_ptr<refcount_disposable>                    disposable = std::make_shared<refcount_disposable>();
 
     RPP_CALL_DURING_CONSTRUCTION(
     {
@@ -93,55 +95,48 @@ struct group_by_observer_strategy
     template<rpp::constraint::decayed_same_as<T> TT>
     void on_next(TT&& val) const
     {
-        const auto subject = deduce_subject(observer, val);
-        if (!subject)
-            return;
-
-        const auto& subject_obs = subject->get_observer();
-        if (!subject_obs.is_disposed())
-            subject_obs.on_next(value_selector(std::forward<TT>(val)));
+        const auto subject_observer = deduce_observer(observer, val);
+        if (subject_observer && !subject_observer->is_disposed())
+            subject_observer->on_next(value_selector(std::forward<TT>(val)));
     }
 
     void on_error(const std::exception_ptr& err) const
     {
-        for (const auto& [key, subject] : key_to_subject)
-            subject.get_observer().on_error(err);
+        for (const auto& [key, subject_observer] : key_to_observer)
+            subject_observer.on_error(err);
 
         observer.on_error(err);
     }
 
     void on_completed() const
     {
-        for (const auto& [key, subject] : key_to_subject)
-            subject.get_observer().on_completed();
+        for (const auto& [key, subject_observer] : key_to_observer)
+            subject_observer.on_completed();
 
         observer.on_completed();
     }
 
 private:
     template<rpp::constraint::decayed_same_as<T> TT>
-    const subjects::publish_subject<Type>* deduce_subject(const rpp::constraint::observer auto& obs, const TT& val) const
+    const subject_observer* deduce_observer(const rpp::constraint::observer auto& obs, const TT& val) const
     {
-        auto key = key_selector(utils::as_const(val));
+        const auto key = key_selector(utils::as_const(val));
+        
+        if (const auto itr = key_to_observer.find(key); itr != key_to_observer.cend())
+            return &itr->second;
 
         if (obs.is_disposed())
-        {
-            const auto itr = key_to_subject.find(key);
-            return itr == key_to_subject.cend() ? nullptr : &itr->second;
-        }
+            return nullptr;
 
-        auto [itr, inserted] = key_to_subject.try_emplace(key);
+        const subjects::publish_subject<Type> subj{};
 
-        if (inserted)
-        {
-            disposable->add(rpp::disposable_wrapper::from_weak(itr->second.get_disposable().get_original()));
-            obs.on_next(rpp::grouped_observable_group_by<TKey, Type>{
-                std::move(key),
-                group_by_observable_strategy<Type>{itr->second, disposable}
-            });
-        }
+        disposable->add(rpp::disposable_wrapper::from_weak(subj.get_disposable().get_original()));
+        obs.on_next(rpp::grouped_observable_group_by<TKey, Type>{
+            key,
+            group_by_observable_strategy<Type>{subj, disposable}
+        });
 
-        return &itr->second;
+        return &key_to_observer.emplace(key, subj.get_observer()).first->second;
     }
 };
 
