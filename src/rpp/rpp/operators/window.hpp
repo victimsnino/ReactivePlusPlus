@@ -58,11 +58,10 @@ public:
             m_items_in_current_window = 0;
         }
 
-        ++m_items_in_current_window;
         m_subject_data->observer.on_next(std::forward<T>(v));
 
         // cleanup current subject, but don't send due to wait for new value
-        if (m_items_in_current_window == m_window_size)
+        if (++m_items_in_current_window == m_window_size)
         {
             m_subject_data->observer.on_completed();
             m_disposble->remove(m_subject_data->disposable);
