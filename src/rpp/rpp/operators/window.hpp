@@ -43,7 +43,6 @@ public:
         , m_window_size{std::max(size_t{1}, count)}
     {
         m_observer.set_upstream(m_disposble->add_ref());
-        m_disposble->add(m_subject.get_disposable());
     }
 
     template<typename T>
@@ -52,36 +51,35 @@ public:
         // need to send new subject due to NEW item appeared (we avoid sending new subjects if no any new items)
         if (m_items_in_current_window == m_window_size)
         {
-            if (m_subject.get_disposable().is_disposed())
-            {
-                m_subject = Subject{m_disposble};
-                m_disposble->add(m_subject.get_disposable());
-            }
-
-            m_observer.on_next(m_subject.get_observable());
+            Subject subject{m_disposble};
+            m_subject_data.emplace(subject_data{subject.get_observer(), subject.get_disposable()});
+            m_observer.on_next(subject.get_observable());
             m_items_in_current_window = 0;
         }
 
         ++m_items_in_current_window;
-        m_subject.get_observer().on_next(std::forward<T>(v));
+        m_subject_data->observer.on_next(std::forward<T>(v));
 
         // cleanup current subject, but don't send due to wait for new value
         if (m_items_in_current_window == m_window_size)
         {
-            m_subject.get_observer().on_completed();
-            m_disposble->remove(m_subject.get_disposable());
+            m_subject_data->observer.on_completed();
+            m_disposble->remove(m_subject_data->disposable);
+            m_subject_data.reset();
         }
     }
 
     void on_error(const std::exception_ptr& err) const
     {
-        m_subject.get_observer().on_error(err);
+        if (m_subject_data)
+            m_subject_data->observer.on_error(err);
         m_observer.on_error(err);
     }
 
     void on_completed() const
     {
-        m_subject.get_observer().on_completed();
+        if (m_subject_data)
+            m_subject_data->observer.on_completed();
         m_observer.on_completed();
     }
 
@@ -92,9 +90,16 @@ public:
 private:
     std::shared_ptr<refcount_disposable> m_disposble = std::make_shared<refcount_disposable>();
     RPP_NO_UNIQUE_ADDRESS TObserver      m_observer;
-    mutable Subject                      m_subject{m_disposble};
-    const size_t                         m_window_size;
-    mutable size_t                       m_items_in_current_window = m_window_size;
+
+    struct subject_data
+    {
+        decltype(std::declval<Subject>().get_observer()) observer;
+        rpp::disposable_wrapper                          disposable;
+    };
+
+    mutable std::optional<subject_data> m_subject_data;
+    const size_t                        m_window_size;
+    mutable size_t                      m_items_in_current_window = m_window_size;
 };
 
 struct window_t : public operators::details::operator_observable_strategy_different_types<window_observer_strategy, rpp::utils::types<>, size_t>
