@@ -116,7 +116,7 @@
 \DoxyCodeLine{00112\ \ \ \ \ \textcolor{keyword}{template}<\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer}{rpp::constraint::observer}}\ Observer,\ \textcolor{keyword}{typename}...\ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{Strategies}}>}
 \DoxyCodeLine{00113\ \ \ \ \ \textcolor{keywordtype}{void}\ subscribe(Observer\&\&\ \mbox{\hyperlink{classrpp_1_1observer}{observer}},\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1observable__chain__strategy}{observable\_chain\_strategy<Strategies...>}}\&\ observable\_strategy)\textcolor{keyword}{\ const}}
 \DoxyCodeLine{00114\ \textcolor{keyword}{\ \ \ \ }\{}
-\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Need\ to\ take\ ownership\ over\ current\_thread\ in\ case\ of\ inner-\/observables\ also\ uses\ them}}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Need\ to\ take\ ownership\ over\ current\_thread\ in\ case\ of\ inner-\/observables\ also\ using\ it}}
 \DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{drain\_on\_exit}}\ =\ rpp::schedulers::current\_thread::own\_queue\_and\_drain\_finally\_if\_not\_owned();}
 \DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ observables.apply(\&\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{subscribe\_impl<Observer,\ Strategies...>}},\ std::forward<Observer>(\mbox{\hyperlink{classrpp_1_1observer}{observer}}),\ observable\_strategy,\ selector);}
 \DoxyCodeLine{00118\ \ \ \ \ \}}

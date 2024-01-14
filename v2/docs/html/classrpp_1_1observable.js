@@ -13,6 +13,7 @@ var classrpp_1_1observable =
     [ "subscribe", "classrpp_1_1observable.html#af2de791d83ffb2944c69839a08453c61", null ],
     [ "subscribe_with_disposable", "classrpp_1_1observable.html#afb9bea529786c85a6bc9b0647bde2ef5", null ],
     [ "subscribe_with_disposable", "classrpp_1_1observable.html#ac81ee3d805386d492ab54e40ccd6adc2", null ],
+    [ "subscribe_with_disposable", "classrpp_1_1observable.html#aa236bfd268904fe6cb2a930f6b44cd58", null ],
     [ "subscribe_with_disposable", "classrpp_1_1observable.html#aa264608e3b4b845fa739b32c2e44d167", null ],
     [ "subscribe_with_disposable", "classrpp_1_1observable.html#acb875b06e348c6d77706e6d04aed4944", null ]
 ];

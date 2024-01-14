@@ -26,7 +26,7 @@
 \DoxyCodeLine{00022\ \textcolor{keyword}{namespace\ }rpp}
 \DoxyCodeLine{00023\ \{}
 \DoxyCodeLine{00024\ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type\ Type>}
-\DoxyCodeLine{00025\ \textcolor{keyword}{using\ }windowed\_observable\ =\ \textcolor{keyword}{decltype}(std::declval<rpp::operators::details::forwarding\_subject<Type>>().get\_observable());}
+\DoxyCodeLine{00025\ \textcolor{keyword}{using\ }window\_observable\ =\ \textcolor{keyword}{decltype}(std::declval<rpp::operators::details::forwarding\_subject<Type>>().get\_observable());}
 \DoxyCodeLine{00026\ \}}
 \DoxyCodeLine{00027\ \textcolor{keyword}{namespace\ }rpp::operators::details}
 \DoxyCodeLine{00028\ \{}
@@ -109,7 +109,7 @@
 \DoxyCodeLine{00105\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1window__t}{window\_t}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1operator__observable__strategy__base}{operators::details::operator\_observable\_strategy\_different\_types}}<window\_observer\_strategy,\ rpp::utils::types<>,\ size\_t>}
 \DoxyCodeLine{00106\ \{}
 \DoxyCodeLine{00107\ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type\ T>}
-\DoxyCodeLine{00108\ \ \ \ \ \textcolor{keyword}{using\ }result\_value\ =\ windowed\_observable<T>;}
+\DoxyCodeLine{00108\ \ \ \ \ \textcolor{keyword}{using\ }result\_value\ =\ window\_observable<T>;}
 \DoxyCodeLine{00109\ }
 \DoxyCodeLine{00110\ \ \ \ \ \textcolor{keyword}{template}<rpp::details::observables::constra\textcolor{keywordtype}{int}::disposable\_strategy\ Prev>}
 \DoxyCodeLine{00111\ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{structrpp_1_1details_1_1observables_1_1fixed__disposable__strategy__selector}{updated\_disposable\_strategy}}\ =\ \mbox{\hyperlink{structrpp_1_1details_1_1observables_1_1fixed__disposable__strategy__selector}{rpp::details::observables::fixed\_disposable\_strategy\_selector<1>}};}

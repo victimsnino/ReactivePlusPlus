@@ -1,5 +1,13 @@
 var NAVTREEINDEX2 =
 {
+"structrpp_1_1schedulers_1_1details_1_1fake__schedulable__handler.html":[3,0,0,3,1,0],
+"structrpp_1_1schedulers_1_1details_1_1none__disposable.html":[3,0,0,3,1,1],
+"structrpp_1_1schedulers_1_1details_1_1shared__queue__data.html":[3,0,0,3,1,5],
+"structrpp_1_1subjects_1_1details_1_1completed.html":[3,0,0,4,0,1],
+"structrpp_1_1subjects_1_1details_1_1disposed.html":[3,0,0,4,0,2],
+"structrppqt_1_1details_1_1from__signal__on__event.html":[3,0,1,0,0],
+"structrppqt_1_1details_1_1from__signal__on__event_3_01_arg_01_4.html":[3,0,1,0,1],
+"structrppqt_1_1details_1_1from__signal__on__event_3_4.html":[3,0,1,0,2],
 "structrppqt_1_1utils_1_1no__active__qapplication.html":[3,0,1,2,0],
 "subject__state_8hpp_source.html":[4,0,0,0,0,6,0,1],
 "subjects_8hpp_source.html":[4,0,0,0,0,17],
@@ -25,7 +33,9 @@ var NAVTREEINDEX2 =
 "topics.html":[1],
 "window_8cpp-example.html":[5,33],
 "window_8hpp_source.html":[4,0,0,0,0,3,33],
-"with__latest__from_8hpp_source.html":[4,0,0,0,0,3,34],
-"with_latest_from_8cpp-example.html":[5,34],
+"window__toggle_8hpp_source.html":[4,0,0,0,0,3,34],
+"window_toggle_8cpp-example.html":[5,34],
+"with__latest__from_8hpp_source.html":[4,0,0,0,0,3,35],
+"with_latest_from_8cpp-example.html":[5,35],
 "worker_8hpp_source.html":[4,0,0,0,0,4,0,2]
 };

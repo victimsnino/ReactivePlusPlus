@@ -16,7 +16,7 @@ var searchData=
   ['specific_5fschedulable_13',['specific_schedulable',['../classrpp_1_1schedulers_1_1details_1_1specific__schedulable.html',1,'rpp::schedulers::details']]],
   ['start_5fwith_5ft_14',['start_with_t',['../structrpp_1_1operators_1_1details_1_1start__with__t.html',1,'rpp::operators::details']]],
   ['start_5fwith_5fvalues_5ft_15',['start_with_values_t',['../structrpp_1_1operators_1_1details_1_1start__with__values__t.html',1,'rpp::operators::details']]],
-  ['state_5ft_16',['state_t',['../structrpp_1_1details_1_1ref__count__on__subscribe__t_3_01rpp_1_1connectable__observable_3_01_ori08a6adc16d48deb4d454d582f87ab48e.html',1,'rpp::details::ref_count_on_subscribe_t&lt; rpp::connectable_observable&lt; OriginalObservable, Subject &gt; &gt;']]],
+  ['state_5ft_16',['state_t',['../structrpp_1_1details_1_1ref__count__on__subscribe__t_3_01rpp_1_1connectable__observable_3_01_ori08a6adc16d48deb4d454d582f87ab48e.html',1,'rpp::details::ref_count_on_subscribe_t&lt; rpp::connectable_observable&lt; OriginalObservable, Subject &gt; &gt;::state_t'],['../structrpp_1_1operators_1_1details_1_1window__toggle__state_1_1state__t.html',1,'rpp::operators::details::window_toggle_state&lt; TObserver, TClosingsSelectorFn &gt;::state_t']]],
   ['static_5fdisposables_5fcontainer_17',['static_disposables_container',['../classrpp_1_1details_1_1disposables_1_1static__disposables__container.html',1,'rpp::details::disposables']]],
   ['subject_5fstate_18',['subject_state',['../classrpp_1_1subjects_1_1details_1_1subject__state.html',1,'rpp::subjects::details']]],
   ['subscribe_5fon_5fschedulable_19',['subscribe_on_schedulable',['../structrpp_1_1operators_1_1details_1_1subscribe__on__schedulable.html',1,'rpp::operators::details']]],

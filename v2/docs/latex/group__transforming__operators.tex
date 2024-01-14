@@ -25,7 +25,10 @@ requires (!utils\+::is\+\_\+not\+\_\+template\+\_\+callable$<$Fn$>$ \texorpdfstr
 {\footnotesize template$<$\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{typename}} Fn $>$ }\\\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{auto}} \mbox{\hyperlink{group__transforming__operators_gaced4a6e7bc0556b40b07d7efd97d7ee3}{rpp\+::operators\+::scan}} (Fn \&\&accumulator)
 \begin{DoxyCompactList}\small\item\em Apply accumulator function for each emission from observable and result of accumulator from previous step and emit (and cache) resulting value. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{auto}} \mbox{\hyperlink{group__transforming__operators_gab947bced93ea29bcaa791904a49f43e5}{rpp\+::operators\+::window}} (\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{size\+\_\+t}} count)
-\begin{DoxyCompactList}\small\item\em Subdivide original observable into sub-\/observables (windowed observables) and emit sub-\/observables of items instead of original items. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Subdivide original observable into sub-\/observables (window observables) and emit sub-\/observables of items instead of original items. \end{DoxyCompactList}\item 
+{\footnotesize template$<$\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp\+::constraint\+::observable}} TOpenings\+Observable, \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{typename}} \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{TClosings\+Selector\+Fn}} $>$ \newline
+requires \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp\+::constraint\+::observable}}$<$std\+::invoke\+\_\+result\+\_\+t$<$\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{TClosings\+Selector\+Fn}}, rpp\+::utils\+::extract\+\_\+observable\+\_\+type\+\_\+t$<$TOpenings\+Observable$>$$>$$>$}\\\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{auto}} \mbox{\hyperlink{group__transforming__operators_gad53dfa28fff9b19c3f6aca51970737de}{rpp\+::operators\+::window\+\_\+toggle}} (TOpenings\+Observable \&\&openings, \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{TClosings\+Selector\+Fn}} \&\&closings\+\_\+selector)
+\begin{DoxyCompactList}\small\item\em Subdivide original observable into sub-\/observables (window observables) and emit sub-\/observables of items instead of original items. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsubsubsection{Detailed Description}
@@ -383,7 +386,7 @@ Initial value would be used as first value from this observable (would be sent d
 
 
 
-Subdivide original observable into sub-\/observables (windowed observables) and emit sub-\/observables of items instead of original items. 
+Subdivide original observable into sub-\/observables (window observables) and emit sub-\/observables of items instead of original items. 
 
 
 
@@ -402,7 +405,7 @@ Actually it is similar to {\ttfamily buffer} but it emits observable instead of 
 \begin{DoxyCodeInclude}{0}
 \DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(1,\ 2,\ 3,\ 4,\ 5)}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__transforming__operators_gab947bced93ea29bcaa791904a49f43e5}{rpp::operators::window}}(3)}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{rpp::operators::subscribe}}([](\textcolor{keyword}{const}\ rpp::windowed\_observable<int>\&\ v)\ }
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{rpp::operators::subscribe}}([](\textcolor{keyword}{const}\ rpp::window\_observable<int>\&\ v)\ }
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \{\ }
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)nNew\ observable\ "{}}\ <<\ std::endl;\ }
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ v.subscribe([](\textcolor{keywordtype}{int}\ v)\ \{std::cout\ <<\ v\ <<\ \textcolor{stringliteral}{"{}\ "{}};\ \});\ }
@@ -421,3 +424,74 @@ Actually it is similar to {\ttfamily buffer} but it emits observable instead of 
 \begin{Desc}
 \item[Examples]\par
 \mbox{\hyperlink{window_8cpp-example}{window.\+cpp}}.\end{Desc}
+\Hypertarget{group__transforming__operators_gad53dfa28fff9b19c3f6aca51970737de}\label{group__transforming__operators_gad53dfa28fff9b19c3f6aca51970737de} 
+\index{Transforming Operators@{Transforming Operators}!window\_toggle@{window\_toggle}}
+\index{window\_toggle@{window\_toggle}!Transforming Operators@{Transforming Operators}}
+\doxysubsubsubsubsection{\texorpdfstring{window\_toggle()}{window\_toggle()}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp\+::constraint\+::observable}} TOpenings\+Observable, \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{typename}} \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{TClosings\+Selector\+Fn}} $>$ \newline
+requires \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp\+::constraint\+::observable}}$<$std\+::invoke\+\_\+result\+\_\+t$<$\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{TClosings\+Selector\+Fn}}, rpp\+::utils\+::extract\+\_\+observable\+\_\+type\+\_\+t$<$TOpenings\+Observable$>$$>$$>$\\
+\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{auto}} rpp\+::operators\+::window\+\_\+toggle (\begin{DoxyParamCaption}\item[{TOpenings\+Observable \&\&}]{openings,  }\item[{\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{TClosings\+Selector\+Fn}} \&\&}]{closings\+\_\+selector }\end{DoxyParamCaption})}
+
+
+
+Subdivide original observable into sub-\/observables (window observables) and emit sub-\/observables of items instead of original items. 
+
+Values from {\ttfamily openings} observable used to specify moment when new window will be opened. {\ttfamily closings\+\_\+selector} is used to obtain observable to specify moment when new window will be closed.
+
+
+
+Actually it is similar to {\ttfamily buffer} but it emits observable instead of container.
+
+
+\begin{DoxyParams}{Parameters}
+{\em openings} & is observable which emissions used to start new window \\
+\hline
+{\em closings\+\_\+selector} & is function which returns observable which emission/completion means closing of opened window\\
+\hline
+\end{DoxyParams}
+\begin{DoxyWarning}{Warning}
+\doxylink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{include} \texorpdfstring{$<$}{<}\doxylink{window_8hpp_source}{rpp/operators/window.\+hpp}\texorpdfstring{$>$}{>}
+\end{DoxyWarning}
+\begin{DoxyParagraph}{Example}
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordtype}{size\_t}\ counter\{\};}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{auto}\ source\ =\ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(\mbox{\hyperlink{classrpp_1_1schedulers_1_1current__thread}{rpp::schedulers::current\_thread}}\{\},\ 1,\ 2,\ 3,\ 4,\ 5)\ |\ \mbox{\hyperlink{group__connectable__operators_ga42498cc0bc565116e9deece3c3afa66f}{rpp::operators::publish}}()\ |\ \mbox{\hyperlink{group__connectable__operators_ga7c5ba7b673ad2f41b767f4cea0b5af3e}{rpp::operators::ref\_count}}();}
+\DoxyCodeLine{\ \ \ \ source}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__transforming__operators_gad53dfa28fff9b19c3f6aca51970737de}{rpp::operators::window\_toggle}}(source,\ [source](\textcolor{keywordtype}{int})\{\ \textcolor{keywordflow}{return}\ source\ |\ rpp::ops::filter([](\textcolor{keywordtype}{int}\ v)\ \{\ \textcolor{keywordflow}{return}\ v\ \%\ 2\ ==\ 0;\ \});\ \})}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{rpp::operators::subscribe}}([\&counter](\textcolor{keyword}{const}\ rpp::window\_toggle\_observable<int>\&\ obs)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \{\ }
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}New\ observable\ "{}}\ <<\ ++counter\ <<\ std::endl;\ }
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ obs.subscribe([counter](\textcolor{keywordtype}{int}\ v)\ \{std::cout\ <<\ counter\ <<\ \textcolor{stringliteral}{"{}:\ "{}}\ <<\ v\ <<\ \textcolor{stringliteral}{"{}\ "{}}\ <<\ std::endl;\ \},\ [counter]()\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}closing\ "{}}\ <<\ counter\ <<\ std::endl;\ \});\ }
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:\ }}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ New\ observable\ 1}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ 1:\ 1\ }}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ New\ observable\ 2}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ 1:\ 2\ }}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ 2:\ 2\ }}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ closing\ 1}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ New\ observable\ 3}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ 2:\ 3\ }}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ 3:\ 3\ }}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ New\ observable\ 4}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ 2:\ 4\ }}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ 3:\ 4\ }}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ 4:\ 4\ }}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ closing\ 2}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ closing\ 3}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ New\ observable\ 5}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ 4:\ 5\ }}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ 5:\ 5\ }}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ closing\ 4}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ closing\ 5}}
+
+\end{DoxyCodeInclude}
+
+\end{DoxyParagraph}
+\begin{DoxySeeAlso}{See also}
+\href{https://reactivex.io/documentation/operators/window.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/window.\+html}} 
+\end{DoxySeeAlso}
+\begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{window_toggle_8cpp-example}{window\+\_\+toggle.\+cpp}}.\end{Desc}

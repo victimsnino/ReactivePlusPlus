@@ -34,6 +34,7 @@ var examples =
     [ "take_while.cpp", "take_while_8cpp-example.html", null ],
     [ "throttle.cpp", "throttle_8cpp-example.html", null ],
     [ "window.cpp", "window_8cpp-example.html", null ],
+    [ "window_toggle.cpp", "window_toggle_8cpp-example.html", null ],
     [ "with_latest_from.cpp", "with_latest_from_8cpp-example.html", null ],
     [ "from_signal.cpp", "from_signal_8cpp-example.html", null ]
 ];

@@ -168,6 +168,11 @@ requires (!constraint::observer&lt;ObserverStrategy&gt;)</td></tr>
 <tr class="memitem:ac81ee3d805386d492ab54e40ccd6adc2"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classrpp_1_1disposable__wrapper__impl.html">composite_disposable_wrapper</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#ac81ee3d805386d492ab54e40ccd6adc2">subscribe_with_disposable</a> (<a class="el" href="classrpp_1_1observer.html">observer</a>&lt; Type, ObserverStrategy &gt; &amp;&amp;<a class="el" href="classrpp_1_1observer.html">observer</a>) const</td></tr>
 <tr class="memdesc:ac81ee3d805386d492ab54e40ccd6adc2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Subscribes passed observer to emissions from this observable.  <br /></td></tr>
 <tr class="separator:ac81ee3d805386d492ab54e40ccd6adc2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa236bfd268904fe6cb2a930f6b44cd58" id="r_aa236bfd268904fe6cb2a930f6b44cd58"><td class="memTemplParams" colspan="2">template&lt;constraint::observer_strategy&lt; Type &gt; ObserverStrategy&gt; <br />
+requires (!constraint::observer&lt;ObserverStrategy&gt;)</td></tr>
+<tr class="memitem:aa236bfd268904fe6cb2a930f6b44cd58"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classrpp_1_1disposable__wrapper__impl.html">composite_disposable_wrapper</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#aa236bfd268904fe6cb2a930f6b44cd58">subscribe_with_disposable</a> (ObserverStrategy &amp;&amp;observer_strategy) const</td></tr>
+<tr class="memdesc:aa236bfd268904fe6cb2a930f6b44cd58"><td class="mdescLeft">&#160;</td><td class="mdescRight">Subscribes observer strategy to emissions from this observable.  <br /></td></tr>
+<tr class="separator:aa236bfd268904fe6cb2a930f6b44cd58"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afb9bea529786c85a6bc9b0647bde2ef5" id="r_afb9bea529786c85a6bc9b0647bde2ef5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classrpp_1_1disposable__wrapper__impl.html">composite_disposable_wrapper</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afb9bea529786c85a6bc9b0647bde2ef5">subscribe_with_disposable</a> (<a class="el" href="classrpp_1_1dynamic__observer.html">dynamic_observer</a>&lt; Type &gt; <a class="el" href="classrpp_1_1observer.html">observer</a>) const</td></tr>
 <tr class="memdesc:afb9bea529786c85a6bc9b0647bde2ef5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Subscribe passed observer to emissions from this observable.  <br /></td></tr>
 <tr class="separator:afb9bea529786c85a6bc9b0647bde2ef5"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -539,7 +544,7 @@ template&lt;constraint::observer_strategy&lt; Type &gt; ObserverStrategy&gt; </d
 </div>
 </div>
 <a id="afb9bea529786c85a6bc9b0647bde2ef5" name="afb9bea529786c85a6bc9b0647bde2ef5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afb9bea529786c85a6bc9b0647bde2ef5">&#9670;&#160;</a></span>subscribe_with_disposable() <span class="overload">[1/4]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#afb9bea529786c85a6bc9b0647bde2ef5">&#9670;&#160;</a></span>subscribe_with_disposable() <span class="overload">[1/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -571,7 +576,7 @@ template&lt;constraint::decayed_type Type, constraint::observable_strategy&lt; T
 </div>
 </div>
 <a id="ac81ee3d805386d492ab54e40ccd6adc2" name="ac81ee3d805386d492ab54e40ccd6adc2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac81ee3d805386d492ab54e40ccd6adc2">&#9670;&#160;</a></span>subscribe_with_disposable() <span class="overload">[2/4]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ac81ee3d805386d492ab54e40ccd6adc2">&#9670;&#160;</a></span>subscribe_with_disposable() <span class="overload">[2/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -604,8 +609,42 @@ template&lt;constraint::observer_strategy&lt; Type &gt; ObserverStrategy&gt; </d
 
 </div>
 </div>
+<a id="aa236bfd268904fe6cb2a930f6b44cd58" name="aa236bfd268904fe6cb2a930f6b44cd58"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa236bfd268904fe6cb2a930f6b44cd58">&#9670;&#160;</a></span>subscribe_with_disposable() <span class="overload">[3/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;constraint::decayed_type Type, constraint::observable_strategy&lt; Type &gt; Strategy&gt; </div>
+<div class="memtemplate">
+template&lt;constraint::observer_strategy&lt; Type &gt; ObserverStrategy&gt; <br />
+requires (!constraint::observer&lt;ObserverStrategy&gt;)</div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classrpp_1_1disposable__wrapper__impl.html">composite_disposable_wrapper</a> <a class="el" href="classrpp_1_1observable.html">rpp::observable</a>&lt; Type, Strategy &gt;::subscribe_with_disposable </td>
+          <td>(</td>
+          <td class="paramtype">ObserverStrategy &amp;&amp;</td>          <td class="paramname"><span class="paramname"><em>observer_strategy</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Subscribes observer strategy to emissions from this observable. </p>
+<p>This overloading attaches disposable to observer and return it to provide ability to dispose/disconnect observer early if needed. </p><dl class="section warning"><dt>Warning</dt><dd>This overloading has some performance penalties, use it only when you really need to use disposable </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>composite_disposable_wrapper is disposable to be able to dispose observer when it needed </dd></dl>
+
+</div>
+</div>
 <a id="aa264608e3b4b845fa739b32c2e44d167" name="aa264608e3b4b845fa739b32c2e44d167"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa264608e3b4b845fa739b32c2e44d167">&#9670;&#160;</a></span>subscribe_with_disposable() <span class="overload">[3/4]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aa264608e3b4b845fa739b32c2e44d167">&#9670;&#160;</a></span>subscribe_with_disposable() <span class="overload">[4/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -642,7 +681,7 @@ template&lt;std::invocable&lt; Type &gt; OnNext, std::invocable&lt;&gt; OnComple
 </div>
 </div>
 <a id="acb875b06e348c6d77706e6d04aed4944" name="acb875b06e348c6d77706e6d04aed4944"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acb875b06e348c6d77706e6d04aed4944">&#9670;&#160;</a></span>subscribe_with_disposable() <span class="overload">[4/4]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#acb875b06e348c6d77706e6d04aed4944">&#9670;&#160;</a></span>subscribe_with_disposable() <span class="overload">[5/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">

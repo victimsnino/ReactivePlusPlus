@@ -105,7 +105,7 @@
 \DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{d}}\ =\ std::make\_shared<take\_until\_disposable<std::decay\_t<Observer>>>(std::forward<Observer>(\mbox{\hyperlink{classrpp_1_1observer}{observer}}));}
 \DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{d}}-\/>get\_observer()-\/>set\_upstream(rpp::disposable\_wrapper::from\_weak(\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{d}}));}
 \DoxyCodeLine{00103\ }
-\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Need\ to\ take\ ownership\ over\ current\_thread\ in\ case\ of\ inner-\/observables\ also\ uses\ them}}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Need\ to\ take\ ownership\ over\ current\_thread\ in\ case\ of\ inner-\/observables\ also\ using\ it}}
 \DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{drain\_on\_exit}}\ =\ rpp::schedulers::current\_thread::own\_queue\_and\_drain\_finally\_if\_not\_owned();}
 \DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrpp_1_1observable}{observable}}.\mbox{\hyperlink{classrpp_1_1observable_a193b0e08c516912c04afd8379ec27182}{subscribe}}(\mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1take__until__throttle__observer__strategy}{take\_until\_throttle\_observer\_strategy}}<std::decay\_t<Observer>>\{\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{d}}\});}
 \DoxyCodeLine{00107\ }

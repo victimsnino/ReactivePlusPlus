@@ -129,7 +129,7 @@ $(function(){initNavTree('rpp_2subjects_2fwd_8hpp_source.html',''); initResizabl
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>{</div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    {t.get_observer()} -&gt; <a class="code hl_concept" href="conceptrpp_1_1constraint_1_1observer.html">rpp::constraint::observer</a>;</div>
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    t.on_subscribe(std::move(obs));</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    {t.get_disposable() } -&gt; rpp::constraint::decayed_same_as&lt;rpp::disposable_wrapper&gt;;</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    {t.get_disposable() } -&gt; rpp::constraint::decayed_any_of&lt;rpp::disposable_wrapper, rpp::composite_disposable_wrapper&gt;;</div>
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>};</div>
 </div>
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>}</div>

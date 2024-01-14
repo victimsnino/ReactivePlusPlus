@@ -6,5 +6,6 @@ var group__transforming__operators =
     [ "rpp::operators::map", "group__transforming__operators.html#ga1291dba2d973d4ba1061c9e0e202cb3f", null ],
     [ "rpp::operators::scan", "group__transforming__operators.html#gaced4a6e7bc0556b40b07d7efd97d7ee3", null ],
     [ "rpp::operators::scan", "group__transforming__operators.html#gad34415b9aeed2ad2446e7d54b6a4081c", null ],
-    [ "rpp::operators::window", "group__transforming__operators.html#gab947bced93ea29bcaa791904a49f43e5", null ]
+    [ "rpp::operators::window", "group__transforming__operators.html#gab947bced93ea29bcaa791904a49f43e5", null ],
+    [ "rpp::operators::window_toggle", "group__transforming__operators.html#gad53dfa28fff9b19c3f6aca51970737de", null ]
 ];
