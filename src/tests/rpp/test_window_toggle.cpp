@@ -16,7 +16,9 @@
 #include <rpp/sources/never.hpp>
 
 #include "mock_observer.hpp"
+#include "disposable_observable.hpp"
 #include "snitch_logging.hpp"
+
 
 TEST_CASE("window_toggle")
 {
@@ -113,4 +115,9 @@ TEST_CASE("window_toggle")
         CHECK(inner_mocks[1].get_received_values() == std::vector<int>{2});
         CHECK(inner_mocks[2].get_received_values() == std::vector<int>{3});
     }
+}
+
+TEST_CASE("window_toggle satisfies disposable contracts")
+{
+    test_operator_with_disposable<int>(rpp::ops::window_toggle(rpp::source::just(1), [](int){return rpp::source::just(1); }));
 }
