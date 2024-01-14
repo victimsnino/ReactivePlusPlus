@@ -14,6 +14,7 @@
 #include <rpp/sources/just.hpp>
 #include <rpp/sources/empty.hpp>
 #include <rpp/sources/never.hpp>
+#include <rpp/sources/error.hpp>
 
 #include "mock_observer.hpp"
 #include "disposable_observable.hpp"
@@ -122,8 +123,13 @@ TEST_CASE("window_toggle")
             | rpp::ops::window_toggle(rpp::source::just(1,2,3), [](int){return rpp::source::just(1);}));
         
         CHECK(mock.get_on_error_count() == 0);
-        CHECK(mock.get_on_completed_count() == 1);
-        REQUIRE(inner_mocks.size() == 0);
+        CHECK(mock.get_on_completed_count() == 0);
+        REQUIRE(inner_mocks.size() == 3);
+        for (const auto& inner : inner_mocks)
+        {
+            CHECK(inner.get_on_error_count() == 0);
+            CHECK(inner.get_on_completed_count() == 1);
+        }
     }
     SECTION("opening - empty(), closing - just(1)")
     {
@@ -133,6 +139,50 @@ TEST_CASE("window_toggle")
         CHECK(mock.get_on_error_count() == 0);
         CHECK(mock.get_on_completed_count() == 1);
         REQUIRE(inner_mocks.size() == 0);
+    }
+    SECTION("source - error")
+    {
+        subscribe_mocks(rpp::source::error<int>({}) 
+            | rpp::ops::window_toggle(rpp::source::just(rpp::schedulers::immediate{}, 1), [](int){return rpp::source::never<int>(); }));
+        
+        CHECK(mock.get_on_error_count() == 1);
+        CHECK(mock.get_on_completed_count() == 0);
+    }
+    SECTION("openings - error")
+    {
+        subscribe_mocks(rpp::source::never<int>() 
+            | rpp::ops::window_toggle(rpp::source::error<int>({}), [](int){return rpp::source::never<int>(); }));
+        
+        CHECK(mock.get_on_error_count() == 1);
+        CHECK(mock.get_on_completed_count() == 0);
+    }
+    SECTION("openings - just(1), closings - error")
+    {
+        subscribe_mocks(rpp::source::never<int>() 
+            | rpp::ops::window_toggle(rpp::source::just(1), [](int){return rpp::source::error<int>({}); }));
+        
+        CHECK(mock.get_on_error_count() == 1);
+        CHECK(mock.get_on_completed_count() == 0);
+        REQUIRE(inner_mocks.size() == 1);
+        for (const auto& inner : inner_mocks)
+        {
+            CHECK(inner.get_on_error_count() == 1);
+            CHECK(inner.get_on_completed_count() == 0);
+        }
+    }
+    SECTION("openings - just(1), closings - throw")
+    {
+        subscribe_mocks(rpp::source::never<int>() 
+            | rpp::ops::window_toggle(rpp::source::just(1), [](int){ throw std::runtime_error{""}; return rpp::source::error<int>({}); }));
+        
+        CHECK(mock.get_on_error_count() == 1);
+        CHECK(mock.get_on_completed_count() == 0);
+        REQUIRE(inner_mocks.size() == 1);
+        for (const auto& inner : inner_mocks)
+        {
+            CHECK(inner.get_on_error_count() == 1);
+            CHECK(inner.get_on_completed_count() == 0);
+        }
     }
 }
 
