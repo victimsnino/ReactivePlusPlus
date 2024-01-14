@@ -148,6 +148,10 @@ template<rpp::constraint::observable TObservable, rpp::constraint::observable...
 auto with_latest_from(TObservable&& observable, TObservables&&... observables);
 
 auto window(size_t count);
+
+template<rpp::constraint::observable TOpeningsObservable, typename TClosingsSelectorFn>
+    requires rpp::constraint::observable<std::invoke_result_t<TClosingsSelectorFn, rpp::utils::extract_observable_type_t<TOpeningsObservable>>>
+auto window_toggle(TOpeningsObservable&& openings, TClosingsSelectorFn&& closings_selector);
 } // namespace rpp::operators
 
 namespace rpp

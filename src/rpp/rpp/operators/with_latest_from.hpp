@@ -140,7 +140,7 @@ struct with_latest_from_t
     template<rpp::constraint::observer Observer, typename... Strategies>
     void subscribe(Observer&& observer, const observable_chain_strategy<Strategies...>& observable_strategy) const
     {
-        // Need to take ownership over current_thread in case of inner-observables also uses them
+        // Need to take ownership over current_thread in case of inner-observables also using it
         auto drain_on_exit = rpp::schedulers::current_thread::own_queue_and_drain_finally_if_not_owned();
         observables.apply(&subscribe_impl<Observer, Strategies...>, std::forward<Observer>(observer), observable_strategy, selector);
     }

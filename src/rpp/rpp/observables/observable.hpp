@@ -142,8 +142,22 @@ public:
     [[nodiscard("Use returned disposable or use subscribe(observer) instead")]] composite_disposable_wrapper subscribe_with_disposable(observer<Type, ObserverStrategy>&& observer) const
     {
         if (!observer.is_disposed())
-            m_strategy.subscribe(rpp::composite_disposable_wrapper{std::make_shared<rpp::composite_disposable_impl<typename expected_disposable_strategy::disposable_container>>()}, std::move(observer));
+            return m_strategy.subscribe(rpp::composite_disposable_wrapper{std::make_shared<rpp::composite_disposable_impl<typename expected_disposable_strategy::disposable_container>>()}, std::move(observer));
         return {};
+    }
+
+    /**
+     * @brief Subscribes observer strategy to emissions from this observable.
+     *
+     * @details This overloading attaches disposable to observer and return it to provide ability to dispose/disconnect observer early if needed.
+     * @warning This overloading has some performance penalties, use it only when you really need to use disposable
+     * @return composite_disposable_wrapper is disposable to be able to dispose observer when it needed
+     */
+   template<constraint::observer_strategy<Type> ObserverStrategy>
+        requires (!constraint::observer<ObserverStrategy>)
+    [[nodiscard("Use returned disposable or use subscribe(observer) instead")]] composite_disposable_wrapper subscribe_with_disposable(ObserverStrategy&& observer_strategy) const
+    {
+        return subscribe(rpp::composite_disposable_wrapper{std::make_shared<rpp::composite_disposable_impl<typename expected_disposable_strategy::disposable_container>>()}, std::forward<ObserverStrategy>(observer_strategy));
     }
 
     /**
