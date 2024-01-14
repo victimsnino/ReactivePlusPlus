@@ -26,7 +26,7 @@ TEST_CASE("window_toggle")
     mock_observer_strategy<rpp::window_toggle_observable<int>> mock{};
     std::vector<mock_observer_strategy<int>> inner_mocks{}; 
 
-    auto subscribe_mocks = [&mock, &inner_mocks](auto&& observable)
+    auto subscribe_mocks = [&mock, &inner_mocks](const auto& observable)
     {
         observable.subscribe([&mock, &inner_mocks](const rpp::window_toggle_observable<int>& observable)
         {
@@ -115,6 +115,24 @@ TEST_CASE("window_toggle")
         CHECK(inner_mocks[0].get_received_values() == std::vector<int>{1});
         CHECK(inner_mocks[1].get_received_values() == std::vector<int>{2});
         CHECK(inner_mocks[2].get_received_values() == std::vector<int>{3});
+    }
+    SECTION("opening - never(), closing - just(1)")
+    {
+        subscribe_mocks(rpp::source::never<int>() 
+            | rpp::ops::window_toggle(rpp::source::just(1,2,3), [](int){return rpp::source::just(1);}));
+        
+        CHECK(mock.get_on_error_count() == 0);
+        CHECK(mock.get_on_completed_count() == 1);
+        REQUIRE(inner_mocks.size() == 0);
+    }
+    SECTION("opening - empty(), closing - just(1)")
+    {
+        subscribe_mocks(rpp::source::empty<int>() 
+            | rpp::ops::window_toggle(rpp::source::just(1,2,3), [](int){return rpp::source::just(1);}));
+        
+        CHECK(mock.get_on_error_count() == 0);
+        CHECK(mock.get_on_completed_count() == 1);
+        REQUIRE(inner_mocks.size() == 0);
     }
 }
 
