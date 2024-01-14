@@ -25,7 +25,7 @@ concept subject_strategy = requires(Strategy t, rpp::details::observers::fake_ob
 {
     {t.get_observer()} -> rpp::constraint::observer;
     t.on_subscribe(std::move(obs));
-    {t.get_disposable() } -> rpp::constraint::decayed_same_as<rpp::disposable_wrapper>;
+    {t.get_disposable() } -> rpp::constraint::decayed_any_of<rpp::disposable_wrapper, rpp::composite_disposable_wrapper>;
 };
 }
 template<rpp::constraint::decayed_type T, constraint::subject_strategy<T> Strategy>

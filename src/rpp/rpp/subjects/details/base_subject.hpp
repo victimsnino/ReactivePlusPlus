@@ -52,7 +52,7 @@ public:
         return rpp::observable<T, on_subscribe>{m_strategy};
     }
 
-    rpp::disposable_wrapper get_disposable() const
+    auto get_disposable() const
     {
         return m_strategy.get_disposable();
     }

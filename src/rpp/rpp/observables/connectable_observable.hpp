@@ -24,7 +24,7 @@ struct ref_count_on_subscribe_t;
 template<rpp::constraint::observable OriginalObservable, rpp::constraint::subject Subject>
 struct ref_count_on_subscribe_t<rpp::connectable_observable<OriginalObservable, Subject>>
 {
-    rpp::connectable_observable<OriginalObservable, Subject> original_observable{};
+    rpp::connectable_observable<OriginalObservable, Subject> original_observable;
 
     struct state_t
     {

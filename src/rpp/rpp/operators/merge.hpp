@@ -134,7 +134,7 @@ struct merge_t
     template<rpp::constraint::observer Observer, typename... Strategies>
     void subscribe(Observer&& observer, const observable_chain_strategy<Strategies...>& strategy) const
     {
-        // Need to take ownership over current_thread in case of inner-observables also uses them
+        // Need to take ownership over current_thread in case of inner-observables also using it
         auto drain_on_exit = rpp::schedulers::current_thread::own_queue_and_drain_finally_if_not_owned();
 
         using InnerObservable = typename observable_chain_strategy<Strategies...>::value_type;
@@ -160,7 +160,7 @@ struct merge_with_t
     {
         merge_observer_strategy<std::decay_t<Observer>> strategy{std::forward<Observer>(observer)};
 
-        // Need to take ownership over current_thread in case of inner-observables also uses them
+        // Need to take ownership over current_thread in case of inner-observables also using it
         auto drain_on_exit = rpp::schedulers::current_thread::own_queue_and_drain_finally_if_not_owned();
 
         strategy.on_next(observable_strategy);

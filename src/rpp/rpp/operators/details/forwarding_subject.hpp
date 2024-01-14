@@ -58,9 +58,9 @@ public:
         m_state->on_subscribe(std::forward<TObs>(observer));
     }
 
-    rpp::disposable_wrapper get_disposable() const
+    rpp::composite_disposable_wrapper get_disposable() const
     {
-        return rpp::disposable_wrapper::from_weak(m_state);
+        return rpp::composite_disposable_wrapper::from_weak(m_state);
     }
 
 private:

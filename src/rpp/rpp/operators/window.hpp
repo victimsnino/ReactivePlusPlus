@@ -22,7 +22,7 @@
 namespace rpp
 {
 template<constraint::decayed_type Type>
-using windowed_observable = decltype(std::declval<rpp::operators::details::forwarding_subject<Type>>().get_observable());
+using window_observable = decltype(std::declval<rpp::operators::details::forwarding_subject<Type>>().get_observable());
 }
 namespace rpp::operators::details
 {
@@ -105,7 +105,7 @@ private:
 struct window_t : public operators::details::operator_observable_strategy_different_types<window_observer_strategy, rpp::utils::types<>, size_t>
 {
     template<rpp::constraint::decayed_type T>
-    using result_value = windowed_observable<T>;
+    using result_value = window_observable<T>;
 
     template<rpp::details::observables::constraint::disposable_strategy Prev>
     using updated_disposable_strategy = rpp::details::observables::fixed_disposable_strategy_selector<1>;
@@ -115,7 +115,7 @@ struct window_t : public operators::details::operator_observable_strategy_differ
 namespace rpp::operators
 {
 /**
- * @brief Subdivide original observable into sub-observables (windowed observables) and emit sub-observables of items instead of original items
+ * @brief Subdivide original observable into sub-observables (window observables) and emit sub-observables of items instead of original items
  *
  * @marble window
    {

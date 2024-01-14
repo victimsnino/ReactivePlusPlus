@@ -101,7 +101,7 @@ struct take_until_t
         auto d = std::make_shared<take_until_disposable<std::decay_t<Observer>>>(std::forward<Observer>(observer));
         d->get_observer()->set_upstream(rpp::disposable_wrapper::from_weak(d));
 
-        // Need to take ownership over current_thread in case of inner-observables also uses them
+        // Need to take ownership over current_thread in case of inner-observables also using it
         auto drain_on_exit = rpp::schedulers::current_thread::own_queue_and_drain_finally_if_not_owned();
         observable.subscribe(take_until_throttle_observer_strategy<std::decay_t<Observer>>{d});
 

@@ -24,6 +24,9 @@ concept decayed_type = std::same_as<std::decay_t<T>, T>;
 template<typename T, typename ...Types>
 concept any_of = (std::same_as<T, Types> || ...);
 
+template<typename T, typename ...Types>
+concept decayed_any_of = (decayed_same_as<T, Types> || ...);
+
 template<typename Type, typename... Types>
 concept variadic_decayed_same_as = sizeof...(Types) == 1 && (decayed_same_as<Type, Types> && ...);
 
