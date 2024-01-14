@@ -188,36 +188,50 @@ TEST_CASE("window_toggle")
 
 TEST_CASE("window_toggle disposes original disposable only when everything is disposed")
 {
-    auto source_disposable = rpp::composite_disposable_wrapper::make();
-    auto obs = rpp::source::create<int>([source_disposable](auto&& obs)
+
+    auto make_observable = [](auto d, bool emit = true)
     {
-        obs.set_upstream(source_disposable);
-        obs.on_next(1);
-    });
+        return rpp::source::create<int>([d, emit](auto&& obs)
+        {
+            obs.set_upstream(d);
+            if (emit)
+                obs.on_next(1);
+        });
+    };
+
+    auto source_disposable = std::make_shared<rpp::composite_disposable>();
+    auto opening_disposable = std::make_shared<rpp::composite_disposable>();
+    auto closing_disposable = std::make_shared<rpp::composite_disposable>();
+
 
     auto observer_disposable = rpp::composite_disposable_wrapper::make();
     auto inner_observer_disposable = rpp::composite_disposable_wrapper::make();
-    obs 
-        | rpp::ops::window_toggle(rpp::source::just(rpp::schedulers::immediate{}, 1), [](int){return rpp::source::never<int>(); }) 
+    make_observable(source_disposable) 
+        | rpp::ops::window_toggle(make_observable(opening_disposable) , [&](int){return make_observable(closing_disposable, false); }) 
         | rpp::ops::subscribe(rpp::composite_disposable_wrapper{observer_disposable}, [inner_observer_disposable](const rpp::window_toggle_observable<int>& new_obs)
     {
         new_obs.subscribe(rpp::composite_disposable_wrapper{inner_observer_disposable}, [](int){});
     });
 
+    CHECK(!closing_disposable.is_disposed());
     CHECK(!source_disposable.is_disposed());
     CHECK(!observer_disposable.is_disposed());
     CHECK(!inner_observer_disposable.is_disposed());
 
     observer_disposable.dispose();
 
-    CHECK(!source_disposable.is_disposed());
     CHECK(observer_disposable.is_disposed());
+    CHECK(!opening_disposable.is_disposed());
+    CHECK(!closing_disposable.is_disposed());
+    CHECK(!source_disposable.is_disposed());
     CHECK(!inner_observer_disposable.is_disposed());
 
     inner_observer_disposable.dispose();
 
     CHECK(source_disposable.is_disposed());
     CHECK(observer_disposable.is_disposed());
+    CHECK(opening_disposable.is_disposed());
+    CHECK(closing_disposable.is_disposed());
     CHECK(inner_observer_disposable.is_disposed());
 }
 
