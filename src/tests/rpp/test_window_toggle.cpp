@@ -17,6 +17,7 @@
 
 #include "mock_observer.hpp"
 #include "disposable_observable.hpp"
+#include "rpp/schedulers/immediate.hpp"
 #include "snitch_logging.hpp"
 
 
@@ -115,6 +116,41 @@ TEST_CASE("window_toggle")
         CHECK(inner_mocks[1].get_received_values() == std::vector<int>{2});
         CHECK(inner_mocks[2].get_received_values() == std::vector<int>{3});
     }
+}
+
+TEST_CASE("window_toggle disposes original disposable only when everything is disposed")
+{
+    auto source_disposable = std::make_shared<rpp::composite_disposable>();
+    auto obs = rpp::source::create<int>([source_disposable](auto&& obs)
+    {
+        obs.set_upstream(source_disposable);
+        obs.on_next(1);
+    });
+
+    auto observer_disposable = std::make_shared<rpp::composite_disposable>();
+    auto inner_observer_disposable = std::make_shared<rpp::composite_disposable>();
+    obs 
+        | rpp::ops::window_toggle(rpp::source::just(rpp::schedulers::immediate{}, 1), [](int){return rpp::source::never<int>(); }) 
+        | rpp::ops::subscribe(rpp::composite_disposable_wrapper{observer_disposable}, [inner_observer_disposable](const rpp::window_toggle_observable<int>& new_obs)
+    {
+        new_obs.subscribe(rpp::composite_disposable_wrapper{inner_observer_disposable}, [](int){});
+    });
+
+    CHECK(!source_disposable->is_disposed());
+    CHECK(!observer_disposable->is_disposed());
+    CHECK(!inner_observer_disposable->is_disposed());
+
+    observer_disposable->dispose();
+
+    CHECK(!source_disposable->is_disposed());
+    CHECK(observer_disposable->is_disposed());
+    CHECK(!inner_observer_disposable->is_disposed());
+
+    inner_observer_disposable->dispose();
+
+    CHECK(source_disposable->is_disposed());
+    CHECK(observer_disposable->is_disposed());
+    CHECK(inner_observer_disposable->is_disposed());
 }
 
 TEST_CASE("window_toggle satisfies disposable contracts")
