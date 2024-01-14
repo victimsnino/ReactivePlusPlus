@@ -17,8 +17,6 @@
 #include <rpp/disposables/refcount_disposable.hpp>
 #include <rpp/operators/details/forwarding_subject.hpp>
 
-#include <cstddef>
-
 namespace rpp
 {
 template<constraint::decayed_type Type>
@@ -43,85 +41,85 @@ struct window_toggle_state
     mutable std::vector<decltype(std::declval<Subject>().get_observer())> observers{};
 };
 
-template<rpp::constraint::observer TObserver, typename TClosingsSelectorFn>
+template<rpp::constraint::decayed_type TState>
 struct window_toggle_closing_observer_strategy
 {
-    using preferred_disposable_strategy = rpp::details::observers::none_disposable_strategy;
+    std::shared_ptr<rpp::refcount_disposable> disposable;
+    std::shared_ptr<TState>                   state;
+    typename TState::Subject                  subj;
 
-    std::shared_ptr<rpp::refcount_disposable>                             disposble;
-    std::shared_ptr<window_toggle_state<TObserver, TClosingsSelectorFn>>  state;
-    typename window_toggle_state<TObserver, TClosingsSelectorFn>::Subject subj;
-
-    template<typename T>
-    void on_next(T&& v) const
+    void on_next(const auto&) const
     {
-        disposble->remove(subj.get_disposable());
-        subj.get_observer().on_completed();
+        disposable->remove(subj.get_disposable());
+        const auto obs = subj.get_observer();
+        obs.on_completed();
+        
         std::lock_guard lock{state->mutex};
-        state->observers.erase(state->observers.remove(subj.get_observer()));
+        state->observers.erase(state->observers.remove(obs));
     }
 
     void on_error(const std::exception_ptr& err) const
     {
-        disposble->dispose();
+        disposable->dispose();
 
         std::lock_guard lock{state->mutex};
         for (const auto& obs : state->observers)
             obs.on_error(err);
         state->observer.on_error(err);
     }
-    void on_completed() const {}
-
-    void set_upstream(const disposable_wrapper& d) const { subj.get_disposable().add(d); }
-    bool is_disposed() const { return subj.get_disposable().is_disposed(); }
+    
+    static void on_completed() {}
+    static void set_upstream(const disposable_wrapper&) { }
+    static bool is_disposed() { return false; }
 };
 
-template<rpp::constraint::observer TObserver, typename TClosingsSelectorFn>
+template<rpp::constraint::decayed_type TState>
 struct window_toggle_opening_observer_strategy
 {
-    using preferred_disposable_strategy = rpp::details::observers::none_disposable_strategy;
-    
-    std::shared_ptr<rpp::refcount_disposable>                            disposble;
-    std::shared_ptr<window_toggle_state<TObserver, TClosingsSelectorFn>> state;
+    std::shared_ptr<rpp::refcount_disposable> disposable;
+    std::shared_ptr<TState>                   state;
 
     template<typename T>
     void on_next(T&& v) const
     {
-        std::lock_guard lock{state->mutex};
-        typename window_toggle_state<TObserver, TClosingsSelectorFn>::Subject subject{disposble};
-        state->subjects.emplace_back(subject.get_observer());
-        state->observer.on_next(subject.get_observable());
-        disposble->add(subject.get_disposable());
-        state->closings(std::forward<T>(v)).subscribe(subject.get_disposable(), );
+        typename TState::Subject subject{disposable};
+        {
+            std::lock_guard lock{state->mutex};
+            state->subjects.emplace_back(subject.get_observer());
+            state->observer.on_next(subject.get_observable());
+        }
+        disposable->add(rpp::disposable_wrapper::from_weak(subject.get_disposable()));
+        state->closings(std::forward<T>(v)).subscribe(subject.get_disposable(), window_toggle_closing_observer_strategy<TState>{disposable, state, subject});
     }
 
     void on_error(const std::exception_ptr& err) const
     {
-        disposble->dispose();
+        disposable->dispose();
 
         std::lock_guard lock{state->mutex};
         for (const auto& obs : state->observers)
             obs.on_error(err);
         state->observer.on_error(err);
     }
-    void on_completed() const {}
 
-    void set_upstream(const disposable_wrapper& d) const { disposble->add(d); }
-    bool is_disposed() const { return disposble->is_disposed(); }
+    static void on_completed() {}
+    static void set_upstream(const disposable_wrapper&) {}
+    static bool is_disposed() { return false; }
 };
 
 template<rpp::constraint::observer TObserver, rpp::constraint::observable TOpeningsObservable, typename TClosingsSelectorFn>
     requires rpp::constraint::observable<std::invoke_result_t<TClosingsSelectorFn, rpp::utils::extract_observable_type_t<TOpeningsObservable>>>
 class window_toggle_observer_strategy
 {
+    using TState = window_toggle_state<TObserver, TClosingsSelectorFn>;
 public:
     using preferred_disposable_strategy = rpp::details::observers::none_disposable_strategy;
 
     window_toggle_observer_strategy(TObserver&& observer, const TOpeningsObservable& openings, const TClosingsSelectorFn& closings)
-        : m_state{std::make_shared<window_toggle_state<TObserver, TClosingsSelectorFn>>(std::move(observer), closings)}
+        : m_state{std::make_shared<TState>(std::move(observer), closings)}
     {
-        m_state->observer.set_upstream(m_disposble->add_ref());
-        m_disposble->add(openings.subscribe_with_disposable());
+        m_state->observer.set_upstream(m_disposable->add_ref());
+        m_disposable->add(openings.subscribe_with_disposable(window_toggle_opening_observer_strategy<TState>{m_disposable, m_state}));
     }
 
     void on_next(const auto& v) const
@@ -133,7 +131,7 @@ public:
 
     void on_error(const std::exception_ptr& err) const
     {
-        m_disposble->dispose();
+        m_disposable->dispose();
 
         std::lock_guard lock{m_state->mutex};
         for (const auto& obs : m_state->observers)
@@ -143,7 +141,7 @@ public:
 
     void on_completed() const
     {
-        m_disposble->dispose();
+        m_disposable->dispose();
 
         std::lock_guard lock{m_state->mutex};
         for (const auto& obs : m_state->observers)
@@ -151,13 +149,13 @@ public:
         m_state->observer.on_completed();
     }
 
-    void set_upstream(const disposable_wrapper& d) const { m_disposble->add(d); }
+    void set_upstream(const disposable_wrapper& d) const { m_disposable->add(d); }
 
-    bool is_disposed() const { return m_disposble->is_disposed(); }
+    bool is_disposed() const { return m_disposable->is_disposed(); }
 
 private:
-    std::shared_ptr<rpp::refcount_disposable>                            m_disposble = std::make_shared<refcount_disposable>();
-    std::shared_ptr<window_toggle_state<TObserver, TClosingsSelectorFn>> m_state;
+    std::shared_ptr<rpp::refcount_disposable> m_disposable = std::make_shared<refcount_disposable>();
+    std::shared_ptr<TState>                   m_state;
 };
 
 template<rpp::constraint::observable TOpeningsObservable, typename TClosingsSelectorFn>
