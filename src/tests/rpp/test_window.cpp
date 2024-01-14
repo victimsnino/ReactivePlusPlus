@@ -28,14 +28,14 @@ TEST_CASE("window subdivide observable into sub-observables")
         {
             SECTION("see 2 observables")
             {
-                auto mock = mock_observer_strategy<rpp::windowed_observable<int>>{};
+                auto mock = mock_observer_strategy<rpp::window_observable<int>>{};
                 obs.subscribe(mock);
 
                 CHECK(mock.get_total_on_next_count() == 2);
                 CHECK(mock.get_on_error_count() == 0);
                 CHECK(mock.get_on_completed_count() == 1);
             }
-            SECTION("first windowed observable emits first 2 values and completes")
+            SECTION("first window observable emits first 2 values and completes")
             {
                 auto mock = mock_observer_strategy<int>{};
                 size_t i = 0;
@@ -49,7 +49,7 @@ TEST_CASE("window subdivide observable into sub-observables")
                 CHECK(mock.get_on_error_count() == 0);
                 CHECK(mock.get_on_completed_count() == 1);
             }
-            SECTION("second windowed observable emits last 1 value and completes")
+            SECTION("second window observable emits last 1 value and completes")
             {
                 auto mock = mock_observer_strategy<int>{};
                 size_t i = 0;
@@ -75,7 +75,7 @@ TEST_CASE("window subdivide observable into sub-observables")
             auto obs = subj.get_observable() | rpp::ops::window(2);
             SECTION("emit first item")
             {
-                auto mock = mock_observer_strategy<rpp::windowed_observable<int>>{};
+                auto mock = mock_observer_strategy<rpp::window_observable<int>>{};
                 obs.subscribe(mock);
 
                 CHECK(mock.get_total_on_next_count() == 0);
@@ -84,7 +84,7 @@ TEST_CASE("window subdivide observable into sub-observables")
 
                 subj.get_observer().on_next(1);
 
-                SECTION("see new windowed observable")
+                SECTION("see new window observable")
                 {
                     CHECK(mock.get_total_on_next_count() == 1);
                     CHECK(mock.get_on_error_count() == 0);
@@ -94,7 +94,7 @@ TEST_CASE("window subdivide observable into sub-observables")
                 SECTION("emit second item")
                 {
                     subj.get_observer().on_next(2);
-                    SECTION("no any new windowed observable")
+                    SECTION("no any new window observable")
                     {
                         CHECK(mock.get_total_on_next_count() == 1);
                         CHECK(mock.get_on_error_count() == 0);
@@ -104,7 +104,7 @@ TEST_CASE("window subdivide observable into sub-observables")
                     SECTION("emit third item")
                     {
                         subj.get_observer().on_next(3);
-                        SECTION("new windowed observable")
+                        SECTION("new window observable")
                         {
                             CHECK(mock.get_total_on_next_count() == 2);
                             CHECK(mock.get_on_error_count() == 0);
@@ -192,7 +192,7 @@ TEST_CASE("window disposes original disposable only when everything is disposed"
     auto inner_observer_disposable = std::make_shared<rpp::composite_disposable>();
     obs 
         | rpp::ops::window(2) 
-        | rpp::ops::subscribe(rpp::composite_disposable_wrapper{observer_disposable}, [inner_observer_disposable](const rpp::windowed_observable<int>& new_obs)
+        | rpp::ops::subscribe(rpp::composite_disposable_wrapper{observer_disposable}, [inner_observer_disposable](const rpp::window_observable<int>& new_obs)
     {
         new_obs.subscribe(rpp::composite_disposable_wrapper{inner_observer_disposable}, [](int){});
     });

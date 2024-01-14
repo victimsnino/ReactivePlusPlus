@@ -20,12 +20,12 @@
 
 TEST_CASE("window_toggle")
 {
-    mock_observer_strategy<rpp::windowed_observable<int>> mock{};
+    mock_observer_strategy<rpp::window_toggle_observable<int>> mock{};
     std::vector<mock_observer_strategy<int>> inner_mocks{}; 
 
     auto subscribe_mocks = [&mock, &inner_mocks](auto&& observable)
     {
-        observable.subscribe([&mock, &inner_mocks](const rpp::windowed_observable<int>& observable)
+        observable.subscribe([&mock, &inner_mocks](const rpp::window_toggle_observable<int>& observable)
         {
             mock.on_next(observable);
             observable.subscribe(inner_mocks.emplace_back());

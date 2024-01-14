@@ -25,7 +25,7 @@
 namespace rpp
 {
 template<constraint::decayed_type Type>
-using windowed_observable = decltype(std::declval<rpp::operators::details::forwarding_subject<Type>>().get_observable());
+using window_toggle_observable = decltype(std::declval<rpp::operators::details::forwarding_subject<Type>>().get_observable());
 }
 
 namespace rpp::operators::details
@@ -185,7 +185,7 @@ struct window_toggle_t //: public operators::details::operator_observable_strate
     RPP_NO_UNIQUE_ADDRESS TClosingsSelectorFn closings_selector;
 
     template<rpp::constraint::decayed_type T>
-    using result_value = rpp::windowed_observable<T>;
+    using result_value = rpp::window_toggle_observable<T>;
 
     template<rpp::details::observables::constraint::disposable_strategy Prev>
     using updated_disposable_strategy = rpp::details::observables::fixed_disposable_strategy_selector<1>;
@@ -203,6 +203,35 @@ struct window_toggle_t //: public operators::details::operator_observable_strate
 
 namespace rpp::operators
 {
+/**
+ * @brief Subdivide original observable into sub-observables (window observables) and emit sub-observables of items instead of original items
+ * @details Values from `openings` observable used to specify moment when new window will be opened. `closings_selector` is used to obtain observable to specify moment when new window will be closed.
+ *
+ * @marble window_toggle
+   {
+       source observable    :  +-1-2-3-4-5-|
+
+       operator "window(2)" :
+                           {
+                               .+1-2|
+                               .....+3-4|
+                               .........+5-|
+                           }
+   }
+ *
+ * @details Actually it is similar to `buffer` but it emits observable instead of container.
+ *
+ * @param openings is observable which emissions used to start new window
+ * @param closings_selector is function which returns observable which emission/completion means closing of opened window
+ *
+ * @warning #include <rpp/operators/window.hpp>
+ *
+ * @par Example
+ * @snippet window_toggle.cpp window_toggle
+ *
+ * @ingroup transforming_operators
+ * @see https://reactivex.io/documentation/operators/window.html
+ */
 template<rpp::constraint::observable TOpeningsObservable, typename TClosingsSelectorFn>
     requires rpp::constraint::observable<std::invoke_result_t<TClosingsSelectorFn, rpp::utils::extract_observable_type_t<TOpeningsObservable>>>
 auto window_toggle(TOpeningsObservable&& openings, TClosingsSelectorFn&& closings_selector)
