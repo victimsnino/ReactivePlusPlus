@@ -63,7 +63,7 @@ public:
 
     rpp::composite_disposable_wrapper get_disposable() const
     {
-        return m_state;
+        return m_state.as_weak();
     }
 
 private:

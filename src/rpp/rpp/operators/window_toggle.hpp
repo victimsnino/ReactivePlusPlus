@@ -74,7 +74,7 @@ struct window_toggle_closing_observer_strategy
 {
     std::shared_ptr<rpp::refcount_disposable>                               disposable;
     std::shared_ptr<TState>                                                 state;
-    rpp::disposable_wrapper                                                 subject_disposable;
+    rpp::disposable_wrapper                                                 this_disposable;
     decltype(std::declval<TState>().on_new_subject(std::declval<typename TState::Subject>())) ptr;
 
     void on_next(const auto&) const
@@ -92,7 +92,7 @@ struct window_toggle_closing_observer_strategy
 
     void on_completed() const
     {
-        disposable->remove(subject_disposable);
+        disposable->remove(this_disposable);
         ptr->on_completed();
         
         const auto locked_state= state->get_state_under_lock();
@@ -112,9 +112,12 @@ struct window_toggle_opening_observer_strategy
     void on_next(T&& v) const
     {
         typename TState::Subject subject{disposable->wrapper_from_this()};
-        auto ptr = state->on_new_subject(subject);
-        disposable->add(subject.get_disposable());
-        state->get_closing(std::forward<T>(v)).subscribe(subject.get_disposable(), window_toggle_closing_observer_strategy<TState>{disposable, state, subject.get_disposable(), std::move(ptr)});
+        const auto ptr = state->on_new_subject(subject);
+
+        auto d = rpp::composite_disposable_wrapper::make();
+        d.add(subject.get_disposable());
+        disposable->add(d);
+        state->get_closing(std::forward<T>(v)).subscribe(d, window_toggle_closing_observer_strategy<TState>{disposable, state, d, ptr});
     }
 
     void on_error(const std::exception_ptr& err) const
