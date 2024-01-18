@@ -72,9 +72,11 @@ private:
 template<rpp::constraint::decayed_type TState>
 struct window_toggle_closing_observer_strategy
 {
-    std::shared_ptr<rpp::refcount_disposable>                               disposable;
-    std::shared_ptr<TState>                                                 state;
-    rpp::disposable_wrapper                                                 this_disposable;
+    using preferred_disposable_strategy = rpp::details::observers::none_disposable_strategy;
+
+    std::shared_ptr<rpp::refcount_disposable>                                                 disposable;
+    std::shared_ptr<TState>                                                                   state;
+    rpp::composite_disposable_wrapper                                                         this_disposable;
     decltype(std::declval<TState>().on_new_subject(std::declval<typename TState::Subject>())) ptr;
 
     void on_next(const auto&) const
@@ -92,14 +94,16 @@ struct window_toggle_closing_observer_strategy
 
     void on_completed() const
     {
-        disposable->remove(this_disposable);
         ptr->on_completed();
+        
+        disposable->remove(this_disposable);
+        this_disposable.dispose();
         
         const auto locked_state= state->get_state_under_lock();
         locked_state->observers.remove_if([ptr=ptr](const auto& obs) { return &obs == ptr; });
     }
-    static void set_upstream(const disposable_wrapper&) { }
-    static bool is_disposed() { return false; }
+    void set_upstream(const disposable_wrapper& d) const { this_disposable.add(d); }
+    bool is_disposed() const { return this_disposable.is_disposed(); }
 };
 
 template<rpp::constraint::decayed_type TState>
@@ -117,7 +121,7 @@ struct window_toggle_opening_observer_strategy
         auto d = rpp::composite_disposable_wrapper::make();
         d.add(subject.get_disposable());
         disposable->add(d);
-        state->get_closing(std::forward<T>(v)).subscribe(d, window_toggle_closing_observer_strategy<TState>{disposable, state, d, ptr});
+        state->get_closing(std::forward<T>(v)).subscribe(window_toggle_closing_observer_strategy<TState>{disposable, state, d, ptr});
     }
 
     void on_error(const std::exception_ptr& err) const
