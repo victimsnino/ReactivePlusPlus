@@ -25,7 +25,7 @@
 TEST_CASE("window_toggle")
 {
     mock_observer_strategy<rpp::window_toggle_observable<int>> mock{};
-    std::vector<mock_observer_strategy<int>> inner_mocks{}; 
+    std::vector<mock_observer_strategy<int>> inner_mocks{};
 
     auto subscribe_mocks = [&mock, &inner_mocks](const auto& observable)
     {
@@ -40,9 +40,9 @@ TEST_CASE("window_toggle")
 
     SECTION("opening - just(1), closing - never()")
     {
-        subscribe_mocks(rpp::source::just(1,2,3) 
+        subscribe_mocks(rpp::source::just(1,2,3)
             | rpp::ops::window_toggle(rpp::source::just(1), [](int){return rpp::source::never<int>();}));
-        
+
         CHECK(mock.get_on_error_count() == 0);
         CHECK(mock.get_on_completed_count() == 1);
         REQUIRE(inner_mocks.size() == 1);
@@ -55,9 +55,9 @@ TEST_CASE("window_toggle")
     }
     SECTION("opening - just(1), closing - empty()")
     {
-        subscribe_mocks(rpp::source::just(1,2,3) 
+        subscribe_mocks(rpp::source::just(1,2,3)
             | rpp::ops::window_toggle(rpp::source::just(1), [](int){return rpp::source::empty<int>();}));
-        
+
         CHECK(mock.get_on_error_count() == 0);
         CHECK(mock.get_on_completed_count() == 1);
         REQUIRE(inner_mocks.size() == 1);
@@ -70,9 +70,9 @@ TEST_CASE("window_toggle")
     }
     SECTION("opening - just(1,2,3), closing - empty()")
     {
-        subscribe_mocks(rpp::source::just(1,2,3) 
+        subscribe_mocks(rpp::source::just(1,2,3)
             | rpp::ops::window_toggle(rpp::source::just(1,2,3), [](int){return rpp::source::empty<int>();}));
-        
+
         CHECK(mock.get_on_error_count() == 0);
         CHECK(mock.get_on_completed_count() == 1);
         REQUIRE(inner_mocks.size() == 3);
@@ -85,9 +85,9 @@ TEST_CASE("window_toggle")
     }
     SECTION("opening - just(1,2,3), closing - never()")
     {
-        subscribe_mocks(rpp::source::just(1,2,3) 
+        subscribe_mocks(rpp::source::just(1,2,3)
             | rpp::ops::window_toggle(rpp::source::just(1,2,3), [](int){return rpp::source::never<int>();}));
-        
+
         CHECK(mock.get_on_error_count() == 0);
         CHECK(mock.get_on_completed_count() == 1);
         REQUIRE(inner_mocks.size() == 3);
@@ -102,9 +102,9 @@ TEST_CASE("window_toggle")
     }
     SECTION("opening - just(1,2,3), closing - just(1)")
     {
-        subscribe_mocks(rpp::source::just(1,2,3) 
+        subscribe_mocks(rpp::source::just(1,2,3)
             | rpp::ops::window_toggle(rpp::source::just(1,2,3), [](int){return rpp::source::just(1);}));
-        
+
         CHECK(mock.get_on_error_count() == 0);
         CHECK(mock.get_on_completed_count() == 1);
         REQUIRE(inner_mocks.size() == 3);
@@ -119,9 +119,9 @@ TEST_CASE("window_toggle")
     }
     SECTION("opening - never(), closing - just(1)")
     {
-        subscribe_mocks(rpp::source::never<int>() 
+        subscribe_mocks(rpp::source::never<int>()
             | rpp::ops::window_toggle(rpp::source::just(1,2,3), [](int){return rpp::source::just(1);}));
-        
+
         CHECK(mock.get_on_error_count() == 0);
         CHECK(mock.get_on_completed_count() == 0);
         REQUIRE(inner_mocks.size() == 3);
@@ -133,34 +133,34 @@ TEST_CASE("window_toggle")
     }
     SECTION("opening - empty(), closing - just(1)")
     {
-        subscribe_mocks(rpp::source::empty<int>() 
+        subscribe_mocks(rpp::source::empty<int>()
             | rpp::ops::window_toggle(rpp::source::just(1,2,3), [](int){return rpp::source::just(1);}));
-        
+
         CHECK(mock.get_on_error_count() == 0);
         CHECK(mock.get_on_completed_count() == 1);
         REQUIRE(inner_mocks.size() == 0);
     }
     SECTION("source - error")
     {
-        subscribe_mocks(rpp::source::error<int>({}) 
+        subscribe_mocks(rpp::source::error<int>({})
             | rpp::ops::window_toggle(rpp::source::just(rpp::schedulers::immediate{}, 1), [](int){return rpp::source::never<int>(); }));
-        
+
         CHECK(mock.get_on_error_count() == 1);
         CHECK(mock.get_on_completed_count() == 0);
     }
     SECTION("openings - error")
     {
-        subscribe_mocks(rpp::source::never<int>() 
+        subscribe_mocks(rpp::source::never<int>()
             | rpp::ops::window_toggle(rpp::source::error<int>({}), [](int){return rpp::source::never<int>(); }));
-        
+
         CHECK(mock.get_on_error_count() == 1);
         CHECK(mock.get_on_completed_count() == 0);
     }
     SECTION("openings - just(1), closings - error")
     {
-        subscribe_mocks(rpp::source::never<int>() 
+        subscribe_mocks(rpp::source::never<int>()
             | rpp::ops::window_toggle(rpp::source::just(1), [](int){return rpp::source::error<int>({}); }));
-        
+
         CHECK(mock.get_on_error_count() == 1);
         CHECK(mock.get_on_completed_count() == 0);
         REQUIRE(inner_mocks.size() == 1);
@@ -172,9 +172,9 @@ TEST_CASE("window_toggle")
     }
     SECTION("openings - just(1), closings - throw")
     {
-        subscribe_mocks(rpp::source::never<int>() 
+        subscribe_mocks(rpp::source::never<int>()
             | rpp::ops::window_toggle(rpp::source::just(1), [](int){ throw std::runtime_error{""}; return rpp::source::error<int>({}); }));
-        
+
         CHECK(mock.get_on_error_count() == 1);
         CHECK(mock.get_on_completed_count() == 0);
         REQUIRE(inner_mocks.size() == 1);
@@ -203,11 +203,10 @@ TEST_CASE("window_toggle disposes original disposable only when everything is di
     auto opening_disposable = std::make_shared<rpp::composite_disposable>();
     auto closing_disposable = std::make_shared<rpp::composite_disposable>();
 
-
     auto observer_disposable = rpp::composite_disposable_wrapper::make();
     auto inner_observer_disposable = rpp::composite_disposable_wrapper::make();
-    make_observable(source_disposable) 
-        | rpp::ops::window_toggle(make_observable(opening_disposable) , [&](int){return make_observable(closing_disposable, false); }) 
+    make_observable(source_disposable)
+        | rpp::ops::window_toggle(make_observable(opening_disposable) , [&](int){return make_observable(closing_disposable, false); })
         | rpp::ops::subscribe(rpp::composite_disposable_wrapper{observer_disposable}, [inner_observer_disposable](const rpp::window_toggle_observable<int>& new_obs)
     {
         new_obs.subscribe(rpp::composite_disposable_wrapper{inner_observer_disposable}, [](int){});
