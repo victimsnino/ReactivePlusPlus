@@ -12,10 +12,10 @@
 
 #include <rpp/operators/as_blocking.hpp>
 #include <rpp/disposables/composite_disposable.hpp>
+#include <rpp/subjects/replay_subject.hpp>
 #include <rpp/subjects/serialized_subject.hpp>
 #include <rpp/subjects/publish_subject.hpp>
 #include <rpp/sources/create.hpp>
-
 
 #include "mock_observer.hpp"
 
@@ -254,5 +254,146 @@ TEST_CASE("serialized_subject handles race condition")
         [&](const std::exception_ptr&){ on_error_called = true; });
 
         CHECK(on_error_called);
+    }
+}
+
+
+TEST_CASE("replay subject multicasts values and replay")
+{
+    SECTION("replay subject")
+    {
+        auto mock_1 = mock_observer_strategy<int>{};
+        auto mock_2 = mock_observer_strategy<int>{};
+        auto mock_3 = mock_observer_strategy<int>{};
+
+        auto sub = rpp::subjects::replay_subject<int>{};
+
+        SECTION("subscribe multiple observers")
+        {
+            auto dis = std::make_shared<rpp::composite_disposable>();
+            sub.get_observable().subscribe(mock_1.get_observer(dis));
+            sub.get_observable().subscribe(mock_2.get_observer(dis));
+
+            sub.get_observer().on_next(1);
+            sub.get_observer().on_next(2);
+            sub.get_observer().on_next(3);
+
+            SECTION("observers obtain values")
+            {
+                auto validate = [](auto mock) {
+                    CHECK(mock.get_received_values() == std::vector{1, 2, 3});
+                    CHECK(mock.get_total_on_next_count() == 3);
+                    CHECK(mock.get_on_error_count() == 0);
+                    CHECK(mock.get_on_completed_count() == 0);
+                };
+                validate(mock_1);
+                validate(mock_2);
+            }
+
+            sub.get_observable().subscribe(mock_3.get_observer(dis));
+
+            SECTION("observer obtains replayed values")
+            {
+                CHECK(mock_3.get_received_values() == std::vector{1, 2, 3});
+                CHECK(mock_3.get_total_on_next_count() == 3);
+                CHECK(mock_3.get_on_error_count() == 0);
+                CHECK(mock_3.get_on_completed_count() == 0);
+            }
+
+            sub.get_observer().on_next(4);
+
+            SECTION("observers stil obtain values")
+            {
+                auto validate = [](auto mock) {
+                    CHECK(mock.get_received_values() == std::vector{1, 2, 3, 4});
+                    CHECK(mock.get_total_on_next_count() == 4);
+                    CHECK(mock.get_on_error_count() == 0);
+                    CHECK(mock.get_on_completed_count() == 0);
+                };
+                validate(mock_1);
+                validate(mock_2);
+                validate(mock_3);
+            }
+        }
+    }
+
+    SECTION("bounded replay subject")
+    {
+        auto mock_1 = mock_observer_strategy<int>{};
+        auto mock_2 = mock_observer_strategy<int>{};
+
+        size_t bound = 1;
+        auto   sub   = rpp::subjects::replay_subject<int>{bound};
+
+        SECTION("subscribe multiple observers")
+        {
+            auto dis = std::make_shared<rpp::composite_disposable>();
+            sub.get_observable().subscribe(mock_1.get_observer(dis));
+
+            sub.get_observer().on_next(1);
+            sub.get_observer().on_next(2);
+            sub.get_observer().on_next(3);
+
+            SECTION("observer obtains values")
+            {
+                CHECK(mock_1.get_received_values() == std::vector{1, 2, 3});
+                CHECK(mock_1.get_total_on_next_count() == 3);
+                CHECK(mock_1.get_on_error_count() == 0);
+                CHECK(mock_1.get_on_completed_count() == 0);
+            }
+
+            sub.get_observable().subscribe(mock_2.get_observer(dis));
+
+            SECTION("observer obtains latest replayed values")
+            {
+                CHECK(mock_2.get_received_values() == std::vector{3});
+                CHECK(mock_2.get_total_on_next_count() == 1);
+                CHECK(mock_2.get_on_error_count() == 0);
+                CHECK(mock_2.get_on_completed_count() == 0);
+            }
+        }
+    }
+
+    SECTION("bounded replay subject with duration")
+    {
+        using namespace std::chrono_literals;
+
+        auto mock_1 = mock_observer_strategy<int>{};
+        auto mock_2 = mock_observer_strategy<int>{};
+
+        size_t bound    = 2;
+        auto   duration = 5ms;
+        auto   sub      = rpp::subjects::replay_subject<int>{bound, duration};
+
+        SECTION("subscribe multiple observers")
+        {
+            auto dis = std::make_shared<rpp::composite_disposable>();
+            sub.get_observable().subscribe(mock_1.get_observer(dis));
+
+            sub.get_observer().on_next(1);
+            sub.get_observer().on_next(2);
+            sub.get_observer().on_next(3);
+
+            SECTION("observer obtains values")
+            {
+                CHECK(mock_1.get_received_values() == std::vector{1, 2, 3});
+                CHECK(mock_1.get_total_on_next_count() == 3);
+                CHECK(mock_1.get_on_error_count() == 0);
+                CHECK(mock_1.get_on_completed_count() == 0);
+            }
+
+            std::this_thread::sleep_for(duration);
+            sub.get_observer().on_next(4);
+
+            sub.get_observable().subscribe(mock_2.get_observer(dis));
+
+            SECTION("subject replay only non expired values")
+            {
+                CHECK(mock_2.get_received_values() == std::vector<int>{4});
+                CHECK(mock_2.get_total_on_next_count() == 1);
+                CHECK(mock_2.get_on_error_count() == 0);
+                CHECK(mock_2.get_on_completed_count() == 0);
+            }
+        }
     }
 }
