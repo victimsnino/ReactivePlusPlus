@@ -17,6 +17,7 @@
 #include <rpp/subjects/publish_subject.hpp>
 #include <rpp/sources/create.hpp>
 
+#include "copy_count_tracker.hpp"
 #include "mock_observer.hpp"
 
 #include <thread>
@@ -270,9 +271,8 @@ TEST_CASE("replay subject multicasts values and replay")
 
         SECTION("subscribe multiple observers")
         {
-            auto dis = std::make_shared<rpp::composite_disposable>();
-            sub.get_observable().subscribe(mock_1.get_observer(dis));
-            sub.get_observable().subscribe(mock_2.get_observer(dis));
+            sub.get_observable().subscribe(mock_1.get_observer());
+            sub.get_observable().subscribe(mock_2.get_observer());
 
             sub.get_observer().on_next(1);
             sub.get_observer().on_next(2);
@@ -290,7 +290,7 @@ TEST_CASE("replay subject multicasts values and replay")
                 validate(mock_2);
             }
 
-            sub.get_observable().subscribe(mock_3.get_observer(dis));
+            sub.get_observable().subscribe(mock_3.get_observer());
 
             SECTION("observer obtains replayed values")
             {
@@ -327,8 +327,7 @@ TEST_CASE("replay subject multicasts values and replay")
 
         SECTION("subscribe multiple observers")
         {
-            auto dis = std::make_shared<rpp::composite_disposable>();
-            sub.get_observable().subscribe(mock_1.get_observer(dis));
+            sub.get_observable().subscribe(mock_1.get_observer());
 
             sub.get_observer().on_next(1);
             sub.get_observer().on_next(2);
@@ -342,7 +341,7 @@ TEST_CASE("replay subject multicasts values and replay")
                 CHECK(mock_1.get_on_completed_count() == 0);
             }
 
-            sub.get_observable().subscribe(mock_2.get_observer(dis));
+            sub.get_observable().subscribe(mock_2.get_observer());
 
             SECTION("observer obtains latest replayed values")
             {
@@ -367,8 +366,7 @@ TEST_CASE("replay subject multicasts values and replay")
 
         SECTION("subscribe multiple observers")
         {
-            auto dis = std::make_shared<rpp::composite_disposable>();
-            sub.get_observable().subscribe(mock_1.get_observer(dis));
+            sub.get_observable().subscribe(mock_1.get_observer());
 
             sub.get_observer().on_next(1);
             sub.get_observer().on_next(2);
@@ -385,7 +383,7 @@ TEST_CASE("replay subject multicasts values and replay")
             std::this_thread::sleep_for(duration);
             sub.get_observer().on_next(4);
 
-            sub.get_observable().subscribe(mock_2.get_observer(dis));
+            sub.get_observable().subscribe(mock_2.get_observer());
 
             SECTION("subject replay only non expired values")
             {
@@ -395,5 +393,23 @@ TEST_CASE("replay subject multicasts values and replay")
                 CHECK(mock_2.get_on_completed_count() == 0);
             }
         }
+    }
+}
+
+TEST_CASE("replay subject doesn't introduce additional copies")
+{
+    auto sub = rpp::subjects::replay_subject<copy_count_tracker>{};
+
+    SECTION("subscribe")
+    {
+        sub.get_observable().subscribe([](const copy_count_tracker& tracker){
+            CHECK(tracker.get_copy_count(), 1); // 1 copy to internal replay buffer
+        });
+
+        sub.get_observer().on_next(copy_count_tracker{});
+
+        sub.get_observable().subscribe([](const copy_count_tracker& tracker){
+            CHECK(tracker.get_copy_count(), 1); // 1 copy to internal replay buffer
+        });
     }
 }
