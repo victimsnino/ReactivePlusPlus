@@ -35,8 +35,8 @@ struct disposed
 };
 
 template<rpp::constraint::decayed_type Type>
-class subject_state final : public std::enable_shared_from_this<subject_state<Type>>
-    , public composite_disposable
+class subject_state : public std::enable_shared_from_this<subject_state<Type>>
+                    , public composite_disposable
 {
     using shared_observers = std::shared_ptr<std::vector<rpp::dynamic_observer<Type>>>;
     using state_t          = std::variant<shared_observers, std::exception_ptr, completed, disposed>;
