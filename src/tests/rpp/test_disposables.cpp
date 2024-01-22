@@ -68,10 +68,10 @@ TEMPLATE_TEST_CASE("disposable keeps state", "", rpp::details::disposables::dyna
             CHECK(!other->is_disposed());
             d.add(other);
             CHECK(!other->is_disposed());
-            
+
             d.clear();
             CHECK(other->is_disposed());
-           
+
             CHECK(!d.is_disposed());
         }
         SECTION("calling clear on disposed disposable")
@@ -183,7 +183,7 @@ TEST_CASE("refcount disposable dispose underlying in case of reaching zero")
         {
             auto d = refcount->add_ref();
             CHECK(d.is_disposed());
-            
+
             refcounted.dispose();
             CHECK(underlying->dispose_count == 1);
             CHECK(refcounted.is_disposed());
@@ -241,4 +241,93 @@ TEST_CASE("composite_disposable correctly handles exception")
     d.dispose();
     CHECK(d1.is_disposed());
     CHECK(!d2.is_disposed());
+}
+
+TEST_CASE("static_disposable_container works as expected")
+{
+    rpp::details::disposables::static_disposables_container<2> container{};
+
+    auto d1 = rpp::composite_disposable_wrapper{std::make_shared<rpp::composite_disposable>()};
+    auto d2 = rpp::composite_disposable_wrapper{std::make_shared<rpp::composite_disposable>()};
+
+    SECTION("dispose empty")
+    {
+        container.dispose();
+    }
+
+    container.push_back(d1);
+    container.push_back(d2);
+
+    SECTION("dispose with added disposable")
+    {
+        container.dispose();
+        CHECK(d1.is_disposed());
+        CHECK(d2.is_disposed());
+    }
+
+    SECTION("clear with added disposable")
+    {
+        container.clear();
+        container.dispose();
+        CHECK(!d1.is_disposed());
+        CHECK(!d2.is_disposed());
+        SECTION("add cleared and dispose")
+        {
+            container.push_back(d1);
+            CHECK(!d1.is_disposed());
+            container.dispose();
+            CHECK(d1.is_disposed());
+            CHECK(!d2.is_disposed());
+        }
+    }
+
+    SECTION("remove with added disposable")
+    {
+        container.remove(d1);
+        container.dispose();
+        CHECK(!d1.is_disposed());
+        CHECK(d2.is_disposed());
+        SECTION("add removed and dispose")
+        {
+            container.push_back(d1);
+            CHECK(!d1.is_disposed());
+            container.dispose();
+            CHECK(d1.is_disposed());
+        }
+    }
+
+    SECTION("move container")
+    {
+        auto other = std::move(container);
+        SECTION("dispose original")
+        {
+            container.dispose(); // NOLINT
+            CHECK(!d1.is_disposed());
+            CHECK(!d2.is_disposed());
+        }
+
+        SECTION("dispose copied")
+        {
+            other.dispose();
+            CHECK(d1.is_disposed());
+            CHECK(d2.is_disposed());
+        }
+        SECTION("move back")
+        {
+            container = std::move(other);
+            SECTION("dispose copied")
+            {
+                other.dispose(); // NOLINT
+                CHECK(!d1.is_disposed());
+                CHECK(!d2.is_disposed());
+            }
+
+            SECTION("dispose original")
+            {
+                container.dispose();
+                CHECK(d1.is_disposed());
+                CHECK(d2.is_disposed());
+            }
+        }
+    }
 }
