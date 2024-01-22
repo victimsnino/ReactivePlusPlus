@@ -120,6 +120,8 @@ public:
                 continue;
             }
 
+            std::destroy_at(get(i));
+
             for(size_t j = i+1; j < m_size; ++j)
             {
                 std::construct_at(get(j-1), std::move(*get(j)));
