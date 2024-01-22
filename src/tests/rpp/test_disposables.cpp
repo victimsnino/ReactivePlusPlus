@@ -301,7 +301,7 @@ TEST_CASE("static_disposable_container works as expected")
         auto other = std::move(container);
         SECTION("dispose original")
         {
-            container.dispose();
+            container.dispose(); // NOLINT
             CHECK(!d1.is_disposed());
             CHECK(!d2.is_disposed());
         }
@@ -317,7 +317,7 @@ TEST_CASE("static_disposable_container works as expected")
             container = std::move(other);
             SECTION("dispose copied")
             {
-                other.dispose();
+                other.dispose(); // NOLINT
                 CHECK(!d1.is_disposed());
                 CHECK(!d2.is_disposed());
             }
