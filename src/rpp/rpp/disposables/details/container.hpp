@@ -150,6 +150,10 @@ private:
     {
         return std::launder(reinterpret_cast<const rpp::disposable_wrapper*>(&m_data[i*sizeof(rpp::disposable_wrapper)]));
     }
+    rpp::disposable_wrapper* get(size_t i)
+    {
+        return std::launder(reinterpret_cast<rpp::disposable_wrapper*>(&m_data[i*sizeof(rpp::disposable_wrapper)]));
+    }
 
 private:
     alignas(rpp::disposable_wrapper) std::byte m_data[sizeof(rpp::disposable_wrapper) * Count]{};
