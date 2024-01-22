@@ -160,7 +160,7 @@ Core concepts of Reactive Programming</h1>
 <div class="line"> </div>
 <div class="line"><span class="keywordtype">int</span> main()</div>
 <div class="line">{</div>
-<div class="line">    <a class="code hl_function" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">rpp::source::create&lt;int&gt;</a>([](<span class="keyword">const</span> <span class="keyword">auto</span>&amp; observer)</div>
+<div class="line">    rpp::source::create&lt;int&gt;([](<span class="keyword">const</span> <span class="keyword">auto</span>&amp; observer)</div>
 <div class="line">    {</div>
 <div class="line">        <span class="keywordflow">while</span> (!observer.is_disposed())</div>
 <div class="line">        {</div>
@@ -208,7 +208,6 @@ Core concepts of Reactive Programming</h1>
 <div class="line"> </div>
 <div class="line">    <span class="keywordflow">return</span> 0;</div>
 <div class="line">}</div>
-<div class="ttc" id="agroup__creational__operators_html_gab6cfd9da2e3590fd199c9972477e04df"><div class="ttname"><a href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">rpp::source::concat</a></div><div class="ttdeci">auto concat(TObservable &amp;&amp;obs, TObservables &amp;&amp;... others)</div><div class="ttdoc">Make observable which would merge emissions from underlying observables but without overlapping (curr...</div><div class="ttdef"><b>Definition</b> concat.hpp:168</div></div>
 <div class="ttc" id="agroup__utility__operators_html_ga149309d4b2e0f1201f1ab42597ace8ac"><div class="ttname"><a href="group__utility__operators.html#ga149309d4b2e0f1201f1ab42597ace8ac">rpp::operators::subscribe</a></div><div class="ttdeci">auto subscribe(observer&lt; Type, ObserverStrategy &gt; &amp;&amp;observer)</div><div class="ttdoc">Subscribes passed observer to emissions from this observable.</div><div class="ttdef"><b>Definition</b> subscribe.hpp:229</div></div>
 </div><!-- fragment --><p>There we are creating observable that emits digits from console input:In case of user promted something else it is <b>error</b> for our observable (it is expected to emit ONLY digits). In this case we are notifying observer about it and just stopping. When user prompts <code>0</code>, it means "end of observable".</p>
 <p>See <a href="https://reactivex.io/documentation/observable.html">https://reactivex.io/documentation/observable.html</a> for more details.</p>
@@ -293,12 +292,12 @@ Operators</h2>
 <h3><a class="anchor" id="autotoc_md6"></a>
 How operator works?</h3>
 <p>Let's check this example:</p>
-<div class="fragment"><div class="line"><a class="code hl_function" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">rpp::source::create&lt;int&gt;</a>([](<span class="keyword">const</span> <span class="keyword">auto</span>&amp; observer){</div>
+<div class="fragment"><div class="line">rpp::source::create&lt;int&gt;([](<span class="keyword">const</span> <span class="keyword">auto</span>&amp; observer){</div>
 <div class="line">  observer.on_next(1);</div>
 <div class="line">  observer.on_completed();</div>
 <div class="line">});</div>
 </div><!-- fragment --><p>This example shows next: we create observble of <code>int</code> via operator <code>create</code>. This observable just emits to observer value <code>1</code> and then completes. Type of this observable is <code><a class="el" href="classrpp_1_1observable.html" title="Base class for any observable used in RPP. It handles core callbacks of observable.">rpp::observable</a>&lt;int, ...&gt;</code> where <code>...</code> implementation defined type. So, actually it is <code>observable of ints</code>. Let's say we want to convert <code>int</code> to <code>std::string</code>. We could subscribe and then convert it or use <code>map</code> operator (also known as <code>transform</code>) to transform some original value to some another value:</p>
-<div class="fragment"><div class="line"><a class="code hl_function" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">rpp::source::create&lt;int&gt;</a>([](<span class="keyword">const</span> <span class="keyword">auto</span>&amp; observer){</div>
+<div class="fragment"><div class="line">rpp::source::create&lt;int&gt;([](<span class="keyword">const</span> <span class="keyword">auto</span>&amp; observer){</div>
 <div class="line">  observer.on_next(1);</div>
 <div class="line">  observer.on_completed();</div>
 <div class="line">})</div>
@@ -312,7 +311,7 @@ How operator works?</h3>
 <div class="line">  <span class="keyword">template</span>&lt;<span class="keyword">typename</span> Type, <span class="keyword">typename</span> Internal&gt;</div>
 <div class="line">  <span class="keyword">auto</span> operator()(<span class="keyword">const</span> <a class="code hl_class" href="classrpp_1_1observable.html">rpp::observable&lt;Type, Internal&gt;</a>&amp; observable)<span class="keyword"> const </span>{</div>
 <div class="line">    <span class="keyword">using </span>FinalType = std::invoke_result_t&lt;Fn, Type&gt;;</div>
-<div class="line">    <span class="keywordflow">return</span> <a class="code hl_function" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">rpp::source::create&lt;FinalType&gt;</a>([observable, fn](<span class="keyword">const</span> <a class="code hl_class" href="classrpp_1_1dynamic__observer.html">rpp::dynamic_observer&lt;FinalType&gt;</a>&amp; observer)</div>
+<div class="line">    <span class="keywordflow">return</span> rpp::source::create&lt;FinalType&gt;([observable, fn](<span class="keyword">const</span> <a class="code hl_class" href="classrpp_1_1dynamic__observer.html">rpp::dynamic_observer&lt;FinalType&gt;</a>&amp; observer)</div>
 <div class="line">    {</div>
 <div class="line">      observable.<a class="code hl_function" href="classrpp_1_1observable.html#a193b0e08c516912c04afd8379ec27182">subscribe</a>([observer, fn](<span class="keyword">const</span> <span class="keyword">auto</span>&amp; v) { observer.<a class="code hl_function" href="classrpp_1_1details_1_1observer__impl.html#a14747a5260ecc183a6d0f1adafee4f68">on_next</a>(fn(v)); },</div>
 <div class="line">                           [observer](<span class="keyword">const</span> std::exception_ptr&amp; err) { observer.<a class="code hl_function" href="classrpp_1_1details_1_1observer__impl.html#aa55c5a334bc39c92218f7b51e5126bbc">on_error</a>(err); },</div>
@@ -328,6 +327,7 @@ How operator works?</h3>
 <div class="ttc" id="aclassrpp_1_1observable_html_a193b0e08c516912c04afd8379ec27182"><div class="ttname"><a href="classrpp_1_1observable.html#a193b0e08c516912c04afd8379ec27182">rpp::observable::subscribe</a></div><div class="ttdeci">void subscribe(observer&lt; Type, ObserverStrategy &gt; &amp;&amp;observer) const</div><div class="ttdoc">Subscribes passed observer to emissions from this observable.</div><div class="ttdef"><b>Definition</b> observable.hpp:58</div></div>
 </div><!-- fragment --><p>It is template for such an functor-adaptor. Provided example - is simplest possible way to implement new operators - just provide function for transformation of observable. For example, it is fully valid example: </p><div class="fragment"><div class="line"><a class="code hl_function" href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">rpp::source::just</a>(1)</div>
 <div class="line">    | [](<span class="keyword">const</span> <span class="keyword">auto</span>&amp; observable) { <span class="keywordflow">return</span> <a class="code hl_function" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">rpp::source::concat</a>(observable, <a class="code hl_function" href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">rpp::source::just</a>(2)); };</div>
+<div class="ttc" id="agroup__creational__operators_html_gab6cfd9da2e3590fd199c9972477e04df"><div class="ttname"><a href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">rpp::source::concat</a></div><div class="ttdeci">auto concat(TObservable &amp;&amp;obs, TObservables &amp;&amp;... others)</div><div class="ttdoc">Make observable which would merge emissions from underlying observables but without overlapping (curr...</div><div class="ttdef"><b>Definition</b> concat.hpp:168</div></div>
 </div><!-- fragment --><p>There we convert observable to concatenation of original observable and <code>just(2)</code>.</p>
 <p>One more posible but a bit more advanced way to implement operators - is to lift observer. To do this, your functor-adapter must to satisfy <code><a class="el" href="conceptrpp_1_1constraint_1_1operator__lift.html">rpp::constraint::operator_lift</a></code> concept. Actually, your class must to have:</p><ul>
 <li>member function <code>lift</code> accepting downstream observer and returning new upstream observer</li>
@@ -358,7 +358,7 @@ Schedulers</h2>
 <div class="fragment"><div class="line"><a class="code hl_function" href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">rpp::source::just</a>(1,2,3,4,5)                                  <span class="comment">// 1</span></div>
 <div class="line">| <a class="code hl_function" href="group__utility__operators.html#gace728cfbf71720901cb6f310edabf8b0">rpp::operators::subscribe_on</a>(<a class="code hl_class" href="classrpp_1_1schedulers_1_1new__thread.html">rpp::schedulers::new_thread</a>{}) <span class="comment">// 2</span></div>
 <div class="line">| <a class="code hl_function" href="group__utility__operators.html#ga149309d4b2e0f1201f1ab42597ace8ac">rpp::operators::subscribe</a>([](<span class="keyword">auto</span>){});                      <span class="comment">// 3</span></div>
-</div><!-- fragment --><p>In this case subscribe to <code>3</code> happens in current thread (where subscribe invoked). But during subscription to <code>2</code> it schedules subscription to <code>1</code> to provided <code>new_thread</code> scheduler. So, subscription to final observable and it's internal logic (iterating and emitting of values) happens inside new_thread. Actually it is something like this: </p><div class="fragment"><div class="line"><a class="code hl_function" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">rpp::source::create&lt;int&gt;</a>([](<span class="keyword">const</span> <span class="keyword">auto</span>&amp; observer)</div>
+</div><!-- fragment --><p>In this case subscribe to <code>3</code> happens in current thread (where subscribe invoked). But during subscription to <code>2</code> it schedules subscription to <code>1</code> to provided <code>new_thread</code> scheduler. So, subscription to final observable and it's internal logic (iterating and emitting of values) happens inside new_thread. Actually it is something like this: </p><div class="fragment"><div class="line">rpp::source::create&lt;int&gt;([](<span class="keyword">const</span> <span class="keyword">auto</span>&amp; observer)</div>
 <div class="line">{</div>
 <div class="line">  <a class="code hl_class" href="classrpp_1_1schedulers_1_1new__thread.html">rpp::schedulers::new_thread</a>{}.create_worker([](...) {</div>
 <div class="line">    <a class="code hl_function" href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">rpp::source::just</a>(1,2,3,4,5).subscribe(observer);</div>
@@ -369,7 +369,7 @@ Schedulers</h2>
 <div class="line">| <a class="code hl_function" href="group__utility__operators.html#ga3feb1b1258c7e3e72c151abf176c30c4">rpp::operators::observe_on</a>(<a class="code hl_class" href="classrpp_1_1schedulers_1_1new__thread.html">rpp::schedulers::new_thread</a>{})</div>
 <div class="line">| <a class="code hl_function" href="group__utility__operators.html#ga149309d4b2e0f1201f1ab42597ace8ac">rpp::operators::subscribe</a>([](<span class="keyword">auto</span>){});</div>
 <div class="ttc" id="agroup__utility__operators_html_ga3feb1b1258c7e3e72c151abf176c30c4"><div class="ttname"><a href="group__utility__operators.html#ga3feb1b1258c7e3e72c151abf176c30c4">rpp::operators::observe_on</a></div><div class="ttdeci">auto observe_on(Scheduler &amp;&amp;scheduler, rpp::schedulers::duration delay_duration={})</div><div class="ttdoc">Specify the Scheduler on which an observer will observe this Observable.</div><div class="ttdef"><b>Definition</b> observe_on.hpp:37</div></div>
-</div><!-- fragment --><p>In this case whole subscription flow happens in thread of subscription, but emission of values transfers to another thread. Actually it is something like this: </p><div class="fragment"><div class="line"><a class="code hl_function" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">rpp::source::create&lt;int&gt;</a>([](<span class="keyword">const</span> <span class="keyword">auto</span>&amp; observer)</div>
+</div><!-- fragment --><p>In this case whole subscription flow happens in thread of subscription, but emission of values transfers to another thread. Actually it is something like this: </p><div class="fragment"><div class="line">rpp::source::create&lt;int&gt;([](<span class="keyword">const</span> <span class="keyword">auto</span>&amp; observer)</div>
 <div class="line">{</div>
 <div class="line">  <span class="keyword">auto</span> worker = <a class="code hl_class" href="classrpp_1_1schedulers_1_1new__thread.html">rpp::schedulers::new_thread</a>{}.create_worker();</div>
 <div class="line">  <a class="code hl_function" href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">rpp::source::just</a>(1,2,3,4,5).subscribe([](<span class="keywordtype">int</span> v) {</div>
@@ -404,7 +404,7 @@ Examples</h3>
 <p>For example, <code><a class="el" href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0" title="Creates rpp::observable that emits a particular items and completes.">rpp::source::just</a></code></p>
 <div class="fragment"><div class="line"><a class="code hl_function" href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">rpp::source::just</a>(my_custom_variable);</div>
 </div><!-- fragment --><p> by default <code>just</code> uses <code><a class="el" href="structrpp_1_1memory__model_1_1use__stack.html">rpp::memory_model::use_stack</a></code> and <code>my_custom_variable</code> would be copied and moved everywhere when needed. On the other hand</p>
-<div class="fragment"><div class="line"><a class="code hl_function" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">rpp::source::just&lt;rpp::memory_model::use_shared&gt;</a>(my_custom_variable);</div>
+<div class="fragment"><div class="line">rpp::source::just&lt;rpp::memory_model::use_shared&gt;(my_custom_variable);</div>
 </div><!-- fragment --><p> makes only 1 copy/move to shared_ptr and then uses it instead.</p>
 <p>As a a result, users can select preferable way of handling of their types. </p>
 </div></div><!-- contents -->

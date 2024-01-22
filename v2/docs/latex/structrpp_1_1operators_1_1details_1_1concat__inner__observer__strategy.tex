@@ -10,16 +10,16 @@ Inheritance diagram for rpp\+::operators\+::details\+::concat\+\_\+inner\+\_\+ob
 \begin{DoxyCompactItemize}
 \item 
 \Hypertarget{structrpp_1_1operators_1_1details_1_1concat__inner__observer__strategy_a780d46a94578ff4927b178b294df686a}\label{structrpp_1_1operators_1_1details_1_1concat__inner__observer__strategy_a780d46a94578ff4927b178b294df686a} 
-\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{using}} {\bfseries base} = \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1concat__observer__strategy__base}{concat\+\_\+observer\+\_\+strategy\+\_\+base}}$<$TObservable, TObserver$>$
+using {\bfseries base} = \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1concat__observer__strategy__base}{concat\+\_\+observer\+\_\+strategy\+\_\+base}}$<$TObservable, TObserver$>$
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
 \Hypertarget{structrpp_1_1operators_1_1details_1_1concat__inner__observer__strategy_a5a8d4645afecbf3e8ac1c312f40089f2}\label{structrpp_1_1operators_1_1details_1_1concat__inner__observer__strategy_a5a8d4645afecbf3e8ac1c312f40089f2} 
-{\footnotesize template$<$\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{typename}} T $>$ }\\\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{void}} {\bfseries on\+\_\+next} (T \&\&\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{v}}) \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{const}}
+{\footnotesize template$<$typename T $>$ }\\void {\bfseries on\+\_\+next} (T \&\&v) const
 \item 
 \Hypertarget{structrpp_1_1operators_1_1details_1_1concat__inner__observer__strategy_ad7bd00f7ce00656e12f7e7faa2ee0db6}\label{structrpp_1_1operators_1_1details_1_1concat__inner__observer__strategy_ad7bd00f7ce00656e12f7e7faa2ee0db6} 
-\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{void}} {\bfseries on\+\_\+completed} () \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{const}}
+void {\bfseries on\+\_\+completed} () const
 \item 
 \Hypertarget{structrpp_1_1operators_1_1details_1_1concat__inner__observer__strategy_ab0dac84a77a2b0e293aa6ff45f1337b4}\label{structrpp_1_1operators_1_1details_1_1concat__inner__observer__strategy_ab0dac84a77a2b0e293aa6ff45f1337b4} 
 {\bfseries concat\+\_\+observer\+\_\+strategy\+\_\+base} (std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1concat__state__t}{concat\+\_\+state\+\_\+t}}$<$ TObservable, TObserver $>$ $>$ state, \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp\+::composite\+\_\+disposable\+\_\+wrapper}} refcounted)
@@ -34,11 +34,11 @@ Inheritance diagram for rpp\+::operators\+::details\+::concat\+\_\+inner\+\_\+ob
 \item 
 {\bfseries concat\+\_\+observer\+\_\+strategy\+\_\+base} (std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1concat__state__t}{concat\+\_\+state\+\_\+t}}$<$ TObservable, TObserver $>$ $>$ state)
 \item 
-\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{void}} {\bfseries on\+\_\+error} (\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{const}} std\+::exception\+\_\+ptr \&err) \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{const}}
+void {\bfseries on\+\_\+error} (const std\+::exception\+\_\+ptr \&err) const
 \item 
-\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{void}} {\bfseries set\+\_\+upstream} (\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{const}} \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{disposable\+\_\+wrapper}} \&\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{d}}) \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{const}}
+void {\bfseries set\+\_\+upstream} (const \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{disposable\+\_\+wrapper}} \&d) const
 \item 
-\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{bool}} {\bfseries is\+\_\+disposed} () \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{const}}
+bool {\bfseries is\+\_\+disposed} () const
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Additional Inherited Members}
 \doxysubsection*{Public Attributes inherited from \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1concat__observer__strategy__base}{rpp\+::operators\+::details\+::concat\+\_\+observer\+\_\+strategy\+\_\+base$<$ TObservable, TObserver $>$}}}

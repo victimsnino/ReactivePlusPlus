@@ -90,7 +90,7 @@ For example\+:
 \DoxyCodeLine{}
 \DoxyCodeLine{\textcolor{keywordtype}{int}\ main()}
 \DoxyCodeLine{\{}
-\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{rpp::source::create<int>}}([](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ observer)}
+\DoxyCodeLine{\ \ \ \ rpp::source::create<int>([](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ observer)}
 \DoxyCodeLine{\ \ \ \ \{}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (!observer.is\_disposed())}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \{}
@@ -247,7 +247,7 @@ Let\textquotesingle{}s check this example\+:
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{\mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{rpp::source::create<int>}}([](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ observer)\{}
+\DoxyCodeLine{rpp::source::create<int>([](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ observer)\{}
 \DoxyCodeLine{\ \ observer.on\_next(1);}
 \DoxyCodeLine{\ \ observer.on\_completed();}
 \DoxyCodeLine{\});}
@@ -259,7 +259,7 @@ This example shows next\+: we create observble of {\ttfamily int} via operator {
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{\mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{rpp::source::create<int>}}([](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ observer)\{}
+\DoxyCodeLine{rpp::source::create<int>([](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ observer)\{}
 \DoxyCodeLine{\ \ observer.on\_next(1);}
 \DoxyCodeLine{\ \ observer.on\_completed();}
 \DoxyCodeLine{\})}
@@ -280,7 +280,7 @@ For now it is {\ttfamily observable of strings} due to it is {\ttfamily \doxylin
 \DoxyCodeLine{\ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ Type,\ \textcolor{keyword}{typename}\ Internal>}
 \DoxyCodeLine{\ \ \textcolor{keyword}{auto}\ operator()(\textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1observable}{rpp::observable<Type,\ Internal>}}\&\ observable)\textcolor{keyword}{\ const\ }\{}
 \DoxyCodeLine{\ \ \ \ \textcolor{keyword}{using\ }FinalType\ =\ std::invoke\_result\_t<Fn,\ Type>;}
-\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{rpp::source::create<FinalType>}}([observable,\ fn](\textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1dynamic__observer}{rpp::dynamic\_observer<FinalType>}}\&\ observer)}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{return}\ rpp::source::create<FinalType>([observable,\ fn](\textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1dynamic__observer}{rpp::dynamic\_observer<FinalType>}}\&\ observer)}
 \DoxyCodeLine{\ \ \ \ \{}
 \DoxyCodeLine{\ \ \ \ \ \ observable.\mbox{\hyperlink{classrpp_1_1observable_a193b0e08c516912c04afd8379ec27182}{subscribe}}([observer,\ fn](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ v)\ \{\ observer.\mbox{\hyperlink{classrpp_1_1details_1_1observer__impl_a14747a5260ecc183a6d0f1adafee4f68}{on\_next}}(fn(v));\ \},}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [observer](\textcolor{keyword}{const}\ std::exception\_ptr\&\ err)\ \{\ observer.\mbox{\hyperlink{classrpp_1_1details_1_1observer__impl_aa55c5a334bc39c92218f7b51e5126bbc}{on\_error}}(err);\ \},}
@@ -346,7 +346,7 @@ By default, an {\bfseries{Observable}} will perform its work in the thread where
 
 In this case subscribe to {\ttfamily 3} happens in current thread (where subscribe invoked). But during subscription to {\ttfamily 2} it schedules subscription to {\ttfamily 1} to provided {\ttfamily new\+\_\+thread} scheduler. So, subscription to final observable and it\textquotesingle{}s internal logic (iterating and emitting of values) happens inside new\+\_\+thread. Actually it is something like this\+: 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{\mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{rpp::source::create<int>}}([](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ observer)}
+\DoxyCodeLine{rpp::source::create<int>([](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ observer)}
 \DoxyCodeLine{\{}
 \DoxyCodeLine{\ \ \mbox{\hyperlink{classrpp_1_1schedulers_1_1new__thread}{rpp::schedulers::new\_thread}}\{\}.create\_worker([](...)\ \{}
 \DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(1,2,3,4,5).subscribe(observer);}
@@ -369,7 +369,7 @@ The {\bfseries{observe\+\_\+on}} operator specifies the {\bfseries{scheduler}} t
 
 In this case whole subscription flow happens in thread of subscription, but emission of values transfers to another thread. Actually it is something like this\+: 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{\mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{rpp::source::create<int>}}([](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ observer)}
+\DoxyCodeLine{rpp::source::create<int>([](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ observer)}
 \DoxyCodeLine{\{}
 \DoxyCodeLine{\ \ \textcolor{keyword}{auto}\ worker\ =\ \mbox{\hyperlink{classrpp_1_1schedulers_1_1new__thread}{rpp::schedulers::new\_thread}}\{\}.create\_worker();}
 \DoxyCodeLine{\ \ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(1,2,3,4,5).subscribe([](\textcolor{keywordtype}{int}\ v)\ \{}
@@ -417,7 +417,7 @@ For example, {\ttfamily \doxylink{group__creational__operators_ga1edf47f176050dd
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{\mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{rpp::source::just<rpp::memory\_model::use\_shared>}}(my\_custom\_variable);}
+\DoxyCodeLine{rpp::source::just<rpp::memory\_model::use\_shared>(my\_custom\_variable);}
 
 \end{DoxyCode}
  makes only 1 copy/move to shared\+\_\+ptr and then uses it instead.

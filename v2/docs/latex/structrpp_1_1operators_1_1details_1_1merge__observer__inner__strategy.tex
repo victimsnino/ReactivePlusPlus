@@ -10,22 +10,22 @@ Inheritance diagram for rpp\+::operators\+::details\+::merge\+\_\+observer\+\_\+
 \begin{DoxyCompactItemize}
 \item 
 \Hypertarget{structrpp_1_1operators_1_1details_1_1merge__observer__inner__strategy_a9ed98a601d66f47d9128788519f9595f}\label{structrpp_1_1operators_1_1details_1_1merge__observer__inner__strategy_a9ed98a601d66f47d9128788519f9595f} 
-{\footnotesize template$<$\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{typename}} T $>$ }\\\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{void}} {\bfseries on\+\_\+next} (T \&\&\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{v}}) \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{const}}
+{\footnotesize template$<$typename T $>$ }\\void {\bfseries on\+\_\+next} (T \&\&v) const
 \end{DoxyCompactItemize}
 \doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1merge__observer__base__strategy}{rpp\+::operators\+::details\+::merge\+\_\+observer\+\_\+base\+\_\+strategy$<$ TObserver $>$}}}
 \begin{DoxyCompactItemize}
 \item 
 {\bfseries merge\+\_\+observer\+\_\+base\+\_\+strategy} (std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1merge__disposable}{merge\+\_\+disposable}}$<$ TObserver $>$ $>$ \&\&disposable)
 \item 
-{\bfseries merge\+\_\+observer\+\_\+base\+\_\+strategy} (\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{const}} std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1merge__disposable}{merge\+\_\+disposable}}$<$ TObserver $>$ $>$ \&disposable)
+{\bfseries merge\+\_\+observer\+\_\+base\+\_\+strategy} (const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1merge__disposable}{merge\+\_\+disposable}}$<$ TObserver $>$ $>$ \&disposable)
 \item 
-\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{void}} {\bfseries set\+\_\+upstream} (\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{const}} \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp\+::disposable\+\_\+wrapper}} \&\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{d}}) \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{const}}
+void {\bfseries set\+\_\+upstream} (const \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp\+::disposable\+\_\+wrapper}} \&d) const
 \item 
-\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{bool}} {\bfseries is\+\_\+disposed} () \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{const}}
+bool {\bfseries is\+\_\+disposed} () const
 \item 
-\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{void}} {\bfseries on\+\_\+error} (\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{const}} std\+::exception\+\_\+ptr \&err) \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{const}}
+void {\bfseries on\+\_\+error} (const std\+::exception\+\_\+ptr \&err) const
 \item 
-\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{void}} {\bfseries on\+\_\+completed} () \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{const}}
+void {\bfseries on\+\_\+completed} () const
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Additional Inherited Members}
 \doxysubsection*{Protected Attributes inherited from \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1merge__observer__base__strategy}{rpp\+::operators\+::details\+::merge\+\_\+observer\+\_\+base\+\_\+strategy$<$ TObserver $>$}}}

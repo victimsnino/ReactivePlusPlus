@@ -20,9 +20,9 @@
 \DoxyCodeLine{00016\ \textcolor{keyword}{namespace\ }rpp::operators}
 \DoxyCodeLine{00017\ \{}
 \DoxyCodeLine{00040\ \textcolor{keyword}{template}<rpp::schedulers::constra\textcolor{keywordtype}{int}::scheduler\ Scheduler>}
-\DoxyCodeLine{00041\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__utility__operators_ga3feb1b1258c7e3e72c151abf176c30c4}{observe\_on}}(Scheduler\&\&\ scheduler,\ rpp::schedulers::duration\ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{delay\_duration}})}
+\DoxyCodeLine{00041\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__utility__operators_ga3feb1b1258c7e3e72c151abf176c30c4}{observe\_on}}(Scheduler\&\&\ scheduler,\ rpp::schedulers::duration\ delay\_duration)}
 \DoxyCodeLine{00042\ \{}
-\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keywordflow}{return}\ details::delay\_t<std::decay\_t<Scheduler>,\ \textcolor{keyword}{true}>\{\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{delay\_duration}},\ std::forward<Scheduler>(scheduler)\};}
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keywordflow}{return}\ details::delay\_t<std::decay\_t<Scheduler>,\ \textcolor{keyword}{true}>\{delay\_duration,\ std::forward<Scheduler>(scheduler)\};}
 \DoxyCodeLine{00044\ \}}
 \DoxyCodeLine{00045\ \}\ \textcolor{comment}{//\ namespace\ rpp::operators}}
 

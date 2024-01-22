@@ -30,7 +30,7 @@
 \DoxyCodeLine{00026\ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::observable\ TObservable,\ rpp::constra\textcolor{keywordtype}{int}::observer\ TObserver>}
 \DoxyCodeLine{00027\ \textcolor{keyword}{struct\ }concat\_inner\_observer\_strategy;}
 \DoxyCodeLine{00028\ }
-\DoxyCodeLine{00029\ \textcolor{keyword}{enum}\ ConcatStage\ :\ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{uint8\_t}}}
+\DoxyCodeLine{00029\ \textcolor{keyword}{enum}\ ConcatStage\ :\ uint8\_t}
 \DoxyCodeLine{00030\ \{}
 \DoxyCodeLine{00031\ \ \ \ \ None\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0,}
 \DoxyCodeLine{00032\ \ \ \ \ Draining\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 1,}
@@ -39,7 +39,7 @@
 \DoxyCodeLine{00035\ \};}
 \DoxyCodeLine{00036\ }
 \DoxyCodeLine{00037\ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::observable\ TObservable,\ rpp::constra\textcolor{keywordtype}{int}::observer\ TObserver>}
-\DoxyCodeLine{00038\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1concat__state__t}{concat\_state\_t}}\ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{final}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classrpp_1_1refcount__disposable}{rpp::refcount\_disposable}}}
+\DoxyCodeLine{00038\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1concat__state__t}{concat\_state\_t}}\ final\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classrpp_1_1refcount__disposable}{rpp::refcount\_disposable}}}
 \DoxyCodeLine{00039\ \{}
 \DoxyCodeLine{00040\ \textcolor{keyword}{public}:}
 \DoxyCodeLine{00041\ \ \ \ \ \mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1concat__state__t}{concat\_state\_t}}(TObserver\&\&\ \mbox{\hyperlink{classrpp_1_1observer}{observer}})}
@@ -84,10 +84,10 @@
 \DoxyCodeLine{00080\ \ \ \ \ \{}
 \DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ stage().store(ConcatStage::Draining,\ std::memory\_order::relaxed);}
 \DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ refcounted.clear();}
-\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrpp_1_1observable}{observable}}.\mbox{\hyperlink{classrpp_1_1observable_a193b0e08c516912c04afd8379ec27182}{subscribe}}(\mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1concat__inner__observer__strategy}{concat\_inner\_observer\_strategy<TObservable,\ TObserver>}}\{std::static\_pointer\_cast<concat\_state\_t>(\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{shared\_from\_this}}()),\ std::move(refcounted)\});}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrpp_1_1observable}{observable}}.\mbox{\hyperlink{classrpp_1_1observable_a193b0e08c516912c04afd8379ec27182}{subscribe}}(\mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1concat__inner__observer__strategy}{concat\_inner\_observer\_strategy<TObservable,\ TObserver>}}\{std::static\_pointer\_cast<concat\_state\_t>(shared\_from\_this()),\ std::move(refcounted)\});}
 \DoxyCodeLine{00084\ }
-\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ ConcatStage\ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{current}}\ =\ ConcatStage::Draining;}
-\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ stage().compare\_exchange\_strong(\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{current}},\ ConcatStage::Processing,\ std::memory\_order::seq\_cst);}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ ConcatStage\ current\ =\ ConcatStage::Draining;}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ stage().compare\_exchange\_strong(current,\ ConcatStage::Processing,\ std::memory\_order::seq\_cst);}
 \DoxyCodeLine{00087\ \ \ \ \ \}}
 \DoxyCodeLine{00088\ }
 \DoxyCodeLine{00089\ \textcolor{keyword}{private}:}
@@ -130,7 +130,7 @@
 \DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ state-\/>get\_observer()-\/>on\_error(err);}
 \DoxyCodeLine{00127\ \ \ \ \ \}}
 \DoxyCodeLine{00128\ }
-\DoxyCodeLine{00129\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_upstream(\textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{disposable\_wrapper}}\&\ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{d}})\textcolor{keyword}{\ const\ }\{\ refcounted.add(\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{d}});\ \}}
+\DoxyCodeLine{00129\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_upstream(\textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{disposable\_wrapper}}\&\ d)\textcolor{keyword}{\ const\ }\{\ refcounted.add(d);\ \}}
 \DoxyCodeLine{00130\ }
 \DoxyCodeLine{00131\ \ \ \ \ \textcolor{keywordtype}{bool}\ is\_disposed()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ refcounted.is\_disposed();\ \}}
 \DoxyCodeLine{00132\ \};}
@@ -143,18 +143,18 @@
 \DoxyCodeLine{00139\ \ \ \ \ \textcolor{keyword}{using\ }base::concat\_observer\_strategy\_base;}
 \DoxyCodeLine{00140\ }
 \DoxyCodeLine{00141\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
-\DoxyCodeLine{00142\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_next(T\&\&\ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{v}})\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00142\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_next(T\&\&\ v)\textcolor{keyword}{\ const}}
 \DoxyCodeLine{00143\ \textcolor{keyword}{\ \ \ \ }\{}
-\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ base::state-\/>get\_observer()-\/>on\_next(std::forward<T>(\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{v}}));}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ base::state-\/>get\_observer()-\/>on\_next(std::forward<T>(v));}
 \DoxyCodeLine{00145\ \ \ \ \ \}}
 \DoxyCodeLine{00146\ }
 \DoxyCodeLine{00147\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_completed()\textcolor{keyword}{\ const}}
 \DoxyCodeLine{00148\ \textcolor{keyword}{\ \ \ \ }\{}
-\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ ConcatStage\ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{current}}\{ConcatStage::Draining\};}
-\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (base::state-\/>stage().\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{compare\_exchange\_strong}}(\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{current}},\ ConcatStage::CompletedWhileDraining,\ std::memory\_order::seq\_cst))}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ ConcatStage\ current\{ConcatStage::Draining\};}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (base::state-\/>stage().compare\_exchange\_strong(current,\ ConcatStage::CompletedWhileDraining,\ std::memory\_order::seq\_cst))}
 \DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
 \DoxyCodeLine{00152\ }
-\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{assert}}(\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{current}}\ ==\ ConcatStage::Processing);}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ assert(current\ ==\ ConcatStage::Processing);}
 \DoxyCodeLine{00154\ }
 \DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ base::state-\/>drain(base::refcounted);}
 \DoxyCodeLine{00156\ \ \ \ \ \}}
@@ -173,13 +173,13 @@
 \DoxyCodeLine{00169\ \ \ \ \ \}}
 \DoxyCodeLine{00170\ }
 \DoxyCodeLine{00171\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
-\DoxyCodeLine{00172\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_next(T\&\&\ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{v}})\textcolor{keyword}{\ const\ }}
+\DoxyCodeLine{00172\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_next(T\&\&\ v)\textcolor{keyword}{\ const\ }}
 \DoxyCodeLine{00173\ \textcolor{keyword}{\ \ \ \ }\{\ }
-\DoxyCodeLine{00174\ \ \ \ \ \ \ \ \ ConcatStage\ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{current}}\ =\ ConcatStage::None;}
-\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (base::state-\/>stage().\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{compare\_exchange\_strong}}(\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{current}},\ ConcatStage::Draining,\ std::memory\_order::seq\_cst))}
-\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ \ \ \ \ base::state-\/>handle\_observable(std::forward<T>(\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{v}}),\ base::state-\/>add\_ref());}
+\DoxyCodeLine{00174\ \ \ \ \ \ \ \ \ ConcatStage\ current\ =\ ConcatStage::None;}
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (base::state-\/>stage().compare\_exchange\_strong(current,\ ConcatStage::Draining,\ std::memory\_order::seq\_cst))}
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ \ \ \ \ base::state-\/>handle\_observable(std::forward<T>(v),\ base::state-\/>add\_ref());}
 \DoxyCodeLine{00177\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ }
-\DoxyCodeLine{00178\ \ \ \ \ \ \ \ \ \ \ \ \ base::state-\/>get\_queue()-\/>push(std::forward<T>(\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{v}}));}
+\DoxyCodeLine{00178\ \ \ \ \ \ \ \ \ \ \ \ \ base::state-\/>get\_queue()-\/>push(std::forward<T>(v));}
 \DoxyCodeLine{00179\ \ \ \ \ \}}
 \DoxyCodeLine{00180\ }
 \DoxyCodeLine{00181\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_completed()\textcolor{keyword}{\ const}}

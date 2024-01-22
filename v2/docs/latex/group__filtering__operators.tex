@@ -8,23 +8,23 @@ Filtering operators are operators that emit only part of items that satisfies so
 \doxysubsubsubsubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-{\footnotesize template$<$\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{typename}} Equality\+Fn $>$ \newline
-requires (!utils\+::is\+\_\+not\+\_\+template\+\_\+callable$<$Equality\+Fn$>$ \texorpdfstring{$\vert$}{|}\texorpdfstring{$\vert$}{|} std\+::same\+\_\+as$<$\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{bool}}, std\+::invoke\+\_\+result\+\_\+t$<$Equality\+Fn, rpp\+::utils\+::convertible\+\_\+to\+\_\+any, rpp\+::utils\+::convertible\+\_\+to\+\_\+any$>$$>$)}\\\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{auto}} \mbox{\hyperlink{group__filtering__operators_gaa8ed11faabd5b31d63d0481f9018fc68}{rpp\+::operators\+::distinct\+\_\+until\+\_\+changed}} (Equality\+Fn \&\&\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{equality\+\_\+fn}})
+{\footnotesize template$<$typename Equality\+Fn $>$ \newline
+requires (!utils\+::is\+\_\+not\+\_\+template\+\_\+callable$<$Equality\+Fn$>$ \texorpdfstring{$\vert$}{|}\texorpdfstring{$\vert$}{|} std\+::same\+\_\+as$<$bool, std\+::invoke\+\_\+result\+\_\+t$<$Equality\+Fn, rpp\+::utils\+::convertible\+\_\+to\+\_\+any, rpp\+::utils\+::convertible\+\_\+to\+\_\+any$>$$>$)}\\auto \mbox{\hyperlink{group__filtering__operators_gaa8ed11faabd5b31d63d0481f9018fc68}{rpp\+::operators\+::distinct\+\_\+until\+\_\+changed}} (Equality\+Fn \&\&equality\+\_\+fn)
 \begin{DoxyCompactList}\small\item\em Suppress consecutive duplicates of emissions from original observable. \end{DoxyCompactList}\item 
-{\footnotesize template$<$\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{typename}} Fn $>$ \newline
-requires (!utils\+::is\+\_\+not\+\_\+template\+\_\+callable$<$Fn$>$ \texorpdfstring{$\vert$}{|}\texorpdfstring{$\vert$}{|} std\+::same\+\_\+as$<$\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{bool}}, std\+::invoke\+\_\+result\+\_\+t$<$Fn, rpp\+::utils\+::convertible\+\_\+to\+\_\+any$>$$>$)}\\\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{auto}} \mbox{\hyperlink{group__filtering__operators_ga3ad579153e7975af6ae4b75f585fb873}{rpp\+::operators\+::filter}} (Fn \&\&\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{predicate}})
+{\footnotesize template$<$typename Fn $>$ \newline
+requires (!utils\+::is\+\_\+not\+\_\+template\+\_\+callable$<$Fn$>$ \texorpdfstring{$\vert$}{|}\texorpdfstring{$\vert$}{|} std\+::same\+\_\+as$<$bool, std\+::invoke\+\_\+result\+\_\+t$<$Fn, rpp\+::utils\+::convertible\+\_\+to\+\_\+any$>$$>$)}\\auto \mbox{\hyperlink{group__filtering__operators_ga3ad579153e7975af6ae4b75f585fb873}{rpp\+::operators\+::filter}} (Fn \&\&predicate)
 \begin{DoxyCompactList}\small\item\em Emit only those items from an Observable that satisfies a provided predicate. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{auto}} \mbox{\hyperlink{group__filtering__operators_ga5b8f3bf549a8679d41941f7224f7faad}{rpp\+::operators\+::first}} ()
+auto \mbox{\hyperlink{group__filtering__operators_ga5b8f3bf549a8679d41941f7224f7faad}{rpp\+::operators\+::first}} ()
 \begin{DoxyCompactList}\small\item\em Emit only the first item. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{auto}} \mbox{\hyperlink{group__filtering__operators_ga679e35f7895a5d7e22cd2b3c359b9457}{rpp\+::operators\+::last}} ()
+auto \mbox{\hyperlink{group__filtering__operators_ga679e35f7895a5d7e22cd2b3c359b9457}{rpp\+::operators\+::last}} ()
 \begin{DoxyCompactList}\small\item\em Emit only the last item provided before on\+\_\+completed. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{auto}} \mbox{\hyperlink{group__filtering__operators_ga8e20aec530e08ba64004c10b7732593c}{rpp\+::operators\+::skip}} (\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{size\+\_\+t}} count)
+auto \mbox{\hyperlink{group__filtering__operators_ga8e20aec530e08ba64004c10b7732593c}{rpp\+::operators\+::skip}} (size\+\_\+t count)
 \begin{DoxyCompactList}\small\item\em Skip first {\ttfamily count} items provided by observable then send rest items as expected. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{auto}} \mbox{\hyperlink{group__filtering__operators_gaf32161437c2c6cd7d5a0e5170a333cbb}{rpp\+::operators\+::take}} (\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{size\+\_\+t}} count)
+auto \mbox{\hyperlink{group__filtering__operators_gaf32161437c2c6cd7d5a0e5170a333cbb}{rpp\+::operators\+::take}} (size\+\_\+t count)
 \begin{DoxyCompactList}\small\item\em Emit only first {\ttfamily count} items provided by observable, then send {\ttfamily on\+\_\+completed} \end{DoxyCompactList}\item 
-\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{auto}} \mbox{\hyperlink{group__filtering__operators_gad9c1c3326bcaf2f1f64fd7e35f00e669}{rpp\+::operators\+::take\+\_\+last}} (\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{size\+\_\+t}} count)
+auto \mbox{\hyperlink{group__filtering__operators_gad9c1c3326bcaf2f1f64fd7e35f00e669}{rpp\+::operators\+::take\+\_\+last}} (size\+\_\+t count)
 \begin{DoxyCompactList}\small\item\em Emit only last {\ttfamily count} items provided by observable, then send {\ttfamily on\+\_\+completed} \end{DoxyCompactList}\item 
-{\footnotesize template$<$\mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1scheduler}{rpp\+::schedulers\+::constraint\+::scheduler}} Scheduler = rpp\+::schedulers\+::immediate$>$ }\\\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{auto}} \mbox{\hyperlink{group__filtering__operators_gada7d22ff6ee83d4aca44411561f56f98}{rpp\+::operators\+::throttle}} (rpp\+::schedulers\+::duration period)
+{\footnotesize template$<$\mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1scheduler}{rpp\+::schedulers\+::constraint\+::scheduler}} Scheduler = rpp\+::schedulers\+::immediate$>$ }\\auto \mbox{\hyperlink{group__filtering__operators_gada7d22ff6ee83d4aca44411561f56f98}{rpp\+::operators\+::throttle}} (rpp\+::schedulers\+::duration period)
 \begin{DoxyCompactList}\small\item\em Emit emission from an Observable and then ignore subsequent values during {\ttfamily duration} of time. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
@@ -41,9 +41,9 @@ Filtering operators are operators that emit only part of items that satisfies so
 \index{Filtering Operators@{Filtering Operators}!distinct\_until\_changed@{distinct\_until\_changed}}
 \index{distinct\_until\_changed@{distinct\_until\_changed}!Filtering Operators@{Filtering Operators}}
 \doxysubsubsubsubsection{\texorpdfstring{distinct\_until\_changed()}{distinct\_until\_changed()}}
-{\footnotesize\ttfamily template$<$\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{typename}} Equality\+Fn $>$ \newline
-requires (!utils\+::is\+\_\+not\+\_\+template\+\_\+callable$<$Equality\+Fn$>$ \texorpdfstring{$\vert$}{|}\texorpdfstring{$\vert$}{|} std\+::same\+\_\+as$<$\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{bool}}, std\+::invoke\+\_\+result\+\_\+t$<$Equality\+Fn, rpp\+::utils\+::convertible\+\_\+to\+\_\+any, rpp\+::utils\+::convertible\+\_\+to\+\_\+any$>$$>$)\\
-\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{auto}} rpp\+::operators\+::distinct\+\_\+until\+\_\+changed (\begin{DoxyParamCaption}\item[{Equality\+Fn \&\&}]{equality\+\_\+fn }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily template$<$typename Equality\+Fn $>$ \newline
+requires (!utils\+::is\+\_\+not\+\_\+template\+\_\+callable$<$Equality\+Fn$>$ \texorpdfstring{$\vert$}{|}\texorpdfstring{$\vert$}{|} std\+::same\+\_\+as$<$bool, std\+::invoke\+\_\+result\+\_\+t$<$Equality\+Fn, rpp\+::utils\+::convertible\+\_\+to\+\_\+any, rpp\+::utils\+::convertible\+\_\+to\+\_\+any$>$$>$)\\
+auto rpp\+::operators\+::distinct\+\_\+until\+\_\+changed (\begin{DoxyParamCaption}\item[{Equality\+Fn \&\&}]{equality\+\_\+fn }\end{DoxyParamCaption})}
 
 
 
@@ -67,7 +67,7 @@ Actually this operator has {\ttfamily std\+::optional} with last item and checks
 \hline
 \end{DoxyParams}
 \begin{DoxyWarning}{Warning}
-\doxylink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{include} \texorpdfstring{$<$}{<}\doxylink{distinct__until__changed_8hpp_source}{rpp/operators/distinct\+\_\+until\+\_\+changed.\+hpp}\texorpdfstring{$>$}{>}
+\#include \texorpdfstring{$<$}{<}\doxylink{distinct__until__changed_8hpp_source}{rpp/operators/distinct\+\_\+until\+\_\+changed.\+hpp}\texorpdfstring{$>$}{>}
 \end{DoxyWarning}
 \begin{DoxyParagraph}{Example}
 
@@ -98,9 +98,9 @@ Actually this operator has {\ttfamily std\+::optional} with last item and checks
 \index{Filtering Operators@{Filtering Operators}!filter@{filter}}
 \index{filter@{filter}!Filtering Operators@{Filtering Operators}}
 \doxysubsubsubsubsection{\texorpdfstring{filter()}{filter()}}
-{\footnotesize\ttfamily template$<$\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{typename}} Fn $>$ \newline
-requires (!utils\+::is\+\_\+not\+\_\+template\+\_\+callable$<$Fn$>$ \texorpdfstring{$\vert$}{|}\texorpdfstring{$\vert$}{|} std\+::same\+\_\+as$<$\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{bool}}, std\+::invoke\+\_\+result\+\_\+t$<$Fn, rpp\+::utils\+::convertible\+\_\+to\+\_\+any$>$$>$)\\
-\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{auto}} rpp\+::operators\+::filter (\begin{DoxyParamCaption}\item[{Fn \&\&}]{predicate }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily template$<$typename Fn $>$ \newline
+requires (!utils\+::is\+\_\+not\+\_\+template\+\_\+callable$<$Fn$>$ \texorpdfstring{$\vert$}{|}\texorpdfstring{$\vert$}{|} std\+::same\+\_\+as$<$bool, std\+::invoke\+\_\+result\+\_\+t$<$Fn, rpp\+::utils\+::convertible\+\_\+to\+\_\+any$>$$>$)\\
+auto rpp\+::operators\+::filter (\begin{DoxyParamCaption}\item[{Fn \&\&}]{predicate }\end{DoxyParamCaption})}
 
 
 
@@ -123,7 +123,7 @@ Actually this operator just checks if predicate returns true, then forwards emis
 \hline
 \end{DoxyParams}
 \begin{DoxyWarning}{Warning}
-\doxylink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{include} \texorpdfstring{$<$}{<}\doxylink{filter_8hpp_source}{rpp/operators/filter.\+hpp}\texorpdfstring{$>$}{>}
+\#include \texorpdfstring{$<$}{<}\doxylink{filter_8hpp_source}{rpp/operators/filter.\+hpp}\texorpdfstring{$>$}{>}
 \end{DoxyWarning}
 \begin{DoxyParagraph}{Example\+:}
 
@@ -146,7 +146,7 @@ Actually this operator just checks if predicate returns true, then forwards emis
 \index{Filtering Operators@{Filtering Operators}!first@{first}}
 \index{first@{first}!Filtering Operators@{Filtering Operators}}
 \doxysubsubsubsubsection{\texorpdfstring{first()}{first()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{auto}} rpp\+::operators\+::first (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily auto rpp\+::operators\+::first (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -167,7 +167,7 @@ Actually this operator is {\ttfamily take(1)} with exception during {\ttfamily o
 \end{DoxyItemize}
 \end{DoxyParagraph}
 \begin{DoxyWarning}{Warning}
-\doxylink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{include} \texorpdfstring{$<$}{<}\doxylink{first_8hpp_source}{rpp/operators/first.\+hpp}\texorpdfstring{$>$}{>}
+\#include \texorpdfstring{$<$}{<}\doxylink{first_8hpp_source}{rpp/operators/first.\+hpp}\texorpdfstring{$>$}{>}
 \end{DoxyWarning}
 \begin{DoxyParagraph}{Example\+:}
 
@@ -184,7 +184,7 @@ Actually this operator is {\ttfamily take(1)} with exception during {\ttfamily o
 \end{DoxyCodeInclude}
  
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{rpp::source::empty<int>}}()}
+\DoxyCodeLine{\ \ \ \ rpp::source::empty<int>()}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__filtering__operators_ga5b8f3bf549a8679d41941f7224f7faad}{rpp::operators::first}}()}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{rpp::operators::subscribe}}(}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ [](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ \&v)\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}-\/"{}}\ <<\ v;\ \},}
@@ -206,7 +206,7 @@ Actually this operator is {\ttfamily take(1)} with exception during {\ttfamily o
 \index{Filtering Operators@{Filtering Operators}!last@{last}}
 \index{last@{last}!Filtering Operators@{Filtering Operators}}
 \doxysubsubsubsubsection{\texorpdfstring{last()}{last()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{auto}} rpp\+::operators\+::last (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily auto rpp\+::operators\+::last (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -227,7 +227,7 @@ Actually this operator just updates {\ttfamily std\+::optional} on every new emi
 \end{DoxyItemize}
 \end{DoxyParagraph}
 \begin{DoxyWarning}{Warning}
-\doxylink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{include} \texorpdfstring{$<$}{<}\doxylink{last_8hpp_source}{rpp/operators/last.\+hpp}\texorpdfstring{$>$}{>}
+\#include \texorpdfstring{$<$}{<}\doxylink{last_8hpp_source}{rpp/operators/last.\+hpp}\texorpdfstring{$>$}{>}
 \end{DoxyWarning}
 \begin{DoxyParagraph}{Example\+:}
 
@@ -244,7 +244,7 @@ Actually this operator just updates {\ttfamily std\+::optional} on every new emi
 \end{DoxyCodeInclude}
  
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{rpp::source::empty<int>}}()}
+\DoxyCodeLine{\ \ \ \ rpp::source::empty<int>()}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__filtering__operators_ga679e35f7895a5d7e22cd2b3c359b9457}{rpp::operators::last}}()}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{rpp::operators::subscribe}}(}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ [](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ \&v)\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}-\/"{}}\ <<\ v;\ \},}
@@ -266,7 +266,7 @@ Actually this operator just updates {\ttfamily std\+::optional} on every new emi
 \index{Filtering Operators@{Filtering Operators}!skip@{skip}}
 \index{skip@{skip}!Filtering Operators@{Filtering Operators}}
 \doxysubsubsubsubsection{\texorpdfstring{skip()}{skip()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{auto}} rpp\+::operators\+::skip (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{size\+\_\+t}}}]{count }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily auto rpp\+::operators\+::skip (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{count }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -290,7 +290,7 @@ Actually this operator just decrements counter and starts to forward emissions w
 \hline
 \end{DoxyParams}
 \begin{DoxyWarning}{Warning}
-\doxylink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{include} \texorpdfstring{$<$}{<}\doxylink{skip_8hpp_source}{rpp/operators/skip.\+hpp}\texorpdfstring{$>$}{>}
+\#include \texorpdfstring{$<$}{<}\doxylink{skip_8hpp_source}{rpp/operators/skip.\+hpp}\texorpdfstring{$>$}{>}
 \end{DoxyWarning}
 \begin{DoxyParagraph}{Example\+:}
 
@@ -313,7 +313,7 @@ Actually this operator just decrements counter and starts to forward emissions w
 \index{Filtering Operators@{Filtering Operators}!take@{take}}
 \index{take@{take}!Filtering Operators@{Filtering Operators}}
 \doxysubsubsubsubsection{\texorpdfstring{take()}{take()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{auto}} rpp\+::operators\+::take (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{size\+\_\+t}}}]{count }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily auto rpp\+::operators\+::take (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{count }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -337,7 +337,7 @@ Actually this operator just emits emissions while counter is not zero and decrem
 \hline
 \end{DoxyParams}
 \begin{DoxyWarning}{Warning}
-\doxylink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{include} \texorpdfstring{$<$}{<}\doxylink{take_8hpp_source}{rpp/operators/take.\+hpp}\texorpdfstring{$>$}{>}
+\#include \texorpdfstring{$<$}{<}\doxylink{take_8hpp_source}{rpp/operators/take.\+hpp}\texorpdfstring{$>$}{>}
 \end{DoxyWarning}
 \begin{DoxyParagraph}{Example\+:}
 
@@ -360,7 +360,7 @@ Actually this operator just emits emissions while counter is not zero and decrem
 \index{Filtering Operators@{Filtering Operators}!take\_last@{take\_last}}
 \index{take\_last@{take\_last}!Filtering Operators@{Filtering Operators}}
 \doxysubsubsubsubsection{\texorpdfstring{take\_last()}{take\_last()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{auto}} rpp\+::operators\+::take\+\_\+last (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{size\+\_\+t}}}]{count }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily auto rpp\+::operators\+::take\+\_\+last (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{count }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -376,7 +376,7 @@ Actually this operator has buffer of requested size inside, keeps last {\ttfamil
 \hline
 \end{DoxyParams}
 \begin{DoxyWarning}{Warning}
-\doxylink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{include} \texorpdfstring{$<$}{<}\doxylink{take__last_8hpp_source}{rpp/operators/take\+\_\+last.\+hpp}\texorpdfstring{$>$}{>}
+\#include \texorpdfstring{$<$}{<}\doxylink{take__last_8hpp_source}{rpp/operators/take\+\_\+last.\+hpp}\texorpdfstring{$>$}{>}
 \end{DoxyWarning}
 \begin{DoxyParagraph}{Example}
 
@@ -397,7 +397,7 @@ Actually this operator has buffer of requested size inside, keeps last {\ttfamil
 \index{throttle@{throttle}!Filtering Operators@{Filtering Operators}}
 \doxysubsubsubsubsection{\texorpdfstring{throttle()}{throttle()}}
 {\footnotesize\ttfamily template$<$\mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1scheduler}{rpp\+::schedulers\+::constraint\+::scheduler}} Scheduler = rpp\+::schedulers\+::immediate$>$ \\
-\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{auto}} rpp\+::operators\+::throttle (\begin{DoxyParamCaption}\item[{rpp\+::schedulers\+::duration}]{period }\end{DoxyParamCaption})}
+auto rpp\+::operators\+::throttle (\begin{DoxyParamCaption}\item[{rpp\+::schedulers\+::duration}]{period }\end{DoxyParamCaption})}
 
 
 
@@ -426,7 +426,7 @@ Actually this operator just keeps time of last emission, skips values ​​unti
 \hline
 \end{DoxyTemplParams}
 \begin{DoxyWarning}{Warning}
-\doxylink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{include} \texorpdfstring{$<$}{<}\doxylink{throttle_8hpp_source}{rpp/operators/throttle.\+hpp}\texorpdfstring{$>$}{>}
+\#include \texorpdfstring{$<$}{<}\doxylink{throttle_8hpp_source}{rpp/operators/throttle.\+hpp}\texorpdfstring{$>$}{>}
 \end{DoxyWarning}
 \begin{DoxyParagraph}{Example\+:}
 

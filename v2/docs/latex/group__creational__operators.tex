@@ -16,30 +16,30 @@ requires (std\+::same\+\_\+as$<$rpp\+::utils\+::extract\+\_\+observable\+\_\+typ
 {\footnotesize template$<$constraint\+::memory\+\_\+model Memory\+Model, constraint\+::iterable Iterable$>$ \newline
 requires constraint\+::observable$<$utils\+::iterable\+\_\+value\+\_\+t$<$Iterable$>$$>$}\\auto \mbox{\hyperlink{group__creational__operators_ga4f9024c949765737e6a99a05f74d382e}{rpp\+::source\+::concat}} (Iterable \&\&iterable)
 \begin{DoxyCompactList}\small\item\em Make observable which would merge emissions from underlying observables but without overlapping (current observable completes THEN next started to emit its values) \end{DoxyCompactList}\item 
-{\footnotesize template$<$constraint\+::decayed\+\_\+type Type, constraint\+::on\+\_\+subscribe$<$ Type $>$ On\+Subscribe$>$ }\\\mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{auto}} \mbox{\hyperlink{group__creational__operators_gae68c87e7ae3a505258b733082bf68513}{rpp\+::source\+::create}} (On\+Subscribe \&\&on\+\_\+subscribe)
+{\footnotesize template$<$constraint\+::decayed\+\_\+type Type, constraint\+::on\+\_\+subscribe$<$ Type $>$ On\+Subscribe$>$ }\\auto \mbox{\hyperlink{group__creational__operators_gae68c87e7ae3a505258b733082bf68513}{rpp\+::source\+::create}} (On\+Subscribe \&\&on\+\_\+subscribe)
 \begin{DoxyCompactList}\small\item\em Construct observable specialized with passed callback function. Most easiesest way to construct observable "{}on the fly"{} via lambda and etc. \end{DoxyCompactList}\item 
 {\footnotesize template$<$std\+::invocable Factory$>$ \newline
-requires \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp\+::constraint\+::observable}}$<$std\+::invoke\+\_\+result\+\_\+t$<$\mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{Factory}}$>$$>$}\\\mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{auto}} \mbox{\hyperlink{group__creational__operators_gad9a4bddea3780850a01b82b481951d18}{rpp\+::source\+::defer}} (\mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{Factory}} \&\&observable\+\_\+factory)
+requires \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp\+::constraint\+::observable}}$<$std\+::invoke\+\_\+result\+\_\+t$<$Factory$>$$>$}\\auto \mbox{\hyperlink{group__creational__operators_gad9a4bddea3780850a01b82b481951d18}{rpp\+::source\+::defer}} (Factory \&\&observable\+\_\+factory)
 \begin{DoxyCompactList}\small\item\em Creates \doxylink{classrpp_1_1observable}{rpp\+::observable} that calls the specified observable factory to create an observable for each new observer that subscribes. \end{DoxyCompactList}\item 
-{\footnotesize template$<$constraint\+::decayed\+\_\+type Type$>$ }\\\mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{auto}} \mbox{\hyperlink{group__creational__operators_gad29c2904de57d176ccaf2614409789de}{rpp\+::source\+::empty}} ()
+{\footnotesize template$<$constraint\+::decayed\+\_\+type Type$>$ }\\auto \mbox{\hyperlink{group__creational__operators_gad29c2904de57d176ccaf2614409789de}{rpp\+::source\+::empty}} ()
 \begin{DoxyCompactList}\small\item\em Creates \doxylink{classrpp_1_1observable}{rpp\+::observable} that emits no items but terminates normally. \end{DoxyCompactList}\item 
-{\footnotesize template$<$constraint\+::decayed\+\_\+type Type$>$ }\\\mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{auto}} \mbox{\hyperlink{group__creational__operators_ga4fe060f48695cc3fadfbdb10f77f8acb}{rpp\+::source\+::error}} (std\+::exception\+\_\+ptr err)
+{\footnotesize template$<$constraint\+::decayed\+\_\+type Type$>$ }\\auto \mbox{\hyperlink{group__creational__operators_ga4fe060f48695cc3fadfbdb10f77f8acb}{rpp\+::source\+::error}} (std\+::exception\+\_\+ptr err)
 \begin{DoxyCompactList}\small\item\em Creates \doxylink{classrpp_1_1observable}{rpp\+::observable} that emits no items and terminates with an error. \end{DoxyCompactList}\item 
-{\footnotesize template$<$constraint\+::memory\+\_\+model Memory\+Model, constraint\+::iterable Iterable, schedulers\+::constraint\+::scheduler TScheduler$>$ }\\\mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{auto}} \mbox{\hyperlink{group__creational__operators_gad15a7e8bfb2f7ce0af1b44e22918116c}{rpp\+::source\+::from\+\_\+iterable}} (\mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{Iterable}} \&\&\mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{iterable}}, \mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{const}} TScheduler \&scheduler)
+{\footnotesize template$<$constraint\+::memory\+\_\+model Memory\+Model, constraint\+::iterable Iterable, schedulers\+::constraint\+::scheduler TScheduler$>$ }\\auto \mbox{\hyperlink{group__creational__operators_gad15a7e8bfb2f7ce0af1b44e22918116c}{rpp\+::source\+::from\+\_\+iterable}} (Iterable \&\&iterable, const TScheduler \&scheduler)
 \begin{DoxyCompactList}\small\item\em Creates observable that emits a items from provided iterable. \end{DoxyCompactList}\item 
-{\footnotesize template$<$constraint\+::memory\+\_\+model Memory\+Model, schedulers\+::constraint\+::scheduler TScheduler, \mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{typename}} T , typename... Ts$>$ \newline
-requires (constraint\+::decayed\+\_\+same\+\_\+as$<$T, \mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{Ts}}$>$ \&\& ...)}\\\mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{auto}} \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp\+::source\+::just}} (\mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{const}} TScheduler \&scheduler, T \&\&\mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{item}}, \mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{Ts}} \&\&... \mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{items}})
+{\footnotesize template$<$constraint\+::memory\+\_\+model Memory\+Model, schedulers\+::constraint\+::scheduler TScheduler, typename T , typename... Ts$>$ \newline
+requires (constraint\+::decayed\+\_\+same\+\_\+as$<$T, Ts$>$ \&\& ...)}\\auto \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp\+::source\+::just}} (const TScheduler \&scheduler, T \&\&item, Ts \&\&... items)
 \begin{DoxyCompactList}\small\item\em Creates \doxylink{classrpp_1_1observable}{rpp\+::observable} that emits a particular items and completes. \end{DoxyCompactList}\item 
-{\footnotesize template$<$constraint\+::memory\+\_\+model Memory\+Model, \mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{typename}} T , typename... Ts$>$ \newline
-requires (constraint\+::decayed\+\_\+same\+\_\+as$<$T, \mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{Ts}}$>$ \&\& ...)}\\\mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{auto}} \mbox{\hyperlink{group__creational__operators_ga65fe5e58c0179835d702de99475c86b3}{rpp\+::source\+::just}} (T \&\&\mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{item}}, \mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{Ts}} \&\&... \mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{items}})
+{\footnotesize template$<$constraint\+::memory\+\_\+model Memory\+Model, typename T , typename... Ts$>$ \newline
+requires (constraint\+::decayed\+\_\+same\+\_\+as$<$T, Ts$>$ \&\& ...)}\\auto \mbox{\hyperlink{group__creational__operators_ga65fe5e58c0179835d702de99475c86b3}{rpp\+::source\+::just}} (T \&\&item, Ts \&\&... items)
 \begin{DoxyCompactList}\small\item\em Creates \doxylink{classrpp_1_1observable}{rpp\+::observable} that emits a particular items and completes. \end{DoxyCompactList}\item 
-{\footnotesize template$<$constraint\+::memory\+\_\+model Memory\+Model, std\+::invocable$<$$>$ Callable$>$ }\\\mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{auto}} \mbox{\hyperlink{group__creational__operators_ga519523490394660d7e8c46d2d5612f75}{rpp\+::source\+::from\+\_\+callable}} (\mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{Callable}} \&\&\mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{callable}})
+{\footnotesize template$<$constraint\+::memory\+\_\+model Memory\+Model, std\+::invocable$<$$>$ Callable$>$ }\\auto \mbox{\hyperlink{group__creational__operators_ga519523490394660d7e8c46d2d5612f75}{rpp\+::source\+::from\+\_\+callable}} (Callable \&\&callable)
 \begin{DoxyCompactList}\small\item\em Creates rpp\+::specific\+\_\+observable that calls provided callable and emits resulting value of this callable. \end{DoxyCompactList}\item 
-{\footnotesize template$<$schedulers\+::constraint\+::scheduler TScheduler$>$ }\\\mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{auto}} \mbox{\hyperlink{group__creational__operators_ga4018b147fb99a358c6c01f21183c13e6}{rpp\+::source\+::interval}} (rpp\+::schedulers\+::duration initial, rpp\+::schedulers\+::duration period, TScheduler \&\&scheduler)
+{\footnotesize template$<$schedulers\+::constraint\+::scheduler TScheduler$>$ }\\auto \mbox{\hyperlink{group__creational__operators_ga4018b147fb99a358c6c01f21183c13e6}{rpp\+::source\+::interval}} (rpp\+::schedulers\+::duration initial, rpp\+::schedulers\+::duration period, TScheduler \&\&scheduler)
 \begin{DoxyCompactList}\small\item\em Creates \doxylink{classrpp_1_1observable}{rpp\+::observable} that emits a sequential integer every specified time interval, on the specified scheduler. \end{DoxyCompactList}\item 
-{\footnotesize template$<$schedulers\+::constraint\+::scheduler TScheduler$>$ }\\\mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{auto}} \mbox{\hyperlink{group__creational__operators_ga95f6d310d6f17a4c248e43fb628527df}{rpp\+::source\+::interval}} (rpp\+::schedulers\+::duration period, TScheduler \&\&scheduler)
+{\footnotesize template$<$schedulers\+::constraint\+::scheduler TScheduler$>$ }\\auto \mbox{\hyperlink{group__creational__operators_ga95f6d310d6f17a4c248e43fb628527df}{rpp\+::source\+::interval}} (rpp\+::schedulers\+::duration period, TScheduler \&\&scheduler)
 \begin{DoxyCompactList}\small\item\em Creates \doxylink{classrpp_1_1observable}{rpp\+::observable} that emits a sequential integer every specified time interval, on the specified scheduler. \end{DoxyCompactList}\item 
-{\footnotesize template$<$constraint\+::decayed\+\_\+type Type$>$ }\\\mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{auto}} \mbox{\hyperlink{group__creational__operators_ga16c57281cc1b24605ec23b09ec880416}{rpp\+::source\+::never}} ()
+{\footnotesize template$<$constraint\+::decayed\+\_\+type Type$>$ }\\auto \mbox{\hyperlink{group__creational__operators_ga16c57281cc1b24605ec23b09ec880416}{rpp\+::source\+::never}} ()
 \begin{DoxyCompactList}\small\item\em Creates \doxylink{classrpp_1_1observable}{rpp\+::observable} that emits no items and does not terminate. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
@@ -72,7 +72,7 @@ Actually it subscribes on first observable from emissions. When first observable
 \hline
 \end{DoxyTemplParams}
 \begin{DoxyWarning}{Warning}
-\doxylink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{include} \texorpdfstring{$<$}{<}\doxylink{operators_2concat_8hpp_source}{rpp/operators/concat.\+hpp}\texorpdfstring{$>$}{>}
+\#include \texorpdfstring{$<$}{<}\doxylink{operators_2concat_8hpp_source}{rpp/operators/concat.\+hpp}\texorpdfstring{$>$}{>}
 \end{DoxyWarning}
 \begin{DoxyParagraph}{Example}
 
@@ -92,7 +92,7 @@ Actually it subscribes on first observable from emissions. When first observable
 \end{DoxySeeAlso}
 \begin{Desc}
 \item[Examples]\par
-\mbox{\hyperlink{concat_8cpp-example}{concat.\+cpp}}, and \mbox{\hyperlink{multicast_8cpp-example}{multicast.\+cpp}}.\end{Desc}
+\mbox{\hyperlink{concat_8cpp-example}{concat.\+cpp}}.\end{Desc}
 \Hypertarget{group__creational__operators_ga4f9024c949765737e6a99a05f74d382e}\label{group__creational__operators_ga4f9024c949765737e6a99a05f74d382e} 
 \index{Creational Operators@{Creational Operators}!concat@{concat}}
 \index{concat@{concat}!Creational Operators@{Creational Operators}}
@@ -120,13 +120,13 @@ Actually it subscribes on first observable from emissions. When first observable
 \hline
 \end{DoxyTemplParams}
 \begin{DoxyWarning}{Warning}
-\doxylink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{include} \texorpdfstring{$<$}{<}\doxylink{operators_2concat_8hpp_source}{rpp/operators/concat.\+hpp}\texorpdfstring{$>$}{>}
+\#include \texorpdfstring{$<$}{<}\doxylink{operators_2concat_8hpp_source}{rpp/operators/concat.\+hpp}\texorpdfstring{$>$}{>}
 \end{DoxyWarning}
 \begin{DoxyParagraph}{Example}
 
 \begin{DoxyCodeInclude}{0}
 \DoxyCodeLine{\ \ \ \ \textcolor{keyword}{auto}\ observables\ =\ std::vector\{\mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(1),\ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(2)\};}
-\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{rpp::source::concat<rpp::memory\_model::use\_shared>}}(observables).subscribe([](\textcolor{keywordtype}{int}\ v)\{std::cout\ <<\ v\ <<\ \textcolor{stringliteral}{"{},\ "{}};\},\ [](\textcolor{keyword}{const}\ std::exception\_ptr\&)\{\},\ []()\{std::cout\ <<\ \textcolor{stringliteral}{"{}completed\(\backslash\)n"{}};\});}
+\DoxyCodeLine{\ \ \ \ rpp::source::concat<rpp::memory\_model::use\_shared>(observables).subscribe([](\textcolor{keywordtype}{int}\ v)\{std::cout\ <<\ v\ <<\ \textcolor{stringliteral}{"{},\ "{}};\},\ [](\textcolor{keyword}{const}\ std::exception\_ptr\&)\{\},\ []()\{std::cout\ <<\ \textcolor{stringliteral}{"{}completed\(\backslash\)n"{}};\});}
 \DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:\ 1,\ 2,\ completed}}
 
 \end{DoxyCodeInclude}
@@ -164,7 +164,7 @@ Actually it subscribes on first observable from emissions. When first observable
 \hline
 \end{DoxyTemplParams}
 \begin{DoxyWarning}{Warning}
-\doxylink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{include} \texorpdfstring{$<$}{<}\doxylink{operators_2concat_8hpp_source}{rpp/operators/concat.\+hpp}\texorpdfstring{$>$}{>}
+\#include \texorpdfstring{$<$}{<}\doxylink{operators_2concat_8hpp_source}{rpp/operators/concat.\+hpp}\texorpdfstring{$>$}{>}
 \end{DoxyWarning}
 \begin{DoxyParagraph}{Example}
 
@@ -180,13 +180,13 @@ Actually it subscribes on first observable from emissions. When first observable
 \end{DoxySeeAlso}
 \begin{Desc}
 \item[Examples]\par
-\mbox{\hyperlink{concat_8cpp-example}{concat.\+cpp}}, \mbox{\hyperlink{create_8cpp-example}{create.\+cpp}}, \mbox{\hyperlink{defer_8cpp-example}{defer.\+cpp}}, \mbox{\hyperlink{delay_8cpp-example}{delay.\+cpp}}, \mbox{\hyperlink{first_8cpp-example}{first.\+cpp}}, \mbox{\hyperlink{from_8cpp-example}{from.\+cpp}}, \mbox{\hyperlink{just_8cpp-example}{just.\+cpp}}, \mbox{\hyperlink{last_8cpp-example}{last.\+cpp}}, \mbox{\hyperlink{merge_8cpp-example}{merge.\+cpp}}, \mbox{\hyperlink{observe_on_8cpp-example}{observe\+\_\+on.\+cpp}}, \mbox{\hyperlink{ref_count_8cpp-example}{ref\+\_\+count.\+cpp}}, \mbox{\hyperlink{subscribe_on_8cpp-example}{subscribe\+\_\+on.\+cpp}}, and \mbox{\hyperlink{take_until_8cpp-example}{take\+\_\+until.\+cpp}}.\end{Desc}
+\mbox{\hyperlink{concat_8cpp-example}{concat.\+cpp}}.\end{Desc}
 \Hypertarget{group__creational__operators_gae68c87e7ae3a505258b733082bf68513}\label{group__creational__operators_gae68c87e7ae3a505258b733082bf68513} 
 \index{Creational Operators@{Creational Operators}!create@{create}}
 \index{create@{create}!Creational Operators@{Creational Operators}}
 \doxysubsubsubsubsection{\texorpdfstring{create()}{create()}}
 {\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type, constraint\+::on\+\_\+subscribe$<$ Type $>$ On\+Subscribe$>$ \\
-\mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{auto}} rpp\+::source\+::create (\begin{DoxyParamCaption}\item[{On\+Subscribe \&\&}]{on\+\_\+subscribe }\end{DoxyParamCaption})}
+auto rpp\+::source\+::create (\begin{DoxyParamCaption}\item[{On\+Subscribe \&\&}]{on\+\_\+subscribe }\end{DoxyParamCaption})}
 
 
 
@@ -209,7 +209,7 @@ Keep in mind, obtained observer is non-\/copyable, but movable by default. So, p
 \begin{DoxyParagraph}{Examples\+:}
 
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{rpp::source::create<int>}}([](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ sub)}
+\DoxyCodeLine{\ \ \ \ rpp::source::create<int>([](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ sub)}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \{}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sub.on\_next(42);}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \})}
@@ -220,7 +220,7 @@ Keep in mind, obtained observer is non-\/copyable, but movable by default. So, p
  
 \begin{DoxyCodeInclude}{0}
 \DoxyCodeLine{\ \ \ \ \textcolor{keywordtype}{int}\ val\ =\ 42;}
-\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{rpp::source::create<int>}}([val](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ sub)}
+\DoxyCodeLine{\ \ \ \ rpp::source::create<int>([val](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ sub)}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \{}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sub.on\_next(val);}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \})}
@@ -238,8 +238,8 @@ Keep in mind, obtained observer is non-\/copyable, but movable by default. So, p
 \index{defer@{defer}!Creational Operators@{Creational Operators}}
 \doxysubsubsubsubsection{\texorpdfstring{defer()}{defer()}}
 {\footnotesize\ttfamily template$<$std\+::invocable Factory$>$ \newline
-requires \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp\+::constraint\+::observable}}$<$std\+::invoke\+\_\+result\+\_\+t$<$\mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{Factory}}$>$$>$\\
-\mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{auto}} rpp\+::source\+::defer (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{Factory}} \&\&}]{observable\+\_\+factory }\end{DoxyParamCaption})}
+requires \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp\+::constraint\+::observable}}$<$std\+::invoke\+\_\+result\+\_\+t$<$Factory$>$$>$\\
+auto rpp\+::source\+::defer (\begin{DoxyParamCaption}\item[{Factory \&\&}]{observable\+\_\+factory }\end{DoxyParamCaption})}
 
 
 
@@ -277,7 +277,7 @@ Creates \doxylink{classrpp_1_1observable}{rpp\+::observable} that calls the spec
 \index{empty@{empty}!Creational Operators@{Creational Operators}}
 \doxysubsubsubsubsection{\texorpdfstring{empty()}{empty()}}
 {\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type$>$ \\
-\mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{auto}} rpp\+::source\+::empty (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+auto rpp\+::source\+::empty (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
 
 
@@ -298,7 +298,7 @@ Creates \doxylink{classrpp_1_1observable}{rpp\+::observable} that emits no items
 \index{error@{error}!Creational Operators@{Creational Operators}}
 \doxysubsubsubsubsection{\texorpdfstring{error()}{error()}}
 {\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type$>$ \\
-\mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{auto}} rpp\+::source\+::error (\begin{DoxyParamCaption}\item[{std\+::exception\+\_\+ptr}]{err }\end{DoxyParamCaption})}
+auto rpp\+::source\+::error (\begin{DoxyParamCaption}\item[{std\+::exception\+\_\+ptr}]{err }\end{DoxyParamCaption})}
 
 
 
@@ -322,7 +322,7 @@ Creates \doxylink{classrpp_1_1observable}{rpp\+::observable} that emits no items
 \index{from\_callable@{from\_callable}!Creational Operators@{Creational Operators}}
 \doxysubsubsubsubsection{\texorpdfstring{from\_callable()}{from\_callable()}}
 {\footnotesize\ttfamily template$<$constraint\+::memory\+\_\+model Memory\+Model, std\+::invocable$<$$>$ Callable$>$ \\
-\mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{auto}} rpp\+::source\+::from\+\_\+callable (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{Callable}} \&\&}]{callable }\end{DoxyParamCaption})}
+auto rpp\+::source\+::from\+\_\+callable (\begin{DoxyParamCaption}\item[{Callable \&\&}]{callable }\end{DoxyParamCaption})}
 
 
 
@@ -355,7 +355,7 @@ Creates rpp\+::specific\+\_\+observable that calls provided callable and emits r
 \index{from\_iterable@{from\_iterable}!Creational Operators@{Creational Operators}}
 \doxysubsubsubsubsection{\texorpdfstring{from\_iterable()}{from\_iterable()}}
 {\footnotesize\ttfamily template$<$constraint\+::memory\+\_\+model Memory\+Model, constraint\+::iterable Iterable, schedulers\+::constraint\+::scheduler TScheduler$>$ \\
-\mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{auto}} rpp\+::source\+::from\+\_\+iterable (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{Iterable}} \&\&}]{iterable,  }\item[{\mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{const}} TScheduler \&}]{scheduler }\end{DoxyParamCaption})}
+auto rpp\+::source\+::from\+\_\+iterable (\begin{DoxyParamCaption}\item[{Iterable \&\&}]{iterable,  }\item[{const TScheduler \&}]{scheduler }\end{DoxyParamCaption})}
 
 
 
@@ -385,7 +385,7 @@ Creates observable that emits a items from provided iterable.
  
 \begin{DoxyCodeInclude}{0}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ std::vector<int>\ vals\{\ 1,2,3\ \};}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{rpp::source::from\_iterable<rpp::memory\_model::use\_shared>}}(vals).subscribe([](\textcolor{keywordtype}{int}\ v)\ \{std::cout\ <<\ v\ <<\ \textcolor{stringliteral}{"{}\ "{}};\ \});}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ rpp::source::from\_iterable<rpp::memory\_model::use\_shared>(vals).subscribe([](\textcolor{keywordtype}{int}\ v)\ \{std::cout\ <<\ v\ <<\ \textcolor{stringliteral}{"{}\ "{}};\ \});}
 
 \end{DoxyCodeInclude}
  
@@ -408,7 +408,7 @@ Creates observable that emits a items from provided iterable.
 \index{interval@{interval}!Creational Operators@{Creational Operators}}
 \doxysubsubsubsubsection{\texorpdfstring{interval()}{interval()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
 {\footnotesize\ttfamily template$<$schedulers\+::constraint\+::scheduler TScheduler$>$ \\
-\mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{auto}} rpp\+::source\+::interval (\begin{DoxyParamCaption}\item[{rpp\+::schedulers\+::duration}]{initial,  }\item[{rpp\+::schedulers\+::duration}]{period,  }\item[{TScheduler \&\&}]{scheduler }\end{DoxyParamCaption})}
+auto rpp\+::source\+::interval (\begin{DoxyParamCaption}\item[{rpp\+::schedulers\+::duration}]{initial,  }\item[{rpp\+::schedulers\+::duration}]{period,  }\item[{TScheduler \&\&}]{scheduler }\end{DoxyParamCaption})}
 
 
 
@@ -443,7 +443,7 @@ Creates \doxylink{classrpp_1_1observable}{rpp\+::observable} that emits a sequen
 \index{interval@{interval}!Creational Operators@{Creational Operators}}
 \doxysubsubsubsubsection{\texorpdfstring{interval()}{interval()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
 {\footnotesize\ttfamily template$<$schedulers\+::constraint\+::scheduler TScheduler$>$ \\
-\mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{auto}} rpp\+::source\+::interval (\begin{DoxyParamCaption}\item[{rpp\+::schedulers\+::duration}]{period,  }\item[{TScheduler \&\&}]{scheduler }\end{DoxyParamCaption})}
+auto rpp\+::source\+::interval (\begin{DoxyParamCaption}\item[{rpp\+::schedulers\+::duration}]{period,  }\item[{TScheduler \&\&}]{scheduler }\end{DoxyParamCaption})}
 
 
 
@@ -470,9 +470,9 @@ Creates \doxylink{classrpp_1_1observable}{rpp\+::observable} that emits a sequen
 \index{Creational Operators@{Creational Operators}!just@{just}}
 \index{just@{just}!Creational Operators@{Creational Operators}}
 \doxysubsubsubsubsection{\texorpdfstring{just()}{just()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
-{\footnotesize\ttfamily template$<$constraint\+::memory\+\_\+model Memory\+Model, schedulers\+::constraint\+::scheduler TScheduler, \mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{typename}} T , typename... Ts$>$ \newline
-requires (constraint\+::decayed\+\_\+same\+\_\+as$<$T, \mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{Ts}}$>$ \&\& ...)\\
-\mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{auto}} rpp\+::source\+::just (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{const}} TScheduler \&}]{scheduler,  }\item[{T \&\&}]{item,  }\item[{\mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{Ts}} \&\&...}]{items }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily template$<$constraint\+::memory\+\_\+model Memory\+Model, schedulers\+::constraint\+::scheduler TScheduler, typename T , typename... Ts$>$ \newline
+requires (constraint\+::decayed\+\_\+same\+\_\+as$<$T, Ts$>$ \&\& ...)\\
+auto rpp\+::source\+::just (\begin{DoxyParamCaption}\item[{const TScheduler \&}]{scheduler,  }\item[{T \&\&}]{item,  }\item[{Ts \&\&...}]{items }\end{DoxyParamCaption})}
 
 
 
@@ -505,7 +505,7 @@ Creates \doxylink{classrpp_1_1observable}{rpp\+::observable} that emits a partic
 \begin{DoxyCodeInclude}{0}
 \DoxyCodeLine{\ \ \ \ std::array<int,\ 100>\ expensive\_to\_copy\_1\{\};}
 \DoxyCodeLine{\ \ \ \ std::array<int,\ 100>\ expensive\_to\_copy\_2\{\};}
-\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{rpp::source::just<rpp::memory\_model::use\_shared>}}(expensive\_to\_copy\_1,\ expensive\_to\_copy\_2).subscribe([](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&)\{\});}
+\DoxyCodeLine{\ \ \ \ rpp::source::just<rpp::memory\_model::use\_shared>(expensive\_to\_copy\_1,\ expensive\_to\_copy\_2).subscribe([](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&)\{\});}
 
 \end{DoxyCodeInclude}
  
@@ -526,9 +526,9 @@ Creates \doxylink{classrpp_1_1observable}{rpp\+::observable} that emits a partic
 \index{Creational Operators@{Creational Operators}!just@{just}}
 \index{just@{just}!Creational Operators@{Creational Operators}}
 \doxysubsubsubsubsection{\texorpdfstring{just()}{just()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
-{\footnotesize\ttfamily template$<$constraint\+::memory\+\_\+model Memory\+Model, \mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{typename}} T , typename... Ts$>$ \newline
-requires (constraint\+::decayed\+\_\+same\+\_\+as$<$T, \mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{Ts}}$>$ \&\& ...)\\
-\mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{auto}} rpp\+::source\+::just (\begin{DoxyParamCaption}\item[{T \&\&}]{item,  }\item[{\mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{Ts}} \&\&...}]{items }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily template$<$constraint\+::memory\+\_\+model Memory\+Model, typename T , typename... Ts$>$ \newline
+requires (constraint\+::decayed\+\_\+same\+\_\+as$<$T, Ts$>$ \&\& ...)\\
+auto rpp\+::source\+::just (\begin{DoxyParamCaption}\item[{T \&\&}]{item,  }\item[{Ts \&\&...}]{items }\end{DoxyParamCaption})}
 
 
 
@@ -562,7 +562,7 @@ this overloading uses trampoline scheduler as default
 \begin{DoxyCodeInclude}{0}
 \DoxyCodeLine{\ \ \ \ std::array<int,\ 100>\ expensive\_to\_copy\_1\{\};}
 \DoxyCodeLine{\ \ \ \ std::array<int,\ 100>\ expensive\_to\_copy\_2\{\};}
-\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{rpp::source::just<rpp::memory\_model::use\_shared>}}(expensive\_to\_copy\_1,\ expensive\_to\_copy\_2).subscribe([](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&)\{\});}
+\DoxyCodeLine{\ \ \ \ rpp::source::just<rpp::memory\_model::use\_shared>(expensive\_to\_copy\_1,\ expensive\_to\_copy\_2).subscribe([](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&)\{\});}
 
 \end{DoxyCodeInclude}
  
@@ -581,7 +581,7 @@ this overloading uses trampoline scheduler as default
 \index{never@{never}!Creational Operators@{Creational Operators}}
 \doxysubsubsubsubsection{\texorpdfstring{never()}{never()}}
 {\footnotesize\ttfamily template$<$constraint\+::decayed\+\_\+type Type$>$ \\
-\mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{auto}} rpp\+::source\+::never (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+auto rpp\+::source\+::never (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
 
 

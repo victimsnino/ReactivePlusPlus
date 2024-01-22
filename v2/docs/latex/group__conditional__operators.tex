@@ -8,10 +8,10 @@ Conditional operators are operators that emit items based on some condition incl
 \doxysubsubsubsubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-{\footnotesize template$<$\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp\+::constraint\+::observable}} TObservable$>$ }\\\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{auto}} \mbox{\hyperlink{group__conditional__operators_gae40802b5608766bfcc1417e210f41707}{rpp\+::operators\+::take\+\_\+until}} (TObservable \&\&\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{until\+\_\+observable}})
+{\footnotesize template$<$\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp\+::constraint\+::observable}} TObservable$>$ }\\auto \mbox{\hyperlink{group__conditional__operators_gae40802b5608766bfcc1417e210f41707}{rpp\+::operators\+::take\+\_\+until}} (TObservable \&\&until\+\_\+observable)
 \begin{DoxyCompactList}\small\item\em Discard any items emitted by an Observable after a second Observable emits an item or terminates. \end{DoxyCompactList}\item 
-{\footnotesize template$<$\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{typename}} Fn $>$ \newline
-requires (!utils\+::is\+\_\+not\+\_\+template\+\_\+callable$<$Fn$>$ \texorpdfstring{$\vert$}{|}\texorpdfstring{$\vert$}{|} std\+::same\+\_\+as$<$\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{bool}}, std\+::invoke\+\_\+result\+\_\+t$<$Fn, rpp\+::utils\+::convertible\+\_\+to\+\_\+any$>$$>$)}\\\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{auto}} \mbox{\hyperlink{group__conditional__operators_gac65952f7460d8f0e71a93d95810d2061}{rpp\+::operators\+::take\+\_\+while}} (Fn \&\&\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{predicate}})
+{\footnotesize template$<$typename Fn $>$ \newline
+requires (!utils\+::is\+\_\+not\+\_\+template\+\_\+callable$<$Fn$>$ \texorpdfstring{$\vert$}{|}\texorpdfstring{$\vert$}{|} std\+::same\+\_\+as$<$bool, std\+::invoke\+\_\+result\+\_\+t$<$Fn, rpp\+::utils\+::convertible\+\_\+to\+\_\+any$>$$>$)}\\auto \mbox{\hyperlink{group__conditional__operators_gac65952f7460d8f0e71a93d95810d2061}{rpp\+::operators\+::take\+\_\+while}} (Fn \&\&predicate)
 \begin{DoxyCompactList}\small\item\em Sends items from observable while items are satisfy predicate. When condition becomes false -\/\texorpdfstring{$>$}{>} sends {\ttfamily on\+\_\+completed} \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
@@ -29,7 +29,7 @@ Conditional operators are operators that emit items based on some condition incl
 \index{take\_until@{take\_until}!Conditional Operators@{Conditional Operators}}
 \doxysubsubsubsubsection{\texorpdfstring{take\_until()}{take\_until()}}
 {\footnotesize\ttfamily template$<$\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp\+::constraint\+::observable}} TObservable$>$ \\
-\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{auto}} rpp\+::operators\+::take\+\_\+until (\begin{DoxyParamCaption}\item[{TObservable \&\&}]{until\+\_\+observable }\end{DoxyParamCaption})}
+auto rpp\+::operators\+::take\+\_\+until (\begin{DoxyParamCaption}\item[{TObservable \&\&}]{until\+\_\+observable }\end{DoxyParamCaption})}
 
 
 
@@ -48,7 +48,7 @@ Actually this operator just subscribes on 2 observables and completes original w
 \hline
 \end{DoxyParams}
 \begin{DoxyWarning}{Warning}
-\doxylink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{include} \texorpdfstring{$<$}{<}\doxylink{take__until_8hpp_source}{rpp/operators/take\+\_\+until.\+hpp}\texorpdfstring{$>$}{>}
+\#include \texorpdfstring{$<$}{<}\doxylink{take__until_8hpp_source}{rpp/operators/take\+\_\+until.\+hpp}\texorpdfstring{$>$}{>}
 \end{DoxyWarning}
 \begin{DoxyParagraph}{Examples}
 
@@ -76,9 +76,9 @@ Actually this operator just subscribes on 2 observables and completes original w
 \index{Conditional Operators@{Conditional Operators}!take\_while@{take\_while}}
 \index{take\_while@{take\_while}!Conditional Operators@{Conditional Operators}}
 \doxysubsubsubsubsection{\texorpdfstring{take\_while()}{take\_while()}}
-{\footnotesize\ttfamily template$<$\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{typename}} Fn $>$ \newline
-requires (!utils\+::is\+\_\+not\+\_\+template\+\_\+callable$<$Fn$>$ \texorpdfstring{$\vert$}{|}\texorpdfstring{$\vert$}{|} std\+::same\+\_\+as$<$\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{bool}}, std\+::invoke\+\_\+result\+\_\+t$<$Fn, rpp\+::utils\+::convertible\+\_\+to\+\_\+any$>$$>$)\\
-\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{auto}} rpp\+::operators\+::take\+\_\+while (\begin{DoxyParamCaption}\item[{Fn \&\&}]{predicate }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily template$<$typename Fn $>$ \newline
+requires (!utils\+::is\+\_\+not\+\_\+template\+\_\+callable$<$Fn$>$ \texorpdfstring{$\vert$}{|}\texorpdfstring{$\vert$}{|} std\+::same\+\_\+as$<$bool, std\+::invoke\+\_\+result\+\_\+t$<$Fn, rpp\+::utils\+::convertible\+\_\+to\+\_\+any$>$$>$)\\
+auto rpp\+::operators\+::take\+\_\+while (\begin{DoxyParamCaption}\item[{Fn \&\&}]{predicate }\end{DoxyParamCaption})}
 
 
 
@@ -101,7 +101,7 @@ Actually this operator just emits values while predicate returns true
 \hline
 \end{DoxyParams}
 \begin{DoxyWarning}{Warning}
-\doxylink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{include} \texorpdfstring{$<$}{<}\doxylink{take__while_8hpp_source}{rpp/operators/take\+\_\+while.\+hpp}\texorpdfstring{$>$}{>}
+\#include \texorpdfstring{$<$}{<}\doxylink{take__while_8hpp_source}{rpp/operators/take\+\_\+while.\+hpp}\texorpdfstring{$>$}{>}
 \end{DoxyWarning}
 \begin{DoxyParagraph}{Example\+:}
 

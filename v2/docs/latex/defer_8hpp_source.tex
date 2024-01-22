@@ -47,9 +47,9 @@
 \DoxyCodeLine{00043\ }
 \DoxyCodeLine{00055\ \textcolor{keyword}{template}<std::invocable\ Factory>}
 \DoxyCodeLine{00056\ \ \ \ \ \textcolor{keyword}{requires}\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp::constraint::observable<std::invoke\_result\_t<Factory>}}>}
-\DoxyCodeLine{00057\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__creational__operators_gad9a4bddea3780850a01b82b481951d18}{defer}}(\mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{Factory}}\&\&\ observable\_factory)}
+\DoxyCodeLine{00057\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__creational__operators_gad9a4bddea3780850a01b82b481951d18}{defer}}(Factory\&\&\ observable\_factory)}
 \DoxyCodeLine{00058\ \{}
-\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classrpp_1_1observable}{defer\_observable<rpp::utils::extract\_observable\_type\_t<std::invoke\_result\_t<Factory>}}>,\ \mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{Factory}}>\{std::forward<Factory>(observable\_factory)\};}
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classrpp_1_1observable}{defer\_observable<rpp::utils::extract\_observable\_type\_t<std::invoke\_result\_t<Factory>}}>,\ Factory>\{std::forward<Factory>(observable\_factory)\};}
 \DoxyCodeLine{00060\ \}}
 \DoxyCodeLine{00061\ \}}
 

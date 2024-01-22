@@ -117,8 +117,8 @@ $(function(){initNavTree('take_until_8cpp-example.html',''); initResizable(); })
 <div class="line">    <span class="comment">// source 2: ---------0---------1- --</span></div>
 <div class="line">    <span class="comment">// Output  : -0-1-2-3-|</span></div>
 <div class="line"> </div>
-<div class="line">    <a id="a2" name="a2"></a><a class="code hl_function" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">rpp::source::never&lt;int&gt;</a>()</div>
-<div class="line">        | rpp::ops::take_until(<a class="code hl_function" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">rpp::source::error&lt;bool&gt;</a>(std::make_exception_ptr(std::runtime_error{<span class="stringliteral">&quot;&quot;</span>})))</div>
+<div class="line">    rpp::source::never&lt;int&gt;()</div>
+<div class="line">        | rpp::ops::take_until(rpp::source::error&lt;bool&gt;(std::make_exception_ptr(std::runtime_error{<span class="stringliteral">&quot;&quot;</span>})))</div>
 <div class="line">        | rpp::ops::subscribe([](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; <span class="stringliteral">&quot;-&quot;</span> &lt;&lt; v; },</div>
 <div class="line">                              [](<span class="keyword">const</span> std::exception_ptr&amp;) { std::cout &lt;&lt; <span class="stringliteral">&quot;-x&quot;</span> &lt;&lt; std::endl; },</div>
 <div class="line">                              []() { std::cout &lt;&lt; <span class="stringliteral">&quot;-|&quot;</span> &lt;&lt; std::endl; });</div>
@@ -129,7 +129,6 @@ $(function(){initNavTree('take_until_8cpp-example.html',''); initResizable(); })
 <div class="line">}</div>
 <div class="ttc" id="aclassrpp_1_1schedulers_1_1current__thread_html"><div class="ttname"><a href="classrpp_1_1schedulers_1_1current__thread.html">rpp::schedulers::current_thread</a></div><div class="ttdoc">Schedules execution of schedulables via queueing tasks to the caller thread with priority to time_poi...</div><div class="ttdef"><b>Definition</b> current_thread.hpp:86</div></div>
 <div class="ttc" id="agroup__creational__operators_html_ga4018b147fb99a358c6c01f21183c13e6"><div class="ttname"><a href="group__creational__operators.html#ga4018b147fb99a358c6c01f21183c13e6">rpp::source::interval</a></div><div class="ttdeci">auto interval(rpp::schedulers::duration initial, rpp::schedulers::duration period, TScheduler &amp;&amp;scheduler)</div><div class="ttdoc">Creates rpp::observable that emits a sequential integer every specified time interval,...</div><div class="ttdef"><b>Definition</b> interval.hpp:77</div></div>
-<div class="ttc" id="agroup__creational__operators_html_gab6cfd9da2e3590fd199c9972477e04df"><div class="ttname"><a href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">rpp::source::concat</a></div><div class="ttdeci">auto concat(TObservable &amp;&amp;obs, TObservables &amp;&amp;... others)</div><div class="ttdoc">Make observable which would merge emissions from underlying observables but without overlapping (curr...</div><div class="ttdef"><b>Definition</b> concat.hpp:168</div></div>
 </div><!-- fragment --> </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

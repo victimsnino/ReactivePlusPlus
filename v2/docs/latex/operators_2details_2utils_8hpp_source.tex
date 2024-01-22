@@ -23,13 +23,13 @@
 \DoxyCodeLine{00019\ \{}
 \DoxyCodeLine{00020\ \ \ \ \ \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1value__with__mutex}{value\_with\_mutex}}()\ =\ \textcolor{keywordflow}{default};}
 \DoxyCodeLine{00021\ }
-\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1value__with__mutex}{value\_with\_mutex}}(\textcolor{keyword}{const}\ T\&\ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{v}})}
-\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ :\ value\{\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{v}}\}}
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1value__with__mutex}{value\_with\_mutex}}(\textcolor{keyword}{const}\ T\&\ v)}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ :\ value\{v\}}
 \DoxyCodeLine{00024\ \ \ \ \ \{}
 \DoxyCodeLine{00025\ \ \ \ \ \}}
 \DoxyCodeLine{00026\ }
-\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1value__with__mutex}{value\_with\_mutex}}(T\&\&\ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{v}})}
-\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ :\ value\{std::move(\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{v}})\}}
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1value__with__mutex}{value\_with\_mutex}}(T\&\&\ v)}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ :\ value\{std::move(v)\}}
 \DoxyCodeLine{00029\ \ \ \ \ \{}
 \DoxyCodeLine{00030\ \ \ \ \ \}}
 \DoxyCodeLine{00031\ }
@@ -46,8 +46,8 @@
 \DoxyCodeLine{00042\ \ \ \ \ \{}
 \DoxyCodeLine{00043\ \ \ \ \ \}}
 \DoxyCodeLine{00044\ }
-\DoxyCodeLine{00045\ \ \ \ \ \mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1pointer__under__lock}{pointer\_under\_lock}}(T\&\ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{val}},\ std::mutex\&\ mutex)}
-\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ :\ m\_ptr\{\&\mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{val}}\}}
+\DoxyCodeLine{00045\ \ \ \ \ \mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1pointer__under__lock}{pointer\_under\_lock}}(T\&\ val,\ std::mutex\&\ mutex)}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ :\ m\_ptr\{\&val\}}
 \DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ ,\ m\_lock\{mutex\}}
 \DoxyCodeLine{00048\ \ \ \ \ \{}
 \DoxyCodeLine{00049\ \ \ \ \ \}}

@@ -120,7 +120,7 @@ $(function(){initNavTree('defer_8cpp-example.html',''); initResizable(); });
 <div class="line">    <span class="keyword">auto</span> obs = <a class="code hl_function" href="group__creational__operators.html#gad9a4bddea3780850a01b82b481951d18">rpp::source::defer</a>([] {</div>
 <div class="line">        std::cout &lt;&lt; <span class="stringliteral">&quot;Observable factory called\n&quot;</span>;</div>
 <div class="line">        <span class="keyword">const</span> <span class="keyword">auto</span> state = std::make_shared&lt;int&gt;(0);</div>
-<div class="line">        <span class="keyword">auto</span> inner_obs = <a id="a2" name="a2"></a><a class="code hl_function" href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">rpp::source::create&lt;int&gt;</a>([state](<span class="keyword">const</span> <span class="keyword">auto</span>&amp; obs) {</div>
+<div class="line">        <span class="keyword">auto</span> inner_obs = rpp::source::create&lt;int&gt;([state](<span class="keyword">const</span> <span class="keyword">auto</span>&amp; obs) {</div>
 <div class="line">            obs.on_next((*state)++);</div>
 <div class="line">            obs.on_completed();</div>
 <div class="line">        });  </div>
@@ -135,7 +135,6 @@ $(function(){initNavTree('defer_8cpp-example.html',''); initResizable(); });
 <div class="line">    <span class="comment">//         0</span></div>
 <div class="line">    <span class="comment">//         On complete</span></div>
 <div class="line">}</div>
-<div class="ttc" id="agroup__creational__operators_html_gab6cfd9da2e3590fd199c9972477e04df"><div class="ttname"><a href="group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df">rpp::source::concat</a></div><div class="ttdeci">auto concat(TObservable &amp;&amp;obs, TObservables &amp;&amp;... others)</div><div class="ttdoc">Make observable which would merge emissions from underlying observables but without overlapping (curr...</div><div class="ttdef"><b>Definition</b> concat.hpp:168</div></div>
 <div class="ttc" id="agroup__creational__operators_html_gad15a7e8bfb2f7ce0af1b44e22918116c"><div class="ttname"><a href="group__creational__operators.html#gad15a7e8bfb2f7ce0af1b44e22918116c">rpp::source::from_iterable</a></div><div class="ttdeci">auto from_iterable(Iterable &amp;&amp;iterable, const TScheduler &amp;scheduler)</div><div class="ttdoc">Creates observable that emits a items from provided iterable.</div><div class="ttdef"><b>Definition</b> from.hpp:181</div></div>
 <div class="ttc" id="agroup__creational__operators_html_gad9a4bddea3780850a01b82b481951d18"><div class="ttname"><a href="group__creational__operators.html#gad9a4bddea3780850a01b82b481951d18">rpp::source::defer</a></div><div class="ttdeci">auto defer(Factory &amp;&amp;observable_factory)</div><div class="ttdoc">Creates rpp::observable that calls the specified observable factory to create an observable for each ...</div><div class="ttdef"><b>Definition</b> defer.hpp:57</div></div>
 </div><!-- fragment --> </div><!-- contents -->
