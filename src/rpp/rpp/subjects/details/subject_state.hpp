@@ -79,12 +79,14 @@ public:
     {
         if (const auto observers = exchange_observers_under_lock_if_there(err))
             rpp::utils::for_each(*observers, [&](const auto& sub) { sub.on_error(err); });
+        dispose();
     }
 
     void on_completed()
     {
         if (const auto observers = exchange_observers_under_lock_if_there(completed{}))
             rpp::utils::for_each(*observers, rpp::utils::static_mem_fn<&dynamic_observer<Type>::on_completed>{});
+        dispose();
     }
 
 private:
