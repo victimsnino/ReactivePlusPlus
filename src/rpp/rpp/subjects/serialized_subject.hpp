@@ -30,6 +30,8 @@ class serialized_strategy
 
     struct observer_strategy
     {
+        using preferred_disposable_strategy = rpp::details::observers::none_disposable_strategy;
+
         std::shared_ptr<serialized_state> state{};
 
         void set_upstream(const disposable_wrapper& d) const noexcept { state->add(d); }
@@ -64,7 +66,7 @@ public:
 
     auto get_observer() const
     {
-        return rpp::observer<Type, rpp::details::with_external_disposable<observer_strategy>>{get_disposable(), observer_strategy{m_state}};
+        return rpp::observer<Type, observer_strategy>{observer_strategy{m_state}};
     }
 
     template<rpp::constraint::observer_of_type<Type> TObs>

@@ -142,7 +142,7 @@ public:
     [[nodiscard("Use returned disposable or use subscribe(observer) instead")]] composite_disposable_wrapper subscribe_with_disposable(observer<Type, ObserverStrategy>&& observer) const
     {
         if (!observer.is_disposed())
-            return m_strategy.subscribe(rpp::composite_disposable_wrapper{std::make_shared<rpp::composite_disposable_impl<typename expected_disposable_strategy::disposable_container>>()}, std::move(observer));
+            return subscribe(rpp::composite_disposable_wrapper{std::make_shared<rpp::composite_disposable_impl<typename expected_disposable_strategy::disposable_container>>()}, std::move(observer));
         return {};
     }
 
@@ -264,10 +264,10 @@ public:
     composite_disposable_wrapper subscribe(const composite_disposable_wrapper& d, OnNext&& on_next, OnError&& on_error = {}, OnCompleted&& on_completed = {}) const
     {
         if (!d.is_disposed())
-            m_strategy.subscribe(make_lambda_observer<Type>(d,
-                                                            std::forward<OnNext>(on_next),
-                                                            std::forward<OnError>(on_error),
-                                                            std::forward<OnCompleted>(on_completed)));
+            subscribe(make_lambda_observer<Type>(d,
+                                                 std::forward<OnNext>(on_next),
+                                                 std::forward<OnError>(on_error),
+                                                 std::forward<OnCompleted>(on_completed)));
         return d;
     }
 

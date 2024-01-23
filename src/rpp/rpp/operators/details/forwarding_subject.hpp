@@ -25,6 +25,8 @@ class forwarding_strategy
 {
     struct observer_strategy
     {
+        using preferred_disposable_strategy = rpp::details::observers::none_disposable_strategy;
+
         std::shared_ptr<subjects::details::subject_state<Type>> state{};
 
         void set_upstream(const disposable_wrapper& d) const noexcept { state->add(d); }
@@ -48,7 +50,7 @@ public:
 
     auto get_observer() const
     {
-        return rpp::observer<Type, rpp::details::with_external_disposable<observer_strategy>>{composite_disposable_wrapper::from_shared(m_state), observer_strategy{m_state}};
+        return rpp::observer<Type, observer_strategy>{observer_strategy{m_state}};
     }
 
     template<rpp::constraint::observer_of_type<Type> TObs>
