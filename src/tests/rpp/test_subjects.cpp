@@ -10,12 +10,12 @@
 
 #include <snitch/snitch.hpp>
 
-#include <rpp/operators/as_blocking.hpp>
 #include <rpp/disposables/composite_disposable.hpp>
+#include <rpp/operators/as_blocking.hpp>
+#include <rpp/sources/create.hpp>
+#include <rpp/subjects/publish_subject.hpp>
 #include <rpp/subjects/replay_subject.hpp>
 #include <rpp/subjects/serialized_subject.hpp>
-#include <rpp/subjects/publish_subject.hpp>
-#include <rpp/sources/create.hpp>
 
 #include "copy_count_tracker.hpp"
 #include "mock_observer.hpp"
@@ -232,34 +232,31 @@ TEST_CASE("publish subject caches error/completed")
     }
 }
 
-TEST_CASE("serialized_subject handles race condition")
+TEMPLATE_TEST_CASE("serialized subjects handles race condition", "", rpp::subjects::serialized_subject<int>, rpp::subjects::serialized_replay_subject<int>)
 {
-    auto subj = rpp::subjects::serialized_subject<int>{};
+    auto subj = TestType{};
+
     SECTION("call on_next from 2 threads")
     {
         bool on_error_called{};
-        rpp::source::create<int>([&](auto&& obs)
-        {
+        rpp::source::create<int>([&](auto&& obs) {
             subj.get_observable().subscribe(std::forward<decltype(obs)>(obs));
             subj.get_observer().on_next(1);
         })
             | rpp::operators::as_blocking()
-            | rpp::operators::subscribe([&](int)
-        {
+            | rpp::operators::subscribe([&](int) {
             CHECK(!on_error_called);
             std::thread{[&]{ subj.get_observer().on_error({}); }}.detach();
 
             std::this_thread::sleep_for(std::chrono::seconds{1});
-            CHECK(!on_error_called);
-        },
-        [&](const std::exception_ptr&){ on_error_called = true; });
+            CHECK(!on_error_called); },
+                                        [&](const std::exception_ptr&) { on_error_called = true; });
 
         CHECK(on_error_called);
     }
 }
 
-
-TEST_CASE("replay subject multicasts values and replay")
+TEMPLATE_TEST_CASE("replay subject multicasts values and replay", "", rpp::subjects::replay_subject<int>, rpp::subjects::serialized_replay_subject<int>)
 {
     SECTION("replay subject")
     {
@@ -267,7 +264,7 @@ TEST_CASE("replay subject multicasts values and replay")
         auto mock_2 = mock_observer_strategy<int>{};
         auto mock_3 = mock_observer_strategy<int>{};
 
-        auto sub = rpp::subjects::replay_subject<int>{};
+        auto sub = TestType{};
 
         SECTION("subscribe multiple observers")
         {
@@ -323,7 +320,7 @@ TEST_CASE("replay subject multicasts values and replay")
         auto mock_2 = mock_observer_strategy<int>{};
 
         size_t bound = 1;
-        auto   sub   = rpp::subjects::replay_subject<int>{bound};
+        auto   sub   = TestType{bound};
 
         SECTION("subscribe multiple observers")
         {
@@ -362,7 +359,7 @@ TEST_CASE("replay subject multicasts values and replay")
 
         size_t bound    = 2;
         auto   duration = 5ms;
-        auto   sub      = rpp::subjects::replay_subject<int>{bound, duration};
+        auto   sub      = TestType{bound, duration};
 
         SECTION("subscribe multiple observers")
         {
@@ -381,14 +378,13 @@ TEST_CASE("replay subject multicasts values and replay")
             }
 
             std::this_thread::sleep_for(duration);
-            sub.get_observer().on_next(4);
 
             sub.get_observable().subscribe(mock_2.get_observer());
 
             SECTION("subject replay only non expired values")
             {
-                CHECK(mock_2.get_received_values() == std::vector<int>{4});
-                CHECK(mock_2.get_total_on_next_count() == 1);
+                CHECK(mock_2.get_received_values() == std::vector<int>{});
+                CHECK(mock_2.get_total_on_next_count() == 0);
                 CHECK(mock_2.get_on_error_count() == 0);
                 CHECK(mock_2.get_on_completed_count() == 0);
             }
@@ -396,20 +392,40 @@ TEST_CASE("replay subject multicasts values and replay")
     }
 }
 
-TEST_CASE("replay subject doesn't introduce additional copies")
+TEMPLATE_TEST_CASE("replay subject doesn't introduce additional copies", "", rpp::subjects::replay_subject<copy_count_tracker>, rpp::subjects::serialized_replay_subject<copy_count_tracker>)
 {
-    auto sub = rpp::subjects::replay_subject<copy_count_tracker>{};
-
-    SECTION("subscribe")
+    SECTION("on_next by rvalue")
     {
-        sub.get_observable().subscribe([](const copy_count_tracker& tracker){
-            CHECK(tracker.get_copy_count(), 1); // 1 copy to internal replay buffer
+        auto sub = TestType{};
+
+        sub.get_observable().subscribe([](const copy_count_tracker& tracker) {
+            CHECK(tracker.get_copy_count() == 0);
+            CHECK(tracker.get_move_count() == 1); // 1 move to internal replay buffer
         });
 
         sub.get_observer().on_next(copy_count_tracker{});
 
-        sub.get_observable().subscribe([](const copy_count_tracker& tracker){
-            CHECK(tracker.get_copy_count(), 1); // 1 copy to internal replay buffer
+        sub.get_observable().subscribe([](const copy_count_tracker& tracker) {
+            CHECK(tracker.get_copy_count() == 0);
+            CHECK(tracker.get_move_count() == 1); // 1 move to internal replay buffer
+        });
+    }
+
+    SECTION("on_next by lvalue")
+    {
+        copy_count_tracker tracker{};
+        auto               sub = TestType{};
+
+        sub.get_observable().subscribe([](const copy_count_tracker& tracker) {
+            CHECK(tracker.get_copy_count() == 1); // 1 copy to internal replay buffer
+            CHECK(tracker.get_move_count() == 0);
+        });
+
+        sub.get_observer().on_next(tracker);
+
+        sub.get_observable().subscribe([](const copy_count_tracker& tracker) {
+            CHECK(tracker.get_copy_count() == 1); // 1 copy to internal replay buffer
+            CHECK(tracker.get_move_count() == 0);
         });
     }
 }

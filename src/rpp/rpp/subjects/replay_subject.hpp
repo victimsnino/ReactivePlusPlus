@@ -18,74 +18,125 @@
 
 #include <list>
 #include <optional>
+#include <utility>
 
 namespace rpp::subjects::details
 {
-template<rpp::constraint::decayed_type Type>
+template<rpp::constraint::decayed_type Type, bool Serialized>
 class replay_strategy
 {
-    struct replay_state
+    struct replay_state final : public subject_state<Type>
     {
+        replay_state(std::optional<size_t> count, std::optional<rpp::schedulers::duration> duration)
+            : count(count)
+            , duration(duration)
+        {
+        }
+
+        auto collect_duration()
+        {
+            if (duration.has_value())
+            {
+                auto now = rpp::schedulers::clock_type::now();
+                while (!values.empty() && (now - values.front().second > duration.value()))
+                {
+                    values.pop_front();
+                }
+                return now;
+            }
+            return rpp::schedulers::clock_type::time_point{};
+        }
+
+        void collect_bound()
+        {
+            if (count.has_value())
+            {
+                if (values.size() == count.value())
+                {
+                    values.pop_front();
+                }
+            }
+        }
+
+        template<typename T>
+        void collect(T&& v)
+        {
+            std::unique_lock lock{list_mutex};
+            collect_bound();
+            const auto time_point = collect_duration();
+
+            values.emplace_back(std::forward<T>(v), time_point);
+        }
+
         std::optional<size_t>                    count;
         std::optional<rpp::schedulers::duration> duration;
 
-        std::list<Type>                                    values{};
-        std::list<rpp::schedulers::clock_type::time_point> time_points{};
+        std::list<std::pair<Type, rpp::schedulers::clock_type::time_point>> values{};
 
-        std::mutex          mutex{};
-        subject_state<Type> state{};
+        std::mutex list_mutex{};
+        std::mutex serialized_mutex{};
     };
 
     struct observer_strategy
     {
         std::shared_ptr<replay_state> state;
 
-        void set_upstream(const disposable_wrapper& d) const noexcept { state->state.add(d); }
+        template<typename T>
+        void collect_and_on_next(T&& v) const
+            requires Serialized
+        {
+            state->collect(std::forward<T>(v));
+
+            std::unique_lock lock{state->serialized_mutex};
+            state->on_next(v);
+        }
+
+        template<typename T>
+        void collect_and_on_next(T&& v) const
+        {
+            state->collect(std::forward<T>(v));
+            state->on_next(v);
+        }
+
+        void set_upstream(const disposable_wrapper& d) const noexcept { state->add(d); }
 
         bool is_disposed() const noexcept
         {
-            return state->state.is_disposed();
+            return state->is_disposed();
+        }
+
+        void on_next(Type&& v) const
+        {
+            collect_and_on_next(std::move(v));
         }
 
         void on_next(const Type& v) const
         {
-            std::unique_lock lock{state->mutex};
-            if (state->count.has_value())
-            {
-                if (state->values.size() == state->count.value())
-                {
-                    state->values.pop_front();
-                    if (state->duration.has_value())
-                    {
-                        state->time_points.pop_front();
-                    }
-                }
-            }
-            if (state->duration.has_value())
-            {
-                auto now = rpp::schedulers::clock_type::now();
-                while (!state->time_points.empty() && (now - state->time_points.front() > state->duration.value()))
-                {
-                    state->values.pop_front();
-                    state->time_points.pop_front();
-                }
-                state->time_points.push_back(now);
-            }
+            collect_and_on_next(v);
+        }
 
-            state->values.push_back(v);
-            state->state.on_next(v);
+        void on_error(const std::exception_ptr& err) const
+            requires Serialized
+        {
+            std::unique_lock lock{state->serialized_mutex};
+            state->on_error(err);
         }
 
         void on_error(const std::exception_ptr& err) const
         {
-            std::unique_lock lock{state->mutex};
-            state->state.on_error(err);
+            state->on_error(err);
+        }
+
+        void on_completed() const
+            requires Serialized
+        {
+            std::unique_lock lock{state->serialized_mutex};
+            state->on_completed();
         }
 
         void on_completed() const
         {
-            std::unique_lock lock{state->mutex};
-            state->state.on_completed();
+            state->on_completed();
         }
     };
 
@@ -105,30 +156,30 @@ public:
     {
     }
 
+    using preferred_disposable_strategy = rpp::details::observers::none_disposable_strategy;
+
     auto get_observer() const
     {
-        return rpp::observer<Type, rpp::details::with_external_disposable<observer_strategy>>{
-            composite_disposable_wrapper{
-                std::shared_ptr<subject_state<Type>>{m_state, &m_state->state}},
-            observer_strategy{m_state}};
+        return rpp::observer<Type, observer_strategy>{observer_strategy{m_state}};
     }
 
     template<rpp::constraint::observer_of_type<Type> TObs>
     void on_subscribe(TObs&& observer) const
     {
         {
-            std::unique_lock lock{m_state->mutex};
+            std::unique_lock lock{m_state->list_mutex};
+            m_state->collect_duration();
             for (const auto& value : m_state->values)
             {
-                observer.on_next(value);
+                observer.on_next(value.first);
             }
         }
-        m_state->state.on_subscribe(std::forward<TObs>(observer));
+        m_state->on_subscribe(std::forward<TObs>(observer));
     }
 
     rpp::disposable_wrapper get_disposable() const
     {
-        return rpp::disposable_wrapper{m_state->state};
+        return rpp::disposable_wrapper{m_state};
     }
 
 private:
@@ -139,7 +190,7 @@ private:
 namespace rpp::subjects
 {
 /**
- * @brief Same as rpp::subjects::serialized_subject but send all earlier emitted values to any new observers.
+ * @brief Same as rpp::subjects::publish_subject but send all earlier emitted values to any new observers.
  *
  * @param count maximum element count of the replay buffer (optional)
  * @param duration maximum time length the replay buffer (optional)
@@ -150,9 +201,22 @@ namespace rpp::subjects
  * @see https://reactivex.io/documentation/subject.html
  */
 template<rpp::constraint::decayed_type Type>
-class replay_subject final : public details::base_subject<Type, details::replay_strategy<Type>>
+class replay_subject final : public details::base_subject<Type, details::replay_strategy<Type, false>>
 {
 public:
-    using details::base_subject<Type, details::replay_strategy<Type>>::base_subject;
+    using details::base_subject<Type, details::replay_strategy<Type, false>>::base_subject;
+};
+
+/**
+ * @brief Same as rpp::subjects::replay_subject but on_next/on_error/on_completed calls are serialized via mutex.
+ *
+ * @ingroup subjects
+ * @see https://reactivex.io/documentation/subject.html
+ */
+template<rpp::constraint::decayed_type Type>
+class serialized_replay_subject final : public details::base_subject<Type, details::replay_strategy<Type, true>>
+{
+public:
+    using details::base_subject<Type, details::replay_strategy<Type, true>>::base_subject;
 };
 }
