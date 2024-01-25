@@ -80,7 +80,7 @@ public:
         if constexpr (details::observers::has_disposable_strategy<ObserverStrategy>)
             subscribe(rpp::observer<Type, std::decay_t<ObserverStrategy>>{std::forward<ObserverStrategy>(observer_strategy)});
         else
-            subscribe(rpp::observer<Type, details::with_disposable_strategy<std::decay_t<ObserverStrategy>, typename expected_disposable_strategy::disposable_strategy>>{std::forward<ObserverStrategy>(observer_strategy)});
+            subscribe(rpp::observer_with_disposable<Type, std::decay_t<ObserverStrategy>, typename expected_disposable_strategy::disposable_strategy>{std::forward<ObserverStrategy>(observer_strategy)});
     }
 
     /**
@@ -109,7 +109,7 @@ public:
     composite_disposable_wrapper subscribe(const composite_disposable_wrapper& d, observer<Type, ObserverStrategy>&& obs) const
     {
         if (!d.is_disposed())
-            m_strategy.subscribe(observer<Type, rpp::details::with_external_disposable<observer<Type, ObserverStrategy>>>{d, std::move(obs)});
+            m_strategy.subscribe(observer_with_disposable<Type, observer<Type, ObserverStrategy>>{d, std::move(obs)});
         return d;
     }
 
@@ -125,7 +125,7 @@ public:
         requires (!constraint::observer<ObserverStrategy>)
     composite_disposable_wrapper subscribe(const composite_disposable_wrapper& d, ObserverStrategy&& observer_strategy) const
     {
-        subscribe(rpp::observer<Type, rpp::details::with_external_disposable<std::decay_t<ObserverStrategy>>>{d, std::forward<ObserverStrategy>(observer_strategy)});
+        subscribe(observer_with_disposable<Type, std::decay_t<ObserverStrategy>>{d, std::forward<ObserverStrategy>(observer_strategy)});
         return d;
     }
 
@@ -186,9 +186,9 @@ public:
     {
         using strategy = rpp::details::observers::lambda_strategy<Type, std::decay_t<OnNext>, std::decay_t<OnError>, std::decay_t<OnCompleted>>;
 
-        subscribe(rpp::observer<Type, rpp::details::with_disposable_strategy<strategy, typename expected_disposable_strategy::disposable_strategy>>{std::forward<OnNext>(on_next),
-                                                                                                                                                    std::forward<OnError>(on_error),
-                                                                                                                                                    std::forward<OnCompleted>(on_completed)});
+        subscribe(observer_with_disposable<Type, strategy, typename expected_disposable_strategy::disposable_strategy>{std::forward<OnNext>(on_next),
+                                                                                                                       std::forward<OnError>(on_error),
+                                                                                                                       std::forward<OnCompleted>(on_completed)});
     }
 
     /**
