@@ -11,12 +11,34 @@ Inheritance diagram for rpp\+::observer\texorpdfstring{$<$}{<} Type, Strategy \t
 \includegraphics[height=1.774960cm]{classrpp_1_1observer}
 \end{center}
 \end{figure}
+\doxysubsubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classrpp_1_1observer_a400b68a35026ed884ee6764833cc78d8}\label{classrpp_1_1observer_a400b68a35026ed884ee6764833cc78d8} 
+using {\bfseries Disposable\+Strategy} = details\+::observers\+::deduce\+\_\+disposable\+\_\+strategy\+\_\+t$<$Strategy$>$
+\item 
+\Hypertarget{classrpp_1_1observer_a64a54dc8ca1c4b6170d98fa18a415104}\label{classrpp_1_1observer_a64a54dc8ca1c4b6170d98fa18a415104} 
+using {\bfseries Base} = \mbox{\hyperlink{classrpp_1_1details_1_1observer__impl}{details\+::observer\+\_\+impl}}$<$Type, Strategy, details\+::observers\+::deduce\+\_\+disposable\+\_\+strategy\+\_\+t$<$Strategy$>$$>$
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Types inherited from \mbox{\hyperlink{classrpp_1_1details_1_1observer__impl}{rpp\+::details\+::observer\+\_\+impl$<$ Type, Strategy, details\+::observers\+::deduce\+\_\+disposable\+\_\+strategy\+\_\+t$<$ Strategy $>$ $>$}}}
+\begin{DoxyCompactItemize}
+\item 
+using {\bfseries preferred\+\_\+disposable\+\_\+strategy}
+\item 
+using {\bfseries on\+\_\+next\+\_\+lvalue}
+\item 
+using {\bfseries on\+\_\+next\+\_\+rvalue}
+\end{DoxyCompactItemize}
 \doxysubsubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\Hypertarget{classrpp_1_1observer_ac7bcd2be29704c5ff232c51094b4332b}\label{classrpp_1_1observer_ac7bcd2be29704c5ff232c51094b4332b} 
+\Hypertarget{classrpp_1_1observer_af369b291dc760485903a395f0653e9db}\label{classrpp_1_1observer_af369b291dc760485903a395f0653e9db} 
 {\footnotesize template$<$typename... Args$>$ \newline
-requires (!constraint\+::variadic\+\_\+decayed\+\_\+same\+\_\+as$<$\mbox{\hyperlink{classrpp_1_1observer}{observer}}$<$Type, Strategy$>$, Args...$>$ \&\& constraint\+::is\+\_\+constructible\+\_\+from$<$Strategy, Args \&\& ...$>$)}\\{\bfseries observer} (Args \&\&... args)
+requires constraint\+::is\+\_\+constructible\+\_\+from$<$Strategy, Args\&\&...$>$}\\{\bfseries observer} (Disposable\+Strategy strategy, Args \&\&... args)
+\item 
+\Hypertarget{classrpp_1_1observer_a7f558fc854a4bda41dfe16604623bc03}\label{classrpp_1_1observer_a7f558fc854a4bda41dfe16604623bc03} 
+{\footnotesize template$<$typename... Args$>$ \newline
+requires (constraint\+::is\+\_\+constructible\+\_\+from$<$Strategy, Args \&\& ...$>$ \&\& !rpp\+::constraint\+::variadic\+\_\+decayed\+\_\+same\+\_\+as$<$\mbox{\hyperlink{classrpp_1_1observer}{observer}}, Args...$>$)}\\{\bfseries observer} (Args \&\&... args)
 \item 
 \Hypertarget{classrpp_1_1observer_ab92f10f4369b1f37e931f572f2f42518}\label{classrpp_1_1observer_ab92f10f4369b1f37e931f572f2f42518} 
 {\bfseries observer} (const \mbox{\hyperlink{classrpp_1_1observer}{observer}} \&)=delete
@@ -43,21 +65,10 @@ void \mbox{\hyperlink{classrpp_1_1details_1_1observer__impl_aa55c5a334bc39c92218
 void \mbox{\hyperlink{classrpp_1_1details_1_1observer__impl_a7a73f13eae52effde01a2d3b2cf1d1b4}{on\+\_\+completed}} () const noexcept
 \begin{DoxyCompactList}\small\item\em Observable calls this method to notify observer about completion of emissions. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsubsection*{Additional Inherited Members}
-\doxysubsection*{Public Types inherited from \mbox{\hyperlink{classrpp_1_1details_1_1observer__impl}{rpp\+::details\+::observer\+\_\+impl$<$ Type, Strategy, details\+::observers\+::deduce\+\_\+disposable\+\_\+strategy\+\_\+t$<$ Strategy $>$ $>$}}}
-\begin{DoxyCompactItemize}
-\item 
-using {\bfseries preferred\+\_\+disposable\+\_\+strategy}
-\item 
-using {\bfseries on\+\_\+next\+\_\+lvalue}
-\item 
-using {\bfseries on\+\_\+next\+\_\+rvalue}
-\end{DoxyCompactItemize}
 \doxysubsection*{Protected Member Functions inherited from \mbox{\hyperlink{classrpp_1_1details_1_1observer__impl}{rpp\+::details\+::observer\+\_\+impl$<$ Type, Strategy, details\+::observers\+::deduce\+\_\+disposable\+\_\+strategy\+\_\+t$<$ Strategy $>$ $>$}}}
 \begin{DoxyCompactItemize}
 \item 
 {\bfseries observer\+\_\+impl} (Disposables\+Strategy strategy, Args \&\&... args)
-\item 
-{\bfseries observer\+\_\+impl} (Args \&\&... args)
 \item 
 {\bfseries observer\+\_\+impl} (const \mbox{\hyperlink{classrpp_1_1details_1_1observer__impl}{observer\+\_\+impl}} \&)=default
 \item 

@@ -99,6 +99,7 @@ $(function(){initNavTree('classrpp_1_1observer.html',''); initResizable(); });
 
 <div class="header">
   <div class="summary">
+<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="classrpp_1_1observer-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">rpp::observer&lt; Type, Strategy &gt; Class Template Reference</div></div>
@@ -117,13 +118,37 @@ Inheritance diagram for rpp::observer&lt; Type, Strategy &gt;:</div>
   </map>
 </div></div>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:a400b68a35026ed884ee6764833cc78d8" id="r_a400b68a35026ed884ee6764833cc78d8"><td class="memItemLeft" align="right" valign="top"><a id="a400b68a35026ed884ee6764833cc78d8" name="a400b68a35026ed884ee6764833cc78d8"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>DisposableStrategy</b> = details::observers::deduce_disposable_strategy_t&lt;Strategy&gt;</td></tr>
+<tr class="separator:a400b68a35026ed884ee6764833cc78d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a64a54dc8ca1c4b6170d98fa18a415104" id="r_a64a54dc8ca1c4b6170d98fa18a415104"><td class="memItemLeft" align="right" valign="top"><a id="a64a54dc8ca1c4b6170d98fa18a415104" name="a64a54dc8ca1c4b6170d98fa18a415104"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>Base</b> = <a class="el" href="classrpp_1_1details_1_1observer__impl.html">details::observer_impl</a>&lt;Type, Strategy, details::observers::deduce_disposable_strategy_t&lt;Strategy&gt;&gt;</td></tr>
+<tr class="separator:a64a54dc8ca1c4b6170d98fa18a415104"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_types_classrpp_1_1details_1_1observer__impl"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_types_classrpp_1_1details_1_1observer__impl')"><img src="closed.png" alt="-"/>&#160;Public Types inherited from <a class="el" href="classrpp_1_1details_1_1observer__impl.html">rpp::details::observer_impl&lt; Type, Strategy, details::observers::deduce_disposable_strategy_t&lt; Strategy &gt; &gt;</a></td></tr>
+<tr class="memitem:a1b348a38eb495c208eb6307ccb30a63a inherit pub_types_classrpp_1_1details_1_1observer__impl" id="r_a1b348a38eb495c208eb6307ccb30a63a"><td class="memItemLeft" align="right" valign="top">
+using&#160;</td><td class="memItemRight" valign="bottom"><b>preferred_disposable_strategy</b></td></tr>
+<tr class="separator:a1b348a38eb495c208eb6307ccb30a63a inherit pub_types_classrpp_1_1details_1_1observer__impl"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab624148fb355dd36b31da497c0a44bc3 inherit pub_types_classrpp_1_1details_1_1observer__impl" id="r_ab624148fb355dd36b31da497c0a44bc3"><td class="memItemLeft" align="right" valign="top">
+using&#160;</td><td class="memItemRight" valign="bottom"><b>on_next_lvalue</b></td></tr>
+<tr class="separator:ab624148fb355dd36b31da497c0a44bc3 inherit pub_types_classrpp_1_1details_1_1observer__impl"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abba608430cf680d2aa1204d9c7d968e1 inherit pub_types_classrpp_1_1details_1_1observer__impl" id="r_abba608430cf680d2aa1204d9c7d968e1"><td class="memItemLeft" align="right" valign="top">
+using&#160;</td><td class="memItemRight" valign="bottom"><b>on_next_rvalue</b></td></tr>
+<tr class="separator:abba608430cf680d2aa1204d9c7d968e1 inherit pub_types_classrpp_1_1details_1_1observer__impl"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ac7bcd2be29704c5ff232c51094b4332b" id="r_ac7bcd2be29704c5ff232c51094b4332b"><td class="memTemplParams" colspan="2"><a id="ac7bcd2be29704c5ff232c51094b4332b" name="ac7bcd2be29704c5ff232c51094b4332b"></a>
+<tr class="memitem:af369b291dc760485903a395f0653e9db" id="r_af369b291dc760485903a395f0653e9db"><td class="memTemplParams" colspan="2"><a id="af369b291dc760485903a395f0653e9db" name="af369b291dc760485903a395f0653e9db"></a>
 template&lt;typename... Args&gt; <br />
-requires (!constraint::variadic_decayed_same_as&lt;<a class="el" href="classrpp_1_1observer.html">observer</a>&lt;Type, Strategy&gt;, Args...&gt; &amp;&amp; constraint::is_constructible_from&lt;Strategy, Args &amp;&amp; ...&gt;)</td></tr>
-<tr class="memitem:ac7bcd2be29704c5ff232c51094b4332b"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><b>observer</b> (Args &amp;&amp;... args)</td></tr>
-<tr class="separator:ac7bcd2be29704c5ff232c51094b4332b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+requires constraint::is_constructible_from&lt;Strategy, Args&amp;&amp;...&gt;</td></tr>
+<tr class="memitem:af369b291dc760485903a395f0653e9db"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><b>observer</b> (DisposableStrategy strategy, Args &amp;&amp;... args)</td></tr>
+<tr class="separator:af369b291dc760485903a395f0653e9db"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7f558fc854a4bda41dfe16604623bc03" id="r_a7f558fc854a4bda41dfe16604623bc03"><td class="memTemplParams" colspan="2"><a id="a7f558fc854a4bda41dfe16604623bc03" name="a7f558fc854a4bda41dfe16604623bc03"></a>
+template&lt;typename... Args&gt; <br />
+requires (constraint::is_constructible_from&lt;Strategy, Args &amp;&amp; ...&gt; &amp;&amp; !rpp::constraint::variadic_decayed_same_as&lt;<a class="el" href="classrpp_1_1observer.html">observer</a>, Args...&gt;)</td></tr>
+<tr class="memitem:a7f558fc854a4bda41dfe16604623bc03"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><b>observer</b> (Args &amp;&amp;... args)</td></tr>
+<tr class="separator:a7f558fc854a4bda41dfe16604623bc03"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab92f10f4369b1f37e931f572f2f42518" id="r_ab92f10f4369b1f37e931f572f2f42518"><td class="memItemLeft" align="right" valign="top"><a id="ab92f10f4369b1f37e931f572f2f42518" name="ab92f10f4369b1f37e931f572f2f42518"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>observer</b> (const <a class="el" href="classrpp_1_1observer.html">observer</a> &amp;)=delete</td></tr>
 <tr class="separator:ab92f10f4369b1f37e931f572f2f42518"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -156,23 +181,10 @@ requires (!constraint::variadic_decayed_same_as&lt;<a class="el" href="classrpp_
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="inherited" name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
-<tr class="inherit_header pub_types_classrpp_1_1details_1_1observer__impl"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_types_classrpp_1_1details_1_1observer__impl')"><img src="closed.png" alt="-"/>&#160;Public Types inherited from <a class="el" href="classrpp_1_1details_1_1observer__impl.html">rpp::details::observer_impl&lt; Type, Strategy, details::observers::deduce_disposable_strategy_t&lt; Strategy &gt; &gt;</a></td></tr>
-<tr class="memitem:a1b348a38eb495c208eb6307ccb30a63a inherit pub_types_classrpp_1_1details_1_1observer__impl" id="r_a1b348a38eb495c208eb6307ccb30a63a"><td class="memItemLeft" align="right" valign="top">
-using&#160;</td><td class="memItemRight" valign="bottom"><b>preferred_disposable_strategy</b></td></tr>
-<tr class="separator:a1b348a38eb495c208eb6307ccb30a63a inherit pub_types_classrpp_1_1details_1_1observer__impl"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab624148fb355dd36b31da497c0a44bc3 inherit pub_types_classrpp_1_1details_1_1observer__impl" id="r_ab624148fb355dd36b31da497c0a44bc3"><td class="memItemLeft" align="right" valign="top">
-using&#160;</td><td class="memItemRight" valign="bottom"><b>on_next_lvalue</b></td></tr>
-<tr class="separator:ab624148fb355dd36b31da497c0a44bc3 inherit pub_types_classrpp_1_1details_1_1observer__impl"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abba608430cf680d2aa1204d9c7d968e1 inherit pub_types_classrpp_1_1details_1_1observer__impl" id="r_abba608430cf680d2aa1204d9c7d968e1"><td class="memItemLeft" align="right" valign="top">
-using&#160;</td><td class="memItemRight" valign="bottom"><b>on_next_rvalue</b></td></tr>
-<tr class="separator:abba608430cf680d2aa1204d9c7d968e1 inherit pub_types_classrpp_1_1details_1_1observer__impl"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_methods_classrpp_1_1details_1_1observer__impl"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pro_methods_classrpp_1_1details_1_1observer__impl')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="classrpp_1_1details_1_1observer__impl.html">rpp::details::observer_impl&lt; Type, Strategy, details::observers::deduce_disposable_strategy_t&lt; Strategy &gt; &gt;</a></td></tr>
 <tr class="memitem:a14fbcaed2723edff9fb300a7d3da7f5a inherit pro_methods_classrpp_1_1details_1_1observer__impl" id="r_a14fbcaed2723edff9fb300a7d3da7f5a"><td class="memItemLeft" align="right" valign="top">
 &#160;</td><td class="memItemRight" valign="bottom"><b>observer_impl</b> (DisposablesStrategy strategy, Args &amp;&amp;... args)</td></tr>
 <tr class="separator:a14fbcaed2723edff9fb300a7d3da7f5a inherit pro_methods_classrpp_1_1details_1_1observer__impl"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa80852dd59f9a6f6cef0e14d911720f9 inherit pro_methods_classrpp_1_1details_1_1observer__impl" id="r_aa80852dd59f9a6f6cef0e14d911720f9"><td class="memItemLeft" align="right" valign="top">
-&#160;</td><td class="memItemRight" valign="bottom"><b>observer_impl</b> (Args &amp;&amp;... args)</td></tr>
-<tr class="separator:aa80852dd59f9a6f6cef0e14d911720f9 inherit pro_methods_classrpp_1_1details_1_1observer__impl"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1086c5aeaf72f4976434d15225602a37 inherit pro_methods_classrpp_1_1details_1_1observer__impl" id="r_a1086c5aeaf72f4976434d15225602a37"><td class="memItemLeft" align="right" valign="top">
 &#160;</td><td class="memItemRight" valign="bottom"><b>observer_impl</b> (const <a class="el" href="classrpp_1_1details_1_1observer__impl.html">observer_impl</a> &amp;)=default</td></tr>
 <tr class="separator:a1086c5aeaf72f4976434d15225602a37 inherit pro_methods_classrpp_1_1details_1_1observer__impl"><td class="memSeparator" colspan="2">&#160;</td></tr>

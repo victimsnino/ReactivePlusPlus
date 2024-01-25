@@ -27,6 +27,8 @@ Inheritance diagram for rpp\+::dynamic\+\_\+observer\texorpdfstring{$<$}{<} Type
 \doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classrpp_1_1observer}{rpp\+::observer$<$ Type, details\+::observers\+::dynamic\+\_\+strategy$<$ Type $>$ $>$}}}
 \begin{DoxyCompactItemize}
 \item 
+{\bfseries observer} (Disposable\+Strategy strategy, Args \&\&... args)
+\item 
 {\bfseries observer} (Args \&\&... args)
 \item 
 {\bfseries observer} (const \mbox{\hyperlink{classrpp_1_1observer}{observer}} \&)=delete
@@ -51,6 +53,13 @@ void \mbox{\hyperlink{classrpp_1_1details_1_1observer__impl_aa55c5a334bc39c92218
 void \mbox{\hyperlink{classrpp_1_1details_1_1observer__impl_a7a73f13eae52effde01a2d3b2cf1d1b4}{on\+\_\+completed}} () const noexcept
 \begin{DoxyCompactList}\small\item\em Observable calls this method to notify observer about completion of emissions. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Public Types inherited from \mbox{\hyperlink{classrpp_1_1observer}{rpp\+::observer$<$ Type, details\+::observers\+::dynamic\+\_\+strategy$<$ Type $>$ $>$}}}
+\begin{DoxyCompactItemize}
+\item 
+using {\bfseries Disposable\+Strategy}
+\item 
+using {\bfseries Base}
+\end{DoxyCompactItemize}
 \doxysubsection*{Public Types inherited from \mbox{\hyperlink{classrpp_1_1details_1_1observer__impl}{rpp\+::details\+::observer\+\_\+impl$<$ Type, Strategy, details\+::observers\+::deduce\+\_\+disposable\+\_\+strategy\+\_\+t$<$ Strategy $>$ $>$}}}
 \begin{DoxyCompactItemize}
 \item 
@@ -64,8 +73,6 @@ using {\bfseries on\+\_\+next\+\_\+rvalue}
 \begin{DoxyCompactItemize}
 \item 
 {\bfseries observer\+\_\+impl} (Disposables\+Strategy strategy, Args \&\&... args)
-\item 
-{\bfseries observer\+\_\+impl} (Args \&\&... args)
 \item 
 {\bfseries observer\+\_\+impl} (const \mbox{\hyperlink{classrpp_1_1details_1_1observer__impl}{observer\+\_\+impl}} \&)=default
 \item 
