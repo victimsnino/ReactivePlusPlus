@@ -88,14 +88,14 @@ class replay_strategy
             state->collect(std::forward<T>(v));
 
             std::unique_lock lock{state->serialized_mutex};
-            state->on_next(v);
+            state->on_next(state->values.back().first);
         }
 
         template<typename T>
         void collect_and_on_next(T&& v) const
         {
             state->collect(std::forward<T>(v));
-            state->on_next(v);
+            state->on_next(state->values.back().first);
         }
 
         void set_upstream(const disposable_wrapper& d) const noexcept { state->add(d); }
@@ -147,12 +147,12 @@ public:
     }
 
     replay_strategy(size_t count)
-        : m_state{std::make_shared<replay_state>(count, std::nullopt)}
+        : m_state{std::make_shared<replay_state>(std::max<size_t>(1, count), std::nullopt)}
     {
     }
 
     replay_strategy(size_t count, rpp::schedulers::duration duration)
-        : m_state{std::make_shared<replay_state>(count, duration)}
+        : m_state{std::make_shared<replay_state>(std::max<size_t>(1, count), duration)}
     {
     }
 
