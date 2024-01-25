@@ -36,14 +36,6 @@ protected:
     {
     }
 
-    template<typename... Args>
-        requires (constraint::is_constructible_from<Strategy, Args && ...> && !rpp::constraint::variadic_decayed_same_as<observer_impl<Type, Strategy, DisposablesStrategy>, Args...>)
-    explicit observer_impl(Args&&... args)
-        : m_strategy{std::forward<Args>(args)...}
-        , m_disposable{}
-    {
-    }
-
     observer_impl(const observer_impl&)     = default;
     observer_impl(observer_impl&&) noexcept = default;
 
@@ -180,10 +172,19 @@ template<constraint::decayed_type Type, constraint::observer_strategy<Type> Stra
 class observer final : public details::observer_impl<Type, Strategy, details::observers::deduce_disposable_strategy_t<Strategy>>
 {
 public:
+    using DisposableStrategy = details::observers::deduce_disposable_strategy_t<Strategy>;
+    using Base = details::observer_impl<Type, Strategy, details::observers::deduce_disposable_strategy_t<Strategy>>;
+
     template<typename... Args>
-        requires (!constraint::variadic_decayed_same_as<observer<Type, Strategy>, Args...> && constraint::is_constructible_from<Strategy, Args && ...>)
+        requires constraint::is_constructible_from<Strategy, Args&&...>
+    explicit observer(DisposableStrategy strategy, Args&&... args)
+        : Base{std::move(strategy), std::forward<Args>(args)...}
+    {}
+
+    template<typename... Args>
+        requires (constraint::is_constructible_from<Strategy, Args && ...> && !rpp::constraint::variadic_decayed_same_as<observer, Args...>)
     explicit observer(Args&&... args)
-        : details::observer_impl<Type, Strategy, details::observers::deduce_disposable_strategy_t<Strategy>>{std::forward<Args>(args)...}
+        : Base{DisposableStrategy{}, std::forward<Args>(args)...}
     {
     }
 
@@ -204,10 +205,18 @@ class observer<Type, details::with_disposable_strategy<Strategy, DisposableStrat
     : public details::observer_impl<Type, Strategy, DisposableStrategy>
 {
 public:
+    using Base = details::observer_impl<Type, Strategy, DisposableStrategy>;
+
     template<typename... Args>
-        requires (!rpp::constraint::variadic_decayed_same_as<observer<Type, details::with_disposable_strategy<Strategy, DisposableStrategy>> , Args...>)
+        requires constraint::is_constructible_from<Strategy, Args&&...>
+    explicit observer(DisposableStrategy strategy, Args&&... args)
+        : Base{std::move(strategy), std::forward<Args>(args)...}
+    {}
+
+    template<typename... Args>
+        requires (constraint::is_constructible_from<Strategy, Args && ...> && !rpp::constraint::variadic_decayed_same_as<observer, Args...>)
     explicit observer(Args&&... args)
-        : details::observer_impl<Type, Strategy, DisposableStrategy>{std::forward<Args>(args)...}
+        : Base{DisposableStrategy{}, std::forward<Args>(args)...}
     {
     }
 
@@ -231,7 +240,7 @@ public:
     template<constraint::observer_strategy<Type> TStrategy>
         requires (!std::same_as<TStrategy, rpp::details::observers::dynamic_strategy<Type>>)
     explicit observer(observer<Type, TStrategy>&& other)
-        : details::observer_impl<Type, rpp::details::observers::dynamic_strategy<Type>, details::observers::none_disposable_strategy>{std::move(other)}
+        : details::observer_impl<Type, rpp::details::observers::dynamic_strategy<Type>, details::observers::none_disposable_strategy>{details::observers::none_disposable_strategy{}, std::move(other)}
     {
     }
 
