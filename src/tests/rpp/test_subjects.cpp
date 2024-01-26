@@ -10,13 +10,14 @@
 
 #include <snitch/snitch.hpp>
 
-#include <rpp/operators/as_blocking.hpp>
 #include <rpp/disposables/composite_disposable.hpp>
-#include <rpp/subjects/serialized_subject.hpp>
-#include <rpp/subjects/publish_subject.hpp>
+#include <rpp/operators/as_blocking.hpp>
 #include <rpp/sources/create.hpp>
+#include <rpp/subjects/publish_subject.hpp>
+#include <rpp/subjects/replay_subject.hpp>
+#include <rpp/subjects/serialized_subject.hpp>
 
-
+#include "copy_count_tracker.hpp"
 #include "mock_observer.hpp"
 
 #include <thread>
@@ -231,28 +232,200 @@ TEST_CASE("publish subject caches error/completed")
     }
 }
 
-TEST_CASE("serialized_subject handles race condition")
+TEMPLATE_TEST_CASE("serialized subjects handles race condition", "", rpp::subjects::serialized_subject<int>, rpp::subjects::serialized_replay_subject<int>)
 {
-    auto subj = rpp::subjects::serialized_subject<int>{};
+    auto subj = TestType{};
+
     SECTION("call on_next from 2 threads")
     {
         bool on_error_called{};
-        rpp::source::create<int>([&](auto&& obs)
-        {
+        rpp::source::create<int>([&](auto&& obs) {
             subj.get_observable().subscribe(std::forward<decltype(obs)>(obs));
             subj.get_observer().on_next(1);
         })
             | rpp::operators::as_blocking()
-            | rpp::operators::subscribe([&](int)
-        {
+            | rpp::operators::subscribe([&](int) {
             CHECK(!on_error_called);
             std::thread{[&]{ subj.get_observer().on_error({}); }}.detach();
 
             std::this_thread::sleep_for(std::chrono::seconds{1});
-            CHECK(!on_error_called);
-        },
-        [&](const std::exception_ptr&){ on_error_called = true; });
+            CHECK(!on_error_called); },
+                                        [&](const std::exception_ptr&) { on_error_called = true; });
 
         CHECK(on_error_called);
+    }
+}
+
+TEMPLATE_TEST_CASE("replay subject multicasts values and replay", "", rpp::subjects::replay_subject<int>, rpp::subjects::serialized_replay_subject<int>)
+{
+    SECTION("replay subject")
+    {
+        auto mock_1 = mock_observer_strategy<int>{};
+        auto mock_2 = mock_observer_strategy<int>{};
+        auto mock_3 = mock_observer_strategy<int>{};
+
+        auto sub = TestType{};
+
+        SECTION("subscribe multiple observers")
+        {
+            sub.get_observable().subscribe(mock_1.get_observer());
+            sub.get_observable().subscribe(mock_2.get_observer());
+
+            sub.get_observer().on_next(1);
+            sub.get_observer().on_next(2);
+            sub.get_observer().on_next(3);
+
+            SECTION("observers obtain values")
+            {
+                auto validate = [](auto mock) {
+                    CHECK(mock.get_received_values() == std::vector{1, 2, 3});
+                    CHECK(mock.get_total_on_next_count() == 3);
+                    CHECK(mock.get_on_error_count() == 0);
+                    CHECK(mock.get_on_completed_count() == 0);
+                };
+                validate(mock_1);
+                validate(mock_2);
+            }
+
+            sub.get_observable().subscribe(mock_3.get_observer());
+
+            SECTION("observer obtains replayed values")
+            {
+                CHECK(mock_3.get_received_values() == std::vector{1, 2, 3});
+                CHECK(mock_3.get_total_on_next_count() == 3);
+                CHECK(mock_3.get_on_error_count() == 0);
+                CHECK(mock_3.get_on_completed_count() == 0);
+            }
+
+            sub.get_observer().on_next(4);
+
+            SECTION("observers stil obtain values")
+            {
+                auto validate = [](auto mock) {
+                    CHECK(mock.get_received_values() == std::vector{1, 2, 3, 4});
+                    CHECK(mock.get_total_on_next_count() == 4);
+                    CHECK(mock.get_on_error_count() == 0);
+                    CHECK(mock.get_on_completed_count() == 0);
+                };
+                validate(mock_1);
+                validate(mock_2);
+                validate(mock_3);
+            }
+        }
+    }
+
+    SECTION("bounded replay subject")
+    {
+        auto mock_1 = mock_observer_strategy<int>{};
+        auto mock_2 = mock_observer_strategy<int>{};
+
+        size_t bound = 1;
+        auto   sub   = TestType{bound};
+
+        SECTION("subscribe multiple observers")
+        {
+            sub.get_observable().subscribe(mock_1.get_observer());
+
+            sub.get_observer().on_next(1);
+            sub.get_observer().on_next(2);
+            sub.get_observer().on_next(3);
+
+            SECTION("observer obtains values")
+            {
+                CHECK(mock_1.get_received_values() == std::vector{1, 2, 3});
+                CHECK(mock_1.get_total_on_next_count() == 3);
+                CHECK(mock_1.get_on_error_count() == 0);
+                CHECK(mock_1.get_on_completed_count() == 0);
+            }
+
+            sub.get_observable().subscribe(mock_2.get_observer());
+
+            SECTION("observer obtains latest replayed values")
+            {
+                CHECK(mock_2.get_received_values() == std::vector{3});
+                CHECK(mock_2.get_total_on_next_count() == 1);
+                CHECK(mock_2.get_on_error_count() == 0);
+                CHECK(mock_2.get_on_completed_count() == 0);
+            }
+        }
+    }
+
+    SECTION("bounded replay subject with duration")
+    {
+        using namespace std::chrono_literals;
+
+        auto mock_1 = mock_observer_strategy<int>{};
+        auto mock_2 = mock_observer_strategy<int>{};
+
+        size_t bound    = 2;
+        auto   duration = 5ms;
+        auto   sub      = TestType{bound, duration};
+
+        SECTION("subscribe multiple observers")
+        {
+            sub.get_observable().subscribe(mock_1.get_observer());
+
+            sub.get_observer().on_next(1);
+            sub.get_observer().on_next(2);
+            sub.get_observer().on_next(3);
+
+            SECTION("observer obtains values")
+            {
+                CHECK(mock_1.get_received_values() == std::vector{1, 2, 3});
+                CHECK(mock_1.get_total_on_next_count() == 3);
+                CHECK(mock_1.get_on_error_count() == 0);
+                CHECK(mock_1.get_on_completed_count() == 0);
+            }
+
+            std::this_thread::sleep_for(duration);
+
+            sub.get_observable().subscribe(mock_2.get_observer());
+
+            SECTION("subject replay only non expired values")
+            {
+                CHECK(mock_2.get_received_values() == std::vector<int>{});
+                CHECK(mock_2.get_total_on_next_count() == 0);
+                CHECK(mock_2.get_on_error_count() == 0);
+                CHECK(mock_2.get_on_completed_count() == 0);
+            }
+        }
+    }
+}
+
+TEMPLATE_TEST_CASE("replay subject doesn't introduce additional copies", "", rpp::subjects::replay_subject<copy_count_tracker>, rpp::subjects::serialized_replay_subject<copy_count_tracker>)
+{
+    SECTION("on_next by rvalue")
+    {
+        auto sub = TestType{};
+
+        sub.get_observable().subscribe([](const copy_count_tracker& tracker) {
+            CHECK(tracker.get_copy_count() == 0);
+            CHECK(tracker.get_move_count() == 1); // 1 move to internal replay buffer
+        });
+
+        sub.get_observer().on_next(copy_count_tracker{});
+
+        sub.get_observable().subscribe([](const copy_count_tracker& tracker) {
+            CHECK(tracker.get_copy_count() == 0);
+            CHECK(tracker.get_move_count() == 1); // 1 move to internal replay buffer
+        });
+    }
+
+    SECTION("on_next by lvalue")
+    {
+        copy_count_tracker tracker{};
+        auto               sub = TestType{};
+
+        sub.get_observable().subscribe([](const copy_count_tracker& tracker) {
+            CHECK(tracker.get_copy_count() == 1); // 1 copy to internal replay buffer
+            CHECK(tracker.get_move_count() == 0);
+        });
+
+        sub.get_observer().on_next(tracker);
+
+        sub.get_observable().subscribe([](const copy_count_tracker& tracker) {
+            CHECK(tracker.get_copy_count() == 1); // 1 copy to internal replay buffer
+            CHECK(tracker.get_move_count() == 0);
+        });
     }
 }
