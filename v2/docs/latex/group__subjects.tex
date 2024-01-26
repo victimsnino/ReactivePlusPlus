@@ -10,6 +10,10 @@ Observable is the observable and observer at the same time. Uses as a bridge and
 \item 
 class \mbox{\hyperlink{classrpp_1_1subjects_1_1publish__subject}{rpp\+::subjects\+::publish\+\_\+subject$<$ Type $>$}}
 \begin{DoxyCompactList}\small\item\em Subject which just multicasts values to observers subscribed on it. It contains two parts\+: observer and observable at the same time. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classrpp_1_1subjects_1_1replay__subject}{rpp\+::subjects\+::replay\+\_\+subject$<$ Type $>$}}
+\begin{DoxyCompactList}\small\item\em Same as \doxylink{classrpp_1_1subjects_1_1publish__subject}{rpp\+::subjects\+::publish\+\_\+subject} but send all earlier emitted values to any new observers. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classrpp_1_1subjects_1_1serialized__replay__subject}{rpp\+::subjects\+::serialized\+\_\+replay\+\_\+subject$<$ Type $>$}}
+\begin{DoxyCompactList}\small\item\em Same as \doxylink{classrpp_1_1subjects_1_1replay__subject}{rpp\+::subjects\+::replay\+\_\+subject} but on\+\_\+next/on\+\_\+error/on\+\_\+completed calls are serialized via mutex. \end{DoxyCompactList}\item 
 class \mbox{\hyperlink{classrpp_1_1subjects_1_1serialized__subject}{rpp\+::subjects\+::serialized\+\_\+subject$<$ Type $>$}}
 \begin{DoxyCompactList}\small\item\em Same as \doxylink{classrpp_1_1subjects_1_1publish__subject}{rpp\+::subjects\+::publish\+\_\+subject}, but on\+\_\+next/on\+\_\+error/on\+\_\+completed calls are serialized via mutex. \end{DoxyCompactList}\end{DoxyCompactItemize}
 

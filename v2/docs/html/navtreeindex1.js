@@ -1,5 +1,8 @@
 var NAVTREEINDEX1 =
 {
+"group__filtering__operators.html#ga8e20aec530e08ba64004c10b7732593c":[1,0,3,1,4],
+"group__filtering__operators.html#gaa8ed11faabd5b31d63d0481f9018fc68":[1,0,3,1,0],
+"group__filtering__operators.html#gad9c1c3326bcaf2f1f64fd7e35f00e669":[1,0,3,1,6],
 "group__filtering__operators.html#gada7d22ff6ee83d4aca44411561f56f98":[1,0,3,1,7],
 "group__filtering__operators.html#gaf32161437c2c6cd7d5a0e5170a333cbb":[1,0,3,1,5],
 "group__observables.html":[1,0,1],
@@ -105,6 +108,7 @@ var NAVTREEINDEX1 =
 "refcount__disposable_8hpp_source.html":[4,0,0,0,0,0,7],
 "repeat_8cpp-example.html":[5,23],
 "repeat_8hpp_source.html":[4,0,0,0,0,3,21],
+"replay__subject_8hpp_source.html":[4,0,0,0,0,6,3],
 "rpp_2disposables_2fwd_8hpp_source.html":[4,0,0,0,0,0,4],
 "rpp_2fwd_8hpp_source.html":[4,0,0,0,0,9],
 "rpp_2observables_2fwd_8hpp_source.html":[4,0,0,0,0,1,4],
@@ -122,7 +126,7 @@ var NAVTREEINDEX1 =
 "scan_8cpp-example.html":[5,24],
 "scan_8hpp_source.html":[4,0,0,0,0,3,22],
 "schedulers_2details_2utils_8hpp_source.html":[4,0,0,0,0,4,0,1],
-"serialized__subject_8hpp_source.html":[4,0,0,0,0,6,3],
+"serialized__subject_8hpp_source.html":[4,0,0,0,0,6,4],
 "skip_8cpp-example.html":[5,25],
 "skip_8hpp_source.html":[4,0,0,0,0,3,23],
 "sources_2concat_8hpp_source.html":[4,0,0,0,0,5,0],
@@ -245,9 +249,5 @@ var NAVTREEINDEX1 =
 "structrpp_1_1operators_1_1details_1_1with__latest__from__inner__observer__strategy.html":[3,0,0,2,0,100],
 "structrpp_1_1operators_1_1details_1_1with__latest__from__observer__strategy.html":[3,0,0,2,0,101],
 "structrpp_1_1operators_1_1details_1_1with__latest__from__t.html":[3,0,0,2,0,102],
-"structrpp_1_1schedulers_1_1constraint_1_1details_1_1is__worker.html":[3,0,0,3,0,0,0],
-"structrpp_1_1schedulers_1_1constraint_1_1details_1_1is__worker_3_01rpp_1_1schedulers_1_1worker_3_01_strategy_01_4_01_4.html":[3,0,0,3,0,0,1],
-"structrpp_1_1schedulers_1_1delay__from__now.html":[3,0,0,3,3],
-"structrpp_1_1schedulers_1_1delay__from__this__timepoint.html":[3,0,0,3,4],
-"structrpp_1_1schedulers_1_1delay__to.html":[3,0,0,3,5]
+"structrpp_1_1schedulers_1_1constraint_1_1details_1_1is__worker.html":[3,0,0,3,0,0,0]
 };

@@ -104,10 +104,13 @@ var NAVTREEINDEX0 =
 "classrpp_1_1schedulers_1_1worker.html":[3,0,0,3,9],
 "classrpp_1_1subjects_1_1details_1_1base__subject.html":[3,0,0,4,0,0],
 "classrpp_1_1subjects_1_1details_1_1publish__strategy.html":[3,0,0,4,0,3],
-"classrpp_1_1subjects_1_1details_1_1serialized__strategy.html":[3,0,0,4,0,4],
-"classrpp_1_1subjects_1_1details_1_1subject__state.html":[3,0,0,4,0,5],
+"classrpp_1_1subjects_1_1details_1_1replay__strategy.html":[3,0,0,4,0,4],
+"classrpp_1_1subjects_1_1details_1_1serialized__strategy.html":[3,0,0,4,0,5],
+"classrpp_1_1subjects_1_1details_1_1subject__state.html":[3,0,0,4,0,6],
 "classrpp_1_1subjects_1_1publish__subject.html":[1,0,5,0],
-"classrpp_1_1subjects_1_1serialized__subject.html":[1,0,5,1],
+"classrpp_1_1subjects_1_1replay__subject.html":[1,0,5,1],
+"classrpp_1_1subjects_1_1serialized__replay__subject.html":[1,0,5,2],
+"classrpp_1_1subjects_1_1serialized__subject.html":[1,0,5,3],
 "classrppqt_1_1schedulers_1_1main__thread__scheduler.html":[1,1,1,0],
 "combine__latest_8hpp_source.html":[4,0,0,0,0,3,3],
 "combine_latest_8cpp-example.html":[5,2],
@@ -246,8 +249,5 @@ var NAVTREEINDEX0 =
 "group__filtering__operators.html":[1,0,3,1],
 "group__filtering__operators.html#ga3ad579153e7975af6ae4b75f585fb873":[1,0,3,1,1],
 "group__filtering__operators.html#ga5b8f3bf549a8679d41941f7224f7faad":[1,0,3,1,2],
-"group__filtering__operators.html#ga679e35f7895a5d7e22cd2b3c359b9457":[1,0,3,1,3],
-"group__filtering__operators.html#ga8e20aec530e08ba64004c10b7732593c":[1,0,3,1,4],
-"group__filtering__operators.html#gaa8ed11faabd5b31d63d0481f9018fc68":[1,0,3,1,0],
-"group__filtering__operators.html#gad9c1c3326bcaf2f1f64fd7e35f00e669":[1,0,3,1,6]
+"group__filtering__operators.html#ga679e35f7895a5d7e22cd2b3c359b9457":[1,0,3,1,3]
 };

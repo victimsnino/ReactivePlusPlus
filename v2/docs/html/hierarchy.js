@@ -7,6 +7,12 @@ var hierarchy =
       [ "rpp::subjects::publish_subject< T >", "classrpp_1_1subjects_1_1publish__subject.html", null ],
       [ "rpp::subjects::publish_subject< Type >", "classrpp_1_1subjects_1_1publish__subject.html", null ]
     ] ],
+    [ "rpp::subjects::details::base_subject< Type, details::replay_strategy< Type, false > >", "classrpp_1_1subjects_1_1details_1_1base__subject.html", [
+      [ "rpp::subjects::replay_subject< Type >", "classrpp_1_1subjects_1_1replay__subject.html", null ]
+    ] ],
+    [ "rpp::subjects::details::base_subject< Type, details::replay_strategy< Type, true > >", "classrpp_1_1subjects_1_1details_1_1base__subject.html", [
+      [ "rpp::subjects::serialized_replay_subject< Type >", "classrpp_1_1subjects_1_1serialized__replay__subject.html", null ]
+    ] ],
     [ "rpp::subjects::details::base_subject< Type, details::serialized_strategy< Type > >", "classrpp_1_1subjects_1_1details_1_1base__subject.html", [
       [ "rpp::subjects::serialized_subject< Type >", "classrpp_1_1subjects_1_1serialized__subject.html", null ]
     ] ],
@@ -187,6 +193,7 @@ var hierarchy =
     [ "rpp::details::ref_count_on_subscribe_t< rpp::connectable_observable< OriginalObservable, Subject > >", "structrpp_1_1details_1_1ref__count__on__subscribe__t_3_01rpp_1_1connectable__observable_3_01_oria02afbb30282d4727b872472b2af56d8.html", null ],
     [ "rpp::operators::details::ref_count_t", "structrpp_1_1operators_1_1details_1_1ref__count__t.html", null ],
     [ "rpp::operators::details::repeat_t", "structrpp_1_1operators_1_1details_1_1repeat__t.html", null ],
+    [ "rpp::subjects::details::replay_strategy< Type, Serialized >", "classrpp_1_1subjects_1_1details_1_1replay__strategy.html", null ],
     [ "rpp::schedulers::run_loop", "classrpp_1_1schedulers_1_1run__loop.html", null ],
     [ "std::runtime_error", null, [
       [ "rppqt::utils::no_active_qapplication", "structrppqt_1_1utils_1_1no__active__qapplication.html", null ]

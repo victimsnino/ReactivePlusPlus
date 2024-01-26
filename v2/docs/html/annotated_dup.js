@@ -191,10 +191,13 @@ var annotated_dup =
           [ "completed", "structrpp_1_1subjects_1_1details_1_1completed.html", null ],
           [ "disposed", "structrpp_1_1subjects_1_1details_1_1disposed.html", null ],
           [ "publish_strategy", "classrpp_1_1subjects_1_1details_1_1publish__strategy.html", null ],
+          [ "replay_strategy", "classrpp_1_1subjects_1_1details_1_1replay__strategy.html", null ],
           [ "serialized_strategy", "classrpp_1_1subjects_1_1details_1_1serialized__strategy.html", null ],
           [ "subject_state", "classrpp_1_1subjects_1_1details_1_1subject__state.html", null ]
         ] ],
         [ "publish_subject", "classrpp_1_1subjects_1_1publish__subject.html", null ],
+        [ "replay_subject", "classrpp_1_1subjects_1_1replay__subject.html", null ],
+        [ "serialized_replay_subject", "classrpp_1_1subjects_1_1serialized__replay__subject.html", null ],
         [ "serialized_subject", "classrpp_1_1subjects_1_1serialized__subject.html", null ]
       ] ],
       [ "blocking_observable", "classrpp_1_1blocking__observable.html", null ],

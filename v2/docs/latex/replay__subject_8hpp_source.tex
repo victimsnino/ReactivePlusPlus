@@ -1,0 +1,211 @@
+\doxysection{replay\+\_\+subject.\+hpp}
+\hypertarget{replay__subject_8hpp_source}{}\label{replay__subject_8hpp_source}\index{src/rpp/rpp/subjects/replay\_subject.hpp@{src/rpp/rpp/subjects/replay\_subject.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ReactivePlusPlus\ library}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ Copyright\ Aleksey\ Loginov\ 2022\ -\/\ present.}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ \ Distributed\ under\ the\ Boost\ Software\ License,\ Version\ 1.0.}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ \ \ \ \ (See\ accompanying\ file\ LICENSE\_1\_0.txt\ or\ copy\ at}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ https://www.boost.org/LICENSE\_1\_0.txt)}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ \ Project\ home:\ https://github.com/victimsnino/ReactivePlusPlus}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <rpp/schedulers/fwd.hpp>}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <rpp/subjects/fwd.hpp>}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <rpp/observers/observer.hpp>}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ <rpp/subjects/details/base\_subject.hpp>}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ <rpp/subjects/details/subject\_state.hpp>}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#include\ <list>}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#include\ <optional>}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#include\ <utility>}}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \textcolor{keyword}{namespace\ }rpp::subjects::details}
+\DoxyCodeLine{00024\ \{}
+\DoxyCodeLine{00025\ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type\ Type,\ \textcolor{keywordtype}{bool}\ Serialized>}
+\DoxyCodeLine{00026\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1subjects_1_1details_1_1replay__strategy}{replay\_strategy}}}
+\DoxyCodeLine{00027\ \{}
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keyword}{struct\ }replay\_state\ final\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classrpp_1_1subjects_1_1details_1_1subject__state}{subject\_state}}<Type>}
+\DoxyCodeLine{00029\ \ \ \ \ \{}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ replay\_state(std::optional<size\_t>\ count,\ std::optional<rpp::schedulers::duration>\ duration)}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \ \ \ \ :\ count(count)}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \ \ \ \ ,\ duration(duration)}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ collect\_duration()}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (duration.has\_value())}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ now\ =\ rpp::schedulers::clock\_type::now();}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (!values.empty()\ \&\&\ (now\ -\/\ values.front().second\ >\ duration.value()))}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ values.pop\_front();}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ now;}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ rpp::schedulers::clock\_type::time\_point\{\};}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ collect\_bound()}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (count.has\_value())}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (values.size()\ ==\ count.value())}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ values.pop\_front();}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ collect(T\&\&\ v)}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \ \ \ \ std::unique\_lock\ lock\{list\_mutex\};}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \ \ \ \ collect\_bound();}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ time\_point\ =\ collect\_duration();}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \ \ \ \ values.emplace\_back(std::forward<T>(v),\ time\_point);}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ std::optional<size\_t>\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ count;}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ std::optional<rpp::schedulers::duration>\ duration;}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ std::list<std::pair<Type,\ rpp::schedulers::clock\_type::time\_point>>\ values\{\};}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ std::mutex\ list\_mutex\{\};}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ std::mutex\ serialized\_mutex\{\};}
+\DoxyCodeLine{00078\ \ \ \ \ \};}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00080\ \ \ \ \ \textcolor{keyword}{struct\ }observer\_strategy}
+\DoxyCodeLine{00081\ \ \ \ \ \{}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ std::shared\_ptr<replay\_state>\ state;}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ collect\_and\_on\_next(T\&\&\ v)\ \textcolor{keyword}{const}}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{requires}\ Serialized}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \ \ \ \ state-\/>collect(std::forward<T>(v));}
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \ \ \ \ std::unique\_lock\ lock\{state-\/>serialized\_mutex\};}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \ \ \ \ state-\/>on\_next(state-\/>values.back().first);}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ collect\_and\_on\_next(T\&\&\ v)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00096\ \textcolor{keyword}{\ \ \ \ \ \ \ \ }\{}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \ \ \ \ state-\/>collect(std::forward<T>(v));}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \ \ \ \ state-\/>on\_next(state-\/>values.back().first);}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ set\_upstream(\textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{disposable\_wrapper}}\&\ d)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ state-\/>add(d);\ \}}
+\DoxyCodeLine{00102\ }
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ is\_disposed()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ state-\/>is\_disposed();}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00107\ }
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ on\_next(Type\&\&\ v)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00109\ \textcolor{keyword}{\ \ \ \ \ \ \ \ }\{}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \ \ \ \ collect\_and\_on\_next(std::move(v));}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00112\ }
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ on\_next(\textcolor{keyword}{const}\ Type\&\ v)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00114\ \textcolor{keyword}{\ \ \ \ \ \ \ \ }\{}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \ \ \ \ collect\_and\_on\_next(v);}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00117\ }
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ on\_error(\textcolor{keyword}{const}\ std::exception\_ptr\&\ err)\ \textcolor{keyword}{const}}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{requires}\ Serialized}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \ \ \ \ std::unique\_lock\ lock\{state-\/>serialized\_mutex\};}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \ \ \ \ state-\/>on\_error(err);}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00124\ }
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ on\_error(\textcolor{keyword}{const}\ std::exception\_ptr\&\ err)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00126\ \textcolor{keyword}{\ \ \ \ \ \ \ \ }\{}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \ \ \ \ state-\/>on\_error(err);}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00129\ }
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ on\_completed()\ \textcolor{keyword}{const}}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{requires}\ Serialized}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \ \ \ \ std::unique\_lock\ lock\{state-\/>serialized\_mutex\};}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \ \ \ \ state-\/>on\_completed();}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00136\ }
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ on\_completed()\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00138\ \textcolor{keyword}{\ \ \ \ \ \ \ \ }\{}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \ \ \ \ state-\/>on\_completed();}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00141\ \ \ \ \ \};}
+\DoxyCodeLine{00142\ }
+\DoxyCodeLine{00143\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00144\ \ \ \ \ \mbox{\hyperlink{classrpp_1_1subjects_1_1details_1_1replay__strategy}{replay\_strategy}}()}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ :\ m\_state(std::make\_shared<replay\_state>(std::nullopt,\ std::nullopt))}
+\DoxyCodeLine{00146\ \ \ \ \ \{}
+\DoxyCodeLine{00147\ \ \ \ \ \}}
+\DoxyCodeLine{00148\ }
+\DoxyCodeLine{00149\ \ \ \ \ \mbox{\hyperlink{classrpp_1_1subjects_1_1details_1_1replay__strategy}{replay\_strategy}}(\textcolor{keywordtype}{size\_t}\ count)}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ :\ m\_state\{std::make\_shared<replay\_state>(std::max<size\_t>(1,\ count),\ std::nullopt)\}}
+\DoxyCodeLine{00151\ \ \ \ \ \{}
+\DoxyCodeLine{00152\ \ \ \ \ \}}
+\DoxyCodeLine{00153\ }
+\DoxyCodeLine{00154\ \ \ \ \ \mbox{\hyperlink{classrpp_1_1subjects_1_1details_1_1replay__strategy}{replay\_strategy}}(\textcolor{keywordtype}{size\_t}\ count,\ rpp::schedulers::duration\ duration)}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ :\ m\_state\{std::make\_shared<replay\_state>(std::max<size\_t>(1,\ count),\ duration)\}}
+\DoxyCodeLine{00156\ \ \ \ \ \{}
+\DoxyCodeLine{00157\ \ \ \ \ \}}
+\DoxyCodeLine{00158\ }
+\DoxyCodeLine{00159\ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{structrpp_1_1details_1_1observers_1_1none__disposable__strategy}{preferred\_disposable\_strategy}}\ =\ \mbox{\hyperlink{structrpp_1_1details_1_1observers_1_1none__disposable__strategy}{rpp::details::observers::none\_disposable\_strategy}};}
+\DoxyCodeLine{00160\ }
+\DoxyCodeLine{00161\ \ \ \ \ \textcolor{keyword}{auto}\ get\_observer()\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00162\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classrpp_1_1observer}{rpp::observer<Type,\ observer\_strategy>}}\{observer\_strategy\{m\_state\}\};}
+\DoxyCodeLine{00164\ \ \ \ \ \}}
+\DoxyCodeLine{00165\ }
+\DoxyCodeLine{00166\ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::observer\_of\_type<Type>\ TObs>}
+\DoxyCodeLine{00167\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_subscribe(TObs\&\&\ \mbox{\hyperlink{classrpp_1_1observer}{observer}})\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00168\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ \ \ \ \ std::unique\_lock\ lock\{m\_state-\/>list\_mutex\};}
+\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ \ \ \ \ m\_state-\/>collect\_duration();}
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ value\ :\ m\_state-\/>values)}
+\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00174\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrpp_1_1observer}{observer}}.\mbox{\hyperlink{classrpp_1_1details_1_1observer__impl_a14747a5260ecc183a6d0f1adafee4f68}{on\_next}}(value.first);}
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00177\ \ \ \ \ \ \ \ \ m\_state-\/>on\_subscribe(std::forward<TObs>(\mbox{\hyperlink{classrpp_1_1observer}{observer}}));}
+\DoxyCodeLine{00178\ \ \ \ \ \}}
+\DoxyCodeLine{00179\ }
+\DoxyCodeLine{00180\ \ \ \ \ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp::disposable\_wrapper}}\ get\_disposable()\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00181\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00182\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp::disposable\_wrapper}}\{m\_state\};}
+\DoxyCodeLine{00183\ \ \ \ \ \}}
+\DoxyCodeLine{00184\ }
+\DoxyCodeLine{00185\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00186\ \ \ \ \ std::shared\_ptr<replay\_state>\ m\_state\ =\ std::make\_shared<replay\_state>();}
+\DoxyCodeLine{00187\ \};}
+\DoxyCodeLine{00188\ \}}
+\DoxyCodeLine{00189\ }
+\DoxyCodeLine{00190\ \textcolor{keyword}{namespace\ }rpp::subjects}
+\DoxyCodeLine{00191\ \{}
+\DoxyCodeLine{00203\ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type\ Type>}
+\DoxyCodeLine{00204\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1subjects_1_1replay__subject}{replay\_subject}}\ final\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classrpp_1_1subjects_1_1details_1_1base__subject}{details::base\_subject}}<Type,\ details::replay\_strategy<Type,\ false>>}
+\DoxyCodeLine{00205\ \{}
+\DoxyCodeLine{00206\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00207\ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{classrpp_1_1subjects_1_1details_1_1base__subject}{details::base\_subject}}<Type,\ \mbox{\hyperlink{classrpp_1_1subjects_1_1details_1_1replay__strategy}{details::replay\_strategy<Type,\ false>}}>::base\_subject;}
+\DoxyCodeLine{00208\ \};}
+\DoxyCodeLine{00209\ }
+\DoxyCodeLine{00216\ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type\ Type>}
+\DoxyCodeLine{00217\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1subjects_1_1serialized__replay__subject}{serialized\_replay\_subject}}\ final\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classrpp_1_1subjects_1_1details_1_1base__subject}{details::base\_subject}}<Type,\ details::replay\_strategy<Type,\ true>>}
+\DoxyCodeLine{00218\ \{}
+\DoxyCodeLine{00219\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00220\ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{classrpp_1_1subjects_1_1details_1_1base__subject}{details::base\_subject}}<Type,\ \mbox{\hyperlink{classrpp_1_1subjects_1_1details_1_1replay__strategy}{details::replay\_strategy<Type,\ true>}}>::base\_subject;}
+\DoxyCodeLine{00221\ \};}
+\DoxyCodeLine{00222\ \}}
+
+\end{DoxyCode}

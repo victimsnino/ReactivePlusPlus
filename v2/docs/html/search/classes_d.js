@@ -9,5 +9,7 @@ var searchData=
   ['ref_5fcount_5ft_6',['ref_count_t',['../structrpp_1_1operators_1_1details_1_1ref__count__t.html',1,'rpp::operators::details']]],
   ['refcount_5fdisposable_7',['refcount_disposable',['../classrpp_1_1refcount__disposable.html',1,'rpp']]],
   ['repeat_5ft_8',['repeat_t',['../structrpp_1_1operators_1_1details_1_1repeat__t.html',1,'rpp::operators::details']]],
-  ['run_5floop_9',['run_loop',['../classrpp_1_1schedulers_1_1run__loop.html',1,'rpp::schedulers']]]
+  ['replay_5fstrategy_9',['replay_strategy',['../classrpp_1_1subjects_1_1details_1_1replay__strategy.html',1,'rpp::subjects::details']]],
+  ['replay_5fsubject_10',['replay_subject',['../classrpp_1_1subjects_1_1replay__subject.html',1,'rpp::subjects']]],
+  ['run_5floop_11',['run_loop',['../classrpp_1_1schedulers_1_1run__loop.html',1,'rpp::schedulers']]]
 ];
