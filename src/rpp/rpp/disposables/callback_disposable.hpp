@@ -12,6 +12,7 @@
 
 #include <rpp/disposables/fwd.hpp>
 #include <rpp/disposables/details/base_disposable.hpp>
+#include <rpp/disposables/disposable_wrapper.hpp>
 
 namespace rpp
 {
@@ -42,8 +43,8 @@ private:
 };
 
 template<rpp::constraint::is_nothrow_invocable Fn>
-auto make_callback_disposable(Fn&& invocable)
+disposable_wrapper make_callback_disposable(Fn&& invocable)
 {
-    return std::make_shared<rpp::callback_disposable<std::decay_t<Fn>>>(std::forward<Fn>(invocable));
+    return disposable_wrapper::make<rpp::callback_disposable<std::decay_t<Fn>>>(std::forward<Fn>(invocable));
 }
 } // namespace rpp

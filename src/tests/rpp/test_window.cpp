@@ -181,15 +181,15 @@ TEST_CASE("window subdivide observable into sub-observables")
 
 TEST_CASE("window disposes original disposable only when everything is disposed")
 {
-    auto source_disposable = std::make_shared<rpp::composite_disposable>();
+    auto source_disposable = rpp::composite_disposable_wrapper::make();
     auto obs = rpp::source::create<int>([source_disposable](auto&& obs)
     {
         obs.set_upstream(source_disposable);
         obs.on_next(1);
     });
 
-    auto observer_disposable = std::make_shared<rpp::composite_disposable>();
-    auto inner_observer_disposable = std::make_shared<rpp::composite_disposable>();
+    auto observer_disposable = rpp::composite_disposable_wrapper::make();
+    auto inner_observer_disposable = rpp::composite_disposable_wrapper::make();
     obs 
         | rpp::ops::window(2) 
         | rpp::ops::subscribe(rpp::composite_disposable_wrapper{observer_disposable}, [inner_observer_disposable](const rpp::window_observable<int>& new_obs)
@@ -197,21 +197,21 @@ TEST_CASE("window disposes original disposable only when everything is disposed"
         new_obs.subscribe(rpp::composite_disposable_wrapper{inner_observer_disposable}, [](int){});
     });
 
-    CHECK(!source_disposable->is_disposed());
-    CHECK(!observer_disposable->is_disposed());
-    CHECK(!inner_observer_disposable->is_disposed());
+    CHECK(!source_disposable.is_disposed());
+    CHECK(!observer_disposable.is_disposed());
+    CHECK(!inner_observer_disposable.is_disposed());
 
-    observer_disposable->dispose();
+    observer_disposable.dispose();
 
-    CHECK(!source_disposable->is_disposed());
-    CHECK(observer_disposable->is_disposed());
-    CHECK(!inner_observer_disposable->is_disposed());
+    CHECK(!source_disposable.is_disposed());
+    CHECK(observer_disposable.is_disposed());
+    CHECK(!inner_observer_disposable.is_disposed());
 
-    inner_observer_disposable->dispose();
+    inner_observer_disposable.dispose();
 
-    CHECK(source_disposable->is_disposed());
-    CHECK(observer_disposable->is_disposed());
-    CHECK(inner_observer_disposable->is_disposed());
+    CHECK(source_disposable.is_disposed());
+    CHECK(observer_disposable.is_disposed());
+    CHECK(inner_observer_disposable.is_disposed());
 }
 
 TEST_CASE("window satisfies disposable contracts")

@@ -151,17 +151,18 @@ private:
     {
         using Disposable = with_latest_from_disposable<Observer, TSelector, rpp::utils::extract_observable_type_t<TObservables>...>;
 
-        auto disposable = std::make_shared<Disposable>(std::forward<Observer>(observer), selector);
-        disposable->get_observer_under_lock()->set_upstream(rpp::disposable_wrapper::from_weak(disposable));
-        subscribe(disposable, std::index_sequence_for<TObservables...>{}, observables...);
+        const auto disposable = disposable_wrapper_impl<Disposable>::make(std::forward<Observer>(observer), selector);
+        auto ptr = disposable.lock();
+        ptr->get_observer_under_lock()->set_upstream(disposable.as_weak());
+        subscribe(ptr, std::index_sequence_for<TObservables...>{}, observables...);
 
         using ExpectedValue = typename observable_chain_strategy<Strategies...>::value_type;
 
-        observable_strategy.subscribe(rpp::observer<ExpectedValue, with_latest_from_observer_strategy<std::decay_t<Observer>, TSelector, ExpectedValue, rpp::utils::extract_observable_type_t<TObservables>...>>{std::move(disposable)});
+        observable_strategy.subscribe(rpp::observer<ExpectedValue, with_latest_from_observer_strategy<std::decay_t<Observer>, TSelector, ExpectedValue, rpp::utils::extract_observable_type_t<TObservables>...>>{std::move(ptr)});
     }
 
     template<rpp::constraint::observer Observer, size_t... I>
-    static void subscribe(std::shared_ptr<with_latest_from_disposable<Observer, TSelector, rpp::utils::extract_observable_type_t<TObservables>...>> disposable, std::index_sequence<I...>, const TObservables&... observables)
+    static void subscribe(const std::shared_ptr<with_latest_from_disposable<Observer, TSelector, rpp::utils::extract_observable_type_t<TObservables>...>>& disposable, std::index_sequence<I...>, const TObservables&... observables)
     {
         (..., observables.subscribe(rpp::observer<rpp::utils::extract_observable_type_t<TObservables>, with_latest_from_inner_observer_strategy<I, Observer, TSelector, rpp::utils::extract_observable_type_t<TObservables>...>>{disposable}));
     }

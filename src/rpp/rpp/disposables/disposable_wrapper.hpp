@@ -10,11 +10,46 @@
 
 #pragma once
 
+#include <rpp/defs.hpp>
 #include <rpp/disposables/fwd.hpp>
 #include <rpp/disposables/interface_disposable.hpp>
+#include <rpp/utils/utils.hpp>
 
 #include <memory>
 #include <variant>
+
+namespace rpp::details
+{
+template<rpp::constraint::decayed_type TDisposable>
+class enable_wrapper_from_this;
+
+template<rpp::constraint::decayed_type TDisposable>
+class auto_dispose_wrapper final
+{
+public:
+    static_assert(std::derived_from<TDisposable, interface_disposable>);
+
+    template<typename... TArgs>
+        requires (std::constructible_from<TDisposable, TArgs&&...> && !rpp::constraint::variadic_decayed_same_as<auto_dispose_wrapper, TArgs...>)
+    explicit auto_dispose_wrapper(TArgs&&... args)
+        : m_data{std::forward<TArgs>(args)...}
+    {
+    }
+
+    auto_dispose_wrapper(const auto_dispose_wrapper&) = delete;
+    auto_dispose_wrapper(auto_dispose_wrapper&&) noexcept = delete;
+
+    ~auto_dispose_wrapper() noexcept
+    {
+        // static_cast<interface_disposable&>(m_data).dispose_impl(rpp::interface_disposable::Mode::Destroying);
+    }
+
+    TDisposable* get() { return &m_data; }
+
+private:
+    RPP_NO_UNIQUE_ADDRESS TDisposable m_data;
+};
+}
 
 namespace rpp
 {
@@ -27,86 +62,79 @@ namespace rpp
 template<rpp::constraint::decayed_type TDisposable>
 class disposable_wrapper_impl
 {
-    struct weak_tag
-    {
-    };
-
-    template<std::derived_from<TDisposable> TT = TDisposable>
-    explicit disposable_wrapper_impl(weak_tag, std::weak_ptr<TT> disposable)
-        requires std::derived_from<TT, interface_disposable>
-        : m_disposable{std::move(disposable)}
-    {
-    }
-
+    using TDefaultMake = std::conditional_t<std::same_as<TDisposable, interface_composite_disposable>, composite_disposable, TDisposable>;
 public:
-    disposable_wrapper_impl() = default;
+    template<constraint::decayed_type TTarget>
+    friend class disposable_wrapper_impl;
 
-    template<std::derived_from<TDisposable> TT = TDisposable>
-    disposable_wrapper_impl(std::shared_ptr<TT>&& disposable)
-        requires std::derived_from<TT, interface_disposable>
-        : m_disposable{std::static_pointer_cast<TDisposable>(std::move(disposable))}
+    template<rpp::constraint::decayed_type TTarget>
+    friend class details::enable_wrapper_from_this;
+
+    template<std::derived_from<TDisposable> TTarget = TDefaultMake, typename... TArgs>
+        requires (std::constructible_from<TTarget, TArgs&&...>)
+    static disposable_wrapper_impl make(TArgs&& ...args)
     {
+        const auto ptr = std::make_shared<details::auto_dispose_wrapper<TTarget>>(std::forward<TArgs>(args)...);
+        auto base_ptr = std::shared_ptr<TDisposable>{ptr, static_cast<TDisposable*>(ptr->get())};
+        if constexpr (rpp::utils::is_base_of_v<TDisposable, rpp::details::enable_wrapper_from_this>)
+        {
+            base_ptr->set_weak_self(std::weak_ptr<interface_disposable>(base_ptr));
+        }
+        return disposable_wrapper_impl{std::move(base_ptr)};
     }
 
-    template<std::derived_from<TDisposable> TT = TDisposable>
-    disposable_wrapper_impl(const std::shared_ptr<TT>& disposable)
-        requires std::derived_from<TT, interface_disposable>
-        : m_disposable{std::static_pointer_cast<TDisposable>(disposable)}
+    static disposable_wrapper_impl empty()
     {
-    }
-
-    static disposable_wrapper_impl from_shared(std::shared_ptr<TDisposable> disposable)
-    {
-        return disposable_wrapper_impl{std::move(disposable)};
-    }
-
-    static disposable_wrapper_impl from_weak(std::weak_ptr<TDisposable> disposable)
-    {
-        return disposable_wrapper_impl{weak_tag{}, std::move(disposable)};
+        return disposable_wrapper_impl{};
     }
 
     bool operator==(const disposable_wrapper_impl& other) const
     {
-        return raw_pointer() == other.raw_pointer();
+        return lock() == other.lock();
     }
 
     bool is_disposed() const noexcept
     {
-        if (const auto locked = get_original())
+        if (const auto locked = lock())
             return locked->is_disposed();
         return true;
     }
 
     void dispose() const noexcept
     {
-        if (const auto locked = get_original())
+        if (const auto locked = lock())
             locked->dispose();
     }
 
-    void add(disposable_wrapper other) const
-        requires std::derived_from<TDisposable, interface_composite_disposable>
+    template<rpp::constraint::is_nothrow_invocable Fn>
+    disposable_wrapper add(Fn&& invocable) requires std::derived_from<TDisposable, interface_composite_disposable>
     {
-        if (const auto locked = get_original())
+        auto d = make_callback_disposable(std::forward<Fn>(invocable));
+        add(d);
+        return d;
+    }
+
+    void add(disposable_wrapper other) const requires std::derived_from<TDisposable, interface_composite_disposable>
+    {
+        if (const auto locked = lock())
             locked->add(std::move(other));
         else
             other.dispose();
     }
 
-    void remove(const disposable_wrapper& other) const
-        requires std::derived_from<TDisposable, interface_composite_disposable>
+    void remove(const disposable_wrapper& other) const requires std::derived_from<TDisposable, interface_composite_disposable>
     {
-        if (const auto locked = get_original())
+        if (const auto locked = lock())
             locked->remove(other);
     }
 
-    void clear() const
-        requires std::derived_from<TDisposable, interface_composite_disposable>
+    void clear() const requires std::derived_from<TDisposable, interface_composite_disposable>
     {
-        if (const auto locked = get_original())
+        if (const auto locked = lock())
             locked->clear();
     }
 
-    std::shared_ptr<TDisposable> get_original() const noexcept
+    std::shared_ptr<TDisposable> lock() const noexcept
     {
         if (const auto ptr_ptr = std::get_if<std::shared_ptr<TDisposable>>(&m_disposable))
             return *ptr_ptr;
@@ -117,40 +145,69 @@ public:
         return nullptr;
     }
 
-    operator disposable_wrapper_impl<interface_disposable>() const
+    disposable_wrapper_impl as_weak() const
     {
         if (const auto ptr_ptr = std::get_if<std::shared_ptr<TDisposable>>(&m_disposable))
-            return disposable_wrapper::from_shared(*ptr_ptr);
-
-        if (const auto ptr_ptr = std::get_if<std::weak_ptr<TDisposable>>(&m_disposable))
-            return disposable_wrapper::from_weak(*ptr_ptr);
-
-        return rpp::disposable_wrapper{};
+            return disposable_wrapper_impl{std::weak_ptr<TDisposable>(*ptr_ptr)};
+        return *this;
     }
 
-    bool has_underlying() const
+    template<constraint::decayed_type TTarget>
+        requires rpp::constraint::static_pointer_convertible_to<TDisposable, TTarget>
+    operator disposable_wrapper_impl<TTarget>() const
     {
-        if (const auto ptr_ptr = std::get_if<std::shared_ptr<TDisposable>>(&m_disposable))
-            return ptr_ptr->use_count() != 0;
+        auto locked = lock();
+        if (!locked)
+            return rpp::disposable_wrapper_impl<TTarget>::empty();
+        
+        const auto res = disposable_wrapper_impl<TTarget>(std::static_pointer_cast<TTarget>(std::move(locked)));
+        if (std::holds_alternative<std::shared_ptr<TDisposable>>(m_disposable))
+            return res;
 
-        if (const auto ptr_ptr = std::get_if<std::weak_ptr<TDisposable>>(&m_disposable))
-            return ptr_ptr->use_count() != 0;
-
-        return false;
+        return res.as_weak();
     }
+
 private:
-    const TDisposable* raw_pointer() const {
-        if (const auto ptr_ptr = std::get_if<std::shared_ptr<TDisposable>>(&m_disposable))
-            return ptr_ptr->get();
-
-        if (const auto ptr_ptr = std::get_if<std::weak_ptr<TDisposable>>(&m_disposable))
-            if (const auto shared = ptr_ptr->lock())
-                return shared.get();
-
-        return nullptr;
+    explicit disposable_wrapper_impl(std::shared_ptr<TDisposable>&& disposable)
+        : m_disposable{std::move(disposable)}
+    {
     }
+    explicit disposable_wrapper_impl(std::weak_ptr<TDisposable>&& disposable)
+        : m_disposable{std::move(disposable)}
+    {
+    }
+
+    disposable_wrapper_impl() = default;
 
 private:
     std::variant<std::monostate, std::shared_ptr<TDisposable>, std::weak_ptr<TDisposable>> m_disposable;
+};
+}
+
+namespace rpp::details
+{
+template<rpp::constraint::decayed_type TStrategy>
+class enable_wrapper_from_this
+{
+public:
+    template<rpp::constraint::decayed_type TSource>
+    friend class rpp::disposable_wrapper_impl;
+
+protected:
+    enable_wrapper_from_this() = default;
+
+    void set_weak_self(std::weak_ptr<interface_disposable> weak)
+    {
+        m_weak = std::move(weak);
+    }
+
+public:
+    disposable_wrapper_impl<TStrategy> wrapper_from_this() const
+    {
+        return disposable_wrapper_impl<TStrategy>(std::static_pointer_cast<TStrategy>(m_weak.lock()));
+    }
+
+private:
+    std::weak_ptr<interface_disposable> m_weak{};
 };
 }

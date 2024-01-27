@@ -184,9 +184,10 @@ struct delay_t
         using worker_t = rpp::schedulers::utils::get_worker_t<Scheduler>;
         using container = typename DisposableStrategy::template add<worker_t::is_none_disposable ? 0 : 1>::disposable_container;
 
-        auto disposable = std::make_shared<delay_disposable<std::decay_t<Observer>, worker_t, container>>(std::forward<Observer>(observer), scheduler.create_worker(), duration);
-        disposable->observer.set_upstream(rpp::disposable_wrapper::from_weak(disposable));
-        return rpp::observer<Type, delay_observer_strategy<std::decay_t<Observer>, worker_t, container, ClearOnError>>{std::move(disposable)};
+        const auto disposable = disposable_wrapper_impl<delay_disposable<std::decay_t<Observer>, worker_t, container>>::make(std::forward<Observer>(observer), scheduler.create_worker(), duration);
+        auto ptr = disposable.lock();
+        ptr->observer.set_upstream(disposable.as_weak());
+        return rpp::observer<Type, delay_observer_strategy<std::decay_t<Observer>, worker_t, container, ClearOnError>>{std::move(ptr)};
     }
 };
 }

@@ -32,8 +32,7 @@ struct debounce_disposable_wrapper
 };
 
 template<rpp::constraint::observer Observer, typename Worker, rpp::details::disposables::constraint::disposable_container Container>
-class debounce_disposable final : public rpp::composite_disposable_impl<Container>
-    , public std::enable_shared_from_this<debounce_disposable<Observer, Worker, Container>>
+class debounce_disposable final : public rpp::composite_disposable_impl<Container>, public rpp::details::enable_wrapper_from_this<debounce_disposable<Observer, Worker, Container>>
 {
     using T = rpp::utils::extract_observer_type_t<Observer>;
 
@@ -86,7 +85,7 @@ private:
 
                 return std::nullopt;
             },
-            debounce_disposable_wrapper<Observer, Worker, Container>{this->shared_from_this()});
+            debounce_disposable_wrapper<Observer, Worker, Container>{this->wrapper_from_this().lock()});
     }
 
     std::variant<std::monostate, T, schedulers::time_point> extract_value_or_time()
@@ -171,9 +170,10 @@ struct debounce_t
         using worker_t = rpp::schedulers::utils::get_worker_t<Scheduler>;
         using container = typename DisposableStrategy::template add<worker_t::is_none_disposable ? 0 : 1>::disposable_container;
 
-        auto disposable = std::make_shared<debounce_disposable<std::decay_t<Observer>, worker_t, container>>(std::forward<Observer>(observer), scheduler.create_worker(), duration);
-        disposable->get_observer_under_lock()->set_upstream(rpp::disposable_wrapper::from_weak(disposable));
-        return rpp::observer<Type, debounce_observer_strategy<std::decay_t<Observer>, worker_t, container>>{std::move(disposable)};
+        const auto disposable = disposable_wrapper_impl<debounce_disposable<std::decay_t<Observer>, worker_t, container>>::make(std::forward<Observer>(observer), scheduler.create_worker(), duration);
+        auto ptr = disposable.lock();
+        ptr->get_observer_under_lock()->set_upstream(disposable.as_weak());
+        return rpp::observer<Type, debounce_observer_strategy<std::decay_t<Observer>, worker_t, container>>{std::move(ptr)};
     }
 };
 }

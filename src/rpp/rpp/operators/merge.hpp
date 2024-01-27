@@ -109,9 +109,8 @@ class merge_observer_strategy final : public merge_observer_base_strategy<TObser
 {
 public:
     explicit merge_observer_strategy(TObserver&& observer)
-        : merge_observer_base_strategy<TObserver>{std::make_shared<merge_disposable<TObserver>>(std::move(observer))}
+        : merge_observer_base_strategy<TObserver>{init_state(std::move(observer))}
     {
-        merge_observer_base_strategy<TObserver>::m_disposable->get_observer_under_lock()->set_upstream(disposable_wrapper::from_weak(merge_observer_base_strategy<TObserver>::m_disposable));
     }
 
     template<typename T>
@@ -119,6 +118,15 @@ public:
     {
         merge_observer_base_strategy<TObserver>::m_disposable->increment_on_completed();
         std::forward<T>(v).subscribe(rpp::observer<rpp::utils::extract_observer_type_t<TObserver>, merge_observer_inner_strategy<TObserver>>{merge_observer_inner_strategy<TObserver>{merge_observer_base_strategy<TObserver>::m_disposable}});
+    }
+
+private:
+    static std::shared_ptr<merge_disposable<TObserver>> init_state(TObserver&& observer)
+    {
+        const auto d = disposable_wrapper_impl<merge_disposable<TObserver>>::make(std::move(observer));
+        const auto ptr = d.lock();
+        ptr->get_observer_under_lock()->set_upstream(d.as_weak());
+        return ptr;
     }
 };
 

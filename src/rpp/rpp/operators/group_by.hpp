@@ -75,12 +75,12 @@ struct group_by_observer_strategy
     using subject_observer = decltype(std::declval<subjects::publish_subject<Type>>().get_observer());
 
     mutable std::map<TKey, subject_observer, KeyComparator> key_to_observer{};
-    std::shared_ptr<refcount_disposable>                    disposable = std::make_shared<refcount_disposable>();
-
-    RPP_CALL_DURING_CONSTRUCTION(
+    std::shared_ptr<refcount_disposable>                    disposable = [&]
     {
-        observer.set_upstream(disposable->add_ref());
-    });
+        const auto ptr = disposable_wrapper_impl<refcount_disposable>::make().lock();
+        observer.set_upstream(ptr->add_ref());
+        return ptr;
+    }();
 
     void set_upstream(const rpp::disposable_wrapper& d) const
     {
@@ -130,7 +130,7 @@ private:
 
         const subjects::publish_subject<Type> subj{};
 
-        disposable->add(rpp::disposable_wrapper::from_weak(subj.get_disposable().get_original()));
+        disposable->add(subj.get_disposable().as_weak());
         obs.on_next(rpp::grouped_observable_group_by<TKey, Type>{
             key,
             group_by_observable_strategy<Type>{subj, disposable}

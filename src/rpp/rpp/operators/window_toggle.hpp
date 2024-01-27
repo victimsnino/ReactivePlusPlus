@@ -111,7 +111,7 @@ struct window_toggle_opening_observer_strategy
     template<typename T>
     void on_next(T&& v) const
     {
-        typename TState::Subject subject{disposable};
+        typename TState::Subject subject{disposable->wrapper_from_this()};
         const auto ptr = state->on_new_subject(subject);
         disposable->add(subject.get_disposable());
         state->get_closing(std::forward<T>(v)).subscribe(subject.get_disposable(), window_toggle_closing_observer_strategy<TState>{disposable, state, subject.get_disposable(), ptr});
@@ -173,7 +173,7 @@ public:
     bool is_disposed() const { return m_disposable->is_disposed(); }
 
 private:
-    std::shared_ptr<rpp::refcount_disposable> m_disposable = std::make_shared<refcount_disposable>();
+    std::shared_ptr<rpp::refcount_disposable> m_disposable = disposable_wrapper_impl<rpp::refcount_disposable>::make().lock();
     std::shared_ptr<TState>                   m_state;
 };
 

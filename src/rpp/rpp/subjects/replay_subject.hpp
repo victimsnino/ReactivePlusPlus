@@ -142,17 +142,17 @@ class replay_strategy
 
 public:
     replay_strategy()
-        : m_state(std::make_shared<replay_state>(std::nullopt, std::nullopt))
+        : m_state(disposable_wrapper_impl<replay_state>::make(std::nullopt, std::nullopt))
     {
     }
 
     replay_strategy(size_t count)
-        : m_state{std::make_shared<replay_state>(std::max<size_t>(1, count), std::nullopt)}
+        : m_state{disposable_wrapper_impl<replay_state>::make(std::max<size_t>(1, count), std::nullopt)}
     {
     }
 
     replay_strategy(size_t count, rpp::schedulers::duration duration)
-        : m_state{std::make_shared<replay_state>(std::max<size_t>(1, count), duration)}
+        : m_state{disposable_wrapper_impl<replay_state>::make(std::max<size_t>(1, count), duration)}
     {
     }
 
@@ -160,30 +160,33 @@ public:
 
     auto get_observer() const
     {
-        return rpp::observer<Type, observer_strategy>{observer_strategy{m_state}};
+        return rpp::observer<Type, observer_strategy>{m_state.lock()};
     }
 
     template<rpp::constraint::observer_of_type<Type> TObs>
     void on_subscribe(TObs&& observer) const
     {
+        if (const auto locked = m_state.lock())
         {
-            std::unique_lock lock{m_state->list_mutex};
-            m_state->collect_duration();
-            for (const auto& value : m_state->values)
             {
-                observer.on_next(value.first);
+                std::unique_lock lock{locked->list_mutex};
+                locked->collect_duration();
+                for (const auto& value : locked->values)
+                {
+                    observer.on_next(value.first);
+                }
             }
+            locked->on_subscribe(std::forward<TObs>(observer));
         }
-        m_state->on_subscribe(std::forward<TObs>(observer));
     }
 
     rpp::disposable_wrapper get_disposable() const
     {
-        return rpp::disposable_wrapper{m_state};
+        return m_state;
     }
 
 private:
-    std::shared_ptr<replay_state> m_state = std::make_shared<replay_state>();
+    disposable_wrapper_impl<replay_state> m_state;
 };
 }
 

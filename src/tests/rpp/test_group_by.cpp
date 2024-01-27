@@ -107,7 +107,7 @@ TEST_CASE("group_by emits grouped seqences of values with identity key selector"
 
 TEST_CASE("group_by keeps subscription till anyone subscribed")
 {
-    auto observable_upstream = std::make_shared<rpp::composite_disposable>();
+    auto observable_upstream = rpp::composite_disposable_wrapper::make();
     std::optional<rpp::dynamic_observer<int>> extracted{};
 
     auto observable = rpp::source::create<int>([&](auto&& obs)
@@ -123,53 +123,53 @@ TEST_CASE("group_by keeps subscription till anyone subscribed")
     size_t on_completed_count = 0;
     auto on_error = [&](const std::exception_ptr&){++on_error_count;};
     auto on_completed = [&](){++on_completed_count;};
-    auto d = std::make_shared<rpp::composite_disposable>();
+    auto d = rpp::composite_disposable_wrapper::make();
 
     observable.subscribe(d, [&](const auto& observable)
     {
-        auto d = std::make_shared<rpp::composite_disposable>();
+        auto d = rpp::composite_disposable_wrapper::make();
         observable.subscribe(d, [](auto){}, on_error, on_completed);
         disposables.push_back(d);
     }, on_error, on_completed);
 
     REQUIRE(extracted.has_value());
-    REQUIRE(!d->is_disposed());
-    REQUIRE(!observable_upstream->is_disposed());
+    REQUIRE(!d.is_disposed());
+    REQUIRE(!observable_upstream.is_disposed());
     REQUIRE(disposables.size() == 2);
     REQUIRE(rpp::utils::all_of(disposables, [](const auto& d){return !d.is_disposed();}));
     SECTION("dispose root")
     {
-        d->dispose();
+        d.dispose();
         REQUIRE(rpp::utils::all_of(disposables, [](const auto& d){return !d.is_disposed();}));
-        REQUIRE(!observable_upstream->is_disposed());
+        REQUIRE(!observable_upstream.is_disposed());
     }
     SECTION("disposing other disposables")
     {
         rpp::utils::for_each(disposables, std::mem_fn(&rpp::composite_disposable_wrapper::dispose));
-        REQUIRE(!d->is_disposed());
-        REQUIRE(!observable_upstream->is_disposed());
+        REQUIRE(!d.is_disposed());
+        REQUIRE(!observable_upstream.is_disposed());
     }
     SECTION("dispose all")
     {
-        d->dispose();
+        d.dispose();
         rpp::utils::for_each(disposables, std::mem_fn(&rpp::composite_disposable_wrapper::dispose));
-        REQUIRE(observable_upstream->is_disposed());
-        REQUIRE(d->is_disposed());
+        REQUIRE(observable_upstream.is_disposed());
+        REQUIRE(d.is_disposed());
         REQUIRE(rpp::utils::all_of(disposables, [](const auto& d){return d.is_disposed();}));
     }
     SECTION("send on_error")
     {
         extracted->on_error(std::make_exception_ptr(std::runtime_error{""}));
-        REQUIRE(d->is_disposed());
-        REQUIRE(observable_upstream->is_disposed());
+        REQUIRE(d.is_disposed());
+        REQUIRE(observable_upstream.is_disposed());
         REQUIRE(rpp::utils::all_of(disposables, [](const auto& d){return d.is_disposed();}));
         REQUIRE(on_error_count == disposables.size()+1);
     }
     SECTION("send on_completed")
     {
         extracted->on_completed();
-        REQUIRE(d->is_disposed());
-        REQUIRE(observable_upstream->is_disposed());
+        REQUIRE(d.is_disposed());
+        REQUIRE(observable_upstream.is_disposed());
         REQUIRE(rpp::utils::all_of(disposables, [](const auto& d){return d.is_disposed();}));
         REQUIRE(on_completed_count == disposables.size()+1);
     }

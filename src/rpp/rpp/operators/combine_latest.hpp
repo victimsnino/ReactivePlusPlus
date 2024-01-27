@@ -124,15 +124,16 @@ private:
         using ExpectedValue = typename observable_chain_strategy<Strategies...>::value_type;
         using Disposable    = combine_latest_disposable<Observer, TSelector, ExpectedValue, rpp::utils::extract_observable_type_t<TObservables>...>;
 
-        auto disposable = std::make_shared<Disposable>(std::forward<Observer>(observer), selector);
-        disposable->get_observer_under_lock()->set_upstream(rpp::disposable_wrapper::from_weak(disposable));
-        subscribe<std::decay_t<ExpectedValue>>(disposable, std::index_sequence_for<TObservables...>{}, observables...);
+        const auto disposable = disposable_wrapper_impl<Disposable>::make(std::forward<Observer>(observer), selector);
+        auto locked = disposable.lock();
+        locked->get_observer_under_lock()->set_upstream(disposable.as_weak());
+        subscribe<std::decay_t<ExpectedValue>>(locked, std::index_sequence_for<TObservables...>{}, observables...);
 
-        observable_strategy.subscribe(rpp::observer<ExpectedValue, combine_latest_observer_strategy<0, std::decay_t<Observer>, TSelector, ExpectedValue, rpp::utils::extract_observable_type_t<TObservables>...>>{std::move(disposable)});
+        observable_strategy.subscribe(rpp::observer<ExpectedValue, combine_latest_observer_strategy<0, std::decay_t<Observer>, TSelector, ExpectedValue, rpp::utils::extract_observable_type_t<TObservables>...>>{std::move(locked)});
     }
 
     template<typename ExpectedValue, rpp::constraint::observer Observer, size_t... I>
-    static void subscribe(std::shared_ptr<combine_latest_disposable<Observer, TSelector, ExpectedValue, rpp::utils::extract_observable_type_t<TObservables>...>> disposable, std::index_sequence<I...>, const TObservables&... observables)
+    static void subscribe(const std::shared_ptr<combine_latest_disposable<Observer, TSelector, ExpectedValue, rpp::utils::extract_observable_type_t<TObservables>...>>& disposable, std::index_sequence<I...>, const TObservables&... observables)
     {
         (..., observables.subscribe(rpp::observer<rpp::utils::extract_observable_type_t<TObservables>, combine_latest_observer_strategy<I + 1, Observer, TSelector, ExpectedValue, rpp::utils::extract_observable_type_t<TObservables>...>>{disposable}));
     }

@@ -32,7 +32,7 @@ struct wrapped_observable_strategy_set_upstream
 
     auto subscribe(auto&& observer) const
     {
-        observer.set_upstream(std::make_shared<rpp::composite_disposable>());
+        observer.set_upstream(rpp::composite_disposable_wrapper::make());
     }
 };
 
@@ -50,16 +50,16 @@ void test_operator_over_observable_with_disposable(auto&& op)
 {
     SECTION("operator disposes disposable")
     {
-        auto observable_disposable = std::make_shared<rpp::composite_disposable>();
+        auto observable_disposable = rpp::composite_disposable_wrapper::make();
         {
             auto observable = observable_with_disposable<T>(observable_disposable);
 
-            auto observer_disposable = std::make_shared<rpp::composite_disposable>();
-            op(observable) | rpp::ops::subscribe(rpp::composite_disposable_wrapper{observer_disposable}, [](const auto&){});
+            auto observer_disposable = rpp::composite_disposable_wrapper::make();
+            op(observable) | rpp::ops::subscribe(observer_disposable, [](const auto&){});
 
-            observer_disposable->dispose();
+            observer_disposable.dispose();
         }
-        CHECK(observable_disposable->is_disposed() || observable_disposable.use_count() == 1);
+        CHECK(observable_disposable.is_disposed() || observable_disposable.lock().use_count() == 2);
     }
 
     SECTION("set_upstream with fixed_disposable_strategy_selector<1>")

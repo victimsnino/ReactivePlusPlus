@@ -148,10 +148,10 @@ TEMPLATE_TEST_CASE("concat as source", "", rpp::memory_model::use_stack, rpp::me
     }
     SECTION("concat stoped if disposed")
     {
-        auto d = std::make_shared<rpp::composite_disposable>();
+        auto d = rpp::composite_disposable_wrapper::make();
         auto observable =
             rpp::source::concat<TestType>(rpp::source::just<TestType>(1),
-                                          rpp::source::create<int>([&](auto&& obs) { d->dispose(); obs.on_completed(); }),
+                                          rpp::source::create<int>([&](auto&& obs) { d.dispose(); obs.on_completed(); }),
                                           rpp::source::create<int>([&](auto&&) { FAIL("Shouldn't be called"); }),
                                           rpp::source::just<TestType>(3));
         observable.subscribe(rpp::composite_disposable_wrapper{d}, mock);
@@ -163,20 +163,20 @@ TEMPLATE_TEST_CASE("concat as source", "", rpp::memory_model::use_stack, rpp::me
 
     SECTION("concat tracks actual upstream")
     {
-        auto d = std::make_shared<rpp::composite_disposable>();
-        auto d1 = std::make_shared<rpp::composite_disposable>();
+        auto d = rpp::composite_disposable_wrapper::make();
+        auto d1 = rpp::composite_disposable_wrapper::make();
 
         auto observable = rpp::source::concat<TestType>(rpp::source::create<int>([&](auto&& obs)
         {
             obs.set_upstream(rpp::disposable_wrapper{d1});
 
-            CHECK(!d->is_disposed());
-            CHECK(!d1->is_disposed());
+            CHECK(!d.is_disposed());
+            CHECK(!d1.is_disposed());
 
-            d->dispose();
+            d.dispose();
 
-            CHECK(d->is_disposed());
-            CHECK(d1->is_disposed());
+            CHECK(d.is_disposed());
+            CHECK(d1.is_disposed());
 
         }));
         observable.subscribe(rpp::composite_disposable_wrapper{d}, mock);
@@ -184,9 +184,9 @@ TEMPLATE_TEST_CASE("concat as source", "", rpp::memory_model::use_stack, rpp::me
 
     SECTION("concat tracks actual upstream for 2 upstreams")
     {
-        auto d = std::make_shared<rpp::composite_disposable>();
-        auto d1 = std::make_shared<rpp::composite_disposable>();
-        auto d2 = std::make_shared<rpp::composite_disposable>();
+        auto d = rpp::composite_disposable_wrapper::make();
+        auto d1 = rpp::composite_disposable_wrapper::make();
+        auto d2 = rpp::composite_disposable_wrapper::make();
 
         auto observable =
             rpp::source::concat<TestType>(rpp::source::create<int>([&](auto&& obs) { obs.set_upstream(rpp::disposable_wrapper{d1}); obs.on_completed(); }),
@@ -194,14 +194,14 @@ TEMPLATE_TEST_CASE("concat as source", "", rpp::memory_model::use_stack, rpp::me
                                           {
                                             obs.set_upstream(rpp::disposable_wrapper{d2});
 
-                                            CHECK(!d->is_disposed());
-                                            CHECK(d1->is_disposed());
-                                            CHECK(!d2->is_disposed());
+                                            CHECK(!d.is_disposed());
+                                            CHECK(d1.is_disposed());
+                                            CHECK(!d2.is_disposed());
 
-                                            d->dispose();
+                                            d.dispose();
 
-                                            CHECK(d->is_disposed());
-                                            CHECK(d2->is_disposed());
+                                            CHECK(d.is_disposed());
+                                            CHECK(d2.is_disposed());
                                           }));
 
         observable.subscribe(rpp::composite_disposable_wrapper{d}, mock);
@@ -299,10 +299,10 @@ TEMPLATE_TEST_CASE("concat as operator", "", rpp::schedulers::current_thread, rp
     }
     SECTION("concat stoped if disposed")
     {
-        auto d = std::make_shared<rpp::composite_disposable>();
+        auto d = rpp::composite_disposable_wrapper::make();
         auto observable =
             rpp::source::just(TestType{}, rpp::source::just(TestType{}, 1).as_dynamic(),
-                              rpp::source::create<int>([&](auto&& obs) { obs.on_next(2); d->dispose(); obs.on_completed(); }).as_dynamic(),
+                              rpp::source::create<int>([&](auto&& obs) { obs.on_next(2); d.dispose(); obs.on_completed(); }).as_dynamic(),
                               rpp::source::create<int>([&](auto&&) { FAIL("Shouldn't be called"); }).as_dynamic(),
                               rpp::source::just(TestType{}, 3).as_dynamic())
             | rpp::operators::concat();
@@ -314,43 +314,43 @@ TEMPLATE_TEST_CASE("concat as operator", "", rpp::schedulers::current_thread, rp
     }
     SECTION("concat tracks actual upstream")
     {
-        auto d = std::make_shared<rpp::composite_disposable>();
-        auto d1 = std::make_shared<rpp::composite_disposable>();
+        auto d = rpp::composite_disposable_wrapper::make();
+        auto d1 = rpp::composite_disposable_wrapper::make();
 
         auto observable = rpp::source::just(TestType{}, rpp::source::create<int>([&](auto&& obs)
         {
             obs.set_upstream(rpp::disposable_wrapper{d1});
 
-            CHECK(!d->is_disposed());
-            CHECK(!d1->is_disposed());
+            CHECK(!d.is_disposed());
+            CHECK(!d1.is_disposed());
 
-            d->dispose();
+            d.dispose();
 
-            CHECK(d->is_disposed());
-            CHECK(d1->is_disposed());
+            CHECK(d.is_disposed());
+            CHECK(d1.is_disposed());
 
         })) | rpp::operators::concat();
         observable.subscribe(rpp::composite_disposable_wrapper{d}, mock);
     }
     SECTION("concat tracks actual upstream for 2 upstreams")
     {
-        auto d = std::make_shared<rpp::composite_disposable>();
-        auto d1 = std::make_shared<rpp::composite_disposable>();
-        auto d2 = std::make_shared<rpp::composite_disposable>();
+        auto d = rpp::composite_disposable_wrapper::make();
+        auto d1 = rpp::composite_disposable_wrapper::make();
+        auto d2 = rpp::composite_disposable_wrapper::make();
 
         auto observable =
             rpp::source::just(TestType{}, rpp::source::create<int>([&](auto&& obs) { obs.set_upstream(rpp::disposable_wrapper{d1}); obs.on_completed(); }).as_dynamic(),
                               rpp::source::create<int>([&](auto&& obs) {
                                   obs.set_upstream(rpp::disposable_wrapper{d2});
 
-                                  CHECK(!d->is_disposed());
-                                  CHECK(d1->is_disposed());
-                                  CHECK(!d2->is_disposed());
+                                  CHECK(!d.is_disposed());
+                                  CHECK(d1.is_disposed());
+                                  CHECK(!d2.is_disposed());
 
-                                  d->dispose();
+                                  d.dispose();
 
-                                  CHECK(d->is_disposed());
-                                  CHECK(d2->is_disposed());
+                                  CHECK(d.is_disposed());
+                                  CHECK(d2.is_disposed());
                               }).as_dynamic())
             | rpp::operators::concat();
 

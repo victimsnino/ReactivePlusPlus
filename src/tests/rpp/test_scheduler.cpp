@@ -163,7 +163,7 @@ static std::string simulate_complex_scheduling_with_delay(const auto& worker, co
 TEST_CASE("Immediate scheduler")
 {
     auto scheduler = rpp::schedulers::immediate{};
-    auto d = rpp::composite_disposable_wrapper{std::make_shared<rpp::composite_disposable>()};
+    auto d = rpp::composite_disposable_wrapper::make();
     auto mock_obs = mock_observer_strategy<int>{};
     auto obs = mock_obs.get_observer(d).as_dynamic();
 
@@ -349,7 +349,7 @@ TEST_CASE("Immediate scheduler")
 
 TEMPLATE_TEST_CASE("queue_based scheduler", "", rpp::schedulers::current_thread, rpp::schedulers::new_thread)
 {
-    auto d = std::make_shared<rpp::composite_disposable>();
+    auto d = rpp::composite_disposable_wrapper::make();
     auto mock_obs = mock_observer_strategy<int>{};
     auto obs = std::optional{mock_obs.get_observer(d).as_dynamic()};
 
@@ -389,7 +389,7 @@ TEMPLATE_TEST_CASE("queue_based scheduler", "", rpp::schedulers::current_thread,
     {
         worker.reset();
         obs.reset();
-        d.reset();
+        d = rpp::composite_disposable_wrapper::empty();
 
         while(!done->load()){};
     };
@@ -552,7 +552,7 @@ TEMPLATE_TEST_CASE("queue_based scheduler", "", rpp::schedulers::current_thread,
 
     SECTION("scheduler does nothing with disposed observer")
     {
-        d->dispose();
+        d.dispose();
         worker->schedule([&call_count](const auto&) -> rpp::schedulers::optional_delay_from_now
         {
             ++call_count;
@@ -568,7 +568,7 @@ TEMPLATE_TEST_CASE("queue_based scheduler", "", rpp::schedulers::current_thread,
     {
         worker->schedule([&call_count, d, worker](const auto& obs) -> rpp::schedulers::optional_delay_from_now
         {
-            d->dispose();
+            d.dispose();
             worker->schedule([&call_count](const auto&) -> rpp::schedulers::optional_delay_from_now
             {
                 ++call_count;
@@ -589,7 +589,7 @@ TEMPLATE_TEST_CASE("queue_based scheduler", "", rpp::schedulers::current_thread,
         worker->schedule([&call_count, d](const auto&) -> rpp::schedulers::optional_delay_from_now
         {
             if (++call_count > 1)
-                d->dispose();
+                d.dispose();
             return rpp::schedulers::optional_delay_from_now{std::chrono::nanoseconds{1}};
         }, obs.value());
 
@@ -605,7 +605,7 @@ TEMPLATE_TEST_CASE("queue_based scheduler", "", rpp::schedulers::current_thread,
             worker->schedule([&call_count, d](const auto&) -> rpp::schedulers::optional_delay_from_now
             {
                 if (++call_count > 1)
-                    d->dispose();
+                    d.dispose();
                 return rpp::schedulers::optional_delay_from_now{std::chrono::nanoseconds{1}};
             },
             obs);
@@ -625,7 +625,7 @@ TEMPLATE_TEST_CASE("queue_based scheduler", "", rpp::schedulers::current_thread,
             worker->schedule([&call_count, d](const auto&) -> rpp::schedulers::optional_delay_from_now
             {
                 if (++call_count > 1)
-                    d->dispose();
+                    d.dispose();
                 return rpp::schedulers::optional_delay_from_now{std::chrono::nanoseconds{1}};
             }, obs);
             return std::nullopt;
@@ -647,7 +647,7 @@ TEMPLATE_TEST_CASE("queue_based scheduler", "", rpp::schedulers::current_thread,
                                                 return rpp::schedulers::optional_delay_from_now{std::chrono::nanoseconds{1}};
                                             },
                                             obs);
-                            d->dispose();
+                            d.dispose();
                             return rpp::schedulers::optional_delay_from_now{std::chrono::nanoseconds{1}};
                         },
                         obs.value());
@@ -746,7 +746,7 @@ TEST_CASE("run_loop scheduler dispatches tasks only manually")
 {
     auto scheduler = rpp::schedulers::run_loop{};
     auto worker = scheduler.create_worker();
-    auto d = std::make_shared<rpp::composite_disposable>();
+    auto d = rpp::composite_disposable_wrapper::make();
     auto obs = mock_observer_strategy<int>{}.get_observer(d).as_dynamic();
 
     SECTION("submit 3 tasks to run_loop")
@@ -755,7 +755,7 @@ TEST_CASE("run_loop scheduler dispatches tasks only manually")
         size_t schedulable_2_executed_count{};
         size_t schedulable_3_executed_count{};
         worker.schedule([&](const auto&) -> rpp::schedulers::optional_delay_from_now {++schedulable_1_executed_count; return {}; }, obs);
-        worker.schedule([&](const auto&) -> rpp::schedulers::optional_delay_from_now {++schedulable_2_executed_count; d->dispose(); return {}; }, obs);
+        worker.schedule([&](const auto&) -> rpp::schedulers::optional_delay_from_now {++schedulable_2_executed_count; d.dispose(); return {}; }, obs);
         worker.schedule([&](const auto&) -> rpp::schedulers::optional_delay_from_now {++schedulable_3_executed_count; return {}; }, obs);
 
         SECTION("nothing happens but scheduler has schedulable to dispatch")
@@ -763,7 +763,7 @@ TEST_CASE("run_loop scheduler dispatches tasks only manually")
             CHECK(schedulable_1_executed_count == 0);
             CHECK(schedulable_2_executed_count == 0);
             CHECK(schedulable_3_executed_count == 0);
-            CHECK(d->is_disposed() == false);
+            CHECK(d.is_disposed() == false);
             CHECK(scheduler.is_empty() == false);
             CHECK(scheduler.is_any_ready_schedulable() == true);
         }
@@ -775,7 +775,7 @@ TEST_CASE("run_loop scheduler dispatches tasks only manually")
                 CHECK(schedulable_1_executed_count == 1);
                 CHECK(schedulable_2_executed_count == 0);
                 CHECK(schedulable_3_executed_count == 0);
-                CHECK(d->is_disposed() == false);
+                CHECK(d.is_disposed() == false);
                 CHECK(scheduler.is_empty() == false);
                 CHECK(scheduler.is_any_ready_schedulable() == true);
 
@@ -787,7 +787,7 @@ TEST_CASE("run_loop scheduler dispatches tasks only manually")
                         CHECK(schedulable_1_executed_count == 1);
                         CHECK(schedulable_2_executed_count == 1);
                         CHECK(schedulable_3_executed_count == 0);
-                        CHECK(d->is_disposed() == true);
+                        CHECK(d.is_disposed() == true);
                         CHECK(scheduler.is_empty() == false);
                         CHECK(scheduler.is_any_ready_schedulable() == true);
                     }
@@ -799,7 +799,7 @@ TEST_CASE("run_loop scheduler dispatches tasks only manually")
                             CHECK(schedulable_1_executed_count == 1);
                             CHECK(schedulable_2_executed_count == 1);
                             CHECK(schedulable_3_executed_count == 0);
-                            CHECK(d->is_disposed() == true);
+                            CHECK(d.is_disposed() == true);
                             CHECK(scheduler.is_empty() == true);
                             CHECK(scheduler.is_any_ready_schedulable() == false);
                         }
@@ -819,7 +819,7 @@ TEST_CASE("run_loop scheduler dispatches tasks only manually")
             SECTION("only first schedulable dispatched")
             {
                 CHECK(schedulable_1_executed_count == 1);
-                CHECK(d->is_disposed() == false);
+                CHECK(d.is_disposed() == false);
                 CHECK(scheduler.is_empty() == true);
                 CHECK(scheduler.is_any_ready_schedulable() == false);
 

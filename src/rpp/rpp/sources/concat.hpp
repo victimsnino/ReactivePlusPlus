@@ -23,7 +23,6 @@ namespace rpp::details
 {
 template<rpp::constraint::observer TObserver, constraint::decayed_type PackedContainer>
 struct concat_state_t : public rpp::composite_disposable
-    , public std::enable_shared_from_this<concat_state_t<TObserver, PackedContainer>>
 {
     concat_state_t(TObserver&& in_observer, const PackedContainer& in_container)
         : observer(std::move(in_observer))
@@ -129,8 +128,9 @@ struct concat_strategy
     template<constraint::observer_strategy<value_type> Strategy>
     void subscribe(observer<value_type, Strategy>&& obs) const
     {
-        auto state = std::make_shared<concat_state_t<observer<value_type, Strategy>, PackedContainer>>(std::move(obs), container);
-        state->observer.set_upstream(rpp::disposable_wrapper::from_weak(state));
+        const auto d = disposable_wrapper_impl<concat_state_t<observer<value_type, Strategy>, PackedContainer>>::make(std::move(obs), container);
+        const auto state = d.lock();
+        state->observer.set_upstream(d.as_weak());
         drain(state);
     }
 };
