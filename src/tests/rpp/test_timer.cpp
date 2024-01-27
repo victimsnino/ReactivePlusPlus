@@ -76,7 +76,7 @@ TEST_CASE("timer emit single value at provided duration")
     }
 }
 
-TEST_CASE("timer with negative relative time_point emits immediatly")
+TEST_CASE("timer with negative relative time_point emits immediately")
 {
     auto scheduler = test_scheduler{};
     auto mock      = mock_observer_strategy<size_t>{};
