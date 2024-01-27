@@ -169,6 +169,10 @@ requires (constraint::decayed_same_as&lt;T, Ts&gt; &amp;&amp; ...)</td></tr>
 <tr class="memitem:ga16c57281cc1b24605ec23b09ec880416"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#ga16c57281cc1b24605ec23b09ec880416">rpp::source::never</a> ()</td></tr>
 <tr class="memdesc:ga16c57281cc1b24605ec23b09ec880416"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates <a class="el" href="classrpp_1_1observable.html" title="Base class for any observable used in RPP. It handles core callbacks of observable.">rpp::observable</a> that emits no items and does not terminate.  <br /></td></tr>
 <tr class="separator:ga16c57281cc1b24605ec23b09ec880416"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae7248892783797dda894e18b2b499586" id="r_gae7248892783797dda894e18b2b499586"><td class="memTemplParams" colspan="2">template&lt;schedulers::constraint::scheduler TScheduler&gt; </td></tr>
+<tr class="memitem:gae7248892783797dda894e18b2b499586"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#gae7248892783797dda894e18b2b499586">rpp::source::timer</a> (rpp::schedulers::duration when, TScheduler &amp;&amp;scheduler)</td></tr>
+<tr class="memdesc:gae7248892783797dda894e18b2b499586"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates <a class="el" href="classrpp_1_1observable.html" title="Base class for any observable used in RPP. It handles core callbacks of observable.">rpp::observable</a> that emits an integer after a given delay, on the specified scheduler.  <br /></td></tr>
+<tr class="separator:gae7248892783797dda894e18b2b499586"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p>Creational operators are operators that create new observable. </p>
@@ -783,6 +787,42 @@ template&lt;constraint::decayed_type Type&gt; </div>
   </dd>
 </dl>
 <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/empty-never-throw.html">https://reactivex.io/documentation/operators/empty-never-throw.html</a> </dd></dl>
+
+</div>
+</div>
+<a id="gae7248892783797dda894e18b2b499586" name="gae7248892783797dda894e18b2b499586"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gae7248892783797dda894e18b2b499586">&#9670;&#160;</a></span>timer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;schedulers::constraint::scheduler TScheduler&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">auto rpp::source::timer </td>
+          <td>(</td>
+          <td class="paramtype">rpp::schedulers::duration</td>          <td class="paramname"><span class="paramname"><em>when</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">TScheduler &amp;&amp;</td>          <td class="paramname"><span class="paramname"><em>scheduler</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates <a class="el" href="classrpp_1_1observable.html" title="Base class for any observable used in RPP. It handles core callbacks of observable.">rpp::observable</a> that emits an integer after a given delay, on the specified scheduler. </p>
+<div class="image">
+<object type="image/svg+xml" data="timer.svg" style="pointer-events: none;"></object>
+</div>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">when</td><td>time point when the value is emitted </td></tr>
+    <tr><td class="paramname">scheduler</td><td>the scheduler to use for scheduling the items</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/timer.html">https://reactivex.io/documentation/operators/timer.html</a> </dd></dl>
 
 </div>
 </div>

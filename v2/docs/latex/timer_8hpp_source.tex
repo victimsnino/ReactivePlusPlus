@@ -1,0 +1,21 @@
+\doxysection{timer.\+hpp}
+\hypertarget{timer_8hpp_source}{}\label{timer_8hpp_source}\index{src/rpp/rpp/sources/timer.hpp@{src/rpp/rpp/sources/timer.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <rpp/sources/fwd.hpp>}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <rpp/operators/take.hpp>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <rpp/sources/interval.hpp>}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{keyword}{namespace\ }rpp::source}
+\DoxyCodeLine{00009\ \{}
+\DoxyCodeLine{00024\ \textcolor{keyword}{template}<schedulers::constra\textcolor{keywordtype}{int}::scheduler\ TScheduler>}
+\DoxyCodeLine{00025\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__creational__operators_gae7248892783797dda894e18b2b499586}{timer}}(rpp::schedulers::duration\ when,\ TScheduler\&\&\ scheduler)}
+\DoxyCodeLine{00026\ \{}
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{group__creational__operators_ga4018b147fb99a358c6c01f21183c13e6}{interval}}(when,\ std::forward<TScheduler>(scheduler))\ |\ \mbox{\hyperlink{group__filtering__operators_gaf32161437c2c6cd7d5a0e5170a333cbb}{operators::take}}(1);}
+\DoxyCodeLine{00028\ \}}
+\DoxyCodeLine{00029\ \}}
+
+\end{DoxyCode}

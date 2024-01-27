@@ -1,5 +1,6 @@
 var NAVTREEINDEX1 =
 {
+"group__filtering__operators.html#ga679e35f7895a5d7e22cd2b3c359b9457":[1,0,3,1,3],
 "group__filtering__operators.html#ga8e20aec530e08ba64004c10b7732593c":[1,0,3,1,4],
 "group__filtering__operators.html#gaa8ed11faabd5b31d63d0481f9018fc68":[1,0,3,1,0],
 "group__filtering__operators.html#gad9c1c3326bcaf2f1f64fd7e35f00e669":[1,0,3,1,6],
@@ -248,6 +249,5 @@ var NAVTREEINDEX1 =
 "structrpp_1_1operators_1_1details_1_1window__toggle__t.html":[3,0,0,2,0,98],
 "structrpp_1_1operators_1_1details_1_1with__latest__from__inner__observer__strategy.html":[3,0,0,2,0,100],
 "structrpp_1_1operators_1_1details_1_1with__latest__from__observer__strategy.html":[3,0,0,2,0,101],
-"structrpp_1_1operators_1_1details_1_1with__latest__from__t.html":[3,0,0,2,0,102],
-"structrpp_1_1schedulers_1_1constraint_1_1details_1_1is__worker.html":[3,0,0,3,0,0,0]
+"structrpp_1_1operators_1_1details_1_1with__latest__from__t.html":[3,0,0,2,0,102]
 };

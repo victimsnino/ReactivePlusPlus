@@ -21,5 +21,6 @@ var searchData=
   ['throttle_18',['throttle',['../group__filtering__operators.html#gada7d22ff6ee83d4aca44411561f56f98',1,'rpp::operators']]],
   ['throttle_5fobserver_5fstrategy_19',['throttle_observer_strategy',['../structrpp_1_1operators_1_1details_1_1throttle__observer__strategy.html',1,'rpp::operators::details']]],
   ['throttle_5ft_20',['throttle_t',['../structrpp_1_1operators_1_1details_1_1throttle__t.html',1,'rpp::operators::details']]],
-  ['transforming_20operators_21',['Transforming Operators',['../group__transforming__operators.html',1,'']]]
+  ['timer_21',['timer',['../group__creational__operators.html#gae7248892783797dda894e18b2b499586',1,'rpp::source']]],
+  ['transforming_20operators_22',['Transforming Operators',['../group__transforming__operators.html',1,'']]]
 ];

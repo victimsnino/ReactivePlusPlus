@@ -9,5 +9,6 @@ var dir_b74590698e221afff25b66eda0de4de6 =
     [ "fwd.hpp", "rpp_2sources_2fwd_8hpp_source.html", null ],
     [ "interval.hpp", "interval_8hpp_source.html", null ],
     [ "just.hpp", "just_8hpp_source.html", null ],
-    [ "never.hpp", "never_8hpp_source.html", null ]
+    [ "never.hpp", "never_8hpp_source.html", null ],
+    [ "timer.hpp", "timer_8hpp_source.html", null ]
 ];

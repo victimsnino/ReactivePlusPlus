@@ -40,7 +40,9 @@ requires (constraint\+::decayed\+\_\+same\+\_\+as$<$T, Ts$>$ \&\& ...)}\\auto \m
 {\footnotesize template$<$schedulers\+::constraint\+::scheduler TScheduler$>$ }\\auto \mbox{\hyperlink{group__creational__operators_ga95f6d310d6f17a4c248e43fb628527df}{rpp\+::source\+::interval}} (rpp\+::schedulers\+::duration period, TScheduler \&\&scheduler)
 \begin{DoxyCompactList}\small\item\em Creates \doxylink{classrpp_1_1observable}{rpp\+::observable} that emits a sequential integer every specified time interval, on the specified scheduler. \end{DoxyCompactList}\item 
 {\footnotesize template$<$constraint\+::decayed\+\_\+type Type$>$ }\\auto \mbox{\hyperlink{group__creational__operators_ga16c57281cc1b24605ec23b09ec880416}{rpp\+::source\+::never}} ()
-\begin{DoxyCompactList}\small\item\em Creates \doxylink{classrpp_1_1observable}{rpp\+::observable} that emits no items and does not terminate. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Creates \doxylink{classrpp_1_1observable}{rpp\+::observable} that emits no items and does not terminate. \end{DoxyCompactList}\item 
+{\footnotesize template$<$schedulers\+::constraint\+::scheduler TScheduler$>$ }\\auto \mbox{\hyperlink{group__creational__operators_gae7248892783797dda894e18b2b499586}{rpp\+::source\+::timer}} (rpp\+::schedulers\+::duration when, TScheduler \&\&scheduler)
+\begin{DoxyCompactList}\small\item\em Creates \doxylink{classrpp_1_1observable}{rpp\+::observable} that emits an integer after a given delay, on the specified scheduler. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsubsubsection{Detailed Description}
@@ -594,4 +596,27 @@ Creates \doxylink{classrpp_1_1observable}{rpp\+::observable} that emits no items
 \end{DoxyTemplParams}
 \begin{DoxySeeAlso}{See also}
 \href{https://reactivex.io/documentation/operators/empty-never-throw.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/empty-\/never-\/throw.\+html}} 
+\end{DoxySeeAlso}
+\Hypertarget{group__creational__operators_gae7248892783797dda894e18b2b499586}\label{group__creational__operators_gae7248892783797dda894e18b2b499586} 
+\index{Creational Operators@{Creational Operators}!timer@{timer}}
+\index{timer@{timer}!Creational Operators@{Creational Operators}}
+\doxysubsubsubsubsection{\texorpdfstring{timer()}{timer()}}
+{\footnotesize\ttfamily template$<$schedulers\+::constraint\+::scheduler TScheduler$>$ \\
+auto rpp\+::source\+::timer (\begin{DoxyParamCaption}\item[{rpp\+::schedulers\+::duration}]{when,  }\item[{TScheduler \&\&}]{scheduler }\end{DoxyParamCaption})}
+
+
+
+Creates \doxylink{classrpp_1_1observable}{rpp\+::observable} that emits an integer after a given delay, on the specified scheduler. 
+
+
+
+
+\begin{DoxyParams}{Parameters}
+{\em when} & time point when the value is emitted \\
+\hline
+{\em scheduler} & the scheduler to use for scheduling the items\\
+\hline
+\end{DoxyParams}
+\begin{DoxySeeAlso}{See also}
+\href{https://reactivex.io/documentation/operators/timer.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/timer.\+html}} 
 \end{DoxySeeAlso}
