@@ -93,7 +93,7 @@ public:
 
     rpp::schedulers::worker<worker_strategy> create_worker() const
     {
-        return rpp::schedulers::worker<worker_strategy>{m_state};
+        return rpp::schedulers::worker<worker_strategy>{m_state.as_weak()};
     }
 
     const auto& get_schedulings() const { return m_state.lock()->schedulings; }
