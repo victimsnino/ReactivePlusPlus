@@ -167,7 +167,7 @@ public:
         if (!locked)
             return rpp::disposable_wrapper_impl<TTarget>::empty();
         
-        const auto res = disposable_wrapper_impl<TTarget>(std::static_pointer_cast<TTarget>(std::move(locked)));
+        auto res = disposable_wrapper_impl<TTarget>(std::static_pointer_cast<TTarget>(std::move(locked)));
         if (std::holds_alternative<std::shared_ptr<TDisposable>>(m_disposable))
             return res;
 
