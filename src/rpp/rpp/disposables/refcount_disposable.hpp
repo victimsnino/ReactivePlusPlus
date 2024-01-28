@@ -17,7 +17,6 @@
 #include <rpp/disposables/disposable_wrapper.hpp>
 
 #include <atomic>
-#include <memory>
 #include <limits>
 
 namespace rpp::details

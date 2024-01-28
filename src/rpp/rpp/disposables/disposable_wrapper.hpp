@@ -54,7 +54,8 @@ private:
 namespace rpp
 {
 /**
- * @brief Wrapper over disposable_ptr to prevent manual checking over nullptr/is_disposed()
+ * @brief Wrapper to keep disposable. Any disposable have to be created right from this wrapper with help of `make` function. 
+ * @details Member functions is safe to call even if internal disposable is gone. Also  it provides access to "raw" shared_ptr and it can be nullptr in case of disposable empty/ptr gone.
  * @details Can keep weak_ptr in case of not owning disposable
  *
  * @ingroup disposables
@@ -70,6 +71,9 @@ public:
     template<rpp::constraint::decayed_type TTarget>
     friend class details::enable_wrapper_from_this;
 
+    /**
+     * @brief Way to create disposable_wrapper. Passed `TTarget` type can be any type derived from `TDisposable`.
+     */
     template<std::derived_from<TDisposable> TTarget = TDefaultMake, typename... TArgs>
         requires (std::constructible_from<TTarget, TArgs&&...>)
     static disposable_wrapper_impl make(TArgs&& ...args)
@@ -83,6 +87,9 @@ public:
         return disposable_wrapper_impl{std::move(base_ptr)};
     }
 
+    /**
+     * @brief Creates disposable_wrapper which behaves like disposed disposable
+     */
     static disposable_wrapper_impl empty()
     {
         return disposable_wrapper_impl{};

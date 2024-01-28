@@ -17,7 +17,6 @@
 #include <rpp/disposables/interface_composite_disposable.hpp>
 
 #include <atomic>
-#include <memory>
 
 namespace rpp
 {
