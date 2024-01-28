@@ -128,7 +128,7 @@ private:
     static std::shared_ptr<switch_on_next_state_t<TObserver>> init_state(auto&& observer)
     {
         const auto d = disposable_wrapper_impl<switch_on_next_state_t<TObserver>>::make(std::forward<decltype(observer)>(observer));
-        const auto ptr = d.lock();
+        auto ptr = d.lock();
         ptr->get_observer()->set_upstream(d.as_weak());
         return ptr;
     }

@@ -77,7 +77,7 @@ struct group_by_observer_strategy
     mutable std::map<TKey, subject_observer, KeyComparator> key_to_observer{};
     std::shared_ptr<refcount_disposable>                    disposable = [&]
     {
-        const auto ptr = disposable_wrapper_impl<refcount_disposable>::make().lock();
+        auto ptr = disposable_wrapper_impl<refcount_disposable>::make().lock();
         observer.set_upstream(ptr->add_ref());
         return ptr;
     }();

@@ -124,7 +124,7 @@ private:
     static std::shared_ptr<merge_disposable<TObserver>> init_state(TObserver&& observer)
     {
         const auto d = disposable_wrapper_impl<merge_disposable<TObserver>>::make(std::move(observer));
-        const auto ptr = d.lock();
+        auto ptr = d.lock();
         ptr->get_observer_under_lock()->set_upstream(d.as_weak());
         return ptr;
     }

@@ -189,7 +189,7 @@ private:
     static std::shared_ptr<concat_state_t<TObservable, TObserver>> init_state(TObserver&& observer)
     {
         const auto d = disposable_wrapper_impl<concat_state_t<TObservable, TObserver>>::make(std::move(observer));
-        const auto ptr = d.lock();
+        auto ptr = d.lock();
         ptr->get_observer()->set_upstream(d.as_weak());
         return ptr;
     }

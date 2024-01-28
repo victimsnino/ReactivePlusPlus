@@ -59,7 +59,7 @@ struct window_toggle_state
     auto on_new_subject(const Subject& subject)
     {
         const auto locked_state = get_state_under_lock();
-        const auto ptr = &locked_state->observers.emplace_back(subject.get_observer());
+        auto ptr = &locked_state->observers.emplace_back(subject.get_observer());
         locked_state->observer.on_next(subject.get_observable());
         return ptr;
     }
@@ -112,9 +112,9 @@ struct window_toggle_opening_observer_strategy
     void on_next(T&& v) const
     {
         typename TState::Subject subject{disposable->wrapper_from_this()};
-        const auto ptr = state->on_new_subject(subject);
+        auto ptr = state->on_new_subject(subject);
         disposable->add(subject.get_disposable());
-        state->get_closing(std::forward<T>(v)).subscribe(subject.get_disposable(), window_toggle_closing_observer_strategy<TState>{disposable, state, subject.get_disposable(), ptr});
+        state->get_closing(std::forward<T>(v)).subscribe(subject.get_disposable(), window_toggle_closing_observer_strategy<TState>{disposable, state, subject.get_disposable(), std::move(ptr)});
     }
 
     void on_error(const std::exception_ptr& err) const
