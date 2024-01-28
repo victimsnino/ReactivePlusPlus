@@ -11,7 +11,6 @@
 #pragma once
 
 #include <rpp/disposables/callback_disposable.hpp>
-#include <rpp/disposables/disposable_wrapper.hpp>
 #include <rpp/disposables/interface_disposable.hpp>
 
 namespace rpp
