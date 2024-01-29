@@ -52,7 +52,7 @@ jobs:
         id: results
 
       - name: Find Comment
-        uses: peter-evans/find-comment@v2
+        uses: peter-evans/find-comment@v3
         id: fc
         if: github.event.workflow_run.event != 'push'
         with:
@@ -68,7 +68,7 @@ jobs:
           body: ${{ steps.results.outputs.body }}
 
       - name: Update comment
-        uses: peter-evans/create-or-update-comment@v3
+        uses: peter-evans/create-or-update-comment@v4
         if: github.event.workflow_run.event != 'push'
         with:
           comment-id: ${{ steps.fc.outputs.comment-id }}
