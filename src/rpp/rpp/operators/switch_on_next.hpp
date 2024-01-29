@@ -88,11 +88,6 @@ class switch_on_next_observer_strategy
 public:
     using preferred_disposable_strategy = rpp::details::observers::none_disposable_strategy;
 
-    switch_on_next_observer_strategy(const TObserver& obs)
-        : m_state{init_state(obs)} 
-    {
-    }
-
     switch_on_next_observer_strategy(TObserver&& obs)
         : m_state{init_state(std::move(obs))} 
     {
@@ -125,13 +120,14 @@ public:
     void set_upstream(const disposable_wrapper& d) const { m_this_refcount.add(d); }
     bool is_disposed() const { return m_this_refcount.is_disposed(); }
 private:
-    static std::shared_ptr<switch_on_next_state_t<TObserver>> init_state(auto&& observer)
+    static std::shared_ptr<switch_on_next_state_t<TObserver>> init_state(TObserver&& observer)
     {
-        const auto d = disposable_wrapper_impl<switch_on_next_state_t<TObserver>>::make(std::forward<decltype(observer)>(observer));
+        const auto d = disposable_wrapper_impl<switch_on_next_state_t<TObserver>>::make(std::move(observer));
         auto ptr = d.lock();
         ptr->get_observer()->set_upstream(d.as_weak());
         return ptr;
     }
+    
 private:
     std::shared_ptr<switch_on_next_state_t<TObserver>> m_state;
     rpp::composite_disposable_wrapper                  m_this_refcount = m_state->add_ref();
