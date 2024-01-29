@@ -64,7 +64,7 @@ class new_thread
         }
 
     private:
-        void dispose_impl() noexcept override
+        void base_dispose_impl(interface_disposable::Mode) noexcept override
         {
             if (!m_thread.joinable())
                 return;

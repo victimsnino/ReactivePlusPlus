@@ -12,6 +12,12 @@
 
 #include <rpp/utils/constraints.hpp>
 
+namespace rpp::details
+{
+template<rpp::constraint::decayed_type TDisposable>
+class auto_dispose_wrapper;
+}
+
 namespace rpp
 {
 struct interface_disposable;

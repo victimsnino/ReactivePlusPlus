@@ -28,7 +28,7 @@ public:
         m_cv.wait(lock, [this] { return m_completed; });
     }
 
-    void dispose_impl() noexcept override
+    void base_dispose_impl(interface_disposable::Mode) noexcept override
     {
         {
             std::lock_guard lock{m_mutex};

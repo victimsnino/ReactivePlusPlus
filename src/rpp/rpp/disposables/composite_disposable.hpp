@@ -39,7 +39,7 @@ public:
         return m_current_state.load(std::memory_order::seq_cst) == State::Disposed;
     }
 
-    void dispose() noexcept final
+    void dispose_impl(interface_disposable::Mode mode) noexcept final
     {
         while (true)
         {
@@ -47,7 +47,7 @@ public:
             // need to acquire possible state changing from `add`
             if (m_current_state.compare_exchange_strong(expected, State::Disposed, std::memory_order::seq_cst))
             {
-                dispose_impl();
+                composite_dispose_impl(mode);
 
                 m_disposables.dispose();
                 m_disposables.clear();
@@ -150,7 +150,7 @@ public:
     }
 
 protected:
-    virtual void dispose_impl() noexcept {}
+    virtual void composite_dispose_impl(interface_disposable::Mode) noexcept {}
 
 private:
     enum class State : uint8_t

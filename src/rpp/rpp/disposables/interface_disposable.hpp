@@ -33,6 +33,18 @@ struct interface_disposable
      * @brief Dispose disposable and free any underlying resources and etc.
      * @warning This function must be thread-safe
      */
-    virtual void dispose() noexcept = 0;
+    void dispose() noexcept { dispose_impl(Mode::Disposing); }
+
+    template<rpp::constraint::decayed_type TStrategy>
+    friend class rpp::details::auto_dispose_wrapper;
+
+protected:
+    enum class Mode : bool
+    {
+        Disposing  = 0, // someone called "dispose" method manually
+        Destroying = 1  // called during destruction -> not needed to clear self in other disposables and etc + not allowed to call `shared_from_this`
+    };
+
+    virtual void dispose_impl(Mode mode) noexcept = 0;
 };
 }

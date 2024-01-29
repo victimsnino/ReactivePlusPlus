@@ -89,7 +89,7 @@ class run_loop final
             return !m_queue.is_empty() && (m_queue.top()->is_disposed() || m_queue.top()->get_timepoint() <= now);
         }
 
-        void dispose_impl() noexcept override 
+        void base_dispose_impl(interface_disposable::Mode) noexcept override 
         {
             {
                 std::lock_guard lock{m_mutex};
