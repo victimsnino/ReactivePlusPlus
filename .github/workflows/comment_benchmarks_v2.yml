@@ -52,7 +52,7 @@ jobs:
         id: results
 
       - name: Find Comment
-        uses: peter-evans/find-comment@v2
+        uses: peter-evans/find-comment@v3
         id: fc
         if: github.event.workflow_run.event != 'push'
         with:
