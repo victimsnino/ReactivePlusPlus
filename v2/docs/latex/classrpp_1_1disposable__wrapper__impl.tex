@@ -2,32 +2,28 @@
 \hypertarget{classrpp_1_1disposable__wrapper__impl}{}\label{classrpp_1_1disposable__wrapper__impl}\index{rpp::disposable\_wrapper\_impl$<$ TDisposable $>$@{rpp::disposable\_wrapper\_impl$<$ TDisposable $>$}}
 
 
-Wrapper over disposable\+\_\+ptr to prevent manual checking over nullptr/is\+\_\+disposed()  
+Wrapper to keep disposable. Any disposable have to be created right from this wrapper with help of {\ttfamily make} function.  
 
 
 
 
 {\ttfamily \#include $<$disposable\+\_\+wrapper.\+hpp$>$}
 
+Inheritance diagram for rpp\+::disposable\+\_\+wrapper\+\_\+impl\texorpdfstring{$<$}{<} TDisposable \texorpdfstring{$>$}{>}\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classrpp_1_1disposable__wrapper__impl}
+\end{center}
+\end{figure}
 \doxysubsubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\Hypertarget{classrpp_1_1disposable__wrapper__impl_a05b0f689efcc5fc78d6d1feffb89a365}\label{classrpp_1_1disposable__wrapper__impl_a05b0f689efcc5fc78d6d1feffb89a365} 
-{\footnotesize template$<$std\+::derived\+\_\+from$<$ TDisposable $>$ TT = TDisposable$>$ \newline
-requires std\+::derived\+\_\+from$<$TT, \mbox{\hyperlink{structrpp_1_1interface__disposable}{interface\+\_\+disposable}}$>$}\\{\bfseries disposable\+\_\+wrapper\+\_\+impl} (std\+::shared\+\_\+ptr$<$ TT $>$ \&\&disposable)
+\Hypertarget{classrpp_1_1disposable__wrapper__impl_a9f289c67994ac03c62e2001ecac31e90}\label{classrpp_1_1disposable__wrapper__impl_a9f289c67994ac03c62e2001ecac31e90} 
+bool {\bfseries operator==} (const \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{disposable\+\_\+wrapper\+\_\+impl}} \&) const =default
 \item 
-\Hypertarget{classrpp_1_1disposable__wrapper__impl_a926fd44b8094396683a019f75bb80131}\label{classrpp_1_1disposable__wrapper__impl_a926fd44b8094396683a019f75bb80131} 
-{\footnotesize template$<$std\+::derived\+\_\+from$<$ TDisposable $>$ TT = TDisposable$>$ \newline
-requires std\+::derived\+\_\+from$<$TT, \mbox{\hyperlink{structrpp_1_1interface__disposable}{interface\+\_\+disposable}}$>$}\\{\bfseries disposable\+\_\+wrapper\+\_\+impl} (const std\+::shared\+\_\+ptr$<$ TT $>$ \&disposable)
-\item 
-\Hypertarget{classrpp_1_1disposable__wrapper__impl_ae792d4fd650130ce14c4bf9623f1eaa3}\label{classrpp_1_1disposable__wrapper__impl_ae792d4fd650130ce14c4bf9623f1eaa3} 
-bool {\bfseries operator==} (const \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{disposable\+\_\+wrapper\+\_\+impl}} \&other) const
-\item 
-\Hypertarget{classrpp_1_1disposable__wrapper__impl_af932d96b9ebfa7b8eb6d97769219e153}\label{classrpp_1_1disposable__wrapper__impl_af932d96b9ebfa7b8eb6d97769219e153} 
-bool {\bfseries is\+\_\+disposed} () const noexcept
-\item 
-\Hypertarget{classrpp_1_1disposable__wrapper__impl_ac5f9a0408d809eb0816175da095ada18}\label{classrpp_1_1disposable__wrapper__impl_ac5f9a0408d809eb0816175da095ada18} 
-void {\bfseries dispose} () const noexcept
+\Hypertarget{classrpp_1_1disposable__wrapper__impl_abaa5dfcece464199a4d7226528e7642a}\label{classrpp_1_1disposable__wrapper__impl_abaa5dfcece464199a4d7226528e7642a} 
+{\footnotesize template$<$rpp\+::constraint\+::is\+\_\+nothrow\+\_\+invocable Fn$>$ \newline
+requires std\+::derived\+\_\+from$<$TDisposable, \mbox{\hyperlink{structrpp_1_1interface__composite__disposable}{interface\+\_\+composite\+\_\+disposable}}$>$}\\\mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{disposable\+\_\+wrapper}} {\bfseries add} (Fn \&\&invocable)
 \item 
 \Hypertarget{classrpp_1_1disposable__wrapper__impl_a854519cba0d174d6faf3c17df32bc964}\label{classrpp_1_1disposable__wrapper__impl_a854519cba0d174d6faf3c17df32bc964} 
 void {\bfseries add} (\mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{disposable\+\_\+wrapper}} other) const
@@ -38,30 +34,59 @@ void {\bfseries remove} (const \mbox{\hyperlink{classrpp_1_1disposable__wrapper_
 \Hypertarget{classrpp_1_1disposable__wrapper__impl_a4a54086816ea2e1b63fb4f92dcb8113a}\label{classrpp_1_1disposable__wrapper__impl_a4a54086816ea2e1b63fb4f92dcb8113a} 
 void {\bfseries clear} () const
 \item 
-\Hypertarget{classrpp_1_1disposable__wrapper__impl_a50ef8df6a3751ade4e7ef802db1dcd81}\label{classrpp_1_1disposable__wrapper__impl_a50ef8df6a3751ade4e7ef802db1dcd81} 
-std\+::shared\+\_\+ptr$<$ TDisposable $>$ {\bfseries get\+\_\+original} () const noexcept
+\Hypertarget{classrpp_1_1disposable__wrapper__impl_a279ae86bacffb166d547707d003b1eca}\label{classrpp_1_1disposable__wrapper__impl_a279ae86bacffb166d547707d003b1eca} 
+std\+::shared\+\_\+ptr$<$ TDisposable $>$ {\bfseries lock} () const noexcept
 \item 
-\Hypertarget{classrpp_1_1disposable__wrapper__impl_a5f0538f3a62d0d63ef120978298ce407}\label{classrpp_1_1disposable__wrapper__impl_a5f0538f3a62d0d63ef120978298ce407} 
-{\bfseries operator disposable\+\_\+wrapper\+\_\+impl$<$ interface\+\_\+disposable $>$} () const
+\Hypertarget{classrpp_1_1disposable__wrapper__impl_a7aa245cbfba8cffd5c0fa2c45ac24fd2}\label{classrpp_1_1disposable__wrapper__impl_a7aa245cbfba8cffd5c0fa2c45ac24fd2} 
+\mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{disposable\+\_\+wrapper\+\_\+impl}} {\bfseries as\+\_\+weak} () const
 \item 
-\Hypertarget{classrpp_1_1disposable__wrapper__impl_a11747d14b99b91996103969843eeb137}\label{classrpp_1_1disposable__wrapper__impl_a11747d14b99b91996103969843eeb137} 
-bool {\bfseries has\+\_\+underlying} () const
+\Hypertarget{classrpp_1_1disposable__wrapper__impl_a69d11adc76a191d68adae93103966b2b}\label{classrpp_1_1disposable__wrapper__impl_a69d11adc76a191d68adae93103966b2b} 
+{\footnotesize template$<$constraint\+::decayed\+\_\+type TTarget$>$ \newline
+requires rpp\+::constraint\+::static\+\_\+pointer\+\_\+convertible\+\_\+to$<$TDisposable, TTarget$>$}\\{\bfseries operator disposable\+\_\+wrapper\+\_\+impl$<$ TTarget $>$} () const
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classrpp_1_1details_1_1disposable__wrapper__base}{rpp\+::details\+::disposable\+\_\+wrapper\+\_\+base}}}
+\begin{DoxyCompactItemize}
+\item 
+bool {\bfseries operator==} (const \mbox{\hyperlink{classrpp_1_1details_1_1disposable__wrapper__base}{disposable\+\_\+wrapper\+\_\+base}} \&other) const
+\item 
+bool {\bfseries is\+\_\+disposed} () const noexcept
+\item 
+void {\bfseries dispose} () const noexcept
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Static Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\Hypertarget{classrpp_1_1disposable__wrapper__impl_a4c2f655976574b9428bc85b3cdfac505}\label{classrpp_1_1disposable__wrapper__impl_a4c2f655976574b9428bc85b3cdfac505} 
-static \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{disposable\+\_\+wrapper\+\_\+impl}} {\bfseries from\+\_\+shared} (std\+::shared\+\_\+ptr$<$ TDisposable $>$ disposable)
+\Hypertarget{classrpp_1_1disposable__wrapper__impl_a5f8993d06260861f434d20f07c9fa7c2}\label{classrpp_1_1disposable__wrapper__impl_a5f8993d06260861f434d20f07c9fa7c2} 
+{\footnotesize template$<$std\+::derived\+\_\+from$<$ TDisposable $>$ TTarget = TDefault\+Make, typename... TArgs$>$ \newline
+requires (std\+::constructible\+\_\+from$<$TTarget, TArgs\&\&...$>$)}\\static \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{disposable\+\_\+wrapper\+\_\+impl}} {\bfseries make} (TArgs \&\&...args)
+\begin{DoxyCompactList}\small\item\em Way to create disposable\+\_\+wrapper. Passed {\ttfamily TTarget} type can be any type derived from {\ttfamily TDisposable}. \end{DoxyCompactList}\item 
+\Hypertarget{classrpp_1_1disposable__wrapper__impl_ac80a18753f28c349713dca275a23a085}\label{classrpp_1_1disposable__wrapper__impl_ac80a18753f28c349713dca275a23a085} 
+static \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{disposable\+\_\+wrapper\+\_\+impl}} {\bfseries empty} ()
+\begin{DoxyCompactList}\small\item\em Creates disposable\+\_\+wrapper which behaves like disposed disposable. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Friends}
+\begin{DoxyCompactItemize}
 \item 
-\Hypertarget{classrpp_1_1disposable__wrapper__impl_a467ab5dbb21272a64678f7e5d712fba4}\label{classrpp_1_1disposable__wrapper__impl_a467ab5dbb21272a64678f7e5d712fba4} 
-static \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{disposable\+\_\+wrapper\+\_\+impl}} {\bfseries from\+\_\+weak} (std\+::weak\+\_\+ptr$<$ TDisposable $>$ disposable)
+\Hypertarget{classrpp_1_1disposable__wrapper__impl_a4ab7ba8a9a9a298b5e2240a468eb6e3a}\label{classrpp_1_1disposable__wrapper__impl_a4ab7ba8a9a9a298b5e2240a468eb6e3a} 
+{\footnotesize template$<$rpp\+::constraint\+::decayed\+\_\+type TTarget$>$ }\\class {\bfseries details\+::enable\+\_\+wrapper\+\_\+from\+\_\+this}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Protected Member Functions inherited from \mbox{\hyperlink{classrpp_1_1details_1_1disposable__wrapper__base}{rpp\+::details\+::disposable\+\_\+wrapper\+\_\+base}}}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries disposable\+\_\+wrapper\+\_\+base} (std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{structrpp_1_1interface__disposable}{interface\+\_\+disposable}} $>$ \&\&disposable)
+\item 
+{\bfseries disposable\+\_\+wrapper\+\_\+base} (std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{structrpp_1_1interface__disposable}{interface\+\_\+disposable}} $>$ \&\&disposable)
+\item 
+std\+::pair$<$ std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{structrpp_1_1interface__disposable}{interface\+\_\+disposable}} $>$, bool $>$ {\bfseries get} () const noexcept
 \end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
 \subsubsection*{template$<$rpp\+::constraint\+::decayed\+\_\+type TDisposable$>$\newline
 class rpp\+::disposable\+\_\+wrapper\+\_\+impl$<$ TDisposable $>$}
-Wrapper over disposable\+\_\+ptr to prevent manual checking over nullptr/is\+\_\+disposed() 
+Wrapper to keep disposable. Any disposable have to be created right from this wrapper with help of {\ttfamily make} function. 
+
+Member functions is safe to call even if internal disposable is gone. Also it provides access to "{}raw"{} shared\+\_\+ptr and it can be nullptr in case of disposable empty/ptr gone.
 
 Can keep weak\+\_\+ptr in case of not owning disposable 
 

@@ -63,7 +63,7 @@
 \DoxyCodeLine{00059\ \ \ \ \ \textcolor{keyword}{auto}\ on\_new\_subject(\textcolor{keyword}{const}\ Subject\&\ subject)}
 \DoxyCodeLine{00060\ \ \ \ \ \{}
 \DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ locked\_state\ =\ get\_state\_under\_lock();}
-\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ ptr\ =\ \&locked\_state-\/>observers.emplace\_back(subject.get\_observer());}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ ptr\ =\ \&locked\_state-\/>observers.emplace\_back(subject.get\_observer());}
 \DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ locked\_state-\/>observer.on\_next(subject.get\_observable());}
 \DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ptr;}
 \DoxyCodeLine{00065\ \ \ \ \ \}}
@@ -115,10 +115,10 @@
 \DoxyCodeLine{00111\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
 \DoxyCodeLine{00112\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_next(T\&\&\ v)\textcolor{keyword}{\ const}}
 \DoxyCodeLine{00113\ \textcolor{keyword}{\ \ \ \ }\{}
-\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ TState::Subject\ subject\{disposable\};}
-\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ ptr\ =\ state-\/>on\_new\_subject(subject);}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ TState::Subject\ subject\{disposable-\/>wrapper\_from\_this()\};}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ ptr\ =\ state-\/>on\_new\_subject(subject);}
 \DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ disposable-\/>add(subject.get\_disposable());}
-\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ state-\/>get\_closing(std::forward<T>(v)).subscribe(subject.get\_disposable(),\ \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1window__toggle__closing__observer__strategy}{window\_toggle\_closing\_observer\_strategy<TState>}}\{disposable,\ state,\ subject.get\_disposable(),\ ptr\});}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ state-\/>get\_closing(std::forward<T>(v)).subscribe(subject.get\_disposable(),\ \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1window__toggle__closing__observer__strategy}{window\_toggle\_closing\_observer\_strategy<TState>}}\{disposable,\ state,\ subject.get\_disposable(),\ std::move(ptr)\});}
 \DoxyCodeLine{00118\ \ \ \ \ \}}
 \DoxyCodeLine{00119\ }
 \DoxyCodeLine{00120\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_error(\textcolor{keyword}{const}\ std::exception\_ptr\&\ err)\textcolor{keyword}{\ const}}
@@ -177,7 +177,7 @@
 \DoxyCodeLine{00173\ \ \ \ \ \textcolor{keywordtype}{bool}\ is\_disposed()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ m\_disposable-\/>is\_disposed();\ \}}
 \DoxyCodeLine{00174\ }
 \DoxyCodeLine{00175\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00176\ \ \ \ \ std::shared\_ptr<rpp::refcount\_disposable>\ m\_disposable\ =\ std::make\_shared<refcount\_disposable>();}
+\DoxyCodeLine{00176\ \ \ \ \ std::shared\_ptr<rpp::refcount\_disposable>\ m\_disposable\ =\ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl_a5f8993d06260861f434d20f07c9fa7c2}{disposable\_wrapper\_impl<rpp::refcount\_disposable>::make}}().lock();}
 \DoxyCodeLine{00177\ \ \ \ \ std::shared\_ptr<TState>\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ m\_state;}
 \DoxyCodeLine{00178\ \};}
 \DoxyCodeLine{00179\ }

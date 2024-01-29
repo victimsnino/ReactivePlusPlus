@@ -114,33 +114,32 @@ $(function(){initNavTree('interface__composite__disposable_8hpp_source.html','')
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#pragma once</span></div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;rpp/disposables/callback_disposable.hpp&gt;</span></div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &lt;rpp/disposables/disposable_wrapper.hpp&gt;</span></div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &lt;rpp/disposables/interface_disposable.hpp&gt;</span></div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="keyword">namespace </span>rpp</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>{</div>
-<div class="foldopen" id="foldopen00019" data-start="{" data-end="};">
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno"><a class="line" href="structrpp_1_1interface__composite__disposable.html">   19</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structrpp_1_1interface__composite__disposable.html">interface_composite_disposable</a> : <span class="keyword">public</span> <a class="code hl_struct" href="structrpp_1_1interface__disposable.html">interface_disposable</a></div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>{</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> add(<a class="code hl_class" href="classrpp_1_1disposable__wrapper__impl.html">disposable_wrapper</a> disposable) = 0;</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    <span class="keyword">template</span>&lt;rpp::constra<span class="keywordtype">int</span>::is_nothrow_invocable Fn&gt;</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <a class="code hl_class" href="classrpp_1_1disposable__wrapper__impl.html">disposable_wrapper</a> add(Fn&amp;&amp; invocable)</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    {</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>        <span class="keyword">auto</span> d = make_callback_disposable(std::forward&lt;Fn&gt;(invocable));</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>        add(d);</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>        <span class="keywordflow">return</span> d;</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    }</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> remove(<span class="keyword">const</span> <a class="code hl_class" href="classrpp_1_1disposable__wrapper__impl.html">disposable_wrapper</a>&amp; d) = 0;</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    <span class="comment">// dispose all added disposables, clear container but not dispose original disposable</span></div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> clear() = 0;</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>};</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &lt;rpp/disposables/interface_disposable.hpp&gt;</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="keyword">namespace </span>rpp</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>{</div>
+<div class="foldopen" id="foldopen00018" data-start="{" data-end="};">
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="structrpp_1_1interface__composite__disposable.html">   18</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structrpp_1_1interface__composite__disposable.html">interface_composite_disposable</a> : <span class="keyword">public</span> <a class="code hl_struct" href="structrpp_1_1interface__disposable.html">interface_disposable</a></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>{</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> add(<a class="code hl_class" href="classrpp_1_1disposable__wrapper__impl.html">disposable_wrapper</a> disposable) = 0;</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    <span class="keyword">template</span>&lt;rpp::constra<span class="keywordtype">int</span>::is_nothrow_invocable Fn&gt;</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    <a class="code hl_class" href="classrpp_1_1disposable__wrapper__impl.html">disposable_wrapper</a> add(Fn&amp;&amp; invocable)</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    {</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>        <span class="keyword">auto</span> d = make_callback_disposable(std::forward&lt;Fn&gt;(invocable));</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>        add(d);</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>        <span class="keywordflow">return</span> d;</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    }</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> remove(<span class="keyword">const</span> <a class="code hl_class" href="classrpp_1_1disposable__wrapper__impl.html">disposable_wrapper</a>&amp; d) = 0;</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    <span class="comment">// dispose all added disposables, clear container but not dispose original disposable</span></div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> clear() = 0;</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>};</div>
 </div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>}</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>}</div>
 <div class="ttc" id="aclassrpp_1_1disposable__wrapper__impl_html"><div class="ttname"><a href="classrpp_1_1disposable__wrapper__impl.html">rpp::disposable_wrapper_impl&lt; interface_disposable &gt;</a></div></div>
-<div class="ttc" id="astructrpp_1_1interface__composite__disposable_html"><div class="ttname"><a href="structrpp_1_1interface__composite__disposable.html">rpp::interface_composite_disposable</a></div><div class="ttdef"><b>Definition</b> interface_composite_disposable.hpp:20</div></div>
-<div class="ttc" id="astructrpp_1_1interface__disposable_html"><div class="ttname"><a href="structrpp_1_1interface__disposable.html">rpp::interface_disposable</a></div><div class="ttdoc">Interface of disposable.</div><div class="ttdef"><b>Definition</b> interface_disposable.hpp:27</div></div>
+<div class="ttc" id="astructrpp_1_1interface__composite__disposable_html"><div class="ttname"><a href="structrpp_1_1interface__composite__disposable.html">rpp::interface_composite_disposable</a></div><div class="ttdef"><b>Definition</b> interface_composite_disposable.hpp:19</div></div>
+<div class="ttc" id="astructrpp_1_1interface__disposable_html"><div class="ttname"><a href="structrpp_1_1interface__disposable.html">rpp::interface_disposable</a></div><div class="ttdoc">Interface of disposable.</div><div class="ttdef"><b>Definition</b> interface_disposable.hpp:23</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

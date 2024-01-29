@@ -2,6 +2,7 @@
 This inheritance list is sorted roughly, but not completely, alphabetically\+:\begin{DoxyCompactList}
 \item \contentsline{section}{rpp\+::operators\+::details\+::as\+\_\+blocking\+\_\+t}{\pageref{structrpp_1_1operators_1_1details_1_1as__blocking__t}}{}
 \item \contentsline{section}{rpp\+::details\+::observers\+::atomic\+\_\+bool}{\pageref{classrpp_1_1details_1_1observers_1_1atomic__bool}}{}
+\item \contentsline{section}{rpp\+::details\+::auto\+\_\+dispose\+\_\+wrapper\texorpdfstring{$<$}{<} TDisposable \texorpdfstring{$>$}{>}}{\pageref{classrpp_1_1details_1_1auto__dispose__wrapper}}{}
 \item \contentsline{section}{rpp\+::subjects\+::details\+::base\+\_\+subject\texorpdfstring{$<$}{<} T, Strategy \texorpdfstring{$>$}{>}}{\pageref{classrpp_1_1subjects_1_1details_1_1base__subject}}{}
 \item \contentsline{section}{rpp\+::subjects\+::details\+::base\+\_\+subject\texorpdfstring{$<$}{<} Type, details\+::publish\+\_\+strategy\texorpdfstring{$<$}{<} Type \texorpdfstring{$>$}{>} \texorpdfstring{$>$}{>}}{\pageref{classrpp_1_1subjects_1_1details_1_1base__subject}}{}
 \begin{DoxyCompactList}
@@ -53,9 +54,17 @@ This inheritance list is sorted roughly, but not completely, alphabetically\+:\b
 \item \contentsline{section}{rpp\+::operators\+::details\+::delay\+\_\+observer\+\_\+strategy\texorpdfstring{$<$}{<} Observer, Worker, Container, Clear\+On\+Error \texorpdfstring{$>$}{>}}{\pageref{structrpp_1_1operators_1_1details_1_1delay__observer__strategy}}{}
 \item \contentsline{section}{rpp\+::operators\+::details\+::delay\+\_\+t\texorpdfstring{$<$}{<} Scheduler, Clear\+On\+Error \texorpdfstring{$>$}{>}}{\pageref{structrpp_1_1operators_1_1details_1_1delay__t}}{}
 \item \contentsline{section}{rpp\+::schedulers\+::delay\+\_\+to}{\pageref{structrpp_1_1schedulers_1_1delay__to}}{}
-\item \contentsline{section}{rpp\+::disposable\+\_\+wrapper\+\_\+impl\texorpdfstring{$<$}{<} TDisposable \texorpdfstring{$>$}{>}}{\pageref{classrpp_1_1disposable__wrapper__impl}}{}
+\item \contentsline{section}{rpp\+::details\+::disposable\+\_\+wrapper\+\_\+base}{\pageref{classrpp_1_1details_1_1disposable__wrapper__base}}{}
+\begin{DoxyCompactList}
 \item \contentsline{section}{rpp\+::disposable\+\_\+wrapper\+\_\+impl\texorpdfstring{$<$}{<} interface\+\_\+composite\+\_\+disposable \texorpdfstring{$>$}{>}}{\pageref{classrpp_1_1disposable__wrapper__impl}}{}
+\item \contentsline{section}{rpp\+::disposable\+\_\+wrapper\+\_\+impl\texorpdfstring{$<$}{<} rpp\+::refcount\+\_\+disposable \texorpdfstring{$>$}{>}}{\pageref{classrpp_1_1disposable__wrapper__impl}}{}
+\item \contentsline{section}{rpp\+::disposable\+\_\+wrapper\+\_\+impl\texorpdfstring{$<$}{<} rpp\+::subjects\+::details\+::subject\+\_\+state\texorpdfstring{$<$}{<} Type \texorpdfstring{$>$}{>} \texorpdfstring{$>$}{>}}{\pageref{classrpp_1_1disposable__wrapper__impl}}{}
 \item \contentsline{section}{rpp\+::disposable\+\_\+wrapper\+\_\+impl\texorpdfstring{$<$}{<} interface\+\_\+disposable \texorpdfstring{$>$}{>}}{\pageref{classrpp_1_1disposable__wrapper__impl}}{}
+\item \contentsline{section}{rpp\+::disposable\+\_\+wrapper\+\_\+impl\texorpdfstring{$<$}{<} disposable \texorpdfstring{$>$}{>}}{\pageref{classrpp_1_1disposable__wrapper__impl}}{}
+\item \contentsline{section}{rpp\+::disposable\+\_\+wrapper\+\_\+impl\texorpdfstring{$<$}{<} replay\+\_\+state \texorpdfstring{$>$}{>}}{\pageref{classrpp_1_1disposable__wrapper__impl}}{}
+\item \contentsline{section}{rpp\+::disposable\+\_\+wrapper\+\_\+impl\texorpdfstring{$<$}{<} serialized\+\_\+state \texorpdfstring{$>$}{>}}{\pageref{classrpp_1_1disposable__wrapper__impl}}{}
+\item \contentsline{section}{rpp\+::disposable\+\_\+wrapper\+\_\+impl\texorpdfstring{$<$}{<} TDisposable \texorpdfstring{$>$}{>}}{\pageref{classrpp_1_1disposable__wrapper__impl}}{}
+\end{DoxyCompactList}
 \item \contentsline{section}{rpp\+::subjects\+::details\+::disposed}{\pageref{structrpp_1_1subjects_1_1details_1_1disposed}}{}
 \item \contentsline{section}{rpp\+::operators\+::details\+::distinct\+\_\+until\+\_\+changed\+\_\+observer\+\_\+strategy\texorpdfstring{$<$}{<} Type, TObserver, Equality\+Fn \texorpdfstring{$>$}{>}}{\pageref{structrpp_1_1operators_1_1details_1_1distinct__until__changed__observer__strategy}}{}
 \item \contentsline{section}{rpp\+::details\+::observables\+::dynamic\+\_\+disposable\+\_\+strategy\+\_\+selector\texorpdfstring{$<$}{<} Preallocated\+Count, Mode \texorpdfstring{$>$}{>}}{\pageref{structrpp_1_1details_1_1observables_1_1dynamic__disposable__strategy__selector}}{}
@@ -68,14 +77,24 @@ This inheritance list is sorted roughly, but not completely, alphabetically\+:\b
 \item \contentsline{section}{rpp\+::operators\+::details\+::emission\texorpdfstring{$<$}{<} T \texorpdfstring{$>$}{>}}{\pageref{structrpp_1_1operators_1_1details_1_1emission}}{}
 \item \contentsline{section}{rpp\+::details\+::empty\+\_\+strategy\texorpdfstring{$<$}{<} Type \texorpdfstring{$>$}{>}}{\pageref{structrpp_1_1details_1_1empty__strategy}}{}
 \item std\+::enable\+\_\+shared\+\_\+from\+\_\+this\begin{DoxyCompactList}
-\item \contentsline{section}{rpp\+::details\+::concat\+\_\+state\+\_\+t\texorpdfstring{$<$}{<} TObserver, Packed\+Container \texorpdfstring{$>$}{>}}{\pageref{structrpp_1_1details_1_1concat__state__t}}{}
+\item \contentsline{section}{rpp\+::subjects\+::details\+::subject\+\_\+state\texorpdfstring{$<$}{<} Type \texorpdfstring{$>$}{>}}{\pageref{classrpp_1_1subjects_1_1details_1_1subject__state}}{}
+\end{DoxyCompactList}
+\item \contentsline{section}{rpp\+::details\+::enable\+\_\+wrapper\+\_\+from\+\_\+this\texorpdfstring{$<$}{<} TStrategy \texorpdfstring{$>$}{>}}{\pageref{classrpp_1_1details_1_1enable__wrapper__from__this}}{}
+\item \contentsline{section}{rpp\+::details\+::enable\+\_\+wrapper\+\_\+from\+\_\+this\texorpdfstring{$<$}{<} debounce\+\_\+disposable\texorpdfstring{$<$}{<} Observer, Worker, Container \texorpdfstring{$>$}{>} \texorpdfstring{$>$}{>}}{\pageref{classrpp_1_1details_1_1enable__wrapper__from__this}}{}
+\begin{DoxyCompactList}
 \item \contentsline{section}{rpp\+::operators\+::details\+::debounce\+\_\+disposable\texorpdfstring{$<$}{<} Observer, Worker, Container \texorpdfstring{$>$}{>}}{\pageref{classrpp_1_1operators_1_1details_1_1debounce__disposable}}{}
+\end{DoxyCompactList}
+\item \contentsline{section}{rpp\+::details\+::enable\+\_\+wrapper\+\_\+from\+\_\+this\texorpdfstring{$<$}{<} refcount\+\_\+disposable \texorpdfstring{$>$}{>}}{\pageref{classrpp_1_1details_1_1enable__wrapper__from__this}}{}
+\begin{DoxyCompactList}
 \item \contentsline{section}{rpp\+::refcount\+\_\+disposable}{\pageref{classrpp_1_1refcount__disposable}}{}
 \begin{DoxyCompactList}
 \item \contentsline{section}{rpp\+::operators\+::details\+::concat\+\_\+state\+\_\+t\texorpdfstring{$<$}{<} TObservable, TObserver \texorpdfstring{$>$}{>}}{\pageref{classrpp_1_1operators_1_1details_1_1concat__state__t}}{}
 \item \contentsline{section}{rpp\+::operators\+::details\+::switch\+\_\+on\+\_\+next\+\_\+state\+\_\+t\texorpdfstring{$<$}{<} TObserver \texorpdfstring{$>$}{>}}{\pageref{classrpp_1_1operators_1_1details_1_1switch__on__next__state__t}}{}
 \end{DoxyCompactList}
-\item \contentsline{section}{rpp\+::subjects\+::details\+::subject\+\_\+state\texorpdfstring{$<$}{<} Type \texorpdfstring{$>$}{>}}{\pageref{classrpp_1_1subjects_1_1details_1_1subject__state}}{}
+\end{DoxyCompactList}
+\item \contentsline{section}{rpp\+::details\+::enable\+\_\+wrapper\+\_\+from\+\_\+this\texorpdfstring{$<$}{<} refocunt\+\_\+disposable\+\_\+inner \texorpdfstring{$>$}{>}}{\pageref{classrpp_1_1details_1_1enable__wrapper__from__this}}{}
+\begin{DoxyCompactList}
+\item \contentsline{section}{rpp\+::details\+::refocunt\+\_\+disposable\+\_\+inner}{\pageref{classrpp_1_1details_1_1refocunt__disposable__inner}}{}
 \end{DoxyCompactList}
 \item \contentsline{section}{rpp\+::details\+::error\+\_\+strategy\texorpdfstring{$<$}{<} Type \texorpdfstring{$>$}{>}}{\pageref{structrpp_1_1details_1_1error__strategy}}{}
 \item \contentsline{section}{rpp\+::schedulers\+::details\+::fake\+\_\+schedulable\+\_\+handler}{\pageref{structrpp_1_1schedulers_1_1details_1_1fake__schedulable__handler}}{}
@@ -112,6 +131,7 @@ This inheritance list is sorted roughly, but not completely, alphabetically\+:\b
 \item \contentsline{section}{rpp\+::composite\+\_\+disposable}{\pageref{classrpp_1_1composite__disposable}}{}
 \begin{DoxyCompactList}
 \item \contentsline{section}{rpp\+::details\+::concat\+\_\+state\+\_\+t\texorpdfstring{$<$}{<} TObserver, Packed\+Container \texorpdfstring{$>$}{>}}{\pageref{structrpp_1_1details_1_1concat__state__t}}{}
+\item \contentsline{section}{rpp\+::details\+::refocunt\+\_\+disposable\+\_\+inner}{\pageref{classrpp_1_1details_1_1refocunt__disposable__inner}}{}
 \item \contentsline{section}{rpp\+::operators\+::details\+::combine\+\_\+latest\+\_\+disposable\texorpdfstring{$<$}{<} Observer, TSelector, Args \texorpdfstring{$>$}{>}}{\pageref{classrpp_1_1operators_1_1details_1_1combine__latest__disposable}}{}
 \item \contentsline{section}{rpp\+::operators\+::details\+::merge\+\_\+disposable\texorpdfstring{$<$}{<} TObserver \texorpdfstring{$>$}{>}}{\pageref{classrpp_1_1operators_1_1details_1_1merge__disposable}}{}
 \item \contentsline{section}{rpp\+::operators\+::details\+::take\+\_\+until\+\_\+disposable\texorpdfstring{$<$}{<} TObserver \texorpdfstring{$>$}{>}}{\pageref{classrpp_1_1operators_1_1details_1_1take__until__disposable}}{}

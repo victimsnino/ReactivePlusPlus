@@ -50,22 +50,22 @@
 \DoxyCodeLine{00046\ }
 \DoxyCodeLine{00047\ \ \ \ \ \textcolor{keyword}{auto}\ get\_observer()\textcolor{keyword}{\ const}}
 \DoxyCodeLine{00048\ \textcolor{keyword}{\ \ \ \ }\{}
-\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classrpp_1_1observer}{rpp::observer<Type,\ observer\_strategy>}}\{observer\_strategy\{m\_state\}\};}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classrpp_1_1observer}{rpp::observer<Type,\ observer\_strategy>}}\{m\_state.lock()\};}
 \DoxyCodeLine{00050\ \ \ \ \ \}}
 \DoxyCodeLine{00051\ }
 \DoxyCodeLine{00052\ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::observer\_of\_type<Type>\ TObs>}
 \DoxyCodeLine{00053\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_subscribe(TObs\&\&\ \mbox{\hyperlink{classrpp_1_1observer}{observer}})\textcolor{keyword}{\ const}}
 \DoxyCodeLine{00054\ \textcolor{keyword}{\ \ \ \ }\{}
-\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ m\_state-\/>on\_subscribe(std::forward<TObs>(\mbox{\hyperlink{classrpp_1_1observer}{observer}}));}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ m\_state.lock()-\/>on\_subscribe(std::forward<TObs>(\mbox{\hyperlink{classrpp_1_1observer}{observer}}));}
 \DoxyCodeLine{00056\ \ \ \ \ \}}
 \DoxyCodeLine{00057\ }
 \DoxyCodeLine{00058\ \ \ \ \ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp::disposable\_wrapper}}\ get\_disposable()\textcolor{keyword}{\ const}}
 \DoxyCodeLine{00059\ \textcolor{keyword}{\ \ \ \ }\{}
-\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp::disposable\_wrapper}}\{m\_state\};}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ m\_state;}
 \DoxyCodeLine{00061\ \ \ \ \ \}}
 \DoxyCodeLine{00062\ }
 \DoxyCodeLine{00063\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00064\ \ \ \ \ std::shared\_ptr<subject\_state<Type>>\ m\_state\ =\ std::make\_shared<subject\_state<Type>>();}
+\DoxyCodeLine{00064\ \ \ \ \ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{disposable\_wrapper\_impl<subject\_state<Type>}}>\ m\_state\ =\ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{disposable\_wrapper\_impl<subject\_state<Type>}}>::make();}
 \DoxyCodeLine{00065\ \};}
 \DoxyCodeLine{00066\ \}\ \textcolor{comment}{//\ namespace\ rpp::subjects::details}}
 \DoxyCodeLine{00067\ }

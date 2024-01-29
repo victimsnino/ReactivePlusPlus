@@ -46,7 +46,7 @@
 \DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ :\ m\_observer\{std::move(\mbox{\hyperlink{classrpp_1_1observer}{observer}})\}}
 \DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ ,\ m\_window\_size\{std::max(\textcolor{keywordtype}{size\_t}\{1\},\ count)\}}
 \DoxyCodeLine{00044\ \ \ \ \ \{}
-\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ m\_observer.set\_upstream(m\_disposble-\/>add\_ref());}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ m\_observer.set\_upstream(m\_disposable-\/>add\_ref());}
 \DoxyCodeLine{00046\ \ \ \ \ \}}
 \DoxyCodeLine{00047\ }
 \DoxyCodeLine{00048\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
@@ -55,9 +55,9 @@
 \DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ need\ to\ send\ new\ subject\ due\ to\ NEW\ item\ appeared\ (we\ avoid\ sending\ new\ subjects\ if\ no\ any\ new\ items)}}
 \DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (m\_items\_in\_current\_window\ ==\ m\_window\_size)}
 \DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrpp_1_1subjects_1_1details_1_1base__subject}{Subject}}\ subject\{m\_disposble\};}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrpp_1_1subjects_1_1details_1_1base__subject}{Subject}}\ subject\{m\_disposable-\/>wrapper\_from\_this()\};}
 \DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \ \ \ \ m\_subject\_data.emplace(subject\_data\{subject.get\_observer(),\ subject.get\_disposable()\});}
-\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \ \ \ \ m\_disposble-\/>add(m\_subject\_data-\/>disposable);}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \ \ \ \ m\_disposable-\/>add(m\_subject\_data-\/>disposable);}
 \DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \ \ \ \ m\_observer.on\_next(subject.get\_observable());}
 \DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \ \ \ \ m\_items\_in\_current\_window\ =\ 0;}
 \DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \}}
@@ -68,7 +68,7 @@
 \DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (++m\_items\_in\_current\_window\ ==\ m\_window\_size)}
 \DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \{}
 \DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \ \ \ \ m\_subject\_data-\/>observer.on\_completed();}
-\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \ \ \ \ m\_disposble-\/>remove(m\_subject\_data-\/>disposable);}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \ \ \ \ m\_disposable-\/>remove(m\_subject\_data-\/>disposable);}
 \DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \ \ \ \ m\_subject\_data.reset();}
 \DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{00070\ \ \ \ \ \}}
@@ -87,12 +87,12 @@
 \DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ m\_observer.on\_completed();}
 \DoxyCodeLine{00084\ \ \ \ \ \}}
 \DoxyCodeLine{00085\ }
-\DoxyCodeLine{00086\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_upstream(\textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{disposable\_wrapper}}\&\ d)\textcolor{keyword}{\ const\ }\{\ m\_disposble-\/>add(d);\ \}}
+\DoxyCodeLine{00086\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_upstream(\textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{disposable\_wrapper}}\&\ d)\textcolor{keyword}{\ const\ }\{\ m\_disposable-\/>add(d);\ \}}
 \DoxyCodeLine{00087\ }
-\DoxyCodeLine{00088\ \ \ \ \ \textcolor{keywordtype}{bool}\ is\_disposed()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ m\_disposble-\/>is\_disposed();\ \}}
+\DoxyCodeLine{00088\ \ \ \ \ \textcolor{keywordtype}{bool}\ is\_disposed()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ m\_disposable-\/>is\_disposed();\ \}}
 \DoxyCodeLine{00089\ }
 \DoxyCodeLine{00090\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00091\ \ \ \ \ std::shared\_ptr<refcount\_disposable>\ m\_disposble\ =\ std::make\_shared<refcount\_disposable>();}
+\DoxyCodeLine{00091\ \ \ \ \ std::shared\_ptr<refcount\_disposable>\ m\_disposable\ =\ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl_a5f8993d06260861f434d20f07c9fa7c2}{disposable\_wrapper\_impl<refcount\_disposable>::make}}().lock();}
 \DoxyCodeLine{00092\ \ \ \ \ RPP\_NO\_UNIQUE\_ADDRESS\ TObserver\ \ \ \ \ \ m\_observer;}
 \DoxyCodeLine{00093\ }
 \DoxyCodeLine{00094\ \ \ \ \ \textcolor{keyword}{struct\ }subject\_data}

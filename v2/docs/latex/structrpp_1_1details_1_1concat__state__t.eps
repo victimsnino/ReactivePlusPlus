@@ -5,7 +5,7 @@
 %%For: 
 %Magnification: 1.00
 %%Orientation: Portrait
-%%BoundingBox: 0 0 500 87.565674
+%%BoundingBox: 0 0 500 175.131348
 %%Pages: 0
 %%BeginSetup
 %%EndSetup
@@ -19,13 +19,13 @@
 /marginwidth 10 def
 /distx 20 def
 /disty 40 def
-/boundaspect 5.710000 def  % aspect ratio of the BoundingBox (width/height)
+/boundaspect 2.855000 def  % aspect ratio of the BoundingBox (width/height)
 /boundx 500 def
 /boundy boundx boundaspect div def
 /xspacing 0 def
 /yspacing 0 def
 /rows 5 def
-/cols 2 def
+/cols 1 def
 /scalefactor 0 def
 /boxfont /Times-Roman findfont fontheight scalefont def
 
@@ -175,7 +175,6 @@ boxfont setfont
 1 boundaspect scale
 (rpp::details::concat_state_t< TObserver, PackedContainer >) cw
 (rpp::composite_disposable) cw
-(std::enable_shared_from_this< concat_state_t< TObserver, PackedContainer > >) cw
 (rpp::composite_disposable_impl< rpp::details::disposables::dynamic_disposables_container< 0 > >) cw
 (rpp::interface_composite_disposable) cw
 (rpp::interface_disposable) cw
@@ -190,9 +189,8 @@ boundx scalefactor div boundy scalefactor div scale
 
 % ----- classes -----
 
- (rpp::details::concat_state_t< TObserver, PackedContainer >) 0.500000 0.000000 box
+ (rpp::details::concat_state_t< TObserver, PackedContainer >) 0.000000 0.000000 box
  (rpp::composite_disposable) 0.000000 1.000000 box
- (std::enable_shared_from_this< concat_state_t< TObserver, PackedContainer > >) 1.000000 1.000000 box
  (rpp::composite_disposable_impl< rpp::details::disposables::dynamic_disposables_container< 0 > >) 0.000000 2.000000 box
  (rpp::interface_composite_disposable) 0.000000 3.000000 box
  (rpp::interface_disposable) 0.000000 4.000000 box
@@ -200,15 +198,11 @@ boundx scalefactor div boundy scalefactor div scale
 % ----- relations -----
 
 solid
-0 0.500000 0.000000 out
-solid
-0.000000 1.000000 1.000000 conn
+0 0.000000 0.000000 out
 solid
 1 0.000000 1.000000 in
 solid
 0 0.000000 1.000000 out
-solid
-1 1.000000 1.000000 in
 solid
 1 0.000000 2.000000 in
 solid

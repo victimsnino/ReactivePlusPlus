@@ -124,9 +124,6 @@ using&#160;</td><td class="memItemRight" valign="bottom"><b>subject_observer</b>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ac5438276a7aae362a4c03d08ff749d51" id="r_ac5438276a7aae362a4c03d08ff749d51"><td class="memItemLeft" align="right" valign="top"><a id="ac5438276a7aae362a4c03d08ff749d51" name="ac5438276a7aae362a4c03d08ff749d51"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>RPP_CALL_DURING_CONSTRUCTION</b> ({ <a class="el" href="classrpp_1_1details_1_1observer__impl.html#a3ae7822fe5f962a69ee190af8ff8f0e2">observer.set_upstream</a>(disposable-&gt;add_ref());})</td></tr>
-<tr class="separator:ac5438276a7aae362a4c03d08ff749d51"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1bc7c1230872bb3073b90b97372f111a" id="r_a1bc7c1230872bb3073b90b97372f111a"><td class="memItemLeft" align="right" valign="top"><a id="a1bc7c1230872bb3073b90b97372f111a" name="a1bc7c1230872bb3073b90b97372f111a"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>set_upstream</b> (const <a class="el" href="classrpp_1_1disposable__wrapper__impl.html">rpp::disposable_wrapper</a> &amp;d) const</td></tr>
 <tr class="separator:a1bc7c1230872bb3073b90b97372f111a"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -161,10 +158,33 @@ RPP_NO_UNIQUE_ADDRESS KeyComparator&#160;</td><td class="memItemRight" valign="b
 <tr class="memitem:a68c6d3550b556b8e42b4b647304a7db5" id="r_a68c6d3550b556b8e42b4b647304a7db5"><td class="memItemLeft" align="right" valign="top"><a id="a68c6d3550b556b8e42b4b647304a7db5" name="a68c6d3550b556b8e42b4b647304a7db5"></a>
 std::map&lt; TKey, subject_observer, KeyComparator &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>key_to_observer</b> {}</td></tr>
 <tr class="separator:a68c6d3550b556b8e42b4b647304a7db5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a574e578d126bb2dc9eb9d52101f1c513" id="r_a574e578d126bb2dc9eb9d52101f1c513"><td class="memItemLeft" align="right" valign="top"><a id="a574e578d126bb2dc9eb9d52101f1c513" name="a574e578d126bb2dc9eb9d52101f1c513"></a>
-std::shared_ptr&lt; <a class="el" href="classrpp_1_1refcount__disposable.html">refcount_disposable</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>disposable</b> = std::make_shared&lt;<a class="el" href="classrpp_1_1refcount__disposable.html">refcount_disposable</a>&gt;()</td></tr>
+<tr class="memitem:a574e578d126bb2dc9eb9d52101f1c513" id="r_a574e578d126bb2dc9eb9d52101f1c513"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="classrpp_1_1refcount__disposable.html">refcount_disposable</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a574e578d126bb2dc9eb9d52101f1c513">disposable</a></td></tr>
 <tr class="separator:a574e578d126bb2dc9eb9d52101f1c513"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a574e578d126bb2dc9eb9d52101f1c513" name="a574e578d126bb2dc9eb9d52101f1c513"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a574e578d126bb2dc9eb9d52101f1c513">&#9670;&#160;</a></span>disposable</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;rpp::constraint::decayed_type T, <a class="el" href="conceptrpp_1_1constraint_1_1observer.html">rpp::constraint::observer</a> TObserver, rpp::constraint::decayed_type KeySelector, rpp::constraint::decayed_type ValueSelector, rpp::constraint::decayed_type KeyComparator&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">std::shared_ptr&lt;<a class="el" href="classrpp_1_1refcount__disposable.html">refcount_disposable</a>&gt; <a class="el" href="structrpp_1_1operators_1_1details_1_1group__by__observer__strategy.html">rpp::operators::details::group_by_observer_strategy</a>&lt; T, TObserver, KeySelector, ValueSelector, KeyComparator &gt;::disposable</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">= [&amp;]</div>
+<div class="line">    {</div>
+<div class="line">        <span class="keyword">auto</span> ptr = <a class="code hl_function" href="classrpp_1_1disposable__wrapper__impl.html#a5f8993d06260861f434d20f07c9fa7c2">disposable_wrapper_impl&lt;refcount_disposable&gt;::make</a>().lock();</div>
+<div class="line">        observer.set_upstream(ptr-&gt;add_ref());</div>
+<div class="line">        <span class="keywordflow">return</span> ptr;</div>
+<div class="line">    }()</div>
+<div class="ttc" id="aclassrpp_1_1disposable__wrapper__impl_html_a5f8993d06260861f434d20f07c9fa7c2"><div class="ttname"><a href="classrpp_1_1disposable__wrapper__impl.html#a5f8993d06260861f434d20f07c9fa7c2">rpp::disposable_wrapper_impl::make</a></div><div class="ttdeci">static disposable_wrapper_impl make(TArgs &amp;&amp;...args)</div><div class="ttdoc">Way to create disposable_wrapper. Passed TTarget type can be any type derived from TDisposable.</div><div class="ttdef"><b>Definition</b> disposable_wrapper.hpp:131</div></div>
+</div><!-- fragment -->
+</div>
+</div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
 <li>src/rpp/rpp/operators/<a class="el" href="group__by_8hpp_source.html">group_by.hpp</a></li>
 </ul>

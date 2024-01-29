@@ -2,6 +2,7 @@ var hierarchy =
 [
     [ "rpp::operators::details::as_blocking_t", "structrpp_1_1operators_1_1details_1_1as__blocking__t.html", null ],
     [ "rpp::details::observers::atomic_bool", "classrpp_1_1details_1_1observers_1_1atomic__bool.html", null ],
+    [ "rpp::details::auto_dispose_wrapper< TDisposable >", "classrpp_1_1details_1_1auto__dispose__wrapper.html", null ],
     [ "rpp::subjects::details::base_subject< T, Strategy >", "classrpp_1_1subjects_1_1details_1_1base__subject.html", null ],
     [ "rpp::subjects::details::base_subject< Type, details::publish_strategy< Type > >", "classrpp_1_1subjects_1_1details_1_1base__subject.html", [
       [ "rpp::subjects::publish_subject< T >", "classrpp_1_1subjects_1_1publish__subject.html", null ],
@@ -47,9 +48,16 @@ var hierarchy =
     [ "rpp::operators::details::delay_observer_strategy< Observer, Worker, Container, ClearOnError >", "structrpp_1_1operators_1_1details_1_1delay__observer__strategy.html", null ],
     [ "rpp::operators::details::delay_t< Scheduler, ClearOnError >", "structrpp_1_1operators_1_1details_1_1delay__t.html", null ],
     [ "rpp::schedulers::delay_to", "structrpp_1_1schedulers_1_1delay__to.html", null ],
-    [ "rpp::disposable_wrapper_impl< TDisposable >", "classrpp_1_1disposable__wrapper__impl.html", null ],
-    [ "rpp::disposable_wrapper_impl< interface_composite_disposable >", "classrpp_1_1disposable__wrapper__impl.html", null ],
-    [ "rpp::disposable_wrapper_impl< interface_disposable >", "classrpp_1_1disposable__wrapper__impl.html", null ],
+    [ "rpp::details::disposable_wrapper_base", "classrpp_1_1details_1_1disposable__wrapper__base.html", [
+      [ "rpp::disposable_wrapper_impl< interface_composite_disposable >", "classrpp_1_1disposable__wrapper__impl.html", null ],
+      [ "rpp::disposable_wrapper_impl< rpp::refcount_disposable >", "classrpp_1_1disposable__wrapper__impl.html", null ],
+      [ "rpp::disposable_wrapper_impl< rpp::subjects::details::subject_state< Type > >", "classrpp_1_1disposable__wrapper__impl.html", null ],
+      [ "rpp::disposable_wrapper_impl< interface_disposable >", "classrpp_1_1disposable__wrapper__impl.html", null ],
+      [ "rpp::disposable_wrapper_impl< disposable >", "classrpp_1_1disposable__wrapper__impl.html", null ],
+      [ "rpp::disposable_wrapper_impl< replay_state >", "classrpp_1_1disposable__wrapper__impl.html", null ],
+      [ "rpp::disposable_wrapper_impl< serialized_state >", "classrpp_1_1disposable__wrapper__impl.html", null ],
+      [ "rpp::disposable_wrapper_impl< TDisposable >", "classrpp_1_1disposable__wrapper__impl.html", null ]
+    ] ],
     [ "rpp::subjects::details::disposed", "structrpp_1_1subjects_1_1details_1_1disposed.html", null ],
     [ "rpp::operators::details::distinct_until_changed_observer_strategy< Type, TObserver, EqualityFn >", "structrpp_1_1operators_1_1details_1_1distinct__until__changed__observer__strategy.html", null ],
     [ "rpp::details::observables::dynamic_disposable_strategy_selector< PreallocatedCount, Mode >", "structrpp_1_1details_1_1observables_1_1dynamic__disposable__strategy__selector.html", null ],
@@ -61,13 +69,20 @@ var hierarchy =
     [ "rpp::operators::details::emission< T >", "structrpp_1_1operators_1_1details_1_1emission.html", null ],
     [ "rpp::details::empty_strategy< Type >", "structrpp_1_1details_1_1empty__strategy.html", null ],
     [ "std::enable_shared_from_this", null, [
-      [ "rpp::details::concat_state_t< TObserver, PackedContainer >", "structrpp_1_1details_1_1concat__state__t.html", null ],
-      [ "rpp::operators::details::debounce_disposable< Observer, Worker, Container >", "classrpp_1_1operators_1_1details_1_1debounce__disposable.html", null ],
+      [ "rpp::subjects::details::subject_state< Type >", "classrpp_1_1subjects_1_1details_1_1subject__state.html", null ]
+    ] ],
+    [ "rpp::details::enable_wrapper_from_this< TStrategy >", "classrpp_1_1details_1_1enable__wrapper__from__this.html", null ],
+    [ "rpp::details::enable_wrapper_from_this< debounce_disposable< Observer, Worker, Container > >", "classrpp_1_1details_1_1enable__wrapper__from__this.html", [
+      [ "rpp::operators::details::debounce_disposable< Observer, Worker, Container >", "classrpp_1_1operators_1_1details_1_1debounce__disposable.html", null ]
+    ] ],
+    [ "rpp::details::enable_wrapper_from_this< refcount_disposable >", "classrpp_1_1details_1_1enable__wrapper__from__this.html", [
       [ "rpp::refcount_disposable", "classrpp_1_1refcount__disposable.html", [
         [ "rpp::operators::details::concat_state_t< TObservable, TObserver >", "classrpp_1_1operators_1_1details_1_1concat__state__t.html", null ],
         [ "rpp::operators::details::switch_on_next_state_t< TObserver >", "classrpp_1_1operators_1_1details_1_1switch__on__next__state__t.html", null ]
-      ] ],
-      [ "rpp::subjects::details::subject_state< Type >", "classrpp_1_1subjects_1_1details_1_1subject__state.html", null ]
+      ] ]
+    ] ],
+    [ "rpp::details::enable_wrapper_from_this< refocunt_disposable_inner >", "classrpp_1_1details_1_1enable__wrapper__from__this.html", [
+      [ "rpp::details::refocunt_disposable_inner", "classrpp_1_1details_1_1refocunt__disposable__inner.html", null ]
     ] ],
     [ "rpp::details::error_strategy< Type >", "structrpp_1_1details_1_1error__strategy.html", null ],
     [ "rpp::schedulers::details::fake_schedulable_handler", "structrpp_1_1schedulers_1_1details_1_1fake__schedulable__handler.html", null ],
@@ -100,6 +115,7 @@ var hierarchy =
         [ "rpp::composite_disposable_impl< rpp::details::disposables::dynamic_disposables_container< 0 > >", "classrpp_1_1composite__disposable__impl.html", [
           [ "rpp::composite_disposable", "classrpp_1_1composite__disposable.html", [
             [ "rpp::details::concat_state_t< TObserver, PackedContainer >", "structrpp_1_1details_1_1concat__state__t.html", null ],
+            [ "rpp::details::refocunt_disposable_inner", "classrpp_1_1details_1_1refocunt__disposable__inner.html", null ],
             [ "rpp::operators::details::combine_latest_disposable< Observer, TSelector, Args >", "classrpp_1_1operators_1_1details_1_1combine__latest__disposable.html", null ],
             [ "rpp::operators::details::merge_disposable< TObserver >", "classrpp_1_1operators_1_1details_1_1merge__disposable.html", null ],
             [ "rpp::operators::details::take_until_disposable< TObserver >", "classrpp_1_1operators_1_1details_1_1take__until__disposable.html", null ],

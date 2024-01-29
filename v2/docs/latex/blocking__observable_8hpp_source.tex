@@ -67,26 +67,27 @@
 \DoxyCodeLine{00063\ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::observer\_strategy<Type>\ ObserverStrategy>}
 \DoxyCodeLine{00064\ \ \ \ \ \textcolor{keywordtype}{void}\ subscribe(\mbox{\hyperlink{classrpp_1_1observer}{observer<Type,\ ObserverStrategy>}}\&\&\ obs)\textcolor{keyword}{\ const}}
 \DoxyCodeLine{00065\ \textcolor{keyword}{\ \ \ \ }\{}
-\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ d\ =\ std::make\_shared<blocking\_disposble>();}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ d\ =\ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl_a5f8993d06260861f434d20f07c9fa7c2}{disposable\_wrapper\_impl<blocking\_disposble>::make}}();}
 \DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ obs.set\_upstream(d);}
 \DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ m\_original.subscribe(std::move(obs));}
 \DoxyCodeLine{00069\ }
-\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!d-\/>is\_disposed())}
-\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \ \ \ \ d-\/>wait();}
-\DoxyCodeLine{00072\ \ \ \ \ \}}
-\DoxyCodeLine{00073\ }
-\DoxyCodeLine{00074\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00075\ \ \ \ \ RPP\_NO\_UNIQUE\_ADDRESS\ \mbox{\hyperlink{classrpp_1_1observable}{observable<Type,\ Strategy>}}\ m\_original;}
-\DoxyCodeLine{00076\ \};}
-\DoxyCodeLine{00077\ \}}
-\DoxyCodeLine{00078\ }
-\DoxyCodeLine{00079\ \textcolor{keyword}{namespace\ }rpp}
-\DoxyCodeLine{00080\ \{}
-\DoxyCodeLine{00089\ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type\ Type,\ constra\textcolor{keywordtype}{int}::observable\_strategy<Type>\ Strategy>}
-\DoxyCodeLine{00090\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1blocking__observable}{blocking\_observable}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classrpp_1_1observable}{observable}}<Type,\ details::observables::blocking\_strategy<Type,\ Strategy>>\ \{}
-\DoxyCodeLine{00091\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00092\ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{classrpp_1_1observable}{observable}}<Type,\ \mbox{\hyperlink{classrpp_1_1details_1_1observables_1_1blocking__strategy}{details::observables::blocking\_strategy<Type,\ Strategy>}}>::observable;}
-\DoxyCodeLine{00093\ \};}
-\DoxyCodeLine{00094\ \}}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!d.is\_disposed())}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ locked\ =\ d.lock())}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ locked-\/>wait();}
+\DoxyCodeLine{00073\ \ \ \ \ \}}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00076\ \ \ \ \ RPP\_NO\_UNIQUE\_ADDRESS\ \mbox{\hyperlink{classrpp_1_1observable}{observable<Type,\ Strategy>}}\ m\_original;}
+\DoxyCodeLine{00077\ \};}
+\DoxyCodeLine{00078\ \}}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00080\ \textcolor{keyword}{namespace\ }rpp}
+\DoxyCodeLine{00081\ \{}
+\DoxyCodeLine{00090\ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type\ Type,\ constra\textcolor{keywordtype}{int}::observable\_strategy<Type>\ Strategy>}
+\DoxyCodeLine{00091\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1blocking__observable}{blocking\_observable}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classrpp_1_1observable}{observable}}<Type,\ details::observables::blocking\_strategy<Type,\ Strategy>>\ \{}
+\DoxyCodeLine{00092\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00093\ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{classrpp_1_1observable}{observable}}<Type,\ \mbox{\hyperlink{classrpp_1_1details_1_1observables_1_1blocking__strategy}{details::observables::blocking\_strategy<Type,\ Strategy>}}>::observable;}
+\DoxyCodeLine{00094\ \};}
+\DoxyCodeLine{00095\ \}}
 
 \end{DoxyCode}

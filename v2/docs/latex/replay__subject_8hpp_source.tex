@@ -146,17 +146,17 @@
 \DoxyCodeLine{00142\ }
 \DoxyCodeLine{00143\ \textcolor{keyword}{public}:}
 \DoxyCodeLine{00144\ \ \ \ \ \mbox{\hyperlink{classrpp_1_1subjects_1_1details_1_1replay__strategy}{replay\_strategy}}()}
-\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ :\ m\_state(std::make\_shared<replay\_state>(std::nullopt,\ std::nullopt))}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ :\ m\_state(\mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{disposable\_wrapper\_impl<replay\_state>::make}}(std::nullopt,\ std::nullopt))}
 \DoxyCodeLine{00146\ \ \ \ \ \{}
 \DoxyCodeLine{00147\ \ \ \ \ \}}
 \DoxyCodeLine{00148\ }
 \DoxyCodeLine{00149\ \ \ \ \ \mbox{\hyperlink{classrpp_1_1subjects_1_1details_1_1replay__strategy}{replay\_strategy}}(\textcolor{keywordtype}{size\_t}\ count)}
-\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ :\ m\_state\{std::make\_shared<replay\_state>(std::max<size\_t>(1,\ count),\ std::nullopt)\}}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ :\ m\_state\{\mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl_a5f8993d06260861f434d20f07c9fa7c2}{disposable\_wrapper\_impl<replay\_state>::make}}(std::max<size\_t>(1,\ count),\ std::nullopt)\}}
 \DoxyCodeLine{00151\ \ \ \ \ \{}
 \DoxyCodeLine{00152\ \ \ \ \ \}}
 \DoxyCodeLine{00153\ }
 \DoxyCodeLine{00154\ \ \ \ \ \mbox{\hyperlink{classrpp_1_1subjects_1_1details_1_1replay__strategy}{replay\_strategy}}(\textcolor{keywordtype}{size\_t}\ count,\ rpp::schedulers::duration\ duration)}
-\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ :\ m\_state\{std::make\_shared<replay\_state>(std::max<size\_t>(1,\ count),\ duration)\}}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ :\ m\_state\{\mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl_a5f8993d06260861f434d20f07c9fa7c2}{disposable\_wrapper\_impl<replay\_state>::make}}(std::max<size\_t>(1,\ count),\ duration)\}}
 \DoxyCodeLine{00156\ \ \ \ \ \{}
 \DoxyCodeLine{00157\ \ \ \ \ \}}
 \DoxyCodeLine{00158\ }
@@ -164,48 +164,51 @@
 \DoxyCodeLine{00160\ }
 \DoxyCodeLine{00161\ \ \ \ \ \textcolor{keyword}{auto}\ get\_observer()\textcolor{keyword}{\ const}}
 \DoxyCodeLine{00162\ \textcolor{keyword}{\ \ \ \ }\{}
-\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classrpp_1_1observer}{rpp::observer<Type,\ observer\_strategy>}}\{observer\_strategy\{m\_state\}\};}
+\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classrpp_1_1observer}{rpp::observer<Type,\ observer\_strategy>}}\{m\_state.lock()\};}
 \DoxyCodeLine{00164\ \ \ \ \ \}}
 \DoxyCodeLine{00165\ }
 \DoxyCodeLine{00166\ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::observer\_of\_type<Type>\ TObs>}
 \DoxyCodeLine{00167\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_subscribe(TObs\&\&\ \mbox{\hyperlink{classrpp_1_1observer}{observer}})\textcolor{keyword}{\ const}}
 \DoxyCodeLine{00168\ \textcolor{keyword}{\ \ \ \ }\{}
-\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ \ \ \ \ std::unique\_lock\ lock\{m\_state-\/>list\_mutex\};}
-\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ \ \ \ \ m\_state-\/>collect\_duration();}
-\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ value\ :\ m\_state-\/>values)}
-\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00174\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrpp_1_1observer}{observer}}.\mbox{\hyperlink{classrpp_1_1details_1_1observer__impl_a14747a5260ecc183a6d0f1adafee4f68}{on\_next}}(value.first);}
-\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00177\ \ \ \ \ \ \ \ \ m\_state-\/>on\_subscribe(std::forward<TObs>(\mbox{\hyperlink{classrpp_1_1observer}{observer}}));}
-\DoxyCodeLine{00178\ \ \ \ \ \}}
-\DoxyCodeLine{00179\ }
-\DoxyCodeLine{00180\ \ \ \ \ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp::disposable\_wrapper}}\ get\_disposable()\textcolor{keyword}{\ const}}
-\DoxyCodeLine{00181\ \textcolor{keyword}{\ \ \ \ }\{}
-\DoxyCodeLine{00182\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp::disposable\_wrapper}}\{m\_state\};}
-\DoxyCodeLine{00183\ \ \ \ \ \}}
-\DoxyCodeLine{00184\ }
-\DoxyCodeLine{00185\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00186\ \ \ \ \ std::shared\_ptr<replay\_state>\ m\_state\ =\ std::make\_shared<replay\_state>();}
-\DoxyCodeLine{00187\ \};}
-\DoxyCodeLine{00188\ \}}
-\DoxyCodeLine{00189\ }
-\DoxyCodeLine{00190\ \textcolor{keyword}{namespace\ }rpp::subjects}
-\DoxyCodeLine{00191\ \{}
-\DoxyCodeLine{00203\ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type\ Type>}
-\DoxyCodeLine{00204\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1subjects_1_1replay__subject}{replay\_subject}}\ final\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classrpp_1_1subjects_1_1details_1_1base__subject}{details::base\_subject}}<Type,\ details::replay\_strategy<Type,\ false>>}
-\DoxyCodeLine{00205\ \{}
-\DoxyCodeLine{00206\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00207\ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{classrpp_1_1subjects_1_1details_1_1base__subject}{details::base\_subject}}<Type,\ \mbox{\hyperlink{classrpp_1_1subjects_1_1details_1_1replay__strategy}{details::replay\_strategy<Type,\ false>}}>::base\_subject;}
-\DoxyCodeLine{00208\ \};}
-\DoxyCodeLine{00209\ }
-\DoxyCodeLine{00216\ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type\ Type>}
-\DoxyCodeLine{00217\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1subjects_1_1serialized__replay__subject}{serialized\_replay\_subject}}\ final\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classrpp_1_1subjects_1_1details_1_1base__subject}{details::base\_subject}}<Type,\ details::replay\_strategy<Type,\ true>>}
-\DoxyCodeLine{00218\ \{}
-\DoxyCodeLine{00219\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00220\ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{classrpp_1_1subjects_1_1details_1_1base__subject}{details::base\_subject}}<Type,\ \mbox{\hyperlink{classrpp_1_1subjects_1_1details_1_1replay__strategy}{details::replay\_strategy<Type,\ true>}}>::base\_subject;}
-\DoxyCodeLine{00221\ \};}
-\DoxyCodeLine{00222\ \}}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ locked\ =\ m\_state.lock())}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::unique\_lock\ lock\{locked-\/>list\_mutex\};}
+\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ locked-\/>collect\_duration();}
+\DoxyCodeLine{00174\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ value\ :\ locked-\/>values)}
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrpp_1_1observer}{observer}}.\mbox{\hyperlink{classrpp_1_1details_1_1observer__impl_a14747a5260ecc183a6d0f1adafee4f68}{on\_next}}(value.first);}
+\DoxyCodeLine{00177\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00178\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00179\ \ \ \ \ \ \ \ \ \ \ \ \ locked-\/>on\_subscribe(std::forward<TObs>(\mbox{\hyperlink{classrpp_1_1observer}{observer}}));}
+\DoxyCodeLine{00180\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00181\ \ \ \ \ \}}
+\DoxyCodeLine{00182\ }
+\DoxyCodeLine{00183\ \ \ \ \ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp::disposable\_wrapper}}\ get\_disposable()\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00184\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00185\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ m\_state;}
+\DoxyCodeLine{00186\ \ \ \ \ \}}
+\DoxyCodeLine{00187\ }
+\DoxyCodeLine{00188\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00189\ \ \ \ \ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{disposable\_wrapper\_impl<replay\_state>}}\ m\_state;}
+\DoxyCodeLine{00190\ \};}
+\DoxyCodeLine{00191\ \}}
+\DoxyCodeLine{00192\ }
+\DoxyCodeLine{00193\ \textcolor{keyword}{namespace\ }rpp::subjects}
+\DoxyCodeLine{00194\ \{}
+\DoxyCodeLine{00206\ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type\ Type>}
+\DoxyCodeLine{00207\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1subjects_1_1replay__subject}{replay\_subject}}\ final\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classrpp_1_1subjects_1_1details_1_1base__subject}{details::base\_subject}}<Type,\ details::replay\_strategy<Type,\ false>>}
+\DoxyCodeLine{00208\ \{}
+\DoxyCodeLine{00209\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00210\ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{classrpp_1_1subjects_1_1details_1_1base__subject}{details::base\_subject}}<Type,\ \mbox{\hyperlink{classrpp_1_1subjects_1_1details_1_1replay__strategy}{details::replay\_strategy<Type,\ false>}}>::base\_subject;}
+\DoxyCodeLine{00211\ \};}
+\DoxyCodeLine{00212\ }
+\DoxyCodeLine{00219\ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type\ Type>}
+\DoxyCodeLine{00220\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1subjects_1_1serialized__replay__subject}{serialized\_replay\_subject}}\ final\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classrpp_1_1subjects_1_1details_1_1base__subject}{details::base\_subject}}<Type,\ details::replay\_strategy<Type,\ true>>}
+\DoxyCodeLine{00221\ \{}
+\DoxyCodeLine{00222\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00223\ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{classrpp_1_1subjects_1_1details_1_1base__subject}{details::base\_subject}}<Type,\ \mbox{\hyperlink{classrpp_1_1subjects_1_1details_1_1replay__strategy}{details::replay\_strategy<Type,\ true>}}>::base\_subject;}
+\DoxyCodeLine{00224\ \};}
+\DoxyCodeLine{00225\ \}}
 
 \end{DoxyCode}

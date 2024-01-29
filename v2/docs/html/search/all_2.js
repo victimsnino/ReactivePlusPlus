@@ -20,7 +20,7 @@ var searchData=
   ['concat_5ft_17',['concat_t',['../structrpp_1_1operators_1_1details_1_1concat__t.html',1,'rpp::operators::details']]],
   ['concepts_20of_20reactive_20programming_18',['Core concepts of Reactive Programming',['../md_docs_2readme.html#autotoc_md3',1,'']]],
   ['conditional_20operators_19',['Conditional Operators',['../group__conditional__operators.html',1,'']]],
-  ['connect_20',['connect',['../classrpp_1_1connectable__observable.html#a1b4150a5dd02eaf398a9cca269dac07e',1,'rpp::connectable_observable']]],
+  ['connect_20',['connect',['../classrpp_1_1connectable__observable.html#a0f3b2053fc0dc9a2bf7e6fe1f040b2f4',1,'rpp::connectable_observable']]],
   ['connectable_20operators_21',['Connectable Operators',['../group__connectable__operators.html',1,'']]],
   ['connectable_5fobservable_22',['connectable_observable',['../classrpp_1_1connectable__observable.html',1,'rpp']]],
   ['contract_23',['Observable contract',['../md_docs_2readme.html#autotoc_md4',1,'']]],

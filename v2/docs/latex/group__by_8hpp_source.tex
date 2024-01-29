@@ -79,12 +79,12 @@
 \DoxyCodeLine{00075\ \ \ \ \ \textcolor{keyword}{using\ }subject\_observer\ =\ \textcolor{keyword}{decltype}(std::declval<subjects::publish\_subject<Type>>().get\_observer());}
 \DoxyCodeLine{00076\ }
 \DoxyCodeLine{00077\ \ \ \ \ \textcolor{keyword}{mutable}\ std::map<TKey,\ subject\_observer,\ KeyComparator>\ key\_to\_observer\{\};}
-\DoxyCodeLine{00078\ \ \ \ \ std::shared\_ptr<refcount\_disposable>\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ disposable\ =\ std::make\_shared<refcount\_disposable>();}
-\DoxyCodeLine{00079\ }
-\DoxyCodeLine{00080\ \ \ \ \ RPP\_CALL\_DURING\_CONSTRUCTION(}
-\DoxyCodeLine{00081\ \ \ \ \ \{}
-\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrpp_1_1observer}{observer}}.\mbox{\hyperlink{classrpp_1_1details_1_1observer__impl_a3ae7822fe5f962a69ee190af8ff8f0e2}{set\_upstream}}(disposable-\/>add\_ref());}
-\DoxyCodeLine{00083\ \ \ \ \ \});}
+\DoxyCodeLine{00078\ \ \ \ \ std::shared\_ptr<refcount\_disposable>\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ disposable\ =\ [\&]}
+\DoxyCodeLine{00079\ \ \ \ \ \{}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ ptr\ =\ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl_a5f8993d06260861f434d20f07c9fa7c2}{disposable\_wrapper\_impl<refcount\_disposable>::make}}().lock();}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrpp_1_1observer}{observer}}.\mbox{\hyperlink{classrpp_1_1details_1_1observer__impl_a3ae7822fe5f962a69ee190af8ff8f0e2}{set\_upstream}}(ptr-\/>add\_ref());}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ptr;}
+\DoxyCodeLine{00083\ \ \ \ \ \}();}
 \DoxyCodeLine{00084\ }
 \DoxyCodeLine{00085\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_upstream(\textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp::disposable\_wrapper}}\&\ d)\textcolor{keyword}{\ const}}
 \DoxyCodeLine{00086\ \textcolor{keyword}{\ \ \ \ }\{}
@@ -134,7 +134,7 @@
 \DoxyCodeLine{00130\ }
 \DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1subjects_1_1publish__subject}{subjects::publish\_subject<Type>}}\ subj\{\};}
 \DoxyCodeLine{00132\ }
-\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ disposable-\/>add(rpp::disposable\_wrapper::from\_weak(subj.get\_disposable().get\_original()));}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ disposable-\/>add(subj.get\_disposable().as\_weak());}
 \DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ obs.on\_next(\mbox{\hyperlink{classrpp_1_1grouped__observable}{rpp::grouped\_observable\_group\_by<TKey,\ Type>}}\{}
 \DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \ \ \ \ key,}
 \DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1group__by__observable__strategy}{group\_by\_observable\_strategy<Type>}}\{subj,\ disposable\}}

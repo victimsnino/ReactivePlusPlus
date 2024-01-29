@@ -18,9 +18,6 @@ using {\bfseries subject\+\_\+observer} = decltype(std\+::declval$<$\mbox{\hyper
 \doxysubsubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\Hypertarget{structrpp_1_1operators_1_1details_1_1group__by__observer__strategy_ac5438276a7aae362a4c03d08ff749d51}\label{structrpp_1_1operators_1_1details_1_1group__by__observer__strategy_ac5438276a7aae362a4c03d08ff749d51} 
-{\bfseries RPP\+\_\+\+CALL\+\_\+\+DURING\+\_\+\+CONSTRUCTION} (\{ \mbox{\hyperlink{classrpp_1_1details_1_1observer__impl_a3ae7822fe5f962a69ee190af8ff8f0e2}{observer.\+set\+\_\+upstream}}(disposable-\/$>$add\+\_\+ref());\})
-\item 
 \Hypertarget{structrpp_1_1operators_1_1details_1_1group__by__observer__strategy_a1bc7c1230872bb3073b90b97372f111a}\label{structrpp_1_1operators_1_1details_1_1group__by__observer__strategy_a1bc7c1230872bb3073b90b97372f111a} 
 void {\bfseries set\+\_\+upstream} (const \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp\+::disposable\+\_\+wrapper}} \&d) const
 \item 
@@ -54,9 +51,28 @@ RPP\+\_\+\+NO\+\_\+\+UNIQUE\+\_\+\+ADDRESS Key\+Comparator {\bfseries comparator
 \Hypertarget{structrpp_1_1operators_1_1details_1_1group__by__observer__strategy_a68c6d3550b556b8e42b4b647304a7db5}\label{structrpp_1_1operators_1_1details_1_1group__by__observer__strategy_a68c6d3550b556b8e42b4b647304a7db5} 
 std\+::map$<$ TKey, subject\+\_\+observer, Key\+Comparator $>$ {\bfseries key\+\_\+to\+\_\+observer} \{\}
 \item 
-\Hypertarget{structrpp_1_1operators_1_1details_1_1group__by__observer__strategy_a574e578d126bb2dc9eb9d52101f1c513}\label{structrpp_1_1operators_1_1details_1_1group__by__observer__strategy_a574e578d126bb2dc9eb9d52101f1c513} 
-std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classrpp_1_1refcount__disposable}{refcount\+\_\+disposable}} $>$ {\bfseries disposable} = std\+::make\+\_\+shared$<$\mbox{\hyperlink{classrpp_1_1refcount__disposable}{refcount\+\_\+disposable}}$>$()
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classrpp_1_1refcount__disposable}{refcount\+\_\+disposable}} $>$ \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1group__by__observer__strategy_a574e578d126bb2dc9eb9d52101f1c513}{disposable}}
 \end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{structrpp_1_1operators_1_1details_1_1group__by__observer__strategy_a574e578d126bb2dc9eb9d52101f1c513}\label{structrpp_1_1operators_1_1details_1_1group__by__observer__strategy_a574e578d126bb2dc9eb9d52101f1c513} 
+\index{rpp::operators::details::group\_by\_observer\_strategy$<$ T, TObserver, KeySelector, ValueSelector, KeyComparator $>$@{rpp::operators::details::group\_by\_observer\_strategy$<$ T, TObserver, KeySelector, ValueSelector, KeyComparator $>$}!disposable@{disposable}}
+\index{disposable@{disposable}!rpp::operators::details::group\_by\_observer\_strategy$<$ T, TObserver, KeySelector, ValueSelector, KeyComparator $>$@{rpp::operators::details::group\_by\_observer\_strategy$<$ T, TObserver, KeySelector, ValueSelector, KeyComparator $>$}}
+\doxysubsubsection{\texorpdfstring{disposable}{disposable}}
+{\footnotesize\ttfamily template$<$rpp\+::constraint\+::decayed\+\_\+type T, \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer}{rpp\+::constraint\+::observer}} TObserver, rpp\+::constraint\+::decayed\+\_\+type Key\+Selector, rpp\+::constraint\+::decayed\+\_\+type Value\+Selector, rpp\+::constraint\+::decayed\+\_\+type Key\+Comparator$>$ \\
+std\+::shared\+\_\+ptr$<$\mbox{\hyperlink{classrpp_1_1refcount__disposable}{refcount\+\_\+disposable}}$>$ \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1group__by__observer__strategy}{rpp\+::operators\+::details\+::group\+\_\+by\+\_\+observer\+\_\+strategy}}$<$ T, TObserver, Key\+Selector, Value\+Selector, Key\+Comparator $>$\+::disposable}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ [\&]}
+\DoxyCodeLine{\ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ ptr\ =\ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl_a5f8993d06260861f434d20f07c9fa7c2}{disposable\_wrapper\_impl<refcount\_disposable>::make}}().lock();}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ observer.set\_upstream(ptr-\/>add\_ref());}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ptr;}
+\DoxyCodeLine{\ \ \ \ \}()}
+
+\end{DoxyCode}
 
 
 The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}

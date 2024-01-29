@@ -149,14 +149,14 @@ composite\+\_\+disposable\+\_\+wrapper is disposable to be able to dispose obser
 \begin{DoxyParagraph}{Example}
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{\textcolor{keyword}{auto}\ disposable\ =\ std::make\_shared<rpp::composite\_disposable>();}
+\DoxyCodeLine{\textcolor{keyword}{auto}\ disposable\ =\ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl_a5f8993d06260861f434d20f07c9fa7c2}{rpp::composite\_disposable\_wrapper::make}}();}
 \DoxyCodeLine{\mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(1)}
 \DoxyCodeLine{|\ \mbox{\hyperlink{group__utility__operators_ga41ef49dc75a3eadb0eb3fda7c3692c40}{rpp::operators::repeat}}()}
 \DoxyCodeLine{|\ \mbox{\hyperlink{group__utility__operators_gace728cfbf71720901cb6f310edabf8b0}{rpp::operators::subscribe\_on}}(\mbox{\hyperlink{classrpp_1_1schedulers_1_1new__thread}{rpp::schedulers::new\_thread}}\{\})}
 \DoxyCodeLine{|\ \mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{rpp::operators::subscribe}}(disposable,\ \mbox{\hyperlink{group__observers_gae17f62f64102925f4cd2eb29c4c27028}{rpp::make\_lambda\_observer}}([](\textcolor{keywordtype}{int})\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}NEW\ VALUE"{}}\ <<\ std::endl;\ \}));}
 \DoxyCodeLine{}
 \DoxyCodeLine{std::this\_thread::sleep\_for(std::chrono::seconds(1));}
-\DoxyCodeLine{disposable-\/>dispose();}
+\DoxyCodeLine{disposable.dispose();}
 \DoxyCodeLine{std::this\_thread::sleep\_for(std::chrono::seconds(1));}
 
 \end{DoxyCode}
@@ -212,14 +212,14 @@ composite\+\_\+disposable\+\_\+wrapper is disposable to be able to dispose obser
 \begin{DoxyParagraph}{Example}
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{\textcolor{keyword}{auto}\ disposable\ =\ std::make\_shared<rpp::composite\_disposable>();}
+\DoxyCodeLine{\textcolor{keyword}{auto}\ disposable\ =\ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl_a5f8993d06260861f434d20f07c9fa7c2}{rpp::composite\_disposable\_wrapper::make}}();}
 \DoxyCodeLine{\mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(1)}
 \DoxyCodeLine{|\ \mbox{\hyperlink{group__utility__operators_ga41ef49dc75a3eadb0eb3fda7c3692c40}{rpp::operators::repeat}}()}
 \DoxyCodeLine{|\ \mbox{\hyperlink{group__utility__operators_gace728cfbf71720901cb6f310edabf8b0}{rpp::operators::subscribe\_on}}(\mbox{\hyperlink{classrpp_1_1schedulers_1_1new__thread}{rpp::schedulers::new\_thread}}\{\})}
 \DoxyCodeLine{|\ \mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{rpp::operators::subscribe}}(disposable,\ [](\textcolor{keywordtype}{int})\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}NEW\ VALUE"{}}\ <<\ std::endl;\ \});}
 \DoxyCodeLine{}
 \DoxyCodeLine{std::this\_thread::sleep\_for(std::chrono::seconds(1));}
-\DoxyCodeLine{disposable-\/>dispose();}
+\DoxyCodeLine{disposable.dispose();}
 \DoxyCodeLine{std::this\_thread::sleep\_for(std::chrono::seconds(1));}
 
 \end{DoxyCode}
@@ -251,14 +251,14 @@ composite\+\_\+disposable\+\_\+wrapper is disposable to be able to dispose obser
 \begin{DoxyParagraph}{Example}
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{\textcolor{keyword}{auto}\ disposable\ =\ std::make\_shared<rpp::composite\_disposable>();}
+\DoxyCodeLine{\textcolor{keyword}{auto}\ disposable\ =\ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl_a5f8993d06260861f434d20f07c9fa7c2}{rpp::composite\_disposable\_wrapper::make}}();}
 \DoxyCodeLine{\mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(1)}
 \DoxyCodeLine{|\ \mbox{\hyperlink{group__utility__operators_ga41ef49dc75a3eadb0eb3fda7c3692c40}{rpp::operators::repeat}}()}
 \DoxyCodeLine{|\ \mbox{\hyperlink{group__utility__operators_gace728cfbf71720901cb6f310edabf8b0}{rpp::operators::subscribe\_on}}(\mbox{\hyperlink{classrpp_1_1schedulers_1_1new__thread}{rpp::schedulers::new\_thread}}\{\})}
 \DoxyCodeLine{|\ \mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{rpp::operators::subscribe}}(disposable,\ [](\textcolor{keywordtype}{int})\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}NEW\ VALUE"{}}\ <<\ std::endl;\ \});}
 \DoxyCodeLine{}
 \DoxyCodeLine{std::this\_thread::sleep\_for(std::chrono::seconds(1));}
-\DoxyCodeLine{disposable-\/>dispose();}
+\DoxyCodeLine{disposable.dispose();}
 \DoxyCodeLine{std::this\_thread::sleep\_for(std::chrono::seconds(1));}
 
 \end{DoxyCode}
