@@ -144,15 +144,15 @@ public:
         template<rpp::schedulers::constraint::schedulable_handler Handler, typename... Args, constraint::schedulable_fn<Handler, Args...> Fn>
         void defer_for(duration duration, Fn&& fn, Handler&& handler, Args&&... args) const
         {
-            m_state->defer_at(now() + duration, std::forward<Fn>(fn), std::forward<Handler>(handler), std::forward<Args>(args)...);
+            m_state.lock()->defer_at(now() + duration, std::forward<Fn>(fn), std::forward<Handler>(handler), std::forward<Args>(args)...);
         }
 
-        rpp::disposable_wrapper get_disposable() const { return rpp::disposable_wrapper{m_state}; }
+        rpp::disposable_wrapper get_disposable() const { return m_state; }
 
         static rpp::schedulers::time_point now() { return details::now(); }
 
     private:
-        std::shared_ptr<disposable> m_state = std::make_shared<disposable>();
+        disposable_wrapper_impl<disposable> m_state = disposable_wrapper_impl<disposable>::make();
     };
 
     static rpp::schedulers::worker<worker_strategy> create_worker()

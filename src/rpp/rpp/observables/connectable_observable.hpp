@@ -28,8 +28,8 @@ struct ref_count_on_subscribe_t<rpp::connectable_observable<OriginalObservable, 
 
     struct state_t
     {
-        std::mutex                                mutex{};
-        std::shared_ptr<rpp::refcount_disposable> disposable{};
+        std::mutex                                        mutex{};
+        disposable_wrapper_impl<rpp::refcount_disposable> disposable = disposable_wrapper_impl<rpp::refcount_disposable>::empty();
     };
 
     std::shared_ptr<state_t> m_state = std::make_shared<state_t>();
@@ -44,19 +44,19 @@ struct ref_count_on_subscribe_t<rpp::connectable_observable<OriginalObservable, 
 
         obs.set_upstream(disposable);
         original_observable.subscribe(std::move(obs));
-        if (upstream)
-            original_observable.connect(std::move(upstream).value());
+        if (!upstream.is_disposed())
+            original_observable.connect(std::move(upstream));
     }
 
 private:
-    std::pair<rpp::composite_disposable_wrapper, std::optional<rpp::composite_disposable_wrapper>> on_subscribe() const
+    std::pair<rpp::disposable_wrapper, rpp::composite_disposable_wrapper> on_subscribe() const
     {
         std::unique_lock lock(m_state->mutex);
-        if (m_state->disposable && !m_state->disposable->is_disposed())
-            return {m_state->disposable->add_ref(), std::nullopt};
+        if (!m_state->disposable.is_disposed())
+            return {m_state->disposable.lock()->add_ref(), composite_disposable_wrapper::empty()};
 
-        m_state->disposable = std::make_shared<rpp::refcount_disposable>();
-        return {m_state->disposable->add_ref(), m_state->disposable};
+        m_state->disposable = disposable_wrapper_impl<rpp::refcount_disposable>::make();
+        return {m_state->disposable.lock()->add_ref(), m_state->disposable};
     }
 };
 }
@@ -95,18 +95,15 @@ public:
      * @snippet connect.cpp connect
      *
      */
-    rpp::disposable_wrapper connect(rpp::composite_disposable_wrapper wrapper = {}) const
+    rpp::disposable_wrapper connect(rpp::composite_disposable_wrapper wrapper = composite_disposable_wrapper::make()) const
     {
         std::unique_lock lock(m_state->mutex);
 
         if (m_subject.get_disposable().is_disposed())
-            return {};
+            return rpp::disposable_wrapper::empty();
 
         if (!m_state->disposable.is_disposed())
             return m_state->disposable;
-
-        if (!wrapper.has_underlying())
-            wrapper = rpp::composite_disposable_wrapper{std::make_shared<rpp::composite_disposable>()};
 
         m_state->disposable = wrapper;
         lock.unlock();
@@ -162,7 +159,7 @@ private:
     struct state_t
     {
         std::mutex                        mutex{};
-        rpp::composite_disposable_wrapper disposable{};
+        rpp::composite_disposable_wrapper disposable = composite_disposable_wrapper::empty();
     };
 
     std::shared_ptr<state_t> m_state = std::make_shared<state_t>();

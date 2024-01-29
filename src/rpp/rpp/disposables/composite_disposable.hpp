@@ -17,7 +17,6 @@
 #include <rpp/disposables/interface_composite_disposable.hpp>
 
 #include <atomic>
-#include <memory>
 
 namespace rpp
 {
@@ -64,7 +63,7 @@ public:
 
     void add(disposable_wrapper disposable) override
     {
-        if (disposable.is_disposed() || disposable.get_original().get() == this)
+        if (disposable.is_disposed() || disposable.lock().get() == this)
             return;
 
         while (true)

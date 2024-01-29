@@ -93,14 +93,14 @@ public:
      *
      * @par Example
      * \code{.cpp}
-    *  auto disposable = std::make_shared<rpp::composite_disposable>();
+    *  auto disposable = rpp::composite_disposable_wrapper::make();
     *  rpp::source::just(1)
     *  | rpp::operators::repeat()
     *  | rpp::operators::subscribe_on(rpp::schedulers::new_thread{})
     *  | rpp::operators::subscribe(disposable, rpp::make_lambda_observer([](int) { std::cout << "NEW VALUE" << std::endl; }));
     *
     *  std::this_thread::sleep_for(std::chrono::seconds(1));
-    *  disposable->dispose();
+    *  disposable.dispose();
     *  std::this_thread::sleep_for(std::chrono::seconds(1));
     * \endcode
      *
@@ -142,8 +142,8 @@ public:
     [[nodiscard("Use returned disposable or use subscribe(observer) instead")]] composite_disposable_wrapper subscribe_with_disposable(observer<Type, ObserverStrategy>&& observer) const
     {
         if (!observer.is_disposed())
-            return subscribe(rpp::composite_disposable_wrapper{std::make_shared<rpp::composite_disposable_impl<typename expected_disposable_strategy::disposable_container>>()}, std::move(observer));
-        return {};
+            return subscribe(rpp::composite_disposable_wrapper::make<rpp::composite_disposable_impl<typename expected_disposable_strategy::disposable_container>>(), std::move(observer));
+        return composite_disposable_wrapper::empty();
     }
 
     /**
@@ -157,7 +157,7 @@ public:
         requires (!constraint::observer<ObserverStrategy>)
     [[nodiscard("Use returned disposable or use subscribe(observer) instead")]] composite_disposable_wrapper subscribe_with_disposable(ObserverStrategy&& observer_strategy) const
     {
-        return subscribe(rpp::composite_disposable_wrapper{std::make_shared<rpp::composite_disposable_impl<typename expected_disposable_strategy::disposable_container>>()}, std::forward<ObserverStrategy>(observer_strategy));
+        return subscribe(rpp::composite_disposable_wrapper::make<rpp::composite_disposable_impl<typename expected_disposable_strategy::disposable_container>>(), std::forward<ObserverStrategy>(observer_strategy));
     }
 
     /**
@@ -171,7 +171,7 @@ public:
      */
     [[nodiscard("Use returned disposable or use subscribe(observer) instead")]] composite_disposable_wrapper subscribe_with_disposable(dynamic_observer<Type> observer) const
     {
-        return subscribe<details::observers::dynamic_strategy<Type>>(rpp::composite_disposable_wrapper{std::make_shared<rpp::composite_disposable_impl<typename expected_disposable_strategy::disposable_container>>()}, std::move(observer));
+        return subscribe<details::observers::dynamic_strategy<Type>>(rpp::composite_disposable_wrapper::make<rpp::composite_disposable_impl<typename expected_disposable_strategy::disposable_container>>(), std::move(observer));
     }
 
     /**
@@ -214,7 +214,7 @@ public:
              std::invocable<>                          OnCompleted = rpp::utils::empty_function_t<>>
     [[nodiscard("Use returned disposable or use subscribe(on_next, on_error, on_completed) instead")]] composite_disposable_wrapper subscribe_with_disposable(OnNext&& on_next, OnError&& on_error = {}, OnCompleted&& on_completed = {}) const
     {
-        auto res = rpp::composite_disposable_wrapper{std::make_shared<rpp::composite_disposable_impl<typename expected_disposable_strategy::disposable_container>>()};
+        auto res = rpp::composite_disposable_wrapper::make<rpp::composite_disposable_impl<typename expected_disposable_strategy::disposable_container>>();
         subscribe(make_lambda_observer<Type>(res,
                                              std::forward<OnNext>(on_next),
                                              std::forward<OnError>(on_error),
@@ -246,14 +246,14 @@ public:
      *
      * @par Example
      * \code{.cpp}
-     *  auto disposable = std::make_shared<rpp::composite_disposable>();
+     *  auto disposable = rpp::composite_disposable_wrapper::make();
      *  rpp::source::just(1)
      *  | rpp::operators::repeat()
      *  | rpp::operators::subscribe_on(rpp::schedulers::new_thread{})
      *  | rpp::operators::subscribe(disposable, [](int) { std::cout << "NEW VALUE" << std::endl; });
      *
      *  std::this_thread::sleep_for(std::chrono::seconds(1));
-     *  disposable->dispose();
+     *  disposable.dispose();
      *  std::this_thread::sleep_for(std::chrono::seconds(1));
      * \endcode
      *
@@ -281,14 +281,14 @@ public:
      *
      * @par Example
      * \code{.cpp}
-     *  auto disposable = std::make_shared<rpp::composite_disposable>();
+     *  auto disposable = rpp::composite_disposable_wrapper::make();
      *  rpp::source::just(1)
      *  | rpp::operators::repeat()
      *  | rpp::operators::subscribe_on(rpp::schedulers::new_thread{})
      *  | rpp::operators::subscribe(disposable, [](int) { std::cout << "NEW VALUE" << std::endl; });
      *
      *  std::this_thread::sleep_for(std::chrono::seconds(1));
-     *  disposable->dispose();
+     *  disposable.dispose();
      *  std::this_thread::sleep_for(std::chrono::seconds(1));
      * \endcode
      *

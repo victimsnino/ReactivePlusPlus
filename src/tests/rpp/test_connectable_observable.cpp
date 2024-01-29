@@ -21,7 +21,7 @@
 TEST_CASE("connectable observable")
 {
     auto mock = mock_observer_strategy<int>{};
-    auto d = std::make_shared<rpp::composite_disposable>();
+    auto d = rpp::composite_disposable_wrapper::make();
 
     SECTION("source and connectable observable from it")
     {
@@ -36,7 +36,7 @@ TEST_CASE("connectable observable")
                     CHECK(mock.get_total_on_next_count() == 0);
                     CHECK(mock.get_on_error_count() == 0);
                     CHECK(mock.get_on_completed_count() == 0);
-                    CHECK(!d->is_disposed());
+                    CHECK(!d.is_disposed());
                 }
                 SECTION("call connect")
                 {
@@ -46,7 +46,7 @@ TEST_CASE("connectable observable")
                         CHECK(mock.get_received_values() == std::vector{ 1 });
                         CHECK(mock.get_on_error_count() == 0);
                         CHECK(mock.get_on_completed_count() == 1);
-                        CHECK(d->is_disposed());
+                        CHECK(d.is_disposed());
                         CHECK(sub_connectable.is_disposed());
                     }
                 }
@@ -59,7 +59,7 @@ TEST_CASE("connectable observable")
                         CHECK(mock.get_received_values() == std::vector{ 1 });
                         CHECK(mock.get_on_error_count() == 0);
                         CHECK(mock.get_on_completed_count() == 1);
-                        CHECK(d->is_disposed());
+                        CHECK(d.is_disposed());
                         CHECK(sub_connectable.is_disposed());
                     }
                 }
@@ -73,7 +73,7 @@ TEST_CASE("connectable observable")
                     CHECK(mock.get_received_values() == std::vector{ 10 });
                     CHECK(mock.get_on_error_count() == 0);
                     CHECK(mock.get_on_completed_count() == 1);
-                    CHECK(d->is_disposed());
+                    CHECK(d.is_disposed());
                     CHECK(sub_connectable.is_disposed());
                 }
             }
@@ -104,7 +104,7 @@ TEST_CASE("connectable observable")
                         CHECK(mock.get_received_values() == std::vector{ 1 });
                         CHECK(mock.get_on_error_count() == 0);
                         CHECK(mock.get_on_completed_count() == 0);
-                        CHECK(!d->is_disposed());
+                        CHECK(!d.is_disposed());
                         CHECK(!sub_connectable.is_disposed());
                     }
                 }
@@ -117,7 +117,7 @@ TEST_CASE("connectable observable")
                         CHECK(mock.get_total_on_next_count() == 0);
                         CHECK(mock.get_on_error_count() == 0);
                         CHECK(mock.get_on_completed_count() == 0);
-                        CHECK(!d->is_disposed());
+                        CHECK(!d.is_disposed());
                         CHECK(sub_connectable.is_disposed());
                         CHECK(!source.get_disposable().is_disposed());
                     }
@@ -131,7 +131,7 @@ TEST_CASE("connectable observable")
                             CHECK(mock.get_total_on_next_count() == 1);
                             CHECK(mock.get_on_error_count() == 0);
                             CHECK(mock.get_on_completed_count() == 0);
-                            CHECK(!d->is_disposed());
+                            CHECK(!d.is_disposed());
                             CHECK(sub_connectable.is_disposed());
                             CHECK(!source.get_disposable().is_disposed());
                         }
@@ -145,7 +145,7 @@ TEST_CASE("connectable observable")
                         CHECK(mock.get_total_on_next_count() == 0);
                         CHECK(mock.get_on_error_count() == 0);
                         CHECK(mock.get_on_completed_count() == 1);
-                        CHECK(d->is_disposed());
+                        CHECK(d.is_disposed());
                         CHECK(sub_connectable.is_disposed());
                     }
                     SECTION("connect again and send values")
@@ -157,7 +157,7 @@ TEST_CASE("connectable observable")
                             CHECK(mock.get_total_on_next_count() == 0);
                             CHECK(mock.get_on_error_count() == 0);
                             CHECK(mock.get_on_completed_count() == 1);
-                            CHECK(d->is_disposed());
+                            CHECK(d.is_disposed());
                             CHECK(sub_connectable.is_disposed());
                             CHECK(new_sub_connectable.is_disposed());
                         }
@@ -246,7 +246,7 @@ TEST_CASE("ref_count")
         SECTION("subscribe on it without ref_count and with ref_count")
         {
             observable.subscribe(observer_1);
-            auto sub = std::make_shared<rpp::composite_disposable>();
+            auto sub = rpp::composite_disposable_wrapper::make();
             observable.ref_count().subscribe(rpp::composite_disposable_wrapper{sub}, observer_2);
             SECTION("send value")
             {
@@ -266,7 +266,7 @@ TEST_CASE("ref_count")
             }
             SECTION("unsubscribe observer with ref_count and send value")
             {
-                sub->dispose();
+                sub.dispose();
                 subj.get_observer().on_next(1);
                 SECTION("no observers obtain values")
                 {
@@ -281,7 +281,7 @@ TEST_CASE("ref_count")
                 }
                 SECTION("subscribe via ref_count again and send value")
                 {
-                    sub = std::make_shared<rpp::composite_disposable>();
+                    sub = rpp::composite_disposable_wrapper::make();
                     observable.ref_count().subscribe(rpp::composite_disposable_wrapper{sub},observer_2);
                     subj.get_observer().on_next(1);
                     SECTION("both observers obtain values")
@@ -302,7 +302,7 @@ TEST_CASE("ref_count")
         SECTION("subscribe both with ref_count")
         {
             observable.ref_count().subscribe(observer_1);
-            auto sub = std::make_shared<rpp::composite_disposable>();
+            auto sub = rpp::composite_disposable_wrapper::make();
             observable.ref_count().subscribe(rpp::composite_disposable_wrapper{sub}, observer_2);
             SECTION("send value")
             {
@@ -322,7 +322,7 @@ TEST_CASE("ref_count")
             }
             SECTION("unsubscribe 1 observer with ref_count and send value")
             {
-                sub->dispose();
+                sub.dispose();
                 subj.get_observer().on_next(1);
                 SECTION("first observer obtains values")
                 {

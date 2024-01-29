@@ -365,7 +365,7 @@ auto subscribe(rpp::composite_disposable_wrapper d, OnNext&& on_next, OnComplete
 template<rpp::constraint::decayed_type Type, rpp::constraint::observer_strategy<Type> ObserverStrategy>
 auto subscribe_with_disposable(observer<Type, ObserverStrategy>&& observer)
 {
-    return subscribe(rpp::composite_disposable_wrapper{std::make_shared<rpp::composite_disposable>()}, std::move(observer));
+    return subscribe(composite_disposable_wrapper::make(), std::move(observer));
 }
 
 /**
@@ -378,7 +378,7 @@ auto subscribe_with_disposable(observer<Type, ObserverStrategy>&& observer)
 template<rpp::constraint::decayed_type Type>
 auto subscribe_with_disposable(dynamic_observer<Type> observer)
 {
-    return subscribe(rpp::composite_disposable_wrapper{std::make_shared<rpp::composite_disposable>()}, std::move(observer));
+    return subscribe(composite_disposable_wrapper::make(), std::move(observer));
 }
 
 /**
@@ -391,7 +391,7 @@ auto subscribe_with_disposable(dynamic_observer<Type> observer)
 template<details::on_next_like OnNext = rpp::utils::empty_function_any_t, std::invocable<const std::exception_ptr&> OnError = rpp::utils::rethrow_error_t, std::invocable<> OnCompleted = rpp::utils::empty_function_t<>>
 auto subscribe_with_disposable(OnNext&& on_next = {}, OnError&& on_error = {}, OnCompleted&& on_completed = {})
 {
-    return subscribe(rpp::composite_disposable_wrapper{std::make_shared<rpp::composite_disposable>()}, std::forward<OnNext>(on_next), std::forward<OnError>(on_error), std::forward<OnCompleted>(on_completed));
+    return subscribe(composite_disposable_wrapper::make(), std::forward<OnNext>(on_next), std::forward<OnError>(on_error), std::forward<OnCompleted>(on_completed));
 }
 
 /**
@@ -404,6 +404,6 @@ auto subscribe_with_disposable(OnNext&& on_next = {}, OnError&& on_error = {}, O
 template<details::on_next_like OnNext, std::invocable<> OnCompleted>
 auto subscribe_with_disposable(OnNext&& on_next, OnCompleted&& on_completed)
 {
-    return subscribe(rpp::composite_disposable_wrapper{std::make_shared<rpp::composite_disposable>()}, std::forward<OnNext>(on_next), rpp::utils::rethrow_error_t{}, std::forward<OnCompleted>(on_completed));
+    return subscribe(composite_disposable_wrapper::make(), std::forward<OnNext>(on_next), rpp::utils::rethrow_error_t{}, std::forward<OnCompleted>(on_completed));
 }
 }

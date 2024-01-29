@@ -27,7 +27,7 @@ struct custom_disposable : public rpp::interface_disposable
 
 TEMPLATE_TEST_CASE("disposable keeps state", "", rpp::details::disposables::dynamic_disposables_container<0>, rpp::details::disposables::static_disposables_container<1>)
 {
-    auto d = rpp::composite_disposable_wrapper{std::make_shared<rpp::composite_disposable_impl<TestType>>()};
+    auto d = rpp::composite_disposable_wrapper::make<rpp::composite_disposable_impl<TestType>>();
 
     CHECK(!d.is_disposed());
 
@@ -48,36 +48,36 @@ TEMPLATE_TEST_CASE("disposable keeps state", "", rpp::details::disposables::dyna
 
     SECTION("add other disposable")
     {
-        auto other = std::make_shared<rpp::composite_disposable>();
-        CHECK(!other->is_disposed());
+        auto other = rpp::composite_disposable_wrapper::make();
+        CHECK(!other.is_disposed());
         d.add(other);
         SECTION("calling dispose on original disposable forces both of them to be disposed")
         {
             d.dispose();
-            CHECK(other->is_disposed());
+            CHECK(other.is_disposed());
             CHECK(d.is_disposed());
         }
 
         SECTION("calling clear on original disposable forces inner to be disposed")
         {
             d.clear();
-            CHECK(other->is_disposed());
+            CHECK(other.is_disposed());
             CHECK(!d.is_disposed());
 
-            other = std::make_shared<rpp::composite_disposable>();
-            CHECK(!other->is_disposed());
+            other = rpp::composite_disposable_wrapper::make();
+            CHECK(!other.is_disposed());
             d.add(other);
-            CHECK(!other->is_disposed());
+            CHECK(!other.is_disposed());
 
             d.clear();
-            CHECK(other->is_disposed());
+            CHECK(other.is_disposed());
 
             CHECK(!d.is_disposed());
         }
         SECTION("calling clear on disposed disposable")
         {
             d.dispose();
-            CHECK(other->is_disposed());
+            CHECK(other.is_disposed());
             CHECK(d.is_disposed());
             d.clear();
         }
@@ -86,24 +86,24 @@ TEMPLATE_TEST_CASE("disposable keeps state", "", rpp::details::disposables::dyna
         {
             d.remove(other);
             d.dispose();
-            CHECK(!other->is_disposed());
+            CHECK(!other.is_disposed());
             CHECK(d.is_disposed());
         }
 
         SECTION("calling dispose on other disposable forces only other to be disposed")
         {
-            other->dispose();
-            CHECK(other->is_disposed());
+            other.dispose();
+            CHECK(other.is_disposed());
             CHECK(!d.is_disposed());
         }
     }
 
     SECTION("add disposed disposable")
     {
-        auto other = std::make_shared<rpp::composite_disposable>();
-        other->dispose();
+        auto other = rpp::composite_disposable_wrapper::make();
+        other.dispose();
         d.add(other);
-        CHECK(other->is_disposed());
+        CHECK(other.is_disposed());
         CHECK(!d.is_disposed());
     }
 
@@ -113,26 +113,60 @@ TEMPLATE_TEST_CASE("disposable keeps state", "", rpp::details::disposables::dyna
 
         SECTION("adding non disposed disposable to empty forces it to be disposed")
         {
-            auto other = std::make_shared<rpp::composite_disposable>();
-            CHECK(!other->is_disposed());
+            auto other = rpp::composite_disposable_wrapper::make();
+            CHECK(!other.is_disposed());
             d.add(other);
-            CHECK(other->is_disposed());
+            CHECK(other.is_disposed());
         }
     }
 
     SECTION("empty disposable")
     {
-        d = rpp::composite_disposable_wrapper{};
+        d = rpp::composite_disposable_wrapper::empty();
         CHECK(d.is_disposed());
         d.dispose();
 
         SECTION("adding non disposed disposable to empty forces it to be disposed")
         {
-            auto other = std::make_shared<rpp::composite_disposable>();
-            CHECK(!other->is_disposed());
+            auto other = rpp::composite_disposable_wrapper::make();
+            CHECK(!other.is_disposed());
             d.add(other);
-            CHECK(other->is_disposed());
+            CHECK(other.is_disposed());
         }
+    }
+    // SECTION("disposable dispose on destruction")
+    // {
+    //     {
+    //         auto other = rpp::composite_disposable_wrapper::make();
+    //         CHECK(!other.is_disposed());
+    //         CHECK(!d.is_disposed());
+    //         other.add(d);
+    //         CHECK(!other.is_disposed());
+    //         CHECK(!d.is_disposed());
+    //     }
+    //     CHECK(d.is_disposed());
+    // }
+
+    SECTION("add callback_disposable")
+    {
+        size_t invoked_count{};
+        d.add([&invoked_count]()noexcept {
+            ++invoked_count;
+        });
+        CHECK(invoked_count == 0);
+        d.dispose();
+        CHECK(invoked_count == 1);
+    }
+
+    SECTION("add callback_disposable to disposed disposable")
+    {
+        d.dispose();
+
+        size_t invoked_count{};
+        d.add([&invoked_count]()noexcept {
+            ++invoked_count;
+        });
+        CHECK(invoked_count == 1);
     }
 
     SECTION("add self") {
@@ -155,48 +189,48 @@ TEMPLATE_TEST_CASE("disposable keeps state", "", rpp::details::disposables::dyna
 
 TEST_CASE("refcount disposable dispose underlying in case of reaching zero")
 {
-    auto refcount = std::make_shared<rpp::refcount_disposable>();
-    auto refcounted = refcount->add_ref();
-    auto underlying = std::make_shared<custom_disposable>();
-    refcount->add(underlying);
+    auto refcount = rpp::disposable_wrapper_impl<rpp::refcount_disposable>::make();
+    auto refcounted = refcount.lock()->add_ref();
+    auto underlying = rpp::disposable_wrapper_impl<custom_disposable>::make();
+    refcount.add(underlying);
 
-    CHECK(!underlying->is_disposed());
+    CHECK(!underlying.is_disposed());
     CHECK(!refcounted.is_disposed());
-    CHECK(!refcount->is_disposed());
+    CHECK(!refcount.is_disposed());
 
     SECTION("disposing refcounted as is disposes underlying")
     {
         refcounted.dispose();
 
-        CHECK(underlying->dispose_count == 1);
+        CHECK(underlying.lock()->dispose_count == 1);
         CHECK(refcounted.is_disposed());
-        CHECK(refcount->is_disposed());
+        CHECK(refcount.is_disposed());
 
         SECTION("additional disposing does nothing")
         {
             refcounted.dispose();
-            CHECK(underlying->dispose_count == 1);
+            CHECK(underlying.lock()->dispose_count == 1);
             CHECK(refcounted.is_disposed());
-            CHECK(refcount->is_disposed());
+            CHECK(refcount.is_disposed());
         }
         SECTION("addref and disposing does nothing")
         {
-            auto d = refcount->add_ref();
+            auto d = refcount.lock()->add_ref();
             CHECK(d.is_disposed());
 
             refcounted.dispose();
-            CHECK(underlying->dispose_count == 1);
+            CHECK(underlying.lock()->dispose_count == 1);
             CHECK(refcounted.is_disposed());
-            CHECK(refcount->is_disposed());
+            CHECK(refcount.is_disposed());
         }
     }
 
     SECTION("disposing added to underlying not disposes refcount")
     {
-        underlying->dispose();
+        underlying.dispose();
 
-        CHECK(underlying->dispose_count == 1);
-        CHECK(!refcount->is_disposed());
+        CHECK(underlying.lock()->dispose_count == 1);
+        CHECK(!refcount.is_disposed());
         CHECK(!refcounted.is_disposed());
     }
 
@@ -205,34 +239,34 @@ TEST_CASE("refcount disposable dispose underlying in case of reaching zero")
         size_t count = 5;
         std::vector<rpp::disposable_wrapper> disposables{};
         for (size_t i = 0; i < count; ++i)
-            disposables.push_back(refcount->add_ref());
+            disposables.push_back(refcount.lock()->add_ref());
 
-        CHECK(!refcount->is_disposed());
+        CHECK(!refcount.is_disposed());
         CHECK(!refcounted.is_disposed());
 
         for (size_t i = 0; i < 10*count; ++i)
             refcounted.dispose();
 
         CHECK(refcounted.is_disposed());
-        CHECK(!underlying->is_disposed());
+        CHECK(!underlying.lock()->is_disposed());
 
         for(auto& d : disposables)
         {
-            CHECK(!underlying->is_disposed());
+            CHECK(!underlying.lock()->is_disposed());
             CHECK(!d.is_disposed());
             d.dispose();
             CHECK(d.is_disposed());
         }
 
-        CHECK(underlying->dispose_count == 1);
+        CHECK(underlying.lock()->dispose_count == 1);
     }
 }
 
 TEST_CASE("composite_disposable correctly handles exception")
 {
-    auto d = rpp::composite_disposable_wrapper{std::make_shared<rpp::composite_disposable_impl<rpp::details::disposables::static_disposables_container<1>>>()};
-    auto d1 = rpp::composite_disposable_wrapper{std::make_shared<rpp::composite_disposable>()};
-    auto d2 = rpp::composite_disposable_wrapper{std::make_shared<rpp::composite_disposable>()};
+    auto d = rpp::composite_disposable_wrapper::make<rpp::composite_disposable_impl<rpp::details::disposables::static_disposables_container<1>>>();
+    auto d1 = rpp::composite_disposable_wrapper::make();
+    auto d2 = rpp::composite_disposable_wrapper::make();
     d.add(d1);
     CHECK_THROWS_AS(d.add(d2), rpp::utils::more_disposables_than_expected);
     CHECK(!d1.is_disposed());
@@ -247,8 +281,8 @@ TEST_CASE("static_disposable_container works as expected")
 {
     rpp::details::disposables::static_disposables_container<2> container{};
 
-    auto d1 = rpp::composite_disposable_wrapper{std::make_shared<rpp::composite_disposable>()};
-    auto d2 = rpp::composite_disposable_wrapper{std::make_shared<rpp::composite_disposable>()};
+    auto d1 = rpp::composite_disposable_wrapper::make();
+    auto d2 = rpp::composite_disposable_wrapper::make();
 
     SECTION("dispose empty")
     {

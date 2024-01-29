@@ -56,5 +56,5 @@ class callback_disposable;
 class refcount_disposable;
 
 template<rpp::constraint::is_nothrow_invocable Fn>
-auto make_callback_disposable(Fn&& invocable);
+disposable_wrapper make_callback_disposable(Fn&& invocable);
 } // namespace rpp

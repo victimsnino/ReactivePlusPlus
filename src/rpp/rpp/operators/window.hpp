@@ -42,7 +42,7 @@ public:
         : m_observer{std::move(observer)}
         , m_window_size{std::max(size_t{1}, count)}
     {
-        m_observer.set_upstream(m_disposble->add_ref());
+        m_observer.set_upstream(m_disposable->add_ref());
     }
 
     template<typename T>
@@ -51,9 +51,9 @@ public:
         // need to send new subject due to NEW item appeared (we avoid sending new subjects if no any new items)
         if (m_items_in_current_window == m_window_size)
         {
-            Subject subject{m_disposble};
+            Subject subject{m_disposable->wrapper_from_this()};
             m_subject_data.emplace(subject_data{subject.get_observer(), subject.get_disposable()});
-            m_disposble->add(m_subject_data->disposable);
+            m_disposable->add(m_subject_data->disposable);
             m_observer.on_next(subject.get_observable());
             m_items_in_current_window = 0;
         }
@@ -64,7 +64,7 @@ public:
         if (++m_items_in_current_window == m_window_size)
         {
             m_subject_data->observer.on_completed();
-            m_disposble->remove(m_subject_data->disposable);
+            m_disposable->remove(m_subject_data->disposable);
             m_subject_data.reset();
         }
     }
@@ -83,12 +83,12 @@ public:
         m_observer.on_completed();
     }
 
-    void set_upstream(const disposable_wrapper& d) const { m_disposble->add(d); }
+    void set_upstream(const disposable_wrapper& d) const { m_disposable->add(d); }
 
-    bool is_disposed() const { return m_disposble->is_disposed(); }
+    bool is_disposed() const { return m_disposable->is_disposed(); }
 
 private:
-    std::shared_ptr<refcount_disposable> m_disposble = std::make_shared<refcount_disposable>();
+    std::shared_ptr<refcount_disposable> m_disposable = disposable_wrapper_impl<refcount_disposable>::make().lock();
     RPP_NO_UNIQUE_ADDRESS TObserver      m_observer;
 
     struct subject_data

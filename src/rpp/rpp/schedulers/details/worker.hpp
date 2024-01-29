@@ -47,7 +47,7 @@ public:
     rpp::disposable_wrapper get_disposable() const 
     { 
         if constexpr (is_none_disposable)
-            return {};
+            return disposable_wrapper::empty();
         else
             return m_strategy.get_disposable(); 
     }

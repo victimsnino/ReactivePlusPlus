@@ -66,7 +66,7 @@ public:
     class worker_strategy
     {
     public:
-        worker_strategy(std::weak_ptr<state> state)
+        worker_strategy(rpp::disposable_wrapper_impl<state> state)
             : m_state{std::move(state)} { }
 
         template<rpp::schedulers::constraint::schedulable_handler Handler, typename...Args, rpp::schedulers::constraint::schedulable_fn<Handler, Args...> Fn>
@@ -84,29 +84,29 @@ public:
         
         static rpp::schedulers::time_point now() { return s_current_time; }
 
-        rpp::disposable_wrapper get_disposable() const { return rpp::disposable_wrapper::from_weak(m_state); }
+        rpp::disposable_wrapper get_disposable() const { return m_state.as_weak(); }
     private:
-        std::weak_ptr<state> m_state;
+        rpp::disposable_wrapper_impl<state> m_state;
     };
 
     test_scheduler() = default;
 
     rpp::schedulers::worker<worker_strategy> create_worker() const
     {
-        return rpp::schedulers::worker<worker_strategy>{m_state};
+        return rpp::schedulers::worker<worker_strategy>{m_state.as_weak()};
     }
 
-    const auto& get_schedulings() const { return m_state->schedulings; }
-    const auto& get_executions() const { return m_state->executions; }
+    const auto& get_schedulings() const { return m_state.lock()->schedulings; }
+    const auto& get_executions() const { return m_state.lock()->executions; }
 
     static rpp::schedulers::time_point now() { return s_current_time; }
 
     void time_advance(rpp::schedulers::duration dur) const
     {
         s_current_time += dur;
-        m_state->drain();
+        m_state.lock()->drain();
     }
 
 private:
-    std::shared_ptr<state> m_state = std::make_shared<state>();
+    rpp::disposable_wrapper_impl<state> m_state = rpp::disposable_wrapper_impl<state>::make();
 };

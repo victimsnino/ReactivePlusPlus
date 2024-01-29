@@ -30,6 +30,9 @@ concept decayed_any_of = (decayed_same_as<T, Types> || ...);
 template<typename Type, typename... Types>
 concept variadic_decayed_same_as = sizeof...(Types) == 1 && (decayed_same_as<Type, Types> && ...);
 
+template<typename T, typename Target>
+concept static_pointer_convertible_to = requires { static_cast<Target*>(std::declval<T*>()); };
+
 template<typename R>
 concept iterable = requires(R& rng)
 {

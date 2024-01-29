@@ -12,12 +12,8 @@
 
 #include <rpp/disposables/fwd.hpp>
 
-#include <memory>
-
 namespace rpp
 {
-using disposable_ptr = std::shared_ptr<interface_disposable>;
-
 /**
  * @brief Interface of disposable
  *

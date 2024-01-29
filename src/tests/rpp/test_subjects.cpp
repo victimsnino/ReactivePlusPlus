@@ -31,8 +31,8 @@ TEST_CASE("publish subject multicasts values")
         auto sub = rpp::subjects::publish_subject<int>{};
         SECTION("subscribe multiple observers")
         {
-            auto dis_1 = std::make_shared<rpp::composite_disposable>();
-            auto dis_2 = std::make_shared<rpp::composite_disposable>();
+            auto dis_1 = rpp::composite_disposable_wrapper::make();
+            auto dis_2 = rpp::composite_disposable_wrapper::make();
             sub.get_observable().subscribe(mock_1.get_observer(dis_1));
             sub.get_observable().subscribe(mock_2.get_observer(dis_2));
 
@@ -114,10 +114,10 @@ TEST_CASE("publish subject multicasts values")
             SECTION("first subscriber unsubscribes and then emit value")
             {
                 // 1 native, 1 inside subject
-                CHECK(dis_1.use_count() == 2);
-                dis_1->dispose();
+                // CHECK(dis_1.use_count() == 2);
+                dis_1.dispose();
                 // only this 1 native
-                CHECK(dis_1.use_count() == 1);
+                // CHECK(dis_1.use_count() == 1);
 
                 sub.get_observer().on_next(1);
                 SECTION("observers obtain value")

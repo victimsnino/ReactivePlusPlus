@@ -43,31 +43,32 @@ class forwarding_strategy
 public:
     using expected_disposable_strategy = typename rpp::details::observables::deduce_disposable_strategy_t<subjects::details::subject_state<Type>>::template add<1>;
 
-    explicit forwarding_strategy(std::shared_ptr<rpp::refcount_disposable> refcount)
+    explicit forwarding_strategy(disposable_wrapper_impl<rpp::refcount_disposable> refcount)
         : m_refcount{std::move(refcount)}
     {
     }
 
     auto get_observer() const
     {
-        return rpp::observer<Type, observer_strategy>{observer_strategy{m_state}};
+        return rpp::observer<Type, observer_strategy>{m_state.lock()};
     }
 
     template<rpp::constraint::observer_of_type<Type> TObs>
     void on_subscribe(TObs&& observer) const
     {
-        observer.set_upstream(m_refcount->add_ref());
-        m_state->on_subscribe(std::forward<TObs>(observer));
+        if (const auto locked = m_refcount.lock())
+            observer.set_upstream(locked->add_ref());
+        m_state.lock()->on_subscribe(std::forward<TObs>(observer));
     }
 
     rpp::composite_disposable_wrapper get_disposable() const
     {
-        return rpp::composite_disposable_wrapper::from_weak(m_state);
+        return m_state.as_weak();
     }
 
 private:
-    std::shared_ptr<subjects::details::subject_state<Type>> m_state = std::make_shared<subjects::details::subject_state<Type>>();
-    std::shared_ptr<rpp::refcount_disposable>               m_refcount{};
+    disposable_wrapper_impl<rpp::refcount_disposable>               m_refcount;
+    disposable_wrapper_impl<subjects::details::subject_state<Type>> m_state = disposable_wrapper_impl<subjects::details::subject_state<Type>>::make();
 };
 
 template<rpp::constraint::decayed_type Type>

@@ -59,7 +59,7 @@ struct window_toggle_state
     auto on_new_subject(const Subject& subject)
     {
         const auto locked_state = get_state_under_lock();
-        const auto ptr = &locked_state->observers.emplace_back(subject.get_observer());
+        auto ptr = &locked_state->observers.emplace_back(subject.get_observer());
         locked_state->observer.on_next(subject.get_observable());
         return ptr;
     }
@@ -111,10 +111,10 @@ struct window_toggle_opening_observer_strategy
     template<typename T>
     void on_next(T&& v) const
     {
-        typename TState::Subject subject{disposable};
-        const auto ptr = state->on_new_subject(subject);
+        typename TState::Subject subject{disposable->wrapper_from_this()};
+        auto ptr = state->on_new_subject(subject);
         disposable->add(subject.get_disposable());
-        state->get_closing(std::forward<T>(v)).subscribe(subject.get_disposable(), window_toggle_closing_observer_strategy<TState>{disposable, state, subject.get_disposable(), ptr});
+        state->get_closing(std::forward<T>(v)).subscribe(subject.get_disposable(), window_toggle_closing_observer_strategy<TState>{disposable, state, subject.get_disposable(), std::move(ptr)});
     }
 
     void on_error(const std::exception_ptr& err) const
@@ -173,7 +173,7 @@ public:
     bool is_disposed() const { return m_disposable->is_disposed(); }
 
 private:
-    std::shared_ptr<rpp::refcount_disposable> m_disposable = std::make_shared<refcount_disposable>();
+    std::shared_ptr<rpp::refcount_disposable> m_disposable = disposable_wrapper_impl<rpp::refcount_disposable>::make().lock();
     std::shared_ptr<TState>                   m_state;
 };
 

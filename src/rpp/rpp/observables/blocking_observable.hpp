@@ -63,12 +63,13 @@ public:
     template<rpp::constraint::observer_strategy<Type> ObserverStrategy>
     void subscribe(observer<Type, ObserverStrategy>&& obs) const
     {
-        auto d = std::make_shared<blocking_disposble>();
+        auto d = disposable_wrapper_impl<blocking_disposble>::make();
         obs.set_upstream(d);
         m_original.subscribe(std::move(obs));
 
-        if (!d->is_disposed())
-            d->wait();
+        if (!d.is_disposed())
+            if (const auto locked = d.lock())
+                locked->wait();
     }
 
 private:

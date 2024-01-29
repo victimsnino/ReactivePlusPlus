@@ -46,22 +46,22 @@ public:
 
     auto get_observer() const
     {
-        return rpp::observer<Type, observer_strategy>{observer_strategy{m_state}};
+        return rpp::observer<Type, observer_strategy>{m_state.lock()};
     }
 
     template<rpp::constraint::observer_of_type<Type> TObs>
     void on_subscribe(TObs&& observer) const
     {
-        m_state->on_subscribe(std::forward<TObs>(observer));
+        m_state.lock()->on_subscribe(std::forward<TObs>(observer));
     }
 
     rpp::disposable_wrapper get_disposable() const
     {
-        return rpp::disposable_wrapper{m_state};
+        return m_state;
     }
 
 private:
-    std::shared_ptr<subject_state<Type>> m_state = std::make_shared<subject_state<Type>>();
+    disposable_wrapper_impl<subject_state<Type>> m_state = disposable_wrapper_impl<subject_state<Type>>::make();
 };
 } // namespace rpp::subjects::details
 

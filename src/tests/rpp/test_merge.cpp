@@ -260,10 +260,10 @@ TEMPLATE_TEST_CASE("merge handles race condition", "", rpp::memory_model::use_st
 TEST_CASE("merge dispose inner_disposable immediately")
 {
     rpp::source::create<int>([](auto&& d){
-        auto disposable = std::make_shared<rpp::composite_disposable>();
+        auto disposable = rpp::composite_disposable_wrapper::make();
         d.set_upstream(rpp::disposable_wrapper{disposable});
         d.on_completed();
-        CHECK(disposable->is_disposed());
+        CHECK(disposable.is_disposed());
     }) 
     | rpp::ops::merge_with(rpp::source::never<int>())
     | rpp::ops::subscribe([](int){});
@@ -292,11 +292,11 @@ TEST_CASE("merge doesn't produce extra copies")
 
 TEST_CASE("merge satisfies disposable contracts")
 {
-    auto observable_disposable = std::make_shared<rpp::composite_disposable>();
+    auto observable_disposable = rpp::composite_disposable_wrapper::make();
     {
         auto observable = observable_with_disposable<int>(observable_disposable);
 
         test_operator_with_disposable<int>(rpp::ops::merge_with(observable));
     }
-    CHECK(observable_disposable->is_disposed() || observable_disposable.use_count() == 1);
+    CHECK(observable_disposable.is_disposed() || observable_disposable.lock().use_count() == 2);
 }
