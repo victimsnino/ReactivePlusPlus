@@ -199,9 +199,9 @@ TEST_CASE("window_toggle disposes original disposable only when everything is di
         });
     };
 
-    auto source_disposable = std::make_shared<rpp::composite_disposable>();
-    auto opening_disposable = std::make_shared<rpp::composite_disposable>();
-    auto closing_disposable = std::make_shared<rpp::composite_disposable>();
+    auto source_disposable = rpp::composite_disposable_wrapper::make();
+    auto opening_disposable = rpp::composite_disposable_wrapper::make();
+    auto closing_disposable = rpp::composite_disposable_wrapper::make();
 
     auto observer_disposable = rpp::composite_disposable_wrapper::make();
     auto inner_observer_disposable = rpp::composite_disposable_wrapper::make();
