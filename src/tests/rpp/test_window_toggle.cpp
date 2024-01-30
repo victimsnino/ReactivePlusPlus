@@ -212,7 +212,7 @@ TEST_CASE("window_toggle disposes original disposable only when everything is di
         new_obs.subscribe(rpp::composite_disposable_wrapper{inner_observer_disposable}, [](int){});
     });
 
-    CHECK(!closing_disposable.is_disposed());
+    CHECK(closing_disposable.is_disposed());
     CHECK(!source_disposable.is_disposed());
     CHECK(!observer_disposable.is_disposed());
     CHECK(!inner_observer_disposable.is_disposed());
@@ -221,7 +221,7 @@ TEST_CASE("window_toggle disposes original disposable only when everything is di
 
     CHECK(observer_disposable.is_disposed());
     CHECK(!opening_disposable.is_disposed());
-    CHECK(!closing_disposable.is_disposed());
+    CHECK(closing_disposable.is_disposed());
     CHECK(!source_disposable.is_disposed());
     CHECK(!inner_observer_disposable.is_disposed());
 
