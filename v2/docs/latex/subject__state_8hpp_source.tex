@@ -83,18 +83,18 @@
 \DoxyCodeLine{00079\ \ \ \ \ \{}
 \DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ observers\ =\ exchange\_observers\_under\_lock\_if\_there(err))}
 \DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \ \ \ \ rpp::utils::for\_each(*observers,\ [\&](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ sub)\ \{\ sub.on\_error(err);\ \});}
-\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrpp_1_1composite__disposable__impl_a03ed7e9ee1fb1f05100c3996d7395fc5}{dispose}}();}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structrpp_1_1interface__disposable_a5685eeaf07e2d4616cd1a0effa78069d}{dispose}}();}
 \DoxyCodeLine{00083\ \ \ \ \ \}}
 \DoxyCodeLine{00084\ }
 \DoxyCodeLine{00085\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_completed()}
 \DoxyCodeLine{00086\ \ \ \ \ \{}
 \DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ observers\ =\ exchange\_observers\_under\_lock\_if\_there(\mbox{\hyperlink{structrpp_1_1subjects_1_1details_1_1completed}{completed}}\{\}))}
 \DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \ \ \ \ rpp::utils::for\_each(*observers,\ rpp::utils::static\_mem\_fn<\&\mbox{\hyperlink{classrpp_1_1dynamic__observer}{dynamic\_observer<Type>::on\_completed}}>\{\});}
-\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrpp_1_1composite__disposable__impl_a03ed7e9ee1fb1f05100c3996d7395fc5}{dispose}}();}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structrpp_1_1interface__disposable_a5685eeaf07e2d4616cd1a0effa78069d}{dispose}}();}
 \DoxyCodeLine{00090\ \ \ \ \ \}}
 \DoxyCodeLine{00091\ }
 \DoxyCodeLine{00092\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00093\ \ \ \ \ \textcolor{keywordtype}{void}\ dispose\_impl()\ \textcolor{keyword}{noexcept}\ \textcolor{keyword}{override}}
+\DoxyCodeLine{00093\ \ \ \ \ \textcolor{keywordtype}{void}\ composite\_dispose\_impl(interface\_disposable::Mode)\ \textcolor{keyword}{noexcept}\ \textcolor{keyword}{override}}
 \DoxyCodeLine{00094\ \ \ \ \ \{}
 \DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ exchange\_observers\_under\_lock\_if\_there(\mbox{\hyperlink{structrpp_1_1subjects_1_1details_1_1disposed}{disposed}}\{\});}
 \DoxyCodeLine{00096\ \ \ \ \ \}}

@@ -27,7 +27,7 @@ var searchData=
   ['disposable_5fwrapper_5fimpl_3c_20rpp_3a_3asubjects_3a_3adetails_3a_3asubject_5fstate_3c_20type_20_3e_20_3e_24',['disposable_wrapper_impl&lt; rpp::subjects::details::subject_state&lt; Type &gt; &gt;',['../classrpp_1_1disposable__wrapper__impl.html',1,'rpp']]],
   ['disposable_5fwrapper_5fimpl_3c_20serialized_5fstate_20_3e_25',['disposable_wrapper_impl&lt; serialized_state &gt;',['../classrpp_1_1disposable__wrapper__impl.html',1,'rpp']]],
   ['disposables_26',['Disposables',['../group__disposables.html',1,'']]],
-  ['dispose_27',['dispose',['../classrpp_1_1composite__disposable__impl.html#a03ed7e9ee1fb1f05100c3996d7395fc5',1,'rpp::composite_disposable_impl::dispose()'],['../structrpp_1_1interface__disposable.html#aba40958e70b43507be04f55bbd4340e9',1,'rpp::interface_disposable::dispose()']]],
+  ['dispose_27',['dispose',['../structrpp_1_1interface__disposable.html#a5685eeaf07e2d4616cd1a0effa78069d',1,'rpp::interface_disposable']]],
   ['disposed_28',['disposed',['../structrpp_1_1subjects_1_1details_1_1disposed.html',1,'rpp::subjects::details']]],
   ['distinct_5funtil_5fchanged_29',['distinct_until_changed',['../group__filtering__operators.html#gaa8ed11faabd5b31d63d0481f9018fc68',1,'rpp::operators']]],
   ['distinct_5funtil_5fchanged_5fobserver_5fstrategy_30',['distinct_until_changed_observer_strategy',['../structrpp_1_1operators_1_1details_1_1distinct__until__changed__observer__strategy.html',1,'rpp::operators::details']]],

@@ -20,19 +20,39 @@ Inheritance diagram for rpp\+::interface\+\_\+disposable\+:\begin{figure}[H]
 \item 
 virtual bool \mbox{\hyperlink{structrpp_1_1interface__disposable_a0348da95fe5929a3861e80b6651c347f}{is\+\_\+disposed}} () const noexcept=0
 \begin{DoxyCompactList}\small\item\em Check if this disposable is just disposed. \end{DoxyCompactList}\item 
-virtual void \mbox{\hyperlink{structrpp_1_1interface__disposable_aba40958e70b43507be04f55bbd4340e9}{dispose}} () noexcept=0
+void \mbox{\hyperlink{structrpp_1_1interface__disposable_a5685eeaf07e2d4616cd1a0effa78069d}{dispose}} () noexcept
 \begin{DoxyCompactList}\small\item\em Dispose disposable and free any underlying resources and etc. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Types}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{structrpp_1_1interface__disposable_af71f6e7a9e6153ab032ba33fe7bb5168}\label{structrpp_1_1interface__disposable_af71f6e7a9e6153ab032ba33fe7bb5168} 
+enum class {\bfseries Mode} \+: bool \{ {\bfseries Disposing} = 0
+, {\bfseries Destroying} = 1
+ \}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{structrpp_1_1interface__disposable_a1f132f362440f51b7e40835cfdd9ff80}\label{structrpp_1_1interface__disposable_a1f132f362440f51b7e40835cfdd9ff80} 
+virtual void {\bfseries dispose\+\_\+impl} (Mode mode) noexcept=0
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{structrpp_1_1interface__disposable_ad32aa1a9a78d1d3a9035d0d2d87d6c95}\label{structrpp_1_1interface__disposable_ad32aa1a9a78d1d3a9035d0d2d87d6c95} 
+{\footnotesize template$<$rpp\+::constraint\+::decayed\+\_\+type TStrategy$>$ }\\class {\bfseries rpp\+::details\+::auto\+\_\+dispose\+\_\+wrapper}
+\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
 Interface of disposable. 
 
 \doxysubsection{Member Function Documentation}
-\Hypertarget{structrpp_1_1interface__disposable_aba40958e70b43507be04f55bbd4340e9}\label{structrpp_1_1interface__disposable_aba40958e70b43507be04f55bbd4340e9} 
+\Hypertarget{structrpp_1_1interface__disposable_a5685eeaf07e2d4616cd1a0effa78069d}\label{structrpp_1_1interface__disposable_a5685eeaf07e2d4616cd1a0effa78069d} 
 \index{rpp::interface\_disposable@{rpp::interface\_disposable}!dispose@{dispose}}
 \index{dispose@{dispose}!rpp::interface\_disposable@{rpp::interface\_disposable}}
 \doxysubsubsection{\texorpdfstring{dispose()}{dispose()}}
-{\footnotesize\ttfamily virtual void rpp\+::interface\+\_\+disposable\+::dispose (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}, {\ttfamily [noexcept]}}
+{\footnotesize\ttfamily void rpp\+::interface\+\_\+disposable\+::dispose (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [noexcept]}}
 
 
 
@@ -41,10 +61,6 @@ Dispose disposable and free any underlying resources and etc.
 \begin{DoxyWarning}{Warning}
 This function must be thread-\/safe 
 \end{DoxyWarning}
-
-
-Implemented in \mbox{\hyperlink{classrpp_1_1composite__disposable__impl_a03ed7e9ee1fb1f05100c3996d7395fc5}{rpp\+::composite\+\_\+disposable\+\_\+impl$<$ Container $>$}}, and \mbox{\hyperlink{classrpp_1_1composite__disposable__impl_a03ed7e9ee1fb1f05100c3996d7395fc5}{rpp\+::composite\+\_\+disposable\+\_\+impl$<$ rpp\+::details\+::disposables\+::dynamic\+\_\+disposables\+\_\+container$<$ 0 $>$ $>$}}.
-
 \Hypertarget{structrpp_1_1interface__disposable_a0348da95fe5929a3861e80b6651c347f}\label{structrpp_1_1interface__disposable_a0348da95fe5929a3861e80b6651c347f} 
 \index{rpp::interface\_disposable@{rpp::interface\_disposable}!is\_disposed@{is\_disposed}}
 \index{is\_disposed@{is\_disposed}!rpp::interface\_disposable@{rpp::interface\_disposable}}

@@ -26,8 +26,22 @@ virtual void {\bfseries clear} ()=0
 \item 
 virtual bool \mbox{\hyperlink{structrpp_1_1interface__disposable_a0348da95fe5929a3861e80b6651c347f}{is\+\_\+disposed}} () const noexcept=0
 \begin{DoxyCompactList}\small\item\em Check if this disposable is just disposed. \end{DoxyCompactList}\item 
-virtual void \mbox{\hyperlink{structrpp_1_1interface__disposable_aba40958e70b43507be04f55bbd4340e9}{dispose}} () noexcept=0
+void \mbox{\hyperlink{structrpp_1_1interface__disposable_a5685eeaf07e2d4616cd1a0effa78069d}{dispose}} () noexcept
 \begin{DoxyCompactList}\small\item\em Dispose disposable and free any underlying resources and etc. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Protected Types inherited from \mbox{\hyperlink{structrpp_1_1interface__disposable}{rpp\+::interface\+\_\+disposable}}}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{structrpp_1_1interface__disposable_af71f6e7a9e6153ab032ba33fe7bb5168}\label{structrpp_1_1interface__disposable_af71f6e7a9e6153ab032ba33fe7bb5168} 
+enum class {\bfseries Mode} \+: bool \{ {\bfseries Disposing} = 0
+, {\bfseries Destroying} = 1
+ \}
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions inherited from \mbox{\hyperlink{structrpp_1_1interface__disposable}{rpp\+::interface\+\_\+disposable}}}
+\begin{DoxyCompactItemize}
+\item 
+virtual void {\bfseries dispose\+\_\+impl} (Mode mode) noexcept=0
+\end{DoxyCompactItemize}
 
 
 The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}

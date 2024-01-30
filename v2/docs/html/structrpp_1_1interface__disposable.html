@@ -100,6 +100,9 @@ $(function(){initNavTree('structrpp_1_1interface__disposable.html',''); initResi
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pro-types">Protected Types</a> &#124;
+<a href="#pro-methods">Protected Member Functions</a> &#124;
+<a href="#friends">Friends</a> &#124;
 <a href="structrpp_1_1interface__disposable-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">rpp::interface_disposable Struct Reference<span class="mlabels"><span class="mlabel">abstract</span></span><div class="ingroups"><a class="el" href="group__rpp.html">RPP</a> &raquo; <a class="el" href="group__disposables.html">Disposables</a></div></div></div>
 </div><!--header-->
@@ -137,15 +140,35 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a0348da95fe5929a3861e80b6651c347f" id="r_a0348da95fe5929a3861e80b6651c347f"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0348da95fe5929a3861e80b6651c347f">is_disposed</a> () const noexcept=0</td></tr>
 <tr class="memdesc:a0348da95fe5929a3861e80b6651c347f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if this disposable is just disposed.  <br /></td></tr>
 <tr class="separator:a0348da95fe5929a3861e80b6651c347f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aba40958e70b43507be04f55bbd4340e9" id="r_aba40958e70b43507be04f55bbd4340e9"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aba40958e70b43507be04f55bbd4340e9">dispose</a> () noexcept=0</td></tr>
-<tr class="memdesc:aba40958e70b43507be04f55bbd4340e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dispose disposable and free any underlying resources and etc.  <br /></td></tr>
-<tr class="separator:aba40958e70b43507be04f55bbd4340e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5685eeaf07e2d4616cd1a0effa78069d" id="r_a5685eeaf07e2d4616cd1a0effa78069d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5685eeaf07e2d4616cd1a0effa78069d">dispose</a> () noexcept</td></tr>
+<tr class="memdesc:a5685eeaf07e2d4616cd1a0effa78069d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dispose disposable and free any underlying resources and etc.  <br /></td></tr>
+<tr class="separator:a5685eeaf07e2d4616cd1a0effa78069d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-types" name="pro-types"></a>
+Protected Types</h2></td></tr>
+<tr class="memitem:af71f6e7a9e6153ab032ba33fe7bb5168" id="r_af71f6e7a9e6153ab032ba33fe7bb5168"><td class="memItemLeft" align="right" valign="top"><a id="af71f6e7a9e6153ab032ba33fe7bb5168" name="af71f6e7a9e6153ab032ba33fe7bb5168"></a>enum class &#160;</td><td class="memItemRight" valign="bottom"><b>Mode</b> : bool { <b>Disposing</b> = 0
+, <b>Destroying</b> = 1
+ }</td></tr>
+<tr class="separator:af71f6e7a9e6153ab032ba33fe7bb5168"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
+<tr class="memitem:a1f132f362440f51b7e40835cfdd9ff80" id="r_a1f132f362440f51b7e40835cfdd9ff80"><td class="memItemLeft" align="right" valign="top"><a id="a1f132f362440f51b7e40835cfdd9ff80" name="a1f132f362440f51b7e40835cfdd9ff80"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>dispose_impl</b> (Mode mode) noexcept=0</td></tr>
+<tr class="separator:a1f132f362440f51b7e40835cfdd9ff80"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="friends" name="friends"></a>
+Friends</h2></td></tr>
+<tr class="memitem:ad32aa1a9a78d1d3a9035d0d2d87d6c95" id="r_ad32aa1a9a78d1d3a9035d0d2d87d6c95"><td class="memTemplParams" colspan="2"><a id="ad32aa1a9a78d1d3a9035d0d2d87d6c95" name="ad32aa1a9a78d1d3a9035d0d2d87d6c95"></a>
+template&lt;rpp::constraint::decayed_type TStrategy&gt; </td></tr>
+<tr class="memitem:ad32aa1a9a78d1d3a9035d0d2d87d6c95"><td class="memTemplItemLeft" align="right" valign="top">class&#160;</td><td class="memTemplItemRight" valign="bottom"><b>rpp::details::auto_dispose_wrapper</b></td></tr>
+<tr class="separator:ad32aa1a9a78d1d3a9035d0d2d87d6c95"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Interface of disposable. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="aba40958e70b43507be04f55bbd4340e9" name="aba40958e70b43507be04f55bbd4340e9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aba40958e70b43507be04f55bbd4340e9">&#9670;&#160;</a></span>dispose()</h2>
+<a id="a5685eeaf07e2d4616cd1a0effa78069d" name="a5685eeaf07e2d4616cd1a0effa78069d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5685eeaf07e2d4616cd1a0effa78069d">&#9670;&#160;</a></span>dispose()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -154,7 +177,7 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual void rpp::interface_disposable::dispose </td>
+          <td class="memname">void rpp::interface_disposable::dispose </td>
           <td>(</td>
           <td class="paramname"><span class="paramname"></span></td><td>)</td>
           <td></td>
@@ -162,15 +185,13 @@ Public Member Functions</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span><span class="mlabel">noexcept</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
 <p>Dispose disposable and free any underlying resources and etc. </p>
 <dl class="section warning"><dt>Warning</dt><dd>This function must be thread-safe </dd></dl>
-
-<p>Implemented in <a class="el" href="classrpp_1_1composite__disposable__impl.html#a03ed7e9ee1fb1f05100c3996d7395fc5">rpp::composite_disposable_impl&lt; Container &gt;</a>, and <a class="el" href="classrpp_1_1composite__disposable__impl.html#a03ed7e9ee1fb1f05100c3996d7395fc5">rpp::composite_disposable_impl&lt; rpp::details::disposables::dynamic_disposables_container&lt; 0 &gt; &gt;</a>.</p>
 
 </div>
 </div>

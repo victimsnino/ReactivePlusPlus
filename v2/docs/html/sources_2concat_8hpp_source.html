@@ -139,7 +139,7 @@ $(function(){initNavTree('sources_2concat_8hpp_source.html',''); initResizable()
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>        <span class="keywordflow">catch</span>(...)</div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>        {</div>
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>            this-&gt;<a class="code hl_class" href="classrpp_1_1observer.html">observer</a>.<a class="code hl_function" href="classrpp_1_1details_1_1observer__impl.html#aa55c5a334bc39c92218f7b51e5126bbc">on_error</a>(std::current_exception());</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>            this-&gt;<a class="code hl_function" href="classrpp_1_1composite__disposable__impl.html#a03ed7e9ee1fb1f05100c3996d7395fc5">dispose</a>();</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>            this-&gt;<a class="code hl_function" href="structrpp_1_1interface__disposable.html#a5685eeaf07e2d4616cd1a0effa78069d">dispose</a>();</div>
 <div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>        }</div>
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    }</div>
 <div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
@@ -275,7 +275,6 @@ $(function(){initNavTree('sources_2concat_8hpp_source.html',''); initResizable()
 <div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span>    <span class="keywordflow">return</span> rpp::details::make_concat_from_iterable&lt;Container&gt;(std::forward&lt;Iterable&gt;(iterable));</div>
 <div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span>}</div>
 <div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span>}</div>
-<div class="ttc" id="aclassrpp_1_1composite__disposable__impl_html_a03ed7e9ee1fb1f05100c3996d7395fc5"><div class="ttname"><a href="classrpp_1_1composite__disposable__impl.html#a03ed7e9ee1fb1f05100c3996d7395fc5">rpp::composite_disposable_impl&lt; rpp::details::disposables::dynamic_disposables_container&lt; 0 &gt; &gt;::dispose</a></div><div class="ttdeci">void dispose() noexcept final</div><div class="ttdef"><b>Definition</b> composite_disposable.hpp:42</div></div>
 <div class="ttc" id="aclassrpp_1_1composite__disposable_html"><div class="ttname"><a href="classrpp_1_1composite__disposable.html">rpp::composite_disposable</a></div><div class="ttdef"><b>Definition</b> composite_disposable.hpp:167</div></div>
 <div class="ttc" id="aclassrpp_1_1details_1_1observer__impl_html_aa55c5a334bc39c92218f7b51e5126bbc"><div class="ttname"><a href="classrpp_1_1details_1_1observer__impl.html#aa55c5a334bc39c92218f7b51e5126bbc">rpp::details::observer_impl::on_error</a></div><div class="ttdeci">void on_error(const std::exception_ptr &amp;err) const noexcept</div><div class="ttdoc">Observable calls this method to notify observer about some error during generation next data.</div><div class="ttdef"><b>Definition</b> observer.hpp:123</div></div>
 <div class="ttc" id="aclassrpp_1_1disposable__wrapper__impl_html"><div class="ttname"><a href="classrpp_1_1disposable__wrapper__impl.html">rpp::disposable_wrapper_impl&lt; interface_disposable &gt;</a></div></div>
@@ -287,6 +286,7 @@ $(function(){initNavTree('sources_2concat_8hpp_source.html',''); initResizable()
 <div class="ttc" id="astructrpp_1_1details_1_1concat__state__t_html"><div class="ttname"><a href="structrpp_1_1details_1_1concat__state__t.html">rpp::details::concat_state_t</a></div><div class="ttdef"><b>Definition</b> concat.hpp:26</div></div>
 <div class="ttc" id="astructrpp_1_1details_1_1concat__strategy_html"><div class="ttname"><a href="structrpp_1_1details_1_1concat__strategy.html">rpp::details::concat_strategy</a></div><div class="ttdef"><b>Definition</b> concat.hpp:116</div></div>
 <div class="ttc" id="astructrpp_1_1details_1_1observers_1_1none__disposable__strategy_html"><div class="ttname"><a href="structrpp_1_1details_1_1observers_1_1none__disposable__strategy.html">rpp::details::observers::none_disposable_strategy</a></div><div class="ttdef"><b>Definition</b> disposable_strategy.hpp:96</div></div>
+<div class="ttc" id="astructrpp_1_1interface__disposable_html_a5685eeaf07e2d4616cd1a0effa78069d"><div class="ttname"><a href="structrpp_1_1interface__disposable.html#a5685eeaf07e2d4616cd1a0effa78069d">rpp::interface_disposable::dispose</a></div><div class="ttdeci">void dispose() noexcept</div><div class="ttdoc">Dispose disposable and free any underlying resources and etc.</div><div class="ttdef"><b>Definition</b> interface_disposable.hpp:36</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

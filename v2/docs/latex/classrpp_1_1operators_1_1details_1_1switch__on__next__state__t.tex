@@ -41,8 +41,8 @@ requires (!rpp\+::constraint\+::decayed\+\_\+same\+\_\+as$<$TObs, \mbox{\hyperli
 \item 
 bool \mbox{\hyperlink{classrpp_1_1composite__disposable__impl_a4d8dc7195e0594586a1583e7f5308d4c}{is\+\_\+disposed}} () const noexcept final
 \begin{DoxyCompactList}\small\item\em Check if this disposable is just disposed. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{classrpp_1_1composite__disposable__impl_a03ed7e9ee1fb1f05100c3996d7395fc5}{dispose}} () noexcept final
-\begin{DoxyCompactList}\small\item\em Dispose disposable and free any underlying resources and etc. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classrpp_1_1composite__disposable__impl_a2b965eb01e542bd9edeb43ed9a3fd8af}{dispose\+\_\+impl}} (interface\+\_\+disposable\+::\+Mode mode) noexcept final
+\item 
 void \mbox{\hyperlink{classrpp_1_1composite__disposable__impl_a878cb06214d77427297efaba4a280434}{add}} (\mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{disposable\+\_\+wrapper}} disposable) override
 \item 
 virtual void \mbox{\hyperlink{classrpp_1_1composite__disposable__impl_aeabbd86e2ea58c12cbb13a2d3cf5f726}{add}} (\mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{disposable\+\_\+wrapper}} disposable)=0
@@ -58,7 +58,20 @@ void \mbox{\hyperlink{classrpp_1_1composite__disposable__impl_a4e9c6b6e10cbc960f
 \item 
 {\footnotesize template$<$rpp\+::constraint\+::is\+\_\+nothrow\+\_\+invocable Fn$>$ }\\\mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{disposable\+\_\+wrapper}} {\bfseries add} (Fn \&\&invocable)
 \end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{structrpp_1_1interface__disposable}{rpp\+::interface\+\_\+disposable}}}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{structrpp_1_1interface__disposable_a5685eeaf07e2d4616cd1a0effa78069d}{dispose}} () noexcept
+\begin{DoxyCompactList}\small\item\em Dispose disposable and free any underlying resources and etc. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Protected Types inherited from \mbox{\hyperlink{structrpp_1_1interface__disposable}{rpp\+::interface\+\_\+disposable}}}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{structrpp_1_1interface__disposable_af71f6e7a9e6153ab032ba33fe7bb5168}\label{structrpp_1_1interface__disposable_af71f6e7a9e6153ab032ba33fe7bb5168} 
+enum class {\bfseries Mode} \+: bool \{ {\bfseries Disposing} = 0
+, {\bfseries Destroying} = 1
+ \}
+\end{DoxyCompactItemize}
 \doxysubsection*{Protected Member Functions inherited from \mbox{\hyperlink{classrpp_1_1details_1_1enable__wrapper__from__this}{rpp\+::details\+::enable\+\_\+wrapper\+\_\+from\+\_\+this$<$ refcount\+\_\+disposable $>$}}}
 \begin{DoxyCompactItemize}
 \item 

@@ -24,8 +24,20 @@
 \DoxyCodeLine{00025\ }
 \DoxyCodeLine{00030\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structrpp_1_1interface__disposable_a0348da95fe5929a3861e80b6651c347f}{is\_disposed}}()\ const\ noexcept\ =\ 0;}
 \DoxyCodeLine{00031\ }
-\DoxyCodeLine{00036\ \ \ \ \ virtual\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{structrpp_1_1interface__disposable_aba40958e70b43507be04f55bbd4340e9}{dispose}}()\ noexcept\ =\ 0;}
-\DoxyCodeLine{00037\ \};}
-\DoxyCodeLine{00038\ \}}
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{structrpp_1_1interface__disposable_a5685eeaf07e2d4616cd1a0effa78069d}{dispose}}()\ noexcept\ \{\ dispose\_impl(Mode::Disposing);\ \}}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type\ TStrategy>}
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1details_1_1auto__dispose__wrapper}{rpp::details::auto\_dispose\_wrapper}};}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keyword}{enum\ class}\ Mode\ :\ \textcolor{keywordtype}{bool}}
+\DoxyCodeLine{00043\ \ \ \ \ \{}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ Disposing\ \ =\ 0,\ \textcolor{comment}{//\ someone\ called\ "{}dispose"{}\ method\ manually}}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ Destroying\ =\ 1\ \ \textcolor{comment}{//\ called\ during\ destruction\ -\/>\ not\ needed\ to\ clear\ self\ in\ other\ disposables\ and\ etc\ +\ not\ allowed\ to\ call\ \`{}shared\_from\_this`}}
+\DoxyCodeLine{00046\ \ \ \ \ \};}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ dispose\_impl(Mode\ mode)\ \textcolor{keyword}{noexcept}\ =\ 0;}
+\DoxyCodeLine{00049\ \};}
+\DoxyCodeLine{00050\ \}}
 
 \end{DoxyCode}

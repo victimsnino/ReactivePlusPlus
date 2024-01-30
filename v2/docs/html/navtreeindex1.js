@@ -1,6 +1,5 @@
 var NAVTREEINDEX1 =
 {
-"group__disposables.html":[1,0,0],
 "group__filtering__operators.html":[1,0,3,1],
 "group__filtering__operators.html#ga3ad579153e7975af6ae4b75f585fb873":[1,0,3,1,1],
 "group__filtering__operators.html#ga5b8f3bf549a8679d41941f7224f7faad":[1,0,3,1,2],
@@ -169,7 +168,7 @@ var NAVTREEINDEX1 =
 "structrpp_1_1interface__composite__disposable.html":[3,0,0,14],
 "structrpp_1_1interface__disposable.html":[1,0,0,3],
 "structrpp_1_1interface__disposable.html#a0348da95fe5929a3861e80b6651c347f":[1,0,0,3,1],
-"structrpp_1_1interface__disposable.html#aba40958e70b43507be04f55bbd4340e9":[1,0,0,3,0],
+"structrpp_1_1interface__disposable.html#a5685eeaf07e2d4616cd1a0effa78069d":[1,0,0,3,0],
 "structrpp_1_1make__chain__observable.html":[3,0,0,16],
 "structrpp_1_1make__chain__observable_3_01_new_00_01observable__chain__strategy_3_01_args_8_8_8_01_4_01_4.html":[3,0,0,17],
 "structrpp_1_1memory__model_1_1use__shared.html":[3,0,0,1,0],
@@ -249,5 +248,6 @@ var NAVTREEINDEX1 =
 "structrpp_1_1operators_1_1details_1_1window__toggle__closing__observer__strategy.html":[3,0,0,2,0,94],
 "structrpp_1_1operators_1_1details_1_1window__toggle__opening__observer__strategy.html":[3,0,0,2,0,96],
 "structrpp_1_1operators_1_1details_1_1window__toggle__state.html":[3,0,0,2,0,97],
-"structrpp_1_1operators_1_1details_1_1window__toggle__state_1_1state__t.html":[3,0,0,2,0,97,0]
+"structrpp_1_1operators_1_1details_1_1window__toggle__state_1_1state__t.html":[3,0,0,2,0,97,0],
+"structrpp_1_1operators_1_1details_1_1window__toggle__t.html":[3,0,0,2,0,98]
 };

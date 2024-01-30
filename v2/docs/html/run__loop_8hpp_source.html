@@ -187,7 +187,7 @@ $(function(){initNavTree('run__loop_8hpp_source.html',''); initResizable(); });
 <div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>            <span class="keywordflow">return</span> !m_queue.is_empty() &amp;&amp; (m_queue.top()-&gt;is_disposed() || m_queue.top()-&gt;get_timepoint() &lt;= now);</div>
 <div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>        }</div>
 <div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span> </div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>        <span class="keywordtype">void</span> dispose_impl() <span class="keyword">noexcept</span> <span class="keyword">override</span> </div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>        <span class="keywordtype">void</span> base_dispose_impl(interface_disposable::Mode) <span class="keyword">noexcept</span> <span class="keyword">override</span> </div>
 <div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>        {</div>
 <div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>            {</div>
 <div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>                std::lock_guard lock{m_mutex};</div>
