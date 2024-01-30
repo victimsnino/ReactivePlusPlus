@@ -36,7 +36,7 @@ public:
     }
 
 private:
-    void dispose_impl() noexcept override { std::move(m_fn)(); } // NOLINT(bugprone-exception-escape)
+    void base_dispose_impl(interface_disposable::Mode) noexcept override { std::move(m_fn)(); } // NOLINT(bugprone-exception-escape)
 
 private:
     Fn m_fn;

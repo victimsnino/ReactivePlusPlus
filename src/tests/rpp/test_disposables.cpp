@@ -19,7 +19,7 @@ struct custom_disposable : public rpp::interface_disposable
 
     bool is_disposed() const noexcept final { return dispose_count > 1; }
 
-    void dispose() noexcept final { ++dispose_count; }
+    void dispose_impl(rpp::interface_disposable::Mode) noexcept final { ++dispose_count; }
 
     size_t dispose_count{};
 };
@@ -134,18 +134,18 @@ TEMPLATE_TEST_CASE("disposable keeps state", "", rpp::details::disposables::dyna
             CHECK(other.is_disposed());
         }
     }
-    // SECTION("disposable dispose on destruction")
-    // {
-    //     {
-    //         auto other = rpp::composite_disposable_wrapper::make();
-    //         CHECK(!other.is_disposed());
-    //         CHECK(!d.is_disposed());
-    //         other.add(d);
-    //         CHECK(!other.is_disposed());
-    //         CHECK(!d.is_disposed());
-    //     }
-    //     CHECK(d.is_disposed());
-    // }
+    SECTION("disposable dispose on destruction")
+    {
+        {
+            auto other = rpp::composite_disposable_wrapper::make();
+            CHECK(!other.is_disposed());
+            CHECK(!d.is_disposed());
+            other.add(d);
+            CHECK(!other.is_disposed());
+            CHECK(!d.is_disposed());
+        }
+        CHECK(d.is_disposed());
+    }
 
     SECTION("add callback_disposable")
     {

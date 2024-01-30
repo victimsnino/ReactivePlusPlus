@@ -31,15 +31,16 @@ public:
         return m_disposed.load(std::memory_order::seq_cst);
     }
 
-    void dispose() noexcept final
+private:
+    void dispose_impl(interface_disposable::Mode mode) noexcept final
     {
         // just need atomicity, not guarding anything
         if (m_disposed.exchange(true, std::memory_order::seq_cst) == false)
-            dispose_impl();
+            base_dispose_impl(mode);
     }
 
 protected:
-    virtual void dispose_impl() noexcept = 0;
+    virtual void base_dispose_impl(interface_disposable::Mode mode) noexcept = 0;
 
 private:
     std::atomic_bool m_disposed{};

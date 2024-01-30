@@ -41,7 +41,7 @@ public:
 
     ~auto_dispose_wrapper() noexcept
     {
-        // static_cast<interface_disposable&>(m_data).dispose_impl(rpp::interface_disposable::Mode::Destroying);
+        static_cast<interface_disposable&>(m_data).dispose_impl(rpp::interface_disposable::Mode::Destroying);
     }
 
     TDisposable* get() { return &m_data; }

@@ -45,7 +45,7 @@ class refcount_disposable : public rpp::details::enable_wrapper_from_this<refcou
         }
     }
 
-    void dispose_impl() noexcept override
+    void composite_dispose_impl(interface_disposable::Mode) noexcept override
     {
         m_refcount.store(s_disposed, std::memory_order::seq_cst);
     }
@@ -70,9 +70,11 @@ public:
     refocunt_disposable_inner(disposable_wrapper_impl<refcount_disposable> state)
         : m_state{std::move(state)} {}
         
-    void dispose_impl() noexcept override
+    void composite_dispose_impl(interface_disposable::Mode mode) noexcept override
     {
-        m_state.remove(this->wrapper_from_this());
+        if (mode != interface_disposable::Mode::Destroying)
+            m_state.remove(this->wrapper_from_this());
+        
         if (const auto locked = m_state.lock())
             locked->release();
         m_state = disposable_wrapper_impl<refcount_disposable>::empty();

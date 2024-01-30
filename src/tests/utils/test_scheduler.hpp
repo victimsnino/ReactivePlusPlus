@@ -56,7 +56,7 @@ public:
             }
         }
 
-        void dispose_impl() noexcept override {}
+        void base_dispose_impl(interface_disposable::Mode) noexcept override {}
 
         std::vector<rpp::schedulers::time_point>     schedulings{};
         std::vector<rpp::schedulers::time_point>     executions{};
