@@ -27,7 +27,7 @@ TEST_CASE("timer emit single value at provided duration")
     SECTION("timer observable")
     {
         auto when       = std::chrono::seconds{1};
-        auto time_point = rpp::schedulers::clock_type::now() + when;
+        auto time_point = scheduler2.now() + when;
         auto obs        = rpp::source::timer(when, scheduler);
         auto obs2       = rpp::source::timer(time_point, scheduler2);
 
@@ -76,7 +76,7 @@ TEST_CASE("timer emit single value at provided duration")
     }
 }
 
-TEST_CASE("timer with negative relative time_point emits immediately")
+TEST_CASE("timer emit single value at provided time_point")
 {
     auto scheduler = test_scheduler{};
     auto mock      = mock_observer_strategy<size_t>{};
@@ -84,21 +84,19 @@ TEST_CASE("timer with negative relative time_point emits immediately")
     SECTION("timer observable")
     {
         auto when       = std::chrono::seconds{1};
-        auto time_point = rpp::schedulers::clock_type::now() - when;
+        auto time_point = scheduler.now() + when;
         auto obs        = rpp::source::timer(time_point, scheduler);
 
         SECTION("subscribe")
         {
+            scheduler.time_advance(when * 2);
             obs | rpp::ops::subscribe(mock);
 
-            SECTION("timer emitted value")
+            SECTION("expect value as time_point is in the past")
             {
                 CHECK(mock.get_received_values() == std::vector<size_t>{0});
                 CHECK(mock.get_on_error_count() == 0);
                 CHECK(mock.get_on_completed_count() == 1);
-
-                CHECK(scheduler.get_schedulings().size() == 1);
-                CHECK(scheduler.get_executions().size() == 1);
             }
         }
     }

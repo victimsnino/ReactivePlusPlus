@@ -24,7 +24,7 @@ namespace rpp::source
 template<schedulers::constraint::scheduler TScheduler>
 auto timer(rpp::schedulers::duration when, TScheduler&& scheduler)
 {
-    return interval(when, std::forward<TScheduler>(scheduler)) | operators::take(1);
+    return interval(when, rpp::schedulers::duration::zero(), std::forward<TScheduler>(scheduler)) | operators::take(1);
 }
 
 /**
@@ -39,6 +39,6 @@ auto timer(rpp::schedulers::duration when, TScheduler&& scheduler)
 template<schedulers::constraint::scheduler TScheduler>
 auto timer(rpp::schedulers::time_point when, TScheduler&& scheduler)
 {
-    return timer(when - rpp::schedulers::clock_type::now(), std::forward<TScheduler>(scheduler));
+    return interval(when, rpp::schedulers::duration::zero(), std::forward<TScheduler>(scheduler)) | operators::take(1);
 }
 }
