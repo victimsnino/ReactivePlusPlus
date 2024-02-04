@@ -37,12 +37,16 @@ requires (constraint\+::decayed\+\_\+same\+\_\+as$<$T, Ts$>$ \&\& ...)}\\auto \m
 \begin{DoxyCompactList}\small\item\em Creates rpp\+::specific\+\_\+observable that calls provided callable and emits resulting value of this callable. \end{DoxyCompactList}\item 
 {\footnotesize template$<$schedulers\+::constraint\+::scheduler TScheduler$>$ }\\auto \mbox{\hyperlink{group__creational__operators_ga4018b147fb99a358c6c01f21183c13e6}{rpp\+::source\+::interval}} (rpp\+::schedulers\+::duration initial, rpp\+::schedulers\+::duration period, TScheduler \&\&scheduler)
 \begin{DoxyCompactList}\small\item\em Creates \doxylink{classrpp_1_1observable}{rpp\+::observable} that emits a sequential integer every specified time interval, on the specified scheduler. \end{DoxyCompactList}\item 
+{\footnotesize template$<$schedulers\+::constraint\+::scheduler TScheduler$>$ }\\auto \mbox{\hyperlink{group__creational__operators_ga0fdda8fec71eb1bc082065577d458f8e}{rpp\+::source\+::interval}} (rpp\+::schedulers\+::time\+\_\+point initial, rpp\+::schedulers\+::duration period, TScheduler \&\&scheduler)
+\begin{DoxyCompactList}\small\item\em Same \doxylink{group__creational__operators_ga4018b147fb99a358c6c01f21183c13e6}{rpp\+::source\+::interval} but using a time\+\_\+point as initial time instead of a duration. \end{DoxyCompactList}\item 
 {\footnotesize template$<$schedulers\+::constraint\+::scheduler TScheduler$>$ }\\auto \mbox{\hyperlink{group__creational__operators_ga95f6d310d6f17a4c248e43fb628527df}{rpp\+::source\+::interval}} (rpp\+::schedulers\+::duration period, TScheduler \&\&scheduler)
 \begin{DoxyCompactList}\small\item\em Creates \doxylink{classrpp_1_1observable}{rpp\+::observable} that emits a sequential integer every specified time interval, on the specified scheduler. \end{DoxyCompactList}\item 
 {\footnotesize template$<$constraint\+::decayed\+\_\+type Type$>$ }\\auto \mbox{\hyperlink{group__creational__operators_ga16c57281cc1b24605ec23b09ec880416}{rpp\+::source\+::never}} ()
 \begin{DoxyCompactList}\small\item\em Creates \doxylink{classrpp_1_1observable}{rpp\+::observable} that emits no items and does not terminate. \end{DoxyCompactList}\item 
 {\footnotesize template$<$schedulers\+::constraint\+::scheduler TScheduler$>$ }\\auto \mbox{\hyperlink{group__creational__operators_gae7248892783797dda894e18b2b499586}{rpp\+::source\+::timer}} (rpp\+::schedulers\+::duration when, TScheduler \&\&scheduler)
-\begin{DoxyCompactList}\small\item\em Creates \doxylink{classrpp_1_1observable}{rpp\+::observable} that emits an integer after a given delay, on the specified scheduler. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Creates \doxylink{classrpp_1_1observable}{rpp\+::observable} that emits an integer after a given delay, on the specified scheduler. \end{DoxyCompactList}\item 
+{\footnotesize template$<$schedulers\+::constraint\+::scheduler TScheduler$>$ }\\auto \mbox{\hyperlink{group__creational__operators_gab41bcf939ae57be84287d8ae8926846c}{rpp\+::source\+::timer}} (rpp\+::schedulers\+::time\+\_\+point when, TScheduler \&\&scheduler)
+\begin{DoxyCompactList}\small\item\em Same as \doxylink{group__creational__operators_gae7248892783797dda894e18b2b499586}{rpp\+::source\+::timer} but using a time\+\_\+point as delay instead of a duration. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsubsubsection{Detailed Description}
@@ -408,7 +412,7 @@ Creates observable that emits a items from provided iterable.
 \Hypertarget{group__creational__operators_ga4018b147fb99a358c6c01f21183c13e6}\label{group__creational__operators_ga4018b147fb99a358c6c01f21183c13e6} 
 \index{Creational Operators@{Creational Operators}!interval@{interval}}
 \index{interval@{interval}!Creational Operators@{Creational Operators}}
-\doxysubsubsubsubsection{\texorpdfstring{interval()}{interval()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+\doxysubsubsubsubsection{\texorpdfstring{interval()}{interval()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
 {\footnotesize\ttfamily template$<$schedulers\+::constraint\+::scheduler TScheduler$>$ \\
 auto rpp\+::source\+::interval (\begin{DoxyParamCaption}\item[{rpp\+::schedulers\+::duration}]{initial,  }\item[{rpp\+::schedulers\+::duration}]{period,  }\item[{TScheduler \&\&}]{scheduler }\end{DoxyParamCaption})}
 
@@ -420,7 +424,7 @@ Creates \doxylink{classrpp_1_1observable}{rpp\+::observable} that emits a sequen
 
 
 \begin{DoxyParams}{Parameters}
-{\em initial} & time before first emission \\
+{\em initial} & duration before first emission \\
 \hline
 {\em period} & period between emitted values \\
 \hline
@@ -443,7 +447,7 @@ Creates \doxylink{classrpp_1_1observable}{rpp\+::observable} that emits a sequen
 \Hypertarget{group__creational__operators_ga95f6d310d6f17a4c248e43fb628527df}\label{group__creational__operators_ga95f6d310d6f17a4c248e43fb628527df} 
 \index{Creational Operators@{Creational Operators}!interval@{interval}}
 \index{interval@{interval}!Creational Operators@{Creational Operators}}
-\doxysubsubsubsubsection{\texorpdfstring{interval()}{interval()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+\doxysubsubsubsubsection{\texorpdfstring{interval()}{interval()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
 {\footnotesize\ttfamily template$<$schedulers\+::constraint\+::scheduler TScheduler$>$ \\
 auto rpp\+::source\+::interval (\begin{DoxyParamCaption}\item[{rpp\+::schedulers\+::duration}]{period,  }\item[{TScheduler \&\&}]{scheduler }\end{DoxyParamCaption})}
 
@@ -465,6 +469,29 @@ Creates \doxylink{classrpp_1_1observable}{rpp\+::observable} that emits a sequen
 \end{DoxyCodeInclude}
 
 \end{DoxyParagraph}
+\begin{DoxySeeAlso}{See also}
+\href{https://reactivex.io/documentation/operators/interval.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/interval.\+html}} 
+\end{DoxySeeAlso}
+\Hypertarget{group__creational__operators_ga0fdda8fec71eb1bc082065577d458f8e}\label{group__creational__operators_ga0fdda8fec71eb1bc082065577d458f8e} 
+\index{Creational Operators@{Creational Operators}!interval@{interval}}
+\index{interval@{interval}!Creational Operators@{Creational Operators}}
+\doxysubsubsubsubsection{\texorpdfstring{interval()}{interval()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily template$<$schedulers\+::constraint\+::scheduler TScheduler$>$ \\
+auto rpp\+::source\+::interval (\begin{DoxyParamCaption}\item[{rpp\+::schedulers\+::time\+\_\+point}]{initial,  }\item[{rpp\+::schedulers\+::duration}]{period,  }\item[{TScheduler \&\&}]{scheduler }\end{DoxyParamCaption})}
+
+
+
+Same \doxylink{group__creational__operators_ga4018b147fb99a358c6c01f21183c13e6}{rpp\+::source\+::interval} but using a time\+\_\+point as initial time instead of a duration. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em initial} & time\+\_\+point before first emission \\
+\hline
+{\em period} & period between emitted values \\
+\hline
+{\em scheduler} & the scheduler to use for scheduling the items\\
+\hline
+\end{DoxyParams}
 \begin{DoxySeeAlso}{See also}
 \href{https://reactivex.io/documentation/operators/interval.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/interval.\+html}} 
 \end{DoxySeeAlso}
@@ -600,7 +627,7 @@ Creates \doxylink{classrpp_1_1observable}{rpp\+::observable} that emits no items
 \Hypertarget{group__creational__operators_gae7248892783797dda894e18b2b499586}\label{group__creational__operators_gae7248892783797dda894e18b2b499586} 
 \index{Creational Operators@{Creational Operators}!timer@{timer}}
 \index{timer@{timer}!Creational Operators@{Creational Operators}}
-\doxysubsubsubsubsection{\texorpdfstring{timer()}{timer()}}
+\doxysubsubsubsubsection{\texorpdfstring{timer()}{timer()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
 {\footnotesize\ttfamily template$<$schedulers\+::constraint\+::scheduler TScheduler$>$ \\
 auto rpp\+::source\+::timer (\begin{DoxyParamCaption}\item[{rpp\+::schedulers\+::duration}]{when,  }\item[{TScheduler \&\&}]{scheduler }\end{DoxyParamCaption})}
 
@@ -609,6 +636,27 @@ auto rpp\+::source\+::timer (\begin{DoxyParamCaption}\item[{rpp\+::schedulers\+:
 Creates \doxylink{classrpp_1_1observable}{rpp\+::observable} that emits an integer after a given delay, on the specified scheduler. 
 
 
+
+
+\begin{DoxyParams}{Parameters}
+{\em when} & duration from now when the value is emitted \\
+\hline
+{\em scheduler} & the scheduler to use for scheduling the items\\
+\hline
+\end{DoxyParams}
+\begin{DoxySeeAlso}{See also}
+\href{https://reactivex.io/documentation/operators/timer.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/timer.\+html}} 
+\end{DoxySeeAlso}
+\Hypertarget{group__creational__operators_gab41bcf939ae57be84287d8ae8926846c}\label{group__creational__operators_gab41bcf939ae57be84287d8ae8926846c} 
+\index{Creational Operators@{Creational Operators}!timer@{timer}}
+\index{timer@{timer}!Creational Operators@{Creational Operators}}
+\doxysubsubsubsubsection{\texorpdfstring{timer()}{timer()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$schedulers\+::constraint\+::scheduler TScheduler$>$ \\
+auto rpp\+::source\+::timer (\begin{DoxyParamCaption}\item[{rpp\+::schedulers\+::time\+\_\+point}]{when,  }\item[{TScheduler \&\&}]{scheduler }\end{DoxyParamCaption})}
+
+
+
+Same as \doxylink{group__creational__operators_gae7248892783797dda894e18b2b499586}{rpp\+::source\+::timer} but using a time\+\_\+point as delay instead of a duration. 
 
 
 \begin{DoxyParams}{Parameters}

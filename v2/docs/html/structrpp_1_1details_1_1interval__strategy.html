@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.10.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ReactivePlusPlus: rpp::details::interval_strategy&lt; TScheduler &gt; Struct Template Reference</title>
+<title>ReactivePlusPlus: rpp::details::interval_strategy&lt; TScheduler, TimePointOrDuration &gt; Struct Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -103,37 +103,37 @@ $(function(){initNavTree('structrpp_1_1details_1_1interval__strategy.html',''); 
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="structrpp_1_1details_1_1interval__strategy-members.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">rpp::details::interval_strategy&lt; TScheduler &gt; Struct Template Reference</div></div>
+  <div class="headertitle"><div class="title">rpp::details::interval_strategy&lt; TScheduler, TimePointOrDuration &gt; Struct Template Reference</div></div>
 </div><!--header-->
 <div class="contents">
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:ab30be51272e77bf02522b0454170be08" id="r_ab30be51272e77bf02522b0454170be08"><td class="memItemLeft" align="right" valign="top"><a id="ab30be51272e77bf02522b0454170be08" name="ab30be51272e77bf02522b0454170be08"></a>
+<tr class="memitem:a99154329c6a3f00063cd1342b8d019dd" id="r_a99154329c6a3f00063cd1342b8d019dd"><td class="memItemLeft" align="right" valign="top"><a id="a99154329c6a3f00063cd1342b8d019dd" name="a99154329c6a3f00063cd1342b8d019dd"></a>
 using&#160;</td><td class="memItemRight" valign="bottom"><b>value_type</b> = size_t</td></tr>
-<tr class="separator:ab30be51272e77bf02522b0454170be08"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:add74f90cec0b7fa1d364b1df7b6db0cc" id="r_add74f90cec0b7fa1d364b1df7b6db0cc"><td class="memItemLeft" align="right" valign="top"><a id="add74f90cec0b7fa1d364b1df7b6db0cc" name="add74f90cec0b7fa1d364b1df7b6db0cc"></a>
+<tr class="separator:a99154329c6a3f00063cd1342b8d019dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6861323c39b5f846c00150a292874420" id="r_a6861323c39b5f846c00150a292874420"><td class="memItemLeft" align="right" valign="top"><a id="a6861323c39b5f846c00150a292874420" name="a6861323c39b5f846c00150a292874420"></a>
 using&#160;</td><td class="memItemRight" valign="bottom"><b>expected_disposable_strategy</b> = std::conditional_t&lt;rpp::schedulers::utils::get_worker_t&lt;TScheduler&gt;::is_none_disposable, <a class="el" href="structrpp_1_1details_1_1observables_1_1fixed__disposable__strategy__selector.html">rpp::details::observables::bool_disposable_strategy_selector</a>, <a class="el" href="structrpp_1_1details_1_1observables_1_1fixed__disposable__strategy__selector.html">rpp::details::observables::fixed_disposable_strategy_selector</a>&lt;1&gt;&gt;</td></tr>
-<tr class="separator:add74f90cec0b7fa1d364b1df7b6db0cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="separator:a6861323c39b5f846c00150a292874420"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a3de5018030b2ba44b90442652a9bde57" id="r_a3de5018030b2ba44b90442652a9bde57"><td class="memTemplParams" colspan="2"><a id="a3de5018030b2ba44b90442652a9bde57" name="a3de5018030b2ba44b90442652a9bde57"></a>
+<tr class="memitem:a6ce3ebf45a5b99e1fe51890265b6a757" id="r_a6ce3ebf45a5b99e1fe51890265b6a757"><td class="memTemplParams" colspan="2"><a id="a6ce3ebf45a5b99e1fe51890265b6a757" name="a6ce3ebf45a5b99e1fe51890265b6a757"></a>
 template&lt;<a class="el" href="conceptrpp_1_1constraint_1_1observer__of__type.html">rpp::constraint::observer_of_type</a>&lt; value_type &gt; TObs&gt; </td></tr>
-<tr class="memitem:a3de5018030b2ba44b90442652a9bde57"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>subscribe</b> (TObs &amp;&amp;<a class="el" href="classrpp_1_1observer.html">observer</a>) const</td></tr>
-<tr class="separator:a3de5018030b2ba44b90442652a9bde57"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6ce3ebf45a5b99e1fe51890265b6a757"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>subscribe</b> (TObs &amp;&amp;<a class="el" href="classrpp_1_1observer.html">observer</a>) const</td></tr>
+<tr class="separator:a6ce3ebf45a5b99e1fe51890265b6a757"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:aa2dba5db44aec56e610cf776e1bf16c1" id="r_aa2dba5db44aec56e610cf776e1bf16c1"><td class="memItemLeft" align="right" valign="top"><a id="aa2dba5db44aec56e610cf776e1bf16c1" name="aa2dba5db44aec56e610cf776e1bf16c1"></a>
+<tr class="memitem:a9556809920f89c601c1e187748efb618" id="r_a9556809920f89c601c1e187748efb618"><td class="memItemLeft" align="right" valign="top"><a id="a9556809920f89c601c1e187748efb618" name="a9556809920f89c601c1e187748efb618"></a>
 RPP_NO_UNIQUE_ADDRESS TScheduler&#160;</td><td class="memItemRight" valign="bottom"><b>scheduler</b></td></tr>
-<tr class="separator:aa2dba5db44aec56e610cf776e1bf16c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a31ca8062ed7e58a8e14d1a0eb0379729" id="r_a31ca8062ed7e58a8e14d1a0eb0379729"><td class="memItemLeft" align="right" valign="top"><a id="a31ca8062ed7e58a8e14d1a0eb0379729" name="a31ca8062ed7e58a8e14d1a0eb0379729"></a>
-rpp::schedulers::duration&#160;</td><td class="memItemRight" valign="bottom"><b>initial</b></td></tr>
-<tr class="separator:a31ca8062ed7e58a8e14d1a0eb0379729"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7b93c08fbf0b249648acc96c3f8fb9b6" id="r_a7b93c08fbf0b249648acc96c3f8fb9b6"><td class="memItemLeft" align="right" valign="top"><a id="a7b93c08fbf0b249648acc96c3f8fb9b6" name="a7b93c08fbf0b249648acc96c3f8fb9b6"></a>
+<tr class="separator:a9556809920f89c601c1e187748efb618"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9146b07f30e2e00bddaab99b64d7d8dc" id="r_a9146b07f30e2e00bddaab99b64d7d8dc"><td class="memItemLeft" align="right" valign="top"><a id="a9146b07f30e2e00bddaab99b64d7d8dc" name="a9146b07f30e2e00bddaab99b64d7d8dc"></a>
+TimePointOrDuration&#160;</td><td class="memItemRight" valign="bottom"><b>initial</b></td></tr>
+<tr class="separator:a9146b07f30e2e00bddaab99b64d7d8dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a78cdf06a49de1bb34edf1a0ef4709352" id="r_a78cdf06a49de1bb34edf1a0ef4709352"><td class="memItemLeft" align="right" valign="top"><a id="a78cdf06a49de1bb34edf1a0ef4709352" name="a78cdf06a49de1bb34edf1a0ef4709352"></a>
 rpp::schedulers::duration&#160;</td><td class="memItemRight" valign="bottom"><b>period</b></td></tr>
-<tr class="separator:a7b93c08fbf0b249648acc96c3f8fb9b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="separator:a78cdf06a49de1bb34edf1a0ef4709352"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <hr/>The documentation for this struct was generated from the following file:<ul>
 <li>src/rpp/rpp/sources/<a class="el" href="interval_8hpp_source.html">interval.hpp</a></li>

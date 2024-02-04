@@ -130,15 +130,15 @@ $(function(){initNavTree('interval_8hpp_source.html',''); initResizable(); });
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>};</div>
 </div>
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> TScheduler&gt;</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> TScheduler, <span class="keyword">typename</span> TimePo<span class="keywordtype">int</span>OrDuration&gt;</div>
 <div class="foldopen" id="foldopen00029" data-start="{" data-end="};">
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno"><a class="line" href="structrpp_1_1details_1_1interval__strategy.html">   29</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structrpp_1_1details_1_1interval__strategy.html">interval_strategy</a></div>
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>{</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    <span class="keyword">using </span>value_type = size_t;</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    <span class="keyword">using </span>value_type                   = size_t;</div>
 <div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    <span class="keyword">using </span>expected_disposable_strategy = std::conditional_t&lt;rpp::schedulers::utils::get_worker_t&lt;TScheduler&gt;::is_none_disposable, <a class="code hl_struct" href="structrpp_1_1details_1_1observables_1_1fixed__disposable__strategy__selector.html">rpp::details::observables::bool_disposable_strategy_selector</a>, <a class="code hl_struct" href="structrpp_1_1details_1_1observables_1_1fixed__disposable__strategy__selector.html">rpp::details::observables::fixed_disposable_strategy_selector&lt;1&gt;</a>&gt;;</div>
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
 <div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    RPP_NO_UNIQUE_ADDRESS TScheduler scheduler;</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    rpp::schedulers::duration        initial;</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    TimePointOrDuration              initial;</div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    rpp::schedulers::duration        period;</div>
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    <span class="keyword">template</span>&lt;rpp::constra<span class="keywordtype">int</span>::observer_of_type&lt;value_type&gt; TObs&gt;</div>
@@ -150,38 +150,52 @@ $(function(){initNavTree('interval_8hpp_source.html',''); initResizable(); });
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>            <span class="keywordflow">if</span> (<span class="keyword">auto</span> d = worker.get_disposable(); !d.is_disposed())</div>
 <div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>                <a class="code hl_class" href="classrpp_1_1observer.html">observer</a>.<a class="code hl_function" href="classrpp_1_1details_1_1observer__impl.html#a3ae7822fe5f962a69ee190af8ff8f0e2">set_upstream</a>(std::move(d));</div>
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>        }</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        worker.schedule(initial, <a class="code hl_struct" href="structrpp_1_1details_1_1interval__schedulable.html">interval_schedulable</a>{}, std::forward&lt;TObs&gt;(<a class="code hl_class" href="classrpp_1_1observer.html">observer</a>), period, <span class="keywordtype">size_t</span>{});</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    }</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>};</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>        <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (std::is_same_v&lt;TimePointOrDuration, rpp::schedulers::time_point&gt;)</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>        {</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>            worker.schedule(initial - worker.now(), <a class="code hl_struct" href="structrpp_1_1details_1_1interval__schedulable.html">interval_schedulable</a>{}, std::forward&lt;TObs&gt;(<a class="code hl_class" href="classrpp_1_1observer.html">observer</a>), period, <span class="keywordtype">size_t</span>{});</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>        }</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>        <span class="keywordflow">else</span></div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>        {</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>            worker.schedule(initial, <a class="code hl_struct" href="structrpp_1_1details_1_1interval__schedulable.html">interval_schedulable</a>{}, std::forward&lt;TObs&gt;(<a class="code hl_class" href="classrpp_1_1observer.html">observer</a>), period, <span class="keywordtype">size_t</span>{});</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>        }</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    }</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>};</div>
 </div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>}</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span><span class="keyword">namespace </span>rpp</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>{</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span><span class="keyword">template</span>&lt;schedulers::constra<span class="keywordtype">int</span>::scheduler TScheduler&gt;</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span><span class="keyword">using </span><a class="code hl_class" href="classrpp_1_1observable.html">interval_observable</a> = <a class="code hl_class" href="classrpp_1_1observable.html">observable&lt;size_t, details::interval_strategy&lt;TScheduler&gt;</a>&gt;;</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>}</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span><span class="keyword">namespace </span>rpp::source</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>{</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span><span class="keyword">template</span>&lt;schedulers::constra<span class="keywordtype">int</span>::scheduler TScheduler&gt;</div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span><span class="keyword">auto</span> <a class="code hl_function" href="group__creational__operators.html#ga4018b147fb99a358c6c01f21183c13e6">interval</a>(rpp::schedulers::duration initial, rpp::schedulers::duration period, TScheduler&amp;&amp; scheduler)</div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>{</div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    <span class="keywordflow">return</span> interval_observable&lt;std::decay_t&lt;TScheduler&gt;&gt;{std::forward&lt;TScheduler&gt;(scheduler), initial, period};</div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>}</div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span> </div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span><span class="keyword">template</span>&lt;schedulers::constra<span class="keywordtype">int</span>::scheduler TScheduler&gt;</div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span><span class="keyword">auto</span> <a class="code hl_function" href="group__creational__operators.html#ga4018b147fb99a358c6c01f21183c13e6">interval</a>(rpp::schedulers::duration period, TScheduler&amp;&amp; scheduler)</div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>{</div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="group__creational__operators.html#ga4018b147fb99a358c6c01f21183c13e6">interval</a>(period, period, std::forward&lt;TScheduler&gt;(scheduler));</div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>}</div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>}</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>}</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span><span class="keyword">namespace </span>rpp</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>{</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span><span class="keyword">template</span>&lt;schedulers::constra<span class="keywordtype">int</span>::scheduler TScheduler, <span class="keyword">typename</span> TimePo<span class="keywordtype">int</span>OrDuration&gt;</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span><span class="keyword">using </span><a class="code hl_class" href="classrpp_1_1observable.html">interval_observable</a> = <a class="code hl_class" href="classrpp_1_1observable.html">observable&lt;size_t, details::interval_strategy&lt;TScheduler, TimePointOrDuration&gt;</a>&gt;;</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>}</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span><span class="keyword">namespace </span>rpp::source</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>{</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span> </div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span><span class="keyword">template</span>&lt;schedulers::constra<span class="keywordtype">int</span>::scheduler TScheduler&gt;</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span><span class="keyword">auto</span> <a class="code hl_function" href="group__creational__operators.html#ga4018b147fb99a358c6c01f21183c13e6">interval</a>(rpp::schedulers::duration initial, rpp::schedulers::duration period, TScheduler&amp;&amp; scheduler)</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>{</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    <span class="keywordflow">return</span> interval_observable&lt;std::decay_t&lt;TScheduler&gt;, rpp::schedulers::duration&gt;{std::forward&lt;TScheduler&gt;(scheduler), initial, period};</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>}</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span> </div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span><span class="keyword">template</span>&lt;schedulers::constra<span class="keywordtype">int</span>::scheduler TScheduler&gt;</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span><span class="keyword">auto</span> <a class="code hl_function" href="group__creational__operators.html#ga4018b147fb99a358c6c01f21183c13e6">interval</a>(rpp::schedulers::time_point initial, rpp::schedulers::duration period, TScheduler&amp;&amp; scheduler)</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>{</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>    <span class="keywordflow">return</span> interval_observable&lt;std::decay_t&lt;TScheduler&gt;, rpp::schedulers::time_point&gt;{std::forward&lt;TScheduler&gt;(scheduler), initial, period};</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>}</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span> </div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span><span class="keyword">template</span>&lt;schedulers::constra<span class="keywordtype">int</span>::scheduler TScheduler&gt;</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span><span class="keyword">auto</span> <a class="code hl_function" href="group__creational__operators.html#ga4018b147fb99a358c6c01f21183c13e6">interval</a>(rpp::schedulers::duration period, TScheduler&amp;&amp; scheduler)</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>{</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="group__creational__operators.html#ga4018b147fb99a358c6c01f21183c13e6">interval</a>(period, period, std::forward&lt;TScheduler&gt;(scheduler));</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>}</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>}</div>
 <div class="ttc" id="aclassrpp_1_1details_1_1observer__impl_html_a14747a5260ecc183a6d0f1adafee4f68"><div class="ttname"><a href="classrpp_1_1details_1_1observer__impl.html#a14747a5260ecc183a6d0f1adafee4f68">rpp::details::observer_impl::on_next</a></div><div class="ttdeci">void on_next(const Type &amp;v) const noexcept</div><div class="ttdoc">Observable calls this method to notify observer about new value.</div><div class="ttdef"><b>Definition</b> observer.hpp:87</div></div>
 <div class="ttc" id="aclassrpp_1_1details_1_1observer__impl_html_a3ae7822fe5f962a69ee190af8ff8f0e2"><div class="ttname"><a href="classrpp_1_1details_1_1observer__impl.html#a3ae7822fe5f962a69ee190af8ff8f0e2">rpp::details::observer_impl::set_upstream</a></div><div class="ttdeci">void set_upstream(const disposable_wrapper &amp;d) noexcept</div><div class="ttdoc">Observable calls this method to pass disposable. Observer disposes this disposable WHEN observer want...</div><div class="ttdef"><b>Definition</b> observer.hpp:52</div></div>
 <div class="ttc" id="aclassrpp_1_1observable_html"><div class="ttname"><a href="classrpp_1_1observable.html">rpp::observable</a></div><div class="ttdoc">Base class for any observable used in RPP. It handles core callbacks of observable.</div><div class="ttdef"><b>Definition</b> observable.hpp:36</div></div>
 <div class="ttc" id="aclassrpp_1_1observer_html"><div class="ttname"><a href="classrpp_1_1observer.html">rpp::observer</a></div><div class="ttdoc">Base class for any observer used in RPP. It handles core callbacks of observers. Objects of this clas...</div><div class="ttdef"><b>Definition</b> observer.hpp:173</div></div>
-<div class="ttc" id="agroup__creational__operators_html_ga4018b147fb99a358c6c01f21183c13e6"><div class="ttname"><a href="group__creational__operators.html#ga4018b147fb99a358c6c01f21183c13e6">rpp::source::interval</a></div><div class="ttdeci">auto interval(rpp::schedulers::duration initial, rpp::schedulers::duration period, TScheduler &amp;&amp;scheduler)</div><div class="ttdoc">Creates rpp::observable that emits a sequential integer every specified time interval,...</div><div class="ttdef"><b>Definition</b> interval.hpp:77</div></div>
+<div class="ttc" id="agroup__creational__operators_html_ga4018b147fb99a358c6c01f21183c13e6"><div class="ttname"><a href="group__creational__operators.html#ga4018b147fb99a358c6c01f21183c13e6">rpp::source::interval</a></div><div class="ttdeci">auto interval(rpp::schedulers::duration initial, rpp::schedulers::duration period, TScheduler &amp;&amp;scheduler)</div><div class="ttdoc">Creates rpp::observable that emits a sequential integer every specified time interval,...</div><div class="ttdef"><b>Definition</b> interval.hpp:85</div></div>
 <div class="ttc" id="astructrpp_1_1details_1_1interval__schedulable_html"><div class="ttname"><a href="structrpp_1_1details_1_1interval__schedulable.html">rpp::details::interval_schedulable</a></div><div class="ttdef"><b>Definition</b> interval.hpp:20</div></div>
 <div class="ttc" id="astructrpp_1_1details_1_1interval__strategy_html"><div class="ttname"><a href="structrpp_1_1details_1_1interval__strategy.html">rpp::details::interval_strategy</a></div><div class="ttdef"><b>Definition</b> interval.hpp:30</div></div>
 <div class="ttc" id="astructrpp_1_1details_1_1observables_1_1fixed__disposable__strategy__selector_html"><div class="ttname"><a href="structrpp_1_1details_1_1observables_1_1fixed__disposable__strategy__selector.html">rpp::details::observables::fixed_disposable_strategy_selector</a></div><div class="ttdef"><b>Definition</b> disposable_strategy.hpp:50</div></div>

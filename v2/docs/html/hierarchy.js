@@ -131,7 +131,7 @@ var hierarchy =
       ] ]
     ] ],
     [ "rpp::details::interval_schedulable", "structrpp_1_1details_1_1interval__schedulable.html", null ],
-    [ "rpp::details::interval_strategy< TScheduler >", "structrpp_1_1details_1_1interval__strategy.html", null ],
+    [ "rpp::details::interval_strategy< TScheduler, TimePointOrDuration >", "structrpp_1_1details_1_1interval__strategy.html", null ],
     [ "rpp::details::observers::lambda_strategy< Type, OnNext, OnError, OnCompleted >", "structrpp_1_1details_1_1observers_1_1lambda__strategy.html", null ],
     [ "rpp::operators::details::last_observer_strategy< Type, TObserver >", "structrpp_1_1operators_1_1details_1_1last__observer__strategy.html", null ],
     [ "rpp::details::observers::local_disposable_strategy< DisposableContainer, Bool >", "classrpp_1_1details_1_1observers_1_1local__disposable__strategy.html", null ],

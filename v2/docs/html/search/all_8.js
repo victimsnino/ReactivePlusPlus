@@ -6,7 +6,7 @@ var searchData=
   ['infinite_5frepeat_5ft_3',['infinite_repeat_t',['../structrpp_1_1operators_1_1details_1_1infinite__repeat__t.html',1,'rpp::operators::details']]],
   ['interface_5fcomposite_5fdisposable_4',['interface_composite_disposable',['../structrpp_1_1interface__composite__disposable.html',1,'rpp']]],
   ['interface_5fdisposable_5',['interface_disposable',['../structrpp_1_1interface__disposable.html',1,'rpp']]],
-  ['interval_6',['interval',['../group__creational__operators.html#ga4018b147fb99a358c6c01f21183c13e6',1,'rpp::source::interval(rpp::schedulers::duration initial, rpp::schedulers::duration period, TScheduler &amp;&amp;scheduler)'],['../group__creational__operators.html#ga95f6d310d6f17a4c248e43fb628527df',1,'rpp::source::interval(rpp::schedulers::duration period, TScheduler &amp;&amp;scheduler)']]],
+  ['interval_6',['interval',['../group__creational__operators.html#ga4018b147fb99a358c6c01f21183c13e6',1,'rpp::source::interval(rpp::schedulers::duration initial, rpp::schedulers::duration period, TScheduler &amp;&amp;scheduler)'],['../group__creational__operators.html#ga0fdda8fec71eb1bc082065577d458f8e',1,'rpp::source::interval(rpp::schedulers::time_point initial, rpp::schedulers::duration period, TScheduler &amp;&amp;scheduler)'],['../group__creational__operators.html#ga95f6d310d6f17a4c248e43fb628527df',1,'rpp::source::interval(rpp::schedulers::duration period, TScheduler &amp;&amp;scheduler)']]],
   ['interval_5fschedulable_7',['interval_schedulable',['../structrpp_1_1details_1_1interval__schedulable.html',1,'rpp::details']]],
   ['interval_5fstrategy_8',['interval_strategy',['../structrpp_1_1details_1_1interval__strategy.html',1,'rpp::details']]],
   ['introduction_9',['Introduction',['../md_docs_2readme.html#autotoc_md1',1,'']]],

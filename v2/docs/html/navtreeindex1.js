@@ -1,5 +1,7 @@
 var NAVTREEINDEX1 =
 {
+"group__creational__operators.html#gae7248892783797dda894e18b2b499586":[1,0,3,7,15],
+"group__disposables.html":[1,0,0],
 "group__filtering__operators.html":[1,0,3,1],
 "group__filtering__operators.html#ga3ad579153e7975af6ae4b75f585fb873":[1,0,3,1,1],
 "group__filtering__operators.html#ga5b8f3bf549a8679d41941f7224f7faad":[1,0,3,1,2],
@@ -247,7 +249,5 @@ var NAVTREEINDEX1 =
 "structrpp_1_1operators_1_1details_1_1window__t.html":[3,0,0,2,0,93],
 "structrpp_1_1operators_1_1details_1_1window__toggle__closing__observer__strategy.html":[3,0,0,2,0,94],
 "structrpp_1_1operators_1_1details_1_1window__toggle__opening__observer__strategy.html":[3,0,0,2,0,96],
-"structrpp_1_1operators_1_1details_1_1window__toggle__state.html":[3,0,0,2,0,97],
-"structrpp_1_1operators_1_1details_1_1window__toggle__state_1_1state__t.html":[3,0,0,2,0,97,0],
-"structrpp_1_1operators_1_1details_1_1window__toggle__t.html":[3,0,0,2,0,98]
+"structrpp_1_1operators_1_1details_1_1window__toggle__state.html":[3,0,0,2,0,97]
 };

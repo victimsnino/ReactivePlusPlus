@@ -161,6 +161,10 @@ requires (constraint::decayed_same_as&lt;T, Ts&gt; &amp;&amp; ...)</td></tr>
 <tr class="memitem:ga4018b147fb99a358c6c01f21183c13e6"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#ga4018b147fb99a358c6c01f21183c13e6">rpp::source::interval</a> (rpp::schedulers::duration initial, rpp::schedulers::duration period, TScheduler &amp;&amp;scheduler)</td></tr>
 <tr class="memdesc:ga4018b147fb99a358c6c01f21183c13e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates <a class="el" href="classrpp_1_1observable.html" title="Base class for any observable used in RPP. It handles core callbacks of observable.">rpp::observable</a> that emits a sequential integer every specified time interval, on the specified scheduler.  <br /></td></tr>
 <tr class="separator:ga4018b147fb99a358c6c01f21183c13e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0fdda8fec71eb1bc082065577d458f8e" id="r_ga0fdda8fec71eb1bc082065577d458f8e"><td class="memTemplParams" colspan="2">template&lt;schedulers::constraint::scheduler TScheduler&gt; </td></tr>
+<tr class="memitem:ga0fdda8fec71eb1bc082065577d458f8e"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#ga0fdda8fec71eb1bc082065577d458f8e">rpp::source::interval</a> (rpp::schedulers::time_point initial, rpp::schedulers::duration period, TScheduler &amp;&amp;scheduler)</td></tr>
+<tr class="memdesc:ga0fdda8fec71eb1bc082065577d458f8e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Same <a class="el" href="#ga4018b147fb99a358c6c01f21183c13e6" title="Creates rpp::observable that emits a sequential integer every specified time interval,...">rpp::source::interval</a> but using a time_point as initial time instead of a duration.  <br /></td></tr>
+<tr class="separator:ga0fdda8fec71eb1bc082065577d458f8e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga95f6d310d6f17a4c248e43fb628527df" id="r_ga95f6d310d6f17a4c248e43fb628527df"><td class="memTemplParams" colspan="2">template&lt;schedulers::constraint::scheduler TScheduler&gt; </td></tr>
 <tr class="memitem:ga95f6d310d6f17a4c248e43fb628527df"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#ga95f6d310d6f17a4c248e43fb628527df">rpp::source::interval</a> (rpp::schedulers::duration period, TScheduler &amp;&amp;scheduler)</td></tr>
 <tr class="memdesc:ga95f6d310d6f17a4c248e43fb628527df"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates <a class="el" href="classrpp_1_1observable.html" title="Base class for any observable used in RPP. It handles core callbacks of observable.">rpp::observable</a> that emits a sequential integer every specified time interval, on the specified scheduler.  <br /></td></tr>
@@ -173,6 +177,10 @@ requires (constraint::decayed_same_as&lt;T, Ts&gt; &amp;&amp; ...)</td></tr>
 <tr class="memitem:gae7248892783797dda894e18b2b499586"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#gae7248892783797dda894e18b2b499586">rpp::source::timer</a> (rpp::schedulers::duration when, TScheduler &amp;&amp;scheduler)</td></tr>
 <tr class="memdesc:gae7248892783797dda894e18b2b499586"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates <a class="el" href="classrpp_1_1observable.html" title="Base class for any observable used in RPP. It handles core callbacks of observable.">rpp::observable</a> that emits an integer after a given delay, on the specified scheduler.  <br /></td></tr>
 <tr class="separator:gae7248892783797dda894e18b2b499586"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab41bcf939ae57be84287d8ae8926846c" id="r_gab41bcf939ae57be84287d8ae8926846c"><td class="memTemplParams" colspan="2">template&lt;schedulers::constraint::scheduler TScheduler&gt; </td></tr>
+<tr class="memitem:gab41bcf939ae57be84287d8ae8926846c"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#gab41bcf939ae57be84287d8ae8926846c">rpp::source::timer</a> (rpp::schedulers::time_point when, TScheduler &amp;&amp;scheduler)</td></tr>
+<tr class="memdesc:gab41bcf939ae57be84287d8ae8926846c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Same as <a class="el" href="#gae7248892783797dda894e18b2b499586" title="Creates rpp::observable that emits an integer after a given delay, on the specified scheduler.">rpp::source::timer</a> but using a time_point as delay instead of a duration.  <br /></td></tr>
+<tr class="separator:gab41bcf939ae57be84287d8ae8926846c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p>Creational operators are operators that create new observable. </p>
@@ -567,7 +575,7 @@ template&lt;constraint::memory_model MemoryModel, constraint::iterable Iterable,
 </div>
 </div>
 <a id="ga4018b147fb99a358c6c01f21183c13e6" name="ga4018b147fb99a358c6c01f21183c13e6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga4018b147fb99a358c6c01f21183c13e6">&#9670;&#160;</a></span>interval() <span class="overload">[1/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ga4018b147fb99a358c6c01f21183c13e6">&#9670;&#160;</a></span>interval() <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -598,7 +606,7 @@ template&lt;schedulers::constraint::scheduler TScheduler&gt; </div>
 </div>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">initial</td><td>time before first emission </td></tr>
+    <tr><td class="paramname">initial</td><td>duration before first emission </td></tr>
     <tr><td class="paramname">period</td><td>period between emitted values </td></tr>
     <tr><td class="paramname">scheduler</td><td>the scheduler to use for scheduling the items</td></tr>
   </table>
@@ -612,7 +620,7 @@ template&lt;schedulers::constraint::scheduler TScheduler&gt; </div>
 </div>
 </div>
 <a id="ga95f6d310d6f17a4c248e43fb628527df" name="ga95f6d310d6f17a4c248e43fb628527df"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga95f6d310d6f17a4c248e43fb628527df">&#9670;&#160;</a></span>interval() <span class="overload">[2/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ga95f6d310d6f17a4c248e43fb628527df">&#9670;&#160;</a></span>interval() <span class="overload">[2/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -644,6 +652,45 @@ template&lt;schedulers::constraint::scheduler TScheduler&gt; </div>
   </dd>
 </dl>
 <dl class="section user"><dt>Example:</dt><dd><div class="fragment"></div><!-- fragment --></dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/interval.html">https://reactivex.io/documentation/operators/interval.html</a> </dd></dl>
+
+</div>
+</div>
+<a id="ga0fdda8fec71eb1bc082065577d458f8e" name="ga0fdda8fec71eb1bc082065577d458f8e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga0fdda8fec71eb1bc082065577d458f8e">&#9670;&#160;</a></span>interval() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;schedulers::constraint::scheduler TScheduler&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">auto rpp::source::interval </td>
+          <td>(</td>
+          <td class="paramtype">rpp::schedulers::time_point</td>          <td class="paramname"><span class="paramname"><em>initial</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">rpp::schedulers::duration</td>          <td class="paramname"><span class="paramname"><em>period</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">TScheduler &amp;&amp;</td>          <td class="paramname"><span class="paramname"><em>scheduler</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Same <a class="el" href="#ga4018b147fb99a358c6c01f21183c13e6" title="Creates rpp::observable that emits a sequential integer every specified time interval,...">rpp::source::interval</a> but using a time_point as initial time instead of a duration. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">initial</td><td>time_point before first emission </td></tr>
+    <tr><td class="paramname">period</td><td>period between emitted values </td></tr>
+    <tr><td class="paramname">scheduler</td><td>the scheduler to use for scheduling the items</td></tr>
+  </table>
+  </dd>
+</dl>
 <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/interval.html">https://reactivex.io/documentation/operators/interval.html</a> </dd></dl>
 
 </div>
@@ -791,7 +838,7 @@ template&lt;constraint::decayed_type Type&gt; </div>
 </div>
 </div>
 <a id="gae7248892783797dda894e18b2b499586" name="gae7248892783797dda894e18b2b499586"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gae7248892783797dda894e18b2b499586">&#9670;&#160;</a></span>timer()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#gae7248892783797dda894e18b2b499586">&#9670;&#160;</a></span>timer() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -815,6 +862,39 @@ template&lt;schedulers::constraint::scheduler TScheduler&gt; </div>
 <div class="image">
 <object type="image/svg+xml" data="timer.svg" style="pointer-events: none;"></object>
 </div>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">when</td><td>duration from now when the value is emitted </td></tr>
+    <tr><td class="paramname">scheduler</td><td>the scheduler to use for scheduling the items</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/timer.html">https://reactivex.io/documentation/operators/timer.html</a> </dd></dl>
+
+</div>
+</div>
+<a id="gab41bcf939ae57be84287d8ae8926846c" name="gab41bcf939ae57be84287d8ae8926846c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gab41bcf939ae57be84287d8ae8926846c">&#9670;&#160;</a></span>timer() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;schedulers::constraint::scheduler TScheduler&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">auto rpp::source::timer </td>
+          <td>(</td>
+          <td class="paramtype">rpp::schedulers::time_point</td>          <td class="paramname"><span class="paramname"><em>when</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">TScheduler &amp;&amp;</td>          <td class="paramname"><span class="paramname"><em>scheduler</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Same as <a class="el" href="#gae7248892783797dda894e18b2b499586" title="Creates rpp::observable that emits an integer after a given delay, on the specified scheduler.">rpp::source::timer</a> but using a time_point as delay instead of a duration. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">when</td><td>time point when the value is emitted </td></tr>

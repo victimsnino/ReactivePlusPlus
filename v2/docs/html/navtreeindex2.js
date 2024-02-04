@@ -1,5 +1,7 @@
 var NAVTREEINDEX2 =
 {
+"structrpp_1_1operators_1_1details_1_1window__toggle__state_1_1state__t.html":[3,0,0,2,0,97,0],
+"structrpp_1_1operators_1_1details_1_1window__toggle__t.html":[3,0,0,2,0,98],
 "structrpp_1_1operators_1_1details_1_1with__latest__from__inner__observer__strategy.html":[3,0,0,2,0,100],
 "structrpp_1_1operators_1_1details_1_1with__latest__from__observer__strategy.html":[3,0,0,2,0,101],
 "structrpp_1_1operators_1_1details_1_1with__latest__from__t.html":[3,0,0,2,0,102],
