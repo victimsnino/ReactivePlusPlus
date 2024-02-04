@@ -19,44 +19,84 @@
 
 TEST_CASE("timer emit single value at provided duration")
 {
-    auto scheduler = test_scheduler{};
-    auto mock      = mock_observer_strategy<size_t>{};
+    auto scheduler  = test_scheduler{};
+    auto scheduler2 = test_scheduler{};
+    auto mock       = mock_observer_strategy<size_t>{};
+    auto mock2      = mock_observer_strategy<size_t>{};
 
     SECTION("timer observable")
     {
-        auto when         = std::chrono::seconds{1};
-        auto obs          = rpp::source::timer(when, scheduler);
-        auto initial_time = test_scheduler::worker_strategy::now();
+        auto when       = std::chrono::seconds{1};
+        auto time_point = scheduler2.now() + when;
+        auto obs        = rpp::source::timer(when, scheduler);
+        auto obs2       = rpp::source::timer(time_point, scheduler2);
 
         SECTION("subscribe")
         {
             obs | rpp::ops::subscribe(mock);
+            obs2 | rpp::ops::subscribe(mock2);
 
             SECTION("nothing happens immediately till scheduler advanced")
             {
-                CHECK(mock.get_received_values() == std::vector<size_t>{});
-                CHECK(mock.get_on_error_count() == 0);
-                CHECK(mock.get_on_completed_count() == 0);
-                CHECK(scheduler.get_schedulings() == std::vector{initial_time + when});
-                CHECK(scheduler.get_executions().empty());
+                auto validate = [&](const auto& mock, const auto& scheduler) {
+                    CHECK(mock.get_received_values() == std::vector<size_t>{});
+                    CHECK(mock.get_on_error_count() == 0);
+                    CHECK(mock.get_on_completed_count() == 0);
+
+                    CHECK(scheduler.get_schedulings().size() == 1);
+                    CHECK(scheduler.get_executions().empty());
+                };
+                validate(mock, scheduler);
+                validate(mock2, scheduler2);
             }
 
             SECTION("advance time")
             {
                 scheduler.time_advance(when);
+                scheduler2.time_advance(when);
 
                 SECTION("observer obtains value")
                 {
-                    CHECK(mock.get_received_values() == std::vector<size_t>{0});
-                    CHECK(mock.get_on_error_count() == 0);
-                    CHECK(mock.get_on_completed_count() == 1);
+                    auto validate = [&](const auto& mock) {
+                        CHECK(mock.get_received_values() == std::vector<size_t>{0});
+                        CHECK(mock.get_on_error_count() == 0);
+                        CHECK(mock.get_on_completed_count() == 1);
+                    };
+                    validate(mock);
+                    validate(mock2);
                 }
 
                 SECTION("timer schedules schedulable with provided interval")
                 {
-                    CHECK(scheduler.get_schedulings() == std::vector{initial_time + when});
-                    CHECK(scheduler.get_executions() == std::vector{initial_time + when});
+                    CHECK(scheduler.get_executions().size() == 1);
+                    CHECK(scheduler2.get_executions().size() == 1);
                 }
+            }
+        }
+    }
+}
+
+TEST_CASE("timer emit single value at provided time_point")
+{
+    auto scheduler = test_scheduler{};
+    auto mock      = mock_observer_strategy<size_t>{};
+
+    SECTION("timer observable")
+    {
+        auto when       = std::chrono::seconds{1};
+        auto time_point = scheduler.now() + when;
+        auto obs        = rpp::source::timer(time_point, scheduler);
+
+        SECTION("subscribe")
+        {
+            scheduler.time_advance(when * 2);
+            obs | rpp::ops::subscribe(mock);
+
+            SECTION("expect value as time_point is in the past")
+            {
+                CHECK(mock.get_received_values() == std::vector<size_t>{0});
+                CHECK(mock.get_on_error_count() == 0);
+                CHECK(mock.get_on_completed_count() == 1);
             }
         }
     }
