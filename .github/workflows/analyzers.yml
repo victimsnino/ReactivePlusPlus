@@ -125,7 +125,7 @@ jobs:
         sourceRunId: ${{ github.event.workflow_run.id }}
 
     - name: Submit to codecov.io
-      uses: codecov/codecov-action@v3
+      uses: codecov/codecov-action@v4
       with:
         file: build/test_results/coverage.txt
         override_branch: ${{ github.event.workflow_run.head_branch }}
