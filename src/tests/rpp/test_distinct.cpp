@@ -24,7 +24,7 @@ TEMPLATE_TEST_CASE("distinct filters out repeated values and emit only items tha
     auto mock = mock_observer_strategy<int>{};
     auto obs  = rpp::source::just<TestType>(1, 1, 2, 2, 3, 4, 4, 2, 2, 1, 3);
 
-    SECTION("WHEN subscribe on observable with duplicates via distinct THEN subscriber obtains values without consecutive duplicates")
+    SECTION("WHEN subscribe on observable with duplicates via distinct THEN subscriber obtains values without duplicates")
     {
         obs | rpp::ops::distinct() | rpp::ops::subscribe(mock);
         CHECK(mock.get_received_values() == std::vector{1, 2, 3, 4});
