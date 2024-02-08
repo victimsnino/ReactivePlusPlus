@@ -23,6 +23,8 @@ namespace rpp::operators::details
 template<rpp::constraint::decayed_type Type, rpp::constraint::observer TObserver>
 struct distinct_observer_strategy
 {
+    static_assert(rpp::constraint::hashable<Type>, "Distinct operator requires hashable type");
+
     using preferred_disposable_strategy = rpp::details::observers::none_disposable_strategy;
 
     RPP_NO_UNIQUE_ADDRESS TObserver  observer;
@@ -50,7 +52,6 @@ struct distinct_observer_strategy
 struct distinct_t : public operators::details::template_operator_observable_strategy<distinct_observer_strategy>
 {
     template<rpp::constraint::decayed_type T>
-        requires rpp::constraint::hashable<T>
     using result_value = T;
 
     template<rpp::details::observables::constraint::disposable_strategy Prev>
