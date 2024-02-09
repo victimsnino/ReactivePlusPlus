@@ -41,8 +41,8 @@ struct window_toggle_state
 
     struct state_t
     {
-        RPP_NO_UNIQUE_ADDRESS TObserver                                       observer;
-        mutable std::list<decltype(std::declval<Subject>().get_observer())> observers{};
+        RPP_NO_UNIQUE_ADDRESS TObserver                             observer;
+        std::list<decltype(std::declval<Subject>().get_observer())> observers{};
     };
 
     window_toggle_state(TObserver&& observer, const TClosingsSelectorFn& closings)
@@ -58,10 +58,10 @@ struct window_toggle_state
 
     auto on_new_subject(const Subject& subject)
     {
-        const auto locked_state = get_state_under_lock();
-        auto ptr = &locked_state->observers.emplace_back(subject.get_observer());
+        auto locked_state = get_state_under_lock();
+        const auto itr = locked_state->observers.insert(locked_state->observers.cend(), subject.get_observer());
         locked_state->observer.on_next(subject.get_observable());
-        return ptr;
+        return itr;
     }
 
 private:
@@ -72,10 +72,12 @@ private:
 template<rpp::constraint::decayed_type TState>
 struct window_toggle_closing_observer_strategy
 {
-    std::shared_ptr<rpp::refcount_disposable>                               disposable;
-    std::shared_ptr<TState>                                                 state;
-    rpp::disposable_wrapper                                                 subject_disposable;
-    decltype(std::declval<TState>().on_new_subject(std::declval<typename TState::Subject>())) ptr;
+    using preferred_disposable_strategy = rpp::details::observers::none_disposable_strategy;
+
+    std::shared_ptr<rpp::refcount_disposable>                                                 disposable;
+    std::shared_ptr<TState>                                                                   state;
+    rpp::composite_disposable_wrapper                                                         this_disposable;
+    decltype(std::declval<TState>().on_new_subject(std::declval<typename TState::Subject>())) itr;
 
     void on_next(const auto&) const
     {
@@ -84,7 +86,7 @@ struct window_toggle_closing_observer_strategy
 
     void on_error(const std::exception_ptr& err) const
     {
-        const auto locked_state = state->get_state_under_lock();
+        auto locked_state = state->get_state_under_lock();
         for (const auto& obs : locked_state->observers)
             obs.on_error(err);
         locked_state->observer.on_error(err);
@@ -92,14 +94,17 @@ struct window_toggle_closing_observer_strategy
 
     void on_completed() const
     {
-        disposable->remove(subject_disposable);
-        ptr->on_completed();
-        
-        const auto locked_state= state->get_state_under_lock();
-        locked_state->observers.remove_if([ptr=ptr](const auto& obs) { return &obs == ptr; });
+        disposable->remove(this_disposable);
+
+        itr->on_completed();
+        this_disposable.dispose();
+
+        auto locked_state= state->get_state_under_lock();
+        locked_state->observers.erase(itr);
     }
-    static void set_upstream(const disposable_wrapper&) { }
-    static bool is_disposed() { return false; }
+
+    void set_upstream(const disposable_wrapper& d) const { this_disposable.add(d); }
+    bool is_disposed() const { return this_disposable.is_disposed(); }
 };
 
 template<rpp::constraint::decayed_type TState>
@@ -112,9 +117,10 @@ struct window_toggle_opening_observer_strategy
     void on_next(T&& v) const
     {
         typename TState::Subject subject{disposable->wrapper_from_this()};
-        auto ptr = state->on_new_subject(subject);
+        const auto itr = state->on_new_subject(subject);
+
         disposable->add(subject.get_disposable());
-        state->get_closing(std::forward<T>(v)).subscribe(subject.get_disposable(), window_toggle_closing_observer_strategy<TState>{disposable, state, subject.get_disposable(), std::move(ptr)});
+        state->get_closing(std::forward<T>(v)).subscribe(window_toggle_closing_observer_strategy<TState>{disposable, state, subject.get_disposable(), itr});
     }
 
     void on_error(const std::exception_ptr& err) const
