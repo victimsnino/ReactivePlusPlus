@@ -7,6 +7,7 @@ var dir_3591f6ab25936dd3deeec05839e478ca =
     [ "concat.hpp", "operators_2concat_8hpp_source.html", null ],
     [ "debounce.hpp", "debounce_8hpp_source.html", null ],
     [ "delay.hpp", "delay_8hpp_source.html", null ],
+    [ "distinct.hpp", "distinct_8hpp_source.html", null ],
     [ "distinct_until_changed.hpp", "distinct__until__changed_8hpp_source.html", null ],
     [ "filter.hpp", "filter_8hpp_source.html", null ],
     [ "first.hpp", "first_8hpp_source.html", null ],

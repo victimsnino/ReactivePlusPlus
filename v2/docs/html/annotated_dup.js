@@ -78,6 +78,8 @@ var annotated_dup =
           [ "delay_disposable_wrapper", "structrpp_1_1operators_1_1details_1_1delay__disposable__wrapper.html", null ],
           [ "delay_observer_strategy", "structrpp_1_1operators_1_1details_1_1delay__observer__strategy.html", null ],
           [ "delay_t", "structrpp_1_1operators_1_1details_1_1delay__t.html", null ],
+          [ "distinct_observer_strategy", "structrpp_1_1operators_1_1details_1_1distinct__observer__strategy.html", null ],
+          [ "distinct_t", "structrpp_1_1operators_1_1details_1_1distinct__t.html", null ],
           [ "distinct_until_changed_observer_strategy", "structrpp_1_1operators_1_1details_1_1distinct__until__changed__observer__strategy.html", null ],
           [ "distinct_until_changed_t", "structrpp_1_1operators_1_1details_1_1distinct__until__changed__t.html", null ],
           [ "emission", "structrpp_1_1operators_1_1details_1_1emission.html", null ],

@@ -8,6 +8,8 @@ Filtering operators are operators that emit only part of items that satisfies so
 \doxysubsubsubsubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
+auto \mbox{\hyperlink{group__filtering__operators_ga80efca3cff11e046dc0de608a54d9909}{rpp\+::operators\+::distinct}} ()
+\begin{DoxyCompactList}\small\item\em For each item from this observable, filter out repeated values and emit only items that have not already been emitted. \end{DoxyCompactList}\item 
 {\footnotesize template$<$typename Equality\+Fn $>$ \newline
 requires (!utils\+::is\+\_\+not\+\_\+template\+\_\+callable$<$Equality\+Fn$>$ \texorpdfstring{$\vert$}{|}\texorpdfstring{$\vert$}{|} std\+::same\+\_\+as$<$bool, std\+::invoke\+\_\+result\+\_\+t$<$Equality\+Fn, rpp\+::utils\+::convertible\+\_\+to\+\_\+any, rpp\+::utils\+::convertible\+\_\+to\+\_\+any$>$$>$)}\\auto \mbox{\hyperlink{group__filtering__operators_gaa8ed11faabd5b31d63d0481f9018fc68}{rpp\+::operators\+::distinct\+\_\+until\+\_\+changed}} (Equality\+Fn \&\&equality\+\_\+fn)
 \begin{DoxyCompactList}\small\item\em Suppress consecutive duplicates of emissions from original observable. \end{DoxyCompactList}\item 
@@ -37,6 +39,24 @@ Filtering operators are operators that emit only part of items that satisfies so
 
 
 \doxysubsubsubsection{Function Documentation}
+\Hypertarget{group__filtering__operators_ga80efca3cff11e046dc0de608a54d9909}\label{group__filtering__operators_ga80efca3cff11e046dc0de608a54d9909} 
+\index{Filtering Operators@{Filtering Operators}!distinct@{distinct}}
+\index{distinct@{distinct}!Filtering Operators@{Filtering Operators}}
+\doxysubsubsubsubsection{\texorpdfstring{distinct()}{distinct()}}
+{\footnotesize\ttfamily auto rpp\+::operators\+::distinct (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+For each item from this observable, filter out repeated values and emit only items that have not already been emitted. 
+
+
+
+\begin{DoxyWarning}{Warning}
+This operator keeps an {\ttfamily std\+::unordered\+\_\+set\texorpdfstring{$<$}{<}T\texorpdfstring{$>$}{>}} of past values, so std\+::hash$<$\+T$>$ specialization is required.
+\end{DoxyWarning}
+\begin{DoxySeeAlso}{See also}
+\href{https://reactivex.io/documentation/operators/distinct.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/distinct.\+html}} 
+\end{DoxySeeAlso}
 \Hypertarget{group__filtering__operators_gaa8ed11faabd5b31d63d0481f9018fc68}\label{group__filtering__operators_gaa8ed11faabd5b31d63d0481f9018fc68} 
 \index{Filtering Operators@{Filtering Operators}!distinct\_until\_changed@{distinct\_until\_changed}}
 \index{distinct\_until\_changed@{distinct\_until\_changed}!Filtering Operators@{Filtering Operators}}

@@ -1,5 +1,6 @@
 var group__filtering__operators =
 [
+    [ "rpp::operators::distinct", "group__filtering__operators.html#ga80efca3cff11e046dc0de608a54d9909", null ],
     [ "rpp::operators::distinct_until_changed", "group__filtering__operators.html#gaa8ed11faabd5b31d63d0481f9018fc68", null ],
     [ "rpp::operators::filter", "group__filtering__operators.html#ga3ad579153e7975af6ae4b75f585fb873", null ],
     [ "rpp::operators::first", "group__filtering__operators.html#ga5b8f3bf549a8679d41941f7224f7faad", null ],

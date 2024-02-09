@@ -59,6 +59,7 @@ var hierarchy =
       [ "rpp::disposable_wrapper_impl< TDisposable >", "classrpp_1_1disposable__wrapper__impl.html", null ]
     ] ],
     [ "rpp::subjects::details::disposed", "structrpp_1_1subjects_1_1details_1_1disposed.html", null ],
+    [ "rpp::operators::details::distinct_observer_strategy< Type, TObserver >", "structrpp_1_1operators_1_1details_1_1distinct__observer__strategy.html", null ],
     [ "rpp::operators::details::distinct_until_changed_observer_strategy< Type, TObserver, EqualityFn >", "structrpp_1_1operators_1_1details_1_1distinct__until__changed__observer__strategy.html", null ],
     [ "rpp::details::observables::dynamic_disposable_strategy_selector< PreallocatedCount, Mode >", "structrpp_1_1details_1_1observables_1_1dynamic__disposable__strategy__selector.html", null ],
     [ "rpp::details::disposables::dynamic_disposables_container_base", "classrpp_1_1details_1_1disposables_1_1dynamic__disposables__container__base.html", [
@@ -182,6 +183,7 @@ var hierarchy =
     [ "rpp::operators::details::operator_observable_strategy_base< SubscribeStrategy, Args >", "classrpp_1_1operators_1_1details_1_1operator__observable__strategy__base.html", [
       [ "rpp::operators::details::buffer_t", "structrpp_1_1operators_1_1details_1_1buffer__t.html", null ],
       [ "rpp::operators::details::concat_t", "structrpp_1_1operators_1_1details_1_1concat__t.html", null ],
+      [ "rpp::operators::details::distinct_t", "structrpp_1_1operators_1_1details_1_1distinct__t.html", null ],
       [ "rpp::operators::details::distinct_until_changed_t< EqualityFn >", "structrpp_1_1operators_1_1details_1_1distinct__until__changed__t.html", null ],
       [ "rpp::operators::details::filter_t< Fn >", "structrpp_1_1operators_1_1details_1_1filter__t.html", null ],
       [ "rpp::operators::details::first_t", "structrpp_1_1operators_1_1details_1_1first__t.html", null ],

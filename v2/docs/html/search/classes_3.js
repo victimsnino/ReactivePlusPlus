@@ -23,12 +23,14 @@ var searchData=
   ['disposable_5fwrapper_5fimpl_3c_20rpp_3a_3asubjects_3a_3adetails_3a_3asubject_5fstate_3c_20type_20_3e_20_3e_20',['disposable_wrapper_impl&lt; rpp::subjects::details::subject_state&lt; Type &gt; &gt;',['../classrpp_1_1disposable__wrapper__impl.html',1,'rpp']]],
   ['disposable_5fwrapper_5fimpl_3c_20serialized_5fstate_20_3e_21',['disposable_wrapper_impl&lt; serialized_state &gt;',['../classrpp_1_1disposable__wrapper__impl.html',1,'rpp']]],
   ['disposed_22',['disposed',['../structrpp_1_1subjects_1_1details_1_1disposed.html',1,'rpp::subjects::details']]],
-  ['distinct_5funtil_5fchanged_5fobserver_5fstrategy_23',['distinct_until_changed_observer_strategy',['../structrpp_1_1operators_1_1details_1_1distinct__until__changed__observer__strategy.html',1,'rpp::operators::details']]],
-  ['distinct_5funtil_5fchanged_5ft_24',['distinct_until_changed_t',['../structrpp_1_1operators_1_1details_1_1distinct__until__changed__t.html',1,'rpp::operators::details']]],
-  ['dynamic_5fdisposable_5fstrategy_5fselector_25',['dynamic_disposable_strategy_selector',['../structrpp_1_1details_1_1observables_1_1dynamic__disposable__strategy__selector.html',1,'rpp::details::observables']]],
-  ['dynamic_5fdisposables_5fcontainer_26',['dynamic_disposables_container',['../classrpp_1_1details_1_1disposables_1_1dynamic__disposables__container.html',1,'rpp::details::disposables']]],
-  ['dynamic_5fdisposables_5fcontainer_5fbase_27',['dynamic_disposables_container_base',['../classrpp_1_1details_1_1disposables_1_1dynamic__disposables__container__base.html',1,'rpp::details::disposables']]],
-  ['dynamic_5fobservable_28',['dynamic_observable',['../classrpp_1_1dynamic__observable.html',1,'rpp']]],
-  ['dynamic_5fobserver_29',['dynamic_observer',['../classrpp_1_1dynamic__observer.html',1,'rpp']]],
-  ['dynamic_5fstrategy_30',['dynamic_strategy',['../classrpp_1_1details_1_1observables_1_1dynamic__strategy.html',1,'rpp::details::observables::dynamic_strategy&lt; Type &gt;'],['../classrpp_1_1details_1_1observers_1_1dynamic__strategy.html',1,'rpp::details::observers::dynamic_strategy&lt; Type &gt;']]]
+  ['distinct_5fobserver_5fstrategy_23',['distinct_observer_strategy',['../structrpp_1_1operators_1_1details_1_1distinct__observer__strategy.html',1,'rpp::operators::details']]],
+  ['distinct_5ft_24',['distinct_t',['../structrpp_1_1operators_1_1details_1_1distinct__t.html',1,'rpp::operators::details']]],
+  ['distinct_5funtil_5fchanged_5fobserver_5fstrategy_25',['distinct_until_changed_observer_strategy',['../structrpp_1_1operators_1_1details_1_1distinct__until__changed__observer__strategy.html',1,'rpp::operators::details']]],
+  ['distinct_5funtil_5fchanged_5ft_26',['distinct_until_changed_t',['../structrpp_1_1operators_1_1details_1_1distinct__until__changed__t.html',1,'rpp::operators::details']]],
+  ['dynamic_5fdisposable_5fstrategy_5fselector_27',['dynamic_disposable_strategy_selector',['../structrpp_1_1details_1_1observables_1_1dynamic__disposable__strategy__selector.html',1,'rpp::details::observables']]],
+  ['dynamic_5fdisposables_5fcontainer_28',['dynamic_disposables_container',['../classrpp_1_1details_1_1disposables_1_1dynamic__disposables__container.html',1,'rpp::details::disposables']]],
+  ['dynamic_5fdisposables_5fcontainer_5fbase_29',['dynamic_disposables_container_base',['../classrpp_1_1details_1_1disposables_1_1dynamic__disposables__container__base.html',1,'rpp::details::disposables']]],
+  ['dynamic_5fobservable_30',['dynamic_observable',['../classrpp_1_1dynamic__observable.html',1,'rpp']]],
+  ['dynamic_5fobserver_31',['dynamic_observer',['../classrpp_1_1dynamic__observer.html',1,'rpp']]],
+  ['dynamic_5fstrategy_32',['dynamic_strategy',['../classrpp_1_1details_1_1observables_1_1dynamic__strategy.html',1,'rpp::details::observables::dynamic_strategy&lt; Type &gt;'],['../classrpp_1_1details_1_1observers_1_1dynamic__strategy.html',1,'rpp::details::observers::dynamic_strategy&lt; Type &gt;']]]
 ];
