@@ -1,5 +1,11 @@
 \doxysection{rpp\+::operators\+::details\+::window\+\_\+toggle\+\_\+closing\+\_\+observer\+\_\+strategy\texorpdfstring{$<$}{<} TState \texorpdfstring{$>$}{>} Struct Template Reference}
 \hypertarget{structrpp_1_1operators_1_1details_1_1window__toggle__closing__observer__strategy}{}\label{structrpp_1_1operators_1_1details_1_1window__toggle__closing__observer__strategy}\index{rpp::operators::details::window\_toggle\_closing\_observer\_strategy$<$ TState $>$@{rpp::operators::details::window\_toggle\_closing\_observer\_strategy$<$ TState $>$}}
+\doxysubsubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{structrpp_1_1operators_1_1details_1_1window__toggle__closing__observer__strategy_a653006bc270cf6523a9e4554a763d9e9}\label{structrpp_1_1operators_1_1details_1_1window__toggle__closing__observer__strategy_a653006bc270cf6523a9e4554a763d9e9} 
+using {\bfseries preferred\+\_\+disposable\+\_\+strategy} = \mbox{\hyperlink{structrpp_1_1details_1_1observers_1_1none__disposable__strategy}{rpp\+::details\+::observers\+::none\+\_\+disposable\+\_\+strategy}}
+\end{DoxyCompactItemize}
 \doxysubsubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -11,15 +17,12 @@ void {\bfseries on\+\_\+error} (const std\+::exception\+\_\+ptr \&err) const
 \item 
 \Hypertarget{structrpp_1_1operators_1_1details_1_1window__toggle__closing__observer__strategy_ab2b9ffb0bf560b438ffe44c62fce46f3}\label{structrpp_1_1operators_1_1details_1_1window__toggle__closing__observer__strategy_ab2b9ffb0bf560b438ffe44c62fce46f3} 
 void {\bfseries on\+\_\+completed} () const
-\end{DoxyCompactItemize}
-\doxysubsubsection*{Static Public Member Functions}
-\begin{DoxyCompactItemize}
 \item 
-\Hypertarget{structrpp_1_1operators_1_1details_1_1window__toggle__closing__observer__strategy_a5fb3eea30304a25d11557b6780d0d735}\label{structrpp_1_1operators_1_1details_1_1window__toggle__closing__observer__strategy_a5fb3eea30304a25d11557b6780d0d735} 
-static void {\bfseries set\+\_\+upstream} (const \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{disposable\+\_\+wrapper}} \&)
+\Hypertarget{structrpp_1_1operators_1_1details_1_1window__toggle__closing__observer__strategy_a702b51373c074a51fafbf7e742556dfd}\label{structrpp_1_1operators_1_1details_1_1window__toggle__closing__observer__strategy_a702b51373c074a51fafbf7e742556dfd} 
+void {\bfseries set\+\_\+upstream} (const \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{disposable\+\_\+wrapper}} \&d) const
 \item 
-\Hypertarget{structrpp_1_1operators_1_1details_1_1window__toggle__closing__observer__strategy_a6e7a478e499402f358bf8b1fd18aeeec}\label{structrpp_1_1operators_1_1details_1_1window__toggle__closing__observer__strategy_a6e7a478e499402f358bf8b1fd18aeeec} 
-static bool {\bfseries is\+\_\+disposed} ()
+\Hypertarget{structrpp_1_1operators_1_1details_1_1window__toggle__closing__observer__strategy_afe358bb99752289f8b7530d996ff859e}\label{structrpp_1_1operators_1_1details_1_1window__toggle__closing__observer__strategy_afe358bb99752289f8b7530d996ff859e} 
+bool {\bfseries is\+\_\+disposed} () const
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
@@ -30,11 +33,11 @@ std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classrpp_1_1refcount__disposable}{rpp
 \Hypertarget{structrpp_1_1operators_1_1details_1_1window__toggle__closing__observer__strategy_a6d3d328d145afd5ce61b64fb0b9ca581}\label{structrpp_1_1operators_1_1details_1_1window__toggle__closing__observer__strategy_a6d3d328d145afd5ce61b64fb0b9ca581} 
 std\+::shared\+\_\+ptr$<$ TState $>$ {\bfseries state}
 \item 
-\Hypertarget{structrpp_1_1operators_1_1details_1_1window__toggle__closing__observer__strategy_abba2f5f706799e98113484a3b54a03fa}\label{structrpp_1_1operators_1_1details_1_1window__toggle__closing__observer__strategy_abba2f5f706799e98113484a3b54a03fa} 
-\mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp\+::disposable\+\_\+wrapper}} {\bfseries subject\+\_\+disposable}
+\Hypertarget{structrpp_1_1operators_1_1details_1_1window__toggle__closing__observer__strategy_af02614d128012ab69f7703e7ec6de636}\label{structrpp_1_1operators_1_1details_1_1window__toggle__closing__observer__strategy_af02614d128012ab69f7703e7ec6de636} 
+\mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp\+::composite\+\_\+disposable\+\_\+wrapper}} {\bfseries this\+\_\+disposable}
 \item 
-\Hypertarget{structrpp_1_1operators_1_1details_1_1window__toggle__closing__observer__strategy_a733a2bdd813472518b9bd897a623c269}\label{structrpp_1_1operators_1_1details_1_1window__toggle__closing__observer__strategy_a733a2bdd813472518b9bd897a623c269} 
-decltype(std\+::declval$<$ TState $>$().on\+\_\+new\+\_\+subject(std\+::declval$<$ typename TState\+::\+Subject $>$())) {\bfseries ptr}
+\Hypertarget{structrpp_1_1operators_1_1details_1_1window__toggle__closing__observer__strategy_aa9fc029a0eea10590f2b2994b1b32b4b}\label{structrpp_1_1operators_1_1details_1_1window__toggle__closing__observer__strategy_aa9fc029a0eea10590f2b2994b1b32b4b} 
+decltype(std\+::declval$<$ TState $>$().on\+\_\+new\+\_\+subject(std\+::declval$<$ typename TState\+::\+Subject $>$())) {\bfseries itr}
 \end{DoxyCompactItemize}
 
 
