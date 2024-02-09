@@ -1,0 +1,82 @@
+//                  ReactivePlusPlus library
+//
+//          Copyright Aleksey Loginov 2023 - present.
+// Distributed under the Boost Software License, Version 1.0.
+//    (See accompanying file LICENSE_1_0.txt or copy at
+//          https://www.boost.org/LICENSE_1_0.txt)
+//
+// Project home: https://github.com/victimsnino/ReactivePlusPlus
+//
+
+#pragma once
+
+#include <rpp/operators/fwd.hpp>
+
+#include <rpp/defs.hpp>
+#include <rpp/operators/details/strategy.hpp>
+#include <rpp/utils/constraints.hpp>
+
+#include <unordered_set>
+
+namespace rpp::operators::details
+{
+template<rpp::constraint::decayed_type Type, rpp::constraint::observer TObserver>
+struct distinct_observer_strategy
+{
+    static_assert(rpp::constraint::hashable<Type>, "Distinct operator requires hashable type");
+
+    using preferred_disposable_strategy = rpp::details::observers::none_disposable_strategy;
+
+    RPP_NO_UNIQUE_ADDRESS TObserver  observer;
+    mutable std::unordered_set<Type> past_values{};
+
+    template<typename T>
+    void on_next(T&& v) const
+    {
+        const auto [it, inserted] = past_values.insert(std::forward<T>(v));
+        if (inserted)
+        {
+            observer.on_next(*it);
+        }
+    }
+
+    void on_error(const std::exception_ptr& err) const { observer.on_error(err); }
+
+    void on_completed() const { observer.on_completed(); }
+
+    void set_upstream(const disposable_wrapper& d) { observer.set_upstream(d); }
+
+    bool is_disposed() const { return observer.is_disposed(); }
+};
+
+struct distinct_t : public operators::details::template_operator_observable_strategy<distinct_observer_strategy>
+{
+    template<rpp::constraint::decayed_type T>
+    using result_value = T;
+
+    template<rpp::details::observables::constraint::disposable_strategy Prev>
+    using updated_disposable_strategy = Prev;
+};
+}
+
+namespace rpp::operators
+{
+/**
+ * @brief For each item from this observable, filter out repeated values and emit only items that have not already been emitted
+ *
+ * @marble distinct
+ {
+     source observable       : +--1-1-2-2-3-2-1-|
+     operator "distinct"     : +--1---2---3-----|
+ }
+ *
+ * @warning This operator keeps an `std::unordered_set<T>` of past values, so std::hash<T> specialization is required.
+ *
+ * @ingroup filtering_operators
+ * @see https://reactivex.io/documentation/operators/distinct.html
+ */
+inline auto distinct()
+{
+    return details::distinct_t{};
+}
+}

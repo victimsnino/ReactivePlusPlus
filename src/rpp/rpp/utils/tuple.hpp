@@ -18,7 +18,7 @@
 
 namespace rpp::details
 {
-template<size_t index, typename T>
+template<size_t, typename T>
 class tuple_leaf
 {
 public:
