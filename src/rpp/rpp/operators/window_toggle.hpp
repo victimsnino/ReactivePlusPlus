@@ -41,7 +41,7 @@ struct window_toggle_state
 
     struct state_t
     {
-        RPP_NO_UNIQUE_ADDRESS TObserver                                       observer;
+        RPP_NO_UNIQUE_ADDRESS TObserver                             observer;
         std::list<decltype(std::declval<Subject>().get_observer())> observers{};
     };
 
