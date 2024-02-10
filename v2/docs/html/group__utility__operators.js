@@ -20,5 +20,9 @@ var group__utility__operators =
     [ "rpp::operators::subscribe_with_disposable", "group__utility__operators.html#ga33a523ff5b8bccc9e4e8d9e477e8cf90", null ],
     [ "rpp::operators::subscribe_with_disposable", "group__utility__operators.html#ga8d5522fa0644d34943fee364429677fd", null ],
     [ "rpp::operators::subscribe_with_disposable", "group__utility__operators.html#ga6c527da45630e08a1ee2a9bad47d562d", null ],
-    [ "rpp::operators::subscribe_with_disposable", "group__utility__operators.html#gac87a7d53a94e23c8e444a431a2473a33", null ]
+    [ "rpp::operators::subscribe_with_disposable", "group__utility__operators.html#gac87a7d53a94e23c8e444a431a2473a33", null ],
+    [ "rpp::operators::tap", "group__utility__operators.html#ga4278374427b8cb7d2e69de046ed5a4c9", null ],
+    [ "rpp::operators::tap", "group__utility__operators.html#gabfc589f5344d5231e52fb539fb5bd6ca", null ],
+    [ "rpp::operators::tap", "group__utility__operators.html#ga93b6a728431216d1eabf2074616667fe", null ],
+    [ "rpp::operators::tap", "group__utility__operators.html#ga89a6b2a41bc181084595a0e2927ed83b", null ]
 ];

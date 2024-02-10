@@ -55,7 +55,15 @@ requires (!constraint\+::observer$<$Observer\+Strategy$>$)}\\auto \mbox{\hyperli
 {\footnotesize template$<$details\+::on\+\_\+next\+\_\+like On\+Next, std\+::invocable$<$$>$ On\+Completed$>$ }\\auto \mbox{\hyperlink{group__utility__operators_ga6c527da45630e08a1ee2a9bad47d562d}{rpp\+::operators\+::subscribe\+\_\+with\+\_\+disposable}} (On\+Next \&\&on\+\_\+next, On\+Completed \&\&on\+\_\+completed)
 \begin{DoxyCompactList}\small\item\em Construct \doxylink{group__observers_ga76d808086fac28fdb0b00fc7513c741a}{rpp\+::lambda\+\_\+observer} on the fly and subscribe it to emissions from observable. \end{DoxyCompactList}\item 
 {\footnotesize template$<$\mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1scheduler}{rpp\+::schedulers\+::constraint\+::scheduler}} Scheduler$>$ }\\auto \mbox{\hyperlink{group__utility__operators_gace728cfbf71720901cb6f310edabf8b0}{rpp\+::operators\+::subscribe\+\_\+on}} (Scheduler \&\&scheduler)
-\begin{DoxyCompactList}\small\item\em On\+Subscribe function for this observable will be scheduled via provided scheduler. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em On\+Subscribe function for this observable will be scheduled via provided scheduler. \end{DoxyCompactList}\item 
+{\footnotesize template$<$std\+::invocable$<$ const std\+::exception\+\_\+ptr \& $>$ On\+Error = rpp\+::utils\+::empty\+\_\+function\+\_\+t$<$std\+::exception\+\_\+ptr$>$$>$ }\\auto \mbox{\hyperlink{group__utility__operators_gabfc589f5344d5231e52fb539fb5bd6ca}{rpp\+::operators\+::tap}} (On\+Error \&\&on\+\_\+error)
+\begin{DoxyCompactList}\small\item\em Register callbacks to inspect observable emissions and perform side-\/effects. \end{DoxyCompactList}\item 
+{\footnotesize template$<$std\+::invocable$<$$>$ On\+Completed = rpp\+::utils\+::empty\+\_\+function\+\_\+t$<$$>$$>$ }\\auto \mbox{\hyperlink{group__utility__operators_ga4278374427b8cb7d2e69de046ed5a4c9}{rpp\+::operators\+::tap}} (On\+Completed \&\&on\+\_\+completed)
+\begin{DoxyCompactList}\small\item\em Register callbacks to inspect observable emissions and perform side-\/effects. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename On\+Next , std\+::invocable$<$$>$ On\+Completed = rpp\+::utils\+::empty\+\_\+function\+\_\+t$<$$>$$>$ }\\auto \mbox{\hyperlink{group__utility__operators_ga93b6a728431216d1eabf2074616667fe}{rpp\+::operators\+::tap}} (On\+Next \&\&on\+\_\+next, On\+Completed \&\&on\+\_\+completed)
+\begin{DoxyCompactList}\small\item\em Register callbacks to inspect observable emissions and perform side-\/effects. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename On\+Next  = rpp\+::utils\+::empty\+\_\+function\+\_\+any\+\_\+t, std\+::invocable$<$ const std\+::exception\+\_\+ptr \& $>$ On\+Error = rpp\+::utils\+::empty\+\_\+function\+\_\+t$<$std\+::exception\+\_\+ptr$>$, std\+::invocable$<$$>$ On\+Completed = rpp\+::utils\+::empty\+\_\+function\+\_\+t$<$$>$$>$ }\\auto \mbox{\hyperlink{group__utility__operators_ga89a6b2a41bc181084595a0e2927ed83b}{rpp\+::operators\+::tap}} (On\+Next \&\&on\+\_\+next=\{\}, On\+Error \&\&on\+\_\+error=\{\}, On\+Completed \&\&on\+\_\+completed=\{\})
+\begin{DoxyCompactList}\small\item\em Register callbacks to inspect observable emissions and perform side-\/effects. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsubsubsection{Detailed Description}
@@ -625,3 +633,85 @@ Construct \doxylink{group__observers_ga76d808086fac28fdb0b00fc7513c741a}{rpp\+::
 This overloading attaches disposable to observer and return it to provide ability to dispose/disconnect observer early if needed. \begin{DoxyWarning}{Warning}
 This overloading has some performance penalties, use it only when you really need to use disposable 
 \end{DoxyWarning}
+\Hypertarget{group__utility__operators_ga4278374427b8cb7d2e69de046ed5a4c9}\label{group__utility__operators_ga4278374427b8cb7d2e69de046ed5a4c9} 
+\index{Utility Operators@{Utility Operators}!tap@{tap}}
+\index{tap@{tap}!Utility Operators@{Utility Operators}}
+\doxysubsubsubsubsection{\texorpdfstring{tap()}{tap()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
+{\footnotesize\ttfamily template$<$std\+::invocable$<$$>$ On\+Completed = rpp\+::utils\+::empty\+\_\+function\+\_\+t$<$$>$$>$ \\
+auto rpp\+::operators\+::tap (\begin{DoxyParamCaption}\item[{On\+Completed \&\&}]{on\+\_\+completed }\end{DoxyParamCaption})}
+
+
+
+Register callbacks to inspect observable emissions and perform side-\/effects. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em on\+\_\+completed} & completion handler\\
+\hline
+\end{DoxyParams}
+\begin{DoxySeeAlso}{See also}
+\href{https://reactivex.io/documentation/operators/do.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/do.\+html}} 
+\end{DoxySeeAlso}
+\Hypertarget{group__utility__operators_gabfc589f5344d5231e52fb539fb5bd6ca}\label{group__utility__operators_gabfc589f5344d5231e52fb539fb5bd6ca} 
+\index{Utility Operators@{Utility Operators}!tap@{tap}}
+\index{tap@{tap}!Utility Operators@{Utility Operators}}
+\doxysubsubsubsubsection{\texorpdfstring{tap()}{tap()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
+{\footnotesize\ttfamily template$<$std\+::invocable$<$ const std\+::exception\+\_\+ptr \& $>$ On\+Error = rpp\+::utils\+::empty\+\_\+function\+\_\+t$<$std\+::exception\+\_\+ptr$>$$>$ \\
+auto rpp\+::operators\+::tap (\begin{DoxyParamCaption}\item[{On\+Error \&\&}]{on\+\_\+error }\end{DoxyParamCaption})}
+
+
+
+Register callbacks to inspect observable emissions and perform side-\/effects. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em on\+\_\+error} & error handler\\
+\hline
+\end{DoxyParams}
+\begin{DoxySeeAlso}{See also}
+\href{https://reactivex.io/documentation/operators/do.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/do.\+html}} 
+\end{DoxySeeAlso}
+\Hypertarget{group__utility__operators_ga93b6a728431216d1eabf2074616667fe}\label{group__utility__operators_ga93b6a728431216d1eabf2074616667fe} 
+\index{Utility Operators@{Utility Operators}!tap@{tap}}
+\index{tap@{tap}!Utility Operators@{Utility Operators}}
+\doxysubsubsubsubsection{\texorpdfstring{tap()}{tap()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+{\footnotesize\ttfamily template$<$typename On\+Next , std\+::invocable$<$$>$ On\+Completed = rpp\+::utils\+::empty\+\_\+function\+\_\+t$<$$>$$>$ \\
+auto rpp\+::operators\+::tap (\begin{DoxyParamCaption}\item[{On\+Next \&\&}]{on\+\_\+next,  }\item[{On\+Completed \&\&}]{on\+\_\+completed }\end{DoxyParamCaption})}
+
+
+
+Register callbacks to inspect observable emissions and perform side-\/effects. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em on\+\_\+next} & next handler \\
+\hline
+{\em on\+\_\+completed} & completion handler\\
+\hline
+\end{DoxyParams}
+\begin{DoxySeeAlso}{See also}
+\href{https://reactivex.io/documentation/operators/do.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/do.\+html}} 
+\end{DoxySeeAlso}
+\Hypertarget{group__utility__operators_ga89a6b2a41bc181084595a0e2927ed83b}\label{group__utility__operators_ga89a6b2a41bc181084595a0e2927ed83b} 
+\index{Utility Operators@{Utility Operators}!tap@{tap}}
+\index{tap@{tap}!Utility Operators@{Utility Operators}}
+\doxysubsubsubsubsection{\texorpdfstring{tap()}{tap()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+{\footnotesize\ttfamily template$<$typename On\+Next  = rpp\+::utils\+::empty\+\_\+function\+\_\+any\+\_\+t, std\+::invocable$<$ const std\+::exception\+\_\+ptr \& $>$ On\+Error = rpp\+::utils\+::empty\+\_\+function\+\_\+t$<$std\+::exception\+\_\+ptr$>$, std\+::invocable$<$$>$ On\+Completed = rpp\+::utils\+::empty\+\_\+function\+\_\+t$<$$>$$>$ \\
+auto rpp\+::operators\+::tap (\begin{DoxyParamCaption}\item[{On\+Next \&\&}]{on\+\_\+next = {\ttfamily \{\}},  }\item[{On\+Error \&\&}]{on\+\_\+error = {\ttfamily \{\}},  }\item[{On\+Completed \&\&}]{on\+\_\+completed = {\ttfamily \{\}} }\end{DoxyParamCaption})}
+
+
+
+Register callbacks to inspect observable emissions and perform side-\/effects. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em on\+\_\+next} & next handler \\
+\hline
+{\em on\+\_\+error} & error handler \\
+\hline
+{\em on\+\_\+completed} & completion handler\\
+\hline
+\end{DoxyParams}
+\begin{DoxySeeAlso}{See also}
+\href{https://reactivex.io/documentation/operators/do.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/do.\+html}} 
+\end{DoxySeeAlso}

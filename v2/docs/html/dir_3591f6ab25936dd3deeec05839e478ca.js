@@ -33,6 +33,7 @@ var dir_3591f6ab25936dd3deeec05839e478ca =
     [ "take_last.hpp", "take__last_8hpp_source.html", null ],
     [ "take_until.hpp", "take__until_8hpp_source.html", null ],
     [ "take_while.hpp", "take__while_8hpp_source.html", null ],
+    [ "tap.hpp", "tap_8hpp_source.html", null ],
     [ "throttle.hpp", "throttle_8hpp_source.html", null ],
     [ "window.hpp", "window_8hpp_source.html", null ],
     [ "window_toggle.hpp", "window__toggle_8hpp_source.html", null ],

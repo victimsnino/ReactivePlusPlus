@@ -15,12 +15,15 @@ var searchData=
   ['take_5fwhile_12',['take_while',['../group__conditional__operators.html#gac65952f7460d8f0e71a93d95810d2061',1,'rpp::operators']]],
   ['take_5fwhile_5fobserver_5fstrategy_13',['take_while_observer_strategy',['../structrpp_1_1operators_1_1details_1_1take__while__observer__strategy.html',1,'rpp::operators::details']]],
   ['take_5fwhile_5ft_14',['take_while_t',['../structrpp_1_1operators_1_1details_1_1take__while__t.html',1,'rpp::operators::details']]],
-  ['template_5fmulticast_5ft_15',['template_multicast_t',['../structrpp_1_1operators_1_1details_1_1template__multicast__t.html',1,'rpp::operators::details']]],
-  ['template_5fsubscribe_5fstrategy_16',['template_subscribe_strategy',['../structrpp_1_1operators_1_1details_1_1template__subscribe__strategy.html',1,'rpp::operators::details']]],
-  ['template_5fsubscribe_5fstrategy_3c_20strategy_2c_20rpp_3a_3autils_3a_3atypes_3c_20types_2e_2e_2e_20_3e_20_3e_17',['template_subscribe_strategy&lt; Strategy, rpp::utils::types&lt; Types... &gt; &gt;',['../structrpp_1_1operators_1_1details_1_1template__subscribe__strategy_3_01_strategy_00_01rpp_1_1uti1b4a70817e67a3dff0087ab4465db868.html',1,'rpp::operators::details']]],
-  ['throttle_18',['throttle',['../group__filtering__operators.html#gada7d22ff6ee83d4aca44411561f56f98',1,'rpp::operators']]],
-  ['throttle_5fobserver_5fstrategy_19',['throttle_observer_strategy',['../structrpp_1_1operators_1_1details_1_1throttle__observer__strategy.html',1,'rpp::operators::details']]],
-  ['throttle_5ft_20',['throttle_t',['../structrpp_1_1operators_1_1details_1_1throttle__t.html',1,'rpp::operators::details']]],
-  ['timer_21',['timer',['../group__creational__operators.html#gae7248892783797dda894e18b2b499586',1,'rpp::source::timer(rpp::schedulers::duration when, TScheduler &amp;&amp;scheduler)'],['../group__creational__operators.html#gab41bcf939ae57be84287d8ae8926846c',1,'rpp::source::timer(rpp::schedulers::time_point when, TScheduler &amp;&amp;scheduler)']]],
-  ['transforming_20operators_22',['Transforming Operators',['../group__transforming__operators.html',1,'']]]
+  ['tap_15',['tap',['../group__utility__operators.html#gabfc589f5344d5231e52fb539fb5bd6ca',1,'rpp::operators::tap(OnError &amp;&amp;on_error)'],['../group__utility__operators.html#ga4278374427b8cb7d2e69de046ed5a4c9',1,'rpp::operators::tap(OnCompleted &amp;&amp;on_completed)'],['../group__utility__operators.html#ga93b6a728431216d1eabf2074616667fe',1,'rpp::operators::tap(OnNext &amp;&amp;on_next, OnCompleted &amp;&amp;on_completed)'],['../group__utility__operators.html#ga89a6b2a41bc181084595a0e2927ed83b',1,'rpp::operators::tap(OnNext &amp;&amp;on_next={}, OnError &amp;&amp;on_error={}, OnCompleted &amp;&amp;on_completed={})']]],
+  ['tap_5fobserver_5fstrategy_16',['tap_observer_strategy',['../structrpp_1_1operators_1_1details_1_1tap__observer__strategy.html',1,'rpp::operators::details']]],
+  ['tap_5ft_17',['tap_t',['../structrpp_1_1operators_1_1details_1_1tap__t.html',1,'rpp::operators::details']]],
+  ['template_5fmulticast_5ft_18',['template_multicast_t',['../structrpp_1_1operators_1_1details_1_1template__multicast__t.html',1,'rpp::operators::details']]],
+  ['template_5fsubscribe_5fstrategy_19',['template_subscribe_strategy',['../structrpp_1_1operators_1_1details_1_1template__subscribe__strategy.html',1,'rpp::operators::details']]],
+  ['template_5fsubscribe_5fstrategy_3c_20strategy_2c_20rpp_3a_3autils_3a_3atypes_3c_20types_2e_2e_2e_20_3e_20_3e_20',['template_subscribe_strategy&lt; Strategy, rpp::utils::types&lt; Types... &gt; &gt;',['../structrpp_1_1operators_1_1details_1_1template__subscribe__strategy_3_01_strategy_00_01rpp_1_1uti1b4a70817e67a3dff0087ab4465db868.html',1,'rpp::operators::details']]],
+  ['throttle_21',['throttle',['../group__filtering__operators.html#gada7d22ff6ee83d4aca44411561f56f98',1,'rpp::operators']]],
+  ['throttle_5fobserver_5fstrategy_22',['throttle_observer_strategy',['../structrpp_1_1operators_1_1details_1_1throttle__observer__strategy.html',1,'rpp::operators::details']]],
+  ['throttle_5ft_23',['throttle_t',['../structrpp_1_1operators_1_1details_1_1throttle__t.html',1,'rpp::operators::details']]],
+  ['timer_24',['timer',['../group__creational__operators.html#gae7248892783797dda894e18b2b499586',1,'rpp::source::timer(rpp::schedulers::duration when, TScheduler &amp;&amp;scheduler)'],['../group__creational__operators.html#gab41bcf939ae57be84287d8ae8926846c',1,'rpp::source::timer(rpp::schedulers::time_point when, TScheduler &amp;&amp;scheduler)']]],
+  ['transforming_20operators_25',['Transforming Operators',['../group__transforming__operators.html',1,'']]]
 ];

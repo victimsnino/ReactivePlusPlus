@@ -199,6 +199,7 @@ var hierarchy =
       [ "rpp::operators::details::take_last_t", "structrpp_1_1operators_1_1details_1_1take__last__t.html", null ],
       [ "rpp::operators::details::take_t", "structrpp_1_1operators_1_1details_1_1take__t.html", null ],
       [ "rpp::operators::details::take_while_t< Fn >", "structrpp_1_1operators_1_1details_1_1take__while__t.html", null ],
+      [ "rpp::operators::details::tap_t< OnNext, OnError, OnCompleted >", "structrpp_1_1operators_1_1details_1_1tap__t.html", null ],
       [ "rpp::operators::details::throttle_t< Scheduler >", "structrpp_1_1operators_1_1details_1_1throttle__t.html", null ],
       [ "rpp::operators::details::window_t", "structrpp_1_1operators_1_1details_1_1window__t.html", null ]
     ] ],
@@ -251,6 +252,7 @@ var hierarchy =
     ] ],
     [ "rpp::operators::details::take_until_t< TObservable >", "structrpp_1_1operators_1_1details_1_1take__until__t.html", null ],
     [ "rpp::operators::details::take_while_observer_strategy< TObserver, Fn >", "structrpp_1_1operators_1_1details_1_1take__while__observer__strategy.html", null ],
+    [ "rpp::operators::details::tap_observer_strategy< TObserver, OnNext, OnError, OnCompleted >", "structrpp_1_1operators_1_1details_1_1tap__observer__strategy.html", null ],
     [ "rpp::operators::details::template_multicast_t< Subject >", "structrpp_1_1operators_1_1details_1_1template__multicast__t.html", null ],
     [ "rpp::operators::details::template_subscribe_strategy< Strategy, Types >", "structrpp_1_1operators_1_1details_1_1template__subscribe__strategy.html", null ],
     [ "rpp::operators::details::template_subscribe_strategy< Strategy, rpp::utils::types< Types... > >", "structrpp_1_1operators_1_1details_1_1template__subscribe__strategy_3_01_strategy_00_01rpp_1_1uti1b4a70817e67a3dff0087ab4465db868.html", null ],

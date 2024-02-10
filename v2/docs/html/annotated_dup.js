@@ -147,6 +147,8 @@ var annotated_dup =
           [ "take_until_throttle_observer_strategy", "structrpp_1_1operators_1_1details_1_1take__until__throttle__observer__strategy.html", null ],
           [ "take_while_observer_strategy", "structrpp_1_1operators_1_1details_1_1take__while__observer__strategy.html", null ],
           [ "take_while_t", "structrpp_1_1operators_1_1details_1_1take__while__t.html", null ],
+          [ "tap_observer_strategy", "structrpp_1_1operators_1_1details_1_1tap__observer__strategy.html", null ],
+          [ "tap_t", "structrpp_1_1operators_1_1details_1_1tap__t.html", null ],
           [ "template_multicast_t", "structrpp_1_1operators_1_1details_1_1template__multicast__t.html", null ],
           [ "template_subscribe_strategy", "structrpp_1_1operators_1_1details_1_1template__subscribe__strategy.html", null ],
           [ "template_subscribe_strategy< Strategy, rpp::utils::types< Types... > >", "structrpp_1_1operators_1_1details_1_1template__subscribe__strategy_3_01_strategy_00_01rpp_1_1uti1b4a70817e67a3dff0087ab4465db868.html", null ],
