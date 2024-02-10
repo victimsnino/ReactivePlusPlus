@@ -94,6 +94,7 @@
 #include <rpp/operators/observe_on.hpp>
 #include <rpp/operators/repeat.hpp>
 #include <rpp/operators/subscribe_on.hpp>
+#include <rpp/operators/tap.hpp>
 
 /**
  * @defgroup connectable_operators Connectable Operators
