@@ -65,8 +65,8 @@
  * @ingroup operators
  */
 
-#include <rpp/operators/take_while.hpp>
 #include <rpp/operators/take_until.hpp>
+#include <rpp/operators/take_while.hpp>
 
 /**
  * @defgroup combining_operators Combining Operators
@@ -77,9 +77,10 @@
 
 #include <rpp/operators/combine_latest.hpp>
 #include <rpp/operators/merge.hpp>
-#include <rpp/operators/with_latest_from.hpp>
 #include <rpp/operators/start_with.hpp>
 #include <rpp/operators/switch_on_next.hpp>
+#include <rpp/operators/with_latest_from.hpp>
+#include <rpp/operators/zip.hpp>
 
 /**
  * @defgroup utility_operators Utility Operators

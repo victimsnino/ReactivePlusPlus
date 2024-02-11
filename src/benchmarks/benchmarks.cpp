@@ -310,6 +310,21 @@ int main(int argc, char* argv[]) // NOLINT(bugprone-exception-escape)
                     | rxcpp::operators::subscribe<int>([](int v) { ankerl::nanobench::doNotOptimizeAway(v); });
             });
         }
+
+        SECTION("immediate_just(1) + zip(immediate_just(2)) + subscribe")
+        {
+            TEST_RPP([&]() {
+                rpp::immediate_just(1)
+                    | rpp::operators::zip(rpp::immediate_just(2))
+                    | rpp::operators::subscribe([](auto&& v) { ankerl::nanobench::doNotOptimizeAway(v); });
+            });
+
+            TEST_RXCPP([&]() {
+                rxcpp::immediate_just(1)
+                    | rxcpp::operators::zip(rxcpp::immediate_just(2))
+                    | rxcpp::operators::subscribe<std::tuple<int, int>>([](auto&& v) { ankerl::nanobench::doNotOptimizeAway(v); });
+            });
+        }
     }
 
     BENCHMARK("Conditional Operators")
