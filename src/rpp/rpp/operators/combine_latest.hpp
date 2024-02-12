@@ -15,22 +15,26 @@
 #include <rpp/defs.hpp>
 #include <rpp/operators/details/combining_strategy.hpp>
 #include <rpp/operators/details/strategy.hpp>
-#include <rpp/schedulers/current_thread.hpp>
 
 namespace rpp::operators::details
 {
 template<rpp::constraint::observer Observer, typename TSelector, rpp::constraint::decayed_type... Args>
-class combine_latest_disposable final : public combining_disposable<Observer, TSelector, Args...>
+class combine_latest_disposable final : public combining_disposable<Observer, Args...>
 {
 public:
     explicit combine_latest_disposable(Observer&& observer, const TSelector& selector)
-        : combining_disposable<Observer, TSelector, Args...>(std::forward<Observer>(observer), selector)
+        : combining_disposable<Observer, Args...>(std::forward<Observer>(observer))
+        , m_selector(selector)
     {
     }
+
+    const auto& get_selector() const { return m_selector; }
 
     auto& get_values() { return m_values; }
 
 private:
+    RPP_NO_UNIQUE_ADDRESS TSelector m_selector;
+
     rpp::utils::tuple<std::optional<Args>...> m_values{};
 };
 
@@ -47,10 +51,15 @@ struct combine_latest_observer_strategy final
         const auto observer = disposable->get_observer_under_lock();
         disposable->get_values().template get<I>().emplace(std::forward<T>(v));
 
-        disposable->get_values().apply([this, &observer](const std::optional<Args>&... vals) {
-            if ((vals.has_value() && ...))
-                observer->on_next(disposable->get_selector()(vals.value()...));
-        });
+        disposable->get_values().apply(&apply_impl<decltype(disposable)>, disposable, observer);
+    }
+
+private:
+    template<typename TDisposable>
+    static void apply_impl(const TDisposable& disposable, const pointer_under_lock<Observer>& observer, const std::optional<Args>&... vals)
+    {
+        if ((vals.has_value() && ...))
+            observer->on_next(disposable->get_selector()(vals.value()...));
     }
 };
 

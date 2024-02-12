@@ -22,19 +22,16 @@
 
 namespace rpp::operators::details
 {
-template<rpp::constraint::observer Observer, typename TSelector, rpp::constraint::decayed_type... Args>
+template<rpp::constraint::observer Observer, rpp::constraint::decayed_type... Args>
 class combining_disposable : public composite_disposable
 {
 public:
-    explicit combining_disposable(Observer&& observer, const TSelector& selector)
+    explicit combining_disposable(Observer&& observer)
         : m_observer_with_mutex{std::move(observer)}
-        , m_selector{selector}
     {
     }
 
     pointer_under_lock<Observer> get_observer_under_lock() { return pointer_under_lock{m_observer_with_mutex}; }
-
-    const TSelector& get_selector() const { return m_selector; }
 
     bool decrement_on_completed()
     {
@@ -43,8 +40,7 @@ public:
     }
 
 private:
-    value_with_mutex<Observer>      m_observer_with_mutex{};
-    RPP_NO_UNIQUE_ADDRESS TSelector m_selector;
+    value_with_mutex<Observer> m_observer_with_mutex{};
 
     std::atomic_size_t m_on_completed_needed{sizeof...(Args)};
 };

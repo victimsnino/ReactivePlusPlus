@@ -171,7 +171,7 @@ TEST_CASE("zip doesn't produce extra copies")
                        rpp::source::just(1));
         obs.subscribe([](copy_count_tracker) {});
         REQUIRE(verifier.get_copy_count() == 0);
-        REQUIRE(verifier.get_move_count() == 2); // 1 move to selector + 1 move to final subscriber
+        REQUIRE(verifier.get_move_count() == 3); // 1 move to interal state + 1 move to selector + 1 move to final subscriber
     }
 }
 

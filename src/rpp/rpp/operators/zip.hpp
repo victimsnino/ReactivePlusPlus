@@ -15,25 +15,29 @@
 #include <rpp/defs.hpp>
 #include <rpp/operators/details/combining_strategy.hpp>
 #include <rpp/operators/details/strategy.hpp>
-#include <rpp/schedulers/current_thread.hpp>
 
-#include <list>
+#include <deque>
 
 namespace rpp::operators::details
 {
 template<rpp::constraint::observer Observer, typename TSelector, rpp::constraint::decayed_type... Args>
-class zip_disposable final : public combining_disposable<Observer, TSelector, Args...>
+class zip_disposable final : public combining_disposable<Observer, Args...>
 {
 public:
     explicit zip_disposable(Observer&& observer, const TSelector& selector)
-        : combining_disposable<Observer, TSelector, Args...>(std::forward<Observer>(observer), selector)
+        : combining_disposable<Observer, Args...>(std::forward<Observer>(observer))
+        , m_selector(selector)
     {
     }
+
+    const auto& get_selector() const { return m_selector; }
 
     auto& get_pendings() { return m_pendings; }
 
 private:
-    utils::tuple<std::list<Args>...> m_pendings{};
+    RPP_NO_UNIQUE_ADDRESS TSelector m_selector;
+
+    utils::tuple<std::deque<Args>...> m_pendings{};
 };
 
 template<size_t I, rpp::constraint::observer Observer, typename TSelector, rpp::constraint::decayed_type... Args>
@@ -48,13 +52,18 @@ struct zip_observer_strategy final
         const auto observer = disposable->get_observer_under_lock();
         disposable->get_pendings().template get<I>().push_back(std::forward<T>(v));
 
-        disposable->get_pendings().apply([this, &observer](auto&... values) {
-            if ((!values.empty() && ...))
-            {
-                observer->on_next(disposable->get_selector()(std::move(values.front())...));
-                (..., values.pop_front());
-            }
-        });
+        disposable->get_pendings().apply(&apply_impl<decltype(disposable)>, disposable, observer);
+    }
+
+private:
+    template<typename TDisposable>
+    static void apply_impl(const TDisposable& disposable, const pointer_under_lock<Observer>& observer, std::deque<Args>&... values)
+    {
+        if ((!values.empty() && ...))
+        {
+            observer->on_next(disposable->get_selector()(std::move(values.front())...));
+            (values.pop_front(), ...);
+        }
     }
 };
 
@@ -102,7 +111,7 @@ auto zip(TSelector&& selector, TObservable&& observable, TObservables&&... obser
 /**
  * @brief combines emissions from observables and emit tuple of items for each combination
  *
- * @marble zip_custom_selector
+ * @marble zip
    {
        source observable                      : +------1    -2    -3--    ------|
        source other_observable                : +-5-6--     -     ---7    --8---|
