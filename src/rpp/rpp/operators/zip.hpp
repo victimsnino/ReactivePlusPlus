@@ -35,9 +35,9 @@ public:
     auto& get_pendings() { return m_pendings; }
 
 private:
-    RPP_NO_UNIQUE_ADDRESS TSelector m_selector;
-
     utils::tuple<std::deque<Args>...> m_pendings{};
+
+    RPP_NO_UNIQUE_ADDRESS TSelector m_selector;
 };
 
 template<size_t I, rpp::constraint::observer Observer, typename TSelector, rpp::constraint::decayed_type... Args>

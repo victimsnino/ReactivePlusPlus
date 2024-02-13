@@ -33,9 +33,9 @@ public:
     auto& get_values() { return m_values; }
 
 private:
-    RPP_NO_UNIQUE_ADDRESS TSelector m_selector;
-
     rpp::utils::tuple<std::optional<Args>...> m_values{};
+
+    RPP_NO_UNIQUE_ADDRESS TSelector m_selector;
 };
 
 template<size_t I, rpp::constraint::observer Observer, typename TSelector, rpp::constraint::decayed_type... Args>
