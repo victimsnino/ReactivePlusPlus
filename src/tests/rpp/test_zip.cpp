@@ -157,9 +157,9 @@ TEST_CASE("zip doesn't produce extra copies")
                  | rpp::ops::zip(
                        [](copy_count_tracker&& verifier, auto&&) { return verifier; },
                        rpp::source::just(1));
-        obs.subscribe([](copy_count_tracker) {});
-        REQUIRE(verifier.get_copy_count() == 1); // 1 copy to internal state
-        REQUIRE(verifier.get_move_count() == 2); // 1 move to selector + 1 move to final subscriber
+        obs.subscribe([](copy_count_tracker) {}); // NOLINT
+        REQUIRE(verifier.get_copy_count() == 1);  // 1 copy to internal state
+        REQUIRE(verifier.get_move_count() == 2);  // 1 move to selector + 1 move to final subscriber
     }
 
     SECTION("send value by move")
@@ -169,7 +169,7 @@ TEST_CASE("zip doesn't produce extra copies")
                  | rpp::ops::zip(
                        [](auto&& verifier, auto&&) { return verifier; },
                        rpp::source::just(1));
-        obs.subscribe([](copy_count_tracker) {});
+        obs.subscribe([](copy_count_tracker) {}); // NOLINT
         REQUIRE(verifier.get_copy_count() == 0);
         REQUIRE(verifier.get_move_count() == 3); // 1 move to interal state + 1 move to selector + 1 move to final subscriber
     }
