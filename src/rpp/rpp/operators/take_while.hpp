@@ -54,7 +54,7 @@ struct take_while_t final : public operators::details::lift_operator<take_while_
             static_assert(std::is_invocable_r_v<bool, Fn, T>, "Fn is not invocable with T returning bool");
         };
 
-        using result_type = std::invoke_result_t<Fn, T>;
+        using result_type = T;
 
         template<rpp::constraint::observer_of_type<result_type> TObserver>
         using observer_strategy = take_while_observer_strategy<TObserver, Fn>;

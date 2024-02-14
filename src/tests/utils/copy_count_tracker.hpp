@@ -117,16 +117,16 @@ private:
     std::shared_ptr<state> _state;
 };
 
-// namespace std
-// {
-// // Make copy_count_tracker hashable for distinct operator
-// template<>
-// struct hash<copy_count_tracker>
-// {
-//     size_t operator()(const copy_count_tracker& tracker) const noexcept
-//     {
-//         return std::hash<int>{}(tracker.get_copy_count()) 
-//             ^ (std::hash<int>{}(tracker.get_move_count()) << 1);
-//     }
-// };
-// }
+namespace std
+{
+// Make copy_count_tracker hashable for distinct operator
+template<>
+struct hash<copy_count_tracker>
+{
+    size_t operator()(const copy_count_tracker& tracker) const noexcept
+    {
+        return std::hash<int>{}(tracker.get_copy_count()) 
+            ^ (std::hash<int>{}(tracker.get_move_count()) << 1);
+    }
+};
+}
