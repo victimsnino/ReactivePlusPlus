@@ -36,7 +36,7 @@ class observable
 {
 public:
     using value_type = Type;
-    
+
     using expected_disposable_strategy = rpp::details::observables::deduce_disposable_strategy_t<Strategy>;
 
     template<typename... Args>
@@ -310,16 +310,18 @@ public:
      */
     auto as_dynamic() && { return rpp::dynamic_observable<Type>{std::move(*this)}; }
 
-    template<constraint::operator_chain<Type, expected_disposable_strategy> Op>
+    template<constraint::operator_base<Type> Op>
     auto operator|(Op&& op) const &
     {
-        return observable<typename std::decay_t<Op>::template result_value<Type>, make_chain_observable_t<std::decay_t<Op>, Strategy>>{std::forward<Op>(op), m_strategy};
+        static_assert(constraint::operator_chain<Op, Type, expected_disposable_strategy>);
+        return observable<typename std::decay_t<Op>::template traits<Type>::result_type, make_chain_observable_t<std::decay_t<Op>, Strategy>>{std::forward<Op>(op), m_strategy};
     }
 
-    template<constraint::operator_chain<Type, expected_disposable_strategy> Op>
+    template<constraint::operator_base<Type> Op>
     auto operator|(Op&& op) &&
     {
-        return observable<typename std::decay_t<Op>::template result_value<Type>, make_chain_observable_t<std::decay_t<Op>, Strategy>>{std::forward<Op>(op), std::move(m_strategy)};
+        static_assert(constraint::operator_chain<Op, Type, expected_disposable_strategy>);
+        return observable<typename std::decay_t<Op>::template traits<Type>::result_type, make_chain_observable_t<std::decay_t<Op>, Strategy>>{std::forward<Op>(op), std::move(m_strategy)};
     }
 
     template<constraint::operator_observable_transform<const observable&> Op>
