@@ -50,7 +50,7 @@ struct zip_observer_strategy final
     void on_next(T&& v) const
     {
         const auto observer = disposable->get_observer_under_lock();
-        disposable->get_pendings().template get<I>().push_back(std::forward<T>(v));
+        disposable->get_pendings().template get<I>().emplace_back(std::forward<T>(v));
 
         disposable->get_pendings().apply(&apply_impl<decltype(disposable)>, disposable, observer);
     }
