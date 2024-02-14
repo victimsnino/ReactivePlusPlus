@@ -43,10 +43,16 @@ struct first_observer_strategy
     bool is_disposed() const { return observer.is_disposed(); }
 };
 
-struct first_t : public operators::details::operator_observable_strategy<first_observer_strategy>
+struct first_t final : public operators::details::lift_operator<first_t>
 {
     template<rpp::constraint::decayed_type T>
-    using result_value = T;
+    struct traits
+    {
+        using result_type = T;
+
+        template<rpp::constraint::observer_of_type<result_type> TObserver>
+        using observer_strategy = first_observer_strategy<TObserver>;
+    };
 
     template<rpp::details::observables::constraint::disposable_strategy Prev>
     using updated_disposable_strategy = Prev;

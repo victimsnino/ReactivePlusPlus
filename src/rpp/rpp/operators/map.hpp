@@ -43,11 +43,21 @@ struct map_observer_strategy
 };
 
 template<rpp::constraint::decayed_type Fn>
-struct map_t : public operators::details::operator_observable_strategy<map_observer_strategy, Fn>
+struct map_t final : public operators::details::lift_operator<map_t<Fn>, Fn>
 {
     template<rpp::constraint::decayed_type T>
-        requires std::invocable<Fn, T>
-    using result_value = std::invoke_result_t<Fn, T>;
+    struct traits
+    {
+        struct requirements
+        {
+            static_assert(std::invocable<Fn, T>, "Fn is not invocable with T");
+        };
+
+        using result_type = std::invoke_result_t<Fn, T>;
+
+        template<rpp::constraint::observer_of_type<result_type> TObserver>
+        using observer_strategy = map_observer_strategy<TObserver, Fn>;
+    };
 
     template<rpp::details::observables::constraint::disposable_strategy Prev>
     using updated_disposable_strategy = Prev;

@@ -47,13 +47,23 @@ struct reduce_observer_strategy
 };
 
 template<rpp::constraint::decayed_type Seed, rpp::constraint::decayed_type Accumulator>
-struct reduce_t : public operators::details::operator_observable_strategy_different_types<reduce_observer_strategy, rpp::utils::types<Accumulator>, Seed, Accumulator>
+struct reduce_t final : public operators::details::lift_operator<reduce_t<Seed, Accumulator>, Seed, Accumulator>
 {
-    using operators::details::operator_observable_strategy_different_types<reduce_observer_strategy, rpp::utils::types<Accumulator>, Seed, Accumulator>::operator_observable_strategy_different_types;
+    using operators::details::lift_operator<reduce_t<Seed, Accumulator>, Seed, Accumulator>::lift_operator;
 
     template<rpp::constraint::decayed_type T>
-        requires std::is_invocable_r_v<Seed, Accumulator, Seed&&, T>
-    using result_value = Seed;
+    struct traits
+    {
+        struct requirements
+        {
+            static_assert(std::is_invocable_r_v<Seed, Accumulator, Seed&&, T>, "Accumulator is not invocable with Seed&& abnd T returning Seed");
+        };
+
+        using result_type = Seed;
+
+        template<rpp::constraint::observer_of_type<result_type> TObserver>
+        using observer_strategy = reduce_observer_strategy<TObserver, Accumulator>;
+    };
 
     template<rpp::details::observables::constraint::disposable_strategy Prev>
     using updated_disposable_strategy = Prev;
@@ -92,11 +102,21 @@ struct reduce_no_seed_observer_strategy
 };
 
 template<rpp::constraint::decayed_type Accumulator>
-struct reduce_no_seed_t : public operators::details::operator_observable_strategy<reduce_no_seed_observer_strategy, Accumulator>
+struct reduce_no_seed_t final : public operators::details::lift_operator<reduce_no_seed_t<Accumulator>, Accumulator>
 {
     template<rpp::constraint::decayed_type T>
-        requires std::is_invocable_r_v<T, Accumulator, T&&, T>
-    using result_value = T;
+    struct traits
+    {
+        struct requirements
+        {
+            static_assert(std::is_invocable_r_v<T, Accumulator, T&&, T>, "Accumulator is not invocable with T&& abnd T returning T");
+        };
+
+        using result_type = T;
+
+        template<rpp::constraint::observer_of_type<result_type> TObserver>
+        using observer_strategy = reduce_no_seed_observer_strategy<TObserver, Accumulator>;
+    };
 
     template<rpp::details::observables::constraint::disposable_strategy Prev>
     using updated_disposable_strategy = Prev;

@@ -162,13 +162,25 @@ struct group_by_observable_strategy
 };
 
 template<rpp::constraint::decayed_type KeySelector, rpp::constraint::decayed_type ValueSelector, rpp::constraint::decayed_type KeyComparator>
-struct group_by_t : public operators::details::template_operator_observable_strategy<group_by_observer_strategy, KeySelector, ValueSelector, KeyComparator>
+struct group_by_t final : public operators::details::lift_operator<group_by_t<KeySelector, ValueSelector, KeyComparator>, KeySelector, ValueSelector, KeyComparator>
 {
-    using operators::details::template_operator_observable_strategy<group_by_observer_strategy, KeySelector, ValueSelector, KeyComparator>::template_operator_observable_strategy;
-
+    using operators::details::lift_operator<group_by_t<KeySelector, ValueSelector, KeyComparator>, KeySelector, ValueSelector, KeyComparator>::lift_operator;
+    
     template<rpp::constraint::decayed_type T>
-        requires std::invocable<KeySelector, T> && std::invocable<ValueSelector, T> && std::strict_weak_order<KeyComparator, rpp::utils::decayed_invoke_result_t<KeySelector, T>, rpp::utils::decayed_invoke_result_t<KeySelector, T>>
-    using result_value = grouped_observable<utils::decayed_invoke_result_t<KeySelector, T>, rpp::utils::decayed_invoke_result_t<ValueSelector, T>, group_by_observable_strategy<utils::decayed_invoke_result_t<ValueSelector, T>>>;
+    struct traits
+    {
+        struct requirements
+        {
+            static_assert(std::invocable<KeySelector, T>, "KeySelector is not invocacble with T");
+            static_assert(std::invocable<ValueSelector, T>, "ValueSelector is not invocable with T");
+            static_assert(std::strict_weak_order<KeyComparator, rpp::utils::decayed_invoke_result_t<KeySelector, T>, rpp::utils::decayed_invoke_result_t<KeySelector, T>>, "KeyComparator is not invocable with result of KeySelector");
+        };
+
+        using result_type = grouped_observable<utils::decayed_invoke_result_t<KeySelector, T>, rpp::utils::decayed_invoke_result_t<ValueSelector, T>, group_by_observable_strategy<utils::decayed_invoke_result_t<ValueSelector, T>>>;
+
+        template<rpp::constraint::observer_of_type<result_type> TObserver>
+        using observer_strategy = group_by_observer_strategy<T, TObserver, KeySelector, ValueSelector, KeyComparator>;
+    };
 
     template<rpp::details::observables::constraint::disposable_strategy Prev>
     using updated_disposable_strategy = rpp::details::observables::fixed_disposable_strategy_selector<1>;

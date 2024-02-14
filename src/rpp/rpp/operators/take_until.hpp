@@ -90,7 +90,10 @@ struct take_until_t
     RPP_NO_UNIQUE_ADDRESS TObservable observable{};
 
     template<rpp::constraint::decayed_type T>
-    using result_value = T;
+    struct traits
+    {
+        using result_type = T;
+    };
 
     template<rpp::details::observables::constraint::disposable_strategy Prev>
     using updated_disposable_strategy = rpp::details::observables::fixed_disposable_strategy_selector<1>;

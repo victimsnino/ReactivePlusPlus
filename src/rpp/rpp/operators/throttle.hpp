@@ -51,10 +51,16 @@ struct throttle_observer_strategy
 };
 
 template<rpp::schedulers::constraint::scheduler Scheduler>
-struct throttle_t : public operators::details::operator_observable_strategy_different_types<throttle_observer_strategy, rpp::utils::types<Scheduler>, rpp::schedulers::duration>
+struct throttle_t final : public operators::details::lift_operator<throttle_t<Scheduler>, rpp::schedulers::duration>
 {
     template<rpp::constraint::decayed_type T>
-    using result_value = T;
+    struct traits
+    {
+        using result_type = T;
+
+        template<rpp::constraint::observer_of_type<result_type> TObserver>
+        using observer_strategy = throttle_observer_strategy<TObserver, Scheduler>;
+    };
 
     template<rpp::details::observables::constraint::disposable_strategy Prev>
     using updated_disposable_strategy = Prev;

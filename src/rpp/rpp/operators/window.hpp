@@ -102,10 +102,16 @@ private:
     mutable size_t                      m_items_in_current_window = m_window_size;
 };
 
-struct window_t : public operators::details::operator_observable_strategy_different_types<window_observer_strategy, rpp::utils::types<>, size_t>
+struct window_t final : public operators::details::lift_operator<window_t, size_t>
 {
     template<rpp::constraint::decayed_type T>
-    using result_value = window_observable<T>;
+    struct traits
+    {
+        using result_type = window_observable<T>;
+
+        template<rpp::constraint::observer_of_type<result_type> TObserver>
+        using observer_strategy = window_observer_strategy<TObserver>;
+    };
 
     template<rpp::details::observables::constraint::disposable_strategy Prev>
     using updated_disposable_strategy = rpp::details::observables::fixed_disposable_strategy_selector<1>;

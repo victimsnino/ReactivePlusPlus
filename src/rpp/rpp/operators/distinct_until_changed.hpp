@@ -48,11 +48,21 @@ struct distinct_until_changed_observer_strategy
 };
 
 template<rpp::constraint::decayed_type EqualityFn>
-struct distinct_until_changed_t : public operators::details::template_operator_observable_strategy<distinct_until_changed_observer_strategy, EqualityFn>
+struct distinct_until_changed_t : public operators::details::lift_operator<distinct_until_changed_t<EqualityFn>, EqualityFn>
 {
     template<rpp::constraint::decayed_type T>
-        requires rpp::constraint::invocable_r_v<bool, EqualityFn, T, T>
-    using result_value = T;
+    struct traits
+    {
+        struct requirements
+        {
+            static_assert(rpp::constraint::invocable_r_v<bool, EqualityFn, T, T>, "EqualityFn is not invocable with T and T returning bool");
+        };
+
+        using result_type = T;
+
+        template<rpp::constraint::observer_of_type<result_type> TObserver>
+        using observer_strategy = distinct_until_changed_observer_strategy<T, TObserver, EqualityFn>;
+    };
 
     template<rpp::details::observables::constraint::disposable_strategy Prev>
     using updated_disposable_strategy = Prev;

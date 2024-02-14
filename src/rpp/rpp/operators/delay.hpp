@@ -170,7 +170,10 @@ template<rpp::schedulers::constraint::scheduler Scheduler, bool ClearOnError>
 struct delay_t
 {
     template<rpp::constraint::decayed_type T>
-    using result_value = T;
+    struct traits
+    {
+        using result_type = T;
+    };
 
     template<rpp::details::observables::constraint::disposable_strategy Prev>
     using updated_disposable_strategy = rpp::details::observables::fixed_disposable_strategy_selector<1>;

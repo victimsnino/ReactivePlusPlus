@@ -52,22 +52,34 @@ struct scan_observer_strategy
 };
 
 template<rpp::constraint::decayed_type InitialValue, rpp::constraint::decayed_type Fn>
-struct scan_t : public operators::details::operator_observable_strategy<scan_observer_strategy, InitialValue, Fn>
+struct scan_t final : public operators::details::lift_operator<scan_t<InitialValue, Fn>, InitialValue, Fn>
 {
-    using operators::details::operator_observable_strategy<scan_observer_strategy, InitialValue, Fn>::operator_observable_strategy;
-
+    using operators::details::lift_operator<scan_t<InitialValue, Fn>, InitialValue, Fn>::lift_operator;
+    
     template<rpp::constraint::decayed_type T>
-        requires std::is_invocable_r_v<InitialValue, Fn, InitialValue&&, T>
-    using result_value = InitialValue;
+    struct traits
+    {
+        struct requirements
+        {
+            static_assert(std::is_invocable_r_v<InitialValue, Fn, InitialValue&&, T>, "Accumulator is not invocable with Seed&& abnd T returning Seed");
+        };
+
+        using result_type = InitialValue;
+
+        template<rpp::constraint::observer_of_type<result_type> TObserver>
+        using observer_strategy = scan_observer_strategy<TObserver, InitialValue, Fn>;
+    };
 
     template<rpp::details::observables::constraint::disposable_strategy Prev>
     using updated_disposable_strategy = Prev;
 };
 
-template<rpp::constraint::decayed_type Seed, rpp::constraint::observer TObserver, rpp::constraint::decayed_type Fn>
+template<rpp::constraint::observer TObserver, rpp::constraint::decayed_type Fn>
 struct scan_no_seed_observer_strategy
 {
     using preferred_disposable_strategy = rpp::details::observers::none_disposable_strategy;
+
+    using Seed = rpp::utils::extract_observer_type_t<TObserver>;
 
     RPP_NO_UNIQUE_ADDRESS TObserver observer;
     RPP_NO_UNIQUE_ADDRESS Fn        fn;
@@ -94,11 +106,21 @@ struct scan_no_seed_observer_strategy
 };
 
 template<rpp::constraint::decayed_type Fn>
-struct scan_no_seed_t : public operators::details::template_operator_observable_strategy<scan_no_seed_observer_strategy, Fn>
+struct scan_no_seed_t final : public operators::details::lift_operator<scan_no_seed_t<Fn>, Fn>
 {
     template<rpp::constraint::decayed_type T>
-        requires std::is_invocable_r_v<T, Fn, T&&, T>
-    using result_value = T;
+    struct traits
+    {
+        struct requirements
+        {
+            static_assert(std::is_invocable_r_v<T, Fn, T&&, T>, "Accumulator is not invocable with T&& abnd T returning T");
+        };
+
+        using result_type = T;
+
+        template<rpp::constraint::observer_of_type<result_type> TObserver>
+        using observer_strategy = scan_no_seed_observer_strategy<TObserver, Fn>;
+    };
 
     template<rpp::details::observables::constraint::disposable_strategy Prev>
     using updated_disposable_strategy = Prev;

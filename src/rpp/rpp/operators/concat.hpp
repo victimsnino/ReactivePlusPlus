@@ -195,11 +195,21 @@ private:
     }
 };
 
-struct concat_t: public operators::details::template_operator_observable_strategy<concat_observer_strategy>
+struct concat_t final : public operators::details::lift_operator<concat_t>
 {
     template<rpp::constraint::decayed_type T>
-        requires rpp::constraint::observable<T>
-    using result_value = rpp::utils::extract_observable_type_t<T>;
+    struct traits
+    {
+        struct requirements
+        {
+            static_assert(rpp::constraint::observable<T>, "T is not observable");
+        };
+
+        using result_type = rpp::utils::extract_observable_type_t<T>;
+
+        template<rpp::constraint::observer_of_type<result_type> TObserver>
+        using observer_strategy = concat_observer_strategy<T, TObserver>;
+    };
 
     template<rpp::details::observables::constraint::disposable_strategy Prev>
     using updated_disposable_strategy = rpp::details::observables::fixed_disposable_strategy_selector<1>;
