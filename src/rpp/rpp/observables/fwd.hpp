@@ -113,7 +113,7 @@ concept operator_lift_with_disposable_strategy = operator_base<Op, Type> && requ
 
 template<typename Op, typename Type>
 concept operator_requirements_satisfied = requires {
-    typename std::decay_t<Op>::template traits<Type>{}; // traits can be instantiated if all inner static_asserts are fine
+    std::declval<typename std::decay_t<Op>::template traits<Type>>();
     typename std::decay_t<Op>::template traits<Type>::result_type;
 };
 
