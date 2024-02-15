@@ -122,4 +122,8 @@ concept observables_of_same_type = rpp::constraint::observable<TObservable> &&
     (std::same_as<rpp::utils::extract_observable_type_t<TObservable>, rpp::utils::extract_observable_type_t<TObservables>> && ...);
 }
 
-#define RPP_CHECK_IF_TRAIT_ASSERTS_SATISFIED(Op, Type) [[maybe_unused]] constexpr auto _ = typename std::decay_t<Op>::template operator_traits_for_upstream_type<Type>{}; // operator_traits_for_upstream_type can be instantiated if all inner static_asserts are fine
+#define RPP_CHECK_IF_TRAIT_ASSERTS_SATISFIED(Op, Type)                                                                  \
+    /* operator_traits_for_upstream_type can be instantiated if all inner static_asserts are fine*/                     \
+    if constexpr (!(requires { { typename std::decay_t<Op>::template operator_traits_for_upstream_type<Type>{}}; }))   \
+        static_assert(requires { { typename std::decay_t<Op>::template operator_traits_for_upstream_type<Type>{}}; }); \
+    else

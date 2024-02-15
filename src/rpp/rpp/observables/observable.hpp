@@ -313,14 +313,14 @@ public:
     template<constraint::operator_base<Type> Op>
     auto operator|(Op&& op) const &
     {
-        RPP_CHECK_IF_TRAIT_ASSERTS_SATISFIED(Op, Type);
+        RPP_CHECK_IF_TRAIT_ASSERTS_SATISFIED(Op, Type)
         return inner_make_chain_operator(std::forward<Op>(op));
     }
 
     template<constraint::operator_base<Type> Op>
     auto operator|(Op&& op) &&
     {
-        RPP_CHECK_IF_TRAIT_ASSERTS_SATISFIED(Op, Type);
+        RPP_CHECK_IF_TRAIT_ASSERTS_SATISFIED(Op, Type)
         return std::move(*this).inner_make_chain_operator(std::forward<Op>(op));
     }
 
