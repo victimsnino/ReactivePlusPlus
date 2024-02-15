@@ -71,7 +71,7 @@ public:
     {
         if (handle_observable_impl(observable, refcounted))
             return;
-        
+
         drain(refcounted);
     }
 
@@ -168,12 +168,12 @@ struct concat_observer_strategy : public concat_observer_strategy_base<TObservab
     }
 
     template<typename T>
-    void on_next(T&& v) const 
-    { 
+    void on_next(T&& v) const
+    {
         ConcatStage current = ConcatStage::None;
         if (base::state->stage().compare_exchange_strong(current, ConcatStage::Draining, std::memory_order::seq_cst))
             base::state->handle_observable(std::forward<T>(v), base::state->add_ref());
-        else 
+        else
             base::state->get_queue()->push(std::forward<T>(v));
     }
 
@@ -195,11 +195,18 @@ private:
     }
 };
 
-struct concat_t: public operators::details::template_operator_observable_strategy<concat_observer_strategy>
+struct concat_t  : lift_operator<concat_t>
 {
     template<rpp::constraint::decayed_type T>
-        requires rpp::constraint::observable<T>
-    using result_value = rpp::utils::extract_observable_type_t<T>;
+    struct operator_traits
+    {
+        static_assert(rpp::constraint::observable<T>, "T is not observable");
+
+        using result_type = rpp::utils::extract_observable_type_t<T>;
+
+        template<rpp::constraint::observer_of_type<result_type> TObserver>
+        using observer_strategy = concat_observer_strategy<T, TObserver>;
+    };
 
     template<rpp::details::observables::constraint::disposable_strategy Prev>
     using updated_disposable_strategy = rpp::details::observables::fixed_disposable_strategy_selector<1>;

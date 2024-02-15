@@ -89,7 +89,7 @@ public:
     using preferred_disposable_strategy = rpp::details::observers::none_disposable_strategy;
 
     switch_on_next_observer_strategy(TObserver&& obs)
-        : m_state{init_state(std::move(obs))} 
+        : m_state{init_state(std::move(obs))}
     {
     }
 
@@ -127,17 +127,25 @@ private:
         ptr->get_observer()->set_upstream(d.as_weak());
         return ptr;
     }
-    
+
 private:
     std::shared_ptr<switch_on_next_state_t<TObserver>> m_state;
     rpp::composite_disposable_wrapper                  m_this_refcount = m_state->add_ref();
     mutable rpp::composite_disposable_wrapper          m_last_refcount = composite_disposable_wrapper::empty();
 };
 
-struct switch_on_next_t : public operators::details::operator_observable_strategy<switch_on_next_observer_strategy>
+struct switch_on_next_t  : lift_operator<switch_on_next_t>
 {
-    template<rpp::constraint::observable T>
-    using result_value = rpp::utils::extract_observable_type_t<T>;
+    template<rpp::constraint::decayed_type T>
+    struct operator_traits
+    {
+        static_assert(rpp::constraint::observable<T>, "T is not observable");
+
+        using result_type = rpp::utils::extract_observable_type_t<T>;
+
+        template<rpp::constraint::observer_of_type<result_type> TObserver>
+        using observer_strategy = switch_on_next_observer_strategy<TObserver>;
+    };
 
     template<rpp::details::observables::constraint::disposable_strategy Prev>
     using updated_disposable_strategy = rpp::details::observables::fixed_disposable_strategy_selector<1>;

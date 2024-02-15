@@ -44,11 +44,18 @@ struct filter_observer_strategy
 };
 
 template<rpp::constraint::decayed_type Fn>
-struct filter_t : public operators::details::operator_observable_strategy<filter_observer_strategy, Fn>
+struct filter_t  : lift_operator<filter_t<Fn>, Fn>
 {
     template<rpp::constraint::decayed_type T>
-        requires std::is_invocable_r_v<bool, Fn, T>
-    using result_value = T;
+    struct operator_traits
+    {
+        static_assert(std::is_invocable_r_v<bool, Fn, T>, "Fn is not invocable with T returning bool");
+
+        using result_type = T;
+
+        template<rpp::constraint::observer_of_type<result_type> TObserver>
+        using observer_strategy = filter_observer_strategy<TObserver, Fn>;
+    };
 
     template<rpp::details::observables::constraint::disposable_strategy Prev>
     using updated_disposable_strategy = Prev;

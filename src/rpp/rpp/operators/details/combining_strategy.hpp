@@ -83,8 +83,12 @@ struct combining_operator_t
     RPP_NO_UNIQUE_ADDRESS TSelector                          selector;
 
     template<rpp::constraint::decayed_type T>
-        requires std::invocable<TSelector, T, rpp::utils::extract_observable_type_t<TObservables>...>
-    using result_value = std::invoke_result_t<TSelector, T, rpp::utils::extract_observable_type_t<TObservables>...>;
+    struct operator_traits
+    {
+        static_assert(std::invocable<TSelector, T, rpp::utils::extract_observable_type_t<TObservables>...>, "Selector is not callable with passed T type");
+
+        using result_type = std::invoke_result_t<TSelector, T, rpp::utils::extract_observable_type_t<TObservables>...>;
+    };
 
     template<rpp::details::observables::constraint::disposable_strategy Prev>
     using updated_disposable_strategy = rpp::details::observables::fixed_disposable_strategy_selector<1>;

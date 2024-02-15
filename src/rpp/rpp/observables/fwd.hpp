@@ -91,34 +91,37 @@ concept operator_observable_transform = requires(const Op& op, TObs obs)
 };
 
 template<typename Op, typename Type>
-concept operator_base = requires(const Op& op) {
-    typename std::decay_t<Op>::template result_value<Type>;
-    requires details::observables::constraint::disposable_strategy<details::observables::deduce_updated_disposable_strategy<std::decay_t<Op>, typename observable_chain_strategy<details::observables::fake_strategy<Type>>::expected_disposable_strategy>>;
-};
+concept operator_base = requires(const Op& op) { typename std::decay_t<Op>::template operator_traits<Type>; } && details::observables::constraint::disposable_strategy<details::observables::deduce_updated_disposable_strategy<std::decay_t<Op>, typename observable_chain_strategy<details::observables::fake_strategy<Type>>::expected_disposable_strategy>>;
 
 template<typename Op, typename Type>
-concept operator_subscribe = operator_base<Op, Type> && requires(const Op& op, rpp::details::observers::fake_observer<typename std::decay_t<Op>::template result_value<Type>>&& observer, const observable_chain_strategy<details::observables::fake_strategy<Type>>& chain)
+concept operator_subscribe = operator_base<Op, Type> && requires(const Op& op, rpp::details::observers::fake_observer<typename std::decay_t<Op>::template operator_traits<Type>::result_type>&& observer, const observable_chain_strategy<details::observables::fake_strategy<Type>>& chain)
 {
     {op.subscribe(std::move(observer), chain)};
 };
 
 template<typename Op, typename Type>
-concept operator_lift = operator_base<Op, Type> && requires(const Op& op, rpp::details::observers::fake_observer<typename std::decay_t<Op>::template result_value<Type>>&& observer)
+concept operator_lift = operator_base<Op, Type> && requires(const Op& op, rpp::details::observers::fake_observer<typename std::decay_t<Op>::template operator_traits<Type>::result_type>&& observer)
 {
     {op.template lift<Type>(std::move(observer))} -> rpp::constraint::observer_of_type<Type>;
 };
 
 template<typename Op, typename Type, typename DisposableStrategy>
-concept operator_lift_with_disposable_strategy = operator_base<Op, Type> && requires(const Op& op, rpp::details::observers::fake_observer<typename std::decay_t<Op>::template result_value<Type>>&& observer)
+concept operator_lift_with_disposable_strategy = operator_base<Op, Type> && requires(const Op& op, rpp::details::observers::fake_observer<typename std::decay_t<Op>::template operator_traits<Type>::result_type>&& observer)
 {
     {op.template lift_with_disposable_strategy<Type, DisposableStrategy>(std::move(observer))} -> rpp::constraint::observer_of_type<Type>;
 };
 
 template<typename Op, typename Type, typename DisposableStrategy>
-concept operator_chain = operator_subscribe<Op, Type> || operator_lift<Op, Type> || operator_lift_with_disposable_strategy<Op, Type, DisposableStrategy>;
+concept operator_chain = operator_base<std::decay_t<Op>, Type>
+    && requires { typename std::decay_t<Op>::template operator_traits<Type>::result_type; }
+    && (operator_subscribe<std::decay_t<Op>, Type> || operator_lift<std::decay_t<Op>, Type> || operator_lift_with_disposable_strategy<std::decay_t<Op>, Type, DisposableStrategy>);
 
 template<typename TObservable, typename... TObservables>
 concept observables_of_same_type = rpp::constraint::observable<TObservable> &&
     (rpp::constraint::observable<TObservables> && ...) &&
     (std::same_as<rpp::utils::extract_observable_type_t<TObservable>, rpp::utils::extract_observable_type_t<TObservables>> && ...);
 }
+
+#define RPP_CHECK_IF_TRAIT_ASSERTS_SATISFIED(Op, Type)                                              \
+    /* operator_traits can be instantiated if all inner static_asserts are fine*/ \
+    if constexpr (requires { { typename std::decay_t<Op>::template operator_traits<Type>{}}; })

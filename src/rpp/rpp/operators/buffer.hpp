@@ -64,10 +64,16 @@ private:
     mutable std::vector<value_type>  m_bucket;
 };
 
-struct buffer_t : public operators::details::operator_observable_strategy_different_types<buffer_observer_strategy, rpp::utils::types<>, size_t>
+struct buffer_t  : lift_operator<buffer_t, size_t>
 {
     template<rpp::constraint::decayed_type T>
-    using result_value = std::vector<T>;
+    struct operator_traits
+    {
+        using result_type = std::vector<T>;
+
+        template<rpp::constraint::observer_of_type<result_type> TObserver>
+        using observer_strategy = buffer_observer_strategy<TObserver>;
+    };
 
     template<rpp::details::observables::constraint::disposable_strategy Prev>
     using updated_disposable_strategy = Prev;

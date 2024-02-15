@@ -36,7 +36,10 @@ template<rpp::schedulers::constraint::scheduler TScheduler>
 struct subscribe_on_t
 {
     template<rpp::constraint::decayed_type T>
-    using result_value = T;
+    struct operator_traits
+    {
+        using result_type = T;
+    };
 
     template<rpp::details::observables::constraint::disposable_strategy Prev>
     using updated_disposable_strategy = typename Prev::template add<rpp::schedulers::utils::get_worker_t<TScheduler>::is_none_disposable ? 0 : 1>;

@@ -44,11 +44,18 @@ struct take_while_observer_strategy
 };
 
 template<rpp::constraint::decayed_type Fn>
-struct take_while_t : public operators::details::operator_observable_strategy<take_while_observer_strategy, Fn>
+struct take_while_t  : lift_operator<take_while_t<Fn>, Fn>
 {
     template<rpp::constraint::decayed_type T>
-        requires std::is_invocable_r_v<bool, Fn, T>
-    using result_value = T;
+    struct operator_traits
+    {
+        static_assert(std::is_invocable_r_v<bool, Fn, T>, "Fn is not invocable with T returning bool");
+
+        using result_type = T;
+
+        template<rpp::constraint::observer_of_type<result_type> TObserver>
+        using observer_strategy = take_while_observer_strategy<TObserver, Fn>;
+    };
 
     template<rpp::details::observables::constraint::disposable_strategy Prev>
     using updated_disposable_strategy = Prev;
