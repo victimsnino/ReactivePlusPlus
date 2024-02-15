@@ -124,5 +124,4 @@ concept observables_of_same_type = rpp::constraint::observable<TObservable> &&
 
 #define RPP_CHECK_IF_TRAIT_ASSERTS_SATISFIED(Op, Type)                                              \
     /* operator_traits_for_upstream_type can be instantiated if all inner static_asserts are fine*/ \
-    constexpr auto operator_asserts_satisfied = requires { { typename std::decay_t<Op>::template operator_traits_for_upstream_type<Type>{}}; };                                       \
-    if constexpr (operator_asserts_satisfied)
+    if constexpr (requires { { typename std::decay_t<Op>::template operator_traits_for_upstream_type<Type>{}}; })
