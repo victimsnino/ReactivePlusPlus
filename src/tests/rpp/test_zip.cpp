@@ -155,7 +155,7 @@ TEST_CASE("zip doesn't produce extra copies")
         copy_count_tracker verifier{};
         auto               obs = verifier.get_observable()
                  | rpp::ops::zip(
-                       [](copy_count_tracker&& verifier, auto&&) { return verifier; },
+                       [](copy_count_tracker&& verifier, auto&&) { return std::move(verifier); },
                        rpp::source::just(1));
         obs.subscribe([](copy_count_tracker) {}); // NOLINT
         REQUIRE(verifier.get_copy_count() == 1);  // 1 copy to internal state
@@ -167,7 +167,7 @@ TEST_CASE("zip doesn't produce extra copies")
         copy_count_tracker verifier{};
         auto               obs = verifier.get_observable_for_move()
                  | rpp::ops::zip(
-                       [](auto&& verifier, auto&&) { return verifier; },
+                       [](copy_count_tracker&& verifier, auto&&) { return std::move(verifier); },
                        rpp::source::just(1));
         obs.subscribe([](copy_count_tracker) {}); // NOLINT
         REQUIRE(verifier.get_copy_count() == 0);
