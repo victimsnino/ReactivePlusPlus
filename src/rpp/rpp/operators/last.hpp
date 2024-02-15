@@ -51,7 +51,7 @@ struct last_observer_strategy
     bool is_disposed() const { return observer.is_disposed(); }
 };
 
-struct last_t final : public operators::details::lift_operator<last_t>
+struct last_t  : lift_operator<last_t>
 {
     template<rpp::constraint::decayed_type T>
     struct operator_traits

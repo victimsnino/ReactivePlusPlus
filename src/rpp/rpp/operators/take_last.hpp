@@ -80,7 +80,7 @@ private:
     mutable size_t                                                      m_current_end{};
 };
 
-struct take_last_t final : public operators::details::lift_operator<take_last_t, size_t>
+struct take_last_t  : lift_operator<take_last_t, size_t>
 {
     template<rpp::constraint::decayed_type T>
     struct operator_traits

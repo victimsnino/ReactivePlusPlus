@@ -49,7 +49,7 @@ struct take_observer_strategy
     bool is_disposed() const { return observer.is_disposed(); }
 };
 
-struct take_t final : public operators::details::lift_operator<take_t, size_t>
+struct take_t  : lift_operator<take_t, size_t>
 {
     template<rpp::constraint::decayed_type T>
     struct operator_traits

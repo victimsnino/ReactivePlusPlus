@@ -43,7 +43,7 @@ struct first_observer_strategy
     bool is_disposed() const { return observer.is_disposed(); }
 };
 
-struct first_t final : public operators::details::lift_operator<first_t>
+struct first_t  : lift_operator<first_t>
 {
     template<rpp::constraint::decayed_type T>
     struct operator_traits

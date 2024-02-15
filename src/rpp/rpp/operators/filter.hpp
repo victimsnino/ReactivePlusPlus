@@ -44,7 +44,7 @@ struct filter_observer_strategy
 };
 
 template<rpp::constraint::decayed_type Fn>
-struct filter_t final : public operators::details::lift_operator<filter_t<Fn>, Fn>
+struct filter_t  : lift_operator<filter_t<Fn>, Fn>
 {
     template<rpp::constraint::decayed_type T>
     struct operator_traits

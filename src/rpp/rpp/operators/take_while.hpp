@@ -44,7 +44,7 @@ struct take_while_observer_strategy
 };
 
 template<rpp::constraint::decayed_type Fn>
-struct take_while_t final : public operators::details::lift_operator<take_while_t<Fn>, Fn>
+struct take_while_t  : lift_operator<take_while_t<Fn>, Fn>
 {
     template<rpp::constraint::decayed_type T>
     struct operator_traits

@@ -45,7 +45,7 @@ struct skip_observer_strategy
     bool is_disposed() const { return observer.is_disposed(); }
 };
 
-struct skip_t final : public operators::details::lift_operator<skip_t, size_t>
+struct skip_t  : lift_operator<skip_t, size_t>
 {
     template<rpp::constraint::decayed_type T>
     struct operator_traits

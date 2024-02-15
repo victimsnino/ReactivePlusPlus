@@ -134,7 +134,7 @@ private:
     mutable rpp::composite_disposable_wrapper          m_last_refcount = composite_disposable_wrapper::empty();
 };
 
-struct switch_on_next_t final : public operators::details::lift_operator<switch_on_next_t>
+struct switch_on_next_t  : lift_operator<switch_on_next_t>
 {
     template<rpp::constraint::decayed_type T>
     struct operator_traits

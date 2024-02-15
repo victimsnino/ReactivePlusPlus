@@ -162,7 +162,7 @@ struct group_by_observable_strategy
 };
 
 template<rpp::constraint::decayed_type KeySelector, rpp::constraint::decayed_type ValueSelector, rpp::constraint::decayed_type KeyComparator>
-struct group_by_t final : public operators::details::lift_operator<group_by_t<KeySelector, ValueSelector, KeyComparator>, KeySelector, ValueSelector, KeyComparator>
+struct group_by_t  : lift_operator<group_by_t<KeySelector, ValueSelector, KeyComparator>, KeySelector, ValueSelector, KeyComparator>
 {
     using operators::details::lift_operator<group_by_t<KeySelector, ValueSelector, KeyComparator>, KeySelector, ValueSelector, KeyComparator>::lift_operator;
 

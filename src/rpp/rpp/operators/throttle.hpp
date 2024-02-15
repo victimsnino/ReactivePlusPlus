@@ -51,7 +51,7 @@ struct throttle_observer_strategy
 };
 
 template<rpp::schedulers::constraint::scheduler Scheduler>
-struct throttle_t final : public operators::details::lift_operator<throttle_t<Scheduler>, rpp::schedulers::duration>
+struct throttle_t  : lift_operator<throttle_t<Scheduler>, rpp::schedulers::duration>
 {
     template<rpp::constraint::decayed_type T>
     struct operator_traits

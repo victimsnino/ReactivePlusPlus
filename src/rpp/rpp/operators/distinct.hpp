@@ -47,7 +47,7 @@ struct distinct_observer_strategy
     bool is_disposed() const { return observer.is_disposed(); }
 };
 
-struct distinct_t final : public operators::details::lift_operator<distinct_t>
+struct distinct_t  : lift_operator<distinct_t>
 {
     template<rpp::constraint::decayed_type T>
     struct operator_traits

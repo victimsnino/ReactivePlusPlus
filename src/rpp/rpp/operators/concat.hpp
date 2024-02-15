@@ -195,7 +195,7 @@ private:
     }
 };
 
-struct concat_t final : public operators::details::lift_operator<concat_t>
+struct concat_t  : lift_operator<concat_t>
 {
     template<rpp::constraint::decayed_type T>
     struct operator_traits

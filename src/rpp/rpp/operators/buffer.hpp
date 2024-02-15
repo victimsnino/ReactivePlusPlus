@@ -64,7 +64,7 @@ private:
     mutable std::vector<value_type>  m_bucket;
 };
 
-struct buffer_t final : public operators::details::lift_operator<buffer_t, size_t>
+struct buffer_t  : lift_operator<buffer_t, size_t>
 {
     template<rpp::constraint::decayed_type T>
     struct operator_traits

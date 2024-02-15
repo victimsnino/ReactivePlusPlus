@@ -102,7 +102,7 @@ private:
     mutable size_t                      m_items_in_current_window = m_window_size;
 };
 
-struct window_t final : public operators::details::lift_operator<window_t, size_t>
+struct window_t  : lift_operator<window_t, size_t>
 {
     template<rpp::constraint::decayed_type T>
     struct operator_traits

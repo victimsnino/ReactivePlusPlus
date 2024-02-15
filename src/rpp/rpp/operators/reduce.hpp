@@ -47,7 +47,7 @@ struct reduce_observer_strategy
 };
 
 template<rpp::constraint::decayed_type Seed, rpp::constraint::decayed_type Accumulator>
-struct reduce_t final : public operators::details::lift_operator<reduce_t<Seed, Accumulator>, Seed, Accumulator>
+struct reduce_t  : lift_operator<reduce_t<Seed, Accumulator>, Seed, Accumulator>
 {
     using operators::details::lift_operator<reduce_t<Seed, Accumulator>, Seed, Accumulator>::lift_operator;
 
@@ -99,7 +99,7 @@ struct reduce_no_seed_observer_strategy
 };
 
 template<rpp::constraint::decayed_type Accumulator>
-struct reduce_no_seed_t final : public operators::details::lift_operator<reduce_no_seed_t<Accumulator>, Accumulator>
+struct reduce_no_seed_t  : lift_operator<reduce_no_seed_t<Accumulator>, Accumulator>
 {
     template<rpp::constraint::decayed_type T>
     struct operator_traits

@@ -52,7 +52,7 @@ struct scan_observer_strategy
 };
 
 template<rpp::constraint::decayed_type InitialValue, rpp::constraint::decayed_type Fn>
-struct scan_t final : public operators::details::lift_operator<scan_t<InitialValue, Fn>, InitialValue, Fn>
+struct scan_t  : lift_operator<scan_t<InitialValue, Fn>, InitialValue, Fn>
 {
     using operators::details::lift_operator<scan_t<InitialValue, Fn>, InitialValue, Fn>::lift_operator;
 
@@ -103,7 +103,7 @@ struct scan_no_seed_observer_strategy
 };
 
 template<rpp::constraint::decayed_type Fn>
-struct scan_no_seed_t final : public operators::details::lift_operator<scan_no_seed_t<Fn>, Fn>
+struct scan_no_seed_t  : lift_operator<scan_no_seed_t<Fn>, Fn>
 {
     template<rpp::constraint::decayed_type T>
     struct operator_traits
