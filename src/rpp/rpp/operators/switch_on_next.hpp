@@ -89,7 +89,7 @@ public:
     using preferred_disposable_strategy = rpp::details::observers::none_disposable_strategy;
 
     switch_on_next_observer_strategy(TObserver&& obs)
-        : m_state{init_state(std::move(obs))} 
+        : m_state{init_state(std::move(obs))}
     {
     }
 
@@ -127,7 +127,7 @@ private:
         ptr->get_observer()->set_upstream(d.as_weak());
         return ptr;
     }
-    
+
 private:
     std::shared_ptr<switch_on_next_state_t<TObserver>> m_state;
     rpp::composite_disposable_wrapper                  m_this_refcount = m_state->add_ref();
@@ -139,10 +139,7 @@ struct switch_on_next_t final : public operators::details::lift_operator<switch_
     template<rpp::constraint::decayed_type T>
     struct traits
     {
-        struct requirements
-        {
-            static_assert(rpp::constraint::observable<T>, "T is not observable");
-        };
+        static_assert(rpp::constraint::observable<T>, "T is not observable");
 
         using result_type = rpp::utils::extract_observable_type_t<T>;
 

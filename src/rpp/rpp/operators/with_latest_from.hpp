@@ -133,10 +133,7 @@ struct with_latest_from_t
     template<rpp::constraint::decayed_type T>
     struct traits
     {
-        struct requirements
-        {
-            static_assert(std::invocable<TSelector, T, rpp::utils::extract_observable_type_t<TObservables>...>, "TSelector is not invocable with T and types of rest observables");
-        };
+        static_assert(std::invocable<TSelector, T, rpp::utils::extract_observable_type_t<TObservables>...>, "TSelector is not invocable with T and types of rest observables");
 
         using result_type = std::invoke_result_t<TSelector, T, rpp::utils::extract_observable_type_t<TObservables>...>;
     };

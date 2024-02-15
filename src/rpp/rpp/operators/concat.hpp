@@ -71,7 +71,7 @@ public:
     {
         if (handle_observable_impl(observable, refcounted))
             return;
-        
+
         drain(refcounted);
     }
 
@@ -168,12 +168,12 @@ struct concat_observer_strategy : public concat_observer_strategy_base<TObservab
     }
 
     template<typename T>
-    void on_next(T&& v) const 
-    { 
+    void on_next(T&& v) const
+    {
         ConcatStage current = ConcatStage::None;
         if (base::state->stage().compare_exchange_strong(current, ConcatStage::Draining, std::memory_order::seq_cst))
             base::state->handle_observable(std::forward<T>(v), base::state->add_ref());
-        else 
+        else
             base::state->get_queue()->push(std::forward<T>(v));
     }
 
@@ -200,10 +200,7 @@ struct concat_t final : public operators::details::lift_operator<concat_t>
     template<rpp::constraint::decayed_type T>
     struct traits
     {
-        struct requirements
-        {
-            static_assert(rpp::constraint::observable<T>, "T is not observable");
-        };
+        static_assert(rpp::constraint::observable<T>, "T is not observable");
 
         using result_type = rpp::utils::extract_observable_type_t<T>;
 

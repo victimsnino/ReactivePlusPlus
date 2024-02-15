@@ -53,10 +53,7 @@ struct distinct_until_changed_t : public operators::details::lift_operator<disti
     template<rpp::constraint::decayed_type T>
     struct traits
     {
-        struct requirements
-        {
-            static_assert(rpp::constraint::invocable_r_v<bool, EqualityFn, T, T>, "EqualityFn is not invocable with T and T returning bool");
-        };
+        static_assert(rpp::constraint::invocable_r_v<bool, EqualityFn, T, T>, "EqualityFn is not invocable with T and T returning bool");
 
         using result_type = T;
 

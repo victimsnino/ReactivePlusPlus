@@ -49,10 +49,7 @@ struct filter_t final : public operators::details::lift_operator<filter_t<Fn>, F
     template<rpp::constraint::decayed_type T>
     struct traits
     {
-        struct requirements
-        {
-            static_assert(std::is_invocable_r_v<bool, Fn, T>, "Fn is not invocable with T returning bool");
-        };
+        static_assert(std::is_invocable_r_v<bool, Fn, T>, "Fn is not invocable with T returning bool");
 
         using result_type = T;
 

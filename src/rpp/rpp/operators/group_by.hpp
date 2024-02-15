@@ -121,7 +121,7 @@ private:
     const subject_observer* deduce_observer(const rpp::constraint::observer auto& obs, const TT& val) const
     {
         const auto key = key_selector(utils::as_const(val));
-        
+
         if (const auto itr = key_to_observer.find(key); itr != key_to_observer.cend())
             return &itr->second;
 
@@ -165,16 +165,13 @@ template<rpp::constraint::decayed_type KeySelector, rpp::constraint::decayed_typ
 struct group_by_t final : public operators::details::lift_operator<group_by_t<KeySelector, ValueSelector, KeyComparator>, KeySelector, ValueSelector, KeyComparator>
 {
     using operators::details::lift_operator<group_by_t<KeySelector, ValueSelector, KeyComparator>, KeySelector, ValueSelector, KeyComparator>::lift_operator;
-    
+
     template<rpp::constraint::decayed_type T>
     struct traits
     {
-        struct requirements
-        {
-            static_assert(std::invocable<KeySelector, T>, "KeySelector is not invocacble with T");
-            static_assert(std::invocable<ValueSelector, T>, "ValueSelector is not invocable with T");
-            static_assert(std::strict_weak_order<KeyComparator, rpp::utils::decayed_invoke_result_t<KeySelector, T>, rpp::utils::decayed_invoke_result_t<KeySelector, T>>, "KeyComparator is not invocable with result of KeySelector");
-        };
+        static_assert(std::invocable<KeySelector, T>, "KeySelector is not invocacble with T");
+        static_assert(std::invocable<ValueSelector, T>, "ValueSelector is not invocable with T");
+        static_assert(std::strict_weak_order<KeyComparator, rpp::utils::decayed_invoke_result_t<KeySelector, T>, rpp::utils::decayed_invoke_result_t<KeySelector, T>>, "KeyComparator is not invocable with result of KeySelector");
 
         using result_type = grouped_observable<utils::decayed_invoke_result_t<KeySelector, T>, rpp::utils::decayed_invoke_result_t<ValueSelector, T>, group_by_observable_strategy<utils::decayed_invoke_result_t<ValueSelector, T>>>;
 

@@ -48,10 +48,7 @@ struct map_t final : public operators::details::lift_operator<map_t<Fn>, Fn>
     template<rpp::constraint::decayed_type T>
     struct traits
     {
-        struct requirements
-        {
-            static_assert(std::invocable<Fn, T>, "Fn is not invocable with T");
-        };
+        static_assert(std::invocable<Fn, T>, "Fn is not invocable with T");
 
         using result_type = std::invoke_result_t<Fn, T>;
 

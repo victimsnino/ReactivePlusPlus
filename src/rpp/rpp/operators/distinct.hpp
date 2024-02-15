@@ -52,10 +52,7 @@ struct distinct_t final : public operators::details::lift_operator<distinct_t>
     template<rpp::constraint::decayed_type T>
     struct traits
     {
-        struct requirements
-        {
-            static_assert(rpp::constraint::hashable<T>, "T is not hashable");
-        };
+        static_assert(rpp::constraint::hashable<T>, "T is not hashable");
 
         using result_type = T;
 

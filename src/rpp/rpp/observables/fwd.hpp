@@ -91,11 +91,7 @@ concept operator_observable_transform = requires(const Op& op, TObs obs)
 };
 
 template<typename Op, typename Type>
-concept operator_base = requires(const Op& op) {
-    typename std::decay_t<Op>::template traits<Type>;
-    typename std::decay_t<Op>::template traits<Type>::result_type;
-    requires details::observables::constraint::disposable_strategy<details::observables::deduce_updated_disposable_strategy<std::decay_t<Op>, typename observable_chain_strategy<details::observables::fake_strategy<Type>>::expected_disposable_strategy>>;
-};
+concept operator_base = requires(const Op& op) { typename std::decay_t<Op>::template traits<Type>; } && details::observables::constraint::disposable_strategy<details::observables::deduce_updated_disposable_strategy<std::decay_t<Op>, typename observable_chain_strategy<details::observables::fake_strategy<Type>>::expected_disposable_strategy>>;
 
 template<typename Op, typename Type>
 concept operator_subscribe = operator_base<Op, Type> && requires(const Op& op, rpp::details::observers::fake_observer<typename std::decay_t<Op>::template traits<Type>::result_type>&& observer, const observable_chain_strategy<details::observables::fake_strategy<Type>>& chain)
@@ -116,12 +112,12 @@ concept operator_lift_with_disposable_strategy = operator_base<Op, Type> && requ
 };
 
 template<typename Op, typename Type>
-concept operator_requirements_satisfied = (!(requires {typename std::decay_t<Op>::template traits<Type>::requirements; }) || std::is_destructible_v<typename std::decay_t<Op>::template traits<Type>::requirements>);
+concept operator_requirements_satisfied = requires { typename std::decay_t<Op>::template traits<Type>::result_type; };
 
 template<typename Op, typename Type, typename DisposableStrategy>
-concept operator_chain = operator_base<Op, Type>
-    && operator_requirements_satisfied<Op, Type>
-    && (operator_subscribe<Op, Type> || operator_lift<Op, Type> || operator_lift_with_disposable_strategy<Op, Type, DisposableStrategy>);
+concept operator_chain = operator_base<std::decay_t<Op>, Type>
+    && operator_requirements_satisfied<std::decay_t<Op>, Type>
+    && (operator_subscribe<std::decay_t<Op>, Type> || operator_lift<std::decay_t<Op>, Type> || operator_lift_with_disposable_strategy<std::decay_t<Op>, Type, DisposableStrategy>);
 
 template<typename TObservable, typename... TObservables>
 concept observables_of_same_type = rpp::constraint::observable<TObservable> &&
