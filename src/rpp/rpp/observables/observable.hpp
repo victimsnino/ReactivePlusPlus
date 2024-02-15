@@ -314,18 +314,14 @@ public:
     auto operator|(Op&& op) const &
     {
         RPP_CHECK_IF_TRAIT_ASSERTS_SATISFIED(Op, Type);
-
-        static_assert(constraint::operator_chain<Op, Type, expected_disposable_strategy>);
-        return observable<typename std::decay_t<Op>::template operator_traits_for_upstream_type<Type>::result_type, make_chain_observable_t<std::decay_t<Op>, Strategy>>{std::forward<Op>(op), m_strategy};
+        return inner_make_chain_operator(std::forward<Op>(op));
     }
 
     template<constraint::operator_base<Type> Op>
     auto operator|(Op&& op) &&
     {
         RPP_CHECK_IF_TRAIT_ASSERTS_SATISFIED(Op, Type);
-
-        static_assert(constraint::operator_chain<Op, Type, expected_disposable_strategy>);
-        return observable<typename std::decay_t<Op>::template operator_traits_for_upstream_type<Type>::result_type, make_chain_observable_t<std::decay_t<Op>, Strategy>>{std::forward<Op>(op), std::move(m_strategy)};
+        return std::move(*this).inner_make_chain_operator(std::forward<Op>(op));
     }
 
     template<constraint::operator_observable_transform<const observable&> Op>
@@ -362,6 +358,19 @@ public:
     auto pipe(Op&& op) &&
     {
         return std::move(*this) | std::forward<Op>(op);
+    }
+
+private:
+    template<constraint::operator_chain<Type, expected_disposable_strategy> Op>
+    auto inner_make_chain_operator(Op&& op) const &
+    {
+        return observable<typename std::decay_t<Op>::template operator_traits_for_upstream_type<Type>::result_type, make_chain_observable_t<std::decay_t<Op>, Strategy>>{std::forward<Op>(op), m_strategy};
+    }
+
+    template<constraint::operator_chain<Type, expected_disposable_strategy> Op>
+    auto inner_make_chain_operator(Op&& op) &&
+    {
+        return observable<typename std::decay_t<Op>::template operator_traits_for_upstream_type<Type>::result_type, make_chain_observable_t<std::decay_t<Op>, Strategy>>{std::forward<Op>(op), std::move(m_strategy)};
     }
 
 private:
