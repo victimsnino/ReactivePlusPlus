@@ -36,7 +36,7 @@ template<rpp::schedulers::constraint::scheduler TScheduler>
 struct subscribe_on_t
 {
     template<rpp::constraint::decayed_type T>
-    struct traits
+    struct operator_traits_for_upstream_type
     {
         using result_type = T;
     };

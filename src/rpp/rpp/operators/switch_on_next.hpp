@@ -137,7 +137,7 @@ private:
 struct switch_on_next_t final : public operators::details::lift_operator<switch_on_next_t>
 {
     template<rpp::constraint::decayed_type T>
-    struct traits
+    struct operator_traits_for_upstream_type
     {
         static_assert(rpp::constraint::observable<T>, "T is not observable");
 

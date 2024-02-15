@@ -40,13 +40,13 @@ public:
     }
 
 private:
-    template<rpp::constraint::decayed_type Type, 
-             rpp::constraint::observer Observer, 
+    template<rpp::constraint::decayed_type Type,
+             rpp::constraint::observer Observer,
              typename... Args>
     static auto apply(Observer&& observer, const Args&... vals)
     {
-        static_assert(rpp::constraint::observer_of_type<std::decay_t<Observer>, typename Operator::template traits<Type>::result_type>);
-        return rpp::observer<Type, typename Operator::template traits<Type>::template observer_strategy<std::decay_t<Observer>>>{std::forward<Observer>(observer), vals...};
+        static_assert(rpp::constraint::observer_of_type<std::decay_t<Observer>, typename Operator::template operator_traits_for_upstream_type<Type>::result_type>);
+        return rpp::observer<Type, typename Operator::template operator_traits_for_upstream_type<Type>::template observer_strategy<std::decay_t<Observer>>>{std::forward<Observer>(observer), vals...};
     }
 
 private:

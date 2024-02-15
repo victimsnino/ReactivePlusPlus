@@ -50,7 +50,7 @@ struct distinct_observer_strategy
 struct distinct_t final : public operators::details::lift_operator<distinct_t>
 {
     template<rpp::constraint::decayed_type T>
-    struct traits
+    struct operator_traits_for_upstream_type
     {
         static_assert(rpp::constraint::hashable<T>, "T is not hashable");
 

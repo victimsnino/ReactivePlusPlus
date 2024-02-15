@@ -47,7 +47,7 @@ template<rpp::constraint::decayed_type Fn>
 struct take_while_t final : public operators::details::lift_operator<take_while_t<Fn>, Fn>
 {
     template<rpp::constraint::decayed_type T>
-    struct traits
+    struct operator_traits_for_upstream_type
     {
         static_assert(std::is_invocable_r_v<bool, Fn, T>, "Fn is not invocable with T returning bool");
 

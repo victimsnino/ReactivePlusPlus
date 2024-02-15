@@ -46,13 +46,13 @@ struct take_until_observer_strategy_base
 
     std::shared_ptr<take_until_disposable<TObserver>> state;
 
-    void on_error(const std::exception_ptr& err) const 
+    void on_error(const std::exception_ptr& err) const
     {
         state->dispose();
         state->get_observer()->on_error(err);
     }
 
-    void on_completed() const 
+    void on_completed() const
     {
         state->dispose();
         state->get_observer()->on_completed();
@@ -90,7 +90,7 @@ struct take_until_t
     RPP_NO_UNIQUE_ADDRESS TObservable observable{};
 
     template<rpp::constraint::decayed_type T>
-    struct traits
+    struct operator_traits_for_upstream_type
     {
         using result_type = T;
     };

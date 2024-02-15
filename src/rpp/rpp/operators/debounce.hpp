@@ -156,7 +156,7 @@ template<rpp::schedulers::constraint::scheduler Scheduler>
 struct debounce_t
 {
     template<rpp::constraint::decayed_type T>
-    struct traits
+    struct operator_traits_for_upstream_type
     {
         using result_type = T;
     };

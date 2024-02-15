@@ -191,7 +191,7 @@ struct window_toggle_t
     RPP_NO_UNIQUE_ADDRESS TClosingsSelectorFn closings_selector;
 
     template<rpp::constraint::decayed_type T>
-    struct traits
+    struct operator_traits_for_upstream_type
     {
         using result_type = rpp::window_toggle_observable<T>;
     };

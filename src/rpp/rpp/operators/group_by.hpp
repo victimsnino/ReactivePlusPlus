@@ -167,7 +167,7 @@ struct group_by_t final : public operators::details::lift_operator<group_by_t<Ke
     using operators::details::lift_operator<group_by_t<KeySelector, ValueSelector, KeyComparator>, KeySelector, ValueSelector, KeyComparator>::lift_operator;
 
     template<rpp::constraint::decayed_type T>
-    struct traits
+    struct operator_traits_for_upstream_type
     {
         static_assert(std::invocable<KeySelector, T>, "KeySelector is not invocacble with T");
         static_assert(std::invocable<ValueSelector, T>, "ValueSelector is not invocable with T");

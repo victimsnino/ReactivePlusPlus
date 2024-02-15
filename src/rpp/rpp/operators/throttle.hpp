@@ -54,7 +54,7 @@ template<rpp::schedulers::constraint::scheduler Scheduler>
 struct throttle_t final : public operators::details::lift_operator<throttle_t<Scheduler>, rpp::schedulers::duration>
 {
     template<rpp::constraint::decayed_type T>
-    struct traits
+    struct operator_traits_for_upstream_type
     {
         using result_type = T;
 
