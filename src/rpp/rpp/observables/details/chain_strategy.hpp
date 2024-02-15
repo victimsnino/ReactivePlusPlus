@@ -23,7 +23,7 @@ class observable_chain_strategy
 
 public:
     using expected_disposable_strategy = details::observables::deduce_updated_disposable_strategy<TStrategy, typename base::expected_disposable_strategy>;
-    using value_type = typename TStrategy::template result_value<typename base::value_type>;
+    using value_type = typename TStrategy::template operator_traits<typename base::value_type>::result_type;
 
     observable_chain_strategy(const TStrategy& strategy, const TStrategies&... strategies)
         : m_strategy(strategy)

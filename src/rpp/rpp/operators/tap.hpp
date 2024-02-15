@@ -59,13 +59,20 @@ template<
     rpp::constraint::decayed_type OnNext,
     rpp::constraint::decayed_type OnError,
     rpp::constraint::decayed_type OnCompleted>
-struct tap_t : public operators::details::operator_observable_strategy<tap_observer_strategy, OnNext, OnError, OnCompleted>
+struct tap_t : public operators::details::lift_operator<tap_t<OnNext,OnError,OnCompleted>, OnNext, OnError, OnCompleted>
 {
-    using operators::details::operator_observable_strategy<tap_observer_strategy, OnNext, OnError, OnCompleted>::operator_observable_strategy;
+    using operators::details::lift_operator<tap_t<OnNext,OnError,OnCompleted>, OnNext, OnError, OnCompleted>::lift_operator;
 
     template<rpp::constraint::decayed_type T>
-        requires rpp::constraint::invocable_r_v<void, OnNext, T>
-    using result_value = T;
+    struct operator_traits
+    {
+        static_assert(rpp::constraint::invocable_r_v<void, OnNext, T>, "OnNext is not invocable with T");
+
+        using result_type = T;
+
+        template<rpp::constraint::observer_of_type<result_type> TObserver>
+        using observer_strategy = tap_observer_strategy<TObserver, OnNext, OnError, OnCompleted>;
+    };
 
     template<rpp::details::observables::constraint::disposable_strategy Prev>
     using updated_disposable_strategy = Prev;

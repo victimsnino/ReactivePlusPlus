@@ -185,13 +185,16 @@ private:
 
 template<rpp::constraint::observable TOpeningsObservable, typename TClosingsSelectorFn>
     requires rpp::constraint::observable<std::invoke_result_t<TClosingsSelectorFn, rpp::utils::extract_observable_type_t<TOpeningsObservable>>>
-struct window_toggle_t //: public operators::details::operator_observable_strategy<window_toggle_observer_strategy, TOpeningsObservable, TClosingsSelectorFn>
+struct window_toggle_t
 {
     RPP_NO_UNIQUE_ADDRESS TOpeningsObservable openings;
     RPP_NO_UNIQUE_ADDRESS TClosingsSelectorFn closings_selector;
 
     template<rpp::constraint::decayed_type T>
-    using result_value = rpp::window_toggle_observable<T>;
+    struct operator_traits
+    {
+        using result_type = rpp::window_toggle_observable<T>;
+    };
 
     template<rpp::details::observables::constraint::disposable_strategy Prev>
     using updated_disposable_strategy = rpp::details::observables::fixed_disposable_strategy_selector<1>;

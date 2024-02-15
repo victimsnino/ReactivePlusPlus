@@ -45,10 +45,16 @@ struct skip_observer_strategy
     bool is_disposed() const { return observer.is_disposed(); }
 };
 
-struct skip_t : public operators::details::operator_observable_strategy_different_types<skip_observer_strategy, rpp::utils::types<>, size_t>
+struct skip_t  : lift_operator<skip_t, size_t>
 {
     template<rpp::constraint::decayed_type T>
-    using result_value = T;
+    struct operator_traits
+    {
+        using result_type = T;
+
+        template<rpp::constraint::observer_of_type<result_type> TObserver>
+        using observer_strategy = skip_observer_strategy<TObserver>;
+    };
 
     template<rpp::details::observables::constraint::disposable_strategy Prev>
     using updated_disposable_strategy = Prev;

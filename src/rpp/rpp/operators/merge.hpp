@@ -133,8 +133,12 @@ private:
 struct merge_t
 {
     template<rpp::constraint::decayed_type T>
-        requires rpp::constraint::observable<T>
-    using result_value = rpp::utils::extract_observable_type_t<T>;
+    struct operator_traits
+    {
+        static_assert(rpp::constraint::observable<T>, "T is not observable");
+
+        using result_type = rpp::utils::extract_observable_type_t<T>;
+    };
 
     template<rpp::details::observables::constraint::disposable_strategy Prev>
     using updated_disposable_strategy = rpp::details::observables::fixed_disposable_strategy_selector<1>;
@@ -157,8 +161,12 @@ struct merge_with_t
     RPP_NO_UNIQUE_ADDRESS rpp::utils::tuple<TObservables...> observables{};
 
     template<rpp::constraint::decayed_type T>
-        requires (std::same_as<T, rpp::utils::extract_observable_type_t<TObservables>> && ...)
-    using result_value = T;
+    struct operator_traits
+    {
+        static_assert((std::same_as<T, rpp::utils::extract_observable_type_t<TObservables>> && ...), "T is not same as values of other observables");
+
+        using result_type = T;
+    };
 
     template<rpp::details::observables::constraint::disposable_strategy Prev>
     using updated_disposable_strategy = rpp::details::observables::fixed_disposable_strategy_selector<1>;

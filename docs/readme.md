@@ -269,15 +269,25 @@ There we convert observable to concatenation of original observable and `just(2)
 
 One more posible but a bit more advanced way to implement operators - is to lift observer. To do this, your functor-adapter must to satisfy `rpp::constraint::operator_lift` concept. Actually, your class must to have:
 - member function `lift` accepting downstream observer and returning new upstream observer
-- using `result_value<T>` accepting typename of upstream and providing new value for downstream (== typename of original observable and return new resulting type for new observable)
+- inner `template<rpp::constraint::decayed_type T> struct traits` struct accepting typename of upstream and providing:
+  - `using result_type =` with typename of new resulting type for new observable  
+  - (optionally) `struct requirements` with static_asserts over passed type 
 
 Example:
 ```cpp
 template<typename Fn>
 struct map
 {
-  template<typename T>
-  using result_value = std::invoke_result_t<Fn, T>;
+  template<rpp::constraint::decayed_type T>
+  struct traits
+  {
+    struct requirements
+    {
+      static_assert(std::invocable<Fn, T>, "Fn is not invocable with T");
+    };
+
+    using result_type = std::invoke_result_t<Fn, T>;
+  };
 
   Fn fn{};
 
