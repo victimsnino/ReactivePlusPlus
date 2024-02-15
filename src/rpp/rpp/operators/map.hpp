@@ -46,7 +46,7 @@ template<rpp::constraint::decayed_type Fn>
 struct map_t final : public operators::details::lift_operator<map_t<Fn>, Fn>
 {
     template<rpp::constraint::decayed_type T>
-    struct operator_traits_for_upstream_type
+    struct operator_traits
     {
         static_assert(std::invocable<Fn, T>, "Fn is not invocable with T");
 

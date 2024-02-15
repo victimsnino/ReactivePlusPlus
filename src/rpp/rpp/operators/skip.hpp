@@ -48,7 +48,7 @@ struct skip_observer_strategy
 struct skip_t final : public operators::details::lift_operator<skip_t, size_t>
 {
     template<rpp::constraint::decayed_type T>
-    struct operator_traits_for_upstream_type
+    struct operator_traits
     {
         using result_type = T;
 

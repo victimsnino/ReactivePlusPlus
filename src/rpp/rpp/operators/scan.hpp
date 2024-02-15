@@ -57,7 +57,7 @@ struct scan_t final : public operators::details::lift_operator<scan_t<InitialVal
     using operators::details::lift_operator<scan_t<InitialValue, Fn>, InitialValue, Fn>::lift_operator;
 
     template<rpp::constraint::decayed_type T>
-    struct operator_traits_for_upstream_type
+    struct operator_traits
     {
         static_assert(std::is_invocable_r_v<InitialValue, Fn, InitialValue&&, T>, "Accumulator is not invocable with Seed&& abnd T returning Seed");
 
@@ -106,7 +106,7 @@ template<rpp::constraint::decayed_type Fn>
 struct scan_no_seed_t final : public operators::details::lift_operator<scan_no_seed_t<Fn>, Fn>
 {
     template<rpp::constraint::decayed_type T>
-    struct operator_traits_for_upstream_type
+    struct operator_traits
     {
         static_assert(std::is_invocable_r_v<T, Fn, T&&, T>, "Accumulator is not invocable with T&& abnd T returning T");
 

@@ -64,7 +64,7 @@ struct tap_t : public operators::details::lift_operator<tap_t<OnNext,OnError,OnC
     using operators::details::lift_operator<tap_t<OnNext,OnError,OnCompleted>, OnNext, OnError, OnCompleted>::lift_operator;
 
     template<rpp::constraint::decayed_type T>
-    struct operator_traits_for_upstream_type
+    struct operator_traits
     {
         static_assert(rpp::constraint::invocable_r_v<void, OnNext, T>, "OnNext is not invocable with T");
 

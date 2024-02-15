@@ -54,7 +54,7 @@ struct last_observer_strategy
 struct last_t final : public operators::details::lift_operator<last_t>
 {
     template<rpp::constraint::decayed_type T>
-    struct operator_traits_for_upstream_type
+    struct operator_traits
     {
         using result_type = T;
 

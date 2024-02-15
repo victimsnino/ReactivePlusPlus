@@ -90,7 +90,7 @@ struct take_until_t
     RPP_NO_UNIQUE_ADDRESS TObservable observable{};
 
     template<rpp::constraint::decayed_type T>
-    struct operator_traits_for_upstream_type
+    struct operator_traits
     {
         using result_type = T;
     };

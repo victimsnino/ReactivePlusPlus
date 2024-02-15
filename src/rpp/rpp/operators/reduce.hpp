@@ -52,7 +52,7 @@ struct reduce_t final : public operators::details::lift_operator<reduce_t<Seed, 
     using operators::details::lift_operator<reduce_t<Seed, Accumulator>, Seed, Accumulator>::lift_operator;
 
     template<rpp::constraint::decayed_type T>
-    struct operator_traits_for_upstream_type
+    struct operator_traits
     {
         static_assert(std::is_invocable_r_v<Seed, Accumulator, Seed&&, T>, "Accumulator is not invocable with Seed&& abnd T returning Seed");
 
@@ -102,7 +102,7 @@ template<rpp::constraint::decayed_type Accumulator>
 struct reduce_no_seed_t final : public operators::details::lift_operator<reduce_no_seed_t<Accumulator>, Accumulator>
 {
     template<rpp::constraint::decayed_type T>
-    struct operator_traits_for_upstream_type
+    struct operator_traits
     {
         static_assert(std::is_invocable_r_v<T, Accumulator, T&&, T>, "Accumulator is not invocable with T&& abnd T returning T");
 

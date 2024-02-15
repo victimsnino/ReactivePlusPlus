@@ -133,7 +133,7 @@ private:
 struct merge_t
 {
     template<rpp::constraint::decayed_type T>
-    struct operator_traits_for_upstream_type
+    struct operator_traits
     {
         static_assert(rpp::constraint::observable<T>, "T is not observable");
 
@@ -161,7 +161,7 @@ struct merge_with_t
     RPP_NO_UNIQUE_ADDRESS rpp::utils::tuple<TObservables...> observables{};
 
     template<rpp::constraint::decayed_type T>
-    struct operator_traits_for_upstream_type
+    struct operator_traits
     {
         static_assert((std::same_as<T, rpp::utils::extract_observable_type_t<TObservables>> && ...), "T is not same as values of other observables");
 

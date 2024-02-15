@@ -103,7 +103,7 @@ struct combine_latest_t
     RPP_NO_UNIQUE_ADDRESS TSelector                          selector;
 
     template<rpp::constraint::decayed_type T>
-    struct operator_traits_for_upstream_type
+    struct operator_traits
     {
         static_assert(std::invocable<TSelector, T, rpp::utils::extract_observable_type_t<TObservables>...>, "Selector is not callable with passed T type");
 

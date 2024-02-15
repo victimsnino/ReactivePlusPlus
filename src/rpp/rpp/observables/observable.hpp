@@ -364,13 +364,13 @@ private:
     template<constraint::operator_chain<Type, expected_disposable_strategy> Op>
     auto inner_make_chain_operator(Op&& op) const &
     {
-        return observable<typename std::decay_t<Op>::template operator_traits_for_upstream_type<Type>::result_type, make_chain_observable_t<std::decay_t<Op>, Strategy>>{std::forward<Op>(op), m_strategy};
+        return observable<typename std::decay_t<Op>::template operator_traits<Type>::result_type, make_chain_observable_t<std::decay_t<Op>, Strategy>>{std::forward<Op>(op), m_strategy};
     }
 
     template<constraint::operator_chain<Type, expected_disposable_strategy> Op>
     auto inner_make_chain_operator(Op&& op) &&
     {
-        return observable<typename std::decay_t<Op>::template operator_traits_for_upstream_type<Type>::result_type, make_chain_observable_t<std::decay_t<Op>, Strategy>>{std::forward<Op>(op), std::move(m_strategy)};
+        return observable<typename std::decay_t<Op>::template operator_traits<Type>::result_type, make_chain_observable_t<std::decay_t<Op>, Strategy>>{std::forward<Op>(op), std::move(m_strategy)};
     }
 
 private:

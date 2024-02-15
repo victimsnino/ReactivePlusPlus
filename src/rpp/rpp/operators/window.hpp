@@ -105,7 +105,7 @@ private:
 struct window_t final : public operators::details::lift_operator<window_t, size_t>
 {
     template<rpp::constraint::decayed_type T>
-    struct operator_traits_for_upstream_type
+    struct operator_traits
     {
         using result_type = window_observable<T>;
 
