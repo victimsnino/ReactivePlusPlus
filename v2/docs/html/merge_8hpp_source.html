@@ -245,77 +245,89 @@ $(function(){initNavTree('merge_8hpp_source.html',''); initResizable(); });
 <div class="line"><a id="l00133" name="l00133"></a><span class="lineno"><a class="line" href="structrpp_1_1operators_1_1details_1_1merge__t.html">  133</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structrpp_1_1operators_1_1details_1_1merge__t.html">merge_t</a></div>
 <div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>{</div>
 <div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>    <span class="keyword">template</span>&lt;rpp::constra<span class="keywordtype">int</span>::decayed_type T&gt;</div>
-<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>        <span class="keyword">requires</span> <a class="code hl_concept" href="conceptrpp_1_1constraint_1_1observable.html">rpp::constraint::observable&lt;T&gt;</a></div>
-<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>    <span class="keyword">using </span>result_value = rpp::utils::extract_observable_type_t&lt;T&gt;;</div>
-<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span> </div>
-<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>    <span class="keyword">template</span>&lt;rpp::details::observables::constra<span class="keywordtype">int</span>::disposable_strategy Prev&gt;</div>
-<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>    <span class="keyword">using </span><a class="code hl_struct" href="structrpp_1_1details_1_1observables_1_1fixed__disposable__strategy__selector.html">updated_disposable_strategy</a> = <a class="code hl_struct" href="structrpp_1_1details_1_1observables_1_1fixed__disposable__strategy__selector.html">rpp::details::observables::fixed_disposable_strategy_selector&lt;1&gt;</a>;</div>
-<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span> </div>
-<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>    <span class="keyword">template</span>&lt;<a class="code hl_concept" href="conceptrpp_1_1constraint_1_1observer.html">rpp::constraint::observer</a> Observer, <span class="keyword">typename</span>... Strategies&gt;</div>
-<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>    <span class="keywordtype">void</span> subscribe(Observer&amp;&amp; <a class="code hl_class" href="classrpp_1_1observer.html">observer</a>, <span class="keyword">const</span> <a class="code hl_class" href="classrpp_1_1observable__chain__strategy.html">observable_chain_strategy&lt;Strategies...&gt;</a>&amp; strategy)<span class="keyword"> const</span></div>
-<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span><span class="keyword">    </span>{</div>
-<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>        <span class="comment">// Need to take ownership over current_thread in case of inner-observables also using it</span></div>
-<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>        <span class="keyword">auto</span> drain_on_exit = rpp::schedulers::current_thread::own_queue_and_drain_finally_if_not_owned();</div>
-<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span> </div>
-<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>        <span class="keyword">using </span>InnerObservable = <span class="keyword">typename</span> <a class="code hl_class" href="classrpp_1_1observable__chain__strategy.html">observable_chain_strategy</a>&lt;Strategies...&gt;::value_type;</div>
-<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span> </div>
-<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>        strategy.subscribe(<a class="code hl_class" href="classrpp_1_1observer.html">rpp::observer</a>&lt;InnerObservable, <a class="code hl_class" href="classrpp_1_1operators_1_1details_1_1merge__observer__strategy.html">merge_observer_strategy</a>&lt;std::decay_t&lt;Observer&gt;&gt;&gt;{std::forward&lt;Observer&gt;(<a class="code hl_class" href="classrpp_1_1observer.html">observer</a>)});</div>
-<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>    }</div>
-<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>};</div>
+<div class="foldopen" id="foldopen00136" data-start="{" data-end="};">
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno"><a class="line" href="structrpp_1_1operators_1_1details_1_1merge__t_1_1operator__traits.html">  136</a></span>    <span class="keyword">struct </span><a class="code hl_struct" href="structrpp_1_1operators_1_1details_1_1merge__t_1_1operator__traits.html">operator_traits</a></div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>    {</div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>        <span class="keyword">static_assert</span>(<a class="code hl_concept" href="conceptrpp_1_1constraint_1_1observable.html">rpp::constraint::observable&lt;T&gt;</a>, <span class="stringliteral">&quot;T is not observable&quot;</span>);</div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span> </div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>        <span class="keyword">using </span>result_type = rpp::utils::extract_observable_type_t&lt;T&gt;;</div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>    };</div>
 </div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span> </div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>    <span class="keyword">template</span>&lt;rpp::details::observables::constra<span class="keywordtype">int</span>::disposable_strategy Prev&gt;</div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>    <span class="keyword">using </span><a class="code hl_struct" href="structrpp_1_1details_1_1observables_1_1fixed__disposable__strategy__selector.html">updated_disposable_strategy</a> = <a class="code hl_struct" href="structrpp_1_1details_1_1observables_1_1fixed__disposable__strategy__selector.html">rpp::details::observables::fixed_disposable_strategy_selector&lt;1&gt;</a>;</div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span> </div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>    <span class="keyword">template</span>&lt;<a class="code hl_concept" href="conceptrpp_1_1constraint_1_1observer.html">rpp::constraint::observer</a> Observer, <span class="keyword">typename</span>... Strategies&gt;</div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>    <span class="keywordtype">void</span> subscribe(Observer&amp;&amp; <a class="code hl_class" href="classrpp_1_1observer.html">observer</a>, <span class="keyword">const</span> <a class="code hl_class" href="classrpp_1_1observable__chain__strategy.html">observable_chain_strategy&lt;Strategies...&gt;</a>&amp; strategy)<span class="keyword"> const</span></div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span><span class="keyword">    </span>{</div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>        <span class="comment">// Need to take ownership over current_thread in case of inner-observables also using it</span></div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>        <span class="keyword">auto</span> drain_on_exit = rpp::schedulers::current_thread::own_queue_and_drain_finally_if_not_owned();</div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span> </div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>        <span class="keyword">using </span>InnerObservable = <span class="keyword">typename</span> <a class="code hl_class" href="classrpp_1_1observable__chain__strategy.html">observable_chain_strategy</a>&lt;Strategies...&gt;::value_type;</div>
 <div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span> </div>
-<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span><span class="keyword">template</span>&lt;<a class="code hl_concept" href="conceptrpp_1_1constraint_1_1observable.html">rpp::constraint::observable</a>... TObservables&gt;</div>
-<div class="foldopen" id="foldopen00155" data-start="{" data-end="};">
-<div class="line"><a id="l00155" name="l00155"></a><span class="lineno"><a class="line" href="structrpp_1_1operators_1_1details_1_1merge__with__t.html">  155</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structrpp_1_1operators_1_1details_1_1merge__with__t.html">merge_with_t</a></div>
-<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>{</div>
-<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>    RPP_NO_UNIQUE_ADDRESS rpp::utils::tuple&lt;TObservables...&gt; observables{};</div>
-<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span> </div>
-<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>    <span class="keyword">template</span>&lt;rpp::constra<span class="keywordtype">int</span>::decayed_type T&gt;</div>
-<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>        <span class="keyword">requires</span> (std::same_as&lt;T, rpp::utils::extract_observable_type_t&lt;TObservables&gt;&gt; &amp;&amp; ...)</div>
-<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>    <span class="keyword">using </span>result_value = T;</div>
-<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span> </div>
-<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>    <span class="keyword">template</span>&lt;rpp::details::observables::constra<span class="keywordtype">int</span>::disposable_strategy Prev&gt;</div>
-<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>    <span class="keyword">using </span><a class="code hl_struct" href="structrpp_1_1details_1_1observables_1_1fixed__disposable__strategy__selector.html">updated_disposable_strategy</a> = <a class="code hl_struct" href="structrpp_1_1details_1_1observables_1_1fixed__disposable__strategy__selector.html">rpp::details::observables::fixed_disposable_strategy_selector&lt;1&gt;</a>;</div>
-<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span> </div>
-<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>    <span class="keyword">template</span>&lt;<a class="code hl_concept" href="conceptrpp_1_1constraint_1_1observer.html">rpp::constraint::observer</a> Observer, <span class="keyword">typename</span>... Strategies&gt;</div>
-<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>    <span class="keywordtype">void</span> subscribe(Observer&amp;&amp; <a class="code hl_class" href="classrpp_1_1observer.html">observer</a>, <span class="keyword">const</span> <a class="code hl_class" href="classrpp_1_1observable__chain__strategy.html">observable_chain_strategy&lt;Strategies...&gt;</a>&amp; observable_strategy)<span class="keyword"> const</span></div>
-<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span><span class="keyword">    </span>{</div>
-<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>        <a class="code hl_class" href="classrpp_1_1operators_1_1details_1_1merge__observer__strategy.html">merge_observer_strategy&lt;std::decay_t&lt;Observer&gt;</a>&gt; strategy{std::forward&lt;Observer&gt;(<a class="code hl_class" href="classrpp_1_1observer.html">observer</a>)};</div>
-<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span> </div>
-<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>        <span class="comment">// Need to take ownership over current_thread in case of inner-observables also using it</span></div>
-<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>        <span class="keyword">auto</span> drain_on_exit = rpp::schedulers::current_thread::own_queue_and_drain_finally_if_not_owned();</div>
-<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span> </div>
-<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>        strategy.on_next(observable_strategy);</div>
-<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>        observables.apply(&amp;apply&lt;std::decay_t&lt;Observer&gt;&gt;, strategy);</div>
-<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>        strategy.on_completed();</div>
-<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>    }</div>
-<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span> </div>
-<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>    <span class="keyword">template</span>&lt;rpp::constra<span class="keywordtype">int</span>::observer Observer&gt;</div>
-<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span>    <span class="keyword">static</span> <span class="keywordtype">void</span> apply(<span class="keyword">const</span> <a class="code hl_class" href="classrpp_1_1operators_1_1details_1_1merge__observer__strategy.html">merge_observer_strategy&lt;Observer&gt;</a>&amp; strategy, <span class="keyword">const</span> TObservables&amp;... observables)</div>
-<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>    {</div>
-<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span>        (strategy.on_next(observables), ...);</div>
-<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>    }</div>
-<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>};</div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>        strategy.subscribe(<a class="code hl_class" href="classrpp_1_1observer.html">rpp::observer</a>&lt;InnerObservable, <a class="code hl_class" href="classrpp_1_1operators_1_1details_1_1merge__observer__strategy.html">merge_observer_strategy</a>&lt;std::decay_t&lt;Observer&gt;&gt;&gt;{std::forward&lt;Observer&gt;(<a class="code hl_class" href="classrpp_1_1observer.html">observer</a>)});</div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>    }</div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>};</div>
 </div>
-<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>}</div>
-<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span> </div>
-<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span><span class="keyword">namespace </span>rpp::operators</div>
-<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>{</div>
-<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span><span class="keyword">inline</span> <span class="keyword">auto</span> <a class="code hl_function" href="group__combining__operators.html#ga3f8a04b4c8eb945534eddde5a25eec74">merge</a>()</div>
-<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>{</div>
-<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span>    <span class="keywordflow">return</span> <a class="code hl_struct" href="structrpp_1_1operators_1_1details_1_1merge__t.html">details::merge_t</a>{};</div>
-<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span>}</div>
-<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span> </div>
-<div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span><span class="keyword">template</span>&lt;<a class="code hl_concept" href="conceptrpp_1_1constraint_1_1observable.html">rpp::constraint::observable</a> TObservable, <a class="code hl_concept" href="conceptrpp_1_1constraint_1_1observable.html">rpp::constraint::observable</a>... TObservables&gt;</div>
-<div class="line"><a id="l00256" name="l00256"></a><span class="lineno">  256</span>    <span class="keyword">requires</span> constraint::observables_of_same_type&lt;std::decay_t&lt;TObservable&gt;, std::decay_t&lt;TObservables&gt;...&gt;</div>
-<div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span><span class="keyword">auto</span> <a class="code hl_function" href="group__combining__operators.html#ga35392a84e52bf7101d0d0445ef391db7">merge_with</a>(TObservable&amp;&amp; observable, TObservables&amp;&amp;... observables)</div>
-<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span>{</div>
-<div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span>    <span class="keywordflow">return</span> details::merge_with_t&lt;std::decay_t&lt;TObservable&gt;, std::decay_t&lt;TObservables&gt;...&gt;{</div>
-<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span>        rpp::utils::tuple{std::forward&lt;TObservable&gt;(observable), std::forward&lt;TObservables&gt;(observables)...}</div>
-<div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span>    };</div>
-<div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span>}</div>
-<div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span>} <span class="comment">// namespace rpp::operators</span></div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span> </div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span><span class="keyword">template</span>&lt;<a class="code hl_concept" href="conceptrpp_1_1constraint_1_1observable.html">rpp::constraint::observable</a>... TObservables&gt;</div>
+<div class="foldopen" id="foldopen00159" data-start="{" data-end="};">
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno"><a class="line" href="structrpp_1_1operators_1_1details_1_1merge__with__t.html">  159</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structrpp_1_1operators_1_1details_1_1merge__with__t.html">merge_with_t</a></div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>{</div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>    RPP_NO_UNIQUE_ADDRESS rpp::utils::tuple&lt;TObservables...&gt; observables{};</div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span> </div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>    <span class="keyword">template</span>&lt;rpp::constra<span class="keywordtype">int</span>::decayed_type T&gt;</div>
+<div class="foldopen" id="foldopen00164" data-start="{" data-end="};">
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno"><a class="line" href="structrpp_1_1operators_1_1details_1_1merge__with__t_1_1operator__traits.html">  164</a></span>    <span class="keyword">struct </span><a class="code hl_struct" href="structrpp_1_1operators_1_1details_1_1merge__with__t_1_1operator__traits.html">operator_traits</a></div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>    {</div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>        <span class="keyword">static_assert</span>((std::same_as&lt;T, rpp::utils::extract_observable_type_t&lt;TObservables&gt;&gt; &amp;&amp; ...), <span class="stringliteral">&quot;T is not same as values of other observables&quot;</span>);</div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span> </div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>        <span class="keyword">using </span>result_type = T;</div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>    };</div>
+</div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span> </div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>    <span class="keyword">template</span>&lt;rpp::details::observables::constra<span class="keywordtype">int</span>::disposable_strategy Prev&gt;</div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>    <span class="keyword">using </span><a class="code hl_struct" href="structrpp_1_1details_1_1observables_1_1fixed__disposable__strategy__selector.html">updated_disposable_strategy</a> = <a class="code hl_struct" href="structrpp_1_1details_1_1observables_1_1fixed__disposable__strategy__selector.html">rpp::details::observables::fixed_disposable_strategy_selector&lt;1&gt;</a>;</div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span> </div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>    <span class="keyword">template</span>&lt;<a class="code hl_concept" href="conceptrpp_1_1constraint_1_1observer.html">rpp::constraint::observer</a> Observer, <span class="keyword">typename</span>... Strategies&gt;</div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>    <span class="keywordtype">void</span> subscribe(Observer&amp;&amp; <a class="code hl_class" href="classrpp_1_1observer.html">observer</a>, <span class="keyword">const</span> <a class="code hl_class" href="classrpp_1_1observable__chain__strategy.html">observable_chain_strategy&lt;Strategies...&gt;</a>&amp; observable_strategy)<span class="keyword"> const</span></div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span><span class="keyword">    </span>{</div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>        <a class="code hl_class" href="classrpp_1_1operators_1_1details_1_1merge__observer__strategy.html">merge_observer_strategy&lt;std::decay_t&lt;Observer&gt;</a>&gt; strategy{std::forward&lt;Observer&gt;(<a class="code hl_class" href="classrpp_1_1observer.html">observer</a>)};</div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span> </div>
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>        <span class="comment">// Need to take ownership over current_thread in case of inner-observables also using it</span></div>
+<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>        <span class="keyword">auto</span> drain_on_exit = rpp::schedulers::current_thread::own_queue_and_drain_finally_if_not_owned();</div>
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span> </div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>        strategy.on_next(observable_strategy);</div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span>        observables.apply(&amp;apply&lt;std::decay_t&lt;Observer&gt;&gt;, strategy);</div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>        strategy.on_completed();</div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>    }</div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span> </div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>    <span class="keyword">template</span>&lt;rpp::constra<span class="keywordtype">int</span>::observer Observer&gt;</div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>    <span class="keyword">static</span> <span class="keywordtype">void</span> apply(<span class="keyword">const</span> merge_observer_strategy&lt;Observer&gt;&amp; strategy, <span class="keyword">const</span> TObservables&amp;... observables)</div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>    {</div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>        (strategy.on_next(observables), ...);</div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>    }</div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>};</div>
+</div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>}</div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span> </div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span><span class="keyword">namespace </span>rpp::operators</div>
+<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>{</div>
+<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span><span class="keyword">inline</span> <span class="keyword">auto</span> <a class="code hl_function" href="group__combining__operators.html#ga3f8a04b4c8eb945534eddde5a25eec74">merge</a>()</div>
+<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span>{</div>
+<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span>    <span class="keywordflow">return</span> details::merge_t{};</div>
+<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span>}</div>
+<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span> </div>
+<div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span><span class="keyword">template</span>&lt;<a class="code hl_concept" href="conceptrpp_1_1constraint_1_1observable.html">rpp::constraint::observable</a> TObservable, <a class="code hl_concept" href="conceptrpp_1_1constraint_1_1observable.html">rpp::constraint::observable</a>... TObservables&gt;</div>
+<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span>    <span class="keyword">requires</span> constraint::observables_of_same_type&lt;std::decay_t&lt;TObservable&gt;, std::decay_t&lt;TObservables&gt;...&gt;</div>
+<div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span><span class="keyword">auto</span> <a class="code hl_function" href="group__combining__operators.html#ga35392a84e52bf7101d0d0445ef391db7">merge_with</a>(TObservable&amp;&amp; observable, TObservables&amp;&amp;... observables)</div>
+<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span>{</div>
+<div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span>    <span class="keywordflow">return</span> details::merge_with_t&lt;std::decay_t&lt;TObservable&gt;, std::decay_t&lt;TObservables&gt;...&gt;{</div>
+<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span>        rpp::utils::tuple{std::forward&lt;TObservable&gt;(observable), std::forward&lt;TObservables&gt;(observables)...}</div>
+<div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span>    };</div>
+<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span>}</div>
+<div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span>} <span class="comment">// namespace rpp::operators</span></div>
 <div class="ttc" id="aclassrpp_1_1composite__disposable_html"><div class="ttname"><a href="classrpp_1_1composite__disposable.html">rpp::composite_disposable</a></div><div class="ttdef"><b>Definition</b> composite_disposable.hpp:167</div></div>
 <div class="ttc" id="aclassrpp_1_1disposable__wrapper__impl_html"><div class="ttname"><a href="classrpp_1_1disposable__wrapper__impl.html">rpp::disposable_wrapper_impl&lt; interface_disposable &gt;</a></div></div>
 <div class="ttc" id="aclassrpp_1_1observable__chain__strategy_html"><div class="ttname"><a href="classrpp_1_1observable__chain__strategy.html">rpp::observable_chain_strategy</a></div><div class="ttdef"><b>Definition</b> chain_strategy.hpp:21</div></div>
@@ -325,13 +337,15 @@ $(function(){initNavTree('merge_8hpp_source.html',''); initResizable(); });
 <div class="ttc" id="aclassrpp_1_1operators_1_1details_1_1pointer__under__lock_html"><div class="ttname"><a href="classrpp_1_1operators_1_1details_1_1pointer__under__lock.html">rpp::operators::details::pointer_under_lock</a></div><div class="ttdef"><b>Definition</b> utils.hpp:38</div></div>
 <div class="ttc" id="aconceptrpp_1_1constraint_1_1observable_html"><div class="ttname"><a href="conceptrpp_1_1constraint_1_1observable.html">rpp::constraint::observable</a></div><div class="ttdef"><b>Definition</b> fwd.hpp:67</div></div>
 <div class="ttc" id="aconceptrpp_1_1constraint_1_1observer_html"><div class="ttname"><a href="conceptrpp_1_1constraint_1_1observer.html">rpp::constraint::observer</a></div><div class="ttdef"><b>Definition</b> fwd.hpp:236</div></div>
-<div class="ttc" id="agroup__combining__operators_html_ga35392a84e52bf7101d0d0445ef391db7"><div class="ttname"><a href="group__combining__operators.html#ga35392a84e52bf7101d0d0445ef391db7">rpp::operators::merge_with</a></div><div class="ttdeci">auto merge_with(TObservable &amp;&amp;observable, TObservables &amp;&amp;... observables)</div><div class="ttdoc">Combines submissions from current observable with other observables into one.</div><div class="ttdef"><b>Definition</b> merge.hpp:244</div></div>
-<div class="ttc" id="agroup__combining__operators_html_ga3f8a04b4c8eb945534eddde5a25eec74"><div class="ttname"><a href="group__combining__operators.html#ga3f8a04b4c8eb945534eddde5a25eec74">rpp::operators::merge</a></div><div class="ttdeci">auto merge()</div><div class="ttdoc">Converts observable of observables of items into observable of items via merging emissions.</div><div class="ttdef"><b>Definition</b> merge.hpp:213</div></div>
+<div class="ttc" id="agroup__combining__operators_html_ga35392a84e52bf7101d0d0445ef391db7"><div class="ttname"><a href="group__combining__operators.html#ga35392a84e52bf7101d0d0445ef391db7">rpp::operators::merge_with</a></div><div class="ttdeci">auto merge_with(TObservable &amp;&amp;observable, TObservables &amp;&amp;... observables)</div><div class="ttdoc">Combines submissions from current observable with other observables into one.</div><div class="ttdef"><b>Definition</b> merge.hpp:252</div></div>
+<div class="ttc" id="agroup__combining__operators_html_ga3f8a04b4c8eb945534eddde5a25eec74"><div class="ttname"><a href="group__combining__operators.html#ga3f8a04b4c8eb945534eddde5a25eec74">rpp::operators::merge</a></div><div class="ttdeci">auto merge()</div><div class="ttdoc">Converts observable of observables of items into observable of items via merging emissions.</div><div class="ttdef"><b>Definition</b> merge.hpp:221</div></div>
 <div class="ttc" id="astructrpp_1_1details_1_1observables_1_1fixed__disposable__strategy__selector_html"><div class="ttname"><a href="structrpp_1_1details_1_1observables_1_1fixed__disposable__strategy__selector.html">rpp::details::observables::fixed_disposable_strategy_selector</a></div><div class="ttdef"><b>Definition</b> disposable_strategy.hpp:50</div></div>
 <div class="ttc" id="astructrpp_1_1operators_1_1details_1_1merge__observer__base__strategy_html"><div class="ttname"><a href="structrpp_1_1operators_1_1details_1_1merge__observer__base__strategy.html">rpp::operators::details::merge_observer_base_strategy</a></div><div class="ttdef"><b>Definition</b> merge.hpp:50</div></div>
 <div class="ttc" id="astructrpp_1_1operators_1_1details_1_1merge__observer__inner__strategy_html"><div class="ttname"><a href="structrpp_1_1operators_1_1details_1_1merge__observer__inner__strategy.html">rpp::operators::details::merge_observer_inner_strategy</a></div><div class="ttdef"><b>Definition</b> merge.hpp:97</div></div>
+<div class="ttc" id="astructrpp_1_1operators_1_1details_1_1merge__t_1_1operator__traits_html"><div class="ttname"><a href="structrpp_1_1operators_1_1details_1_1merge__t_1_1operator__traits.html">rpp::operators::details::merge_t::operator_traits</a></div><div class="ttdef"><b>Definition</b> merge.hpp:137</div></div>
 <div class="ttc" id="astructrpp_1_1operators_1_1details_1_1merge__t_html"><div class="ttname"><a href="structrpp_1_1operators_1_1details_1_1merge__t.html">rpp::operators::details::merge_t</a></div><div class="ttdef"><b>Definition</b> merge.hpp:134</div></div>
-<div class="ttc" id="astructrpp_1_1operators_1_1details_1_1merge__with__t_html"><div class="ttname"><a href="structrpp_1_1operators_1_1details_1_1merge__with__t.html">rpp::operators::details::merge_with_t</a></div><div class="ttdef"><b>Definition</b> merge.hpp:156</div></div>
+<div class="ttc" id="astructrpp_1_1operators_1_1details_1_1merge__with__t_1_1operator__traits_html"><div class="ttname"><a href="structrpp_1_1operators_1_1details_1_1merge__with__t_1_1operator__traits.html">rpp::operators::details::merge_with_t::operator_traits</a></div><div class="ttdef"><b>Definition</b> merge.hpp:165</div></div>
+<div class="ttc" id="astructrpp_1_1operators_1_1details_1_1merge__with__t_html"><div class="ttname"><a href="structrpp_1_1operators_1_1details_1_1merge__with__t.html">rpp::operators::details::merge_with_t</a></div><div class="ttdef"><b>Definition</b> merge.hpp:160</div></div>
 <div class="ttc" id="astructrpp_1_1operators_1_1details_1_1value__with__mutex_html"><div class="ttname"><a href="structrpp_1_1operators_1_1details_1_1value__with__mutex.html">rpp::operators::details::value_with_mutex</a></div><div class="ttdef"><b>Definition</b> utils.hpp:19</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->

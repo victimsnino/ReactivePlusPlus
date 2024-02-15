@@ -175,7 +175,7 @@ $(function(){initNavTree('operators_2concat_8hpp_source.html',''); initResizable
 <div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    {</div>
 <div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>        <span class="keywordflow">if</span> (handle_observable_impl(<a class="code hl_class" href="classrpp_1_1observable.html">observable</a>, refcounted))</div>
 <div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>            <span class="keywordflow">return</span>;</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>        </div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span> </div>
 <div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>        drain(refcounted);</div>
 <div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    }</div>
 <div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span> </div>
@@ -278,12 +278,12 @@ $(function(){initNavTree('operators_2concat_8hpp_source.html',''); initResizable
 <div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>    }</div>
 <div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span> </div>
 <div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>    <span class="keywordtype">void</span> on_next(T&amp;&amp; v)<span class="keyword"> const </span></div>
-<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span><span class="keyword">    </span>{ </div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>    <span class="keywordtype">void</span> on_next(T&amp;&amp; v)<span class="keyword"> const</span></div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span><span class="keyword">    </span>{</div>
 <div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>        ConcatStage current = ConcatStage::None;</div>
 <div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>        <span class="keywordflow">if</span> (base::state-&gt;stage().compare_exchange_strong(current, ConcatStage::Draining, std::memory_order::seq_cst))</div>
 <div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>            base::state-&gt;handle_observable(std::forward&lt;T&gt;(v), base::state-&gt;add_ref());</div>
-<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>        <span class="keywordflow">else</span> </div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>        <span class="keywordflow">else</span></div>
 <div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>            base::state-&gt;get_queue()-&gt;push(std::forward&lt;T&gt;(v));</div>
 <div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>    }</div>
 <div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span> </div>
@@ -307,42 +307,52 @@ $(function(){initNavTree('operators_2concat_8hpp_source.html',''); initResizable
 </div>
 <div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span> </div>
 <div class="foldopen" id="foldopen00198" data-start="{" data-end="};">
-<div class="line"><a id="l00198" name="l00198"></a><span class="lineno"><a class="line" href="structrpp_1_1operators_1_1details_1_1concat__t.html">  198</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structrpp_1_1operators_1_1details_1_1concat__t.html">concat_t</a>: <span class="keyword">public</span> <a class="code hl_class" href="classrpp_1_1operators_1_1details_1_1operator__observable__strategy__base.html">operators::details::template_operator_observable_strategy</a>&lt;concat_observer_strategy&gt;</div>
+<div class="line"><a id="l00198" name="l00198"></a><span class="lineno"><a class="line" href="structrpp_1_1operators_1_1details_1_1concat__t.html">  198</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structrpp_1_1operators_1_1details_1_1concat__t.html">concat_t</a>  : <a class="code hl_class" href="classrpp_1_1operators_1_1details_1_1lift__operator.html">lift_operator</a>&lt;concat_t&gt;</div>
 <div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>{</div>
 <div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>    <span class="keyword">template</span>&lt;rpp::constra<span class="keywordtype">int</span>::decayed_type T&gt;</div>
-<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>        <span class="keyword">requires</span> <a class="code hl_concept" href="conceptrpp_1_1constraint_1_1observable.html">rpp::constraint::observable&lt;T&gt;</a></div>
-<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>    <span class="keyword">using </span>result_value = rpp::utils::extract_observable_type_t&lt;T&gt;;</div>
-<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span> </div>
-<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span>    <span class="keyword">template</span>&lt;rpp::details::observables::constra<span class="keywordtype">int</span>::disposable_strategy Prev&gt;</div>
-<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>    <span class="keyword">using </span><a class="code hl_struct" href="structrpp_1_1details_1_1observables_1_1fixed__disposable__strategy__selector.html">updated_disposable_strategy</a> = <a class="code hl_struct" href="structrpp_1_1details_1_1observables_1_1fixed__disposable__strategy__selector.html">rpp::details::observables::fixed_disposable_strategy_selector&lt;1&gt;</a>;</div>
-<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span>};</div>
+<div class="foldopen" id="foldopen00201" data-start="{" data-end="};">
+<div class="line"><a id="l00201" name="l00201"></a><span class="lineno"><a class="line" href="structrpp_1_1operators_1_1details_1_1concat__t_1_1operator__traits.html">  201</a></span>    <span class="keyword">struct </span><a class="code hl_struct" href="structrpp_1_1operators_1_1details_1_1concat__t_1_1operator__traits.html">operator_traits</a></div>
+<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>    {</div>
+<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>        <span class="keyword">static_assert</span>(<a class="code hl_concept" href="conceptrpp_1_1constraint_1_1observable.html">rpp::constraint::observable&lt;T&gt;</a>, <span class="stringliteral">&quot;T is not observable&quot;</span>);</div>
+<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span> </div>
+<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>        <span class="keyword">using </span>result_type = rpp::utils::extract_observable_type_t&lt;T&gt;;</div>
+<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span> </div>
+<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span>        <span class="keyword">template</span>&lt;rpp::constra<span class="keywordtype">int</span>::observer_of_type&lt;result_type&gt; TObserver&gt;</div>
+<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span>        <span class="keyword">using </span><a class="code hl_struct" href="structrpp_1_1operators_1_1details_1_1concat__observer__strategy.html">observer_strategy</a> = <a class="code hl_struct" href="structrpp_1_1operators_1_1details_1_1concat__observer__strategy.html">concat_observer_strategy&lt;T, TObserver&gt;</a>;</div>
+<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span>    };</div>
 </div>
-<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span>}</div>
-<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span> </div>
-<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span> </div>
-<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span><span class="keyword">namespace </span>rpp::operators</div>
-<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span>{</div>
-<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span><span class="keyword">inline</span> <span class="keyword">auto</span> <a class="code hl_function" href="group__creational__operators.html#gab5cc2df8f7221b124d67d66de60a7bcd">concat</a>()</div>
-<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span>{</div>
-<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span>    <span class="keywordflow">return</span> <a class="code hl_struct" href="structrpp_1_1operators_1_1details_1_1concat__t.html">details::concat_t</a>{};</div>
-<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span>}</div>
-<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span>}</div>
+<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span> </div>
+<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span>    <span class="keyword">template</span>&lt;rpp::details::observables::constra<span class="keywordtype">int</span>::disposable_strategy Prev&gt;</div>
+<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span>    <span class="keyword">using </span><a class="code hl_struct" href="structrpp_1_1details_1_1observables_1_1fixed__disposable__strategy__selector.html">updated_disposable_strategy</a> = <a class="code hl_struct" href="structrpp_1_1details_1_1observables_1_1fixed__disposable__strategy__selector.html">rpp::details::observables::fixed_disposable_strategy_selector&lt;1&gt;</a>;</div>
+<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span>};</div>
+</div>
+<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span>}</div>
+<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span> </div>
+<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span> </div>
+<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span><span class="keyword">namespace </span>rpp::operators</div>
+<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span>{</div>
+<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span><span class="keyword">inline</span> <span class="keyword">auto</span> <a class="code hl_function" href="group__creational__operators.html#gab5cc2df8f7221b124d67d66de60a7bcd">concat</a>()</div>
+<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span>{</div>
+<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span>    <span class="keywordflow">return</span> <a class="code hl_struct" href="structrpp_1_1operators_1_1details_1_1concat__t.html">details::concat_t</a>{};</div>
+<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span>}</div>
+<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span>}</div>
 <div class="ttc" id="aclassrpp_1_1composite__disposable__impl_html_a4d8dc7195e0594586a1583e7f5308d4c"><div class="ttname"><a href="classrpp_1_1composite__disposable__impl.html#a4d8dc7195e0594586a1583e7f5308d4c">rpp::composite_disposable_impl&lt; rpp::details::disposables::dynamic_disposables_container&lt; 0 &gt; &gt;::is_disposed</a></div><div class="ttdeci">bool is_disposed() const noexcept final</div><div class="ttdef"><b>Definition</b> composite_disposable.hpp:36</div></div>
 <div class="ttc" id="aclassrpp_1_1disposable__wrapper__impl_html"><div class="ttname"><a href="classrpp_1_1disposable__wrapper__impl.html">rpp::disposable_wrapper_impl&lt; interface_composite_disposable &gt;</a></div></div>
 <div class="ttc" id="aclassrpp_1_1observable_html"><div class="ttname"><a href="classrpp_1_1observable.html">rpp::observable</a></div><div class="ttdoc">Base class for any observable used in RPP. It handles core callbacks of observable.</div><div class="ttdef"><b>Definition</b> observable.hpp:36</div></div>
 <div class="ttc" id="aclassrpp_1_1observable_html_a193b0e08c516912c04afd8379ec27182"><div class="ttname"><a href="classrpp_1_1observable.html#a193b0e08c516912c04afd8379ec27182">rpp::observable::subscribe</a></div><div class="ttdeci">void subscribe(observer&lt; Type, ObserverStrategy &gt; &amp;&amp;observer) const</div><div class="ttdoc">Subscribes passed observer to emissions from this observable.</div><div class="ttdef"><b>Definition</b> observable.hpp:58</div></div>
 <div class="ttc" id="aclassrpp_1_1observer_html"><div class="ttname"><a href="classrpp_1_1observer.html">rpp::observer</a></div><div class="ttdoc">Base class for any observer used in RPP. It handles core callbacks of observers. Objects of this clas...</div><div class="ttdef"><b>Definition</b> observer.hpp:173</div></div>
 <div class="ttc" id="aclassrpp_1_1operators_1_1details_1_1concat__state__t_html"><div class="ttname"><a href="classrpp_1_1operators_1_1details_1_1concat__state__t.html">rpp::operators::details::concat_state_t</a></div><div class="ttdef"><b>Definition</b> concat.hpp:39</div></div>
-<div class="ttc" id="aclassrpp_1_1operators_1_1details_1_1operator__observable__strategy__base_html"><div class="ttname"><a href="classrpp_1_1operators_1_1details_1_1operator__observable__strategy__base.html">rpp::operators::details::operator_observable_strategy_base</a></div><div class="ttdef"><b>Definition</b> strategy.hpp:28</div></div>
+<div class="ttc" id="aclassrpp_1_1operators_1_1details_1_1lift__operator_html"><div class="ttname"><a href="classrpp_1_1operators_1_1details_1_1lift__operator.html">rpp::operators::details::lift_operator</a></div><div class="ttdef"><b>Definition</b> strategy.hpp:28</div></div>
 <div class="ttc" id="aclassrpp_1_1operators_1_1details_1_1pointer__under__lock_html"><div class="ttname"><a href="classrpp_1_1operators_1_1details_1_1pointer__under__lock.html">rpp::operators::details::pointer_under_lock</a></div><div class="ttdef"><b>Definition</b> utils.hpp:38</div></div>
 <div class="ttc" id="aclassrpp_1_1refcount__disposable_html"><div class="ttname"><a href="classrpp_1_1refcount__disposable.html">rpp::refcount_disposable</a></div><div class="ttdef"><b>Definition</b> refcount_disposable.hpp:31</div></div>
 <div class="ttc" id="aconceptrpp_1_1constraint_1_1observable_html"><div class="ttname"><a href="conceptrpp_1_1constraint_1_1observable.html">rpp::constraint::observable</a></div><div class="ttdef"><b>Definition</b> fwd.hpp:67</div></div>
-<div class="ttc" id="agroup__creational__operators_html_gab5cc2df8f7221b124d67d66de60a7bcd"><div class="ttname"><a href="group__creational__operators.html#gab5cc2df8f7221b124d67d66de60a7bcd">rpp::operators::concat</a></div><div class="ttdeci">auto concat()</div><div class="ttdoc">Make observable which would merge emissions from underlying observables but without overlapping (curr...</div><div class="ttdef"><b>Definition</b> concat.hpp:229</div></div>
+<div class="ttc" id="agroup__creational__operators_html_gab5cc2df8f7221b124d67d66de60a7bcd"><div class="ttname"><a href="group__creational__operators.html#gab5cc2df8f7221b124d67d66de60a7bcd">rpp::operators::concat</a></div><div class="ttdeci">auto concat()</div><div class="ttdoc">Make observable which would merge emissions from underlying observables but without overlapping (curr...</div><div class="ttdef"><b>Definition</b> concat.hpp:236</div></div>
 <div class="ttc" id="astructrpp_1_1details_1_1observables_1_1fixed__disposable__strategy__selector_html"><div class="ttname"><a href="structrpp_1_1details_1_1observables_1_1fixed__disposable__strategy__selector.html">rpp::details::observables::fixed_disposable_strategy_selector</a></div><div class="ttdef"><b>Definition</b> disposable_strategy.hpp:50</div></div>
 <div class="ttc" id="astructrpp_1_1details_1_1observers_1_1none__disposable__strategy_html"><div class="ttname"><a href="structrpp_1_1details_1_1observers_1_1none__disposable__strategy.html">rpp::details::observers::none_disposable_strategy</a></div><div class="ttdef"><b>Definition</b> disposable_strategy.hpp:96</div></div>
 <div class="ttc" id="astructrpp_1_1operators_1_1details_1_1concat__inner__observer__strategy_html"><div class="ttname"><a href="structrpp_1_1operators_1_1details_1_1concat__inner__observer__strategy.html">rpp::operators::details::concat_inner_observer_strategy</a></div><div class="ttdef"><b>Definition</b> concat.hpp:136</div></div>
 <div class="ttc" id="astructrpp_1_1operators_1_1details_1_1concat__observer__strategy__base_html"><div class="ttname"><a href="structrpp_1_1operators_1_1details_1_1concat__observer__strategy__base.html">rpp::operators::details::concat_observer_strategy_base</a></div><div class="ttdef"><b>Definition</b> concat.hpp:108</div></div>
 <div class="ttc" id="astructrpp_1_1operators_1_1details_1_1concat__observer__strategy_html"><div class="ttname"><a href="structrpp_1_1operators_1_1details_1_1concat__observer__strategy.html">rpp::operators::details::concat_observer_strategy</a></div><div class="ttdef"><b>Definition</b> concat.hpp:161</div></div>
+<div class="ttc" id="astructrpp_1_1operators_1_1details_1_1concat__t_1_1operator__traits_html"><div class="ttname"><a href="structrpp_1_1operators_1_1details_1_1concat__t_1_1operator__traits.html">rpp::operators::details::concat_t::operator_traits</a></div><div class="ttdef"><b>Definition</b> concat.hpp:202</div></div>
 <div class="ttc" id="astructrpp_1_1operators_1_1details_1_1concat__t_html"><div class="ttname"><a href="structrpp_1_1operators_1_1details_1_1concat__t.html">rpp::operators::details::concat_t</a></div><div class="ttdef"><b>Definition</b> concat.hpp:199</div></div>
 <div class="ttc" id="astructrpp_1_1operators_1_1details_1_1value__with__mutex_html"><div class="ttname"><a href="structrpp_1_1operators_1_1details_1_1value__with__mutex.html">rpp::operators::details::value_with_mutex</a></div><div class="ttdef"><b>Definition</b> utils.hpp:19</div></div>
 </div><!-- fragment --></div><!-- contents -->

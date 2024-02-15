@@ -19,11 +19,9 @@ var searchData=
   ['tap_5fobserver_5fstrategy_16',['tap_observer_strategy',['../structrpp_1_1operators_1_1details_1_1tap__observer__strategy.html',1,'rpp::operators::details']]],
   ['tap_5ft_17',['tap_t',['../structrpp_1_1operators_1_1details_1_1tap__t.html',1,'rpp::operators::details']]],
   ['template_5fmulticast_5ft_18',['template_multicast_t',['../structrpp_1_1operators_1_1details_1_1template__multicast__t.html',1,'rpp::operators::details']]],
-  ['template_5fsubscribe_5fstrategy_19',['template_subscribe_strategy',['../structrpp_1_1operators_1_1details_1_1template__subscribe__strategy.html',1,'rpp::operators::details']]],
-  ['template_5fsubscribe_5fstrategy_3c_20strategy_2c_20rpp_3a_3autils_3a_3atypes_3c_20types_2e_2e_2e_20_3e_20_3e_20',['template_subscribe_strategy&lt; Strategy, rpp::utils::types&lt; Types... &gt; &gt;',['../structrpp_1_1operators_1_1details_1_1template__subscribe__strategy_3_01_strategy_00_01rpp_1_1uti1b4a70817e67a3dff0087ab4465db868.html',1,'rpp::operators::details']]],
-  ['throttle_21',['throttle',['../group__filtering__operators.html#gada7d22ff6ee83d4aca44411561f56f98',1,'rpp::operators']]],
-  ['throttle_5fobserver_5fstrategy_22',['throttle_observer_strategy',['../structrpp_1_1operators_1_1details_1_1throttle__observer__strategy.html',1,'rpp::operators::details']]],
-  ['throttle_5ft_23',['throttle_t',['../structrpp_1_1operators_1_1details_1_1throttle__t.html',1,'rpp::operators::details']]],
-  ['timer_24',['timer',['../group__creational__operators.html#gae7248892783797dda894e18b2b499586',1,'rpp::source::timer(rpp::schedulers::duration when, TScheduler &amp;&amp;scheduler)'],['../group__creational__operators.html#gab41bcf939ae57be84287d8ae8926846c',1,'rpp::source::timer(rpp::schedulers::time_point when, TScheduler &amp;&amp;scheduler)']]],
-  ['transforming_20operators_25',['Transforming Operators',['../group__transforming__operators.html',1,'']]]
+  ['throttle_19',['throttle',['../group__filtering__operators.html#gada7d22ff6ee83d4aca44411561f56f98',1,'rpp::operators']]],
+  ['throttle_5fobserver_5fstrategy_20',['throttle_observer_strategy',['../structrpp_1_1operators_1_1details_1_1throttle__observer__strategy.html',1,'rpp::operators::details']]],
+  ['throttle_5ft_21',['throttle_t',['../structrpp_1_1operators_1_1details_1_1throttle__t.html',1,'rpp::operators::details']]],
+  ['timer_22',['timer',['../group__creational__operators.html#gae7248892783797dda894e18b2b499586',1,'rpp::source::timer(rpp::schedulers::duration when, TScheduler &amp;&amp;scheduler)'],['../group__creational__operators.html#gab41bcf939ae57be84287d8ae8926846c',1,'rpp::source::timer(rpp::schedulers::time_point when, TScheduler &amp;&amp;scheduler)']]],
+  ['transforming_20operators_23',['Transforming Operators',['../group__transforming__operators.html',1,'']]]
 ];

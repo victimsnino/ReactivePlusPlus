@@ -305,7 +305,12 @@ There we convert observable to concatenation of original observable and {\ttfami
 One more posible but a bit more advanced way to implement operators -\/ is to lift observer. To do this, your functor-\/adapter must to satisfy {\ttfamily \doxylink{conceptrpp_1_1constraint_1_1operator__lift}{rpp\+::constraint\+::operator\+\_\+lift}} concept. Actually, your class must to have\+:
 \begin{DoxyItemize}
 \item member function {\ttfamily lift} accepting downstream observer and returning new upstream observer
-\item using {\ttfamily result\+\_\+value\texorpdfstring{$<$}{<}T\texorpdfstring{$>$}{>}} accepting typename of upstream and providing new value for downstream (== typename of original observable and return new resulting type for new observable)
+\item inner {\ttfamily template\texorpdfstring{$<$}{<}rpp\+::constraint\+::decayed\+\_\+type T\texorpdfstring{$>$}{>} struct traits} struct accepting typename of upstream and providing\+:
+\begin{DoxyItemize}
+\item {\ttfamily using result\+\_\+type =} with typename of new resulting type for new observable ~\newline
+
+\item (optionally) {\ttfamily struct requirements} with static\+\_\+asserts over passed type
+\end{DoxyItemize}
 \end{DoxyItemize}
 
 Example\+: 
@@ -313,8 +318,16 @@ Example\+:
 \DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename}\ Fn>}
 \DoxyCodeLine{\textcolor{keyword}{struct\ }\mbox{\hyperlink{group__transforming__operators_ga1291dba2d973d4ba1061c9e0e202cb3f}{map}}}
 \DoxyCodeLine{\{}
-\DoxyCodeLine{\ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
-\DoxyCodeLine{\ \ \textcolor{keyword}{using\ }result\_value\ =\ std::invoke\_result\_t<Fn,\ T>;}
+\DoxyCodeLine{\ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type\ T>}
+\DoxyCodeLine{\ \ \textcolor{keyword}{struct\ }traits}
+\DoxyCodeLine{\ \ \{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{struct\ }requirements}
+\DoxyCodeLine{\ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \textcolor{keyword}{static\_assert}(std::invocable<Fn,\ T>,\ \textcolor{stringliteral}{"{}Fn\ is\ not\ invocable\ with\ T"{}});}
+\DoxyCodeLine{\ \ \ \ \};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{using\ }result\_type\ =\ std::invoke\_result\_t<Fn,\ T>;}
+\DoxyCodeLine{\ \ \};}
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ Fn\ fn\{\};}
 \DoxyCodeLine{}

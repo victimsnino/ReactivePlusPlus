@@ -125,7 +125,7 @@
 \DoxyCodeLine{00121\ \ \ \ \ \textcolor{keyword}{const}\ subject\_observer*\ deduce\_observer(\textcolor{keyword}{const}\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer}{rpp::constraint::observer}}\ \textcolor{keyword}{auto}\&\ obs,\ \textcolor{keyword}{const}\ TT\&\ val)\textcolor{keyword}{\ const}}
 \DoxyCodeLine{00122\ \textcolor{keyword}{\ \ \ \ }\{}
 \DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ key\ =\ key\_selector(utils::as\_const(val));}
-\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00124\ }
 \DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ itr\ =\ key\_to\_observer.find(key);\ itr\ !=\ key\_to\_observer.cend())}
 \DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \&itr-\/>second;}
 \DoxyCodeLine{00127\ }
@@ -166,33 +166,42 @@
 \DoxyCodeLine{00162\ \};}
 \DoxyCodeLine{00163\ }
 \DoxyCodeLine{00164\ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type\ KeySelector,\ rpp::constra\textcolor{keywordtype}{int}::decayed\_type\ ValueSelector,\ rpp::constra\textcolor{keywordtype}{int}::decayed\_type\ KeyComparator>}
-\DoxyCodeLine{00165\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1group__by__t}{group\_by\_t}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1operator__observable__strategy__base}{operators::details::template\_operator\_observable\_strategy}}<group\_by\_observer\_strategy,\ KeySelector,\ ValueSelector,\ KeyComparator>}
+\DoxyCodeLine{00165\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1group__by__t}{group\_by\_t}}\ \ :\ \mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1lift__operator}{lift\_operator}}<group\_by\_t<KeySelector,\ ValueSelector,\ KeyComparator>,\ KeySelector,\ ValueSelector,\ KeyComparator>}
 \DoxyCodeLine{00166\ \{}
-\DoxyCodeLine{00167\ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1operator__observable__strategy__base}{operators::details::template\_operator\_observable\_strategy}}<\mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1group__by__observer__strategy}{group\_by\_observer\_strategy}},\ KeySelector,\ ValueSelector,\ KeyComparator>::template\_operator\_observable\_strategy;}
+\DoxyCodeLine{00167\ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1lift__operator}{operators::details::lift\_operator}}<\mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1group__by__t}{group\_by\_t<KeySelector,\ ValueSelector,\ KeyComparator>}},\ KeySelector,\ ValueSelector,\ KeyComparator>::lift\_operator;}
 \DoxyCodeLine{00168\ }
 \DoxyCodeLine{00169\ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type\ T>}
-\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ \textcolor{keyword}{requires}\ std::invocable<KeySelector,\ T>\ \&\&\ std::invocable<ValueSelector,\ T>\ \&\&\ std::strict\_weak\_order<KeyComparator,\ rpp::utils::decayed\_invoke\_result\_t<KeySelector,\ T>,\ rpp::utils::decayed\_invoke\_result\_t<KeySelector,\ T>>}
-\DoxyCodeLine{00171\ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{classrpp_1_1grouped__observable}{result\_value}}\ =\ \mbox{\hyperlink{classrpp_1_1grouped__observable}{grouped\_observable<utils::decayed\_invoke\_result\_t<KeySelector,\ T>}},\ rpp::utils::decayed\_invoke\_result\_t<ValueSelector,\ T>,\ \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1group__by__observable__strategy}{group\_by\_observable\_strategy<utils::decayed\_invoke\_result\_t<ValueSelector,\ T>}}>>;}
-\DoxyCodeLine{00172\ }
-\DoxyCodeLine{00173\ \ \ \ \ \textcolor{keyword}{template}<rpp::details::observables::constra\textcolor{keywordtype}{int}::disposable\_strategy\ Prev>}
-\DoxyCodeLine{00174\ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{structrpp_1_1details_1_1observables_1_1fixed__disposable__strategy__selector}{updated\_disposable\_strategy}}\ =\ \mbox{\hyperlink{structrpp_1_1details_1_1observables_1_1fixed__disposable__strategy__selector}{rpp::details::observables::fixed\_disposable\_strategy\_selector<1>}};}
-\DoxyCodeLine{00175\ \};}
-\DoxyCodeLine{00176\ \}}
+\DoxyCodeLine{00170\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1group__by__t_1_1operator__traits}{operator\_traits}}}
+\DoxyCodeLine{00171\ \ \ \ \ \{}
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static\_assert}(std::invocable<KeySelector,\ T>,\ \textcolor{stringliteral}{"{}KeySelector\ is\ not\ invocacble\ with\ T"{}});}
+\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static\_assert}(std::invocable<ValueSelector,\ T>,\ \textcolor{stringliteral}{"{}ValueSelector\ is\ not\ invocable\ with\ T"{}});}
+\DoxyCodeLine{00174\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static\_assert}(std::strict\_weak\_order<KeyComparator,\ rpp::utils::decayed\_invoke\_result\_t<KeySelector,\ T>,\ rpp::utils::decayed\_invoke\_result\_t<KeySelector,\ T>>,\ \textcolor{stringliteral}{"{}KeyComparator\ is\ not\ invocable\ with\ result\ of\ KeySelector"{}});}
+\DoxyCodeLine{00175\ }
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{classrpp_1_1grouped__observable}{result\_type}}\ =\ \mbox{\hyperlink{classrpp_1_1grouped__observable}{grouped\_observable<utils::decayed\_invoke\_result\_t<KeySelector,\ T>}},\ rpp::utils::decayed\_invoke\_result\_t<ValueSelector,\ T>,\ \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1group__by__observable__strategy}{group\_by\_observable\_strategy<utils::decayed\_invoke\_result\_t<ValueSelector,\ T>}}>>;}
 \DoxyCodeLine{00177\ }
-\DoxyCodeLine{00178\ \textcolor{keyword}{namespace\ }rpp::operators}
-\DoxyCodeLine{00179\ \{}
-\DoxyCodeLine{00209\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ KeySelector,}
-\DoxyCodeLine{00210\ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ ValueSelector,}
-\DoxyCodeLine{00211\ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ KeyComparator>}
-\DoxyCodeLine{00212\ \ \ \ \ \textcolor{keyword}{requires}\ (}
-\DoxyCodeLine{00213\ \ \ \ \ \ \ \ \ (!utils::is\_not\_template\_callable<KeySelector>\ ||\ !std::same\_as<void,\ std::invoke\_result\_t<KeySelector,\ rpp::utils::convertible\_to\_any>>)\ \&\&\ (!utils::is\_not\_template\_callable<ValueSelector>\ ||\ !std::same\_as<\textcolor{keywordtype}{void},\ std::invoke\_result\_t<ValueSelector,\ rpp::utils::convertible\_to\_any>>)\ \&\&\ (!utils::is\_not\_template\_callable<KeyComparator>\ ||\ std::strict\_weak\_order<KeyComparator,\ rpp::utils::convertible\_to\_any,\ rpp::utils::convertible\_to\_any>))}
-\DoxyCodeLine{00214\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__transforming__operators_ga2fa21790af1c065382cd37faa3462851}{group\_by}}(KeySelector\&\&\ key\_selector,\ ValueSelector\&\&\ value\_selector,\ KeyComparator\&\&\ comparator)}
-\DoxyCodeLine{00215\ \{}
-\DoxyCodeLine{00216\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1group__by__t}{details::group\_by\_t<std::decay\_t<KeySelector>}},\ std::decay\_t<ValueSelector>,\ std::decay\_t<KeyComparator>>\{}
-\DoxyCodeLine{00217\ \ \ \ \ \ \ \ \ std::forward<KeySelector>(key\_selector),}
-\DoxyCodeLine{00218\ \ \ \ \ \ \ \ \ std::forward<ValueSelector>(value\_selector),}
-\DoxyCodeLine{00219\ \ \ \ \ \ \ \ \ std::forward<KeyComparator>(comparator)\};}
-\DoxyCodeLine{00220\ \}}
-\DoxyCodeLine{00221\ \}\ \textcolor{comment}{//\ namespace\ rpp::operators}}
+\DoxyCodeLine{00178\ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::observer\_of\_type<result\_type>\ TObserver>}
+\DoxyCodeLine{00179\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1group__by__observer__strategy}{observer\_strategy}}\ =\ \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1group__by__observer__strategy}{group\_by\_observer\_strategy<T,\ TObserver,\ KeySelector,\ ValueSelector,\ KeyComparator>}};}
+\DoxyCodeLine{00180\ \ \ \ \ \};}
+\DoxyCodeLine{00181\ }
+\DoxyCodeLine{00182\ \ \ \ \ \textcolor{keyword}{template}<rpp::details::observables::constra\textcolor{keywordtype}{int}::disposable\_strategy\ Prev>}
+\DoxyCodeLine{00183\ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{structrpp_1_1details_1_1observables_1_1fixed__disposable__strategy__selector}{updated\_disposable\_strategy}}\ =\ \mbox{\hyperlink{structrpp_1_1details_1_1observables_1_1fixed__disposable__strategy__selector}{rpp::details::observables::fixed\_disposable\_strategy\_selector<1>}};}
+\DoxyCodeLine{00184\ \};}
+\DoxyCodeLine{00185\ \}}
+\DoxyCodeLine{00186\ }
+\DoxyCodeLine{00187\ \textcolor{keyword}{namespace\ }rpp::operators}
+\DoxyCodeLine{00188\ \{}
+\DoxyCodeLine{00218\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ KeySelector,}
+\DoxyCodeLine{00219\ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ ValueSelector,}
+\DoxyCodeLine{00220\ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ KeyComparator>}
+\DoxyCodeLine{00221\ \ \ \ \ \textcolor{keyword}{requires}\ (}
+\DoxyCodeLine{00222\ \ \ \ \ \ \ \ \ (!utils::is\_not\_template\_callable<KeySelector>\ ||\ !std::same\_as<void,\ std::invoke\_result\_t<KeySelector,\ rpp::utils::convertible\_to\_any>>)\ \&\&\ (!utils::is\_not\_template\_callable<ValueSelector>\ ||\ !std::same\_as<\textcolor{keywordtype}{void},\ std::invoke\_result\_t<ValueSelector,\ rpp::utils::convertible\_to\_any>>)\ \&\&\ (!utils::is\_not\_template\_callable<KeyComparator>\ ||\ std::strict\_weak\_order<KeyComparator,\ rpp::utils::convertible\_to\_any,\ rpp::utils::convertible\_to\_any>))}
+\DoxyCodeLine{00223\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__transforming__operators_ga2fa21790af1c065382cd37faa3462851}{group\_by}}(KeySelector\&\&\ key\_selector,\ ValueSelector\&\&\ value\_selector,\ KeyComparator\&\&\ comparator)}
+\DoxyCodeLine{00224\ \{}
+\DoxyCodeLine{00225\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1group__by__t}{details::group\_by\_t<std::decay\_t<KeySelector>}},\ std::decay\_t<ValueSelector>,\ std::decay\_t<KeyComparator>>\{}
+\DoxyCodeLine{00226\ \ \ \ \ \ \ \ \ std::forward<KeySelector>(key\_selector),}
+\DoxyCodeLine{00227\ \ \ \ \ \ \ \ \ std::forward<ValueSelector>(value\_selector),}
+\DoxyCodeLine{00228\ \ \ \ \ \ \ \ \ std::forward<KeyComparator>(comparator)\};}
+\DoxyCodeLine{00229\ \}}
+\DoxyCodeLine{00230\ \}\ \textcolor{comment}{//\ namespace\ rpp::operators}}
 
 \end{DoxyCode}

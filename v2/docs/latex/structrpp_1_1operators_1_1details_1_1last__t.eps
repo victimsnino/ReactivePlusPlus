@@ -5,7 +5,7 @@
 %%For: 
 %Magnification: 1.00
 %%Orientation: Portrait
-%%BoundingBox: 0 0 500 79.365082
+%%BoundingBox: 0 0 500 149.253738
 %%Pages: 0
 %%BeginSetup
 %%EndSetup
@@ -19,7 +19,7 @@
 /marginwidth 10 def
 /distx 20 def
 /disty 40 def
-/boundaspect 6.300000 def  % aspect ratio of the BoundingBox (width/height)
+/boundaspect 3.350000 def  % aspect ratio of the BoundingBox (width/height)
 /boundx 500 def
 /boundy boundx boundaspect div def
 /xspacing 0 def
@@ -174,7 +174,7 @@
 boxfont setfont
 1 boundaspect scale
 (rpp::operators::details::last_t) cw
-(rpp::operators::details::operator_observable_strategy_base< last_observer_strategy >) cw
+(rpp::operators::details::lift_operator< last_t >) cw
 /boxwidth boxwidth marginwidth 2 mul add def
 /xspacing boxwidth distx add def
 /yspacing boxheight disty add def
@@ -187,7 +187,7 @@ boundx scalefactor div boundy scalefactor div scale
 % ----- classes -----
 
  (rpp::operators::details::last_t) 0.000000 0.000000 box
- (rpp::operators::details::operator_observable_strategy_base< last_observer_strategy >) 0.000000 1.000000 box
+ (rpp::operators::details::lift_operator< last_t >) 0.000000 1.000000 box
 
 % ----- relations -----
 

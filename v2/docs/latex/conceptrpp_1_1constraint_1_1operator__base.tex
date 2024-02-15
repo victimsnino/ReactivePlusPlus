@@ -4,9 +4,6 @@
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename}\ Op,\ \textcolor{keyword}{typename}\ Type>}
-\DoxyCodeLine{\textcolor{keyword}{concept\ }\mbox{\hyperlink{conceptrpp_1_1constraint_1_1operator__base}{rpp::constraint::operator\_base}}\ =\ \ \textcolor{keyword}{requires}(\textcolor{keyword}{const}\ Op\&\ op)\ \{}
-\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{typename}\ std::decay\_t<Op>::template\ result\_value<Type>;}
-\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{requires}\ \mbox{\hyperlink{conceptrpp_1_1details_1_1observables_1_1constraint_1_1disposable__strategy}{details::observables::constraint::disposable\_strategy<details::observables::deduce\_updated\_disposable\_strategy<std::decay\_t<Op>}},\ \textcolor{keyword}{typename}\ observable\_chain\_strategy<details::observables::fake\_strategy<Type>>::expected\_disposable\_strategy>>;}
-\DoxyCodeLine{\}}
+\DoxyCodeLine{\textcolor{keyword}{concept\ }\mbox{\hyperlink{conceptrpp_1_1constraint_1_1operator__base}{rpp::constraint::operator\_base}}\ =\ \ \textcolor{keyword}{requires}(\textcolor{keyword}{const}\ Op\&\ op)\ \{\ \textcolor{keyword}{typename}\ std::decay\_t<Op>::template\ operator\_traits<Type>;\ \}\ \&\&\ \mbox{\hyperlink{conceptrpp_1_1details_1_1observables_1_1constraint_1_1disposable__strategy}{details::observables::constraint::disposable\_strategy<details::observables::deduce\_updated\_disposable\_strategy<std::decay\_t<Op>}},\ \textcolor{keyword}{typename}\ \mbox{\hyperlink{classrpp_1_1observable__chain__strategy}{observable\_chain\_strategy<details::observables::fake\_strategy<Type>}}>::expected\_disposable\_strategy>>}
 
 \end{DoxyCode}
