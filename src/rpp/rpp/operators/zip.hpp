@@ -25,7 +25,7 @@ class zip_disposable final : public combining_disposable<Observer, Args...>
 {
 public:
     explicit zip_disposable(Observer&& observer, const TSelector& selector)
-        : combining_disposable<Observer, Args...>(std::forward<Observer>(observer))
+        : combining_disposable<Observer, Args...>(std::move(observer))
         , m_selector(selector)
     {
     }
@@ -50,7 +50,7 @@ struct zip_observer_strategy final
     void on_next(T&& v) const
     {
         const auto observer = disposable->get_observer_under_lock();
-        disposable->get_pendings().template get<I>().emplace_back(std::forward<T>(v));
+        disposable->get_pendings().template get<I>().push_back(std::forward<T>(v));
 
         disposable->get_pendings().apply(&apply_impl<decltype(disposable)>, disposable, observer);
     }
@@ -68,7 +68,7 @@ private:
 };
 
 template<typename TSelector, rpp::constraint::observable... TObservables>
-struct zip_t final : public combining_operator_t<zip_disposable, zip_observer_strategy, TSelector, TObservables...>
+struct zip_t : public combining_operator_t<zip_disposable, zip_observer_strategy, TSelector, TObservables...>
 {
 };
 }

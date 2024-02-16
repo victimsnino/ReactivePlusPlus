@@ -23,7 +23,7 @@ class combine_latest_disposable final : public combining_disposable<Observer, Ar
 {
 public:
     explicit combine_latest_disposable(Observer&& observer, const TSelector& selector)
-        : combining_disposable<Observer, Args...>(std::forward<Observer>(observer))
+        : combining_disposable<Observer, Args...>(std::move(observer))
         , m_selector(selector)
     {
     }
@@ -64,7 +64,7 @@ private:
 };
 
 template<typename TSelector, rpp::constraint::observable... TObservables>
-struct combine_latest_t final : public combining_operator_t<combine_latest_disposable, combine_latest_observer_strategy, TSelector, TObservables...>
+struct combine_latest_t : public combining_operator_t<combine_latest_disposable, combine_latest_observer_strategy, TSelector, TObservables...>
 {
 };
 }
