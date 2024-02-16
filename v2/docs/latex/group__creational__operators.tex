@@ -83,8 +83,8 @@ Actually it subscribes on first observable from emissions. When first observable
 \begin{DoxyParagraph}{Example}
 
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(\mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(1).as\_dynamic(),\ }
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(2).as\_dynamic(),\ }
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(\mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(1).as\_dynamic(),}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(2).as\_dynamic(),}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(1,\ 2,\ 3).as\_dynamic())}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__creational__operators_gab5cc2df8f7221b124d67d66de60a7bcd}{rpp::operators::concat}}()}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{rpp::operators::subscribe}}([](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ v\ <<\ \textcolor{stringliteral}{"{},\ "{}};\ \},\ [](\textcolor{keyword}{const}\ std::exception\_ptr\&)\ \{\},\ []()\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}completed\(\backslash\)n"{}};\ \});}
@@ -132,7 +132,7 @@ Actually it subscribes on first observable from emissions. When first observable
 
 \begin{DoxyCodeInclude}{0}
 \DoxyCodeLine{\ \ \ \ \textcolor{keyword}{auto}\ observables\ =\ std::vector\{\mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(1),\ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(2)\};}
-\DoxyCodeLine{\ \ \ \ rpp::source::concat<rpp::memory\_model::use\_shared>(observables).subscribe([](\textcolor{keywordtype}{int}\ v)\{std::cout\ <<\ v\ <<\ \textcolor{stringliteral}{"{},\ "{}};\},\ [](\textcolor{keyword}{const}\ std::exception\_ptr\&)\{\},\ []()\{std::cout\ <<\ \textcolor{stringliteral}{"{}completed\(\backslash\)n"{}};\});}
+\DoxyCodeLine{\ \ \ \ rpp::source::concat<rpp::memory\_model::use\_shared>(observables).subscribe([](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ v\ <<\ \textcolor{stringliteral}{"{},\ "{}};\ \},\ [](\textcolor{keyword}{const}\ std::exception\_ptr\&)\ \{\},\ []()\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}completed\(\backslash\)n"{}};\ \});}
 \DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:\ 1,\ 2,\ completed}}
 
 \end{DoxyCodeInclude}
@@ -175,7 +175,7 @@ Actually it subscribes on first observable from emissions. When first observable
 \begin{DoxyParagraph}{Example}
 
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{rpp::source::concat}}(\mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(1),\ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(2),\ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(1,2,3)).subscribe([](\textcolor{keywordtype}{int}\ v)\{std::cout\ <<\ v\ <<\ \textcolor{stringliteral}{"{},\ "{}};\},\ [](\textcolor{keyword}{const}\ std::exception\_ptr\&)\{\},\ []()\{std::cout\ <<\ \textcolor{stringliteral}{"{}completed\(\backslash\)n"{}};\});}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{rpp::source::concat}}(\mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(1),\ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(2),\ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(1,\ 2,\ 3)).subscribe([](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ v\ <<\ \textcolor{stringliteral}{"{},\ "{}};\ \},\ [](\textcolor{keyword}{const}\ std::exception\_ptr\&)\ \{\},\ []()\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}completed\(\backslash\)n"{}};\ \});}
 \DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:\ 1,\ 2,\ 1,\ 2,\ 3,\ completed}}
 
 \end{DoxyCodeInclude}
@@ -215,22 +215,20 @@ Keep in mind, obtained observer is non-\/copyable, but movable by default. So, p
 \begin{DoxyParagraph}{Examples\+:}
 
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{\ \ \ \ rpp::source::create<int>([](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ sub)}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sub.on\_next(42);}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \})}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ .\mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{subscribe}}([](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ v\ <<\ std::endl;\ \});}
+\DoxyCodeLine{\ \ \ \ rpp::source::create<int>([](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ sub)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ sub.on\_next(42);}
+\DoxyCodeLine{\ \ \ \ \})}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ .\mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{subscribe}}([](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ v\ <<\ std::endl;\ \});}
 \DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:\ 42}}
 
 \end{DoxyCodeInclude}
  
 \begin{DoxyCodeInclude}{0}
 \DoxyCodeLine{\ \ \ \ \textcolor{keywordtype}{int}\ val\ =\ 42;}
-\DoxyCodeLine{\ \ \ \ rpp::source::create<int>([val](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ sub)}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sub.on\_next(val);}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \})}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ .\mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{subscribe}}([](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ v\ <<\ std::endl;\ \});}
+\DoxyCodeLine{\ \ \ \ rpp::source::create<int>([val](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ sub)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ sub.on\_next(val);}
+\DoxyCodeLine{\ \ \ \ \})}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ .\mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{subscribe}}([](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ v\ <<\ std::endl;\ \});}
 \DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:\ 42}}
 
 \end{DoxyCodeInclude}
@@ -263,9 +261,9 @@ Creates \doxylink{classrpp_1_1observable}{rpp\+::observable} that calls the spec
 \DoxyCodeLine{\ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Observable\ factory\ called\(\backslash\)n"{}};}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{group__creational__operators_gad15a7e8bfb2f7ce0af1b44e22918116c}{rpp::source::from\_iterable}}(std::array\{\ 1,2,3\ \});\ \})}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ .\mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{subscribe}}([](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ v\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};\ \},\ rpp::utils::rethrow\_error\_t\{\},\ []()\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}On\ complete\(\backslash\)n"{}};\ \});}
-\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:\ Observable\ factory\ called\ }}
-\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ 1\ }}
-\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ 2\ }}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:\ Observable\ factory\ called}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ 1}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ 2}}
 \DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ 3}}
 \DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ On\ complete}}
 
@@ -344,7 +342,7 @@ Creates rpp\+::specific\+\_\+observable that calls provided callable and emits r
 \begin{DoxyParagraph}{Example}
 
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \mbox{\hyperlink{group__creational__operators_ga519523490394660d7e8c46d2d5612f75}{rpp::source::from\_callable}}([]()\ \{\textcolor{keywordflow}{return}\ 49;\ \}).\mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{subscribe}}([](\textcolor{keywordtype}{int}\ v)\ \{std::cout\ <<\ v\ <<\ \textcolor{stringliteral}{"{}\ "{}};\ \});}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \mbox{\hyperlink{group__creational__operators_ga519523490394660d7e8c46d2d5612f75}{rpp::source::from\_callable}}([]()\ \{\ \textcolor{keywordflow}{return}\ 49;\ \}).\mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{subscribe}}([](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ v\ <<\ \textcolor{stringliteral}{"{}\ "{}};\ \});}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{comment}{//\ Output:\ 49}}
 
 \end{DoxyCodeInclude}
@@ -384,21 +382,21 @@ Creates observable that emits a items from provided iterable.
 \begin{DoxyParagraph}{Examples\+:}
 
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ std::vector<int>\ vals\{\ 1,2,3\ \};}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \mbox{\hyperlink{group__creational__operators_gad15a7e8bfb2f7ce0af1b44e22918116c}{rpp::source::from\_iterable}}(vals).subscribe([](\textcolor{keywordtype}{int}\ v)\ \{std::cout\ <<\ v\ <<\ \textcolor{stringliteral}{"{}\ "{}};\ \});}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ std::vector<int>\ vals\{1,\ 2,\ 3\};}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \mbox{\hyperlink{group__creational__operators_gad15a7e8bfb2f7ce0af1b44e22918116c}{rpp::source::from\_iterable}}(vals).subscribe([](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ v\ <<\ \textcolor{stringliteral}{"{}\ "{}};\ \});}
 
 \end{DoxyCodeInclude}
  
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ std::vector<int>\ vals\{\ 1,2,3\ \};}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ rpp::source::from\_iterable<rpp::memory\_model::use\_shared>(vals).subscribe([](\textcolor{keywordtype}{int}\ v)\ \{std::cout\ <<\ v\ <<\ \textcolor{stringliteral}{"{}\ "{}};\ \});}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ std::vector<int>\ vals\{1,\ 2,\ 3\};}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ rpp::source::from\_iterable<rpp::memory\_model::use\_shared>(vals).subscribe([](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ v\ <<\ \textcolor{stringliteral}{"{}\ "{}};\ \});}
 
 \end{DoxyCodeInclude}
  
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ std::vector<int>\ vals\{\ 1,2,3\ \};}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \mbox{\hyperlink{group__creational__operators_gad15a7e8bfb2f7ce0af1b44e22918116c}{rpp::source::from\_iterable}}(vals,\ \mbox{\hyperlink{classrpp_1_1schedulers_1_1immediate}{rpp::schedulers::immediate}}\{\}).\mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{subscribe}}([](\textcolor{keywordtype}{int}\ v)\ \{std::cout\ <<\ v\ <<\ \textcolor{stringliteral}{"{}\ "{}};\ \});}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \mbox{\hyperlink{group__creational__operators_gad15a7e8bfb2f7ce0af1b44e22918116c}{rpp::source::from\_iterable}}(vals,\ \mbox{\hyperlink{classrpp_1_1schedulers_1_1current__thread}{rpp::schedulers::current\_thread}}\{\}).\mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{subscribe}}([](\textcolor{keywordtype}{int}\ v)\ \{std::cout\ <<\ v\ <<\ \textcolor{stringliteral}{"{}\ "{}};\ \});}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ std::vector<int>\ vals\{1,\ 2,\ 3\};}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \mbox{\hyperlink{group__creational__operators_gad15a7e8bfb2f7ce0af1b44e22918116c}{rpp::source::from\_iterable}}(vals,\ \mbox{\hyperlink{classrpp_1_1schedulers_1_1immediate}{rpp::schedulers::immediate}}\{\}).\mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{subscribe}}([](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ v\ <<\ \textcolor{stringliteral}{"{}\ "{}};\ \});}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \mbox{\hyperlink{group__creational__operators_gad15a7e8bfb2f7ce0af1b44e22918116c}{rpp::source::from\_iterable}}(vals,\ \mbox{\hyperlink{classrpp_1_1schedulers_1_1current__thread}{rpp::schedulers::current\_thread}}\{\}).\mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{subscribe}}([](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ v\ <<\ \textcolor{stringliteral}{"{}\ "{}};\ \});}
 
 \end{DoxyCodeInclude}
 
@@ -534,13 +532,13 @@ Creates \doxylink{classrpp_1_1observable}{rpp\+::observable} that emits a partic
 \begin{DoxyCodeInclude}{0}
 \DoxyCodeLine{\ \ \ \ std::array<int,\ 100>\ expensive\_to\_copy\_1\{\};}
 \DoxyCodeLine{\ \ \ \ std::array<int,\ 100>\ expensive\_to\_copy\_2\{\};}
-\DoxyCodeLine{\ \ \ \ rpp::source::just<rpp::memory\_model::use\_shared>(expensive\_to\_copy\_1,\ expensive\_to\_copy\_2).subscribe([](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&)\{\});}
+\DoxyCodeLine{\ \ \ \ rpp::source::just<rpp::memory\_model::use\_shared>(expensive\_to\_copy\_1,\ expensive\_to\_copy\_2).subscribe([](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&)\ \{\});}
 
 \end{DoxyCodeInclude}
  
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(\mbox{\hyperlink{classrpp_1_1schedulers_1_1immediate}{rpp::schedulers::immediate}}\{\},\ 42,\ 53).\mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{subscribe}}([](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&)\{\});}
-\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(\mbox{\hyperlink{classrpp_1_1schedulers_1_1current__thread}{rpp::schedulers::current\_thread}}\{\},\ 42,\ 53).\mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{subscribe}}([](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&)\{\});}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(\mbox{\hyperlink{classrpp_1_1schedulers_1_1immediate}{rpp::schedulers::immediate}}\{\},\ 42,\ 53).\mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{subscribe}}([](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&)\ \{\});}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(\mbox{\hyperlink{classrpp_1_1schedulers_1_1current__thread}{rpp::schedulers::current\_thread}}\{\},\ 42,\ 53).\mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{subscribe}}([](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&)\ \{\});}
 
 \end{DoxyCodeInclude}
 
@@ -591,13 +589,13 @@ this overloading uses trampoline scheduler as default
 \begin{DoxyCodeInclude}{0}
 \DoxyCodeLine{\ \ \ \ std::array<int,\ 100>\ expensive\_to\_copy\_1\{\};}
 \DoxyCodeLine{\ \ \ \ std::array<int,\ 100>\ expensive\_to\_copy\_2\{\};}
-\DoxyCodeLine{\ \ \ \ rpp::source::just<rpp::memory\_model::use\_shared>(expensive\_to\_copy\_1,\ expensive\_to\_copy\_2).subscribe([](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&)\{\});}
+\DoxyCodeLine{\ \ \ \ rpp::source::just<rpp::memory\_model::use\_shared>(expensive\_to\_copy\_1,\ expensive\_to\_copy\_2).subscribe([](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&)\ \{\});}
 
 \end{DoxyCodeInclude}
  
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(\mbox{\hyperlink{classrpp_1_1schedulers_1_1immediate}{rpp::schedulers::immediate}}\{\},\ 42,\ 53).\mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{subscribe}}([](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&)\{\});}
-\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(\mbox{\hyperlink{classrpp_1_1schedulers_1_1current__thread}{rpp::schedulers::current\_thread}}\{\},\ 42,\ 53).\mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{subscribe}}([](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&)\{\});}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(\mbox{\hyperlink{classrpp_1_1schedulers_1_1immediate}{rpp::schedulers::immediate}}\{\},\ 42,\ 53).\mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{subscribe}}([](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&)\ \{\});}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(\mbox{\hyperlink{classrpp_1_1schedulers_1_1current__thread}{rpp::schedulers::current\_thread}}\{\},\ 42,\ 53).\mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{subscribe}}([](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&)\ \{\});}
 
 \end{DoxyCodeInclude}
 

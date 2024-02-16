@@ -27,35 +27,35 @@
 \DoxyCodeLine{00023\ }
 \DoxyCodeLine{00024\ \textcolor{keyword}{namespace\ }rpp::operators::details}
 \DoxyCodeLine{00025\ \{}
-\DoxyCodeLine{00026\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ Operator,\ rpp::constraint::decayed\_type...\ TArgs>}
-\DoxyCodeLine{00027\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1lift__operator}{lift\_operator}}}
-\DoxyCodeLine{00028\ \{}
-\DoxyCodeLine{00029\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_same\_as<TArgs>...\ TTArgs>}
-\DoxyCodeLine{00031\ \ \ \ \ \mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1lift__operator}{lift\_operator}}(TTArgs\&\&...\ args)}
-\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ :\ m\_vals\{std::forward<TTArgs>(args)...\}}
-\DoxyCodeLine{00033\ \ \ \ \ \{}
-\DoxyCodeLine{00034\ \ \ \ \ \}}
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ Operator,\ rpp::constraint::decayed\_type...\ TArgs>}
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1lift__operator}{lift\_operator}}}
+\DoxyCodeLine{00028\ \ \ \ \ \{}
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_same\_as<TArgs>...\ TTArgs>}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1lift__operator}{lift\_operator}}(TTArgs\&\&...\ args)}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \ \ \ \ :\ m\_vals\{std::forward<TTArgs>(args)...\}}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{00035\ }
-\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type\ Type,\ rpp::constra\textcolor{keywordtype}{int}::observer\ Observer>}
-\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keyword}{auto}\ lift(Observer\&\&\ \mbox{\hyperlink{classrpp_1_1observer}{observer}})\textcolor{keyword}{\ const}}
-\DoxyCodeLine{00038\ \textcolor{keyword}{\ \ \ \ }\{}
-\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ m\_vals.apply(\&apply<Type,\ Observer,\ TArgs...>,\ std::forward<Observer>(\mbox{\hyperlink{classrpp_1_1observer}{observer}}));}
-\DoxyCodeLine{00040\ \ \ \ \ \}}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type\ Type,\ rpp::constra\textcolor{keywordtype}{int}::observer\ Observer>}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ lift(Observer\&\&\ \mbox{\hyperlink{classrpp_1_1observer}{observer}})\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00038\ \textcolor{keyword}{\ \ \ \ \ \ \ \ }\{}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ m\_vals.apply(\&apply<Type,\ Observer,\ TArgs...>,\ std::forward<Observer>(\mbox{\hyperlink{classrpp_1_1observer}{observer}}));}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{00041\ }
-\DoxyCodeLine{00042\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keyword}{template}<rpp::constraint::decayed\_type\ Type,}
-\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer}{rpp::constraint::observer}}\ Observer,}
-\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}...\ Args>}
-\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{auto}\ apply(Observer\&\&\ \mbox{\hyperlink{classrpp_1_1observer}{observer}},\ \textcolor{keyword}{const}\ Args\&...\ vals)}
-\DoxyCodeLine{00047\ \ \ \ \ \{}
-\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static\_assert}(\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer__of__type}{rpp::constraint::observer\_of\_type<std::decay\_t<Observer>}},\ \textcolor{keyword}{typename}\ Operator::template\ operator\_traits<Type>::result\_type>);}
-\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classrpp_1_1observer}{rpp::observer<Type,\ typename\ Operator::template\ operator\_traits<Type>::template}}\ observer\_strategy<std::decay\_t<Observer>>>\{std::forward<Observer>(\mbox{\hyperlink{classrpp_1_1observer}{observer}}),\ vals...\};}
-\DoxyCodeLine{00050\ \ \ \ \ \}}
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}<rpp::constraint::decayed\_type\ Type,}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer}{rpp::constraint::observer}}\ \ \ \ \ Observer,}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}...\ Args>}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{auto}\ apply(Observer\&\&\ \mbox{\hyperlink{classrpp_1_1observer}{observer}},\ \textcolor{keyword}{const}\ Args\&...\ vals)}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{static\_assert}(\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer__of__type}{rpp::constraint::observer\_of\_type<std::decay\_t<Observer>}},\ \textcolor{keyword}{typename}\ Operator::template\ operator\_traits<Type>::result\_type>);}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classrpp_1_1observer}{rpp::observer<Type,\ typename\ Operator::template\ operator\_traits<Type>::template}}\ observer\_strategy<std::decay\_t<Observer>>>\{std::forward<Observer>(\mbox{\hyperlink{classrpp_1_1observer}{observer}}),\ vals...\};}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{00051\ }
-\DoxyCodeLine{00052\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00053\ \ \ \ \ RPP\_NO\_UNIQUE\_ADDRESS\ rpp::utils::tuple<TArgs...>\ m\_vals\{\};}
-\DoxyCodeLine{00054\ \};}
-\DoxyCodeLine{00055\ \}}
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ RPP\_NO\_UNIQUE\_ADDRESS\ rpp::utils::tuple<TArgs...>\ m\_vals\{\};}
+\DoxyCodeLine{00054\ \ \ \ \ \};}
+\DoxyCodeLine{00055\ \}\ \textcolor{comment}{//\ namespace\ rpp::operators::details}}
 
 \end{DoxyCode}

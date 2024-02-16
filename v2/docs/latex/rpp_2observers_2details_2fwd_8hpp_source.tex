@@ -15,59 +15,61 @@
 \DoxyCodeLine{00011\ \textcolor{preprocessor}{\#pragma\ once}}
 \DoxyCodeLine{00012\ }
 \DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <rpp/disposables/fwd.hpp>}}
-\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <rpp/disposables/details/container.hpp>}}
-\DoxyCodeLine{00015\ }
-\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ <type\_traits>}}
-\DoxyCodeLine{00017\ }
-\DoxyCodeLine{00018\ \textcolor{keyword}{namespace\ }rpp::details::observers}
-\DoxyCodeLine{00019\ \{}
-\DoxyCodeLine{00020\ \textcolor{keyword}{class\ }atomic\_bool;}
-\DoxyCodeLine{00021\ \textcolor{keyword}{class\ }non\_atomic\_bool;}
-\DoxyCodeLine{00022\ }
-\DoxyCodeLine{00023\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ DisposableContainer,\ rpp::constra\textcolor{keywordtype}{int}::any\_of<atomic\_\textcolor{keywordtype}{bool},\ non\_atomic\_\textcolor{keywordtype}{bool}>\ Bool>}
-\DoxyCodeLine{00024\ \textcolor{keyword}{class\ }local\_disposable\_strategy;}
-\DoxyCodeLine{00025\ }
-\DoxyCodeLine{00029\ \textcolor{keyword}{struct\ }none\_disposable\_strategy;}
-\DoxyCodeLine{00030\ }
-\DoxyCodeLine{00034\ \textcolor{keyword}{template}<\textcolor{keywordtype}{size\_t}\ Count,\ rpp::constra\textcolor{keywordtype}{int}::any\_of<atomic\_\textcolor{keywordtype}{bool},\ non\_atomic\_\textcolor{keywordtype}{bool}>\ Bool>}
-\DoxyCodeLine{00035\ \textcolor{keyword}{using\ }dynamic\_local\_disposable\_strategy\ =\ local\_disposable\_strategy<disposables::dynamic\_disposables\_container<Count>,\ Bool>;}
-\DoxyCodeLine{00036\ }
-\DoxyCodeLine{00040\ \textcolor{keyword}{template}<\textcolor{keywordtype}{size\_t}\ Count,\ rpp::constra\textcolor{keywordtype}{int}::any\_of<atomic\_\textcolor{keywordtype}{bool},\ non\_atomic\_\textcolor{keywordtype}{bool}>\ Bool>}
-\DoxyCodeLine{00041\ \textcolor{keyword}{using\ }static\_local\_disposable\_strategy\ =\ local\_disposable\_strategy<disposables::static\_disposables\_container<Count>,\ Bool>;}
-\DoxyCodeLine{00042\ }
-\DoxyCodeLine{00046\ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::any\_of<atomic\_\textcolor{keywordtype}{bool},\ non\_atomic\_\textcolor{keywordtype}{bool}>\ Bool>}
-\DoxyCodeLine{00047\ \textcolor{keyword}{using\ }bool\_local\_disposable\_strategy\ =\ local\_disposable\_strategy<disposables::none\_disposables\_container,\ Bool>;}
-\DoxyCodeLine{00048\ }
-\DoxyCodeLine{00052\ \textcolor{keyword}{using\ }external\_disposable\_strategy\ =\ composite\_disposable\_wrapper;}
-\DoxyCodeLine{00053\ }
-\DoxyCodeLine{00054\ \textcolor{keyword}{namespace\ }constraint}
-\DoxyCodeLine{00055\ \{}
-\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
-\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keyword}{concept\ }\mbox{\hyperlink{conceptrpp_1_1details_1_1observers_1_1constraint_1_1disposable__strategy}{disposable\_strategy}}\ =\ \textcolor{keyword}{requires}\ (T\&\ v,\ \textcolor{keyword}{const}\ T\&\ const\_v,\ \textcolor{keyword}{const}\ disposable\_wrapper\&\ d)}
-\DoxyCodeLine{00058\ \ \ \ \ \{}
-\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ v.add(d);}
-\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \{\ const\_v.is\_disposed()\ \}\ -\/>\ std::same\_as<bool>;}
-\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ const\_v.dispose();}
-\DoxyCodeLine{00062\ \ \ \ \ \};}
-\DoxyCodeLine{00063\ \}}
-\DoxyCodeLine{00064\ }
-\DoxyCodeLine{00065\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
-\DoxyCodeLine{00066\ \textcolor{keyword}{concept\ }\mbox{\hyperlink{conceptrpp_1_1details_1_1observers_1_1has__disposable__strategy}{has\_disposable\_strategy}}\ =\ \textcolor{keyword}{requires}\ \{\ \textcolor{keyword}{typename}\ T::preferred\_disposable\_strategy;\ \};}
-\DoxyCodeLine{00067\ }
-\DoxyCodeLine{00068\ \textcolor{keyword}{namespace\ }details}
-\DoxyCodeLine{00069\ \{}
-\DoxyCodeLine{00070\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
-\DoxyCodeLine{00071\ \ \ \ \ \textcolor{keyword}{auto}*\ deduce\_disposable\_strategy()}
-\DoxyCodeLine{00072\ \ \ \ \ \{}
-\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keyword}{constexpr}\ (\mbox{\hyperlink{conceptrpp_1_1details_1_1observers_1_1has__disposable__strategy}{has\_disposable\_strategy<T>}})}
-\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{static\_cast<}typename\ T::preferred\_disposable\_strategy*\textcolor{keyword}{>}(\textcolor{keyword}{nullptr});}
-\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
-\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{static\_cast<}\mbox{\hyperlink{classrpp_1_1details_1_1observers_1_1local__disposable__strategy}{dynamic\_local\_disposable\_strategy<0,\ atomic\_bool>}}*\textcolor{keyword}{>}(\textcolor{keyword}{nullptr});}
-\DoxyCodeLine{00077\ \ \ \ \ \}}
-\DoxyCodeLine{00078\ \}}
-\DoxyCodeLine{00079\ }
-\DoxyCodeLine{00080\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
-\DoxyCodeLine{00081\ \textcolor{keyword}{using\ }deduce\_disposable\_strategy\_t\ =\ std::remove\_pointer\_t<decltype(details::deduce\_disposable\_strategy<T>())>;}
-\DoxyCodeLine{00082\ \}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <rpp/disposables/details/container.hpp>}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ <type\_traits>}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{keyword}{namespace\ }rpp::details::observers}
+\DoxyCodeLine{00020\ \{}
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keyword}{class\ }atomic\_bool;}
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keyword}{class\ }non\_atomic\_bool;}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ DisposableContainer,\ rpp::constra\textcolor{keywordtype}{int}::any\_of<atomic\_\textcolor{keywordtype}{bool},\ non\_atomic\_\textcolor{keywordtype}{bool}>\ Bool>}
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keyword}{class\ }local\_disposable\_strategy;}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keyword}{struct\ }none\_disposable\_strategy;}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keywordtype}{size\_t}\ Count,\ rpp::constra\textcolor{keywordtype}{int}::any\_of<atomic\_\textcolor{keywordtype}{bool},\ non\_atomic\_\textcolor{keywordtype}{bool}>\ Bool>}
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keyword}{using\ }dynamic\_local\_disposable\_strategy\ =\ local\_disposable\_strategy<disposables::dynamic\_disposables\_container<Count>,\ Bool>;}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keywordtype}{size\_t}\ Count,\ rpp::constra\textcolor{keywordtype}{int}::any\_of<atomic\_\textcolor{keywordtype}{bool},\ non\_atomic\_\textcolor{keywordtype}{bool}>\ Bool>}
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keyword}{using\ }static\_local\_disposable\_strategy\ =\ local\_disposable\_strategy<disposables::static\_disposables\_container<Count>,\ Bool>;}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00047\ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::any\_of<atomic\_\textcolor{keywordtype}{bool},\ non\_atomic\_\textcolor{keywordtype}{bool}>\ Bool>}
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{keyword}{using\ }bool\_local\_disposable\_strategy\ =\ local\_disposable\_strategy<disposables::none\_disposables\_container,\ Bool>;}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keyword}{using\ }external\_disposable\_strategy\ =\ composite\_disposable\_wrapper;}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keyword}{namespace\ }constraint}
+\DoxyCodeLine{00056\ \ \ \ \ \{}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \textcolor{keyword}{concept\ }\mbox{\hyperlink{conceptrpp_1_1details_1_1observers_1_1constraint_1_1disposable__strategy}{disposable\_strategy}}\ =\ \textcolor{keyword}{requires}(T\&\ v,\ \textcolor{keyword}{const}\ T\&\ const\_v,\ \textcolor{keyword}{const}\ disposable\_wrapper\&\ d)\ \{}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \ \ \ v.add(d);}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ const\_v.is\_disposed()}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ -\/>\ std::same\_as<bool>;}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \ \ \ \ const\_v.dispose();}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00065\ \ \ \ \ \}\ \textcolor{comment}{//\ namespace\ constraint}}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00068\ \ \ \ \ \textcolor{keyword}{concept\ }\mbox{\hyperlink{conceptrpp_1_1details_1_1observers_1_1has__disposable__strategy}{has\_disposable\_strategy}}\ =\ \textcolor{keyword}{requires}\ \{\ \textcolor{keyword}{typename}\ T::preferred\_disposable\_strategy;\ \};}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \ \ \ \ \textcolor{keyword}{namespace\ }details}
+\DoxyCodeLine{00071\ \ \ \ \ \{}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}*\ deduce\_disposable\_strategy()}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keyword}{constexpr}\ (\mbox{\hyperlink{conceptrpp_1_1details_1_1observers_1_1has__disposable__strategy}{has\_disposable\_strategy<T>}})}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{static\_cast<}typename\ T::preferred\_disposable\_strategy*\textcolor{keyword}{>}(\textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{static\_cast<}\mbox{\hyperlink{classrpp_1_1details_1_1observers_1_1local__disposable__strategy}{dynamic\_local\_disposable\_strategy<0,\ atomic\_bool>}}*\textcolor{keyword}{>}(\textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00080\ \ \ \ \ \}\ \textcolor{comment}{//\ namespace\ details}}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00082\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00083\ \ \ \ \ \textcolor{keyword}{using\ }deduce\_disposable\_strategy\_t\ =\ std::remove\_pointer\_t<decltype(details::deduce\_disposable\_strategy<T>())>;}
+\DoxyCodeLine{00084\ \}\ \textcolor{comment}{//\ namespace\ rpp::details::observers}}
 
 \end{DoxyCode}

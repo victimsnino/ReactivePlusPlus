@@ -242,10 +242,10 @@ template&lt;details::on_next_like OnNext, std::invocable&lt;&gt; OnCompleted&gt;
 
 <p>Converts <code><a class="el" href="classrpp_1_1observable.html" title="Base class for any observable used in RPP. It handles core callbacks of observable.">rpp::observable</a></code> to <code><a class="el" href="classrpp_1_1blocking__observable.html" title="Extension over rpp::observable with set of blocking operators - it waits till completion of underlyin...">rpp::blocking_observable</a></code> </p>
 <p><code><a class="el" href="classrpp_1_1blocking__observable.html" title="Extension over rpp::observable with set of blocking operators - it waits till completion of underlyin...">rpp::blocking_observable</a></code> blocks <code>subscribe</code> call till on_completed/on_error happens.</p>
-<dl class="section user"><dt>Example:</dt><dd><div class="fragment"><div class="line">        <a class="code hl_function" href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">rpp::source::just</a>(1)</div>
+<dl class="section user"><dt>Example:</dt><dd><div class="fragment"><div class="line">    <a class="code hl_function" href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">rpp::source::just</a>(1)</div>
 <div class="line">        | <a class="code hl_function" href="#gae38caa489cf43c0aca1aa1c8822aed60">rpp::operators::delay</a>(std::chrono::seconds{1}, <a class="code hl_class" href="classrpp_1_1schedulers_1_1new__thread.html">rpp::schedulers::new_thread</a>{}) <span class="comment">// &lt;-- emit from another thread with delay</span></div>
 <div class="line">        | <a class="code hl_function" href="#ga9df008c11eeff8c9383e56bf36e28ec2">rpp::operators::as_blocking</a>()</div>
-<div class="line">        | <a class="code hl_function" href="#ga149309d4b2e0f1201f1ab42597ace8ac">rpp::operators::subscribe</a>([](<span class="keywordtype">int</span>){}, [](){std::cout &lt;&lt; <span class="stringliteral">&quot;COMPLETED&quot;</span> &lt;&lt; std::endl; });</div>
+<div class="line">        | <a class="code hl_function" href="#ga149309d4b2e0f1201f1ab42597ace8ac">rpp::operators::subscribe</a>([](<span class="keywordtype">int</span>) {}, []() { std::cout &lt;&lt; <span class="stringliteral">&quot;COMPLETED&quot;</span> &lt;&lt; std::endl; });</div>
 <div class="line">    std::cout &lt;&lt; <span class="stringliteral">&quot;done&quot;</span> &lt;&lt; std::endl;</div>
 <div class="line">    <span class="comment">// output: COMPLETED done</span></div>
 </div><!-- fragment --> </dd></dl>
@@ -288,35 +288,32 @@ template&lt;<a class="el" href="conceptrpp_1_1schedulers_1_1constraint_1_1schedu
   </dd>
 </dl>
 <dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="debounce_8hpp_source.html">rpp/operators/debounce.hpp</a>&gt;</dd></dl>
-<dl class="section user"><dt>Example</dt><dd><div class="fragment"><div class="line">      <span class="keyword">auto</span> start = rpp::schedulers::clock_type::now();</div>
-<div class="line">      <a class="code hl_function" href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">rpp::source::just</a>(<a class="code hl_class" href="classrpp_1_1schedulers_1_1current__thread.html">rpp::schedulers::current_thread</a>{}, 1, 2, 5, 6, 9, 10)</div>
-<div class="line">              | <a class="code hl_function" href="group__transforming__operators.html#ga633883e796101ceeab821e2a4912bd5e">rpp::operators::flat_map</a>([](<span class="keywordtype">int</span> v)</div>
-<div class="line">                {</div>
-<div class="line">                    <span class="keywordflow">return</span> <a class="code hl_function" href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">rpp::source::just</a>(v) | <a class="code hl_function" href="#gae38caa489cf43c0aca1aa1c8822aed60">rpp::operators::delay</a>(std::chrono::milliseconds(500) * v, <a class="code hl_class" href="classrpp_1_1schedulers_1_1current__thread.html">rpp::schedulers::current_thread</a>{});</div>
-<div class="line">                })</div>
-<div class="line">              | <a class="code hl_function" href="group__filtering__operators.html#ga3ad579153e7975af6ae4b75f585fb873">rpp::operators::filter</a>([&amp;](<span class="keywordtype">int</span> v)</div>
-<div class="line">                {</div>
-<div class="line">                    std::cout &lt;&lt; <span class="stringliteral">&quot;&gt; Sent value &quot;</span> &lt;&lt; v &lt;&lt; <span class="stringliteral">&quot; at &quot;</span> &lt;&lt; std::chrono::duration_cast&lt;std::chrono::milliseconds&gt;(rpp::schedulers::clock_type::now() - start).count() &lt;&lt; std::endl;</div>
-<div class="line">                    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line">                })</div>
-<div class="line">              | <a class="code hl_function" href="#ga49e91c6114f62ac261303814c818face">rpp::operators::debounce</a>(std::chrono::milliseconds{700}, <a class="code hl_class" href="classrpp_1_1schedulers_1_1current__thread.html">rpp::schedulers::current_thread</a>{})</div>
-<div class="line">              | <a class="code hl_function" href="#ga149309d4b2e0f1201f1ab42597ace8ac">rpp::operators::subscribe</a>([&amp;](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; <span class="stringliteral">&quot;&gt;&gt;&gt; new value &quot;</span> &lt;&lt; v &lt;&lt; <span class="stringliteral">&quot; at &quot;</span> &lt;&lt; std::chrono::duration_cast&lt;std::chrono::milliseconds&gt;(rpp::schedulers::clock_type::now() - start).count() &lt;&lt; std::endl;},</div>
-<div class="line">                                          [](<span class="keyword">const</span> std::exception_ptr&amp;){},</div>
-<div class="line">                                          [&amp;]() { std::cout &lt;&lt; <span class="stringliteral">&quot;&gt;&gt;&gt; completed at &quot;</span> &lt;&lt; std::chrono::duration_cast&lt;std::chrono::milliseconds&gt;(rpp::schedulers::clock_type::now() - start).count() &lt;&lt; std::endl; });</div>
+<dl class="section user"><dt>Example</dt><dd><div class="fragment"><div class="line">    <span class="keyword">auto</span> start = rpp::schedulers::clock_type::now();</div>
+<div class="line">    <a class="code hl_function" href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">rpp::source::just</a>(<a class="code hl_class" href="classrpp_1_1schedulers_1_1current__thread.html">rpp::schedulers::current_thread</a>{}, 1, 2, 5, 6, 9, 10)</div>
+<div class="line">        | <a class="code hl_function" href="group__transforming__operators.html#ga633883e796101ceeab821e2a4912bd5e">rpp::operators::flat_map</a>([](<span class="keywordtype">int</span> v) {</div>
+<div class="line">              <span class="keywordflow">return</span> <a class="code hl_function" href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">rpp::source::just</a>(v) | <a class="code hl_function" href="#gae38caa489cf43c0aca1aa1c8822aed60">rpp::operators::delay</a>(std::chrono::milliseconds(500) * v, <a class="code hl_class" href="classrpp_1_1schedulers_1_1current__thread.html">rpp::schedulers::current_thread</a>{});</div>
+<div class="line">          })</div>
+<div class="line">        | <a class="code hl_function" href="group__filtering__operators.html#ga3ad579153e7975af6ae4b75f585fb873">rpp::operators::filter</a>([&amp;](<span class="keywordtype">int</span> v) {</div>
+<div class="line">              std::cout &lt;&lt; <span class="stringliteral">&quot;&gt; Sent value &quot;</span> &lt;&lt; v &lt;&lt; <span class="stringliteral">&quot; at &quot;</span> &lt;&lt; std::chrono::duration_cast&lt;std::chrono::milliseconds&gt;(rpp::schedulers::clock_type::now() - start).count() &lt;&lt; std::endl;</div>
+<div class="line">              <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line">          })</div>
+<div class="line">        | <a class="code hl_function" href="#ga49e91c6114f62ac261303814c818face">rpp::operators::debounce</a>(std::chrono::milliseconds{700}, <a class="code hl_class" href="classrpp_1_1schedulers_1_1current__thread.html">rpp::schedulers::current_thread</a>{})</div>
+<div class="line">        | <a class="code hl_function" href="#ga149309d4b2e0f1201f1ab42597ace8ac">rpp::operators::subscribe</a>([&amp;](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; <span class="stringliteral">&quot;&gt;&gt;&gt; new value &quot;</span> &lt;&lt; v &lt;&lt; <span class="stringliteral">&quot; at &quot;</span> &lt;&lt; std::chrono::duration_cast&lt;std::chrono::milliseconds&gt;(rpp::schedulers::clock_type::now() - start).count() &lt;&lt; std::endl; },</div>
+<div class="line">                                    [](<span class="keyword">const</span> std::exception_ptr&amp;) {},</div>
+<div class="line">                                    [&amp;]() { std::cout &lt;&lt; <span class="stringliteral">&quot;&gt;&gt;&gt; completed at &quot;</span> &lt;&lt; std::chrono::duration_cast&lt;std::chrono::milliseconds&gt;(rpp::schedulers::clock_type::now() - start).count() &lt;&lt; std::endl; });</div>
 <div class="line"> </div>
 <div class="line"> </div>
-<div class="line"> </div>
-<div class="line">      <span class="comment">// Output:</span></div>
-<div class="line">      <span class="comment">// &gt; Sent value 1 at 500</span></div>
-<div class="line">      <span class="comment">// &gt; Sent value 2 at 1000</span></div>
-<div class="line">      <span class="comment">// &gt;&gt;&gt; new value 2 at 1700</span></div>
-<div class="line">      <span class="comment">// &gt; Sent value 5 at 2500</span></div>
-<div class="line">      <span class="comment">// &gt; Sent value 6 at 3000</span></div>
-<div class="line">      <span class="comment">// &gt;&gt;&gt; new value 6 at 3700</span></div>
-<div class="line">      <span class="comment">// &gt; Sent value 9 at 4500</span></div>
-<div class="line">      <span class="comment">// &gt; Sent value 10 at 5000</span></div>
-<div class="line">      <span class="comment">// &gt;&gt;&gt; new value 10 at 5000</span></div>
-<div class="line">      <span class="comment">// &gt;&gt;&gt; completed at 5000</span></div>
+<div class="line">    <span class="comment">// Output:</span></div>
+<div class="line">    <span class="comment">// &gt; Sent value 1 at 500</span></div>
+<div class="line">    <span class="comment">// &gt; Sent value 2 at 1000</span></div>
+<div class="line">    <span class="comment">// &gt;&gt;&gt; new value 2 at 1700</span></div>
+<div class="line">    <span class="comment">// &gt; Sent value 5 at 2500</span></div>
+<div class="line">    <span class="comment">// &gt; Sent value 6 at 3000</span></div>
+<div class="line">    <span class="comment">// &gt;&gt;&gt; new value 6 at 3700</span></div>
+<div class="line">    <span class="comment">// &gt; Sent value 9 at 4500</span></div>
+<div class="line">    <span class="comment">// &gt; Sent value 10 at 5000</span></div>
+<div class="line">    <span class="comment">// &gt;&gt;&gt; new value 10 at 5000</span></div>
+<div class="line">    <span class="comment">// &gt;&gt;&gt; completed at 5000</span></div>
 </div><!-- fragment --></dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/debounce.html">https://reactivex.io/documentation/operators/debounce.html</a> </dd></dl>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="debounce_8cpp-example.html#a5">debounce.cpp</a>.</dd>
@@ -362,32 +359,28 @@ template&lt;<a class="el" href="conceptrpp_1_1schedulers_1_1constraint_1_1schedu
 <dl class="section user"><dt>Examples</dt><dd><div class="fragment"><div class="line"> </div>
 <div class="line">    <span class="keyword">auto</span> start = rpp::schedulers::clock_type::now();</div>
 <div class="line"> </div>
-<div class="line">    rpp::source::create&lt;int&gt;([&amp;start](<span class="keyword">const</span> <span class="keyword">auto</span>&amp; obs)</div>
-<div class="line">    {</div>
+<div class="line">    rpp::source::create&lt;int&gt;([&amp;start](<span class="keyword">const</span> <span class="keyword">auto</span>&amp; obs) {</div>
 <div class="line">        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; 3; ++i)</div>
 <div class="line">        {</div>
 <div class="line">            <span class="keyword">auto</span> emitting_time = rpp::schedulers::clock_type::now();</div>
-<div class="line">            std::cout &lt;&lt; <span class="stringliteral">&quot;emit &quot;</span> &lt;&lt; i &lt;&lt; <span class="stringliteral">&quot; in thread{&quot;</span> &lt;&lt; std::this_thread::get_id() &lt;&lt; <span class="stringliteral">&quot;} duration since start &quot;</span> &lt;&lt; std::chrono::duration_cast&lt;std::chrono::seconds&gt;(emitting_time - start).count() &lt;&lt; <span class="stringliteral">&quot;s&quot;</span>&lt;&lt; std::endl;</div>
-<div class="line">            </div>
+<div class="line">            std::cout &lt;&lt; <span class="stringliteral">&quot;emit &quot;</span> &lt;&lt; i &lt;&lt; <span class="stringliteral">&quot; in thread{&quot;</span> &lt;&lt; std::this_thread::get_id() &lt;&lt; <span class="stringliteral">&quot;} duration since start &quot;</span> &lt;&lt; std::chrono::duration_cast&lt;std::chrono::seconds&gt;(emitting_time - start).count() &lt;&lt; <span class="stringliteral">&quot;s&quot;</span> &lt;&lt; std::endl;</div>
+<div class="line"> </div>
 <div class="line">            obs.on_next(i);</div>
 <div class="line">            std::this_thread::sleep_for(std::chrono::seconds{1});</div>
 <div class="line">        }</div>
 <div class="line">        <span class="keyword">auto</span> emitting_time = rpp::schedulers::clock_type::now();</div>
-<div class="line">        std::cout &lt;&lt; <span class="stringliteral">&quot;emit error in thread{&quot;</span> &lt;&lt; std::this_thread::get_id() &lt;&lt; <span class="stringliteral">&quot;} duration since start &quot;</span> &lt;&lt; std::chrono::duration_cast&lt;std::chrono::seconds&gt;(emitting_time - start).count() &lt;&lt; <span class="stringliteral">&quot;s&quot;</span>&lt;&lt; std::endl;</div>
+<div class="line">        std::cout &lt;&lt; <span class="stringliteral">&quot;emit error in thread{&quot;</span> &lt;&lt; std::this_thread::get_id() &lt;&lt; <span class="stringliteral">&quot;} duration since start &quot;</span> &lt;&lt; std::chrono::duration_cast&lt;std::chrono::seconds&gt;(emitting_time - start).count() &lt;&lt; <span class="stringliteral">&quot;s&quot;</span> &lt;&lt; std::endl;</div>
 <div class="line">        obs.on_error({});</div>
 <div class="line">    })</div>
-<div class="line">    | <a class="code hl_function" href="#gae38caa489cf43c0aca1aa1c8822aed60">rpp::operators::delay</a>(std::chrono::seconds{3}, <a class="code hl_class" href="classrpp_1_1schedulers_1_1new__thread.html">rpp::schedulers::new_thread</a>{})</div>
-<div class="line">    | <a class="code hl_function" href="#ga9df008c11eeff8c9383e56bf36e28ec2">rpp::operators::as_blocking</a>()</div>
-<div class="line">    | <a class="code hl_function" href="#ga149309d4b2e0f1201f1ab42597ace8ac">rpp::operators::subscribe</a>([&amp;](<span class="keywordtype">int</span> v)</div>
-<div class="line">                {</div>
+<div class="line">        | <a class="code hl_function" href="#gae38caa489cf43c0aca1aa1c8822aed60">rpp::operators::delay</a>(std::chrono::seconds{3}, <a class="code hl_class" href="classrpp_1_1schedulers_1_1new__thread.html">rpp::schedulers::new_thread</a>{})</div>
+<div class="line">        | <a class="code hl_function" href="#ga9df008c11eeff8c9383e56bf36e28ec2">rpp::operators::as_blocking</a>()</div>
+<div class="line">        | <a class="code hl_function" href="#ga149309d4b2e0f1201f1ab42597ace8ac">rpp::operators::subscribe</a>([&amp;](<span class="keywordtype">int</span> v) {</div>
 <div class="line">                    <span class="keyword">auto</span> observing_time = rpp::schedulers::clock_type::now();</div>
-<div class="line">                    std::cout &lt;&lt; <span class="stringliteral">&quot;observe &quot;</span> &lt;&lt; v &lt;&lt; <span class="stringliteral">&quot; in thread{&quot;</span> &lt;&lt; std::this_thread::get_id() &lt;&lt; <span class="stringliteral">&quot;} duration since start &quot;</span> &lt;&lt; std::chrono::duration_cast&lt;std::chrono::seconds&gt;(observing_time - start).count() &lt;&lt;<span class="stringliteral">&quot;s&quot;</span> &lt;&lt; std::endl;</div>
-<div class="line">                },</div>
-<div class="line">                [&amp;](<span class="keyword">const</span> std::exception_ptr&amp;)</div>
-<div class="line">                {</div>
-<div class="line">                    <span class="keyword">auto</span> observing_time = rpp::schedulers::clock_type::now();</div>
-<div class="line">                    std::cout &lt;&lt; <span class="stringliteral">&quot;observe error in thread{&quot;</span> &lt;&lt; std::this_thread::get_id() &lt;&lt; <span class="stringliteral">&quot;} duration since start &quot;</span> &lt;&lt; std::chrono::duration_cast&lt;std::chrono::seconds&gt;(observing_time - start).count() &lt;&lt;<span class="stringliteral">&quot;s&quot;</span> &lt;&lt; std::endl;</div>
-<div class="line">                });</div>
+<div class="line">                    std::cout &lt;&lt; <span class="stringliteral">&quot;observe &quot;</span> &lt;&lt; v &lt;&lt; <span class="stringliteral">&quot; in thread{&quot;</span> &lt;&lt; std::this_thread::get_id() &lt;&lt; <span class="stringliteral">&quot;} duration since start &quot;</span> &lt;&lt; std::chrono::duration_cast&lt;std::chrono::seconds&gt;(observing_time - start).count() &lt;&lt;<span class="stringliteral">&quot;s&quot;</span> &lt;&lt; std::endl; },</div>
+<div class="line">                                    [&amp;](<span class="keyword">const</span> std::exception_ptr&amp;) {</div>
+<div class="line">                                        <span class="keyword">auto</span> observing_time = rpp::schedulers::clock_type::now();</div>
+<div class="line">                                        std::cout &lt;&lt; <span class="stringliteral">&quot;observe error in thread{&quot;</span> &lt;&lt; std::this_thread::get_id() &lt;&lt; <span class="stringliteral">&quot;} duration since start &quot;</span> &lt;&lt; std::chrono::duration_cast&lt;std::chrono::seconds&gt;(observing_time - start).count() &lt;&lt; <span class="stringliteral">&quot;s&quot;</span> &lt;&lt; std::endl;</div>
+<div class="line">                                    });</div>
 <div class="line"> </div>
 <div class="line">    <span class="comment">// Template for output:</span></div>
 <div class="line">    <span class="comment">// emit 0 in thread{139855196489600} duration since start 0s</span></div>
@@ -443,33 +436,29 @@ template&lt;<a class="el" href="conceptrpp_1_1schedulers_1_1constraint_1_1schedu
 <dl class="section user"><dt>Examples</dt><dd><div class="fragment"><div class="line"> </div>
 <div class="line">    <span class="keyword">auto</span> start = rpp::schedulers::clock_type::now();</div>
 <div class="line"> </div>
-<div class="line">    rpp::source::create&lt;int&gt;([&amp;start](<span class="keyword">const</span> <span class="keyword">auto</span>&amp; obs)</div>
-<div class="line">    {</div>
+<div class="line">    rpp::source::create&lt;int&gt;([&amp;start](<span class="keyword">const</span> <span class="keyword">auto</span>&amp; obs) {</div>
 <div class="line">        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; 3; ++i)</div>
 <div class="line">        {</div>
 <div class="line">            <span class="keyword">auto</span> emitting_time = rpp::schedulers::clock_type::now();</div>
-<div class="line">            std::cout &lt;&lt; <span class="stringliteral">&quot;emit &quot;</span> &lt;&lt; i &lt;&lt; <span class="stringliteral">&quot; in thread{&quot;</span> &lt;&lt; std::this_thread::get_id() &lt;&lt; <span class="stringliteral">&quot;} duration since start &quot;</span> &lt;&lt; std::chrono::duration_cast&lt;std::chrono::seconds&gt;(emitting_time - start).count() &lt;&lt; <span class="stringliteral">&quot;s&quot;</span>&lt;&lt; std::endl;</div>
-<div class="line">            </div>
+<div class="line">            std::cout &lt;&lt; <span class="stringliteral">&quot;emit &quot;</span> &lt;&lt; i &lt;&lt; <span class="stringliteral">&quot; in thread{&quot;</span> &lt;&lt; std::this_thread::get_id() &lt;&lt; <span class="stringliteral">&quot;} duration since start &quot;</span> &lt;&lt; std::chrono::duration_cast&lt;std::chrono::seconds&gt;(emitting_time - start).count() &lt;&lt; <span class="stringliteral">&quot;s&quot;</span> &lt;&lt; std::endl;</div>
+<div class="line"> </div>
 <div class="line">            obs.on_next(i);</div>
 <div class="line">            std::this_thread::sleep_for(std::chrono::seconds{1});</div>
 <div class="line">        }</div>
 <div class="line">        <span class="keyword">auto</span> emitting_time = rpp::schedulers::clock_type::now();</div>
-<div class="line">        std::cout &lt;&lt; <span class="stringliteral">&quot;emit error in thread{&quot;</span> &lt;&lt; std::this_thread::get_id() &lt;&lt; <span class="stringliteral">&quot;} duration since start &quot;</span> &lt;&lt; std::chrono::duration_cast&lt;std::chrono::seconds&gt;(emitting_time - start).count() &lt;&lt; <span class="stringliteral">&quot;s&quot;</span>&lt;&lt; std::endl;</div>
+<div class="line">        std::cout &lt;&lt; <span class="stringliteral">&quot;emit error in thread{&quot;</span> &lt;&lt; std::this_thread::get_id() &lt;&lt; <span class="stringliteral">&quot;} duration since start &quot;</span> &lt;&lt; std::chrono::duration_cast&lt;std::chrono::seconds&gt;(emitting_time - start).count() &lt;&lt; <span class="stringliteral">&quot;s&quot;</span> &lt;&lt; std::endl;</div>
 <div class="line"> </div>
 <div class="line">        obs.on_error({});</div>
 <div class="line">    })</div>
-<div class="line">    | <a class="code hl_function" href="#ga3feb1b1258c7e3e72c151abf176c30c4">rpp::operators::observe_on</a>(<a class="code hl_class" href="classrpp_1_1schedulers_1_1new__thread.html">rpp::schedulers::new_thread</a>{}, std::chrono::seconds{3})</div>
-<div class="line">    | <a class="code hl_function" href="#ga9df008c11eeff8c9383e56bf36e28ec2">rpp::operators::as_blocking</a>()</div>
-<div class="line">    | <a class="code hl_function" href="#ga149309d4b2e0f1201f1ab42597ace8ac">rpp::operators::subscribe</a>([&amp;](<span class="keywordtype">int</span> v)</div>
-<div class="line">                {</div>
+<div class="line">        | <a class="code hl_function" href="#ga3feb1b1258c7e3e72c151abf176c30c4">rpp::operators::observe_on</a>(<a class="code hl_class" href="classrpp_1_1schedulers_1_1new__thread.html">rpp::schedulers::new_thread</a>{}, std::chrono::seconds{3})</div>
+<div class="line">        | <a class="code hl_function" href="#ga9df008c11eeff8c9383e56bf36e28ec2">rpp::operators::as_blocking</a>()</div>
+<div class="line">        | <a class="code hl_function" href="#ga149309d4b2e0f1201f1ab42597ace8ac">rpp::operators::subscribe</a>([&amp;](<span class="keywordtype">int</span> v) {</div>
 <div class="line">                    <span class="keyword">auto</span> observing_time = rpp::schedulers::clock_type::now();</div>
-<div class="line">                    std::cout &lt;&lt; <span class="stringliteral">&quot;observe &quot;</span> &lt;&lt; v &lt;&lt; <span class="stringliteral">&quot; in thread{&quot;</span> &lt;&lt; std::this_thread::get_id() &lt;&lt; <span class="stringliteral">&quot;} duration since start &quot;</span> &lt;&lt; std::chrono::duration_cast&lt;std::chrono::seconds&gt;(observing_time - start).count() &lt;&lt;<span class="stringliteral">&quot;s&quot;</span> &lt;&lt; std::endl;</div>
-<div class="line">                },</div>
-<div class="line">                [&amp;](<span class="keyword">const</span> std::exception_ptr&amp;)</div>
-<div class="line">                {</div>
-<div class="line">                    <span class="keyword">auto</span> observing_time = rpp::schedulers::clock_type::now();</div>
-<div class="line">                    std::cout &lt;&lt; <span class="stringliteral">&quot;observe error in thread{&quot;</span> &lt;&lt; std::this_thread::get_id() &lt;&lt; <span class="stringliteral">&quot;} duration since start &quot;</span> &lt;&lt; std::chrono::duration_cast&lt;std::chrono::seconds&gt;(observing_time - start).count() &lt;&lt;<span class="stringliteral">&quot;s&quot;</span> &lt;&lt; std::endl;</div>
-<div class="line">                });</div>
+<div class="line">                    std::cout &lt;&lt; <span class="stringliteral">&quot;observe &quot;</span> &lt;&lt; v &lt;&lt; <span class="stringliteral">&quot; in thread{&quot;</span> &lt;&lt; std::this_thread::get_id() &lt;&lt; <span class="stringliteral">&quot;} duration since start &quot;</span> &lt;&lt; std::chrono::duration_cast&lt;std::chrono::seconds&gt;(observing_time - start).count() &lt;&lt;<span class="stringliteral">&quot;s&quot;</span> &lt;&lt; std::endl; },</div>
+<div class="line">                                    [&amp;](<span class="keyword">const</span> std::exception_ptr&amp;) {</div>
+<div class="line">                                        <span class="keyword">auto</span> observing_time = rpp::schedulers::clock_type::now();</div>
+<div class="line">                                        std::cout &lt;&lt; <span class="stringliteral">&quot;observe error in thread{&quot;</span> &lt;&lt; std::this_thread::get_id() &lt;&lt; <span class="stringliteral">&quot;} duration since start &quot;</span> &lt;&lt; std::chrono::duration_cast&lt;std::chrono::seconds&gt;(observing_time - start).count() &lt;&lt; <span class="stringliteral">&quot;s&quot;</span> &lt;&lt; std::endl;</div>
+<div class="line">                                    });</div>
 <div class="line"> </div>
 <div class="line">    <span class="comment">// Template for output:</span></div>
 <div class="line">    <span class="comment">// emit 0 in thread{139800298538880} duration since start 0s</span></div>
@@ -515,14 +504,13 @@ template&lt;<a class="el" href="conceptrpp_1_1schedulers_1_1constraint_1_1schedu
 <p>Actually this operator is kind of <code>concat(obs, obs...)</code></p>
 <dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="repeat_8hpp_source.html">rpp/operators/repeat.hpp</a>&gt;</dd></dl>
 <dl class="section user"><dt>Examples:</dt><dd><div class="fragment"><div class="line">    <a class="code hl_function" href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">rpp::source::just</a>(1, 2, 3)</div>
-<div class="line">            | <a class="code hl_function" href="#ga41ef49dc75a3eadb0eb3fda7c3692c40">rpp::operators::repeat</a>()</div>
-<div class="line">            | <a class="code hl_function" href="group__filtering__operators.html#gaf32161437c2c6cd7d5a0e5170a333cbb">rpp::operators::take</a>(10)</div>
-<div class="line">            | <a class="code hl_function" href="#ga149309d4b2e0f1201f1ab42597ace8ac">rpp::operators::subscribe</a>([](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; v &lt;&lt; <span class="stringliteral">&quot; &quot;</span>; },</div>
-<div class="line">                                        [](<span class="keyword">const</span> std::exception_ptr&amp;){},</div>
-<div class="line">                                        []()</div>
-<div class="line">                                        {</div>
-<div class="line">                                            std::cout &lt;&lt; <span class="stringliteral">&quot;completed&quot;</span> &lt;&lt; std::endl;</div>
-<div class="line">                                        });</div>
+<div class="line">        | <a class="code hl_function" href="#ga41ef49dc75a3eadb0eb3fda7c3692c40">rpp::operators::repeat</a>()</div>
+<div class="line">        | <a class="code hl_function" href="group__filtering__operators.html#gaf32161437c2c6cd7d5a0e5170a333cbb">rpp::operators::take</a>(10)</div>
+<div class="line">        | <a class="code hl_function" href="#ga149309d4b2e0f1201f1ab42597ace8ac">rpp::operators::subscribe</a>([](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; v &lt;&lt; <span class="stringliteral">&quot; &quot;</span>; },</div>
+<div class="line">                                    [](<span class="keyword">const</span> std::exception_ptr&amp;) {},</div>
+<div class="line">                                    []() {</div>
+<div class="line">                                        std::cout &lt;&lt; <span class="stringliteral">&quot;completed&quot;</span> &lt;&lt; std::endl;</div>
+<div class="line">                                    });</div>
 <div class="line">    <span class="comment">// Output: 1 2 3 1 2 3 1 2 3 1 completed</span></div>
 </div><!-- fragment --></dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/repeat.html">https://reactivex.io/documentation/operators/repeat.html</a> </dd></dl>
@@ -572,10 +560,10 @@ template&lt;<a class="el" href="conceptrpp_1_1schedulers_1_1constraint_1_1schedu
 </dl>
 <dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="repeat_8hpp_source.html">rpp/operators/repeat.hpp</a>&gt;</dd></dl>
 <dl class="section user"><dt>Examples:</dt><dd><div class="fragment"><div class="line">    <a class="code hl_function" href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">rpp::source::just</a>(1, 2, 3)</div>
-<div class="line">            | <a class="code hl_function" href="#ga41ef49dc75a3eadb0eb3fda7c3692c40">rpp::operators::repeat</a>(2)</div>
-<div class="line">            | <a class="code hl_function" href="#ga149309d4b2e0f1201f1ab42597ace8ac">rpp::operators::subscribe</a>([](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; v &lt;&lt; <span class="stringliteral">&quot; &quot;</span>; },</div>
-<div class="line">                                        [](<span class="keyword">const</span> std::exception_ptr&amp;){},</div>
-<div class="line">                                        []() { std::cout &lt;&lt; <span class="stringliteral">&quot;completed&quot;</span> &lt;&lt; std::endl; });</div>
+<div class="line">        | <a class="code hl_function" href="#ga41ef49dc75a3eadb0eb3fda7c3692c40">rpp::operators::repeat</a>(2)</div>
+<div class="line">        | <a class="code hl_function" href="#ga149309d4b2e0f1201f1ab42597ace8ac">rpp::operators::subscribe</a>([](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; v &lt;&lt; <span class="stringliteral">&quot; &quot;</span>; },</div>
+<div class="line">                                    [](<span class="keyword">const</span> std::exception_ptr&amp;) {},</div>
+<div class="line">                                    []() { std::cout &lt;&lt; <span class="stringliteral">&quot;completed&quot;</span> &lt;&lt; std::endl; });</div>
 <div class="line">    <span class="comment">// Output: 1 2 3 1 2 3 completed</span></div>
 </div><!-- fragment --></dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/repeat.html">https://reactivex.io/documentation/operators/repeat.html</a> </dd></dl>
@@ -809,15 +797,14 @@ template&lt;<a class="el" href="conceptrpp_1_1schedulers_1_1constraint_1_1schedu
 </dl>
 <dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="subscribe__on_8hpp_source.html">rpp/operators/subscribe_on.hpp</a>&gt;</dd></dl>
 <dl class="section user"><dt>Example:</dt><dd><div class="fragment"><div class="line">    std::cout &lt;&lt; std::this_thread::get_id() &lt;&lt; std::endl;</div>
-<div class="line">    rpp::source::create&lt;int&gt;([](<span class="keyword">const</span> <span class="keyword">auto</span>&amp; sub)</div>
-<div class="line">            {</div>
-<div class="line">                std::cout &lt;&lt; <span class="stringliteral">&quot;on_subscribe thread &quot;</span> &lt;&lt; std::this_thread::get_id() &lt;&lt; std::endl;</div>
-<div class="line">                sub.on_next(1);</div>
-<div class="line">                sub.on_completed();</div>
-<div class="line">            })</div>
-<div class="line">            | <a class="code hl_function" href="#gace728cfbf71720901cb6f310edabf8b0">rpp::operators::subscribe_on</a>(<a class="code hl_class" href="classrpp_1_1schedulers_1_1new__thread.html">rpp::schedulers::new_thread</a>{})</div>
-<div class="line">            | <a class="code hl_function" href="#ga9df008c11eeff8c9383e56bf36e28ec2">rpp::operators::as_blocking</a>()</div>
-<div class="line">            | <a class="code hl_function" href="#ga149309d4b2e0f1201f1ab42597ace8ac">rpp::operators::subscribe</a>([](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; <span class="stringliteral">&quot;[&quot;</span> &lt;&lt; std::this_thread::get_id() &lt;&lt; <span class="stringliteral">&quot;] : &quot;</span> &lt;&lt; v &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>; });</div>
+<div class="line">    rpp::source::create&lt;int&gt;([](<span class="keyword">const</span> <span class="keyword">auto</span>&amp; sub) {</div>
+<div class="line">        std::cout &lt;&lt; <span class="stringliteral">&quot;on_subscribe thread &quot;</span> &lt;&lt; std::this_thread::get_id() &lt;&lt; std::endl;</div>
+<div class="line">        sub.on_next(1);</div>
+<div class="line">        sub.on_completed();</div>
+<div class="line">    })</div>
+<div class="line">        | <a class="code hl_function" href="#gace728cfbf71720901cb6f310edabf8b0">rpp::operators::subscribe_on</a>(<a class="code hl_class" href="classrpp_1_1schedulers_1_1new__thread.html">rpp::schedulers::new_thread</a>{})</div>
+<div class="line">        | <a class="code hl_function" href="#ga9df008c11eeff8c9383e56bf36e28ec2">rpp::operators::as_blocking</a>()</div>
+<div class="line">        | <a class="code hl_function" href="#ga149309d4b2e0f1201f1ab42597ace8ac">rpp::operators::subscribe</a>([](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; <span class="stringliteral">&quot;[&quot;</span> &lt;&lt; std::this_thread::get_id() &lt;&lt; <span class="stringliteral">&quot;] : &quot;</span> &lt;&lt; v &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>; });</div>
 <div class="line">    std::cout &lt;&lt; std::this_thread::get_id() &lt;&lt; std::endl;</div>
 <div class="line"> </div>
 <div class="line">    <span class="comment">// Template for output:</span></div>

@@ -21,10 +21,10 @@ requires constraint\+::observables\+\_\+of\+\_\+same\+\_\+type$<$std\+::decay\+\
 {\footnotesize template$<$\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp\+::constraint\+::observable}} TObservable, rpp\+::constraint\+::observable... TObservables$>$ \newline
 requires constraint\+::observables\+\_\+of\+\_\+same\+\_\+type$<$std\+::decay\+\_\+t$<$TObservable$>$, std\+::decay\+\_\+t$<$TObservables$>$...$>$}\\auto \mbox{\hyperlink{group__combining__operators_gadf12c4de9702425819b0d34b5fdf7db3}{rpp\+::operators\+::start\+\_\+with}} (TObservable \&\&\mbox{\hyperlink{classrpp_1_1observable}{observable}}, TObservables \&\&... observables)
 \begin{DoxyCompactList}\small\item\em Combines submissions from current observable with other observables into one but without overlapping and starting from observables provided as arguments. \end{DoxyCompactList}\item 
-{\footnotesize template$<$constraint\+::memory\+\_\+model Memory\+Model = memory\+\_\+model\+::use\+\_\+stack, typename T , typename ... Ts$>$ \newline
+{\footnotesize template$<$constraint\+::memory\+\_\+model Memory\+Model = memory\+\_\+model\+::use\+\_\+stack, typename T , typename... Ts$>$ \newline
 requires (rpp\+::constraint\+::decayed\+\_\+same\+\_\+as$<$T, Ts$>$ \&\& ...)}\\auto \mbox{\hyperlink{group__combining__operators_ga7bb4fbf5e43b500471881a900ef1d6b9}{rpp\+::operators\+::start\+\_\+with\+\_\+values}} (T \&\&v, Ts \&\&... vals)
 \begin{DoxyCompactList}\small\item\em Combines submissions from current observable with values into one but without overlapping and starting from values provided as arguments. \end{DoxyCompactList}\item 
-{\footnotesize template$<$constraint\+::memory\+\_\+model Memory\+Model = memory\+\_\+model\+::use\+\_\+stack, \mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1scheduler}{rpp\+::schedulers\+::constraint\+::scheduler}} TScheduler, typename T , typename ... Ts$>$ \newline
+{\footnotesize template$<$constraint\+::memory\+\_\+model Memory\+Model = memory\+\_\+model\+::use\+\_\+stack, \mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1scheduler}{rpp\+::schedulers\+::constraint\+::scheduler}} TScheduler, typename T , typename... Ts$>$ \newline
 requires (rpp\+::constraint\+::decayed\+\_\+same\+\_\+as$<$T, Ts$>$ \&\& ...)}\\auto \mbox{\hyperlink{group__combining__operators_ga04a8768b213581b77f025c39c42e1e78}{rpp\+::operators\+::start\+\_\+with\+\_\+values}} (const TScheduler \&scheduler, T \&\&v, Ts \&\&... vals)
 \begin{DoxyCompactList}\small\item\em Combines submissions from current observable with values into one but without overlapping and starting from values provided as arguments. \end{DoxyCompactList}\item 
 {\footnotesize template$<$typename TSelector , \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp\+::constraint\+::observable}} TObservable, rpp\+::constraint\+::observable... TObservables$>$ \newline
@@ -174,8 +174,8 @@ Actually it subscribes on each observable from emissions. Resulting observables 
 \DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(\mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(1).as\_dynamic(),}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ rpp::source::never<int>().as\_dynamic(),}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(2).as\_dynamic())}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__combining__operators_ga3f8a04b4c8eb945534eddde5a25eec74}{rpp::operators::merge}}()}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{rpp::operators::subscribe}}([](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ v\ <<\ \textcolor{stringliteral}{"{}\ "{}};\ \});}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__combining__operators_ga3f8a04b4c8eb945534eddde5a25eec74}{rpp::operators::merge}}()}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{rpp::operators::subscribe}}([](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ v\ <<\ \textcolor{stringliteral}{"{}\ "{}};\ \});}
 \DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:\ 1\ 2}}
 
 \end{DoxyCodeInclude}
@@ -227,8 +227,8 @@ Actually it subscribes on each observable. Resulting observables completes when 
 
 \begin{DoxyCodeInclude}{0}
 \DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(1)}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__combining__operators_ga35392a84e52bf7101d0d0445ef391db7}{rpp::operators::merge\_with}}(\mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(2))}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{rpp::operators::subscribe}}([](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ v\ <<\ \textcolor{stringliteral}{"{}\ "{}};\ \});}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__combining__operators_ga35392a84e52bf7101d0d0445ef391db7}{rpp::operators::merge\_with}}(\mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(2))}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{rpp::operators::subscribe}}([](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ v\ <<\ \textcolor{stringliteral}{"{}\ "{}};\ \});}
 \DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:\ 1\ 2}}
 
 \end{DoxyCodeInclude}
@@ -285,7 +285,7 @@ Actually it makes concat(observables\+\_\+to\+\_\+start\+\_\+with..., current\+\
 \index{Combining Operators@{Combining Operators}!start\_with\_values@{start\_with\_values}}
 \index{start\_with\_values@{start\_with\_values}!Combining Operators@{Combining Operators}}
 \doxysubsubsubsubsection{\texorpdfstring{start\_with\_values()}{start\_with\_values()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
-{\footnotesize\ttfamily template$<$constraint\+::memory\+\_\+model Memory\+Model = memory\+\_\+model\+::use\+\_\+stack, \mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1scheduler}{rpp\+::schedulers\+::constraint\+::scheduler}} TScheduler, typename T , typename ... Ts$>$ \newline
+{\footnotesize\ttfamily template$<$constraint\+::memory\+\_\+model Memory\+Model = memory\+\_\+model\+::use\+\_\+stack, \mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1scheduler}{rpp\+::schedulers\+::constraint\+::scheduler}} TScheduler, typename T , typename... Ts$>$ \newline
 requires (rpp\+::constraint\+::decayed\+\_\+same\+\_\+as$<$T, Ts$>$ \&\& ...)\\
 auto rpp\+::operators\+::start\+\_\+with\+\_\+values (\begin{DoxyParamCaption}\item[{const TScheduler \&}]{scheduler,  }\item[{T \&\&}]{v,  }\item[{Ts \&\&...}]{vals }\end{DoxyParamCaption})}
 
@@ -324,7 +324,7 @@ Actually it makes concat(rpp\+::source\+::just(vals\+\_\+to\+\_\+start\+\_\+with
 \index{Combining Operators@{Combining Operators}!start\_with\_values@{start\_with\_values}}
 \index{start\_with\_values@{start\_with\_values}!Combining Operators@{Combining Operators}}
 \doxysubsubsubsubsection{\texorpdfstring{start\_with\_values()}{start\_with\_values()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
-{\footnotesize\ttfamily template$<$constraint\+::memory\+\_\+model Memory\+Model = memory\+\_\+model\+::use\+\_\+stack, typename T , typename ... Ts$>$ \newline
+{\footnotesize\ttfamily template$<$constraint\+::memory\+\_\+model Memory\+Model = memory\+\_\+model\+::use\+\_\+stack, typename T , typename... Ts$>$ \newline
 requires (rpp\+::constraint\+::decayed\+\_\+same\+\_\+as$<$T, Ts$>$ \&\& ...)\\
 auto rpp\+::operators\+::start\+\_\+with\+\_\+values (\begin{DoxyParamCaption}\item[{T \&\&}]{v,  }\item[{Ts \&\&...}]{vals }\end{DoxyParamCaption})}
 
@@ -402,14 +402,14 @@ Selector is just packing values to tuple in this case
 \begin{DoxyCodeInclude}{0}
 \DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(1,\ 2,\ 3,\ 4,\ 5,\ 6)}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__combining__operators_ga9345ba5faac717ba85fc88f1c5fff58b}{rpp::operators::with\_latest\_from}}(\mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(3,\ 4,\ 5))}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{rpp::operators::subscribe}}([](std::tuple<int,int>\ v)\ \{\ std::cout\ <<\ std::get<0>(v)\ <<\ \textcolor{stringliteral}{"{}:"{}}\ <<\ std::get<1>(v)\ <<\ \textcolor{stringliteral}{"{}\ "{}};\ \});}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{rpp::operators::subscribe}}([](std::tuple<int,\ int>\ v)\ \{\ std::cout\ <<\ std::get<0>(v)\ <<\ \textcolor{stringliteral}{"{}:"{}}\ <<\ std::get<1>(v)\ <<\ \textcolor{stringliteral}{"{}\ "{}};\ \});}
 \DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:\ 1:3\ 2:4\ 3:5\ 4:5\ 5:5\ 6:5}}
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ \ \ std::cout\ <<\ std::endl;}
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(1,\ 2,\ 3)}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__combining__operators_ga9345ba5faac717ba85fc88f1c5fff58b}{rpp::operators::with\_latest\_from}}(\mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(3,\ 4,\ 5,\ 6,\ 7,\ 8))}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{rpp::operators::subscribe}}([](std::tuple<int,int>\ v)\ \{\ std::cout\ <<\ std::get<0>(v)\ <<\ \textcolor{stringliteral}{"{}:"{}}\ <<\ std::get<1>(v)\ <<\ \textcolor{stringliteral}{"{}\ "{}};\ \});}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{rpp::operators::subscribe}}([](std::tuple<int,\ int>\ v)\ \{\ std::cout\ <<\ std::get<0>(v)\ <<\ \textcolor{stringliteral}{"{}:"{}}\ <<\ std::get<1>(v)\ <<\ \textcolor{stringliteral}{"{}\ "{}};\ \});}
 \DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:\ 1:3\ 2:4\ 3:5}}
 
 \end{DoxyCodeInclude}

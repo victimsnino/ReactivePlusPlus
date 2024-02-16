@@ -18,55 +18,54 @@
 \DoxyCodeLine{00014\ }
 \DoxyCodeLine{00015\ \textcolor{keyword}{namespace\ }rpp::details}
 \DoxyCodeLine{00016\ \{}
-\DoxyCodeLine{00017\ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type\ TDisposable>}
-\DoxyCodeLine{00018\ \textcolor{keyword}{class\ }auto\_dispose\_wrapper;}
-\DoxyCodeLine{00019\ \}}
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type\ TDisposable>}
+\DoxyCodeLine{00018\ \ \ \ \ \textcolor{keyword}{class\ }auto\_dispose\_wrapper;}
+\DoxyCodeLine{00019\ \}\ \textcolor{comment}{//\ namespace\ rpp::details}}
 \DoxyCodeLine{00020\ }
 \DoxyCodeLine{00021\ \textcolor{keyword}{namespace\ }rpp}
 \DoxyCodeLine{00022\ \{}
-\DoxyCodeLine{00023\ \textcolor{keyword}{struct\ }interface\_disposable;}
-\DoxyCodeLine{00024\ \textcolor{keyword}{struct\ }interface\_composite\_disposable;}
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keyword}{struct\ }interface\_disposable;}
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keyword}{struct\ }interface\_composite\_disposable;}
 \DoxyCodeLine{00025\ }
-\DoxyCodeLine{00026\ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type\ TDisposable>}
-\DoxyCodeLine{00027\ \textcolor{keyword}{class\ }disposable\_wrapper\_impl;}
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type\ TDisposable>}
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keyword}{class\ }disposable\_wrapper\_impl;}
 \DoxyCodeLine{00028\ }
-\DoxyCodeLine{00029\ \textcolor{keyword}{using\ }disposable\_wrapper\ \ \ \ \ \ \ \ \ \ \ =\ disposable\_wrapper\_impl<interface\_disposable>;}
-\DoxyCodeLine{00030\ \textcolor{keyword}{using\ }composite\_disposable\_wrapper\ =\ disposable\_wrapper\_impl<interface\_composite\_disposable>;}
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keyword}{using\ }disposable\_wrapper\ \ \ \ \ \ \ \ \ \ \ =\ disposable\_wrapper\_impl<interface\_disposable>;}
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keyword}{using\ }composite\_disposable\_wrapper\ =\ disposable\_wrapper\_impl<interface\_composite\_disposable>;}
 \DoxyCodeLine{00031\ \}\ \textcolor{comment}{//\ namespace\ rpp}}
 \DoxyCodeLine{00032\ }
 \DoxyCodeLine{00033\ \textcolor{keyword}{namespace\ }rpp::details::disposables}
 \DoxyCodeLine{00034\ \{}
-\DoxyCodeLine{00035\ \textcolor{keyword}{template}<\textcolor{keywordtype}{size\_t}\ Count>}
-\DoxyCodeLine{00036\ \textcolor{keyword}{class\ }dynamic\_disposables\_container;}
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keywordtype}{size\_t}\ Count>}
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keyword}{class\ }dynamic\_disposables\_container;}
 \DoxyCodeLine{00037\ }
-\DoxyCodeLine{00038\ \textcolor{keyword}{template}<\textcolor{keywordtype}{size\_t}\ Count>}
-\DoxyCodeLine{00039\ \textcolor{keyword}{class\ }static\_disposables\_container;}
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keywordtype}{size\_t}\ Count>}
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keyword}{class\ }static\_disposables\_container;}
 \DoxyCodeLine{00040\ }
-\DoxyCodeLine{00041\ \textcolor{keyword}{struct\ }none\_disposables\_container;}
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keyword}{struct\ }none\_disposables\_container;}
 \DoxyCodeLine{00042\ }
-\DoxyCodeLine{00043\ \textcolor{keyword}{namespace\ }constraint}
-\DoxyCodeLine{00044\ \{}
-\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
-\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keyword}{concept\ }\mbox{\hyperlink{conceptrpp_1_1details_1_1disposables_1_1constraint_1_1disposable__container}{disposable\_container}}\ =\ \textcolor{keyword}{requires}(T\&\ c,\ \textcolor{keyword}{const}\ T\&\ const\_c,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp::disposable\_wrapper}}\&\ d)}
-\DoxyCodeLine{00047\ \ \ \ \ \{}
-\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ c.push\_back(d);}
-\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ const\_c.dispose();}
-\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ c.clear();}
-\DoxyCodeLine{00051\ \ \ \ \ \};}
-\DoxyCodeLine{00052\ \}}
-\DoxyCodeLine{00053\ \}}
-\DoxyCodeLine{00054\ }
-\DoxyCodeLine{00055\ \textcolor{keyword}{namespace\ }rpp}
-\DoxyCodeLine{00056\ \{}
-\DoxyCodeLine{00057\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1composite__disposable}{composite\_disposable}};}
-\DoxyCodeLine{00058\ }
-\DoxyCodeLine{00059\ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::is\_nothrow\_invocable\ Fn>}
-\DoxyCodeLine{00060\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1callback__disposable}{callback\_disposable}};}
-\DoxyCodeLine{00061\ }
-\DoxyCodeLine{00062\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1refcount__disposable}{refcount\_disposable}};}
-\DoxyCodeLine{00063\ }
-\DoxyCodeLine{00064\ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::is\_nothrow\_invocable\ Fn>}
-\DoxyCodeLine{00065\ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{disposable\_wrapper}}\ make\_callback\_disposable(Fn\&\&\ invocable);}
-\DoxyCodeLine{00066\ \}\ \textcolor{comment}{//\ namespace\ rpp}}
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keyword}{namespace\ }constraint}
+\DoxyCodeLine{00044\ \ \ \ \ \{}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \textcolor{keyword}{concept\ }\mbox{\hyperlink{conceptrpp_1_1details_1_1disposables_1_1constraint_1_1disposable__container}{disposable\_container}}\ =\ \textcolor{keyword}{requires}(T\&\ c,\ \textcolor{keyword}{const}\ T\&\ const\_c,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp::disposable\_wrapper}}\&\ d)\ \{}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \ \ \ \ c.push\_back(d);}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ const\_c.dispose();}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \ \ \ \ c.clear();}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00051\ \ \ \ \ \}\ \textcolor{comment}{//\ namespace\ constraint}}
+\DoxyCodeLine{00052\ \}\ \textcolor{comment}{//\ namespace\ rpp::details::disposables}}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \textcolor{keyword}{namespace\ }rpp}
+\DoxyCodeLine{00055\ \{}
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1composite__disposable}{composite\_disposable}};}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::is\_nothrow\_invocable\ Fn>}
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1callback__disposable}{callback\_disposable}};}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1refcount__disposable}{refcount\_disposable}};}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::is\_nothrow\_invocable\ Fn>}
+\DoxyCodeLine{00064\ \ \ \ \ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{disposable\_wrapper}}\ make\_callback\_disposable(Fn\&\&\ invocable);}
+\DoxyCodeLine{00065\ \}\ \textcolor{comment}{//\ namespace\ rpp}}
 
 \end{DoxyCode}

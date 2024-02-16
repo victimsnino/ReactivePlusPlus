@@ -21,156 +21,159 @@
 \DoxyCodeLine{00017\ }
 \DoxyCodeLine{00018\ \textcolor{keyword}{namespace\ }rpp::details::disposables}
 \DoxyCodeLine{00019\ \{}
-\DoxyCodeLine{00020\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1details_1_1disposables_1_1dynamic__disposables__container__base}{dynamic\_disposables\_container\_base}}}
-\DoxyCodeLine{00021\ \{}
-\DoxyCodeLine{00022\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{classrpp_1_1details_1_1disposables_1_1dynamic__disposables__container__base}{dynamic\_disposables\_container\_base}}(\textcolor{keywordtype}{size\_t}\ count)}
-\DoxyCodeLine{00024\ \ \ \ \ \{}
-\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ m\_data.reserve(count);}
-\DoxyCodeLine{00026\ \ \ \ \ \}}
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1details_1_1disposables_1_1dynamic__disposables__container__base}{dynamic\_disposables\_container\_base}}}
+\DoxyCodeLine{00021\ \ \ \ \ \{}
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{classrpp_1_1details_1_1disposables_1_1dynamic__disposables__container__base}{dynamic\_disposables\_container\_base}}(\textcolor{keywordtype}{size\_t}\ count)}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \ \ \ \ m\_data.reserve(count);}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{00027\ }
-\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keywordtype}{void}\ push\_back(\textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp::disposable\_wrapper}}\&\ d)}
-\DoxyCodeLine{00029\ \ \ \ \ \{}
-\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ m\_data.push\_back(d);}
-\DoxyCodeLine{00031\ \ \ \ \ \}}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ push\_back(\textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp::disposable\_wrapper}}\&\ d)}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \ \ \ \ m\_data.push\_back(d);}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{00032\ }
-\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keywordtype}{void}\ push\_back(\mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp::disposable\_wrapper}}\&\&\ d)}
-\DoxyCodeLine{00034\ \ \ \ \ \{}
-\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ m\_data.push\_back(std::move(d));}
-\DoxyCodeLine{00036\ \ \ \ \ \}}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ push\_back(\mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp::disposable\_wrapper}}\&\&\ d)}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \ \ \ \ m\_data.push\_back(std::move(d));}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{00037\ }
-\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keywordtype}{void}\ remove(\textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp::disposable\_wrapper}}\&\ d)}
-\DoxyCodeLine{00039\ \ \ \ \ \{}
-\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ m\_data.erase(std::remove(m\_data.begin(),\ m\_data.end(),\ d),\ m\_data.end());}
-\DoxyCodeLine{00041\ \ \ \ \ \}}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ remove(\textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp::disposable\_wrapper}}\&\ d)}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \ \ \ \ m\_data.erase(std::remove(m\_data.begin(),\ m\_data.end(),\ d),\ m\_data.end());}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{00042\ }
-\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keywordtype}{void}\ dispose()\textcolor{keyword}{\ const}}
-\DoxyCodeLine{00044\ \textcolor{keyword}{\ \ \ \ }\{}
-\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\&\ d\ :\ m\_data)\ \{}
-\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \ \ \ \ d.dispose();}
-\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00048\ \ \ \ \ \}}
-\DoxyCodeLine{00049\ }
-\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keywordtype}{void}\ clear()}
-\DoxyCodeLine{00051\ \ \ \ \ \{}
-\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ m\_data.clear();}
-\DoxyCodeLine{00053\ \ \ \ \ \}}
-\DoxyCodeLine{00054\ }
-\DoxyCodeLine{00055\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keyword}{mutable}\ std::vector<rpp::disposable\_wrapper>\ m\_data\{\};}
-\DoxyCodeLine{00057\ \};}
-\DoxyCodeLine{00058\ }
-\DoxyCodeLine{00059\ \textcolor{keyword}{template}<\textcolor{keywordtype}{size\_t}\ Count>}
-\DoxyCodeLine{00060\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1details_1_1disposables_1_1dynamic__disposables__container}{dynamic\_disposables\_container}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classrpp_1_1details_1_1disposables_1_1dynamic__disposables__container__base}{dynamic\_disposables\_container\_base}}}
-\DoxyCodeLine{00061\ \{}
-\DoxyCodeLine{00062\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00063\ \ \ \ \ \mbox{\hyperlink{classrpp_1_1details_1_1disposables_1_1dynamic__disposables__container}{dynamic\_disposables\_container}}()}
-\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ :\ \mbox{\hyperlink{classrpp_1_1details_1_1disposables_1_1dynamic__disposables__container__base}{dynamic\_disposables\_container\_base}}\{Count\}}
-\DoxyCodeLine{00065\ \ \ \ \ \{\}}
-\DoxyCodeLine{00066\ \};}
-\DoxyCodeLine{00067\ }
-\DoxyCodeLine{00068\ \textcolor{keyword}{template}<\textcolor{keywordtype}{size\_t}\ Count>}
-\DoxyCodeLine{00069\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1details_1_1disposables_1_1static__disposables__container}{static\_disposables\_container}}}
-\DoxyCodeLine{00070\ \{}
-\DoxyCodeLine{00071\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00072\ \ \ \ \ \mbox{\hyperlink{classrpp_1_1details_1_1disposables_1_1static__disposables__container}{static\_disposables\_container}}()\ =\ \textcolor{keywordflow}{default};}
-\DoxyCodeLine{00073\ \ \ \ \ \mbox{\hyperlink{classrpp_1_1details_1_1disposables_1_1static__disposables__container}{static\_disposables\_container}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1details_1_1disposables_1_1static__disposables__container}{static\_disposables\_container}}\&)\ =\ \textcolor{keyword}{delete};}
-\DoxyCodeLine{00074\ \ \ \ \ \mbox{\hyperlink{classrpp_1_1details_1_1disposables_1_1static__disposables__container}{static\_disposables\_container}}\&\ operator=(\textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1details_1_1disposables_1_1static__disposables__container}{static\_disposables\_container}}\&\ other)\ =\ \textcolor{keyword}{delete};}
-\DoxyCodeLine{00075\ }
-\DoxyCodeLine{00076\ \ \ \ \ \mbox{\hyperlink{classrpp_1_1details_1_1disposables_1_1static__disposables__container}{static\_disposables\_container}}\&\ operator=(\mbox{\hyperlink{classrpp_1_1details_1_1disposables_1_1static__disposables__container}{static\_disposables\_container}}\&\&\ other)\ \textcolor{keyword}{noexcept}}
-\DoxyCodeLine{00077\ \ \ \ \ \{}
-\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{this}\ ==\ \&other)}
-\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
-\DoxyCodeLine{00080\ }
-\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ m\_size\ =\ other.m\_size;}
-\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{size\_t}\ i\ =0;\ i\ <\ m\_size;\ ++i)}
-\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \ \ \ \ std::construct\_at(get(i),\ std::move(*other.get(i)));}
-\DoxyCodeLine{00084\ }
-\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ other.clear();}
-\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
-\DoxyCodeLine{00087\ \ \ \ \ \}}
-\DoxyCodeLine{00088\ }
-\DoxyCodeLine{00089\ \ \ \ \ \mbox{\hyperlink{classrpp_1_1details_1_1disposables_1_1static__disposables__container}{static\_disposables\_container}}(\mbox{\hyperlink{classrpp_1_1details_1_1disposables_1_1static__disposables__container}{static\_disposables\_container}}\&\&\ other)\ \textcolor{keyword}{noexcept}}
-\DoxyCodeLine{00090\ \ \ \ \ \{}
-\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ *\textcolor{keyword}{this}\ =\ std::move(other);}
-\DoxyCodeLine{00092\ \ \ \ \ \}}
-\DoxyCodeLine{00093\ }
-\DoxyCodeLine{00094\ \ \ \ \ \mbox{\hyperlink{classrpp_1_1details_1_1disposables_1_1static__disposables__container}{\string~static\_disposables\_container}}()\ \textcolor{keyword}{noexcept}}
-\DoxyCodeLine{00095\ \ \ \ \ \{}
-\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ clear();}
-\DoxyCodeLine{00097\ \ \ \ \ \}}
-\DoxyCodeLine{00098\ }
-\DoxyCodeLine{00099\ \ \ \ \ \textcolor{keywordtype}{void}\ push\_back(\textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp::disposable\_wrapper}}\&\ d)}
-\DoxyCodeLine{00100\ \ \ \ \ \{}
-\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (m\_size\ >=\ Count)}
-\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ rpp::utils::more\_disposables\_than\_expected\{\textcolor{stringliteral}{"{}static\_disposables\_container\ obtained\ more\ disposables\ than\ expected"{}}\};}
-\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ std::construct\_at(get(m\_size++),\ d);}
-\DoxyCodeLine{00104\ \ \ \ \ \}}
-\DoxyCodeLine{00105\ }
-\DoxyCodeLine{00106\ \ \ \ \ \textcolor{keywordtype}{void}\ push\_back(\mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp::disposable\_wrapper}}\&\&\ d)}
-\DoxyCodeLine{00107\ \ \ \ \ \{}
-\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (m\_size\ >=\ Count)}
-\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ rpp::utils::more\_disposables\_than\_expected\{\textcolor{stringliteral}{"{}static\_disposables\_container\ obtained\ more\ disposables\ than\ expected"{}}\};}
-\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ std::construct\_at(get(m\_size++),\ std::move(d));}
-\DoxyCodeLine{00111\ \ \ \ \ \}}
-\DoxyCodeLine{00112\ }
-\DoxyCodeLine{00113\ \ \ \ \ \textcolor{keywordtype}{void}\ remove(\textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp::disposable\_wrapper}}\&\ d)}
-\DoxyCodeLine{00114\ \ \ \ \ \{}
-\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ m\_size;)}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ dispose()\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00044\ \textcolor{keyword}{\ \ \ \ \ \ \ \ }\{}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\&\ d\ :\ m\_data)}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ d.dispose();}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ clear()}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \ \ \ \ m\_data.clear();}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \textcolor{keyword}{mutable}\ std::vector<rpp::disposable\_wrapper>\ m\_data\{\};}
+\DoxyCodeLine{00058\ \ \ \ \ \};}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keywordtype}{size\_t}\ Count>}
+\DoxyCodeLine{00061\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1details_1_1disposables_1_1dynamic__disposables__container}{dynamic\_disposables\_container}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classrpp_1_1details_1_1disposables_1_1dynamic__disposables__container__base}{dynamic\_disposables\_container\_base}}}
+\DoxyCodeLine{00062\ \ \ \ \ \{}
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrpp_1_1details_1_1disposables_1_1dynamic__disposables__container}{dynamic\_disposables\_container}}()}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \ \ \ \ :\ \mbox{\hyperlink{classrpp_1_1details_1_1disposables_1_1dynamic__disposables__container__base}{dynamic\_disposables\_container\_base}}\{Count\}}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00068\ \ \ \ \ \};}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keywordtype}{size\_t}\ Count>}
+\DoxyCodeLine{00071\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1details_1_1disposables_1_1static__disposables__container}{static\_disposables\_container}}}
+\DoxyCodeLine{00072\ \ \ \ \ \{}
+\DoxyCodeLine{00073\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrpp_1_1details_1_1disposables_1_1static__disposables__container}{static\_disposables\_container}}()\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrpp_1_1details_1_1disposables_1_1static__disposables__container}{static\_disposables\_container}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1details_1_1disposables_1_1static__disposables__container}{static\_disposables\_container}}\&)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrpp_1_1details_1_1disposables_1_1static__disposables__container}{static\_disposables\_container}}\&\ operator=(\textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1details_1_1disposables_1_1static__disposables__container}{static\_disposables\_container}}\&\ other)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrpp_1_1details_1_1disposables_1_1static__disposables__container}{static\_disposables\_container}}\&\ operator=(\mbox{\hyperlink{classrpp_1_1details_1_1disposables_1_1static__disposables__container}{static\_disposables\_container}}\&\&\ other)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{this}\ ==\ \&other)}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \ \ \ \ m\_size\ =\ other.m\_size;}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ m\_size;\ ++i)}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::construct\_at(get(i),\ std::move(*other.get(i)));}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \ \ \ \ other.clear();}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrpp_1_1details_1_1disposables_1_1static__disposables__container}{static\_disposables\_container}}(\mbox{\hyperlink{classrpp_1_1details_1_1disposables_1_1static__disposables__container}{static\_disposables\_container}}\&\&\ other)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \ \ \ \ *\textcolor{keyword}{this}\ =\ std::move(other);}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrpp_1_1details_1_1disposables_1_1static__disposables__container}{\string~static\_disposables\_container}}()\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \ \ \ \ clear();}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ push\_back(\textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp::disposable\_wrapper}}\&\ d)}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (m\_size\ >=\ Count)}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ rpp::utils::more\_disposables\_than\_expected\{\textcolor{stringliteral}{"{}static\_disposables\_container\ obtained\ more\ disposables\ than\ expected"{}}\};}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \ \ \ \ std::construct\_at(get(m\_size++),\ d);}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00107\ }
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ push\_back(\mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp::disposable\_wrapper}}\&\&\ d)}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (m\_size\ >=\ Count)}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ rpp::utils::more\_disposables\_than\_expected\{\textcolor{stringliteral}{"{}static\_disposables\_container\ obtained\ more\ disposables\ than\ expected"{}}\};}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \ \ \ \ std::construct\_at(get(m\_size++),\ std::move(d));}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ remove(\textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp::disposable\_wrapper}}\&\ d)}
 \DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (*get(i)\ !=\ d)}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ m\_size;)}
 \DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ++i;}
-\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{continue};}
-\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00122\ }
-\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{size\_t}\ j\ =\ i+1;\ j\ <\ m\_size;\ ++j)}
-\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *get(j-\/1)\ =\ std::move(*get(j));}
-\DoxyCodeLine{00125\ }
-\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \ \ \ \ std::destroy\_at(get(-\/-\/m\_size));}
-\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00128\ \ \ \ \ \}}
-\DoxyCodeLine{00129\ }
-\DoxyCodeLine{00130\ \ \ \ \ \textcolor{keywordtype}{void}\ dispose()\textcolor{keyword}{\ const}}
-\DoxyCodeLine{00131\ \textcolor{keyword}{\ \ \ \ }\{}
-\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =0;\ i\ <\ m\_size;\ ++i)\ \{}
-\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \ \ \ \ get(i)-\/>dispose();}
-\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00135\ \ \ \ \ \}}
-\DoxyCodeLine{00136\ }
-\DoxyCodeLine{00137\ \ \ \ \ \textcolor{keywordtype}{void}\ clear()}
-\DoxyCodeLine{00138\ \ \ \ \ \{}
-\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =0;\ i\ <\ m\_size;\ ++i)}
-\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \ \ \ \ std::destroy\_at(get(i));}
-\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ m\_size\ =\ 0;}
-\DoxyCodeLine{00142\ \ \ \ \ \}}
-\DoxyCodeLine{00143\ }
-\DoxyCodeLine{00144\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00145\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp::disposable\_wrapper}}*\ get(\textcolor{keywordtype}{size\_t}\ i)\textcolor{keyword}{\ const}}
-\DoxyCodeLine{00146\ \textcolor{keyword}{\ \ \ \ }\{}
-\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::launder(\textcolor{keyword}{reinterpret\_cast<}\textcolor{keyword}{const\ }\mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp::disposable\_wrapper}}*\textcolor{keyword}{>}(\&m\_data[i*\textcolor{keyword}{sizeof}(\mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp::disposable\_wrapper}})]));}
-\DoxyCodeLine{00148\ \ \ \ \ \}}
-\DoxyCodeLine{00149\ \ \ \ \ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp::disposable\_wrapper}}*\ get(\textcolor{keywordtype}{size\_t}\ i)}
-\DoxyCodeLine{00150\ \ \ \ \ \{}
-\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::launder(\textcolor{keyword}{reinterpret\_cast<}\mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp::disposable\_wrapper}}*\textcolor{keyword}{>}(\&m\_data[i*\textcolor{keyword}{sizeof}(\mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp::disposable\_wrapper}})]));}
-\DoxyCodeLine{00152\ \ \ \ \ \}}
-\DoxyCodeLine{00153\ }
-\DoxyCodeLine{00154\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00155\ \ \ \ \ \textcolor{keyword}{alignas}(\mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp::disposable\_wrapper}})\ std::byte\ m\_data[\textcolor{keyword}{sizeof}(\mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp::disposable\_wrapper}})\ *\ Count]\{\};}
-\DoxyCodeLine{00156\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ m\_size\{\};}
-\DoxyCodeLine{00157\ \};}
-\DoxyCodeLine{00158\ }
-\DoxyCodeLine{00159\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1details_1_1disposables_1_1none__disposables__container}{none\_disposables\_container}}}
-\DoxyCodeLine{00160\ \{}
-\DoxyCodeLine{00161\ \ \ \ \ [[noreturn]]\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ push\_back(\textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp::disposable\_wrapper}}\&)}
-\DoxyCodeLine{00162\ \ \ \ \ \{}
-\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ rpp::utils::more\_disposables\_than\_expected\{\textcolor{stringliteral}{"{}none\_disposables\_container\ expected\ none\ disposables\ but\ obtained\ one"{}}\};}
-\DoxyCodeLine{00164\ \ \ \ \ \}}
-\DoxyCodeLine{00165\ }
-\DoxyCodeLine{00166\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ remove(\textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp::disposable\_wrapper}}\&)\ \{\}}
-\DoxyCodeLine{00167\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ dispose()\ \{\}}
-\DoxyCodeLine{00168\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ clear()\ \{\}}
-\DoxyCodeLine{00169\ \};}
-\DoxyCodeLine{00170\ \}}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (*get(i)\ !=\ d)}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ++i;}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00124\ }
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ j\ =\ i\ +\ 1;\ j\ <\ m\_size;\ ++j)}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *get(j\ -\/\ 1)\ =\ std::move(*get(j));}
+\DoxyCodeLine{00127\ }
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::destroy\_at(get(-\/-\/m\_size));}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00131\ }
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ dispose()\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00133\ \textcolor{keyword}{\ \ \ \ \ \ \ \ }\{}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ m\_size;\ ++i)}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ get(i)-\/>dispose();}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00139\ }
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ clear()}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ m\_size;\ ++i)}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::destroy\_at(get(i));}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \ \ \ \ m\_size\ =\ 0;}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00146\ }
+\DoxyCodeLine{00147\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp::disposable\_wrapper}}*\ get(\textcolor{keywordtype}{size\_t}\ i)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00149\ \textcolor{keyword}{\ \ \ \ \ \ \ \ }\{}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::launder(\textcolor{keyword}{reinterpret\_cast<}\textcolor{keyword}{const\ }\mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp::disposable\_wrapper}}*\textcolor{keyword}{>}(\&m\_data[i\ *\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp::disposable\_wrapper}})]));}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp::disposable\_wrapper}}*\ get(\textcolor{keywordtype}{size\_t}\ i)}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::launder(\textcolor{keyword}{reinterpret\_cast<}\mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp::disposable\_wrapper}}*\textcolor{keyword}{>}(\&m\_data[i\ *\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp::disposable\_wrapper}})]));}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00156\ }
+\DoxyCodeLine{00157\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \textcolor{keyword}{alignas}(\mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp::disposable\_wrapper}})\ std::byte\ m\_data[\textcolor{keyword}{sizeof}(\mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp::disposable\_wrapper}})\ *\ Count]\{\};}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ m\_size\{\};}
+\DoxyCodeLine{00160\ \ \ \ \ \};}
+\DoxyCodeLine{00161\ }
+\DoxyCodeLine{00162\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1details_1_1disposables_1_1none__disposables__container}{none\_disposables\_container}}}
+\DoxyCodeLine{00163\ \ \ \ \ \{}
+\DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ [[noreturn]]\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ push\_back(\textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp::disposable\_wrapper}}\&)}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ rpp::utils::more\_disposables\_than\_expected\{\textcolor{stringliteral}{"{}none\_disposables\_container\ expected\ none\ disposables\ but\ obtained\ one"{}}\};}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00168\ }
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ remove(\textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp::disposable\_wrapper}}\&)\ \{\}}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ dispose()\ \{\}}
+\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ clear()\ \{\}}
+\DoxyCodeLine{00172\ \ \ \ \ \};}
+\DoxyCodeLine{00173\ \}\ \textcolor{comment}{//\ namespace\ rpp::details::disposables}}
 
 \end{DoxyCode}

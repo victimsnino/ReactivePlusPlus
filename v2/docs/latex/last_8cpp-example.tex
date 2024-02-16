@@ -2,6 +2,7 @@
 \hypertarget{last_8cpp-example}{}\label{last_8cpp-example}
 \begin{DoxyCodeInclude}{0}
 \DoxyCodeLine{\textcolor{preprocessor}{\#include\ <rpp/rpp.hpp>}}
+\DoxyCodeLine{}
 \DoxyCodeLine{\textcolor{preprocessor}{\#include\ <iostream>}}
 \DoxyCodeLine{}
 \DoxyCodeLine{\textcolor{keywordtype}{int}\ main()}
@@ -9,8 +10,8 @@
 \DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(1,\ 2,\ 3,\ 4,\ 5)}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__filtering__operators_ga679e35f7895a5d7e22cd2b3c359b9457}{rpp::operators::last}}()}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{rpp::operators::subscribe}}(}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ [](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ \&v)\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}-\/"{}}\ <<\ v;\ \},}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ [](\textcolor{keyword}{const}\ std::exception\_ptr\ \&)\ \{\},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ [](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ v)\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}-\/"{}}\ <<\ v;\ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ [](\textcolor{keyword}{const}\ std::exception\_ptr\&)\ \{\},}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ []()\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}-\/|"{}}\ <<\ std::endl;\ \});}
 \DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Source:\ -\/1-\/2-\/3-\/4-\/5-\/-\/|}}
 \DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:\ -\/5-\/|}}
@@ -18,8 +19,8 @@
 \DoxyCodeLine{\ \ \ \ rpp::source::empty<int>()}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__filtering__operators_ga679e35f7895a5d7e22cd2b3c359b9457}{rpp::operators::last}}()}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{rpp::operators::subscribe}}(}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ [](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ \&v)\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}-\/"{}}\ <<\ v;\ \},}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ [](\textcolor{keyword}{const}\ std::exception\_ptr\ \&)\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}-\/x"{}};\ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ [](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ v)\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}-\/"{}}\ <<\ v;\ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ [](\textcolor{keyword}{const}\ std::exception\_ptr\&)\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}-\/x"{}};\ \},}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ []()\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}-\/|"{}}\ <<\ std::endl;\ \});}
 \DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Source:\ -\/1-\/2-\/3-\/4-\/5-\/-\/|}}
 \DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:\ -\/x}}

@@ -17,50 +17,52 @@
 \DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <rpp/observers/fwd.hpp>}}
 \DoxyCodeLine{00014\ }
 \DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <rpp/utils/constraints.hpp>}}
-\DoxyCodeLine{00016\ }
-\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ <rpp/utils/utils.hpp>}}
-\DoxyCodeLine{00018\ }
-\DoxyCodeLine{00019\ \textcolor{keyword}{namespace\ }rpp::subjects::details}
-\DoxyCodeLine{00020\ \{}
-\DoxyCodeLine{00021\ \textcolor{keyword}{namespace\ }constraint}
-\DoxyCodeLine{00022\ \{}
-\DoxyCodeLine{00023\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ Strategy,\ \textcolor{keyword}{typename}\ T>}
-\DoxyCodeLine{00024\ \textcolor{keyword}{concept\ }\mbox{\hyperlink{conceptrpp_1_1subjects_1_1details_1_1constraint_1_1subject__strategy}{subject\_strategy}}\ =\ \textcolor{keyword}{requires}(Strategy\ t,\ \mbox{\hyperlink{classrpp_1_1observer}{rpp::details::observers::fake\_observer<T>}}\&\&\ obs)}
-\DoxyCodeLine{00025\ \{}
-\DoxyCodeLine{00026\ \ \ \ \ \{t.get\_observer()\}\ -\/>\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer}{rpp::constraint::observer}};}
-\DoxyCodeLine{00027\ \ \ \ \ t.on\_subscribe(std::move(obs));}
-\DoxyCodeLine{00028\ \ \ \ \ \{t.get\_disposable()\ \}\ -\/>\ rpp::constraint::decayed\_any\_of<rpp::disposable\_wrapper,\ rpp::composite\_disposable\_wrapper>;}
-\DoxyCodeLine{00029\ \};}
-\DoxyCodeLine{00030\ \}}
-\DoxyCodeLine{00031\ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type\ T,\ constra\textcolor{keywordtype}{int}::subject\_strategy<T>\ Strategy>}
-\DoxyCodeLine{00032\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1subjects_1_1details_1_1base__subject}{base\_subject}};}
-\DoxyCodeLine{00033\ }
-\DoxyCodeLine{00034\ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type\ Type>}
-\DoxyCodeLine{00035\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1subjects_1_1details_1_1publish__strategy}{publish\_strategy}};}
-\DoxyCodeLine{00036\ }
-\DoxyCodeLine{00037\ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type\ Type>}
-\DoxyCodeLine{00038\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1subjects_1_1details_1_1serialized__strategy}{serialized\_strategy}};}
-\DoxyCodeLine{00039\ \}}
-\DoxyCodeLine{00040\ }
-\DoxyCodeLine{00041\ \textcolor{keyword}{namespace\ }rpp::subjects}
-\DoxyCodeLine{00042\ \{}
-\DoxyCodeLine{00043\ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type\ Type>}
-\DoxyCodeLine{00044\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1subjects_1_1publish__subject}{publish\_subject}};}
-\DoxyCodeLine{00045\ }
-\DoxyCodeLine{00046\ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type\ Type>}
-\DoxyCodeLine{00047\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1subjects_1_1serialized__subject}{serialized\_subject}};}
-\DoxyCodeLine{00048\ \}}
-\DoxyCodeLine{00049\ }
-\DoxyCodeLine{00050\ \textcolor{keyword}{namespace\ }rpp::subjects::utils}
-\DoxyCodeLine{00051\ \{}
-\DoxyCodeLine{00052\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
-\DoxyCodeLine{00053\ \textcolor{keyword}{using\ }extract\_subject\_type\_t\ =\ \textcolor{keyword}{typename}\ rpp::utils::extract\_base\_type\_params\_t<T,\ rpp::subjects::details::base\_subject>::template\ type\_at\_index\_t<0>;}
-\DoxyCodeLine{00054\ \}\ \textcolor{comment}{//\ namespace\ rpp::utils}}
-\DoxyCodeLine{00055\ }
-\DoxyCodeLine{00056\ \textcolor{keyword}{namespace\ }rpp::constraint}
-\DoxyCodeLine{00057\ \{}
-\DoxyCodeLine{00058\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
-\DoxyCodeLine{00059\ \textcolor{keyword}{concept\ }\mbox{\hyperlink{conceptrpp_1_1constraint_1_1subject}{subject}}\ =\ rpp::utils::is\_base\_of\_v<T,\ rpp::subjects::details::base\_subject>;}
-\DoxyCodeLine{00060\ \}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ <rpp/utils/utils.hpp>}}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \textcolor{keyword}{namespace\ }rpp::subjects::details}
+\DoxyCodeLine{00019\ \{}
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keyword}{namespace\ }constraint}
+\DoxyCodeLine{00021\ \ \ \ \ \{}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ Strategy,\ \textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ \textcolor{keyword}{concept\ }\mbox{\hyperlink{conceptrpp_1_1subjects_1_1details_1_1constraint_1_1subject__strategy}{subject\_strategy}}\ =\ \textcolor{keyword}{requires}(Strategy\ t,\ \mbox{\hyperlink{classrpp_1_1observer}{rpp::details::observers::fake\_observer<T>}}\&\&\ obs)\ \{}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ t.get\_observer()}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ -\/>\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer}{rpp::constraint::observer}};}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \ \ \ \ t.on\_subscribe(std::move(obs));}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ t.get\_disposable()}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ -\/>\ rpp::constraint::decayed\_any\_of<rpp::disposable\_wrapper,\ rpp::composite\_disposable\_wrapper>;}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00032\ \ \ \ \ \}\ \textcolor{comment}{//\ namespace\ constraint}}
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type\ T,\ constra\textcolor{keywordtype}{int}::subject\_strategy<T>\ Strategy>}
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1subjects_1_1details_1_1base__subject}{base\_subject}};}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type\ Type>}
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1subjects_1_1details_1_1publish__strategy}{publish\_strategy}};}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type\ Type>}
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1subjects_1_1details_1_1serialized__strategy}{serialized\_strategy}};}
+\DoxyCodeLine{00041\ \}\ \textcolor{comment}{//\ namespace\ rpp::subjects::details}}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \textcolor{keyword}{namespace\ }rpp::subjects}
+\DoxyCodeLine{00044\ \{}
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type\ Type>}
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1subjects_1_1publish__subject}{publish\_subject}};}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type\ Type>}
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1subjects_1_1serialized__subject}{serialized\_subject}};}
+\DoxyCodeLine{00050\ \}\ \textcolor{comment}{//\ namespace\ rpp::subjects}}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \textcolor{keyword}{namespace\ }rpp::subjects::utils}
+\DoxyCodeLine{00053\ \{}
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keyword}{using\ }extract\_subject\_type\_t\ =\ \textcolor{keyword}{typename}\ rpp::utils::extract\_base\_type\_params\_t<T,\ rpp::subjects::details::base\_subject>::template\ type\_at\_index\_t<0>;}
+\DoxyCodeLine{00056\ \}\ \textcolor{comment}{//\ namespace\ rpp::subjects::utils}}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \textcolor{keyword}{namespace\ }rpp::constraint}
+\DoxyCodeLine{00059\ \{}
+\DoxyCodeLine{00060\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00061\ \ \ \ \ \textcolor{keyword}{concept\ }\mbox{\hyperlink{conceptrpp_1_1constraint_1_1subject}{subject}}\ =\ rpp::utils::is\_base\_of\_v<T,\ rpp::subjects::details::base\_subject>;}
+\DoxyCodeLine{00062\ \}\ \textcolor{comment}{//\ namespace\ rpp::constraint}}
 
 \end{DoxyCode}

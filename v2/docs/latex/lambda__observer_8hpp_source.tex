@@ -20,73 +20,73 @@
 \DoxyCodeLine{00016\ }
 \DoxyCodeLine{00017\ \textcolor{keyword}{namespace\ }rpp::details::observers}
 \DoxyCodeLine{00018\ \{}
-\DoxyCodeLine{00019\ \textcolor{keyword}{template}<rpp::constraint::decayed\_type\ \ \ \ \ \ \ \ \ \ \ \ \ Type,}
-\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ \ std::invocable<Type>\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ OnNext,}
-\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ \ std::invocable<const\ std::exception\_ptr\&>\ OnError,}
-\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \ std::invocable<>\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ OnCompleted>}
-\DoxyCodeLine{00023\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1details_1_1observers_1_1lambda__strategy}{lambda\_strategy}}}
-\DoxyCodeLine{00024\ \{}
-\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_same\_as<OnNext>\ TOnNext,\ rpp::constra\textcolor{keywordtype}{int}::decayed\_same\_as<OnError>\ TOnError,\ rpp::constra\textcolor{keywordtype}{int}::decayed\_same\_as<OnCompleted>\ TOnCompleted>}
-\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{structrpp_1_1details_1_1observers_1_1lambda__strategy}{lambda\_strategy}}(TOnNext\&\&\ on\_next,\ TOnError\&\&\ on\_error,\ TOnCompleted\&\&\ on\_completed)}
-\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ :\ on\_next\{std::forward<TOnNext>(on\_next)\}}
-\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ ,\ on\_error\{std::forward<TOnError>(on\_error)\}}
-\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ ,\ on\_completed\{std::forward<TOnCompleted>(on\_completed)\}}
-\DoxyCodeLine{00030\ \ \ \ \ \{}
-\DoxyCodeLine{00031\ \ \ \ \ \}}
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keyword}{template}<rpp::constraint::decayed\_type\ \ \ \ \ \ \ \ \ \ \ \ \ Type,}
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ \ \ \ \ \ std::invocable<Type>\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ OnNext,}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ \ \ \ \ \ std::invocable<const\ std::exception\_ptr\&>\ OnError,}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \ \ \ \ \ std::invocable<>\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ OnCompleted>}
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1details_1_1observers_1_1lambda__strategy}{lambda\_strategy}}}
+\DoxyCodeLine{00024\ \ \ \ \ \{}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_same\_as<OnNext>\ TOnNext,\ rpp::constra\textcolor{keywordtype}{int}::decayed\_same\_as<OnError>\ TOnError,\ rpp::constra\textcolor{keywordtype}{int}::decayed\_same\_as<OnCompleted>\ TOnCompleted>}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{structrpp_1_1details_1_1observers_1_1lambda__strategy}{lambda\_strategy}}(TOnNext\&\&\ on\_next,\ TOnError\&\&\ on\_error,\ TOnCompleted\&\&\ on\_completed)}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \ \ \ \ :\ on\_next\{std::forward<TOnNext>(on\_next)\}}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \ \ \ \ ,\ on\_error\{std::forward<TOnError>(on\_error)\}}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \ \ \ \ ,\ on\_completed\{std::forward<TOnCompleted>(on\_completed)\}}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{00032\ }
-\DoxyCodeLine{00033\ \ \ \ \ RPP\_NO\_UNIQUE\_ADDRESS\ OnNext\ \ \ \ \ \ on\_next\{\};}
-\DoxyCodeLine{00034\ \ \ \ \ RPP\_NO\_UNIQUE\_ADDRESS\ OnError\ \ \ \ \ on\_error\{\};}
-\DoxyCodeLine{00035\ \ \ \ \ RPP\_NO\_UNIQUE\_ADDRESS\ OnCompleted\ on\_completed\{\};}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ RPP\_NO\_UNIQUE\_ADDRESS\ OnNext\ \ \ \ \ \ on\_next\{\};}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ RPP\_NO\_UNIQUE\_ADDRESS\ OnError\ \ \ \ \ on\_error\{\};}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ RPP\_NO\_UNIQUE\_ADDRESS\ OnCompleted\ on\_completed\{\};}
 \DoxyCodeLine{00036\ }
-\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ set\_upstream(\textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{disposable\_wrapper}}\&)\ \textcolor{keyword}{noexcept}\ \{\}}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ set\_upstream(\textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{disposable\_wrapper}}\&)\ \textcolor{keyword}{noexcept}\ \{\}}
 \DoxyCodeLine{00038\ }
-\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ is\_disposed()\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};\ \}}
-\DoxyCodeLine{00040\ \};}
-\DoxyCodeLine{00041\ \}}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ is\_disposed()\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};\ \}}
+\DoxyCodeLine{00040\ \ \ \ \ \};}
+\DoxyCodeLine{00041\ \}\ \textcolor{comment}{//\ namespace\ rpp::details::observers}}
 \DoxyCodeLine{00042\ }
 \DoxyCodeLine{00043\ \textcolor{keyword}{namespace\ }rpp}
 \DoxyCodeLine{00044\ \{}
-\DoxyCodeLine{00045\ \textcolor{keyword}{template}<constraint::decayed\_type\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Type,}
-\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \ std::invocable<Type>\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ OnNext,}
-\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \ std::invocable<const\ std::exception\_ptr\&>\ OnError,}
-\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ std::invocable<>\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ OnCompleted>}
-\DoxyCodeLine{00049\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__observers_gae17f62f64102925f4cd2eb29c4c27028}{make\_lambda\_observer}}(OnNext\&\&\ \ \ \ \ \ on\_next,}
-\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ OnError\&\&\ \ \ \ \ on\_error,}
-\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ OnCompleted\&\&\ on\_completed)\ -\/>\ \mbox{\hyperlink{classrpp_1_1observer}{lambda\_observer}}<Type,}
-\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::decay\_t<OnNext>,}
-\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::decay\_t<OnError>,}
-\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::decay\_t<OnCompleted>>}
-\DoxyCodeLine{00055\ \{}
-\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classrpp_1_1observer}{lambda\_observer}}<Type,}
-\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::decay\_t<OnNext>,}
-\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::decay\_t<OnError>,}
-\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::decay\_t<OnCompleted>>\{}
-\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ std::forward<OnNext>(on\_next),}
-\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ std::forward<OnError>(on\_error),}
-\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ std::forward<OnCompleted>(on\_completed)\};}
-\DoxyCodeLine{00063\ \}}
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keyword}{template}<constraint::decayed\_type\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Type,}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \ \ \ \ \ std::invocable<Type>\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ OnNext,}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \ \ \ \ \ std::invocable<const\ std::exception\_ptr\&>\ OnError,}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ \ std::invocable<>\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ OnCompleted>}
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__observers_gae17f62f64102925f4cd2eb29c4c27028}{make\_lambda\_observer}}(OnNext\&\&\ \ \ \ \ \ on\_next,}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ OnError\&\&\ \ \ \ \ on\_error,}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ OnCompleted\&\&\ on\_completed)\ -\/>\ \mbox{\hyperlink{classrpp_1_1observer}{lambda\_observer}}<Type,}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::decay\_t<OnNext>,}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::decay\_t<OnError>,}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::decay\_t<OnCompleted>>}
+\DoxyCodeLine{00055\ \ \ \ \ \{}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classrpp_1_1observer}{lambda\_observer}}<Type,}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::decay\_t<OnNext>,}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::decay\_t<OnError>,}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::decay\_t<OnCompleted>>\{}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \ \ \ \ std::forward<OnNext>(on\_next),}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \ \ \ \ std::forward<OnError>(on\_error),}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \ \ \ \ std::forward<OnCompleted>(on\_completed)\};}
+\DoxyCodeLine{00063\ \ \ \ \ \}}
 \DoxyCodeLine{00064\ }
-\DoxyCodeLine{00065\ \textcolor{keyword}{template}<constraint::decayed\_type\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Type,}
-\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \ std::invocable<Type>\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ OnNext,}
-\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \ std::invocable<const\ std::exception\_ptr\&>\ OnError,}
-\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \ std::invocable<>\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ OnCompleted>}
-\DoxyCodeLine{00069\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__observers_gae17f62f64102925f4cd2eb29c4c27028}{make\_lambda\_observer}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp::composite\_disposable\_wrapper}}\&\ d,}
-\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ OnNext\&\&\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ on\_next,}
-\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ OnError\&\&\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ on\_error,}
-\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ OnCompleted\&\&\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ on\_completed)\ -\/>\ \mbox{\hyperlink{classrpp_1_1observer}{lambda\_observer\_with\_disposable}}<Type,}
-\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::decay\_t<OnNext>,}
-\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::decay\_t<OnError>,}
-\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::decay\_t<OnCompleted>>}
-\DoxyCodeLine{00076\ \{}
-\DoxyCodeLine{00077\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classrpp_1_1observer}{lambda\_observer\_with\_disposable}}<Type,}
-\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::decay\_t<OnNext>,}
-\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::decay\_t<OnError>,}
-\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::decay\_t<OnCompleted>>\{}
-\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ d,}
-\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ std::forward<OnNext>(on\_next),}
-\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ std::forward<OnError>(on\_error),}
-\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ std::forward<OnCompleted>(on\_completed)\};}
-\DoxyCodeLine{00085\ \}}
+\DoxyCodeLine{00065\ \ \ \ \ \textcolor{keyword}{template}<constraint::decayed\_type\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Type,}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \ \ \ \ \ std::invocable<Type>\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ OnNext,}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \ \ \ \ \ std::invocable<const\ std::exception\_ptr\&>\ OnError,}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \ \ \ \ \ std::invocable<>\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ OnCompleted>}
+\DoxyCodeLine{00069\ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__observers_gae17f62f64102925f4cd2eb29c4c27028}{make\_lambda\_observer}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp::composite\_disposable\_wrapper}}\&\ d,}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ OnNext\&\&\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ on\_next,}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ OnError\&\&\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ on\_error,}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ OnCompleted\&\&\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ on\_completed)\ -\/>\ \mbox{\hyperlink{classrpp_1_1observer}{lambda\_observer\_with\_disposable}}<Type,}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::decay\_t<OnNext>,}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::decay\_t<OnError>,}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::decay\_t<OnCompleted>>}
+\DoxyCodeLine{00076\ \ \ \ \ \{}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classrpp_1_1observer}{lambda\_observer\_with\_disposable}}<Type,}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::decay\_t<OnNext>,}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::decay\_t<OnError>,}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::decay\_t<OnCompleted>>\{}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \ \ \ \ d,}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \ \ \ \ std::forward<OnNext>(on\_next),}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \ \ \ \ std::forward<OnError>(on\_error),}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \ \ \ \ std::forward<OnCompleted>(on\_completed)\};}
+\DoxyCodeLine{00085\ \ \ \ \ \}}
 \DoxyCodeLine{00086\ \}\ \textcolor{comment}{//\ namespace\ rpp}}
 
 \end{DoxyCode}

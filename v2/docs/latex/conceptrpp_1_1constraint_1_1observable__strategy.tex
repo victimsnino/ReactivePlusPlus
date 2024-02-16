@@ -4,10 +4,11 @@
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename}\ S,\ \textcolor{keyword}{typename}\ T>}
-\DoxyCodeLine{\textcolor{keyword}{concept\ }\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable__strategy}{rpp::constraint::observable\_strategy}}\ =\ \ \textcolor{keyword}{requires}(\textcolor{keyword}{const}\ S\&\ strategy,\ \mbox{\hyperlink{classrpp_1_1observer}{rpp::details::observers::fake\_observer<T>}}\&\&\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer}{observer}})}
-\DoxyCodeLine{\{}
-\DoxyCodeLine{\ \ \ \ \{strategy.subscribe(std::move(\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer}{observer}}))\}\ -\/>\ std::same\_as<void>;}
-\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{typename}\ S::value\_type;}
-\DoxyCodeLine{\}}
+\DoxyCodeLine{\textcolor{keyword}{concept\ }\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable__strategy}{rpp::constraint::observable\_strategy}}\ =\ \ \textcolor{keyword}{requires}(\textcolor{keyword}{const}\ S\&\ strategy,\ \mbox{\hyperlink{classrpp_1_1observer}{rpp::details::observers::fake\_observer<T>}}\&\&\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer}{observer}})\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ strategy.subscribe(std::move(\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer}{observer}}))}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \}\ -\/>\ std::same\_as<void>;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ S::value\_type;}
+\DoxyCodeLine{\ \ \ \ \}}
 
 \end{DoxyCode}

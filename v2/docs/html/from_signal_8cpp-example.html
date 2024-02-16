@@ -102,11 +102,12 @@ $(function(){initNavTree('from_signal_8cpp-example.html',''); initResizable(); }
 </div><!--header-->
 <div class="contents">
 <div class="fragment"><div class="line"><span class="preprocessor">#include &lt;rpp/rpp.hpp&gt;</span></div>
+<div class="line"> </div>
 <div class="line"><span class="preprocessor">#include &lt;rppqt/rppqt.hpp&gt;</span></div>
 <div class="line"> </div>
-<div class="line"><span class="preprocessor">#include &lt;iostream&gt;</span></div>
 <div class="line"><span class="preprocessor">#include &lt;QApplication&gt;</span></div>
 <div class="line"><span class="preprocessor">#include &lt;QTextEdit&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;iostream&gt;</span></div>
 <div class="line"> </div>
 <div class="line"><span class="keywordtype">int</span> main(<span class="keywordtype">int</span> argc, <span class="keywordtype">char</span>* argv[])</div>
 <div class="line">{</div>
@@ -114,8 +115,7 @@ $(function(){initNavTree('from_signal_8cpp-example.html',''); initResizable(); }
 <div class="line"> </div>
 <div class="line">    QTextEdit* text_edit = <span class="keyword">new</span> QTextEdit();</div>
 <div class="line">    <a id="a0" name="a0"></a><a class="code hl_function" href="group__qt__creational__operators.html#ga8c635ee2f69919f16390b1b4002d00ae">rppqt::source::from_signal</a>(*text_edit, &amp;QTextEdit::textChanged)</div>
-<div class="line">        | rpp::ops::map([&amp;](<span class="keyword">const</span> <span class="keyword">auto</span>&amp;) </div>
-<div class="line">          {</div>
+<div class="line">        | rpp::ops::map([&amp;](<span class="keyword">const</span> <span class="keyword">auto</span>&amp;) {</div>
 <div class="line">              <span class="keywordflow">return</span> text_edit-&gt;toPlainText();</div>
 <div class="line">          })</div>
 <div class="line">        | rpp::ops::subscribe([](<span class="keyword">const</span> QString&amp; text) { std::cout &lt;&lt; <span class="stringliteral">&quot;text changed: &quot;</span> &lt;&lt; text.toStdString() &lt;&lt; std::endl; },</div>

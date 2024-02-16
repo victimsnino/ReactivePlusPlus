@@ -4,8 +4,6 @@
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename}\ TObservable,\ \textcolor{keyword}{typename}...\ TObservables>}
-\DoxyCodeLine{\textcolor{keyword}{concept\ }\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observables__of__same__type}{rpp::constraint::observables\_of\_same\_type}}\ =\ \ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp::constraint::observable<TObservable>}}\ \&\&}
-\DoxyCodeLine{\ \ \ \ (\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp::constraint::observable<TObservables>}}\ \&\&\ ...)\ \&\&}
-\DoxyCodeLine{\ \ \ \ (std::same\_as<rpp::utils::extract\_observable\_type\_t<TObservable>,\ rpp::utils::extract\_observable\_type\_t<TObservables>>\ \&\&\ ...)}
+\DoxyCodeLine{\textcolor{keyword}{concept\ }\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observables__of__same__type}{rpp::constraint::observables\_of\_same\_type}}\ =\ \ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp::constraint::observable<TObservable>}}\ \&\&\ (\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp::constraint::observable<TObservables>}}\ \&\&\ ...)\ \&\&\ (std::same\_as<rpp::utils::extract\_observable\_type\_t<TObservable>,\ rpp::utils::extract\_observable\_type\_t<TObservables>>\ \&\&\ ...)}
 
 \end{DoxyCode}

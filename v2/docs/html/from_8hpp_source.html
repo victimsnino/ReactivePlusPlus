@@ -128,194 +128,193 @@ $(function(){initNavTree('from_8hpp_source.html',''); initResizable(); });
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="keyword">namespace </span>rpp::details</div>
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>{</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::decayed_type Container&gt;</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    <span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::decayed_type Container&gt;</div>
 <div class="foldopen" id="foldopen00029" data-start="{" data-end="};">
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno"><a class="line" href="classrpp_1_1details_1_1shared__container.html">   29</a></span><span class="keyword">class </span><a class="code hl_class" href="classrpp_1_1details_1_1shared__container.html">shared_container</a></div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>{</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span>... Ts&gt;</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>        <span class="keyword">requires</span> (!constraint::variadic_decayed_same_as&lt;shared_container&lt;Container&gt;, Ts...&gt;)</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    <span class="keyword">explicit</span> <a class="code hl_class" href="classrpp_1_1details_1_1shared__container.html">shared_container</a>(Ts&amp;&amp;... items)</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>        <span class="comment">// raw &quot;new&quot; call to avoid extra copy/moves for items</span></div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>        : m_container{<span class="keyword">new</span> Container{std::forward&lt;Ts&gt;(items)...}}</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    {</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    }</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno"><a class="line" href="classrpp_1_1details_1_1shared__container.html">   29</a></span>    <span class="keyword">class </span><a class="code hl_class" href="classrpp_1_1details_1_1shared__container.html">shared_container</a></div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    {</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>        <span class="keyword">template</span>&lt;<span class="keyword">typename</span>... Ts&gt;</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>            <span class="keyword">requires</span> (!constraint::variadic_decayed_same_as&lt;shared_container&lt;Container&gt;, Ts...&gt;)</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        <span class="keyword">explicit</span> <a class="code hl_class" href="classrpp_1_1details_1_1shared__container.html">shared_container</a>(Ts&amp;&amp;... items)</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>            <span class="comment">// raw &quot;new&quot; call to avoid extra copy/moves for items</span></div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>            : m_container{<span class="keyword">new</span> Container{std::forward&lt;Ts&gt;(items)...}}</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>        {</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>        }</div>
 <div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <a class="code hl_class" href="classrpp_1_1details_1_1shared__container.html">shared_container</a>(<span class="keyword">const</span> <a class="code hl_class" href="classrpp_1_1details_1_1shared__container.html">shared_container</a>&amp;)     = <span class="keywordflow">default</span>;</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <a class="code hl_class" href="classrpp_1_1details_1_1shared__container.html">shared_container</a>(<a class="code hl_class" href="classrpp_1_1details_1_1shared__container.html">shared_container</a>&amp;&amp;) <span class="keyword">noexcept</span> = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>        <a class="code hl_class" href="classrpp_1_1details_1_1shared__container.html">shared_container</a>(<span class="keyword">const</span> <a class="code hl_class" href="classrpp_1_1details_1_1shared__container.html">shared_container</a>&amp;)     = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        <a class="code hl_class" href="classrpp_1_1details_1_1shared__container.html">shared_container</a>(<a class="code hl_class" href="classrpp_1_1details_1_1shared__container.html">shared_container</a>&amp;&amp;) <span class="keyword">noexcept</span> = <span class="keywordflow">default</span>;</div>
 <div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    <span class="keyword">auto</span> begin()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> std::cbegin(*m_container); }</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>        <span class="keyword">auto</span> begin()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> std::cbegin(*m_container); }</div>
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    <span class="keyword">auto</span> end()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> std::cend(*m_container); }</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>        <span class="keyword">auto</span> end()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> std::cend(*m_container); }</div>
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    std::shared_ptr&lt;Container&gt; m_container{};</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>};</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    <span class="keyword">private</span>:</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>        std::shared_ptr&lt;Container&gt; m_container{};</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    };</div>
 </div>
 <div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
 <div class="foldopen" id="foldopen00051" data-start="{" data-end="};">
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno"><a class="line" href="structrpp_1_1details_1_1from__iterable__schedulable.html">   51</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structrpp_1_1details_1_1from__iterable__schedulable.html">from_iterable_schedulable</a></div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>{</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    <span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::decayed_type PackedContainer, constra<span class="keywordtype">int</span>::observer_strategy&lt;utils::iterable_value_t&lt;PackedContainer&gt;&gt; Strategy&gt;</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    rpp::schedulers::optional_delay_from_now operator()(<span class="keyword">const</span> <a class="code hl_class" href="classrpp_1_1observer.html">observer</a>&lt;utils::iterable_value_t&lt;PackedContainer&gt;, Strategy&gt;&amp; obs, <span class="keyword">const</span> PackedContainer&amp; cont, <span class="keywordtype">size_t</span>&amp; index)<span class="keyword"> const</span></div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span><span class="keyword">    </span>{</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>        <span class="keywordflow">try</span></div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>        {</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>            <span class="keyword">auto</span> itr = std::cbegin(cont);</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>            <span class="keyword">auto</span> end = std::cend(cont);</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>            std::advance(itr, <span class="keyword">static_cast&lt;</span>int64_t<span class="keyword">&gt;</span>(index));</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno"><a class="line" href="structrpp_1_1details_1_1from__iterable__schedulable.html">   51</a></span>    <span class="keyword">struct </span><a class="code hl_struct" href="structrpp_1_1details_1_1from__iterable__schedulable.html">from_iterable_schedulable</a></div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    {</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>        <span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::decayed_type PackedContainer, constra<span class="keywordtype">int</span>::observer_strategy&lt;utils::iterable_value_t&lt;PackedContainer&gt;&gt; Strategy&gt;</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>        rpp::schedulers::optional_delay_from_now operator()(<span class="keyword">const</span> <a class="code hl_class" href="classrpp_1_1observer.html">observer</a>&lt;utils::iterable_value_t&lt;PackedContainer&gt;, Strategy&gt;&amp; obs, <span class="keyword">const</span> PackedContainer&amp; cont, <span class="keywordtype">size_t</span>&amp; index)<span class="keyword"> const</span></div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span><span class="keyword">        </span>{</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>            <span class="keywordflow">try</span></div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>            {</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>                <span class="keyword">auto</span> itr = std::cbegin(cont);</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>                <span class="keyword">auto</span> end = std::cend(cont);</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>                std::advance(itr, <span class="keyword">static_cast&lt;</span>int64_t<span class="keyword">&gt;</span>(index));</div>
 <div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>            <span class="keywordflow">if</span> (itr != end)</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>            {</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>                obs.on_next(utils::as_const(*itr));</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>                <span class="keywordflow">if</span> (std::next(itr) != end) <span class="comment">// it was not last</span></div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>                {</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>                    ++index;</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>                    <span class="keywordflow">return</span> <a class="code hl_struct" href="structrpp_1_1schedulers_1_1delay__from__now.html">schedulers::delay_from_now</a>{}; <span class="comment">// re-schedule this</span></div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>                }</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>            }</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>                <span class="keywordflow">if</span> (itr != end)</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>                {</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>                    obs.on_next(utils::as_const(*itr));</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>                    <span class="keywordflow">if</span> (std::next(itr) != end) <span class="comment">// it was not last</span></div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>                    {</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>                        ++index;</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>                        <span class="keywordflow">return</span> <a class="code hl_struct" href="structrpp_1_1schedulers_1_1delay__from__now.html">schedulers::delay_from_now</a>{}; <span class="comment">// re-schedule this</span></div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>                    }</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>                }</div>
 <div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>            obs.on_completed();</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>        }</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>        <span class="keywordflow">catch</span> (...)</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>        {</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>            obs.on_error(std::current_exception());</div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>        }</div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>        <span class="keywordflow">return</span> std::nullopt;</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    }</div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>};</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>                obs.on_completed();</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>            }</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>            <span class="keywordflow">catch</span> (...)</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>            {</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>                obs.on_error(std::current_exception());</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>            }</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>            <span class="keywordflow">return</span> std::nullopt;</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>        }</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    };</div>
 </div>
 <div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span> </div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span><span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::decayed_type PackedContainer, schedulers::constra<span class="keywordtype">int</span>::scheduler TScheduler&gt;</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    <span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::decayed_type PackedContainer, schedulers::constra<span class="keywordtype">int</span>::scheduler TScheduler&gt;</div>
 <div class="foldopen" id="foldopen00083" data-start="{" data-end="};">
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno"><a class="line" href="structrpp_1_1details_1_1from__iterable__strategy.html">   83</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structrpp_1_1details_1_1from__iterable__strategy.html">from_iterable_strategy</a></div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>{</div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span> </div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    <span class="keyword">using </span>value_type = rpp::utils::iterable_value_t&lt;PackedContainer&gt;;</div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    <span class="keyword">using </span>expected_disposable_strategy = std::conditional_t&lt;rpp::schedulers::utils::get_worker_t&lt;TScheduler&gt;::is_none_disposable, <a class="code hl_struct" href="structrpp_1_1details_1_1observables_1_1fixed__disposable__strategy__selector.html">rpp::details::observables::bool_disposable_strategy_selector</a>, <a class="code hl_struct" href="structrpp_1_1details_1_1observables_1_1fixed__disposable__strategy__selector.html">rpp::details::observables::fixed_disposable_strategy_selector&lt;1&gt;</a>&gt;;</div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span> </div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span>... Args&gt;</div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    <a class="code hl_struct" href="structrpp_1_1details_1_1from__iterable__strategy.html">from_iterable_strategy</a>(<span class="keyword">const</span> TScheduler&amp; scheduler, Args&amp;&amp;... args)</div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>        : container{std::forward&lt;Args&gt;(args)...}</div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>        , scheduler{scheduler}</div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>    {</div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>    }</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno"><a class="line" href="structrpp_1_1details_1_1from__iterable__strategy.html">   83</a></span>    <span class="keyword">struct </span><a class="code hl_struct" href="structrpp_1_1details_1_1from__iterable__strategy.html">from_iterable_strategy</a></div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    {</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>        <span class="keyword">using </span>value_type                   = rpp::utils::iterable_value_t&lt;PackedContainer&gt;;</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>        <span class="keyword">using </span>expected_disposable_strategy = std::conditional_t&lt;rpp::schedulers::utils::get_worker_t&lt;TScheduler&gt;::is_none_disposable, <a class="code hl_struct" href="structrpp_1_1details_1_1observables_1_1fixed__disposable__strategy__selector.html">rpp::details::observables::bool_disposable_strategy_selector</a>, <a class="code hl_struct" href="structrpp_1_1details_1_1observables_1_1fixed__disposable__strategy__selector.html">rpp::details::observables::fixed_disposable_strategy_selector&lt;1&gt;</a>&gt;;</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span> </div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>        <span class="keyword">template</span>&lt;<span class="keyword">typename</span>... Args&gt;</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>        <a class="code hl_struct" href="structrpp_1_1details_1_1from__iterable__strategy.html">from_iterable_strategy</a>(<span class="keyword">const</span> TScheduler&amp; scheduler, Args&amp;&amp;... args)</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>            : container{std::forward&lt;Args&gt;(args)...}</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>            , scheduler{scheduler}</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>        {</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>        }</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span> </div>
 <div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span> </div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span> </div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>    RPP_NO_UNIQUE_ADDRESS PackedContainer container;</div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    RPP_NO_UNIQUE_ADDRESS TScheduler      scheduler;</div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span> </div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>    <span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::observer_strategy&lt;utils::iterable_value_t&lt;PackedContainer&gt;&gt; Strategy&gt;</div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>    <span class="keywordtype">void</span> subscribe(<a class="code hl_class" href="classrpp_1_1observer.html">observer</a>&lt;utils::iterable_value_t&lt;PackedContainer&gt;, Strategy&gt;&amp;&amp; obs)<span class="keyword"> const</span></div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span><span class="keyword">    </span>{</div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>        <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (std::same_as&lt;TScheduler, schedulers::immediate&gt;)</div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>        {</div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>            <span class="keywordflow">try</span></div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>            {</div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>                <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; v : container)</div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>                {</div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>                    <span class="keywordflow">if</span> (obs.is_disposed())</div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>                        <span class="keywordflow">return</span>;</div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span> </div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>                    obs.on_next(v);</div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>                }</div>
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span> </div>
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>                obs.on_completed();</div>
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>            }</div>
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>            <span class="keywordflow">catch</span> (...)</div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>            {</div>
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>                obs.on_error(std::current_exception());</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>        RPP_NO_UNIQUE_ADDRESS PackedContainer container;</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>        RPP_NO_UNIQUE_ADDRESS TScheduler      scheduler;</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span> </div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>        <span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::observer_strategy&lt;utils::iterable_value_t&lt;PackedContainer&gt;&gt; Strategy&gt;</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>        <span class="keywordtype">void</span> subscribe(<a class="code hl_class" href="classrpp_1_1observer.html">observer</a>&lt;utils::iterable_value_t&lt;PackedContainer&gt;, Strategy&gt;&amp;&amp; obs)<span class="keyword"> const</span></div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span><span class="keyword">        </span>{</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>            <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (std::same_as&lt;TScheduler, schedulers::immediate&gt;)</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>            {</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>                <span class="keywordflow">try</span></div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>                {</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>                    <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; v : container)</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>                    {</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>                        <span class="keywordflow">if</span> (obs.is_disposed())</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>                            <span class="keywordflow">return</span>;</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span> </div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>                        obs.on_next(v);</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>                    }</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span> </div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>                    obs.on_completed();</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>                }</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>                <span class="keywordflow">catch</span> (...)</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>                {</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>                    obs.on_error(std::current_exception());</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>                }</div>
 <div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>            }</div>
-<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>        }</div>
-<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>        <span class="keywordflow">else</span></div>
-<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>        {</div>
-<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>            <span class="keyword">const</span> <span class="keyword">auto</span> worker = scheduler.create_worker();</div>
-<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>            <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (!rpp::schedulers::utils::get_worker_t&lt;TScheduler&gt;::is_none_disposable)</div>
-<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>            {</div>
-<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>                <span class="keywordflow">if</span> (<span class="keyword">auto</span> d = worker.get_disposable(); !d.is_disposed())</div>
-<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>                    obs.set_upstream(std::move(d));</div>
-<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>            }</div>
-<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>            worker.schedule(<a class="code hl_struct" href="structrpp_1_1details_1_1from__iterable__schedulable.html">from_iterable_schedulable</a>{}, std::move(obs), container, <span class="keywordtype">size_t</span>{});</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>            <span class="keywordflow">else</span></div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>            {</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>                <span class="keyword">const</span> <span class="keyword">auto</span> worker = scheduler.create_worker();</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>                <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (!rpp::schedulers::utils::get_worker_t&lt;TScheduler&gt;::is_none_disposable)</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>                {</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>                    <span class="keywordflow">if</span> (<span class="keyword">auto</span> d = worker.get_disposable(); !d.is_disposed())</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>                        obs.set_upstream(std::move(d));</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>                }</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>                worker.schedule(<a class="code hl_struct" href="structrpp_1_1details_1_1from__iterable__schedulable.html">from_iterable_schedulable</a>{}, std::move(obs), container, <span class="keywordtype">size_t</span>{});</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>            }</div>
 <div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>        }</div>
-<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>    }</div>
-<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>};</div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>    };</div>
 </div>
-<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span> </div>
-<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> PackedContainer, <a class="code hl_concept" href="conceptrpp_1_1schedulers_1_1constraint_1_1scheduler.html">schedulers::constraint::scheduler</a> TScheduler, <span class="keyword">typename</span>... Args&gt;</div>
-<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span><span class="keyword">auto</span> make_from_iterable_observable(<span class="keyword">const</span> TScheduler&amp; scheduler, Args&amp;&amp;... args)</div>
-<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>{</div>
-<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>    <span class="keywordflow">return</span> <a class="code hl_class" href="classrpp_1_1observable.html">observable&lt;utils::iterable_value_t&lt;std::decay_t&lt;PackedContainer&gt;</a>&gt;,</div>
-<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>                      <a class="code hl_struct" href="structrpp_1_1details_1_1from__iterable__strategy.html">details::from_iterable_strategy&lt;std::decay_t&lt;PackedContainer&gt;</a>, TScheduler&gt;&gt;{scheduler, std::forward&lt;Args&gt;(args)...};</div>
-<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>}</div>
-<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span> </div>
-<div class="foldopen" id="foldopen00143" data-start="{" data-end="};">
-<div class="line"><a id="l00143" name="l00143"></a><span class="lineno"><a class="line" href="structrpp_1_1details_1_1from__callable__invoke.html">  143</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structrpp_1_1details_1_1from__callable__invoke.html">from_callable_invoke</a></div>
-<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>{</div>
-<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> Callable&gt;</div>
-<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>    <span class="keyword">auto</span> operator()(Callable&amp;&amp; fn)<span class="keyword"> const</span></div>
-<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span><span class="keyword">    </span>{</div>
-<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>        <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (std::same_as&lt;utils::decayed_invoke_result_t&lt;Callable&gt;, <span class="keywordtype">void</span>&gt;)</div>
-<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>        {</div>
-<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>            fn();</div>
-<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>            <span class="keywordflow">return</span> rpp::utils::none{};</div>
-<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>        }</div>
-<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>        <span class="keywordflow">else</span></div>
-<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>        {</div>
-<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>            <span class="keywordflow">return</span> fn();</div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span> </div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> PackedContainer, <a class="code hl_concept" href="conceptrpp_1_1schedulers_1_1constraint_1_1scheduler.html">schedulers::constraint::scheduler</a> TScheduler, <span class="keyword">typename</span>... Args&gt;</div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>    <span class="keyword">auto</span> make_from_iterable_observable(<span class="keyword">const</span> TScheduler&amp; scheduler, Args&amp;&amp;... args)</div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>    {</div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>        <span class="keywordflow">return</span> <a class="code hl_class" href="classrpp_1_1observable.html">observable&lt;utils::iterable_value_t&lt;std::decay_t&lt;PackedContainer&gt;</a>&gt;,</div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>                          <a class="code hl_struct" href="structrpp_1_1details_1_1from__iterable__strategy.html">details::from_iterable_strategy&lt;std::decay_t&lt;PackedContainer&gt;</a>, TScheduler&gt;&gt;{scheduler, std::forward&lt;Args&gt;(args)...};</div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>    }</div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span> </div>
+<div class="foldopen" id="foldopen00142" data-start="{" data-end="};">
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno"><a class="line" href="structrpp_1_1details_1_1from__callable__invoke.html">  142</a></span>    <span class="keyword">struct </span><a class="code hl_struct" href="structrpp_1_1details_1_1from__callable__invoke.html">from_callable_invoke</a></div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>    {</div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>        <span class="keyword">template</span>&lt;<span class="keyword">typename</span> Callable&gt;</div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>        <span class="keyword">auto</span> operator()(Callable&amp;&amp; fn)<span class="keyword"> const</span></div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span><span class="keyword">        </span>{</div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>            <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (std::same_as&lt;utils::decayed_invoke_result_t&lt;Callable&gt;, <span class="keywordtype">void</span>&gt;)</div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>            {</div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>                fn();</div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>                <span class="keywordflow">return</span> rpp::utils::none{};</div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>            }</div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>            <span class="keywordflow">else</span></div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>            {</div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>                <span class="keywordflow">return</span> fn();</div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>            }</div>
 <div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>        }</div>
-<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>    }</div>
-<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>};</div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>    };</div>
 </div>
-<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>} <span class="comment">// namespace rpp::details</span></div>
-<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span> </div>
-<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span><span class="keyword">namespace </span>rpp::source</div>
-<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>{</div>
-<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span><span class="keyword">template</span>&lt;<a class="code hl_concept" href="conceptrpp_1_1constraint_1_1memory__model.html">constraint::memory_model</a> MemoryModel <span class="comment">/* = memory_model::use_stack*/</span>, constraint::iterable Iterable, <a class="code hl_concept" href="conceptrpp_1_1schedulers_1_1constraint_1_1scheduler.html">schedulers::constraint::scheduler</a> TScheduler <span class="comment">/* = rpp::schedulers::defaults::iteration_scheduler*/</span>&gt;</div>
-<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span><span class="keyword">auto</span> <a class="code hl_function" href="group__creational__operators.html#gad15a7e8bfb2f7ce0af1b44e22918116c">from_iterable</a>(Iterable&amp;&amp; iterable, <span class="keyword">const</span> TScheduler&amp; scheduler <span class="comment">/* = TScheduler{}*/</span>)</div>
-<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>{</div>
-<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>    <span class="keyword">using </span>container = std::conditional_t&lt;std::same_as&lt;MemoryModel, rpp::memory_model::use_stack&gt;, std::decay_t&lt;Iterable&gt;, <a class="code hl_class" href="classrpp_1_1details_1_1shared__container.html">details::shared_container&lt;std::decay_t&lt;Iterable&gt;</a>&gt;&gt;;</div>
-<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>    <span class="keywordflow">return</span> details::make_from_iterable_observable&lt;container&gt;(scheduler, std::forward&lt;Iterable&gt;(iterable));</div>
-<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>}</div>
-<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span> </div>
-<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span><span class="keyword">template</span>&lt;constraint::memory_model MemoryModel <span class="comment">/* = memory_model::use_stack */</span>, schedulers::constraint::scheduler TScheduler, <span class="keyword">typename</span> T, <span class="keyword">typename</span>... Ts&gt;</div>
-<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span>    <span class="keyword">requires</span> (constraint::decayed_same_as&lt;T, Ts&gt; &amp;&amp; ...)</div>
-<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span><span class="keyword">auto</span> <a class="code hl_function" href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">just</a>(<span class="keyword">const</span> TScheduler&amp; scheduler, T&amp;&amp; item, Ts&amp;&amp;... items)</div>
-<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span>{</div>
-<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span>    <span class="keyword">using </span>inner_container = std::array&lt;std::decay_t&lt;T&gt;, <span class="keyword">sizeof</span>...(Ts) + 1&gt;;</div>
-<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span>    <span class="keyword">using </span>container       = std::conditional_t&lt;std::same_as&lt;MemoryModel, rpp::memory_model::use_stack&gt;, inner_container, details::shared_container&lt;inner_container&gt;&gt;;</div>
-<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span>    <span class="keywordflow">return</span> details::make_from_iterable_observable&lt;container&gt;(scheduler, std::forward&lt;T&gt;(item), std::forward&lt;Ts&gt;(items)...);</div>
-<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span>}</div>
-<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span> </div>
-<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span><span class="keyword">template</span>&lt;constraint::memory_model MemoryModel <span class="comment">/* = memory_model::use_stack */</span>, <span class="keyword">typename</span> T, <span class="keyword">typename</span>... Ts&gt;</div>
-<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span>    <span class="keyword">requires</span> (constraint::decayed_same_as&lt;T, Ts&gt; &amp;&amp; ...)</div>
-<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span><span class="keyword">auto</span> <a class="code hl_function" href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">just</a>(T&amp;&amp; item, Ts&amp;&amp;... items)</div>
-<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span>{</div>
-<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span>    <span class="keyword">using </span>inner_container = std::array&lt;std::decay_t&lt;T&gt;, <span class="keyword">sizeof</span>...(Ts) + 1&gt;;</div>
-<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span>    <span class="keyword">using </span>container       = std::conditional_t&lt;std::same_as&lt;MemoryModel, rpp::memory_model::use_stack&gt;, inner_container, details::shared_container&lt;inner_container&gt;&gt;;</div>
-<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span>    <span class="keywordflow">return</span> details::make_from_iterable_observable&lt;container&gt;(<a class="code hl_class" href="classrpp_1_1schedulers_1_1current__thread.html">rpp::schedulers::defaults::iteration_scheduler</a>{}, std::forward&lt;T&gt;(item), std::forward&lt;Ts&gt;(items)...);</div>
-<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span>}</div>
-<div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span> </div>
-<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span><span class="keyword">template</span>&lt;constraint::memory_model MemoryModel <span class="comment">/* = memory_model::use_stack */</span>, std::invocable&lt;&gt; Callable&gt;</div>
-<div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span><span class="keyword">auto</span> <a class="code hl_function" href="group__creational__operators.html#ga519523490394660d7e8c46d2d5612f75">from_callable</a>(Callable&amp;&amp; callable)</div>
-<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span>{</div>
-<div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span>    <span class="keywordflow">return</span> just&lt;MemoryModel&gt;(std::forward&lt;Callable&gt;(callable)) | <a class="code hl_function" href="group__transforming__operators.html#ga1291dba2d973d4ba1061c9e0e202cb3f">rpp::operators::map</a>(details::from_callable_invoke{});</div>
-<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span>}</div>
-<div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span>}</div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>} <span class="comment">// namespace rpp::details</span></div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span> </div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span><span class="keyword">namespace </span>rpp::source</div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>{</div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>    <span class="keyword">template</span>&lt;<a class="code hl_concept" href="conceptrpp_1_1constraint_1_1memory__model.html">constraint::memory_model</a> MemoryModel <span class="comment">/* = memory_model::use_stack*/</span>, constraint::iterable Iterable, <a class="code hl_concept" href="conceptrpp_1_1schedulers_1_1constraint_1_1scheduler.html">schedulers::constraint::scheduler</a> TScheduler <span class="comment">/* = rpp::schedulers::defaults::iteration_scheduler*/</span>&gt;</div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span>    <span class="keyword">auto</span> <a class="code hl_function" href="group__creational__operators.html#gad15a7e8bfb2f7ce0af1b44e22918116c">from_iterable</a>(Iterable&amp;&amp; iterable, <span class="keyword">const</span> TScheduler&amp; scheduler <span class="comment">/* = TScheduler{}*/</span>)</div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>    {</div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>        <span class="keyword">using </span>container = std::conditional_t&lt;std::same_as&lt;MemoryModel, rpp::memory_model::use_stack&gt;, std::decay_t&lt;Iterable&gt;, <a class="code hl_class" href="classrpp_1_1details_1_1shared__container.html">details::shared_container&lt;std::decay_t&lt;Iterable&gt;</a>&gt;&gt;;</div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>        <span class="keywordflow">return</span> details::make_from_iterable_observable&lt;container&gt;(scheduler, std::forward&lt;Iterable&gt;(iterable));</div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>    }</div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span> </div>
+<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span>    <span class="keyword">template</span>&lt;constraint::memory_model MemoryModel <span class="comment">/* = memory_model::use_stack */</span>, schedulers::constraint::scheduler TScheduler, <span class="keyword">typename</span> T, <span class="keyword">typename</span>... Ts&gt;</div>
+<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span>        <span class="keyword">requires</span> (constraint::decayed_same_as&lt;T, Ts&gt; &amp;&amp; ...)</div>
+<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span>    <span class="keyword">auto</span> <a class="code hl_function" href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">just</a>(<span class="keyword">const</span> TScheduler&amp; scheduler, T&amp;&amp; item, Ts&amp;&amp;... items)</div>
+<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span>    {</div>
+<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span>        <span class="keyword">using </span>inner_container = std::array&lt;std::decay_t&lt;T&gt;, <span class="keyword">sizeof</span>...(Ts) + 1&gt;;</div>
+<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span>        <span class="keyword">using </span>container       = std::conditional_t&lt;std::same_as&lt;MemoryModel, rpp::memory_model::use_stack&gt;, inner_container, details::shared_container&lt;inner_container&gt;&gt;;</div>
+<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span>        <span class="keywordflow">return</span> details::make_from_iterable_observable&lt;container&gt;(scheduler, std::forward&lt;T&gt;(item), std::forward&lt;Ts&gt;(items)...);</div>
+<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span>    }</div>
+<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span> </div>
+<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span>    <span class="keyword">template</span>&lt;constraint::memory_model MemoryModel <span class="comment">/* = memory_model::use_stack */</span>, <span class="keyword">typename</span> T, <span class="keyword">typename</span>... Ts&gt;</div>
+<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span>        <span class="keyword">requires</span> (constraint::decayed_same_as&lt;T, Ts&gt; &amp;&amp; ...)</div>
+<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span>    <span class="keyword">auto</span> <a class="code hl_function" href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">just</a>(T&amp;&amp; item, Ts&amp;&amp;... items)</div>
+<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span>    {</div>
+<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span>        <span class="keyword">using </span>inner_container = std::array&lt;std::decay_t&lt;T&gt;, <span class="keyword">sizeof</span>...(Ts) + 1&gt;;</div>
+<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span>        <span class="keyword">using </span>container       = std::conditional_t&lt;std::same_as&lt;MemoryModel, rpp::memory_model::use_stack&gt;, inner_container, details::shared_container&lt;inner_container&gt;&gt;;</div>
+<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span>        <span class="keywordflow">return</span> details::make_from_iterable_observable&lt;container&gt;(<a class="code hl_class" href="classrpp_1_1schedulers_1_1current__thread.html">rpp::schedulers::defaults::iteration_scheduler</a>{}, std::forward&lt;T&gt;(item), std::forward&lt;Ts&gt;(items)...);</div>
+<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span>    }</div>
+<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span> </div>
+<div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span>    <span class="keyword">template</span>&lt;constraint::memory_model MemoryModel <span class="comment">/* = memory_model::use_stack */</span>, std::invocable&lt;&gt; Callable&gt;</div>
+<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span>    <span class="keyword">auto</span> <a class="code hl_function" href="group__creational__operators.html#ga519523490394660d7e8c46d2d5612f75">from_callable</a>(Callable&amp;&amp; callable)</div>
+<div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span>    {</div>
+<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span>        <span class="keywordflow">return</span> just&lt;MemoryModel&gt;(std::forward&lt;Callable&gt;(callable)) | <a class="code hl_function" href="group__transforming__operators.html#ga1291dba2d973d4ba1061c9e0e202cb3f">rpp::operators::map</a>(details::from_callable_invoke{});</div>
+<div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span>    }</div>
+<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span>} <span class="comment">// namespace rpp::source</span></div>
 <div class="ttc" id="aclassrpp_1_1details_1_1shared__container_html"><div class="ttname"><a href="classrpp_1_1details_1_1shared__container.html">rpp::details::shared_container</a></div><div class="ttdef"><b>Definition</b> from.hpp:30</div></div>
 <div class="ttc" id="aclassrpp_1_1observable_html"><div class="ttname"><a href="classrpp_1_1observable.html">rpp::observable</a></div><div class="ttdoc">Base class for any observable used in RPP. It handles core callbacks of observable.</div><div class="ttdef"><b>Definition</b> observable.hpp:36</div></div>
 <div class="ttc" id="aclassrpp_1_1observer_html"><div class="ttname"><a href="classrpp_1_1observer.html">rpp::observer</a></div><div class="ttdoc">Base class for any observer used in RPP. It handles core callbacks of observers. Objects of this clas...</div><div class="ttdef"><b>Definition</b> observer.hpp:173</div></div>
 <div class="ttc" id="aclassrpp_1_1schedulers_1_1current__thread_html"><div class="ttname"><a href="classrpp_1_1schedulers_1_1current__thread.html">rpp::schedulers::current_thread</a></div><div class="ttdoc">Schedules execution of schedulables via queueing tasks to the caller thread with priority to time_poi...</div><div class="ttdef"><b>Definition</b> current_thread.hpp:86</div></div>
 <div class="ttc" id="aconceptrpp_1_1constraint_1_1memory__model_html"><div class="ttname"><a href="conceptrpp_1_1constraint_1_1memory__model.html">rpp::constraint::memory_model</a></div><div class="ttdef"><b>Definition</b> memory_model.hpp:31</div></div>
-<div class="ttc" id="aconceptrpp_1_1schedulers_1_1constraint_1_1scheduler_html"><div class="ttname"><a href="conceptrpp_1_1schedulers_1_1constraint_1_1scheduler.html">rpp::schedulers::constraint::scheduler</a></div><div class="ttdef"><b>Definition</b> fwd.hpp:164</div></div>
-<div class="ttc" id="agroup__creational__operators_html_ga1edf47f176050dd414e28a1c0616b7c0"><div class="ttname"><a href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">rpp::source::just</a></div><div class="ttdeci">auto just(const TScheduler &amp;scheduler, T &amp;&amp;item, Ts &amp;&amp;... items)</div><div class="ttdoc">Creates rpp::observable that emits a particular items and completes.</div><div class="ttdef"><b>Definition</b> from.hpp:207</div></div>
-<div class="ttc" id="agroup__creational__operators_html_ga519523490394660d7e8c46d2d5612f75"><div class="ttname"><a href="group__creational__operators.html#ga519523490394660d7e8c46d2d5612f75">rpp::source::from_callable</a></div><div class="ttdeci">auto from_callable(Callable &amp;&amp;callable)</div><div class="ttdoc">Creates rpp::specific_observable that calls provided callable and emits resulting value of this calla...</div><div class="ttdef"><b>Definition</b> from.hpp:255</div></div>
-<div class="ttc" id="agroup__creational__operators_html_gad15a7e8bfb2f7ce0af1b44e22918116c"><div class="ttname"><a href="group__creational__operators.html#gad15a7e8bfb2f7ce0af1b44e22918116c">rpp::source::from_iterable</a></div><div class="ttdeci">auto from_iterable(Iterable &amp;&amp;iterable, const TScheduler &amp;scheduler)</div><div class="ttdoc">Creates observable that emits a items from provided iterable.</div><div class="ttdef"><b>Definition</b> from.hpp:181</div></div>
+<div class="ttc" id="aconceptrpp_1_1schedulers_1_1constraint_1_1scheduler_html"><div class="ttname"><a href="conceptrpp_1_1schedulers_1_1constraint_1_1scheduler.html">rpp::schedulers::constraint::scheduler</a></div><div class="ttdef"><b>Definition</b> fwd.hpp:179</div></div>
+<div class="ttc" id="agroup__creational__operators_html_ga1edf47f176050dd414e28a1c0616b7c0"><div class="ttname"><a href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">rpp::source::just</a></div><div class="ttdeci">auto just(const TScheduler &amp;scheduler, T &amp;&amp;item, Ts &amp;&amp;... items)</div><div class="ttdoc">Creates rpp::observable that emits a particular items and completes.</div><div class="ttdef"><b>Definition</b> from.hpp:206</div></div>
+<div class="ttc" id="agroup__creational__operators_html_ga519523490394660d7e8c46d2d5612f75"><div class="ttname"><a href="group__creational__operators.html#ga519523490394660d7e8c46d2d5612f75">rpp::source::from_callable</a></div><div class="ttdeci">auto from_callable(Callable &amp;&amp;callable)</div><div class="ttdoc">Creates rpp::specific_observable that calls provided callable and emits resulting value of this calla...</div><div class="ttdef"><b>Definition</b> from.hpp:254</div></div>
+<div class="ttc" id="agroup__creational__operators_html_gad15a7e8bfb2f7ce0af1b44e22918116c"><div class="ttname"><a href="group__creational__operators.html#gad15a7e8bfb2f7ce0af1b44e22918116c">rpp::source::from_iterable</a></div><div class="ttdeci">auto from_iterable(Iterable &amp;&amp;iterable, const TScheduler &amp;scheduler)</div><div class="ttdoc">Creates observable that emits a items from provided iterable.</div><div class="ttdef"><b>Definition</b> from.hpp:180</div></div>
 <div class="ttc" id="agroup__transforming__operators_html_ga1291dba2d973d4ba1061c9e0e202cb3f"><div class="ttname"><a href="group__transforming__operators.html#ga1291dba2d973d4ba1061c9e0e202cb3f">rpp::operators::map</a></div><div class="ttdeci">auto map(Fn &amp;&amp;callable)</div><div class="ttdoc">Transforms the items emitted by an Observable via applying a function to each item and emitting resul...</div><div class="ttdef"><b>Definition</b> map.hpp:92</div></div>
-<div class="ttc" id="astructrpp_1_1details_1_1from__callable__invoke_html"><div class="ttname"><a href="structrpp_1_1details_1_1from__callable__invoke.html">rpp::details::from_callable_invoke</a></div><div class="ttdef"><b>Definition</b> from.hpp:144</div></div>
+<div class="ttc" id="astructrpp_1_1details_1_1from__callable__invoke_html"><div class="ttname"><a href="structrpp_1_1details_1_1from__callable__invoke.html">rpp::details::from_callable_invoke</a></div><div class="ttdef"><b>Definition</b> from.hpp:143</div></div>
 <div class="ttc" id="astructrpp_1_1details_1_1from__iterable__schedulable_html"><div class="ttname"><a href="structrpp_1_1details_1_1from__iterable__schedulable.html">rpp::details::from_iterable_schedulable</a></div><div class="ttdef"><b>Definition</b> from.hpp:52</div></div>
 <div class="ttc" id="astructrpp_1_1details_1_1from__iterable__strategy_html"><div class="ttname"><a href="structrpp_1_1details_1_1from__iterable__strategy.html">rpp::details::from_iterable_strategy</a></div><div class="ttdef"><b>Definition</b> from.hpp:84</div></div>
-<div class="ttc" id="astructrpp_1_1details_1_1observables_1_1fixed__disposable__strategy__selector_html"><div class="ttname"><a href="structrpp_1_1details_1_1observables_1_1fixed__disposable__strategy__selector.html">rpp::details::observables::fixed_disposable_strategy_selector</a></div><div class="ttdef"><b>Definition</b> disposable_strategy.hpp:50</div></div>
+<div class="ttc" id="astructrpp_1_1details_1_1observables_1_1fixed__disposable__strategy__selector_html"><div class="ttname"><a href="structrpp_1_1details_1_1observables_1_1fixed__disposable__strategy__selector.html">rpp::details::observables::fixed_disposable_strategy_selector</a></div><div class="ttdef"><b>Definition</b> disposable_strategy.hpp:51</div></div>
 <div class="ttc" id="astructrpp_1_1schedulers_1_1delay__from__now_html"><div class="ttname"><a href="structrpp_1_1schedulers_1_1delay__from__now.html">rpp::schedulers::delay_from_now</a></div><div class="ttdoc">Timepoint of next execution would be calculcated from NOW timpoint (time of returning from schedulabl...</div><div class="ttdef"><b>Definition</b> fwd.hpp:36</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->

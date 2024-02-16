@@ -4,11 +4,14 @@
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename}\ Strategy,\ \textcolor{keyword}{typename}\ T>}
-\DoxyCodeLine{\textcolor{keyword}{concept\ }\mbox{\hyperlink{conceptrpp_1_1subjects_1_1details_1_1constraint_1_1subject__strategy}{rpp::subjects::details::constraint::subject\_strategy}}\ =\ \ \textcolor{keyword}{requires}(Strategy\ t,\ \mbox{\hyperlink{classrpp_1_1observer}{rpp::details::observers::fake\_observer<T>}}\&\&\ obs)}
-\DoxyCodeLine{\{}
-\DoxyCodeLine{\ \ \ \ \{t.get\_observer()\}\ -\/>\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer}{rpp::constraint::observer}};}
-\DoxyCodeLine{\ \ \ \ t.on\_subscribe(std::move(obs));}
-\DoxyCodeLine{\ \ \ \ \{t.get\_disposable()\ \}\ -\/>\ rpp::constraint::decayed\_any\_of<rpp::disposable\_wrapper,\ rpp::composite\_disposable\_wrapper>;}
-\DoxyCodeLine{\}}
+\DoxyCodeLine{\textcolor{keyword}{concept\ }\mbox{\hyperlink{conceptrpp_1_1subjects_1_1details_1_1constraint_1_1subject__strategy}{rpp::subjects::details::constraint::subject\_strategy}}\ =\ \ \textcolor{keyword}{requires}(Strategy\ t,\ \mbox{\hyperlink{classrpp_1_1observer}{rpp::details::observers::fake\_observer<T>}}\&\&\ obs)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ t.get\_observer()}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \}\ -\/>\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer}{rpp::constraint::observer}};}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ t.on\_subscribe(std::move(obs));}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ t.get\_disposable()}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \}\ -\/>\ rpp::constraint::decayed\_any\_of<rpp::disposable\_wrapper,\ rpp::composite\_disposable\_wrapper>;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \}}
 
 \end{DoxyCode}

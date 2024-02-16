@@ -14,48 +14,48 @@
 \DoxyCodeLine{00010\ }
 \DoxyCodeLine{00011\ \textcolor{preprocessor}{\#pragma\ once}}
 \DoxyCodeLine{00012\ }
-\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <rppqt/schedulers/fwd.hpp>}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ own\ forwarding}}
-\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <rpp/schedulers/details/worker.hpp>}\ \ \ \ \ \ \ \ \textcolor{comment}{//\ worker}}
-\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <rppqt/utils/exceptions.hpp>}}
-\DoxyCodeLine{00016\ }
-\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ <chrono>}}
-\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ <concepts>}}
-\DoxyCodeLine{00019\ }
-\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#include\ <QCoreApplication>}}
-\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#include\ <QTimer>}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <rpp/schedulers/details/worker.hpp>}\ \textcolor{comment}{//\ worker}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <rppqt/schedulers/fwd.hpp>}\ \textcolor{comment}{//\ own\ forwarding}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ <rppqt/utils/exceptions.hpp>}}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ <QCoreApplication>}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#include\ <QTimer>}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#include\ <chrono>}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#include\ <concepts>}}
 \DoxyCodeLine{00022\ }
 \DoxyCodeLine{00023\ \textcolor{keyword}{namespace\ }rppqt::schedulers}
 \DoxyCodeLine{00024\ \{}
-\DoxyCodeLine{00029\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrppqt_1_1schedulers_1_1main__thread__scheduler}{main\_thread\_scheduler}}\ final}
-\DoxyCodeLine{00030\ \{}
-\DoxyCodeLine{00031\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keyword}{class\ }worker\_strategy}
-\DoxyCodeLine{00033\ \ \ \ \ \{}
-\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}<\mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1schedulable__handler}{rpp::schedulers::constraint::schedulable\_handler}}\ Handler,\ \textcolor{keyword}{typename}...\ Args,\ \mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1schedulable__fn}{rpp::schedulers::constraint::schedulable\_fn}}<Handler,\ Args...>\ Fn>}
-\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ defer\_for(rpp::schedulers::duration\ duration,\ Fn\&\&\ fn,\ Handler\&\&\ handler,\ Args\&\&...\ args)}
-\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ application\ =\ QCoreApplication::instance();}
-\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!application)}
-\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ \mbox{\hyperlink{structrppqt_1_1utils_1_1no__active__qapplication}{utils::no\_active\_qapplication}}\{\textcolor{stringliteral}{"{}Pointer\ to\ application\ is\ null.\ Create\ QApplication\ before\ using\ main\_thread\_scheduler!"{}}\};}
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrppqt_1_1schedulers_1_1main__thread__scheduler}{main\_thread\_scheduler}}\ final}
+\DoxyCodeLine{00030\ \ \ \ \ \{}
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \textcolor{keyword}{class\ }worker\_strategy}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}<\mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1schedulable__handler}{rpp::schedulers::constraint::schedulable\_handler}}\ Handler,\ \textcolor{keyword}{typename}...\ Args,\ \mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1schedulable__fn}{rpp::schedulers::constraint::schedulable\_fn}}<Handler,\ Args...>\ Fn>}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ defer\_for(rpp::schedulers::duration\ duration,\ Fn\&\&\ fn,\ Handler\&\&\ handler,\ Args\&\&...\ args)}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ application\ =\ QCoreApplication::instance();}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!application)}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ \mbox{\hyperlink{structrppqt_1_1utils_1_1no__active__qapplication}{utils::no\_active\_qapplication}}\{\textcolor{stringliteral}{"{}Pointer\ to\ application\ is\ null.\ Create\ QApplication\ before\ using\ main\_thread\_scheduler!"{}}\};}
 \DoxyCodeLine{00041\ }
-\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \ \ \ \ QTimer::singleShot(std::chrono::duration\_cast<std::chrono::milliseconds>(duration),\ application,\ [fn\ =\ std::forward<Fn>(fn),\ handler\ =\ std::forward<Handler>(handler),\ ...\ args\ =\ std::forward<Args>(args)]()\ \textcolor{keyword}{mutable}\ \{}
-\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ new\_duration\ =\ fn(handler,\ args...))}
-\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ defer\_for(new\_duration-\/>value,\ std::move(fn),\ std::move(handler),\ std::move(args)...);}
-\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \ \ \ \ \});}
-\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ QTimer::singleShot(std::chrono::duration\_cast<std::chrono::milliseconds>(duration),\ application,\ [fn\ =\ std::forward<Fn>(fn),\ handler\ =\ std::forward<Handler>(handler),\ ...\ args\ =\ std::forward<Args>(args)]()\ \textcolor{keyword}{mutable}\ \{}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ new\_duration\ =\ fn(handler,\ args...))}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ defer\_for(new\_duration-\/>value,\ std::move(fn),\ std::move(handler),\ std::move(args)...);}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{00047\ }
-\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \mbox{\hyperlink{structrpp_1_1schedulers_1_1details_1_1none__disposable}{rpp::schedulers::details::none\_disposable}}\ get\_disposable()\ \{\ \textcolor{keywordflow}{return}\ \{\};\ \}}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \mbox{\hyperlink{structrpp_1_1schedulers_1_1details_1_1none__disposable}{rpp::schedulers::details::none\_disposable}}\ get\_disposable()\ \{\ \textcolor{keywordflow}{return}\ \{\};\ \}}
 \DoxyCodeLine{00049\ }
-\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ rpp::schedulers::time\_point\ now()\ \{\ \textcolor{keywordflow}{return}\ rpp::schedulers::clock\_type::now();\ \}}
-\DoxyCodeLine{00051\ \ \ \ \ \};}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ rpp::schedulers::time\_point\ now()\ \{\ \textcolor{keywordflow}{return}\ rpp::schedulers::clock\_type::now();\ \}}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \};}
 \DoxyCodeLine{00052\ }
-\DoxyCodeLine{00053\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{auto}\ create\_worker()}
-\DoxyCodeLine{00055\ \ \ \ \ \{}
-\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classrpp_1_1schedulers_1_1worker}{rpp::schedulers::worker<worker\_strategy>}}\{\};}
-\DoxyCodeLine{00057\ \ \ \ \ \}}
-\DoxyCodeLine{00058\ \};}
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{auto}\ create\_worker()}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classrpp_1_1schedulers_1_1worker}{rpp::schedulers::worker<worker\_strategy>}}\{\};}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00058\ \ \ \ \ \};}
 \DoxyCodeLine{00059\ \}\ \textcolor{comment}{//\ namespace\ rppqt::schedulers}}
 
 \end{DoxyCode}

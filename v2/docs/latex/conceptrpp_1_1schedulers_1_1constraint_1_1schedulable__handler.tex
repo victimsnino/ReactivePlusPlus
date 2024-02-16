@@ -4,10 +4,11 @@
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename}\ Handler>}
-\DoxyCodeLine{\textcolor{keyword}{concept\ }\mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1schedulable__handler}{rpp::schedulers::constraint::schedulable\_handler}}\ =\ \ \textcolor{keyword}{requires}(\textcolor{keyword}{const}\ Handler\&\ handler)}
-\DoxyCodeLine{\{}
-\DoxyCodeLine{\ \ \ \ \{handler.is\_disposed()\}\ -\/>\ std::same\_as<bool>;}
-\DoxyCodeLine{\ \ \ \ handler.on\_error(std::exception\_ptr\{\});}
-\DoxyCodeLine{\}}
+\DoxyCodeLine{\textcolor{keyword}{concept\ }\mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1schedulable__handler}{rpp::schedulers::constraint::schedulable\_handler}}\ =\ \ \textcolor{keyword}{requires}(\textcolor{keyword}{const}\ Handler\&\ handler)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ handler.is\_disposed()}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \}\ -\/>\ std::same\_as<bool>;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ handler.on\_error(std::exception\_ptr\{\});}
+\DoxyCodeLine{\ \ \ \ \}}
 
 \end{DoxyCode}

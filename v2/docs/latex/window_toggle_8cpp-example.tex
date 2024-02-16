@@ -9,33 +9,32 @@
 \DoxyCodeLine{\{}
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ \ \ \textcolor{keywordtype}{size\_t}\ counter\{\};}
-\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{auto}\ source\ =\ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(\mbox{\hyperlink{classrpp_1_1schedulers_1_1current__thread}{rpp::schedulers::current\_thread}}\{\},\ 1,\ 2,\ 3,\ 4,\ 5)\ |\ \mbox{\hyperlink{group__connectable__operators_ga42498cc0bc565116e9deece3c3afa66f}{rpp::operators::publish}}()\ |\ \mbox{\hyperlink{group__connectable__operators_ga7c5ba7b673ad2f41b767f4cea0b5af3e}{rpp::operators::ref\_count}}();}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{auto}\ \ \ source\ =\ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(\mbox{\hyperlink{classrpp_1_1schedulers_1_1current__thread}{rpp::schedulers::current\_thread}}\{\},\ 1,\ 2,\ 3,\ 4,\ 5)\ |\ \mbox{\hyperlink{group__connectable__operators_ga42498cc0bc565116e9deece3c3afa66f}{rpp::operators::publish}}()\ |\ \mbox{\hyperlink{group__connectable__operators_ga7c5ba7b673ad2f41b767f4cea0b5af3e}{rpp::operators::ref\_count}}();}
 \DoxyCodeLine{\ \ \ \ source}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__transforming__operators_gad53dfa28fff9b19c3f6aca51970737de}{rpp::operators::window\_toggle}}(source,\ [source](\textcolor{keywordtype}{int})\{\ \textcolor{keywordflow}{return}\ source\ |\ rpp::ops::filter([](\textcolor{keywordtype}{int}\ v)\ \{\ \textcolor{keywordflow}{return}\ v\ \%\ 2\ ==\ 0;\ \});\ \})}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{rpp::operators::subscribe}}([\&counter](\textcolor{keyword}{const}\ rpp::window\_toggle\_observable<int>\&\ obs)}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \{\ }
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}New\ observable\ "{}}\ <<\ ++counter\ <<\ std::endl;\ }
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ obs.subscribe([counter](\textcolor{keywordtype}{int}\ v)\ \{std::cout\ <<\ counter\ <<\ \textcolor{stringliteral}{"{}:\ "{}}\ <<\ v\ <<\ \textcolor{stringliteral}{"{}\ "{}}\ <<\ std::endl;\ \},\ [counter]()\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}closing\ "{}}\ <<\ counter\ <<\ std::endl;\ \});\ }
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \});}
-\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:\ }}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__transforming__operators_gad53dfa28fff9b19c3f6aca51970737de}{rpp::operators::window\_toggle}}(source,\ [source](\textcolor{keywordtype}{int})\ \{\ \textcolor{keywordflow}{return}\ source\ |\ rpp::ops::filter([](\textcolor{keywordtype}{int}\ v)\ \{\ \textcolor{keywordflow}{return}\ v\ \%\ 2\ ==\ 0;\ \});\ \})}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{rpp::operators::subscribe}}([\&counter](\textcolor{keyword}{const}\ rpp::window\_toggle\_observable<int>\&\ obs)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}New\ observable\ "{}}\ <<\ ++counter\ <<\ std::endl;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ obs.subscribe([counter](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ counter\ <<\ \textcolor{stringliteral}{"{}:\ "{}}\ <<\ v\ <<\ \textcolor{stringliteral}{"{}\ "{}}\ <<\ std::endl;\ \},\ [counter]()\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}closing\ "{}}\ <<\ counter\ <<\ std::endl;\ \});}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:}}
 \DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ New\ observable\ 1}}
-\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ 1:\ 1\ }}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ 1:\ 1}}
 \DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ New\ observable\ 2}}
-\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ 1:\ 2\ }}
-\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ 2:\ 2\ }}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ 1:\ 2}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ 2:\ 2}}
 \DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ closing\ 1}}
 \DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ New\ observable\ 3}}
-\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ 2:\ 3\ }}
-\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ 3:\ 3\ }}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ 2:\ 3}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ 3:\ 3}}
 \DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ New\ observable\ 4}}
-\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ 2:\ 4\ }}
-\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ 3:\ 4\ }}
-\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ 4:\ 4\ }}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ 2:\ 4}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ 3:\ 4}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ 4:\ 4}}
 \DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ closing\ 2}}
 \DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ closing\ 3}}
 \DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ New\ observable\ 5}}
-\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ 4:\ 5\ }}
-\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ 5:\ 5\ }}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ 4:\ 5}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ 5:\ 5}}
 \DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ closing\ 4}}
 \DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ closing\ 5}}
 \DoxyCodeLine{}

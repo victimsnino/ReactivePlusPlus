@@ -103,12 +103,13 @@ $(function(){initNavTree('conceptrpp_1_1schedulers_1_1constraint_1_1schedulable_
 <div class="contents">
 <h2 class="groupheader">Concept definition</h2>
 <div class="fragment"><div class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> Handler&gt;</div>
-<div class="line"><span class="keyword">concept </span><a class="code hl_concept" href="conceptrpp_1_1schedulers_1_1constraint_1_1schedulable__handler.html">rpp::schedulers::constraint::schedulable_handler</a> =  <span class="keyword">requires</span>(<span class="keyword">const</span> Handler&amp; handler)</div>
-<div class="line">{</div>
-<div class="line">    {handler.is_disposed()} -&gt; std::same_as&lt;bool&gt;;</div>
-<div class="line">    handler.on_error(std::exception_ptr{});</div>
-<div class="line">}</div>
-<div class="ttc" id="aconceptrpp_1_1schedulers_1_1constraint_1_1schedulable__handler_html"><div class="ttname"><a href="conceptrpp_1_1schedulers_1_1constraint_1_1schedulable__handler.html">rpp::schedulers::constraint::schedulable_handler</a></div><div class="ttdef"><b>Definition</b> fwd.hpp:112</div></div>
+<div class="line"><span class="keyword">concept </span><a class="code hl_concept" href="conceptrpp_1_1schedulers_1_1constraint_1_1schedulable__handler.html">rpp::schedulers::constraint::schedulable_handler</a> =  <span class="keyword">requires</span>(<span class="keyword">const</span> Handler&amp; handler) {</div>
+<div class="line">        {</div>
+<div class="line">            handler.is_disposed()</div>
+<div class="line">        } -&gt; std::same_as&lt;bool&gt;;</div>
+<div class="line">        handler.on_error(std::exception_ptr{});</div>
+<div class="line">    }</div>
+<div class="ttc" id="aconceptrpp_1_1schedulers_1_1constraint_1_1schedulable__handler_html"><div class="ttname"><a href="conceptrpp_1_1schedulers_1_1constraint_1_1schedulable__handler.html">rpp::schedulers::constraint::schedulable_handler</a></div><div class="ttdef"><b>Definition</b> fwd.hpp:117</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

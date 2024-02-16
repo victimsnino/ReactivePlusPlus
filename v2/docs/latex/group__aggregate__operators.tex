@@ -9,7 +9,7 @@ Aggregate operators are operators that operate on the entire sequence of items e
 \begin{DoxyCompactItemize}
 \item 
 {\footnotesize template$<$typename Seed , typename Accumulator $>$ \newline
-requires (!utils\+::is\+\_\+not\+\_\+template\+\_\+callable$<$Accumulator$>$ \texorpdfstring{$\vert$}{|}\texorpdfstring{$\vert$}{|} std\+::same\+\_\+as$<$std\+::decay\+\_\+t$<$Seed$>$, std\+::invoke\+\_\+result\+\_\+t$<$Accumulator, std\+::decay\+\_\+t$<$Seed$>$\&\&, rpp\+::utils\+::convertible\+\_\+to\+\_\+any$>$$>$)}\\auto \mbox{\hyperlink{group__aggregate__operators_ga3cc33d76bf794bda80244882bb3fec3d}{rpp\+::operators\+::reduce}} (Seed \&\&seed, Accumulator \&\&accumulator)
+requires (!utils\+::is\+\_\+not\+\_\+template\+\_\+callable$<$Accumulator$>$ \texorpdfstring{$\vert$}{|}\texorpdfstring{$\vert$}{|} std\+::same\+\_\+as$<$std\+::decay\+\_\+t$<$Seed$>$, std\+::invoke\+\_\+result\+\_\+t$<$Accumulator, std\+::decay\+\_\+t$<$Seed$>$ \&\&, rpp\+::utils\+::convertible\+\_\+to\+\_\+any$>$$>$)}\\auto \mbox{\hyperlink{group__aggregate__operators_ga519e29a9fe659e01e34485afba09dad5}{rpp\+::operators\+::reduce}} (Seed \&\&seed, Accumulator \&\&accumulator)
 \begin{DoxyCompactList}\small\item\em Apply a function to each item emitted by an Observable, sequentially, and emit the final value. \end{DoxyCompactList}\item 
 {\footnotesize template$<$typename Accumulator $>$ }\\auto \mbox{\hyperlink{group__aggregate__operators_gab78e390657e26675457156b21112d344}{rpp\+::operators\+::reduce}} (Accumulator \&\&accumulator)
 \begin{DoxyCompactList}\small\item\em Apply a function to each item emitted by an Observable, sequentially, and emit the final value. \end{DoxyCompactList}\end{DoxyCompactItemize}
@@ -53,7 +53,7 @@ There is no initial value for seed, so, first value would be used as seed value 
 
 \begin{DoxyCodeInclude}{0}
 \DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(1,\ 2,\ 3)}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__aggregate__operators_ga3cc33d76bf794bda80244882bb3fec3d}{rpp::operators::reduce}}(std::plus<int>\{\})}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__aggregate__operators_ga519e29a9fe659e01e34485afba09dad5}{rpp::operators::reduce}}(std::plus<int>\{\})}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{rpp::operators::subscribe}}([](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ v\ <<\ std::endl;\ \});}
 \DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:\ 6}}
 
@@ -63,12 +63,12 @@ There is no initial value for seed, so, first value would be used as seed value 
 \begin{DoxySeeAlso}{See also}
 \href{https://reactivex.io/documentation/operators/reduce.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/reduce.\+html}} 
 \end{DoxySeeAlso}
-\Hypertarget{group__aggregate__operators_ga3cc33d76bf794bda80244882bb3fec3d}\label{group__aggregate__operators_ga3cc33d76bf794bda80244882bb3fec3d} 
+\Hypertarget{group__aggregate__operators_ga519e29a9fe659e01e34485afba09dad5}\label{group__aggregate__operators_ga519e29a9fe659e01e34485afba09dad5} 
 \index{Aggregate Operators@{Aggregate Operators}!reduce@{reduce}}
 \index{reduce@{reduce}!Aggregate Operators@{Aggregate Operators}}
 \doxysubsubsubsubsection{\texorpdfstring{reduce()}{reduce()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
 {\footnotesize\ttfamily template$<$typename Seed , typename Accumulator $>$ \newline
-requires (!utils\+::is\+\_\+not\+\_\+template\+\_\+callable$<$Accumulator$>$ \texorpdfstring{$\vert$}{|}\texorpdfstring{$\vert$}{|} std\+::same\+\_\+as$<$std\+::decay\+\_\+t$<$Seed$>$, std\+::invoke\+\_\+result\+\_\+t$<$Accumulator, std\+::decay\+\_\+t$<$Seed$>$\&\&, rpp\+::utils\+::convertible\+\_\+to\+\_\+any$>$$>$)\\
+requires (!utils\+::is\+\_\+not\+\_\+template\+\_\+callable$<$Accumulator$>$ \texorpdfstring{$\vert$}{|}\texorpdfstring{$\vert$}{|} std\+::same\+\_\+as$<$std\+::decay\+\_\+t$<$Seed$>$, std\+::invoke\+\_\+result\+\_\+t$<$Accumulator, std\+::decay\+\_\+t$<$Seed$>$ \&\&, rpp\+::utils\+::convertible\+\_\+to\+\_\+any$>$$>$)\\
 auto rpp\+::operators\+::reduce (\begin{DoxyParamCaption}\item[{Seed \&\&}]{seed,  }\item[{Accumulator \&\&}]{accumulator }\end{DoxyParamCaption})}
 
 
@@ -91,7 +91,7 @@ Apply a function to each item emitted by an Observable, sequentially, and emit t
 
 \begin{DoxyCodeInclude}{0}
 \DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(1,\ 2,\ 3)}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__aggregate__operators_ga3cc33d76bf794bda80244882bb3fec3d}{rpp::operators::reduce}}(std::string\{\},\ [](std::string\&\&\ seed,\ \textcolor{keywordtype}{int}\ v)\ \{\textcolor{keywordflow}{return}\ std::move(seed)\ +\ std::to\_string(v)\ +\ \textcolor{stringliteral}{"{},"{}};\ \})}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__aggregate__operators_ga519e29a9fe659e01e34485afba09dad5}{rpp::operators::reduce}}(std::string\{\},\ [](std::string\&\&\ seed,\ \textcolor{keywordtype}{int}\ v)\ \{\ \textcolor{keywordflow}{return}\ std::move(seed)\ +\ std::to\_string(v)\ +\ \textcolor{stringliteral}{"{},"{}};\ \})}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{rpp::operators::subscribe}}([](\textcolor{keyword}{const}\ std::string\&\ v)\ \{\ std::cout\ <<\ v\ <<\ std::endl;\ \});}
 \DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:\ 1,2,3,}}
 

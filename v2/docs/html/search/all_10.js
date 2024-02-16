@@ -1,7 +1,7 @@
 var searchData=
 [
   ['reactive_20programming_0',['Reactive Programming',['../md_docs_2readme.html#autotoc_md3',1,'Core concepts of Reactive Programming'],['../md_docs_2readme.html#autotoc_md2',1,'What is Reactive Programming?']]],
-  ['reduce_1',['reduce',['../group__aggregate__operators.html#ga3cc33d76bf794bda80244882bb3fec3d',1,'rpp::operators::reduce(Seed &amp;&amp;seed, Accumulator &amp;&amp;accumulator)'],['../group__aggregate__operators.html#gab78e390657e26675457156b21112d344',1,'rpp::operators::reduce(Accumulator &amp;&amp;accumulator)']]],
+  ['reduce_1',['reduce',['../group__aggregate__operators.html#ga519e29a9fe659e01e34485afba09dad5',1,'rpp::operators::reduce(Seed &amp;&amp;seed, Accumulator &amp;&amp;accumulator)'],['../group__aggregate__operators.html#gab78e390657e26675457156b21112d344',1,'rpp::operators::reduce(Accumulator &amp;&amp;accumulator)']]],
   ['reduce_5fno_5fseed_5fobserver_5fstrategy_2',['reduce_no_seed_observer_strategy',['../structrpp_1_1operators_1_1details_1_1reduce__no__seed__observer__strategy.html',1,'rpp::operators::details']]],
   ['reduce_5fno_5fseed_5ft_3',['reduce_no_seed_t',['../structrpp_1_1operators_1_1details_1_1reduce__no__seed__t.html',1,'rpp::operators::details']]],
   ['reduce_5fobserver_5fstrategy_4',['reduce_observer_strategy',['../structrpp_1_1operators_1_1details_1_1reduce__observer__strategy.html',1,'rpp::operators::details']]],

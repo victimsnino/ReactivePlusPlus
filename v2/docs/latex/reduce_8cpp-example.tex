@@ -9,12 +9,12 @@
 \DoxyCodeLine{\textcolor{keywordtype}{int}\ main()}
 \DoxyCodeLine{\{}
 \DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(1,\ 2,\ 3)}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__aggregate__operators_ga3cc33d76bf794bda80244882bb3fec3d}{rpp::operators::reduce}}(std::string\{\},\ [](std::string\&\&\ seed,\ \textcolor{keywordtype}{int}\ v)\ \{\textcolor{keywordflow}{return}\ std::move(seed)\ +\ std::to\_string(v)\ +\ \textcolor{stringliteral}{"{},"{}};\ \})}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__aggregate__operators_ga519e29a9fe659e01e34485afba09dad5}{rpp::operators::reduce}}(std::string\{\},\ [](std::string\&\&\ seed,\ \textcolor{keywordtype}{int}\ v)\ \{\ \textcolor{keywordflow}{return}\ std::move(seed)\ +\ std::to\_string(v)\ +\ \textcolor{stringliteral}{"{},"{}};\ \})}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{rpp::operators::subscribe}}([](\textcolor{keyword}{const}\ std::string\&\ v)\ \{\ std::cout\ <<\ v\ <<\ std::endl;\ \});}
 \DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:\ 1,2,3,}}
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(1,\ 2,\ 3)}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__aggregate__operators_ga3cc33d76bf794bda80244882bb3fec3d}{rpp::operators::reduce}}(std::plus<int>\{\})}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__aggregate__operators_ga519e29a9fe659e01e34485afba09dad5}{rpp::operators::reduce}}(std::plus<int>\{\})}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{rpp::operators::subscribe}}([](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ v\ <<\ std::endl;\ \});}
 \DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:\ 6}}
 \DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{return}\ 0;}

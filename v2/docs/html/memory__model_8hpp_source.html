@@ -117,26 +117,26 @@ $(function(){initNavTree('memory__model_8hpp_source.html',''); initResizable(); 
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="keyword">namespace </span>rpp::memory_model</div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>{</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="comment">// copy and move everywhere when needed</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    <span class="comment">// copy and move everywhere when needed</span></div>
 <div class="foldopen" id="foldopen00018" data-start="{" data-end="};">
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="structrpp_1_1memory__model_1_1use__stack.html">   18</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structrpp_1_1memory__model_1_1use__stack.html">use_stack</a></div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>{</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>};</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="structrpp_1_1memory__model_1_1use__stack.html">   18</a></span>    <span class="keyword">struct </span><a class="code hl_struct" href="structrpp_1_1memory__model_1_1use__stack.html">use_stack</a></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    {</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    };</div>
 </div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="comment">// make shared_ptr once and avoid any future copies/moves</span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    <span class="comment">// make shared_ptr once and avoid any future copies/moves</span></div>
 <div class="foldopen" id="foldopen00023" data-start="{" data-end="};">
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="structrpp_1_1memory__model_1_1use__shared.html">   23</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structrpp_1_1memory__model_1_1use__shared.html">use_shared</a></div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>{</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>};</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="structrpp_1_1memory__model_1_1use__shared.html">   23</a></span>    <span class="keyword">struct </span><a class="code hl_struct" href="structrpp_1_1memory__model_1_1use__shared.html">use_shared</a></div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    {</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    };</div>
 </div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>} <span class="comment">// namespace rpp::memory_model</span></div>
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
 <div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="keyword">namespace </span>rpp::constraint</div>
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>{</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="conceptrpp_1_1constraint_1_1memory__model.html">   31</a></span><span class="keyword">concept </span><a class="code hl_concept" href="conceptrpp_1_1constraint_1_1memory__model.html">memory_model</a> = std::same_as&lt;rpp::memory_model::use_shared, T&gt; || std::same_as&lt;rpp::memory_model::use_stack, T&gt;;</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>}</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="conceptrpp_1_1constraint_1_1memory__model.html">   31</a></span>    <span class="keyword">concept </span><a class="code hl_concept" href="conceptrpp_1_1constraint_1_1memory__model.html">memory_model</a> = std::same_as&lt;rpp::memory_model::use_shared, T&gt; || std::same_as&lt;rpp::memory_model::use_stack, T&gt;;</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>} <span class="comment">// namespace rpp::constraint</span></div>
 <div class="ttc" id="aconceptrpp_1_1constraint_1_1memory__model_html"><div class="ttname"><a href="conceptrpp_1_1constraint_1_1memory__model.html">rpp::constraint::memory_model</a></div><div class="ttdef"><b>Definition</b> memory_model.hpp:31</div></div>
 <div class="ttc" id="astructrpp_1_1memory__model_1_1use__shared_html"><div class="ttname"><a href="structrpp_1_1memory__model_1_1use__shared.html">rpp::memory_model::use_shared</a></div><div class="ttdef"><b>Definition</b> memory_model.hpp:24</div></div>
 <div class="ttc" id="astructrpp_1_1memory__model_1_1use__stack_html"><div class="ttname"><a href="structrpp_1_1memory__model_1_1use__stack.html">rpp::memory_model::use_stack</a></div><div class="ttdef"><b>Definition</b> memory_model.hpp:19</div></div>

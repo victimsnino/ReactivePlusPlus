@@ -109,11 +109,11 @@ $(function(){initNavTree('group__aggregate__operators.html',''); initResizable()
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ga3cc33d76bf794bda80244882bb3fec3d" id="r_ga3cc33d76bf794bda80244882bb3fec3d"><td class="memTemplParams" colspan="2">template&lt;typename Seed , typename Accumulator &gt; <br />
-requires (!utils::is_not_template_callable&lt;Accumulator&gt; || std::same_as&lt;std::decay_t&lt;Seed&gt;, std::invoke_result_t&lt;Accumulator, std::decay_t&lt;Seed&gt;&amp;&amp;, rpp::utils::convertible_to_any&gt;&gt;)</td></tr>
-<tr class="memitem:ga3cc33d76bf794bda80244882bb3fec3d"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#ga3cc33d76bf794bda80244882bb3fec3d">rpp::operators::reduce</a> (Seed &amp;&amp;seed, Accumulator &amp;&amp;accumulator)</td></tr>
-<tr class="memdesc:ga3cc33d76bf794bda80244882bb3fec3d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Apply a function to each item emitted by an Observable, sequentially, and emit the final value.  <br /></td></tr>
-<tr class="separator:ga3cc33d76bf794bda80244882bb3fec3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga519e29a9fe659e01e34485afba09dad5" id="r_ga519e29a9fe659e01e34485afba09dad5"><td class="memTemplParams" colspan="2">template&lt;typename Seed , typename Accumulator &gt; <br />
+requires (!utils::is_not_template_callable&lt;Accumulator&gt; || std::same_as&lt;std::decay_t&lt;Seed&gt;, std::invoke_result_t&lt;Accumulator, std::decay_t&lt;Seed&gt; &amp;&amp;, rpp::utils::convertible_to_any&gt;&gt;)</td></tr>
+<tr class="memitem:ga519e29a9fe659e01e34485afba09dad5"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#ga519e29a9fe659e01e34485afba09dad5">rpp::operators::reduce</a> (Seed &amp;&amp;seed, Accumulator &amp;&amp;accumulator)</td></tr>
+<tr class="memdesc:ga519e29a9fe659e01e34485afba09dad5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Apply a function to each item emitted by an Observable, sequentially, and emit the final value.  <br /></td></tr>
+<tr class="separator:ga519e29a9fe659e01e34485afba09dad5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gab78e390657e26675457156b21112d344" id="r_gab78e390657e26675457156b21112d344"><td class="memTemplParams" colspan="2">template&lt;typename Accumulator &gt; </td></tr>
 <tr class="memitem:gab78e390657e26675457156b21112d344"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#gab78e390657e26675457156b21112d344">rpp::operators::reduce</a> (Accumulator &amp;&amp;accumulator)</td></tr>
 <tr class="memdesc:gab78e390657e26675457156b21112d344"><td class="mdescLeft">&#160;</td><td class="mdescRight">Apply a function to each item emitted by an Observable, sequentially, and emit the final value.  <br /></td></tr>
@@ -154,7 +154,7 @@ template&lt;typename Accumulator &gt; </div>
 </dl>
 <dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="reduce_8hpp_source.html">rpp/operators/reduce.hpp</a>&gt;</dd></dl>
 <dl class="section user"><dt>Example</dt><dd><div class="fragment"><div class="line">    <a class="code hl_function" href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">rpp::source::just</a>(1, 2, 3)</div>
-<div class="line">        | <a class="code hl_function" href="#ga3cc33d76bf794bda80244882bb3fec3d">rpp::operators::reduce</a>(std::plus&lt;int&gt;{})</div>
+<div class="line">        | <a class="code hl_function" href="#ga519e29a9fe659e01e34485afba09dad5">rpp::operators::reduce</a>(std::plus&lt;int&gt;{})</div>
 <div class="line">        | <a class="code hl_function" href="group__utility__operators.html#ga149309d4b2e0f1201f1ab42597ace8ac">rpp::operators::subscribe</a>([](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; v &lt;&lt; std::endl; });</div>
 <div class="line">    <span class="comment">// Output: 6</span></div>
 </div><!-- fragment --></dd></dl>
@@ -162,14 +162,14 @@ template&lt;typename Accumulator &gt; </div>
 
 </div>
 </div>
-<a id="ga3cc33d76bf794bda80244882bb3fec3d" name="ga3cc33d76bf794bda80244882bb3fec3d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga3cc33d76bf794bda80244882bb3fec3d">&#9670;&#160;</a></span>reduce() <span class="overload">[2/2]</span></h2>
+<a id="ga519e29a9fe659e01e34485afba09dad5" name="ga519e29a9fe659e01e34485afba09dad5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga519e29a9fe659e01e34485afba09dad5">&#9670;&#160;</a></span>reduce() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
 template&lt;typename Seed , typename Accumulator &gt; <br />
-requires (!utils::is_not_template_callable&lt;Accumulator&gt; || std::same_as&lt;std::decay_t&lt;Seed&gt;, std::invoke_result_t&lt;Accumulator, std::decay_t&lt;Seed&gt;&amp;&amp;, rpp::utils::convertible_to_any&gt;&gt;)</div>
+requires (!utils::is_not_template_callable&lt;Accumulator&gt; || std::same_as&lt;std::decay_t&lt;Seed&gt;, std::invoke_result_t&lt;Accumulator, std::decay_t&lt;Seed&gt; &amp;&amp;, rpp::utils::convertible_to_any&gt;&gt;)</div>
       <table class="memname">
         <tr>
           <td class="memname">auto rpp::operators::reduce </td>
@@ -197,7 +197,7 @@ requires (!utils::is_not_template_callable&lt;Accumulator&gt; || std::same_as&lt
 </dl>
 <dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="reduce_8hpp_source.html">rpp/operators/reduce.hpp</a>&gt;</dd></dl>
 <dl class="section user"><dt>Example</dt><dd><div class="fragment"><div class="line">    <a class="code hl_function" href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">rpp::source::just</a>(1, 2, 3)</div>
-<div class="line">        | <a class="code hl_function" href="#ga3cc33d76bf794bda80244882bb3fec3d">rpp::operators::reduce</a>(std::string{}, [](std::string&amp;&amp; seed, <span class="keywordtype">int</span> v) {<span class="keywordflow">return</span> std::move(seed) + std::to_string(v) + <span class="stringliteral">&quot;,&quot;</span>; })</div>
+<div class="line">        | <a class="code hl_function" href="#ga519e29a9fe659e01e34485afba09dad5">rpp::operators::reduce</a>(std::string{}, [](std::string&amp;&amp; seed, <span class="keywordtype">int</span> v) { <span class="keywordflow">return</span> std::move(seed) + std::to_string(v) + <span class="stringliteral">&quot;,&quot;</span>; })</div>
 <div class="line">        | <a class="code hl_function" href="group__utility__operators.html#ga149309d4b2e0f1201f1ab42597ace8ac">rpp::operators::subscribe</a>([](<span class="keyword">const</span> std::string&amp; v) { std::cout &lt;&lt; v &lt;&lt; std::endl; });</div>
 <div class="line">    <span class="comment">// Output: 1,2,3,</span></div>
 </div><!-- fragment --></dd></dl>

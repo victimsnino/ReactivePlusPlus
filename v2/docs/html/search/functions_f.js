@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['scan_0',['scan',['../group__transforming__operators.html#gad34415b9aeed2ad2446e7d54b6a4081c',1,'rpp::operators::scan(InitialValue &amp;&amp;initial_value, Fn &amp;&amp;accumulator)'],['../group__transforming__operators.html#gaced4a6e7bc0556b40b07d7efd97d7ee3',1,'rpp::operators::scan(Fn &amp;&amp;accumulator)'],['../group__transforming__operators.html#gad34415b9aeed2ad2446e7d54b6a4081c',1,'rpp::operators::scan(InitialValue &amp;&amp;initial_value, Fn &amp;&amp;accumulator)']]],
+  ['scan_0',['scan',['../group__transforming__operators.html#gad34415b9aeed2ad2446e7d54b6a4081c',1,'rpp::operators::scan(InitialValue &amp;&amp;initial_value, Fn &amp;&amp;accumulator)'],['../group__transforming__operators.html#gaced4a6e7bc0556b40b07d7efd97d7ee3',1,'rpp::operators::scan(Fn &amp;&amp;accumulator)']]],
   ['set_5fupstream_1',['set_upstream',['../classrpp_1_1details_1_1observer__impl.html#a3ae7822fe5f962a69ee190af8ff8f0e2',1,'rpp::details::observer_impl']]],
   ['skip_2',['skip',['../group__filtering__operators.html#ga8e20aec530e08ba64004c10b7732593c',1,'rpp::operators']]],
   ['start_5fwith_3',['start_with',['../group__combining__operators.html#gadf12c4de9702425819b0d34b5fdf7db3',1,'rpp::operators']]],

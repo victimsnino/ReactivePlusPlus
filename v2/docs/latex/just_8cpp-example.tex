@@ -3,8 +3,8 @@
 \begin{DoxyCodeInclude}{0}
 \DoxyCodeLine{\textcolor{preprocessor}{\#include\ <rpp/rpp.hpp>}}
 \DoxyCodeLine{}
-\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <iostream>}}
 \DoxyCodeLine{\textcolor{preprocessor}{\#include\ <array>}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <iostream>}}
 \DoxyCodeLine{}
 \DoxyCodeLine{\textcolor{keywordtype}{int}\ main()\ \textcolor{comment}{//\ NOLINT(bugprone-\/exception-\/escape)}}
 \DoxyCodeLine{\{}
@@ -13,11 +13,11 @@
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ \ \ std::array<int,\ 100>\ expensive\_to\_copy\_1\{\};}
 \DoxyCodeLine{\ \ \ \ std::array<int,\ 100>\ expensive\_to\_copy\_2\{\};}
-\DoxyCodeLine{\ \ \ \ rpp::source::just<rpp::memory\_model::use\_shared>(expensive\_to\_copy\_1,\ expensive\_to\_copy\_2).subscribe([](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&)\{\});}
+\DoxyCodeLine{\ \ \ \ rpp::source::just<rpp::memory\_model::use\_shared>(expensive\_to\_copy\_1,\ expensive\_to\_copy\_2).subscribe([](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&)\ \{\});}
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ //!\ [just\ scheduler]}}
-\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(\mbox{\hyperlink{classrpp_1_1schedulers_1_1immediate}{rpp::schedulers::immediate}}\{\},\ 42,\ 53).\mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{subscribe}}([](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&)\{\});}
-\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(\mbox{\hyperlink{classrpp_1_1schedulers_1_1current__thread}{rpp::schedulers::current\_thread}}\{\},\ 42,\ 53).\mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{subscribe}}([](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&)\{\});}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(\mbox{\hyperlink{classrpp_1_1schedulers_1_1immediate}{rpp::schedulers::immediate}}\{\},\ 42,\ 53).\mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{subscribe}}([](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&)\ \{\});}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(\mbox{\hyperlink{classrpp_1_1schedulers_1_1current__thread}{rpp::schedulers::current\_thread}}\{\},\ 42,\ 53).\mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{subscribe}}([](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&)\ \{\});}
 \DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ //!\ [just\ scheduler]}}
 \DoxyCodeLine{\}}
 

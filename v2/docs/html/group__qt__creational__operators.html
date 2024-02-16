@@ -109,7 +109,7 @@ $(function(){initNavTree('group__qt__creational__operators.html',''); initResiza
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ga8c635ee2f69919f16390b1b4002d00ae" id="r_ga8c635ee2f69919f16390b1b4002d00ae"><td class="memTemplParams" colspan="2">template&lt;std::derived_from&lt; QObject &gt; TSignalQObject, std::derived_from&lt; TSignalQObject &gt; TObject, typename R , typename ... Args&gt; </td></tr>
+<tr class="memitem:ga8c635ee2f69919f16390b1b4002d00ae" id="r_ga8c635ee2f69919f16390b1b4002d00ae"><td class="memTemplParams" colspan="2">template&lt;std::derived_from&lt; QObject &gt; TSignalQObject, std::derived_from&lt; TSignalQObject &gt; TObject, typename R , typename... Args&gt; </td></tr>
 <tr class="memitem:ga8c635ee2f69919f16390b1b4002d00ae"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#ga8c635ee2f69919f16390b1b4002d00ae">rppqt::source::from_signal</a> (const TObject &amp;object, R(TSignalQObject::*signal)(Args...))</td></tr>
 <tr class="memdesc:ga8c635ee2f69919f16390b1b4002d00ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates <a class="el" href="classrpp_1_1observable.html" title="Base class for any observable used in RPP. It handles core callbacks of observable.">rpp::observable</a> that emits a items from provided QT signal.  <br /></td></tr>
 <tr class="separator:ga8c635ee2f69919f16390b1b4002d00ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -123,7 +123,7 @@ Functions</h2></td></tr>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;std::derived_from&lt; QObject &gt; TSignalQObject, std::derived_from&lt; TSignalQObject &gt; TObject, typename R , typename ... Args&gt; </div>
+template&lt;std::derived_from&lt; QObject &gt; TSignalQObject, std::derived_from&lt; TSignalQObject &gt; TObject, typename R , typename... Args&gt; </div>
       <table class="memname">
         <tr>
           <td class="memname">auto rppqt::source::from_signal </td>
@@ -148,8 +148,7 @@ template&lt;std::derived_from&lt; QObject &gt; TSignalQObject, std::derived_from
 </dl>
 <dl class="section user"><dt>Examples:</dt><dd><div class="fragment"><div class="line">    QTextEdit* text_edit = <span class="keyword">new</span> QTextEdit();</div>
 <div class="line">    <a class="code hl_function" href="#ga8c635ee2f69919f16390b1b4002d00ae">rppqt::source::from_signal</a>(*text_edit, &amp;QTextEdit::textChanged)</div>
-<div class="line">        | rpp::ops::map([&amp;](<span class="keyword">const</span> <span class="keyword">auto</span>&amp;) </div>
-<div class="line">          {</div>
+<div class="line">        | rpp::ops::map([&amp;](<span class="keyword">const</span> <span class="keyword">auto</span>&amp;) {</div>
 <div class="line">              <span class="keywordflow">return</span> text_edit-&gt;toPlainText();</div>
 <div class="line">          })</div>
 <div class="line">        | rpp::ops::subscribe([](<span class="keyword">const</span> QString&amp; text) { std::cout &lt;&lt; <span class="stringliteral">&quot;text changed: &quot;</span> &lt;&lt; text.toStdString() &lt;&lt; std::endl; },</div>

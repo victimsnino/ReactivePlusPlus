@@ -22,47 +22,47 @@
 \DoxyCodeLine{00018\ }
 \DoxyCodeLine{00019\ \textcolor{keyword}{namespace\ }rpp::schedulers}
 \DoxyCodeLine{00020\ \{}
-\DoxyCodeLine{00021\ \textcolor{keyword}{template}<rpp::schedulers::constra\textcolor{keywordtype}{int}::strategy\ Strategy>}
-\DoxyCodeLine{00022\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1schedulers_1_1worker}{worker}}}
-\DoxyCodeLine{00023\ \{}
-\DoxyCodeLine{00024\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}...\ Args>}
-\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \textcolor{keyword}{requires}\ (!rpp::constraint::variadic\_decayed\_same\_as<worker<Strategy>,\ Args...>\ \&\&\ rpp::constraint::is\_constructible\_from<Strategy,\ Args\ \&\&\ ...>)}
-\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{classrpp_1_1schedulers_1_1worker}{worker}}(Args\&\&...\ args)}
-\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ :\ m\_strategy(std::forward<Args>(args)...)}
-\DoxyCodeLine{00029\ \ \ \ \ \{}
-\DoxyCodeLine{00030\ \ \ \ \ \}}
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keyword}{template}<rpp::schedulers::constra\textcolor{keywordtype}{int}::strategy\ Strategy>}
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1schedulers_1_1worker}{worker}}}
+\DoxyCodeLine{00023\ \ \ \ \ \{}
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}...\ Args>}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{requires}\ (!rpp::constraint::variadic\_decayed\_same\_as<worker<Strategy>,\ Args...>\ \&\&\ rpp::constraint::is\_constructible\_from<Strategy,\ Args\ \&\&\ ...>)}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{classrpp_1_1schedulers_1_1worker}{worker}}(Args\&\&...\ args)}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \ \ \ \ :\ m\_strategy(std::forward<Args>(args)...)}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{00031\ }
-\DoxyCodeLine{00032\ \ \ \ \ \mbox{\hyperlink{classrpp_1_1schedulers_1_1worker}{worker}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1schedulers_1_1worker}{worker}}\&)\ \ \ \ \ =\ \textcolor{keywordflow}{default};}
-\DoxyCodeLine{00033\ \ \ \ \ \mbox{\hyperlink{classrpp_1_1schedulers_1_1worker}{worker}}(\mbox{\hyperlink{classrpp_1_1schedulers_1_1worker}{worker}}\&\&)\ \textcolor{keyword}{noexcept}\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrpp_1_1schedulers_1_1worker}{worker}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1schedulers_1_1worker}{worker}}\&)\ \ \ \ \ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrpp_1_1schedulers_1_1worker}{worker}}(\mbox{\hyperlink{classrpp_1_1schedulers_1_1worker}{worker}}\&\&)\ \textcolor{keyword}{noexcept}\ =\ \textcolor{keywordflow}{default};}
 \DoxyCodeLine{00034\ }
-\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keyword}{template}<\mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1schedulable__handler}{rpp::schedulers::constraint::schedulable\_handler}}\ Handler,\ \textcolor{keyword}{typename}...\ Args,\ \mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1schedulable__fn}{constraint::schedulable\_fn}}<Handler,\ Args...>\ Fn>}
-\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keywordtype}{void}\ schedule(Fn\&\&\ fn,\ Handler\&\&\ handler,\ Args\&\&...\ args)\textcolor{keyword}{\ const}}
-\DoxyCodeLine{00037\ \textcolor{keyword}{\ \ \ \ }\{}
-\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ schedule(duration\{\},\ std::forward<Fn>(fn),\ std::forward<Handler>(handler),\ std::forward<Args>(args)...);}
-\DoxyCodeLine{00039\ \ \ \ \ \}}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}<\mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1schedulable__handler}{rpp::schedulers::constraint::schedulable\_handler}}\ Handler,\ \textcolor{keyword}{typename}...\ Args,\ \mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1schedulable__fn}{constraint::schedulable\_fn}}<Handler,\ Args...>\ Fn>}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ schedule(Fn\&\&\ fn,\ Handler\&\&\ handler,\ Args\&\&...\ args)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00037\ \textcolor{keyword}{\ \ \ \ \ \ \ \ }\{}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \ \ \ \ schedule(duration\{\},\ std::forward<Fn>(fn),\ std::forward<Handler>(handler),\ std::forward<Args>(args)...);}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{00040\ }
-\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keyword}{template}<\mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1schedulable__handler}{rpp::schedulers::constraint::schedulable\_handler}}\ Handler,\ \textcolor{keyword}{typename}...\ Args,\ \mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1schedulable__fn}{constraint::schedulable\_fn}}<Handler,\ Args...>\ Fn>}
-\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keywordtype}{void}\ schedule(\textcolor{keyword}{const}\ duration\ delay,\ Fn\&\&\ fn,\ Handler\&\&\ handler,\ Args\&\&...\ args)\textcolor{keyword}{\ const}}
-\DoxyCodeLine{00043\ \textcolor{keyword}{\ \ \ \ }\{}
-\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ m\_strategy.defer\_for(delay,\ std::forward<Fn>(fn),\ std::forward<Handler>(handler),\ std::forward<Args>(args)...);}
-\DoxyCodeLine{00045\ \ \ \ \ \}}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}<\mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1schedulable__handler}{rpp::schedulers::constraint::schedulable\_handler}}\ Handler,\ \textcolor{keyword}{typename}...\ Args,\ \mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1schedulable__fn}{constraint::schedulable\_fn}}<Handler,\ Args...>\ Fn>}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ schedule(\textcolor{keyword}{const}\ duration\ delay,\ Fn\&\&\ fn,\ Handler\&\&\ handler,\ Args\&\&...\ args)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00043\ \textcolor{keyword}{\ \ \ \ \ \ \ \ }\{}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \ \ \ \ m\_strategy.defer\_for(delay,\ std::forward<Fn>(fn),\ std::forward<Handler>(handler),\ std::forward<Args>(args)...);}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{00046\ }
-\DoxyCodeLine{00047\ \ \ \ \ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp::disposable\_wrapper}}\ get\_disposable()\textcolor{keyword}{\ const\ }}
-\DoxyCodeLine{00048\ \textcolor{keyword}{\ \ \ \ }\{\ }
-\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keyword}{constexpr}\ (is\_none\_disposable)}
-\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl_ac80a18753f28c349713dca275a23a085}{disposable\_wrapper::empty}}();}
-\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
-\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ m\_strategy.get\_disposable();\ }
-\DoxyCodeLine{00053\ \ \ \ \ \}}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp::disposable\_wrapper}}\ get\_disposable()\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00048\ \textcolor{keyword}{\ \ \ \ \ \ \ \ }\{}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keyword}{constexpr}\ (is\_none\_disposable)}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl_ac80a18753f28c349713dca275a23a085}{disposable\_wrapper::empty}}();}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ m\_strategy.get\_disposable();}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{00054\ }
-\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keyword}{static}\ rpp::schedulers::time\_point\ now()\ \{\ \textcolor{keywordflow}{return}\ Strategy::now();\ \}}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ rpp::schedulers::time\_point\ now()\ \{\ \textcolor{keywordflow}{return}\ Strategy::now();\ \}}
 \DoxyCodeLine{00056\ }
-\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{bool}\ is\_none\_disposable\ =\ std::same\_as<decltype(std::declval<Strategy>().get\_disposable()),\ \mbox{\hyperlink{structrpp_1_1schedulers_1_1details_1_1none__disposable}{rpp::schedulers::details::none\_disposable}}>;}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{bool}\ is\_none\_disposable\ =\ std::same\_as<decltype(std::declval<Strategy>().get\_disposable()),\ \mbox{\hyperlink{structrpp_1_1schedulers_1_1details_1_1none__disposable}{rpp::schedulers::details::none\_disposable}}>;}
 \DoxyCodeLine{00058\ }
-\DoxyCodeLine{00059\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00060\ \ \ \ \ RPP\_NO\_UNIQUE\_ADDRESS\ Strategy\ m\_strategy;}
-\DoxyCodeLine{00061\ \};}
-\DoxyCodeLine{00062\ \}}
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ RPP\_NO\_UNIQUE\_ADDRESS\ Strategy\ m\_strategy;}
+\DoxyCodeLine{00061\ \ \ \ \ \};}
+\DoxyCodeLine{00062\ \}\ \textcolor{comment}{//\ namespace\ rpp::schedulers}}
 
 \end{DoxyCode}

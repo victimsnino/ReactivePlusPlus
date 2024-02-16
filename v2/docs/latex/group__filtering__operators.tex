@@ -93,16 +93,16 @@ Actually this operator has {\ttfamily std\+::optional} with last item and checks
 
 \begin{DoxyCodeInclude}{0}
 \DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(1,\ 1,\ 2,\ 2,\ 3,\ 2,\ 1)}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__filtering__operators_gaa8ed11faabd5b31d63d0481f9018fc68}{rpp::operators::distinct\_until\_changed}}()}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{rpp::operators::subscribe}}([](\textcolor{keywordtype}{int}\ val)\ \{\ std::cout\ <<\ val\ <<\ \textcolor{stringliteral}{"{}\ "{}};\ \});}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__filtering__operators_gaa8ed11faabd5b31d63d0481f9018fc68}{rpp::operators::distinct\_until\_changed}}()}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{rpp::operators::subscribe}}([](\textcolor{keywordtype}{int}\ val)\ \{\ std::cout\ <<\ val\ <<\ \textcolor{stringliteral}{"{}\ "{}};\ \});}
 \DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:\ 1\ 2\ 3\ 2\ 1}}
 
 \end{DoxyCodeInclude}
  
 \begin{DoxyCodeInclude}{0}
 \DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(1,\ 1,\ 2,\ 2,\ 3,\ 2,\ 1)}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__filtering__operators_gaa8ed11faabd5b31d63d0481f9018fc68}{rpp::operators::distinct\_until\_changed}}([](\textcolor{keywordtype}{int}\ left,\ \textcolor{keywordtype}{int}\ right)\ \{\textcolor{keywordflow}{return}\ left\ !=\ right;\ \})}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{rpp::operators::subscribe}}([](\textcolor{keywordtype}{int}\ val)\ \{\ std::cout\ <<\ val\ <<\ \textcolor{stringliteral}{"{}\ "{}};\ \});}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__filtering__operators_gaa8ed11faabd5b31d63d0481f9018fc68}{rpp::operators::distinct\_until\_changed}}([](\textcolor{keywordtype}{int}\ left,\ \textcolor{keywordtype}{int}\ right)\ \{\ \textcolor{keywordflow}{return}\ left\ !=\ right;\ \})}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{rpp::operators::subscribe}}([](\textcolor{keywordtype}{int}\ val)\ \{\ std::cout\ <<\ val\ <<\ \textcolor{stringliteral}{"{}\ "{}};\ \});}
 \DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:\ 1\ 1\ 1}}
 
 \end{DoxyCodeInclude}
@@ -149,8 +149,8 @@ Actually this operator just checks if predicate returns true, then forwards emis
 
 \begin{DoxyCodeInclude}{0}
 \DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(0,\ 1,\ 2,\ 3,\ 4,\ 5,\ 6,\ 7,\ 8,\ 9)}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ |\mbox{\hyperlink{group__filtering__operators_ga3ad579153e7975af6ae4b75f585fb873}{rpp::operators::filter}}([](\textcolor{keywordtype}{int}\ \ \ \ v)\ \{\ \textcolor{keywordflow}{return}\ v\ \%\ 2\ ==\ 0;\ \})}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ |\mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{rpp::operators::subscribe}}([](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ v\ <<\ \textcolor{stringliteral}{"{}\ "{}};\ \});}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__filtering__operators_ga3ad579153e7975af6ae4b75f585fb873}{rpp::operators::filter}}([](\textcolor{keywordtype}{int}\ v)\ \{\ \textcolor{keywordflow}{return}\ v\ \%\ 2\ ==\ 0;\ \})}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{rpp::operators::subscribe}}([](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ v\ <<\ \textcolor{stringliteral}{"{}\ "{}};\ \});}
 \DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:\ 0\ 2\ 4\ 6\ 8}}
 
 \end{DoxyCodeInclude}
@@ -195,7 +195,7 @@ Actually this operator is {\ttfamily take(1)} with exception during {\ttfamily o
 \DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(1,\ 2,\ 3,\ 4,\ 5)}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__filtering__operators_ga5b8f3bf549a8679d41941f7224f7faad}{rpp::operators::first}}()}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{rpp::operators::subscribe}}(}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ [](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ \&v)\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}-\/"{}}\ <<\ v;\ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ [](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ v)\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}-\/"{}}\ <<\ v;\ \},}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ [](\textcolor{keyword}{const}\ std::exception\_ptr\&)\ \{\},}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ []()\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}-\/|"{}}\ <<\ std::endl;\ \});}
 \DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Source:\ -\/1-\/2-\/3-\/4-\/5-\/-\/|}}
@@ -207,7 +207,7 @@ Actually this operator is {\ttfamily take(1)} with exception during {\ttfamily o
 \DoxyCodeLine{\ \ \ \ rpp::source::empty<int>()}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__filtering__operators_ga5b8f3bf549a8679d41941f7224f7faad}{rpp::operators::first}}()}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{rpp::operators::subscribe}}(}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ [](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ \&v)\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}-\/"{}}\ <<\ v;\ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ [](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ v)\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}-\/"{}}\ <<\ v;\ \},}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ [](\textcolor{keyword}{const}\ std::exception\_ptr\&)\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}-\/x"{}}\ <<\ std::endl;\ \},}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ []()\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}-\/|"{}}\ <<\ std::endl;\ \});}
 \DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Source:\ -\/1-\/2-\/3-\/4-\/5-\/-\/|}}
@@ -255,8 +255,8 @@ Actually this operator just updates {\ttfamily std\+::optional} on every new emi
 \DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(1,\ 2,\ 3,\ 4,\ 5)}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__filtering__operators_ga679e35f7895a5d7e22cd2b3c359b9457}{rpp::operators::last}}()}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{rpp::operators::subscribe}}(}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ [](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ \&v)\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}-\/"{}}\ <<\ v;\ \},}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ [](\textcolor{keyword}{const}\ std::exception\_ptr\ \&)\ \{\},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ [](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ v)\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}-\/"{}}\ <<\ v;\ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ [](\textcolor{keyword}{const}\ std::exception\_ptr\&)\ \{\},}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ []()\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}-\/|"{}}\ <<\ std::endl;\ \});}
 \DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Source:\ -\/1-\/2-\/3-\/4-\/5-\/-\/|}}
 \DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:\ -\/5-\/|}}
@@ -267,8 +267,8 @@ Actually this operator just updates {\ttfamily std\+::optional} on every new emi
 \DoxyCodeLine{\ \ \ \ rpp::source::empty<int>()}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__filtering__operators_ga679e35f7895a5d7e22cd2b3c359b9457}{rpp::operators::last}}()}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{rpp::operators::subscribe}}(}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ [](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ \&v)\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}-\/"{}}\ <<\ v;\ \},}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ [](\textcolor{keyword}{const}\ std::exception\_ptr\ \&)\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}-\/x"{}};\ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ [](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ v)\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}-\/"{}}\ <<\ v;\ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ [](\textcolor{keyword}{const}\ std::exception\_ptr\&)\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}-\/x"{}};\ \},}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ []()\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}-\/|"{}}\ <<\ std::endl;\ \});}
 \DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Source:\ -\/1-\/2-\/3-\/4-\/5-\/-\/|}}
 \DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:\ -\/x}}
@@ -315,9 +315,9 @@ Actually this operator just decrements counter and starts to forward emissions w
 \begin{DoxyParagraph}{Example\+:}
 
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(0,1,2,3,4,5)}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__filtering__operators_ga8e20aec530e08ba64004c10b7732593c}{rpp::operators::skip}}(2)}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{rpp::operators::subscribe}}([](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ v\ <<\ \textcolor{stringliteral}{"{}\ "{}};\ \});}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(0,\ 1,\ 2,\ 3,\ 4,\ 5)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__filtering__operators_ga8e20aec530e08ba64004c10b7732593c}{rpp::operators::skip}}(2)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{rpp::operators::subscribe}}([](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ v\ <<\ \textcolor{stringliteral}{"{}\ "{}};\ \});}
 \DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:\ 2\ 3\ 4\ 5}}
 
 \end{DoxyCodeInclude}
@@ -362,9 +362,9 @@ Actually this operator just emits emissions while counter is not zero and decrem
 \begin{DoxyParagraph}{Example\+:}
 
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_gad15a7e8bfb2f7ce0af1b44e22918116c}{rpp::source::from\_iterable}}(std::vector\{0,1,2,3,4\})}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__filtering__operators_gaf32161437c2c6cd7d5a0e5170a333cbb}{rpp::operators::take}}(2)}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{rpp::operators::subscribe}}([](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ v\ <<\ \textcolor{stringliteral}{"{}\ "{}};\ \});}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_gad15a7e8bfb2f7ce0af1b44e22918116c}{rpp::source::from\_iterable}}(std::vector\{0,\ 1,\ 2,\ 3,\ 4\})}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__filtering__operators_gaf32161437c2c6cd7d5a0e5170a333cbb}{rpp::operators::take}}(2)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{rpp::operators::subscribe}}([](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ v\ <<\ \textcolor{stringliteral}{"{}\ "{}};\ \});}
 \DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:\ 0\ 1}}
 
 \end{DoxyCodeInclude}
@@ -402,8 +402,8 @@ Actually this operator has buffer of requested size inside, keeps last {\ttfamil
 
 \begin{DoxyCodeInclude}{0}
 \DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(0,\ 1,\ 2,\ 3,\ 4,\ 5,\ 6,\ 7,\ 8,\ 9)}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ |\ rpp::ops::take\_last(2)}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ |\ rpp::ops::subscribe([](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ v\ <<\ \textcolor{stringliteral}{"{}\ "{}};\ \});}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ rpp::ops::take\_last(2)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ rpp::ops::subscribe([](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ v\ <<\ \textcolor{stringliteral}{"{}\ "{}};\ \});}
 \DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:\ 8\ 9}}
 
 \end{DoxyCodeInclude}
@@ -453,20 +453,17 @@ Actually this operator just keeps time of last emission, skips values ​​unti
 \begin{DoxyCodeInclude}{0}
 \DoxyCodeLine{\ \ \ \ \textcolor{keyword}{auto}\ start\ =\ rpp::schedulers::clock\_type::now();}
 \DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(\mbox{\hyperlink{classrpp_1_1schedulers_1_1current__thread}{rpp::schedulers::current\_thread}}\{\},\ 1,\ 2,\ 5,\ 6,\ 9,\ 10)}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__transforming__operators_ga633883e796101ceeab821e2a4912bd5e}{rpp::operators::flat\_map}}([](\textcolor{keywordtype}{int}\ v)}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(v)\ |\ \mbox{\hyperlink{group__utility__operators_gae38caa489cf43c0aca1aa1c8822aed60}{rpp::operators::delay}}(std::chrono::milliseconds(500)\ *\ v,\ \mbox{\hyperlink{classrpp_1_1schedulers_1_1current__thread}{rpp::schedulers::current\_thread}}\{\});}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \})}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__filtering__operators_ga3ad579153e7975af6ae4b75f585fb873}{rpp::operators::filter}}([\&](\textcolor{keywordtype}{int}\ v)}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}>\ Sent\ value\ "{}}\ <<\ v\ <<\ \textcolor{stringliteral}{"{}\ at\ "{}}\ <<\ std::chrono::duration\_cast<std::chrono::milliseconds>(rpp::schedulers::clock\_type::now()\ -\/\ start).count()\ <<\ std::endl;}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \})}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__filtering__operators_gada7d22ff6ee83d4aca44411561f56f98}{rpp::operators::throttle}}(std::chrono::milliseconds\{700\})}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{rpp::operators::subscribe}}([\&](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}>>>\ new\ value\ "{}}\ <<\ v\ <<\ \textcolor{stringliteral}{"{}\ at\ "{}}\ <<\ std::chrono::duration\_cast<std::chrono::milliseconds>(rpp::schedulers::clock\_type::now()\ -\/\ start).count()\ <<\ std::endl;\},}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [](\textcolor{keyword}{const}\ std::exception\_ptr\&)\{\},}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [\&]()\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}>>>\ completed\ at\ "{}}\ <<\ std::chrono::duration\_cast<std::chrono::milliseconds>(rpp::schedulers::clock\_type::now()\ -\/\ start).count()\ <<\ std::endl;\ \});}
-\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__transforming__operators_ga633883e796101ceeab821e2a4912bd5e}{rpp::operators::flat\_map}}([](\textcolor{keywordtype}{int}\ v)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(v)\ |\ \mbox{\hyperlink{group__utility__operators_gae38caa489cf43c0aca1aa1c8822aed60}{rpp::operators::delay}}(std::chrono::milliseconds(500)\ *\ v,\ \mbox{\hyperlink{classrpp_1_1schedulers_1_1current__thread}{rpp::schedulers::current\_thread}}\{\});}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \})}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__filtering__operators_ga3ad579153e7975af6ae4b75f585fb873}{rpp::operators::filter}}([\&](\textcolor{keywordtype}{int}\ v)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}>\ Sent\ value\ "{}}\ <<\ v\ <<\ \textcolor{stringliteral}{"{}\ at\ "{}}\ <<\ std::chrono::duration\_cast<std::chrono::milliseconds>(rpp::schedulers::clock\_type::now()\ -\/\ start).count()\ <<\ std::endl;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \})}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__filtering__operators_gada7d22ff6ee83d4aca44411561f56f98}{rpp::operators::throttle}}(std::chrono::milliseconds\{700\})}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{rpp::operators::subscribe}}([\&](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}>>>\ new\ value\ "{}}\ <<\ v\ <<\ \textcolor{stringliteral}{"{}\ at\ "{}}\ <<\ std::chrono::duration\_cast<std::chrono::milliseconds>(rpp::schedulers::clock\_type::now()\ -\/\ start).count()\ <<\ std::endl;\ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [](\textcolor{keyword}{const}\ std::exception\_ptr\&)\ \{\},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [\&]()\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}>>>\ completed\ at\ "{}}\ <<\ std::chrono::duration\_cast<std::chrono::milliseconds>(rpp::schedulers::clock\_type::now()\ -\/\ start).count()\ <<\ std::endl;\ \});}
 \DoxyCodeLine{}
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:}}

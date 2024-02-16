@@ -5,7 +5,7 @@
 \begin{DoxyCode}{0}
 \DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename}\ Op,\ \textcolor{keyword}{typename}\ Type,\ \textcolor{keyword}{typename}\ DisposableStrategy>}
 \DoxyCodeLine{\textcolor{keyword}{concept\ }\mbox{\hyperlink{conceptrpp_1_1constraint_1_1operator__chain}{rpp::constraint::operator\_chain}}\ =\ \ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1operator__base}{operator\_base<std::decay\_t<Op>}},\ Type>}
-\DoxyCodeLine{\ \ \ \ \&\&\ \textcolor{keyword}{requires}\ \{\ \textcolor{keyword}{typename}\ std::decay\_t<Op>::template\ operator\_traits<Type>::result\_type;\ \}}
-\DoxyCodeLine{\ \ \ \ \&\&\ (\mbox{\hyperlink{conceptrpp_1_1constraint_1_1operator__subscribe}{operator\_subscribe<std::decay\_t<Op>}},\ Type>\ ||\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1operator__lift}{operator\_lift<std::decay\_t<Op>}},\ Type>\ ||\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1operator__lift__with__disposable__strategy}{operator\_lift\_with\_disposable\_strategy<std::decay\_t<Op>}},\ Type,\ DisposableStrategy>)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&\&\ \textcolor{keyword}{requires}\ \{\ \textcolor{keyword}{typename}\ std::decay\_t<Op>::template\ operator\_traits<Type>::result\_type;\ \}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&\&\ (\mbox{\hyperlink{conceptrpp_1_1constraint_1_1operator__subscribe}{operator\_subscribe<std::decay\_t<Op>}},\ Type>\ ||\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1operator__lift}{operator\_lift<std::decay\_t<Op>}},\ Type>\ ||\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1operator__lift__with__disposable__strategy}{operator\_lift\_with\_disposable\_strategy<std::decay\_t<Op>}},\ Type,\ DisposableStrategy>)}
 
 \end{DoxyCode}

@@ -7,19 +7,17 @@
 \DoxyCodeLine{}
 \DoxyCodeLine{\textcolor{keywordtype}{int}\ main()\ \textcolor{comment}{//\ NOLINT(bugprone-\/exception-\/escape)}}
 \DoxyCodeLine{\{}
-\DoxyCodeLine{\ \ \ \ rpp::source::create<int>([](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ sub)}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sub.on\_next(42);}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \})}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ .\mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{subscribe}}([](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ v\ <<\ std::endl;\ \});}
+\DoxyCodeLine{\ \ \ \ rpp::source::create<int>([](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ sub)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ sub.on\_next(42);}
+\DoxyCodeLine{\ \ \ \ \})}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ .\mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{subscribe}}([](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ v\ <<\ std::endl;\ \});}
 \DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:\ 42}}
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ \ \ \textcolor{keywordtype}{int}\ val\ =\ 42;}
-\DoxyCodeLine{\ \ \ \ rpp::source::create<int>([val](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ sub)}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sub.on\_next(val);}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \})}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ .\mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{subscribe}}([](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ v\ <<\ std::endl;\ \});}
+\DoxyCodeLine{\ \ \ \ rpp::source::create<int>([val](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ sub)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ sub.on\_next(val);}
+\DoxyCodeLine{\ \ \ \ \})}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ .\mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{subscribe}}([](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ v\ <<\ std::endl;\ \});}
 \DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:\ 42}}
 \DoxyCodeLine{\}}
 

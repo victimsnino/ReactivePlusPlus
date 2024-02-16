@@ -90,10 +90,10 @@ Converts {\ttfamily \doxylink{classrpp_1_1observable}{rpp\+::observable}} to {\t
 \begin{DoxyParagraph}{Example\+:}
 
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(1)}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(1)}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_gae38caa489cf43c0aca1aa1c8822aed60}{rpp::operators::delay}}(std::chrono::seconds\{1\},\ \mbox{\hyperlink{classrpp_1_1schedulers_1_1new__thread}{rpp::schedulers::new\_thread}}\{\})\ \textcolor{comment}{//\ <-\/-\/\ emit\ from\ another\ thread\ with\ delay}}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_ga9df008c11eeff8c9383e56bf36e28ec2}{rpp::operators::as\_blocking}}()}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{rpp::operators::subscribe}}([](\textcolor{keywordtype}{int})\{\},\ []()\{std::cout\ <<\ \textcolor{stringliteral}{"{}COMPLETED"{}}\ <<\ std::endl;\ \});}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{rpp::operators::subscribe}}([](\textcolor{keywordtype}{int})\ \{\},\ []()\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}COMPLETED"{}}\ <<\ std::endl;\ \});}
 \DoxyCodeLine{\ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}done"{}}\ <<\ std::endl;}
 \DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ output:\ COMPLETED\ done}}
 
@@ -131,35 +131,32 @@ Actually this operator resets time of last emission, schedules action to send th
 \begin{DoxyParagraph}{Example}
 
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{\ \ \ \ \ \ \textcolor{keyword}{auto}\ start\ =\ rpp::schedulers::clock\_type::now();}
-\DoxyCodeLine{\ \ \ \ \ \ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(\mbox{\hyperlink{classrpp_1_1schedulers_1_1current__thread}{rpp::schedulers::current\_thread}}\{\},\ 1,\ 2,\ 5,\ 6,\ 9,\ 10)}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__transforming__operators_ga633883e796101ceeab821e2a4912bd5e}{rpp::operators::flat\_map}}([](\textcolor{keywordtype}{int}\ v)}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(v)\ |\ \mbox{\hyperlink{group__utility__operators_gae38caa489cf43c0aca1aa1c8822aed60}{rpp::operators::delay}}(std::chrono::milliseconds(500)\ *\ v,\ \mbox{\hyperlink{classrpp_1_1schedulers_1_1current__thread}{rpp::schedulers::current\_thread}}\{\});}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \})}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__filtering__operators_ga3ad579153e7975af6ae4b75f585fb873}{rpp::operators::filter}}([\&](\textcolor{keywordtype}{int}\ v)}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}>\ Sent\ value\ "{}}\ <<\ v\ <<\ \textcolor{stringliteral}{"{}\ at\ "{}}\ <<\ std::chrono::duration\_cast<std::chrono::milliseconds>(rpp::schedulers::clock\_type::now()\ -\/\ start).count()\ <<\ std::endl;}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \})}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_ga49e91c6114f62ac261303814c818face}{rpp::operators::debounce}}(std::chrono::milliseconds\{700\},\ \mbox{\hyperlink{classrpp_1_1schedulers_1_1current__thread}{rpp::schedulers::current\_thread}}\{\})}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{rpp::operators::subscribe}}([\&](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}>>>\ new\ value\ "{}}\ <<\ v\ <<\ \textcolor{stringliteral}{"{}\ at\ "{}}\ <<\ std::chrono::duration\_cast<std::chrono::milliseconds>(rpp::schedulers::clock\_type::now()\ -\/\ start).count()\ <<\ std::endl;\},}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [](\textcolor{keyword}{const}\ std::exception\_ptr\&)\{\},}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [\&]()\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}>>>\ completed\ at\ "{}}\ <<\ std::chrono::duration\_cast<std::chrono::milliseconds>(rpp::schedulers::clock\_type::now()\ -\/\ start).count()\ <<\ std::endl;\ \});}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{auto}\ start\ =\ rpp::schedulers::clock\_type::now();}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(\mbox{\hyperlink{classrpp_1_1schedulers_1_1current__thread}{rpp::schedulers::current\_thread}}\{\},\ 1,\ 2,\ 5,\ 6,\ 9,\ 10)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__transforming__operators_ga633883e796101ceeab821e2a4912bd5e}{rpp::operators::flat\_map}}([](\textcolor{keywordtype}{int}\ v)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(v)\ |\ \mbox{\hyperlink{group__utility__operators_gae38caa489cf43c0aca1aa1c8822aed60}{rpp::operators::delay}}(std::chrono::milliseconds(500)\ *\ v,\ \mbox{\hyperlink{classrpp_1_1schedulers_1_1current__thread}{rpp::schedulers::current\_thread}}\{\});}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \})}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__filtering__operators_ga3ad579153e7975af6ae4b75f585fb873}{rpp::operators::filter}}([\&](\textcolor{keywordtype}{int}\ v)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}>\ Sent\ value\ "{}}\ <<\ v\ <<\ \textcolor{stringliteral}{"{}\ at\ "{}}\ <<\ std::chrono::duration\_cast<std::chrono::milliseconds>(rpp::schedulers::clock\_type::now()\ -\/\ start).count()\ <<\ std::endl;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \})}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_ga49e91c6114f62ac261303814c818face}{rpp::operators::debounce}}(std::chrono::milliseconds\{700\},\ \mbox{\hyperlink{classrpp_1_1schedulers_1_1current__thread}{rpp::schedulers::current\_thread}}\{\})}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{rpp::operators::subscribe}}([\&](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}>>>\ new\ value\ "{}}\ <<\ v\ <<\ \textcolor{stringliteral}{"{}\ at\ "{}}\ <<\ std::chrono::duration\_cast<std::chrono::milliseconds>(rpp::schedulers::clock\_type::now()\ -\/\ start).count()\ <<\ std::endl;\ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [](\textcolor{keyword}{const}\ std::exception\_ptr\&)\ \{\},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [\&]()\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}>>>\ completed\ at\ "{}}\ <<\ std::chrono::duration\_cast<std::chrono::milliseconds>(rpp::schedulers::clock\_type::now()\ -\/\ start).count()\ <<\ std::endl;\ \});}
 \DoxyCodeLine{}
 \DoxyCodeLine{}
-\DoxyCodeLine{}
-\DoxyCodeLine{\ \ \ \ \ \ \textcolor{comment}{//\ Output:}}
-\DoxyCodeLine{\ \ \ \ \ \ \textcolor{comment}{//\ >\ Sent\ value\ 1\ at\ 500}}
-\DoxyCodeLine{\ \ \ \ \ \ \textcolor{comment}{//\ >\ Sent\ value\ 2\ at\ 1000}}
-\DoxyCodeLine{\ \ \ \ \ \ \textcolor{comment}{//\ >>>\ new\ value\ 2\ at\ 1700}}
-\DoxyCodeLine{\ \ \ \ \ \ \textcolor{comment}{//\ >\ Sent\ value\ 5\ at\ 2500}}
-\DoxyCodeLine{\ \ \ \ \ \ \textcolor{comment}{//\ >\ Sent\ value\ 6\ at\ 3000}}
-\DoxyCodeLine{\ \ \ \ \ \ \textcolor{comment}{//\ >>>\ new\ value\ 6\ at\ 3700}}
-\DoxyCodeLine{\ \ \ \ \ \ \textcolor{comment}{//\ >\ Sent\ value\ 9\ at\ 4500}}
-\DoxyCodeLine{\ \ \ \ \ \ \textcolor{comment}{//\ >\ Sent\ value\ 10\ at\ 5000}}
-\DoxyCodeLine{\ \ \ \ \ \ \textcolor{comment}{//\ >>>\ new\ value\ 10\ at\ 5000}}
-\DoxyCodeLine{\ \ \ \ \ \ \textcolor{comment}{//\ >>>\ completed\ at\ 5000}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ >\ Sent\ value\ 1\ at\ 500}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ >\ Sent\ value\ 2\ at\ 1000}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ >>>\ new\ value\ 2\ at\ 1700}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ >\ Sent\ value\ 5\ at\ 2500}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ >\ Sent\ value\ 6\ at\ 3000}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ >>>\ new\ value\ 6\ at\ 3700}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ >\ Sent\ value\ 9\ at\ 4500}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ >\ Sent\ value\ 10\ at\ 5000}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ >>>\ new\ value\ 10\ at\ 5000}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ >>>\ completed\ at\ 5000}}
 
 \end{DoxyCodeInclude}
 
@@ -204,32 +201,28 @@ on\+\_\+error/on\+\_\+completed invoking also would be delayed as any other emis
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ \ \ \textcolor{keyword}{auto}\ start\ =\ rpp::schedulers::clock\_type::now();}
 \DoxyCodeLine{}
-\DoxyCodeLine{\ \ \ \ rpp::source::create<int>([\&start](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ obs)}
-\DoxyCodeLine{\ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ rpp::source::create<int>([\&start](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ obs)\ \{}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ 3;\ ++i)}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \{}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ emitting\_time\ =\ rpp::schedulers::clock\_type::now();}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}emit\ "{}}\ <<\ i\ <<\ \textcolor{stringliteral}{"{}\ in\ thread\{"{}}\ <<\ std::this\_thread::get\_id()\ <<\ \textcolor{stringliteral}{"{}\}\ duration\ since\ start\ "{}}\ <<\ std::chrono::duration\_cast<std::chrono::seconds>(emitting\_time\ -\/\ start).count()\ <<\ \textcolor{stringliteral}{"{}s"{}}<<\ std::endl;}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}emit\ "{}}\ <<\ i\ <<\ \textcolor{stringliteral}{"{}\ in\ thread\{"{}}\ <<\ std::this\_thread::get\_id()\ <<\ \textcolor{stringliteral}{"{}\}\ duration\ since\ start\ "{}}\ <<\ std::chrono::duration\_cast<std::chrono::seconds>(emitting\_time\ -\/\ start).count()\ <<\ \textcolor{stringliteral}{"{}s"{}}\ <<\ std::endl;}
+\DoxyCodeLine{}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ obs.on\_next(i);}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ std::this\_thread::sleep\_for(std::chrono::seconds\{1\});}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ emitting\_time\ =\ rpp::schedulers::clock\_type::now();}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}emit\ error\ in\ thread\{"{}}\ <<\ std::this\_thread::get\_id()\ <<\ \textcolor{stringliteral}{"{}\}\ duration\ since\ start\ "{}}\ <<\ std::chrono::duration\_cast<std::chrono::seconds>(emitting\_time\ -\/\ start).count()\ <<\ \textcolor{stringliteral}{"{}s"{}}<<\ std::endl;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}emit\ error\ in\ thread\{"{}}\ <<\ std::this\_thread::get\_id()\ <<\ \textcolor{stringliteral}{"{}\}\ duration\ since\ start\ "{}}\ <<\ std::chrono::duration\_cast<std::chrono::seconds>(emitting\_time\ -\/\ start).count()\ <<\ \textcolor{stringliteral}{"{}s"{}}\ <<\ std::endl;}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ obs.on\_error(\{\});}
 \DoxyCodeLine{\ \ \ \ \})}
-\DoxyCodeLine{\ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_gae38caa489cf43c0aca1aa1c8822aed60}{rpp::operators::delay}}(std::chrono::seconds\{3\},\ \mbox{\hyperlink{classrpp_1_1schedulers_1_1new__thread}{rpp::schedulers::new\_thread}}\{\})}
-\DoxyCodeLine{\ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_ga9df008c11eeff8c9383e56bf36e28ec2}{rpp::operators::as\_blocking}}()}
-\DoxyCodeLine{\ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{rpp::operators::subscribe}}([\&](\textcolor{keywordtype}{int}\ v)}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_gae38caa489cf43c0aca1aa1c8822aed60}{rpp::operators::delay}}(std::chrono::seconds\{3\},\ \mbox{\hyperlink{classrpp_1_1schedulers_1_1new__thread}{rpp::schedulers::new\_thread}}\{\})}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_ga9df008c11eeff8c9383e56bf36e28ec2}{rpp::operators::as\_blocking}}()}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{rpp::operators::subscribe}}([\&](\textcolor{keywordtype}{int}\ v)\ \{}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ observing\_time\ =\ rpp::schedulers::clock\_type::now();}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}observe\ "{}}\ <<\ v\ <<\ \textcolor{stringliteral}{"{}\ in\ thread\{"{}}\ <<\ std::this\_thread::get\_id()\ <<\ \textcolor{stringliteral}{"{}\}\ duration\ since\ start\ "{}}\ <<\ std::chrono::duration\_cast<std::chrono::seconds>(observing\_time\ -\/\ start).count()\ <<\textcolor{stringliteral}{"{}s"{}}\ <<\ std::endl;}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \},}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [\&](\textcolor{keyword}{const}\ std::exception\_ptr\&)}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ observing\_time\ =\ rpp::schedulers::clock\_type::now();}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}observe\ error\ in\ thread\{"{}}\ <<\ std::this\_thread::get\_id()\ <<\ \textcolor{stringliteral}{"{}\}\ duration\ since\ start\ "{}}\ <<\ std::chrono::duration\_cast<std::chrono::seconds>(observing\_time\ -\/\ start).count()\ <<\textcolor{stringliteral}{"{}s"{}}\ <<\ std::endl;}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}observe\ "{}}\ <<\ v\ <<\ \textcolor{stringliteral}{"{}\ in\ thread\{"{}}\ <<\ std::this\_thread::get\_id()\ <<\ \textcolor{stringliteral}{"{}\}\ duration\ since\ start\ "{}}\ <<\ std::chrono::duration\_cast<std::chrono::seconds>(observing\_time\ -\/\ start).count()\ <<\textcolor{stringliteral}{"{}s"{}}\ <<\ std::endl;\ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [\&](\textcolor{keyword}{const}\ std::exception\_ptr\&)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ observing\_time\ =\ rpp::schedulers::clock\_type::now();}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}observe\ error\ in\ thread\{"{}}\ <<\ std::this\_thread::get\_id()\ <<\ \textcolor{stringliteral}{"{}\}\ duration\ since\ start\ "{}}\ <<\ std::chrono::duration\_cast<std::chrono::seconds>(observing\_time\ -\/\ start).count()\ <<\ \textcolor{stringliteral}{"{}s"{}}\ <<\ std::endl;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \});}
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Template\ for\ output:}}
 \DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ emit\ 0\ in\ thread\{139855196489600\}\ duration\ since\ start\ 0s}}
@@ -283,33 +276,29 @@ Actually this operator is just {\ttfamily delay}, but in case of obtaining {\ttf
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ \ \ \textcolor{keyword}{auto}\ start\ =\ rpp::schedulers::clock\_type::now();}
 \DoxyCodeLine{}
-\DoxyCodeLine{\ \ \ \ rpp::source::create<int>([\&start](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ obs)}
-\DoxyCodeLine{\ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ rpp::source::create<int>([\&start](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ obs)\ \{}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ 3;\ ++i)}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \{}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ emitting\_time\ =\ rpp::schedulers::clock\_type::now();}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}emit\ "{}}\ <<\ i\ <<\ \textcolor{stringliteral}{"{}\ in\ thread\{"{}}\ <<\ std::this\_thread::get\_id()\ <<\ \textcolor{stringliteral}{"{}\}\ duration\ since\ start\ "{}}\ <<\ std::chrono::duration\_cast<std::chrono::seconds>(emitting\_time\ -\/\ start).count()\ <<\ \textcolor{stringliteral}{"{}s"{}}<<\ std::endl;}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}emit\ "{}}\ <<\ i\ <<\ \textcolor{stringliteral}{"{}\ in\ thread\{"{}}\ <<\ std::this\_thread::get\_id()\ <<\ \textcolor{stringliteral}{"{}\}\ duration\ since\ start\ "{}}\ <<\ std::chrono::duration\_cast<std::chrono::seconds>(emitting\_time\ -\/\ start).count()\ <<\ \textcolor{stringliteral}{"{}s"{}}\ <<\ std::endl;}
+\DoxyCodeLine{}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ obs.on\_next(i);}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ std::this\_thread::sleep\_for(std::chrono::seconds\{1\});}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ emitting\_time\ =\ rpp::schedulers::clock\_type::now();}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}emit\ error\ in\ thread\{"{}}\ <<\ std::this\_thread::get\_id()\ <<\ \textcolor{stringliteral}{"{}\}\ duration\ since\ start\ "{}}\ <<\ std::chrono::duration\_cast<std::chrono::seconds>(emitting\_time\ -\/\ start).count()\ <<\ \textcolor{stringliteral}{"{}s"{}}<<\ std::endl;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}emit\ error\ in\ thread\{"{}}\ <<\ std::this\_thread::get\_id()\ <<\ \textcolor{stringliteral}{"{}\}\ duration\ since\ start\ "{}}\ <<\ std::chrono::duration\_cast<std::chrono::seconds>(emitting\_time\ -\/\ start).count()\ <<\ \textcolor{stringliteral}{"{}s"{}}\ <<\ std::endl;}
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ obs.on\_error(\{\});}
 \DoxyCodeLine{\ \ \ \ \})}
-\DoxyCodeLine{\ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_ga3feb1b1258c7e3e72c151abf176c30c4}{rpp::operators::observe\_on}}(\mbox{\hyperlink{classrpp_1_1schedulers_1_1new__thread}{rpp::schedulers::new\_thread}}\{\},\ std::chrono::seconds\{3\})}
-\DoxyCodeLine{\ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_ga9df008c11eeff8c9383e56bf36e28ec2}{rpp::operators::as\_blocking}}()}
-\DoxyCodeLine{\ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{rpp::operators::subscribe}}([\&](\textcolor{keywordtype}{int}\ v)}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_ga3feb1b1258c7e3e72c151abf176c30c4}{rpp::operators::observe\_on}}(\mbox{\hyperlink{classrpp_1_1schedulers_1_1new__thread}{rpp::schedulers::new\_thread}}\{\},\ std::chrono::seconds\{3\})}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_ga9df008c11eeff8c9383e56bf36e28ec2}{rpp::operators::as\_blocking}}()}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{rpp::operators::subscribe}}([\&](\textcolor{keywordtype}{int}\ v)\ \{}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ observing\_time\ =\ rpp::schedulers::clock\_type::now();}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}observe\ "{}}\ <<\ v\ <<\ \textcolor{stringliteral}{"{}\ in\ thread\{"{}}\ <<\ std::this\_thread::get\_id()\ <<\ \textcolor{stringliteral}{"{}\}\ duration\ since\ start\ "{}}\ <<\ std::chrono::duration\_cast<std::chrono::seconds>(observing\_time\ -\/\ start).count()\ <<\textcolor{stringliteral}{"{}s"{}}\ <<\ std::endl;}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \},}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [\&](\textcolor{keyword}{const}\ std::exception\_ptr\&)}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ observing\_time\ =\ rpp::schedulers::clock\_type::now();}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}observe\ error\ in\ thread\{"{}}\ <<\ std::this\_thread::get\_id()\ <<\ \textcolor{stringliteral}{"{}\}\ duration\ since\ start\ "{}}\ <<\ std::chrono::duration\_cast<std::chrono::seconds>(observing\_time\ -\/\ start).count()\ <<\textcolor{stringliteral}{"{}s"{}}\ <<\ std::endl;}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}observe\ "{}}\ <<\ v\ <<\ \textcolor{stringliteral}{"{}\ in\ thread\{"{}}\ <<\ std::this\_thread::get\_id()\ <<\ \textcolor{stringliteral}{"{}\}\ duration\ since\ start\ "{}}\ <<\ std::chrono::duration\_cast<std::chrono::seconds>(observing\_time\ -\/\ start).count()\ <<\textcolor{stringliteral}{"{}s"{}}\ <<\ std::endl;\ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [\&](\textcolor{keyword}{const}\ std::exception\_ptr\&)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ observing\_time\ =\ rpp::schedulers::clock\_type::now();}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}observe\ error\ in\ thread\{"{}}\ <<\ std::this\_thread::get\_id()\ <<\ \textcolor{stringliteral}{"{}\}\ duration\ since\ start\ "{}}\ <<\ std::chrono::duration\_cast<std::chrono::seconds>(observing\_time\ -\/\ start).count()\ <<\ \textcolor{stringliteral}{"{}s"{}}\ <<\ std::endl;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \});}
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Template\ for\ output:}}
 \DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ emit\ 0\ in\ thread\{139800298538880\}\ duration\ since\ start\ 0s}}
@@ -349,14 +338,13 @@ Actually this operator is kind of {\ttfamily concat(obs, obs...)}
 
 \begin{DoxyCodeInclude}{0}
 \DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(1,\ 2,\ 3)}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_ga41ef49dc75a3eadb0eb3fda7c3692c40}{rpp::operators::repeat}}()}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__filtering__operators_gaf32161437c2c6cd7d5a0e5170a333cbb}{rpp::operators::take}}(10)}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{rpp::operators::subscribe}}([](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ v\ <<\ \textcolor{stringliteral}{"{}\ "{}};\ \},}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [](\textcolor{keyword}{const}\ std::exception\_ptr\&)\{\},}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ []()}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}completed"{}}\ <<\ std::endl;}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_ga41ef49dc75a3eadb0eb3fda7c3692c40}{rpp::operators::repeat}}()}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__filtering__operators_gaf32161437c2c6cd7d5a0e5170a333cbb}{rpp::operators::take}}(10)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{rpp::operators::subscribe}}([](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ v\ <<\ \textcolor{stringliteral}{"{}\ "{}};\ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [](\textcolor{keyword}{const}\ std::exception\_ptr\&)\ \{\},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ []()\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}completed"{}}\ <<\ std::endl;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \});}
 \DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:\ 1\ 2\ 3\ 1\ 2\ 3\ 1\ 2\ 3\ 1\ completed}}
 
 \end{DoxyCodeInclude}
@@ -399,10 +387,10 @@ Actually this operator is kind of {\ttfamily concat(obs, obs...)} where obs repe
 
 \begin{DoxyCodeInclude}{0}
 \DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(1,\ 2,\ 3)}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_ga41ef49dc75a3eadb0eb3fda7c3692c40}{rpp::operators::repeat}}(2)}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{rpp::operators::subscribe}}([](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ v\ <<\ \textcolor{stringliteral}{"{}\ "{}};\ \},}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [](\textcolor{keyword}{const}\ std::exception\_ptr\&)\{\},}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ []()\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}completed"{}}\ <<\ std::endl;\ \});}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_ga41ef49dc75a3eadb0eb3fda7c3692c40}{rpp::operators::repeat}}(2)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{rpp::operators::subscribe}}([](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ v\ <<\ \textcolor{stringliteral}{"{}\ "{}};\ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [](\textcolor{keyword}{const}\ std::exception\_ptr\&)\ \{\},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ []()\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}completed"{}}\ <<\ std::endl;\ \});}
 \DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:\ 1\ 2\ 3\ 1\ 2\ 3\ completed}}
 
 \end{DoxyCodeInclude}
@@ -549,15 +537,14 @@ Actually this operator just schedules subscription on original observable to pro
 
 \begin{DoxyCodeInclude}{0}
 \DoxyCodeLine{\ \ \ \ std::cout\ <<\ std::this\_thread::get\_id()\ <<\ std::endl;}
-\DoxyCodeLine{\ \ \ \ rpp::source::create<int>([](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ sub)}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}on\_subscribe\ thread\ "{}}\ <<\ std::this\_thread::get\_id()\ <<\ std::endl;}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sub.on\_next(1);}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sub.on\_completed();}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \})}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_gace728cfbf71720901cb6f310edabf8b0}{rpp::operators::subscribe\_on}}(\mbox{\hyperlink{classrpp_1_1schedulers_1_1new__thread}{rpp::schedulers::new\_thread}}\{\})}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_ga9df008c11eeff8c9383e56bf36e28ec2}{rpp::operators::as\_blocking}}()}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{rpp::operators::subscribe}}([](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}["{}}\ <<\ std::this\_thread::get\_id()\ <<\ \textcolor{stringliteral}{"{}]\ :\ "{}}\ <<\ v\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};\ \});}
+\DoxyCodeLine{\ \ \ \ rpp::source::create<int>([](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ sub)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}on\_subscribe\ thread\ "{}}\ <<\ std::this\_thread::get\_id()\ <<\ std::endl;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ sub.on\_next(1);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ sub.on\_completed();}
+\DoxyCodeLine{\ \ \ \ \})}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_gace728cfbf71720901cb6f310edabf8b0}{rpp::operators::subscribe\_on}}(\mbox{\hyperlink{classrpp_1_1schedulers_1_1new__thread}{rpp::schedulers::new\_thread}}\{\})}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_ga9df008c11eeff8c9383e56bf36e28ec2}{rpp::operators::as\_blocking}}()}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{rpp::operators::subscribe}}([](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}["{}}\ <<\ std::this\_thread::get\_id()\ <<\ \textcolor{stringliteral}{"{}]\ :\ "{}}\ <<\ v\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};\ \});}
 \DoxyCodeLine{\ \ \ \ std::cout\ <<\ std::this\_thread::get\_id()\ <<\ std::endl;}
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Template\ for\ output:}}

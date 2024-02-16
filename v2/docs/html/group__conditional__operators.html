@@ -202,8 +202,8 @@ requires (!utils::is_not_template_callable&lt;Fn&gt; || std::same_as&lt;bool, st
 </dl>
 <dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="take__while_8hpp_source.html">rpp/operators/take_while.hpp</a>&gt;</dd></dl>
 <dl class="section user"><dt>Example:</dt><dd><div class="fragment"><div class="line">    <a class="code hl_function" href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">rpp::source::just</a>(0, 1, 2, 3, 4, 5, 6, 7, 8, 9)</div>
-<div class="line">            | <a class="code hl_function" href="#gac65952f7460d8f0e71a93d95810d2061">rpp::operators::take_while</a>([](<span class="keywordtype">int</span> v) { <span class="keywordflow">return</span> v != 5; })</div>
-<div class="line">            | <a class="code hl_function" href="group__utility__operators.html#ga149309d4b2e0f1201f1ab42597ace8ac">rpp::operators::subscribe</a>([](<span class="keywordtype">int</span>  v) { std::cout &lt;&lt; v &lt;&lt; <span class="stringliteral">&quot; &quot;</span>; });</div>
+<div class="line">        | <a class="code hl_function" href="#gac65952f7460d8f0e71a93d95810d2061">rpp::operators::take_while</a>([](<span class="keywordtype">int</span> v) { <span class="keywordflow">return</span> v != 5; })</div>
+<div class="line">        | <a class="code hl_function" href="group__utility__operators.html#ga149309d4b2e0f1201f1ab42597ace8ac">rpp::operators::subscribe</a>([](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; v &lt;&lt; <span class="stringliteral">&quot; &quot;</span>; });</div>
 <div class="line">    <span class="comment">// Output: 0 1 2 3 4</span></div>
 </div><!-- fragment --></dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/takewhile.html">https://reactivex.io/documentation/operators/takewhile.html</a> </dd></dl>

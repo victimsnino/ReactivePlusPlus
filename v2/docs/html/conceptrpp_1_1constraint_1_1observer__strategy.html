@@ -108,12 +108,11 @@ $(function(){initNavTree('conceptrpp_1_1constraint_1_1observer__strategy.html','
 <p><code>#include &lt;<a class="el" href="rpp_2observers_2fwd_8hpp_source.html">fwd.hpp</a>&gt;</code></p>
 <h2 class="groupheader">Concept definition</h2>
 <div class="fragment"><div class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> S, <span class="keyword">typename</span> Type&gt;</div>
-<div class="line"><span class="keyword">concept </span><a class="code hl_concept" href="conceptrpp_1_1constraint_1_1observer__strategy.html">rpp::constraint::observer_strategy</a> =  <a class="code hl_concept" href="conceptrpp_1_1constraint_1_1observer__strategy__base.html">observer_strategy_base&lt;S&gt;</a> &amp;&amp; <span class="keyword">requires</span>(<span class="keyword">const</span> S&amp; const_strategy, <span class="keyword">const</span> Type&amp; v, Type&amp; mv)</div>
-<div class="line">{</div>
-<div class="line">    const_strategy.on_next(v);</div>
-<div class="line">    const_strategy.on_next(std::move(mv));</div>
-<div class="line">}</div>
-<div class="ttc" id="aconceptrpp_1_1constraint_1_1observer__strategy__base_html"><div class="ttname"><a href="conceptrpp_1_1constraint_1_1observer__strategy__base.html">rpp::constraint::observer_strategy_base</a></div><div class="ttdef"><b>Definition</b> fwd.hpp:27</div></div>
+<div class="line"><span class="keyword">concept </span><a class="code hl_concept" href="conceptrpp_1_1constraint_1_1observer__strategy.html">rpp::constraint::observer_strategy</a> =  <a class="code hl_concept" href="conceptrpp_1_1constraint_1_1observer__strategy__base.html">observer_strategy_base&lt;S&gt;</a> &amp;&amp; <span class="keyword">requires</span>(<span class="keyword">const</span> S&amp; const_strategy, <span class="keyword">const</span> Type&amp; v, Type&amp; mv) {</div>
+<div class="line">        const_strategy.on_next(v);</div>
+<div class="line">        const_strategy.on_next(std::move(mv));</div>
+<div class="line">    }</div>
+<div class="ttc" id="aconceptrpp_1_1constraint_1_1observer__strategy__base_html"><div class="ttname"><a href="conceptrpp_1_1constraint_1_1observer__strategy__base.html">rpp::constraint::observer_strategy_base</a></div><div class="ttdef"><b>Definition</b> fwd.hpp:26</div></div>
 <div class="ttc" id="aconceptrpp_1_1constraint_1_1observer__strategy_html"><div class="ttname"><a href="conceptrpp_1_1constraint_1_1observer__strategy.html">rpp::constraint::observer_strategy</a></div><div class="ttdoc">Concept to define strategy to override observer behavior. Strategy must be able to handle all observe...</div><div class="ttdef"><b>Definition</b> fwd.hpp:48</div></div>
 </div><!-- fragment --><a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Concept to define strategy to override observer behavior. Strategy must be able to handle all observer's callbacks: on_next/on_error/on_completed. </p>

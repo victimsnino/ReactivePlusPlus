@@ -4,9 +4,10 @@
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename}\ S>}
-\DoxyCodeLine{\textcolor{keyword}{concept\ }\mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1scheduler}{rpp::schedulers::constraint::scheduler}}\ =\ \ \textcolor{keyword}{requires}(\textcolor{keyword}{const}\ S\&\ s)}
-\DoxyCodeLine{\{}
-\DoxyCodeLine{\ \ \ \ \{s.create\_worker()\}\ -\/>\ \mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1worker}{worker}};}
-\DoxyCodeLine{\}}
+\DoxyCodeLine{\textcolor{keyword}{concept\ }\mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1scheduler}{rpp::schedulers::constraint::scheduler}}\ =\ \ \textcolor{keyword}{requires}(\textcolor{keyword}{const}\ S\&\ s)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ s.create\_worker()}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \}\ -\/>\ \mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1worker}{worker}};}
+\DoxyCodeLine{\ \ \ \ \}}
 
 \end{DoxyCode}

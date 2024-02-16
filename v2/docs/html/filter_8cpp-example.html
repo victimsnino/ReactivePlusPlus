@@ -102,19 +102,20 @@ $(function(){initNavTree('filter_8cpp-example.html',''); initResizable(); });
 </div><!--header-->
 <div class="contents">
 <div class="fragment"><div class="line"><span class="preprocessor">#include &lt;rpp/rpp.hpp&gt;</span></div>
+<div class="line"> </div>
 <div class="line"><span class="preprocessor">#include &lt;iostream&gt;</span></div>
 <div class="line"> </div>
 <div class="line"><span class="keywordtype">int</span> main() <span class="comment">// NOLINT(bugprone-exception-escape)</span></div>
 <div class="line">{</div>
 <div class="line">    <a id="a0" name="a0"></a><a class="code hl_function" href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">rpp::source::just</a>(0, 1, 2, 3, 4, 5, 6, 7, 8, 9)</div>
-<div class="line">            |<a id="a1" name="a1"></a><a class="code hl_function" href="group__filtering__operators.html#ga3ad579153e7975af6ae4b75f585fb873">rpp::operators::filter</a>([](<span class="keywordtype">int</span>    v) { <span class="keywordflow">return</span> v % 2 == 0; })</div>
-<div class="line">            |<a id="a2" name="a2"></a><a class="code hl_function" href="group__utility__operators.html#ga149309d4b2e0f1201f1ab42597ace8ac">rpp::operators::subscribe</a>([](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; v &lt;&lt; <span class="stringliteral">&quot; &quot;</span>; });</div>
+<div class="line">        | <a id="a1" name="a1"></a><a class="code hl_function" href="group__filtering__operators.html#ga3ad579153e7975af6ae4b75f585fb873">rpp::operators::filter</a>([](<span class="keywordtype">int</span> v) { <span class="keywordflow">return</span> v % 2 == 0; })</div>
+<div class="line">        | <a id="a2" name="a2"></a><a class="code hl_function" href="group__utility__operators.html#ga149309d4b2e0f1201f1ab42597ace8ac">rpp::operators::subscribe</a>([](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; v &lt;&lt; <span class="stringliteral">&quot; &quot;</span>; });</div>
 <div class="line">    <span class="comment">// Output: 0 2 4 6 8</span></div>
 <div class="line">    <span class="keywordflow">return</span> 0;</div>
 <div class="line">}</div>
-<div class="ttc" id="agroup__creational__operators_html_ga1edf47f176050dd414e28a1c0616b7c0"><div class="ttname"><a href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">rpp::source::just</a></div><div class="ttdeci">auto just(const TScheduler &amp;scheduler, T &amp;&amp;item, Ts &amp;&amp;... items)</div><div class="ttdoc">Creates rpp::observable that emits a particular items and completes.</div><div class="ttdef"><b>Definition</b> from.hpp:207</div></div>
+<div class="ttc" id="agroup__creational__operators_html_ga1edf47f176050dd414e28a1c0616b7c0"><div class="ttname"><a href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">rpp::source::just</a></div><div class="ttdeci">auto just(const TScheduler &amp;scheduler, T &amp;&amp;item, Ts &amp;&amp;... items)</div><div class="ttdoc">Creates rpp::observable that emits a particular items and completes.</div><div class="ttdef"><b>Definition</b> from.hpp:206</div></div>
 <div class="ttc" id="agroup__filtering__operators_html_ga3ad579153e7975af6ae4b75f585fb873"><div class="ttname"><a href="group__filtering__operators.html#ga3ad579153e7975af6ae4b75f585fb873">rpp::operators::filter</a></div><div class="ttdeci">auto filter(Fn &amp;&amp;predicate)</div><div class="ttdoc">Emit only those items from an Observable that satisfies a provided predicate.</div><div class="ttdef"><b>Definition</b> filter.hpp:89</div></div>
-<div class="ttc" id="agroup__utility__operators_html_ga149309d4b2e0f1201f1ab42597ace8ac"><div class="ttname"><a href="group__utility__operators.html#ga149309d4b2e0f1201f1ab42597ace8ac">rpp::operators::subscribe</a></div><div class="ttdeci">auto subscribe(observer&lt; Type, ObserverStrategy &gt; &amp;&amp;observer)</div><div class="ttdoc">Subscribes passed observer to emissions from this observable.</div><div class="ttdef"><b>Definition</b> subscribe.hpp:229</div></div>
+<div class="ttc" id="agroup__utility__operators_html_ga149309d4b2e0f1201f1ab42597ace8ac"><div class="ttname"><a href="group__utility__operators.html#ga149309d4b2e0f1201f1ab42597ace8ac">rpp::operators::subscribe</a></div><div class="ttdeci">auto subscribe(observer&lt; Type, ObserverStrategy &gt; &amp;&amp;observer)</div><div class="ttdoc">Subscribes passed observer to emissions from this observable.</div><div class="ttdef"><b>Definition</b> subscribe.hpp:226</div></div>
 </div><!-- fragment --> </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

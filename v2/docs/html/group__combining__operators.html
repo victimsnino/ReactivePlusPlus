@@ -131,12 +131,12 @@ requires constraint::observables_of_same_type&lt;std::decay_t&lt;TObservable&gt;
 <tr class="memitem:gadf12c4de9702425819b0d34b5fdf7db3"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#gadf12c4de9702425819b0d34b5fdf7db3">rpp::operators::start_with</a> (TObservable &amp;&amp;<a class="el" href="classrpp_1_1observable.html">observable</a>, TObservables &amp;&amp;... observables)</td></tr>
 <tr class="memdesc:gadf12c4de9702425819b0d34b5fdf7db3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Combines submissions from current observable with other observables into one but without overlapping and starting from observables provided as arguments.  <br /></td></tr>
 <tr class="separator:gadf12c4de9702425819b0d34b5fdf7db3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga7bb4fbf5e43b500471881a900ef1d6b9" id="r_ga7bb4fbf5e43b500471881a900ef1d6b9"><td class="memTemplParams" colspan="2">template&lt;constraint::memory_model MemoryModel = memory_model::use_stack, typename T , typename ... Ts&gt; <br />
+<tr class="memitem:ga7bb4fbf5e43b500471881a900ef1d6b9" id="r_ga7bb4fbf5e43b500471881a900ef1d6b9"><td class="memTemplParams" colspan="2">template&lt;constraint::memory_model MemoryModel = memory_model::use_stack, typename T , typename... Ts&gt; <br />
 requires (rpp::constraint::decayed_same_as&lt;T, Ts&gt; &amp;&amp; ...)</td></tr>
 <tr class="memitem:ga7bb4fbf5e43b500471881a900ef1d6b9"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#ga7bb4fbf5e43b500471881a900ef1d6b9">rpp::operators::start_with_values</a> (T &amp;&amp;v, Ts &amp;&amp;... vals)</td></tr>
 <tr class="memdesc:ga7bb4fbf5e43b500471881a900ef1d6b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Combines submissions from current observable with values into one but without overlapping and starting from values provided as arguments.  <br /></td></tr>
 <tr class="separator:ga7bb4fbf5e43b500471881a900ef1d6b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga04a8768b213581b77f025c39c42e1e78" id="r_ga04a8768b213581b77f025c39c42e1e78"><td class="memTemplParams" colspan="2">template&lt;constraint::memory_model MemoryModel = memory_model::use_stack, <a class="el" href="conceptrpp_1_1schedulers_1_1constraint_1_1scheduler.html">rpp::schedulers::constraint::scheduler</a> TScheduler, typename T , typename ... Ts&gt; <br />
+<tr class="memitem:ga04a8768b213581b77f025c39c42e1e78" id="r_ga04a8768b213581b77f025c39c42e1e78"><td class="memTemplParams" colspan="2">template&lt;constraint::memory_model MemoryModel = memory_model::use_stack, <a class="el" href="conceptrpp_1_1schedulers_1_1constraint_1_1scheduler.html">rpp::schedulers::constraint::scheduler</a> TScheduler, typename T , typename... Ts&gt; <br />
 requires (rpp::constraint::decayed_same_as&lt;T, Ts&gt; &amp;&amp; ...)</td></tr>
 <tr class="memitem:ga04a8768b213581b77f025c39c42e1e78"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#ga04a8768b213581b77f025c39c42e1e78">rpp::operators::start_with_values</a> (const TScheduler &amp;scheduler, T &amp;&amp;v, Ts &amp;&amp;... vals)</td></tr>
 <tr class="memdesc:ga04a8768b213581b77f025c39c42e1e78"><td class="mdescLeft">&#160;</td><td class="mdescRight">Combines submissions from current observable with values into one but without overlapping and starting from values provided as arguments.  <br /></td></tr>
@@ -299,8 +299,8 @@ During on subscribe operator takes ownership over <a class="el" href="classrpp_1
 <dl class="section user"><dt>Example:</dt><dd><div class="fragment"><div class="line">    <a class="code hl_function" href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">rpp::source::just</a>(<a class="code hl_function" href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">rpp::source::just</a>(1).as_dynamic(),</div>
 <div class="line">                      rpp::source::never&lt;int&gt;().as_dynamic(),</div>
 <div class="line">                      <a class="code hl_function" href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">rpp::source::just</a>(2).as_dynamic())</div>
-<div class="line">            | <a class="code hl_function" href="#ga3f8a04b4c8eb945534eddde5a25eec74">rpp::operators::merge</a>()</div>
-<div class="line">            | <a class="code hl_function" href="group__utility__operators.html#ga149309d4b2e0f1201f1ab42597ace8ac">rpp::operators::subscribe</a>([](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; v &lt;&lt; <span class="stringliteral">&quot; &quot;</span>; });</div>
+<div class="line">        | <a class="code hl_function" href="#ga3f8a04b4c8eb945534eddde5a25eec74">rpp::operators::merge</a>()</div>
+<div class="line">        | <a class="code hl_function" href="group__utility__operators.html#ga149309d4b2e0f1201f1ab42597ace8ac">rpp::operators::subscribe</a>([](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; v &lt;&lt; <span class="stringliteral">&quot; &quot;</span>; });</div>
 <div class="line">    <span class="comment">// Output: 1 2</span></div>
 </div><!-- fragment --></dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/merge.html">https://reactivex.io/documentation/operators/merge.html</a> </dd></dl>
@@ -352,8 +352,8 @@ During on subscribe operator takes ownership over <a class="el" href="classrpp_1
 </dl>
 <dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="merge_8hpp_source.html">rpp/operators/merge.hpp</a>&gt;</dd></dl>
 <dl class="section user"><dt>Example:</dt><dd><div class="fragment"><div class="line">    <a class="code hl_function" href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">rpp::source::just</a>(1)</div>
-<div class="line">            | <a class="code hl_function" href="#ga35392a84e52bf7101d0d0445ef391db7">rpp::operators::merge_with</a>(<a class="code hl_function" href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">rpp::source::just</a>(2))</div>
-<div class="line">            | <a class="code hl_function" href="group__utility__operators.html#ga149309d4b2e0f1201f1ab42597ace8ac">rpp::operators::subscribe</a>([](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; v &lt;&lt; <span class="stringliteral">&quot; &quot;</span>; });</div>
+<div class="line">        | <a class="code hl_function" href="#ga35392a84e52bf7101d0d0445ef391db7">rpp::operators::merge_with</a>(<a class="code hl_function" href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">rpp::source::just</a>(2))</div>
+<div class="line">        | <a class="code hl_function" href="group__utility__operators.html#ga149309d4b2e0f1201f1ab42597ace8ac">rpp::operators::subscribe</a>([](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; v &lt;&lt; <span class="stringliteral">&quot; &quot;</span>; });</div>
 <div class="line">    <span class="comment">// Output: 1 2</span></div>
 </div><!-- fragment --></dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/merge.html">https://reactivex.io/documentation/operators/merge.html</a> </dd></dl>
@@ -408,7 +408,7 @@ requires constraint::observables_of_same_type&lt;std::decay_t&lt;TObservable&gt;
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;constraint::memory_model MemoryModel = memory_model::use_stack, <a class="el" href="conceptrpp_1_1schedulers_1_1constraint_1_1scheduler.html">rpp::schedulers::constraint::scheduler</a> TScheduler, typename T , typename ... Ts&gt; <br />
+template&lt;constraint::memory_model MemoryModel = memory_model::use_stack, <a class="el" href="conceptrpp_1_1schedulers_1_1constraint_1_1scheduler.html">rpp::schedulers::constraint::scheduler</a> TScheduler, typename T , typename... Ts&gt; <br />
 requires (rpp::constraint::decayed_same_as&lt;T, Ts&gt; &amp;&amp; ...)</div>
       <table class="memname">
         <tr>
@@ -458,7 +458,7 @@ requires (rpp::constraint::decayed_same_as&lt;T, Ts&gt; &amp;&amp; ...)</div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;constraint::memory_model MemoryModel = memory_model::use_stack, typename T , typename ... Ts&gt; <br />
+template&lt;constraint::memory_model MemoryModel = memory_model::use_stack, typename T , typename... Ts&gt; <br />
 requires (rpp::constraint::decayed_same_as&lt;T, Ts&gt; &amp;&amp; ...)</div>
       <table class="memname">
         <tr>
@@ -539,14 +539,14 @@ template&lt;<a class="el" href="conceptrpp_1_1constraint_1_1observable.html">rpp
 <dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="with__latest__from_8hpp_source.html">rpp/operators/with_latest_from.hpp</a>&gt;</dd></dl>
 <dl class="section user"><dt>Examples</dt><dd><div class="fragment"><div class="line">    <a class="code hl_function" href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">rpp::source::just</a>(1, 2, 3, 4, 5, 6)</div>
 <div class="line">        | <a class="code hl_function" href="#ga9345ba5faac717ba85fc88f1c5fff58b">rpp::operators::with_latest_from</a>(<a class="code hl_function" href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">rpp::source::just</a>(3, 4, 5))</div>
-<div class="line">        | <a class="code hl_function" href="group__utility__operators.html#ga149309d4b2e0f1201f1ab42597ace8ac">rpp::operators::subscribe</a>([](std::tuple&lt;int,int&gt; v) { std::cout &lt;&lt; std::get&lt;0&gt;(v) &lt;&lt; <span class="stringliteral">&quot;:&quot;</span> &lt;&lt; std::get&lt;1&gt;(v) &lt;&lt; <span class="stringliteral">&quot; &quot;</span>; });</div>
+<div class="line">        | <a class="code hl_function" href="group__utility__operators.html#ga149309d4b2e0f1201f1ab42597ace8ac">rpp::operators::subscribe</a>([](std::tuple&lt;int, int&gt; v) { std::cout &lt;&lt; std::get&lt;0&gt;(v) &lt;&lt; <span class="stringliteral">&quot;:&quot;</span> &lt;&lt; std::get&lt;1&gt;(v) &lt;&lt; <span class="stringliteral">&quot; &quot;</span>; });</div>
 <div class="line">    <span class="comment">// Output: 1:3 2:4 3:5 4:5 5:5 6:5</span></div>
 <div class="line"> </div>
 <div class="line">    std::cout &lt;&lt; std::endl;</div>
 <div class="line"> </div>
 <div class="line">    <a class="code hl_function" href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">rpp::source::just</a>(1, 2, 3)</div>
 <div class="line">        | <a class="code hl_function" href="#ga9345ba5faac717ba85fc88f1c5fff58b">rpp::operators::with_latest_from</a>(<a class="code hl_function" href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">rpp::source::just</a>(3, 4, 5, 6, 7, 8))</div>
-<div class="line">        | <a class="code hl_function" href="group__utility__operators.html#ga149309d4b2e0f1201f1ab42597ace8ac">rpp::operators::subscribe</a>([](std::tuple&lt;int,int&gt; v) { std::cout &lt;&lt; std::get&lt;0&gt;(v) &lt;&lt; <span class="stringliteral">&quot;:&quot;</span> &lt;&lt; std::get&lt;1&gt;(v) &lt;&lt; <span class="stringliteral">&quot; &quot;</span>; });</div>
+<div class="line">        | <a class="code hl_function" href="group__utility__operators.html#ga149309d4b2e0f1201f1ab42597ace8ac">rpp::operators::subscribe</a>([](std::tuple&lt;int, int&gt; v) { std::cout &lt;&lt; std::get&lt;0&gt;(v) &lt;&lt; <span class="stringliteral">&quot;:&quot;</span> &lt;&lt; std::get&lt;1&gt;(v) &lt;&lt; <span class="stringliteral">&quot; &quot;</span>; });</div>
 <div class="line">    <span class="comment">// Output: 1:3 2:4 3:5</span></div>
 </div><!-- fragment --></dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/combinelatest.html">https://reactivex.io/documentation/operators/combinelatest.html</a> </dd></dl>

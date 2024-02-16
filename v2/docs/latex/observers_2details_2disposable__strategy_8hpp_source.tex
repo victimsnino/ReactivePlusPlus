@@ -14,96 +14,99 @@
 \DoxyCodeLine{00010\ }
 \DoxyCodeLine{00011\ \textcolor{preprocessor}{\#pragma\ once}}
 \DoxyCodeLine{00012\ }
-\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <rpp/defs.hpp>}}
-\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <rpp/observers/details/fwd.hpp>}}
-\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <rpp/observers/details/fwd.hpp>}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <rpp/defs.hpp>}}
 \DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ <rpp/disposables/disposable\_wrapper.hpp>}}
 \DoxyCodeLine{00017\ }
 \DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ <atomic>}}
 \DoxyCodeLine{00019\ }
 \DoxyCodeLine{00020\ \textcolor{keyword}{namespace\ }rpp::details::observers}
 \DoxyCodeLine{00021\ \{}
-\DoxyCodeLine{00022\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1details_1_1observers_1_1atomic__bool}{atomic\_bool}}}
-\DoxyCodeLine{00023\ \{}
-\DoxyCodeLine{00024\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00025\ \ \ \ \ \mbox{\hyperlink{classrpp_1_1details_1_1observers_1_1atomic__bool}{atomic\_bool}}()\ =\ \textcolor{keywordflow}{default};}
-\DoxyCodeLine{00026\ \ \ \ \ \mbox{\hyperlink{classrpp_1_1details_1_1observers_1_1atomic__bool}{atomic\_bool}}(\mbox{\hyperlink{classrpp_1_1details_1_1observers_1_1atomic__bool}{atomic\_bool}}\&\&\ other)\ \textcolor{keyword}{noexcept}}
-\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ just\ need\ atomicity,\ not\ guarding\ anything}}
-\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ :\ m\_value\{other.m\_value.load(std::memory\_order::seq\_cst)\}}
-\DoxyCodeLine{00029\ \ \ \ \ \{\}}
-\DoxyCodeLine{00030\ }
-\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keywordtype}{bool}\ test()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}}
-\DoxyCodeLine{00032\ \ \ \ \ \{}
-\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ just\ need\ atomicity,\ not\ guarding\ anything}}
-\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ m\_value.load(std::memory\_order::seq\_cst);}
-\DoxyCodeLine{00035\ \ \ \ \ \}}
-\DoxyCodeLine{00036\ }
-\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keywordtype}{void}\ set()\ \textcolor{keyword}{noexcept}}
-\DoxyCodeLine{00038\ \ \ \ \ \{}
-\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ just\ need\ atomicity,\ not\ guarding\ anything}}
-\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ m\_value.store(\textcolor{keyword}{true},\ std::memory\_order::seq\_cst);}
-\DoxyCodeLine{00041\ \ \ \ \ \}}
-\DoxyCodeLine{00042\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00043\ \ \ \ \ std::atomic\_bool\ m\_value\{\};}
-\DoxyCodeLine{00044\ \};}
-\DoxyCodeLine{00045\ }
-\DoxyCodeLine{00046\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1details_1_1observers_1_1non__atomic__bool}{non\_atomic\_bool}}}
-\DoxyCodeLine{00047\ \{}
-\DoxyCodeLine{00048\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00049\ \ \ \ \ \mbox{\hyperlink{classrpp_1_1details_1_1observers_1_1non__atomic__bool}{non\_atomic\_bool}}()\ =\ \textcolor{keywordflow}{default};}
-\DoxyCodeLine{00050\ \ \ \ \ \mbox{\hyperlink{classrpp_1_1details_1_1observers_1_1non__atomic__bool}{non\_atomic\_bool}}(\mbox{\hyperlink{classrpp_1_1details_1_1observers_1_1non__atomic__bool}{non\_atomic\_bool}}\&\&\ other)\ \textcolor{keyword}{noexcept}\ =\ \textcolor{keywordflow}{default};}
-\DoxyCodeLine{00051\ }
-\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keywordtype}{bool}\ test()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}}
-\DoxyCodeLine{00053\ \ \ \ \ \{}
-\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ m\_value;}
-\DoxyCodeLine{00055\ \ \ \ \ \}}
-\DoxyCodeLine{00056\ }
-\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keywordtype}{void}\ set()\ \textcolor{keyword}{noexcept}}
-\DoxyCodeLine{00058\ \ \ \ \ \{}
-\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ m\_value\ =\ \textcolor{keyword}{true};}
-\DoxyCodeLine{00060\ \ \ \ \ \}}
-\DoxyCodeLine{00061\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00062\ \ \ \ \ \textcolor{keywordtype}{bool}\ m\_value\{\};}
-\DoxyCodeLine{00063\ \};}
-\DoxyCodeLine{00064\ }
-\DoxyCodeLine{00065\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ DisposableContainer,\ rpp::constra\textcolor{keywordtype}{int}::any\_of<atomic\_\textcolor{keywordtype}{bool},\ non\_atomic\_\textcolor{keywordtype}{bool}>\ Bool>}
-\DoxyCodeLine{00066\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1details_1_1observers_1_1local__disposable__strategy}{local\_disposable\_strategy}}}
-\DoxyCodeLine{00067\ \{}
-\DoxyCodeLine{00068\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00069\ \ \ \ \ \mbox{\hyperlink{classrpp_1_1details_1_1observers_1_1local__disposable__strategy}{local\_disposable\_strategy}}()\ =\ \textcolor{keywordflow}{default};}
-\DoxyCodeLine{00070\ \ \ \ \ \mbox{\hyperlink{classrpp_1_1details_1_1observers_1_1local__disposable__strategy}{local\_disposable\_strategy}}(\mbox{\hyperlink{classrpp_1_1details_1_1observers_1_1local__disposable__strategy}{local\_disposable\_strategy}}\&\&\ other)\ \textcolor{keyword}{noexcept}\ =\ \textcolor{keywordflow}{default};}
-\DoxyCodeLine{00071\ }
-\DoxyCodeLine{00072\ \ \ \ \ \textcolor{keywordtype}{void}\ add(\textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{disposable\_wrapper}}\&\ d)}
-\DoxyCodeLine{00073\ \ \ \ \ \{}
-\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ m\_upstreams.push\_back(d);}
-\DoxyCodeLine{00075\ \ \ \ \ \}}
-\DoxyCodeLine{00076\ }
-\DoxyCodeLine{00077\ \ \ \ \ \textcolor{keywordtype}{bool}\ is\_disposed()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}}
-\DoxyCodeLine{00078\ \ \ \ \ \{}
-\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ just\ need\ atomicity,\ not\ guarding\ anything}}
-\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ m\_is\_disposed.test();}
-\DoxyCodeLine{00081\ \ \ \ \ \}}
-\DoxyCodeLine{00082\ }
-\DoxyCodeLine{00083\ \ \ \ \ \textcolor{keywordtype}{void}\ dispose()\textcolor{keyword}{\ const}}
-\DoxyCodeLine{00084\ \textcolor{keyword}{\ \ \ \ }\{}
-\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ just\ need\ atomicity,\ not\ guarding\ anything}}
-\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ m\_is\_disposed.set();}
-\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ m\_upstreams.dispose();}
-\DoxyCodeLine{00088\ \ \ \ \ \}}
-\DoxyCodeLine{00089\ }
-\DoxyCodeLine{00090\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00091\ \ \ \ \ RPP\_NO\_UNIQUE\_ADDRESS\ DisposableContainer\ m\_upstreams\{\};}
-\DoxyCodeLine{00092\ \ \ \ \ \textcolor{keyword}{mutable}\ Bool\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ m\_is\_disposed\{\};}
-\DoxyCodeLine{00093\ \};}
-\DoxyCodeLine{00094\ }
-\DoxyCodeLine{00095\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1details_1_1observers_1_1none__disposable__strategy}{none\_disposable\_strategy}}}
-\DoxyCodeLine{00096\ \{}
-\DoxyCodeLine{00097\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ add(\textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp::disposable\_wrapper}}\&)\ \{\}}
-\DoxyCodeLine{00098\ }
-\DoxyCodeLine{00099\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ is\_disposed()\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};\ \}}
-\DoxyCodeLine{00100\ }
-\DoxyCodeLine{00101\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ dispose()\ \{\}}
-\DoxyCodeLine{00102\ \};}
-\DoxyCodeLine{00103\ \}}
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1details_1_1observers_1_1atomic__bool}{atomic\_bool}}}
+\DoxyCodeLine{00023\ \ \ \ \ \{}
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrpp_1_1details_1_1observers_1_1atomic__bool}{atomic\_bool}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrpp_1_1details_1_1observers_1_1atomic__bool}{atomic\_bool}}(\mbox{\hyperlink{classrpp_1_1details_1_1observers_1_1atomic__bool}{atomic\_bool}}\&\&\ other)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ just\ need\ atomicity,\ not\ guarding\ anything}}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \ \ \ \ :\ m\_value\{other.m\_value.load(std::memory\_order::seq\_cst)\}}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ test()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ just\ need\ atomicity,\ not\ guarding\ anything}}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ m\_value.load(std::memory\_order::seq\_cst);}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ set()\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ just\ need\ atomicity,\ not\ guarding\ anything}}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \ \ \ \ m\_value.store(\textcolor{keyword}{true},\ std::memory\_order::seq\_cst);}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ std::atomic\_bool\ m\_value\{\};}
+\DoxyCodeLine{00046\ \ \ \ \ \};}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1details_1_1observers_1_1non__atomic__bool}{non\_atomic\_bool}}}
+\DoxyCodeLine{00049\ \ \ \ \ \{}
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrpp_1_1details_1_1observers_1_1non__atomic__bool}{non\_atomic\_bool}}()\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrpp_1_1details_1_1observers_1_1non__atomic__bool}{non\_atomic\_bool}}(\mbox{\hyperlink{classrpp_1_1details_1_1observers_1_1non__atomic__bool}{non\_atomic\_bool}}\&\&\ other)\ \textcolor{keyword}{noexcept}\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ test()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ m\_value;}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ set()\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \ \ \ \ m\_value\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ m\_value\{\};}
+\DoxyCodeLine{00066\ \ \ \ \ \};}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ DisposableContainer,\ rpp::constra\textcolor{keywordtype}{int}::any\_of<atomic\_\textcolor{keywordtype}{bool},\ non\_atomic\_\textcolor{keywordtype}{bool}>\ Bool>}
+\DoxyCodeLine{00069\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1details_1_1observers_1_1local__disposable__strategy}{local\_disposable\_strategy}}}
+\DoxyCodeLine{00070\ \ \ \ \ \{}
+\DoxyCodeLine{00071\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrpp_1_1details_1_1observers_1_1local__disposable__strategy}{local\_disposable\_strategy}}()\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrpp_1_1details_1_1observers_1_1local__disposable__strategy}{local\_disposable\_strategy}}(\mbox{\hyperlink{classrpp_1_1details_1_1observers_1_1local__disposable__strategy}{local\_disposable\_strategy}}\&\&\ other)\ \textcolor{keyword}{noexcept}\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ add(\textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{disposable\_wrapper}}\&\ d)}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \ \ \ \ m\_upstreams.push\_back(d);}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ is\_disposed()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ just\ need\ atomicity,\ not\ guarding\ anything}}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ m\_is\_disposed.test();}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ dispose()\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00087\ \textcolor{keyword}{\ \ \ \ \ \ \ \ }\{}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ just\ need\ atomicity,\ not\ guarding\ anything}}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \ \ \ \ m\_is\_disposed.set();}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \ \ \ \ m\_upstreams.dispose();}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00093\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ RPP\_NO\_UNIQUE\_ADDRESS\ DisposableContainer\ m\_upstreams\{\};}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \textcolor{keyword}{mutable}\ Bool\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ m\_is\_disposed\{\};}
+\DoxyCodeLine{00096\ \ \ \ \ \};}
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00098\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1details_1_1observers_1_1none__disposable__strategy}{none\_disposable\_strategy}}}
+\DoxyCodeLine{00099\ \ \ \ \ \{}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ add(\textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp::disposable\_wrapper}}\&)\ \{\}}
+\DoxyCodeLine{00101\ }
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ is\_disposed()\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};\ \}}
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ dispose()\ \{\}}
+\DoxyCodeLine{00105\ \ \ \ \ \};}
+\DoxyCodeLine{00106\ \}\ \textcolor{comment}{//\ namespace\ rpp::details::observers}}
 
 \end{DoxyCode}

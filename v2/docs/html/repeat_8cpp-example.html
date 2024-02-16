@@ -102,33 +102,33 @@ $(function(){initNavTree('repeat_8cpp-example.html',''); initResizable(); });
 </div><!--header-->
 <div class="contents">
 <div class="fragment"><div class="line"><span class="preprocessor">#include &lt;rpp/rpp.hpp&gt;</span></div>
+<div class="line"> </div>
 <div class="line"><span class="preprocessor">#include &lt;exception&gt;</span></div>
 <div class="line"><span class="preprocessor">#include &lt;iostream&gt;</span></div>
 <div class="line"> </div>
 <div class="line"><span class="keywordtype">int</span> main()</div>
 <div class="line">{</div>
 <div class="line">    <a id="a0" name="a0"></a><a class="code hl_function" href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">rpp::source::just</a>(1, 2, 3)</div>
-<div class="line">            | <a id="a1" name="a1"></a><a class="code hl_function" href="group__utility__operators.html#ga41ef49dc75a3eadb0eb3fda7c3692c40">rpp::operators::repeat</a>(2)</div>
-<div class="line">            | <a id="a2" name="a2"></a><a class="code hl_function" href="group__utility__operators.html#ga149309d4b2e0f1201f1ab42597ace8ac">rpp::operators::subscribe</a>([](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; v &lt;&lt; <span class="stringliteral">&quot; &quot;</span>; },</div>
-<div class="line">                                        [](<span class="keyword">const</span> std::exception_ptr&amp;){},</div>
-<div class="line">                                        []() { std::cout &lt;&lt; <span class="stringliteral">&quot;completed&quot;</span> &lt;&lt; std::endl; });</div>
+<div class="line">        | <a id="a1" name="a1"></a><a class="code hl_function" href="group__utility__operators.html#ga41ef49dc75a3eadb0eb3fda7c3692c40">rpp::operators::repeat</a>(2)</div>
+<div class="line">        | <a id="a2" name="a2"></a><a class="code hl_function" href="group__utility__operators.html#ga149309d4b2e0f1201f1ab42597ace8ac">rpp::operators::subscribe</a>([](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; v &lt;&lt; <span class="stringliteral">&quot; &quot;</span>; },</div>
+<div class="line">                                    [](<span class="keyword">const</span> std::exception_ptr&amp;) {},</div>
+<div class="line">                                    []() { std::cout &lt;&lt; <span class="stringliteral">&quot;completed&quot;</span> &lt;&lt; std::endl; });</div>
 <div class="line">    <span class="comment">// Output: 1 2 3 1 2 3 completed</span></div>
 <div class="line"> </div>
 <div class="line">    <a class="code hl_function" href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">rpp::source::just</a>(1, 2, 3)</div>
-<div class="line">            | <a class="code hl_function" href="group__utility__operators.html#ga41ef49dc75a3eadb0eb3fda7c3692c40">rpp::operators::repeat</a>()</div>
-<div class="line">            | <a id="a3" name="a3"></a><a class="code hl_function" href="group__filtering__operators.html#gaf32161437c2c6cd7d5a0e5170a333cbb">rpp::operators::take</a>(10)</div>
-<div class="line">            | <a class="code hl_function" href="group__utility__operators.html#ga149309d4b2e0f1201f1ab42597ace8ac">rpp::operators::subscribe</a>([](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; v &lt;&lt; <span class="stringliteral">&quot; &quot;</span>; },</div>
-<div class="line">                                        [](<span class="keyword">const</span> std::exception_ptr&amp;){},</div>
-<div class="line">                                        []()</div>
-<div class="line">                                        {</div>
-<div class="line">                                            std::cout &lt;&lt; <span class="stringliteral">&quot;completed&quot;</span> &lt;&lt; std::endl;</div>
-<div class="line">                                        });</div>
+<div class="line">        | <a class="code hl_function" href="group__utility__operators.html#ga41ef49dc75a3eadb0eb3fda7c3692c40">rpp::operators::repeat</a>()</div>
+<div class="line">        | <a id="a3" name="a3"></a><a class="code hl_function" href="group__filtering__operators.html#gaf32161437c2c6cd7d5a0e5170a333cbb">rpp::operators::take</a>(10)</div>
+<div class="line">        | <a class="code hl_function" href="group__utility__operators.html#ga149309d4b2e0f1201f1ab42597ace8ac">rpp::operators::subscribe</a>([](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; v &lt;&lt; <span class="stringliteral">&quot; &quot;</span>; },</div>
+<div class="line">                                    [](<span class="keyword">const</span> std::exception_ptr&amp;) {},</div>
+<div class="line">                                    []() {</div>
+<div class="line">                                        std::cout &lt;&lt; <span class="stringliteral">&quot;completed&quot;</span> &lt;&lt; std::endl;</div>
+<div class="line">                                    });</div>
 <div class="line">    <span class="comment">// Output: 1 2 3 1 2 3 1 2 3 1 completed</span></div>
 <div class="line">    <span class="keywordflow">return</span> 0;</div>
 <div class="line">}</div>
-<div class="ttc" id="agroup__creational__operators_html_ga1edf47f176050dd414e28a1c0616b7c0"><div class="ttname"><a href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">rpp::source::just</a></div><div class="ttdeci">auto just(const TScheduler &amp;scheduler, T &amp;&amp;item, Ts &amp;&amp;... items)</div><div class="ttdoc">Creates rpp::observable that emits a particular items and completes.</div><div class="ttdef"><b>Definition</b> from.hpp:207</div></div>
+<div class="ttc" id="agroup__creational__operators_html_ga1edf47f176050dd414e28a1c0616b7c0"><div class="ttname"><a href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">rpp::source::just</a></div><div class="ttdeci">auto just(const TScheduler &amp;scheduler, T &amp;&amp;item, Ts &amp;&amp;... items)</div><div class="ttdoc">Creates rpp::observable that emits a particular items and completes.</div><div class="ttdef"><b>Definition</b> from.hpp:206</div></div>
 <div class="ttc" id="agroup__filtering__operators_html_gaf32161437c2c6cd7d5a0e5170a333cbb"><div class="ttname"><a href="group__filtering__operators.html#gaf32161437c2c6cd7d5a0e5170a333cbb">rpp::operators::take</a></div><div class="ttdeci">auto take(size_t count)</div><div class="ttdoc">Emit only first count items provided by observable, then send on_completed</div><div class="ttdef"><b>Definition</b> take.hpp:90</div></div>
-<div class="ttc" id="agroup__utility__operators_html_ga149309d4b2e0f1201f1ab42597ace8ac"><div class="ttname"><a href="group__utility__operators.html#ga149309d4b2e0f1201f1ab42597ace8ac">rpp::operators::subscribe</a></div><div class="ttdeci">auto subscribe(observer&lt; Type, ObserverStrategy &gt; &amp;&amp;observer)</div><div class="ttdoc">Subscribes passed observer to emissions from this observable.</div><div class="ttdef"><b>Definition</b> subscribe.hpp:229</div></div>
+<div class="ttc" id="agroup__utility__operators_html_ga149309d4b2e0f1201f1ab42597ace8ac"><div class="ttname"><a href="group__utility__operators.html#ga149309d4b2e0f1201f1ab42597ace8ac">rpp::operators::subscribe</a></div><div class="ttdeci">auto subscribe(observer&lt; Type, ObserverStrategy &gt; &amp;&amp;observer)</div><div class="ttdoc">Subscribes passed observer to emissions from this observable.</div><div class="ttdef"><b>Definition</b> subscribe.hpp:226</div></div>
 <div class="ttc" id="agroup__utility__operators_html_ga41ef49dc75a3eadb0eb3fda7c3692c40"><div class="ttname"><a href="group__utility__operators.html#ga41ef49dc75a3eadb0eb3fda7c3692c40">rpp::operators::repeat</a></div><div class="ttdeci">auto repeat()</div><div class="ttdoc">Repeats the Observabe's sequence of emissions infinite amount of times via re-subscribing on it durin...</div><div class="ttdef"><b>Definition</b> repeat.hpp:86</div></div>
 </div><!-- fragment --> </div><!-- contents -->
 </div><!-- doc-content -->

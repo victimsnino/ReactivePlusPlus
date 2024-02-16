@@ -20,37 +20,37 @@
 \DoxyCodeLine{00016\ }
 \DoxyCodeLine{00017\ \textcolor{keyword}{namespace\ }rpp::details}
 \DoxyCodeLine{00018\ \{}
-\DoxyCodeLine{00019\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ Factory>}
-\DoxyCodeLine{00020\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1details_1_1defer__strategy}{defer\_strategy}}}
-\DoxyCodeLine{00021\ \{}
-\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keyword}{using\ }value\_type\ =\ rpp::utils::extract\_observable\_type\_t<std::invoke\_result\_t<Factory>>;}
-\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keyword}{using\ }expected\_disposable\_strategy\ =\ rpp::details::observables::deduce\_disposable\_strategy\_t<std::invoke\_result\_t<Factory>>;}
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ Factory>}
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1details_1_1defer__strategy}{defer\_strategy}}}
+\DoxyCodeLine{00021\ \ \ \ \ \{}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }value\_type\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ rpp::utils::extract\_observable\_type\_t<std::invoke\_result\_t<Factory>>;}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }expected\_disposable\_strategy\ =\ rpp::details::observables::deduce\_disposable\_strategy\_t<std::invoke\_result\_t<Factory>>;}
 \DoxyCodeLine{00024\ }
-\DoxyCodeLine{00025\ \ \ \ \ RPP\_NO\_UNIQUE\_ADDRESS\ Factory\ observable\_factory;}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ RPP\_NO\_UNIQUE\_ADDRESS\ Factory\ observable\_factory;}
 \DoxyCodeLine{00026\ }
-\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::observer\_of\_type<value\_type>\ TObs>}
-\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keywordtype}{void}\ subscribe(TObs\&\&\ obs)\textcolor{keyword}{\ const}}
-\DoxyCodeLine{00029\ \textcolor{keyword}{\ \ \ \ }\{}
-\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ observable\_factory().subscribe(std::forward<TObs>(obs));}
-\DoxyCodeLine{00031\ \ \ \ \ \}}
-\DoxyCodeLine{00032\ \};}
-\DoxyCodeLine{00033\ \}}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::observer\_of\_type<value\_type>\ TObs>}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ subscribe(TObs\&\&\ obs)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00029\ \textcolor{keyword}{\ \ \ \ \ \ \ \ }\{}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \ \ \ \ observable\_factory().subscribe(std::forward<TObs>(obs));}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00032\ \ \ \ \ \};}
+\DoxyCodeLine{00033\ \}\ \textcolor{comment}{//\ namespace\ rpp::details}}
 \DoxyCodeLine{00034\ }
 \DoxyCodeLine{00035\ \textcolor{keyword}{namespace\ }rpp}
 \DoxyCodeLine{00036\ \{}
-\DoxyCodeLine{00037\ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type\ Type,\ \textcolor{keyword}{typename}\ Factory>}
-\DoxyCodeLine{00038\ \textcolor{keyword}{using\ }\mbox{\hyperlink{classrpp_1_1observable}{defer\_observable}}\ =\ \mbox{\hyperlink{classrpp_1_1observable}{observable<Type,\ details::defer\_strategy<Factory>}}>;}
-\DoxyCodeLine{00039\ \}}
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type\ Type,\ \textcolor{keyword}{typename}\ Factory>}
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{classrpp_1_1observable}{defer\_observable}}\ =\ \mbox{\hyperlink{classrpp_1_1observable}{observable<Type,\ details::defer\_strategy<Factory>}}>;}
+\DoxyCodeLine{00039\ \}\ \textcolor{comment}{//\ namespace\ rpp}}
 \DoxyCodeLine{00040\ }
 \DoxyCodeLine{00041\ \textcolor{keyword}{namespace\ }rpp::source}
 \DoxyCodeLine{00042\ \{}
 \DoxyCodeLine{00043\ }
-\DoxyCodeLine{00055\ \textcolor{keyword}{template}<std::invocable\ Factory>}
-\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keyword}{requires}\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp::constraint::observable<std::invoke\_result\_t<Factory>}}>}
-\DoxyCodeLine{00057\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__creational__operators_gad9a4bddea3780850a01b82b481951d18}{defer}}(Factory\&\&\ observable\_factory)}
-\DoxyCodeLine{00058\ \{}
-\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classrpp_1_1observable}{defer\_observable<rpp::utils::extract\_observable\_type\_t<std::invoke\_result\_t<Factory>}}>,\ Factory>\{std::forward<Factory>(observable\_factory)\};}
-\DoxyCodeLine{00060\ \}}
-\DoxyCodeLine{00061\ \}}
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keyword}{template}<std::invocable\ Factory>}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \textcolor{keyword}{requires}\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp::constraint::observable<std::invoke\_result\_t<Factory>}}>}
+\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__creational__operators_gad9a4bddea3780850a01b82b481951d18}{defer}}(Factory\&\&\ observable\_factory)}
+\DoxyCodeLine{00058\ \ \ \ \ \{}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classrpp_1_1observable}{defer\_observable<rpp::utils::extract\_observable\_type\_t<std::invoke\_result\_t<Factory>}}>,\ Factory>\{std::forward<Factory>(observable\_factory)\};}
+\DoxyCodeLine{00060\ \ \ \ \ \}}
+\DoxyCodeLine{00061\ \}\ \textcolor{comment}{//\ namespace\ rpp::source}}
 
 \end{DoxyCode}

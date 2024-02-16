@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['scan_0',['scan',['../group__transforming__operators.html#gad34415b9aeed2ad2446e7d54b6a4081c',1,'rpp::operators::scan(InitialValue &amp;&amp;initial_value, Fn &amp;&amp;accumulator)'],['../group__transforming__operators.html#gaced4a6e7bc0556b40b07d7efd97d7ee3',1,'rpp::operators::scan(Fn &amp;&amp;accumulator)'],['../group__transforming__operators.html#gad34415b9aeed2ad2446e7d54b6a4081c',1,'rpp::operators::scan(InitialValue &amp;&amp;initial_value, Fn &amp;&amp;accumulator)']]],
+  ['scan_0',['scan',['../group__transforming__operators.html#gad34415b9aeed2ad2446e7d54b6a4081c',1,'rpp::operators::scan(InitialValue &amp;&amp;initial_value, Fn &amp;&amp;accumulator)'],['../group__transforming__operators.html#gaced4a6e7bc0556b40b07d7efd97d7ee3',1,'rpp::operators::scan(Fn &amp;&amp;accumulator)']]],
   ['scan_5fno_5fseed_5fobserver_5fstrategy_1',['scan_no_seed_observer_strategy',['../structrpp_1_1operators_1_1details_1_1scan__no__seed__observer__strategy.html',1,'rpp::operators::details']]],
   ['scan_5fno_5fseed_5ft_2',['scan_no_seed_t',['../structrpp_1_1operators_1_1details_1_1scan__no__seed__t.html',1,'rpp::operators::details']]],
   ['scan_5fobserver_5fstrategy_3',['scan_observer_strategy',['../structrpp_1_1operators_1_1details_1_1scan__observer__strategy.html',1,'rpp::operators::details']]],

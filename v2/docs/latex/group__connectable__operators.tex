@@ -55,8 +55,8 @@ This overloading creates fresh {\ttfamily Subject\texorpdfstring{$<$}{<}Type\tex
 
 \begin{DoxyCodeInclude}{0}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ observable\ =\ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(1,\ 2,\ 3)\ |\ rpp::operators::multicast<rpp::subjects::publish\_subject>();}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ observable.subscribe([](\textcolor{keywordtype}{int}\ v)\ \{std::cout\ <<\ \textcolor{stringliteral}{"{}\#1\ "{}}\ <<\ v\ <<\ std::endl;\ \});}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ observable.subscribe([](\textcolor{keywordtype}{int}\ v)\ \{std::cout\ <<\ \textcolor{stringliteral}{"{}\#2\ "{}}\ <<\ v\ <<\ std::endl;\ \});}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ observable.subscribe([](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}\#1\ "{}}\ <<\ v\ <<\ std::endl;\ \});}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ observable.subscribe([](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}\#2\ "{}}\ <<\ v\ <<\ std::endl;\ \});}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ observable.connect();}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{comment}{//\ Output:}}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{comment}{//\ \#1\ 1}}
@@ -100,10 +100,10 @@ Same subject would be used to all observables lifted via this operator. To have 
 \begin{DoxyParagraph}{Example}
 
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ subject\ =\ \mbox{\hyperlink{classrpp_1_1subjects_1_1publish__subject}{rpp::subjects::publish\_subject<int>}}\{\};}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ subject\ \ \ \ =\ \mbox{\hyperlink{classrpp_1_1subjects_1_1publish__subject}{rpp::subjects::publish\_subject<int>}}\{\};}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ observable\ =\ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(1,\ 2,\ 3)\ |\ \mbox{\hyperlink{group__connectable__operators_gac7b150abbdae0a5084dd3784d9c7babf}{rpp::operators::multicast}}(subject);}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ observable.subscribe([](\textcolor{keywordtype}{int}\ v)\ \{std::cout\ <<\ \textcolor{stringliteral}{"{}\#1\ "{}}\ <<\ v\ <<\ std::endl;\ \});}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ observable.subscribe([](\textcolor{keywordtype}{int}\ v)\ \{std::cout\ <<\ \textcolor{stringliteral}{"{}\#2\ "{}}\ <<\ v\ <<\ std::endl;\ \});}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ observable.subscribe([](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}\#1\ "{}}\ <<\ v\ <<\ std::endl;\ \});}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ observable.subscribe([](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}\#2\ "{}}\ <<\ v\ <<\ std::endl;\ \});}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ observable.connect();}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{comment}{//\ Output:}}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{comment}{//\ \#1\ 1}}
@@ -144,8 +144,8 @@ This overloading creates fresh {\ttfamily Subject\texorpdfstring{$<$}{<}Type\tex
 
 \begin{DoxyCodeInclude}{0}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ observable\ =\ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(1,\ 2,\ 3)\ |\ \mbox{\hyperlink{group__connectable__operators_ga42498cc0bc565116e9deece3c3afa66f}{rpp::operators::publish}}();}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ observable.subscribe([](\textcolor{keywordtype}{int}\ v)\ \{std::cout\ <<\ \textcolor{stringliteral}{"{}\#1\ "{}}\ <<\ v\ <<\ std::endl;\ \});}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ observable.subscribe([](\textcolor{keywordtype}{int}\ v)\ \{std::cout\ <<\ \textcolor{stringliteral}{"{}\#2\ "{}}\ <<\ v\ <<\ std::endl;\ \});}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ observable.subscribe([](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}\#1\ "{}}\ <<\ v\ <<\ std::endl;\ \});}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ observable.subscribe([](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}\#2\ "{}}\ <<\ v\ <<\ std::endl;\ \});}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ observable.connect();}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{comment}{//\ Output:}}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{comment}{//\ \#1\ 1}}
@@ -180,10 +180,10 @@ Connects \doxylink{classrpp_1_1connectable__observable}{rpp\+::connectable\+\_\+
 
 \begin{DoxyCodeInclude}{0}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ observable\ =\ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(1,\ 2,\ 3)\ |\ \mbox{\hyperlink{group__connectable__operators_gac7b150abbdae0a5084dd3784d9c7babf}{rpp::operators::multicast}}();}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ observable.subscribe([](\textcolor{keywordtype}{int}\ v)\ \{std::cout\ <<\ \textcolor{stringliteral}{"{}\#1\ "{}}\ <<\ v\ <<\ std::endl;\ \});}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ observable.subscribe([](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}\#1\ "{}}\ <<\ v\ <<\ std::endl;\ \});}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{comment}{//\ No\ Output}}
 \DoxyCodeLine{}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ observable\ |\ rpp::ops::ref\_count()\ |\ rpp::ops::subscribe([](\textcolor{keywordtype}{int}\ v)\ \{std::cout\ <<\ \textcolor{stringliteral}{"{}\#2\ "{}}\ <<\ v\ <<\ std::endl;\ \});}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ observable\ |\ rpp::ops::ref\_count()\ |\ rpp::ops::subscribe([](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}\#2\ "{}}\ <<\ v\ <<\ std::endl;\ \});}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{comment}{//\ Output:}}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{comment}{//\ \#1\ 1}}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{comment}{//\ \#2\ 1}}
@@ -218,21 +218,22 @@ Connects \doxylink{classrpp_1_1connectable__observable}{rpp\+::connectable\+\_\+
 \begin{DoxyParagraph}{Example}
 
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ observable\ =\ rpp::source::create<int>([](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ observer)}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}SUBSCRIBE"{}}\ <<\ std::endl;}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i\ =0;\ i\ <\ 3;\ ++i)\ \{}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ observer.on\_next(i);}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ observer.on\_completed();}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \})\ |\ \mbox{\hyperlink{group__connectable__operators_gac7b150abbdae0a5084dd3784d9c7babf}{rpp::operators::multicast}}();}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ observable\ =\ rpp::source::create<int>([](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ observer)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}SUBSCRIBE"{}}\ <<\ std::endl;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ 3;\ ++i)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ observer.on\_next(i);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ observer.on\_completed();}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \})}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__connectable__operators_gac7b150abbdae0a5084dd3784d9c7babf}{rpp::operators::multicast}}();}
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}subscribe\ first"{}}\ <<\ std::endl;}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ observable.subscribe([](\textcolor{keywordtype}{int}\ v)\ \{std::cout\ <<\ \textcolor{stringliteral}{"{}\#1\ "{}}\ <<\ v\ <<\ std::endl;\ \});}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ observable.subscribe([](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}\#1\ "{}}\ <<\ v\ <<\ std::endl;\ \});}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{comment}{//\ No\ Output}}
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}subscribe\ with\ ref\_count"{}}\ <<\ std::endl;}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ observable.ref\_count().subscribe([](\textcolor{keywordtype}{int}\ v)\ \{std::cout\ <<\ \textcolor{stringliteral}{"{}\#2\ "{}}\ <<\ v\ <<\ std::endl;\ \});}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ observable.ref\_count().subscribe([](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}\#2\ "{}}\ <<\ v\ <<\ std::endl;\ \});}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{comment}{//\ Output:}}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{comment}{//\ subscribe\ first}}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{comment}{//\ subscribe\ with\ ref\_count}}

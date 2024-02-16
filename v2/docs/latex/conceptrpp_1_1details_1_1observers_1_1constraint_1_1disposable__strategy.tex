@@ -4,11 +4,12 @@
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
-\DoxyCodeLine{\textcolor{keyword}{concept\ }\mbox{\hyperlink{conceptrpp_1_1details_1_1observers_1_1constraint_1_1disposable__strategy}{rpp::details::observers::constraint::disposable\_strategy}}\ =\ \ \textcolor{keyword}{requires}\ (T\&\ v,\ \textcolor{keyword}{const}\ T\&\ const\_v,\ \textcolor{keyword}{const}\ disposable\_wrapper\&\ d)}
-\DoxyCodeLine{\ \ \ \ \{}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ v.add(d);}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \{\ const\_v.is\_disposed()\ \}\ -\/>\ std::same\_as<bool>;}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ const\_v.dispose();}
-\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\textcolor{keyword}{concept\ }\mbox{\hyperlink{conceptrpp_1_1details_1_1observers_1_1constraint_1_1disposable__strategy}{rpp::details::observers::constraint::disposable\_strategy}}\ =\ \ \textcolor{keyword}{requires}(T\&\ v,\ \textcolor{keyword}{const}\ T\&\ const\_v,\ \textcolor{keyword}{const}\ disposable\_wrapper\&\ d)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ v.add(d);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ const\_v.is\_disposed()}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \}\ -\/>\ std::same\_as<bool>;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ const\_v.dispose();}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \}}
 
 \end{DoxyCode}

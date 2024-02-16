@@ -4,12 +4,11 @@
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
-\DoxyCodeLine{\textcolor{keyword}{concept\ }\mbox{\hyperlink{conceptrpp_1_1details_1_1observables_1_1constraint_1_1disposable__strategy}{rpp::details::observables::constraint::disposable\_strategy}}\ =\ \ \textcolor{keyword}{requires}(\textcolor{keyword}{const}\ T\&)}
-\DoxyCodeLine{\{}
-\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{typename}\ T::template\ add<\textcolor{keywordtype}{size\_t}\{\}>;}
-\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{typename}\ T::disposable\_strategy;}
-\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{typename}\ T::disposable\_container;}
-\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{requires}\ \mbox{\hyperlink{conceptrpp_1_1details_1_1observers_1_1constraint_1_1disposable__strategy}{observers::constraint::disposable\_strategy<typename\ T::disposable\_strategy>}};}
-\DoxyCodeLine{\}}
+\DoxyCodeLine{\textcolor{keyword}{concept\ }\mbox{\hyperlink{conceptrpp_1_1details_1_1observables_1_1constraint_1_1disposable__strategy}{rpp::details::observables::constraint::disposable\_strategy}}\ =\ \ \textcolor{keyword}{requires}(\textcolor{keyword}{const}\ T\&)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ T::template\ add<\textcolor{keywordtype}{size\_t}\{\}>;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ T::disposable\_strategy;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ T::disposable\_container;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{requires}\ \mbox{\hyperlink{conceptrpp_1_1details_1_1observers_1_1constraint_1_1disposable__strategy}{observers::constraint::disposable\_strategy<typename\ T::disposable\_strategy>}};}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \}}
 
 \end{DoxyCode}
