@@ -38,6 +38,6 @@ repos:
 #   rev: master
 #   hooks:
 #     - id: clang-tidy
-#       args: [--fix-errors, -config-file=.clang-tidy, --checks=-readability-identifier-naming*]
-#       files: src/.*
+#       args: [--fix-errors, -config-file=.clang-tidy, "--checks=-*,bugprone-*,concurrency-*,performance-*", -p=build, ./src/*]
+#     #   files: src
 #       entry: /usr/local/opt/llvm/bin/clang-tidy
