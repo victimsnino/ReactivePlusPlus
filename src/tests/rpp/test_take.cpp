@@ -13,20 +13,19 @@
 #include <rpp/operators/take.hpp>
 #include <rpp/sources/create.hpp>
 
-#include "mock_observer.hpp"
 #include "copy_count_tracker.hpp"
 #include "disposable_observable.hpp"
+#include "mock_observer.hpp"
 
 
 TEST_CASE("take operator limits emissions")
 {
-    int actually_values_sent{};
-    auto obs = rpp::source::create<int>([&actually_values_sent](auto&& obs)
-    {
+    int  actually_values_sent{};
+    auto obs = rpp::source::create<int>([&actually_values_sent](auto&& obs) {
         auto upstream = rpp::disposable_wrapper::make<rpp::composite_disposable>();
         obs.set_upstream(upstream);
 
-        while(!obs.is_disposed())
+        while (!obs.is_disposed())
         {
             obs.on_next(actually_values_sent++);
         }
@@ -64,12 +63,11 @@ TEST_CASE("take operator limits emissions")
         CHECK(mock.get_on_error_count() == 0);
         CHECK(mock.get_on_completed_count() == 1);
     }
- }
+}
 
 TEST_CASE("take operator forwards on_completed")
 {
-    auto obs = rpp::source::create<int>([](auto&& obs)
-    {
+    auto obs = rpp::source::create<int>([](auto&& obs) {
         obs.on_completed();
     });
 
@@ -83,8 +81,7 @@ TEST_CASE("take operator forwards on_completed")
 
 TEST_CASE("take operator forwards on_error")
 {
-    auto obs = rpp::source::create<int>([](auto&& obs)
-    {
+    auto obs = rpp::source::create<int>([](auto&& obs) {
         obs.on_error({});
     });
 
@@ -101,12 +98,13 @@ TEST_CASE("take doesn't produce extra copies")
     SECTION("take(1)")
     {
         copy_count_tracker::test_operator(rpp::ops::take(1),
-                                        {
-                                            .send_by_copy = {.copy_count = 1, // 1 copy to final subscriber
-                                                            .move_count = 0},
-                                            .send_by_move = {.copy_count = 0,
-                                                            .move_count = 1} // 1 move to final subscriber
-                                        }, 2);
+                                          {
+                                              .send_by_copy = {.copy_count = 1, // 1 copy to final subscriber
+                                                               .move_count = 0},
+                                              .send_by_move = {.copy_count = 0,
+                                                               .move_count = 1} // 1 move to final subscriber
+                                          },
+                                          2);
     }
 }
 

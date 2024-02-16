@@ -22,198 +22,197 @@
 
 namespace rpp::operators::details
 {
-template<rpp::constraint::observer Observer, typename TSelector, rpp::constraint::decayed_type... Args>
-class combine_latest_disposable final : public composite_disposable
-{
-public:
-    explicit combine_latest_disposable(Observer&& observer, const TSelector& selector)
-        : observer_with_mutex{std::move(observer)}
-        , selector{selector}
+    template<rpp::constraint::observer Observer, typename TSelector, rpp::constraint::decayed_type... Args>
+    class combine_latest_disposable final : public composite_disposable
     {
-    }
-
-    pointer_under_lock<Observer> get_observer_under_lock() { return pointer_under_lock{observer_with_mutex}; }
-
-    rpp::utils::tuple<std::optional<Args>...>& get_values() { return values; }
-
-    const TSelector& get_selector() const { return selector; }
-
-    bool decrement_on_completed()
-    {
-        // just need atomicity, not guarding anything
-        return m_on_completed_needed.fetch_sub(1, std::memory_order::seq_cst) == 1;
-    }
-
-private:
-    value_with_mutex<Observer>                observer_with_mutex{};
-    rpp::utils::tuple<std::optional<Args>...> values{};
-    RPP_NO_UNIQUE_ADDRESS TSelector           selector;
-
-    std::atomic_size_t m_on_completed_needed{sizeof...(Args)};
-};
-
-template<size_t I, rpp::constraint::observer Observer, typename TSelector, rpp::constraint::decayed_type... Args>
-struct combine_latest_observer_strategy
-{
-    std::shared_ptr<combine_latest_disposable<Observer, TSelector, Args...>> disposable{};
-
-    void set_upstream(const rpp::disposable_wrapper& d) const
-    {
-        disposable->add(d);
-    }
-
-    bool is_disposed() const
-    {
-        return disposable->is_disposed();
-    }
-
-    template<typename T>
-    void on_next(T&& v) const
-    {
-        // mutex need to be locked during changing of values, generating new values and sending of new values due to we can't update value while we are sending old one
-        const auto observer = disposable->get_observer_under_lock();
-        disposable->get_values().template get<I>().emplace(std::forward<T>(v));
-
-        disposable->get_values().apply([this, &observer](const std::optional<Args>&... vals) {
-            if ((vals.has_value() && ...))
-                observer->on_next(disposable->get_selector()(vals.value()...));
-        });
-    }
-
-    void on_error(const std::exception_ptr& err) const
-    {
-        disposable->dispose();
-        disposable->get_observer_under_lock()->on_error(err);
-    }
-
-    void on_completed() const
-    {
-        if (disposable->decrement_on_completed())
+    public:
+        explicit combine_latest_disposable(Observer&& observer, const TSelector& selector)
+            : observer_with_mutex{std::move(observer)}
+            , selector{selector}
         {
-            disposable->dispose();
-            disposable->get_observer_under_lock()->on_completed();
         }
-    }
-};
 
-template<typename TSelector, rpp::constraint::observable... TObservables>
-struct combine_latest_t
-{
-    RPP_NO_UNIQUE_ADDRESS rpp::utils::tuple<TObservables...> observables;
-    RPP_NO_UNIQUE_ADDRESS TSelector                          selector;
+        pointer_under_lock<Observer> get_observer_under_lock() { return pointer_under_lock{observer_with_mutex}; }
 
-    template<rpp::constraint::decayed_type T>
-    struct operator_traits
-    {
-        static_assert(std::invocable<TSelector, T, rpp::utils::extract_observable_type_t<TObservables>...>, "Selector is not callable with passed T type");
+        rpp::utils::tuple<std::optional<Args>...>& get_values() { return values; }
 
-        using result_type = std::invoke_result_t<TSelector, T, rpp::utils::extract_observable_type_t<TObservables>...>;
+        const TSelector& get_selector() const { return selector; }
+
+        bool decrement_on_completed()
+        {
+            // just need atomicity, not guarding anything
+            return m_on_completed_needed.fetch_sub(1, std::memory_order::seq_cst) == 1;
+        }
+
+    private:
+        value_with_mutex<Observer>                observer_with_mutex{};
+        rpp::utils::tuple<std::optional<Args>...> values{};
+        RPP_NO_UNIQUE_ADDRESS TSelector           selector;
+
+        std::atomic_size_t m_on_completed_needed{sizeof...(Args)};
     };
 
-    template<rpp::details::observables::constraint::disposable_strategy Prev>
-    using updated_disposable_strategy = rpp::details::observables::fixed_disposable_strategy_selector<1>;
-
-    template<rpp::constraint::observer Observer, typename... Strategies>
-    void subscribe(Observer&& observer, const observable_chain_strategy<Strategies...>& observable_strategy) const
+    template<size_t I, rpp::constraint::observer Observer, typename TSelector, rpp::constraint::decayed_type... Args>
+    struct combine_latest_observer_strategy
     {
-        // Need to take ownership over current_thread in case of inner-observables also using it
-        auto drain_on_exit = rpp::schedulers::current_thread::own_queue_and_drain_finally_if_not_owned();
-        observables.apply(&subscribe_impl<Observer, Strategies...>, std::forward<Observer>(observer), observable_strategy, selector);
-    }
+        std::shared_ptr<combine_latest_disposable<Observer, TSelector, Args...>> disposable{};
 
-private:
-    template<rpp::constraint::observer Observer, typename... Strategies>
-    static void subscribe_impl(Observer&& observer, const observable_chain_strategy<Strategies...>& observable_strategy, const TSelector& selector, const TObservables&... observables)
+        void set_upstream(const rpp::disposable_wrapper& d) const
+        {
+            disposable->add(d);
+        }
+
+        bool is_disposed() const
+        {
+            return disposable->is_disposed();
+        }
+
+        template<typename T>
+        void on_next(T&& v) const
+        {
+            // mutex need to be locked during changing of values, generating new values and sending of new values due to we can't update value while we are sending old one
+            const auto observer = disposable->get_observer_under_lock();
+            disposable->get_values().template get<I>().emplace(std::forward<T>(v));
+
+            disposable->get_values().apply([this, &observer](const std::optional<Args>&... vals) {
+                if ((vals.has_value() && ...))
+                    observer->on_next(disposable->get_selector()(vals.value()...));
+            });
+        }
+
+        void on_error(const std::exception_ptr& err) const
+        {
+            disposable->dispose();
+            disposable->get_observer_under_lock()->on_error(err);
+        }
+
+        void on_completed() const
+        {
+            if (disposable->decrement_on_completed())
+            {
+                disposable->dispose();
+                disposable->get_observer_under_lock()->on_completed();
+            }
+        }
+    };
+
+    template<typename TSelector, rpp::constraint::observable... TObservables>
+    struct combine_latest_t
     {
-        using ExpectedValue = typename observable_chain_strategy<Strategies...>::value_type;
-        using Disposable    = combine_latest_disposable<Observer, TSelector, ExpectedValue, rpp::utils::extract_observable_type_t<TObservables>...>;
+        RPP_NO_UNIQUE_ADDRESS rpp::utils::tuple<TObservables...> observables;
+        RPP_NO_UNIQUE_ADDRESS TSelector                          selector;
 
-        const auto disposable = disposable_wrapper_impl<Disposable>::make(std::forward<Observer>(observer), selector);
-        auto locked = disposable.lock();
-        locked->get_observer_under_lock()->set_upstream(disposable.as_weak());
-        subscribe<std::decay_t<ExpectedValue>>(locked, std::index_sequence_for<TObservables...>{}, observables...);
+        template<rpp::constraint::decayed_type T>
+        struct operator_traits
+        {
+            static_assert(std::invocable<TSelector, T, rpp::utils::extract_observable_type_t<TObservables>...>, "Selector is not callable with passed T type");
 
-        observable_strategy.subscribe(rpp::observer<ExpectedValue, combine_latest_observer_strategy<0, std::decay_t<Observer>, TSelector, ExpectedValue, rpp::utils::extract_observable_type_t<TObservables>...>>{std::move(locked)});
-    }
+            using result_type = std::invoke_result_t<TSelector, T, rpp::utils::extract_observable_type_t<TObservables>...>;
+        };
 
-    template<typename ExpectedValue, rpp::constraint::observer Observer, size_t... I>
-    static void subscribe(const std::shared_ptr<combine_latest_disposable<Observer, TSelector, ExpectedValue, rpp::utils::extract_observable_type_t<TObservables>...>>& disposable, std::index_sequence<I...>, const TObservables&... observables)
-    {
-        (..., observables.subscribe(rpp::observer<rpp::utils::extract_observable_type_t<TObservables>, combine_latest_observer_strategy<I + 1, Observer, TSelector, ExpectedValue, rpp::utils::extract_observable_type_t<TObservables>...>>{disposable}));
-    }
-};
-}
+        template<rpp::details::observables::constraint::disposable_strategy Prev>
+        using updated_disposable_strategy = rpp::details::observables::fixed_disposable_strategy_selector<1>;
+
+        template<rpp::constraint::observer Observer, typename... Strategies>
+        void subscribe(Observer&& observer, const observable_chain_strategy<Strategies...>& observable_strategy) const
+        {
+            // Need to take ownership over current_thread in case of inner-observables also using it
+            auto drain_on_exit = rpp::schedulers::current_thread::own_queue_and_drain_finally_if_not_owned();
+            observables.apply(&subscribe_impl<Observer, Strategies...>, std::forward<Observer>(observer), observable_strategy, selector);
+        }
+
+    private:
+        template<rpp::constraint::observer Observer, typename... Strategies>
+        static void subscribe_impl(Observer&& observer, const observable_chain_strategy<Strategies...>& observable_strategy, const TSelector& selector, const TObservables&... observables)
+        {
+            using ExpectedValue = typename observable_chain_strategy<Strategies...>::value_type;
+            using Disposable    = combine_latest_disposable<Observer, TSelector, ExpectedValue, rpp::utils::extract_observable_type_t<TObservables>...>;
+
+            const auto disposable = disposable_wrapper_impl<Disposable>::make(std::forward<Observer>(observer), selector);
+            auto       locked     = disposable.lock();
+            locked->get_observer_under_lock()->set_upstream(disposable.as_weak());
+            subscribe<std::decay_t<ExpectedValue>>(locked, std::index_sequence_for<TObservables...>{}, observables...);
+
+            observable_strategy.subscribe(rpp::observer<ExpectedValue, combine_latest_observer_strategy<0, std::decay_t<Observer>, TSelector, ExpectedValue, rpp::utils::extract_observable_type_t<TObservables>...>>{std::move(locked)});
+        }
+
+        template<typename ExpectedValue, rpp::constraint::observer Observer, size_t... I>
+        static void subscribe(const std::shared_ptr<combine_latest_disposable<Observer, TSelector, ExpectedValue, rpp::utils::extract_observable_type_t<TObservables>...>>& disposable, std::index_sequence<I...>, const TObservables&... observables)
+        {
+            (..., observables.subscribe(rpp::observer<rpp::utils::extract_observable_type_t<TObservables>, combine_latest_observer_strategy<I + 1, Observer, TSelector, ExpectedValue, rpp::utils::extract_observable_type_t<TObservables>...>>{disposable}));
+        }
+    };
+} // namespace rpp::operators::details
 
 namespace rpp::operators
 {
-/**
- * @brief Combines latest emissions from observables with emission from current observable when any observable sends new value via applying selector
- *
- * @marble combine_latest_custom_selector
-   {
-       source observable                                 : +------1    -2    --    -3    -|
-       source other_observable                           : +-5-6-7-    --    -8    --    -|
-       operator "combine_latest: x,y =>std::pair{x,y}"   : +------{1,5}-{2,7}-{2,8}-{3,8}-|
-   }
- *
- * @details Actually this operator subscribes on all of theses observables and emits new combined value when any of them emits new emission (and each observable emit values at least one to be able to provide combined value)
- *
- * @par Performance notes:
- * - 1 heap allocation for disposable
- * - each value from any observable copied/moved to internal storage
- * - mutex acquired every time value obtained
- *
- * @param selector is applied to current emission of current observable and latests emissions from observables
- * @param observables are observables whose emissions would be combined with current observable
- * @warning #include <rpp/operators/combine_latest.hpp>
- *
- * @par Examples
- * @snippet combine_latest.cpp combine_latest custom selector
- *
- * @ingroup combining_operators
- * @see https://reactivex.io/documentation/operators/combinelatest.html
- */
-template<typename TSelector, rpp::constraint::observable TObservable, rpp::constraint::observable... TObservables>
-    requires (!rpp::constraint::observable<TSelector> && (!utils::is_not_template_callable<TSelector> || std::invocable<TSelector, rpp::utils::convertible_to_any, utils::extract_observable_type_t<TObservable>, utils::extract_observable_type_t<TObservables>...>))
-auto combine_latest(TSelector&& selector, TObservable&& observable, TObservables&&... observables)
-{
-    return details::combine_latest_t<std::decay_t<TSelector>, std::decay_t<TObservable>, std::decay_t<TObservables>...>{
-        rpp::utils::tuple{std::forward<TObservable>(observable), std::forward<TObservables>(observables)...},
-        std::forward<TSelector>(selector)
-    };
-}
+    /**
+     * @brief Combines latest emissions from observables with emission from current observable when any observable sends new value via applying selector
+     *
+     * @marble combine_latest_custom_selector
+       {
+           source observable                                 : +------1    -2    --    -3    -|
+           source other_observable                           : +-5-6-7-    --    -8    --    -|
+           operator "combine_latest: x,y =>std::pair{x,y}"   : +------{1,5}-{2,7}-{2,8}-{3,8}-|
+       }
+     *
+     * @details Actually this operator subscribes on all of theses observables and emits new combined value when any of them emits new emission (and each observable emit values at least one to be able to provide combined value)
+     *
+     * @par Performance notes:
+     * - 1 heap allocation for disposable
+     * - each value from any observable copied/moved to internal storage
+     * - mutex acquired every time value obtained
+     *
+     * @param selector is applied to current emission of current observable and latests emissions from observables
+     * @param observables are observables whose emissions would be combined with current observable
+     * @warning #include <rpp/operators/combine_latest.hpp>
+     *
+     * @par Examples
+     * @snippet combine_latest.cpp combine_latest custom selector
+     *
+     * @ingroup combining_operators
+     * @see https://reactivex.io/documentation/operators/combinelatest.html
+     */
+    template<typename TSelector, rpp::constraint::observable TObservable, rpp::constraint::observable... TObservables>
+        requires (!rpp::constraint::observable<TSelector> && (!utils::is_not_template_callable<TSelector> || std::invocable<TSelector, rpp::utils::convertible_to_any, utils::extract_observable_type_t<TObservable>, utils::extract_observable_type_t<TObservables>...>))
+    auto combine_latest(TSelector&& selector, TObservable&& observable, TObservables&&... observables)
+    {
+        return details::combine_latest_t<std::decay_t<TSelector>, std::decay_t<TObservable>, std::decay_t<TObservables>...>{
+            rpp::utils::tuple{std::forward<TObservable>(observable), std::forward<TObservables>(observables)...},
+            std::forward<TSelector>(selector)};
+    }
 
-/**
- * @brief Combines latest emissions from observables with emission from current observable when any observable sends new value via making tuple
- *
- * @marble combine_latest
-   {
-       source observable                       : +------1    -2    --    -3    -|
-       source other_observable                 : +-5-6-7-    --    -8    --    -|
-       operator "combine_latest: make_tuple"   : +------{1,5}-{2,7}-{2,8}-{3,8}-|
-   }
- *
- * @details Actually this operator subscribes on all of theses observables and emits new combined value when any of them emits new emission (and each observable emit values at least one to be able to provide combined value)
- *
- * @warning Selector is just packing values to tuple in this case
- *
- * @par Performance notes:
- * - 1 heap allocation for disposable
- * - each value from any observable copied/moved to internal storage
- * - mutex acquired every time value obtained
- *
- * @param observables are observables whose emissions would be combined when any observable sends new value
- * @warning #include <rpp/operators/combine_latest.hpp>
- *
- * @par Examples
- * @snippet combine_latest.cpp combine_latest
- *
- * @ingroup combining_operators
- * @see https://reactivex.io/documentation/operators/combinelatest.html
- */
-template<rpp::constraint::observable TObservable, rpp::constraint::observable... TObservables>
-auto combine_latest(TObservable&& observable, TObservables&&... observables)
-{
-    return combine_latest(rpp::utils::pack_to_tuple{}, std::forward<TObservable>(observable), std::forward<TObservables>(observables)...);
-}
+    /**
+     * @brief Combines latest emissions from observables with emission from current observable when any observable sends new value via making tuple
+     *
+     * @marble combine_latest
+       {
+           source observable                       : +------1    -2    --    -3    -|
+           source other_observable                 : +-5-6-7-    --    -8    --    -|
+           operator "combine_latest: make_tuple"   : +------{1,5}-{2,7}-{2,8}-{3,8}-|
+       }
+     *
+     * @details Actually this operator subscribes on all of theses observables and emits new combined value when any of them emits new emission (and each observable emit values at least one to be able to provide combined value)
+     *
+     * @warning Selector is just packing values to tuple in this case
+     *
+     * @par Performance notes:
+     * - 1 heap allocation for disposable
+     * - each value from any observable copied/moved to internal storage
+     * - mutex acquired every time value obtained
+     *
+     * @param observables are observables whose emissions would be combined when any observable sends new value
+     * @warning #include <rpp/operators/combine_latest.hpp>
+     *
+     * @par Examples
+     * @snippet combine_latest.cpp combine_latest
+     *
+     * @ingroup combining_operators
+     * @see https://reactivex.io/documentation/operators/combinelatest.html
+     */
+    template<rpp::constraint::observable TObservable, rpp::constraint::observable... TObservables>
+    auto combine_latest(TObservable&& observable, TObservables&&... observables)
+    {
+        return combine_latest(rpp::utils::pack_to_tuple{}, std::forward<TObservable>(observable), std::forward<TObservables>(observables)...);
+    }
 } // namespace rpp::operators

@@ -36,8 +36,8 @@ TEMPLATE_TEST_CASE("tap observes emissions and doesn't modify them", "", rpp::me
 
             // clang-format off
             obs | rpp::ops::tap(
-                [&](const int&) { ++on_next_invoked; }, 
-                [&](const std::exception_ptr&) { ++on_error_invoked; }) 
+                [&](const int&) { ++on_next_invoked; },
+                [&](const std::exception_ptr&) { ++on_error_invoked; })
                 | rpp::ops::subscribe(mock);
             // clang-format on
 
@@ -61,8 +61,8 @@ TEMPLATE_TEST_CASE("tap observes emissions and doesn't modify them", "", rpp::me
 
             // clang-format off
             obs | rpp::ops::tap(
-                [&](const int&) { ++on_next_invoked; }, 
-                [&]() { ++on_completed_invoked; }) 
+                [&](const int&) { ++on_next_invoked; },
+                [&]() { ++on_completed_invoked; })
                 | rpp::ops::subscribe(mock);
             // clang-format on
 

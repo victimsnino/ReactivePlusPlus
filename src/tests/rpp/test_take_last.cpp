@@ -11,15 +11,15 @@
 #include <snitch/snitch.hpp>
 
 #include <rpp/operators/take_last.hpp>
-#include <rpp/sources/just.hpp>
 #include <rpp/sources/create.hpp>
-#include <rpp/sources/error.hpp>
 #include <rpp/sources/empty.hpp>
+#include <rpp/sources/error.hpp>
+#include <rpp/sources/just.hpp>
 #include <rpp/sources/never.hpp>
 
-#include "mock_observer.hpp"
 #include "copy_count_tracker.hpp"
 #include "disposable_observable.hpp"
+#include "mock_observer.hpp"
 
 
 TEST_CASE("take_last sends last values in correct order on completed")
@@ -44,7 +44,7 @@ TEST_CASE("take_last sends last values in correct order on completed")
             obs | rpp::ops::take_last(3) | rpp::ops::subscribe(mock);
             SECTION("see +-3-4-5-|")
             {
-                CHECK(mock.get_received_values() == std::vector{3,4,5});
+                CHECK(mock.get_received_values() == std::vector{3, 4, 5});
                 CHECK(mock.get_on_error_count() == 0);
                 CHECK(mock.get_on_completed_count() == 1);
             }
@@ -55,7 +55,7 @@ TEST_CASE("take_last sends last values in correct order on completed")
             obs | rpp::ops::take_last(5) | rpp::ops::subscribe(mock);
             SECTION("see +-1-2-3-4-5-|")
             {
-                CHECK(mock.get_received_values() == std::vector{1,2,3,4,5});
+                CHECK(mock.get_received_values() == std::vector{1, 2, 3, 4, 5});
                 CHECK(mock.get_on_error_count() == 0);
                 CHECK(mock.get_on_completed_count() == 1);
             }
@@ -66,7 +66,7 @@ TEST_CASE("take_last sends last values in correct order on completed")
             obs | rpp::ops::take_last(10) | rpp::ops::subscribe(mock);
             SECTION("see +-1-2-3-4-5-|")
             {
-                CHECK(mock.get_received_values() == std::vector{1,2,3,4,5});
+                CHECK(mock.get_received_values() == std::vector{1, 2, 3, 4, 5});
                 CHECK(mock.get_on_error_count() == 0);
                 CHECK(mock.get_on_completed_count() == 1);
             }
@@ -105,8 +105,7 @@ TEST_CASE("take_last forwards error")
 
     SECTION("observable of +-1-x")
     {
-        auto source = rpp::source::create<int>([](const auto& obs)
-        {
+        auto source = rpp::source::create<int>([](const auto& obs) {
             obs.on_next(1);
             obs.on_error({});
         });
@@ -167,12 +166,12 @@ TEST_CASE("take_last doesn't produce extra copies")
     SECTION("take_last(1)")
     {
         copy_count_tracker::test_operator(rpp::ops::take_last(1),
-                                        {
-                                            .send_by_copy = {.copy_count = 1, // 1 copy to internal state
-                                                            .move_count = 1}, // 1 move to final subscriber
-                                            .send_by_move = {.copy_count = 0, 
-                                                            .move_count = 2} // 1 move to internal state + 1 move to final subscriber
-                                        });
+                                          {
+                                              .send_by_copy = {.copy_count = 1,  // 1 copy to internal state
+                                                               .move_count = 1}, // 1 move to final subscriber
+                                              .send_by_move = {.copy_count = 0,
+                                                               .move_count = 2} // 1 move to internal state + 1 move to final subscriber
+                                          });
     }
 }
 

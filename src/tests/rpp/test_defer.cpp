@@ -10,11 +10,11 @@
 
 #include <snitch/snitch.hpp>
 
-#include <rpp/sources/defer.hpp>
-#include <rpp/sources/from.hpp>
-#include <rpp/sources/empty.hpp>
 #include <rpp/sources/create.hpp>
+#include <rpp/sources/defer.hpp>
+#include <rpp/sources/empty.hpp>
 #include <rpp/sources/error.hpp>
+#include <rpp/sources/from.hpp>
 #include <rpp/sources/never.hpp>
 
 #include "mock_observer.hpp"
@@ -22,13 +22,13 @@
 TEST_CASE("defer on different sources")
 {
     auto mock = mock_observer_strategy<int>{};
-    
+
     SECTION("just")
     {
         auto obs = rpp::source::defer([] { return rpp::source::just(1); });
         obs.subscribe(mock);
 
-        CHECK(mock.get_received_values() == std::vector{ 1 });
+        CHECK(mock.get_received_values() == std::vector{1});
         CHECK(mock.get_total_on_next_count() == 1);
         CHECK(mock.get_on_error_count() == 0);
         CHECK(mock.get_on_completed_count() == 1);
@@ -63,16 +63,16 @@ TEST_CASE("defer on different sources")
 }
 
 TEST_CASE("defer on mutable sources")
-{    
-     
+{
+
     auto obs = rpp::source::defer([] {
-        const auto state = std::make_shared<int>(0);
-        auto inner_obs = rpp::source::create<int>([state](const auto& obs) {
-            obs.on_next((*state)++); 
-        });  
-        return inner_obs; 
+        const auto state     = std::make_shared<int>(0);
+        auto       inner_obs = rpp::source::create<int>([state](const auto& obs) {
+            obs.on_next((*state)++);
+        });
+        return inner_obs;
     });
-    
+
     SECTION("defer returns same value on multiple subscriptions")
     {
         auto mock1 = mock_observer_strategy<int>{};
@@ -80,7 +80,7 @@ TEST_CASE("defer on mutable sources")
         obs.subscribe(mock1);
         obs.subscribe(mock2);
 
-        CHECK(mock1.get_received_values() == std::vector{ 0 });
-        CHECK(mock2.get_received_values() == std::vector{ 0 });
+        CHECK(mock1.get_received_values() == std::vector{0});
+        CHECK(mock2.get_received_values() == std::vector{0});
     }
 }

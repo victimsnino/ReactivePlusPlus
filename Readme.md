@@ -63,7 +63,7 @@ There we are creating observable which emits value via invoking of `getchar` fun
 
 ## Why do you need it?
 
-Check the [User Guide](https://victimsnino.github.io/ReactivePlusPlus/v2/docs/html/md_docs_2readme.html) for a detailed overview of the Reactive Programming concept and RPP itself. 
+Check the [User Guide](https://victimsnino.github.io/ReactivePlusPlus/v2/docs/html/md_docs_2readme.html) for a detailed overview of the Reactive Programming concept and RPP itself.
 
 In short, RPP can help you build complex pipelines to distribute values over time, connect "some sources of data" without directly connecting them.
 
@@ -121,12 +121,12 @@ Now we have separate observables for separate sources of dynamic data like click
 
 ## What about existing Reactive Extension libraries for C++?
 
-Reactive programming is excelent programming paradigm and approach for creation of multi-threading and real-time programs which reacts on some events. Unfortunately, there is only one stable and fully-implemented library at the moment of creation of ReactivePlusPlus - [RxCpp](https://github.com/ReactiveX/RxCpp). 
+Reactive programming is excelent programming paradigm and approach for creation of multi-threading and real-time programs which reacts on some events. Unfortunately, there is only one stable and fully-implemented library at the moment of creation of ReactivePlusPlus - [RxCpp](https://github.com/ReactiveX/RxCpp).
 
 [RxCpp](https://github.com/ReactiveX/RxCpp) is great and awesome library and perfect implementation of ReactiveX approach. However RxCpp has some disadvantages:
 - It is a bit **"old" library written in C++11** with some parts written in the **pre-C++11 style** (mess of old-style classes and wrappers)
 - **Issue** with **template parameters**:  `rxcpp::observable` contains **full chain of operators** as second template parameter... where each operator has a bunch of another template parameters itself. It forces **IDEs** works **slower** while parsing resulting type of observable. Also it forces to generate **heavier binaries and debug symbols and slower build time**.
-- It has high perfomance cost due to tremendous amount of usage of heap. 
+- It has high perfomance cost due to tremendous amount of usage of heap.
 - Some parts of code written with non-effective logic
 
 Another implementation of RX for c++: [another-rxcpp](https://github.com/CODIANZ/another-rxcpp). It partly solves issues of RxCpp via **eliminating of template parameter**  with help of **type-erasing** and making each callback as `std::function`. As a result issue with templates resvoled, but this approach has disadvantages related to runtime: resulting size of observers/observables becomes greater due to heavy `std::function` object, usage of heap for storing everything causes perfomance issues, implementation is just pretty simple and provides a lot of copies of passed objects.

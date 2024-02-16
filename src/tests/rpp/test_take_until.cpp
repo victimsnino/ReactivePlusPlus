@@ -12,20 +12,17 @@
 
 #include <rpp/operators/as_blocking.hpp>
 #include <rpp/operators/take_until.hpp>
-
-#include <rpp/sources/just.hpp>
-#include <rpp/sources/error.hpp>
-#include <rpp/sources/never.hpp>
-#include <rpp/sources/empty.hpp>
-#include <rpp/sources/interval.hpp>
-
 #include <rpp/schedulers/current_thread.hpp>
-
+#include <rpp/sources/empty.hpp>
+#include <rpp/sources/error.hpp>
+#include <rpp/sources/interval.hpp>
+#include <rpp/sources/just.hpp>
+#include <rpp/sources/never.hpp>
 #include <rpp/subjects/publish_subject.hpp>
 
-#include "mock_observer.hpp"
 #include "copy_count_tracker.hpp"
 #include "disposable_observable.hpp"
+#include "mock_observer.hpp"
 
 TEST_CASE("take_until mirrors both source observable and trigger observable")
 {
@@ -33,26 +30,25 @@ TEST_CASE("take_until mirrors both source observable and trigger observable")
     SECTION("observable of -1-2... pairs with trigger observable from a publish subject")
     {
         auto test = [&mock](auto inner_action) {
-            auto subject = rpp::subjects::publish_subject<bool>{};
+            auto subject          = rpp::subjects::publish_subject<bool>{};
             auto other_subscriber = subject.get_observer();
 
-            rpp::source::create<int>([&other_subscriber, &inner_action](const auto& subscriber)
-                                    {
-                                        subscriber.on_next(1);
-                                        subscriber.on_next(2);
+            rpp::source::create<int>([&other_subscriber, &inner_action](const auto& subscriber) {
+                subscriber.on_next(1);
+                subscriber.on_next(2);
 
-                                        // Should see a terminate event after this
-                                        inner_action(other_subscriber);
+                // Should see a terminate event after this
+                inner_action(other_subscriber);
 
-                                        subscriber.on_next(3);
-                                    })
-            | rpp::ops::take_until(subject.get_observable())
-            | rpp::ops::subscribe(mock);
+                subscriber.on_next(3);
+            })
+                | rpp::ops::take_until(subject.get_observable())
+                | rpp::ops::subscribe(mock);
         };
 
         SECTION("subcject emits on_next")
         {
-            test([](const auto& sub){sub.on_next(true);});
+            test([](const auto& sub) { sub.on_next(true); });
             SECTION("should see -1-2-|")
             {
                 CHECK(mock.get_received_values() == std::vector<int>{1, 2});
@@ -62,7 +58,7 @@ TEST_CASE("take_until mirrors both source observable and trigger observable")
         }
         SECTION("subcject emits on_error")
         {
-            test([](const auto& sub){sub.on_error({});});
+            test([](const auto& sub) { sub.on_error({}); });
             SECTION("should see -1-2-x")
             {
                 CHECK(mock.get_received_values() == std::vector<int>{1, 2});
@@ -72,7 +68,7 @@ TEST_CASE("take_until mirrors both source observable and trigger observable")
         }
         SECTION("subcject emits on_completed")
         {
-            test([](const auto& sub){sub.on_completed();});
+            test([](const auto& sub) { sub.on_completed(); });
             SECTION("should see -1-2-|")
             {
                 CHECK(mock.get_received_values() == std::vector<int>{1, 2});
@@ -149,19 +145,20 @@ TEST_CASE("take_until can handle race condition")
         SECTION("on_completed shall not interleave with on_next")
         {
             rpp::source::interval(std::chrono::milliseconds{200}, rpp::schedulers::current_thread{})
-                    | rpp::ops::take_until(subject.get_observable())
-                    | rpp::ops::as_blocking()
-                    | rpp::ops::subscribe([&](auto &&)
-                               {
-                                   CHECK(!on_completed_called);
-                                   std::thread{[&] {
-                                       subject.get_observer().on_completed();
-                                   }}.detach();
-                                   std::this_thread::sleep_for(std::chrono::milliseconds{400});
-                                   CHECK(!on_completed_called);
-                               } /* on_next */,
-                               {} /* on_error */,
-                               [&]() { on_completed_called = true; }  /* on_error */);
+                | rpp::ops::take_until(subject.get_observable())
+                | rpp::ops::as_blocking()
+                | rpp::ops::subscribe([&](auto&&) {
+                      CHECK(!on_completed_called);
+                      std::thread{[&] {
+                          subject.get_observer().on_completed();
+                      }}.detach();
+                      std::this_thread::sleep_for(std::chrono::milliseconds{400});
+                      CHECK(!on_completed_called);
+                  } /* on_next */,
+                                      {} /* on_error */,
+                                      [&]() {
+                                          on_completed_called = true;
+                                      } /* on_error */);
 
             CHECK(on_completed_called);
         }
@@ -177,16 +174,17 @@ TEST_CASE("take_until can handle race condition")
             rpp::source::interval(std::chrono::milliseconds{200}, rpp::schedulers::current_thread{})
                 | rpp::ops::take_until(subject.get_observable())
                 | rpp::ops::as_blocking()
-                | rpp::ops::subscribe([&](auto &&)
-                           {
-                               CHECK(!on_error_called);
-                               std::thread{[&] {
-                                   subject.get_observer().on_error(std::exception_ptr{});
-                               }}.detach();
-                               std::this_thread::sleep_for(std::chrono::milliseconds{200});
-                               CHECK(!on_error_called);
-                           } /* on_next */,
-                           [&](auto) { on_error_called = true; }  /* on_error */);
+                | rpp::ops::subscribe([&](auto&&) {
+                      CHECK(!on_error_called);
+                      std::thread{[&] {
+                          subject.get_observer().on_error(std::exception_ptr{});
+                      }}.detach();
+                      std::this_thread::sleep_for(std::chrono::milliseconds{200});
+                      CHECK(!on_error_called);
+                  } /* on_next */,
+                                      [&](auto) {
+                                          on_error_called = true;
+                                      } /* on_error */);
 
             CHECK(on_error_called);
         }
@@ -198,12 +196,12 @@ TEST_CASE("take_until doesn't produce extra copies")
     SECTION("take_until(other)")
     {
         copy_count_tracker::test_operator(rpp::ops::take_until(rpp::source::never<int>()),
-                                        {
-                                            .send_by_copy = {.copy_count = 1, // 1 copy to subscriber
-                                                            .move_count = 0},
-                                            .send_by_move = {.copy_count = 0,
-                                                            .move_count = 1} // 1 move to final subscriber
-                                        });
+                                          {
+                                              .send_by_copy = {.copy_count = 1, // 1 copy to subscriber
+                                                               .move_count = 0},
+                                              .send_by_move = {.copy_count = 0,
+                                                               .move_count = 1} // 1 move to final subscriber
+                                          });
     }
 }
 

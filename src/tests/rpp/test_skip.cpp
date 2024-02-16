@@ -11,15 +11,15 @@
 #include <snitch/snitch.hpp>
 
 #include <rpp/operators/skip.hpp>
-#include <rpp/sources/just.hpp>
-#include <rpp/sources/empty.hpp>
-#include <rpp/sources/error.hpp>
 #include <rpp/schedulers/current_thread.hpp>
 #include <rpp/schedulers/immediate.hpp>
+#include <rpp/sources/empty.hpp>
+#include <rpp/sources/error.hpp>
+#include <rpp/sources/just.hpp>
 
-#include "mock_observer.hpp"
 #include "copy_count_tracker.hpp"
 #include "disposable_observable.hpp"
+#include "mock_observer.hpp"
 
 
 TEMPLATE_TEST_CASE("skip ignores first `count` of items",
@@ -30,18 +30,18 @@ TEMPLATE_TEST_CASE("skip ignores first `count` of items",
                    std::pair<rpp::schedulers::immediate, rpp::memory_model::use_shared>)
 {
     using memory_model = std::tuple_element_t<1, TestType>;
-    using scheduler = std::tuple_element_t<0, TestType>;
+    using scheduler    = std::tuple_element_t<0, TestType>;
 
     auto mock = mock_observer_strategy<int>{};
-    auto obs = rpp::source::just<memory_model>(scheduler{}, 0,1,2,3,4,5,6,7,8,9);
+    auto obs  = rpp::source::just<memory_model>(scheduler{}, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9);
 
     SECTION("subscribe to observable of 10 items via skip(5) skips first 5 items")
     {
-        constexpr size_t count = 5;
-        auto             new_obs = obs| rpp::operators::skip(count);
+        constexpr size_t count   = 5;
+        auto             new_obs = obs | rpp::operators::skip(count);
         new_obs.subscribe(mock);
 
-        CHECK(mock.get_received_values() == std::vector{ 5,6,7,8,9});
+        CHECK(mock.get_received_values() == std::vector{5, 6, 7, 8, 9});
         CHECK(mock.get_on_completed_count() == 1);
 
         SECTION("second subscription sees same")
@@ -49,24 +49,24 @@ TEMPLATE_TEST_CASE("skip ignores first `count` of items",
             auto mock_2 = mock_observer_strategy<int>{};
             new_obs.subscribe(mock_2);
 
-            CHECK(mock_2.get_received_values() == std::vector{ 5,6,7,8,9 });
+            CHECK(mock_2.get_received_values() == std::vector{5, 6, 7, 8, 9});
             CHECK(mock.get_on_completed_count() == 1);
         }
     }
     SECTION("subscribe to observable of 10 via skip(0) emits all values")
     {
-        constexpr size_t count = 0;
+        constexpr size_t count   = 0;
         auto             new_obs = obs | rpp::ops::skip(count);
         new_obs.subscribe(mock);
-        CHECK(mock.get_received_values() == std::vector{ 0,1,2,3,4,5,6,7,8,9 });
+        CHECK(mock.get_received_values() == std::vector{0, 1, 2, 3, 4, 5, 6, 7, 8, 9});
         CHECK(mock.get_on_completed_count() == 1);
     }
     SECTION("subscribe to observable of 10 via skip(1000) emits nothing but completes")
     {
-        constexpr size_t count = 1000;
+        constexpr size_t count   = 1000;
         auto             new_obs = obs | rpp::ops::skip(count);
         new_obs.subscribe(mock);
-        CHECK(mock.get_received_values() == std::vector<int>{ });
+        CHECK(mock.get_received_values() == std::vector<int>{});
         CHECK(mock.get_on_completed_count() == 1);
     }
 }
@@ -95,12 +95,13 @@ TEST_CASE("skip doesn't produce extra copies")
     SECTION("skip(1)")
     {
         copy_count_tracker::test_operator(rpp::ops::skip(1),
-                                        {
-                                            .send_by_copy = {.copy_count = 1, // 1 copy to final subscriber
-                                                            .move_count = 0},
-                                            .send_by_move = {.copy_count = 0,
-                                                            .move_count = 1} // 1 move to final subscriber
-                                        }, 2);
+                                          {
+                                              .send_by_copy = {.copy_count = 1, // 1 copy to final subscriber
+                                                               .move_count = 0},
+                                              .send_by_move = {.copy_count = 0,
+                                                               .move_count = 1} // 1 move to final subscriber
+                                          },
+                                          2);
     }
 }
 

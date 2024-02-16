@@ -11,7 +11,7 @@ int main()
 {
     //! [reduce]
     rpp::source::just(1, 2, 3)
-        | rpp::operators::reduce(std::string{}, [](std::string&& seed, int v) {return std::move(seed) + std::to_string(v) + ","; })
+        | rpp::operators::reduce(std::string{}, [](std::string&& seed, int v) { return std::move(seed) + std::to_string(v) + ","; })
         | rpp::operators::subscribe([](const std::string& v) { std::cout << v << std::endl; });
     // Output: 1,2,3,
     //! [reduce]

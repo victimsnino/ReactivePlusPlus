@@ -11,14 +11,14 @@
 #include <snitch/snitch.hpp>
 
 #include <rpp/operators/first.hpp>
+#include <rpp/sources/empty.hpp>
+#include <rpp/sources/error.hpp>
 #include <rpp/sources/just.hpp>
 #include <rpp/sources/never.hpp>
-#include <rpp/sources/error.hpp>
-#include <rpp/sources/empty.hpp>
 
-#include "mock_observer.hpp"
 #include "copy_count_tracker.hpp"
 #include "disposable_observable.hpp"
+#include "mock_observer.hpp"
 
 
 TEST_CASE("first only emits once")
@@ -83,12 +83,13 @@ TEST_CASE("first doesn't produce extra copies")
     SECTION("first()")
     {
         copy_count_tracker::test_operator(rpp::ops::first(),
-                                        {
-                                            .send_by_copy = {.copy_count = 1, // 1 copy to final subscriber
-                                                            .move_count = 0},
-                                            .send_by_move = {.copy_count = 0,
-                                                            .move_count = 1} // 1 move to final subscriber
-                                        }, 2);
+                                          {
+                                              .send_by_copy = {.copy_count = 1, // 1 copy to final subscriber
+                                                               .move_count = 0},
+                                              .send_by_move = {.copy_count = 0,
+                                                               .move_count = 1} // 1 move to final subscriber
+                                          },
+                                          2);
     }
 }
 

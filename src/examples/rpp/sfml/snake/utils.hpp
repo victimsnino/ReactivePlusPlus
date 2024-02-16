@@ -1,14 +1,14 @@
 #pragma once
 
 #include <rpp/fwd.hpp>
-#include <SFML/Graphics.hpp>
-
 #include <rpp/schedulers/run_loop.hpp>
 
-#include <vector>
-#include <variant>
+#include <SFML/Graphics.hpp>
 
-static constexpr size_t s_rows_count = 20;
+#include <variant>
+#include <vector>
+
+static constexpr size_t s_rows_count    = 20;
 static constexpr size_t s_columns_count = 30;
 
 struct Coordinates
@@ -35,5 +35,5 @@ using CustomEvent = std::variant<PresentEvent, sf::Event>;
 auto get_presents_stream(const auto& events)
 {
     return events | rpp::ops::filter([](const CustomEvent& ev) { return std::holds_alternative<PresentEvent>(ev); })
-                  | rpp::ops::map([](const CustomEvent&    ev) { return std::get<PresentEvent>(ev); });
+         | rpp::ops::map([](const CustomEvent& ev) { return std::get<PresentEvent>(ev); });
 }

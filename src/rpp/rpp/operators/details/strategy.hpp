@@ -23,33 +23,33 @@
 
 namespace rpp::operators::details
 {
-template<typename Operator, rpp::constraint::decayed_type... TArgs>
-class lift_operator
-{
-public:
-    template<rpp::constraint::decayed_same_as<TArgs>... TTArgs>
-    lift_operator(TTArgs&&... args)
-        : m_vals{std::forward<TTArgs>(args)...}
+    template<typename Operator, rpp::constraint::decayed_type... TArgs>
+    class lift_operator
     {
-    }
+    public:
+        template<rpp::constraint::decayed_same_as<TArgs>... TTArgs>
+        lift_operator(TTArgs&&... args)
+            : m_vals{std::forward<TTArgs>(args)...}
+        {
+        }
 
-    template<rpp::constraint::decayed_type Type, rpp::constraint::observer Observer>
-    auto lift(Observer&& observer) const
-    {
-        return m_vals.apply(&apply<Type, Observer, TArgs...>, std::forward<Observer>(observer));
-    }
+        template<rpp::constraint::decayed_type Type, rpp::constraint::observer Observer>
+        auto lift(Observer&& observer) const
+        {
+            return m_vals.apply(&apply<Type, Observer, TArgs...>, std::forward<Observer>(observer));
+        }
 
-private:
-    template<rpp::constraint::decayed_type Type,
-             rpp::constraint::observer Observer,
-             typename... Args>
-    static auto apply(Observer&& observer, const Args&... vals)
-    {
-        static_assert(rpp::constraint::observer_of_type<std::decay_t<Observer>, typename Operator::template operator_traits<Type>::result_type>);
-        return rpp::observer<Type, typename Operator::template operator_traits<Type>::template observer_strategy<std::decay_t<Observer>>>{std::forward<Observer>(observer), vals...};
-    }
+    private:
+        template<rpp::constraint::decayed_type Type,
+                 rpp::constraint::observer     Observer,
+                 typename... Args>
+        static auto apply(Observer&& observer, const Args&... vals)
+        {
+            static_assert(rpp::constraint::observer_of_type<std::decay_t<Observer>, typename Operator::template operator_traits<Type>::result_type>);
+            return rpp::observer<Type, typename Operator::template operator_traits<Type>::template observer_strategy<std::decay_t<Observer>>>{std::forward<Observer>(observer), vals...};
+        }
 
-private:
-    RPP_NO_UNIQUE_ADDRESS rpp::utils::tuple<TArgs...> m_vals{};
-};
-}
+    private:
+        RPP_NO_UNIQUE_ADDRESS rpp::utils::tuple<TArgs...> m_vals{};
+    };
+} // namespace rpp::operators::details

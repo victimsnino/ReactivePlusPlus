@@ -17,8 +17,8 @@ int main() // NOLINT(bugprone-exception-escape)
 
     //! [Changed type]
     rpp::source::just(42)
-            | rpp::operators::map([](int value) { return std::to_string(value) + " VAL"; })
-            | rpp::operators::subscribe([](const std::string& v) { std::cout << v << std::endl; });
+        | rpp::operators::map([](int value) { return std::to_string(value) + " VAL"; })
+        | rpp::operators::subscribe([](const std::string& v) { std::cout << v << std::endl; });
     // Output: 42 VAL
     //! [Changed type]
     return 0;

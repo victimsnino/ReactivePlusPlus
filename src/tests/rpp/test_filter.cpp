@@ -13,9 +13,9 @@
 #include <rpp/operators/filter.hpp>
 #include <rpp/sources/just.hpp>
 
-#include "mock_observer.hpp"
 #include "copy_count_tracker.hpp"
 #include "disposable_observable.hpp"
+#include "mock_observer.hpp"
 
 #include <stdexcept>
 #include <string>
@@ -24,11 +24,11 @@ TEMPLATE_TEST_CASE("filter", "", rpp::memory_model::use_stack, rpp::memory_model
 {
     mock_observer_strategy<int> mock{};
 
-    auto obs = rpp::source::just<TestType>(1,2,3,4);
+    auto obs = rpp::source::just<TestType>(1, 2, 3, 4);
 
     SECTION("filter emits only satisfying values")
     {
-        auto filter = rpp::operators::filter([](auto v){return v % 2 == 0;});
+        auto filter = rpp::operators::filter([](auto v) { return v % 2 == 0; });
         obs | filter | rpp::operators::subscribe(mock);
 
         CHECK(mock.get_received_values() == std::vector{2, 4});
@@ -51,28 +51,26 @@ TEST_CASE("filter doesn't produce extra copies")
 {
     SECTION("filter([](copy_count_tracker){return true;})")
     {
-        copy_count_tracker::test_operator(rpp::ops::filter([](copy_count_tracker){return true;}), // NOLINT
-                                        {
-                                            .send_by_copy = {.copy_count = 2, // 1 copy to filter lambda + 1 move to subscriber
-                                                            .move_count = 0},
-                                            .send_by_move = {.copy_count = 1, // 1 copy to filter lambda
-                                                            .move_count = 1} // 1 move to final subscriber
-                                        });
+        copy_count_tracker::test_operator(rpp::ops::filter([](copy_count_tracker) { return true; }), // NOLINT
+                                          {
+                                              .send_by_copy = {.copy_count = 2, // 1 copy to filter lambda + 1 move to subscriber
+                                                               .move_count = 0},
+                                              .send_by_move = {.copy_count = 1, // 1 copy to filter lambda
+                                                               .move_count = 1} // 1 move to final subscriber
+                                          });
     }
 
     SECTION("filter([](const copy_count_tracker&){return false;})")
     {
-        copy_count_tracker::test_operator(rpp::ops::filter([](const copy_count_tracker&){return false;}),
-                                        {
-                                            .send_by_copy = {.copy_count = 0,
+        copy_count_tracker::test_operator(rpp::ops::filter([](const copy_count_tracker&) { return false; }),
+                                          {.send_by_copy = {.copy_count = 0,
                                                             .move_count = 0},
-                                            .send_by_move = {.copy_count = 0,
-                                                            .move_count = 0}
-                                        });
+                                           .send_by_move = {.copy_count = 0,
+                                                            .move_count = 0}});
     }
 }
 
 TEST_CASE("filter satisfies disposable contracts")
 {
-    test_operator_with_disposable<int>(rpp::ops::filter([](const int&){return false;}));
+    test_operator_with_disposable<int>(rpp::ops::filter([](const int&) { return false; }));
 }

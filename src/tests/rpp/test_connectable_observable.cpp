@@ -10,24 +10,23 @@
 
 #include <snitch/snitch.hpp>
 
-#include "mock_observer.hpp"
-
 #include <rpp/observables/connectable_observable.hpp>
-#include <rpp/sources/just.hpp>
-#include <rpp/subjects/publish_subject.hpp>
 #include <rpp/operators/map.hpp>
 #include <rpp/operators/multicast.hpp>
+#include <rpp/sources/just.hpp>
+#include <rpp/subjects/publish_subject.hpp>
+
+#include "mock_observer.hpp"
 
 TEST_CASE("connectable observable")
 {
     auto mock = mock_observer_strategy<int>{};
-    auto d = rpp::composite_disposable_wrapper::make();
+    auto d    = rpp::composite_disposable_wrapper::make();
 
     SECTION("source and connectable observable from it")
     {
         auto source = rpp::source::just(1);
-        auto test = [&mock, &d](auto&& connectable)
-        {
+        auto test   = [&mock, &d](auto&& connectable) {
             SECTION("subscribe on connectable")
             {
                 connectable.subscribe(mock.get_observer(d));
@@ -43,7 +42,7 @@ TEST_CASE("connectable observable")
                     auto sub_connectable = connectable.connect();
                     SECTION("observer obtains values")
                     {
-                        CHECK(mock.get_received_values() == std::vector{ 1 });
+                        CHECK(mock.get_received_values() == std::vector{1});
                         CHECK(mock.get_on_error_count() == 0);
                         CHECK(mock.get_on_completed_count() == 1);
                         CHECK(d.is_disposed());
@@ -56,7 +55,7 @@ TEST_CASE("connectable observable")
                     connectable.connect();
                     SECTION("observer obtains values")
                     {
-                        CHECK(mock.get_received_values() == std::vector{ 1 });
+                        CHECK(mock.get_received_values() == std::vector{1});
                         CHECK(mock.get_on_error_count() == 0);
                         CHECK(mock.get_on_completed_count() == 1);
                         CHECK(d.is_disposed());
@@ -66,11 +65,11 @@ TEST_CASE("connectable observable")
             }
             SECTION("subscribe on connecatble via map and connect")
             {
-                connectable | rpp::ops::map([](int val) {return val * 10; }) | rpp::ops::subscribe(mock.get_observer(d));
+                connectable | rpp::ops::map([](int val) { return val * 10; }) | rpp::ops::subscribe(mock.get_observer(d));
                 auto sub_connectable = connectable.connect();
                 SECTION("observer obtains modified values")
                 {
-                    CHECK(mock.get_received_values() == std::vector{ 10 });
+                    CHECK(mock.get_received_values() == std::vector{10});
                     CHECK(mock.get_on_error_count() == 0);
                     CHECK(mock.get_on_completed_count() == 1);
                     CHECK(d.is_disposed());
@@ -79,17 +78,16 @@ TEST_CASE("connectable observable")
             }
         };
         SECTION("connectable created manually")
-            test(rpp::connectable_observable{ source, rpp::subjects::publish_subject<int>{} });
+        test(rpp::connectable_observable{source, rpp::subjects::publish_subject<int>{}});
         SECTION("connectable created via multicast")
-            test(source | rpp::ops::multicast(rpp::subjects::publish_subject<int>{}));
+        test(source | rpp::ops::multicast(rpp::subjects::publish_subject<int>{}));
         SECTION("connectable created via templated multicast")
-            test(source | rpp::ops::multicast<rpp::subjects::publish_subject>());
+        test(source | rpp::ops::multicast<rpp::subjects::publish_subject>());
     }
     SECTION("subject as source and connectable observable from it")
     {
         auto source = rpp::subjects::publish_subject<int>();
-        auto test = [&mock, &source, &d](auto&& connectable)
-        {
+        auto test   = [&mock, &source, &d](auto&& connectable) {
             SECTION("subscribe on connectable and connect")
             {
                 connectable.subscribe(mock.get_observer(d));
@@ -101,7 +99,7 @@ TEST_CASE("connectable observable")
 
                     SECTION("observer obtains values only once")
                     {
-                        CHECK(mock.get_received_values() == std::vector{ 1 });
+                        CHECK(mock.get_received_values() == std::vector{1});
                         CHECK(mock.get_on_error_count() == 0);
                         CHECK(mock.get_on_completed_count() == 0);
                         CHECK(!d.is_disposed());
@@ -166,11 +164,11 @@ TEST_CASE("connectable observable")
             }
         };
         SECTION("connectable created manually")
-            test(rpp::connectable_observable{ source.get_observable(), rpp::subjects::publish_subject<int>{} });
+        test(rpp::connectable_observable{source.get_observable(), rpp::subjects::publish_subject<int>{}});
         SECTION("connectable created via multicast")
-            test(source.get_observable() | rpp::ops::multicast(rpp::subjects::publish_subject<int>{}));
+        test(source.get_observable() | rpp::ops::multicast(rpp::subjects::publish_subject<int>{}));
         SECTION("connectable created via templated multicast")
-            test(source.get_observable() | rpp::ops::multicast<rpp::subjects::publish_subject>());
+        test(source.get_observable() | rpp::ops::multicast<rpp::subjects::publish_subject>());
     }
     SECTION("observable")
     {
@@ -224,8 +222,7 @@ TEST_CASE("ref_count")
                 observable.ref_count().subscribe(observer_2);
                 SECTION("both observers obtain values")
                 {
-                    auto validate = [](auto observer)
-                    {
+                    auto validate = [](auto observer) {
                         CHECK(observer.get_received_values() == std::vector{1});
                         CHECK(observer.get_total_on_next_count() == 1);
                         CHECK(observer.get_on_error_count() == 0);
@@ -236,11 +233,10 @@ TEST_CASE("ref_count")
                 }
             }
         }
-        
     }
     SECTION("connectable observable from subject")
     {
-        auto subj = rpp::subjects::publish_subject<int>{};
+        auto subj       = rpp::subjects::publish_subject<int>{};
         auto observable = subj.get_observable() | rpp::ops::multicast();
 
         SECTION("subscribe on it without ref_count and with ref_count")
@@ -253,9 +249,8 @@ TEST_CASE("ref_count")
                 subj.get_observer().on_next(1);
                 SECTION("both observers obtain values")
                 {
-                    auto validate = [](auto observer)
-                    {
-                        CHECK(observer.get_received_values() == std::vector{ 1 });
+                    auto validate = [](auto observer) {
+                        CHECK(observer.get_received_values() == std::vector{1});
                         CHECK(observer.get_total_on_next_count() == 1);
                         CHECK(observer.get_on_error_count() == 0);
                         CHECK(observer.get_on_completed_count() == 0);
@@ -270,8 +265,7 @@ TEST_CASE("ref_count")
                 subj.get_observer().on_next(1);
                 SECTION("no observers obtain values")
                 {
-                    auto validate = [](auto observer)
-                    {
+                    auto validate = [](auto observer) {
                         CHECK(observer.get_total_on_next_count() == 0);
                         CHECK(observer.get_on_error_count() == 0);
                         CHECK(observer.get_on_completed_count() == 0);
@@ -282,13 +276,12 @@ TEST_CASE("ref_count")
                 SECTION("subscribe via ref_count again and send value")
                 {
                     sub = rpp::composite_disposable_wrapper::make();
-                    observable.ref_count().subscribe(rpp::composite_disposable_wrapper{sub},observer_2);
+                    observable.ref_count().subscribe(rpp::composite_disposable_wrapper{sub}, observer_2);
                     subj.get_observer().on_next(1);
                     SECTION("both observers obtain values")
                     {
-                        auto validate = [](auto observer)
-                        {
-                            CHECK(observer.get_received_values() == std::vector{ 1 });
+                        auto validate = [](auto observer) {
+                            CHECK(observer.get_received_values() == std::vector{1});
                             CHECK(observer.get_total_on_next_count() == 1);
                             CHECK(observer.get_on_error_count() == 0);
                             CHECK(observer.get_on_completed_count() == 0);
@@ -309,9 +302,8 @@ TEST_CASE("ref_count")
                 subj.get_observer().on_next(1);
                 SECTION("both observers obtain values")
                 {
-                    auto validate = [](auto observer)
-                    {
-                        CHECK(observer.get_received_values() == std::vector{ 1 });
+                    auto validate = [](auto observer) {
+                        CHECK(observer.get_received_values() == std::vector{1});
                         CHECK(observer.get_total_on_next_count() == 1);
                         CHECK(observer.get_on_error_count() == 0);
                         CHECK(observer.get_on_completed_count() == 0);
@@ -326,7 +318,7 @@ TEST_CASE("ref_count")
                 subj.get_observer().on_next(1);
                 SECTION("first observer obtains values")
                 {
-                    CHECK(observer_1.get_received_values() == std::vector{ 1 });
+                    CHECK(observer_1.get_received_values() == std::vector{1});
                     CHECK(observer_1.get_total_on_next_count() == 1);
                     CHECK(observer_1.get_on_error_count() == 0);
                     CHECK(observer_1.get_on_completed_count() == 0);

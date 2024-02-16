@@ -7,33 +7,34 @@
 //
 //  Project home: https://github.com/victimsnino/ReactivePlusPlus
 
+#include <snitch/snitch.hpp>
+
+#include <rpp/observables.hpp>
+#include <rpp/operators/as_blocking.hpp>
+#include <rpp/sources/create.hpp>
+#include <rpp/sources/empty.hpp>
+#include <rpp/sources/error.hpp>
+#include <rpp/sources/never.hpp>
+
 #include "mock_observer.hpp"
 #include "rpp/disposables/fwd.hpp"
 #include "rpp/operators/fwd.hpp"
 #include "rpp/operators/subscribe.hpp"
 #include "rpp/operators/take.hpp"
-#include <snitch/snitch.hpp>
-#include <rpp/observables.hpp>
-#include <rpp/sources/create.hpp>
-#include <rpp/sources/never.hpp>
-#include <rpp/sources/error.hpp>
-#include <rpp/sources/empty.hpp>
-#include <rpp/operators/as_blocking.hpp>
+
 #include <chrono>
 #include <thread>
 
 TEST_CASE("create observable works properly as observable")
 {
     size_t on_subscribe_called{};
-    auto observable = rpp::source::create<int>([&](auto&& observer)
-    {
+    auto   observable = rpp::source::create<int>([&](auto&& observer) {
         ++on_subscribe_called;
         observer.on_next(1);
         observer.on_completed();
     });
 
-    auto test = [&](auto&& observable)
-    {
+    auto test = [&](auto&& observable) {
         SECTION("subscribe valid observer")
         {
             std::vector<int> on_next_vals{};
@@ -41,8 +42,8 @@ TEST_CASE("create observable works properly as observable")
             size_t           on_completed{};
 
             observable.subscribe([&](int v) { on_next_vals.push_back(v); },
-                                [&](const std::exception_ptr&) { ++on_error; },
-                                [&]() { ++on_completed; });
+                                 [&](const std::exception_ptr&) { ++on_error; },
+                                 [&]() { ++on_completed; });
 
             CHECK(on_subscribe_called == 1u);
             CHECK(on_next_vals == std::vector{1});
@@ -52,7 +53,11 @@ TEST_CASE("create observable works properly as observable")
 
         SECTION("subscribe disposed callbacks")
         {
-            observable.subscribe(rpp::composite_disposable_wrapper::empty(), [](int) {}, [](const std::exception_ptr&) {}, []() {});
+            observable.subscribe(
+                rpp::composite_disposable_wrapper::empty(),
+                [](int) {},
+                [](const std::exception_ptr&) {},
+                []() {});
 
             CHECK(on_subscribe_called == 0u);
         }
@@ -66,7 +71,11 @@ TEST_CASE("create observable works properly as observable")
 
         SECTION("subscribe non-disposed callbacks")
         {
-            observable.subscribe(rpp::composite_disposable_wrapper::make(), [](int) {}, [](const std::exception_ptr&) {}, []() {});
+            observable.subscribe(
+                rpp::composite_disposable_wrapper::make(),
+                [](int) {},
+                [](const std::exception_ptr&) {},
+                []() {});
 
             CHECK(on_subscribe_called == 1u);
         }
@@ -100,29 +109,25 @@ TEST_CASE("blocking_observable blocks subscribe call")
     mock_observer_strategy<int> mock{};
     SECTION("on_completed inside observable")
     {
-        rpp::source::create<int>([](auto&& observer)
-        {
+        rpp::source::create<int>([](auto&& observer) {
             std::thread(
-                [observer=std::forward<decltype(observer)>(observer)]
-                {
+                [observer = std::forward<decltype(observer)>(observer)] {
                     std::this_thread::sleep_for(std::chrono::milliseconds{100});
                     observer.on_completed();
                 })
                 .detach();
         })
-        | rpp::operators::as_blocking()
-        | rpp::operators::subscribe(mock);
+            | rpp::operators::as_blocking()
+            | rpp::operators::subscribe(mock);
 
         CHECK(mock.get_on_completed_count() == 1);
     }
     SECTION("on_error inside observable")
     {
-        auto op = rpp::operators::as_blocking();
-        auto obs =  rpp::source::create<int>([](auto&& observer)
-        {
+        auto op  = rpp::operators::as_blocking();
+        auto obs = rpp::source::create<int>([](auto&& observer) {
             std::thread(
-                [observer=std::forward<decltype(observer)>(observer)]
-                {
+                [observer = std::forward<decltype(observer)>(observer)] {
                     std::this_thread::sleep_for(std::chrono::milliseconds{100});
                     observer.on_error({});
                 })
@@ -130,20 +135,19 @@ TEST_CASE("blocking_observable blocks subscribe call")
         });
 
         obs
-        | op
-        | rpp::operators::subscribe(mock);
+            | op
+            | rpp::operators::subscribe(mock);
 
         CHECK(mock.get_on_error_count() == 1);
     }
     SECTION("as_blocking + take(1)")
     {
-        rpp::source::create<int>([](const auto& obs)
-        {
+        rpp::source::create<int>([](const auto& obs) {
             obs.on_next(1);
         })
-        | rpp::ops::as_blocking()
-        | rpp::ops::take(1)
-        | rpp::operators::subscribe(mock);
+            | rpp::ops::as_blocking()
+            | rpp::ops::take(1)
+            | rpp::operators::subscribe(mock);
 
         CHECK(mock.get_total_on_next_count() == 1);
         CHECK(mock.get_on_completed_count() == 1);
@@ -152,7 +156,7 @@ TEST_CASE("blocking_observable blocks subscribe call")
 
 TEST_CASE("base observables")
 {
-    mock_observer_strategy<int> mock{ };
+    mock_observer_strategy<int> mock{};
 
     SECTION("empty")
     {
@@ -202,8 +206,7 @@ TEST_CASE("create observable works properly as observable")
 {
     SECTION("using const& variant")
     {
-        auto observable = rpp::source::create<int>([](auto&& observer)
-        {
+        auto observable = rpp::source::create<int>([](auto&& observer) {
             observer.on_next(1);
             observer.on_completed();
         });

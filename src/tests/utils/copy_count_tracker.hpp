@@ -10,9 +10,10 @@
 
 #pragma once
 
+#include <snitch/snitch.hpp>
+
 #include <rpp/sources/create.hpp>
 #include <rpp/utils/functors.hpp>
-#include <snitch/snitch.hpp>
 
 #include <memory>
 
@@ -20,7 +21,9 @@ class copy_count_tracker
 {
 public:
     copy_count_tracker()
-        : _state(std::make_shared<state>()) {}
+        : _state(std::make_shared<state>())
+    {
+    }
 
     copy_count_tracker(const copy_count_tracker& other)
         : _state{other._state}
@@ -61,8 +64,7 @@ public:
 
     auto get_observable(size_t count = 1)
     {
-        return rpp::source::create<copy_count_tracker>([this, count](const auto& sub)
-        {
+        return rpp::source::create<copy_count_tracker>([this, count](const auto& sub) {
             for (size_t i = 0; i < count && !sub.is_disposed(); ++i)
                 sub.on_next(*this);
             sub.on_completed();
@@ -71,8 +73,7 @@ public:
 
     auto get_observable_for_move(size_t count = 1)
     {
-        return rpp::source::create<copy_count_tracker>([this, count](const auto& sub)
-        {
+        return rpp::source::create<copy_count_tracker>([this, count](const auto& sub) {
             for (size_t i = 0; i < count && !sub.is_disposed(); ++i)
                 sub.on_next(std::move(*this));
             sub.on_completed();
@@ -119,14 +120,14 @@ private:
 
 namespace std
 {
-// Make copy_count_tracker hashable for distinct operator
-template<>
-struct hash<copy_count_tracker>
-{
-    size_t operator()(const copy_count_tracker& tracker) const noexcept
+    // Make copy_count_tracker hashable for distinct operator
+    template<>
+    struct hash<copy_count_tracker>
     {
-        return std::hash<int>{}(tracker.get_copy_count()) 
-            ^ (std::hash<int>{}(tracker.get_move_count()) << 1);
-    }
-};
-}
+        size_t operator()(const copy_count_tracker& tracker) const noexcept
+        {
+            return std::hash<int>{}(tracker.get_copy_count())
+                 ^ (std::hash<int>{}(tracker.get_move_count()) << 1);
+        }
+    };
+} // namespace std

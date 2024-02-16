@@ -1,6 +1,6 @@
 # Contributing
 
-Hello dear contributor! Before hand thank you for your contribution to RPP! 
+Hello dear contributor! Before hand thank you for your contribution to RPP!
 
 Below you can find some useful info about contribution to RPP project
 ## Getting started
@@ -33,7 +33,7 @@ void my_long_function()
 int my_short_function() { return 2; }
 
 # Option 2
-int my_short_function() 
+int my_short_function()
 {
     return 2;
 }

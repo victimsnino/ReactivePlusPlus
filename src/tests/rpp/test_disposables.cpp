@@ -8,22 +8,24 @@
 //  Project home: https://github.com/victimsnino/ReactivePlusPlus
 
 #include <snitch/snitch.hpp>
+
+#include <rpp/disposables/composite_disposable.hpp>
 #include <rpp/disposables/disposable_wrapper.hpp>
 #include <rpp/disposables/refcount_disposable.hpp>
-#include <rpp/disposables/composite_disposable.hpp>
 
-namespace {
-struct custom_disposable : public rpp::interface_disposable
+namespace
 {
-    custom_disposable() = default;
+    struct custom_disposable : public rpp::interface_disposable
+    {
+        custom_disposable() = default;
 
-    bool is_disposed() const noexcept final { return dispose_count > 1; }
+        bool is_disposed() const noexcept final { return dispose_count > 1; }
 
-    void dispose_impl(rpp::interface_disposable::Mode) noexcept final { ++dispose_count; }
+        void dispose_impl(rpp::interface_disposable::Mode) noexcept final { ++dispose_count; }
 
-    size_t dispose_count{};
-};
-}
+        size_t dispose_count{};
+    };
+} // namespace
 
 TEMPLATE_TEST_CASE("disposable keeps state", "", rpp::details::disposables::dynamic_disposables_container<0>, rpp::details::disposables::static_disposables_container<1>)
 {
@@ -150,7 +152,7 @@ TEMPLATE_TEST_CASE("disposable keeps state", "", rpp::details::disposables::dyna
     SECTION("add callback_disposable")
     {
         size_t invoked_count{};
-        d.add([&invoked_count]()noexcept {
+        d.add([&invoked_count]() noexcept {
             ++invoked_count;
         });
         CHECK(invoked_count == 0);
@@ -163,22 +165,25 @@ TEMPLATE_TEST_CASE("disposable keeps state", "", rpp::details::disposables::dyna
         d.dispose();
 
         size_t invoked_count{};
-        d.add([&invoked_count]()noexcept {
+        d.add([&invoked_count]() noexcept {
             ++invoked_count;
         });
         CHECK(invoked_count == 1);
     }
 
-    SECTION("add self") {
+    SECTION("add self")
+    {
         d.add(d);
         CHECK(!d.is_disposed());
-        SECTION("dispose self") {
+        SECTION("dispose self")
+        {
             d.dispose();
             CHECK(d.is_disposed());
         }
     }
 
-    SECTION("call dispose twice") {
+    SECTION("call dispose twice")
+    {
         d.dispose();
         CHECK(d.is_disposed());
 
@@ -189,7 +194,7 @@ TEMPLATE_TEST_CASE("disposable keeps state", "", rpp::details::disposables::dyna
 
 TEST_CASE("refcount disposable dispose underlying in case of reaching zero")
 {
-    auto refcount = rpp::disposable_wrapper_impl<rpp::refcount_disposable>::make();
+    auto refcount   = rpp::disposable_wrapper_impl<rpp::refcount_disposable>::make();
     auto refcounted = refcount.lock()->add_ref();
     auto underlying = rpp::disposable_wrapper_impl<custom_disposable>::make();
     refcount.add(underlying);
@@ -236,7 +241,7 @@ TEST_CASE("refcount disposable dispose underlying in case of reaching zero")
 
     SECTION("add_ref prevents immediate disposing")
     {
-        size_t count = 5;
+        size_t                               count = 5;
         std::vector<rpp::disposable_wrapper> disposables{};
         for (size_t i = 0; i < count; ++i)
             disposables.push_back(refcount.lock()->add_ref());
@@ -244,13 +249,13 @@ TEST_CASE("refcount disposable dispose underlying in case of reaching zero")
         CHECK(!refcount.is_disposed());
         CHECK(!refcounted.is_disposed());
 
-        for (size_t i = 0; i < 10*count; ++i)
+        for (size_t i = 0; i < 10 * count; ++i)
             refcounted.dispose();
 
         CHECK(refcounted.is_disposed());
         CHECK(!underlying.lock()->is_disposed());
 
-        for(auto& d : disposables)
+        for (auto& d : disposables)
         {
             CHECK(!underlying.lock()->is_disposed());
             CHECK(!d.is_disposed());
@@ -264,7 +269,7 @@ TEST_CASE("refcount disposable dispose underlying in case of reaching zero")
 
 TEST_CASE("composite_disposable correctly handles exception")
 {
-    auto d = rpp::composite_disposable_wrapper::make<rpp::composite_disposable_impl<rpp::details::disposables::static_disposables_container<1>>>();
+    auto d  = rpp::composite_disposable_wrapper::make<rpp::composite_disposable_impl<rpp::details::disposables::static_disposables_container<1>>>();
     auto d1 = rpp::composite_disposable_wrapper::make();
     auto d2 = rpp::composite_disposable_wrapper::make();
     d.add(d1);

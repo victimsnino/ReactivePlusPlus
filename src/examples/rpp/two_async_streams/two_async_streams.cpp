@@ -7,13 +7,14 @@
 rpp::schedulers::time_point start{};
 
 template<typename T>
-std::string format_message(T data) {
+std::string format_message(T data)
+{
     std::stringstream ss{};
-    ss << "[" 
-              << std::this_thread::get_id() 
-              << "][" << std::chrono::duration_cast<std::chrono::milliseconds>(rpp::schedulers::clock_type::now() - start).count() 
-              << "ms] Message: " 
-              << data;
+    ss << "["
+       << std::this_thread::get_id()
+       << "][" << std::chrono::duration_cast<std::chrono::milliseconds>(rpp::schedulers::clock_type::now() - start).count()
+       << "ms] Message: "
+       << data;
     return ss.str();
 }
 
@@ -29,7 +30,7 @@ int main() // NOLINT(bugprone-exception-escape)
                      | rpp::operators::filter([](char v) { return v == '0'; });
 
     auto chars = raw_keyboard_events
-               | rpp::operators::filter([](char v) { return !std::isdigit(v) && v != '\n';})
+               | rpp::operators::filter([](char v) { return !std::isdigit(v) && v != '\n'; })
                | rpp::operators::map(&::toupper)
                | rpp::operators::map(format_message<char>);
 
@@ -46,7 +47,7 @@ int main() // NOLINT(bugprone-exception-escape)
         | rpp::operators::subscribe([](const std::string& event) {
               std::cout << event << std::endl;
           });
-    
+
     std::cout << "EXIT" << std::endl;
 
     return 0;

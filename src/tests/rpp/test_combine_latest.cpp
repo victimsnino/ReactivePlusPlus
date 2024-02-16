@@ -10,20 +10,18 @@
 
 #include <snitch/snitch.hpp>
 
+#include <rpp/operators/as_blocking.hpp>
+#include <rpp/operators/combine_latest.hpp>
+#include <rpp/schedulers/current_thread.hpp>
+#include <rpp/schedulers/immediate.hpp>
+#include <rpp/sources/concat.hpp>
+#include <rpp/sources/error.hpp>
 #include <rpp/sources/just.hpp>
 #include <rpp/sources/never.hpp>
-#include <rpp/sources/error.hpp>
 #include <rpp/subjects/publish_subject.hpp>
-#include <rpp/schedulers/immediate.hpp>
-#include <rpp/schedulers/current_thread.hpp>
 
-#include <rpp/operators/combine_latest.hpp>
-#include <rpp/operators/as_blocking.hpp>
-
-#include <rpp/sources/concat.hpp>
-
-#include "mock_observer.hpp"
 #include "disposable_observable.hpp"
+#include "mock_observer.hpp"
 #include "snitch_logging.hpp"
 
 TEST_CASE("combine_latest bundles items")
@@ -32,14 +30,14 @@ TEST_CASE("combine_latest bundles items")
     {
         auto mock = mock_observer_strategy<std::tuple<int, int>>{};
         rpp::source::just(rpp::schedulers::immediate{}, 1, 2, 3)
-                | rpp::ops::combine_latest(rpp::source::just(rpp::schedulers::immediate{}, 4, 5, 6))
-                | rpp::ops::subscribe(mock);
+            | rpp::ops::combine_latest(rpp::source::just(rpp::schedulers::immediate{}, 4, 5, 6))
+            | rpp::ops::subscribe(mock);
 
         CHECK(mock.get_received_values() == std::vector<std::tuple<int, int>>{
-                std::make_tuple(1, 6),
-                std::make_tuple(2, 6),
-                std::make_tuple(3, 6),
-        });
+                  std::make_tuple(1, 6),
+                  std::make_tuple(2, 6),
+                  std::make_tuple(3, 6),
+              });
         CHECK(mock.get_on_completed_count() == 1);
         CHECK(mock.get_on_error_count() == 0);
     }
@@ -48,7 +46,7 @@ TEST_CASE("combine_latest bundles items")
     {
         auto mock = mock_observer_strategy<std::tuple<int, int>>{};
 
-        rpp::source::just(rpp::schedulers::current_thread{}, 1, 2, 3)                      // source 1
+        rpp::source::just(rpp::schedulers::current_thread{}, 1, 2, 3)                                 // source 1
             | rpp::ops::combine_latest(rpp::source::just(rpp::schedulers::current_thread{}, 4, 5, 6)) // source 2
             | rpp::ops::subscribe(mock);
 
@@ -57,12 +55,12 @@ TEST_CASE("combine_latest bundles items")
         // source 2: -4---5---6-|
 
         CHECK(mock.get_received_values() == std::vector<std::tuple<int, int>>{
-            std::make_tuple(1, 4),
-            std::make_tuple(1, 5),
-            std::make_tuple(2, 5),
-            std::make_tuple(2, 6),
-            std::make_tuple(3, 6),
-        });
+                  std::make_tuple(1, 4),
+                  std::make_tuple(1, 5),
+                  std::make_tuple(2, 5),
+                  std::make_tuple(2, 6),
+                  std::make_tuple(3, 6),
+              });
         CHECK(mock.get_on_completed_count() == 1);
         CHECK(mock.get_on_error_count() == 0);
     }
@@ -71,10 +69,10 @@ TEST_CASE("combine_latest bundles items")
     {
         auto mock = mock_observer_strategy<std::tuple<int, int, int>>{};
 
-        rpp::source::just(rpp::schedulers::current_thread{}, 1, 2, 3)          // source 1
+        rpp::source::just(rpp::schedulers::current_thread{}, 1, 2, 3) // source 1
             | rpp::ops::combine_latest(
                 rpp::source::just(rpp::schedulers::current_thread{}, 4, 5, 6), // source 2
-                rpp::source::just(rpp::schedulers::current_thread{}, 7, 8 ,9)) // source 3
+                rpp::source::just(rpp::schedulers::current_thread{}, 7, 8, 9)) // source 3
             | rpp::ops::subscribe(mock);
 
         // Above stream should output in such sequence
@@ -83,14 +81,14 @@ TEST_CASE("combine_latest bundles items")
         // source 3: --7---8---9-|
 
         CHECK(mock.get_received_values() == std::vector<std::tuple<int, int, int>>{
-            std::make_tuple(1, 4, 7),
-            std::make_tuple(1, 5, 7),
-            std::make_tuple(1, 5, 8),
-            std::make_tuple(2, 5, 8),
-            std::make_tuple(2, 6, 8),
-            std::make_tuple(2, 6, 9),
-            std::make_tuple(3, 6, 9),
-        });
+                  std::make_tuple(1, 4, 7),
+                  std::make_tuple(1, 5, 7),
+                  std::make_tuple(1, 5, 8),
+                  std::make_tuple(2, 5, 8),
+                  std::make_tuple(2, 6, 8),
+                  std::make_tuple(2, 6, 9),
+                  std::make_tuple(3, 6, 9),
+              });
         CHECK(mock.get_on_completed_count() == 1);
         CHECK(mock.get_on_error_count() == 0);
     }
@@ -138,19 +136,17 @@ TEST_CASE("combine_latest handles race condition")
             SECTION("on_error can't interleave with on_next")
             {
                 rpp::source::just(1, 1, 1)
-                        | rpp::ops::combine_latest(rpp::source::concat(rpp::source::just(2), subject.get_observable()))
-                        | rpp::ops::as_blocking()
-                        | rpp::ops::subscribe([&](auto&&)
-                                   {
+                    | rpp::ops::combine_latest(rpp::source::concat(rpp::source::just(2), subject.get_observable()))
+                    | rpp::ops::as_blocking()
+                    | rpp::ops::subscribe([&](auto&&) {
                                        CHECK(!on_error_called);
                                        std::thread{[&]
                                        {
                                            subject.get_observer().on_error(std::exception_ptr{});
                                        }}.detach();
                                        std::this_thread::sleep_for(std::chrono::seconds{1});
-                                       CHECK(!on_error_called);
-                                   },
-                                   [&](auto) { on_error_called = true; });
+                                       CHECK(!on_error_called); },
+                                          [&](auto) { on_error_called = true; });
 
                 CHECK(on_error_called);
             }
@@ -166,6 +162,6 @@ TEST_CASE("combine_latest satisfies disposable contracts")
 
         test_operator_with_disposable<int>(rpp::ops::combine_latest(observable));
     }
-    
+
     CHECK(observable_disposable.is_disposed() || observable_disposable.lock().use_count() == 2);
 }

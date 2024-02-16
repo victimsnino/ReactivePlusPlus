@@ -8,16 +8,16 @@
 // Project home: https://github.com/victimsnino/ReactivePlusPlus
 //
 
-#include "mock_observer.hpp"
-#include "copy_count_tracker.hpp"
-#include "disposable_observable.hpp"
-
+#include <snitch/snitch.hpp>
 
 #include <rpp/operators/take_while.hpp>
 #include <rpp/sources/create.hpp>
-#include <rpp/sources/error.hpp>
 #include <rpp/sources/empty.hpp>
-#include <snitch/snitch.hpp>
+#include <rpp/sources/error.hpp>
+
+#include "copy_count_tracker.hpp"
+#include "disposable_observable.hpp"
+#include "mock_observer.hpp"
 
 #include <stdexcept>
 #include <string>
@@ -27,9 +27,8 @@ TEST_CASE("take_while")
     auto mock = mock_observer_strategy<int>{};
     SECTION("-1-2-3-...")
     {
-        auto obs  = rpp::source::create<int>(
-            [](const auto& sub)
-            {
+        auto obs = rpp::source::create<int>(
+            [](const auto& sub) {
                 int v{};
                 while (!sub.is_disposed())
                     sub.on_next(v++);
@@ -44,7 +43,7 @@ TEST_CASE("take_while")
 
         SECTION("take while false")
         {
-            auto op=rpp::operators::take_while([](auto) { return false; });
+            auto op = rpp::operators::take_while([](auto) { return false; });
             obs | op | rpp::operators::subscribe(mock);
 
             CHECK(mock.get_received_values().empty());
@@ -52,7 +51,7 @@ TEST_CASE("take_while")
     }
     SECTION("-x")
     {
-        rpp::source::error<int>({}) | rpp::operators::take_while([](int){return false; }) | rpp::ops::subscribe(mock);
+        rpp::source::error<int>({}) | rpp::operators::take_while([](int) { return false; }) | rpp::ops::subscribe(mock);
         CHECK(mock.get_received_values() == std::vector<int>{});
         CHECK(mock.get_on_error_count() == 1);
         CHECK(mock.get_on_completed_count() == 0);
@@ -60,7 +59,7 @@ TEST_CASE("take_while")
 
     SECTION("-|")
     {
-        rpp::source::empty<int>() | rpp::operators::take_while([](int){return true; }) | rpp::ops::subscribe(mock);
+        rpp::source::empty<int>() | rpp::operators::take_while([](int) { return true; }) | rpp::ops::subscribe(mock);
         CHECK(mock.get_received_values() == std::vector<int>{});
         CHECK(mock.get_on_error_count() == 0);
         CHECK(mock.get_on_completed_count() == 1);
@@ -72,16 +71,16 @@ TEST_CASE("take_while doesn't produce extra copies")
     SECTION("take_while([](auto) { return true; })")
     {
         copy_count_tracker::test_operator(rpp::ops::take_while([](auto) { return true; }),
-                                        {
-                                            .send_by_copy = {.copy_count = 2, // 1 copy to lambda + 1 copy to subscriber
-                                                            .move_count = 0},
-                                            .send_by_move = {.copy_count = 1, // 1 copy to lambda 
-                                                            .move_count = 1} // 1 move to final subscriber
-                                        });
+                                          {
+                                              .send_by_copy = {.copy_count = 2, // 1 copy to lambda + 1 copy to subscriber
+                                                               .move_count = 0},
+                                              .send_by_move = {.copy_count = 1, // 1 copy to lambda
+                                                               .move_count = 1} // 1 move to final subscriber
+                                          });
     }
 }
 
 TEST_CASE("take_while satisfies disposable contracts")
 {
-    test_operator_with_disposable<int>(rpp::ops::take_while([](auto){return true; }));
+    test_operator_with_disposable<int>(rpp::ops::take_while([](auto) { return true; }));
 }

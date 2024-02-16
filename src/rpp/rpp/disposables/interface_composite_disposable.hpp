@@ -15,20 +15,20 @@
 
 namespace rpp
 {
-struct interface_composite_disposable : public interface_disposable
-{
-    virtual void add(disposable_wrapper disposable) = 0;
-
-    template<rpp::constraint::is_nothrow_invocable Fn>
-    disposable_wrapper add(Fn&& invocable)
+    struct interface_composite_disposable : public interface_disposable
     {
-        auto d = make_callback_disposable(std::forward<Fn>(invocable));
-        add(d);
-        return d;
-    }
+        virtual void add(disposable_wrapper disposable) = 0;
 
-    virtual void remove(const disposable_wrapper& d) = 0;
-    // dispose all added disposables, clear container but not dispose original disposable
-    virtual void clear() = 0;
-};
-}
+        template<rpp::constraint::is_nothrow_invocable Fn>
+        disposable_wrapper add(Fn&& invocable)
+        {
+            auto d = make_callback_disposable(std::forward<Fn>(invocable));
+            add(d);
+            return d;
+        }
+
+        virtual void remove(const disposable_wrapper& d) = 0;
+        // dispose all added disposables, clear container but not dispose original disposable
+        virtual void clear() = 0;
+    };
+} // namespace rpp
