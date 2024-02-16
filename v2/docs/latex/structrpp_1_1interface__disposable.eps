@@ -5,7 +5,7 @@
 %%For: 
 %Magnification: 1.00
 %%Orientation: Portrait
-%%BoundingBox: 0 0 500 140.105072
+%%BoundingBox: 0 0 500 151.780502
 %%Pages: 0
 %%BeginSetup
 %%EndSetup
@@ -19,12 +19,12 @@
 /marginwidth 10 def
 /distx 20 def
 /disty 40 def
-/boundaspect 3.568750 def  % aspect ratio of the BoundingBox (width/height)
+/boundaspect 3.294231 def  % aspect ratio of the BoundingBox (width/height)
 /boundx 500 def
 /boundy boundx boundaspect div def
 /xspacing 0 def
 /yspacing 0 def
-/rows 12 def
+/rows 13 def
 /cols 3 def
 /scalefactor 0 def
 /boxfont /Times-Roman findfont fontheight scalefont def
@@ -180,9 +180,10 @@ boxfont setfont
 (rpp::composite_disposable) cw
 (rpp::operators::details::debounce_disposable< Observer, Worker, Container >) cw
 (rpp::operators::details::delay_disposable< Observer, Worker, Container >) cw
+(rpp::operators::details::combining_disposable< Observer, Args... >) cw
 (rpp::details::concat_state_t< TObserver, PackedContainer >) cw
 (rpp::details::refocunt_disposable_inner) cw
-(rpp::operators::details::combine_latest_disposable< Observer, TSelector, Args >) cw
+(rpp::operators::details::combining_disposable< Observer, Args >) cw
 (rpp::operators::details::merge_disposable< TObserver >) cw
 (rpp::operators::details::take_until_disposable< TObserver >) cw
 (rpp::operators::details::with_latest_from_disposable< Observer, TSelector, RestArgs >) cw
@@ -199,16 +200,18 @@ boundx scalefactor div boundy scalefactor div scale
 
 % ----- classes -----
 
- (rpp::interface_disposable) 0.750000 11.000000 box
- (rpp::interface_composite_disposable) 0.750000 10.000000 box
- (rpp::composite_disposable_impl< rpp::details::disposables::dynamic_disposables_container< 0 > >) 0.000000 9.000000 box
- (rpp::composite_disposable_impl< Container >) 1.500000 9.000000 box
- (rpp::composite_disposable) 0.000000 8.000000 box
- (rpp::operators::details::debounce_disposable< Observer, Worker, Container >) 1.000000 8.000000 box
- (rpp::operators::details::delay_disposable< Observer, Worker, Container >) 2.000000 8.000000 box
+ (rpp::interface_disposable) 0.750000 12.000000 box
+ (rpp::interface_composite_disposable) 0.750000 11.000000 box
+ (rpp::composite_disposable_impl< rpp::details::disposables::dynamic_disposables_container< 0 > >) 0.000000 10.000000 box
+ (rpp::composite_disposable_impl< Container >) 1.500000 10.000000 box
+ (rpp::composite_disposable) 0.000000 9.000000 box
+ (rpp::operators::details::debounce_disposable< Observer, Worker, Container >) 1.000000 9.000000 box
+ (rpp::operators::details::delay_disposable< Observer, Worker, Container >) 2.000000 9.000000 box
+ (rpp::operators::details::combining_disposable< Observer, Args... >) 1.000000 8.000000 box
+1.000000 8.000000 mark
  (rpp::details::concat_state_t< TObserver, PackedContainer >) 1.000000 7.000000 box
  (rpp::details::refocunt_disposable_inner) 1.000000 6.000000 box
- (rpp::operators::details::combine_latest_disposable< Observer, TSelector, Args >) 1.000000 5.000000 box
+ (rpp::operators::details::combining_disposable< Observer, Args >) 1.000000 5.000000 box
  (rpp::operators::details::merge_disposable< TObserver >) 1.000000 4.000000 box
  (rpp::operators::details::take_until_disposable< TObserver >) 1.000000 3.000000 box
  (rpp::operators::details::with_latest_from_disposable< Observer, TSelector, RestArgs >) 1.000000 2.000000 box
@@ -219,31 +222,33 @@ boundx scalefactor div boundy scalefactor div scale
 % ----- relations -----
 
 solid
+1 0.750000 11.250000 out
+solid
+0 0.750000 11.750000 in
+solid
 1 0.750000 10.250000 out
 solid
-0 0.750000 10.750000 in
+0.000000 1.500000 11.000000 conn
 solid
-1 0.750000 9.250000 out
+0 0.000000 10.750000 in
 solid
-0.000000 1.500000 10.000000 conn
+1 0.000000 9.250000 out
+solid
+0 1.500000 10.750000 in
+solid
+1 1.500000 9.250000 out
+solid
+1.000000 2.000000 10.000000 conn
 solid
 0 0.000000 9.750000 in
 solid
 1 0.000000 8.250000 out
 solid
-0 1.500000 9.750000 in
+0 1.000000 9.750000 in
 solid
-1 1.500000 8.250000 out
+0 2.000000 9.750000 in
 solid
-1.000000 2.000000 9.000000 conn
-solid
-0 0.000000 8.750000 in
-solid
-1 0.000000 7.250000 out
-solid
-0 1.000000 8.750000 in
-solid
-0 2.000000 8.750000 in
+0 0.000000 8.500000 hedge
 solid
 0 0.000000 7.500000 hedge
 solid
@@ -261,4 +266,4 @@ solid
 solid
 0 0.000000 0.500000 hedge
 solid
-0.000000 8.000000 0.500000 vedge
+0.000000 9.000000 0.500000 vedge

@@ -31,7 +31,12 @@ requires (rpp\+::constraint\+::decayed\+\_\+same\+\_\+as$<$T, Ts$>$ \&\& ...)}\\
 requires (!\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp\+::constraint\+::observable}}$<$TSelector$>$ \&\& (!utils\+::is\+\_\+not\+\_\+template\+\_\+callable$<$TSelector$>$ \texorpdfstring{$\vert$}{|}\texorpdfstring{$\vert$}{|} std\+::invocable$<$TSelector, rpp\+::utils\+::convertible\+\_\+to\+\_\+any, utils\+::extract\+\_\+observable\+\_\+type\+\_\+t$<$TObservable$>$, utils\+::extract\+\_\+observable\+\_\+type\+\_\+t$<$TObservables$>$...$>$))}\\auto \mbox{\hyperlink{group__combining__operators_ga9345ba5faac717ba85fc88f1c5fff58b}{rpp\+::operators\+::with\+\_\+latest\+\_\+from}} (TSelector \&\&selector, TObservable \&\&\mbox{\hyperlink{classrpp_1_1observable}{observable}}, TObservables \&\&... observables)
 \begin{DoxyCompactList}\small\item\em Combines latest emissions from observables with emission from current observable when it sends new value via applying selector. \end{DoxyCompactList}\item 
 {\footnotesize template$<$\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp\+::constraint\+::observable}} TObservable, rpp\+::constraint\+::observable... TObservables$>$ }\\auto \mbox{\hyperlink{group__combining__operators_ga20acc2f23cb06163f9d5e56c5522ce6c}{rpp\+::operators\+::with\+\_\+latest\+\_\+from}} (TObservable \&\&\mbox{\hyperlink{classrpp_1_1observable}{observable}}, TObservables \&\&... observables)
-\begin{DoxyCompactList}\small\item\em Combines latest emissions from observables with emission from current observable when it sends new value via making tuple. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Combines latest emissions from observables with emission from current observable when it sends new value via making tuple. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename TSelector , \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp\+::constraint\+::observable}} TObservable, rpp\+::constraint\+::observable... TObservables$>$ \newline
+requires (!\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp\+::constraint\+::observable}}$<$TSelector$>$ \&\& (!utils\+::is\+\_\+not\+\_\+template\+\_\+callable$<$TSelector$>$ \texorpdfstring{$\vert$}{|}\texorpdfstring{$\vert$}{|} std\+::invocable$<$TSelector, rpp\+::utils\+::convertible\+\_\+to\+\_\+any, utils\+::extract\+\_\+observable\+\_\+type\+\_\+t$<$TObservable$>$, utils\+::extract\+\_\+observable\+\_\+type\+\_\+t$<$TObservables$>$...$>$))}\\auto \mbox{\hyperlink{group__combining__operators_gae2e89ade7cae676333672b78db5f1a8b}{rpp\+::operators\+::zip}} (TSelector \&\&selector, TObservable \&\&\mbox{\hyperlink{classrpp_1_1observable}{observable}}, TObservables \&\&... observables)
+\begin{DoxyCompactList}\small\item\em combines emissions from observables and emit single items for each combination based on the results of provided selector \end{DoxyCompactList}\item 
+{\footnotesize template$<$\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp\+::constraint\+::observable}} TObservable, rpp\+::constraint\+::observable... TObservables$>$ }\\auto \mbox{\hyperlink{group__combining__operators_ga83f723fc5e197ab21f67b879c5a668d7}{rpp\+::operators\+::zip}} (TObservable \&\&\mbox{\hyperlink{classrpp_1_1observable}{observable}}, TObservables \&\&... observables)
+\begin{DoxyCompactList}\small\item\em combines emissions from observables and emit tuple of items for each combination \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsubsubsection{Detailed Description}
@@ -470,3 +475,70 @@ Actually this operator just keeps last values from all other observables and com
 \begin{Desc}
 \item[Examples]\par
 \mbox{\hyperlink{with_latest_from_8cpp-example}{with\+\_\+latest\+\_\+from.\+cpp}}.\end{Desc}
+\Hypertarget{group__combining__operators_ga83f723fc5e197ab21f67b879c5a668d7}\label{group__combining__operators_ga83f723fc5e197ab21f67b879c5a668d7} 
+\index{Combining Operators@{Combining Operators}!zip@{zip}}
+\index{zip@{zip}!Combining Operators@{Combining Operators}}
+\doxysubsubsubsubsection{\texorpdfstring{zip()}{zip()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp\+::constraint\+::observable}} TObservable, rpp\+::constraint\+::observable... TObservables$>$ \\
+auto rpp\+::operators\+::zip (\begin{DoxyParamCaption}\item[{TObservable \&\&}]{observable,  }\item[{TObservables \&\&...}]{observables }\end{DoxyParamCaption})}
+
+
+
+combines emissions from observables and emit tuple of items for each combination 
+
+
+
+\begin{DoxyParagraph}{Performance notes\+:}
+
+\begin{DoxyItemize}
+\item 1 heap allocation for disposable
+\item each value from any observable copied/moved to internal storage
+\item mutex acquired every time value obtained
+\end{DoxyItemize}
+\end{DoxyParagraph}
+
+\begin{DoxyParams}{Parameters}
+{\em observables} & are observables whose emissions would be zipped with current observable \\
+\hline
+\end{DoxyParams}
+\begin{DoxyWarning}{Warning}
+\#include \texorpdfstring{$<$}{<}\doxylink{zip_8hpp_source}{rpp/operators/zip.\+hpp}\texorpdfstring{$>$}{>}
+\end{DoxyWarning}
+\begin{DoxySeeAlso}{See also}
+\href{https://reactivex.io/documentation/operators/zip.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/zip.\+html}} 
+\end{DoxySeeAlso}
+\Hypertarget{group__combining__operators_gae2e89ade7cae676333672b78db5f1a8b}\label{group__combining__operators_gae2e89ade7cae676333672b78db5f1a8b} 
+\index{Combining Operators@{Combining Operators}!zip@{zip}}
+\index{zip@{zip}!Combining Operators@{Combining Operators}}
+\doxysubsubsubsubsection{\texorpdfstring{zip()}{zip()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename TSelector , \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp\+::constraint\+::observable}} TObservable, rpp\+::constraint\+::observable... TObservables$>$ \newline
+requires (!\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp\+::constraint\+::observable}}$<$TSelector$>$ \&\& (!utils\+::is\+\_\+not\+\_\+template\+\_\+callable$<$TSelector$>$ \texorpdfstring{$\vert$}{|}\texorpdfstring{$\vert$}{|} std\+::invocable$<$TSelector, rpp\+::utils\+::convertible\+\_\+to\+\_\+any, utils\+::extract\+\_\+observable\+\_\+type\+\_\+t$<$TObservable$>$, utils\+::extract\+\_\+observable\+\_\+type\+\_\+t$<$TObservables$>$...$>$))\\
+auto rpp\+::operators\+::zip (\begin{DoxyParamCaption}\item[{TSelector \&\&}]{selector,  }\item[{TObservable \&\&}]{observable,  }\item[{TObservables \&\&...}]{observables }\end{DoxyParamCaption})}
+
+
+
+combines emissions from observables and emit single items for each combination based on the results of provided selector 
+
+
+
+\begin{DoxyParagraph}{Performance notes\+:}
+
+\begin{DoxyItemize}
+\item 1 heap allocation for disposable
+\item each value from any observable copied/moved to internal storage
+\item mutex acquired every time value obtained
+\end{DoxyItemize}
+\end{DoxyParagraph}
+
+\begin{DoxyParams}{Parameters}
+{\em selector} & is applied to current emission of current observable and latests emissions from observables \\
+\hline
+{\em observables} & are observables whose emissions would be zipped with current observable \\
+\hline
+\end{DoxyParams}
+\begin{DoxyWarning}{Warning}
+\#include \texorpdfstring{$<$}{<}\doxylink{zip_8hpp_source}{rpp/operators/zip.\+hpp}\texorpdfstring{$>$}{>}
+\end{DoxyWarning}
+\begin{DoxySeeAlso}{See also}
+\href{https://reactivex.io/documentation/operators/zip.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/zip.\+html}} 
+\end{DoxySeeAlso}

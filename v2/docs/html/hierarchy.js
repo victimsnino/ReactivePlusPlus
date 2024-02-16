@@ -25,8 +25,20 @@ var hierarchy =
     ] ],
     [ "rpp::details::observables::blocking_strategy< Type, Strategy >", "classrpp_1_1details_1_1observables_1_1blocking__strategy.html", null ],
     [ "rpp::operators::details::buffer_observer_strategy< TObserver >", "classrpp_1_1operators_1_1details_1_1buffer__observer__strategy.html", null ],
-    [ "rpp::operators::details::combine_latest_observer_strategy< I, Observer, TSelector, Args >", "structrpp_1_1operators_1_1details_1_1combine__latest__observer__strategy.html", null ],
-    [ "rpp::operators::details::combine_latest_t< TSelector, TObservables >", "structrpp_1_1operators_1_1details_1_1combine__latest__t.html", null ],
+    [ "rpp::operators::details::combining_observer_strategy< TDisposable >", "structrpp_1_1operators_1_1details_1_1combining__observer__strategy.html", null ],
+    [ "rpp::operators::details::combining_observer_strategy< combine_latest_disposable< Observer, TSelector, Args... > >", "structrpp_1_1operators_1_1details_1_1combining__observer__strategy.html", [
+      [ "rpp::operators::details::combine_latest_observer_strategy< I, Observer, TSelector, Args >", "structrpp_1_1operators_1_1details_1_1combine__latest__observer__strategy.html", null ]
+    ] ],
+    [ "rpp::operators::details::combining_observer_strategy< zip_disposable< Observer, TSelector, Args... > >", "structrpp_1_1operators_1_1details_1_1combining__observer__strategy.html", [
+      [ "rpp::operators::details::zip_observer_strategy< I, Observer, TSelector, Args >", "structrpp_1_1operators_1_1details_1_1zip__observer__strategy.html", null ]
+    ] ],
+    [ "rpp::operators::details::combining_operator_t< TDisposable, TStrategy, TSelector, TObservables >", "structrpp_1_1operators_1_1details_1_1combining__operator__t.html", null ],
+    [ "rpp::operators::details::combining_operator_t< combine_latest_disposable, combine_latest_observer_strategy, TSelector, TObservables... >", "structrpp_1_1operators_1_1details_1_1combining__operator__t.html", [
+      [ "rpp::operators::details::combine_latest_t< TSelector, TObservables >", "structrpp_1_1operators_1_1details_1_1combine__latest__t.html", null ]
+    ] ],
+    [ "rpp::operators::details::combining_operator_t< zip_disposable, zip_observer_strategy, TSelector, TObservables... >", "structrpp_1_1operators_1_1details_1_1combining__operator__t.html", [
+      [ "rpp::operators::details::zip_t< TSelector, TObservables >", "structrpp_1_1operators_1_1details_1_1zip__t.html", null ]
+    ] ],
     [ "rpp::subjects::details::completed", "structrpp_1_1subjects_1_1details_1_1completed.html", null ],
     [ "rpp::operators::details::concat_observer_strategy_base< TObservable, TObserver >", "structrpp_1_1operators_1_1details_1_1concat__observer__strategy__base.html", [
       [ "rpp::operators::details::concat_inner_observer_strategy< TObservable, TObserver >", "structrpp_1_1operators_1_1details_1_1concat__inner__observer__strategy.html", null ],
@@ -113,9 +125,13 @@ var hierarchy =
       [ "rpp::interface_composite_disposable", "structrpp_1_1interface__composite__disposable.html", [
         [ "rpp::composite_disposable_impl< rpp::details::disposables::dynamic_disposables_container< 0 > >", "classrpp_1_1composite__disposable__impl.html", [
           [ "rpp::composite_disposable", "classrpp_1_1composite__disposable.html", [
+            [ "rpp::operators::details::combining_disposable< Observer, Args... >", "classrpp_1_1operators_1_1details_1_1combining__disposable.html", [
+              [ "rpp::operators::details::combine_latest_disposable< Observer, TSelector, Args >", "classrpp_1_1operators_1_1details_1_1combine__latest__disposable.html", null ],
+              [ "rpp::operators::details::zip_disposable< Observer, TSelector, Args >", "classrpp_1_1operators_1_1details_1_1zip__disposable.html", null ]
+            ] ],
             [ "rpp::details::concat_state_t< TObserver, PackedContainer >", "structrpp_1_1details_1_1concat__state__t.html", null ],
             [ "rpp::details::refocunt_disposable_inner", "classrpp_1_1details_1_1refocunt__disposable__inner.html", null ],
-            [ "rpp::operators::details::combine_latest_disposable< Observer, TSelector, Args >", "classrpp_1_1operators_1_1details_1_1combine__latest__disposable.html", null ],
+            [ "rpp::operators::details::combining_disposable< Observer, Args >", "classrpp_1_1operators_1_1details_1_1combining__disposable.html", null ],
             [ "rpp::operators::details::merge_disposable< TObserver >", "classrpp_1_1operators_1_1details_1_1merge__disposable.html", null ],
             [ "rpp::operators::details::take_until_disposable< TObserver >", "classrpp_1_1operators_1_1details_1_1take__until__disposable.html", null ],
             [ "rpp::operators::details::with_latest_from_disposable< Observer, TSelector, RestArgs >", "classrpp_1_1operators_1_1details_1_1with__latest__from__disposable.html", null ],
@@ -243,7 +259,7 @@ var hierarchy =
       [ "rpp::observer< Type, details::with_disposable_strategy< Strategy, DisposableStrategy > >", "classrpp_1_1observer_3_01_type_00_01details_1_1with__disposable__strategy_3_01_strategy_00_01_disposable_strategy_01_4_01_4.html", null ]
     ] ],
     [ "rpp::operators::details::buffer_t::operator_traits< T >", "structrpp_1_1operators_1_1details_1_1buffer__t_1_1operator__traits.html", null ],
-    [ "rpp::operators::details::combine_latest_t< TSelector, TObservables >::operator_traits< T >", "structrpp_1_1operators_1_1details_1_1combine__latest__t_1_1operator__traits.html", null ],
+    [ "rpp::operators::details::combining_operator_t< TDisposable, TStrategy, TSelector, TObservables >::operator_traits< T >", "structrpp_1_1operators_1_1details_1_1combining__operator__t_1_1operator__traits.html", null ],
     [ "rpp::operators::details::concat_t::operator_traits< T >", "structrpp_1_1operators_1_1details_1_1concat__t_1_1operator__traits.html", null ],
     [ "rpp::operators::details::debounce_t< Scheduler >::operator_traits< T >", "structrpp_1_1operators_1_1details_1_1debounce__t_1_1operator__traits.html", null ],
     [ "rpp::operators::details::delay_t< Scheduler, ClearOnError >::operator_traits< T >", "structrpp_1_1operators_1_1details_1_1delay__t_1_1operator__traits.html", null ],

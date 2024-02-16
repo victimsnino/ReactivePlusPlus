@@ -1,0 +1,98 @@
+\doxysection{zip.\+hpp}
+\hypertarget{zip_8hpp_source}{}\label{zip_8hpp_source}\index{src/rpp/rpp/operators/zip.hpp@{src/rpp/rpp/operators/zip.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ReactivePlusPlus\ library}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ Copyright\ Aleksey\ Loginov\ 2023\ -\/\ present.}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ Distributed\ under\ the\ Boost\ Software\ License,\ Version\ 1.0.}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ \ \ \ (See\ accompanying\ file\ LICENSE\_1\_0.txt\ or\ copy\ at}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ https://www.boost.org/LICENSE\_1\_0.txt)}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ Project\ home:\ https://github.com/victimsnino/ReactivePlusPlus}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <rpp/operators/fwd.hpp>}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <rpp/defs.hpp>}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ <rpp/operators/details/combining\_strategy.hpp>}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ <rpp/operators/details/strategy.hpp>}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#include\ <deque>}}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \textcolor{keyword}{namespace\ }rpp::operators::details}
+\DoxyCodeLine{00022\ \{}
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keyword}{template}<\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer}{rpp::constraint::observer}}\ Observer,\ \textcolor{keyword}{typename}\ TSelector,\ rpp::constraint::decayed\_type...\ Args>}
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1zip__disposable}{zip\_disposable}}\ final\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1combining__disposable}{combining\_disposable}}<Observer,\ Args...>}
+\DoxyCodeLine{00025\ \ \ \ \ \{}
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1zip__disposable}{zip\_disposable}}(Observer\&\&\ \mbox{\hyperlink{classrpp_1_1observer}{observer}},\ \textcolor{keyword}{const}\ TSelector\&\ selector)}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \ \ \ \ :\ \mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1combining__disposable}{combining\_disposable}}<Observer,\ Args...>(std::move(\mbox{\hyperlink{classrpp_1_1observer}{observer}}))}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \ \ \ \ ,\ m\_selector(selector)}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ get\_selector()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ m\_selector;\ \}}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\&\ get\_pendings()\ \{\ \textcolor{keywordflow}{return}\ m\_pendings;\ \}}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ utils::tuple<std::deque<Args>...>\ m\_pendings\{\};}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ RPP\_NO\_UNIQUE\_ADDRESS\ TSelector\ m\_selector;}
+\DoxyCodeLine{00041\ \ \ \ \ \};}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keywordtype}{size\_t}\ I,\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer}{rpp::constraint::observer}}\ Observer,\ \textcolor{keyword}{typename}\ TSelector,\ rpp::constraint::decayed\_type...\ Args>}
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1zip__observer__strategy}{zip\_observer\_strategy}}\ final}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1combining__observer__strategy}{combining\_observer\_strategy}}<zip\_disposable<Observer,\ TSelector,\ Args...>>}
+\DoxyCodeLine{00046\ \ \ \ \ \{}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1combining__observer__strategy}{combining\_observer\_strategy}}<\mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1zip__disposable}{zip\_disposable}}<Observer,\ TSelector,\ Args...>>::disposable;}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ on\_next(T\&\&\ v)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00051\ \textcolor{keyword}{\ \ \ \ \ \ \ \ }\{}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{classrpp_1_1observer}{observer}}\ =\ disposable-\/>get\_observer\_under\_lock();}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \ \ \ \ disposable-\/>get\_pendings().template\ get<I>().push\_back(std::forward<T>(v));}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \ \ \ \ disposable-\/>get\_pendings().apply(\&apply\_impl<\textcolor{keyword}{decltype}(disposable)>,\ disposable,\ \mbox{\hyperlink{classrpp_1_1observer}{observer}});}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ TDisposable>}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ apply\_impl(\textcolor{keyword}{const}\ TDisposable\&\ disposable,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1pointer__under__lock}{pointer\_under\_lock<Observer>}}\&\ \mbox{\hyperlink{classrpp_1_1observer}{observer}},\ std::deque<Args>\&...\ values)}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ ((!values.empty()\ \&\&\ ...))}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrpp_1_1observer}{observer}}-\/>\mbox{\hyperlink{classrpp_1_1details_1_1observer__impl_a14747a5260ecc183a6d0f1adafee4f68}{on\_next}}(disposable-\/>get\_selector()(std::move(values.front())...));}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (values.pop\_front(),\ ...);}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00068\ \ \ \ \ \};}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ TSelector,\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp::constraint::observable}}...\ TObservables>}
+\DoxyCodeLine{00071\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1zip__t}{zip\_t}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1combining__operator__t}{combining\_operator\_t}}<zip\_disposable,\ zip\_observer\_strategy,\ TSelector,\ TObservables...>}
+\DoxyCodeLine{00072\ \ \ \ \ \{}
+\DoxyCodeLine{00073\ \ \ \ \ \};}
+\DoxyCodeLine{00074\ \}\ \textcolor{comment}{//\ namespace\ rpp::operators::details}}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \textcolor{keyword}{namespace\ }rpp::operators}
+\DoxyCodeLine{00077\ \{}
+\DoxyCodeLine{00101\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ TSelector,\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp::constraint::observable}}\ TObservable,\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp::constraint::observable}}...\ TObservables>}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \textcolor{keyword}{requires}\ (!\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp::constraint::observable<TSelector>}}\ \&\&\ (!utils::is\_not\_template\_callable<TSelector>\ ||\ std::invocable<TSelector,\ rpp::utils::convertible\_to\_any,\ utils::extract\_observable\_type\_t<TObservable>,\ utils::extract\_observable\_type\_t<TObservables>...>))}
+\DoxyCodeLine{00103\ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__combining__operators_gae2e89ade7cae676333672b78db5f1a8b}{zip}}(TSelector\&\&\ selector,\ TObservable\&\&\ \mbox{\hyperlink{classrpp_1_1observable}{observable}},\ TObservables\&\&...\ observables)}
+\DoxyCodeLine{00104\ \ \ \ \ \{}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1zip__t}{details::zip\_t<std::decay\_t<TSelector>}},\ std::decay\_t<TObservable>,\ std::decay\_t<TObservables>...>\{}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \ \ \ \ rpp::utils::tuple\{std::forward<TObservable>(\mbox{\hyperlink{classrpp_1_1observable}{observable}}),\ std::forward<TObservables>(observables)...\},}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \ \ \ \ std::forward<TSelector>(selector)\};}
+\DoxyCodeLine{00108\ \ \ \ \ \}}
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00132\ \ \ \ \ \textcolor{keyword}{template}<\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp::constraint::observable}}\ TObservable,\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp::constraint::observable}}...\ TObservables>}
+\DoxyCodeLine{00133\ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__combining__operators_gae2e89ade7cae676333672b78db5f1a8b}{zip}}(TObservable\&\&\ observable,\ TObservables\&\&...\ observables)}
+\DoxyCodeLine{00134\ \ \ \ \ \{}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{group__combining__operators_gae2e89ade7cae676333672b78db5f1a8b}{zip}}(rpp::utils::pack\_to\_tuple\{\},\ std::forward<TObservable>(observable),\ std::forward<TObservables>(observables)...);}
+\DoxyCodeLine{00136\ \ \ \ \ \}}
+\DoxyCodeLine{00137\ \}\ \textcolor{comment}{//\ namespace\ rpp::operators}}
+
+\end{DoxyCode}

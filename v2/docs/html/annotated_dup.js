@@ -64,7 +64,10 @@ var annotated_dup =
           [ "buffer_t", "structrpp_1_1operators_1_1details_1_1buffer__t.html", "structrpp_1_1operators_1_1details_1_1buffer__t" ],
           [ "combine_latest_disposable", "classrpp_1_1operators_1_1details_1_1combine__latest__disposable.html", null ],
           [ "combine_latest_observer_strategy", "structrpp_1_1operators_1_1details_1_1combine__latest__observer__strategy.html", null ],
-          [ "combine_latest_t", "structrpp_1_1operators_1_1details_1_1combine__latest__t.html", "structrpp_1_1operators_1_1details_1_1combine__latest__t" ],
+          [ "combine_latest_t", "structrpp_1_1operators_1_1details_1_1combine__latest__t.html", null ],
+          [ "combining_disposable", "classrpp_1_1operators_1_1details_1_1combining__disposable.html", null ],
+          [ "combining_observer_strategy", "structrpp_1_1operators_1_1details_1_1combining__observer__strategy.html", null ],
+          [ "combining_operator_t", "structrpp_1_1operators_1_1details_1_1combining__operator__t.html", "structrpp_1_1operators_1_1details_1_1combining__operator__t" ],
           [ "concat_inner_observer_strategy", "structrpp_1_1operators_1_1details_1_1concat__inner__observer__strategy.html", null ],
           [ "concat_observer_strategy", "structrpp_1_1operators_1_1details_1_1concat__observer__strategy.html", null ],
           [ "concat_observer_strategy_base", "structrpp_1_1operators_1_1details_1_1concat__observer__strategy__base.html", null ],
@@ -161,7 +164,10 @@ var annotated_dup =
           [ "with_latest_from_disposable", "classrpp_1_1operators_1_1details_1_1with__latest__from__disposable.html", null ],
           [ "with_latest_from_inner_observer_strategy", "structrpp_1_1operators_1_1details_1_1with__latest__from__inner__observer__strategy.html", null ],
           [ "with_latest_from_observer_strategy", "structrpp_1_1operators_1_1details_1_1with__latest__from__observer__strategy.html", null ],
-          [ "with_latest_from_t", "structrpp_1_1operators_1_1details_1_1with__latest__from__t.html", "structrpp_1_1operators_1_1details_1_1with__latest__from__t" ]
+          [ "with_latest_from_t", "structrpp_1_1operators_1_1details_1_1with__latest__from__t.html", "structrpp_1_1operators_1_1details_1_1with__latest__from__t" ],
+          [ "zip_disposable", "classrpp_1_1operators_1_1details_1_1zip__disposable.html", null ],
+          [ "zip_observer_strategy", "structrpp_1_1operators_1_1details_1_1zip__observer__strategy.html", null ],
+          [ "zip_t", "structrpp_1_1operators_1_1details_1_1zip__t.html", null ]
         ] ]
       ] ],
       [ "schedulers", null, [

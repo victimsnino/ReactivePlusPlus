@@ -1,0 +1,79 @@
+\doxysection{rpp\+::operators\+::details\+::zip\+\_\+disposable\texorpdfstring{$<$}{<} Observer, TSelector, Args \texorpdfstring{$>$}{>} Class Template Reference}
+\hypertarget{classrpp_1_1operators_1_1details_1_1zip__disposable}{}\label{classrpp_1_1operators_1_1details_1_1zip__disposable}\index{rpp::operators::details::zip\_disposable$<$ Observer, TSelector, Args $>$@{rpp::operators::details::zip\_disposable$<$ Observer, TSelector, Args $>$}}
+Inheritance diagram for rpp\+::operators\+::details\+::zip\+\_\+disposable\texorpdfstring{$<$}{<} Observer, TSelector, Args \texorpdfstring{$>$}{>}\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=5.884414cm]{classrpp_1_1operators_1_1details_1_1zip__disposable}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classrpp_1_1operators_1_1details_1_1zip__disposable_a015577a563471ef749966835cff95aae}\label{classrpp_1_1operators_1_1details_1_1zip__disposable_a015577a563471ef749966835cff95aae} 
+{\bfseries zip\+\_\+disposable} (Observer \&\&\mbox{\hyperlink{classrpp_1_1observer}{observer}}, const TSelector \&selector)
+\item 
+\Hypertarget{classrpp_1_1operators_1_1details_1_1zip__disposable_aca9897dd54c1714c1020af3246c96f94}\label{classrpp_1_1operators_1_1details_1_1zip__disposable_aca9897dd54c1714c1020af3246c96f94} 
+const auto \& {\bfseries get\+\_\+selector} () const
+\item 
+\Hypertarget{classrpp_1_1operators_1_1details_1_1zip__disposable_aa8f9e49874d37a3c0054a5c255a05f95}\label{classrpp_1_1operators_1_1details_1_1zip__disposable_aa8f9e49874d37a3c0054a5c255a05f95} 
+auto \& {\bfseries get\+\_\+pendings} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1combining__disposable}{rpp\+::operators\+::details\+::combining\+\_\+disposable$<$ Observer, Args... $>$}}}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries combining\+\_\+disposable} (Observer \&\&\mbox{\hyperlink{classrpp_1_1observer}{observer}})
+\item 
+\mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1pointer__under__lock}{pointer\+\_\+under\+\_\+lock}}$<$ Observer $>$ {\bfseries get\+\_\+observer\+\_\+under\+\_\+lock} ()
+\item 
+bool {\bfseries decrement\+\_\+on\+\_\+completed} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classrpp_1_1composite__disposable__impl}{rpp\+::composite\+\_\+disposable\+\_\+impl$<$ rpp\+::details\+::disposables\+::dynamic\+\_\+disposables\+\_\+container$<$ 0 $>$ $>$}}}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries composite\+\_\+disposable\+\_\+impl} (const \mbox{\hyperlink{classrpp_1_1composite__disposable__impl}{composite\+\_\+disposable\+\_\+impl}} \&)=delete
+\item 
+{\bfseries composite\+\_\+disposable\+\_\+impl} (\mbox{\hyperlink{classrpp_1_1composite__disposable__impl}{composite\+\_\+disposable\+\_\+impl}} \&\&other) noexcept=delete
+\item 
+bool \mbox{\hyperlink{classrpp_1_1composite__disposable__impl_a4d8dc7195e0594586a1583e7f5308d4c}{is\+\_\+disposed}} () const noexcept final
+\begin{DoxyCompactList}\small\item\em Check if this disposable is just disposed. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classrpp_1_1composite__disposable__impl_a2b965eb01e542bd9edeb43ed9a3fd8af}{dispose\+\_\+impl}} (interface\+\_\+disposable\+::\+Mode mode) noexcept final
+\item 
+void \mbox{\hyperlink{classrpp_1_1composite__disposable__impl_a878cb06214d77427297efaba4a280434}{add}} (\mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{disposable\+\_\+wrapper}} disposable) override
+\item 
+virtual void \mbox{\hyperlink{classrpp_1_1composite__disposable__impl_aeabbd86e2ea58c12cbb13a2d3cf5f726}{add}} (\mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{disposable\+\_\+wrapper}} disposable)=0
+\item 
+\mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{disposable\+\_\+wrapper}} {\bfseries add} (Fn \&\&invocable)
+\item 
+void \mbox{\hyperlink{classrpp_1_1composite__disposable__impl_a3e1ede7a066681319cc7fbec5c85d0a3}{remove}} (const \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{disposable\+\_\+wrapper}} \&disposable) override
+\item 
+void \mbox{\hyperlink{classrpp_1_1composite__disposable__impl_a4e9c6b6e10cbc960feb3395d6250cf51}{clear}} () override
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{structrpp_1_1interface__composite__disposable}{rpp\+::interface\+\_\+composite\+\_\+disposable}}}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$rpp\+::constraint\+::is\+\_\+nothrow\+\_\+invocable Fn$>$ }\\\mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{disposable\+\_\+wrapper}} {\bfseries add} (Fn \&\&invocable)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{structrpp_1_1interface__disposable}{rpp\+::interface\+\_\+disposable}}}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{structrpp_1_1interface__disposable_a5685eeaf07e2d4616cd1a0effa78069d}{dispose}} () noexcept
+\begin{DoxyCompactList}\small\item\em Dispose disposable and free any underlying resources and etc. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Protected Types inherited from \mbox{\hyperlink{structrpp_1_1interface__disposable}{rpp\+::interface\+\_\+disposable}}}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{structrpp_1_1interface__disposable_af71f6e7a9e6153ab032ba33fe7bb5168}\label{structrpp_1_1interface__disposable_af71f6e7a9e6153ab032ba33fe7bb5168} 
+enum class {\bfseries Mode} \+: bool \{ {\bfseries Disposing} = 0
+, {\bfseries Destroying} = 1
+ \}
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions inherited from \mbox{\hyperlink{classrpp_1_1composite__disposable__impl}{rpp\+::composite\+\_\+disposable\+\_\+impl$<$ rpp\+::details\+::disposables\+::dynamic\+\_\+disposables\+\_\+container$<$ 0 $>$ $>$}}}
+\begin{DoxyCompactItemize}
+\item 
+virtual void {\bfseries composite\+\_\+dispose\+\_\+impl} (interface\+\_\+disposable\+::\+Mode) noexcept
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/rpp/rpp/operators/zip.\+hpp\end{DoxyCompactItemize}
