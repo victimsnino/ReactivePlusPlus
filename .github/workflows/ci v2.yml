@@ -9,6 +9,11 @@ on:
     branches:
     - v2
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+
 jobs:
   sanitize:
     strategy:
@@ -21,7 +26,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
-      
+
     - name: Install Qt
       uses: jurplel/install-qt-action@v3
       with:
@@ -78,7 +83,7 @@ jobs:
       run: |
         sudo apt-get update -q && sudo apt-get install clang-tidy cppcheck libsfml-dev -y -q
         pip install pyyaml
-    
+
     - name: Install Qt
       uses: jurplel/install-qt-action@v3
       with:
