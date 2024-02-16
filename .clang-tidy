@@ -1,10 +1,14 @@
 ---
 Checks:    'clang-diagnostic-*,clang-analyzer-*,-*,bugprone-*,concurrency-*,performance-*,-macro*,readability-identifier-naming,-bugprone-exception-escape'
-ExtraArgs: ['-std=c++20']
 WarningsAsErrors: '*'
 HeaderFilterRegex: './src/.*'
 AnalyzeTemporaryDtors: false
 FormatStyle: 'file'
+HeaderFileExtensions:
+  - h
+  - hpp
+ImplementationFileExtensions:
+  - cpp
 CheckOptions:
   - { key: readability-identifier-naming.NamespaceCase,         value: lower_case }
   - { key: readability-identifier-naming.ClassCase,             value: lower_case  }
