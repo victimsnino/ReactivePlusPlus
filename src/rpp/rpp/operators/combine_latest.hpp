@@ -18,56 +18,56 @@
 
 namespace rpp::operators::details
 {
-template<rpp::constraint::observer Observer, typename TSelector, rpp::constraint::decayed_type... Args>
-class combine_latest_disposable final : public combining_disposable<Observer, Args...>
-{
-public:
-    explicit combine_latest_disposable(Observer&& observer, const TSelector& selector)
-        : combining_disposable<Observer, Args...>(std::move(observer))
-        , m_selector(selector)
+    template<rpp::constraint::observer Observer, typename TSelector, rpp::constraint::decayed_type... Args>
+    class combine_latest_disposable final : public combining_disposable<Observer, Args...>
     {
-    }
+    public:
+        explicit combine_latest_disposable(Observer&& observer, const TSelector& selector)
+            : combining_disposable<Observer, Args...>(std::move(observer))
+            , m_selector(selector)
+        {
+        }
 
-    const auto& get_selector() const { return m_selector; }
+        const auto& get_selector() const { return m_selector; }
 
-    auto& get_values() { return m_values; }
+        auto& get_values() { return m_values; }
 
-private:
-    rpp::utils::tuple<std::optional<Args>...> m_values{};
+    private:
+        rpp::utils::tuple<std::optional<Args>...> m_values{};
 
-    RPP_NO_UNIQUE_ADDRESS TSelector m_selector;
-};
+        RPP_NO_UNIQUE_ADDRESS TSelector m_selector;
+    };
 
-template<size_t I, rpp::constraint::observer Observer, typename TSelector, rpp::constraint::decayed_type... Args>
-struct combine_latest_observer_strategy final
-    : public combining_observer_strategy<combine_latest_disposable<Observer, TSelector, Args...>>
-{
-    using combining_observer_strategy<combine_latest_disposable<Observer, TSelector, Args...>>::disposable;
-
-    template<typename T>
-    void on_next(T&& v) const
+    template<size_t I, rpp::constraint::observer Observer, typename TSelector, rpp::constraint::decayed_type... Args>
+    struct combine_latest_observer_strategy final
+        : public combining_observer_strategy<combine_latest_disposable<Observer, TSelector, Args...>>
     {
-        // mutex need to be locked during changing of values, generating new values and sending of new values due to we can't update value while we are sending old one
-        const auto observer = disposable->get_observer_under_lock();
-        disposable->get_values().template get<I>().emplace(std::forward<T>(v));
+        using combining_observer_strategy<combine_latest_disposable<Observer, TSelector, Args...>>::disposable;
 
-        disposable->get_values().apply(&apply_impl<decltype(disposable)>, disposable, observer);
-    }
+        template<typename T>
+        void on_next(T&& v) const
+        {
+            // mutex need to be locked during changing of values, generating new values and sending of new values due to we can't update value while we are sending old one
+            const auto observer = disposable->get_observer_under_lock();
+            disposable->get_values().template get<I>().emplace(std::forward<T>(v));
 
-private:
-    template<typename TDisposable>
-    static void apply_impl(const TDisposable& disposable, const pointer_under_lock<Observer>& observer, const std::optional<Args>&... vals)
+            disposable->get_values().apply(&apply_impl<decltype(disposable)>, disposable, observer);
+        }
+
+    private:
+        template<typename TDisposable>
+        static void apply_impl(const TDisposable& disposable, const pointer_under_lock<Observer>& observer, const std::optional<Args>&... vals)
+        {
+            if ((vals.has_value() && ...))
+                observer->on_next(disposable->get_selector()(vals.value()...));
+        }
+    };
+
+    template<typename TSelector, rpp::constraint::observable... TObservables>
+    struct combine_latest_t : public combining_operator_t<combine_latest_disposable, combine_latest_observer_strategy, TSelector, TObservables...>
     {
-        if ((vals.has_value() && ...))
-            observer->on_next(disposable->get_selector()(vals.value()...));
-    }
-};
-
-template<typename TSelector, rpp::constraint::observable... TObservables>
-struct combine_latest_t : public combining_operator_t<combine_latest_disposable, combine_latest_observer_strategy, TSelector, TObservables...>
-{
-};
-}
+    };
+} // namespace rpp::operators::details
 
 namespace rpp::operators
 {

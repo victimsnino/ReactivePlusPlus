@@ -325,7 +325,7 @@ int main(int argc, char* argv[]) // NOLINT(bugprone-exception-escape)
                     | rxcpp::operators::subscribe<std::tuple<int, int>>([](auto&& v) { ankerl::nanobench::doNotOptimizeAway(v); });
             });
         }
-    }
+    } // BENCHMARK("Combining Operators")
 
     BENCHMARK("Conditional Operators")
     {
