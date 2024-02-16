@@ -11,27 +11,26 @@
 #include <snitch/snitch.hpp>
 #include <snitch/snitch_macros_check.hpp>
 
+#include <rpp/observables/dynamic_observable.hpp>
 #include <rpp/operators/flat_map.hpp>
+#include <rpp/schedulers/immediate.hpp>
 #include <rpp/sources/create.hpp>
-#include <rpp/sources/just.hpp>
 #include <rpp/sources/empty.hpp>
 #include <rpp/sources/error.hpp>
+#include <rpp/sources/just.hpp>
 #include <rpp/sources/never.hpp>
-#include <rpp/schedulers/immediate.hpp>
-#include <rpp/observables/dynamic_observable.hpp>
 
 #include "copy_count_tracker.hpp"
-#include "mock_observer.hpp"
 #include "disposable_observable.hpp"
-
+#include "mock_observer.hpp"
 
 #include <stdexcept>
 #include <string>
 
 TEMPLATE_TEST_CASE("flat_map", "", rpp::memory_model::use_stack, rpp::memory_model::use_shared)
 {
-	auto mock = mock_observer_strategy<int>();
-	SECTION("observable of items")
+    auto mock = mock_observer_strategy<int>();
+    SECTION("observable of items")
     {
         auto obs = rpp::source::just<TestType>(rpp::schedulers::immediate{}, 1, 2, 3);
 
@@ -41,7 +40,7 @@ TEMPLATE_TEST_CASE("flat_map", "", rpp::memory_model::use_stack, rpp::memory_mod
                 | rpp::ops::subscribe(mock);
             SECTION("observer obtains values from underlying observables")
             {
-                CHECK(mock.get_received_values() == std::vector{ 2, 4, 6 });
+                CHECK(mock.get_received_values() == std::vector{2, 4, 6});
                 CHECK(mock.get_on_completed_count() == 1);
                 CHECK(mock.get_on_error_count() == 0);
             }
@@ -53,7 +52,7 @@ TEMPLATE_TEST_CASE("flat_map", "", rpp::memory_model::use_stack, rpp::memory_mod
                 | rpp::ops::subscribe(mock);
             SECTION("observer obtains values from underlying observables")
             {
-                CHECK(mock.get_received_values() == std::vector{ 2, 4, 6 });
+                CHECK(mock.get_received_values() == std::vector{2, 4, 6});
                 CHECK(mock.get_on_completed_count() == 1);
                 CHECK(mock.get_on_error_count() == 0);
             }
@@ -94,14 +93,14 @@ TEMPLATE_TEST_CASE("flat_map", "", rpp::memory_model::use_stack, rpp::memory_mod
         SECTION("subscribe using flat_map with empty in middle")
         {
             obs | rpp::operators::flat_map([](int v) {
-                    if (v == 2) 
-                        return rpp::source::empty<int>().as_dynamic();
-                    return rpp::source::just(v).as_dynamic(); 
-                  })
+                if (v == 2)
+                    return rpp::source::empty<int>().as_dynamic();
+                return rpp::source::just(v).as_dynamic();
+            })
                 | rpp::ops::subscribe(mock);
             SECTION("observer obtains values from underlying observables")
             {
-                CHECK(mock.get_received_values() == std::vector{ 1, 3 });
+                CHECK(mock.get_received_values() == std::vector{1, 3});
                 CHECK(mock.get_on_completed_count() == 1);
                 CHECK(mock.get_on_error_count() == 0);
             }
@@ -109,14 +108,14 @@ TEMPLATE_TEST_CASE("flat_map", "", rpp::memory_model::use_stack, rpp::memory_mod
         SECTION("subscribe using flat_map with never in middle")
         {
             obs | rpp::operators::flat_map([](int v) {
-                    if (v == 2) 
-                        return rpp::source::never<int>().as_dynamic();
-                    return rpp::source::just(v).as_dynamic(); 
-                  })
+                if (v == 2)
+                    return rpp::source::never<int>().as_dynamic();
+                return rpp::source::just(v).as_dynamic();
+            })
                 | rpp::ops::subscribe(mock);
             SECTION("observer obtains values from underlying observables")
             {
-                CHECK(mock.get_received_values() == std::vector{ 1, 3 });
+                CHECK(mock.get_received_values() == std::vector{1, 3});
                 CHECK(mock.get_on_completed_count() == 0);
                 CHECK(mock.get_on_error_count() == 0);
             }
@@ -124,10 +123,10 @@ TEMPLATE_TEST_CASE("flat_map", "", rpp::memory_model::use_stack, rpp::memory_mod
         SECTION("subscribe using flat_map with error in middle")
         {
             obs | rpp::operators::flat_map([](int v) {
-                    if (v == 2) 
-                        return rpp::source::error<int>(std::make_exception_ptr(std::runtime_error{""})).as_dynamic();
-                    return rpp::source::just(v).as_dynamic(); 
-                  })
+                if (v == 2)
+                    return rpp::source::error<int>(std::make_exception_ptr(std::runtime_error{""})).as_dynamic();
+                return rpp::source::just(v).as_dynamic();
+            })
                 | rpp::ops::subscribe(mock);
             SECTION("observer obtains values from underlying observables")
             {
@@ -141,5 +140,5 @@ TEMPLATE_TEST_CASE("flat_map", "", rpp::memory_model::use_stack, rpp::memory_mod
 
 TEST_CASE("flat_map satisfies disposable contracts")
 {
-    test_operator_with_disposable<int>(rpp::ops::flat_map([](const auto& v){return rpp::source::just(v); }));
+    test_operator_with_disposable<int>(rpp::ops::flat_map([](const auto& v) { return rpp::source::just(v); }));
 }

@@ -10,13 +10,12 @@
 
 #include <snitch/snitch.hpp>
 
+#include <rpp/operators/with_latest_from.hpp>
 #include <rpp/sources/just.hpp>
 #include <rpp/subjects/publish_subject.hpp>
 
-#include <rpp/operators/with_latest_from.hpp>
-
-#include "mock_observer.hpp"
 #include "disposable_observable.hpp"
+#include "mock_observer.hpp"
 
 
 TEST_CASE("with_latest_from combines observables")
@@ -29,18 +28,18 @@ TEST_CASE("with_latest_from combines observables")
         obs_1 | rpp::ops::with_latest_from(obs_2) | rpp::ops::subscribe(mock);
         SECTION("obtain tuple of values")
         {
-            CHECK(mock.get_received_values() == std::vector{ std::tuple{1, 2.2} });
+            CHECK(mock.get_received_values() == std::vector{std::tuple{1, 2.2}});
             CHECK(mock.get_total_on_next_count() == 1);
             CHECK(mock.get_on_completed_count() == 1);
         }
     }
     SECTION("subscribe on it via with_latest_from with custom selector")
     {
-        auto                          mock = mock_observer_strategy<double>{};
+        auto mock = mock_observer_strategy<double>{};
         obs_1 | rpp::ops::with_latest_from([](int left, double right) { return left + right; }, obs_2) | rpp::ops::subscribe(mock);
         SECTION("obtain values")
         {
-            CHECK(mock.get_received_values() == std::vector{1+2.2});
+            CHECK(mock.get_received_values() == std::vector{1 + 2.2});
             CHECK(mock.get_total_on_next_count() == 1);
             CHECK(mock.get_on_completed_count() == 1);
         }
@@ -53,7 +52,7 @@ TEST_CASE("with_latest_from reacts only on main root but sends last value from o
     {
         auto subj_1 = rpp::subjects::publish_subject<int>{};
         auto subj_2 = rpp::subjects::publish_subject<int>{};
-        auto mock = mock_observer_strategy<std::tuple<int, int>>{};
+        auto mock   = mock_observer_strategy<std::tuple<int, int>>{};
         subj_1.get_observable() | rpp::ops::with_latest_from(subj_2.get_observable()) | rpp::ops::subscribe(mock);
         SECTION("send only first subject sends value")
         {
@@ -83,7 +82,7 @@ TEST_CASE("with_latest_from reacts only on main root but sends last value from o
             subj_1.get_observer().on_next(4);
             SECTION("obtain last combintaion")
             {
-                CHECK(mock.get_received_values() == std::vector{ std::tuple{4, 3} });
+                CHECK(mock.get_received_values() == std::vector{std::tuple{4, 3}});
                 CHECK(mock.get_total_on_next_count() == 1);
                 CHECK(mock.get_on_error_count() == 0);
                 CHECK(mock.get_on_completed_count() == 0);
@@ -93,7 +92,7 @@ TEST_CASE("with_latest_from reacts only on main root but sends last value from o
                 subj_2.get_observer().on_next(5);
                 SECTION("nothing new happens")
                 {
-                    CHECK(mock.get_received_values() == std::vector{ std::tuple{4, 3} });
+                    CHECK(mock.get_received_values() == std::vector{std::tuple{4, 3}});
                     CHECK(mock.get_total_on_next_count() == 1);
                     CHECK(mock.get_on_error_count() == 0);
                     CHECK(mock.get_on_completed_count() == 0);
@@ -130,7 +129,7 @@ TEST_CASE("with_latest_from reacts only on main root but sends last value from o
                 CHECK(mock.get_on_completed_count() == 1);
             }
         }
-         SECTION("first errors")
+        SECTION("first errors")
         {
             subj_1.get_observer().on_error({});
             SECTION("error obtained")
@@ -158,18 +157,16 @@ TEST_CASE("with_latest_from handles race condition")
                 auto        source = rpp::subjects::publish_subject<int>{};
 
                 source.get_observable()
-                       | rpp::ops::with_latest_from(subject.get_observable())
-                       | rpp::ops::subscribe([&](auto&&)
-                                 {
+                    | rpp::ops::with_latest_from(subject.get_observable())
+                    | rpp::ops::subscribe([&](auto&&) {
                                      CHECK(!on_error_called);
                                      th = std::thread{[&]
                                      {
                                          subject.get_observer().on_error(std::exception_ptr{});
                                      }};
                                      std::this_thread::sleep_for(std::chrono::seconds{1});
-                                     CHECK(!on_error_called);
-                                 },
-                                 [&](auto) { on_error_called = true; });
+                                     CHECK(!on_error_called); },
+                                          [&](auto) { on_error_called = true; });
 
                 subject.get_observer().on_next(2);
                 source.get_observer().on_next(1);
@@ -190,6 +187,6 @@ TEST_CASE("with_latest_from satisfies disposable contracts")
 
         test_operator_with_disposable<int>(rpp::ops::with_latest_from(observable));
     }
-    
+
     CHECK(observable_disposable.is_disposed() || observable_disposable.lock().use_count() == 2);
 }

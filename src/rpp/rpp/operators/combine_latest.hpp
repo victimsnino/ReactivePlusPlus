@@ -71,74 +71,73 @@ struct combine_latest_t : public combining_operator_t<combine_latest_disposable,
 
 namespace rpp::operators
 {
-/**
- * @brief Combines latest emissions from observables with emission from current observable when any observable sends new value via applying selector
- *
- * @marble combine_latest_custom_selector
-   {
-       source observable                                 : +------1    -2    --    -3    -|
-       source other_observable                           : +-5-6-7-    --    -8    --    -|
-       operator "combine_latest: x,y =>std::pair{x,y}"   : +------{1,5}-{2,7}-{2,8}-{3,8}-|
-   }
- *
- * @details Actually this operator subscribes on all of theses observables and emits new combined value when any of them emits new emission (and each observable emit values at least one to be able to provide combined value)
- *
- * @par Performance notes:
- * - 1 heap allocation for disposable
- * - each value from any observable copied/moved to internal storage
- * - mutex acquired every time value obtained
- *
- * @param selector is applied to current emission of current observable and latests emissions from observables
- * @param observables are observables whose emissions would be combined with current observable
- * @warning #include <rpp/operators/combine_latest.hpp>
- *
- * @par Examples
- * @snippet combine_latest.cpp combine_latest custom selector
- *
- * @ingroup combining_operators
- * @see https://reactivex.io/documentation/operators/combinelatest.html
- */
-template<typename TSelector, rpp::constraint::observable TObservable, rpp::constraint::observable... TObservables>
-    requires (!rpp::constraint::observable<TSelector> && (!utils::is_not_template_callable<TSelector> || std::invocable<TSelector, rpp::utils::convertible_to_any, utils::extract_observable_type_t<TObservable>, utils::extract_observable_type_t<TObservables>...>))
-auto combine_latest(TSelector&& selector, TObservable&& observable, TObservables&&... observables)
-{
-    return details::combine_latest_t<std::decay_t<TSelector>, std::decay_t<TObservable>, std::decay_t<TObservables>...>{
-        rpp::utils::tuple{std::forward<TObservable>(observable), std::forward<TObservables>(observables)...},
-        std::forward<TSelector>(selector)
-    };
-}
+    /**
+     * @brief Combines latest emissions from observables with emission from current observable when any observable sends new value via applying selector
+     *
+     * @marble combine_latest_custom_selector
+       {
+           source observable                                 : +------1    -2    --    -3    -|
+           source other_observable                           : +-5-6-7-    --    -8    --    -|
+           operator "combine_latest: x,y =>std::pair{x,y}"   : +------{1,5}-{2,7}-{2,8}-{3,8}-|
+       }
+     *
+     * @details Actually this operator subscribes on all of theses observables and emits new combined value when any of them emits new emission (and each observable emit values at least one to be able to provide combined value)
+     *
+     * @par Performance notes:
+     * - 1 heap allocation for disposable
+     * - each value from any observable copied/moved to internal storage
+     * - mutex acquired every time value obtained
+     *
+     * @param selector is applied to current emission of current observable and latests emissions from observables
+     * @param observables are observables whose emissions would be combined with current observable
+     * @warning #include <rpp/operators/combine_latest.hpp>
+     *
+     * @par Examples
+     * @snippet combine_latest.cpp combine_latest custom selector
+     *
+     * @ingroup combining_operators
+     * @see https://reactivex.io/documentation/operators/combinelatest.html
+     */
+    template<typename TSelector, rpp::constraint::observable TObservable, rpp::constraint::observable... TObservables>
+        requires (!rpp::constraint::observable<TSelector> && (!utils::is_not_template_callable<TSelector> || std::invocable<TSelector, rpp::utils::convertible_to_any, utils::extract_observable_type_t<TObservable>, utils::extract_observable_type_t<TObservables>...>))
+    auto combine_latest(TSelector&& selector, TObservable&& observable, TObservables&&... observables)
+    {
+        return details::combine_latest_t<std::decay_t<TSelector>, std::decay_t<TObservable>, std::decay_t<TObservables>...>{
+            rpp::utils::tuple{std::forward<TObservable>(observable), std::forward<TObservables>(observables)...},
+            std::forward<TSelector>(selector)};
+    }
 
-/**
- * @brief Combines latest emissions from observables with emission from current observable when any observable sends new value via making tuple
- *
- * @marble combine_latest
-   {
-       source observable                       : +------1    -2    --    -3    -|
-       source other_observable                 : +-5-6-7-    --    -8    --    -|
-       operator "combine_latest: make_tuple"   : +------{1,5}-{2,7}-{2,8}-{3,8}-|
-   }
- *
- * @details Actually this operator subscribes on all of theses observables and emits new combined value when any of them emits new emission (and each observable emit values at least one to be able to provide combined value)
- *
- * @warning Selector is just packing values to tuple in this case
- *
- * @par Performance notes:
- * - 1 heap allocation for disposable
- * - each value from any observable copied/moved to internal storage
- * - mutex acquired every time value obtained
- *
- * @param observables are observables whose emissions would be combined when any observable sends new value
- * @warning #include <rpp/operators/combine_latest.hpp>
- *
- * @par Examples
- * @snippet combine_latest.cpp combine_latest
- *
- * @ingroup combining_operators
- * @see https://reactivex.io/documentation/operators/combinelatest.html
- */
-template<rpp::constraint::observable TObservable, rpp::constraint::observable... TObservables>
-auto combine_latest(TObservable&& observable, TObservables&&... observables)
-{
-    return combine_latest(rpp::utils::pack_to_tuple{}, std::forward<TObservable>(observable), std::forward<TObservables>(observables)...);
-}
+    /**
+     * @brief Combines latest emissions from observables with emission from current observable when any observable sends new value via making tuple
+     *
+     * @marble combine_latest
+       {
+           source observable                       : +------1    -2    --    -3    -|
+           source other_observable                 : +-5-6-7-    --    -8    --    -|
+           operator "combine_latest: make_tuple"   : +------{1,5}-{2,7}-{2,8}-{3,8}-|
+       }
+     *
+     * @details Actually this operator subscribes on all of theses observables and emits new combined value when any of them emits new emission (and each observable emit values at least one to be able to provide combined value)
+     *
+     * @warning Selector is just packing values to tuple in this case
+     *
+     * @par Performance notes:
+     * - 1 heap allocation for disposable
+     * - each value from any observable copied/moved to internal storage
+     * - mutex acquired every time value obtained
+     *
+     * @param observables are observables whose emissions would be combined when any observable sends new value
+     * @warning #include <rpp/operators/combine_latest.hpp>
+     *
+     * @par Examples
+     * @snippet combine_latest.cpp combine_latest
+     *
+     * @ingroup combining_operators
+     * @see https://reactivex.io/documentation/operators/combinelatest.html
+     */
+    template<rpp::constraint::observable TObservable, rpp::constraint::observable... TObservables>
+    auto combine_latest(TObservable&& observable, TObservables&&... observables)
+    {
+        return combine_latest(rpp::utils::pack_to_tuple{}, std::forward<TObservable>(observable), std::forward<TObservables>(observables)...);
+    }
 } // namespace rpp::operators

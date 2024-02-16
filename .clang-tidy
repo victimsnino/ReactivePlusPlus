@@ -1,5 +1,6 @@
 ---
-Checks:          'clang-diagnostic-*,clang-analyzer-*,-*,bugprone-*,concurrency-*,performance-*,-macro*,readability-identifier-naming,-bugprone-exception-escape'
+Checks:    'clang-diagnostic-*,clang-analyzer-*,-*,bugprone-*,concurrency-*,performance-*,-macro*,readability-identifier-naming,-bugprone-exception-escape'
+ExtraArgs: ['-std=c++20']
 WarningsAsErrors: '*'
 HeaderFilterRegex: './src/.*'
 AnalyzeTemporaryDtors: false
@@ -15,4 +16,5 @@ CheckOptions:
   - { key: readability-identifier-naming.StaticVariablePrefix,  value: s_ }
   - { key: readability-identifier-naming.TemplateParameterCase, value: CamelCase }
   - { key: readability-identifier-naming.TypeTemplateParameterCase, value: CamelCase }
+  - { key: readability-identifier-naming.MacroDefinitionCase, value: UPPER_CASE }
   # - { key: readability-identifier-naming.TypeAliasCase,         value: lower_case }

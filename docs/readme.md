@@ -270,8 +270,8 @@ There we convert observable to concatenation of original observable and `just(2)
 One more posible but a bit more advanced way to implement operators - is to lift observer. To do this, your functor-adapter must to satisfy `rpp::constraint::operator_lift` concept. Actually, your class must to have:
 - member function `lift` accepting downstream observer and returning new upstream observer
 - inner `template<rpp::constraint::decayed_type T> struct traits` struct accepting typename of upstream and providing:
-  - `using result_type =` with typename of new resulting type for new observable  
-  - (optionally) `struct requirements` with static_asserts over passed type 
+  - `using result_type =` with typename of new resulting type for new observable
+  - (optionally) `struct requirements` with static_asserts over passed type
 
 Example:
 ```cpp

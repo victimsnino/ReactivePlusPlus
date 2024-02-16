@@ -14,9 +14,9 @@
 #include <rpp/operators/take.hpp>
 #include <rpp/sources/create.hpp>
 
-#include "mock_observer.hpp"
 #include "copy_count_tracker.hpp"
 #include "disposable_observable.hpp"
+#include "mock_observer.hpp"
 
 
 TEST_CASE("repeat resubscribes")
@@ -25,8 +25,7 @@ TEST_CASE("repeat resubscribes")
     SECTION("observable with value")
     {
         size_t subscribe_count = 0;
-        auto   observable      = rpp::source::create<int>([&subscribe_count](const auto& sub)
-        {
+        auto   observable      = rpp::source::create<int>([&subscribe_count](const auto& sub) {
             ++subscribe_count;
             sub.on_next(1);
             sub.on_completed();
@@ -45,7 +44,7 @@ TEST_CASE("repeat resubscribes")
         }
         SECTION("subscribe on it via repeat(1)")
         {
-            observable| rpp::operators::repeat(1) | rpp::operators::subscribe(observer);
+            observable | rpp::operators::repeat(1) | rpp::operators::subscribe(observer);
             SECTION("sent value once")
             {
                 CHECK(subscribe_count == 1);
@@ -56,7 +55,7 @@ TEST_CASE("repeat resubscribes")
         }
         SECTION("subscribe on it via repeat(10)")
         {
-            observable| rpp::operators::repeat(10) | rpp::operators::subscribe(observer);
+            observable | rpp::operators::repeat(10) | rpp::operators::subscribe(observer);
             SECTION("sent value 10 times")
             {
                 CHECK(subscribe_count == 10);
@@ -80,14 +79,13 @@ TEST_CASE("repeat resubscribes")
     SECTION("observable with on_error")
     {
         size_t subscribe_count = 0;
-        auto   observable      = rpp::source::create<int>([&subscribe_count](const auto& sub)
-        {
+        auto   observable      = rpp::source::create<int>([&subscribe_count](const auto& sub) {
             ++subscribe_count;
             sub.on_error(std::make_exception_ptr(std::runtime_error{""}));
         });
         SECTION("subscribe on it via repeat(10)")
         {
-            observable| rpp::operators::repeat(10) | rpp::operators::subscribe(observer);
+            observable | rpp::operators::repeat(10) | rpp::operators::subscribe(observer);
             SECTION("only on_error once")
             {
                 CHECK(subscribe_count == 1);
@@ -100,14 +98,13 @@ TEST_CASE("repeat resubscribes")
     SECTION("observable with on_completed")
     {
         size_t subscribe_count = 0;
-        auto   observable = rpp::source::create<int>([&subscribe_count](const auto& sub)
-            {
-                ++subscribe_count;
-                sub.on_completed();
-            });
+        auto   observable      = rpp::source::create<int>([&subscribe_count](const auto& sub) {
+            ++subscribe_count;
+            sub.on_completed();
+        });
         SECTION("subscribe on it via repeat(10)")
         {
-            observable| rpp::operators::repeat(10) | rpp::operators::subscribe(observer);
+            observable | rpp::operators::repeat(10) | rpp::operators::subscribe(observer);
             SECTION("on_ompleted once")
             {
                 CHECK(subscribe_count == 10);
@@ -124,12 +121,12 @@ TEST_CASE("repeat doesn't produce extra copies")
     SECTION("repeat(2)")
     {
         copy_count_tracker::test_operator(rpp::ops::repeat(2),
-                                        {
-                                            .send_by_copy = {.copy_count = 2, // 2 times 1 copy to final subscriber
-                                                            .move_count = 0}, 
-                                            .send_by_move = {.copy_count = 0,
-                                                            .move_count = 2} // 2 times 1 move to final subscriber
-                                        });
+                                          {
+                                              .send_by_copy = {.copy_count = 2, // 2 times 1 copy to final subscriber
+                                                               .move_count = 0},
+                                              .send_by_move = {.copy_count = 0,
+                                                               .move_count = 2} // 2 times 1 move to final subscriber
+                                          });
     }
 }
 

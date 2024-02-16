@@ -11,15 +11,14 @@
 #include <snitch/snitch.hpp>
 
 #include <rpp/operators/last.hpp>
+#include <rpp/sources/empty.hpp>
+#include <rpp/sources/error.hpp>
 #include <rpp/sources/just.hpp>
 #include <rpp/sources/never.hpp>
-#include <rpp/sources/error.hpp>
-#include <rpp/sources/empty.hpp>
 
-#include "mock_observer.hpp"
 #include "copy_count_tracker.hpp"
 #include "disposable_observable.hpp"
-
+#include "mock_observer.hpp"
 
 
 TEST_CASE("last only emits once")
@@ -29,8 +28,8 @@ TEST_CASE("last only emits once")
     SECTION("observable of -1-| - shall see -1-|")
     {
         rpp::source::just(1)
-        | rpp::ops::last()
-        | rpp::ops::subscribe(mock);
+            | rpp::ops::last()
+            | rpp::ops::subscribe(mock);
 
         CHECK(mock.get_received_values() == std::vector{1});
         CHECK(mock.get_on_completed_count() == 1);
@@ -40,8 +39,8 @@ TEST_CASE("last only emits once")
     SECTION("observable of -1-2-3-| - shall see -3-|")
     {
         rpp::source::just(1, 2, 3)
-        | rpp::ops::last()
-        | rpp::ops::subscribe(mock);
+            | rpp::ops::last()
+            | rpp::ops::subscribe(mock);
 
         CHECK(mock.get_received_values() == std::vector{3});
         CHECK(mock.get_on_completed_count() == 1);
@@ -51,8 +50,8 @@ TEST_CASE("last only emits once")
     SECTION("observable of never - shall not see neither completed nor error event")
     {
         rpp::source::never<int>()
-        | rpp::ops::last()
-        | rpp::ops::subscribe(mock);
+            | rpp::ops::last()
+            | rpp::ops::subscribe(mock);
 
         CHECK(mock.get_received_values().empty());
         CHECK(mock.get_on_completed_count() == 0);
@@ -62,8 +61,8 @@ TEST_CASE("last only emits once")
     SECTION("observable of x-| - shall see error and no-completed event")
     {
         rpp::source::error<int>(std::make_exception_ptr(std::runtime_error{""}))
-        | rpp::ops::last()
-        | rpp::ops::subscribe(mock);
+            | rpp::ops::last()
+            | rpp::ops::subscribe(mock);
 
         CHECK(mock.get_received_values().empty());
         CHECK(mock.get_on_completed_count() == 0);
@@ -73,8 +72,8 @@ TEST_CASE("last only emits once")
     SECTION("observable of ---| - shall see -x")
     {
         rpp::source::empty<int>()
-        | rpp::ops::last()
-        | rpp::ops::subscribe(mock);
+            | rpp::ops::last()
+            | rpp::ops::subscribe(mock);
 
         CHECK(mock.get_received_values().empty());
         CHECK(mock.get_on_completed_count() == 0);
@@ -87,12 +86,13 @@ TEST_CASE("last doesn't produce extra copies")
     SECTION("last()")
     {
         copy_count_tracker::test_operator(rpp::ops::last(),
-                                        {
-                                            .send_by_copy = {.copy_count = 2, // 2 copy to std::optional
-                                                            .move_count = 1}, // 1 move to final subscriber
-                                            .send_by_move = {.copy_count = 0,
-                                                            .move_count = 3} // 2 move to std::optional + 1 move to final subscriber
-                                        }, 2);
+                                          {
+                                              .send_by_copy = {.copy_count = 2,  // 2 copy to std::optional
+                                                               .move_count = 1}, // 1 move to final subscriber
+                                              .send_by_move = {.copy_count = 0,
+                                                               .move_count = 3} // 2 move to std::optional + 1 move to final subscriber
+                                          },
+                                          2);
     }
 }
 

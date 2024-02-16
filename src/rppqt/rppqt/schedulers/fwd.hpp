@@ -12,5 +12,5 @@
 
 namespace rppqt::schedulers
 {
-class main_thread;
+    class main_thread;
 } // namespace rppqt::schedulers

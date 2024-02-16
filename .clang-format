@@ -2,16 +2,16 @@ Language: Cpp
 BasedOnStyle: WebKit
 AccessModifierOffset: -4
 AlignAfterOpenBracket: Align
-AlignArrayOfStructures: Left
+# AlignArrayOfStructures: Left
 AlignConsecutiveAssignments: Consecutive
 AlignConsecutiveBitFields: Consecutive
 AlignConsecutiveDeclarations: Consecutive
 AlignConsecutiveMacros: Consecutive
-AlignEscapedNewlines: Right
+AlignEscapedNewlines: Left
 AlignOperands: AlignAfterOperator
 AlignTrailingComments: true
 AllowAllArgumentsOnNextLine: false
-AllowAllParametersOfDeclarationOnNextLine: true
+AllowAllParametersOfDeclarationOnNextLine: false
 AllowShortBlocksOnASingleLine: Empty
 AllowShortCaseLabelsOnASingleLine: true
 AllowShortEnumsOnASingleLine: false
@@ -42,14 +42,14 @@ BraceWrapping:
   BeforeElse: true
   # BeforeLambdaBody: true
   BeforeWhile: false
-  IndentBraces: false
+  # IndentBraces: true
   SplitEmptyFunction: true
   SplitEmptyRecord: true
   SplitEmptyNamespace: true
 BreakAfterJavaFieldAnnotations: true
 BreakBeforeBinaryOperators: NonAssignment
 BreakBeforeConceptDeclarations: Always
-BreakBeforeTernaryOperators: false
+BreakBeforeTernaryOperators: true
 BreakConstructorInitializers: BeforeComma
 BreakInheritanceList: BeforeComma
 BreakStringLiterals: true
@@ -59,11 +59,11 @@ ConstructorInitializerIndentWidth: 4
 ContinuationIndentWidth: 4
 Cpp11BracedListStyle: true
 DeriveLineEnding: true
-DerivePointerAlignment: true
+DerivePointerAlignment: false
 EmptyLineAfterAccessModifier: Never
-EmptyLineBeforeAccessModifier: LogicalBlock
-ExperimentalAutoDetectBinPacking: false
-FixNamespaceComments: false
+EmptyLineBeforeAccessModifier: Always
+ExperimentalAutoDetectBinPacking: true
+FixNamespaceComments: true
 IncludeBlocks: Regroup
 IncludeCategories:
   - Regex:           '^<(snitch|nanobench).*>'
@@ -93,11 +93,12 @@ IndentPPDirectives: BeforeHash
 IndentRequires: true
 IndentWidth: 4
 IndentWrappedFunctionNames: false
+IndentRequiresClause: true
 InsertTrailingCommas: None
 KeepEmptyLinesAtTheStartOfBlocks: true
 LambdaBodyIndentation: Signature
-MaxEmptyLinesToKeep: 4
-NamespaceIndentation: Inner
+MaxEmptyLinesToKeep: 2
+NamespaceIndentation: All
 PackConstructorInitializers: Never
 PenaltyBreakAssignment: 2
 PenaltyBreakBeforeFirstCallParameter: 100000
@@ -106,16 +107,17 @@ PenaltyBreakFirstLessLess: 64
 PenaltyBreakOpenParenthesis: 10000000
 PenaltyBreakString: 64
 PenaltyBreakTemplateDeclaration: 4
-PenaltyExcessCharacter: 2
+PenaltyExcessCharacter: 1
 PenaltyIndentedWhitespace: 512
-PenaltyReturnTypeOnItsOwnLine: 1000
+PenaltyReturnTypeOnItsOwnLine: 10000
 PointerAlignment: Left
 QualifierAlignment: Leave
 ReferenceAlignment: Pointer
 RemoveBracesLLVM: false
-ReflowComments: false
+RemoveSemicolon: true
+ReflowComments: true
 RequiresClausePosition: OwnLine
-SeparateDefinitionBlocks: Always
+SeparateDefinitionBlocks: Leave
 ShortNamespaceLines: 0
 SortIncludes: CaseSensitive
 SortUsingDeclarations: true
@@ -153,5 +155,5 @@ Standard: c++20
 TabWidth: 0
 UseCRLF: true
 UseTab: Never
-NamespaceMacros: ['BENCHMARK', 'SECTION']
+NamespaceMacros: ['BENCHMARK']
 StatementAttributeLikeMacros: ['RPP_NO_UNIQUE_ADDRESS']

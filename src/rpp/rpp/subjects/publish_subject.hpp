@@ -11,78 +11,77 @@
 
 #include <rpp/subjects/fwd.hpp>
 
+#include <rpp/disposables/disposable_wrapper.hpp>
 #include <rpp/observers/observer.hpp>
 #include <rpp/subjects/details/base_subject.hpp>
 #include <rpp/subjects/details/subject_state.hpp>
-#include <rpp/disposables/disposable_wrapper.hpp>
 
 #include <memory>
 
 namespace rpp::subjects::details
 {
-template<rpp::constraint::decayed_type Type>
-class publish_strategy
-{
-    struct observer_strategy
+    template<rpp::constraint::decayed_type Type>
+    class publish_strategy
     {
-        using preferred_disposable_strategy = rpp::details::observers::none_disposable_strategy;
+        struct observer_strategy
+        {
+            using preferred_disposable_strategy = rpp::details::observers::none_disposable_strategy;
 
-        std::shared_ptr<subject_state<Type>> state{};
+            std::shared_ptr<subject_state<Type>> state{};
 
-        void set_upstream(const disposable_wrapper& d) const noexcept { state->add(d); }
+            void set_upstream(const disposable_wrapper& d) const noexcept { state->add(d); }
 
-        bool is_disposed() const noexcept { return state->is_disposed(); }
+            bool is_disposed() const noexcept { return state->is_disposed(); }
 
-        void on_next(const Type& v) const { state->on_next(v); }
+            void on_next(const Type& v) const { state->on_next(v); }
 
-        void on_error(const std::exception_ptr& err) const { state->on_error(err); }
+            void on_error(const std::exception_ptr& err) const { state->on_error(err); }
 
-        void on_completed() const { state->on_completed(); }
+            void on_completed() const { state->on_completed(); }
+        };
+
+    public:
+        using expected_disposable_strategy = rpp::details::observables::deduce_disposable_strategy_t<subject_state<Type>>;
+
+        auto get_observer() const
+        {
+            return rpp::observer<Type, observer_strategy>{m_state.lock()};
+        }
+
+        template<rpp::constraint::observer_of_type<Type> TObs>
+        void on_subscribe(TObs&& observer) const
+        {
+            m_state.lock()->on_subscribe(std::forward<TObs>(observer));
+        }
+
+        rpp::disposable_wrapper get_disposable() const
+        {
+            return m_state;
+        }
+
+    private:
+        disposable_wrapper_impl<subject_state<Type>> m_state = disposable_wrapper_impl<subject_state<Type>>::make();
     };
-
-public:
-
-    using expected_disposable_strategy = rpp::details::observables::deduce_disposable_strategy_t<subject_state<Type>>;
-
-    auto get_observer() const
-    {
-        return rpp::observer<Type, observer_strategy>{m_state.lock()};
-    }
-
-    template<rpp::constraint::observer_of_type<Type> TObs>
-    void on_subscribe(TObs&& observer) const
-    {
-        m_state.lock()->on_subscribe(std::forward<TObs>(observer));
-    }
-
-    rpp::disposable_wrapper get_disposable() const
-    {
-        return m_state;
-    }
-
-private:
-    disposable_wrapper_impl<subject_state<Type>> m_state = disposable_wrapper_impl<subject_state<Type>>::make();
-};
 } // namespace rpp::subjects::details
 
-namespace rpp::subjects 
+namespace rpp::subjects
 {
-/**
- * @brief Subject which just multicasts values to observers subscribed on it. It contains two parts: observer and observable at the same time.
- *
- * @details Each observer obtains only values which emitted after corresponding subscribe. on_error/on_completer/unsubscribe cached and provided to new observers if any
- *
- * @warning this subject is not synchronized/serialized! It means, that expected to call callbacks of observer in the serialized way to follow observable contract: "Observables must issue notifications to observers serially (not in parallel).". If you are not sure or need extra serialization, please, use serialized_subject.
- *
- * @tparam Type value provided by this subject
- *
- * @ingroup subjects
- * @see https://reactivex.io/documentation/subject.html
- */
-template<rpp::constraint::decayed_type Type>
-class publish_subject final : public details::base_subject<Type, details::publish_strategy<Type>>
-{
-public:
-    using details::base_subject<Type, details::publish_strategy<Type>>::base_subject;
-};
-}
+    /**
+     * @brief Subject which just multicasts values to observers subscribed on it. It contains two parts: observer and observable at the same time.
+     *
+     * @details Each observer obtains only values which emitted after corresponding subscribe. on_error/on_completer/unsubscribe cached and provided to new observers if any
+     *
+     * @warning this subject is not synchronized/serialized! It means, that expected to call callbacks of observer in the serialized way to follow observable contract: "Observables must issue notifications to observers serially (not in parallel).". If you are not sure or need extra serialization, please, use serialized_subject.
+     *
+     * @tparam Type value provided by this subject
+     *
+     * @ingroup subjects
+     * @see https://reactivex.io/documentation/subject.html
+     */
+    template<rpp::constraint::decayed_type Type>
+    class publish_subject final : public details::base_subject<Type, details::publish_strategy<Type>>
+    {
+    public:
+        using details::base_subject<Type, details::publish_strategy<Type>>::base_subject;
+    };
+} // namespace rpp::subjects

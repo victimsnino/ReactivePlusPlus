@@ -15,42 +15,42 @@
 
 namespace rpp::details
 {
-template<constraint::decayed_type Type>
-struct error_strategy
-{
-    using value_type = Type;
-    using expected_disposable_strategy = rpp::details::observables::bool_disposable_strategy_selector;
+    template<constraint::decayed_type Type>
+    struct error_strategy
+    {
+        using value_type                   = Type;
+        using expected_disposable_strategy = rpp::details::observables::bool_disposable_strategy_selector;
 
-    std::exception_ptr err{};
+        std::exception_ptr err{};
 
-    void subscribe(const auto& obs) const { obs.on_error(err); }
-};
-}
+        void subscribe(const auto& obs) const { obs.on_error(err); }
+    };
+} // namespace rpp::details
 
 namespace rpp
 {
-template<constraint::decayed_type Type>
-using error_observable = observable<Type, details::error_strategy<Type>>;
-}
+    template<constraint::decayed_type Type>
+    using error_observable = observable<Type, details::error_strategy<Type>>;
+} // namespace rpp
 
 namespace rpp::source
 {
-/**
- * @brief Creates rpp::observable that emits no items and terminates with an error
- *
- * @marble error
-  {
-      operator "error": +#
-  }
- * @tparam Type type of value to specify observable
- * @param err exception ptr to be sent to subscriber
- *
- * @ingroup creational_operators
- * @see https://reactivex.io/documentation/operators/empty-never-throw.html
- */
-template<constraint::decayed_type Type>
-auto error(std::exception_ptr err)
-{
-    return error_observable<Type>{std::move(err)};
-}
-}
+    /**
+     * @brief Creates rpp::observable that emits no items and terminates with an error
+     *
+     * @marble error
+      {
+          operator "error": +#
+      }
+     * @tparam Type type of value to specify observable
+     * @param err exception ptr to be sent to subscriber
+     *
+     * @ingroup creational_operators
+     * @see https://reactivex.io/documentation/operators/empty-never-throw.html
+     */
+    template<constraint::decayed_type Type>
+    auto error(std::exception_ptr err)
+    {
+        return error_observable<Type>{std::move(err)};
+    }
+} // namespace rpp::source

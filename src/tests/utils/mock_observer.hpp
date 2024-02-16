@@ -10,8 +10,9 @@
 
 #pragma once
 
-#include "rpp/disposables/fwd.hpp"
 #include <rpp/observers/observer.hpp>
+
+#include "rpp/disposables/fwd.hpp"
 
 #include <vector>
 
@@ -19,7 +20,10 @@ template<typename Type>
 class mock_observer_strategy final
 {
 public:
-    explicit mock_observer_strategy(bool copy_values = true) : m_state{std::make_shared<State>(copy_values)} {}
+    explicit mock_observer_strategy(bool copy_values = true)
+        : m_state{std::make_shared<State>(copy_values)}
+    {
+    }
 
     void on_next(const Type& v) const noexcept
     {
@@ -47,16 +51,18 @@ public:
     size_t get_on_error_count() const { return m_state->m_on_error_count; }
     size_t get_on_completed_count() const { return m_state->m_on_completed_count; }
 
-    std::vector<Type> get_received_values() const {return m_state->vals; }
+    std::vector<Type> get_received_values() const { return m_state->vals; }
 
-    auto get_observer() const {return rpp::observer<Type, mock_observer_strategy<Type>>{*this}; }
-    auto get_observer(rpp::composite_disposable_wrapper d) const {return rpp::observer_with_disposable<Type, mock_observer_strategy<Type>>{std::move(d), *this}; }
+    auto get_observer() const { return rpp::observer<Type, mock_observer_strategy<Type>>{*this}; }
+    auto get_observer(rpp::composite_disposable_wrapper d) const { return rpp::observer_with_disposable<Type, mock_observer_strategy<Type>>{std::move(d), *this}; }
 
 private:
     struct State
     {
         explicit State(bool copy_values)
-            : m_copy_values{copy_values} {}
+            : m_copy_values{copy_values}
+        {
+        }
 
         bool   m_copy_values             = true;
         size_t m_on_next_const_ref_count = 0;

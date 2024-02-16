@@ -78,7 +78,7 @@ This project exports a CMake package to be used with the [`find_package`][3]
 command of CMake:
 
 * Package name: `RPP`
-* Target names: 
+* Target names:
  - `RPP::rpp` - main rpp INTERFACE target
  - `RPP::rppqt` - additional INTERFACE target to extend functionality for QT. rppqt doesn't include QT or even doesn't link with that.
 
@@ -111,7 +111,7 @@ To avoid including "everyting" you can just include some iterested part of code 
 #include <rpp/operators/map.hpp>
 #include <rpp/observables/fwd.hpp>
 ```
-**NOTE**: In case of partial including of operators you need to include headers for each used operators like 
+**NOTE**: In case of partial including of operators you need to include headers for each used operators like
 ```cpp
 #include <rpp/operators/map.hpp>
 #include <rpp/operators/filter.hpp>

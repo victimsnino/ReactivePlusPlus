@@ -17,154 +17,157 @@
 
 namespace rpp::details::disposables
 {
-class dynamic_disposables_container_base
-{
-public:
-    explicit dynamic_disposables_container_base(size_t count)
+    class dynamic_disposables_container_base
     {
-        m_data.reserve(count);
-    }
-
-    void push_back(const rpp::disposable_wrapper& d)
-    {
-        m_data.push_back(d);
-    }
-
-    void push_back(rpp::disposable_wrapper&& d)
-    {
-        m_data.push_back(std::move(d));
-    }
-
-    void remove(const rpp::disposable_wrapper& d)
-    {
-        m_data.erase(std::remove(m_data.begin(), m_data.end(), d), m_data.end());
-    }
-
-    void dispose() const
-    {
-        for (auto& d : m_data) {
-            d.dispose();
-        }
-    }
-
-    void clear()
-    {
-        m_data.clear();
-    }
-
-private:
-    mutable std::vector<rpp::disposable_wrapper> m_data{};
-};
-
-template<size_t Count>
-class dynamic_disposables_container : public dynamic_disposables_container_base
-{
-public:
-    dynamic_disposables_container()
-        : dynamic_disposables_container_base{Count}
-    {}
-};
-
-template<size_t Count>
-class static_disposables_container
-{
-public:
-    static_disposables_container() = default;
-    static_disposables_container(const static_disposables_container&) = delete;
-    static_disposables_container& operator=(const static_disposables_container& other) = delete;
-
-    static_disposables_container& operator=(static_disposables_container&& other) noexcept
-    {
-        if (this == &other)
-            return *this;
-
-        m_size = other.m_size;
-        for(size_t i =0; i < m_size; ++i)
-            std::construct_at(get(i), std::move(*other.get(i)));
-
-        other.clear();
-        return *this;
-    }
-
-    static_disposables_container(static_disposables_container&& other) noexcept
-    {
-        *this = std::move(other);
-    }
-
-    ~static_disposables_container() noexcept
-    {
-        clear();
-    }
-
-    void push_back(const rpp::disposable_wrapper& d)
-    {
-        if (m_size >= Count)
-            throw rpp::utils::more_disposables_than_expected{"static_disposables_container obtained more disposables than expected"};
-        std::construct_at(get(m_size++), d);
-    }
-
-    void push_back(rpp::disposable_wrapper&& d)
-    {
-        if (m_size >= Count)
-            throw rpp::utils::more_disposables_than_expected{"static_disposables_container obtained more disposables than expected"};
-        std::construct_at(get(m_size++), std::move(d));
-    }
-
-    void remove(const rpp::disposable_wrapper& d)
-    {
-        for (size_t i = 0; i < m_size;)
+    public:
+        explicit dynamic_disposables_container_base(size_t count)
         {
-            if (*get(i) != d)
+            m_data.reserve(count);
+        }
+
+        void push_back(const rpp::disposable_wrapper& d)
+        {
+            m_data.push_back(d);
+        }
+
+        void push_back(rpp::disposable_wrapper&& d)
+        {
+            m_data.push_back(std::move(d));
+        }
+
+        void remove(const rpp::disposable_wrapper& d)
+        {
+            m_data.erase(std::remove(m_data.begin(), m_data.end(), d), m_data.end());
+        }
+
+        void dispose() const
+        {
+            for (auto& d : m_data)
             {
-                ++i;
-                continue;
+                d.dispose();
             }
-
-            for(size_t j = i+1; j < m_size; ++j)
-                *get(j-1) = std::move(*get(j));
-
-            std::destroy_at(get(--m_size));
         }
-    }
 
-    void dispose() const
-    {
-        for (size_t i =0; i < m_size; ++i) {
-            get(i)->dispose();
+        void clear()
+        {
+            m_data.clear();
         }
-    }
 
-    void clear()
+    private:
+        mutable std::vector<rpp::disposable_wrapper> m_data{};
+    };
+
+    template<size_t Count>
+    class dynamic_disposables_container : public dynamic_disposables_container_base
     {
-        for (size_t i =0; i < m_size; ++i)
-            std::destroy_at(get(i));
-        m_size = 0;
-    }
+    public:
+        dynamic_disposables_container()
+            : dynamic_disposables_container_base{Count}
+        {
+        }
+    };
 
-private:
-    const rpp::disposable_wrapper* get(size_t i) const
+    template<size_t Count>
+    class static_disposables_container
     {
-        return std::launder(reinterpret_cast<const rpp::disposable_wrapper*>(&m_data[i*sizeof(rpp::disposable_wrapper)]));
-    }
-    rpp::disposable_wrapper* get(size_t i)
+    public:
+        static_disposables_container()                                                     = default;
+        static_disposables_container(const static_disposables_container&)                  = delete;
+        static_disposables_container& operator=(const static_disposables_container& other) = delete;
+
+        static_disposables_container& operator=(static_disposables_container&& other) noexcept
+        {
+            if (this == &other)
+                return *this;
+
+            m_size = other.m_size;
+            for (size_t i = 0; i < m_size; ++i)
+                std::construct_at(get(i), std::move(*other.get(i)));
+
+            other.clear();
+            return *this;
+        }
+
+        static_disposables_container(static_disposables_container&& other) noexcept
+        {
+            *this = std::move(other);
+        }
+
+        ~static_disposables_container() noexcept
+        {
+            clear();
+        }
+
+        void push_back(const rpp::disposable_wrapper& d)
+        {
+            if (m_size >= Count)
+                throw rpp::utils::more_disposables_than_expected{"static_disposables_container obtained more disposables than expected"};
+            std::construct_at(get(m_size++), d);
+        }
+
+        void push_back(rpp::disposable_wrapper&& d)
+        {
+            if (m_size >= Count)
+                throw rpp::utils::more_disposables_than_expected{"static_disposables_container obtained more disposables than expected"};
+            std::construct_at(get(m_size++), std::move(d));
+        }
+
+        void remove(const rpp::disposable_wrapper& d)
+        {
+            for (size_t i = 0; i < m_size;)
+            {
+                if (*get(i) != d)
+                {
+                    ++i;
+                    continue;
+                }
+
+                for (size_t j = i + 1; j < m_size; ++j)
+                    *get(j - 1) = std::move(*get(j));
+
+                std::destroy_at(get(--m_size));
+            }
+        }
+
+        void dispose() const
+        {
+            for (size_t i = 0; i < m_size; ++i)
+            {
+                get(i)->dispose();
+            }
+        }
+
+        void clear()
+        {
+            for (size_t i = 0; i < m_size; ++i)
+                std::destroy_at(get(i));
+            m_size = 0;
+        }
+
+    private:
+        const rpp::disposable_wrapper* get(size_t i) const
+        {
+            return std::launder(reinterpret_cast<const rpp::disposable_wrapper*>(&m_data[i * sizeof(rpp::disposable_wrapper)]));
+        }
+        rpp::disposable_wrapper* get(size_t i)
+        {
+            return std::launder(reinterpret_cast<rpp::disposable_wrapper*>(&m_data[i * sizeof(rpp::disposable_wrapper)]));
+        }
+
+    private:
+        alignas(rpp::disposable_wrapper) std::byte m_data[sizeof(rpp::disposable_wrapper) * Count]{};
+        size_t m_size{};
+    };
+
+    struct none_disposables_container
     {
-        return std::launder(reinterpret_cast<rpp::disposable_wrapper*>(&m_data[i*sizeof(rpp::disposable_wrapper)]));
-    }
+        [[noreturn]] static void push_back(const rpp::disposable_wrapper&)
+        {
+            throw rpp::utils::more_disposables_than_expected{"none_disposables_container expected none disposables but obtained one"};
+        }
 
-private:
-    alignas(rpp::disposable_wrapper) std::byte m_data[sizeof(rpp::disposable_wrapper) * Count]{};
-    size_t m_size{};
-};
-
-struct none_disposables_container
-{
-    [[noreturn]] static void push_back(const rpp::disposable_wrapper&)
-    {
-        throw rpp::utils::more_disposables_than_expected{"none_disposables_container expected none disposables but obtained one"};
-    }
-
-    static void remove(const rpp::disposable_wrapper&) {}
-    static void dispose() {}
-    static void clear() {}
-};
-}
+        static void remove(const rpp::disposable_wrapper&) {}
+        static void dispose() {}
+        static void clear() {}
+    };
+} // namespace rpp::details::disposables

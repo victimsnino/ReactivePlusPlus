@@ -10,20 +10,20 @@
 
 #include <snitch/snitch.hpp>
 
-#include <rpp/sources/just.hpp>
-#include <rpp/sources/error.hpp>
 #include <rpp/operators/window.hpp>
+#include <rpp/sources/error.hpp>
+#include <rpp/sources/just.hpp>
 #include <rpp/subjects/publish_subject.hpp>
 
-#include "mock_observer.hpp"
 #include "disposable_observable.hpp"
+#include "mock_observer.hpp"
 #include "snitch_logging.hpp"
 
 TEST_CASE("window subdivide observable into sub-observables")
 {
     SECTION("observable of 3 items with window(2)")
     {
-        auto obs = rpp::source::just(1,2,3) | rpp::ops::window(2);
+        auto obs = rpp::source::just(1, 2, 3) | rpp::ops::window(2);
         SECTION("subscribe on it")
         {
             SECTION("see 2 observables")
@@ -37,29 +37,27 @@ TEST_CASE("window subdivide observable into sub-observables")
             }
             SECTION("first window observable emits first 2 values and completes")
             {
-                auto mock = mock_observer_strategy<int>{};
-                size_t i = 0;
-                obs.subscribe([&](const auto& observable)
-                {
+                auto   mock = mock_observer_strategy<int>{};
+                size_t i    = 0;
+                obs.subscribe([&](const auto& observable) {
                     if (i++ == 0)
                         observable.subscribe(mock);
                 });
 
-                CHECK(mock.get_received_values() == std::vector{1,2});
+                CHECK(mock.get_received_values() == std::vector{1, 2});
                 CHECK(mock.get_on_error_count() == 0);
                 CHECK(mock.get_on_completed_count() == 1);
             }
             SECTION("second window observable emits last 1 value and completes")
             {
-                auto mock = mock_observer_strategy<int>{};
-                size_t i = 0;
-                obs.subscribe([&](const auto& observable)
-                {
+                auto   mock = mock_observer_strategy<int>{};
+                size_t i    = 0;
+                obs.subscribe([&](const auto& observable) {
                     if (i++ == 1)
                         observable.subscribe(mock);
                 });
 
-                CHECK(mock.get_received_values() == std::vector{ 3 });
+                CHECK(mock.get_received_values() == std::vector{3});
                 CHECK(mock.get_on_error_count() == 0);
                 CHECK(mock.get_on_completed_count() == 1);
             }
@@ -134,7 +132,7 @@ TEST_CASE("window subdivide observable into sub-observables")
                 subj.get_observer().on_next(1);
                 SECTION("inner subscriber see first value without complete")
                 {
-                    CHECK(mock.get_received_values() == std::vector{ 1});
+                    CHECK(mock.get_received_values() == std::vector{1});
                     CHECK(mock.get_on_error_count() == 0);
                     CHECK(mock.get_on_completed_count() == 0);
                 }
@@ -145,7 +143,7 @@ TEST_CASE("window subdivide observable into sub-observables")
 
                     SECTION("inner subscriber see completed")
                     {
-                        CHECK(mock.get_received_values() == std::vector{ 1 });
+                        CHECK(mock.get_received_values() == std::vector{1});
                         CHECK(mock.get_on_error_count() == 0);
                         CHECK(mock.get_on_completed_count() == 1);
                     }
@@ -157,7 +155,7 @@ TEST_CASE("window subdivide observable into sub-observables")
 
                     SECTION("inner subscriber see error")
                     {
-                        CHECK(mock.get_received_values() == std::vector{ 1 });
+                        CHECK(mock.get_received_values() == std::vector{1});
                         CHECK(mock.get_on_error_count() == 1);
                         CHECK(mock.get_on_completed_count() == 0);
                     }
@@ -169,7 +167,7 @@ TEST_CASE("window subdivide observable into sub-observables")
 
                     SECTION("inner subscriber see second value and completes")
                     {
-                        CHECK(mock.get_received_values() == std::vector{ 1,2 });
+                        CHECK(mock.get_received_values() == std::vector{1, 2});
                         CHECK(mock.get_on_error_count() == 0);
                         CHECK(mock.get_on_completed_count() == 1);
                     }
@@ -182,20 +180,18 @@ TEST_CASE("window subdivide observable into sub-observables")
 TEST_CASE("window disposes original disposable only when everything is disposed")
 {
     auto source_disposable = rpp::composite_disposable_wrapper::make();
-    auto obs = rpp::source::create<int>([source_disposable](auto&& obs)
-    {
+    auto obs               = rpp::source::create<int>([source_disposable](auto&& obs) {
         obs.set_upstream(source_disposable);
         obs.on_next(1);
     });
 
-    auto observer_disposable = rpp::composite_disposable_wrapper::make();
+    auto observer_disposable       = rpp::composite_disposable_wrapper::make();
     auto inner_observer_disposable = rpp::composite_disposable_wrapper::make();
-    obs 
-        | rpp::ops::window(2) 
-        | rpp::ops::subscribe(rpp::composite_disposable_wrapper{observer_disposable}, [inner_observer_disposable](const rpp::window_observable<int>& new_obs)
-    {
-        new_obs.subscribe(rpp::composite_disposable_wrapper{inner_observer_disposable}, [](int){});
-    });
+    obs
+        | rpp::ops::window(2)
+        | rpp::ops::subscribe(rpp::composite_disposable_wrapper{observer_disposable}, [inner_observer_disposable](const rpp::window_observable<int>& new_obs) {
+              new_obs.subscribe(rpp::composite_disposable_wrapper{inner_observer_disposable}, [](int) {});
+          });
 
     CHECK(!source_disposable.is_disposed());
     CHECK(!observer_disposable.is_disposed());

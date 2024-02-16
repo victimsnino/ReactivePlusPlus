@@ -57,21 +57,21 @@ std::optional<std::string_view> find_argument(std::string_view target_argument, 
 
 namespace rpp
 {
-    template<typename ...Ts>
-    auto immediate_just(Ts&&...vals)
+    template<typename... Ts>
+    auto immediate_just(Ts&&... vals)
     {
         return rpp::source::just(rpp::schedulers::immediate{}, std::forward<Ts>(vals)...);
     }
-}
+} // namespace rpp
 
 namespace rxcpp
 {
-    template<typename ...Ts>
-    auto immediate_just(Ts&&...vals)
+    template<typename... Ts>
+    auto immediate_just(Ts&&... vals)
     {
         return rxcpp::observable<>::from(rxcpp::identity_immediate(), std::forward<Ts>(vals)...);
     }
-}
+} // namespace rxcpp
 
 int main(int argc, char* argv[]) // NOLINT(bugprone-exception-escape)
 {
@@ -118,7 +118,7 @@ int main(int argc, char* argv[]) // NOLINT(bugprone-exception-escape)
                     | rxcpp::operators::subscribe<int>([](int) {});
             });
         }
-    };
+    }; // BENCHMARK("General")
 
     BENCHMARK("Sources")
     {
@@ -189,7 +189,7 @@ int main(int argc, char* argv[]) // NOLINT(bugprone-exception-escape)
                 rxcpp::observable<>::interval(std::chrono::nanoseconds(0), rxcpp::identity_current_thread()).take(3).subscribe([](size_t v) { ankerl::nanobench::doNotOptimizeAway(v); });
             });
         }
-    };
+    }; // BENCHMARK("Sources")
 
     BENCHMARK("Schedulers")
     {
@@ -241,7 +241,7 @@ int main(int argc, char* argv[]) // NOLINT(bugprone-exception-escape)
                     });
                 });
         }
-    }
+    } // BENCHMARK("Schedulers")
 
     BENCHMARK("Combining Operators")
     {
@@ -358,7 +358,7 @@ int main(int argc, char* argv[]) // NOLINT(bugprone-exception-escape)
                     | rxcpp::operators::subscribe<int>([](int v) { ankerl::nanobench::doNotOptimizeAway(v); });
             });
         }
-    };
+    }; // BENCHMARK("Conditional Operators")
 
     BENCHMARK("Transforming Operators")
     {
@@ -426,16 +426,16 @@ int main(int argc, char* argv[]) // NOLINT(bugprone-exception-escape)
             TEST_RPP([&]() {
                 rpp::immediate_just(1)
                     | rpp::operators::window(2)
-                    | rpp::operators::subscribe([](const auto& v) { v.subscribe([](int vv){ankerl::nanobench::doNotOptimizeAway(vv);}); });
+                    | rpp::operators::subscribe([](const auto& v) { v.subscribe([](int vv) { ankerl::nanobench::doNotOptimizeAway(vv); }); });
             });
 
             TEST_RXCPP([&]() {
                 rxcpp::immediate_just(1)
                     | rxcpp::operators::window(2)
-                    | rxcpp::operators::subscribe<rxcpp::observable<int>>([](const rxcpp::observable<int>& v) { v.subscribe([](int vv){ankerl::nanobench::doNotOptimizeAway(vv);}); });
+                    | rxcpp::operators::subscribe<rxcpp::observable<int>>([](const rxcpp::observable<int>& v) { v.subscribe([](int vv) { ankerl::nanobench::doNotOptimizeAway(vv); }); });
             });
         }
-    };
+    }; // BENCHMARK("Transforming Operators")
 
     BENCHMARK("Filtering Operators")
     {
@@ -543,7 +543,7 @@ int main(int argc, char* argv[]) // NOLINT(bugprone-exception-escape)
                     | rxcpp::operators::subscribe<int>([](int v) { ankerl::nanobench::doNotOptimizeAway(v); });
             });
         }
-    };
+    }; // BENCHMARK("Filtering Operators")
 
     BENCHMARK("Utility Operators")
     {
@@ -561,7 +561,7 @@ int main(int argc, char* argv[]) // NOLINT(bugprone-exception-escape)
                     | rxcpp::operators::subscribe<int>([](int v) { ankerl::nanobench::doNotOptimizeAway(v); });
             });
         }
-    }
+    } // BENCHMARK("Utility Operators")
 
     BENCHMARK("Aggregating Operators")
     {
@@ -579,7 +579,7 @@ int main(int argc, char* argv[]) // NOLINT(bugprone-exception-escape)
                     | rxcpp::operators::subscribe<int>([](int v) { ankerl::nanobench::doNotOptimizeAway(v); });
             });
         }
-    }
+    } // BENCHMARK("Aggregating Operators")
 
     BENCHMARK("Subjects")
     {
@@ -600,7 +600,7 @@ int main(int argc, char* argv[]) // NOLINT(bugprone-exception-escape)
                 });
             }
         }
-    }
+    } // BENCHMARK("Subjects")
 
     BENCHMARK("Scenarios")
     {
@@ -638,7 +638,7 @@ int main(int argc, char* argv[]) // NOLINT(bugprone-exception-escape)
                     | rxcpp::operators::subscribe<char>([](char v) { ankerl::nanobench::doNotOptimizeAway(v); });
             });
         }
-    }
+    } // BENCHMARK("Scenarios")
 
     if (dump.has_value())
     {

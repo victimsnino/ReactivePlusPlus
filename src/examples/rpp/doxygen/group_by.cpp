@@ -1,4 +1,5 @@
 #include <rpp/rpp.hpp>
+
 #include <iostream>
 
 /**
@@ -8,16 +9,14 @@ int main()
 {
     //! [group_by]
     rpp::source::just(1, 2, 3, 4, 5, 6, 7, 8)
-        | rpp::operators::group_by([](int   v) { return v % 2 == 0; })
-        | rpp::operators::subscribe([](auto grouped_observable)
-        {
-            auto key = grouped_observable.get_key();
-            std::cout << "new grouped observable " << key << std::endl;
-            grouped_observable.subscribe([key](int val)
-            {
-                std::cout << "key [" << key << "] Val: " << val << std::endl;
-            });
-        });
+        | rpp::operators::group_by([](int v) { return v % 2 == 0; })
+        | rpp::operators::subscribe([](auto grouped_observable) {
+              auto key = grouped_observable.get_key();
+              std::cout << "new grouped observable " << key << std::endl;
+              grouped_observable.subscribe([key](int val) {
+                  std::cout << "key [" << key << "] Val: " << val << std::endl;
+              });
+          });
     // Output: new grouped observable 0
     //         key [0] Val: 1
     //         new grouped observable 1
@@ -34,7 +33,7 @@ int main()
     struct Person
     {
         std::string name;
-        int age;
+        int         age;
     };
     rpp::source::just(Person{"Kate", 18},
                       Person{"Alex", 25},
@@ -43,13 +42,11 @@ int main()
                       Person{"Tom", 30},
                       Person{"Vanda", 18})
         | rpp::operators::group_by([](const Person& v) { return v.age; }, [](const Person& v) { return v.name; })
-        | rpp::operators::subscribe([](auto grouped_observable)
-        {
-            grouped_observable.subscribe([age = grouped_observable.get_key()](const std::string& name)
-            {
-                std::cout << "Age [" << age << "] Name: " << name << std::endl;
-            });
-        });
+        | rpp::operators::subscribe([](auto grouped_observable) {
+              grouped_observable.subscribe([age = grouped_observable.get_key()](const std::string& name) {
+                  std::cout << "Age [" << age << "] Name: " << name << std::endl;
+              });
+          });
 
     // Output: Age [18] Name: Kate
     //         Age [25] Name: Alex

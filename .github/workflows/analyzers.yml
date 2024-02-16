@@ -6,13 +6,13 @@ on:
       - "CI v2"
     types:
       - completed
-      
+
 jobs:
   pvs:
-    
+
     runs-on: ubuntu-latest
     timeout-minutes: 10
-    
+
     if: github.repository_owner == 'victimsnino' && github.event.workflow_run.conclusion == 'success'
 
     steps:
@@ -24,14 +24,14 @@ jobs:
         fetch-depth: 0
         repository: ${{ github.event.workflow_run.head_repository.full_name }}
         ref: ${{ github.event.workflow_run.head_branch }}
-        
+
     # Work around https://github.com/actions/runner-images/issues/8659
     - name: "Remove GCC 13 from runner image (workaround)"
       shell: bash
       run: |
           sudo apt-get purge -y g++-13 gcc-13 libstdc++-13-dev
           sudo apt-get install -y --allow-downgrades libstdc++-12-dev libstdc++6=12.* libgcc-s1=12.*
-    
+
     - name: Install Qt
       uses: jurplel/install-qt-action@v3
       with:
@@ -50,7 +50,7 @@ jobs:
         sudo apt update
         sudo apt install pvs-studio libsfml-dev
         pvs-studio-analyzer credentials ${{ secrets.PVS_STUDIO_CREDENTIALS }}
-    
+
     - name: Run CMake
       if: steps.setup.outcome == 'success' && steps.setup.conclusion == 'success'
       uses: lukka/run-cmake@v10
@@ -73,7 +73,7 @@ jobs:
 
   sonarcloud_and_coverage:
     runs-on: ubuntu-latest
-    
+
     if: github.repository_owner == 'victimsnino' && github.event.workflow_run.conclusion == 'success'
 
     env:
@@ -88,7 +88,7 @@ jobs:
         fetch-depth: 0
         repository: ${{ github.event.workflow_run.head_repository.full_name }}
         ref: ${{ github.event.workflow_run.head_branch }}
-    
+
     - name: Install llvm
       run: sudo apt-get update -q && sudo apt-get install llvm libsfml-dev -q -y
 
@@ -116,7 +116,7 @@ jobs:
 
     - name: Process coverage info
       run: cmake --build build -t coverage
-    
+
     - name: "Get PR information"
       uses: potiuk/get-workflow-origin@v1_3
       id: source-run-info
@@ -131,7 +131,7 @@ jobs:
         override_branch: ${{ github.event.workflow_run.head_branch }}
         override_pr: ${{ steps.source-run-info.outputs.pullRequestNumber }}
         override_commit: ${{ github.event.workflow_run.head_sha }}
-        
+
     - name: Run sonar-scanner on PUSH
       if: github.event.workflow_run.event == 'push'
       env:
@@ -148,4 +148,4 @@ jobs:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       run: |
         sonar-scanner --define sonar.cfamily.build-wrapper-output="${{ env.BUILD_WRAPPER_OUT_DIR }}" --define sonar.scm.revision=${{ github.event.workflow_run.head_sha }} --define sonar.pullrequest.key=${{ steps.source-run-info.outputs.pullRequestNumber }} --define sonar.pullrequest.branch=${{ steps.source-run-info.outputs.sourceHeadBranch }} --define sonar.pullrequest.base=${{ steps.source-run-info.outputs.targetBranch }}
-  
+

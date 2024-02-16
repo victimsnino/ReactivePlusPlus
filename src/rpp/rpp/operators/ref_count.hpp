@@ -12,22 +12,22 @@ namespace rpp::operators::details
             return observable.ref_count();
         }
     };
-}
+} // namespace rpp::operators::details
 
 namespace rpp::operators
 {
-/**
-* @brief Forces rpp::connectable_observable to behave like common observable
-* @details Connects rpp::connectable_observable on the first subscription and unsubscribes on last unsubscription
-*
-* @par Example
-* @snippet ref_count.cpp ref_count_operator
-*
-* @ingroup connectable_operators
-* @see https://reactivex.io/documentation/operators/refcount.html
-*/
-inline auto ref_count()
-{
-    return rpp::operators::details::ref_count_t{};
-}
-}
+    /**
+     * @brief Forces rpp::connectable_observable to behave like common observable
+     * @details Connects rpp::connectable_observable on the first subscription and unsubscribes on last unsubscription
+     *
+     * @par Example
+     * @snippet ref_count.cpp ref_count_operator
+     *
+     * @ingroup connectable_operators
+     * @see https://reactivex.io/documentation/operators/refcount.html
+     */
+    inline auto ref_count()
+    {
+        return rpp::operators::details::ref_count_t{};
+    }
+} // namespace rpp::operators

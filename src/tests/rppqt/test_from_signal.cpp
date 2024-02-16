@@ -13,6 +13,7 @@
 struct TestQObject : public QObject
 {
     Q_OBJECT
+
 public:
     using QObject::QObject;
 
@@ -37,22 +38,21 @@ Q_SIGNALS:
     void NoValueSignal();
 };
 
-#include "test_from_signal.moc"
-
-#include "copy_count_tracker.hpp"
-#include "mock_observer.hpp"
-
 #include <snitch/snitch.hpp>
 
 #include <rppqt/sources/from_signal.hpp>
+
+#include "copy_count_tracker.hpp"
+#include "mock_observer.hpp"
+#include "test_from_signal.moc"
 
 TEST_CASE("from_signal can see object value from object signal")
 {
     SECTION("qobject with signal with 1 argument and observable from signal from this object")
     {
         mock_observer_strategy<int> mock_observer{};
-        auto               testobject = std::make_unique<TestQObject>();
-        auto               obs        = rppqt::source::from_signal(*testobject, &TestQObject::SingleValueSignal);
+        auto                        testobject = std::make_unique<TestQObject>();
+        auto                        obs        = rppqt::source::from_signal(*testobject, &TestQObject::SingleValueSignal);
         SECTION("emit signal, subscribe on it and emit signal")
         {
             testobject->EmitSingleValueSignal(1);
@@ -98,8 +98,8 @@ TEST_CASE("from_signal sends tuple if multiple values")
     SECTION("object with signal with multiple values and observable from this signal")
     {
         mock_observer_strategy<std::tuple<int, double, std::string>> mock_observer{};
-        auto               testobject = std::make_unique<TestQObject>();
-        auto               obs        = rppqt::source::from_signal(*testobject, &TestQObject::MultipleValueSignal);
+        auto                                                         testobject = std::make_unique<TestQObject>();
+        auto                                                         obs        = rppqt::source::from_signal(*testobject, &TestQObject::MultipleValueSignal);
         SECTION("subscribe on it and emit signal")
         {
             obs.subscribe(mock_observer);
