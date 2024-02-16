@@ -10,22 +10,21 @@
 
 #include <snitch/snitch.hpp>
 
-#include <rpp/operators/throttle.hpp>
 #include <rpp/operators/map.hpp>
+#include <rpp/operators/throttle.hpp>
 #include <rpp/subjects/publish_subject.hpp>
 
-#include "mock_observer.hpp"
 #include "disposable_observable.hpp"
-
-#include "test_scheduler.hpp"
+#include "mock_observer.hpp"
 #include "snitch_logging.hpp"
+#include "test_scheduler.hpp"
 
 TEST_CASE("throttle throttles emissions")
 {
-    auto mock = mock_observer_strategy<std::tuple<int, rpp::schedulers::time_point>>{};
-    auto subj = rpp::subjects::publish_subject<int>{};
+    auto       mock              = mock_observer_strategy<std::tuple<int, rpp::schedulers::time_point>>{};
+    auto       subj              = rpp::subjects::publish_subject<int>{};
     const auto throttle_duration = std::chrono::seconds{2};
-    subj.get_observable() | rpp::ops::throttle<test_scheduler>(throttle_duration) | rpp::ops::map([](int v){return std::tuple{v, test_scheduler::now()};}) | rpp::ops::subscribe(mock);
+    subj.get_observable() | rpp::ops::throttle<test_scheduler>(throttle_duration) | rpp::ops::map([](int v) { return std::tuple{v, test_scheduler::now()}; }) | rpp::ops::subscribe(mock);
     SECTION("emiting second value forwards it immediately")
     {
         const auto first_value_time = test_scheduler::now();
@@ -35,7 +34,7 @@ TEST_CASE("throttle throttles emissions")
         CHECK(mock.get_on_completed_count() == 0);
         SECTION("emitting second value in throttle_duration/2 not forwards it")
         {
-            test_scheduler{}.time_advance(throttle_duration/2);
+            test_scheduler{}.time_advance(throttle_duration / 2);
 
             subj.get_observer().on_next(2);
             CHECK(mock.get_received_values() == std::vector{std::tuple{1, first_value_time}});
@@ -43,8 +42,8 @@ TEST_CASE("throttle throttles emissions")
             CHECK(mock.get_on_completed_count() == 0);
             SECTION("emitting third value in throttle_duration/2+throttle_duration/2 forwards it")
             {
-                test_scheduler{}.time_advance(throttle_duration/2);
-    
+                test_scheduler{}.time_advance(throttle_duration / 2);
+
                 subj.get_observer().on_next(3);
                 CHECK(mock.get_received_values() == std::vector{std::tuple{1, first_value_time}, std::tuple{3, test_scheduler::now()}});
                 CHECK(mock.get_on_error_count() == 0);
@@ -76,7 +75,7 @@ TEST_CASE("throttle throttles emissions")
         }
         SECTION("emitting second value in 3/2*throttle_duration forwards it")
         {
-            test_scheduler{}.time_advance(throttle_duration/2*3);
+            test_scheduler{}.time_advance(throttle_duration / 2 * 3);
 
             subj.get_observer().on_next(2);
             CHECK(mock.get_received_values() == std::vector{std::tuple{1, first_value_time}, std::tuple{2, test_scheduler::now()}});

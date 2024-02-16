@@ -11,5 +11,5 @@
 #pragma once
 
 #include <rppqt/fwd.hpp>
-#include <rppqt/sources.hpp>
 #include <rppqt/schedulers.hpp>
+#include <rppqt/sources.hpp>

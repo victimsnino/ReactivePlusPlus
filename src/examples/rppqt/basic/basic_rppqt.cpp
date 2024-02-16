@@ -1,11 +1,12 @@
 #include <rpp/rpp.hpp>
+
 #include <rppqt/rppqt.hpp>
 
 #include <QApplication>
+#include <QLabel>
 #include <QMainWindow>
 #include <QPushButton>
 #include <QVBoxLayout>
-#include <QLabel>
 
 int main(int argc, char* argv[])
 {
@@ -27,11 +28,10 @@ int main(int argc, char* argv[])
 
     // .....
 
-    total_clicks.subscribe([&clicks_count_label](int clicks)
-    {
+    total_clicks.subscribe([&clicks_count_label](int clicks) {
         clicks_count_label->setText(QString{"Clicked %1 times in total!"}.arg(clicks));
     });
-    
+
 
     time_since_click.subscribe([&clicks_duration_label](std::chrono::high_resolution_clock::duration ms) {
         clicks_duration_label->setText(QString{"MS since last click %1!"}.arg(std::chrono::duration_cast<std::chrono::milliseconds>(ms).count()));

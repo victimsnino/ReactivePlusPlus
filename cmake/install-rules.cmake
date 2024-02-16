@@ -5,12 +5,12 @@ include(GNUInstallDirs)
 set(package RPP)
 
 install(
-    DIRECTORY 
+    DIRECTORY
         src/rpp
        src/rppqt
-    DESTINATION 
+    DESTINATION
         "${CMAKE_INSTALL_INCLUDEDIR}"
-    COMPONENT 
+    COMPONENT
         RPP_Development
 )
 
@@ -41,12 +41,12 @@ configure_package_config_file(cmake/install-config.cmake.in "${package}Config.cm
 )
 
 install(
-    FILES 
-        "${PROJECT_BINARY_DIR}/${package}Config.cmake" 
+    FILES
+        "${PROJECT_BINARY_DIR}/${package}Config.cmake"
         "${PROJECT_BINARY_DIR}/${package}ConfigVersion.cmake"
-    DESTINATION 
+    DESTINATION
         "${RPP_INSTALL_CMAKEDIR}"
-    COMPONENT 
+    COMPONENT
         RPP_Development
 )
 

@@ -19,82 +19,82 @@
 
 namespace rpp::operators::details
 {
-template<rpp::constraint::observer TObserver, rpp::constraint::decayed_type Fn>
-struct map_observer_strategy
-{
-    using preferred_disposable_strategy = rpp::details::observers::none_disposable_strategy;
-
-    RPP_NO_UNIQUE_ADDRESS TObserver observer;
-    RPP_NO_UNIQUE_ADDRESS Fn        fn;
-
-    template<typename T>
-    void on_next(T&& v) const
+    template<rpp::constraint::observer TObserver, rpp::constraint::decayed_type Fn>
+    struct map_observer_strategy
     {
-        observer.on_next(fn(std::forward<T>(v)));
-    }
+        using preferred_disposable_strategy = rpp::details::observers::none_disposable_strategy;
 
-    void on_error(const std::exception_ptr& err) const { observer.on_error(err); }
+        RPP_NO_UNIQUE_ADDRESS TObserver observer;
+        RPP_NO_UNIQUE_ADDRESS Fn        fn;
 
-    void on_completed() const { observer.on_completed(); }
+        template<typename T>
+        void on_next(T&& v) const
+        {
+            observer.on_next(fn(std::forward<T>(v)));
+        }
 
-    void set_upstream(const disposable_wrapper& d) { observer.set_upstream(d); }
+        void on_error(const std::exception_ptr& err) const { observer.on_error(err); }
 
-    bool is_disposed() const { return observer.is_disposed(); }
-};
+        void on_completed() const { observer.on_completed(); }
 
-template<rpp::constraint::decayed_type Fn>
-struct map_t  : lift_operator<map_t<Fn>, Fn>
-{
-    template<rpp::constraint::decayed_type T>
-    struct operator_traits
-    {
-        static_assert(std::invocable<Fn, T>, "Fn is not invocable with T");
+        void set_upstream(const disposable_wrapper& d) { observer.set_upstream(d); }
 
-        using result_type = std::invoke_result_t<Fn, T>;
-
-        template<rpp::constraint::observer_of_type<result_type> TObserver>
-        using observer_strategy = map_observer_strategy<TObserver, Fn>;
+        bool is_disposed() const { return observer.is_disposed(); }
     };
 
-    template<rpp::details::observables::constraint::disposable_strategy Prev>
-    using updated_disposable_strategy = Prev;
-};
-}
+    template<rpp::constraint::decayed_type Fn>
+    struct map_t : lift_operator<map_t<Fn>, Fn>
+    {
+        template<rpp::constraint::decayed_type T>
+        struct operator_traits
+        {
+            static_assert(std::invocable<Fn, T>, "Fn is not invocable with T");
+
+            using result_type = std::invoke_result_t<Fn, T>;
+
+            template<rpp::constraint::observer_of_type<result_type> TObserver>
+            using observer_strategy = map_observer_strategy<TObserver, Fn>;
+        };
+
+        template<rpp::details::observables::constraint::disposable_strategy Prev>
+        using updated_disposable_strategy = Prev;
+    };
+} // namespace rpp::operators::details
 
 namespace rpp::operators
 {
-/**
- * @brief Transforms the items emitted by an Observable via applying a function to each item and emitting result
- * @note The Map operator can keep same type of value or change it to some another type.
- *
- * @marble map
- {
-     source observable       : +--1   -2   --3   -|
-     operator "map: x=>x+10" : +--(11)-(12)--(13)-|
- }
- *
- * @details Actually this operator just applies callable to each obtained emission and emit resulting value
- *
- * @par Performance notes:
- * - No any heap allocations at all
- * - No any copies/moves of emissions, just forwarding to callable
- *
- * @param callable is callable used to provide this transformation. Should accept `Type` of original observable and return type for new observable
- * @warning #include <rpp/operators/map.hpp>
- *
- * @par Example with same type:
- * @snippet map.cpp Same type
- *
- * @par Example with changed type:
- * @snippet map.cpp Changed type
- *
- * @ingroup transforming_operators
- * @see https://reactivex.io/documentation/operators/map.html
- */
-template<typename Fn>
-    requires (!utils::is_not_template_callable<Fn> || !std::same_as<void, std::invoke_result_t<Fn, rpp::utils::convertible_to_any>>)
-auto map(Fn&& callable)
-{
-    return details::map_t<std::decay_t<Fn>>{std::forward<Fn>(callable)};
-}
+    /**
+     * @brief Transforms the items emitted by an Observable via applying a function to each item and emitting result
+     * @note The Map operator can keep same type of value or change it to some another type.
+     *
+     * @marble map
+     {
+         source observable       : +--1   -2   --3   -|
+         operator "map: x=>x+10" : +--(11)-(12)--(13)-|
+     }
+     *
+     * @details Actually this operator just applies callable to each obtained emission and emit resulting value
+     *
+     * @par Performance notes:
+     * - No any heap allocations at all
+     * - No any copies/moves of emissions, just forwarding to callable
+     *
+     * @param callable is callable used to provide this transformation. Should accept `Type` of original observable and return type for new observable
+     * @warning #include <rpp/operators/map.hpp>
+     *
+     * @par Example with same type:
+     * @snippet map.cpp Same type
+     *
+     * @par Example with changed type:
+     * @snippet map.cpp Changed type
+     *
+     * @ingroup transforming_operators
+     * @see https://reactivex.io/documentation/operators/map.html
+     */
+    template<typename Fn>
+        requires (!utils::is_not_template_callable<Fn> || !std::same_as<void, std::invoke_result_t<Fn, rpp::utils::convertible_to_any>>)
+    auto map(Fn&& callable)
+    {
+        return details::map_t<std::decay_t<Fn>>{std::forward<Fn>(callable)};
+    }
 } // namespace rpp::operators

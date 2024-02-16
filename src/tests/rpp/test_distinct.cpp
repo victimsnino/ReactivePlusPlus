@@ -59,8 +59,8 @@ TEST_CASE("distinct doesn't produce extra copies")
                                           .send_by_copy = {.copy_count = 2, // 1 copy on emission + 1 copy to final subscriber
                                                            .move_count = 0},
                                           .send_by_move = {.copy_count = 1, // 1 copy to final subscriber
-                                                           .move_count = 1}  // 1 move on emission
-    });
+                                                           .move_count = 1} // 1 move on emission
+                                      });
 }
 
 TEST_CASE("distinct satisfies disposable contracts")

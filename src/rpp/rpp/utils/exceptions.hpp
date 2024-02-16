@@ -14,13 +14,13 @@
 
 namespace rpp::utils
 {
-struct not_enough_emissions : public std::runtime_error
-{
-    using std::runtime_error::runtime_error;
-};
+    struct not_enough_emissions : public std::runtime_error
+    {
+        using std::runtime_error::runtime_error;
+    };
 
-struct more_disposables_than_expected : public std::runtime_error
-{
-    using std::runtime_error::runtime_error;
-};
-}
+    struct more_disposables_than_expected : public std::runtime_error
+    {
+        using std::runtime_error::runtime_error;
+    };
+} // namespace rpp::utils

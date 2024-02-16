@@ -12,35 +12,32 @@
 
 #include <rpp/operators/as_blocking.hpp>
 #include <rpp/operators/subscribe_on.hpp>
-#include <rpp/sources/error.hpp>
-#include <rpp/sources/create.hpp>
-
-#include <rpp/schedulers/new_thread.hpp>
 #include <rpp/schedulers/current_thread.hpp>
+#include <rpp/schedulers/new_thread.hpp>
+#include <rpp/sources/create.hpp>
+#include <rpp/sources/error.hpp>
 
-#include <optional>
-#include <thread>
-#include <future>
-
-#include "mock_observer.hpp"
 #include "disposable_observable.hpp"
-
+#include "mock_observer.hpp"
 #include "rpp/disposables/composite_disposable.hpp"
 #include "rpp/disposables/fwd.hpp"
 #include "rpp/operators/fwd.hpp"
 #include "rpp/operators/subscribe.hpp"
 #include "rpp/schedulers/fwd.hpp"
 
+#include <future>
+#include <optional>
+#include <thread>
+
 TEST_CASE("subscribe_on schedules job in another scheduler")
 {
-    auto mock = mock_observer_strategy<int>{};
+    auto mock      = mock_observer_strategy<int>{};
     auto scheduler = rpp::schedulers::new_thread{};
 
     SECTION("observable")
     {
         std::promise<std::thread::id> thread_id{};
-        auto obs = rpp::source::create<int>([&](auto&& sub)
-        {
+        auto                          obs = rpp::source::create<int>([&](auto&& sub) {
             thread_id.set_value(std::this_thread::get_id());
             sub.set_upstream(rpp::composite_disposable_wrapper::make());
             sub.on_next(1);
@@ -75,15 +72,13 @@ TEST_CASE("subscribe_on schedules job in another scheduler")
     {
         bool executed{};
 
-        rpp::schedulers::current_thread::create_worker().schedule([&mock, &executed](const auto&)
-        {
+        rpp::schedulers::current_thread::create_worker().schedule([&mock, &executed](const auto&) {
             auto d = rpp::composite_disposable_wrapper::make();
-            rpp::source::create<int>([&](const auto&)
-            {
+            rpp::source::create<int>([&](const auto&) {
                 executed = true;
             })
-            | rpp::ops::subscribe_on(rpp::schedulers::current_thread{})
-            | rpp::ops::subscribe(mock.get_observer(d));
+                | rpp::ops::subscribe_on(rpp::schedulers::current_thread{})
+                | rpp::ops::subscribe(mock.get_observer(d));
 
             CHECK(!executed);
             CHECK(!d.is_disposed());
@@ -91,21 +86,21 @@ TEST_CASE("subscribe_on schedules job in another scheduler")
             CHECK(!executed);
             CHECK(d.is_disposed());
             return rpp::schedulers::optional_delay_from_now{};
-        }, mock);
+        },
+                                                                  mock);
 
         CHECK(!executed);
     }
 
     SECTION("subscribe_on and then upstream updates upstream inside observer")
     {
-        auto d = rpp::composite_disposable_wrapper::make();
+        auto d      = rpp::composite_disposable_wrapper::make();
         auto second = rpp::composite_disposable_wrapper::make();
-        rpp::source::create<int>([&](auto&& obs)
-        {
+        rpp::source::create<int>([&](auto&& obs) {
             obs.set_upstream(rpp::disposable_wrapper{second});
         })
-        | rpp::ops::subscribe_on(rpp::schedulers::current_thread{})
-        | rpp::ops::subscribe(mock.get_observer(d));
+            | rpp::ops::subscribe_on(rpp::schedulers::current_thread{})
+            | rpp::ops::subscribe(mock.get_observer(d));
 
         CHECK(!d.is_disposed());
         CHECK(!second.is_disposed());

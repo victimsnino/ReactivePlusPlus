@@ -14,8 +14,8 @@
 
 namespace rppqt::utils
 {
-struct no_active_qapplication : std::runtime_error
-{
-    using std::runtime_error::runtime_error;
-};
-}
+    struct no_active_qapplication : std::runtime_error
+    {
+        using std::runtime_error::runtime_error;
+    };
+} // namespace rppqt::utils

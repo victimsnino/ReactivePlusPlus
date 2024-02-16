@@ -19,92 +19,92 @@
 
 namespace rpp::operators::details
 {
-template<rpp::constraint::observer TObserver>
-class buffer_observer_strategy
-{
-    using container = rpp::utils::extract_observer_type_t<TObserver>;
-    using value_type = typename container::value_type;
-    static_assert(std::same_as<container, std::vector<value_type>>);
-
-public:
-    using preferred_disposable_strategy = rpp::details::observers::none_disposable_strategy;
-
-    buffer_observer_strategy(TObserver&& observer, size_t count)
-        : m_observer{std::move(observer)}
+    template<rpp::constraint::observer TObserver>
+    class buffer_observer_strategy
     {
-        m_bucket.reserve(std::max(size_t{1}, count));
-    }
+        using container  = rpp::utils::extract_observer_type_t<TObserver>;
+        using value_type = typename container::value_type;
+        static_assert(std::same_as<container, std::vector<value_type>>);
 
-    template<typename T>
-    void on_next(T&& v) const
-    {
-        m_bucket.push_back(std::forward<T>(v));
-        if (m_bucket.size() == m_bucket.capacity())
+    public:
+        using preferred_disposable_strategy = rpp::details::observers::none_disposable_strategy;
+
+        buffer_observer_strategy(TObserver&& observer, size_t count)
+            : m_observer{std::move(observer)}
         {
-            m_observer.on_next(std::move(m_bucket));
-            m_bucket.clear();
+            m_bucket.reserve(std::max(size_t{1}, count));
         }
-    }
 
-    void on_error(const std::exception_ptr& err) const { m_observer.on_error(err); }
+        template<typename T>
+        void on_next(T&& v) const
+        {
+            m_bucket.push_back(std::forward<T>(v));
+            if (m_bucket.size() == m_bucket.capacity())
+            {
+                m_observer.on_next(std::move(m_bucket));
+                m_bucket.clear();
+            }
+        }
 
-    void on_completed() const
-    {
-        if (!m_bucket.empty())
-            m_observer.on_next(std::move(m_bucket));
-        m_observer.on_completed();
-    }
+        void on_error(const std::exception_ptr& err) const { m_observer.on_error(err); }
 
-    void set_upstream(const disposable_wrapper& d) { m_observer.set_upstream(d); }
+        void on_completed() const
+        {
+            if (!m_bucket.empty())
+                m_observer.on_next(std::move(m_bucket));
+            m_observer.on_completed();
+        }
 
-    bool is_disposed() const { return m_observer.is_disposed(); }
+        void set_upstream(const disposable_wrapper& d) { m_observer.set_upstream(d); }
 
-private:
-    RPP_NO_UNIQUE_ADDRESS TObserver m_observer;
-    mutable std::vector<value_type>  m_bucket;
-};
+        bool is_disposed() const { return m_observer.is_disposed(); }
 
-struct buffer_t  : lift_operator<buffer_t, size_t>
-{
-    template<rpp::constraint::decayed_type T>
-    struct operator_traits
-    {
-        using result_type = std::vector<T>;
-
-        template<rpp::constraint::observer_of_type<result_type> TObserver>
-        using observer_strategy = buffer_observer_strategy<TObserver>;
+    private:
+        RPP_NO_UNIQUE_ADDRESS TObserver m_observer;
+        mutable std::vector<value_type> m_bucket;
     };
 
-    template<rpp::details::observables::constraint::disposable_strategy Prev>
-    using updated_disposable_strategy = Prev;
-};
-}
+    struct buffer_t : lift_operator<buffer_t, size_t>
+    {
+        template<rpp::constraint::decayed_type T>
+        struct operator_traits
+        {
+            using result_type = std::vector<T>;
+
+            template<rpp::constraint::observer_of_type<result_type> TObserver>
+            using observer_strategy = buffer_observer_strategy<TObserver>;
+        };
+
+        template<rpp::details::observables::constraint::disposable_strategy Prev>
+        using updated_disposable_strategy = Prev;
+    };
+} // namespace rpp::operators::details
 
 namespace rpp::operators
 {
-/**
- * @brief Periodically gather emissions emitted by an original Observable into bundles and emit these bundles rather than emitting
- * the items one at a time
- *
- * @marble buffer
-     {
-         source observable    : +-1-2-3-|
-         operator "buffer(2)" : +---{1,2}-{3}-|
-     }
- *
- * @details The resulting bundle is `std::vector<Type>` of requested size. Actually it is similar to `window()` operator, but it emits vectors instead of observables.
- *
- * @param count number of items being bundled.
- * @warning #include <rpp/operators/buffer.hpp>
- *
- * @par Example:
- * @snippet buffer.cpp buffer
- *
- * @ingroup transforming_operators
- * @see https://reactivex.io/documentation/operators/buffer.html
- */
-inline auto buffer(size_t count)
-{
-    return details::buffer_t{count};
-}
+    /**
+     * @brief Periodically gather emissions emitted by an original Observable into bundles and emit these bundles rather than emitting
+     * the items one at a time
+     *
+     * @marble buffer
+         {
+             source observable    : +-1-2-3-|
+             operator "buffer(2)" : +---{1,2}-{3}-|
+         }
+     *
+     * @details The resulting bundle is `std::vector<Type>` of requested size. Actually it is similar to `window()` operator, but it emits vectors instead of observables.
+     *
+     * @param count number of items being bundled.
+     * @warning #include <rpp/operators/buffer.hpp>
+     *
+     * @par Example:
+     * @snippet buffer.cpp buffer
+     *
+     * @ingroup transforming_operators
+     * @see https://reactivex.io/documentation/operators/buffer.html
+     */
+    inline auto buffer(size_t count)
+    {
+        return details::buffer_t{count};
+    }
 } // namespace rpp::operators

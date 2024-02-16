@@ -1,9 +1,10 @@
 #include <rpp/rpp.hpp>
+
 #include <rppqt/rppqt.hpp>
 
-#include <iostream>
 #include <QApplication>
 #include <QTextEdit>
+#include <iostream>
 
 /**
  * \example from_signal.cpp
@@ -16,8 +17,7 @@ int main(int argc, char* argv[])
     //! [from_signal]
     QTextEdit* text_edit = new QTextEdit();
     rppqt::source::from_signal(*text_edit, &QTextEdit::textChanged)
-        | rpp::ops::map([&](const auto&) 
-          {
+        | rpp::ops::map([&](const auto&) {
               return text_edit->toPlainText();
           })
         | rpp::ops::subscribe([](const QString& text) { std::cout << "text changed: " << text.toStdString() << std::endl; },

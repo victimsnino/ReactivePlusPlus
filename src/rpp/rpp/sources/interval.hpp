@@ -16,115 +16,115 @@
 
 namespace rpp::details
 {
-struct interval_schedulable
-{
-    rpp::schedulers::optional_delay_from_this_timepoint operator()(const auto& observer, rpp::schedulers::duration period, size_t& counter) const
+    struct interval_schedulable
     {
-        observer.on_next(counter++);
-        return rpp::schedulers::optional_delay_from_this_timepoint{period};
-    }
-};
+        rpp::schedulers::optional_delay_from_this_timepoint operator()(const auto& observer, rpp::schedulers::duration period, size_t& counter) const
+        {
+            observer.on_next(counter++);
+            return rpp::schedulers::optional_delay_from_this_timepoint{period};
+        }
+    };
 
-template<typename TScheduler, typename TimePointOrDuration>
-struct interval_strategy
-{
-    using value_type                   = size_t;
-    using expected_disposable_strategy = std::conditional_t<rpp::schedulers::utils::get_worker_t<TScheduler>::is_none_disposable, rpp::details::observables::bool_disposable_strategy_selector, rpp::details::observables::fixed_disposable_strategy_selector<1>>;
-
-    RPP_NO_UNIQUE_ADDRESS TScheduler scheduler;
-    TimePointOrDuration              initial;
-    rpp::schedulers::duration        period;
-
-    template<rpp::constraint::observer_of_type<value_type> TObs>
-    void subscribe(TObs&& observer) const
+    template<typename TScheduler, typename TimePointOrDuration>
+    struct interval_strategy
     {
-        const auto worker = scheduler.create_worker();
-        if constexpr (!rpp::schedulers::utils::get_worker_t<TScheduler>::is_none_disposable)
-        {
-            if (auto d = worker.get_disposable(); !d.is_disposed())
-                observer.set_upstream(std::move(d));
-        }
+        using value_type                   = size_t;
+        using expected_disposable_strategy = std::conditional_t<rpp::schedulers::utils::get_worker_t<TScheduler>::is_none_disposable, rpp::details::observables::bool_disposable_strategy_selector, rpp::details::observables::fixed_disposable_strategy_selector<1>>;
 
-        if constexpr (std::is_same_v<TimePointOrDuration, rpp::schedulers::time_point>)
+        RPP_NO_UNIQUE_ADDRESS TScheduler scheduler;
+        TimePointOrDuration              initial;
+        rpp::schedulers::duration        period;
+
+        template<rpp::constraint::observer_of_type<value_type> TObs>
+        void subscribe(TObs&& observer) const
         {
-            worker.schedule(initial - worker.now(), interval_schedulable{}, std::forward<TObs>(observer), period, size_t{});
+            const auto worker = scheduler.create_worker();
+            if constexpr (!rpp::schedulers::utils::get_worker_t<TScheduler>::is_none_disposable)
+            {
+                if (auto d = worker.get_disposable(); !d.is_disposed())
+                    observer.set_upstream(std::move(d));
+            }
+
+            if constexpr (std::is_same_v<TimePointOrDuration, rpp::schedulers::time_point>)
+            {
+                worker.schedule(initial - worker.now(), interval_schedulable{}, std::forward<TObs>(observer), period, size_t{});
+            }
+            else
+            {
+                worker.schedule(initial, interval_schedulable{}, std::forward<TObs>(observer), period, size_t{});
+            }
         }
-        else
-        {
-            worker.schedule(initial, interval_schedulable{}, std::forward<TObs>(observer), period, size_t{});
-        }
-    }
-};
-}
+    };
+} // namespace rpp::details
 
 namespace rpp
 {
-template<schedulers::constraint::scheduler TScheduler, typename TimePointOrDuration>
-using interval_observable = observable<size_t, details::interval_strategy<TScheduler, TimePointOrDuration>>;
-}
+    template<schedulers::constraint::scheduler TScheduler, typename TimePointOrDuration>
+    using interval_observable = observable<size_t, details::interval_strategy<TScheduler, TimePointOrDuration>>;
+} // namespace rpp
 
 namespace rpp::source
 {
 
-/**
- * @brief Creates rpp::observable that emits a sequential integer every specified time interval, on the specified scheduler.
- *
- * @marble interval_with_initial
-   {
-       operator "interval(20s, 10s)": +--1-2-3-5->
-   }
- *
- * @param initial duration before first emission
- * @param period period between emitted values
- * @param scheduler the scheduler to use for scheduling the items
- *
- * @par Example:
- * @snippet interval.cpp interval period
- *
- * @ingroup creational_operators
- * @see https://reactivex.io/documentation/operators/interval.html
- */
-template<schedulers::constraint::scheduler TScheduler>
-auto interval(rpp::schedulers::duration initial, rpp::schedulers::duration period, TScheduler&& scheduler)
-{
-    return interval_observable<std::decay_t<TScheduler>, rpp::schedulers::duration>{std::forward<TScheduler>(scheduler), initial, period};
-}
+    /**
+     * @brief Creates rpp::observable that emits a sequential integer every specified time interval, on the specified scheduler.
+     *
+     * @marble interval_with_initial
+       {
+           operator "interval(20s, 10s)": +--1-2-3-5->
+       }
+     *
+     * @param initial duration before first emission
+     * @param period period between emitted values
+     * @param scheduler the scheduler to use for scheduling the items
+     *
+     * @par Example:
+     * @snippet interval.cpp interval period
+     *
+     * @ingroup creational_operators
+     * @see https://reactivex.io/documentation/operators/interval.html
+     */
+    template<schedulers::constraint::scheduler TScheduler>
+    auto interval(rpp::schedulers::duration initial, rpp::schedulers::duration period, TScheduler&& scheduler)
+    {
+        return interval_observable<std::decay_t<TScheduler>, rpp::schedulers::duration>{std::forward<TScheduler>(scheduler), initial, period};
+    }
 
-/**
- * @brief Same rpp::source::interval but using a time_point as initial time instead of a duration.
- *
- * @param initial time_point before first emission
- * @param period period between emitted values
- * @param scheduler the scheduler to use for scheduling the items
- *
- * @ingroup creational_operators
- * @see https://reactivex.io/documentation/operators/interval.html
- */
-template<schedulers::constraint::scheduler TScheduler>
-auto interval(rpp::schedulers::time_point initial, rpp::schedulers::duration period, TScheduler&& scheduler)
-{
-    return interval_observable<std::decay_t<TScheduler>, rpp::schedulers::time_point>{std::forward<TScheduler>(scheduler), initial, period};
-}
+    /**
+     * @brief Same rpp::source::interval but using a time_point as initial time instead of a duration.
+     *
+     * @param initial time_point before first emission
+     * @param period period between emitted values
+     * @param scheduler the scheduler to use for scheduling the items
+     *
+     * @ingroup creational_operators
+     * @see https://reactivex.io/documentation/operators/interval.html
+     */
+    template<schedulers::constraint::scheduler TScheduler>
+    auto interval(rpp::schedulers::time_point initial, rpp::schedulers::duration period, TScheduler&& scheduler)
+    {
+        return interval_observable<std::decay_t<TScheduler>, rpp::schedulers::time_point>{std::forward<TScheduler>(scheduler), initial, period};
+    }
 
-/**
- * @brief Creates rpp::observable that emits a sequential integer every specified time interval, on the specified scheduler.
- *
- * @marble interval
-   {
-       operator "interval(10s)": +-1-2-3-5->
-   }
- * @param period period between emitted values
- * @param scheduler the scheduler to use for scheduling the items
- *
- * @par Example:
- * @snippet interval.cpp interval period
- *
- * @ingroup creational_operators
- * @see https://reactivex.io/documentation/operators/interval.html
- */
-template<schedulers::constraint::scheduler TScheduler>
-auto interval(rpp::schedulers::duration period, TScheduler&& scheduler)
-{
-    return interval(period, period, std::forward<TScheduler>(scheduler));
-}
-}
+    /**
+     * @brief Creates rpp::observable that emits a sequential integer every specified time interval, on the specified scheduler.
+     *
+     * @marble interval
+       {
+           operator "interval(10s)": +-1-2-3-5->
+       }
+     * @param period period between emitted values
+     * @param scheduler the scheduler to use for scheduling the items
+     *
+     * @par Example:
+     * @snippet interval.cpp interval period
+     *
+     * @ingroup creational_operators
+     * @see https://reactivex.io/documentation/operators/interval.html
+     */
+    template<schedulers::constraint::scheduler TScheduler>
+    auto interval(rpp::schedulers::duration period, TScheduler&& scheduler)
+    {
+        return interval(period, period, std::forward<TScheduler>(scheduler));
+    }
+} // namespace rpp::source

@@ -18,11 +18,10 @@ TEST_CASE("start_with works as concat with prepending instead of adding at the e
 {
     auto mock = mock_observer_strategy<int>{};
 
-    auto check = [&]
-    {
+    auto check = [&] {
         SECTION("obtain values from start_with firstly, then from original observable")
         {
-            CHECK(mock.get_received_values() == std::vector{ 2,3,1 });
+            CHECK(mock.get_received_values() == std::vector{2, 3, 1});
             CHECK(mock.get_on_error_count() == 0);
             CHECK(mock.get_on_completed_count() == 1);
         }

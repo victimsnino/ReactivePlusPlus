@@ -16,6 +16,6 @@ class QObject;
 
 namespace rppqt::source
 {
-template<std::derived_from<QObject> TSignalQObject, std::derived_from<TSignalQObject> TObject, typename R,typename ...Args>
-auto from_signal(const TObject& object, R (TSignalQObject::*signal)(Args...));
+    template<std::derived_from<QObject> TSignalQObject, std::derived_from<TSignalQObject> TObject, typename R, typename... Args>
+    auto from_signal(const TObject& object, R (TSignalQObject::*signal)(Args...));
 } // namespace rppqt::source

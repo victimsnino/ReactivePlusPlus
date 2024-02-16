@@ -1,4 +1,5 @@
 #include <rpp/rpp.hpp>
+
 #include <iostream>
 
 /**
@@ -10,8 +11,8 @@ int main()
     rpp::source::just(1, 2, 3, 4, 5)
         | rpp::operators::last()
         | rpp::operators::subscribe(
-            [](const auto &v) { std::cout << "-" << v; },
-            [](const std::exception_ptr &) {},
+            [](const auto& v) { std::cout << "-" << v; },
+            [](const std::exception_ptr&) {},
             []() { std::cout << "-|" << std::endl; });
     // Source: -1-2-3-4-5--|
     // Output: -5-|
@@ -21,8 +22,8 @@ int main()
     rpp::source::empty<int>()
         | rpp::operators::last()
         | rpp::operators::subscribe(
-            [](const auto &v) { std::cout << "-" << v; },
-            [](const std::exception_ptr &) { std::cout << "-x"; },
+            [](const auto& v) { std::cout << "-" << v; },
+            [](const std::exception_ptr&) { std::cout << "-x"; },
             []() { std::cout << "-|" << std::endl; });
     // Source: -1-2-3-4-5--|
     // Output: -x

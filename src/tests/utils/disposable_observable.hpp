@@ -10,16 +10,15 @@
 
 #pragma once
 
-#include <rpp/sources/create.hpp>
-#include <rpp/disposables/composite_disposable.hpp>
-
 #include <snitch/snitch.hpp>
+
+#include <rpp/disposables/composite_disposable.hpp>
+#include <rpp/sources/create.hpp>
 
 template<typename T>
 auto observable_with_disposable(rpp::disposable_wrapper d)
 {
-    return rpp::source::create<T>([d](auto&& obs)
-    {
+    return rpp::source::create<T>([d](auto&& obs) {
         obs.set_upstream(d);
     });
 }
@@ -27,7 +26,7 @@ auto observable_with_disposable(rpp::disposable_wrapper d)
 template<rpp::constraint::decayed_type Type, rpp::details::observables::constraint::disposable_strategy Strategy>
 struct wrapped_observable_strategy_set_upstream
 {
-    using value_type = Type;
+    using value_type                   = Type;
     using expected_disposable_strategy = Strategy;
 
     auto subscribe(auto&& observer) const
@@ -39,7 +38,7 @@ struct wrapped_observable_strategy_set_upstream
 template<rpp::constraint::decayed_type Type, rpp::details::observables::constraint::disposable_strategy Strategy>
 struct wrapped_observable_strategy_no_set_upstream
 {
-    using value_type = Type;
+    using value_type                   = Type;
     using expected_disposable_strategy = Strategy;
 
     auto subscribe(auto&&) const {}
@@ -55,7 +54,7 @@ void test_operator_over_observable_with_disposable(auto&& op)
             auto observable = observable_with_disposable<T>(observable_disposable);
 
             auto observer_disposable = rpp::composite_disposable_wrapper::make();
-            op(observable) | rpp::ops::subscribe(observer_disposable, [](const auto&){});
+            op(observable) | rpp::ops::subscribe(observer_disposable, [](const auto&) {});
 
             observer_disposable.dispose();
         }
@@ -108,5 +107,5 @@ void test_operator_over_observable_with_disposable(auto&& op)
 template<typename T>
 void test_operator_with_disposable(auto&& op)
 {
-    test_operator_over_observable_with_disposable<T>([op](auto&& observable){return observable | op; });
+    test_operator_over_observable_with_disposable<T>([op](auto&& observable) { return observable | op; });
 }

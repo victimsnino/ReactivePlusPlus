@@ -10,50 +10,50 @@
 
 #pragma once
 
-#include <rppqt/schedulers/fwd.hpp>                 // own forwarding
-#include <rpp/schedulers/details/worker.hpp>        // worker
-#include <rppqt/utils/exceptions.hpp>
+#include <rpp/schedulers/details/worker.hpp> // worker
 
-#include <chrono>
-#include <concepts>
+#include <rppqt/schedulers/fwd.hpp> // own forwarding
+#include <rppqt/utils/exceptions.hpp>
 
 #include <QCoreApplication>
 #include <QTimer>
+#include <chrono>
+#include <concepts>
 
 namespace rppqt::schedulers
 {
-/**
- * @brief Schedule provided schedulables to main GUI QT thread (where QApplication placed)
- * @ingroup qt_schedulers
- */
-class main_thread_scheduler final
-{
-private:
-    class worker_strategy
+    /**
+     * @brief Schedule provided schedulables to main GUI QT thread (where QApplication placed)
+     * @ingroup qt_schedulers
+     */
+    class main_thread_scheduler final
     {
-    public:
-        template<rpp::schedulers::constraint::schedulable_handler Handler, typename... Args, rpp::schedulers::constraint::schedulable_fn<Handler, Args...> Fn>
-        static void defer_for(rpp::schedulers::duration duration, Fn&& fn, Handler&& handler, Args&&... args)
+    private:
+        class worker_strategy
         {
-            const auto application = QCoreApplication::instance();
-            if (!application)
-                throw utils::no_active_qapplication{"Pointer to application is null. Create QApplication before using main_thread_scheduler!"};
+        public:
+            template<rpp::schedulers::constraint::schedulable_handler Handler, typename... Args, rpp::schedulers::constraint::schedulable_fn<Handler, Args...> Fn>
+            static void defer_for(rpp::schedulers::duration duration, Fn&& fn, Handler&& handler, Args&&... args)
+            {
+                const auto application = QCoreApplication::instance();
+                if (!application)
+                    throw utils::no_active_qapplication{"Pointer to application is null. Create QApplication before using main_thread_scheduler!"};
 
-            QTimer::singleShot(std::chrono::duration_cast<std::chrono::milliseconds>(duration), application, [fn = std::forward<Fn>(fn), handler = std::forward<Handler>(handler), ... args = std::forward<Args>(args)]() mutable {
-                if (const auto new_duration = fn(handler, args...))
-                    defer_for(new_duration->value, std::move(fn), std::move(handler), std::move(args)...);
-            });
+                QTimer::singleShot(std::chrono::duration_cast<std::chrono::milliseconds>(duration), application, [fn = std::forward<Fn>(fn), handler = std::forward<Handler>(handler), ... args = std::forward<Args>(args)]() mutable {
+                    if (const auto new_duration = fn(handler, args...))
+                        defer_for(new_duration->value, std::move(fn), std::move(handler), std::move(args)...);
+                });
+            }
+
+            static constexpr rpp::schedulers::details::none_disposable get_disposable() { return {}; }
+
+            static rpp::schedulers::time_point now() { return rpp::schedulers::clock_type::now(); }
+        };
+
+    public:
+        static auto create_worker()
+        {
+            return rpp::schedulers::worker<worker_strategy>{};
         }
-
-        static constexpr rpp::schedulers::details::none_disposable get_disposable() { return {}; }
-
-        static rpp::schedulers::time_point now() { return rpp::schedulers::clock_type::now(); }
     };
-
-public:
-    static auto create_worker()
-    {
-        return rpp::schedulers::worker<worker_strategy>{};
-    }
-};
 } // namespace rppqt::schedulers

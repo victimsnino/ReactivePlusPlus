@@ -41,9 +41,8 @@ TEST_CASE("publish subject multicasts values")
                 sub.get_observer().on_next(1);
                 SECTION("observers obtain value")
                 {
-                    auto validate = [](auto mock)
-                    {
-                        CHECK(mock.get_received_values() == std::vector{ 1 });
+                    auto validate = [](auto mock) {
+                        CHECK(mock.get_received_values() == std::vector{1});
                         CHECK(mock.get_total_on_next_count() == 1);
                         CHECK(mock.get_on_error_count() == 0);
                         CHECK(mock.get_on_completed_count() == 0);
@@ -57,8 +56,7 @@ TEST_CASE("publish subject multicasts values")
                 sub.get_observer().on_error(std::make_exception_ptr(std::runtime_error{""}));
                 SECTION("observers obtain error")
                 {
-                    auto validate = [](auto mock)
-                    {
+                    auto validate = [](auto mock) {
                         CHECK(mock.get_total_on_next_count() == 0);
                         CHECK(mock.get_on_error_count() == 1);
                         CHECK(mock.get_on_completed_count() == 0);
@@ -78,8 +76,7 @@ TEST_CASE("publish subject multicasts values")
                 sub.get_observer().on_completed();
                 SECTION("observers obtain on_completed")
                 {
-                    auto validate = [](auto mock)
-                    {
+                    auto validate = [](auto mock) {
                         CHECK(mock.get_total_on_next_count() == 0);
                         CHECK(mock.get_on_error_count() == 0);
                         CHECK(mock.get_on_completed_count() == 1);
@@ -94,19 +91,22 @@ TEST_CASE("publish subject multicasts values")
                         validate(mock_2);
                     }
                 }
-
             }
             SECTION("emit multiple values")
             {
                 SECTION("each sbuscriber obtain first value, then seconds and etc")
                 {
                     sub.get_observer().on_next(1);
-                    auto check_1 = [](auto mock) { CHECK(mock.get_received_values() == std::vector{ 1 }); };
+                    auto check_1 = [](auto mock) {
+                        CHECK(mock.get_received_values() == std::vector{1});
+                    };
                     check_1(mock_1);
                     check_1(mock_2);
 
                     sub.get_observer().on_next(2);
-                    auto check_2 = [](auto mock) { CHECK(mock.get_received_values() == std::vector{ 1,2 }); };
+                    auto check_2 = [](auto mock) {
+                        CHECK(mock.get_received_values() == std::vector{1, 2});
+                    };
                     check_2(mock_1);
                     check_2(mock_2);
                 }
@@ -126,7 +126,7 @@ TEST_CASE("publish subject multicasts values")
                     CHECK(mock_1.get_on_error_count() == 0);
                     CHECK(mock_1.get_on_completed_count() == 0);
 
-                    CHECK(mock_2.get_received_values() == std::vector{ 1 });
+                    CHECK(mock_2.get_received_values() == std::vector{1});
                     CHECK(mock_2.get_total_on_next_count() == 1);
                     CHECK(mock_2.get_on_error_count() == 0);
                     CHECK(mock_2.get_on_completed_count() == 0);
@@ -186,7 +186,7 @@ TEST_CASE("publish subject caches error/completed")
         }
         SECTION("emit error and on_completed")
         {
-            subj.get_observer().on_error(std::make_exception_ptr(std::runtime_error{ "" }));
+            subj.get_observer().on_error(std::make_exception_ptr(std::runtime_error{""}));
             subj.get_observer().on_completed();
             SECTION("subscribe observer after emission")
             {
@@ -202,7 +202,7 @@ TEST_CASE("publish subject caches error/completed")
         SECTION("emit on_completed and error")
         {
             subj.get_observer().on_completed();
-            subj.get_observer().on_error(std::make_exception_ptr(std::runtime_error{ "" }));
+            subj.get_observer().on_error(std::make_exception_ptr(std::runtime_error{""}));
             SECTION("subscribe observer after emission")
             {
                 subj.get_observable().subscribe(mock);

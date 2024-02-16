@@ -19,77 +19,78 @@
 
 namespace rpp::details::observables
 {
-class blocking_disposble final : public base_disposable
-{
-public:
-    void wait()
+    class blocking_disposble final : public base_disposable
     {
-        std::unique_lock lock{m_mutex};
-        m_cv.wait(lock, [this] { return m_completed; });
-    }
-
-    void base_dispose_impl(interface_disposable::Mode) noexcept override
-    {
+    public:
+        void wait()
         {
-            std::lock_guard lock{m_mutex};
-            m_completed = true;
+            std::unique_lock lock{m_mutex};
+            m_cv.wait(lock, [this] { return m_completed; });
         }
-        m_cv.notify_all();
-    }
 
-private:
-    std::mutex              m_mutex{};
-    std::condition_variable m_cv{};
-    bool                    m_completed{};
-};
+        void base_dispose_impl(interface_disposable::Mode) noexcept override
+        {
+            {
+                std::lock_guard lock{m_mutex};
+                m_completed = true;
+            }
+            m_cv.notify_all();
+        }
 
-template<rpp::constraint::decayed_type Type, rpp::constraint::observable_strategy<Type> Strategy>
-class blocking_strategy
-{
-public:
-    using value_type = Type;
-    using expected_disposable_strategy = typename rpp::details::observables::deduce_disposable_strategy_t<Strategy>::template add<1>;
+    private:
+        std::mutex              m_mutex{};
+        std::condition_variable m_cv{};
+        bool                    m_completed{};
+    };
 
-    blocking_strategy(observable<Type, Strategy>&& observable)
-        : m_original{std::move(observable)}
+    template<rpp::constraint::decayed_type Type, rpp::constraint::observable_strategy<Type> Strategy>
+    class blocking_strategy
     {
-    }
+    public:
+        using value_type                   = Type;
+        using expected_disposable_strategy = typename rpp::details::observables::deduce_disposable_strategy_t<Strategy>::template add<1>;
 
-    blocking_strategy(const observable<Type, Strategy>& observable)
-        : m_original{observable}
-    {
-    }
+        blocking_strategy(observable<Type, Strategy>&& observable)
+            : m_original{std::move(observable)}
+        {
+        }
 
-    template<rpp::constraint::observer_strategy<Type> ObserverStrategy>
-    void subscribe(observer<Type, ObserverStrategy>&& obs) const
-    {
-        auto d = disposable_wrapper_impl<blocking_disposble>::make();
-        obs.set_upstream(d);
-        m_original.subscribe(std::move(obs));
+        blocking_strategy(const observable<Type, Strategy>& observable)
+            : m_original{observable}
+        {
+        }
 
-        if (!d.is_disposed())
-            if (const auto locked = d.lock())
-                locked->wait();
-    }
+        template<rpp::constraint::observer_strategy<Type> ObserverStrategy>
+        void subscribe(observer<Type, ObserverStrategy>&& obs) const
+        {
+            auto d = disposable_wrapper_impl<blocking_disposble>::make();
+            obs.set_upstream(d);
+            m_original.subscribe(std::move(obs));
 
-private:
-    RPP_NO_UNIQUE_ADDRESS observable<Type, Strategy> m_original;
-};
-}
+            if (!d.is_disposed())
+                if (const auto locked = d.lock())
+                    locked->wait();
+        }
+
+    private:
+        RPP_NO_UNIQUE_ADDRESS observable<Type, Strategy> m_original;
+    };
+} // namespace rpp::details::observables
 
 namespace rpp
 {
-/**
- * @brief Extension over rpp::observable with set of blocking operators - it waits till completion of underlying observable
- *
- * @par Example:
- * @snippet as_blocking.cpp as_blocking
- *
- * @ingroup observables
- */
-template<constraint::decayed_type Type, constraint::observable_strategy<Type> Strategy>
-class blocking_observable : public observable<Type, details::observables::blocking_strategy<Type, Strategy>> {
-public:
-    using observable<Type, details::observables::blocking_strategy<Type, Strategy>>::observable;
-};
-}
+    /**
+     * @brief Extension over rpp::observable with set of blocking operators - it waits till completion of underlying observable
+     *
+     * @par Example:
+     * @snippet as_blocking.cpp as_blocking
+     *
+     * @ingroup observables
+     */
+    template<constraint::decayed_type Type, constraint::observable_strategy<Type> Strategy>
+    class blocking_observable : public observable<Type, details::observables::blocking_strategy<Type, Strategy>>
+    {
+    public:
+        using observable<Type, details::observables::blocking_strategy<Type, Strategy>>::observable;
+    };
+} // namespace rpp

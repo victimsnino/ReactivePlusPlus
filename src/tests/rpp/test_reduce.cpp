@@ -75,19 +75,19 @@ TEST_CASE("reduce doesn't produce extra copies")
         SECTION("send value by copy")
         {
             copy_count_tracker tracker{};
-            tracker.get_observable(2) | rpp::ops::reduce([](copy_count_tracker&&, auto&& value) {return std::forward<decltype(value)>(value);}) | rpp::ops::subscribe([](copy_count_tracker){}); // NOLINT
+            tracker.get_observable(2) | rpp::ops::reduce([](copy_count_tracker&&, auto&& value) { return std::forward<decltype(value)>(value); }) | rpp::ops::subscribe([](copy_count_tracker) {}); // NOLINT
 
             // first emission: 1 copy to seed
             // second emision: 1 copy FROM lambda + 1 move to seed + 1 move to subscriber
 
-            CHECK(tracker.get_copy_count() == 2); 
+            CHECK(tracker.get_copy_count() == 2);
             CHECK(tracker.get_move_count() == 2);
         }
 
         SECTION("send value by move")
         {
             copy_count_tracker tracker{};
-            tracker.get_observable_for_move(2) | rpp::ops::reduce([](copy_count_tracker&&, auto&& value) {return std::forward<decltype(value)>(value);}) | rpp::ops::subscribe([](copy_count_tracker){}); // NOLINT
+            tracker.get_observable_for_move(2) | rpp::ops::reduce([](copy_count_tracker&&, auto&& value) { return std::forward<decltype(value)>(value); }) | rpp::ops::subscribe([](copy_count_tracker) {}); // NOLINT
 
             // first emission: 1 move to seed
             // second emision: 1 move FROM lambda + 1 move to seed + 1 move to subscriber

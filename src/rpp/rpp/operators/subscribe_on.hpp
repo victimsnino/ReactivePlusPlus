@@ -17,68 +17,68 @@
 
 namespace rpp::operators::details
 {
-template<typename TObservableChainStrategy>
-struct subscribe_on_schedulable
-{
-    RPP_NO_UNIQUE_ADDRESS TObservableChainStrategy observable;
-
-    using Type = typename TObservableChainStrategy::value_type;
-
-    template<rpp::constraint::observer_strategy<Type> ObserverStrategy>
-    rpp::schedulers::optional_delay_from_now operator()(observer<Type, ObserverStrategy>& observer) const
+    template<typename TObservableChainStrategy>
+    struct subscribe_on_schedulable
     {
-        observable.subscribe(std::move(observer));
-        return rpp::schedulers::optional_delay_from_now{};
-    }
-};
+        RPP_NO_UNIQUE_ADDRESS TObservableChainStrategy observable;
 
-template<rpp::schedulers::constraint::scheduler TScheduler>
-struct subscribe_on_t
-{
-    template<rpp::constraint::decayed_type T>
-    struct operator_traits
-    {
-        using result_type = T;
+        using Type = typename TObservableChainStrategy::value_type;
+
+        template<rpp::constraint::observer_strategy<Type> ObserverStrategy>
+        rpp::schedulers::optional_delay_from_now operator()(observer<Type, ObserverStrategy>& observer) const
+        {
+            observable.subscribe(std::move(observer));
+            return rpp::schedulers::optional_delay_from_now{};
+        }
     };
 
-    template<rpp::details::observables::constraint::disposable_strategy Prev>
-    using updated_disposable_strategy = typename Prev::template add<rpp::schedulers::utils::get_worker_t<TScheduler>::is_none_disposable ? 0 : 1>;
-
-    RPP_NO_UNIQUE_ADDRESS TScheduler scheduler;
-
-    template<rpp::constraint::observer Observer, typename... Strategies>
-    void subscribe(Observer&& observer, const observable_chain_strategy<Strategies...>& observable_strategy) const
+    template<rpp::schedulers::constraint::scheduler TScheduler>
+    struct subscribe_on_t
     {
-        const auto worker = scheduler.create_worker();
-        if constexpr (!rpp::schedulers::utils::get_worker_t<TScheduler>::is_none_disposable)
+        template<rpp::constraint::decayed_type T>
+        struct operator_traits
         {
-            if (auto d = worker.get_disposable(); !d.is_disposed())
-                observer.set_upstream(std::move(d));
+            using result_type = T;
+        };
+
+        template<rpp::details::observables::constraint::disposable_strategy Prev>
+        using updated_disposable_strategy = typename Prev::template add<rpp::schedulers::utils::get_worker_t<TScheduler>::is_none_disposable ? 0 : 1>;
+
+        RPP_NO_UNIQUE_ADDRESS TScheduler scheduler;
+
+        template<rpp::constraint::observer Observer, typename... Strategies>
+        void subscribe(Observer&& observer, const observable_chain_strategy<Strategies...>& observable_strategy) const
+        {
+            const auto worker = scheduler.create_worker();
+            if constexpr (!rpp::schedulers::utils::get_worker_t<TScheduler>::is_none_disposable)
+            {
+                if (auto d = worker.get_disposable(); !d.is_disposed())
+                    observer.set_upstream(std::move(d));
+            }
+            worker.schedule(subscribe_on_schedulable<observable_chain_strategy<Strategies...>>{observable_strategy}, std::forward<Observer>(observer));
         }
-        worker.schedule(subscribe_on_schedulable<observable_chain_strategy<Strategies...>>{observable_strategy}, std::forward<Observer>(observer));
-    }
-};
-}
+    };
+} // namespace rpp::operators::details
 
 namespace rpp::operators
 {
-/**
- * @brief OnSubscribe function for this observable will be scheduled via provided scheduler
- *
- * @details Actually this operator just schedules subscription on original observable to provided scheduler
- *
- * @param scheduler is scheduler used for scheduling of OnSubscribe
- * @warning #include <rpp/operators/subscribe_on.hpp>
- *
- * @par Example:
- * @snippet subscribe_on.cpp subscribe_on
- *
- * @ingroup utility_operators
- * @see https://reactivex.io/documentation/operators/subscribeon.html
- */
-template<rpp::schedulers::constraint::scheduler Scheduler>
-auto subscribe_on(Scheduler&& scheduler)
-{
-    return details::subscribe_on_t<std::decay_t<Scheduler>>{std::forward<Scheduler>(scheduler)};
-}
+    /**
+     * @brief OnSubscribe function for this observable will be scheduled via provided scheduler
+     *
+     * @details Actually this operator just schedules subscription on original observable to provided scheduler
+     *
+     * @param scheduler is scheduler used for scheduling of OnSubscribe
+     * @warning #include <rpp/operators/subscribe_on.hpp>
+     *
+     * @par Example:
+     * @snippet subscribe_on.cpp subscribe_on
+     *
+     * @ingroup utility_operators
+     * @see https://reactivex.io/documentation/operators/subscribeon.html
+     */
+    template<rpp::schedulers::constraint::scheduler Scheduler>
+    auto subscribe_on(Scheduler&& scheduler)
+    {
+        return details::subscribe_on_t<std::decay_t<Scheduler>>{std::forward<Scheduler>(scheduler)};
+    }
 } // namespace rpp::operators
