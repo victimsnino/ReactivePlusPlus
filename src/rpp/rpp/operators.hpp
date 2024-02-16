@@ -80,6 +80,7 @@
 #include <rpp/operators/start_with.hpp>
 #include <rpp/operators/switch_on_next.hpp>
 #include <rpp/operators/with_latest_from.hpp>
+#include <rpp/operators/zip.hpp>
 
 /**
  * @defgroup utility_operators Utility Operators
