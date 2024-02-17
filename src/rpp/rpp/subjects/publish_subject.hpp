@@ -79,6 +79,8 @@ namespace rpp::subjects
     template<rpp::constraint::decayed_type Type>
     class publish_subject final : public details::publish_subject_base<Type, false>
     {
+    public:
+        using details::publish_subject_base<Type, false>::publish_subject_base;
     };
 
     /**
@@ -91,5 +93,7 @@ namespace rpp::subjects
     template<rpp::constraint::decayed_type Type>
     class serialized_publish_subject final : public details::publish_subject_base<Type, true>
     {
+    public:
+        using details::publish_subject_base<Type, true>::publish_subject_base;
     };
 } // namespace rpp::subjects

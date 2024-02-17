@@ -37,13 +37,15 @@ namespace rpp::subjects::details
 
     template<rpp::constraint::decayed_type Type, bool Serialized>
     class subject_state : public composite_disposable
-        , public rpp::details::enable_wrapper_from_this<subject_state<Type, Serialized>>
+                        , public rpp::details::enable_wrapper_from_this<subject_state<Type, Serialized>>
     {
         using shared_observers = std::shared_ptr<std::vector<rpp::dynamic_observer<Type>>>;
         using state_t          = std::variant<shared_observers, std::exception_ptr, completed, disposed>;
 
     public:
         using expected_disposable_strategy = rpp::details::observables::atomic_fixed_disposable_strategy_selector<1>;
+
+        subject_state() = default;
 
         template<rpp::constraint::observer_of_type<Type> TObs>
         void on_subscribe(TObs&& observer)
