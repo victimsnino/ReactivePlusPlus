@@ -50,9 +50,9 @@ void test_operator_over_observable_with_disposable(auto&& op)
 {
     SECTION("operator disposes disposable")
     {
-        auto observable_disposable = rpp::composite_disposable_wrapper::make();
+        auto                                    observable_disposable = rpp::composite_disposable_wrapper::make();
         std::optional<rpp::dynamic_observer<T>> saved_observer{};
-        auto observable = rpp::source::create<T>([&observable_disposable, &saved_observer](auto&& obs) {
+        auto                                    observable = rpp::source::create<T>([&observable_disposable, &saved_observer](auto&& obs) {
             obs.set_upstream(observable_disposable);
             saved_observer.emplace(std::forward<decltype(obs)>(obs).as_dynamic());
         });
