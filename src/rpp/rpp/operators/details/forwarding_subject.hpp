@@ -11,8 +11,8 @@
 
 #include <rpp/subjects/fwd.hpp>
 
-#include <rpp/disposables/refcount_disposable.hpp>
 #include <rpp/disposables/disposable_wrapper.hpp>
+#include <rpp/disposables/refcount_disposable.hpp>
 #include <rpp/observers/observer.hpp>
 #include <rpp/sources/create.hpp>
 #include <rpp/subjects/details/subject_state.hpp>
