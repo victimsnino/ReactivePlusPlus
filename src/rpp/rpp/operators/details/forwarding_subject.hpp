@@ -14,7 +14,7 @@
 #include <rpp/disposables/disposable_wrapper.hpp>
 #include <rpp/disposables/refcount_disposable.hpp>
 #include <rpp/observers/observer.hpp>
-#include <rpp/sources/create.hpp>
+#include <rpp/subjects/details/subject_on_subscribe.hpp>
 #include <rpp/subjects/details/subject_state.hpp>
 
 #include <memory>
@@ -56,13 +56,15 @@ namespace rpp::operators::details
 
         auto get_observable() const
         {
-            return rpp::source::create<Type>([state = m_state, refcount = m_refcount]<rpp::constraint::observer_of_type<Type> TObs>(TObs&& observer) {
-                if (const auto locked = refcount.lock())
-                    observer.set_upstream(locked->add_ref());
-                state.lock()->on_subscribe(std::forward<TObs>(observer));
+            return subjects::details::create_subject_on_subscribe_observable<Type, expected_disposable_strategy>([state = m_state.as_weak(), refcount = m_refcount]<rpp::constraint::observer_of_type<Type> TObs>(TObs&& observer) {
+                if (const auto locked_state = state.lock())
+                {
+                    if (const auto locked = refcount.lock())
+                        observer.set_upstream(locked->add_ref());
+                    locked_state->on_subscribe(std::forward<TObs>(observer));
+                }
             });
         }
-
 
         rpp::composite_disposable_wrapper get_disposable() const
         {

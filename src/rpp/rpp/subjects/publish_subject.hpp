@@ -13,7 +13,7 @@
 
 #include <rpp/disposables/disposable_wrapper.hpp>
 #include <rpp/observers/observer.hpp>
-#include <rpp/sources/create.hpp>
+#include <rpp/subjects/details/subject_on_subscribe.hpp>
 #include <rpp/subjects/details/subject_state.hpp>
 
 namespace rpp::subjects::details
@@ -50,7 +50,7 @@ namespace rpp::subjects::details
 
         auto get_observable() const
         {
-            return rpp::source::create<Type>([state = m_state]<rpp::constraint::observer_of_type<Type> TObs>(TObs&& observer) { state.lock()->on_subscribe(std::forward<TObs>(observer)); });
+            return create_subject_on_subscribe_observable<Type, expected_disposable_strategy>([state = m_state]<rpp::constraint::observer_of_type<Type> TObs>(TObs&& observer) { state.lock()->on_subscribe(std::forward<TObs>(observer)); });
         }
 
         rpp::disposable_wrapper get_disposable() const

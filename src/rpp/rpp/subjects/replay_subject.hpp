@@ -14,7 +14,7 @@
 
 #include <rpp/disposables/disposable_wrapper.hpp>
 #include <rpp/observers/observer.hpp>
-#include <rpp/sources/create.hpp>
+#include <rpp/subjects/details/subject_on_subscribe.hpp>
 #include <rpp/subjects/details/subject_state.hpp>
 
 #include <deque>
@@ -84,6 +84,8 @@ namespace rpp::subjects::details
 
         struct observer_strategy
         {
+            using preferred_disposable_strategy = rpp::details::observers::none_disposable_strategy;
+
             std::shared_ptr<replay_state> state;
 
             void set_upstream(const disposable_wrapper& d) const noexcept { state->add(d); }
@@ -102,7 +104,7 @@ namespace rpp::subjects::details
         };
 
     public:
-        using preferred_disposable_strategy = rpp::details::observers::none_disposable_strategy;
+        using expected_disposable_strategy = rpp::details::observables::deduce_disposable_strategy_t<details::subject_state<Type, Serialized>>;
 
         replay_subject_base()
             : m_state{disposable_wrapper_impl<replay_state>::make()}
@@ -126,7 +128,7 @@ namespace rpp::subjects::details
 
         auto get_observable() const
         {
-            return rpp::source::create<Type>([state = m_state]<rpp::constraint::observer_of_type<Type> TObs>(TObs&& observer) {
+            return create_subject_on_subscribe_observable<Type, expected_disposable_strategy>([state = m_state]<rpp::constraint::observer_of_type<Type> TObs>(TObs&& observer) {
                 const auto locked = state.lock();
                 for (auto&& value : locked->get_actual_values())
                     observer.on_next(std::move(value.value));

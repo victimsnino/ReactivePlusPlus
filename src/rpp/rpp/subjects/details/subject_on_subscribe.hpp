@@ -9,30 +9,23 @@
 
 #pragma once
 
-#include <rpp/observables/fwd.hpp>
+#include <rpp/observables/observable.hpp>
+#include <rpp/sources/fwd.hpp>
 
 namespace rpp::subjects::details
 {
-    namespace constraint
+    template<constraint::decayed_type Type, ::rpp::constraint::on_subscribe<Type> OnSubscribe, typename DisposableStrategy>
+    struct subject_on_subscribe_strategy
     {
-        template<typename Strategy, typename T>
-        concept subject_on_subscribe = requires(const Strategy& t, rpp::details::observers::fake_observer<T>&& obs) {
-            t.on_subscribe(std::move(obs));
-        };
-    } // namespace constraint
+        using value_type                   = Type;
+        using expected_disposable_strategy = DisposableStrategy;
 
-    template<rpp::constraint::decayed_type T, constraint::subject_on_subscribe<T> Strategy>
-    struct subject_on_subscribe
-    {
-        using value_type                   = T;
-        using expected_disposable_strategy = rpp::details::observables::deduce_disposable_strategy_t<Strategy>;
-
-        Strategy strategy;
-
-        template<rpp::constraint::observer_of_type<T> TObs>
-        void subscribe(TObs&& sub) const
-        {
-            strategy.on_subscribe(std::forward<TObs>(sub));
-        }
+        RPP_NO_UNIQUE_ADDRESS OnSubscribe subscribe;
     };
+
+    template<constraint::decayed_type Type, typename DisposableStrategy, rpp::constraint::on_subscribe<Type> OnSubscribe>
+    auto create_subject_on_subscribe_observable(OnSubscribe&& on_subscribe)
+    {
+        return rpp::observable<Type, subject_on_subscribe_strategy<Type, std::decay_t<OnSubscribe>, DisposableStrategy>>(std::forward<OnSubscribe>(on_subscribe));
+    }
 } // namespace rpp::subjects::details
