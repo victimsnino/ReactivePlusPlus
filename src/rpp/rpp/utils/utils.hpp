@@ -246,6 +246,13 @@ namespace rpp::utils
         T m_value;
     };
 
+    struct none_mutex
+    {
+        static constexpr void lock() {}
+        static constexpr void unlock() {}
+        static constexpr void try_lock() {}
+    };
+
 #define RPP_CALL_DURING_CONSTRUCTION(...) RPP_NO_UNIQUE_ADDRESS rpp::utils::none _ = [&]() { \
     __VA_ARGS__;                                                                             \
     return rpp::utils::none{};                                                               \

@@ -11,9 +11,10 @@
 
 #include <rpp/subjects/fwd.hpp>
 
+#include <rpp/disposables/disposable_wrapper.hpp>
 #include <rpp/disposables/refcount_disposable.hpp>
 #include <rpp/observers/observer.hpp>
-#include <rpp/subjects/details/base_subject.hpp>
+#include <rpp/subjects/details/subject_on_subscribe.hpp>
 #include <rpp/subjects/details/subject_state.hpp>
 
 #include <memory>
@@ -21,13 +22,13 @@
 namespace rpp::operators::details
 {
     template<rpp::constraint::decayed_type Type>
-    class forwarding_strategy
+    class forwarding_subject
     {
         struct observer_strategy
         {
             using preferred_disposable_strategy = rpp::details::observers::none_disposable_strategy;
 
-            std::shared_ptr<subjects::details::subject_state<Type>> state{};
+            std::shared_ptr<subjects::details::subject_state<Type, false>> state{};
 
             void set_upstream(const disposable_wrapper& d) const noexcept { state->add(d); }
 
@@ -41,9 +42,9 @@ namespace rpp::operators::details
         };
 
     public:
-        using expected_disposable_strategy = typename rpp::details::observables::deduce_disposable_strategy_t<subjects::details::subject_state<Type>>::template add<1>;
+        using expected_disposable_strategy = typename rpp::details::observables::deduce_disposable_strategy_t<subjects::details::subject_state<Type, false>>::template add<1>;
 
-        explicit forwarding_strategy(disposable_wrapper_impl<rpp::refcount_disposable> refcount)
+        explicit forwarding_subject(disposable_wrapper_impl<rpp::refcount_disposable> refcount)
             : m_refcount{std::move(refcount)}
         {
         }
@@ -53,12 +54,16 @@ namespace rpp::operators::details
             return rpp::observer<Type, observer_strategy>{m_state.lock()};
         }
 
-        template<rpp::constraint::observer_of_type<Type> TObs>
-        void on_subscribe(TObs&& observer) const
+        auto get_observable() const
         {
-            if (const auto locked = m_refcount.lock())
-                observer.set_upstream(locked->add_ref());
-            m_state.lock()->on_subscribe(std::forward<TObs>(observer));
+            return subjects::details::create_subject_on_subscribe_observable<Type, expected_disposable_strategy>([state = m_state.as_weak(), refcount = m_refcount]<rpp::constraint::observer_of_type<Type> TObs>(TObs&& observer) {
+                if (const auto locked_state = state.lock())
+                {
+                    if (const auto locked = refcount.lock())
+                        observer.set_upstream(locked->add_ref());
+                    locked_state->on_subscribe(std::forward<TObs>(observer));
+                }
+            });
         }
 
         rpp::composite_disposable_wrapper get_disposable() const
@@ -67,10 +72,7 @@ namespace rpp::operators::details
         }
 
     private:
-        disposable_wrapper_impl<rpp::refcount_disposable>               m_refcount;
-        disposable_wrapper_impl<subjects::details::subject_state<Type>> m_state = disposable_wrapper_impl<subjects::details::subject_state<Type>>::make();
+        disposable_wrapper_impl<rpp::refcount_disposable>                      m_refcount;
+        disposable_wrapper_impl<subjects::details::subject_state<Type, false>> m_state = disposable_wrapper_impl<subjects::details::subject_state<Type, false>>::make();
     };
-
-    template<rpp::constraint::decayed_type Type>
-    using forwarding_subject = subjects::details::base_subject<Type, forwarding_strategy<Type>>;
 } // namespace rpp::operators::details

@@ -90,7 +90,7 @@ namespace rpp::operators::details
         {
             auto queue = get_queue();
             if (queue->empty())
-                return {};
+                return std::nullopt;
             auto observable = queue->front();
             queue->pop();
             return observable;

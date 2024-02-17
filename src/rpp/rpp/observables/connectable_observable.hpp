@@ -68,12 +68,14 @@ namespace rpp
      *
      * @ingroup observables
      */
-    template<rpp::constraint::observable OriginalObservable, rpp::constraint::subject Subject>
+    template<rpp::constraint::observable OriginalObservable, typename Subject>
     class connectable_observable final : public decltype(std::declval<Subject>().get_observable())
     {
         using base = decltype(std::declval<Subject>().get_observable());
 
     public:
+        static_assert(rpp::constraint::subject<Subject>);
+
         connectable_observable(const OriginalObservable& original_observable, const Subject& subject = Subject{})
             : base{subject.get_observable()}
             , m_original_observable{original_observable}

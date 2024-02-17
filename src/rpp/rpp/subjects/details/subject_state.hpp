@@ -35,15 +35,17 @@ namespace rpp::subjects::details
     {
     };
 
-    template<rpp::constraint::decayed_type Type>
-    class subject_state : public std::enable_shared_from_this<subject_state<Type>>
-        , public composite_disposable
+    template<rpp::constraint::decayed_type Type, bool Serialized>
+    class subject_state : public composite_disposable
+        , public rpp::details::enable_wrapper_from_this<subject_state<Type, Serialized>>
     {
         using shared_observers = std::shared_ptr<std::vector<rpp::dynamic_observer<Type>>>;
         using state_t          = std::variant<shared_observers, std::exception_ptr, completed, disposed>;
 
     public:
         using expected_disposable_strategy = rpp::details::observables::atomic_fixed_disposable_strategy_selector<1>;
+
+        subject_state() = default;
 
         template<rpp::constraint::observer_of_type<Type> TObs>
         void on_subscribe(TObs&& observer)
@@ -72,21 +74,28 @@ namespace rpp::subjects::details
 
         void on_next(const Type& v)
         {
+            std::lock_guard lock{m_serialized_mutex};
             if (const auto observers = extract_observers_under_lock_if_there())
                 rpp::utils::for_each(*observers, [&](const auto& sub) { sub.on_next(v); });
         }
 
         void on_error(const std::exception_ptr& err)
         {
-            if (const auto observers = exchange_observers_under_lock_if_there(err))
-                rpp::utils::for_each(*observers, [&](const auto& sub) { sub.on_error(err); });
+            {
+                std::lock_guard lock{m_serialized_mutex};
+                if (const auto observers = exchange_observers_under_lock_if_there(err))
+                    rpp::utils::for_each(*observers, [&](const auto& sub) { sub.on_error(err); });
+            }
             dispose();
         }
 
         void on_completed()
         {
-            if (const auto observers = exchange_observers_under_lock_if_there(completed{}))
-                rpp::utils::for_each(*observers, rpp::utils::static_mem_fn<&dynamic_observer<Type>::on_completed>{});
+            {
+                std::lock_guard lock{m_serialized_mutex};
+                if (const auto observers = exchange_observers_under_lock_if_there(completed{}))
+                    rpp::utils::for_each(*observers, rpp::utils::static_mem_fn<&dynamic_observer<Type>::on_completed>{});
+            }
             dispose();
         }
 
@@ -99,7 +108,7 @@ namespace rpp::subjects::details
         void set_upstream(rpp::dynamic_observer<Type>& obs)
         {
             obs.set_upstream(rpp::disposable_wrapper{make_callback_disposable(
-                [weak = this->weak_from_this()]() noexcept // NOLINT(bugprone-exception-escape)
+                [weak = this->wrapper_from_this().as_weak()]() noexcept // NOLINT(bugprone-exception-escape)
                 {
                     if (const auto shared = weak.lock())
                     {
@@ -163,7 +172,8 @@ namespace rpp::subjects::details
         }
 
     private:
-        state_t    m_state{};
-        std::mutex m_mutex{};
+        state_t                                                                                  m_state{};
+        std::mutex                                                                               m_mutex{};
+        RPP_NO_UNIQUE_ADDRESS std::conditional_t<Serialized, std::mutex, rpp::utils::none_mutex> m_serialized_mutex{};
     };
 } // namespace rpp::subjects::details
