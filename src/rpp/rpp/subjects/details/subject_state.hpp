@@ -36,8 +36,7 @@ namespace rpp::subjects::details
     };
 
     template<rpp::constraint::decayed_type Type, bool Serialized>
-    class subject_state : public std::enable_shared_from_this<subject_state<Type, Serialized>>
-        , public composite_disposable
+    class subject_state : public composite_disposable, public rpp::details::enable_wrapper_from_this<subject_state<Type, Serialized>>
     {
         using shared_observers = std::shared_ptr<std::vector<rpp::dynamic_observer<Type>>>;
         using state_t          = std::variant<shared_observers, std::exception_ptr, completed, disposed>;
@@ -106,7 +105,7 @@ namespace rpp::subjects::details
         void set_upstream(rpp::dynamic_observer<Type>& obs)
         {
             obs.set_upstream(rpp::disposable_wrapper{make_callback_disposable(
-                [weak = this->weak_from_this()]() noexcept // NOLINT(bugprone-exception-escape)
+                [weak = this->wrapper_from_this()]() noexcept // NOLINT(bugprone-exception-escape)
                 {
                     if (const auto shared = weak.lock())
                     {

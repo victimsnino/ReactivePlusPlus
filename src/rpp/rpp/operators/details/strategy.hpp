@@ -46,7 +46,7 @@ namespace rpp::operators::details
         static auto apply(Observer&& observer, const Args&... vals)
         {
             static_assert(rpp::constraint::observer_of_type<std::decay_t<Observer>, typename Operator::template operator_traits<Type>::result_type>);
-            return rpp::observer<Type, typename Operator::template operator_traits<Type>::template observer_strategy<std::decay_t<Observer>>>{std::forward<Observer>(observer), vals...};
+            return rpp::observer<Type, typename Operator::template operator_traits<Type>::template observer_strategy<std::decay_t<Observer>>>{std::forward<Observer>(observer), vals...}; // NOLINT
         }
 
     private:
