@@ -43,10 +43,11 @@ namespace rpp::subjects::details
 
             struct value_with_time
             {
-                value_with_time(const Type& v, rpp::schedulers::clock_type::time_point timepoint) 
+                value_with_time(const Type& v, rpp::schedulers::clock_type::time_point timepoint)
                     : value{v}
                     , timepoint{timepoint}
-                {}
+                {
+                }
 
                 Type                                    value;
                 rpp::schedulers::clock_type::time_point timepoint;

@@ -69,7 +69,7 @@ namespace rpp::operators::details
         }
 
     private:
-        disposable_wrapper_impl<rpp::refcount_disposable>               m_refcount;
+        disposable_wrapper_impl<rpp::refcount_disposable>                      m_refcount;
         disposable_wrapper_impl<subjects::details::subject_state<Type, false>> m_state = disposable_wrapper_impl<subjects::details::subject_state<Type, false>>::make();
     };
 

@@ -19,7 +19,7 @@ namespace rpp::subjects::details
         concept subject_on_subscribe = requires(const Strategy& t, rpp::details::observers::fake_observer<T>&& obs) {
             t.on_subscribe(std::move(obs));
         };
-    }
+    } // namespace constraint
 
     template<rpp::constraint::decayed_type T, constraint::subject_on_subscribe<T> Strategy>
     struct subject_on_subscribe

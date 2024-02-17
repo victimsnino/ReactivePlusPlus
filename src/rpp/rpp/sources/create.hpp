@@ -18,7 +18,7 @@ namespace rpp::details
     template<constraint::decayed_type Type, constraint::on_subscribe<Type> OnSubscribe>
     struct create_strategy
     {
-        using value_type = Type;
+        using value_type                   = Type;
         using expected_disposable_strategy = rpp::details::observables::deduce_disposable_strategy_t<OnSubscribe>;
 
         RPP_NO_UNIQUE_ADDRESS OnSubscribe subscribe;

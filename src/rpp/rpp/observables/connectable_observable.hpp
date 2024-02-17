@@ -75,7 +75,7 @@ namespace rpp
 
     public:
         static_assert(rpp::constraint::subject<Subject>);
-        
+
         connectable_observable(const OriginalObservable& original_observable, const Subject& subject = Subject{})
             : base{subject.get_observable()}
             , m_original_observable{original_observable}

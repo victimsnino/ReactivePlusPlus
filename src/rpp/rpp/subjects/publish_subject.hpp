@@ -50,7 +50,7 @@ namespace rpp::subjects::details
 
         auto get_observable() const
         {
-            return rpp::source::create<Type>([state=m_state]<rpp::constraint::observer_of_type<Type> TObs>(TObs&& observer) { state.lock()->on_subscribe(std::forward<TObs>(observer)); });
+            return rpp::source::create<Type>([state = m_state]<rpp::constraint::observer_of_type<Type> TObs>(TObs&& observer) { state.lock()->on_subscribe(std::forward<TObs>(observer)); });
         }
 
         rpp::disposable_wrapper get_disposable() const
@@ -61,7 +61,7 @@ namespace rpp::subjects::details
     private:
         disposable_wrapper_impl<details::subject_state<Type, Serialized>> m_state = disposable_wrapper_impl<subject_state<Type, Serialized>>::make();
     };
-}
+} // namespace rpp::subjects::details
 namespace rpp::subjects
 {
     /**
@@ -77,7 +77,9 @@ namespace rpp::subjects
      * @see https://reactivex.io/documentation/subject.html
      */
     template<rpp::constraint::decayed_type Type>
-    class publish_subject final : public details::publish_subject_base<Type, false>{};
+    class publish_subject final : public details::publish_subject_base<Type, false>
+    {
+    };
 
     /**
      * @brief Serialized version of rpp::subjects::publish_subject
@@ -87,5 +89,7 @@ namespace rpp::subjects
      * @see https://reactivex.io/documentation/subject.html
      */
     template<rpp::constraint::decayed_type Type>
-    class serialized_publish_subject final : public details::publish_subject_base<Type, true>{};
+    class serialized_publish_subject final : public details::publish_subject_base<Type, true>
+    {
+    };
 } // namespace rpp::subjects

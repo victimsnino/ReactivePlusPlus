@@ -398,15 +398,15 @@ TEMPLATE_TEST_CASE("replay subject doesn't introduce additional copies", "", rpp
         auto sub = TestType{};
 
         sub.get_observable().subscribe([](copy_count_tracker tracker) { // NOLINT
-            CHECK(tracker.get_copy_count() == 2); // 1 copy to internal replay buffer + 1 copy to this observer
-            CHECK(tracker.get_move_count() == 0); 
+            CHECK(tracker.get_copy_count() == 2);                       // 1 copy to internal replay buffer + 1 copy to this observer
+            CHECK(tracker.get_move_count() == 0);
         });
 
         sub.get_observer().on_next(copy_count_tracker{});
 
         sub.get_observable().subscribe([](copy_count_tracker tracker) { // NOLINT
-            CHECK(tracker.get_copy_count() == 2+1); // + 1 copy values from buffer for this observer
-            CHECK(tracker.get_move_count() == 0+1); // + 1 move to this observer
+            CHECK(tracker.get_copy_count() == 2 + 1);                   // + 1 copy values from buffer for this observer
+            CHECK(tracker.get_move_count() == 0 + 1);                   // + 1 move to this observer
         });
     }
 
@@ -416,15 +416,15 @@ TEMPLATE_TEST_CASE("replay subject doesn't introduce additional copies", "", rpp
         auto               sub = TestType{};
 
         sub.get_observable().subscribe([](copy_count_tracker tracker) { // NOLINT
-            CHECK(tracker.get_copy_count() == 2); // 1 copy to internal replay buffer + 1 copy to this observer
+            CHECK(tracker.get_copy_count() == 2);                       // 1 copy to internal replay buffer + 1 copy to this observer
             CHECK(tracker.get_move_count() == 0);
         });
 
         sub.get_observer().on_next(tracker);
 
         sub.get_observable().subscribe([](copy_count_tracker tracker) { // NOLINT
-            CHECK(tracker.get_copy_count() == 2+1); // + 1 copy values from buffer for this observer
-            CHECK(tracker.get_move_count() == 0+1); // + 1 move to this observer
+            CHECK(tracker.get_copy_count() == 2 + 1);                   // + 1 copy values from buffer for this observer
+            CHECK(tracker.get_move_count() == 0 + 1);                   // + 1 move to this observer
         });
     }
 }

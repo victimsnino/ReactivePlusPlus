@@ -10,8 +10,8 @@
 #pragma once
 
 #include <rpp/disposables/fwd.hpp>
-#include <rpp/observers/fwd.hpp>
 #include <rpp/observables/fwd.hpp>
+#include <rpp/observers/fwd.hpp>
 
 #include <rpp/utils/constraints.hpp>
 #include <rpp/utils/utils.hpp>
@@ -20,7 +20,7 @@ namespace rpp::subjects
 {
     template<rpp::constraint::decayed_type Type>
     class publish_subject;
-    
+
     template<rpp::constraint::decayed_type Type>
     class serialized_publish_subject;
 
@@ -31,19 +31,24 @@ namespace rpp::subjects
     template<rpp::constraint::decayed_type Type>
     class serialized_replay_subject;
 
-    
+
 } // namespace rpp::subjects
 
 namespace rpp::constraint
 {
     template<typename T>
-    concept subject = requires(const T& subj)
-    {
-        { subj.get_observer() } -> rpp::constraint::observer;
-        { subj.get_observable() } -> rpp::constraint::observable;
-        { subj.get_disposable() } -> rpp::constraint::decayed_any_of<rpp::disposable_wrapper, rpp::composite_disposable_wrapper>;
+    concept subject = requires(const T& subj) {
+        {
+            subj.get_observer()
+        } -> rpp::constraint::observer;
+        {
+            subj.get_observable()
+        } -> rpp::constraint::observable;
+        {
+            subj.get_disposable()
+        } -> rpp::constraint::decayed_any_of<rpp::disposable_wrapper, rpp::composite_disposable_wrapper>;
     };
-}
+} // namespace rpp::constraint
 
 namespace rpp::subjects::utils
 {
