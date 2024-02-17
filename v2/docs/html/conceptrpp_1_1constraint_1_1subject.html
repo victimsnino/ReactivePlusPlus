@@ -103,8 +103,20 @@ $(function(){initNavTree('conceptrpp_1_1constraint_1_1subject.html',''); initRes
 <div class="contents">
 <h2 class="groupheader">Concept definition</h2>
 <div class="fragment"><div class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><span class="keyword">concept </span><a class="code hl_concept" href="conceptrpp_1_1constraint_1_1subject.html">rpp::constraint::subject</a> =  rpp::utils::is_base_of_v&lt;T, rpp::subjects::details::base_subject&gt;</div>
-<div class="ttc" id="aconceptrpp_1_1constraint_1_1subject_html"><div class="ttname"><a href="conceptrpp_1_1constraint_1_1subject.html">rpp::constraint::subject</a></div><div class="ttdef"><b>Definition</b> fwd.hpp:61</div></div>
+<div class="line"><span class="keyword">concept </span><a class="code hl_concept" href="conceptrpp_1_1constraint_1_1subject.html">rpp::constraint::subject</a> =  <span class="keyword">requires</span>(<span class="keyword">const</span> T&amp; subj) {</div>
+<div class="line">        {</div>
+<div class="line">            subj.get_observer()</div>
+<div class="line">        } -&gt; <a class="code hl_concept" href="conceptrpp_1_1constraint_1_1observer.html">rpp::constraint::observer</a>;</div>
+<div class="line">        {</div>
+<div class="line">            subj.get_observable()</div>
+<div class="line">        } -&gt; <a class="code hl_concept" href="conceptrpp_1_1constraint_1_1observable.html">rpp::constraint::observable</a>;</div>
+<div class="line">        {</div>
+<div class="line">            subj.get_disposable()</div>
+<div class="line">        } -&gt; rpp::constraint::decayed_any_of&lt;rpp::disposable_wrapper, rpp::composite_disposable_wrapper&gt;;</div>
+<div class="line">    }</div>
+<div class="ttc" id="aconceptrpp_1_1constraint_1_1observable_html"><div class="ttname"><a href="conceptrpp_1_1constraint_1_1observable.html">rpp::constraint::observable</a></div><div class="ttdef"><b>Definition</b> fwd.hpp:67</div></div>
+<div class="ttc" id="aconceptrpp_1_1constraint_1_1observer_html"><div class="ttname"><a href="conceptrpp_1_1constraint_1_1observer.html">rpp::constraint::observer</a></div><div class="ttdef"><b>Definition</b> fwd.hpp:235</div></div>
+<div class="ttc" id="aconceptrpp_1_1constraint_1_1subject_html"><div class="ttname"><a href="conceptrpp_1_1constraint_1_1subject.html">rpp::constraint::subject</a></div><div class="ttdef"><b>Definition</b> fwd.hpp:40</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

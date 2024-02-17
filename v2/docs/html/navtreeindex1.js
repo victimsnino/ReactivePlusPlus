@@ -1,9 +1,5 @@
 var NAVTREEINDEX1 =
 {
-"group__creational__operators.html#gab5cc2df8f7221b124d67d66de60a7bcd":[1,0,3,7,0],
-"group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df":[1,0,3,7,2],
-"group__creational__operators.html#gad15a7e8bfb2f7ce0af1b44e22918116c":[1,0,3,7,8],
-"group__creational__operators.html#gad29c2904de57d176ccaf2614409789de":[1,0,3,7,5],
 "group__creational__operators.html#gad9a4bddea3780850a01b82b481951d18":[1,0,3,7,4],
 "group__creational__operators.html#gae68c87e7ae3a505258b733082bf68513":[1,0,3,7,3],
 "group__creational__operators.html#gae7248892783797dda894e18b2b499586":[1,0,3,7,15],
@@ -143,7 +139,6 @@ var NAVTREEINDEX1 =
 "scan_8cpp-example.html":[5,24],
 "scan_8hpp_source.html":[4,0,0,0,0,3,23],
 "schedulers_2details_2utils_8hpp_source.html":[4,0,0,0,0,4,0,1],
-"serialized__subject_8hpp_source.html":[4,0,0,0,0,6,4],
 "skip_8cpp-example.html":[5,25],
 "skip_8hpp_source.html":[4,0,0,0,0,3,24],
 "sources_2concat_8hpp_source.html":[4,0,0,0,0,5,0],
@@ -249,5 +244,10 @@ var NAVTREEINDEX1 =
 "structrpp_1_1operators_1_1details_1_1reduce__t_1_1operator__traits.html":[3,0,0,2,0,54,0],
 "structrpp_1_1operators_1_1details_1_1ref__count__t.html":[3,0,0,2,0,55],
 "structrpp_1_1operators_1_1details_1_1repeat__t.html":[3,0,0,2,0,56],
-"structrpp_1_1operators_1_1details_1_1scan__no__seed__observer__strategy.html":[3,0,0,2,0,57]
+"structrpp_1_1operators_1_1details_1_1scan__no__seed__observer__strategy.html":[3,0,0,2,0,57],
+"structrpp_1_1operators_1_1details_1_1scan__no__seed__t.html":[3,0,0,2,0,58],
+"structrpp_1_1operators_1_1details_1_1scan__no__seed__t_1_1operator__traits.html":[3,0,0,2,0,58,0],
+"structrpp_1_1operators_1_1details_1_1scan__observer__strategy.html":[3,0,0,2,0,59],
+"structrpp_1_1operators_1_1details_1_1scan__t.html":[3,0,0,2,0,60],
+"structrpp_1_1operators_1_1details_1_1scan__t_1_1operator__traits.html":[3,0,0,2,0,60,0]
 };

@@ -91,7 +91,7 @@ var annotated_dup =
           [ "first_observer_strategy", "structrpp_1_1operators_1_1details_1_1first__observer__strategy.html", null ],
           [ "first_t", "structrpp_1_1operators_1_1details_1_1first__t.html", "structrpp_1_1operators_1_1details_1_1first__t" ],
           [ "flat_map_t", "structrpp_1_1operators_1_1details_1_1flat__map__t.html", null ],
-          [ "forwarding_strategy", "classrpp_1_1operators_1_1details_1_1forwarding__strategy.html", null ],
+          [ "forwarding_subject", "classrpp_1_1operators_1_1details_1_1forwarding__subject.html", null ],
           [ "group_by_inner_observer_strategy", "structrpp_1_1operators_1_1details_1_1group__by__inner__observer__strategy.html", null ],
           [ "group_by_observable_strategy", "structrpp_1_1operators_1_1details_1_1group__by__observable__strategy.html", null ],
           [ "group_by_observer_strategy", "structrpp_1_1operators_1_1details_1_1group__by__observer__strategy.html", null ],
@@ -197,18 +197,17 @@ var annotated_dup =
       ] ],
       [ "subjects", null, [
         [ "details", null, [
-          [ "base_subject", "classrpp_1_1subjects_1_1details_1_1base__subject.html", null ],
           [ "completed", "structrpp_1_1subjects_1_1details_1_1completed.html", null ],
           [ "disposed", "structrpp_1_1subjects_1_1details_1_1disposed.html", null ],
-          [ "publish_strategy", "classrpp_1_1subjects_1_1details_1_1publish__strategy.html", null ],
-          [ "replay_strategy", "classrpp_1_1subjects_1_1details_1_1replay__strategy.html", null ],
-          [ "serialized_strategy", "classrpp_1_1subjects_1_1details_1_1serialized__strategy.html", null ],
+          [ "publish_subject_base", "classrpp_1_1subjects_1_1details_1_1publish__subject__base.html", null ],
+          [ "replay_subject_base", "classrpp_1_1subjects_1_1details_1_1replay__subject__base.html", null ],
+          [ "subject_on_subscribe_strategy", "structrpp_1_1subjects_1_1details_1_1subject__on__subscribe__strategy.html", null ],
           [ "subject_state", "classrpp_1_1subjects_1_1details_1_1subject__state.html", null ]
         ] ],
         [ "publish_subject", "classrpp_1_1subjects_1_1publish__subject.html", null ],
         [ "replay_subject", "classrpp_1_1subjects_1_1replay__subject.html", null ],
-        [ "serialized_replay_subject", "classrpp_1_1subjects_1_1serialized__replay__subject.html", null ],
-        [ "serialized_subject", "classrpp_1_1subjects_1_1serialized__subject.html", null ]
+        [ "serialized_publish_subject", "classrpp_1_1subjects_1_1serialized__publish__subject.html", null ],
+        [ "serialized_replay_subject", "classrpp_1_1subjects_1_1serialized__replay__subject.html", null ]
       ] ],
       [ "blocking_observable", "classrpp_1_1blocking__observable.html", null ],
       [ "callback_disposable", "classrpp_1_1callback__disposable.html", null ],

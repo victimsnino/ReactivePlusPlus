@@ -162,7 +162,7 @@ RPP follows this contract and especially this part. It means, that\+:
 \item Any user-\/provided callbacks (for operators or observers) can be not thread-\/safe due to thread-\/safety of observable is guaranteed. ~\newline
  For example\+: internal logic of {\ttfamily take} operator doesn\textquotesingle{}t use mutexes or atomics due to underlying observable {\bfseries{MUST}} emit items serially
 \item When you implement your own operator via {\ttfamily create} be careful to {\bfseries{follow this contract}}!
-\item It is true {\bfseries{EXCEPT FOR}} subjects if they are used manually due to users can use subjects for its own purposes there is potentially place for breaking this concept. Be careful and use serialized\+\_\+subject instead if can\textquotesingle{}t guarantee serial emissions!
+\item It is true {\bfseries{EXCEPT FOR}} subjects if they are used manually due to users can use subjects for its own purposes there is potentially place for breaking this concept. Be careful and use serialized\+\_\+\texorpdfstring{$\ast$}{*} instead if can\textquotesingle{}t guarantee serial emissions!
 \end{DoxyEnumerate}
 
 It means, that for example\+:

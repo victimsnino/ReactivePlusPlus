@@ -16,16 +16,19 @@ Inheritance diagram for rpp\+::subjects\+::publish\+\_\+subject\texorpdfstring{$
 \end{center}
 \end{figure}
 \doxysubsubsection*{Additional Inherited Members}
-\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classrpp_1_1subjects_1_1details_1_1base__subject}{rpp\+::subjects\+::details\+::base\+\_\+subject$<$ Type, details\+::publish\+\_\+strategy$<$ Type $>$ $>$}}}
+\doxysubsection*{Public Types inherited from \mbox{\hyperlink{classrpp_1_1subjects_1_1details_1_1publish__subject__base}{rpp\+::subjects\+::details\+::publish\+\_\+subject\+\_\+base$<$ Type, false $>$}}}
 \begin{DoxyCompactItemize}
 \item 
-{\bfseries base\+\_\+subject} (Args \&\&... args)
+using {\bfseries expected\+\_\+disposable\+\_\+strategy}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classrpp_1_1subjects_1_1details_1_1publish__subject__base}{rpp\+::subjects\+::details\+::publish\+\_\+subject\+\_\+base$<$ Type, false $>$}}}
+\begin{DoxyCompactItemize}
 \item 
 auto {\bfseries get\+\_\+observer} () const
 \item 
 auto {\bfseries get\+\_\+observable} () const
 \item 
-auto {\bfseries get\+\_\+disposable} () const
+\mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp\+::disposable\+\_\+wrapper}} {\bfseries get\+\_\+disposable} () const
 \end{DoxyCompactItemize}
 
 
@@ -37,7 +40,7 @@ Subject which just multicasts values to observers subscribed on it. It contains 
 Each observer obtains only values which emitted after corresponding subscribe. on\+\_\+error/on\+\_\+completer/unsubscribe cached and provided to new observers if any
 
 \begin{DoxyWarning}{Warning}
-this subject is not synchronized/serialized! It means, that expected to call callbacks of observer in the serialized way to follow observable contract\+: "{}\+Observables must issue notifications to observers serially (not in parallel)."{}. If you are not sure or need extra serialization, please, use \doxylink{classrpp_1_1subjects_1_1serialized__subject}{serialized\+\_\+subject}.
+this subject is not synchronized/serialized! It means, that expected to call callbacks of observer in the serialized way to follow observable contract\+: "{}\+Observables must issue notifications to observers serially (not in parallel)."{}. If you are not sure or need extra serialization, please, use \doxylink{classrpp_1_1subjects_1_1serialized__publish__subject}{serialized\+\_\+publish\+\_\+subject}.
 \end{DoxyWarning}
 
 \begin{DoxyTemplParams}{Template Parameters}

@@ -5,7 +5,7 @@
 %%For: 
 %Magnification: 1.00
 %%Orientation: Portrait
-%%BoundingBox: 0 0 500 82.135521
+%%BoundingBox: 0 0 500 117.994102
 %%Pages: 0
 %%BeginSetup
 %%EndSetup
@@ -19,7 +19,7 @@
 /marginwidth 10 def
 /distx 20 def
 /disty 40 def
-/boundaspect 6.087500 def  % aspect ratio of the BoundingBox (width/height)
+/boundaspect 4.237500 def  % aspect ratio of the BoundingBox (width/height)
 /boundx 500 def
 /boundy boundx boundaspect div def
 /xspacing 0 def
@@ -174,7 +174,7 @@
 boxfont setfont
 1 boundaspect scale
 (rpp::subjects::serialized_replay_subject< Type >) cw
-(rpp::subjects::details::base_subject< Type, details::replay_strategy< Type, true > >) cw
+(rpp::subjects::details::replay_subject_base< Type, true >) cw
 /boxwidth boxwidth marginwidth 2 mul add def
 /xspacing boxwidth distx add def
 /yspacing boxheight disty add def
@@ -187,7 +187,7 @@ boundx scalefactor div boundy scalefactor div scale
 % ----- classes -----
 
  (rpp::subjects::serialized_replay_subject< Type >) 0.000000 0.000000 box
- (rpp::subjects::details::base_subject< Type, details::replay_strategy< Type, true > >) 0.000000 1.000000 box
+ (rpp::subjects::details::replay_subject_base< Type, true >) 0.000000 1.000000 box
 
 % ----- relations -----
 

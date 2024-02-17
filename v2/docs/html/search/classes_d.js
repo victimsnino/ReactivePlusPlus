@@ -10,7 +10,9 @@ var searchData=
   ['refcount_5fdisposable_7',['refcount_disposable',['../classrpp_1_1refcount__disposable.html',1,'rpp']]],
   ['refocunt_5fdisposable_5finner_8',['refocunt_disposable_inner',['../classrpp_1_1details_1_1refocunt__disposable__inner.html',1,'rpp::details']]],
   ['repeat_5ft_9',['repeat_t',['../structrpp_1_1operators_1_1details_1_1repeat__t.html',1,'rpp::operators::details']]],
-  ['replay_5fstrategy_10',['replay_strategy',['../classrpp_1_1subjects_1_1details_1_1replay__strategy.html',1,'rpp::subjects::details']]],
-  ['replay_5fsubject_11',['replay_subject',['../classrpp_1_1subjects_1_1replay__subject.html',1,'rpp::subjects']]],
-  ['run_5floop_12',['run_loop',['../classrpp_1_1schedulers_1_1run__loop.html',1,'rpp::schedulers']]]
+  ['replay_5fsubject_10',['replay_subject',['../classrpp_1_1subjects_1_1replay__subject.html',1,'rpp::subjects']]],
+  ['replay_5fsubject_5fbase_11',['replay_subject_base',['../classrpp_1_1subjects_1_1details_1_1replay__subject__base.html',1,'rpp::subjects::details']]],
+  ['replay_5fsubject_5fbase_3c_20type_2c_20false_20_3e_12',['replay_subject_base&lt; Type, false &gt;',['../classrpp_1_1subjects_1_1details_1_1replay__subject__base.html',1,'rpp::subjects::details']]],
+  ['replay_5fsubject_5fbase_3c_20type_2c_20true_20_3e_13',['replay_subject_base&lt; Type, true &gt;',['../classrpp_1_1subjects_1_1details_1_1replay__subject__base.html',1,'rpp::subjects::details']]],
+  ['run_5floop_14',['run_loop',['../classrpp_1_1schedulers_1_1run__loop.html',1,'rpp::schedulers']]]
 ];

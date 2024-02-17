@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.10.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ReactivePlusPlus: rpp::subjects::details::replay_strategy&lt; Type, Serialized &gt; Class Template Reference</title>
+<title>ReactivePlusPlus: rpp::operators::details::forwarding_subject&lt; Type &gt; Class Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -72,7 +72,7 @@ var searchBox = new SearchBox("searchBox", "search/",'.html');
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(function(){initNavTree('classrpp_1_1subjects_1_1details_1_1replay__strategy.html',''); initResizable(); });
+$(function(){initNavTree('classrpp_1_1operators_1_1details_1_1forwarding__subject.html',''); initResizable(); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -101,45 +101,41 @@ $(function(){initNavTree('classrpp_1_1subjects_1_1details_1_1replay__strategy.ht
   <div class="summary">
 <a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="classrpp_1_1subjects_1_1details_1_1replay__strategy-members.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">rpp::subjects::details::replay_strategy&lt; Type, Serialized &gt; Class Template Reference</div></div>
+<a href="classrpp_1_1operators_1_1details_1_1forwarding__subject-members.html">List of all members</a>  </div>
+  <div class="headertitle"><div class="title">rpp::operators::details::forwarding_subject&lt; Type &gt; Class Template Reference</div></div>
 </div><!--header-->
 <div class="contents">
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:ad6944204013b86c4e54805bdf3cbc7f8" id="r_ad6944204013b86c4e54805bdf3cbc7f8"><td class="memItemLeft" align="right" valign="top"><a id="ad6944204013b86c4e54805bdf3cbc7f8" name="ad6944204013b86c4e54805bdf3cbc7f8"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><b>preferred_disposable_strategy</b> = <a class="el" href="structrpp_1_1details_1_1observers_1_1none__disposable__strategy.html">rpp::details::observers::none_disposable_strategy</a></td></tr>
-<tr class="separator:ad6944204013b86c4e54805bdf3cbc7f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6ace7f37f725a55dc942f6f827ec1970" id="r_a6ace7f37f725a55dc942f6f827ec1970"><td class="memItemLeft" align="right" valign="top"><a id="a6ace7f37f725a55dc942f6f827ec1970" name="a6ace7f37f725a55dc942f6f827ec1970"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>expected_disposable_strategy</b> = typename rpp::details::observables::deduce_disposable_strategy_t&lt;<a class="el" href="classrpp_1_1subjects_1_1details_1_1subject__state.html">subjects::details::subject_state</a>&lt;Type, false&gt;&gt;::template add&lt;1&gt;</td></tr>
+<tr class="separator:a6ace7f37f725a55dc942f6f827ec1970"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ae43ddf4145cfca01732404c3fc5bd3a1" id="r_ae43ddf4145cfca01732404c3fc5bd3a1"><td class="memItemLeft" align="right" valign="top"><a id="ae43ddf4145cfca01732404c3fc5bd3a1" name="ae43ddf4145cfca01732404c3fc5bd3a1"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>replay_strategy</b> (size_t count)</td></tr>
-<tr class="separator:ae43ddf4145cfca01732404c3fc5bd3a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aeaeab9c0196cea61d92ff7292cd0e8f2" id="r_aeaeab9c0196cea61d92ff7292cd0e8f2"><td class="memItemLeft" align="right" valign="top"><a id="aeaeab9c0196cea61d92ff7292cd0e8f2" name="aeaeab9c0196cea61d92ff7292cd0e8f2"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>replay_strategy</b> (size_t count, rpp::schedulers::duration duration)</td></tr>
-<tr class="separator:aeaeab9c0196cea61d92ff7292cd0e8f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac12d738244df1d863896579f18a20cfd" id="r_ac12d738244df1d863896579f18a20cfd"><td class="memItemLeft" align="right" valign="top"><a id="ac12d738244df1d863896579f18a20cfd" name="ac12d738244df1d863896579f18a20cfd"></a>
+<tr class="memitem:a9fe2f20cc10c6e1d385447b34d0abe2d" id="r_a9fe2f20cc10c6e1d385447b34d0abe2d"><td class="memItemLeft" align="right" valign="top"><a id="a9fe2f20cc10c6e1d385447b34d0abe2d" name="a9fe2f20cc10c6e1d385447b34d0abe2d"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>forwarding_subject</b> (<a class="el" href="classrpp_1_1disposable__wrapper__impl.html">disposable_wrapper_impl</a>&lt; <a class="el" href="classrpp_1_1refcount__disposable.html">rpp::refcount_disposable</a> &gt; refcount)</td></tr>
+<tr class="separator:a9fe2f20cc10c6e1d385447b34d0abe2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a60ad39f951f01ac351df3d233aad2554" id="r_a60ad39f951f01ac351df3d233aad2554"><td class="memItemLeft" align="right" valign="top"><a id="a60ad39f951f01ac351df3d233aad2554" name="a60ad39f951f01ac351df3d233aad2554"></a>
 auto&#160;</td><td class="memItemRight" valign="bottom"><b>get_observer</b> () const</td></tr>
-<tr class="separator:ac12d738244df1d863896579f18a20cfd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abf8c170382d543e07a9247916af50244" id="r_abf8c170382d543e07a9247916af50244"><td class="memTemplParams" colspan="2"><a id="abf8c170382d543e07a9247916af50244" name="abf8c170382d543e07a9247916af50244"></a>
-template&lt;<a class="el" href="conceptrpp_1_1constraint_1_1observer__of__type.html">rpp::constraint::observer_of_type</a>&lt; Type &gt; TObs&gt; </td></tr>
-<tr class="memitem:abf8c170382d543e07a9247916af50244"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>on_subscribe</b> (TObs &amp;&amp;<a class="el" href="classrpp_1_1observer.html">observer</a>) const</td></tr>
-<tr class="separator:abf8c170382d543e07a9247916af50244"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a55a222a6bcf646f9836656a710c71761" id="r_a55a222a6bcf646f9836656a710c71761"><td class="memItemLeft" align="right" valign="top"><a id="a55a222a6bcf646f9836656a710c71761" name="a55a222a6bcf646f9836656a710c71761"></a>
-<a class="el" href="classrpp_1_1disposable__wrapper__impl.html">rpp::disposable_wrapper</a>&#160;</td><td class="memItemRight" valign="bottom"><b>get_disposable</b> () const</td></tr>
-<tr class="separator:a55a222a6bcf646f9836656a710c71761"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="separator:a60ad39f951f01ac351df3d233aad2554"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeab5a8b23d3d4b7d784101ca18ccc04e" id="r_aeab5a8b23d3d4b7d784101ca18ccc04e"><td class="memItemLeft" align="right" valign="top"><a id="aeab5a8b23d3d4b7d784101ca18ccc04e" name="aeab5a8b23d3d4b7d784101ca18ccc04e"></a>
+auto&#160;</td><td class="memItemRight" valign="bottom"><b>get_observable</b> () const</td></tr>
+<tr class="separator:aeab5a8b23d3d4b7d784101ca18ccc04e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af573f3b88a51b213f362ac4f46c61ae8" id="r_af573f3b88a51b213f362ac4f46c61ae8"><td class="memItemLeft" align="right" valign="top"><a id="af573f3b88a51b213f362ac4f46c61ae8" name="af573f3b88a51b213f362ac4f46c61ae8"></a>
+<a class="el" href="classrpp_1_1disposable__wrapper__impl.html">rpp::composite_disposable_wrapper</a>&#160;</td><td class="memItemRight" valign="bottom"><b>get_disposable</b> () const</td></tr>
+<tr class="separator:af573f3b88a51b213f362ac4f46c61ae8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>src/rpp/rpp/subjects/<a class="el" href="replay__subject_8hpp_source.html">replay_subject.hpp</a></li>
+<li>src/rpp/rpp/operators/details/<a class="el" href="forwarding__subject_8hpp_source.html">forwarding_subject.hpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>rpp</b></li><li class="navelem"><b>subjects</b></li><li class="navelem"><b>details</b></li><li class="navelem"><a class="el" href="classrpp_1_1subjects_1_1details_1_1replay__strategy.html">replay_strategy</a></li>
+    <li class="navelem"><b>rpp</b></li><li class="navelem"><b>operators</b></li><li class="navelem"><b>details</b></li><li class="navelem"><a class="el" href="classrpp_1_1operators_1_1details_1_1forwarding__subject.html">forwarding_subject</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
   </ul>
 </div>

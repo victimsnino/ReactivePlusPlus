@@ -16,16 +16,23 @@ Inheritance diagram for rpp\+::subjects\+::serialized\+\_\+replay\+\_\+subject\t
 \end{center}
 \end{figure}
 \doxysubsubsection*{Additional Inherited Members}
-\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classrpp_1_1subjects_1_1details_1_1base__subject}{rpp\+::subjects\+::details\+::base\+\_\+subject$<$ Type, details\+::replay\+\_\+strategy$<$ Type, true $>$ $>$}}}
+\doxysubsection*{Public Types inherited from \mbox{\hyperlink{classrpp_1_1subjects_1_1details_1_1replay__subject__base}{rpp\+::subjects\+::details\+::replay\+\_\+subject\+\_\+base$<$ Type, true $>$}}}
 \begin{DoxyCompactItemize}
 \item 
-{\bfseries base\+\_\+subject} (Args \&\&... args)
+using {\bfseries expected\+\_\+disposable\+\_\+strategy}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classrpp_1_1subjects_1_1details_1_1replay__subject__base}{rpp\+::subjects\+::details\+::replay\+\_\+subject\+\_\+base$<$ Type, true $>$}}}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries replay\+\_\+subject\+\_\+base} (size\+\_\+t count)
+\item 
+{\bfseries replay\+\_\+subject\+\_\+base} (size\+\_\+t count, rpp\+::schedulers\+::duration duration)
 \item 
 auto {\bfseries get\+\_\+observer} () const
 \item 
 auto {\bfseries get\+\_\+observable} () const
 \item 
-auto {\bfseries get\+\_\+disposable} () const
+\mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp\+::disposable\+\_\+wrapper}} {\bfseries get\+\_\+disposable} () const
 \end{DoxyCompactItemize}
 
 
@@ -34,6 +41,8 @@ auto {\bfseries get\+\_\+disposable} () const
 class rpp\+::subjects\+::serialized\+\_\+replay\+\_\+subject$<$ Type $>$}
 Same as \doxylink{classrpp_1_1subjects_1_1replay__subject}{rpp\+::subjects\+::replay\+\_\+subject} but on\+\_\+next/on\+\_\+error/on\+\_\+completed calls are serialized via mutex. 
 
+When you are using ordinary \doxylink{classrpp_1_1subjects_1_1replay__subject}{rpp\+::subjects\+::replay\+\_\+subject}, then you must take care not to call its on\+\_\+next method (or its other on methods) in async way.
+
 \begin{DoxySeeAlso}{See also}
 \href{https://reactivex.io/documentation/subject.html}{\texttt{ https\+://reactivex.\+io/documentation/subject.\+html}} 
 \end{DoxySeeAlso}
@@ -41,4 +50,4 @@ Same as \doxylink{classrpp_1_1subjects_1_1replay__subject}{rpp\+::subjects\+::re
 
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-src/rpp/rpp/subjects/replay\+\_\+subject.\+hpp\end{DoxyCompactItemize}
+src/rpp/rpp/subjects/fwd.\+hpp\end{DoxyCompactItemize}

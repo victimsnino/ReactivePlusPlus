@@ -35,7 +35,7 @@
 \DoxyCodeLine{00031\ \ \ \ \ \{}
 \DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }Observable\ =\ rpp::utils::extract\_observer\_type\_t<TObserver>;}
 \DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }value\_type\ =\ rpp::utils::extract\_observable\_type\_t<Observable>;}
-\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{classrpp_1_1subjects_1_1details_1_1base__subject}{Subject}}\ \ \ \ =\ \mbox{\hyperlink{classrpp_1_1subjects_1_1details_1_1base__subject}{forwarding\_subject<value\_type>}};}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1forwarding__subject}{Subject}}\ \ \ \ =\ \mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1forwarding__subject}{forwarding\_subject<value\_type>}};}
 \DoxyCodeLine{00035\ }
 \DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static\_assert}(std::same\_as<Observable,\ decltype(std::declval<Subject>().get\_observable())>);}
 \DoxyCodeLine{00037\ }
@@ -55,7 +55,7 @@
 \DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ need\ to\ send\ new\ subject\ due\ to\ NEW\ item\ appeared\ (we\ avoid\ sending\ new\ subjects\ if\ no\ any\ new\ items)}}
 \DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (m\_items\_in\_current\_window\ ==\ m\_window\_size)}
 \DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrpp_1_1subjects_1_1details_1_1base__subject}{Subject}}\ subject\{m\_disposable-\/>wrapper\_from\_this()\};}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1forwarding__subject}{Subject}}\ subject\{m\_disposable-\/>wrapper\_from\_this()\};}
 \DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ m\_subject\_data.emplace(subject\_data\{subject.get\_observer(),\ subject.get\_disposable()\});}
 \DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ m\_disposable-\/>add(m\_subject\_data-\/>disposable);}
 \DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ m\_observer.on\_next(subject.get\_observable());}

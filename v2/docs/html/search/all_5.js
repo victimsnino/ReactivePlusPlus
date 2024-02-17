@@ -13,7 +13,7 @@ var searchData=
   ['fixed_5fdisposable_5fstrategy_5fselector_3c_200_2c_20mode_20_3e_10',['fixed_disposable_strategy_selector&lt; 0, Mode &gt;',['../structrpp_1_1details_1_1observables_1_1fixed__disposable__strategy__selector_3_010_00_01_mode_01_4.html',1,'rpp::details::observables']]],
   ['flat_5fmap_11',['flat_map',['../group__transforming__operators.html#ga633883e796101ceeab821e2a4912bd5e',1,'rpp::operators']]],
   ['flat_5fmap_5ft_12',['flat_map_t',['../structrpp_1_1operators_1_1details_1_1flat__map__t.html',1,'rpp::operators::details']]],
-  ['forwarding_5fstrategy_13',['forwarding_strategy',['../classrpp_1_1operators_1_1details_1_1forwarding__strategy.html',1,'rpp::operators::details']]],
+  ['forwarding_5fsubject_13',['forwarding_subject',['../classrpp_1_1operators_1_1details_1_1forwarding__subject.html',1,'rpp::operators::details']]],
   ['from_5fcallable_14',['from_callable',['../group__creational__operators.html#ga519523490394660d7e8c46d2d5612f75',1,'rpp::source']]],
   ['from_5fcallable_5finvoke_15',['from_callable_invoke',['../structrpp_1_1details_1_1from__callable__invoke.html',1,'rpp::details']]],
   ['from_5fiterable_16',['from_iterable',['../group__creational__operators.html#gad15a7e8bfb2f7ce0af1b44e22918116c',1,'rpp::source']]],

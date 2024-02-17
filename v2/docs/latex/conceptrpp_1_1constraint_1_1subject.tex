@@ -4,6 +4,16 @@
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
-\DoxyCodeLine{\textcolor{keyword}{concept\ }\mbox{\hyperlink{conceptrpp_1_1constraint_1_1subject}{rpp::constraint::subject}}\ =\ \ rpp::utils::is\_base\_of\_v<T,\ rpp::subjects::details::base\_subject>}
+\DoxyCodeLine{\textcolor{keyword}{concept\ }\mbox{\hyperlink{conceptrpp_1_1constraint_1_1subject}{rpp::constraint::subject}}\ =\ \ \textcolor{keyword}{requires}(\textcolor{keyword}{const}\ T\&\ subj)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ subj.get\_observer()}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \}\ -\/>\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer}{rpp::constraint::observer}};}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ subj.get\_observable()}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \}\ -\/>\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp::constraint::observable}};}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ subj.get\_disposable()}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \}\ -\/>\ rpp::constraint::decayed\_any\_of<rpp::disposable\_wrapper,\ rpp::composite\_disposable\_wrapper>;}
+\DoxyCodeLine{\ \ \ \ \}}
 
 \end{DoxyCode}

@@ -58,13 +58,6 @@ var concepts =
           [ "worker", "conceptrpp_1_1schedulers_1_1constraint_1_1worker.html", null ],
           [ "scheduler", "conceptrpp_1_1schedulers_1_1constraint_1_1scheduler.html", null ]
         ] ]
-      ] ],
-      [ "subjects", null, [
-        [ "details", null, [
-          [ "constraint", null, [
-            [ "subject_strategy", "conceptrpp_1_1subjects_1_1details_1_1constraint_1_1subject__strategy.html", null ]
-          ] ]
-        ] ]
       ] ]
     ] ]
 ];
