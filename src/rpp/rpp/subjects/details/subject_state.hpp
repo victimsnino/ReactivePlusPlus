@@ -35,8 +35,8 @@ namespace rpp::subjects::details
     {
     };
 
-    template<rpp::constraint::decayed_type Type>
-    class subject_state : public std::enable_shared_from_this<subject_state<Type>>
+    template<rpp::constraint::decayed_type Type, bool Serialized>
+    class subject_state : public std::enable_shared_from_this<subject_state<Type, Serialized>>
         , public composite_disposable
     {
         using shared_observers = std::shared_ptr<std::vector<rpp::dynamic_observer<Type>>>;
@@ -72,21 +72,28 @@ namespace rpp::subjects::details
 
         void on_next(const Type& v)
         {
+            std::lock_guard lock{m_serialized_mutex};
             if (const auto observers = extract_observers_under_lock_if_there())
                 rpp::utils::for_each(*observers, [&](const auto& sub) { sub.on_next(v); });
         }
 
         void on_error(const std::exception_ptr& err)
         {
-            if (const auto observers = exchange_observers_under_lock_if_there(err))
-                rpp::utils::for_each(*observers, [&](const auto& sub) { sub.on_error(err); });
+            {
+                std::lock_guard lock{m_serialized_mutex};
+                if (const auto observers = exchange_observers_under_lock_if_there(err))
+                    rpp::utils::for_each(*observers, [&](const auto& sub) { sub.on_error(err); });
+            }
             dispose();
         }
 
         void on_completed()
         {
-            if (const auto observers = exchange_observers_under_lock_if_there(completed{}))
-                rpp::utils::for_each(*observers, rpp::utils::static_mem_fn<&dynamic_observer<Type>::on_completed>{});
+            {
+                std::lock_guard lock{m_serialized_mutex};
+                if (const auto observers = exchange_observers_under_lock_if_there(completed{}))
+                    rpp::utils::for_each(*observers, rpp::utils::static_mem_fn<&dynamic_observer<Type>::on_completed>{});
+            }
             dispose();
         }
 
@@ -163,7 +170,8 @@ namespace rpp::subjects::details
         }
 
     private:
-        state_t    m_state{};
-        std::mutex m_mutex{};
+        state_t                                                                                  m_state{};
+        std::mutex                                                                               m_mutex{};
+        RPP_NO_UNIQUE_ADDRESS std::conditional_t<Serialized, std::mutex, rpp::utils::none_mutex> m_serialized_mutex{};
     };
 } // namespace rpp::subjects::details

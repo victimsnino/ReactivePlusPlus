@@ -10,7 +10,6 @@
 #pragma once
 
 #include <rpp/observers/fwd.hpp>
-#include <rpp/subjects/fwd.hpp>
 
 #include <rpp/observables/details/disposable_strategy.hpp>
 #include <rpp/utils/constraints.hpp>
@@ -70,7 +69,7 @@ namespace rpp::constraint
 
 namespace rpp
 {
-    template<rpp::constraint::observable OriginalObservable, rpp::constraint::subject Subject>
+    template<rpp::constraint::observable OriginalObservable, typename Subject>
     class connectable_observable;
 } // namespace rpp
 

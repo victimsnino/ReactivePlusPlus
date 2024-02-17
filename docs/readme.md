@@ -143,7 +143,7 @@ RPP follows this contract and especially this part. It means, that:
 2. Any user-provided callbacks (for operators or observers) can be not thread-safe due to thread-safety of observable is guaranteed. <br>
    For example: internal logic of `take` operator doesn't use mutexes or atomics due to underlying observable **MUST** emit items serially
 3. When you implement your own operator via `create` be careful to **follow this contract**!
-4. It is true **EXCEPT FOR** subjects if they are used manually due to users can use subjects for its own purposes there is potentially place for breaking this concept. Be careful and use serialized_subject instead if can't guarantee serial emissions!
+4. It is true **EXCEPT FOR** subjects if they are used manually due to users can use subjects for its own purposes there is potentially place for breaking this concept. Be careful and use serialized_* instead if can't guarantee serial emissions!
 
 It means, that for example:
 

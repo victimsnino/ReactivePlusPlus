@@ -13,7 +13,7 @@
 
 #include <rpp/disposables/refcount_disposable.hpp>
 #include <rpp/observers/observer.hpp>
-#include <rpp/subjects/details/base_subject.hpp>
+#include <rpp/sources/create.hpp>
 #include <rpp/subjects/details/subject_state.hpp>
 
 #include <memory>
@@ -27,7 +27,7 @@ namespace rpp::operators::details
         {
             using preferred_disposable_strategy = rpp::details::observers::none_disposable_strategy;
 
-            std::shared_ptr<subjects::details::subject_state<Type>> state{};
+            std::shared_ptr<subjects::details::subject_state<Type, false>> state{};
 
             void set_upstream(const disposable_wrapper& d) const noexcept { state->add(d); }
 
@@ -53,13 +53,15 @@ namespace rpp::operators::details
             return rpp::observer<Type, observer_strategy>{m_state.lock()};
         }
 
-        template<rpp::constraint::observer_of_type<Type> TObs>
-        void on_subscribe(TObs&& observer) const
+        auto get_observable() const
         {
-            if (const auto locked = m_refcount.lock())
-                observer.set_upstream(locked->add_ref());
-            m_state.lock()->on_subscribe(std::forward<TObs>(observer));
+            return rpp::source::create<Type>([state = m_state, refcount = m_refcount]<rpp::constraint::observer_of_type<Type> TObs>(TObs&& observer) {
+                if (const auto locked = refcount.lock())
+                    observer.set_upstream(locked->add_ref());
+                state.lock()->on_subscribe(std::forward<TObs>(observer));
+            });
         }
+
 
         rpp::composite_disposable_wrapper get_disposable() const
         {
@@ -68,7 +70,7 @@ namespace rpp::operators::details
 
     private:
         disposable_wrapper_impl<rpp::refcount_disposable>               m_refcount;
-        disposable_wrapper_impl<subjects::details::subject_state<Type>> m_state = disposable_wrapper_impl<subjects::details::subject_state<Type>>::make();
+        disposable_wrapper_impl<subjects::details::subject_state<Type, false>> m_state = disposable_wrapper_impl<subjects::details::subject_state<Type, false>>::make();
     };
 
     template<rpp::constraint::decayed_type Type>

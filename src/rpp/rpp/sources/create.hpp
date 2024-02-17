@@ -19,6 +19,7 @@ namespace rpp::details
     struct create_strategy
     {
         using value_type = Type;
+        using expected_disposable_strategy = rpp::details::observables::deduce_disposable_strategy_t<OnSubscribe>;
 
         RPP_NO_UNIQUE_ADDRESS OnSubscribe subscribe;
     };

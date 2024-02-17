@@ -15,7 +15,6 @@
 #include <rpp/sources/create.hpp>
 #include <rpp/subjects/publish_subject.hpp>
 #include <rpp/subjects/replay_subject.hpp>
-#include <rpp/subjects/serialized_subject.hpp>
 
 #include "copy_count_tracker.hpp"
 #include "mock_observer.hpp"
@@ -232,7 +231,7 @@ TEST_CASE("publish subject caches error/completed")
     }
 }
 
-TEMPLATE_TEST_CASE("serialized subjects handles race condition", "", rpp::subjects::serialized_subject<int>, rpp::subjects::serialized_replay_subject<int>)
+TEMPLATE_TEST_CASE("serialized subjects handles race condition", "", rpp::subjects::serialized_publish_subject<int>, rpp::subjects::serialized_replay_subject<int>)
 {
     auto subj = TestType{};
 
@@ -398,16 +397,16 @@ TEMPLATE_TEST_CASE("replay subject doesn't introduce additional copies", "", rpp
     {
         auto sub = TestType{};
 
-        sub.get_observable().subscribe([](const copy_count_tracker& tracker) {
-            CHECK(tracker.get_copy_count() == 0);
-            CHECK(tracker.get_move_count() == 1); // 1 move to internal replay buffer
+        sub.get_observable().subscribe([](copy_count_tracker tracker) { // NOLINT
+            CHECK(tracker.get_copy_count() == 2); // 1 copy to internal replay buffer + 1 copy to this observer
+            CHECK(tracker.get_move_count() == 0); 
         });
 
         sub.get_observer().on_next(copy_count_tracker{});
 
-        sub.get_observable().subscribe([](const copy_count_tracker& tracker) {
-            CHECK(tracker.get_copy_count() == 0);
-            CHECK(tracker.get_move_count() == 1); // 1 move to internal replay buffer
+        sub.get_observable().subscribe([](copy_count_tracker tracker) { // NOLINT
+            CHECK(tracker.get_copy_count() == 2+1); // + 1 copy values from buffer for this observer
+            CHECK(tracker.get_move_count() == 0+1); // + 1 move to this observer
         });
     }
 
@@ -416,16 +415,16 @@ TEMPLATE_TEST_CASE("replay subject doesn't introduce additional copies", "", rpp
         copy_count_tracker tracker{};
         auto               sub = TestType{};
 
-        sub.get_observable().subscribe([](const copy_count_tracker& tracker) {
-            CHECK(tracker.get_copy_count() == 1); // 1 copy to internal replay buffer
+        sub.get_observable().subscribe([](copy_count_tracker tracker) { // NOLINT
+            CHECK(tracker.get_copy_count() == 2); // 1 copy to internal replay buffer + 1 copy to this observer
             CHECK(tracker.get_move_count() == 0);
         });
 
         sub.get_observer().on_next(tracker);
 
-        sub.get_observable().subscribe([](const copy_count_tracker& tracker) {
-            CHECK(tracker.get_copy_count() == 1); // 1 copy to internal replay buffer
-            CHECK(tracker.get_move_count() == 0);
+        sub.get_observable().subscribe([](copy_count_tracker tracker) { // NOLINT
+            CHECK(tracker.get_copy_count() == 2+1); // + 1 copy values from buffer for this observer
+            CHECK(tracker.get_move_count() == 0+1); // + 1 move to this observer
         });
     }
 }

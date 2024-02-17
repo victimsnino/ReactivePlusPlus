@@ -18,4 +18,4 @@
  */
 
 #include <rpp/subjects/publish_subject.hpp>
-#include <rpp/subjects/serialized_subject.hpp>
+#include <rpp/subjects/replay_subject.hpp>
