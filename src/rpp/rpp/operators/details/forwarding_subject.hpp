@@ -21,7 +21,7 @@
 namespace rpp::operators::details
 {
     template<rpp::constraint::decayed_type Type>
-    class forwarding_strategy
+    class forwarding_subject
     {
         struct observer_strategy
         {
@@ -41,9 +41,9 @@ namespace rpp::operators::details
         };
 
     public:
-        using expected_disposable_strategy = typename rpp::details::observables::deduce_disposable_strategy_t<subjects::details::subject_state<Type>>::template add<1>;
+        using expected_disposable_strategy = typename rpp::details::observables::deduce_disposable_strategy_t<subjects::details::subject_state<Type, false>>::template add<1>;
 
-        explicit forwarding_strategy(disposable_wrapper_impl<rpp::refcount_disposable> refcount)
+        explicit forwarding_subject(disposable_wrapper_impl<rpp::refcount_disposable> refcount)
             : m_refcount{std::move(refcount)}
         {
         }
@@ -72,7 +72,4 @@ namespace rpp::operators::details
         disposable_wrapper_impl<rpp::refcount_disposable>                      m_refcount;
         disposable_wrapper_impl<subjects::details::subject_state<Type, false>> m_state = disposable_wrapper_impl<subjects::details::subject_state<Type, false>>::make();
     };
-
-    template<rpp::constraint::decayed_type Type>
-    using forwarding_subject = subjects::details::base_subject<Type, forwarding_strategy<Type>>;
 } // namespace rpp::operators::details
