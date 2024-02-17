@@ -108,7 +108,7 @@ namespace rpp::subjects::details
         void set_upstream(rpp::dynamic_observer<Type>& obs)
         {
             obs.set_upstream(rpp::disposable_wrapper{make_callback_disposable(
-                [weak = this->wrapper_from_this()]() noexcept // NOLINT(bugprone-exception-escape)
+                [weak = this->wrapper_from_this().as_weak()]() noexcept // NOLINT(bugprone-exception-escape)
                 {
                     if (const auto shared = weak.lock())
                     {
