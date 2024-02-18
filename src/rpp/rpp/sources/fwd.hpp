@@ -61,12 +61,31 @@ namespace rpp::source
         requires constraint::observable<utils::iterable_value_t<Iterable>>
     auto concat(Iterable&& iterable);
 
-    template<constraint::decayed_type Type>
-    auto never();
+    template<std::invocable Factory>
+        requires rpp::constraint::observable<std::invoke_result_t<Factory>>
+    auto defer(Factory&& observable_factory);
 
     template<constraint::decayed_type Type>
     auto error(std::exception_ptr err);
 
     template<constraint::decayed_type Type>
     auto empty();
+
+    template<schedulers::constraint::scheduler TScheduler>
+    auto interval(rpp::schedulers::duration initial, rpp::schedulers::duration period, TScheduler&& scheduler);
+
+    template<schedulers::constraint::scheduler TScheduler>
+    auto interval(rpp::schedulers::time_point initial, rpp::schedulers::duration period, TScheduler&& scheduler);
+
+    template<schedulers::constraint::scheduler TScheduler>
+    auto interval(rpp::schedulers::duration period, TScheduler&& scheduler);
+
+    template<constraint::decayed_type Type>
+    auto never();
+
+    template<schedulers::constraint::scheduler TScheduler>
+    auto timer(rpp::schedulers::duration when, TScheduler&& scheduler);
+
+    template<schedulers::constraint::scheduler TScheduler>
+    auto timer(rpp::schedulers::time_point when, TScheduler&& scheduler);
 } // namespace rpp::source
