@@ -190,7 +190,7 @@ $(function(){initNavTree('tap_8hpp_source.html',''); initResizable(); });
 <div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span> </div>
 <div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span><span class="keyword">namespace </span>rpp::operators</div>
 <div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>{</div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>    <span class="keyword">template</span>&lt;std::invocable&lt;const std::exception_ptr&amp;&gt; OnError = rpp::utils::empty_function_t&lt;std::exception_ptr&gt;&gt;</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>    <span class="keyword">template</span>&lt;std::invocable&lt;const std::exception_ptr&amp;&gt; OnError <span class="comment">/* = rpp::utils::empty_function_t&lt;std::exception_ptr&gt; */</span>&gt;</div>
 <div class="foldopen" id="foldopen00093" data-start="{" data-end="}">
 <div class="line"><a id="l00093" name="l00093"></a><span class="lineno"><a class="line" href="group__utility__operators.html#gabfc589f5344d5231e52fb539fb5bd6ca">   93</a></span>    <span class="keyword">auto</span> <a class="code hl_function" href="group__utility__operators.html#gabfc589f5344d5231e52fb539fb5bd6ca">tap</a>(OnError&amp;&amp; on_error)</div>
 <div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>    {</div>
@@ -204,7 +204,7 @@ $(function(){initNavTree('tap_8hpp_source.html',''); initResizable(); });
 <div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>    }</div>
 </div>
 <div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span> </div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>    <span class="keyword">template</span>&lt;std::invocable&lt;&gt; OnCompleted = rpp::utils::empty_function_t&lt;&gt;&gt;</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>    <span class="keyword">template</span>&lt;std::invocable&lt;&gt; OnCompleted <span class="comment">/* = rpp::utils::empty_function_t&lt;&gt; */</span>&gt;</div>
 <div class="foldopen" id="foldopen00113" data-start="{" data-end="}">
 <div class="line"><a id="l00113" name="l00113"></a><span class="lineno"><a class="line" href="group__utility__operators.html#ga4278374427b8cb7d2e69de046ed5a4c9">  113</a></span>    <span class="keyword">auto</span> <a class="code hl_function" href="group__utility__operators.html#gabfc589f5344d5231e52fb539fb5bd6ca">tap</a>(OnCompleted&amp;&amp; on_completed)</div>
 <div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>    {</div>
@@ -219,7 +219,7 @@ $(function(){initNavTree('tap_8hpp_source.html',''); initResizable(); });
 </div>
 <div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span> </div>
 <div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> OnNext,</div>
-<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>             std::invocable&lt;&gt; OnCompleted = rpp::utils::empty_function_t&lt;&gt;&gt;</div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>             std::invocable&lt;&gt; OnCompleted <span class="comment">/* = rpp::utils::empty_function_t&lt;&gt; */</span>&gt;</div>
 <div class="foldopen" id="foldopen00135" data-start="{" data-end="}">
 <div class="line"><a id="l00135" name="l00135"></a><span class="lineno"><a class="line" href="group__utility__operators.html#ga93b6a728431216d1eabf2074616667fe">  135</a></span>    <span class="keyword">auto</span> <a class="code hl_function" href="group__utility__operators.html#gabfc589f5344d5231e52fb539fb5bd6ca">tap</a>(OnNext&amp;&amp;      on_next,</div>
 <div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>             OnCompleted&amp;&amp; on_completed)</div>
@@ -233,15 +233,15 @@ $(function(){initNavTree('tap_8hpp_source.html',''); initResizable(); });
 <div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>    }</div>
 </div>
 <div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span> </div>
-<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> OnNext                                       = rpp::utils::empty_function_any_t,</div>
-<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>             std::invocable&lt;const std::exception_ptr&amp;&gt; OnError     = rpp::utils::empty_function_t&lt;std::exception_ptr&gt;,</div>
-<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>             std::invocable&lt;&gt;                          OnCompleted = rpp::utils::empty_function_t&lt;&gt;&gt;</div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> OnNext <span class="comment">/* = rpp::utils::empty_function_any_t */</span>,</div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>             std::invocable&lt;const std::exception_ptr&amp;&gt; OnError <span class="comment">/* = rpp::utils::empty_function_t&lt;std::exception_ptr&gt; */</span>,</div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>             std::invocable&lt;&gt;                          OnCompleted <span class="comment">/* = rpp::utils::empty_function_t&lt;&gt; */</span>&gt;</div>
 <div class="foldopen" id="foldopen00159" data-start="{" data-end="}">
-<div class="line"><a id="l00159" name="l00159"></a><span class="lineno"><a class="line" href="group__utility__operators.html#ga89a6b2a41bc181084595a0e2927ed83b">  159</a></span>    <span class="keyword">auto</span> <a class="code hl_function" href="group__utility__operators.html#gabfc589f5344d5231e52fb539fb5bd6ca">tap</a>(OnNext&amp;&amp;      on_next      = {},</div>
-<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>             OnError&amp;&amp;     on_error     = {},</div>
-<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>             OnCompleted&amp;&amp; on_completed = {})</div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno"><a class="line" href="group__utility__operators.html#ga0ba6586e8ece142ca52ab831ce282ee3">  159</a></span>    <span class="keyword">auto</span> <a class="code hl_function" href="group__utility__operators.html#gabfc589f5344d5231e52fb539fb5bd6ca">tap</a>(OnNext&amp;&amp;      on_next <span class="comment">/* = {} */</span>,</div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>             OnError&amp;&amp;     on_error <span class="comment">/* = {} */</span>,</div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>             OnCompleted&amp;&amp; on_completed <span class="comment">/* = {} */</span>)</div>
 <div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>    {</div>
-<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>        <span class="keywordflow">return</span> details::tap_t&lt;std::decay_t&lt;OnNext&gt;, std::decay_t&lt;OnError&gt;, std::decay_t&lt;OnCompleted&gt;&gt;{</div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>        <span class="keywordflow">return</span> <a class="code hl_struct" href="structrpp_1_1operators_1_1details_1_1tap__t.html">details::tap_t&lt;std::decay_t&lt;OnNext&gt;</a>, std::decay_t&lt;OnError&gt;, std::decay_t&lt;OnCompleted&gt;&gt;{</div>
 <div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>            std::forward&lt;OnNext&gt;(on_next),</div>
 <div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>            std::forward&lt;OnError&gt;(on_error),</div>
 <div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>            std::forward&lt;OnCompleted&gt;(on_completed)};</div>
