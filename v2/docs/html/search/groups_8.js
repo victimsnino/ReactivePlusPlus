@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['transforming_20operators_0',['Transforming Operators',['../group__transforming__operators.html',1,'']]]
+  ['rpp_0',['RPP',['../group__rpp.html',1,'']]],
+  ['rppqt_1',['RPPQT',['../group__rppqt.html',1,'']]]
 ];

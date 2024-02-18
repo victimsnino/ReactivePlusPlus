@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['filtering_20operators_0',['Filtering Operators',['../group__filtering__operators.html',1,'']]]
+  ['error_20handling_20operators_0',['Error Handling Operators',['../group__error__handling__operators.html',1,'']]]
 ];

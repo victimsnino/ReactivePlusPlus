@@ -163,6 +163,9 @@ var hierarchy =
     [ "rpp::operators::details::lift_operator< map_t< Fn >, Fn >", "classrpp_1_1operators_1_1details_1_1lift__operator.html", [
       [ "rpp::operators::details::map_t< Fn >", "structrpp_1_1operators_1_1details_1_1map__t.html", null ]
     ] ],
+    [ "rpp::operators::details::lift_operator< on_error_resume_next_t< Selector >, Selector >", "classrpp_1_1operators_1_1details_1_1lift__operator.html", [
+      [ "rpp::operators::details::on_error_resume_next_t< Selector >", "structrpp_1_1operators_1_1details_1_1on__error__resume__next__t.html", null ]
+    ] ],
     [ "rpp::operators::details::lift_operator< reduce_no_seed_t< Accumulator >, Accumulator >", "classrpp_1_1operators_1_1details_1_1lift__operator.html", [
       [ "rpp::operators::details::reduce_no_seed_t< Accumulator >", "structrpp_1_1operators_1_1details_1_1reduce__no__seed__t.html", null ]
     ] ],
@@ -244,6 +247,7 @@ var hierarchy =
     [ "rpp::details::observer_impl< Type, Strategy, DisposableStrategy >", "classrpp_1_1details_1_1observer__impl.html", [
       [ "rpp::observer< Type, details::with_disposable_strategy< Strategy, DisposableStrategy > >", "classrpp_1_1observer_3_01_type_00_01details_1_1with__disposable__strategy_3_01_strategy_00_01_disposable_strategy_01_4_01_4.html", null ]
     ] ],
+    [ "rpp::operators::details::on_error_resume_next_observer_strategy< TObserver, Selector >", "structrpp_1_1operators_1_1details_1_1on__error__resume__next__observer__strategy.html", null ],
     [ "rpp::operators::details::buffer_t::operator_traits< T >", "structrpp_1_1operators_1_1details_1_1buffer__t_1_1operator__traits.html", null ],
     [ "rpp::operators::details::combining_operator_t< TDisposable, TStrategy, TSelector, TObservables >::operator_traits< T >", "structrpp_1_1operators_1_1details_1_1combining__operator__t_1_1operator__traits.html", null ],
     [ "rpp::operators::details::concat_t::operator_traits< T >", "structrpp_1_1operators_1_1details_1_1concat__t_1_1operator__traits.html", null ],
@@ -258,6 +262,7 @@ var hierarchy =
     [ "rpp::operators::details::map_t< Fn >::operator_traits< T >", "structrpp_1_1operators_1_1details_1_1map__t_1_1operator__traits.html", null ],
     [ "rpp::operators::details::merge_t::operator_traits< T >", "structrpp_1_1operators_1_1details_1_1merge__t_1_1operator__traits.html", null ],
     [ "rpp::operators::details::merge_with_t< TObservables >::operator_traits< T >", "structrpp_1_1operators_1_1details_1_1merge__with__t_1_1operator__traits.html", null ],
+    [ "rpp::operators::details::on_error_resume_next_t< Selector >::operator_traits< T >", "structrpp_1_1operators_1_1details_1_1on__error__resume__next__t_1_1operator__traits.html", null ],
     [ "rpp::operators::details::reduce_no_seed_t< Accumulator >::operator_traits< T >", "structrpp_1_1operators_1_1details_1_1reduce__no__seed__t_1_1operator__traits.html", null ],
     [ "rpp::operators::details::reduce_t< Seed, Accumulator >::operator_traits< T >", "structrpp_1_1operators_1_1details_1_1reduce__t_1_1operator__traits.html", null ],
     [ "rpp::operators::details::scan_no_seed_t< Fn >::operator_traits< T >", "structrpp_1_1operators_1_1details_1_1scan__no__seed__t_1_1operator__traits.html", null ],

@@ -109,6 +109,8 @@ var annotated_dup =
           [ "merge_t", "structrpp_1_1operators_1_1details_1_1merge__t.html", "structrpp_1_1operators_1_1details_1_1merge__t" ],
           [ "merge_with_t", "structrpp_1_1operators_1_1details_1_1merge__with__t.html", "structrpp_1_1operators_1_1details_1_1merge__with__t" ],
           [ "multicast_t", "structrpp_1_1operators_1_1details_1_1multicast__t.html", null ],
+          [ "on_error_resume_next_observer_strategy", "structrpp_1_1operators_1_1details_1_1on__error__resume__next__observer__strategy.html", null ],
+          [ "on_error_resume_next_t", "structrpp_1_1operators_1_1details_1_1on__error__resume__next__t.html", "structrpp_1_1operators_1_1details_1_1on__error__resume__next__t" ],
           [ "pointer_under_lock", "classrpp_1_1operators_1_1details_1_1pointer__under__lock.html", null ],
           [ "reduce_no_seed_observer_strategy", "structrpp_1_1operators_1_1details_1_1reduce__no__seed__observer__strategy.html", null ],
           [ "reduce_no_seed_t", "structrpp_1_1operators_1_1details_1_1reduce__no__seed__t.html", "structrpp_1_1operators_1_1details_1_1reduce__no__seed__t" ],
