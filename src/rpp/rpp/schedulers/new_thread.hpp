@@ -52,7 +52,7 @@ namespace rpp::schedulers
             }
 
             template<rpp::schedulers::constraint::schedulable_handler Handler, typename... Args, constraint::schedulable_fn<Handler, Args...> Fn>
-            void defer_at(time_point time_point, Fn&& fn, Handler&& handler, Args&&... args)
+            void defer_to(time_point time_point, Fn&& fn, Handler&& handler, Args&&... args)
             {
                 if (is_disposed())
                     return;
@@ -142,9 +142,9 @@ namespace rpp::schedulers
             worker_strategy() = default;
 
             template<rpp::schedulers::constraint::schedulable_handler Handler, typename... Args, constraint::schedulable_fn<Handler, Args...> Fn>
-            void defer_for(duration duration, Fn&& fn, Handler&& handler, Args&&... args) const
+            void defer_to(time_point tp, Fn&& fn, Handler&& handler, Args&&... args) const
             {
-                m_state.lock()->defer_at(now() + duration, std::forward<Fn>(fn), std::forward<Handler>(handler), std::forward<Args>(args)...);
+                m_state.lock()->defer_to(tp, std::forward<Fn>(fn), std::forward<Handler>(handler), std::forward<Args>(args)...);
             }
 
             rpp::disposable_wrapper get_disposable() const { return m_state; }

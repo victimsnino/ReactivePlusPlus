@@ -114,10 +114,10 @@ namespace rpp::schedulers
             }
 
             template<rpp::schedulers::constraint::schedulable_handler Handler, typename... Args, constraint::schedulable_fn<Handler, Args...> Fn>
-            void defer_for(duration duration, Fn&& fn, Handler&& handler, Args&&... args) const
+            void defer_to(time_point tp, Fn&& fn, Handler&& handler, Args&&... args) const
             {
                 if (const auto shared = m_state.lock())
-                    shared->emplace_and_notify(now() + duration, std::forward<Fn>(fn), std::forward<Handler>(handler), std::forward<Args>(args)...);
+                    shared->emplace_and_notify(tp, std::forward<Fn>(fn), std::forward<Handler>(handler), std::forward<Args>(args)...);
             }
 
             static constexpr rpp::schedulers::details::none_disposable get_disposable() { return {}; }
