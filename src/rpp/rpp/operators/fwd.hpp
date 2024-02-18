@@ -47,12 +47,12 @@ namespace rpp::operators
 
     auto first();
 
-    template<std::invocable<> LastFn>
-    auto finally(LastFn&& lastFn);
-
     template<typename Fn>
         requires (!utils::is_not_template_callable<Fn> || std::same_as<bool, std::invoke_result_t<Fn, rpp::utils::convertible_to_any>>)
     auto filter(Fn&& predicate);
+
+    template<std::invocable<> LastFn>
+    auto finally(LastFn&& lastFn);
 
     template<typename Fn>
         requires (!utils::is_not_template_callable<Fn> || rpp::constraint::observable<std::invoke_result_t<Fn, rpp::utils::convertible_to_any>>)
