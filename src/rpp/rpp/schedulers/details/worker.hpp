@@ -45,7 +45,6 @@ namespace rpp::schedulers
                 m_strategy.defer_for(delay, std::forward<Fn>(fn), std::forward<Handler>(handler), std::forward<Args>(args)...);
             else
                 schedule(now() + delay, std::forward<Fn>(fn), std::forward<Handler>(handler), std::forward<Args>(args)...);
-
         }
 
         template<rpp::schedulers::constraint::schedulable_handler Handler, typename... Args, constraint::schedulable_fn<Handler, Args...> Fn>

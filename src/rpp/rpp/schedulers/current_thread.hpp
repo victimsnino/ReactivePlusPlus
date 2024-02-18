@@ -168,9 +168,12 @@ namespace rpp::schedulers
                 if (handler.is_disposed())
                     return;
 
-                if (s_queue.has_value()) {
+                if (s_queue.has_value())
+                {
                     s_queue->emplace(tp, std::forward<Fn>(fn), std::forward<Handler>(handler), std::forward<Args>(args)...);
-                } else {
+                }
+                else
+                {
                     defer_for(tp - now(), std::forward<Fn>(fn), std::forward<Handler>(handler), std::forward<Args>(args)...);
                 }
             }
