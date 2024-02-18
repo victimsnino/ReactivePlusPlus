@@ -39,6 +39,8 @@ namespace rpp::operators
     template<rpp::schedulers::constraint::scheduler Scheduler>
     auto delay(rpp::schedulers::duration delay_duration, Scheduler&& scheduler);
 
+    auto distinct();
+
     template<typename EqualityFn = rpp::utils::equal_to>
         requires (!utils::is_not_template_callable<EqualityFn> || std::same_as<bool, std::invoke_result_t<EqualityFn, rpp::utils::convertible_to_any, rpp::utils::convertible_to_any>>)
     auto distinct_until_changed(EqualityFn&& equality_fn = {});
@@ -48,6 +50,10 @@ namespace rpp::operators
     template<typename Fn>
         requires (!utils::is_not_template_callable<Fn> || std::same_as<bool, std::invoke_result_t<Fn, rpp::utils::convertible_to_any>>)
     auto filter(Fn&& predicate);
+
+    template<typename Fn>
+        requires (!utils::is_not_template_callable<Fn> || rpp::constraint::observable<std::invoke_result_t<Fn, rpp::utils::convertible_to_any>>)
+    auto flat_map(Fn&& callable);
 
     template<typename KeySelector,
              typename ValueSelector = std::identity,
@@ -81,6 +87,13 @@ namespace rpp::operators
     auto observe_on(Scheduler&& scheduler, rpp::schedulers::duration delay_duration = {});
 
     auto publish();
+
+    template<typename Seed, typename Accumulator>
+        requires (!utils::is_not_template_callable<Accumulator> || std::same_as<std::decay_t<Seed>, std::invoke_result_t<Accumulator, std::decay_t<Seed> &&, rpp::utils::convertible_to_any>>)
+    auto reduce(Seed&& seed, Accumulator&& accumulator);
+
+    template<typename Accumulator>
+    auto reduce(Accumulator&& accumulator);
 
     auto ref_count();
 
@@ -133,8 +146,30 @@ namespace rpp::operators
     template<rpp::constraint::observable TObservable>
     auto take_until(TObservable&& until_observable);
 
+    template<std::invocable<const std::exception_ptr&> OnError = rpp::utils::empty_function_t<std::exception_ptr>>
+    auto tap(OnError&& on_error);
+
+    template<std::invocable<> OnCompleted = rpp::utils::empty_function_t<>>
+    auto tap(OnCompleted&& on_completed);
+
+    template<typename OnNext,
+             std::invocable<> OnCompleted = rpp::utils::empty_function_t<>>
+    auto tap(OnNext&&      on_next,
+             OnCompleted&& on_completed);
+
+    template<typename OnNext                                       = rpp::utils::empty_function_any_t,
+             std::invocable<const std::exception_ptr&> OnError     = rpp::utils::empty_function_t<std::exception_ptr>,
+             std::invocable<>                          OnCompleted = rpp::utils::empty_function_t<>>
+    auto tap(OnNext&&      on_next      = {},
+             OnError&&     on_error     = {},
+             OnCompleted&& on_completed = {});
+
     template<rpp::schedulers::constraint::scheduler Scheduler = rpp::schedulers::immediate>
     auto throttle(rpp::schedulers::duration period);
+
+    template<typename Selector>
+        requires rpp::constraint::observable<std::invoke_result_t<Selector, std::exception_ptr>>
+    auto on_error_resume_next(Selector&& selector);
 
     template<typename TSelector, rpp::constraint::observable TObservable, rpp::constraint::observable... TObservables>
         requires (!rpp::constraint::observable<TSelector> && (!utils::is_not_template_callable<TSelector> || std::invocable<TSelector, rpp::utils::convertible_to_any, utils::extract_observable_type_t<TObservable>, utils::extract_observable_type_t<TObservables>...>))
@@ -148,6 +183,13 @@ namespace rpp::operators
     template<rpp::constraint::observable TOpeningsObservable, typename TClosingsSelectorFn>
         requires rpp::constraint::observable<std::invoke_result_t<TClosingsSelectorFn, rpp::utils::extract_observable_type_t<TOpeningsObservable>>>
     auto window_toggle(TOpeningsObservable&& openings, TClosingsSelectorFn&& closings_selector);
+
+    template<typename TSelector, rpp::constraint::observable TObservable, rpp::constraint::observable... TObservables>
+        requires (!rpp::constraint::observable<TSelector> && (!utils::is_not_template_callable<TSelector> || std::invocable<TSelector, rpp::utils::convertible_to_any, utils::extract_observable_type_t<TObservable>, utils::extract_observable_type_t<TObservables>...>))
+    auto zip(TSelector&& selector, TObservable&& observable, TObservables&&... observables);
+
+    template<rpp::constraint::observable TObservable, rpp::constraint::observable... TObservables>
+    auto zip(TObservable&& observable, TObservables&&... observables);
 } // namespace rpp::operators
 
 namespace rpp
