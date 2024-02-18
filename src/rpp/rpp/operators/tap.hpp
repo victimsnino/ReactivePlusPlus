@@ -89,7 +89,7 @@ namespace rpp::operators
      * @ingroup utility_operators
      * @see https://reactivex.io/documentation/operators/do.html
      */
-    template<std::invocable<const std::exception_ptr&> OnError = rpp::utils::empty_function_t<std::exception_ptr>>
+    template<std::invocable<const std::exception_ptr&> OnError /* = rpp::utils::empty_function_t<std::exception_ptr> */>
     auto tap(OnError&& on_error)
     {
         using OnNext      = rpp::utils::empty_function_any_t;
@@ -109,7 +109,7 @@ namespace rpp::operators
      * @ingroup utility_operators
      * @see https://reactivex.io/documentation/operators/do.html
      */
-    template<std::invocable<> OnCompleted = rpp::utils::empty_function_t<>>
+    template<std::invocable<> OnCompleted /* = rpp::utils::empty_function_t<> */>
     auto tap(OnCompleted&& on_completed)
     {
         using OnNext  = rpp::utils::empty_function_any_t;
@@ -131,7 +131,7 @@ namespace rpp::operators
      * @see https://reactivex.io/documentation/operators/do.html
      */
     template<typename OnNext,
-             std::invocable<> OnCompleted = rpp::utils::empty_function_t<>>
+             std::invocable<> OnCompleted /* = rpp::utils::empty_function_t<> */>
     auto tap(OnNext&&      on_next,
              OnCompleted&& on_completed)
     {
@@ -153,12 +153,12 @@ namespace rpp::operators
      * @ingroup utility_operators
      * @see https://reactivex.io/documentation/operators/do.html
      */
-    template<typename OnNext                                       = rpp::utils::empty_function_any_t,
-             std::invocable<const std::exception_ptr&> OnError     = rpp::utils::empty_function_t<std::exception_ptr>,
-             std::invocable<>                          OnCompleted = rpp::utils::empty_function_t<>>
-    auto tap(OnNext&&      on_next      = {},
-             OnError&&     on_error     = {},
-             OnCompleted&& on_completed = {})
+    template<typename OnNext /* = rpp::utils::empty_function_any_t */,
+             std::invocable<const std::exception_ptr&> OnError /* = rpp::utils::empty_function_t<std::exception_ptr> */,
+             std::invocable<>                          OnCompleted /* = rpp::utils::empty_function_t<> */>
+    auto tap(OnNext&&      on_next /* = {} */,
+             OnError&&     on_error /* = {} */,
+             OnCompleted&& on_completed /* = {} */)
     {
         return details::tap_t<std::decay_t<OnNext>, std::decay_t<OnError>, std::decay_t<OnCompleted>>{
             std::forward<OnNext>(on_next),
