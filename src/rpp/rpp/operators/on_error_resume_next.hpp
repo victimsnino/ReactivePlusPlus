@@ -65,10 +65,10 @@ namespace rpp::operators::details
         struct operator_traits
         {
             using selector_observable_result_type =
-                std::decay_t<rpp::utils::extract_observable_type_t<std::invoke_result_t<Selector, std::exception_ptr>>>;
+                rpp::utils::extract_observable_type_t<std::invoke_result_t<Selector, std::exception_ptr>>;
 
             static_assert(
-                std::is_same_v<selector_observable_result_type, T>,
+                rpp::constraint::decayed_same_as<selector_observable_result_type, T>,
                 "Selector observable result type is not the same as T");
 
             using result_type = T;
