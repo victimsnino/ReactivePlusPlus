@@ -22,8 +22,8 @@ namespace rpp::operators::details
     {
         using preferred_disposable_strategy = rpp::details::observers::none_disposable_strategy;
 
-        mutable TObserver observer;
-        Selector          selector;
+        RPP_NO_UNIQUE_ADDRESS mutable TObserver observer;
+        RPP_NO_UNIQUE_ADDRESS Selector          selector;
         // Manually control disposable to ensure observer is not used after move in on_error emission
         mutable rpp::composite_disposable_wrapper disposable = composite_disposable_wrapper::make();
 
@@ -78,7 +78,7 @@ namespace rpp::operators::details
         };
 
         template<rpp::details::observables::constraint::disposable_strategy Prev>
-        using updated_disposable_strategy = rpp::details::observables::fixed_disposable_strategy_selector<1>;
+        using updated_disposable_strategy = rpp::details::observables::atomic_dynamic_disposable_strategy_selector<1>;
     };
 } // namespace rpp::operators::details
 
@@ -101,7 +101,7 @@ namespace rpp::operators
      * @see https://reactivex.io/documentation/operators/catch.html
      */
     template<typename Selector>
-        requires (!utils::is_not_template_callable<Selector> || rpp::constraint::observable<std::invoke_result_t<Selector, std::exception_ptr>>)
+        requires rpp::constraint::observable<std::invoke_result_t<Selector, std::exception_ptr>>
     auto on_error_resume_next(Selector&& selector)
     {
         return details::on_error_resume_next_t<std::decay_t<Selector>>{std::forward<Selector>(selector)};

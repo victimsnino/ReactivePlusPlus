@@ -32,6 +32,8 @@ TEMPLATE_TEST_CASE("on_error_resume_next switches observable on error", "", rpp:
             SECTION("observer obtains values from observable")
             {
                 CHECK(mock.get_received_values() == std::vector{1, 2, 3});
+                CHECK(mock.get_total_on_next_count() == 3);
+                CHECK(mock.get_on_error_count() == 0);
                 CHECK(mock.get_on_completed_count() == 1);
             }
         }
@@ -99,6 +101,37 @@ TEMPLATE_TEST_CASE("on_error_resume_next switches observable on error", "", rpp:
             })
                 | rpp::ops::subscribe(mock);
             SECTION("observer only receives values from first inner observable")
+            {
+                CHECK(mock.get_received_values() == std::vector{1, 2, 3});
+                CHECK(mock.get_total_on_next_count() == 3);
+                CHECK(mock.get_on_error_count() == 0);
+                CHECK(mock.get_on_completed_count() == 1);
+            }
+        }
+    }
+
+    SECTION("nested on_error_resume_next operators")
+    {
+        auto obs = rpp::source::create<int>([](const auto& sub) {
+            sub.on_next(1);
+            sub.on_error(std::make_exception_ptr(std::runtime_error{""}));
+        });
+        SECTION("subscribe")
+        {
+            obs | rpp::operators::on_error_resume_next([](const std::exception_ptr&) {
+                return rpp::source::create<int>([](const auto& sub) {
+                           sub.on_next(2);
+                           sub.on_error(std::make_exception_ptr(std::runtime_error{""}));
+                       })
+                     | rpp::operators::on_error_resume_next([](const std::exception_ptr&) {
+                           return rpp::source::create<int>([](const auto& sub) {
+                               sub.on_next(3);
+                               sub.on_completed();
+                           });
+                       });
+            })
+                | rpp::ops::subscribe(mock);
+            SECTION("observer receives values without any errors")
             {
                 CHECK(mock.get_received_values() == std::vector{1, 2, 3});
                 CHECK(mock.get_total_on_next_count() == 3);
