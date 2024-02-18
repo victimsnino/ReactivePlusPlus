@@ -106,17 +106,17 @@ namespace rpp::operators::details
         template<typename TT>
         void emplace(TT&& value) const
         {
-            if (const auto delay = emplace_safe(std::forward<TT>(value)))
+            if (const auto tp = emplace_safe(std::forward<TT>(value)))
             {
                 disposable->worker.schedule(
-                    delay.value(),
+                    tp.value(),
                     [](const delay_disposable_wrapper<Observer, Worker, Container>& wrapper) { return drain_queue(wrapper.disposable); },
                     delay_disposable_wrapper<Observer, Worker, Container>{disposable});
             }
         }
 
         template<typename TT>
-        std::optional<rpp::schedulers::duration> emplace_safe(TT&& item) const
+        std::optional<rpp::schedulers::time_point> emplace_safe(TT&& item) const
         {
             std::lock_guard lock{disposable->mutex};
             if constexpr (ClearOnError && rpp::constraint::decayed_same_as<std::exception_ptr, TT>)
@@ -127,11 +127,12 @@ namespace rpp::operators::details
             }
             else
             {
-                disposable->queue.emplace(std::forward<TT>(item), disposable->worker.now() + disposable->delay);
+                const auto tp = disposable->worker.now() + disposable->delay;
+                disposable->queue.emplace(std::forward<TT>(item), tp);
                 if (!disposable->is_active)
                 {
                     disposable->is_active = true;
-                    return disposable->delay;
+                    return tp;
                 }
                 return std::nullopt;
             }
