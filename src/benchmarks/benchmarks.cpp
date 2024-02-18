@@ -581,6 +581,30 @@ int main(int argc, char* argv[]) // NOLINT(bugprone-exception-escape)
         }
     } // BENCHMARK("Aggregating Operators")
 
+    BENCHMARK("Error Handling Operators")
+    {
+        SECTION("create(on_next(1), on_error())+on_error_resume_next(immediate_just(2)))+subscribe")
+        {
+            TEST_RPP([&]() {
+                rpp::source::create<int>([&](auto&& observer) {
+                    observer.on_next(1);
+                    observer.on_error(std::make_exception_ptr(std::runtime_error{""}));
+                })
+                    | rpp::operators::on_error_resume_next([](const std::exception_ptr&) { return rpp::immediate_just(2); })
+                    | rpp::operators::subscribe([](int v) { ankerl::nanobench::doNotOptimizeAway(v); });
+            });
+
+            TEST_RXCPP([&]() {
+                rxcpp::observable<>::create<int>([&](auto&& observer) {
+                    observer.on_next(1);
+                    observer.on_error(std::make_exception_ptr(std::runtime_error{""}));
+                })
+                    | rxcpp::operators::on_error_resume_next([](const std::exception_ptr&) { return rxcpp::immediate_just(2); })
+                    | rxcpp::operators::subscribe<int>([](int v) { ankerl::nanobench::doNotOptimizeAway(v); });
+            });
+        }
+    } // BENCHMARK("Error Handling Operators")
+
     BENCHMARK("Subjects")
     {
         SECTION("publish_subject with 1 observer - on_next")
