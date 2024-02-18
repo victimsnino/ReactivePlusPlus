@@ -117,3 +117,12 @@
 
 #include <rpp/operators/concat.hpp>
 #include <rpp/operators/reduce.hpp>
+
+/**
+ * @defgroup error_handling_operators Error Handling Operators
+ * @brief Operators that help to recover from error notifications from an Observable
+ * @see https://reactivex.io/documentation/operators.html#error
+ * @ingroup operators
+ */
+
+#include <rpp/operators/on_error_resume_next.hpp>
