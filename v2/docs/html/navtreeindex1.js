@@ -1,5 +1,7 @@
 var NAVTREEINDEX1 =
 {
+"group__creational__operators.html#gad15a7e8bfb2f7ce0af1b44e22918116c":[1,0,3,8,8],
+"group__creational__operators.html#gad29c2904de57d176ccaf2614409789de":[1,0,3,8,5],
 "group__creational__operators.html#gad9a4bddea3780850a01b82b481951d18":[1,0,3,8,4],
 "group__creational__operators.html#gae68c87e7ae3a505258b733082bf68513":[1,0,3,8,3],
 "group__creational__operators.html#gae7248892783797dda894e18b2b499586":[1,0,3,8,15],
@@ -247,7 +249,5 @@ var NAVTREEINDEX1 =
 "structrpp_1_1operators_1_1details_1_1reduce__observer__strategy.html":[3,0,0,2,0,55],
 "structrpp_1_1operators_1_1details_1_1reduce__t.html":[3,0,0,2,0,56],
 "structrpp_1_1operators_1_1details_1_1reduce__t_1_1operator__traits.html":[3,0,0,2,0,56,0],
-"structrpp_1_1operators_1_1details_1_1ref__count__t.html":[3,0,0,2,0,57],
-"structrpp_1_1operators_1_1details_1_1repeat__t.html":[3,0,0,2,0,58],
-"structrpp_1_1operators_1_1details_1_1scan__no__seed__observer__strategy.html":[3,0,0,2,0,59]
+"structrpp_1_1operators_1_1details_1_1ref__count__t.html":[3,0,0,2,0,57]
 };

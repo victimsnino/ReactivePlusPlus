@@ -24,12 +24,14 @@ var searchData=
   ['rpp_3a_3adetails_3a_3aobservers_3a_3aconstraint_3a_3adisposable_5fstrategy_21',['disposable_strategy',['../conceptrpp_1_1details_1_1observers_1_1constraint_1_1disposable__strategy.html',1,'rpp::details::observers::constraint']]],
   ['rpp_3a_3adetails_3a_3aobservers_3a_3ahas_5fdisposable_5fstrategy_22',['has_disposable_strategy',['../conceptrpp_1_1details_1_1observers_1_1has__disposable__strategy.html',1,'rpp::details::observers']]],
   ['rpp_3a_3aoperators_3a_3adetails_3a_3aon_5fnext_5flike_23',['on_next_like',['../conceptrpp_1_1operators_1_1details_1_1on__next__like.html',1,'rpp::operators::details']]],
-  ['rpp_3a_3aschedulers_3a_3aconstraint_3a_3aschedulable_5fdelay_5ffrom_5fnow_5ffn_24',['schedulable_delay_from_now_fn',['../conceptrpp_1_1schedulers_1_1constraint_1_1schedulable__delay__from__now__fn.html',1,'rpp::schedulers::constraint']]],
-  ['rpp_3a_3aschedulers_3a_3aconstraint_3a_3aschedulable_5fdelay_5ffrom_5fthis_5ftimepoint_5ffn_25',['schedulable_delay_from_this_timepoint_fn',['../conceptrpp_1_1schedulers_1_1constraint_1_1schedulable__delay__from__this__timepoint__fn.html',1,'rpp::schedulers::constraint']]],
-  ['rpp_3a_3aschedulers_3a_3aconstraint_3a_3aschedulable_5fdelay_5fto_5ffn_26',['schedulable_delay_to_fn',['../conceptrpp_1_1schedulers_1_1constraint_1_1schedulable__delay__to__fn.html',1,'rpp::schedulers::constraint']]],
-  ['rpp_3a_3aschedulers_3a_3aconstraint_3a_3aschedulable_5ffn_27',['schedulable_fn',['../conceptrpp_1_1schedulers_1_1constraint_1_1schedulable__fn.html',1,'rpp::schedulers::constraint']]],
-  ['rpp_3a_3aschedulers_3a_3aconstraint_3a_3aschedulable_5fhandler_28',['schedulable_handler',['../conceptrpp_1_1schedulers_1_1constraint_1_1schedulable__handler.html',1,'rpp::schedulers::constraint']]],
-  ['rpp_3a_3aschedulers_3a_3aconstraint_3a_3ascheduler_29',['scheduler',['../conceptrpp_1_1schedulers_1_1constraint_1_1scheduler.html',1,'rpp::schedulers::constraint']]],
-  ['rpp_3a_3aschedulers_3a_3aconstraint_3a_3astrategy_30',['strategy',['../conceptrpp_1_1schedulers_1_1constraint_1_1strategy.html',1,'rpp::schedulers::constraint']]],
-  ['rpp_3a_3aschedulers_3a_3aconstraint_3a_3aworker_31',['worker',['../conceptrpp_1_1schedulers_1_1constraint_1_1worker.html',1,'rpp::schedulers::constraint']]]
+  ['rpp_3a_3aschedulers_3a_3aconstraint_3a_3adefer_5ffor_5fstrategy_24',['defer_for_strategy',['../conceptrpp_1_1schedulers_1_1constraint_1_1defer__for__strategy.html',1,'rpp::schedulers::constraint']]],
+  ['rpp_3a_3aschedulers_3a_3aconstraint_3a_3adefer_5fto_5fstrategy_25',['defer_to_strategy',['../conceptrpp_1_1schedulers_1_1constraint_1_1defer__to__strategy.html',1,'rpp::schedulers::constraint']]],
+  ['rpp_3a_3aschedulers_3a_3aconstraint_3a_3aschedulable_5fdelay_5ffrom_5fnow_5ffn_26',['schedulable_delay_from_now_fn',['../conceptrpp_1_1schedulers_1_1constraint_1_1schedulable__delay__from__now__fn.html',1,'rpp::schedulers::constraint']]],
+  ['rpp_3a_3aschedulers_3a_3aconstraint_3a_3aschedulable_5fdelay_5ffrom_5fthis_5ftimepoint_5ffn_27',['schedulable_delay_from_this_timepoint_fn',['../conceptrpp_1_1schedulers_1_1constraint_1_1schedulable__delay__from__this__timepoint__fn.html',1,'rpp::schedulers::constraint']]],
+  ['rpp_3a_3aschedulers_3a_3aconstraint_3a_3aschedulable_5fdelay_5fto_5ffn_28',['schedulable_delay_to_fn',['../conceptrpp_1_1schedulers_1_1constraint_1_1schedulable__delay__to__fn.html',1,'rpp::schedulers::constraint']]],
+  ['rpp_3a_3aschedulers_3a_3aconstraint_3a_3aschedulable_5ffn_29',['schedulable_fn',['../conceptrpp_1_1schedulers_1_1constraint_1_1schedulable__fn.html',1,'rpp::schedulers::constraint']]],
+  ['rpp_3a_3aschedulers_3a_3aconstraint_3a_3aschedulable_5fhandler_30',['schedulable_handler',['../conceptrpp_1_1schedulers_1_1constraint_1_1schedulable__handler.html',1,'rpp::schedulers::constraint']]],
+  ['rpp_3a_3aschedulers_3a_3aconstraint_3a_3ascheduler_31',['scheduler',['../conceptrpp_1_1schedulers_1_1constraint_1_1scheduler.html',1,'rpp::schedulers::constraint']]],
+  ['rpp_3a_3aschedulers_3a_3aconstraint_3a_3astrategy_32',['strategy',['../conceptrpp_1_1schedulers_1_1constraint_1_1strategy.html',1,'rpp::schedulers::constraint']]],
+  ['rpp_3a_3aschedulers_3a_3aconstraint_3a_3aworker_33',['worker',['../conceptrpp_1_1schedulers_1_1constraint_1_1worker.html',1,'rpp::schedulers::constraint']]]
 ];

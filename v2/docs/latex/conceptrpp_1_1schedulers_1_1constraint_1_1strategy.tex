@@ -4,16 +4,7 @@
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename}\ S>}
-\DoxyCodeLine{\textcolor{keyword}{concept\ }\mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1strategy}{rpp::schedulers::constraint::strategy}}\ =\ \ \textcolor{keyword}{requires}(\textcolor{keyword}{const}\ S\&\ s,\ \textcolor{keyword}{const}\ details::fake\_schedulable\_handler\&\ handler)\ \{}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ s.defer\_for(duration\{\},\ std::declval<optional\_delay\_from\_now\ (*)(const\ details::fake\_schedulable\_handler\&)>(),\ handler)}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \}\ -\/>\ std::same\_as<void>;}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ s.defer\_for(duration\{\},\ std::declval<optional\_delay\_from\_this\_timepoint\ (*)(const\ details::fake\_schedulable\_handler\&)>(),\ handler)}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \}\ -\/>\ std::same\_as<void>;}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ s.defer\_for(duration\{\},\ std::declval<optional\_delay\_to\ (*)(const\ details::fake\_schedulable\_handler\&)>(),\ handler)}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \}\ -\/>\ std::same\_as<void>;}
+\DoxyCodeLine{\textcolor{keyword}{concept\ }\mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1strategy}{rpp::schedulers::constraint::strategy}}\ =\ \ (\mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1defer__for__strategy}{defer\_for\_strategy<S>}}\ ||\ \mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1defer__to__strategy}{defer\_to\_strategy<S>}})\&\&\textcolor{keyword}{requires}(\textcolor{keyword}{const}\ S\&\ s,\ \textcolor{keyword}{const}\ details::fake\_schedulable\_handler\&\ handler)\ \{}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \{}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ s.get\_disposable()}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \}\ -\/>\ rpp::constraint::any\_of<rpp::disposable\_wrapper,\ details::none\_disposable>;}

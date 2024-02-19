@@ -103,16 +103,7 @@ $(function(){initNavTree('conceptrpp_1_1schedulers_1_1constraint_1_1strategy.htm
 <div class="contents">
 <h2 class="groupheader">Concept definition</h2>
 <div class="fragment"><div class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> S&gt;</div>
-<div class="line"><span class="keyword">concept </span><a class="code hl_concept" href="conceptrpp_1_1schedulers_1_1constraint_1_1strategy.html">rpp::schedulers::constraint::strategy</a> =  <span class="keyword">requires</span>(<span class="keyword">const</span> S&amp; s, <span class="keyword">const</span> details::fake_schedulable_handler&amp; handler) {</div>
-<div class="line">        {</div>
-<div class="line">            s.defer_for(duration{}, std::declval&lt;optional_delay_from_now (*)(const details::fake_schedulable_handler&amp;)&gt;(), handler)</div>
-<div class="line">        } -&gt; std::same_as&lt;void&gt;;</div>
-<div class="line">        {</div>
-<div class="line">            s.defer_for(duration{}, std::declval&lt;optional_delay_from_this_timepoint (*)(const details::fake_schedulable_handler&amp;)&gt;(), handler)</div>
-<div class="line">        } -&gt; std::same_as&lt;void&gt;;</div>
-<div class="line">        {</div>
-<div class="line">            s.defer_for(duration{}, std::declval&lt;optional_delay_to (*)(const details::fake_schedulable_handler&amp;)&gt;(), handler)</div>
-<div class="line">        } -&gt; std::same_as&lt;void&gt;;</div>
+<div class="line"><span class="keyword">concept </span><a class="code hl_concept" href="conceptrpp_1_1schedulers_1_1constraint_1_1strategy.html">rpp::schedulers::constraint::strategy</a> =  (<a class="code hl_concept" href="conceptrpp_1_1schedulers_1_1constraint_1_1defer__for__strategy.html">defer_for_strategy&lt;S&gt;</a> || <a class="code hl_concept" href="conceptrpp_1_1schedulers_1_1constraint_1_1defer__to__strategy.html">defer_to_strategy&lt;S&gt;</a>)&amp;&amp;<span class="keyword">requires</span>(<span class="keyword">const</span> S&amp; s, <span class="keyword">const</span> details::fake_schedulable_handler&amp; handler) {</div>
 <div class="line">        {</div>
 <div class="line">            s.get_disposable()</div>
 <div class="line">        } -&gt; rpp::constraint::any_of&lt;rpp::disposable_wrapper, details::none_disposable&gt;;</div>
@@ -120,7 +111,9 @@ $(function(){initNavTree('conceptrpp_1_1schedulers_1_1constraint_1_1strategy.htm
 <div class="line">            S::now()</div>
 <div class="line">        } -&gt; std::same_as&lt;rpp::schedulers::time_point&gt;;</div>
 <div class="line">    }</div>
-<div class="ttc" id="aconceptrpp_1_1schedulers_1_1constraint_1_1strategy_html"><div class="ttname"><a href="conceptrpp_1_1schedulers_1_1constraint_1_1strategy.html">rpp::schedulers::constraint::strategy</a></div><div class="ttdef"><b>Definition</b> fwd.hpp:125</div></div>
+<div class="ttc" id="aconceptrpp_1_1schedulers_1_1constraint_1_1defer__for__strategy_html"><div class="ttname"><a href="conceptrpp_1_1schedulers_1_1constraint_1_1defer__for__strategy.html">rpp::schedulers::constraint::defer_for_strategy</a></div><div class="ttdef"><b>Definition</b> fwd.hpp:125</div></div>
+<div class="ttc" id="aconceptrpp_1_1schedulers_1_1constraint_1_1defer__to__strategy_html"><div class="ttname"><a href="conceptrpp_1_1schedulers_1_1constraint_1_1defer__to__strategy.html">rpp::schedulers::constraint::defer_to_strategy</a></div><div class="ttdef"><b>Definition</b> fwd.hpp:138</div></div>
+<div class="ttc" id="aconceptrpp_1_1schedulers_1_1constraint_1_1strategy_html"><div class="ttname"><a href="conceptrpp_1_1schedulers_1_1constraint_1_1strategy.html">rpp::schedulers::constraint::strategy</a></div><div class="ttdef"><b>Definition</b> fwd.hpp:151</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

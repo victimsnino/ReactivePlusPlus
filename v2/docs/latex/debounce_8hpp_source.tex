@@ -59,7 +59,7 @@
 \DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \{}
 \DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \ \ \ \ std::lock\_guard\ lock\{m\_mutex\};}
 \DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \ \ \ \ m\_value\_to\_be\_emitted.emplace(std::forward<TT>(v));}
-\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ need\_to\_scheduled\ \ \ \ \ \ \ \ =\ !m\_time\_when\_value\_should\_be\_emitted.has\_value()\ ||\ !m\_value\_to\_be\_emitted.has\_value();}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ need\_to\_scheduled\ \ \ \ \ \ \ \ =\ !m\_time\_when\_value\_should\_be\_emitted.has\_value();}
 \DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \ \ \ m\_time\_when\_value\_should\_be\_emitted\ =\ m\_worker.now()\ +\ m\_period;}
 \DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (need\_to\_scheduled)}
 \DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
@@ -79,11 +79,11 @@
 \DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ schedule()}
 \DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \{}
 \DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \ \ \ \ m\_worker.schedule(}
-\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ m\_period,}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ m\_time\_when\_value\_should\_be\_emitted.value(),}
 \DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [](\textcolor{keyword}{const}\ \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1debounce__disposable__wrapper}{debounce\_disposable\_wrapper<Observer,\ Worker,\ Container>}}\&\ handler)\ -\/>\ schedulers::optional\_delay\_to\ \{}
-\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ value\_or\_duration\ =\ handler.disposable-\/>extract\_value\_or\_time();}
-\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{auto}*\ timepoint\ =\ std::get\_if<schedulers::time\_point>(\&value\_or\_duration))}
-\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ schedulers::optional\_delay\_to\{*timepoint\};}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ auto\ value\_or\_duration\ =\ handler.disposable-\/>extract\_value\_or\_time();}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ if\ (auto*\ timepoint\ =\ std::get\_if<schedulers::time\_point>(\&value\_or\_duration))}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ return\ schedulers::optional\_delay\_to\{*timepoint\};}
 \DoxyCodeLine{00083\ }
 \DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{auto}*\ value\ =\ std::get\_if<T>(\&value\_or\_duration))}
 \DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ handler.disposable-\/>get\_observer\_under\_lock()-\/>on\_next(std::move(*value));}
@@ -108,7 +108,7 @@
 \DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ v;}
 \DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{00106\ }
-\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1value__with__mutex}{value\_with\_mutex<Observer>}}\ \ \ m\_observer;}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ value\_with\_mutex<Observer>\ \ \ m\_observer;}
 \DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ RPP\_NO\_UNIQUE\_ADDRESS\ Worker\ m\_worker;}
 \DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ rpp::schedulers::duration\ \ \ \ m\_period;}
 \DoxyCodeLine{00110\ }

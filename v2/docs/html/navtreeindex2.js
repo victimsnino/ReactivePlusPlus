@@ -1,5 +1,7 @@
 var NAVTREEINDEX2 =
 {
+"structrpp_1_1operators_1_1details_1_1repeat__t.html":[3,0,0,2,0,58],
+"structrpp_1_1operators_1_1details_1_1scan__no__seed__observer__strategy.html":[3,0,0,2,0,59],
 "structrpp_1_1operators_1_1details_1_1scan__no__seed__t.html":[3,0,0,2,0,60],
 "structrpp_1_1operators_1_1details_1_1scan__no__seed__t_1_1operator__traits.html":[3,0,0,2,0,60,0],
 "structrpp_1_1operators_1_1details_1_1scan__observer__strategy.html":[3,0,0,2,0,61],

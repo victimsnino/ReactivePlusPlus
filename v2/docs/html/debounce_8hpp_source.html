@@ -161,7 +161,7 @@ $(function(){initNavTree('debounce_8hpp_source.html',''); initResizable(); });
 <div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>        {</div>
 <div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>            std::lock_guard lock{m_mutex};</div>
 <div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>            m_value_to_be_emitted.emplace(std::forward&lt;TT&gt;(v));</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>            <span class="keyword">const</span> <span class="keywordtype">bool</span> need_to_scheduled        = !m_time_when_value_should_be_emitted.has_value() || !m_value_to_be_emitted.has_value();</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>            <span class="keyword">const</span> <span class="keywordtype">bool</span> need_to_scheduled        = !m_time_when_value_should_be_emitted.has_value();</div>
 <div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>            m_time_when_value_should_be_emitted = m_worker.now() + m_period;</div>
 <div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>            <span class="keywordflow">if</span> (need_to_scheduled)</div>
 <div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>            {</div>
@@ -181,11 +181,11 @@ $(function(){initNavTree('debounce_8hpp_source.html',''); initResizable(); });
 <div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>        <span class="keywordtype">void</span> schedule()</div>
 <div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>        {</div>
 <div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>            m_worker.schedule(</div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>                m_period,</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>                m_time_when_value_should_be_emitted.value(),</div>
 <div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>                [](<span class="keyword">const</span> <a class="code hl_struct" href="structrpp_1_1operators_1_1details_1_1debounce__disposable__wrapper.html">debounce_disposable_wrapper&lt;Observer, Worker, Container&gt;</a>&amp; handler) -&gt; schedulers::optional_delay_to {</div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>                    <span class="keyword">auto</span> value_or_duration = handler.disposable-&gt;extract_value_or_time();</div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>                    <span class="keywordflow">if</span> (<span class="keyword">auto</span>* timepoint = std::get_if&lt;schedulers::time_point&gt;(&amp;value_or_duration))</div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>                        <span class="keywordflow">return</span> schedulers::optional_delay_to{*timepoint};</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>                    auto value_or_duration = handler.disposable-&gt;extract_value_or_time();</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>                    if (auto* timepoint = std::get_if&lt;schedulers::time_point&gt;(&amp;value_or_duration))</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>                        return schedulers::optional_delay_to{*timepoint};</div>
 <div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span> </div>
 <div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>                    <span class="keywordflow">if</span> (<span class="keyword">auto</span>* value = std::get_if&lt;T&gt;(&amp;value_or_duration))</div>
 <div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>                        handler.disposable-&gt;get_observer_under_lock()-&gt;on_next(std::move(*value));</div>
@@ -210,7 +210,7 @@ $(function(){initNavTree('debounce_8hpp_source.html',''); initResizable(); });
 <div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>            <span class="keywordflow">return</span> v;</div>
 <div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>        }</div>
 <div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span> </div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>        <a class="code hl_struct" href="structrpp_1_1operators_1_1details_1_1value__with__mutex.html">value_with_mutex&lt;Observer&gt;</a>   m_observer;</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>        value_with_mutex&lt;Observer&gt;   m_observer;</div>
 <div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>        RPP_NO_UNIQUE_ADDRESS Worker m_worker;</div>
 <div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>        rpp::schedulers::duration    m_period;</div>
 <div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span> </div>
@@ -318,7 +318,6 @@ $(function(){initNavTree('debounce_8hpp_source.html',''); initResizable(); });
 <div class="ttc" id="astructrpp_1_1operators_1_1details_1_1debounce__observer__strategy_html"><div class="ttname"><a href="structrpp_1_1operators_1_1details_1_1debounce__observer__strategy.html">rpp::operators::details::debounce_observer_strategy</a></div><div class="ttdef"><b>Definition</b> debounce.hpp:118</div></div>
 <div class="ttc" id="astructrpp_1_1operators_1_1details_1_1debounce__t_1_1operator__traits_html"><div class="ttname"><a href="structrpp_1_1operators_1_1details_1_1debounce__t_1_1operator__traits.html">rpp::operators::details::debounce_t::operator_traits</a></div><div class="ttdef"><b>Definition</b> debounce.hpp:161</div></div>
 <div class="ttc" id="astructrpp_1_1operators_1_1details_1_1debounce__t_html"><div class="ttname"><a href="structrpp_1_1operators_1_1details_1_1debounce__t.html">rpp::operators::details::debounce_t</a></div><div class="ttdef"><b>Definition</b> debounce.hpp:158</div></div>
-<div class="ttc" id="astructrpp_1_1operators_1_1details_1_1value__with__mutex_html"><div class="ttname"><a href="structrpp_1_1operators_1_1details_1_1value__with__mutex.html">rpp::operators::details::value_with_mutex</a></div><div class="ttdef"><b>Definition</b> utils.hpp:19</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

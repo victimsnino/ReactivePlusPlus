@@ -54,6 +54,8 @@ var concepts =
           [ "schedulable_delay_to_fn", "conceptrpp_1_1schedulers_1_1constraint_1_1schedulable__delay__to__fn.html", null ],
           [ "schedulable_fn", "conceptrpp_1_1schedulers_1_1constraint_1_1schedulable__fn.html", null ],
           [ "schedulable_handler", "conceptrpp_1_1schedulers_1_1constraint_1_1schedulable__handler.html", null ],
+          [ "defer_for_strategy", "conceptrpp_1_1schedulers_1_1constraint_1_1defer__for__strategy.html", null ],
+          [ "defer_to_strategy", "conceptrpp_1_1schedulers_1_1constraint_1_1defer__to__strategy.html", null ],
           [ "strategy", "conceptrpp_1_1schedulers_1_1constraint_1_1strategy.html", null ],
           [ "worker", "conceptrpp_1_1schedulers_1_1constraint_1_1worker.html", null ],
           [ "scheduler", "conceptrpp_1_1schedulers_1_1constraint_1_1scheduler.html", null ]
