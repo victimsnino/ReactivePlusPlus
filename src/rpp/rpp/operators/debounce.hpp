@@ -75,7 +75,7 @@ namespace rpp::operators::details
         void schedule()
         {
             m_worker.schedule(
-                m_time_when_value_should_be_emitted,
+                m_time_when_value_should_be_emitted.value(),
                 [](const debounce_disposable_wrapper<Observer, Worker, Container>& handler) -> schedulers::optional_delay_to {
                     auto value_or_duration = handler.disposable->extract_value_or_time();
                     if (auto* timepoint = std::get_if<schedulers::time_point>(&value_or_duration))
