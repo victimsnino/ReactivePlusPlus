@@ -35,7 +35,7 @@ namespace rpp::operators::details
         auto lift(Observer&& observer) const
         {
             observer.set_upstream(make_callback_disposable(last_fn));
-            return observer;
+            return std::forward<Observer>(observer);
         }
     };
 } // namespace rpp::operators::details
@@ -47,6 +47,8 @@ namespace rpp::operators
      *
      * @param last_fn action callback
      * @warning #include <rpp/operators/finally.hpp>
+     *
+     * @details action callback needs to be noexcept as it is called on dispose, throwing during this time could potentially break internal disposable state.
      *
      * @ingroup utility_operators
      * @see https://reactivex.io/documentation/operators/do.html
