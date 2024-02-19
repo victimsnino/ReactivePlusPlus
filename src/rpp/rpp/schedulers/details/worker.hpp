@@ -41,7 +41,19 @@ namespace rpp::schedulers
         template<rpp::schedulers::constraint::schedulable_handler Handler, typename... Args, constraint::schedulable_fn<Handler, Args...> Fn>
         void schedule(const duration delay, Fn&& fn, Handler&& handler, Args&&... args) const
         {
-            m_strategy.defer_for(delay, std::forward<Fn>(fn), std::forward<Handler>(handler), std::forward<Args>(args)...);
+            if constexpr (constraint::defer_for_strategy<Strategy>)
+                m_strategy.defer_for(delay, std::forward<Fn>(fn), std::forward<Handler>(handler), std::forward<Args>(args)...);
+            else
+                schedule(now() + delay, std::forward<Fn>(fn), std::forward<Handler>(handler), std::forward<Args>(args)...);
+        }
+
+        template<rpp::schedulers::constraint::schedulable_handler Handler, typename... Args, constraint::schedulable_fn<Handler, Args...> Fn>
+        void schedule(const time_point tp, Fn&& fn, Handler&& handler, Args&&... args) const
+        {
+            if constexpr (constraint::defer_to_strategy<Strategy>)
+                m_strategy.defer_to(tp, std::forward<Fn>(fn), std::forward<Handler>(handler), std::forward<Args>(args)...);
+            else
+                schedule(tp - now(), std::forward<Fn>(fn), std::forward<Handler>(handler), std::forward<Args>(args)...);
         }
 
         rpp::disposable_wrapper get_disposable() const

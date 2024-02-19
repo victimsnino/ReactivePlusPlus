@@ -122,7 +122,7 @@ namespace rpp::schedulers::constraint
     };
 
     template<typename S>
-    concept strategy = requires(const S& s, const details::fake_schedulable_handler& handler) {
+    concept defer_for_strategy = requires(const S& s, const details::fake_schedulable_handler& handler) {
         {
             s.defer_for(duration{}, std::declval<optional_delay_from_now (*)(const details::fake_schedulable_handler&)>(), handler)
         } -> std::same_as<void>;
@@ -132,6 +132,23 @@ namespace rpp::schedulers::constraint
         {
             s.defer_for(duration{}, std::declval<optional_delay_to (*)(const details::fake_schedulable_handler&)>(), handler)
         } -> std::same_as<void>;
+    };
+
+    template<typename S>
+    concept defer_to_strategy = requires(const S& s, const details::fake_schedulable_handler& handler) {
+        {
+            s.defer_to(time_point{}, std::declval<optional_delay_from_now (*)(const details::fake_schedulable_handler&)>(), handler)
+        } -> std::same_as<void>;
+        {
+            s.defer_to(time_point{}, std::declval<optional_delay_from_this_timepoint (*)(const details::fake_schedulable_handler&)>(), handler)
+        } -> std::same_as<void>;
+        {
+            s.defer_to(time_point{}, std::declval<optional_delay_to (*)(const details::fake_schedulable_handler&)>(), handler)
+        } -> std::same_as<void>;
+    };
+
+    template<typename S>
+    concept strategy = (defer_for_strategy<S> || defer_to_strategy<S>)&&requires(const S& s, const details::fake_schedulable_handler& handler) {
         {
             s.get_disposable()
         } -> rpp::constraint::any_of<rpp::disposable_wrapper, details::none_disposable>;

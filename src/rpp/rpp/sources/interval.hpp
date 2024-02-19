@@ -45,14 +45,7 @@ namespace rpp::details
                     observer.set_upstream(std::move(d));
             }
 
-            if constexpr (std::is_same_v<TimePointOrDuration, rpp::schedulers::time_point>)
-            {
-                worker.schedule(initial - worker.now(), interval_schedulable{}, std::forward<TObs>(observer), period, size_t{});
-            }
-            else
-            {
-                worker.schedule(initial, interval_schedulable{}, std::forward<TObs>(observer), period, size_t{});
-            }
+            worker.schedule(initial, interval_schedulable{}, std::forward<TObs>(observer), period, size_t{});
         }
     };
 } // namespace rpp::details

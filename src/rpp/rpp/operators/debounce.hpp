@@ -55,7 +55,7 @@ namespace rpp::operators::details
         {
             std::lock_guard lock{m_mutex};
             m_value_to_be_emitted.emplace(std::forward<TT>(v));
-            const bool need_to_scheduled        = !m_time_when_value_should_be_emitted.has_value() || !m_value_to_be_emitted.has_value();
+            const bool need_to_scheduled        = !m_time_when_value_should_be_emitted.has_value();
             m_time_when_value_should_be_emitted = m_worker.now() + m_period;
             if (need_to_scheduled)
             {
@@ -75,7 +75,7 @@ namespace rpp::operators::details
         void schedule()
         {
             m_worker.schedule(
-                m_period,
+                m_time_when_value_should_be_emitted.value(),
                 [](const debounce_disposable_wrapper<Observer, Worker, Container>& handler) -> schedulers::optional_delay_to {
                     auto value_or_duration = handler.disposable->extract_value_or_time();
                     if (auto* timepoint = std::get_if<schedulers::time_point>(&value_or_duration))

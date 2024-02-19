@@ -162,6 +162,22 @@ namespace rpp::schedulers
                     drain_queue(queue);
             }
 
+            template<rpp::schedulers::constraint::schedulable_handler Handler, typename... Args, constraint::schedulable_fn<Handler, Args...> Fn>
+            static void defer_to(time_point tp, Fn&& fn, Handler&& handler, Args&&... args)
+            {
+                if (handler.is_disposed())
+                    return;
+
+                if (s_queue.has_value())
+                {
+                    s_queue->emplace(tp, std::forward<Fn>(fn), std::forward<Handler>(handler), std::forward<Args>(args)...);
+                }
+                else
+                {
+                    defer_for(tp - now(), std::forward<Fn>(fn), std::forward<Handler>(handler), std::forward<Args>(args)...);
+                }
+            }
+
             static constexpr rpp::schedulers::details::none_disposable get_disposable() { return {}; }
 
             static rpp::schedulers::time_point now() { return details::now(); }
