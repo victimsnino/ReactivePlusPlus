@@ -91,6 +91,7 @@ var hierarchy =
       [ "rpp::schedulers::constraint::details::is_worker< T >", "structrpp_1_1schedulers_1_1constraint_1_1details_1_1is__worker.html", null ]
     ] ],
     [ "rpp::operators::details::filter_observer_strategy< TObserver, Fn >", "structrpp_1_1operators_1_1details_1_1filter__observer__strategy.html", null ],
+    [ "rpp::operators::details::finally_t< LastFn >", "structrpp_1_1operators_1_1details_1_1finally__t.html", null ],
     [ "rpp::operators::details::first_observer_strategy< TObserver >", "structrpp_1_1operators_1_1details_1_1first__observer__strategy.html", null ],
     [ "rpp::details::observables::fixed_disposable_strategy_selector< Count, Mode >", "structrpp_1_1details_1_1observables_1_1fixed__disposable__strategy__selector.html", null ],
     [ "rpp::details::observables::fixed_disposable_strategy_selector< 0, Mode >", "structrpp_1_1details_1_1observables_1_1fixed__disposable__strategy__selector_3_010_00_01_mode_01_4.html", null ],
@@ -256,6 +257,7 @@ var hierarchy =
     [ "rpp::operators::details::distinct_t::operator_traits< T >", "structrpp_1_1operators_1_1details_1_1distinct__t_1_1operator__traits.html", null ],
     [ "rpp::operators::details::distinct_until_changed_t< EqualityFn >::operator_traits< T >", "structrpp_1_1operators_1_1details_1_1distinct__until__changed__t_1_1operator__traits.html", null ],
     [ "rpp::operators::details::filter_t< Fn >::operator_traits< T >", "structrpp_1_1operators_1_1details_1_1filter__t_1_1operator__traits.html", null ],
+    [ "rpp::operators::details::finally_t< LastFn >::operator_traits< T >", "structrpp_1_1operators_1_1details_1_1finally__t_1_1operator__traits.html", null ],
     [ "rpp::operators::details::first_t::operator_traits< T >", "structrpp_1_1operators_1_1details_1_1first__t_1_1operator__traits.html", null ],
     [ "rpp::operators::details::group_by_t< KeySelector, ValueSelector, KeyComparator >::operator_traits< T >", "structrpp_1_1operators_1_1details_1_1group__by__t_1_1operator__traits.html", null ],
     [ "rpp::operators::details::last_t::operator_traits< T >", "structrpp_1_1operators_1_1details_1_1last__t_1_1operator__traits.html", null ],

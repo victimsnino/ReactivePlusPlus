@@ -120,6 +120,10 @@ Functions</h2></td></tr>
 <tr class="memitem:gae38caa489cf43c0aca1aa1c8822aed60"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#gae38caa489cf43c0aca1aa1c8822aed60">rpp::operators::delay</a> (rpp::schedulers::duration delay_duration, Scheduler &amp;&amp;scheduler)</td></tr>
 <tr class="memdesc:gae38caa489cf43c0aca1aa1c8822aed60"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shift the emissions from an Observable forward in time by a particular amount.  <br /></td></tr>
 <tr class="separator:gae38caa489cf43c0aca1aa1c8822aed60"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga8fd8305b11ea1d88fc9e128ebbeeb354" id="r_ga8fd8305b11ea1d88fc9e128ebbeeb354"><td class="memTemplParams" colspan="2">template&lt;std::invocable&lt;&gt; LastFn&gt; </td></tr>
+<tr class="memitem:ga8fd8305b11ea1d88fc9e128ebbeeb354"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#ga8fd8305b11ea1d88fc9e128ebbeeb354">rpp::operators::finally</a> (LastFn &amp;&amp;last_fn)</td></tr>
+<tr class="memdesc:ga8fd8305b11ea1d88fc9e128ebbeeb354"><td class="mdescLeft">&#160;</td><td class="mdescRight">Register callback to be called when execution is done and disposable bound to observer is disposed.  <br /></td></tr>
+<tr class="separator:ga8fd8305b11ea1d88fc9e128ebbeeb354"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga3feb1b1258c7e3e72c151abf176c30c4" id="r_ga3feb1b1258c7e3e72c151abf176c30c4"><td class="memTemplParams" colspan="2">template&lt;<a class="el" href="conceptrpp_1_1schedulers_1_1constraint_1_1scheduler.html">rpp::schedulers::constraint::scheduler</a> Scheduler&gt; </td></tr>
 <tr class="memitem:ga3feb1b1258c7e3e72c151abf176c30c4"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#ga3feb1b1258c7e3e72c151abf176c30c4">rpp::operators::observe_on</a> (Scheduler &amp;&amp;scheduler, rpp::schedulers::duration delay_duration)</td></tr>
 <tr class="memdesc:ga3feb1b1258c7e3e72c151abf176c30c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specify the Scheduler on which an observer will observe this Observable.  <br /></td></tr>
@@ -395,6 +399,36 @@ template&lt;<a class="el" href="conceptrpp_1_1schedulers_1_1constraint_1_1schedu
 <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/delay.html">https://reactivex.io/documentation/operators/delay.html</a> </dd></dl>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="as_blocking_8cpp-example.html#a1">as_blocking.cpp</a>, <a class="el" href="debounce_8cpp-example.html#a3">debounce.cpp</a>, <a class="el" href="delay_8cpp-example.html#a0">delay.cpp</a>, and <a class="el" href="throttle_8cpp-example.html#a3">throttle.cpp</a>.</dd>
 </dl>
+
+</div>
+</div>
+<a id="ga8fd8305b11ea1d88fc9e128ebbeeb354" name="ga8fd8305b11ea1d88fc9e128ebbeeb354"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga8fd8305b11ea1d88fc9e128ebbeeb354">&#9670;&#160;</a></span>finally()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;std::invocable&lt;&gt; LastFn&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">auto rpp::operators::finally </td>
+          <td>(</td>
+          <td class="paramtype">LastFn &amp;&amp;</td>          <td class="paramname"><span class="paramname"><em>last_fn</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Register callback to be called when execution is done and disposable bound to observer is disposed. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">last_fn</td><td>action callback </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="finally_8hpp_source.html">rpp/operators/finally.hpp</a>&gt;</dd></dl>
+<p>action callback needs to be noexcept as it is called on dispose, throwing during this time could potentially break internal disposable state.</p>
+<dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/do.html">https://reactivex.io/documentation/operators/do.html</a> </dd></dl>
 
 </div>
 </div>

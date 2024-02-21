@@ -88,6 +88,7 @@ var annotated_dup =
           [ "emission", "structrpp_1_1operators_1_1details_1_1emission.html", null ],
           [ "filter_observer_strategy", "structrpp_1_1operators_1_1details_1_1filter__observer__strategy.html", null ],
           [ "filter_t", "structrpp_1_1operators_1_1details_1_1filter__t.html", "structrpp_1_1operators_1_1details_1_1filter__t" ],
+          [ "finally_t", "structrpp_1_1operators_1_1details_1_1finally__t.html", "structrpp_1_1operators_1_1details_1_1finally__t" ],
           [ "first_observer_strategy", "structrpp_1_1operators_1_1details_1_1first__observer__strategy.html", null ],
           [ "first_t", "structrpp_1_1operators_1_1details_1_1first__t.html", "structrpp_1_1operators_1_1details_1_1first__t" ],
           [ "flat_map_t", "structrpp_1_1operators_1_1details_1_1flat__map__t.html", null ],

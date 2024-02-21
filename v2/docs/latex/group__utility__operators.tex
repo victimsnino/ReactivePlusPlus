@@ -14,6 +14,8 @@ auto \mbox{\hyperlink{group__utility__operators_ga9df008c11eeff8c9383e56bf36e28e
 \begin{DoxyCompactList}\small\item\em Only emit emission if specified period of time has passed without any other emission. On each new emission timer reset. \end{DoxyCompactList}\item 
 {\footnotesize template$<$\mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1scheduler}{rpp\+::schedulers\+::constraint\+::scheduler}} Scheduler$>$ }\\auto \mbox{\hyperlink{group__utility__operators_gae38caa489cf43c0aca1aa1c8822aed60}{rpp\+::operators\+::delay}} (rpp\+::schedulers\+::duration delay\+\_\+duration, Scheduler \&\&scheduler)
 \begin{DoxyCompactList}\small\item\em Shift the emissions from an Observable forward in time by a particular amount. \end{DoxyCompactList}\item 
+{\footnotesize template$<$std\+::invocable$<$$>$ Last\+Fn$>$ }\\auto \mbox{\hyperlink{group__utility__operators_ga8fd8305b11ea1d88fc9e128ebbeeb354}{rpp\+::operators\+::finally}} (Last\+Fn \&\&last\+\_\+fn)
+\begin{DoxyCompactList}\small\item\em Register callback to be called when execution is done and disposable bound to observer is disposed. \end{DoxyCompactList}\item 
 {\footnotesize template$<$\mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1scheduler}{rpp\+::schedulers\+::constraint\+::scheduler}} Scheduler$>$ }\\auto \mbox{\hyperlink{group__utility__operators_ga3feb1b1258c7e3e72c151abf176c30c4}{rpp\+::operators\+::observe\+\_\+on}} (Scheduler \&\&scheduler, rpp\+::schedulers\+::duration delay\+\_\+duration)
 \begin{DoxyCompactList}\small\item\em Specify the Scheduler on which an observer will observe this Observable. \end{DoxyCompactList}\item 
 auto \mbox{\hyperlink{group__utility__operators_ga96a3c17903a50c2f6dfd66d8b90a96f2}{rpp\+::operators\+::repeat}} (size\+\_\+t count)
@@ -243,6 +245,30 @@ on\+\_\+error/on\+\_\+completed invoking also would be delayed as any other emis
 \begin{Desc}
 \item[Examples]\par
 \mbox{\hyperlink{as_blocking_8cpp-example}{as\+\_\+blocking.\+cpp}}, \mbox{\hyperlink{debounce_8cpp-example}{debounce.\+cpp}}, \mbox{\hyperlink{delay_8cpp-example}{delay.\+cpp}}, and \mbox{\hyperlink{throttle_8cpp-example}{throttle.\+cpp}}.\end{Desc}
+\Hypertarget{group__utility__operators_ga8fd8305b11ea1d88fc9e128ebbeeb354}\label{group__utility__operators_ga8fd8305b11ea1d88fc9e128ebbeeb354} 
+\index{Utility Operators@{Utility Operators}!finally@{finally}}
+\index{finally@{finally}!Utility Operators@{Utility Operators}}
+\doxysubsubsubsubsection{\texorpdfstring{finally()}{finally()}}
+{\footnotesize\ttfamily template$<$std\+::invocable$<$$>$ Last\+Fn$>$ \\
+auto rpp\+::operators\+::finally (\begin{DoxyParamCaption}\item[{Last\+Fn \&\&}]{last\+\_\+fn }\end{DoxyParamCaption})}
+
+
+
+Register callback to be called when execution is done and disposable bound to observer is disposed. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em last\+\_\+fn} & action callback \\
+\hline
+\end{DoxyParams}
+\begin{DoxyWarning}{Warning}
+\#include \texorpdfstring{$<$}{<}\doxylink{finally_8hpp_source}{rpp/operators/finally.\+hpp}\texorpdfstring{$>$}{>}
+\end{DoxyWarning}
+action callback needs to be noexcept as it is called on dispose, throwing during this time could potentially break internal disposable state.
+
+\begin{DoxySeeAlso}{See also}
+\href{https://reactivex.io/documentation/operators/do.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/do.\+html}} 
+\end{DoxySeeAlso}
 \Hypertarget{group__utility__operators_ga3feb1b1258c7e3e72c151abf176c30c4}\label{group__utility__operators_ga3feb1b1258c7e3e72c151abf176c30c4} 
 \index{Utility Operators@{Utility Operators}!observe\_on@{observe\_on}}
 \index{observe\_on@{observe\_on}!Utility Operators@{Utility Operators}}
