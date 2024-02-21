@@ -397,3 +397,49 @@ rpp::source::just<rpp::memory_model::use_shared>(my_custom_variable);
 makes only 1 copy/move to shared_ptr and then uses it instead.
 
 As a a result, users can select preferable way of handling of their types.
+
+## ReactivePlusPlus specific
+### dynamic_* versions to keep classes as variables
+
+Most of the classes inside rpp library including `observable`, `observer` and others are heavy-templated classes. It means, it could has a lot of template params. In most cases you shouldn't worry about it due to it is purely internal problem.
+
+But in some cases you want to keep observable or observer inside your classes or return it from function. In most cases I strongly recommend you to use `auto` to deduce type automatically. But in some cases it is not possible (for example, to keep observable as member variable). For such an usage you could use `dynamic_observable` and `dynamic_observer`:
+- they are type-erased wrappers over regular observable/observer with goal to hide all unnecessary stuff from user's code. For example, you can easily use it as:
+```cpp
+#include <rpp/rpp.hpp>
+
+#include <iostream>
+
+struct some_data
+{
+  rpp::dynamic_observable<int> observable;
+  rpp::dynamic_observer<int> observer;
+};
+
+int main() {
+    some_data v{rpp::source::just(1,2,3),
+                rpp::make_lambda_observer([](int value){
+                    std::cout << value << std::endl;
+                })};
+
+    v.observable.subscribe(v.observer);
+}
+```
+- to convert observable/observer to dynamic_* version you could manually call `as_dynamic()` member function or just pass them to ctor
+- actually they are similar to rxcpp's `observer<T>` and `observable<T>` but provides EXPLICIT definition of `dynamic` fact
+- due to type-erasure mechanism `dynamic_` provides some minor performance penalties due to extra usage of `shared_ptr` to keep internal state + indirect calls. It is not critical in case of storing it as member function, but could be important in case of using it on hot paths like this:
+```cpp
+rpp::source::just(1,2,3)
+| rpp::ops::map([](int v) { return rpp::source::just(v); })
+| rpp::ops::flat_map([](rpp::dynamic_observable<int> observable) {
+  return observable | rpp::ops::filter([](int v){ return v % 2 == 0;});
+});
+```
+^^^ while it is fully valid code, `flat_map` have to convert observable to dynamic version via extra heap, but it is unnecessary. It is better to use `auto` in this case.
+```cpp
+rpp::source::just(1,2,3)
+| rpp::ops::map([](int v) { return rpp::source::just(v); })
+| rpp::ops::flat_map([](const rpp::constraint::observable_of_type<int> auto& observable) { // or just `const auto& observable`
+return observable | rpp::ops::filter([](int v){ return v % 2 == 0;});
+});
+```

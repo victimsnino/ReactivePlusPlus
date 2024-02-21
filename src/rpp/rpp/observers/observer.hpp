@@ -241,7 +241,7 @@ namespace rpp
     public:
         template<constraint::observer_strategy<Type> TStrategy>
             requires (!std::same_as<TStrategy, rpp::details::observers::dynamic_strategy<Type>>)
-        explicit observer(observer<Type, TStrategy>&& other)
+        observer(observer<Type, TStrategy>&& other)
             : details::observer_impl<Type, rpp::details::observers::dynamic_strategy<Type>, details::observers::none_disposable_strategy>{details::observers::none_disposable_strategy{}, std::move(other)}
         {
         }
