@@ -26,7 +26,7 @@ namespace rpp
      * @warning Actually observable "doesn't emit nothing", it only **invokes Strategy!** Strategy COULD emit emissions immediately OR place observer to some queue or something like this to obtain emissions later (for example subjects)
      * @warning Expected that observable's strategy would work with observer in serialized way
      *
-     * @note In case of you are need to keep some "abstract" observable of `Type`, you can use type-erased wrapper version: `rpp::dynamic_observable`
+     * @note In case of you are need to keep some "abstract" observable of `Type`, you can use type-erased version: `rpp::dynamic_observable`
      *
      * @tparam Type of value this observable would provide. Only observers of same type can be subscribed to this observable.
      * @tparam Strategy used to provide logic over observable's callbacks.
