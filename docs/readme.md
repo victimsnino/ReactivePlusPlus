@@ -419,9 +419,8 @@ struct some_data
 int main() {
     some_data v{rpp::source::just(1,2,3),
                 rpp::make_lambda_observer([](int value){
-                std::cout << value << std::endl;
-            })
-    };
+                    std::cout << value << std::endl;
+                })};
 
     v.observable.subscribe(v.observer);
 }
