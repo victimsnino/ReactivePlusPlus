@@ -434,4 +434,54 @@ For example, {\ttfamily \doxylink{group__creational__operators_ga1edf47f176050dd
 \end{DoxyCode}
  makes only 1 copy/move to shared\+\_\+ptr and then uses it instead.
 
-As a a result, users can select preferable way of handling of their types. 
+As a a result, users can select preferable way of handling of their types.\hypertarget{md_docs_2readme_autotoc_md12}{}\doxysection{\texorpdfstring{Reactive\+Plus\+Plus specific}{Reactive\+Plus\+Plus specific}}\label{md_docs_2readme_autotoc_md12}
+\hypertarget{md_docs_2readme_autotoc_md13}{}\doxysubsection{\texorpdfstring{dynamic\+\_\+\texorpdfstring{$\ast$}{*} versions to keep classes as variables}{dynamic\+\_\+\texorpdfstring{$\ast$}{*} versions to keep classes as variables}}\label{md_docs_2readme_autotoc_md13}
+Most of the classes inside rpp library including {\ttfamily observable}, {\ttfamily observer} and others are heavy-\/templated classes. It means, it could has a lot of template params. In most cases you shouldn\textquotesingle{}t worry about it due to it is purely internal problem.
+
+But in some cases you want to keep observable or observer inside your classes or return it from function. In most cases I strongly recommend you to use {\ttfamily auto} to deduce type automatically. But in some cases it is not possible (for example, to keep observable as member variable). For such an usage you could use {\ttfamily dynamic\+\_\+observable} and {\ttfamily dynamic\+\_\+observer}\+:
+\begin{DoxyItemize}
+\item they are type-\/erased wrappers over regular observable/observer with goal to hide all unnecessary stuff from user\textquotesingle{}s code. For example, you can easily use it as\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <rpp/rpp.hpp>}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{struct\ }some\_data}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{classrpp_1_1dynamic__observable}{rpp::dynamic\_observable<int>}}\ observable;}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{classrpp_1_1dynamic__observer}{rpp::dynamic\_observer<int>}}\ observer;}
+\DoxyCodeLine{\};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{int}\ main()\ \{}
+\DoxyCodeLine{\ \ \ \ some\_data\ v\{\mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(1,2,3),}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__observers_gae17f62f64102925f4cd2eb29c4c27028}{rpp::make\_lambda\_observer}}([](\textcolor{keywordtype}{int}\ value)\{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ value\ <<\ std::endl;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \})\};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ v.observable.subscribe(v.observer);}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+\item to convert observable/observer to dynamic\+\_\+\texorpdfstring{$\ast$}{*} version you could manually call {\ttfamily as\+\_\+dynamic()} member function or just pass them to ctor
+\item actually they are similar to rxcpp\textquotesingle{}s {\ttfamily observer\texorpdfstring{$<$}{<}T\texorpdfstring{$>$}{>}} and {\ttfamily observable\texorpdfstring{$<$}{<}T\texorpdfstring{$>$}{>}} but provides EXPLICIT definition of {\ttfamily dynamic} fact
+\item due to type-\/erasure mechanism {\ttfamily dynamic\+\_\+} provides some minor performance penalties due to extra usage of {\ttfamily shared\+\_\+ptr} to keep internal state + indirect calls. It is not critical in case of storing it as member function, but could be important in case of using it on hot paths like this\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(1,2,3)}
+\DoxyCodeLine{|\ rpp::ops::map([](\textcolor{keywordtype}{int}\ v)\ \{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(v);\ \})}
+\DoxyCodeLine{|\ rpp::ops::flat\_map([](\mbox{\hyperlink{classrpp_1_1dynamic__observable}{rpp::dynamic\_observable<int>}}\ observable)\ \{}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{return}\ observable\ |\ rpp::ops::filter([](\textcolor{keywordtype}{int}\ v)\{\ \textcolor{keywordflow}{return}\ v\ \%\ 2\ ==\ 0;\});}
+\DoxyCodeLine{\});}
+
+\end{DoxyCode}
+ \texorpdfstring{$^\wedge$}{\string^}\texorpdfstring{$^\wedge$}{\string^}\texorpdfstring{$^\wedge$}{\string^} while it is fully valid code, {\ttfamily flat\+\_\+map} have to convert observable to dynamic version via extra heap, but it is unnecessary. It is better to use {\ttfamily auto} in this case. 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(1,2,3)}
+\DoxyCodeLine{|\ rpp::ops::map([](\textcolor{keywordtype}{int}\ v)\ \{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(v);\ \})}
+\DoxyCodeLine{|\ rpp::ops::flat\_map([](\textcolor{keyword}{const}\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable__of__type}{rpp::constraint::observable\_of\_type<int>}}\ \textcolor{keyword}{auto}\&\ observable)\ \{\ \textcolor{comment}{//\ or\ just\ \`{}const\ auto\&\ observable`}}
+\DoxyCodeLine{\textcolor{keywordflow}{return}\ observable\ |\ rpp::ops::filter([](\textcolor{keywordtype}{int}\ v)\{\ \textcolor{keywordflow}{return}\ v\ \%\ 2\ ==\ 0;\});}
+\DoxyCodeLine{\});}
+
+\end{DoxyCode}
+ 
+\end{DoxyItemize}

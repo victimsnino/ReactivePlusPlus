@@ -40,6 +40,9 @@ var NAVTREE =
         [ "Memory Model", "md_docs_2readme.html#autotoc_md10", [
           [ "Examples", "md_docs_2readme.html#autotoc_md11", null ]
         ] ]
+      ] ],
+      [ "ReactivePlusPlus specific", "md_docs_2readme.html#autotoc_md12", [
+        [ "dynamic_* versions to keep classes as variables", "md_docs_2readme.html#autotoc_md13", null ]
       ] ]
     ] ],
     [ "API reference", "topics.html", "topics" ],
@@ -64,7 +67,7 @@ var NAVTREEINDEX =
 [
 "annotated.html",
 "group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df",
-"structrpp_1_1operators_1_1details_1_1reduce__observer__strategy.html"
+"structrpp_1_1operators_1_1details_1_1reduce__no__seed__t.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

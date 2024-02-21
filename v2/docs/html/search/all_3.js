@@ -35,10 +35,11 @@ var searchData=
   ['distinct_5funtil_5fchanged_32',['distinct_until_changed',['../group__filtering__operators.html#gaa8ed11faabd5b31d63d0481f9018fc68',1,'rpp::operators']]],
   ['distinct_5funtil_5fchanged_5fobserver_5fstrategy_33',['distinct_until_changed_observer_strategy',['../structrpp_1_1operators_1_1details_1_1distinct__until__changed__observer__strategy.html',1,'rpp::operators::details']]],
   ['distinct_5funtil_5fchanged_5ft_34',['distinct_until_changed_t',['../structrpp_1_1operators_1_1details_1_1distinct__until__changed__t.html',1,'rpp::operators::details']]],
-  ['dynamic_5fdisposable_5fstrategy_5fselector_35',['dynamic_disposable_strategy_selector',['../structrpp_1_1details_1_1observables_1_1dynamic__disposable__strategy__selector.html',1,'rpp::details::observables']]],
-  ['dynamic_5fdisposables_5fcontainer_36',['dynamic_disposables_container',['../classrpp_1_1details_1_1disposables_1_1dynamic__disposables__container.html',1,'rpp::details::disposables']]],
-  ['dynamic_5fdisposables_5fcontainer_5fbase_37',['dynamic_disposables_container_base',['../classrpp_1_1details_1_1disposables_1_1dynamic__disposables__container__base.html',1,'rpp::details::disposables']]],
-  ['dynamic_5fobservable_38',['dynamic_observable',['../classrpp_1_1dynamic__observable.html',1,'rpp']]],
-  ['dynamic_5fobserver_39',['dynamic_observer',['../classrpp_1_1dynamic__observer.html',1,'rpp']]],
-  ['dynamic_5fstrategy_40',['dynamic_strategy',['../classrpp_1_1details_1_1observables_1_1dynamic__strategy.html',1,'rpp::details::observables::dynamic_strategy&lt; Type &gt;'],['../classrpp_1_1details_1_1observers_1_1dynamic__strategy.html',1,'rpp::details::observers::dynamic_strategy&lt; Type &gt;']]]
+  ['dynamic_5f_20versions_20to_20keep_20classes_20as_20variables_35',['dynamic_* versions to keep classes as variables',['../md_docs_2readme.html#autotoc_md13',1,'']]],
+  ['dynamic_5fdisposable_5fstrategy_5fselector_36',['dynamic_disposable_strategy_selector',['../structrpp_1_1details_1_1observables_1_1dynamic__disposable__strategy__selector.html',1,'rpp::details::observables']]],
+  ['dynamic_5fdisposables_5fcontainer_37',['dynamic_disposables_container',['../classrpp_1_1details_1_1disposables_1_1dynamic__disposables__container.html',1,'rpp::details::disposables']]],
+  ['dynamic_5fdisposables_5fcontainer_5fbase_38',['dynamic_disposables_container_base',['../classrpp_1_1details_1_1disposables_1_1dynamic__disposables__container__base.html',1,'rpp::details::disposables']]],
+  ['dynamic_5fobservable_39',['dynamic_observable',['../classrpp_1_1dynamic__observable.html',1,'rpp']]],
+  ['dynamic_5fobserver_40',['dynamic_observer',['../classrpp_1_1dynamic__observer.html',1,'rpp']]],
+  ['dynamic_5fstrategy_41',['dynamic_strategy',['../classrpp_1_1details_1_1observables_1_1dynamic__strategy.html',1,'rpp::details::observables::dynamic_strategy&lt; Type &gt;'],['../classrpp_1_1details_1_1observers_1_1dynamic__strategy.html',1,'rpp::details::observers::dynamic_strategy&lt; Type &gt;']]]
 ];

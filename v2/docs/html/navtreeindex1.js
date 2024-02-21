@@ -89,6 +89,8 @@ var NAVTREEINDEX1 =
 "md_docs_2readme.html#autotoc_md1":[0,0],
 "md_docs_2readme.html#autotoc_md10":[0,1,5],
 "md_docs_2readme.html#autotoc_md11":[0,1,5,0],
+"md_docs_2readme.html#autotoc_md12":[0,2],
+"md_docs_2readme.html#autotoc_md13":[0,2,0],
 "md_docs_2readme.html#autotoc_md2":[0,0,0],
 "md_docs_2readme.html#autotoc_md3":[0,1],
 "md_docs_2readme.html#autotoc_md4":[0,1,0],
@@ -247,7 +249,5 @@ var NAVTREEINDEX1 =
 "structrpp_1_1operators_1_1details_1_1on__error__resume__next__observer__strategy.html":[3,0,0,2,0,51],
 "structrpp_1_1operators_1_1details_1_1on__error__resume__next__t.html":[3,0,0,2,0,52],
 "structrpp_1_1operators_1_1details_1_1on__error__resume__next__t_1_1operator__traits.html":[3,0,0,2,0,52,0],
-"structrpp_1_1operators_1_1details_1_1reduce__no__seed__observer__strategy.html":[3,0,0,2,0,54],
-"structrpp_1_1operators_1_1details_1_1reduce__no__seed__t.html":[3,0,0,2,0,55],
-"structrpp_1_1operators_1_1details_1_1reduce__no__seed__t_1_1operator__traits.html":[3,0,0,2,0,55,0]
+"structrpp_1_1operators_1_1details_1_1reduce__no__seed__observer__strategy.html":[3,0,0,2,0,54]
 };

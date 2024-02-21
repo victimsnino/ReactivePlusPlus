@@ -249,6 +249,7 @@ class rpp::observable&lt; Type, Strategy &gt;</div><p>Base class for any observa
 <p>Observable provides only one core function: subscribe - it accepts observer (or any way to construct it) and then invokes underlying Strategy to emit emissions somehow. </p><dl class="section warning"><dt>Warning</dt><dd>Actually observable "doesn't emit nothing", it only <b>invokes Strategy!</b> Strategy COULD emit emissions immediately OR place observer to some queue or something like this to obtain emissions later (for example subjects) </dd>
 <dd>
 Expected that observable's strategy would work with observer in serialized way</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>In case of you are need to keep some "abstract" observable of <code>Type</code>, you can use type-erased version: <code><a class="el" href="classrpp_1_1dynamic__observable.html" title="Type-erased version of the rpp::observable. Any observable can be converted to dynamic_observable via...">rpp::dynamic_observable</a></code></dd></dl>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
     <tr><td class="paramname">Type</td><td>of value this observable would provide. Only observers of same type can be subscribed to this observable. </td></tr>
