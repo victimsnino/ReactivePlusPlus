@@ -30,9 +30,8 @@ namespace rpp::operators::details
         RPP_NO_UNIQUE_ADDRESS Fn           fn;
 
         RPP_CALL_DURING_CONSTRUCTION(
-            {
-                observer.on_next(utils::as_const(seed));
-            });
+            observer.on_next(utils::as_const(seed));
+        );
 
         template<typename T>
         void on_next(T&& v) const
