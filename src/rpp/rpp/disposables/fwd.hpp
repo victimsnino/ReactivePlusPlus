@@ -26,7 +26,18 @@ namespace rpp
     template<rpp::constraint::decayed_type TDisposable>
     class disposable_wrapper_impl;
 
-    using disposable_wrapper           = disposable_wrapper_impl<interface_disposable>;
+    /**
+     * @brief Wrapper to keep "simple" disposable. Specialization of rpp::disposable_wrapper_impl
+     *
+     * @ingroup disposables
+     */
+    using disposable_wrapper = disposable_wrapper_impl<interface_disposable>;
+
+    /**
+     * @brief Wrapper to keep "composite" disposable. Specialization of rpp::disposable_wrapper_impl
+     *
+     * @ingroup disposables
+     */
     using composite_disposable_wrapper = disposable_wrapper_impl<interface_composite_disposable>;
 } // namespace rpp
 

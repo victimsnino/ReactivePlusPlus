@@ -13,7 +13,7 @@
 /**
  * @defgroup disposables Disposables
  * @brief Disposable owns some resource and provides ability to `dispose()` it: destroy/remove/disconnect and etc.
- * @details In RPP it used as "reverse subscription": observable sets disposable to observer via `set_upstream(disposable)` with meaning "if you want to cancel me -> dispose this disposable"
+ * @details In RPP it used as "inverted subscription": observable sets disposable to observer via `set_upstream(disposable)` with meaning "if you want to cancel me -> dispose this disposable"
  * @ingroup rpp
  */
 

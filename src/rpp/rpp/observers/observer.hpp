@@ -164,6 +164,8 @@ namespace rpp
      *
      * @tparam Type of value this observer can handle
      * @tparam Strategy used to provide logic over observer's callbacks
+     *
+     * @ingroup observers
      */
     template<constraint::decayed_type Type, constraint::observer_strategy<Type> Strategy>
     class observer;
