@@ -39,12 +39,12 @@
 \DoxyCodeLine{00047\ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::any\_of<atomic\_\textcolor{keywordtype}{bool},\ non\_atomic\_\textcolor{keywordtype}{bool}>\ Bool>}
 \DoxyCodeLine{00048\ \ \ \ \ \textcolor{keyword}{using\ }bool\_local\_disposable\_strategy\ =\ local\_disposable\_strategy<disposables::none\_disposables\_container,\ Bool>;}
 \DoxyCodeLine{00049\ }
-\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keyword}{using\ }external\_disposable\_strategy\ =\ composite\_disposable\_wrapper;}
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keyword}{using\ }external\_disposable\_strategy\ =\ \mbox{\hyperlink{group__disposables_ga310f07bbdbf66ad978e748209bfea420}{composite\_disposable\_wrapper}};}
 \DoxyCodeLine{00054\ }
 \DoxyCodeLine{00055\ \ \ \ \ \textcolor{keyword}{namespace\ }constraint}
 \DoxyCodeLine{00056\ \ \ \ \ \{}
 \DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
-\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \textcolor{keyword}{concept\ }\mbox{\hyperlink{conceptrpp_1_1details_1_1observers_1_1constraint_1_1disposable__strategy}{disposable\_strategy}}\ =\ \textcolor{keyword}{requires}(T\&\ v,\ \textcolor{keyword}{const}\ T\&\ const\_v,\ \textcolor{keyword}{const}\ disposable\_wrapper\&\ d)\ \{}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \textcolor{keyword}{concept\ }\mbox{\hyperlink{conceptrpp_1_1details_1_1observers_1_1constraint_1_1disposable__strategy}{disposable\_strategy}}\ =\ \textcolor{keyword}{requires}(T\&\ v,\ \textcolor{keyword}{const}\ T\&\ const\_v,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{group__disposables_ga9608d63c61b7da884b7f975dfa949d3c}{disposable\_wrapper}}\&\ d)\ \{}
 \DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \ \ \ v.add(d);}
 \DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
 \DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ const\_v.is\_disposed()}

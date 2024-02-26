@@ -12,13 +12,24 @@ class \mbox{\hyperlink{classrpp_1_1callback__disposable}{rpp\+::callback\+\_\+di
 \begin{DoxyCompactList}\small\item\em Disposable invokes underlying callable on disposing. \end{DoxyCompactList}\item 
 class \mbox{\hyperlink{classrpp_1_1composite__disposable__impl}{rpp\+::composite\+\_\+disposable\+\_\+impl$<$ Container $>$}}
 \begin{DoxyCompactList}\small\item\em Disposable which can keep some other sub-\/disposables. When this root disposable is disposed, then all sub-\/disposables would be disposed too. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classrpp_1_1composite__disposable}{rpp\+::composite\+\_\+disposable}}
+\begin{DoxyCompactList}\small\item\em Disposable which can keep some other sub-\/disposables. When this root disposable is disposed, then all sub-\/disposables would be disposed too. \end{DoxyCompactList}\item 
 class \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp\+::disposable\+\_\+wrapper\+\_\+impl$<$ TDisposable $>$}}
 \begin{DoxyCompactList}\small\item\em Wrapper to keep disposable. Any disposable have to be created right from this wrapper with help of {\ttfamily make} function. \end{DoxyCompactList}\item 
 struct \mbox{\hyperlink{structrpp_1_1interface__disposable}{rpp\+::interface\+\_\+disposable}}
 \begin{DoxyCompactList}\small\item\em Interface of disposable. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{group__disposables_ga9608d63c61b7da884b7f975dfa949d3c}\label{group__disposables_ga9608d63c61b7da884b7f975dfa949d3c} 
+using {\bfseries rpp\+::disposable\+\_\+wrapper} = \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{disposable\+\_\+wrapper\+\_\+impl}}$<$\mbox{\hyperlink{structrpp_1_1interface__disposable}{interface\+\_\+disposable}}$>$
+\begin{DoxyCompactList}\small\item\em Wrapper to keep "{}simple"{} disposable. Specialization of \doxylink{classrpp_1_1disposable__wrapper__impl}{rpp\+::disposable\+\_\+wrapper\+\_\+impl}. \end{DoxyCompactList}\item 
+\Hypertarget{group__disposables_ga310f07bbdbf66ad978e748209bfea420}\label{group__disposables_ga310f07bbdbf66ad978e748209bfea420} 
+using {\bfseries rpp\+::composite\+\_\+disposable\+\_\+wrapper} = \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{disposable\+\_\+wrapper\+\_\+impl}}$<$\mbox{\hyperlink{structrpp_1_1interface__composite__disposable}{interface\+\_\+composite\+\_\+disposable}}$>$
+\begin{DoxyCompactList}\small\item\em Wrapper to keep "{}composite"{} disposable. Specialization of \doxylink{classrpp_1_1disposable__wrapper__impl}{rpp\+::disposable\+\_\+wrapper\+\_\+impl}. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsubsection{Detailed Description}
 Disposable owns some resource and provides ability to {\ttfamily dispose()} it\+: destroy/remove/disconnect and etc. 
 
-In RPP it used as "{}reverse subscription"{}\+: observable sets disposable to observer via {\ttfamily set\+\_\+upstream(disposable)} with meaning "{}if you want to cancel me -\/$>$ dispose this disposable"{} 
+In RPP it used as "{}inverted subscription"{}\+: observable sets disposable to observer via {\ttfamily set\+\_\+upstream(disposable)} with meaning "{}if you want to cancel me -\/$>$ dispose this disposable"{} 

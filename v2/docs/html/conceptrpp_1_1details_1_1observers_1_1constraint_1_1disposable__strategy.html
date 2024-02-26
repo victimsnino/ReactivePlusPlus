@@ -103,7 +103,7 @@ $(function(){initNavTree('conceptrpp_1_1details_1_1observers_1_1constraint_1_1di
 <div class="contents">
 <h2 class="groupheader">Concept definition</h2>
 <div class="fragment"><div class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><span class="keyword">concept </span><a class="code hl_concept" href="conceptrpp_1_1details_1_1observers_1_1constraint_1_1disposable__strategy.html">rpp::details::observers::constraint::disposable_strategy</a> =  <span class="keyword">requires</span>(T&amp; v, <span class="keyword">const</span> T&amp; const_v, <span class="keyword">const</span> disposable_wrapper&amp; d) {</div>
+<div class="line"><span class="keyword">concept </span><a class="code hl_concept" href="conceptrpp_1_1details_1_1observers_1_1constraint_1_1disposable__strategy.html">rpp::details::observers::constraint::disposable_strategy</a> =  <span class="keyword">requires</span>(T&amp; v, <span class="keyword">const</span> T&amp; const_v, <span class="keyword">const</span> <a class="code hl_typedef" href="group__disposables.html#ga9608d63c61b7da884b7f975dfa949d3c">disposable_wrapper</a>&amp; d) {</div>
 <div class="line">            v.add(d);</div>
 <div class="line">            {</div>
 <div class="line">                const_v.is_disposed()</div>
@@ -111,6 +111,7 @@ $(function(){initNavTree('conceptrpp_1_1details_1_1observers_1_1constraint_1_1di
 <div class="line">            const_v.dispose();</div>
 <div class="line">        }</div>
 <div class="ttc" id="aconceptrpp_1_1details_1_1observers_1_1constraint_1_1disposable__strategy_html"><div class="ttname"><a href="conceptrpp_1_1details_1_1observers_1_1constraint_1_1disposable__strategy.html">rpp::details::observers::constraint::disposable_strategy</a></div><div class="ttdef"><b>Definition</b> fwd.hpp:58</div></div>
+<div class="ttc" id="agroup__disposables_html_ga9608d63c61b7da884b7f975dfa949d3c"><div class="ttname"><a href="group__disposables.html#ga9608d63c61b7da884b7f975dfa949d3c">rpp::disposable_wrapper</a></div><div class="ttdeci">disposable_wrapper_impl&lt; interface_disposable &gt; disposable_wrapper</div><div class="ttdoc">Wrapper to keep &quot;simple&quot; disposable. Specialization of rpp::disposable_wrapper_impl.</div><div class="ttdef"><b>Definition</b> fwd.hpp:34</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
