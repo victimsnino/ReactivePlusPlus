@@ -31,7 +31,7 @@ namespace rpp
      *
      * @ingroup disposables
      */
-    using disposable_wrapper           = disposable_wrapper_impl<interface_disposable>;
+    using disposable_wrapper = disposable_wrapper_impl<interface_disposable>;
 
     /**
      * @brief Wrapper to keep "composite" disposable. Specialization of rpp::disposable_wrapper_impl
