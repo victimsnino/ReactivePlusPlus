@@ -35,7 +35,7 @@ public:
 
         void drain()
         {
-            while (!queue.is_empty() && !is_disposed())
+            while (!queue.is_empty())
             {
                 auto time_point = queue.top()->get_timepoint();
                 if (time_point > s_current_time)
@@ -43,6 +43,9 @@ public:
 
                 auto fn = queue.top();
                 queue.pop();
+
+                if (fn->is_disposed())
+                    continue;
 
                 executions.push_back(s_current_time);
                 if (auto new_timepoint = (*fn)())

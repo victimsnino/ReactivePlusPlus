@@ -28,7 +28,7 @@ namespace rpp::operators::details
         };
 
         timeout_disposable(TObserver&& observer, rpp::schedulers::duration period, const TFallbackObservable& fallback, rpp::schedulers::time_point timeout)
-            : m_observer_with_timeout{std::move(observer), timeout}
+            : m_observer_with_timeout{observer_with_timeout{std::move(observer), timeout}}
             , m_period{period}
             , m_fallback{fallback}
         {
@@ -36,6 +36,8 @@ namespace rpp::operators::details
         pointer_under_lock<observer_with_timeout> get_observer_with_timeout_under_lock() { return pointer_under_lock{m_observer_with_timeout}; }
 
         const TFallbackObservable& get_fallback() const { return m_fallback; }
+
+        rpp::schedulers::duration get_period() const { return m_period; }
 
     private:
         value_with_mutex<observer_with_timeout>     m_observer_with_timeout;
@@ -78,9 +80,9 @@ namespace rpp::operators::details
         template<typename T>
         void on_next(T&& v) const
         {
-            const auto obs_with_timeout = disposable->get_observer_with_timeout_under_lock();
+            auto obs_with_timeout = disposable->get_observer_with_timeout_under_lock();
             obs_with_timeout->observer.on_next(std::forward<T>(v));
-            obs_with_timeout->timeout = disposable->scheduler.now() + disposable->m_period;
+            obs_with_timeout->timeout = TScheduler::now() + disposable->get_period();
         }
 
         void on_error(const std::exception_ptr& err) const noexcept
@@ -110,6 +112,8 @@ namespace rpp::operators::details
         template<rpp::constraint::decayed_type T>
         struct operator_traits
         {
+            static_assert(rpp::constraint::observable_of_type<TFallbackObservable, T>, "TFallbackObservable should be the same type as T");
+
             using result_type = T;
         };
 
@@ -136,17 +140,21 @@ namespace rpp::operators::details
                     disposable.add(std::move(d));
             }
 
+            using wrapper = timeout_disposable_wrapper<std::decay_t<Observer>, TFallbackObservable, container>;
             worker.schedule(
                 timeout,
-                [](timeout_disposable_wrapper<std::decay_t<Observer>, TFallbackObservable, container>& handler) -> rpp::schedulers::optional_delay_to {
-                    auto locked_obs_with_timeout = handler.disposable.get_observer_with_timeout_under_lock();
+                [](wrapper& handler) -> rpp::schedulers::optional_delay_to {
+                    auto locked_obs_with_timeout = handler.disposable->get_observer_with_timeout_under_lock();
                     if (TScheduler::now() < locked_obs_with_timeout->timeout)
                         return rpp::schedulers::delay_to(locked_obs_with_timeout->timeout);
-
-                    handler.disposable->dispose();
-                    handler.disposable->get_fallback().subscribe(std::move(locked_obs_with_timeout->observer));
+                    
+                    if (!handler.disposable->is_disposed()) 
+                    {
+                        handler.disposable->dispose();
+                        handler.disposable->get_fallback().subscribe(std::move(locked_obs_with_timeout->observer));
+                    }
                     return std::nullopt;
-                }, ptr);
+                }, wrapper{ptr});
 
             return rpp::observer<Type, timeout_observer_strategy<std::decay_t<Observer>, TFallbackObservable, container, TScheduler>>{std::move(ptr)};
         }
