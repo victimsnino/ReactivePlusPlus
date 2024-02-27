@@ -45,8 +45,10 @@ namespace rpp::schedulers
                 if (!m_thread.joinable())
                     return;
 
-                // just notify
-                m_state->is_destroying.store(true, std::memory_order::seq_cst);
+                {
+                    std::lock_guard lock{m_state->mutex};
+                    m_state->is_destroying.store(true, std::memory_order::relaxed);
+                }
                 m_state->cv.notify_all();
                 m_thread.detach();
             }
@@ -69,8 +71,10 @@ namespace rpp::schedulers
                 if (!m_thread.joinable())
                     return;
 
-                // just need atomicity, not guarding anything
-                m_state->is_disposed.store(true, std::memory_order::seq_cst);
+                {
+                    std::lock_guard lock{m_state->mutex};
+                    m_state->is_disposed.store(true, std::memory_order::relaxed);
+                }
                 m_state->cv.notify_all();
 
                 if (m_thread.get_id() != std::this_thread::get_id())
