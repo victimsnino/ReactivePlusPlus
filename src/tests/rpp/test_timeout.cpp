@@ -10,13 +10,12 @@
 
 #include <snitch/snitch.hpp>
 
-#include <rpp/operators/timeout.hpp>
 #include <rpp/operators/delay.hpp>
+#include <rpp/operators/timeout.hpp>
 #include <rpp/sources/just.hpp>
 
-#include "snitch_logging.hpp"
-
 #include "mock_observer.hpp"
+#include "snitch_logging.hpp"
 #include "test_scheduler.hpp"
 
 TEST_CASE("timeout subscribes to passed observable in case of reaching timeout")
@@ -48,10 +47,10 @@ TEST_CASE("timeout subscribes to passed observable in case of reaching timeout")
             | rpp::ops::delay(std::chrono::seconds{5}, scheduler)
             | rpp::ops::timeout(std::chrono::seconds{1}, rpp::source::just(2), scheduler)
             | rpp::ops::subscribe(mock);
-        
+
         scheduler.time_advance(std::chrono::seconds{0});
-        
-        for (size_t i =0; i < 10; ++i)
+
+        for (size_t i = 0; i < 10; ++i)
             scheduler.time_advance(std::chrono::seconds{1});
 
         CHECK(scheduler.get_executions() == std::vector{now, now + std::chrono::seconds{1}});

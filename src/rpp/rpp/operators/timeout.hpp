@@ -23,7 +23,7 @@ namespace rpp::operators::details
     public:
         struct observer_with_timeout
         {
-            TObserver observer;
+            TObserver                   observer;
             rpp::schedulers::time_point timeout;
         };
 
@@ -40,7 +40,7 @@ namespace rpp::operators::details
         rpp::schedulers::duration get_period() const { return m_period; }
 
     private:
-        value_with_mutex<observer_with_timeout>     m_observer_with_timeout;
+        value_with_mutex<observer_with_timeout> m_observer_with_timeout;
 
         const rpp::schedulers::duration m_period;
         const TFallbackObservable       m_fallback;
@@ -147,14 +147,15 @@ namespace rpp::operators::details
                     auto locked_obs_with_timeout = handler.disposable->get_observer_with_timeout_under_lock();
                     if (TScheduler::now() < locked_obs_with_timeout->timeout)
                         return rpp::schedulers::delay_to(locked_obs_with_timeout->timeout);
-                    
-                    if (!handler.disposable->is_disposed()) 
+
+                    if (!handler.disposable->is_disposed())
                     {
                         handler.disposable->dispose();
                         handler.disposable->get_fallback().subscribe(std::move(locked_obs_with_timeout->observer));
                     }
                     return std::nullopt;
-                }, wrapper{ptr});
+                },
+                wrapper{ptr});
 
             return rpp::observer<Type, timeout_observer_strategy<std::decay_t<Observer>, TFallbackObservable, container, TScheduler>>{std::move(ptr)};
         }
