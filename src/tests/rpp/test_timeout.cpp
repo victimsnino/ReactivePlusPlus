@@ -20,6 +20,8 @@
 #include "mock_observer.hpp"
 #include "snitch_logging.hpp"
 #include "test_scheduler.hpp"
+#include "disposable_observable.hpp"
+
 
 TEST_CASE("timeout subscribes to passed observable in case of reaching timeout")
 {
@@ -122,4 +124,24 @@ TEST_CASE("timeout subscribes to passed observable in case of reaching timeout")
         CHECK(mock.get_on_error_count() == 1);
         CHECK(mock.get_on_completed_count() == 0);
     }
+
+    SECTION("never timeout with empty")
+    {
+        rpp::source::empty<int>()
+            | rpp::ops::timeout(std::chrono::seconds{1}, rpp::source::never<int>(), scheduler)
+            | rpp::ops::subscribe(mock);
+
+        scheduler.time_advance(std::chrono::seconds{1});
+
+        CHECK(scheduler.get_executions() == std::vector<rpp::schedulers::time_point>{});
+        CHECK(scheduler.get_schedulings() == std::vector{now + std::chrono::seconds{1}});
+        CHECK(mock.get_received_values() == std::vector<int>{});
+        CHECK(mock.get_on_error_count() == 0);
+        CHECK(mock.get_on_completed_count() == 0);
+    }
+}
+
+TEST_CASE("timeout satisfies disposable contracts")
+{
+    test_operator_with_disposable<int>(rpp::ops::timeout(std::chrono::seconds{0}, test_scheduler{}));
 }
