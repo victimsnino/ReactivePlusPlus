@@ -12,15 +12,15 @@
 
 #include <rpp/operators/delay.hpp>
 #include <rpp/operators/timeout.hpp>
-#include <rpp/sources/just.hpp>
 #include <rpp/sources/empty.hpp>
-#include <rpp/sources/never.hpp>
 #include <rpp/sources/error.hpp>
+#include <rpp/sources/just.hpp>
+#include <rpp/sources/never.hpp>
 
+#include "disposable_observable.hpp"
 #include "mock_observer.hpp"
 #include "snitch_logging.hpp"
 #include "test_scheduler.hpp"
-#include "disposable_observable.hpp"
 
 
 TEST_CASE("timeout subscribes to passed observable in case of reaching timeout")
@@ -31,17 +31,17 @@ TEST_CASE("timeout subscribes to passed observable in case of reaching timeout")
 
     SECTION("timeout not reached")
     {
-        rpp::source::just(scheduler, 1,2,3)
+        rpp::source::just(scheduler, 1, 2, 3)
             | rpp::ops::timeout(std::chrono::seconds{1}, rpp::source::just(100), scheduler)
             | rpp::ops::subscribe(mock);
 
-        for (size_t i =0; i < 3; ++i)
+        for (size_t i = 0; i < 3; ++i)
             scheduler.time_advance(std::chrono::seconds{0});
         scheduler.time_advance(std::chrono::seconds{1});
 
         CHECK(scheduler.get_executions() == std::vector{now, now, now});
         CHECK(scheduler.get_schedulings() == std::vector{now + std::chrono::seconds{1}, now, now, now});
-        CHECK(mock.get_received_values() == std::vector{1,2,3});
+        CHECK(mock.get_received_values() == std::vector{1, 2, 3});
         CHECK(mock.get_on_error_count() == 0);
         CHECK(mock.get_on_completed_count() == 1);
     }

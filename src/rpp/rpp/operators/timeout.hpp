@@ -15,7 +15,6 @@
 #include <rpp/operators/details/strategy.hpp>
 #include <rpp/operators/details/utils.hpp>
 #include <rpp/sources/error.hpp>
-
 #include <rpp/utils/exceptions.hpp>
 
 namespace rpp::operators::details
@@ -189,18 +188,18 @@ namespace rpp::operators
 {
     /**
      * @brief Forwards emissions from original observable, but subscribes on fallback observable if no any events during specified period of time (since last emission)
-     * 
+     *
      * @marble timeout_fallback_obs
      {
          source observable            : +--1-2-3-4--------5-|
          operator "timeout(4, -10-|)" : +--1-2-3-4----10-|
      }
-     * 
+     *
      * @param period is maximum duration between emitted items before a timeout occurs
      * @param fallback_observable is observable to subscribe on when timeout reached
      * @param scheduler is scheduler used to run timer for timeout
      * @warning #include <rpp/operators/timeout.hpp>
-     * 
+     *
      * @par Example
      * @snippet timeout.cpp fallback_observable
      *
@@ -215,7 +214,7 @@ namespace rpp::operators
 
     /**
      * @brief Forwards emissions from original observable, but emit error if no any events during specified period of time (since last emission)
-     * 
+     *
      * @marble timeout_default
         {
             source observable     : +--1-2-3-4------5-|
@@ -224,10 +223,10 @@ namespace rpp::operators
      * @param period is maximum duration between emitted items before a timeout occurs
      * @param scheduler is scheduler used to run timer for timeout
      * @warning #include <rpp/operators/timeout.hpp>
-     * 
+     *
      * @par Example
      * @snippet timeout.cpp default
-	 *
+ *
      * @ingroup utility_operators
      * @see https://reactivex.io/documentation/operators/timeout.html
      */
