@@ -14,6 +14,9 @@
 
 #include <rpp/operators/details/strategy.hpp>
 #include <rpp/operators/details/utils.hpp>
+#include <rpp/sources/error.hpp>
+
+#include <rpp/utils/exceptions.hpp>
 
 namespace rpp::operators::details
 {
@@ -82,7 +85,7 @@ namespace rpp::operators::details
         {
             auto obs_with_timeout = disposable->get_observer_with_timeout_under_lock();
             obs_with_timeout->observer.on_next(std::forward<T>(v));
-            obs_with_timeout->timeout = TScheduler::now() + disposable->get_period();
+            obs_with_timeout->timeout = rpp::schedulers::utils::get_worker_t<TScheduler>::now() + disposable->get_period();
         }
 
         void on_error(const std::exception_ptr& err) const noexcept
@@ -127,7 +130,7 @@ namespace rpp::operators::details
             using worker_t  = rpp::schedulers::utils::get_worker_t<TScheduler>;
             using container = typename DisposableStrategy::template add<worker_t::is_none_disposable ? 0 : 1>::disposable_container;
 
-            const auto timeout = TScheduler::now() + period;
+            const auto timeout = rpp::schedulers::utils::get_worker_t<TScheduler>::now() + period;
 
             const auto disposable = disposable_wrapper_impl<timeout_disposable<std::decay_t<Observer>, TFallbackObservable, container>>::make(std::forward<Observer>(observer), period, fallback, timeout);
             auto       ptr        = disposable.lock();
@@ -145,7 +148,7 @@ namespace rpp::operators::details
                 timeout,
                 [](wrapper& handler) -> rpp::schedulers::optional_delay_to {
                     auto locked_obs_with_timeout = handler.disposable->get_observer_with_timeout_under_lock();
-                    if (TScheduler::now() < locked_obs_with_timeout->timeout)
+                    if (rpp::schedulers::utils::get_worker_t<TScheduler>::now() < locked_obs_with_timeout->timeout)
                         return rpp::schedulers::delay_to(locked_obs_with_timeout->timeout);
 
                     if (!handler.disposable->is_disposed())
@@ -160,13 +163,77 @@ namespace rpp::operators::details
             return rpp::observer<Type, timeout_observer_strategy<std::decay_t<Observer>, TFallbackObservable, container, TScheduler>>{std::move(ptr)};
         }
     };
+
+    template<rpp::schedulers::constraint::scheduler TScheduler>
+    struct timeout_with_error_t
+    {
+        template<rpp::constraint::decayed_type T>
+        struct operator_traits
+        {
+            using result_type = T;
+        };
+
+        rpp::schedulers::duration        period;
+        RPP_NO_UNIQUE_ADDRESS TScheduler scheduler;
+
+        template<rpp::constraint::decayed_type Type, rpp::details::observables::constraint::disposable_strategy DisposableStrategy, rpp::constraint::observer Observer>
+        auto lift_with_disposable_strategy(Observer&& observer) const
+        {
+            return timeout_t<rpp::error_observable<int>, TScheduler>{period, rpp::source::error<rpp::utils::extract_observer_type_t<Observer>>(std::make_exception_ptr(rpp::utils::timeout_reached{"Timeout reached"})), scheduler}
+                .template lift_with_disposable_strategy<Type, DisposableStrategy>(std::forward<Observer>(observer));
+        }
+    };
 } // namespace rpp::operators::details
 
 namespace rpp::operators
 {
-    template<rpp::constraint::observable TFallbackObservable, rpp::schedulers::constraint::scheduler TScheduler /* = rpp::schedulers::immediate*/>
-    auto timeout(rpp::schedulers::duration period, TFallbackObservable&& fallback_observable, const TScheduler& scheduler /* = {}*/)
+    /**
+     * @brief Forwards emissions from original observable, but subscribes on fallback observable if no any events during specified period of time (since last emission)
+     * 
+     * @marble timeout_fallback_obs
+     {
+         source observable            : +--1-2-3-4--------5-|
+         operator "timeout(4, -10-|)" : +--1-2-3-4----10-|
+     }
+     * 
+     * @param period is maximum duration between emitted items before a timeout occurs
+     * @param fallback_observable is observable to subscribe on when timeout reached
+     * @param scheduler is scheduler used to run timer for timeout
+     * @warning #include <rpp/operators/timeout.hpp>
+     * 
+     * @par Example
+     * @snippet timeout.cpp fallback_observable
+     *
+     * @ingroup utility_operators
+     * @see https://reactivex.io/documentation/operators/timeout.html
+     */
+    template<rpp::constraint::observable TFallbackObservable, rpp::schedulers::constraint::scheduler TScheduler>
+    auto timeout(rpp::schedulers::duration period, TFallbackObservable&& fallback_observable, const TScheduler& scheduler)
     {
         return details::timeout_t<std::decay_t<TFallbackObservable>, TScheduler>{period, std::forward<TFallbackObservable>(fallback_observable), scheduler};
+    }
+
+    /**
+     * @brief Forwards emissions from original observable, but emit error if no any events during specified period of time (since last emission)
+     * 
+     * @marble timeout_default
+        {
+            source observable     : +--1-2-3-4------5-|
+            operator "timeout(4)" : +--1-2-3-4----#
+        }
+     * @param period is maximum duration between emitted items before a timeout occurs
+     * @param scheduler is scheduler used to run timer for timeout
+     * @warning #include <rpp/operators/timeout.hpp>
+     * 
+     * @par Example
+     * @snippet timeout.cpp default
+	 *
+     * @ingroup utility_operators
+     * @see https://reactivex.io/documentation/operators/timeout.html
+     */
+    template<rpp::schedulers::constraint::scheduler TScheduler>
+    auto timeout(rpp::schedulers::duration period, const TScheduler& scheduler)
+    {
+        return details::timeout_with_error_t<TScheduler>{period, scheduler};
     }
 } // namespace rpp::operators

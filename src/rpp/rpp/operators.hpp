@@ -97,6 +97,7 @@
 #include <rpp/operators/repeat.hpp>
 #include <rpp/operators/subscribe_on.hpp>
 #include <rpp/operators/tap.hpp>
+#include <rpp/operators/timeout.hpp>
 
 /**
  * @defgroup connectable_operators Connectable Operators
