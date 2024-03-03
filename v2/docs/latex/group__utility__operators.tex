@@ -65,7 +65,11 @@ requires (!constraint\+::observer$<$Observer\+Strategy$>$)}\\auto \mbox{\hyperli
 {\footnotesize template$<$typename On\+Next , std\+::invocable$<$$>$ On\+Completed = rpp\+::utils\+::empty\+\_\+function\+\_\+t$<$$>$$>$ }\\auto \mbox{\hyperlink{group__utility__operators_ga93b6a728431216d1eabf2074616667fe}{rpp\+::operators\+::tap}} (On\+Next \&\&on\+\_\+next, On\+Completed \&\&on\+\_\+completed)
 \begin{DoxyCompactList}\small\item\em Register callbacks to inspect observable emissions and perform side-\/effects. \end{DoxyCompactList}\item 
 {\footnotesize template$<$typename On\+Next  = rpp\+::utils\+::empty\+\_\+function\+\_\+any\+\_\+t, std\+::invocable$<$ const std\+::exception\+\_\+ptr \& $>$ On\+Error = rpp\+::utils\+::empty\+\_\+function\+\_\+t$<$std\+::exception\+\_\+ptr$>$, std\+::invocable$<$$>$ On\+Completed = rpp\+::utils\+::empty\+\_\+function\+\_\+t$<$$>$$>$ }\\auto \mbox{\hyperlink{group__utility__operators_ga0ba6586e8ece142ca52ab831ce282ee3}{rpp\+::operators\+::tap}} (On\+Next \&\&on\+\_\+next, On\+Error \&\&on\+\_\+error, On\+Completed \&\&on\+\_\+completed)
-\begin{DoxyCompactList}\small\item\em Register callbacks to inspect observable emissions and perform side-\/effects. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Register callbacks to inspect observable emissions and perform side-\/effects. \end{DoxyCompactList}\item 
+{\footnotesize template$<$\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp\+::constraint\+::observable}} TFallback\+Observable, \mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1scheduler}{rpp\+::schedulers\+::constraint\+::scheduler}} TScheduler$>$ }\\auto \mbox{\hyperlink{group__utility__operators_gaa758f1ad38da6b37357232317fcdc9b5}{rpp\+::operators\+::timeout}} (rpp\+::schedulers\+::duration period, TFallback\+Observable \&\&fallback\+\_\+observable, const TScheduler \&scheduler)
+\begin{DoxyCompactList}\small\item\em Forwards emissions from original observable, but subscribes on fallback observable if no any events during specified period of time (since last emission) \end{DoxyCompactList}\item 
+{\footnotesize template$<$\mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1scheduler}{rpp\+::schedulers\+::constraint\+::scheduler}} TScheduler$>$ }\\auto \mbox{\hyperlink{group__utility__operators_ga08c63b0f0f0eae7e2ce0c4789569b9a7}{rpp\+::operators\+::timeout}} (rpp\+::schedulers\+::duration period, const TScheduler \&scheduler)
+\begin{DoxyCompactList}\small\item\em Forwards emissions from original observable, but emit error if no any events during specified period of time (since last emission) \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsubsubsection{Detailed Description}
@@ -104,7 +108,7 @@ Converts {\ttfamily \doxylink{classrpp_1_1observable}{rpp\+::observable}} to {\t
 \end{DoxyParagraph}
 \begin{Desc}
 \item[Examples]\par
-\mbox{\hyperlink{as_blocking_8cpp-example}{as\+\_\+blocking.\+cpp}}, \mbox{\hyperlink{delay_8cpp-example}{delay.\+cpp}}, \mbox{\hyperlink{observe_on_8cpp-example}{observe\+\_\+on.\+cpp}}, and \mbox{\hyperlink{subscribe_on_8cpp-example}{subscribe\+\_\+on.\+cpp}}.\end{Desc}
+\mbox{\hyperlink{as_blocking_8cpp-example}{as\+\_\+blocking.\+cpp}}, \mbox{\hyperlink{delay_8cpp-example}{delay.\+cpp}}, \mbox{\hyperlink{observe_on_8cpp-example}{observe\+\_\+on.\+cpp}}, \mbox{\hyperlink{subscribe_on_8cpp-example}{subscribe\+\_\+on.\+cpp}}, and \mbox{\hyperlink{timeout_8cpp-example}{timeout.\+cpp}}.\end{Desc}
 \Hypertarget{group__utility__operators_ga49e91c6114f62ac261303814c818face}\label{group__utility__operators_ga49e91c6114f62ac261303814c818face} 
 \index{Utility Operators@{Utility Operators}!debounce@{debounce}}
 \index{debounce@{debounce}!Utility Operators@{Utility Operators}}
@@ -244,7 +248,7 @@ on\+\_\+error/on\+\_\+completed invoking also would be delayed as any other emis
 \end{DoxySeeAlso}
 \begin{Desc}
 \item[Examples]\par
-\mbox{\hyperlink{as_blocking_8cpp-example}{as\+\_\+blocking.\+cpp}}, \mbox{\hyperlink{debounce_8cpp-example}{debounce.\+cpp}}, \mbox{\hyperlink{delay_8cpp-example}{delay.\+cpp}}, and \mbox{\hyperlink{throttle_8cpp-example}{throttle.\+cpp}}.\end{Desc}
+\mbox{\hyperlink{as_blocking_8cpp-example}{as\+\_\+blocking.\+cpp}}, \mbox{\hyperlink{debounce_8cpp-example}{debounce.\+cpp}}, \mbox{\hyperlink{delay_8cpp-example}{delay.\+cpp}}, \mbox{\hyperlink{throttle_8cpp-example}{throttle.\+cpp}}, and \mbox{\hyperlink{timeout_8cpp-example}{timeout.\+cpp}}.\end{Desc}
 \Hypertarget{group__utility__operators_ga8fd8305b11ea1d88fc9e128ebbeeb354}\label{group__utility__operators_ga8fd8305b11ea1d88fc9e128ebbeeb354} 
 \index{Utility Operators@{Utility Operators}!finally@{finally}}
 \index{finally@{finally}!Utility Operators@{Utility Operators}}
@@ -441,7 +445,7 @@ Observer must be moved in to subscribe method. (Not recommended) If you need to 
 \end{DoxyWarning}
 \begin{Desc}
 \item[Examples]\par
-\mbox{\hyperlink{as_blocking_8cpp-example}{as\+\_\+blocking.\+cpp}}, \mbox{\hyperlink{concat_8cpp-example}{concat.\+cpp}}, \mbox{\hyperlink{debounce_8cpp-example}{debounce.\+cpp}}, \mbox{\hyperlink{delay_8cpp-example}{delay.\+cpp}}, \mbox{\hyperlink{distinct_until_changed_8cpp-example}{distinct\+\_\+until\+\_\+changed.\+cpp}}, \mbox{\hyperlink{filter_8cpp-example}{filter.\+cpp}}, \mbox{\hyperlink{first_8cpp-example}{first.\+cpp}}, \mbox{\hyperlink{group_by_8cpp-example}{group\+\_\+by.\+cpp}}, \mbox{\hyperlink{interval_8cpp-example}{interval.\+cpp}}, \mbox{\hyperlink{last_8cpp-example}{last.\+cpp}}, \mbox{\hyperlink{map_8cpp-example}{map.\+cpp}}, \mbox{\hyperlink{merge_8cpp-example}{merge.\+cpp}}, \mbox{\hyperlink{observe_on_8cpp-example}{observe\+\_\+on.\+cpp}}, \mbox{\hyperlink{reduce_8cpp-example}{reduce.\+cpp}}, \mbox{\hyperlink{repeat_8cpp-example}{repeat.\+cpp}}, \mbox{\hyperlink{scan_8cpp-example}{scan.\+cpp}}, \mbox{\hyperlink{skip_8cpp-example}{skip.\+cpp}}, \mbox{\hyperlink{subscribe_on_8cpp-example}{subscribe\+\_\+on.\+cpp}}, \mbox{\hyperlink{take_8cpp-example}{take.\+cpp}}, \mbox{\hyperlink{take_while_8cpp-example}{take\+\_\+while.\+cpp}}, \mbox{\hyperlink{throttle_8cpp-example}{throttle.\+cpp}}, \mbox{\hyperlink{window_8cpp-example}{window.\+cpp}}, \mbox{\hyperlink{window_toggle_8cpp-example}{window\+\_\+toggle.\+cpp}}, and \mbox{\hyperlink{with_latest_from_8cpp-example}{with\+\_\+latest\+\_\+from.\+cpp}}.\end{Desc}
+\mbox{\hyperlink{as_blocking_8cpp-example}{as\+\_\+blocking.\+cpp}}, \mbox{\hyperlink{concat_8cpp-example}{concat.\+cpp}}, \mbox{\hyperlink{debounce_8cpp-example}{debounce.\+cpp}}, \mbox{\hyperlink{delay_8cpp-example}{delay.\+cpp}}, \mbox{\hyperlink{distinct_until_changed_8cpp-example}{distinct\+\_\+until\+\_\+changed.\+cpp}}, \mbox{\hyperlink{filter_8cpp-example}{filter.\+cpp}}, \mbox{\hyperlink{first_8cpp-example}{first.\+cpp}}, \mbox{\hyperlink{group_by_8cpp-example}{group\+\_\+by.\+cpp}}, \mbox{\hyperlink{interval_8cpp-example}{interval.\+cpp}}, \mbox{\hyperlink{last_8cpp-example}{last.\+cpp}}, \mbox{\hyperlink{map_8cpp-example}{map.\+cpp}}, \mbox{\hyperlink{merge_8cpp-example}{merge.\+cpp}}, \mbox{\hyperlink{observe_on_8cpp-example}{observe\+\_\+on.\+cpp}}, \mbox{\hyperlink{reduce_8cpp-example}{reduce.\+cpp}}, \mbox{\hyperlink{repeat_8cpp-example}{repeat.\+cpp}}, \mbox{\hyperlink{scan_8cpp-example}{scan.\+cpp}}, \mbox{\hyperlink{skip_8cpp-example}{skip.\+cpp}}, \mbox{\hyperlink{subscribe_on_8cpp-example}{subscribe\+\_\+on.\+cpp}}, \mbox{\hyperlink{take_8cpp-example}{take.\+cpp}}, \mbox{\hyperlink{take_while_8cpp-example}{take\+\_\+while.\+cpp}}, \mbox{\hyperlink{throttle_8cpp-example}{throttle.\+cpp}}, \mbox{\hyperlink{timeout_8cpp-example}{timeout.\+cpp}}, \mbox{\hyperlink{window_8cpp-example}{window.\+cpp}}, \mbox{\hyperlink{window_toggle_8cpp-example}{window\+\_\+toggle.\+cpp}}, and \mbox{\hyperlink{with_latest_from_8cpp-example}{with\+\_\+latest\+\_\+from.\+cpp}}.\end{Desc}
 \Hypertarget{group__utility__operators_ga0966f5805b841c809c47a797bfc0e2f5}\label{group__utility__operators_ga0966f5805b841c809c47a797bfc0e2f5} 
 \index{Utility Operators@{Utility Operators}!subscribe@{subscribe}}
 \index{subscribe@{subscribe}!Utility Operators@{Utility Operators}}
@@ -728,3 +732,96 @@ Register callbacks to inspect observable emissions and perform side-\/effects.
 \begin{DoxySeeAlso}{See also}
 \href{https://reactivex.io/documentation/operators/do.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/do.\+html}} 
 \end{DoxySeeAlso}
+\Hypertarget{group__utility__operators_ga08c63b0f0f0eae7e2ce0c4789569b9a7}\label{group__utility__operators_ga08c63b0f0f0eae7e2ce0c4789569b9a7} 
+\index{Utility Operators@{Utility Operators}!timeout@{timeout}}
+\index{timeout@{timeout}!Utility Operators@{Utility Operators}}
+\doxysubsubsubsubsection{\texorpdfstring{timeout()}{timeout()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1scheduler}{rpp\+::schedulers\+::constraint\+::scheduler}} TScheduler$>$ \\
+auto rpp\+::operators\+::timeout (\begin{DoxyParamCaption}\item[{rpp\+::schedulers\+::duration}]{period,  }\item[{const TScheduler \&}]{scheduler }\end{DoxyParamCaption})}
+
+
+
+Forwards emissions from original observable, but emit error if no any events during specified period of time (since last emission) 
+
+ 
+\begin{DoxyParams}{Parameters}
+{\em period} & is maximum duration between emitted items before a timeout occurs \\
+\hline
+{\em scheduler} & is scheduler used to run timer for timeout \\
+\hline
+\end{DoxyParams}
+\begin{DoxyWarning}{Warning}
+\#include \texorpdfstring{$<$}{<}\doxylink{timeout_8hpp_source}{rpp/operators/timeout.\+hpp}\texorpdfstring{$>$}{>}
+\end{DoxyWarning}
+\begin{DoxyParagraph}{Example}
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ start\ =\ rpp::schedulers::clock\_type::now();}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(10,\ 30,\ 90,\ 110)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__transforming__operators_ga633883e796101ceeab821e2a4912bd5e}{rpp::operators::flat\_map}}([](\textcolor{keywordtype}{int}\ v)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(v)\ |\ \mbox{\hyperlink{group__utility__operators_gae38caa489cf43c0aca1aa1c8822aed60}{rpp::operators::delay}}(std::chrono::milliseconds\{v\},\ \mbox{\hyperlink{classrpp_1_1schedulers_1_1current__thread}{rpp::schedulers::current\_thread}}\{\});}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \})}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_gaa758f1ad38da6b37357232317fcdc9b5}{rpp::operators::timeout}}(std::chrono::milliseconds\{35\},\ \mbox{\hyperlink{classrpp_1_1schedulers_1_1new__thread}{rpp::schedulers::new\_thread}}\{\})}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_ga9df008c11eeff8c9383e56bf36e28ec2}{rpp::operators::as\_blocking}}()}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{rpp::operators::subscribe}}([start](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}received\ "{}}\ <<\ v\ <<\ \textcolor{stringliteral}{"{}\ at\ "{}}\ <<\ std::chrono::duration\_cast<std::chrono::milliseconds>(rpp::schedulers::clock\_type::now()\ -\/\ start).count()\ <<\ std::endl;\ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [start](\textcolor{keyword}{const}\ std::exception\_ptr\&)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}received\ error\ at\ "{}}\ <<\ std::chrono::duration\_cast<std::chrono::milliseconds>(rpp::schedulers::clock\_type::now()\ -\/\ start).count()\ <<\ std::endl;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \});}
+
+\end{DoxyCodeInclude}
+
+\end{DoxyParagraph}
+\begin{DoxySeeAlso}{See also}
+\href{https://reactivex.io/documentation/operators/timeout.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/timeout.\+html}} 
+\end{DoxySeeAlso}
+\Hypertarget{group__utility__operators_gaa758f1ad38da6b37357232317fcdc9b5}\label{group__utility__operators_gaa758f1ad38da6b37357232317fcdc9b5} 
+\index{Utility Operators@{Utility Operators}!timeout@{timeout}}
+\index{timeout@{timeout}!Utility Operators@{Utility Operators}}
+\doxysubsubsubsubsection{\texorpdfstring{timeout()}{timeout()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp\+::constraint\+::observable}} TFallback\+Observable, \mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1scheduler}{rpp\+::schedulers\+::constraint\+::scheduler}} TScheduler$>$ \\
+auto rpp\+::operators\+::timeout (\begin{DoxyParamCaption}\item[{rpp\+::schedulers\+::duration}]{period,  }\item[{TFallback\+Observable \&\&}]{fallback\+\_\+observable,  }\item[{const TScheduler \&}]{scheduler }\end{DoxyParamCaption})}
+
+
+
+Forwards emissions from original observable, but subscribes on fallback observable if no any events during specified period of time (since last emission) 
+
+
+
+
+\begin{DoxyParams}{Parameters}
+{\em period} & is maximum duration between emitted items before a timeout occurs \\
+\hline
+{\em fallback\+\_\+observable} & is observable to subscribe on when timeout reached \\
+\hline
+{\em scheduler} & is scheduler used to run timer for timeout \\
+\hline
+\end{DoxyParams}
+\begin{DoxyWarning}{Warning}
+\#include \texorpdfstring{$<$}{<}\doxylink{timeout_8hpp_source}{rpp/operators/timeout.\+hpp}\texorpdfstring{$>$}{>}
+\end{DoxyWarning}
+\begin{DoxyParagraph}{Example}
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ start\ =\ rpp::schedulers::clock\_type::now();}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(10,\ 30,\ 90,\ 110)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__transforming__operators_ga633883e796101ceeab821e2a4912bd5e}{rpp::operators::flat\_map}}([](\textcolor{keywordtype}{int}\ v)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(v)\ |\ \mbox{\hyperlink{group__utility__operators_gae38caa489cf43c0aca1aa1c8822aed60}{rpp::operators::delay}}(std::chrono::milliseconds\{v\},\ \mbox{\hyperlink{classrpp_1_1schedulers_1_1current__thread}{rpp::schedulers::current\_thread}}\{\});}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \})}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_gaa758f1ad38da6b37357232317fcdc9b5}{rpp::operators::timeout}}(std::chrono::milliseconds\{35\},\ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(\mbox{\hyperlink{classrpp_1_1schedulers_1_1immediate}{rpp::schedulers::immediate}}\{\},\ 0),\ \mbox{\hyperlink{classrpp_1_1schedulers_1_1new__thread}{rpp::schedulers::new\_thread}}\{\})}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_ga9df008c11eeff8c9383e56bf36e28ec2}{rpp::operators::as\_blocking}}()}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{rpp::operators::subscribe}}([start](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}received\ "{}}\ <<\ v\ <<\ \textcolor{stringliteral}{"{}\ at\ "{}}\ <<\ std::chrono::duration\_cast<std::chrono::milliseconds>(rpp::schedulers::clock\_type::now()\ -\/\ start).count()\ <<\ std::endl;\ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [start](\textcolor{keyword}{const}\ std::exception\_ptr\&)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}received\ error\ at\ "{}}\ <<\ std::chrono::duration\_cast<std::chrono::milliseconds>(rpp::schedulers::clock\_type::now()\ -\/\ start).count()\ <<\ std::endl;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \});}
+
+\end{DoxyCodeInclude}
+
+\end{DoxyParagraph}
+\begin{DoxySeeAlso}{See also}
+\href{https://reactivex.io/documentation/operators/timeout.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/timeout.\+html}} 
+\end{DoxySeeAlso}
+\begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{timeout_8cpp-example}{timeout.\+cpp}}.\end{Desc}

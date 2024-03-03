@@ -22,7 +22,13 @@ var searchData=
   ['throttle_19',['throttle',['../group__filtering__operators.html#gada7d22ff6ee83d4aca44411561f56f98',1,'rpp::operators']]],
   ['throttle_5fobserver_5fstrategy_20',['throttle_observer_strategy',['../structrpp_1_1operators_1_1details_1_1throttle__observer__strategy.html',1,'rpp::operators::details']]],
   ['throttle_5ft_21',['throttle_t',['../structrpp_1_1operators_1_1details_1_1throttle__t.html',1,'rpp::operators::details']]],
-  ['timer_22',['timer',['../group__creational__operators.html#gae7248892783797dda894e18b2b499586',1,'rpp::source::timer(rpp::schedulers::duration when, TScheduler &amp;&amp;scheduler)'],['../group__creational__operators.html#gab41bcf939ae57be84287d8ae8926846c',1,'rpp::source::timer(rpp::schedulers::time_point when, TScheduler &amp;&amp;scheduler)']]],
-  ['to_20keep_20classes_20as_20variables_23',['dynamic_* versions to keep classes as variables',['../md_docs_2readme.html#autotoc_md13',1,'']]],
-  ['transforming_20operators_24',['Transforming Operators',['../group__transforming__operators.html',1,'']]]
+  ['timeout_22',['timeout',['../group__utility__operators.html#gaa758f1ad38da6b37357232317fcdc9b5',1,'rpp::operators::timeout(rpp::schedulers::duration period, TFallbackObservable &amp;&amp;fallback_observable, const TScheduler &amp;scheduler)'],['../group__utility__operators.html#ga08c63b0f0f0eae7e2ce0c4789569b9a7',1,'rpp::operators::timeout(rpp::schedulers::duration period, const TScheduler &amp;scheduler)']]],
+  ['timeout_5fdisposable_23',['timeout_disposable',['../classrpp_1_1operators_1_1details_1_1timeout__disposable.html',1,'rpp::operators::details']]],
+  ['timeout_5fdisposable_5fwrapper_24',['timeout_disposable_wrapper',['../structrpp_1_1operators_1_1details_1_1timeout__disposable__wrapper.html',1,'rpp::operators::details']]],
+  ['timeout_5fobserver_5fstrategy_25',['timeout_observer_strategy',['../structrpp_1_1operators_1_1details_1_1timeout__observer__strategy.html',1,'rpp::operators::details']]],
+  ['timeout_5ft_26',['timeout_t',['../structrpp_1_1operators_1_1details_1_1timeout__t.html',1,'rpp::operators::details']]],
+  ['timeout_5fwith_5ferror_5ft_27',['timeout_with_error_t',['../structrpp_1_1operators_1_1details_1_1timeout__with__error__t.html',1,'rpp::operators::details']]],
+  ['timer_28',['timer',['../group__creational__operators.html#gae7248892783797dda894e18b2b499586',1,'rpp::source::timer(rpp::schedulers::duration when, TScheduler &amp;&amp;scheduler)'],['../group__creational__operators.html#gab41bcf939ae57be84287d8ae8926846c',1,'rpp::source::timer(rpp::schedulers::time_point when, TScheduler &amp;&amp;scheduler)']]],
+  ['to_20keep_20classes_20as_20variables_29',['dynamic_* versions to keep classes as variables',['../md_docs_2readme.html#autotoc_md13',1,'']]],
+  ['transforming_20operators_30',['Transforming Operators',['../group__transforming__operators.html',1,'']]]
 ];

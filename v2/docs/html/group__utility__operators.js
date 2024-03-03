@@ -25,5 +25,7 @@ var group__utility__operators =
     [ "rpp::operators::tap", "group__utility__operators.html#ga4278374427b8cb7d2e69de046ed5a4c9", null ],
     [ "rpp::operators::tap", "group__utility__operators.html#gabfc589f5344d5231e52fb539fb5bd6ca", null ],
     [ "rpp::operators::tap", "group__utility__operators.html#ga93b6a728431216d1eabf2074616667fe", null ],
-    [ "rpp::operators::tap", "group__utility__operators.html#ga0ba6586e8ece142ca52ab831ce282ee3", null ]
+    [ "rpp::operators::tap", "group__utility__operators.html#ga0ba6586e8ece142ca52ab831ce282ee3", null ],
+    [ "rpp::operators::timeout", "group__utility__operators.html#ga08c63b0f0f0eae7e2ce0c4789569b9a7", null ],
+    [ "rpp::operators::timeout", "group__utility__operators.html#gaa758f1ad38da6b37357232317fcdc9b5", null ]
 ];

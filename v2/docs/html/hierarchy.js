@@ -128,7 +128,8 @@ var hierarchy =
         ] ],
         [ "rpp::composite_disposable_impl< Container >", "classrpp_1_1composite__disposable__impl.html", [
           [ "rpp::operators::details::debounce_disposable< Observer, Worker, Container >", "classrpp_1_1operators_1_1details_1_1debounce__disposable.html", null ],
-          [ "rpp::operators::details::delay_disposable< Observer, Worker, Container >", "structrpp_1_1operators_1_1details_1_1delay__disposable.html", null ]
+          [ "rpp::operators::details::delay_disposable< Observer, Worker, Container >", "structrpp_1_1operators_1_1details_1_1delay__disposable.html", null ],
+          [ "rpp::operators::details::timeout_disposable< TObserver, TFallbackObservable, Container >", "classrpp_1_1operators_1_1details_1_1timeout__disposable.html", null ]
         ] ]
       ] ]
     ] ],
@@ -248,6 +249,7 @@ var hierarchy =
     [ "rpp::details::observer_impl< Type, Strategy, DisposableStrategy >", "classrpp_1_1details_1_1observer__impl.html", [
       [ "rpp::observer< Type, details::with_disposable_strategy< Strategy, DisposableStrategy > >", "classrpp_1_1observer_3_01_type_00_01details_1_1with__disposable__strategy_3_01_strategy_00_01_disposable_strategy_01_4_01_4.html", null ]
     ] ],
+    [ "rpp::operators::details::timeout_disposable< TObserver, TFallbackObservable, Container >::observer_with_timeout", "structrpp_1_1operators_1_1details_1_1timeout__disposable_1_1observer__with__timeout.html", null ],
     [ "rpp::operators::details::on_error_resume_next_observer_strategy< TObserver, Selector >", "structrpp_1_1operators_1_1details_1_1on__error__resume__next__observer__strategy.html", null ],
     [ "rpp::operators::details::buffer_t::operator_traits< T >", "structrpp_1_1operators_1_1details_1_1buffer__t_1_1operator__traits.html", null ],
     [ "rpp::operators::details::combining_operator_t< TDisposable, TStrategy, TSelector, TObservables >::operator_traits< T >", "structrpp_1_1operators_1_1details_1_1combining__operator__t_1_1operator__traits.html", null ],
@@ -278,6 +280,8 @@ var hierarchy =
     [ "rpp::operators::details::take_while_t< Fn >::operator_traits< T >", "structrpp_1_1operators_1_1details_1_1take__while__t_1_1operator__traits.html", null ],
     [ "rpp::operators::details::tap_t< OnNext, OnError, OnCompleted >::operator_traits< T >", "structrpp_1_1operators_1_1details_1_1tap__t_1_1operator__traits.html", null ],
     [ "rpp::operators::details::throttle_t< Scheduler >::operator_traits< T >", "structrpp_1_1operators_1_1details_1_1throttle__t_1_1operator__traits.html", null ],
+    [ "rpp::operators::details::timeout_t< TFallbackObservable, TScheduler >::operator_traits< T >", "structrpp_1_1operators_1_1details_1_1timeout__t_1_1operator__traits.html", null ],
+    [ "rpp::operators::details::timeout_with_error_t< TScheduler >::operator_traits< T >", "structrpp_1_1operators_1_1details_1_1timeout__with__error__t_1_1operator__traits.html", null ],
     [ "rpp::operators::details::window_t::operator_traits< T >", "structrpp_1_1operators_1_1details_1_1window__t_1_1operator__traits.html", null ],
     [ "rpp::operators::details::window_toggle_t< TOpeningsObservable, TClosingsSelectorFn >::operator_traits< T >", "structrpp_1_1operators_1_1details_1_1window__toggle__t_1_1operator__traits.html", null ],
     [ "rpp::operators::details::with_latest_from_t< TSelector, TObservables >::operator_traits< T >", "structrpp_1_1operators_1_1details_1_1with__latest__from__t_1_1operator__traits.html", null ],
@@ -346,6 +350,10 @@ var hierarchy =
     [ "rpp::operators::details::tap_observer_strategy< TObserver, OnNext, OnError, OnCompleted >", "structrpp_1_1operators_1_1details_1_1tap__observer__strategy.html", null ],
     [ "rpp::operators::details::template_multicast_t< Subject >", "structrpp_1_1operators_1_1details_1_1template__multicast__t.html", null ],
     [ "rpp::operators::details::throttle_observer_strategy< TObserver, Scheduler >", "structrpp_1_1operators_1_1details_1_1throttle__observer__strategy.html", null ],
+    [ "rpp::operators::details::timeout_disposable_wrapper< TObserver, TFallbackObservable, Container >", "structrpp_1_1operators_1_1details_1_1timeout__disposable__wrapper.html", null ],
+    [ "rpp::operators::details::timeout_observer_strategy< TObserver, TFallbackObservable, Container, TScheduler >", "structrpp_1_1operators_1_1details_1_1timeout__observer__strategy.html", null ],
+    [ "rpp::operators::details::timeout_t< TFallbackObservable, TScheduler >", "structrpp_1_1operators_1_1details_1_1timeout__t.html", null ],
+    [ "rpp::operators::details::timeout_with_error_t< TScheduler >", "structrpp_1_1operators_1_1details_1_1timeout__with__error__t.html", null ],
     [ "std::true_type", null, [
       [ "rpp::schedulers::constraint::details::is_worker< rpp::schedulers::worker< Strategy > >", "structrpp_1_1schedulers_1_1constraint_1_1details_1_1is__worker_3_01rpp_1_1schedulers_1_1worker_3_01_strategy_01_4_01_4.html", null ]
     ] ],
@@ -353,6 +361,7 @@ var hierarchy =
     [ "rpp::memory_model::use_stack", "structrpp_1_1memory__model_1_1use__stack.html", null ],
     [ "rpp::operators::details::value_with_mutex< T >", "structrpp_1_1operators_1_1details_1_1value__with__mutex.html", null ],
     [ "rpp::operators::details::value_with_mutex< Observer >", "structrpp_1_1operators_1_1details_1_1value__with__mutex.html", null ],
+    [ "rpp::operators::details::value_with_mutex< rpp::operators::details::timeout_disposable::observer_with_timeout >", "structrpp_1_1operators_1_1details_1_1value__with__mutex.html", null ],
     [ "rpp::operators::details::value_with_mutex< rpp::operators::details::window_toggle_state::state_t >", "structrpp_1_1operators_1_1details_1_1value__with__mutex.html", null ],
     [ "rpp::operators::details::value_with_mutex< std::queue< TObservable > >", "structrpp_1_1operators_1_1details_1_1value__with__mutex.html", null ],
     [ "rpp::operators::details::value_with_mutex< TObserver >", "structrpp_1_1operators_1_1details_1_1value__with__mutex.html", null ],

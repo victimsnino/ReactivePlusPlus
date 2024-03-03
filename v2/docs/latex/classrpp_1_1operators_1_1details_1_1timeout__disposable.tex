@@ -1,0 +1,78 @@
+\doxysection{rpp\+::operators\+::details\+::timeout\+\_\+disposable\texorpdfstring{$<$}{<} TObserver, TFallback\+Observable, Container \texorpdfstring{$>$}{>} Class Template Reference}
+\hypertarget{classrpp_1_1operators_1_1details_1_1timeout__disposable}{}\label{classrpp_1_1operators_1_1details_1_1timeout__disposable}\index{rpp::operators::details::timeout\_disposable$<$ TObserver, TFallbackObservable, Container $>$@{rpp::operators::details::timeout\_disposable$<$ TObserver, TFallbackObservable, Container $>$}}
+Inheritance diagram for rpp\+::operators\+::details\+::timeout\+\_\+disposable\texorpdfstring{$<$}{<} TObserver, TFallback\+Observable, Container \texorpdfstring{$>$}{>}\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=4.000000cm]{classrpp_1_1operators_1_1details_1_1timeout__disposable}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1timeout__disposable_1_1observer__with__timeout}{observer\+\_\+with\+\_\+timeout}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classrpp_1_1operators_1_1details_1_1timeout__disposable_a5d6f69742e68c6a5c8cedf93788796d2}\label{classrpp_1_1operators_1_1details_1_1timeout__disposable_a5d6f69742e68c6a5c8cedf93788796d2} 
+{\bfseries timeout\+\_\+disposable} (TObserver \&\&\mbox{\hyperlink{classrpp_1_1observer}{observer}}, rpp\+::schedulers\+::duration period, const TFallback\+Observable \&fallback, rpp\+::schedulers\+::time\+\_\+point \mbox{\hyperlink{group__utility__operators_gaa758f1ad38da6b37357232317fcdc9b5}{timeout}})
+\item 
+\Hypertarget{classrpp_1_1operators_1_1details_1_1timeout__disposable_ac2e8eba5f24cbaae29c3b3d768115095}\label{classrpp_1_1operators_1_1details_1_1timeout__disposable_ac2e8eba5f24cbaae29c3b3d768115095} 
+\mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1pointer__under__lock}{pointer\+\_\+under\+\_\+lock}}$<$ \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1timeout__disposable_1_1observer__with__timeout}{observer\+\_\+with\+\_\+timeout}} $>$ {\bfseries get\+\_\+observer\+\_\+with\+\_\+timeout\+\_\+under\+\_\+lock} ()
+\item 
+\Hypertarget{classrpp_1_1operators_1_1details_1_1timeout__disposable_a62fba12b19a22fc596895527cc4cea2e}\label{classrpp_1_1operators_1_1details_1_1timeout__disposable_a62fba12b19a22fc596895527cc4cea2e} 
+const TFallback\+Observable \& {\bfseries get\+\_\+fallback} () const
+\item 
+\Hypertarget{classrpp_1_1operators_1_1details_1_1timeout__disposable_a6f621bf385ad0f81f2df54cbfb2ce3fe}\label{classrpp_1_1operators_1_1details_1_1timeout__disposable_a6f621bf385ad0f81f2df54cbfb2ce3fe} 
+rpp\+::schedulers\+::duration {\bfseries get\+\_\+period} () const
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classrpp_1_1composite__disposable__impl}{rpp\+::composite\+\_\+disposable\+\_\+impl$<$ Container $>$}}}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries composite\+\_\+disposable\+\_\+impl} (const \mbox{\hyperlink{classrpp_1_1composite__disposable__impl}{composite\+\_\+disposable\+\_\+impl}} \&)=delete
+\item 
+{\bfseries composite\+\_\+disposable\+\_\+impl} (\mbox{\hyperlink{classrpp_1_1composite__disposable__impl}{composite\+\_\+disposable\+\_\+impl}} \&\&other) noexcept=delete
+\item 
+bool \mbox{\hyperlink{classrpp_1_1composite__disposable__impl_a4d8dc7195e0594586a1583e7f5308d4c}{is\+\_\+disposed}} () const noexcept final
+\begin{DoxyCompactList}\small\item\em Check if this disposable is just disposed. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classrpp_1_1composite__disposable__impl_a2b965eb01e542bd9edeb43ed9a3fd8af}{dispose\+\_\+impl}} (interface\+\_\+disposable\+::\+Mode mode) noexcept final
+\item 
+void \mbox{\hyperlink{classrpp_1_1composite__disposable__impl_a878cb06214d77427297efaba4a280434}{add}} (\mbox{\hyperlink{group__disposables_ga9608d63c61b7da884b7f975dfa949d3c}{disposable\+\_\+wrapper}} disposable) override
+\item 
+void \mbox{\hyperlink{classrpp_1_1composite__disposable__impl_a3e1ede7a066681319cc7fbec5c85d0a3}{remove}} (const \mbox{\hyperlink{group__disposables_ga9608d63c61b7da884b7f975dfa949d3c}{disposable\+\_\+wrapper}} \&disposable) override
+\item 
+void \mbox{\hyperlink{classrpp_1_1composite__disposable__impl_a4e9c6b6e10cbc960feb3395d6250cf51}{clear}} () override
+\item 
+virtual void \mbox{\hyperlink{classrpp_1_1composite__disposable__impl_aeabbd86e2ea58c12cbb13a2d3cf5f726}{add}} (\mbox{\hyperlink{group__disposables_ga9608d63c61b7da884b7f975dfa949d3c}{disposable\+\_\+wrapper}} disposable)=0
+\item 
+{\footnotesize template$<$rpp\+::constraint\+::is\+\_\+nothrow\+\_\+invocable Fn$>$ }\\\mbox{\hyperlink{group__disposables_ga9608d63c61b7da884b7f975dfa949d3c}{disposable\+\_\+wrapper}} {\bfseries add} (Fn \&\&invocable)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{structrpp_1_1interface__composite__disposable}{rpp\+::interface\+\_\+composite\+\_\+disposable}}}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$rpp\+::constraint\+::is\+\_\+nothrow\+\_\+invocable Fn$>$ }\\\mbox{\hyperlink{group__disposables_ga9608d63c61b7da884b7f975dfa949d3c}{disposable\+\_\+wrapper}} {\bfseries add} (Fn \&\&invocable)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{structrpp_1_1interface__disposable}{rpp\+::interface\+\_\+disposable}}}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{structrpp_1_1interface__disposable_a5685eeaf07e2d4616cd1a0effa78069d}{dispose}} () noexcept
+\begin{DoxyCompactList}\small\item\em Dispose disposable and free any underlying resources and etc. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Protected Types inherited from \mbox{\hyperlink{structrpp_1_1interface__disposable}{rpp\+::interface\+\_\+disposable}}}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{structrpp_1_1interface__disposable_af71f6e7a9e6153ab032ba33fe7bb5168}\label{structrpp_1_1interface__disposable_af71f6e7a9e6153ab032ba33fe7bb5168} 
+enum class {\bfseries Mode} \+: bool \{ {\bfseries Disposing} = 0
+, {\bfseries Destroying} = 1
+ \}
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions inherited from \mbox{\hyperlink{classrpp_1_1composite__disposable__impl}{rpp\+::composite\+\_\+disposable\+\_\+impl$<$ Container $>$}}}
+\begin{DoxyCompactItemize}
+\item 
+virtual void {\bfseries composite\+\_\+dispose\+\_\+impl} (interface\+\_\+disposable\+::\+Mode) noexcept
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/rpp/rpp/operators/timeout.\+hpp\end{DoxyCompactItemize}

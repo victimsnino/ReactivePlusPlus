@@ -1,5 +1,6 @@
 var NAVTREEINDEX1 =
 {
+"group__creational__operators.html#gab5cc2df8f7221b124d67d66de60a7bcd":[1,0,3,8,0],
 "group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df":[1,0,3,8,2],
 "group__creational__operators.html#gad15a7e8bfb2f7ce0af1b44e22918116c":[1,0,3,8,8],
 "group__creational__operators.html#gad29c2904de57d176ccaf2614409789de":[1,0,3,8,5],
@@ -44,6 +45,7 @@ var NAVTREEINDEX1 =
 "group__transforming__operators.html#gad34415b9aeed2ad2446e7d54b6a4081c":[1,0,3,0,5],
 "group__transforming__operators.html#gad53dfa28fff9b19c3f6aca51970737de":[1,0,3,0,7],
 "group__utility__operators.html":[1,0,3,4],
+"group__utility__operators.html#ga08c63b0f0f0eae7e2ce0c4789569b9a7":[1,0,3,4,26],
 "group__utility__operators.html#ga0966f5805b841c809c47a797bfc0e2f5":[1,0,3,4,12],
 "group__utility__operators.html#ga0ba6586e8ece142ca52ab831ce282ee3":[1,0,3,4,25],
 "group__utility__operators.html#ga0feb478d994eb22d20dc4f66b340bddc":[1,0,3,4,9],
@@ -63,6 +65,7 @@ var NAVTREEINDEX1 =
 "group__utility__operators.html#ga93b6a728431216d1eabf2074616667fe":[1,0,3,4,24],
 "group__utility__operators.html#ga96a3c17903a50c2f6dfd66d8b90a96f2":[1,0,3,4,6],
 "group__utility__operators.html#ga9df008c11eeff8c9383e56bf36e28ec2":[1,0,3,4,0],
+"group__utility__operators.html#gaa758f1ad38da6b37357232317fcdc9b5":[1,0,3,4,27],
 "group__utility__operators.html#gabfc589f5344d5231e52fb539fb5bd6ca":[1,0,3,4,23],
 "group__utility__operators.html#gac133e42caad03b922fc95722ef064264":[1,0,3,4,16],
 "group__utility__operators.html#gac5f97d436e04e578406fc86af36cab79":[1,0,3,4,7],
@@ -246,8 +249,5 @@ var NAVTREEINDEX1 =
 "structrpp_1_1operators_1_1details_1_1merge__t.html":[3,0,0,2,0,48],
 "structrpp_1_1operators_1_1details_1_1merge__t_1_1operator__traits.html":[3,0,0,2,0,48,0],
 "structrpp_1_1operators_1_1details_1_1merge__with__t.html":[3,0,0,2,0,49],
-"structrpp_1_1operators_1_1details_1_1merge__with__t_1_1operator__traits.html":[3,0,0,2,0,49,0],
-"structrpp_1_1operators_1_1details_1_1multicast__t.html":[3,0,0,2,0,50],
-"structrpp_1_1operators_1_1details_1_1on__error__resume__next__observer__strategy.html":[3,0,0,2,0,51],
-"structrpp_1_1operators_1_1details_1_1on__error__resume__next__t.html":[3,0,0,2,0,52]
+"structrpp_1_1operators_1_1details_1_1merge__with__t_1_1operator__traits.html":[3,0,0,2,0,49,0]
 };

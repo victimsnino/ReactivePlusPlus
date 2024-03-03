@@ -90,10 +90,11 @@ var NAVTREEINDEX0 =
 "classrpp_1_1operators_1_1details_1_1switch__on__next__state__t.html":[3,0,0,2,0,79],
 "classrpp_1_1operators_1_1details_1_1take__last__observer__strategy.html":[3,0,0,2,0,81],
 "classrpp_1_1operators_1_1details_1_1take__until__disposable.html":[3,0,0,2,0,85],
-"classrpp_1_1operators_1_1details_1_1window__observer__strategy.html":[3,0,0,2,0,98],
-"classrpp_1_1operators_1_1details_1_1window__toggle__observer__strategy.html":[3,0,0,2,0,101],
-"classrpp_1_1operators_1_1details_1_1with__latest__from__disposable.html":[3,0,0,2,0,105],
-"classrpp_1_1operators_1_1details_1_1zip__disposable.html":[3,0,0,2,0,109],
+"classrpp_1_1operators_1_1details_1_1timeout__disposable.html":[3,0,0,2,0,97],
+"classrpp_1_1operators_1_1details_1_1window__observer__strategy.html":[3,0,0,2,0,103],
+"classrpp_1_1operators_1_1details_1_1window__toggle__observer__strategy.html":[3,0,0,2,0,106],
+"classrpp_1_1operators_1_1details_1_1with__latest__from__disposable.html":[3,0,0,2,0,110],
+"classrpp_1_1operators_1_1details_1_1zip__disposable.html":[3,0,0,2,0,114],
 "classrpp_1_1refcount__disposable.html":[3,0,0,24],
 "classrpp_1_1schedulers_1_1current__thread.html":[1,0,4,0],
 "classrpp_1_1schedulers_1_1details_1_1optional__mutex.html":[3,0,0,3,1,2],
@@ -210,7 +211,7 @@ var NAVTREEINDEX0 =
 "from_8cpp-example.html":[5,12],
 "from_8hpp_source.html":[4,0,0,0,0,5,5],
 "from__signal_8hpp_source.html":[4,0,0,1,0,1,0],
-"from_signal_8cpp-example.html":[5,36],
+"from_signal_8cpp-example.html":[5,37],
 "functions.html":[3,3,0],
 "functions_func.html":[3,3,1],
 "group__aggregate__operators.html":[1,0,3,6],
@@ -248,6 +249,5 @@ var NAVTREEINDEX0 =
 "group__creational__operators.html#ga519523490394660d7e8c46d2d5612f75":[1,0,3,8,7],
 "group__creational__operators.html#ga65fe5e58c0179835d702de99475c86b3":[1,0,3,8,13],
 "group__creational__operators.html#ga95f6d310d6f17a4c248e43fb628527df":[1,0,3,8,10],
-"group__creational__operators.html#gab41bcf939ae57be84287d8ae8926846c":[1,0,3,8,16],
-"group__creational__operators.html#gab5cc2df8f7221b124d67d66de60a7bcd":[1,0,3,8,0]
+"group__creational__operators.html#gab41bcf939ae57be84287d8ae8926846c":[1,0,3,8,16]
 };
