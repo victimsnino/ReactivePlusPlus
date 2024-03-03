@@ -22,6 +22,7 @@ namespace rpp
 {
     /**
      * @brief Disposable which can keep some other sub-disposables. When this root disposable is disposed, then all sub-disposables would be disposed too.
+     * @tparam Container is type of internal storage used to keep dependencies
      *
      * @ingroup disposables
      */
@@ -164,6 +165,12 @@ namespace rpp
         std::atomic<State> m_current_state{};
     };
 
+    /**
+     * @brief Disposable which can keep some other sub-disposables. When this root disposable is disposed, then all sub-disposables would be disposed too.
+     * @note By default uses vector as internal storage
+     *
+     * @ingroup disposables
+     */
     class composite_disposable : public composite_disposable_impl<rpp::details::disposables::dynamic_disposables_container<0>>
     {
     };
