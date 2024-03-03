@@ -167,6 +167,12 @@ namespace rpp::operators
              OnError&&     on_error     = {},
              OnCompleted&& on_completed = {});
 
+    template<rpp::constraint::observable TFallbackObservable, rpp::schedulers::constraint::scheduler TScheduler>
+    auto timeout(rpp::schedulers::duration period, TFallbackObservable&& fallback_observable, const TScheduler& scheduler);
+
+    template<rpp::schedulers::constraint::scheduler TScheduler>
+    auto timeout(rpp::schedulers::duration period, const TScheduler& scheduler);
+
     template<rpp::schedulers::constraint::scheduler Scheduler = rpp::schedulers::immediate>
     auto throttle(rpp::schedulers::duration period);
 

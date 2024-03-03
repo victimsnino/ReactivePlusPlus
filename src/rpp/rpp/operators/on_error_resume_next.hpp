@@ -28,9 +28,7 @@ namespace rpp::operators::details
         mutable rpp::composite_disposable_wrapper disposable = composite_disposable_wrapper::make();
 
         RPP_CALL_DURING_CONSTRUCTION(
-            {
-                observer.set_upstream(disposable);
-            });
+            observer.set_upstream(disposable););
 
         template<typename T>
         void on_next(T&& v) const

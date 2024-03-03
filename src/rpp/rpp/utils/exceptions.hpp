@@ -23,4 +23,9 @@ namespace rpp::utils
     {
         using std::runtime_error::runtime_error;
     };
+
+    struct timeout_reached : public std::runtime_error
+    {
+        using std::runtime_error::runtime_error;
+    };
 } // namespace rpp::utils
