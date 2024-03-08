@@ -95,7 +95,6 @@ namespace rpp::operators::details
             using result_type = T;
 
             constexpr static bool own_current_queue = true;
-
         };
 
         template<rpp::details::observables::constraint::disposable_strategy Prev>
