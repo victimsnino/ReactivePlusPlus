@@ -165,6 +165,9 @@ var hierarchy =
     [ "rpp::operators::details::lift_operator< map_t< Fn >, Fn >", "classrpp_1_1operators_1_1details_1_1lift__operator.html", [
       [ "rpp::operators::details::map_t< Fn >", "structrpp_1_1operators_1_1details_1_1map__t.html", null ]
     ] ],
+    [ "rpp::operators::details::lift_operator< merge_t >", "classrpp_1_1operators_1_1details_1_1lift__operator.html", [
+      [ "rpp::operators::details::merge_t", "structrpp_1_1operators_1_1details_1_1merge__t.html", null ]
+    ] ],
     [ "rpp::operators::details::lift_operator< on_error_resume_next_t< Selector >, Selector >", "classrpp_1_1operators_1_1details_1_1lift__operator.html", [
       [ "rpp::operators::details::on_error_resume_next_t< Selector >", "structrpp_1_1operators_1_1details_1_1on__error__resume__next__t.html", null ]
     ] ],
@@ -204,6 +207,9 @@ var hierarchy =
     [ "rpp::operators::details::lift_operator< window_t, size_t >", "classrpp_1_1operators_1_1details_1_1lift__operator.html", [
       [ "rpp::operators::details::window_t", "structrpp_1_1operators_1_1details_1_1window__t.html", null ]
     ] ],
+    [ "rpp::operators::details::lift_operator< window_toggle_t< TOpeningsObservable, TClosingsSelectorFn >, TOpeningsObservable, TClosingsSelectorFn >", "classrpp_1_1operators_1_1details_1_1lift__operator.html", [
+      [ "rpp::operators::details::window_toggle_t< TOpeningsObservable, TClosingsSelectorFn >", "structrpp_1_1operators_1_1details_1_1window__toggle__t.html", null ]
+    ] ],
     [ "rpp::details::observers::local_disposable_strategy< DisposableContainer, Bool >", "classrpp_1_1details_1_1observers_1_1local__disposable__strategy.html", null ],
     [ "rppqt::schedulers::main_thread_scheduler", "classrppqt_1_1schedulers_1_1main__thread__scheduler.html", null ],
     [ "rpp::make_chain_observable< New, Old >", "structrpp_1_1make__chain__observable.html", null ],
@@ -215,7 +221,6 @@ var hierarchy =
       [ "rpp::operators::details::merge_observer_inner_strategy< TObserver >", "structrpp_1_1operators_1_1details_1_1merge__observer__inner__strategy.html", null ],
       [ "rpp::operators::details::merge_observer_strategy< TObserver >", "classrpp_1_1operators_1_1details_1_1merge__observer__strategy.html", null ]
     ] ],
-    [ "rpp::operators::details::merge_t", "structrpp_1_1operators_1_1details_1_1merge__t.html", null ],
     [ "rpp::operators::details::merge_with_t< TObservables >", "structrpp_1_1operators_1_1details_1_1merge__with__t.html", null ],
     [ "rpp::operators::details::multicast_t< Subject >", "structrpp_1_1operators_1_1details_1_1multicast__t.html", null ],
     [ "rpp::details::never_strategy< Type >", "structrpp_1_1details_1_1never__strategy.html", null ],
@@ -371,7 +376,6 @@ var hierarchy =
     [ "rpp::operators::details::window_toggle_observer_strategy< TObserver, TOpeningsObservable, TClosingsSelectorFn >", "classrpp_1_1operators_1_1details_1_1window__toggle__observer__strategy.html", null ],
     [ "rpp::operators::details::window_toggle_opening_observer_strategy< TState >", "structrpp_1_1operators_1_1details_1_1window__toggle__opening__observer__strategy.html", null ],
     [ "rpp::operators::details::window_toggle_state< TObserver, TClosingsSelectorFn >", "structrpp_1_1operators_1_1details_1_1window__toggle__state.html", null ],
-    [ "rpp::operators::details::window_toggle_t< TOpeningsObservable, TClosingsSelectorFn >", "structrpp_1_1operators_1_1details_1_1window__toggle__t.html", null ],
     [ "rpp::details::with_disposable_strategy< S, Strategy >", "structrpp_1_1details_1_1with__disposable__strategy.html", null ],
     [ "rpp::operators::details::with_latest_from_inner_observer_strategy< I, Observer, TSelector, RestArgs >", "structrpp_1_1operators_1_1details_1_1with__latest__from__inner__observer__strategy.html", null ],
     [ "rpp::operators::details::with_latest_from_observer_strategy< Observer, TSelector, OriginalValue, RestArgs >", "structrpp_1_1operators_1_1details_1_1with__latest__from__observer__strategy.html", null ],

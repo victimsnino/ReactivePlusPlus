@@ -121,86 +121,90 @@
 \DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{static\_assert}(\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable__of__type}{rpp::constraint::observable\_of\_type<TFallbackObservable,\ T>}},\ \textcolor{stringliteral}{"{}TFallbackObservable\ should\ be\ the\ same\ type\ as\ T"{}});}
 \DoxyCodeLine{00118\ }
 \DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }result\_type\ =\ T;}
-\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \};}
-\DoxyCodeLine{00121\ }
-\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ rpp::schedulers::duration\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ period;}
-\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ RPP\_NO\_UNIQUE\_ADDRESS\ TFallbackObservable\ fallback;}
-\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ RPP\_NO\_UNIQUE\_ADDRESS\ TScheduler\ \ \ \ \ \ \ \ \ \ scheduler;}
-\DoxyCodeLine{00125\ }
-\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type\ Type,\ rpp::details::observables::constra\textcolor{keywordtype}{int}::disposable\_strategy\ DisposableStrategy,\ rpp::constra\textcolor{keywordtype}{int}::observer\ Observer>}
-\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ lift\_with\_disposable\_strategy(Observer\&\&\ \mbox{\hyperlink{classrpp_1_1observer}{observer}})\textcolor{keyword}{\ const}}
-\DoxyCodeLine{00128\ \textcolor{keyword}{\ \ \ \ \ \ \ \ }\{}
-\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }worker\_t\ \ =\ rpp::schedulers::utils::get\_worker\_t<TScheduler>;}
-\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }container\ =\ \textcolor{keyword}{typename}\ DisposableStrategy::template\ add<worker\_t::is\_none\_disposable\ ?\ 0\ :\ 1>::disposable\_container;}
-\DoxyCodeLine{00131\ }
-\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__utility__operators_gaa758f1ad38da6b37357232317fcdc9b5}{timeout}}\ =\ rpp::schedulers::utils::get\_worker\_t<TScheduler>::now()\ +\ period;}
+\DoxyCodeLine{00120\ }
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ own\_current\_queue\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00123\ }
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ rpp::schedulers::duration\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ period;}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ RPP\_NO\_UNIQUE\_ADDRESS\ TFallbackObservable\ fallback;}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ RPP\_NO\_UNIQUE\_ADDRESS\ TScheduler\ \ \ \ \ \ \ \ \ \ scheduler;}
+\DoxyCodeLine{00127\ }
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type\ Type,\ rpp::details::observables::constra\textcolor{keywordtype}{int}::disposable\_strategy\ DisposableStrategy,\ rpp::constra\textcolor{keywordtype}{int}::observer\ Observer>}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ lift\_with\_disposable\_strategy(Observer\&\&\ \mbox{\hyperlink{classrpp_1_1observer}{observer}})\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00130\ \textcolor{keyword}{\ \ \ \ \ \ \ \ }\{}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }worker\_t\ \ =\ rpp::schedulers::utils::get\_worker\_t<TScheduler>;}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }container\ =\ \textcolor{keyword}{typename}\ DisposableStrategy::template\ add<worker\_t::is\_none\_disposable\ ?\ 0\ :\ 1>::disposable\_container;}
 \DoxyCodeLine{00133\ }
-\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ disposable\ =\ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{disposable\_wrapper\_impl<timeout\_disposable<std::decay\_t<Observer>}},\ TFallbackObservable,\ container>>::make(std::forward<Observer>(\mbox{\hyperlink{classrpp_1_1observer}{observer}}),\ period,\ fallback,\ \mbox{\hyperlink{group__utility__operators_gaa758f1ad38da6b37357232317fcdc9b5}{timeout}});}
-\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ \ \ \ \ \ \ ptr\ \ \ \ \ \ \ \ =\ disposable.lock();}
-\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \ \ \ \ ptr-\/>get\_observer\_with\_timeout\_under\_lock()-\/>observer.set\_upstream(disposable.as\_weak());}
-\DoxyCodeLine{00137\ }
-\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ worker\ =\ scheduler.create\_worker();}
-\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keyword}{constexpr}\ (!rpp::schedulers::utils::get\_worker\_t<TScheduler>::is\_none\_disposable)}
-\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{auto}\ d\ =\ worker.get\_disposable();\ !d.is\_disposed())}
-\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ disposable.add(std::move(d));}
-\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00144\ }
-\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }wrapper\ =\ \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1timeout__disposable__wrapper}{timeout\_disposable\_wrapper<std::decay\_t<Observer>}},\ TFallbackObservable,\ container>;}
-\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \ \ \ \ worker.schedule(}
-\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__utility__operators_gaa758f1ad38da6b37357232317fcdc9b5}{timeout}},}
-\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [](wrapper\&\ handler)\ -\/>\ rpp::schedulers::optional\_delay\_to\ \{}
-\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ locked\_obs\_with\_timeout\ =\ handler.disposable-\/>get\_observer\_with\_timeout\_under\_lock();}
-\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (rpp::schedulers::utils::get\_worker\_t<TScheduler>::now()\ <\ locked\_obs\_with\_timeout-\/>timeout)}
-\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{structrpp_1_1schedulers_1_1delay__to}{rpp::schedulers::delay\_to}}(locked\_obs\_with\_timeout-\/>timeout);}
-\DoxyCodeLine{00152\ }
-\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!handler.disposable-\/>is\_disposed())}
-\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ handler.disposable-\/>dispose();}
-\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ handler.disposable-\/>get\_fallback().subscribe(std::move(locked\_obs\_with\_timeout-\/>observer));}
-\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::nullopt;}
-\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \},}
-\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ wrapper\{ptr\});}
-\DoxyCodeLine{00161\ }
-\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classrpp_1_1observer}{rpp::observer<Type,\ timeout\_observer\_strategy<std::decay\_t<Observer>}},\ TFallbackObservable,\ container,\ TScheduler>>\{std::move(ptr)\};}
-\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00164\ \ \ \ \ \};}
-\DoxyCodeLine{00165\ }
-\DoxyCodeLine{00166\ \ \ \ \ \textcolor{keyword}{template}<rpp::schedulers::constra\textcolor{keywordtype}{int}::scheduler\ TScheduler>}
-\DoxyCodeLine{00167\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1timeout__with__error__t}{timeout\_with\_error\_t}}}
-\DoxyCodeLine{00168\ \ \ \ \ \{}
-\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type\ T>}
-\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1timeout__with__error__t_1_1operator__traits}{operator\_traits}}}
-\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }result\_type\ =\ T;}
-\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ \};}
-\DoxyCodeLine{00174\ }
-\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ rpp::schedulers::duration\ \ \ \ \ \ \ \ period;}
-\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ RPP\_NO\_UNIQUE\_ADDRESS\ TScheduler\ scheduler;}
-\DoxyCodeLine{00177\ }
-\DoxyCodeLine{00178\ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type\ Type,\ rpp::details::observables::constra\textcolor{keywordtype}{int}::disposable\_strategy\ DisposableStrategy,\ rpp::constra\textcolor{keywordtype}{int}::observer\ Observer>}
-\DoxyCodeLine{00179\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ lift\_with\_disposable\_strategy(Observer\&\&\ \mbox{\hyperlink{classrpp_1_1observer}{observer}})\textcolor{keyword}{\ const}}
-\DoxyCodeLine{00180\ \textcolor{keyword}{\ \ \ \ \ \ \ \ }\{}
-\DoxyCodeLine{00181\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1timeout__t}{timeout\_t<rpp::error\_observable<Type>}},\ TScheduler>\{period,\ rpp::source::error<rpp::utils::extract\_observer\_type\_t<Observer>>(std::make\_exception\_ptr(rpp::utils::timeout\_reached\{\textcolor{stringliteral}{"{}Timeout\ reached"{}}\})),\ scheduler\}}
-\DoxyCodeLine{00182\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .template\ lift\_with\_disposable\_strategy<Type,\ DisposableStrategy>(std::forward<Observer>(\mbox{\hyperlink{classrpp_1_1observer}{observer}}));}
-\DoxyCodeLine{00183\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00184\ \ \ \ \ \};}
-\DoxyCodeLine{00185\ \}\ \textcolor{comment}{//\ namespace\ rpp::operators::details}}
-\DoxyCodeLine{00186\ }
-\DoxyCodeLine{00187\ \textcolor{keyword}{namespace\ }rpp::operators}
-\DoxyCodeLine{00188\ \{}
-\DoxyCodeLine{00209\ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::observable\ TFallbackObservable,\ rpp::schedulers::constra\textcolor{keywordtype}{int}::scheduler\ TScheduler>}
-\DoxyCodeLine{00210\ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__utility__operators_gaa758f1ad38da6b37357232317fcdc9b5}{timeout}}(rpp::schedulers::duration\ period,\ TFallbackObservable\&\&\ fallback\_observable,\ \textcolor{keyword}{const}\ TScheduler\&\ scheduler)}
-\DoxyCodeLine{00211\ \ \ \ \ \{}
-\DoxyCodeLine{00212\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ details::timeout\_t<std::decay\_t<TFallbackObservable>,\ TScheduler>\{period,\ std::forward<TFallbackObservable>(fallback\_observable),\ scheduler\};}
-\DoxyCodeLine{00213\ \ \ \ \ \}}
-\DoxyCodeLine{00214\ }
-\DoxyCodeLine{00233\ \ \ \ \ \textcolor{keyword}{template}<rpp::schedulers::constra\textcolor{keywordtype}{int}::scheduler\ TScheduler>}
-\DoxyCodeLine{00234\ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__utility__operators_gaa758f1ad38da6b37357232317fcdc9b5}{timeout}}(rpp::schedulers::duration\ period,\ \textcolor{keyword}{const}\ TScheduler\&\ scheduler)}
-\DoxyCodeLine{00235\ \ \ \ \ \{}
-\DoxyCodeLine{00236\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ details::timeout\_with\_error\_t<TScheduler>\{period,\ scheduler\};}
-\DoxyCodeLine{00237\ \ \ \ \ \}}
-\DoxyCodeLine{00238\ \}\ \textcolor{comment}{//\ namespace\ rpp::operators}}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__utility__operators_gaa758f1ad38da6b37357232317fcdc9b5}{timeout}}\ =\ rpp::schedulers::utils::get\_worker\_t<TScheduler>::now()\ +\ period;}
+\DoxyCodeLine{00135\ }
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ disposable\ =\ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{disposable\_wrapper\_impl<timeout\_disposable<std::decay\_t<Observer>}},\ TFallbackObservable,\ container>>::make(std::forward<Observer>(\mbox{\hyperlink{classrpp_1_1observer}{observer}}),\ period,\ fallback,\ \mbox{\hyperlink{group__utility__operators_gaa758f1ad38da6b37357232317fcdc9b5}{timeout}});}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ \ \ \ \ \ \ ptr\ \ \ \ \ \ \ \ =\ disposable.lock();}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ \ \ \ \ ptr-\/>get\_observer\_with\_timeout\_under\_lock()-\/>observer.set\_upstream(disposable.as\_weak());}
+\DoxyCodeLine{00139\ }
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ worker\ =\ scheduler.create\_worker();}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keyword}{constexpr}\ (!rpp::schedulers::utils::get\_worker\_t<TScheduler>::is\_none\_disposable)}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{auto}\ d\ =\ worker.get\_disposable();\ !d.is\_disposed())}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ disposable.add(std::move(d));}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00146\ }
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }wrapper\ =\ \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1timeout__disposable__wrapper}{timeout\_disposable\_wrapper<std::decay\_t<Observer>}},\ TFallbackObservable,\ container>;}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \ \ \ \ worker.schedule(}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__utility__operators_gaa758f1ad38da6b37357232317fcdc9b5}{timeout}},}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [](wrapper\&\ handler)\ -\/>\ rpp::schedulers::optional\_delay\_to\ \{}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ locked\_obs\_with\_timeout\ =\ handler.disposable-\/>get\_observer\_with\_timeout\_under\_lock();}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (rpp::schedulers::utils::get\_worker\_t<TScheduler>::now()\ <\ locked\_obs\_with\_timeout-\/>timeout)}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{structrpp_1_1schedulers_1_1delay__to}{rpp::schedulers::delay\_to}}(locked\_obs\_with\_timeout-\/>timeout);}
+\DoxyCodeLine{00154\ }
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!handler.disposable-\/>is\_disposed())}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ handler.disposable-\/>dispose();}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ handler.disposable-\/>get\_fallback().subscribe(std::move(locked\_obs\_with\_timeout-\/>observer));}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::nullopt;}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \},}
+\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ wrapper\{ptr\});}
+\DoxyCodeLine{00163\ }
+\DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classrpp_1_1observer}{rpp::observer<Type,\ timeout\_observer\_strategy<std::decay\_t<Observer>}},\ TFallbackObservable,\ container,\ TScheduler>>\{std::move(ptr)\};}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00166\ \ \ \ \ \};}
+\DoxyCodeLine{00167\ }
+\DoxyCodeLine{00168\ \ \ \ \ \textcolor{keyword}{template}<rpp::schedulers::constra\textcolor{keywordtype}{int}::scheduler\ TScheduler>}
+\DoxyCodeLine{00169\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1timeout__with__error__t}{timeout\_with\_error\_t}}}
+\DoxyCodeLine{00170\ \ \ \ \ \{}
+\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type\ T>}
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1timeout__with__error__t_1_1operator__traits}{operator\_traits}}}
+\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00174\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }result\_type\ =\ T;}
+\DoxyCodeLine{00175\ }
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ own\_current\_queue\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00177\ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00178\ }
+\DoxyCodeLine{00179\ \ \ \ \ \ \ \ \ rpp::schedulers::duration\ \ \ \ \ \ \ \ period;}
+\DoxyCodeLine{00180\ \ \ \ \ \ \ \ \ RPP\_NO\_UNIQUE\_ADDRESS\ TScheduler\ scheduler;}
+\DoxyCodeLine{00181\ }
+\DoxyCodeLine{00182\ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type\ Type,\ rpp::details::observables::constra\textcolor{keywordtype}{int}::disposable\_strategy\ DisposableStrategy,\ rpp::constra\textcolor{keywordtype}{int}::observer\ Observer>}
+\DoxyCodeLine{00183\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ lift\_with\_disposable\_strategy(Observer\&\&\ \mbox{\hyperlink{classrpp_1_1observer}{observer}})\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00184\ \textcolor{keyword}{\ \ \ \ \ \ \ \ }\{}
+\DoxyCodeLine{00185\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1timeout__t}{timeout\_t<rpp::error\_observable<Type>}},\ TScheduler>\{period,\ rpp::source::error<rpp::utils::extract\_observer\_type\_t<Observer>>(std::make\_exception\_ptr(rpp::utils::timeout\_reached\{\textcolor{stringliteral}{"{}Timeout\ reached"{}}\})),\ scheduler\}}
+\DoxyCodeLine{00186\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .template\ lift\_with\_disposable\_strategy<Type,\ DisposableStrategy>(std::forward<Observer>(\mbox{\hyperlink{classrpp_1_1observer}{observer}}));}
+\DoxyCodeLine{00187\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00188\ \ \ \ \ \};}
+\DoxyCodeLine{00189\ \}\ \textcolor{comment}{//\ namespace\ rpp::operators::details}}
+\DoxyCodeLine{00190\ }
+\DoxyCodeLine{00191\ \textcolor{keyword}{namespace\ }rpp::operators}
+\DoxyCodeLine{00192\ \{}
+\DoxyCodeLine{00213\ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::observable\ TFallbackObservable,\ rpp::schedulers::constra\textcolor{keywordtype}{int}::scheduler\ TScheduler>}
+\DoxyCodeLine{00214\ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__utility__operators_gaa758f1ad38da6b37357232317fcdc9b5}{timeout}}(rpp::schedulers::duration\ period,\ TFallbackObservable\&\&\ fallback\_observable,\ \textcolor{keyword}{const}\ TScheduler\&\ scheduler)}
+\DoxyCodeLine{00215\ \ \ \ \ \{}
+\DoxyCodeLine{00216\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ details::timeout\_t<std::decay\_t<TFallbackObservable>,\ TScheduler>\{period,\ std::forward<TFallbackObservable>(fallback\_observable),\ scheduler\};}
+\DoxyCodeLine{00217\ \ \ \ \ \}}
+\DoxyCodeLine{00218\ }
+\DoxyCodeLine{00237\ \ \ \ \ \textcolor{keyword}{template}<rpp::schedulers::constra\textcolor{keywordtype}{int}::scheduler\ TScheduler>}
+\DoxyCodeLine{00238\ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__utility__operators_gaa758f1ad38da6b37357232317fcdc9b5}{timeout}}(rpp::schedulers::duration\ period,\ \textcolor{keyword}{const}\ TScheduler\&\ scheduler)}
+\DoxyCodeLine{00239\ \ \ \ \ \{}
+\DoxyCodeLine{00240\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ details::timeout\_with\_error\_t<TScheduler>\{period,\ scheduler\};}
+\DoxyCodeLine{00241\ \ \ \ \ \}}
+\DoxyCodeLine{00242\ \}\ \textcolor{comment}{//\ namespace\ rpp::operators}}
 
 \end{DoxyCode}
