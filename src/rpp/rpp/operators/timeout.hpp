@@ -178,7 +178,7 @@ namespace rpp::operators::details
         template<rpp::constraint::decayed_type Type, rpp::details::observables::constraint::disposable_strategy DisposableStrategy, rpp::constraint::observer Observer>
         auto lift_with_disposable_strategy(Observer&& observer) const
         {
-            return timeout_t<rpp::error_observable<int>, TScheduler>{period, rpp::source::error<rpp::utils::extract_observer_type_t<Observer>>(std::make_exception_ptr(rpp::utils::timeout_reached{"Timeout reached"})), scheduler}
+            return timeout_t<rpp::error_observable<Type>, TScheduler>{period, rpp::source::error<rpp::utils::extract_observer_type_t<Observer>>(std::make_exception_ptr(rpp::utils::timeout_reached{"Timeout reached"})), scheduler}
                 .template lift_with_disposable_strategy<Type, DisposableStrategy>(std::forward<Observer>(observer));
         }
     };
