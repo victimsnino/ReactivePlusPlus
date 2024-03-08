@@ -117,6 +117,8 @@ namespace rpp::operators::details
             static_assert(rpp::constraint::observable_of_type<TFallbackObservable, T>, "TFallbackObservable should be the same type as T");
 
             using result_type = T;
+
+            constexpr static bool own_current_queue = true;
         };
 
         rpp::schedulers::duration                 period;
@@ -170,6 +172,8 @@ namespace rpp::operators::details
         struct operator_traits
         {
             using result_type = T;
+
+            constexpr static bool own_current_queue = true;
         };
 
         rpp::schedulers::duration        period;

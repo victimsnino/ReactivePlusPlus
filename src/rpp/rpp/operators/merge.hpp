@@ -139,20 +139,17 @@ namespace rpp::operators::details
             static_assert(rpp::constraint::observable<T>, "T is not observable");
 
             using result_type = rpp::utils::extract_observable_type_t<T>;
+
+            constexpr static bool own_current_queue = true;
         };
 
         template<rpp::details::observables::constraint::disposable_strategy Prev>
         using updated_disposable_strategy = rpp::details::observables::fixed_disposable_strategy_selector<1>;
 
-        template<rpp::constraint::observer Observer, typename... Strategies>
-        void subscribe(Observer&& observer, const observable_chain_strategy<Strategies...>& strategy) const
+        template<rpp::constraint::decayed_type Type, rpp::constraint::observer Observer>
+        auto lift(Observer&& observer) const
         {
-            // Need to take ownership over current_thread in case of inner-observables also using it
-            auto drain_on_exit = rpp::schedulers::current_thread::own_queue_and_drain_finally_if_not_owned();
-
-            using InnerObservable = typename observable_chain_strategy<Strategies...>::value_type;
-
-            strategy.subscribe(rpp::observer<InnerObservable, merge_observer_strategy<std::decay_t<Observer>>>{std::forward<Observer>(observer)});
+            return rpp::observer<Type, merge_observer_strategy<std::decay_t<Observer>>>{std::forward<Observer>(observer)};
         }
     };
 

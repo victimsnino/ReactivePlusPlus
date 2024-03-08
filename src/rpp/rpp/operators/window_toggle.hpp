@@ -197,18 +197,17 @@ namespace rpp::operators::details
         struct operator_traits
         {
             using result_type = rpp::window_toggle_observable<T>;
+
+            constexpr static bool own_current_queue = true;
         };
 
         template<rpp::details::observables::constraint::disposable_strategy Prev>
         using updated_disposable_strategy = rpp::details::observables::fixed_disposable_strategy_selector<1>;
 
-        template<rpp::constraint::observer Observer, typename... Strategies>
-        void subscribe(Observer&& observer, const observable_chain_strategy<Strategies...>& observable_strategy) const
+        template<rpp::constraint::decayed_type Type, rpp::constraint::observer Observer>
+        auto lift(Observer&& observer) const
         {
-            // Need to take ownership over current_thread in case of inner-observables also using it
-            auto drain_on_exit   = rpp::schedulers::current_thread::own_queue_and_drain_finally_if_not_owned();
-            using expected_value = typename observable_chain_strategy<Strategies...>::value_type;
-            observable_strategy.subscribe(rpp::observer<expected_value, window_toggle_observer_strategy<std::decay_t<Observer>, TOpeningsObservable, TClosingsSelectorFn>>{std::forward<Observer>(observer), openings, closings_selector});
+            return rpp::observer<Type, window_toggle_observer_strategy<std::decay_t<Observer>, TOpeningsObservable, TClosingsSelectorFn>>{std::forward<Observer>(observer), openings, closings_selector};
         }
     };
 } // namespace rpp::operators::details
