@@ -55,14 +55,11 @@ namespace rpp
 
     private:
         static auto own_current_thread_if_needed()
-            requires requires { requires operator_traits::own_current_queue; }
         {
-            return rpp::schedulers::current_thread::own_queue_and_drain_finally_if_not_owned();
-        }
-
-        static auto own_current_thread_if_needed()
-        {
-            return rpp::utils::none{};
+            if constexpr (requires { requires operator_traits::own_current_queue; })
+                return rpp::schedulers::current_thread::own_queue_and_drain_finally_if_not_owned();
+            else
+                return rpp::utils::none{};
         }
 
     private:
