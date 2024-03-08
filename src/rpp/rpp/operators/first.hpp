@@ -45,6 +45,8 @@ namespace rpp::operators::details
 
     struct first_t : lift_operator<first_t>
     {
+        using lift_operator<first_t>::lift_operator;
+        
         template<rpp::constraint::decayed_type T>
         struct operator_traits
         {

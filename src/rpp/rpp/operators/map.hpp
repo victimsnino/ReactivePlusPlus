@@ -45,6 +45,8 @@ namespace rpp::operators::details
     template<rpp::constraint::decayed_type Fn>
     struct map_t : lift_operator<map_t<Fn>, Fn>
     {
+        using lift_operator<map_t<Fn>, Fn>::lift_operator;
+        
         template<rpp::constraint::decayed_type T>
         struct operator_traits
         {

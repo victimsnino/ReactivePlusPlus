@@ -47,6 +47,8 @@ namespace rpp::operators::details
 
     struct skip_t : lift_operator<skip_t, size_t>
     {
+        using lift_operator<skip_t, size_t>::lift_operator;
+        
         template<rpp::constraint::decayed_type T>
         struct operator_traits
         {

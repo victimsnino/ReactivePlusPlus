@@ -196,6 +196,8 @@ namespace rpp::operators::details
 
     struct concat_t : lift_operator<concat_t>
     {
+        using lift_operator<concat_t>::lift_operator;
+        
         template<rpp::constraint::decayed_type T>
         struct operator_traits
         {

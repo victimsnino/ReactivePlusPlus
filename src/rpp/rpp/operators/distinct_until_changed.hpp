@@ -50,6 +50,8 @@ namespace rpp::operators::details
     template<rpp::constraint::decayed_type EqualityFn>
     struct distinct_until_changed_t : public operators::details::lift_operator<distinct_until_changed_t<EqualityFn>, EqualityFn>
     {
+        using operators::details::lift_operator<distinct_until_changed_t<EqualityFn>, EqualityFn>::lift_operator;
+        
         template<rpp::constraint::decayed_type T>
         struct operator_traits
         {

@@ -104,6 +104,8 @@ namespace rpp::operators::details
 
     struct window_t : lift_operator<window_t, size_t>
     {
+        using lift_operator<window_t, size_t>::lift_operator;
+        
         template<rpp::constraint::decayed_type T>
         struct operator_traits
         {

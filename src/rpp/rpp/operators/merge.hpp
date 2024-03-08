@@ -131,8 +131,10 @@ namespace rpp::operators::details
         }
     };
 
-    struct merge_t
+    struct merge_t : lift_operator<merge_t>
     {
+        using lift_operator<merge_t>::lift_operator;
+        
         template<rpp::constraint::decayed_type T>
         struct operator_traits
         {
@@ -141,16 +143,13 @@ namespace rpp::operators::details
             using result_type = rpp::utils::extract_observable_type_t<T>;
 
             constexpr static bool own_current_queue = true;
+
+            template<rpp::constraint::observer_of_type<result_type> TObserver>
+            using observer_strategy = merge_observer_strategy<std::decay_t<TObserver>>;
         };
 
         template<rpp::details::observables::constraint::disposable_strategy Prev>
         using updated_disposable_strategy = rpp::details::observables::fixed_disposable_strategy_selector<1>;
-
-        template<rpp::constraint::decayed_type Type, rpp::constraint::observer Observer>
-        auto lift(Observer&& observer) const
-        {
-            return rpp::observer<Type, merge_observer_strategy<std::decay_t<Observer>>>{std::forward<Observer>(observer)};
-        }
     };
 
     template<rpp::constraint::observable... TObservables>

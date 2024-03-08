@@ -188,27 +188,23 @@ namespace rpp::operators::details
 
     template<rpp::constraint::observable TOpeningsObservable, typename TClosingsSelectorFn>
         requires rpp::constraint::observable<std::invoke_result_t<TClosingsSelectorFn, rpp::utils::extract_observable_type_t<TOpeningsObservable>>>
-    struct window_toggle_t
+    struct window_toggle_t : lift_operator<window_toggle_t<TOpeningsObservable, TClosingsSelectorFn>, TOpeningsObservable, TClosingsSelectorFn>
     {
-        RPP_NO_UNIQUE_ADDRESS TOpeningsObservable openings;
-        RPP_NO_UNIQUE_ADDRESS TClosingsSelectorFn closings_selector;
-
+        using lift_operator<window_toggle_t<TOpeningsObservable, TClosingsSelectorFn>, TOpeningsObservable, TClosingsSelectorFn>::lift_operator;
+        
         template<rpp::constraint::decayed_type T>
         struct operator_traits
         {
             using result_type = rpp::window_toggle_observable<T>;
 
             constexpr static bool own_current_queue = true;
+
+            template<rpp::constraint::observer_of_type<result_type> TObserver>
+            using observer_strategy = window_toggle_observer_strategy<std::decay_t<TObserver>, TOpeningsObservable, TClosingsSelectorFn>;
         };
 
         template<rpp::details::observables::constraint::disposable_strategy Prev>
         using updated_disposable_strategy = rpp::details::observables::fixed_disposable_strategy_selector<1>;
-
-        template<rpp::constraint::decayed_type Type, rpp::constraint::observer Observer>
-        auto lift(Observer&& observer) const
-        {
-            return rpp::observer<Type, window_toggle_observer_strategy<std::decay_t<Observer>, TOpeningsObservable, TClosingsSelectorFn>>{std::forward<Observer>(observer), openings, closings_selector};
-        }
     };
 } // namespace rpp::operators::details
 
