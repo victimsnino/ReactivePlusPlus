@@ -134,7 +134,7 @@ namespace rpp::operators::details
     struct merge_t : lift_operator<merge_t>
     {
         using lift_operator<merge_t>::lift_operator;
-        
+
         template<rpp::constraint::decayed_type T>
         struct operator_traits
         {

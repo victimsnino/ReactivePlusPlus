@@ -11,9 +11,9 @@
 
 #include <rpp/observables/fwd.hpp>
 #include <rpp/observers/fwd.hpp>
-#include <rpp/schedulers/current_thread.hpp>
 
 #include <rpp/defs.hpp>
+#include <rpp/schedulers/current_thread.hpp>
 
 namespace rpp
 {
@@ -23,6 +23,7 @@ namespace rpp
         using base = observable_chain_strategy<TStrategies...>;
 
         using operator_traits = typename TStrategy::template operator_traits<typename base::value_type>;
+
     public:
         using expected_disposable_strategy = details::observables::deduce_updated_disposable_strategy<TStrategy, typename base::expected_disposable_strategy>;
         using value_type                   = typename operator_traits::result_type;
@@ -51,8 +52,10 @@ namespace rpp
             else
                 m_strategy.subscribe(std::forward<Observer>(observer), m_strategies);
         }
+
     private:
-        static auto own_current_thread_if_needed() requires requires { requires operator_traits::own_current_queue; }
+        static auto own_current_thread_if_needed()
+            requires requires { requires operator_traits::own_current_queue; }
         {
             return rpp::schedulers::current_thread::own_queue_and_drain_finally_if_not_owned();
         }

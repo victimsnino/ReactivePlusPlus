@@ -146,10 +146,10 @@ TEST_CASE("timeout handles current_thread scheduling")
     auto mock = mock_observer_strategy<int>{};
 
     rpp::source::just(rpp::schedulers::current_thread{}, 1, 2, 3)
-    | rpp::operators::timeout(std::chrono::seconds{2}, rpp::source::error<int>({}), rpp::schedulers::current_thread{})
-    | rpp::operators::subscribe(mock);
+        | rpp::operators::timeout(std::chrono::seconds{2}, rpp::source::error<int>({}), rpp::schedulers::current_thread{})
+        | rpp::operators::subscribe(mock);
 
-    CHECK(mock.get_received_values() == std::vector{1,2,3});
+    CHECK(mock.get_received_values() == std::vector{1, 2, 3});
     CHECK(mock.get_on_error_count() == 0);
     CHECK(mock.get_on_completed_count() == 1);
 }

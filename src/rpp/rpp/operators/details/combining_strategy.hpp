@@ -105,7 +105,7 @@ namespace rpp::operators::details
         template<rpp::constraint::decayed_type Type, rpp::constraint::observer Observer>
         static auto subscribe_impl(Observer&& observer, const TSelector& selector, const TObservables&... observables)
         {
-            using Disposable    = TDisposable<Observer, TSelector, Type, rpp::utils::extract_observable_type_t<TObservables>...>;
+            using Disposable = TDisposable<Observer, TSelector, Type, rpp::utils::extract_observable_type_t<TObservables>...>;
 
             const auto disposable = disposable_wrapper_impl<Disposable>::make(std::forward<Observer>(observer), selector);
             auto       locked     = disposable.lock();

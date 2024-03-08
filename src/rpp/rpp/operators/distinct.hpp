@@ -50,7 +50,7 @@ namespace rpp::operators::details
     struct distinct_t : lift_operator<distinct_t>
     {
         using lift_operator<distinct_t>::lift_operator;
-        
+
         template<rpp::constraint::decayed_type T>
         struct operator_traits
         {

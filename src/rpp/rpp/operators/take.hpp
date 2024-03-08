@@ -52,7 +52,7 @@ namespace rpp::operators::details
     struct take_t : lift_operator<take_t, size_t>
     {
         using lift_operator<take_t, size_t>::lift_operator;
-        
+
         template<rpp::constraint::decayed_type T>
         struct operator_traits
         {

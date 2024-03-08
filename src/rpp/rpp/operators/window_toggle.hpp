@@ -191,7 +191,7 @@ namespace rpp::operators::details
     struct window_toggle_t : lift_operator<window_toggle_t<TOpeningsObservable, TClosingsSelectorFn>, TOpeningsObservable, TClosingsSelectorFn>
     {
         using lift_operator<window_toggle_t<TOpeningsObservable, TClosingsSelectorFn>, TOpeningsObservable, TClosingsSelectorFn>::lift_operator;
-        
+
         template<rpp::constraint::decayed_type T>
         struct operator_traits
         {

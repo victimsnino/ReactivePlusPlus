@@ -54,7 +54,7 @@ namespace rpp::operators::details
     struct throttle_t : lift_operator<throttle_t<Scheduler>, rpp::schedulers::duration>
     {
         using lift_operator<throttle_t<Scheduler>, rpp::schedulers::duration>::lift_operator;
-        
+
         template<rpp::constraint::decayed_type T>
         struct operator_traits
         {

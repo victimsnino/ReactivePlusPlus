@@ -138,7 +138,7 @@ namespace rpp::operators::details
     struct switch_on_next_t : lift_operator<switch_on_next_t>
     {
         using lift_operator<switch_on_next_t>::lift_operator;
-        
+
         template<rpp::constraint::decayed_type T>
         struct operator_traits
         {
