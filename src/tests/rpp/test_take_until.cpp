@@ -191,6 +191,19 @@ TEST_CASE("take_until can handle race condition")
     }
 }
 
+TEST_CASE("take_until handles current_thread scheduling")
+{
+    auto mock = mock_observer_strategy<int>{};
+
+    rpp::source::just(rpp::schedulers::current_thread{}, 1, 2, 3)
+    | rpp::operators::take_until(rpp::source::interval(std::chrono::seconds{1}, rpp::schedulers::current_thread{}))
+    | rpp::operators::subscribe(mock);
+
+    CHECK(mock.get_received_values() == std::vector{1,2,3});
+    CHECK(mock.get_on_error_count() == 0);
+    CHECK(mock.get_on_completed_count() == 1);
+}
+
 TEST_CASE("take_until doesn't produce extra copies")
 {
     SECTION("take_until(other)")
