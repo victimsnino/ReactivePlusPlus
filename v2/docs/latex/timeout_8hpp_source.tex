@@ -182,7 +182,7 @@
 \DoxyCodeLine{00178\ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type\ Type,\ rpp::details::observables::constra\textcolor{keywordtype}{int}::disposable\_strategy\ DisposableStrategy,\ rpp::constra\textcolor{keywordtype}{int}::observer\ Observer>}
 \DoxyCodeLine{00179\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ lift\_with\_disposable\_strategy(Observer\&\&\ \mbox{\hyperlink{classrpp_1_1observer}{observer}})\textcolor{keyword}{\ const}}
 \DoxyCodeLine{00180\ \textcolor{keyword}{\ \ \ \ \ \ \ \ }\{}
-\DoxyCodeLine{00181\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1timeout__t}{timeout\_t<rpp::error\_observable<int>}},\ TScheduler>\{period,\ rpp::source::error<rpp::utils::extract\_observer\_type\_t<Observer>>(std::make\_exception\_ptr(rpp::utils::timeout\_reached\{\textcolor{stringliteral}{"{}Timeout\ reached"{}}\})),\ scheduler\}}
+\DoxyCodeLine{00181\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1timeout__t}{timeout\_t<rpp::error\_observable<Type>}},\ TScheduler>\{period,\ rpp::source::error<rpp::utils::extract\_observer\_type\_t<Observer>>(std::make\_exception\_ptr(rpp::utils::timeout\_reached\{\textcolor{stringliteral}{"{}Timeout\ reached"{}}\})),\ scheduler\}}
 \DoxyCodeLine{00182\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .template\ lift\_with\_disposable\_strategy<Type,\ DisposableStrategy>(std::forward<Observer>(\mbox{\hyperlink{classrpp_1_1observer}{observer}}));}
 \DoxyCodeLine{00183\ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{00184\ \ \ \ \ \};}
