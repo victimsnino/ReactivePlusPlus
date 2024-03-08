@@ -46,6 +46,8 @@ namespace rpp::operators::details
     template<rpp::constraint::decayed_type Fn>
     struct take_while_t : lift_operator<take_while_t<Fn>, Fn>
     {
+        using lift_operator<take_while_t<Fn>, Fn>::lift_operator;
+
         template<rpp::constraint::decayed_type T>
         struct operator_traits
         {

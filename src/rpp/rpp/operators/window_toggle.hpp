@@ -188,28 +188,23 @@ namespace rpp::operators::details
 
     template<rpp::constraint::observable TOpeningsObservable, typename TClosingsSelectorFn>
         requires rpp::constraint::observable<std::invoke_result_t<TClosingsSelectorFn, rpp::utils::extract_observable_type_t<TOpeningsObservable>>>
-    struct window_toggle_t
+    struct window_toggle_t : lift_operator<window_toggle_t<TOpeningsObservable, TClosingsSelectorFn>, TOpeningsObservable, TClosingsSelectorFn>
     {
-        RPP_NO_UNIQUE_ADDRESS TOpeningsObservable openings;
-        RPP_NO_UNIQUE_ADDRESS TClosingsSelectorFn closings_selector;
+        using lift_operator<window_toggle_t<TOpeningsObservable, TClosingsSelectorFn>, TOpeningsObservable, TClosingsSelectorFn>::lift_operator;
 
         template<rpp::constraint::decayed_type T>
         struct operator_traits
         {
             using result_type = rpp::window_toggle_observable<T>;
+
+            constexpr static bool own_current_queue = true;
+
+            template<rpp::constraint::observer_of_type<result_type> TObserver>
+            using observer_strategy = window_toggle_observer_strategy<std::decay_t<TObserver>, TOpeningsObservable, TClosingsSelectorFn>;
         };
 
         template<rpp::details::observables::constraint::disposable_strategy Prev>
         using updated_disposable_strategy = rpp::details::observables::fixed_disposable_strategy_selector<1>;
-
-        template<rpp::constraint::observer Observer, typename... Strategies>
-        void subscribe(Observer&& observer, const observable_chain_strategy<Strategies...>& observable_strategy) const
-        {
-            // Need to take ownership over current_thread in case of inner-observables also using it
-            auto drain_on_exit   = rpp::schedulers::current_thread::own_queue_and_drain_finally_if_not_owned();
-            using expected_value = typename observable_chain_strategy<Strategies...>::value_type;
-            observable_strategy.subscribe(rpp::observer<expected_value, window_toggle_observer_strategy<std::decay_t<Observer>, TOpeningsObservable, TClosingsSelectorFn>>{std::forward<Observer>(observer), openings, closings_selector});
-        }
     };
 } // namespace rpp::operators::details
 

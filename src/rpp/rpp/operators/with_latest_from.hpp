@@ -136,22 +136,22 @@ namespace rpp::operators::details
             static_assert(std::invocable<TSelector, T, rpp::utils::extract_observable_type_t<TObservables>...>, "TSelector is not invocable with T and types of rest observables");
 
             using result_type = std::invoke_result_t<TSelector, T, rpp::utils::extract_observable_type_t<TObservables>...>;
+
+            constexpr static bool own_current_queue = true;
         };
 
         template<rpp::details::observables::constraint::disposable_strategy Prev>
         using updated_disposable_strategy = rpp::details::observables::fixed_disposable_strategy_selector<1>;
 
-        template<rpp::constraint::observer Observer, typename... Strategies>
-        void subscribe(Observer&& observer, const observable_chain_strategy<Strategies...>& observable_strategy) const
+        template<rpp::constraint::decayed_type Type, rpp::constraint::observer Observer>
+        auto lift(Observer&& observer) const
         {
-            // Need to take ownership over current_thread in case of inner-observables also using it
-            auto drain_on_exit = rpp::schedulers::current_thread::own_queue_and_drain_finally_if_not_owned();
-            observables.apply(&subscribe_impl<Observer, Strategies...>, std::forward<Observer>(observer), observable_strategy, selector);
+            return observables.apply(&subscribe_impl<Type, Observer>, std::forward<Observer>(observer), selector);
         }
 
     private:
-        template<rpp::constraint::observer Observer, typename... Strategies>
-        static void subscribe_impl(Observer&& observer, const observable_chain_strategy<Strategies...>& observable_strategy, const TSelector& selector, const TObservables&... observables)
+        template<rpp::constraint::decayed_type Type, rpp::constraint::observer Observer>
+        static auto subscribe_impl(Observer&& observer, const TSelector& selector, const TObservables&... observables)
         {
             using Disposable = with_latest_from_disposable<Observer, TSelector, rpp::utils::extract_observable_type_t<TObservables>...>;
 
@@ -160,9 +160,7 @@ namespace rpp::operators::details
             ptr->get_observer_under_lock()->set_upstream(disposable.as_weak());
             subscribe(ptr, std::index_sequence_for<TObservables...>{}, observables...);
 
-            using ExpectedValue = typename observable_chain_strategy<Strategies...>::value_type;
-
-            observable_strategy.subscribe(rpp::observer<ExpectedValue, with_latest_from_observer_strategy<std::decay_t<Observer>, TSelector, ExpectedValue, rpp::utils::extract_observable_type_t<TObservables>...>>{std::move(ptr)});
+            return rpp::observer<Type, with_latest_from_observer_strategy<std::decay_t<Observer>, TSelector, Type, rpp::utils::extract_observable_type_t<TObservables>...>>{std::move(ptr)};
         }
 
         template<rpp::constraint::observer Observer, size_t... I>

@@ -101,6 +101,8 @@ namespace rpp::operators::details
     template<rpp::constraint::decayed_type Accumulator>
     struct reduce_no_seed_t : lift_operator<reduce_no_seed_t<Accumulator>, Accumulator>
     {
+        using lift_operator<reduce_no_seed_t<Accumulator>, Accumulator>::lift_operator;
+
         template<rpp::constraint::decayed_type T>
         struct operator_traits
         {

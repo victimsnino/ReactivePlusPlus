@@ -82,6 +82,8 @@ namespace rpp::operators::details
 
     struct take_last_t : lift_operator<take_last_t, size_t>
     {
+        using lift_operator<take_last_t, size_t>::lift_operator;
+
         template<rpp::constraint::decayed_type T>
         struct operator_traits
         {

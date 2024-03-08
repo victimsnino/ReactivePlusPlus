@@ -102,6 +102,8 @@ namespace rpp::operators::details
     template<rpp::constraint::decayed_type Fn>
     struct scan_no_seed_t : lift_operator<scan_no_seed_t<Fn>, Fn>
     {
+        using lift_operator<scan_no_seed_t<Fn>, Fn>::lift_operator;
+
         template<rpp::constraint::decayed_type T>
         struct operator_traits
         {

@@ -141,6 +141,19 @@ TEST_CASE("timeout subscribes to passed observable in case of reaching timeout")
     }
 }
 
+TEST_CASE("timeout handles current_thread scheduling")
+{
+    auto mock = mock_observer_strategy<int>{};
+
+    rpp::source::just(rpp::schedulers::current_thread{}, 1, 2, 3)
+        | rpp::operators::timeout(std::chrono::seconds{2}, rpp::source::error<int>({}), rpp::schedulers::current_thread{})
+        | rpp::operators::subscribe(mock);
+
+    CHECK(mock.get_received_values() == std::vector{1, 2, 3});
+    CHECK(mock.get_on_error_count() == 0);
+    CHECK(mock.get_on_completed_count() == 1);
+}
+
 TEST_CASE("timeout satisfies disposable contracts")
 {
     test_operator_with_disposable<int>(rpp::ops::timeout(std::chrono::seconds{10000000}, test_scheduler{}));

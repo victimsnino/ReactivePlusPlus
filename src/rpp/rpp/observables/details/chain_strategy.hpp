@@ -13,6 +13,7 @@
 #include <rpp/observers/fwd.hpp>
 
 #include <rpp/defs.hpp>
+#include <rpp/schedulers/current_thread.hpp>
 
 namespace rpp
 {
@@ -21,9 +22,11 @@ namespace rpp
     {
         using base = observable_chain_strategy<TStrategies...>;
 
+        using operator_traits = typename TStrategy::template operator_traits<typename base::value_type>;
+
     public:
         using expected_disposable_strategy = details::observables::deduce_updated_disposable_strategy<TStrategy, typename base::expected_disposable_strategy>;
-        using value_type                   = typename TStrategy::template operator_traits<typename base::value_type>::result_type;
+        using value_type                   = typename operator_traits::result_type;
 
         observable_chain_strategy(const TStrategy& strategy, const TStrategies&... strategies)
             : m_strategy(strategy)
@@ -40,12 +43,23 @@ namespace rpp
         template<rpp::constraint::observer_of_type<value_type> Observer>
         void subscribe(Observer&& observer) const
         {
+            [[maybe_unused]] const auto drain_on_exit = own_current_thread_if_needed();
+
             if constexpr (rpp::constraint::operator_lift_with_disposable_strategy<TStrategy, typename base::value_type, typename base::expected_disposable_strategy>)
                 m_strategies.subscribe(m_strategy.template lift_with_disposable_strategy<typename base::value_type, typename base::expected_disposable_strategy>(std::forward<Observer>(observer)));
             else if constexpr (rpp::constraint::operator_lift<TStrategy, typename base::value_type>)
                 m_strategies.subscribe(m_strategy.template lift<typename base::value_type>(std::forward<Observer>(observer)));
             else
                 m_strategy.subscribe(std::forward<Observer>(observer), m_strategies);
+        }
+
+    private:
+        static auto own_current_thread_if_needed()
+        {
+            if constexpr (requires { requires operator_traits::own_current_queue; })
+                return rpp::schedulers::current_thread::own_queue_and_drain_finally_if_not_owned();
+            else
+                return rpp::utils::none{};
         }
 
     private:

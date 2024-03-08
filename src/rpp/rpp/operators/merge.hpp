@@ -131,29 +131,25 @@ namespace rpp::operators::details
         }
     };
 
-    struct merge_t
+    struct merge_t : lift_operator<merge_t>
     {
+        using lift_operator<merge_t>::lift_operator;
+
         template<rpp::constraint::decayed_type T>
         struct operator_traits
         {
             static_assert(rpp::constraint::observable<T>, "T is not observable");
 
             using result_type = rpp::utils::extract_observable_type_t<T>;
+
+            constexpr static bool own_current_queue = true;
+
+            template<rpp::constraint::observer_of_type<result_type> TObserver>
+            using observer_strategy = merge_observer_strategy<std::decay_t<TObserver>>;
         };
 
         template<rpp::details::observables::constraint::disposable_strategy Prev>
         using updated_disposable_strategy = rpp::details::observables::fixed_disposable_strategy_selector<1>;
-
-        template<rpp::constraint::observer Observer, typename... Strategies>
-        void subscribe(Observer&& observer, const observable_chain_strategy<Strategies...>& strategy) const
-        {
-            // Need to take ownership over current_thread in case of inner-observables also using it
-            auto drain_on_exit = rpp::schedulers::current_thread::own_queue_and_drain_finally_if_not_owned();
-
-            using InnerObservable = typename observable_chain_strategy<Strategies...>::value_type;
-
-            strategy.subscribe(rpp::observer<InnerObservable, merge_observer_strategy<std::decay_t<Observer>>>{std::forward<Observer>(observer)});
-        }
     };
 
     template<rpp::constraint::observable... TObservables>

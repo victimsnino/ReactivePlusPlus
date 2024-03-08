@@ -179,6 +179,20 @@ TEST_CASE("with_latest_from handles race condition")
     }
 }
 
+
+TEST_CASE("with_latest_from handles current_thread scheduling")
+{
+    auto mock = mock_observer_strategy<std::tuple<int, int>>{};
+
+    rpp::source::just(rpp::schedulers::current_thread{}, 1, 2, 3)
+        | rpp::operators::with_latest_from(rpp::source::just(rpp::schedulers::current_thread{}, 1, 2, 3))
+        | rpp::operators::subscribe(mock);
+
+    CHECK(mock.get_received_values() == std::vector{std::tuple{1, 1}, std::tuple{2, 2}, std::tuple{3, 3}});
+    CHECK(mock.get_on_error_count() == 0);
+    CHECK(mock.get_on_completed_count() == 1);
+}
+
 TEST_CASE("with_latest_from satisfies disposable contracts")
 {
     auto observable_disposable = rpp::composite_disposable_wrapper::make();

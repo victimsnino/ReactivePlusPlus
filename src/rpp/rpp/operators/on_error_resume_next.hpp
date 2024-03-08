@@ -59,6 +59,8 @@ namespace rpp::operators::details
     template<rpp::constraint::decayed_type Selector>
     struct on_error_resume_next_t : lift_operator<on_error_resume_next_t<Selector>, Selector>
     {
+        using lift_operator<on_error_resume_next_t<Selector>, Selector>::lift_operator;
+
         template<rpp::constraint::decayed_type T>
         struct operator_traits
         {

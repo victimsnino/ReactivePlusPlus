@@ -93,24 +93,22 @@ namespace rpp::operators::details
         struct operator_traits
         {
             using result_type = T;
+
+            constexpr static bool own_current_queue = true;
         };
 
         template<rpp::details::observables::constraint::disposable_strategy Prev>
         using updated_disposable_strategy = rpp::details::observables::fixed_disposable_strategy_selector<1>;
 
-        template<rpp::constraint::observer Observer, typename... Strategies>
-        void subscribe(Observer&& observer, const observable_chain_strategy<Strategies...>& observable_strategy) const
+        template<rpp::constraint::decayed_type Type, rpp::constraint::observer Observer>
+        auto lift(Observer&& observer) const
         {
             const auto d   = disposable_wrapper_impl<take_until_disposable<std::decay_t<Observer>>>::make(std::forward<Observer>(observer));
             auto       ptr = d.lock();
             ptr->get_observer()->set_upstream(d.as_weak());
 
-            // Need to take ownership over current_thread in case of inner-observables also using it
-            auto drain_on_exit = rpp::schedulers::current_thread::own_queue_and_drain_finally_if_not_owned();
             observable.subscribe(take_until_throttle_observer_strategy<std::decay_t<Observer>>{ptr});
-
-            using expected_value = typename observable_chain_strategy<Strategies...>::value_type;
-            observable_strategy.subscribe(rpp::observer<expected_value, take_until_observer_strategy<std::decay_t<Observer>>>(std::move(ptr)));
+            return rpp::observer<Type, take_until_observer_strategy<std::decay_t<Observer>>>(std::move(ptr));
         }
     };
 } // namespace rpp::operators::details
