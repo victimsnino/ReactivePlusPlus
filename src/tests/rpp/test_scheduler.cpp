@@ -896,3 +896,48 @@ TEST_CASE("different delaying strategies")
         CHECK(scheduler.get_executions() == std::vector{now});
     }
 }
+
+TEST_CASE("current_thread inside new_thread")
+{
+    auto worker = std::optional{rpp::schedulers::new_thread{}.create_worker()};
+    auto d        = rpp::composite_disposable_wrapper::make();
+    auto obs = std::optional{mock_observer_strategy<int>{}.get_observer(d).as_dynamic()};
+    auto started = std::make_shared<std::atomic_bool>();
+    auto done = std::make_shared<std::atomic_bool>();
+
+    worker->schedule([&](const auto&) {
+        thread_local rpp::utils::finally_action th{[done] {
+            done->store(true);
+        }};
+        return rpp::schedulers::optional_delay_from_now{};
+    }, obs.value());
+
+    auto current_thread_invoked = std::make_shared<std::atomic_bool>();
+
+    worker->schedule([&](const auto& obs) {
+        worker->get_disposable().dispose();
+
+        rpp::schedulers::current_thread{}.create_worker().schedule([current_thread_invoked](const auto&){
+            current_thread_invoked->store(true);
+            return rpp::schedulers::optional_delay_from_now{};
+        }, obs);
+
+        if (current_thread_invoked->load())
+            throw std::runtime_error{"current_thread was invoked"};
+
+        started->store(true);
+
+        return rpp::schedulers::optional_delay_from_now{};
+    }, obs.value());
+
+    while (!started->load()){}
+
+    worker.reset();
+    obs.reset();
+    d = rpp::composite_disposable_wrapper::empty();
+
+    std::this_thread::sleep_for(std::chrono::seconds{1});
+
+    REQUIRE(done->load());
+    CHECK(current_thread_invoked->load());
+}
