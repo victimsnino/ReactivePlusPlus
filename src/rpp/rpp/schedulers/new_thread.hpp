@@ -40,25 +40,9 @@ namespace rpp::schedulers
                 };
             }
 
-            ~disposable() override
-            {
-                if (!m_thread.joinable())
-                    return;
-
-                {
-                    std::lock_guard lock{m_state->mutex};
-                    m_state->is_destroying.store(true, std::memory_order::relaxed);
-                }
-                m_state->cv.notify_all();
-                m_thread.detach();
-            }
-
             template<rpp::schedulers::constraint::schedulable_handler Handler, typename... Args, constraint::schedulable_fn<Handler, Args...> Fn>
             void defer_to(time_point time_point, Fn&& fn, Handler&& handler, Args&&... args)
             {
-                if (is_disposed())
-                    return;
-
                 std::lock_guard lock{m_state->mutex};
                 // guarded by lock
                 if (const auto queue = m_state->queue_ptr.load(std::memory_order::seq_cst))
@@ -87,7 +71,6 @@ namespace rpp::schedulers
             {
                 std::atomic<details::schedulables_queue<current_thread::worker_strategy>*> queue_ptr{};
                 std::atomic_bool                                                           is_disposed{};
-                std::atomic_bool                                                           is_destroying{};
             };
 
             static void data_thread(std::shared_ptr<state_t> state)
@@ -95,16 +78,16 @@ namespace rpp::schedulers
                 auto& queue = current_thread::s_queue;
                 state->queue_ptr.store(&queue.emplace(state), std::memory_order::seq_cst);
 
-                while (!state->is_disposed.load(std::memory_order::seq_cst))
+                while (true)
                 {
                     std::unique_lock lock{state->mutex};
 
-                    if (state->is_destroying.load(std::memory_order::seq_cst) && queue->is_empty())
+                    if (queue->is_empty() && state->is_disposed.load(std::memory_order::seq_cst))
                         break;
 
-                    state->cv.wait(lock, [&] { return state->is_disposed.load(std::memory_order::seq_cst) || !queue->is_empty() || state->is_destroying.load(std::memory_order::seq_cst); });
+                    state->cv.wait(lock, [&] { return !queue->is_empty() || state->is_disposed.load(std::memory_order::seq_cst); });
 
-                    if (state->is_disposed.load(std::memory_order::seq_cst) || state->is_destroying.load(std::memory_order::seq_cst))
+                    if (queue->is_empty())
                         break;
 
                     if (queue->top()->is_disposed())
@@ -117,7 +100,7 @@ namespace rpp::schedulers
                     {
                         if (const auto now = worker_strategy::now(); now < queue->top()->get_timepoint())
                         {
-                            state->cv.wait_for(lock, queue->top()->get_timepoint() - now, [&] { return state->is_disposed.load(std::memory_order::seq_cst) || state->is_destroying.load(std::memory_order::seq_cst) || worker_strategy::now() >= queue->top()->get_timepoint(); });
+                            state->cv.wait_for(lock, queue->top()->get_timepoint() - now, [&] { return queue->top()->is_disposed() || worker_strategy::now() >= queue->top()->get_timepoint(); });
                             continue;
                         }
                     }
@@ -126,7 +109,8 @@ namespace rpp::schedulers
                     lock.unlock();
 
                     if (const auto timepoint = (*top)())
-                        queue->emplace(timepoint.value(), std::move(top));
+                        if (!top->is_disposed())
+                            queue->emplace(timepoint.value(), std::move(top));
                 }
 
                 std::unique_lock lock{state->mutex};
