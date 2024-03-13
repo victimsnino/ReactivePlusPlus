@@ -209,7 +209,7 @@ namespace rpp::operators::details
     subscribe_t(const Args&...) -> subscribe_t<Args...>;
 
     template<typename OnNext>
-    concept on_next_like = (!rpp::utils::is_not_template_callable<OnNext> || std::invocable<OnNext, rpp::utils::convertible_to_any>)&&(!rpp::constraint::decayed_same_as<OnNext, rpp::composite_disposable_wrapper> && !rpp::constraint::observer_strategy_base<OnNext> && !rpp::constraint::observer<OnNext>);
+    concept on_next_like = (!rpp::utils::is_not_template_callable<OnNext> || std::invocable<OnNext, rpp::utils::convertible_to_any>) && (!rpp::constraint::decayed_same_as<OnNext, rpp::composite_disposable_wrapper> && !rpp::constraint::observer_strategy_base<OnNext> && !rpp::constraint::observer<OnNext>);
 } // namespace rpp::operators::details
 
 namespace rpp::operators

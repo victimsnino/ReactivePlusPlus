@@ -83,7 +83,7 @@ namespace rpp
         {
         }
 
-        connectable_observable(OriginalObservable&& original_observable, const Subject& subject = Subject{})
+        connectable_observable(OriginalObservable && original_observable, const Subject& subject = Subject{})
             : base{subject.get_observable()}
             , m_original_observable{std::move(original_observable)}
             , m_subject{subject}
@@ -137,7 +137,7 @@ namespace rpp
         }
 
         template<rpp::constraint::operator_observable_transform<connectable_observable&&> Op>
-        auto operator|(Op&& op) &&
+        auto operator|(Op&& op)&&
         {
             return std::forward<Op>(op)(std::move(*this));
         }
@@ -149,7 +149,7 @@ namespace rpp
         }
 
         template<typename Op>
-        decltype(std::declval<base>() | std::declval<Op>()) operator|(Op&& op) &&
+        decltype(std::declval<base>() | std::declval<Op>()) operator|(Op&& op)&&
         {
             return static_cast<base&&>(*this) | std::forward<Op>(op);
         }
@@ -165,5 +165,5 @@ namespace rpp
         };
 
         std::shared_ptr<state_t> m_state = std::make_shared<state_t>();
-    };
+    }
 } // namespace rpp
