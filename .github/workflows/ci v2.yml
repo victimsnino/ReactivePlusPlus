@@ -38,7 +38,7 @@ jobs:
       run: |
           sudo apt-get purge -y g++-13 gcc-13 libstdc++-13-dev
           sudo apt-get install -y --allow-downgrades libstdc++-12-dev libstdc++6=12.* libgcc-s1=12.*
-          
+
     - shell: bash
       run: |
           # GH-40558: reduce ASLR to avoid ASAN/LSAN crashes
