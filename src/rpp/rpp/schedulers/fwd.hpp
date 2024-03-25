@@ -148,7 +148,7 @@ namespace rpp::schedulers::constraint
     };
 
     template<typename S>
-    concept strategy = (defer_for_strategy<S> || defer_to_strategy<S>)&&requires(const S& s, const details::fake_schedulable_handler& handler) {
+    concept strategy = (defer_for_strategy<S> || defer_to_strategy<S>) && requires(const S& s, const details::fake_schedulable_handler& handler) {
         {
             s.get_disposable()
         } -> rpp::constraint::any_of<rpp::disposable_wrapper, details::none_disposable>;
