@@ -47,9 +47,6 @@ namespace rpp::details::observables
         {
         }
 
-        dynamic_strategy(const dynamic_strategy&)     = default;
-        dynamic_strategy(dynamic_strategy&&) noexcept = default;
-
         template<rpp::constraint::observer_strategy<Type> ObserverStrategy>
         void subscribe(observer<Type, ObserverStrategy>&& observer) const
         {
