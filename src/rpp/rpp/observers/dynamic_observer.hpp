@@ -50,9 +50,6 @@ namespace rpp::details::observers
         {
         }
 
-        dynamic_strategy(const dynamic_strategy&)     = default;
-        dynamic_strategy(dynamic_strategy&&) noexcept = default;
-
         void set_upstream(const disposable_wrapper& d) noexcept { m_vtable->set_upstream(m_forwarder.get(), d); }
 
         bool is_disposed() const noexcept { return m_vtable->is_disposed(m_forwarder.get()); }

@@ -36,9 +36,6 @@ namespace rpp::details
         {
         }
 
-        observer_impl(const observer_impl&)     = default;
-        observer_impl(observer_impl&&) noexcept = default;
-
     public:
         using preferred_disposable_strategy = observers::none_disposable_strategy;
 
@@ -247,9 +244,6 @@ namespace rpp
             : details::observer_impl<Type, rpp::details::observers::dynamic_strategy<Type>, details::observers::none_disposable_strategy>{details::observers::none_disposable_strategy{}, std::move(other)}
         {
         }
-
-        observer(const observer&)     = default;
-        observer(observer&&) noexcept = default;
 
         dynamic_observer<Type> as_dynamic() &&
         {
