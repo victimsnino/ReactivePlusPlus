@@ -82,7 +82,7 @@
 \DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \{}
 \DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{00085\ }
-\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrpp_1_1connectable__observable}{connectable\_observable}}(OriginalObservable\&\&\ original\_observable,\ \textcolor{keyword}{const}\ Subject\&\ subject\ =\ Subject\{\})}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrpp_1_1connectable__observable}{connectable\_observable}}(OriginalObservable\ \&\&\ original\_observable,\ \textcolor{keyword}{const}\ Subject\&\ subject\ =\ Subject\{\})}
 \DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \ \ \ \ :\ base\{subject.get\_observable()\}}
 \DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \ \ \ \ ,\ m\_original\_observable\{std::move(original\_observable)\}}
 \DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \ \ \ \ ,\ m\_subject\{subject\}}
@@ -119,7 +119,7 @@
 \DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{00138\ }
 \DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::operator\_observable\_transform<connectable\_observable\&\&>\ Op>}
-\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ operator|(Op\&\&\ op)\ \&\&}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ operator|(Op\&\&\ op)\&\&}
 \DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \{}
 \DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::forward<Op>(op)(std::move(*\textcolor{keyword}{this}));}
 \DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \}}
@@ -131,7 +131,7 @@
 \DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{00150\ }
 \DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ Op>}
-\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \textcolor{keyword}{decltype}(std::declval<base>()\ |\ std::declval<Op>())\ \textcolor{keyword}{operator}|(Op\&\&\ op)\ \&\&}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \textcolor{keyword}{decltype}(std::declval<base>()\ |\ std::declval<Op>())\ \textcolor{keyword}{operator}|(Op\&\&\ op)\&\&}
 \DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \{}
 \DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{static\_cast<}base\&\&\textcolor{keyword}{>}(*this)\ |\ std::forward<Op>(op);}
 \DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ \}}
