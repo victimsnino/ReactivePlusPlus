@@ -23,7 +23,7 @@
 
 TEST_CASE("main_thread_scheduler schedules actions to main thread")
 {
-    auto d = rpp::composite_disposable_wrapper::make();
+    auto d        = rpp::composite_disposable_wrapper::make();
     auto observer = mock_observer_strategy<int>{}.get_observer(d).as_dynamic();
 
     int              argc{};

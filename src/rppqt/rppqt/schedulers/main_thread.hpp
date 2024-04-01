@@ -14,6 +14,7 @@
 
 #include <rppqt/schedulers/fwd.hpp> // own forwarding
 #include <rppqt/utils/exceptions.hpp>
+
 #include "rpp/schedulers/fwd.hpp"
 
 #include <QCoreApplication>
