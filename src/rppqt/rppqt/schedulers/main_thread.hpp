@@ -15,6 +15,8 @@
 #include <rppqt/schedulers/fwd.hpp> // own forwarding
 #include <rppqt/utils/exceptions.hpp>
 
+#include "rpp/schedulers/fwd.hpp"
+
 #include <QCoreApplication>
 #include <QTimer>
 #include <chrono>
@@ -37,17 +39,43 @@ namespace rppqt::schedulers
             {
                 const auto application = QCoreApplication::instance();
                 if (!application)
-                    throw utils::no_active_qapplication{"Pointer to application is null. Create QApplication before using main_thread_scheduler!"};
+                {
+                    handler.on_error(std::make_exception_ptr(utils::no_active_qapplication{"Pointer to application is null. Create QApplication before using main_thread_scheduler!"}));
+                    return;
+                }
 
                 QTimer::singleShot(std::chrono::duration_cast<std::chrono::milliseconds>(duration), application, [fn = std::forward<Fn>(fn), handler = std::forward<Handler>(handler), ... args = std::forward<Args>(args)]() mutable {
-                    if (const auto new_duration = fn(handler, args...))
-                        defer_for(new_duration->value, std::move(fn), std::move(handler), std::move(args)...);
+                    if (!handler.is_disposed())
+                        invoke(std::move(fn), std::move(handler), std::move(args)...);
                 });
             }
 
             static constexpr rpp::schedulers::details::none_disposable get_disposable() { return {}; }
 
             static rpp::schedulers::time_point now() { return rpp::schedulers::clock_type::now(); }
+
+        private:
+            template<rpp::schedulers::constraint::schedulable_handler Handler, typename... Args, rpp::schedulers::constraint::schedulable_delay_from_now_fn<Handler, Args...> Fn>
+            static void invoke(Fn&& fn, Handler&& handler, Args&&... args)
+            {
+                if (const auto new_duration = fn(handler, args...))
+                    defer_for(new_duration->value, std::forward<Fn>(fn), std::forward<Handler>(handler), std::forward<Args>(args)...);
+            }
+
+            template<rpp::schedulers::constraint::schedulable_handler Handler, typename... Args, rpp::schedulers::constraint::schedulable_delay_from_this_timepoint_fn<Handler, Args...> Fn>
+            static void invoke(Fn&& fn, Handler&& handler, Args&&... args)
+            {
+                const auto now = rpp::schedulers::clock_type::now();
+                if (const auto new_duration = fn(handler, args...))
+                    defer_for(now + new_duration->value - rpp::schedulers::clock_type::now(), std::forward<Fn>(fn), std::forward<Handler>(handler), std::forward<Args>(args)...);
+            }
+
+            template<rpp::schedulers::constraint::schedulable_handler Handler, typename... Args, rpp::schedulers::constraint::schedulable_delay_to_fn<Handler, Args...> Fn>
+            static void invoke(Fn&& fn, Handler&& handler, Args&&... args)
+            {
+                if (const auto new_tp = fn(handler, args...))
+                    defer_for(new_tp->value - rpp::schedulers::clock_type::now(), std::forward<Fn>(fn), std::forward<Handler>(handler), std::forward<Args>(args)...);
+            }
         };
 
     public:
