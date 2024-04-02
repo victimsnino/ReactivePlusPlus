@@ -33,7 +33,7 @@ namespace rpp::operators::details
         {
         }
 
-        rpp::utils::pointer_under_lock<TObserver> get_observer() { return rpp::utils::pointer_under_lock{m_observer_with_mutex}; }
+        rpp::utils::pointer_under_lock<TObserver> get_observer() { return m_observer_with_mutex; }
 
     private:
         rpp::utils::value_with_mutex<TObserver> m_observer_with_mutex{};

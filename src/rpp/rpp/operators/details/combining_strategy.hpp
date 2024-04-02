@@ -31,7 +31,7 @@ namespace rpp::operators::details
         {
         }
 
-        rpp::utils::pointer_under_lock<Observer> get_observer_under_lock() { return rpp::utils::pointer_under_lock{m_observer_with_mutex}; }
+        rpp::utils::pointer_under_lock<Observer> get_observer_under_lock() { return m_observer_with_mutex; }
 
         bool decrement_on_completed()
         {

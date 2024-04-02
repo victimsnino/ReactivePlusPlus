@@ -38,7 +38,7 @@ namespace rpp::operators::details
         // just need atomicity, not guarding anything
         bool decrement_on_completed() { return m_on_completed_needed.fetch_sub(1, std::memory_order::seq_cst) == 1; }
 
-        rpp::utils::pointer_under_lock<TObserver> get_observer_under_lock() { return rpp::utils::pointer_under_lock{m_observer}; }
+        rpp::utils::pointer_under_lock<TObserver> get_observer_under_lock() { return m_observer; }
 
     private:
         rpp::utils::value_with_mutex<TObserver> m_observer{};

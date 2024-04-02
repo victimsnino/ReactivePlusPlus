@@ -69,7 +69,7 @@ namespace rpp::operators::details
             return std::exchange(m_value_to_be_emitted, std::optional<T>{});
         }
 
-        rpp::utils::pointer_under_lock<Observer> get_observer_under_lock() { return rpp::utils::pointer_under_lock{m_observer}; }
+        rpp::utils::pointer_under_lock<Observer> get_observer_under_lock() { return m_observer; }
 
     private:
         void schedule()

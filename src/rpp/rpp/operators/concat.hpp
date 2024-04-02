@@ -42,8 +42,8 @@ namespace rpp::operators::details
         {
         }
 
-        rpp::utils::pointer_under_lock<TObserver>               get_observer() { return rpp::utils::pointer_under_lock{m_observer}; }
-        rpp::utils::pointer_under_lock<std::queue<TObservable>> get_queue() { return rpp::utils::pointer_under_lock{m_queue}; }
+        rpp::utils::pointer_under_lock<TObserver>               get_observer() { return m_observer; }
+        rpp::utils::pointer_under_lock<std::queue<TObservable>> get_queue() { return m_queue; }
 
         std::atomic<ConcatStage>& stage() { return m_stage; }
 

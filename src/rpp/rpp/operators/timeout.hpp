@@ -35,7 +35,7 @@ namespace rpp::operators::details
             , m_fallback{fallback}
         {
         }
-        rpp::utils::pointer_under_lock<observer_with_timeout> get_observer_with_timeout_under_lock() { return rpp::utils::pointer_under_lock{m_observer_with_timeout}; }
+        rpp::utils::pointer_under_lock<observer_with_timeout> get_observer_with_timeout_under_lock() { return m_observer_with_timeout; }
 
         const TFallbackObservable& get_fallback() const { return m_fallback; }
 

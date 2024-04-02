@@ -32,7 +32,7 @@ namespace rpp::operators::details
         {
         }
 
-        rpp::utils::pointer_under_lock<Observer> get_observer_under_lock() { return rpp::utils::pointer_under_lock{observer_with_mutex}; }
+        rpp::utils::pointer_under_lock<Observer> get_observer_under_lock() { return observer_with_mutex; }
 
         rpp::utils::tuple<rpp::utils::value_with_mutex<std::optional<RestArgs>>...>& get_values() { return values; }
 
