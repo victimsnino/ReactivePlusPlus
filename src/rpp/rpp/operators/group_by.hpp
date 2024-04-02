@@ -15,7 +15,6 @@
 #include <rpp/disposables/refcount_disposable.hpp>
 #include <rpp/observables/grouped_observable.hpp>
 #include <rpp/operators/details/strategy.hpp>
-#include <rpp/operators/details/utils.hpp>
 #include <rpp/subjects/publish_subject.hpp>
 #include <rpp/utils/function_traits.hpp>
 
