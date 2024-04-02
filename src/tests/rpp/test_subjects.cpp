@@ -19,6 +19,7 @@
 
 #include "copy_count_tracker.hpp"
 #include "mock_observer.hpp"
+#include "snitch_logging.hpp"
 
 #include <thread>
 
@@ -432,5 +433,58 @@ TEMPLATE_TEST_CASE("replay subject doesn't introduce additional copies", "", rpp
             CHECK(tracker.get_copy_count() == 2 + 1);                   // + 1 copy values from buffer for this observer
             CHECK(tracker.get_move_count() == 0 + 1);                   // + 1 move to this observer
         });
+    }
+}
+
+TEMPLATE_TEST_CASE("replay subject multicasts values and replay", "", rpp::subjects::behavior_subject<int>, rpp::subjects::serialized_behavior_subject<int>)
+{
+    const auto mock_1 = mock_observer_strategy<int>{};
+    const auto subj = TestType{10};
+
+    SECTION("subscribe to subject with default")
+    {
+        subj.get_observable().subscribe(mock_1);
+        CHECK(mock_1.get_received_values() == std::vector<int>{10});
+
+        SECTION("emit value and subscribe other observer")
+        {
+            const auto mock_2 = mock_observer_strategy<int>{};
+
+            subj.get_observer().on_next(5);
+
+            CHECK(mock_1.get_received_values() == std::vector<int>{10, 5});
+            CHECK(mock_2.get_received_values() == std::vector<int>{});
+
+            subj.get_observable().subscribe(mock_2);
+
+            CHECK(mock_2.get_received_values() == std::vector<int>{5});
+
+            SECTION("emit one more value and subscribe one more other observer")
+            {
+                const auto mock_3 = mock_observer_strategy<int>{};
+                subj.get_observer().on_next(1);
+
+                CHECK(mock_1.get_received_values() == std::vector<int>{10, 5, 1});
+                CHECK(mock_2.get_received_values() == std::vector<int>{5, 1});
+                CHECK(mock_3.get_received_values() == std::vector<int>{});
+
+                subj.get_observable().subscribe(mock_3);
+
+                CHECK(mock_3.get_received_values() == std::vector<int>{1});
+            }
+        }
+
+        SECTION("subject keeps error")
+        {
+            subj.get_observer().on_error(std::exception_ptr{});
+            CHECK(mock_1.get_on_error_count() == 1);
+
+            const auto mock_4 = mock_observer_strategy<int>{};
+            subj.get_observable().subscribe(mock_4);
+
+            CHECK(mock_4.get_received_values() == std::vector<int>{});
+            CHECK(mock_4.get_on_error_count() == 1);
+            CHECK(mock_4.get_on_completed_count() == 0);
+        }
     }
 }
