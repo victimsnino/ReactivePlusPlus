@@ -255,47 +255,56 @@ namespace rpp::utils
     };
 
     template<typename T>
-    struct value_with_mutex
+    class value_with_mutex
     {
+    public:
         value_with_mutex() = default;
 
         explicit value_with_mutex(const T& v)
-            : value{v}
+            : m_value{v}
         {
         }
 
         explicit value_with_mutex(T&& v)
-            : value{std::move(v)}
+            : m_value{std::move(v)}
         {
         }
 
-        T          value{};
-        std::mutex mutex{};
+        class pointer_under_lock
+        {
+        public:
+            pointer_under_lock(value_with_mutex<T>&& value) = default;
+
+            pointer_under_lock(value_with_mutex<T>& value)
+                : pointer_under_lock{value.value, value.mutex}
+            {
+            }
+
+        private:
+            pointer_under_lock(T& val, std::mutex& mutex)
+                : m_ptr{&val}
+                , m_lock{mutex}
+            {
+            }
+
+        public:
+            T* operator->() { return m_ptr; }
+            const T* operator->() const { return m_ptr; }
+
+        private:
+            T*                           m_ptr;
+            std::scoped_lock<std::mutex> m_lock;
+        };
+
+
+    private:
+        T          m_value{};
+        std::mutex m_mutex{};
     };
 
     template<typename T>
-    class pointer_under_lock
-    {
-    public:
-        explicit pointer_under_lock(value_with_mutex<T>& value)
-            : pointer_under_lock{value.value, value.mutex}
-        {
-        }
+    using pointer_under_lock = typename value_with_mutex<T>::pointer_under_lock;
 
-        pointer_under_lock(T& val, std::mutex& mutex)
-            : m_ptr{&val}
-            , m_lock{mutex}
-        {
-        }
-
-        T* operator->() { return m_ptr; }
-
-        const T* operator->() const { return m_ptr; }
-
-    private:
-        T*                           m_ptr;
-        std::scoped_lock<std::mutex> m_lock;
-    };
 
 #define RPP_CALL_DURING_CONSTRUCTION(...) RPP_NO_UNIQUE_ADDRESS rpp::utils::none _ = [&]() { \
     __VA_ARGS__;                                                                             \

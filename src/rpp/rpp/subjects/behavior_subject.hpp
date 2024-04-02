@@ -28,7 +28,8 @@ namespace rpp::subjects::details
         class behavior_state final : public subject_state<Type, Serialized>
         {
         public:
-            behavior_state(){}
+            behavior_state(const Type& v) : m_value{v} {}
+            behavior_state(Type&& v) : m_value{std::move(v)} {}
 
             rpp::utils::pointer_under_lock<Type> get_value() { return rpp::utils::pointer_under_lock<Type>{m_value}; }
 
