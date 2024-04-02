@@ -56,7 +56,7 @@ namespace rpp::operators::details
 
     private:
         template<typename TDisposable>
-        static void apply_impl(const TDisposable& disposable, const pointer_under_lock<Observer>& observer, const std::optional<Args>&... vals)
+        static void apply_impl(const TDisposable& disposable, const rpp::utils::pointer_under_lock<Observer>& observer, const std::optional<Args>&... vals)
         {
             if ((vals.has_value() && ...))
                 observer->on_next(disposable->get_selector()(vals.value()...));

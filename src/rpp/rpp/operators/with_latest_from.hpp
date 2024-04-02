@@ -62,9 +62,8 @@ namespace rpp::operators::details
         template<typename T>
         void on_next(T&& v) const
         {
-            auto& [value, mutex] = disposable->get_values().template get<I>();
-            std::scoped_lock lock{mutex};
-            value.emplace(std::forward<T>(v));
+            auto locked_value = disposable->get_values().template get<I>().lock();
+            locked_value->emplace(std::forward<T>(v));
         }
 
         void on_error(const std::exception_ptr& err) const
@@ -100,10 +99,10 @@ namespace rpp::operators::details
         void on_next(T&& v) const
         {
             auto result = disposable->get_values().apply([this, &v](rpp::utils::value_with_mutex<std::optional<RestArgs>>&... vals) -> std::optional<Result> {
-                auto lock = std::scoped_lock{vals.mutex...};
+                auto lock = std::scoped_lock{vals.get_mutex()...};
 
-                if ((vals.value.has_value() && ...))
-                    return disposable->get_selector()(rpp::utils::as_const(std::forward<T>(v)), rpp::utils::as_const(vals.value.value())...);
+                if ((vals.get_value_unsafe().has_value() && ...))
+                    return disposable->get_selector()(rpp::utils::as_const(std::forward<T>(v)), rpp::utils::as_const(vals.get_value_unsafe().value())...);
                 return std::nullopt;
             });
 

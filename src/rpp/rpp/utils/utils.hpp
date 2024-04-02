@@ -299,7 +299,10 @@ namespace rpp::utils
             std::scoped_lock<std::mutex> m_lock;
         };
 
+        pointer_under_lock lock() { return *this; }
 
+        std::mutex& get_mutex() { return m_mutex; }
+        T& get_value_unsafe() { return m_value; }
     private:
         T          m_value{};
         std::mutex m_mutex{};
