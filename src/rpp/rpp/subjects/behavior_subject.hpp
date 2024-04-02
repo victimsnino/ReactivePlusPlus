@@ -61,8 +61,13 @@ namespace rpp::subjects::details
     public:
         using expected_disposable_strategy = rpp::details::observables::deduce_disposable_strategy_t<details::subject_state<Type, Serialized>>;
 
-        behavior_subject_base()
-            : m_state{disposable_wrapper_impl<behavior_state>::make()}
+        explicit behavior_subject_base(const Type& value)
+            : m_state{disposable_wrapper_impl<behavior_state>::make(value)}
+        {
+        }
+
+        explicit behavior_subject_base(Type&& value)
+            : m_state{disposable_wrapper_impl<behavior_state>::make(std::move(value))}
         {
         }
 

@@ -15,6 +15,7 @@
 #include <rpp/sources/create.hpp>
 #include <rpp/subjects/publish_subject.hpp>
 #include <rpp/subjects/replay_subject.hpp>
+#include <rpp/subjects/behavior_subject.hpp>
 
 #include "copy_count_tracker.hpp"
 #include "mock_observer.hpp"
@@ -231,9 +232,14 @@ TEST_CASE("publish subject caches error/completed")
     }
 }
 
-TEMPLATE_TEST_CASE("serialized subjects handles race condition", "", rpp::subjects::serialized_publish_subject<int>, rpp::subjects::serialized_replay_subject<int>)
+TEMPLATE_TEST_CASE("serialized subjects handles race condition", "", rpp::subjects::serialized_publish_subject<int>, rpp::subjects::serialized_replay_subject<int>, rpp::subjects::serialized_behavior_subject<int>)
 {
-    auto subj = TestType{};
+    auto subj = []() {
+        if constexpr (std::same_as<TestType, rpp::subjects::serialized_behavior_subject<int>>)
+            return TestType{0};
+        else
+            return TestType{};
+    }();
 
     SECTION("call on_next from 2 threads")
     {

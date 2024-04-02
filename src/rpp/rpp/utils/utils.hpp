@@ -273,10 +273,10 @@ namespace rpp::utils
         class pointer_under_lock
         {
         public:
-            pointer_under_lock(value_with_mutex<T>&& value) = default;
+            pointer_under_lock(value_with_mutex<T>&& value) = delete;
 
             pointer_under_lock(value_with_mutex<T>& value)
-                : pointer_under_lock{value.value, value.mutex}
+                : pointer_under_lock{value.m_value, value.m_mutex}
             {
             }
 
@@ -291,6 +291,9 @@ namespace rpp::utils
             T* operator->() { return m_ptr; }
             const T* operator->() const { return m_ptr; }
 
+            T& operator*() { return *m_ptr; }
+            const T& operator*() const { return *m_ptr; }
+            
         private:
             T*                           m_ptr;
             std::scoped_lock<std::mutex> m_lock;
