@@ -15,7 +15,7 @@
 #include <rpp/defs.hpp>
 #include <rpp/disposables/composite_disposable.hpp>
 #include <rpp/operators/details/strategy.hpp>
-#include <rpp/operators/details/utils.hpp>
+#include <rpp/utils/utils.hpp>
 #include <rpp/schedulers/current_thread.hpp>
 
 #include <memory>
@@ -32,15 +32,15 @@ namespace rpp::operators::details
         {
         }
 
-        pointer_under_lock<Observer> get_observer_under_lock() { return pointer_under_lock{observer_with_mutex}; }
+        rpp::utils::pointer_under_lock<Observer> get_observer_under_lock() { return rpp::utils::pointer_under_lock{observer_with_mutex}; }
 
-        rpp::utils::tuple<value_with_mutex<std::optional<RestArgs>>...>& get_values() { return values; }
+        rpp::utils::tuple<rpp::utils::value_with_mutex<std::optional<RestArgs>>...>& get_values() { return values; }
 
         const TSelector& get_selector() const { return selector; }
 
     private:
-        value_with_mutex<Observer>                                      observer_with_mutex{};
-        rpp::utils::tuple<value_with_mutex<std::optional<RestArgs>>...> values{};
+        rpp::utils::value_with_mutex<Observer>                                      observer_with_mutex{};
+        rpp::utils::tuple<rpp::utils::value_with_mutex<std::optional<RestArgs>>...> values{};
         RPP_NO_UNIQUE_ADDRESS TSelector                                 selector;
     };
 
@@ -99,7 +99,7 @@ namespace rpp::operators::details
         template<typename T>
         void on_next(T&& v) const
         {
-            auto result = disposable->get_values().apply([this, &v](value_with_mutex<std::optional<RestArgs>>&... vals) -> std::optional<Result> {
+            auto result = disposable->get_values().apply([this, &v](rpp::utils::value_with_mutex<std::optional<RestArgs>>&... vals) -> std::optional<Result> {
                 auto lock = std::scoped_lock{vals.mutex...};
 
                 if ((vals.value.has_value() && ...))

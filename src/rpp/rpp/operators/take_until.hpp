@@ -14,7 +14,7 @@
 
 #include <rpp/defs.hpp>
 #include <rpp/disposables/composite_disposable.hpp>
-#include <rpp/operators/details/utils.hpp>
+#include <rpp/utils/utils.hpp>
 #include <rpp/schedulers/current_thread.hpp>
 
 namespace rpp::operators::details
@@ -33,10 +33,10 @@ namespace rpp::operators::details
         {
         }
 
-        pointer_under_lock<TObserver> get_observer() { return pointer_under_lock{m_observer_with_mutex}; }
+        rpp::utils::pointer_under_lock<TObserver> get_observer() { return rpp::utils::pointer_under_lock{m_observer_with_mutex}; }
 
     private:
-        value_with_mutex<TObserver> m_observer_with_mutex{};
+        rpp::utils::value_with_mutex<TObserver> m_observer_with_mutex{};
     };
 
     template<rpp::constraint::observer TObserver>

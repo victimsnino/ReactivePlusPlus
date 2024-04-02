@@ -13,7 +13,7 @@
 #include <rpp/operators/fwd.hpp>
 
 #include <rpp/operators/details/strategy.hpp>
-#include <rpp/operators/details/utils.hpp>
+#include <rpp/utils/utils.hpp>
 #include <rpp/sources/error.hpp>
 #include <rpp/utils/exceptions.hpp>
 
@@ -35,14 +35,14 @@ namespace rpp::operators::details
             , m_fallback{fallback}
         {
         }
-        pointer_under_lock<observer_with_timeout> get_observer_with_timeout_under_lock() { return pointer_under_lock{m_observer_with_timeout}; }
+        rpp::utils::pointer_under_lock<observer_with_timeout> get_observer_with_timeout_under_lock() { return rpp::utils::pointer_under_lock{m_observer_with_timeout}; }
 
         const TFallbackObservable& get_fallback() const { return m_fallback; }
 
         rpp::schedulers::duration get_period() const { return m_period; }
 
     private:
-        value_with_mutex<observer_with_timeout> m_observer_with_timeout;
+        rpp::utils::value_with_mutex<observer_with_timeout> m_observer_with_timeout;
 
         const rpp::schedulers::duration m_period;
         const TFallbackObservable       m_fallback;

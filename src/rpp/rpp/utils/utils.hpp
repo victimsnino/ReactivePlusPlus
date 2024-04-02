@@ -15,6 +15,7 @@
 #include <rpp/utils/tuple.hpp>
 
 #include <algorithm>
+#include <mutex>
 
 namespace rpp::utils
 {
@@ -251,6 +252,49 @@ namespace rpp::utils
         static constexpr void lock() {}
         static constexpr void unlock() {}
         static constexpr void try_lock() {}
+    };
+
+    template<typename T>
+    struct value_with_mutex
+    {
+        value_with_mutex() = default;
+
+        explicit value_with_mutex(const T& v)
+            : value{v}
+        {
+        }
+
+        explicit value_with_mutex(T&& v)
+            : value{std::move(v)}
+        {
+        }
+
+        T          value{};
+        std::mutex mutex{};
+    };
+
+    template<typename T>
+    class pointer_under_lock
+    {
+    public:
+        explicit pointer_under_lock(value_with_mutex<T>& value)
+            : pointer_under_lock{value.value, value.mutex}
+        {
+        }
+
+        pointer_under_lock(T& val, std::mutex& mutex)
+            : m_ptr{&val}
+            , m_lock{mutex}
+        {
+        }
+
+        T* operator->() { return m_ptr; }
+
+        const T* operator->() const { return m_ptr; }
+
+    private:
+        T*                           m_ptr;
+        std::scoped_lock<std::mutex> m_lock;
     };
 
 #define RPP_CALL_DURING_CONSTRUCTION(...) RPP_NO_UNIQUE_ADDRESS rpp::utils::none _ = [&]() { \
