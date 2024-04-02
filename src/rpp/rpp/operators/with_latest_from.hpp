@@ -15,8 +15,8 @@
 #include <rpp/defs.hpp>
 #include <rpp/disposables/composite_disposable.hpp>
 #include <rpp/operators/details/strategy.hpp>
-#include <rpp/utils/utils.hpp>
 #include <rpp/schedulers/current_thread.hpp>
+#include <rpp/utils/utils.hpp>
 
 #include <memory>
 
@@ -41,7 +41,7 @@ namespace rpp::operators::details
     private:
         rpp::utils::value_with_mutex<Observer>                                      observer_with_mutex{};
         rpp::utils::tuple<rpp::utils::value_with_mutex<std::optional<RestArgs>>...> values{};
-        RPP_NO_UNIQUE_ADDRESS TSelector                                 selector;
+        RPP_NO_UNIQUE_ADDRESS TSelector                                             selector;
     };
 
     template<size_t I, rpp::constraint::observer Observer, typename TSelector, rpp::constraint::decayed_type... RestArgs>

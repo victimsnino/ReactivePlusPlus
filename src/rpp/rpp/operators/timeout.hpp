@@ -13,9 +13,9 @@
 #include <rpp/operators/fwd.hpp>
 
 #include <rpp/operators/details/strategy.hpp>
-#include <rpp/utils/utils.hpp>
 #include <rpp/sources/error.hpp>
 #include <rpp/utils/exceptions.hpp>
+#include <rpp/utils/utils.hpp>
 
 namespace rpp::operators::details
 {

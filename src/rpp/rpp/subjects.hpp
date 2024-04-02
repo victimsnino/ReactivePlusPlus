@@ -17,6 +17,6 @@
  * \ingroup rpp
  */
 
+#include <rpp/subjects/behavior_subject.hpp>
 #include <rpp/subjects/publish_subject.hpp>
 #include <rpp/subjects/replay_subject.hpp>
-#include <rpp/subjects/behavior_subject.hpp>

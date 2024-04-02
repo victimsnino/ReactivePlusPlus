@@ -99,7 +99,7 @@ namespace rpp::operators::details
     private:
         rpp::utils::value_with_mutex<TObserver>               m_observer;
         rpp::utils::value_with_mutex<std::queue<TObservable>> m_queue;
-        std::atomic<ConcatStage>                  m_stage{};
+        std::atomic<ConcatStage>                              m_stage{};
     };
 
     template<rpp::constraint::observable TObservable, rpp::constraint::observer TObserver>

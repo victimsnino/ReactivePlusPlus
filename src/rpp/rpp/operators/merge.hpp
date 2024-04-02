@@ -15,9 +15,9 @@
 #include <rpp/defs.hpp>
 #include <rpp/disposables/composite_disposable.hpp>
 #include <rpp/operators/details/strategy.hpp>
-#include <rpp/utils/utils.hpp>
 #include <rpp/schedulers/current_thread.hpp>
 #include <rpp/utils/tuple.hpp>
+#include <rpp/utils/utils.hpp>
 
 #include <atomic>
 
@@ -42,7 +42,7 @@ namespace rpp::operators::details
 
     private:
         rpp::utils::value_with_mutex<TObserver> m_observer{};
-        std::atomic_size_t          m_on_completed_needed{1};
+        std::atomic_size_t                      m_on_completed_needed{1};
     };
 
     template<rpp::constraint::observer TObserver>

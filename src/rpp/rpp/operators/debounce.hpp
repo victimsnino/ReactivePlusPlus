@@ -104,9 +104,9 @@ namespace rpp::operators::details
             return v;
         }
 
-        rpp::utils::value_with_mutex<Observer>   m_observer;
-        RPP_NO_UNIQUE_ADDRESS Worker m_worker;
-        rpp::schedulers::duration    m_period;
+        rpp::utils::value_with_mutex<Observer> m_observer;
+        RPP_NO_UNIQUE_ADDRESS Worker           m_worker;
+        rpp::schedulers::duration              m_period;
 
         std::mutex                            m_mutex{};
         std::optional<schedulers::time_point> m_time_when_value_should_be_emitted{};

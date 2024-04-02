@@ -16,8 +16,8 @@
 #include <rpp/disposables/refcount_disposable.hpp>
 #include <rpp/operators/details/forwarding_subject.hpp>
 #include <rpp/operators/details/strategy.hpp>
-#include <rpp/utils/utils.hpp>
 #include <rpp/schedulers/current_thread.hpp>
+#include <rpp/utils/utils.hpp>
 
 #include <list>
 
@@ -67,8 +67,8 @@ namespace rpp::operators::details
         }
 
     private:
-        rpp::utils::value_with_mutex<state_t> m_state{};
-        RPP_NO_UNIQUE_ADDRESS TClosingsSelectorFn          m_closings;
+        rpp::utils::value_with_mutex<state_t>     m_state{};
+        RPP_NO_UNIQUE_ADDRESS TClosingsSelectorFn m_closings;
     };
 
     template<rpp::constraint::decayed_type TState>

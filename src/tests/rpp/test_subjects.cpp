@@ -13,9 +13,9 @@
 #include <rpp/disposables/composite_disposable.hpp>
 #include <rpp/operators/as_blocking.hpp>
 #include <rpp/sources/create.hpp>
+#include <rpp/subjects/behavior_subject.hpp>
 #include <rpp/subjects/publish_subject.hpp>
 #include <rpp/subjects/replay_subject.hpp>
-#include <rpp/subjects/behavior_subject.hpp>
 
 #include "copy_count_tracker.hpp"
 #include "mock_observer.hpp"
@@ -439,7 +439,7 @@ TEMPLATE_TEST_CASE("replay subject doesn't introduce additional copies", "", rpp
 TEMPLATE_TEST_CASE("replay subject multicasts values and replay", "", rpp::subjects::behavior_subject<int>, rpp::subjects::serialized_behavior_subject<int>)
 {
     const auto mock_1 = mock_observer_strategy<int>{};
-    const auto subj = TestType{10};
+    const auto subj   = TestType{10};
 
     SECTION("subscribe to subject with default")
     {

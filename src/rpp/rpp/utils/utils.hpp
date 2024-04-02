@@ -288,12 +288,12 @@ namespace rpp::utils
             }
 
         public:
-            T* operator->() { return m_ptr; }
+            T*       operator->() { return m_ptr; }
             const T* operator->() const { return m_ptr; }
 
-            T& operator*() { return *m_ptr; }
+            T&       operator*() { return *m_ptr; }
             const T& operator*() const { return *m_ptr; }
-            
+
         private:
             T*                           m_ptr;
             std::scoped_lock<std::mutex> m_lock;
