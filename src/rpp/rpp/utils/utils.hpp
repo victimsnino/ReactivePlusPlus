@@ -15,6 +15,7 @@
 #include <rpp/utils/tuple.hpp>
 
 #include <algorithm>
+#include <mutex>
 
 namespace rpp::utils
 {
@@ -252,6 +253,65 @@ namespace rpp::utils
         static constexpr void unlock() {}
         static constexpr void try_lock() {}
     };
+
+    template<typename T>
+    class value_with_mutex
+    {
+    public:
+        value_with_mutex() = default;
+
+        explicit value_with_mutex(const T& v)
+            : m_value{v}
+        {
+        }
+
+        explicit value_with_mutex(T&& v)
+            : m_value{std::move(v)}
+        {
+        }
+
+        class pointer_under_lock
+        {
+        public:
+            pointer_under_lock(value_with_mutex<T>&& value) = delete;
+
+            pointer_under_lock(value_with_mutex<T>& value)
+                : pointer_under_lock{value.m_value, value.m_mutex}
+            {
+            }
+
+        private:
+            pointer_under_lock(T& val, std::mutex& mutex)
+                : m_ptr{&val}
+                , m_lock{mutex}
+            {
+            }
+
+        public:
+            T*       operator->() { return m_ptr; }
+            const T* operator->() const { return m_ptr; }
+
+            T&       operator*() { return *m_ptr; }
+            const T& operator*() const { return *m_ptr; }
+
+        private:
+            T*                           m_ptr;
+            std::scoped_lock<std::mutex> m_lock;
+        };
+
+        pointer_under_lock lock() { return *this; }
+
+        std::mutex& get_mutex() { return m_mutex; }
+        T&          get_value_unsafe() { return m_value; }
+
+    private:
+        T          m_value{};
+        std::mutex m_mutex{};
+    };
+
+    template<typename T>
+    using pointer_under_lock = typename value_with_mutex<T>::pointer_under_lock;
+
 
 #define RPP_CALL_DURING_CONSTRUCTION(...) RPP_NO_UNIQUE_ADDRESS rpp::utils::none _ = [&]() { \
     __VA_ARGS__;                                                                             \

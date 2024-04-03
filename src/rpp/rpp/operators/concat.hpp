@@ -14,7 +14,7 @@
 
 #include <rpp/disposables/refcount_disposable.hpp>
 #include <rpp/operators/details/strategy.hpp>
-#include <rpp/operators/details/utils.hpp>
+#include <rpp/utils/utils.hpp>
 
 #include <cassert>
 #include <queue>
@@ -42,8 +42,8 @@ namespace rpp::operators::details
         {
         }
 
-        pointer_under_lock<TObserver>               get_observer() { return pointer_under_lock{m_observer}; }
-        pointer_under_lock<std::queue<TObservable>> get_queue() { return pointer_under_lock{m_queue}; }
+        rpp::utils::pointer_under_lock<TObserver>               get_observer() { return m_observer; }
+        rpp::utils::pointer_under_lock<std::queue<TObservable>> get_queue() { return m_queue; }
 
         std::atomic<ConcatStage>& stage() { return m_stage; }
 
@@ -97,9 +97,9 @@ namespace rpp::operators::details
         }
 
     private:
-        value_with_mutex<TObserver>               m_observer;
-        value_with_mutex<std::queue<TObservable>> m_queue;
-        std::atomic<ConcatStage>                  m_stage{};
+        rpp::utils::value_with_mutex<TObserver>               m_observer;
+        rpp::utils::value_with_mutex<std::queue<TObservable>> m_queue;
+        std::atomic<ConcatStage>                              m_stage{};
     };
 
     template<rpp::constraint::observable TObservable, rpp::constraint::observer TObserver>
