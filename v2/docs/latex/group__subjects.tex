@@ -8,6 +8,10 @@ Observable is the observable and observer at the same time. Uses as a bridge and
 \doxysubsubsubsection*{Classes}
 \begin{DoxyCompactItemize}
 \item 
+class \mbox{\hyperlink{classrpp_1_1subjects_1_1behavior__subject}{rpp\+::subjects\+::behavior\+\_\+subject$<$ Type $>$}}
+\begin{DoxyCompactList}\small\item\em Same as \doxylink{classrpp_1_1subjects_1_1publish__subject}{rpp\+::subjects\+::publish\+\_\+subject} but keeps last value (or default) and emits it to newly subscribed observer. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classrpp_1_1subjects_1_1serialized__behavior__subject}{rpp\+::subjects\+::serialized\+\_\+behavior\+\_\+subject$<$ Type $>$}}
+\begin{DoxyCompactList}\small\item\em Same as \doxylink{classrpp_1_1subjects_1_1behavior__subject}{rpp\+::subjects\+::behavior\+\_\+subject} but on\+\_\+next/on\+\_\+error/on\+\_\+completed calls are serialized via mutex. \end{DoxyCompactList}\item 
 class \mbox{\hyperlink{classrpp_1_1subjects_1_1publish__subject}{rpp\+::subjects\+::publish\+\_\+subject$<$ Type $>$}}
 \begin{DoxyCompactList}\small\item\em Subject which just multicasts values to observers subscribed on it. It contains two parts\+: observer and observable at the same time. \end{DoxyCompactList}\item 
 class \mbox{\hyperlink{classrpp_1_1subjects_1_1serialized__publish__subject}{rpp\+::subjects\+::serialized\+\_\+publish\+\_\+subject$<$ Type $>$}}

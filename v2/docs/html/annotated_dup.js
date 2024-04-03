@@ -112,7 +112,6 @@ var annotated_dup =
           [ "multicast_t", "structrpp_1_1operators_1_1details_1_1multicast__t.html", null ],
           [ "on_error_resume_next_observer_strategy", "structrpp_1_1operators_1_1details_1_1on__error__resume__next__observer__strategy.html", null ],
           [ "on_error_resume_next_t", "structrpp_1_1operators_1_1details_1_1on__error__resume__next__t.html", "structrpp_1_1operators_1_1details_1_1on__error__resume__next__t" ],
-          [ "pointer_under_lock", "classrpp_1_1operators_1_1details_1_1pointer__under__lock.html", null ],
           [ "reduce_no_seed_observer_strategy", "structrpp_1_1operators_1_1details_1_1reduce__no__seed__observer__strategy.html", null ],
           [ "reduce_no_seed_t", "structrpp_1_1operators_1_1details_1_1reduce__no__seed__t.html", "structrpp_1_1operators_1_1details_1_1reduce__no__seed__t" ],
           [ "reduce_observer_strategy", "structrpp_1_1operators_1_1details_1_1reduce__observer__strategy.html", null ],
@@ -161,7 +160,6 @@ var annotated_dup =
           [ "timeout_observer_strategy", "structrpp_1_1operators_1_1details_1_1timeout__observer__strategy.html", null ],
           [ "timeout_t", "structrpp_1_1operators_1_1details_1_1timeout__t.html", "structrpp_1_1operators_1_1details_1_1timeout__t" ],
           [ "timeout_with_error_t", "structrpp_1_1operators_1_1details_1_1timeout__with__error__t.html", "structrpp_1_1operators_1_1details_1_1timeout__with__error__t" ],
-          [ "value_with_mutex", "structrpp_1_1operators_1_1details_1_1value__with__mutex.html", null ],
           [ "window_observer_strategy", "classrpp_1_1operators_1_1details_1_1window__observer__strategy.html", null ],
           [ "window_t", "structrpp_1_1operators_1_1details_1_1window__t.html", "structrpp_1_1operators_1_1details_1_1window__t" ],
           [ "window_toggle_closing_observer_strategy", "structrpp_1_1operators_1_1details_1_1window__toggle__closing__observer__strategy.html", null ],
@@ -205,6 +203,7 @@ var annotated_dup =
       ] ],
       [ "subjects", null, [
         [ "details", null, [
+          [ "behavior_subject_base", "classrpp_1_1subjects_1_1details_1_1behavior__subject__base.html", null ],
           [ "completed", "structrpp_1_1subjects_1_1details_1_1completed.html", null ],
           [ "disposed", "structrpp_1_1subjects_1_1details_1_1disposed.html", null ],
           [ "publish_subject_base", "classrpp_1_1subjects_1_1details_1_1publish__subject__base.html", null ],
@@ -212,8 +211,10 @@ var annotated_dup =
           [ "subject_on_subscribe_strategy", "structrpp_1_1subjects_1_1details_1_1subject__on__subscribe__strategy.html", null ],
           [ "subject_state", "classrpp_1_1subjects_1_1details_1_1subject__state.html", null ]
         ] ],
+        [ "behavior_subject", "classrpp_1_1subjects_1_1behavior__subject.html", null ],
         [ "publish_subject", "classrpp_1_1subjects_1_1publish__subject.html", null ],
         [ "replay_subject", "classrpp_1_1subjects_1_1replay__subject.html", null ],
+        [ "serialized_behavior_subject", "classrpp_1_1subjects_1_1serialized__behavior__subject.html", null ],
         [ "serialized_publish_subject", "classrpp_1_1subjects_1_1serialized__publish__subject.html", null ],
         [ "serialized_replay_subject", "classrpp_1_1subjects_1_1serialized__replay__subject.html", null ]
       ] ],

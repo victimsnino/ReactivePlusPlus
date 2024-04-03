@@ -117,8 +117,8 @@ $(function(){initNavTree('take__until_8hpp_source.html',''); initResizable(); })
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &lt;rpp/defs.hpp&gt;</span></div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &lt;rpp/disposables/composite_disposable.hpp&gt;</span></div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#include &lt;rpp/operators/details/utils.hpp&gt;</span></div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">#include &lt;rpp/schedulers/current_thread.hpp&gt;</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#include &lt;rpp/schedulers/current_thread.hpp&gt;</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">#include &lt;rpp/utils/utils.hpp&gt;</span></div>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="keyword">namespace </span>rpp::operators::details</div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>{</div>
@@ -137,10 +137,10 @@ $(function(){initNavTree('take__until_8hpp_source.html',''); initResizable(); })
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>        {</div>
 <div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        }</div>
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>        <a class="code hl_class" href="classrpp_1_1operators_1_1details_1_1pointer__under__lock.html">pointer_under_lock&lt;TObserver&gt;</a> get_observer() { <span class="keywordflow">return</span> <a class="code hl_class" href="classrpp_1_1operators_1_1details_1_1pointer__under__lock.html">pointer_under_lock</a>{m_observer_with_mutex}; }</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>        rpp::utils::pointer_under_lock&lt;TObserver&gt; get_observer() { <span class="keywordflow">return</span> m_observer_with_mutex; }</div>
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    <span class="keyword">private</span>:</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>        <a class="code hl_struct" href="structrpp_1_1operators_1_1details_1_1value__with__mutex.html">value_with_mutex&lt;TObserver&gt;</a> m_observer_with_mutex{};</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>        rpp::utils::value_with_mutex&lt;TObserver&gt; m_observer_with_mutex{};</div>
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    };</div>
 </div>
 <div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
@@ -241,7 +241,6 @@ $(function(){initNavTree('take__until_8hpp_source.html',''); initResizable(); })
 <div class="ttc" id="aclassrpp_1_1observable_html"><div class="ttname"><a href="classrpp_1_1observable.html">rpp::observable</a></div><div class="ttdoc">Base class for any observable used in RPP. It handles core callbacks of observable.</div><div class="ttdef"><b>Definition</b> observable.hpp:38</div></div>
 <div class="ttc" id="aclassrpp_1_1observable_html_a193b0e08c516912c04afd8379ec27182"><div class="ttname"><a href="classrpp_1_1observable.html#a193b0e08c516912c04afd8379ec27182">rpp::observable::subscribe</a></div><div class="ttdeci">void subscribe(observer&lt; Type, ObserverStrategy &gt; &amp;&amp;observer) const</div><div class="ttdoc">Subscribes passed observer to emissions from this observable.</div><div class="ttdef"><b>Definition</b> observable.hpp:57</div></div>
 <div class="ttc" id="aclassrpp_1_1observer_html"><div class="ttname"><a href="classrpp_1_1observer.html">rpp::observer</a></div><div class="ttdoc">Base class for any observer used in RPP. It handles core callbacks of observers. Objects of this clas...</div><div class="ttdef"><b>Definition</b> observer.hpp:172</div></div>
-<div class="ttc" id="aclassrpp_1_1operators_1_1details_1_1pointer__under__lock_html"><div class="ttname"><a href="classrpp_1_1operators_1_1details_1_1pointer__under__lock.html">rpp::operators::details::pointer_under_lock</a></div><div class="ttdef"><b>Definition</b> utils.hpp:38</div></div>
 <div class="ttc" id="aclassrpp_1_1operators_1_1details_1_1take__until__disposable_html"><div class="ttname"><a href="classrpp_1_1operators_1_1details_1_1take__until__disposable.html">rpp::operators::details::take_until_disposable</a></div><div class="ttdef"><b>Definition</b> take_until.hpp:24</div></div>
 <div class="ttc" id="agroup__conditional__operators_html_gae40802b5608766bfcc1417e210f41707"><div class="ttname"><a href="group__conditional__operators.html#gae40802b5608766bfcc1417e210f41707">rpp::operators::take_until</a></div><div class="ttdeci">auto take_until(TObservable &amp;&amp;until_observable)</div><div class="ttdoc">Discard any items emitted by an Observable after a second Observable emits an item or terminates.</div><div class="ttdef"><b>Definition</b> take_until.hpp:137</div></div>
 <div class="ttc" id="astructrpp_1_1details_1_1observables_1_1fixed__disposable__strategy__selector_html"><div class="ttname"><a href="structrpp_1_1details_1_1observables_1_1fixed__disposable__strategy__selector.html">rpp::details::observables::fixed_disposable_strategy_selector</a></div><div class="ttdef"><b>Definition</b> disposable_strategy.hpp:51</div></div>
@@ -251,7 +250,6 @@ $(function(){initNavTree('take__until_8hpp_source.html',''); initResizable(); })
 <div class="ttc" id="astructrpp_1_1operators_1_1details_1_1take__until__t_1_1operator__traits_html"><div class="ttname"><a href="structrpp_1_1operators_1_1details_1_1take__until__t_1_1operator__traits.html">rpp::operators::details::take_until_t::operator_traits</a></div><div class="ttdef"><b>Definition</b> take_until.hpp:94</div></div>
 <div class="ttc" id="astructrpp_1_1operators_1_1details_1_1take__until__t_html"><div class="ttname"><a href="structrpp_1_1operators_1_1details_1_1take__until__t.html">rpp::operators::details::take_until_t</a></div><div class="ttdef"><b>Definition</b> take_until.hpp:89</div></div>
 <div class="ttc" id="astructrpp_1_1operators_1_1details_1_1take__until__throttle__observer__strategy_html"><div class="ttname"><a href="structrpp_1_1operators_1_1details_1_1take__until__throttle__observer__strategy.html">rpp::operators::details::take_until_throttle_observer_strategy</a></div><div class="ttdef"><b>Definition</b> take_until.hpp:68</div></div>
-<div class="ttc" id="astructrpp_1_1operators_1_1details_1_1value__with__mutex_html"><div class="ttname"><a href="structrpp_1_1operators_1_1details_1_1value__with__mutex.html">rpp::operators::details::value_with_mutex</a></div><div class="ttdef"><b>Definition</b> utils.hpp:19</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

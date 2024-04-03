@@ -118,8 +118,8 @@ $(function(){initNavTree('with__latest__from_8hpp_source.html',''); initResizabl
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &lt;rpp/defs.hpp&gt;</span></div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &lt;rpp/disposables/composite_disposable.hpp&gt;</span></div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#include &lt;rpp/operators/details/strategy.hpp&gt;</span></div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">#include &lt;rpp/operators/details/utils.hpp&gt;</span></div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">#include &lt;rpp/schedulers/current_thread.hpp&gt;</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">#include &lt;rpp/schedulers/current_thread.hpp&gt;</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">#include &lt;rpp/utils/utils.hpp&gt;</span></div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="preprocessor">#include &lt;memory&gt;</span></div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
@@ -136,16 +136,16 @@ $(function(){initNavTree('with__latest__from_8hpp_source.html',''); initResizabl
 <div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>        {</div>
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>        }</div>
 <div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>        <a class="code hl_class" href="classrpp_1_1operators_1_1details_1_1pointer__under__lock.html">pointer_under_lock&lt;Observer&gt;</a> get_observer_under_lock() { <span class="keywordflow">return</span> <a class="code hl_class" href="classrpp_1_1operators_1_1details_1_1pointer__under__lock.html">pointer_under_lock</a>{observer_with_mutex}; }</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>        rpp::utils::pointer_under_lock&lt;Observer&gt; get_observer_under_lock() { <span class="keywordflow">return</span> observer_with_mutex; }</div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>        rpp::utils::tuple&lt;value_with_mutex&lt;std::optional&lt;RestArgs&gt;&gt;...&gt;&amp; get_values() { <span class="keywordflow">return</span> values; }</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>        rpp::utils::tuple&lt;rpp::utils::value_with_mutex&lt;std::optional&lt;RestArgs&gt;&gt;...&gt;&amp; get_values() { <span class="keywordflow">return</span> values; }</div>
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
 <div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>        <span class="keyword">const</span> TSelector&amp; get_selector()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> selector; }</div>
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
 <div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <span class="keyword">private</span>:</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>        <a class="code hl_struct" href="structrpp_1_1operators_1_1details_1_1value__with__mutex.html">value_with_mutex&lt;Observer&gt;</a>                                      observer_with_mutex{};</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>        rpp::utils::tuple&lt;value_with_mutex&lt;std::optional&lt;RestArgs&gt;&gt;...&gt; values{};</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        RPP_NO_UNIQUE_ADDRESS TSelector                                 selector;</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>        rpp::utils::value_with_mutex&lt;Observer&gt;                                      observer_with_mutex{};</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>        rpp::utils::tuple&lt;rpp::utils::value_with_mutex&lt;std::optional&lt;RestArgs&gt;&gt;...&gt; values{};</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        RPP_NO_UNIQUE_ADDRESS TSelector                                             selector;</div>
 <div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    };</div>
 </div>
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
@@ -168,155 +168,152 @@ $(function(){initNavTree('with__latest__from_8hpp_source.html',''); initResizabl
 <div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>        <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
 <div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>        <span class="keywordtype">void</span> on_next(T&amp;&amp; v)<span class="keyword"> const</span></div>
 <div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span><span class="keyword">        </span>{</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>            <span class="keyword">auto</span>&amp; [value, mutex] = disposable-&gt;get_values().template get&lt;I&gt;();</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>            std::scoped_lock lock{mutex};</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>            value.emplace(std::forward&lt;T&gt;(v));</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>        }</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span> </div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>        <span class="keywordtype">void</span> on_error(<span class="keyword">const</span> std::exception_ptr&amp; err)<span class="keyword"> const</span></div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span><span class="keyword">        </span>{</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>            disposable-&gt;dispose();</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>            disposable-&gt;get_observer_under_lock()-&gt;on_error(err);</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>        }</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span> </div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>        <span class="keyword">static</span> <span class="keyword">constexpr</span> rpp::utils::empty_function_t&lt;&gt; on_completed{};</div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    };</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>            <span class="keyword">auto</span> locked_value = disposable-&gt;get_values().template get&lt;I&gt;().lock();</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>            locked_value-&gt;emplace(std::forward&lt;T&gt;(v));</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>        }</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span> </div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>        <span class="keywordtype">void</span> on_error(<span class="keyword">const</span> std::exception_ptr&amp; err)<span class="keyword"> const</span></div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span><span class="keyword">        </span>{</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>            disposable-&gt;dispose();</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>            disposable-&gt;get_observer_under_lock()-&gt;on_error(err);</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>        }</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span> </div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>        <span class="keyword">static</span> <span class="keyword">constexpr</span> rpp::utils::empty_function_t&lt;&gt; on_completed{};</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    };</div>
 </div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span> </div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    <span class="keyword">template</span>&lt;<a class="code hl_concept" href="conceptrpp_1_1constraint_1_1observer.html">rpp::constraint::observer</a> Observer, <span class="keyword">typename</span> TSelector, <span class="keyword">typename</span> OriginalValue, rpp::constraint::decayed_type... RestArgs&gt;</div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>        <span class="keyword">requires</span> std::invocable&lt;TSelector, OriginalValue, RestArgs...&gt;</div>
-<div class="foldopen" id="foldopen00081" data-start="{" data-end="};">
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno"><a class="line" href="structrpp_1_1operators_1_1details_1_1with__latest__from__observer__strategy.html">   81</a></span>    <span class="keyword">struct </span><a class="code hl_struct" href="structrpp_1_1operators_1_1details_1_1with__latest__from__observer__strategy.html">with_latest_from_observer_strategy</a></div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    {</div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>        <span class="keyword">using </span><a class="code hl_class" href="classrpp_1_1operators_1_1details_1_1with__latest__from__disposable.html">Disposable</a>                    = <a class="code hl_class" href="classrpp_1_1operators_1_1details_1_1with__latest__from__disposable.html">with_latest_from_disposable</a>&lt;Observer, TSelector, RestArgs...&gt;;</div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>        <span class="keyword">using </span>Result                        = std::invoke_result_t&lt;TSelector, OriginalValue, RestArgs...&gt;;</div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>        <span class="keyword">using </span><a class="code hl_struct" href="structrpp_1_1details_1_1observers_1_1none__disposable__strategy.html">preferred_disposable_strategy</a> = <a class="code hl_struct" href="structrpp_1_1details_1_1observers_1_1none__disposable__strategy.html">rpp::details::observers::none_disposable_strategy</a>;</div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span> </div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>        std::shared_ptr&lt;Disposable&gt; disposable{};</div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span> </div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>        <span class="keywordtype">void</span> set_upstream(<span class="keyword">const</span> <a class="code hl_class" href="classrpp_1_1disposable__wrapper__impl.html">rpp::disposable_wrapper</a>&amp; d)<span class="keyword"> const</span></div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span><span class="keyword">        </span>{</div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>            disposable-&gt;add(d);</div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>        }</div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span> </div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>        <span class="keywordtype">bool</span> is_disposed()<span class="keyword"> const</span></div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span><span class="keyword">        </span>{</div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>            <span class="keywordflow">return</span> disposable-&gt;is_disposed();</div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>        }</div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span> </div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>        <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>        <span class="keywordtype">void</span> on_next(T&amp;&amp; v)<span class="keyword"> const</span></div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span><span class="keyword">        </span>{</div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>            <span class="keyword">auto</span> result = disposable-&gt;get_values().apply([<span class="keyword">this</span>, &amp;v](<a class="code hl_struct" href="structrpp_1_1operators_1_1details_1_1value__with__mutex.html">value_with_mutex</a>&lt;std::optional&lt;RestArgs&gt;&gt;&amp;... vals) -&gt; std::optional&lt;Result&gt; {</div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>                <span class="keyword">auto</span> lock = std::scoped_lock{vals.mutex...};</div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span> </div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>                <span class="keywordflow">if</span> ((vals.value.has_value() &amp;&amp; ...))</div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>                    <span class="keywordflow">return</span> disposable-&gt;get_selector()(rpp::utils::as_const(std::forward&lt;T&gt;(v)), rpp::utils::as_const(vals.value.value())...);</div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>                <span class="keywordflow">return</span> std::nullopt;</div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>            });</div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span> </div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>            <span class="keywordflow">if</span> (result.has_value())</div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>                disposable-&gt;get_observer_under_lock()-&gt;on_next(std::move(result).value());</div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>        }</div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span> </div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>        <span class="keywordtype">void</span> on_error(<span class="keyword">const</span> std::exception_ptr&amp; err)<span class="keyword"> const</span></div>
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span><span class="keyword">        </span>{</div>
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>            disposable-&gt;dispose();</div>
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>            disposable-&gt;get_observer_under_lock()-&gt;on_error(err);</div>
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>        }</div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span> </div>
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>        <span class="keywordtype">void</span> on_completed()<span class="keyword"> const</span></div>
-<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span><span class="keyword">        </span>{</div>
-<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>            disposable-&gt;dispose();</div>
-<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>            disposable-&gt;get_observer_under_lock()-&gt;on_completed();</div>
-<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>        }</div>
-<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>    };</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span> </div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    <span class="keyword">template</span>&lt;<a class="code hl_concept" href="conceptrpp_1_1constraint_1_1observer.html">rpp::constraint::observer</a> Observer, <span class="keyword">typename</span> TSelector, <span class="keyword">typename</span> OriginalValue, rpp::constraint::decayed_type... RestArgs&gt;</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>        <span class="keyword">requires</span> std::invocable&lt;TSelector, OriginalValue, RestArgs...&gt;</div>
+<div class="foldopen" id="foldopen00080" data-start="{" data-end="};">
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno"><a class="line" href="structrpp_1_1operators_1_1details_1_1with__latest__from__observer__strategy.html">   80</a></span>    <span class="keyword">struct </span><a class="code hl_struct" href="structrpp_1_1operators_1_1details_1_1with__latest__from__observer__strategy.html">with_latest_from_observer_strategy</a></div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    {</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>        <span class="keyword">using </span><a class="code hl_class" href="classrpp_1_1operators_1_1details_1_1with__latest__from__disposable.html">Disposable</a>                    = <a class="code hl_class" href="classrpp_1_1operators_1_1details_1_1with__latest__from__disposable.html">with_latest_from_disposable</a>&lt;Observer, TSelector, RestArgs...&gt;;</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>        <span class="keyword">using </span>Result                        = std::invoke_result_t&lt;TSelector, OriginalValue, RestArgs...&gt;;</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>        <span class="keyword">using </span><a class="code hl_struct" href="structrpp_1_1details_1_1observers_1_1none__disposable__strategy.html">preferred_disposable_strategy</a> = <a class="code hl_struct" href="structrpp_1_1details_1_1observers_1_1none__disposable__strategy.html">rpp::details::observers::none_disposable_strategy</a>;</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span> </div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>        std::shared_ptr&lt;Disposable&gt; disposable{};</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span> </div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>        <span class="keywordtype">void</span> set_upstream(<span class="keyword">const</span> <a class="code hl_class" href="classrpp_1_1disposable__wrapper__impl.html">rpp::disposable_wrapper</a>&amp; d)<span class="keyword"> const</span></div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span><span class="keyword">        </span>{</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>            disposable-&gt;add(d);</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>        }</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span> </div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>        <span class="keywordtype">bool</span> is_disposed()<span class="keyword"> const</span></div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span><span class="keyword">        </span>{</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>            <span class="keywordflow">return</span> disposable-&gt;is_disposed();</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>        }</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span> </div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>        <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>        <span class="keywordtype">void</span> on_next(T&amp;&amp; v)<span class="keyword"> const</span></div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span><span class="keyword">        </span>{</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>            <span class="keyword">auto</span> result = disposable-&gt;get_values().apply([<span class="keyword">this</span>, &amp;v](rpp::utils::value_with_mutex&lt;std::optional&lt;RestArgs&gt;&gt;&amp;... vals) -&gt; std::optional&lt;Result&gt; {</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>                <span class="keyword">auto</span> lock = std::scoped_lock{vals.get_mutex()...};</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span> </div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>                <span class="keywordflow">if</span> ((vals.get_value_unsafe().has_value() &amp;&amp; ...))</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>                    <span class="keywordflow">return</span> disposable-&gt;get_selector()(rpp::utils::as_const(std::forward&lt;T&gt;(v)), rpp::utils::as_const(vals.get_value_unsafe().value())...);</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>                <span class="keywordflow">return</span> std::nullopt;</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>            });</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span> </div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>            <span class="keywordflow">if</span> (result.has_value())</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>                disposable-&gt;get_observer_under_lock()-&gt;on_next(std::move(result).value());</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>        }</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span> </div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>        <span class="keywordtype">void</span> on_error(<span class="keyword">const</span> std::exception_ptr&amp; err)<span class="keyword"> const</span></div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span><span class="keyword">        </span>{</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>            disposable-&gt;dispose();</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>            disposable-&gt;get_observer_under_lock()-&gt;on_error(err);</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>        }</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span> </div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>        <span class="keywordtype">void</span> on_completed()<span class="keyword"> const</span></div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span><span class="keyword">        </span>{</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>            disposable-&gt;dispose();</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>            disposable-&gt;get_observer_under_lock()-&gt;on_completed();</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>        }</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>    };</div>
 </div>
-<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span> </div>
-<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> TSelector, <a class="code hl_concept" href="conceptrpp_1_1constraint_1_1observable.html">rpp::constraint::observable</a>... TObservables&gt;</div>
-<div class="foldopen" id="foldopen00128" data-start="{" data-end="};">
-<div class="line"><a id="l00128" name="l00128"></a><span class="lineno"><a class="line" href="structrpp_1_1operators_1_1details_1_1with__latest__from__t.html">  128</a></span>    <span class="keyword">struct </span><a class="code hl_struct" href="structrpp_1_1operators_1_1details_1_1with__latest__from__t.html">with_latest_from_t</a></div>
-<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>    {</div>
-<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>        RPP_NO_UNIQUE_ADDRESS rpp::utils::tuple&lt;TObservables...&gt; observables;</div>
-<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>        RPP_NO_UNIQUE_ADDRESS TSelector                          selector;</div>
-<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span> </div>
-<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>        <span class="keyword">template</span>&lt;rpp::constra<span class="keywordtype">int</span>::decayed_type T&gt;</div>
-<div class="foldopen" id="foldopen00134" data-start="{" data-end="};">
-<div class="line"><a id="l00134" name="l00134"></a><span class="lineno"><a class="line" href="structrpp_1_1operators_1_1details_1_1with__latest__from__t_1_1operator__traits.html">  134</a></span>        <span class="keyword">struct </span><a class="code hl_struct" href="structrpp_1_1operators_1_1details_1_1with__latest__from__t_1_1operator__traits.html">operator_traits</a></div>
-<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>        {</div>
-<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>            <span class="keyword">static_assert</span>(std::invocable&lt;TSelector, T, rpp::utils::extract_observable_type_t&lt;TObservables&gt;...&gt;, <span class="stringliteral">&quot;TSelector is not invocable with T and types of rest observables&quot;</span>);</div>
-<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span> </div>
-<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>            <span class="keyword">using </span>result_type = std::invoke_result_t&lt;TSelector, T, rpp::utils::extract_observable_type_t&lt;TObservables&gt;...&gt;;</div>
-<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span> </div>
-<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>            <span class="keyword">constexpr</span> <span class="keyword">static</span> <span class="keywordtype">bool</span> own_current_queue = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>        };</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span> </div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> TSelector, <a class="code hl_concept" href="conceptrpp_1_1constraint_1_1observable.html">rpp::constraint::observable</a>... TObservables&gt;</div>
+<div class="foldopen" id="foldopen00127" data-start="{" data-end="};">
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno"><a class="line" href="structrpp_1_1operators_1_1details_1_1with__latest__from__t.html">  127</a></span>    <span class="keyword">struct </span><a class="code hl_struct" href="structrpp_1_1operators_1_1details_1_1with__latest__from__t.html">with_latest_from_t</a></div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>    {</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>        RPP_NO_UNIQUE_ADDRESS rpp::utils::tuple&lt;TObservables...&gt; observables;</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>        RPP_NO_UNIQUE_ADDRESS TSelector                          selector;</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span> </div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>        <span class="keyword">template</span>&lt;rpp::constra<span class="keywordtype">int</span>::decayed_type T&gt;</div>
+<div class="foldopen" id="foldopen00133" data-start="{" data-end="};">
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno"><a class="line" href="structrpp_1_1operators_1_1details_1_1with__latest__from__t_1_1operator__traits.html">  133</a></span>        <span class="keyword">struct </span><a class="code hl_struct" href="structrpp_1_1operators_1_1details_1_1with__latest__from__t_1_1operator__traits.html">operator_traits</a></div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>        {</div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>            <span class="keyword">static_assert</span>(std::invocable&lt;TSelector, T, rpp::utils::extract_observable_type_t&lt;TObservables&gt;...&gt;, <span class="stringliteral">&quot;TSelector is not invocable with T and types of rest observables&quot;</span>);</div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span> </div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>            <span class="keyword">using </span>result_type = std::invoke_result_t&lt;TSelector, T, rpp::utils::extract_observable_type_t&lt;TObservables&gt;...&gt;;</div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span> </div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>            <span class="keyword">constexpr</span> <span class="keyword">static</span> <span class="keywordtype">bool</span> own_current_queue = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>        };</div>
 </div>
-<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span> </div>
-<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>        <span class="keyword">template</span>&lt;rpp::details::observables::constra<span class="keywordtype">int</span>::disposable_strategy Prev&gt;</div>
-<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>        <span class="keyword">using </span><a class="code hl_struct" href="structrpp_1_1details_1_1observables_1_1fixed__disposable__strategy__selector.html">updated_disposable_strategy</a> = <a class="code hl_struct" href="structrpp_1_1details_1_1observables_1_1fixed__disposable__strategy__selector.html">rpp::details::observables::fixed_disposable_strategy_selector&lt;1&gt;</a>;</div>
-<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span> </div>
-<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>        <span class="keyword">template</span>&lt;rpp::constra<span class="keywordtype">int</span>::decayed_type Type, rpp::constra<span class="keywordtype">int</span>::observer Observer&gt;</div>
-<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>        <span class="keyword">auto</span> lift(Observer&amp;&amp; <a class="code hl_class" href="classrpp_1_1observer.html">observer</a>)<span class="keyword"> const</span></div>
-<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span><span class="keyword">        </span>{</div>
-<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>            <span class="keywordflow">return</span> observables.apply(&amp;subscribe_impl&lt;Type, Observer&gt;, std::forward&lt;Observer&gt;(<a class="code hl_class" href="classrpp_1_1observer.html">observer</a>), selector);</div>
-<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>        }</div>
-<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span> </div>
-<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>    <span class="keyword">private</span>:</div>
-<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>        <span class="keyword">template</span>&lt;rpp::constra<span class="keywordtype">int</span>::decayed_type Type, rpp::constra<span class="keywordtype">int</span>::observer Observer&gt;</div>
-<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>        <span class="keyword">static</span> <span class="keyword">auto</span> subscribe_impl(Observer&amp;&amp; <a class="code hl_class" href="classrpp_1_1observer.html">observer</a>, <span class="keyword">const</span> TSelector&amp; selector, <span class="keyword">const</span> TObservables&amp;... observables)</div>
-<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>        {</div>
-<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>            <span class="keyword">using </span>Disposable = <a class="code hl_class" href="classrpp_1_1operators_1_1details_1_1with__latest__from__disposable.html">with_latest_from_disposable&lt;Observer, TSelector, rpp::utils::extract_observable_type_t&lt;TObservables&gt;</a>...&gt;;</div>
-<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span> </div>
-<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>            <span class="keyword">const</span> <span class="keyword">auto</span> disposable = <a class="code hl_function" href="classrpp_1_1disposable__wrapper__impl.html#a677053a7d4cc81ab26dc7f740a6595e6">disposable_wrapper_impl&lt;Disposable&gt;::make</a>(std::forward&lt;Observer&gt;(<a class="code hl_class" href="classrpp_1_1observer.html">observer</a>), selector);</div>
-<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>            <span class="keyword">auto</span>       ptr        = disposable.lock();</div>
-<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>            ptr-&gt;get_observer_under_lock()-&gt;set_upstream(disposable.as_weak());</div>
-<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>            subscribe(ptr, std::index_sequence_for&lt;TObservables...&gt;{}, observables...);</div>
-<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span> </div>
-<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>            <span class="keywordflow">return</span> <a class="code hl_class" href="classrpp_1_1observer.html">rpp::observer&lt;Type, with_latest_from_observer_strategy&lt;std::decay_t&lt;Observer&gt;</a>, TSelector, Type, rpp::utils::extract_observable_type_t&lt;TObservables&gt;...&gt;&gt;{std::move(ptr)};</div>
-<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>        }</div>
-<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span> </div>
-<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>        <span class="keyword">template</span>&lt;<a class="code hl_concept" href="conceptrpp_1_1constraint_1_1observer.html">rpp::constraint::observer</a> Observer, <span class="keywordtype">size_t</span>... I&gt;</div>
-<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>        <span class="keyword">static</span> <span class="keywordtype">void</span> subscribe(<span class="keyword">const</span> std::shared_ptr&lt;with_latest_from_disposable&lt;Observer, TSelector, rpp::utils::extract_observable_type_t&lt;TObservables&gt;...&gt;&gt;&amp; disposable, std::index_sequence&lt;I...&gt;, <span class="keyword">const</span> TObservables&amp;... observables)</div>
-<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>        {</div>
-<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>            (..., observables.subscribe(<a class="code hl_class" href="classrpp_1_1observer.html">rpp::observer</a>&lt;rpp::utils::extract_observable_type_t&lt;TObservables&gt;, with_latest_from_inner_observer_strategy&lt;I, Observer, TSelector, rpp::utils::extract_observable_type_t&lt;TObservables&gt;...&gt;&gt;{disposable}));</div>
-<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>        }</div>
-<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>    };</div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span> </div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>        <span class="keyword">template</span>&lt;rpp::details::observables::constra<span class="keywordtype">int</span>::disposable_strategy Prev&gt;</div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>        <span class="keyword">using </span><a class="code hl_struct" href="structrpp_1_1details_1_1observables_1_1fixed__disposable__strategy__selector.html">updated_disposable_strategy</a> = <a class="code hl_struct" href="structrpp_1_1details_1_1observables_1_1fixed__disposable__strategy__selector.html">rpp::details::observables::fixed_disposable_strategy_selector&lt;1&gt;</a>;</div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span> </div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>        <span class="keyword">template</span>&lt;rpp::constra<span class="keywordtype">int</span>::decayed_type Type, rpp::constra<span class="keywordtype">int</span>::observer Observer&gt;</div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>        <span class="keyword">auto</span> lift(Observer&amp;&amp; <a class="code hl_class" href="classrpp_1_1observer.html">observer</a>)<span class="keyword"> const</span></div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span><span class="keyword">        </span>{</div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>            <span class="keywordflow">return</span> observables.apply(&amp;subscribe_impl&lt;Type, Observer&gt;, std::forward&lt;Observer&gt;(<a class="code hl_class" href="classrpp_1_1observer.html">observer</a>), selector);</div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>        }</div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span> </div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>    <span class="keyword">private</span>:</div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>        <span class="keyword">template</span>&lt;rpp::constra<span class="keywordtype">int</span>::decayed_type Type, rpp::constra<span class="keywordtype">int</span>::observer Observer&gt;</div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>        <span class="keyword">static</span> <span class="keyword">auto</span> subscribe_impl(Observer&amp;&amp; <a class="code hl_class" href="classrpp_1_1observer.html">observer</a>, <span class="keyword">const</span> TSelector&amp; selector, <span class="keyword">const</span> TObservables&amp;... observables)</div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>        {</div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>            <span class="keyword">using </span>Disposable = <a class="code hl_class" href="classrpp_1_1operators_1_1details_1_1with__latest__from__disposable.html">with_latest_from_disposable&lt;Observer, TSelector, rpp::utils::extract_observable_type_t&lt;TObservables&gt;</a>...&gt;;</div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span> </div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>            <span class="keyword">const</span> <span class="keyword">auto</span> disposable = <a class="code hl_function" href="classrpp_1_1disposable__wrapper__impl.html#a677053a7d4cc81ab26dc7f740a6595e6">disposable_wrapper_impl&lt;Disposable&gt;::make</a>(std::forward&lt;Observer&gt;(<a class="code hl_class" href="classrpp_1_1observer.html">observer</a>), selector);</div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>            <span class="keyword">auto</span>       ptr        = disposable.lock();</div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>            ptr-&gt;get_observer_under_lock()-&gt;set_upstream(disposable.as_weak());</div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>            subscribe(ptr, std::index_sequence_for&lt;TObservables...&gt;{}, observables...);</div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span> </div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>            <span class="keywordflow">return</span> <a class="code hl_class" href="classrpp_1_1observer.html">rpp::observer&lt;Type, with_latest_from_observer_strategy&lt;std::decay_t&lt;Observer&gt;</a>, TSelector, Type, rpp::utils::extract_observable_type_t&lt;TObservables&gt;...&gt;&gt;{std::move(ptr)};</div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>        }</div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span> </div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>        <span class="keyword">template</span>&lt;<a class="code hl_concept" href="conceptrpp_1_1constraint_1_1observer.html">rpp::constraint::observer</a> Observer, <span class="keywordtype">size_t</span>... I&gt;</div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>        <span class="keyword">static</span> <span class="keywordtype">void</span> subscribe(<span class="keyword">const</span> std::shared_ptr&lt;with_latest_from_disposable&lt;Observer, TSelector, rpp::utils::extract_observable_type_t&lt;TObservables&gt;...&gt;&gt;&amp; disposable, std::index_sequence&lt;I...&gt;, <span class="keyword">const</span> TObservables&amp;... observables)</div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>        {</div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>            (..., observables.subscribe(<a class="code hl_class" href="classrpp_1_1observer.html">rpp::observer</a>&lt;rpp::utils::extract_observable_type_t&lt;TObservables&gt;, with_latest_from_inner_observer_strategy&lt;I, Observer, TSelector, rpp::utils::extract_observable_type_t&lt;TObservables&gt;...&gt;&gt;{disposable}));</div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>        }</div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>    };</div>
 </div>
-<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>} <span class="comment">// namespace rpp::operators::details</span></div>
-<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span> </div>
-<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span><span class="keyword">namespace </span>rpp::operators</div>
-<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>{</div>
-<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> TSelector, <a class="code hl_concept" href="conceptrpp_1_1constraint_1_1observable.html">rpp::constraint::observable</a> TObservable, <a class="code hl_concept" href="conceptrpp_1_1constraint_1_1observable.html">rpp::constraint::observable</a>... TObservables&gt;</div>
-<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span>        <span class="keyword">requires</span> (!<a class="code hl_concept" href="conceptrpp_1_1constraint_1_1observable.html">rpp::constraint::observable&lt;TSelector&gt;</a> &amp;&amp; (!utils::is_not_template_callable&lt;TSelector&gt; || std::invocable&lt;TSelector, rpp::utils::convertible_to_any, utils::extract_observable_type_t&lt;TObservable&gt;, utils::extract_observable_type_t&lt;TObservables&gt;...&gt;))</div>
-<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>    <span class="keyword">auto</span> <a class="code hl_function" href="group__combining__operators.html#ga9345ba5faac717ba85fc88f1c5fff58b">with_latest_from</a>(TSelector&amp;&amp; selector, TObservable&amp;&amp; observable, TObservables&amp;&amp;... observables)</div>
-<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span>    {</div>
-<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span>        <span class="keywordflow">return</span> details::with_latest_from_t&lt;std::decay_t&lt;TSelector&gt;, std::decay_t&lt;TObservable&gt;, std::decay_t&lt;TObservables&gt;...&gt;{</div>
-<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span>            rpp::utils::tuple{std::forward&lt;TObservable&gt;(observable), std::forward&lt;TObservables&gt;(observables)...},</div>
-<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span>            std::forward&lt;TSelector&gt;(selector)};</div>
-<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span>    }</div>
-<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span> </div>
-<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span>    <span class="keyword">template</span>&lt;<a class="code hl_concept" href="conceptrpp_1_1constraint_1_1observable.html">rpp::constraint::observable</a> TObservable, <a class="code hl_concept" href="conceptrpp_1_1constraint_1_1observable.html">rpp::constraint::observable</a>... TObservables&gt;</div>
-<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span>    <span class="keyword">auto</span> <a class="code hl_function" href="group__combining__operators.html#ga9345ba5faac717ba85fc88f1c5fff58b">with_latest_from</a>(TObservable&amp;&amp; observable, TObservables&amp;&amp;... observables)</div>
-<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span>    {</div>
-<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="group__combining__operators.html#ga9345ba5faac717ba85fc88f1c5fff58b">with_latest_from</a>(rpp::utils::pack_to_tuple{}, std::forward&lt;TObservable&gt;(observable), std::forward&lt;TObservables&gt;(observables)...);</div>
-<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span>    }</div>
-<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span>} <span class="comment">// namespace rpp::operators</span></div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>} <span class="comment">// namespace rpp::operators::details</span></div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span> </div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span><span class="keyword">namespace </span>rpp::operators</div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>{</div>
+<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> TSelector, <a class="code hl_concept" href="conceptrpp_1_1constraint_1_1observable.html">rpp::constraint::observable</a> TObservable, <a class="code hl_concept" href="conceptrpp_1_1constraint_1_1observable.html">rpp::constraint::observable</a>... TObservables&gt;</div>
+<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>        <span class="keyword">requires</span> (!<a class="code hl_concept" href="conceptrpp_1_1constraint_1_1observable.html">rpp::constraint::observable&lt;TSelector&gt;</a> &amp;&amp; (!utils::is_not_template_callable&lt;TSelector&gt; || std::invocable&lt;TSelector, rpp::utils::convertible_to_any, utils::extract_observable_type_t&lt;TObservable&gt;, utils::extract_observable_type_t&lt;TObservables&gt;...&gt;))</div>
+<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span>    <span class="keyword">auto</span> <a class="code hl_function" href="group__combining__operators.html#ga9345ba5faac717ba85fc88f1c5fff58b">with_latest_from</a>(TSelector&amp;&amp; selector, TObservable&amp;&amp; observable, TObservables&amp;&amp;... observables)</div>
+<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>    {</div>
+<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span>        <span class="keywordflow">return</span> details::with_latest_from_t&lt;std::decay_t&lt;TSelector&gt;, std::decay_t&lt;TObservable&gt;, std::decay_t&lt;TObservables&gt;...&gt;{</div>
+<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span>            rpp::utils::tuple{std::forward&lt;TObservable&gt;(observable), std::forward&lt;TObservables&gt;(observables)...},</div>
+<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span>            std::forward&lt;TSelector&gt;(selector)};</div>
+<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span>    }</div>
+<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span> </div>
+<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span>    <span class="keyword">template</span>&lt;<a class="code hl_concept" href="conceptrpp_1_1constraint_1_1observable.html">rpp::constraint::observable</a> TObservable, <a class="code hl_concept" href="conceptrpp_1_1constraint_1_1observable.html">rpp::constraint::observable</a>... TObservables&gt;</div>
+<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span>    <span class="keyword">auto</span> <a class="code hl_function" href="group__combining__operators.html#ga9345ba5faac717ba85fc88f1c5fff58b">with_latest_from</a>(TObservable&amp;&amp; observable, TObservables&amp;&amp;... observables)</div>
+<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span>    {</div>
+<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="group__combining__operators.html#ga9345ba5faac717ba85fc88f1c5fff58b">with_latest_from</a>(rpp::utils::pack_to_tuple{}, std::forward&lt;TObservable&gt;(observable), std::forward&lt;TObservables&gt;(observables)...);</div>
+<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span>    }</div>
+<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span>} <span class="comment">// namespace rpp::operators</span></div>
 <div class="ttc" id="aclassrpp_1_1composite__disposable_html"><div class="ttname"><a href="classrpp_1_1composite__disposable.html">rpp::composite_disposable</a></div><div class="ttdoc">Disposable which can keep some other sub-disposables. When this root disposable is disposed,...</div><div class="ttdef"><b>Definition</b> composite_disposable.hpp:175</div></div>
 <div class="ttc" id="aclassrpp_1_1disposable__wrapper__impl_html"><div class="ttname"><a href="classrpp_1_1disposable__wrapper__impl.html">rpp::disposable_wrapper_impl&lt; interface_disposable &gt;</a></div></div>
 <div class="ttc" id="aclassrpp_1_1disposable__wrapper__impl_html_a677053a7d4cc81ab26dc7f740a6595e6"><div class="ttname"><a href="classrpp_1_1disposable__wrapper__impl.html#a677053a7d4cc81ab26dc7f740a6595e6">rpp::disposable_wrapper_impl::make</a></div><div class="ttdeci">static disposable_wrapper_impl make(TArgs &amp;&amp;... args)</div><div class="ttdoc">Way to create disposable_wrapper. Passed TTarget type can be any type derived from TDisposable.</div><div class="ttdef"><b>Definition</b> disposable_wrapper.hpp:133</div></div>
 <div class="ttc" id="aclassrpp_1_1observer_html"><div class="ttname"><a href="classrpp_1_1observer.html">rpp::observer</a></div><div class="ttdoc">Base class for any observer used in RPP. It handles core callbacks of observers. Objects of this clas...</div><div class="ttdef"><b>Definition</b> observer.hpp:172</div></div>
-<div class="ttc" id="aclassrpp_1_1operators_1_1details_1_1pointer__under__lock_html"><div class="ttname"><a href="classrpp_1_1operators_1_1details_1_1pointer__under__lock.html">rpp::operators::details::pointer_under_lock</a></div><div class="ttdef"><b>Definition</b> utils.hpp:38</div></div>
 <div class="ttc" id="aclassrpp_1_1operators_1_1details_1_1with__latest__from__disposable_html"><div class="ttname"><a href="classrpp_1_1operators_1_1details_1_1with__latest__from__disposable.html">rpp::operators::details::with_latest_from_disposable</a></div><div class="ttdef"><b>Definition</b> with_latest_from.hpp:27</div></div>
 <div class="ttc" id="aconceptrpp_1_1constraint_1_1observable_html"><div class="ttname"><a href="conceptrpp_1_1constraint_1_1observable.html">rpp::constraint::observable</a></div><div class="ttdef"><b>Definition</b> fwd.hpp:67</div></div>
 <div class="ttc" id="aconceptrpp_1_1constraint_1_1observer_html"><div class="ttname"><a href="conceptrpp_1_1constraint_1_1observer.html">rpp::constraint::observer</a></div><div class="ttdef"><b>Definition</b> fwd.hpp:235</div></div>
-<div class="ttc" id="agroup__combining__operators_html_ga9345ba5faac717ba85fc88f1c5fff58b"><div class="ttname"><a href="group__combining__operators.html#ga9345ba5faac717ba85fc88f1c5fff58b">rpp::operators::with_latest_from</a></div><div class="ttdeci">auto with_latest_from(TSelector &amp;&amp;selector, TObservable &amp;&amp;observable, TObservables &amp;&amp;... observables)</div><div class="ttdoc">Combines latest emissions from observables with emission from current observable when it sends new va...</div><div class="ttdef"><b>Definition</b> with_latest_from.hpp:200</div></div>
+<div class="ttc" id="agroup__combining__operators_html_ga9345ba5faac717ba85fc88f1c5fff58b"><div class="ttname"><a href="group__combining__operators.html#ga9345ba5faac717ba85fc88f1c5fff58b">rpp::operators::with_latest_from</a></div><div class="ttdeci">auto with_latest_from(TSelector &amp;&amp;selector, TObservable &amp;&amp;observable, TObservables &amp;&amp;... observables)</div><div class="ttdoc">Combines latest emissions from observables with emission from current observable when it sends new va...</div><div class="ttdef"><b>Definition</b> with_latest_from.hpp:199</div></div>
 <div class="ttc" id="astructrpp_1_1details_1_1observables_1_1fixed__disposable__strategy__selector_html"><div class="ttname"><a href="structrpp_1_1details_1_1observables_1_1fixed__disposable__strategy__selector.html">rpp::details::observables::fixed_disposable_strategy_selector</a></div><div class="ttdef"><b>Definition</b> disposable_strategy.hpp:51</div></div>
 <div class="ttc" id="astructrpp_1_1details_1_1observers_1_1none__disposable__strategy_html"><div class="ttname"><a href="structrpp_1_1details_1_1observers_1_1none__disposable__strategy.html">rpp::details::observers::none_disposable_strategy</a></div><div class="ttdef"><b>Definition</b> disposable_strategy.hpp:99</div></div>
-<div class="ttc" id="astructrpp_1_1operators_1_1details_1_1value__with__mutex_html"><div class="ttname"><a href="structrpp_1_1operators_1_1details_1_1value__with__mutex.html">rpp::operators::details::value_with_mutex</a></div><div class="ttdef"><b>Definition</b> utils.hpp:19</div></div>
 <div class="ttc" id="astructrpp_1_1operators_1_1details_1_1with__latest__from__inner__observer__strategy_html"><div class="ttname"><a href="structrpp_1_1operators_1_1details_1_1with__latest__from__inner__observer__strategy.html">rpp::operators::details::with_latest_from_inner_observer_strategy</a></div><div class="ttdef"><b>Definition</b> with_latest_from.hpp:49</div></div>
-<div class="ttc" id="astructrpp_1_1operators_1_1details_1_1with__latest__from__observer__strategy_html"><div class="ttname"><a href="structrpp_1_1operators_1_1details_1_1with__latest__from__observer__strategy.html">rpp::operators::details::with_latest_from_observer_strategy</a></div><div class="ttdef"><b>Definition</b> with_latest_from.hpp:82</div></div>
-<div class="ttc" id="astructrpp_1_1operators_1_1details_1_1with__latest__from__t_1_1operator__traits_html"><div class="ttname"><a href="structrpp_1_1operators_1_1details_1_1with__latest__from__t_1_1operator__traits.html">rpp::operators::details::with_latest_from_t::operator_traits</a></div><div class="ttdef"><b>Definition</b> with_latest_from.hpp:135</div></div>
-<div class="ttc" id="astructrpp_1_1operators_1_1details_1_1with__latest__from__t_html"><div class="ttname"><a href="structrpp_1_1operators_1_1details_1_1with__latest__from__t.html">rpp::operators::details::with_latest_from_t</a></div><div class="ttdef"><b>Definition</b> with_latest_from.hpp:129</div></div>
+<div class="ttc" id="astructrpp_1_1operators_1_1details_1_1with__latest__from__observer__strategy_html"><div class="ttname"><a href="structrpp_1_1operators_1_1details_1_1with__latest__from__observer__strategy.html">rpp::operators::details::with_latest_from_observer_strategy</a></div><div class="ttdef"><b>Definition</b> with_latest_from.hpp:81</div></div>
+<div class="ttc" id="astructrpp_1_1operators_1_1details_1_1with__latest__from__t_1_1operator__traits_html"><div class="ttname"><a href="structrpp_1_1operators_1_1details_1_1with__latest__from__t_1_1operator__traits.html">rpp::operators::details::with_latest_from_t::operator_traits</a></div><div class="ttdef"><b>Definition</b> with_latest_from.hpp:134</div></div>
+<div class="ttc" id="astructrpp_1_1operators_1_1details_1_1with__latest__from__t_html"><div class="ttname"><a href="structrpp_1_1operators_1_1details_1_1with__latest__from__t.html">rpp::operators::details::with_latest_from_t</a></div><div class="ttdef"><b>Definition</b> with_latest_from.hpp:128</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

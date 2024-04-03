@@ -19,7 +19,7 @@
 \DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <rpp/defs.hpp>}}
 \DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ <rpp/disposables/refcount\_disposable.hpp>}}
 \DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ <rpp/operators/details/strategy.hpp>}}
-\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ <rpp/operators/details/utils.hpp>}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ <rpp/utils/utils.hpp>}}
 \DoxyCodeLine{00019\ }
 \DoxyCodeLine{00020\ \textcolor{keyword}{namespace\ }rpp::operators::details}
 \DoxyCodeLine{00021\ \{}
@@ -37,13 +37,13 @@
 \DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1switch__on__next__state__t}{switch\_on\_next\_state\_t}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1switch__on__next__state__t}{switch\_on\_next\_state\_t}}\&)\ \ \ \ \ =\ \textcolor{keyword}{delete};}
 \DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1switch__on__next__state__t}{switch\_on\_next\_state\_t}}(\mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1switch__on__next__state__t}{switch\_on\_next\_state\_t}}\&\&)\ \textcolor{keyword}{noexcept}\ =\ \textcolor{keyword}{delete};}
 \DoxyCodeLine{00035\ }
-\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1pointer__under__lock}{pointer\_under\_lock<TObserver>}}\ get\_observer()}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ rpp::utils::pointer\_under\_lock<TObserver>\ get\_observer()}
 \DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1pointer__under__lock}{pointer\_under\_lock}}\{m\_observer\_with\_mutex\};}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ m\_observer\_with\_mutex;}
 \DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{00040\ }
 \DoxyCodeLine{00041\ \ \ \ \ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1value__with__mutex}{value\_with\_mutex<TObserver>}}\ m\_observer\_with\_mutex\{\};}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ rpp::utils::value\_with\_mutex<TObserver>\ m\_observer\_with\_mutex\{\};}
 \DoxyCodeLine{00043\ \ \ \ \ \};}
 \DoxyCodeLine{00044\ }
 \DoxyCodeLine{00045\ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::observer\ TObserver>}

@@ -36,28 +36,35 @@
 \DoxyCodeLine{00032\ \ \ \ \ \textcolor{keyword}{class\ }serialized\_replay\_subject;}
 \DoxyCodeLine{00033\ }
 \DoxyCodeLine{00034\ }
-\DoxyCodeLine{00035\ \}\ \textcolor{comment}{//\ namespace\ rpp::subjects}}
-\DoxyCodeLine{00036\ }
-\DoxyCodeLine{00037\ \textcolor{keyword}{namespace\ }rpp::constraint}
-\DoxyCodeLine{00038\ \{}
-\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
-\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keyword}{concept\ }\mbox{\hyperlink{conceptrpp_1_1constraint_1_1subject}{subject}}\ =\ \textcolor{keyword}{requires}(\textcolor{keyword}{const}\ T\&\ subj)\ \{}
-\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \ \ \ \ subj.get\_observer()}
-\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \}\ -\/>\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer}{rpp::constraint::observer}};}
-\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \ \ \ \ subj.get\_observable()}
-\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \}\ -\/>\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp::constraint::observable}};}
-\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ subj.get\_disposable()}
-\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \}\ -\/>\ rpp::constraint::decayed\_any\_of<rpp::disposable\_wrapper,\ rpp::composite\_disposable\_wrapper>;}
-\DoxyCodeLine{00050\ \ \ \ \ \};}
-\DoxyCodeLine{00051\ \}\ \textcolor{comment}{//\ namespace\ rpp::constraint}}
-\DoxyCodeLine{00052\ }
-\DoxyCodeLine{00053\ \textcolor{keyword}{namespace\ }rpp::subjects::utils}
-\DoxyCodeLine{00054\ \{}
-\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::subject\ T>}
-\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keyword}{using\ }extract\_subject\_type\_t\ =\ rpp::utils::extract\_observer\_type\_t<decltype(std::declval<T>().get\_observer())>;}
-\DoxyCodeLine{00057\ \}\ \textcolor{comment}{//\ namespace\ rpp::subjects::utils}}
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type\ Type>}
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keyword}{class\ }behavior\_subject;}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type\ Type>}
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keyword}{class\ }serialized\_behavior\_subject;}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \}\ \textcolor{comment}{//\ namespace\ rpp::subjects}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{keyword}{namespace\ }rpp::constraint}
+\DoxyCodeLine{00045\ \{}
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00047\ \ \ \ \ \textcolor{keyword}{concept\ }\mbox{\hyperlink{conceptrpp_1_1constraint_1_1subject}{subject}}\ =\ \textcolor{keyword}{requires}(\textcolor{keyword}{const}\ T\&\ subj)\ \{}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \ \ \ \ subj.get\_observer()}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \}\ -\/>\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer}{rpp::constraint::observer}};}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \ \ \ \ subj.get\_observable()}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \}\ -\/>\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp::constraint::observable}};}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \ \ \ \ subj.get\_disposable()}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \}\ -\/>\ rpp::constraint::decayed\_any\_of<rpp::disposable\_wrapper,\ rpp::composite\_disposable\_wrapper>;}
+\DoxyCodeLine{00057\ \ \ \ \ \};}
+\DoxyCodeLine{00058\ \}\ \textcolor{comment}{//\ namespace\ rpp::constraint}}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \textcolor{keyword}{namespace\ }rpp::subjects::utils}
+\DoxyCodeLine{00061\ \{}
+\DoxyCodeLine{00062\ \ \ \ \ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::subject\ T>}
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{keyword}{using\ }extract\_subject\_type\_t\ =\ rpp::utils::extract\_observer\_type\_t<decltype(std::declval<T>().get\_observer())>;}
+\DoxyCodeLine{00064\ \}\ \textcolor{comment}{//\ namespace\ rpp::subjects::utils}}
 
 \end{DoxyCode}

@@ -116,9 +116,9 @@ $(function(){initNavTree('timeout_8hpp_source.html',''); initResizable(); });
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;rpp/operators/fwd.hpp&gt;</span></div>
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &lt;rpp/operators/details/strategy.hpp&gt;</span></div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &lt;rpp/operators/details/utils.hpp&gt;</span></div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#include &lt;rpp/sources/error.hpp&gt;</span></div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">#include &lt;rpp/utils/exceptions.hpp&gt;</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &lt;rpp/sources/error.hpp&gt;</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#include &lt;rpp/utils/exceptions.hpp&gt;</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">#include &lt;rpp/utils/utils.hpp&gt;</span></div>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="keyword">namespace </span>rpp::operators::details</div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>{</div>
@@ -141,14 +141,14 @@ $(function(){initNavTree('timeout_8hpp_source.html',''); initResizable(); });
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>            , m_fallback{fallback}</div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>        {</div>
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>        }</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>        <a class="code hl_class" href="classrpp_1_1operators_1_1details_1_1pointer__under__lock.html">pointer_under_lock&lt;observer_with_timeout&gt;</a> get_observer_with_timeout_under_lock() { <span class="keywordflow">return</span> <a class="code hl_class" href="classrpp_1_1operators_1_1details_1_1pointer__under__lock.html">pointer_under_lock</a>{m_observer_with_timeout}; }</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>        rpp::utils::pointer_under_lock&lt;observer_with_timeout&gt; get_observer_with_timeout_under_lock() { <span class="keywordflow">return</span> m_observer_with_timeout; }</div>
 <div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>        <span class="keyword">const</span> TFallbackObservable&amp; get_fallback()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> m_fallback; }</div>
 <div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
 <div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>        rpp::schedulers::duration get_period()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> m_period; }</div>
 <div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    <span class="keyword">private</span>:</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>        value_with_mutex&lt;observer_with_timeout&gt; m_observer_with_timeout;</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>        rpp::utils::value_with_mutex&lt;observer_with_timeout&gt; m_observer_with_timeout;</div>
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
 <div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        <span class="keyword">const</span> rpp::schedulers::duration m_period;</div>
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>        <span class="keyword">const</span> TFallbackObservable       m_fallback;</div>
@@ -324,7 +324,6 @@ $(function(){initNavTree('timeout_8hpp_source.html',''); initResizable(); });
 <div class="ttc" id="aclassrpp_1_1composite__disposable__impl_html"><div class="ttname"><a href="classrpp_1_1composite__disposable__impl.html">rpp::composite_disposable_impl</a></div><div class="ttdoc">Disposable which can keep some other sub-disposables. When this root disposable is disposed,...</div><div class="ttdef"><b>Definition</b> composite_disposable.hpp:31</div></div>
 <div class="ttc" id="aclassrpp_1_1disposable__wrapper__impl_html"><div class="ttname"><a href="classrpp_1_1disposable__wrapper__impl.html">rpp::disposable_wrapper_impl&lt; interface_disposable &gt;</a></div></div>
 <div class="ttc" id="aclassrpp_1_1observer_html"><div class="ttname"><a href="classrpp_1_1observer.html">rpp::observer</a></div><div class="ttdoc">Base class for any observer used in RPP. It handles core callbacks of observers. Objects of this clas...</div><div class="ttdef"><b>Definition</b> observer.hpp:172</div></div>
-<div class="ttc" id="aclassrpp_1_1operators_1_1details_1_1pointer__under__lock_html"><div class="ttname"><a href="classrpp_1_1operators_1_1details_1_1pointer__under__lock.html">rpp::operators::details::pointer_under_lock</a></div><div class="ttdef"><b>Definition</b> utils.hpp:38</div></div>
 <div class="ttc" id="aclassrpp_1_1operators_1_1details_1_1timeout__disposable_html"><div class="ttname"><a href="classrpp_1_1operators_1_1details_1_1timeout__disposable.html">rpp::operators::details::timeout_disposable</a></div><div class="ttdef"><b>Definition</b> timeout.hpp:24</div></div>
 <div class="ttc" id="aconceptrpp_1_1constraint_1_1observable__of__type_html"><div class="ttname"><a href="conceptrpp_1_1constraint_1_1observable__of__type.html">rpp::constraint::observable_of_type</a></div><div class="ttdef"><b>Definition</b> fwd.hpp:85</div></div>
 <div class="ttc" id="agroup__utility__operators_html_gaa758f1ad38da6b37357232317fcdc9b5"><div class="ttname"><a href="group__utility__operators.html#gaa758f1ad38da6b37357232317fcdc9b5">rpp::operators::timeout</a></div><div class="ttdeci">auto timeout(rpp::schedulers::duration period, TFallbackObservable &amp;&amp;fallback_observable, const TScheduler &amp;scheduler)</div><div class="ttdoc">Forwards emissions from original observable, but subscribes on fallback observable if no any events d...</div><div class="ttdef"><b>Definition</b> timeout.hpp:210</div></div>

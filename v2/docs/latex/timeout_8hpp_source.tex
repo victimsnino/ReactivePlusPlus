@@ -17,9 +17,9 @@
 \DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <rpp/operators/fwd.hpp>}}
 \DoxyCodeLine{00014\ }
 \DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <rpp/operators/details/strategy.hpp>}}
-\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ <rpp/operators/details/utils.hpp>}}
-\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ <rpp/sources/error.hpp>}}
-\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ <rpp/utils/exceptions.hpp>}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ <rpp/sources/error.hpp>}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ <rpp/utils/exceptions.hpp>}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ <rpp/utils/utils.hpp>}}
 \DoxyCodeLine{00019\ }
 \DoxyCodeLine{00020\ \textcolor{keyword}{namespace\ }rpp::operators::details}
 \DoxyCodeLine{00021\ \{}
@@ -39,14 +39,14 @@
 \DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \ \ \ \ ,\ m\_fallback\{fallback\}}
 \DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \{}
 \DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1pointer__under__lock}{pointer\_under\_lock<observer\_with\_timeout>}}\ get\_observer\_with\_timeout\_under\_lock()\ \{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1pointer__under__lock}{pointer\_under\_lock}}\{m\_observer\_with\_timeout\};\ \}}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ rpp::utils::pointer\_under\_lock<observer\_with\_timeout>\ get\_observer\_with\_timeout\_under\_lock()\ \{\ \textcolor{keywordflow}{return}\ m\_observer\_with\_timeout;\ \}}
 \DoxyCodeLine{00039\ }
 \DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ TFallbackObservable\&\ get\_fallback()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ m\_fallback;\ \}}
 \DoxyCodeLine{00041\ }
 \DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ rpp::schedulers::duration\ get\_period()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ m\_period;\ \}}
 \DoxyCodeLine{00043\ }
 \DoxyCodeLine{00044\ \ \ \ \ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ value\_with\_mutex<observer\_with\_timeout>\ m\_observer\_with\_timeout;}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ rpp::utils::value\_with\_mutex<observer\_with\_timeout>\ m\_observer\_with\_timeout;}
 \DoxyCodeLine{00046\ }
 \DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ rpp::schedulers::duration\ m\_period;}
 \DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ TFallbackObservable\ \ \ \ \ \ \ m\_fallback;}

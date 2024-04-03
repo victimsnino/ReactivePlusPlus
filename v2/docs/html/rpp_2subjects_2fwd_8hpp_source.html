@@ -135,34 +135,41 @@ $(function(){initNavTree('rpp_2subjects_2fwd_8hpp_source.html',''); initResizabl
 <div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    <span class="keyword">class </span>serialized_replay_subject;</div>
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
 <div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>} <span class="comment">// namespace rpp::subjects</span></div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="keyword">namespace </span>rpp::constraint</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>{</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="foldopen" id="foldopen00040" data-start="{" data-end="}">
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno"><a class="line" href="conceptrpp_1_1constraint_1_1subject.html">   40</a></span>    <span class="keyword">concept </span><a class="code hl_concept" href="conceptrpp_1_1constraint_1_1subject.html">subject</a> = <span class="keyword">requires</span>(<span class="keyword">const</span> T&amp; subj) {</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        {</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>            subj.get_observer()</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>        } -&gt; <a class="code hl_concept" href="conceptrpp_1_1constraint_1_1observer.html">rpp::constraint::observer</a>;</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        {</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>            subj.get_observable()</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>        } -&gt; <a class="code hl_concept" href="conceptrpp_1_1constraint_1_1observable.html">rpp::constraint::observable</a>;</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        {</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>            subj.get_disposable()</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>        } -&gt; rpp::constraint::decayed_any_of&lt;rpp::disposable_wrapper, rpp::composite_disposable_wrapper&gt;;</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    };</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    <span class="keyword">template</span>&lt;rpp::constra<span class="keywordtype">int</span>::decayed_type Type&gt;</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    <span class="keyword">class </span>behavior_subject;</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    <span class="keyword">template</span>&lt;rpp::constra<span class="keywordtype">int</span>::decayed_type Type&gt;</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    <span class="keyword">class </span>serialized_behavior_subject;</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>} <span class="comment">// namespace rpp::subjects</span></div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="keyword">namespace </span>rpp::constraint</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>{</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="foldopen" id="foldopen00047" data-start="{" data-end="}">
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno"><a class="line" href="conceptrpp_1_1constraint_1_1subject.html">   47</a></span>    <span class="keyword">concept </span><a class="code hl_concept" href="conceptrpp_1_1constraint_1_1subject.html">subject</a> = <span class="keyword">requires</span>(<span class="keyword">const</span> T&amp; subj) {</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>        {</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>            subj.get_observer()</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>        } -&gt; <a class="code hl_concept" href="conceptrpp_1_1constraint_1_1observer.html">rpp::constraint::observer</a>;</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>        {</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>            subj.get_observable()</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>        } -&gt; <a class="code hl_concept" href="conceptrpp_1_1constraint_1_1observable.html">rpp::constraint::observable</a>;</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>        {</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>            subj.get_disposable()</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>        } -&gt; rpp::constraint::decayed_any_of&lt;rpp::disposable_wrapper, rpp::composite_disposable_wrapper&gt;;</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    };</div>
 </div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>} <span class="comment">// namespace rpp::constraint</span></div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span><span class="keyword">namespace </span>rpp::subjects::utils</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>{</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    <span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::subject T&gt;</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    <span class="keyword">using </span>extract_subject_type_t = rpp::utils::extract_observer_type_t&lt;decltype(std::declval&lt;T&gt;().get_observer())&gt;;</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>} <span class="comment">// namespace rpp::subjects::utils</span></div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>} <span class="comment">// namespace rpp::constraint</span></div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span><span class="keyword">namespace </span>rpp::subjects::utils</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>{</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    <span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::subject T&gt;</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    <span class="keyword">using </span>extract_subject_type_t = rpp::utils::extract_observer_type_t&lt;decltype(std::declval&lt;T&gt;().get_observer())&gt;;</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>} <span class="comment">// namespace rpp::subjects::utils</span></div>
 <div class="ttc" id="aconceptrpp_1_1constraint_1_1observable_html"><div class="ttname"><a href="conceptrpp_1_1constraint_1_1observable.html">rpp::constraint::observable</a></div><div class="ttdef"><b>Definition</b> fwd.hpp:67</div></div>
 <div class="ttc" id="aconceptrpp_1_1constraint_1_1observer_html"><div class="ttname"><a href="conceptrpp_1_1constraint_1_1observer.html">rpp::constraint::observer</a></div><div class="ttdef"><b>Definition</b> fwd.hpp:235</div></div>
-<div class="ttc" id="aconceptrpp_1_1constraint_1_1subject_html"><div class="ttname"><a href="conceptrpp_1_1constraint_1_1subject.html">rpp::constraint::subject</a></div><div class="ttdef"><b>Definition</b> fwd.hpp:40</div></div>
+<div class="ttc" id="aconceptrpp_1_1constraint_1_1subject_html"><div class="ttname"><a href="conceptrpp_1_1constraint_1_1subject.html">rpp::constraint::subject</a></div><div class="ttdef"><b>Definition</b> fwd.hpp:47</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

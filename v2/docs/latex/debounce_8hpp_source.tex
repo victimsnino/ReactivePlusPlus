@@ -18,7 +18,7 @@
 \DoxyCodeLine{00014\ }
 \DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <rpp/disposables/composite\_disposable.hpp>}}
 \DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ <rpp/operators/details/strategy.hpp>}}
-\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ <rpp/operators/details/utils.hpp>}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ <rpp/utils/utils.hpp>}}
 \DoxyCodeLine{00018\ }
 \DoxyCodeLine{00019\ \textcolor{keyword}{namespace\ }rpp::operators::details}
 \DoxyCodeLine{00020\ \{}
@@ -73,7 +73,7 @@
 \DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::exchange(m\_value\_to\_be\_emitted,\ std::optional<T>\{\});}
 \DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{00071\ }
-\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1pointer__under__lock}{pointer\_under\_lock<Observer>}}\ get\_observer\_under\_lock()\ \{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1pointer__under__lock}{pointer\_under\_lock}}\{m\_observer\};\ \}}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ rpp::utils::pointer\_under\_lock<Observer>\ get\_observer\_under\_lock()\ \{\ \textcolor{keywordflow}{return}\ m\_observer;\ \}}
 \DoxyCodeLine{00073\ }
 \DoxyCodeLine{00074\ \ \ \ \ \textcolor{keyword}{private}:}
 \DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ schedule()}
@@ -108,9 +108,9 @@
 \DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ v;}
 \DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{00106\ }
-\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ value\_with\_mutex<Observer>\ \ \ m\_observer;}
-\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ RPP\_NO\_UNIQUE\_ADDRESS\ Worker\ m\_worker;}
-\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ rpp::schedulers::duration\ \ \ \ m\_period;}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ rpp::utils::value\_with\_mutex<Observer>\ m\_observer;}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ RPP\_NO\_UNIQUE\_ADDRESS\ Worker\ \ \ \ \ \ \ \ \ \ \ m\_worker;}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ rpp::schedulers::duration\ \ \ \ \ \ \ \ \ \ \ \ \ \ m\_period;}
 \DoxyCodeLine{00110\ }
 \DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ std::mutex\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ m\_mutex\{\};}
 \DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ std::optional<schedulers::time\_point>\ m\_time\_when\_value\_should\_be\_emitted\{\};}

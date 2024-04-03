@@ -19,9 +19,9 @@
 \DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <rpp/defs.hpp>}}
 \DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ <rpp/disposables/composite\_disposable.hpp>}}
 \DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ <rpp/operators/details/strategy.hpp>}}
-\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ <rpp/operators/details/utils.hpp>}}
-\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#include\ <rpp/schedulers/current\_thread.hpp>}}
-\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#include\ <rpp/utils/tuple.hpp>}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ <rpp/schedulers/current\_thread.hpp>}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#include\ <rpp/utils/tuple.hpp>}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#include\ <rpp/utils/utils.hpp>}}
 \DoxyCodeLine{00021\ }
 \DoxyCodeLine{00022\ \textcolor{preprocessor}{\#include\ <atomic>}}
 \DoxyCodeLine{00023\ }
@@ -42,11 +42,11 @@
 \DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ just\ need\ atomicity,\ not\ guarding\ anything}}
 \DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ decrement\_on\_completed()\ \{\ \textcolor{keywordflow}{return}\ m\_on\_completed\_needed.fetch\_sub(1,\ std::memory\_order::seq\_cst)\ ==\ 1;\ \}}
 \DoxyCodeLine{00040\ }
-\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1pointer__under__lock}{pointer\_under\_lock<TObserver>}}\ get\_observer\_under\_lock()\ \{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1pointer__under__lock}{pointer\_under\_lock}}\{m\_observer\};\ \}}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ rpp::utils::pointer\_under\_lock<TObserver>\ get\_observer\_under\_lock()\ \{\ \textcolor{keywordflow}{return}\ m\_observer;\ \}}
 \DoxyCodeLine{00042\ }
 \DoxyCodeLine{00043\ \ \ \ \ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1value__with__mutex}{value\_with\_mutex<TObserver>}}\ m\_observer\{\};}
-\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ std::atomic\_size\_t\ \ \ \ \ \ \ \ \ \ m\_on\_completed\_needed\{1\};}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ rpp::utils::value\_with\_mutex<TObserver>\ m\_observer\{\};}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ std::atomic\_size\_t\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ m\_on\_completed\_needed\{1\};}
 \DoxyCodeLine{00046\ \ \ \ \ \};}
 \DoxyCodeLine{00047\ }
 \DoxyCodeLine{00048\ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::observer\ TObserver>}

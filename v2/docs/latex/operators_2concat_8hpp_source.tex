@@ -18,7 +18,7 @@
 \DoxyCodeLine{00014\ }
 \DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <rpp/disposables/refcount\_disposable.hpp>}}
 \DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ <rpp/operators/details/strategy.hpp>}}
-\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ <rpp/operators/details/utils.hpp>}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ <rpp/utils/utils.hpp>}}
 \DoxyCodeLine{00018\ }
 \DoxyCodeLine{00019\ \textcolor{preprocessor}{\#include\ <cassert>}}
 \DoxyCodeLine{00020\ \textcolor{preprocessor}{\#include\ <queue>}}
@@ -46,8 +46,8 @@
 \DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \{}
 \DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{00044\ }
-\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1pointer__under__lock}{pointer\_under\_lock<TObserver>}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ get\_observer()\ \{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1pointer__under__lock}{pointer\_under\_lock}}\{m\_observer\};\ \}}
-\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1pointer__under__lock}{pointer\_under\_lock<std::queue<TObservable>}}>\ get\_queue()\ \{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1pointer__under__lock}{pointer\_under\_lock}}\{m\_queue\};\ \}}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ rpp::utils::pointer\_under\_lock<TObserver>\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ get\_observer()\ \{\ \textcolor{keywordflow}{return}\ m\_observer;\ \}}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ rpp::utils::pointer\_under\_lock<std::queue<TObservable>>\ get\_queue()\ \{\ \textcolor{keywordflow}{return}\ m\_queue;\ \}}
 \DoxyCodeLine{00047\ }
 \DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ std::atomic<ConcatStage>\&\ stage()\ \{\ \textcolor{keywordflow}{return}\ m\_stage;\ \}}
 \DoxyCodeLine{00049\ }
@@ -101,9 +101,9 @@
 \DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{00098\ }
 \DoxyCodeLine{00099\ \ \ \ \ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1value__with__mutex}{value\_with\_mutex<TObserver>}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ m\_observer;}
-\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1value__with__mutex}{value\_with\_mutex<std::queue<TObservable>}}>\ m\_queue;}
-\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ std::atomic<ConcatStage>\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ m\_stage\{\};}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ rpp::utils::value\_with\_mutex<TObserver>\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ m\_observer;}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ rpp::utils::value\_with\_mutex<std::queue<TObservable>>\ m\_queue;}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ std::atomic<ConcatStage>\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ m\_stage\{\};}
 \DoxyCodeLine{00103\ \ \ \ \ \};}
 \DoxyCodeLine{00104\ }
 \DoxyCodeLine{00105\ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::observable\ TObservable,\ rpp::constra\textcolor{keywordtype}{int}::observer\ TObserver>}

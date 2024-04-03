@@ -9,6 +9,13 @@ var hierarchy =
         [ "rpp::details::observables::blocking_disposble", "classrpp_1_1details_1_1observables_1_1blocking__disposble.html", null ]
       ] ]
     ] ],
+    [ "rpp::subjects::details::behavior_subject_base< Type, Serialized >", "classrpp_1_1subjects_1_1details_1_1behavior__subject__base.html", null ],
+    [ "rpp::subjects::details::behavior_subject_base< Type, false >", "classrpp_1_1subjects_1_1details_1_1behavior__subject__base.html", [
+      [ "rpp::subjects::behavior_subject< Type >", "classrpp_1_1subjects_1_1behavior__subject.html", null ]
+    ] ],
+    [ "rpp::subjects::details::behavior_subject_base< Type, true >", "classrpp_1_1subjects_1_1details_1_1behavior__subject__base.html", [
+      [ "rpp::subjects::serialized_behavior_subject< Type >", "classrpp_1_1subjects_1_1serialized__behavior__subject.html", null ]
+    ] ],
     [ "rpp::details::observables::blocking_strategy< Type, Strategy >", "classrpp_1_1details_1_1observables_1_1blocking__strategy.html", null ],
     [ "rpp::operators::details::buffer_observer_strategy< TObserver >", "classrpp_1_1operators_1_1details_1_1buffer__observer__strategy.html", null ],
     [ "rpp::operators::details::combining_observer_strategy< TDisposable >", "structrpp_1_1operators_1_1details_1_1combining__observer__strategy.html", null ],
@@ -47,6 +54,7 @@ var hierarchy =
     [ "rpp::operators::details::delay_t< Scheduler, ClearOnError >", "structrpp_1_1operators_1_1details_1_1delay__t.html", null ],
     [ "rpp::schedulers::delay_to", "structrpp_1_1schedulers_1_1delay__to.html", null ],
     [ "rpp::details::disposable_wrapper_base", "classrpp_1_1details_1_1disposable__wrapper__base.html", [
+      [ "rpp::disposable_wrapper_impl< behavior_state >", "classrpp_1_1disposable__wrapper__impl.html", null ],
       [ "rpp::disposable_wrapper_impl< rpp::subjects::details::subject_state< Type, Serialized > >", "classrpp_1_1disposable__wrapper__impl.html", null ],
       [ "rpp::disposable_wrapper_impl< replay_state >", "classrpp_1_1disposable__wrapper__impl.html", null ],
       [ "rpp::disposable_wrapper_impl< interface_composite_disposable >", "classrpp_1_1disposable__wrapper__impl.html", null ],
@@ -291,7 +299,6 @@ var hierarchy =
     [ "rpp::operators::details::window_toggle_t< TOpeningsObservable, TClosingsSelectorFn >::operator_traits< T >", "structrpp_1_1operators_1_1details_1_1window__toggle__t_1_1operator__traits.html", null ],
     [ "rpp::operators::details::with_latest_from_t< TSelector, TObservables >::operator_traits< T >", "structrpp_1_1operators_1_1details_1_1with__latest__from__t_1_1operator__traits.html", null ],
     [ "rpp::schedulers::details::optional_mutex< Mutex >", "classrpp_1_1schedulers_1_1details_1_1optional__mutex.html", null ],
-    [ "rpp::operators::details::pointer_under_lock< T >", "classrpp_1_1operators_1_1details_1_1pointer__under__lock.html", null ],
     [ "rpp::subjects::details::publish_subject_base< Type, Serialized >", "classrpp_1_1subjects_1_1details_1_1publish__subject__base.html", null ],
     [ "rpp::subjects::details::publish_subject_base< Type, false >", "classrpp_1_1subjects_1_1details_1_1publish__subject__base.html", [
       [ "rpp::subjects::publish_subject< T >", "classrpp_1_1subjects_1_1publish__subject.html", null ],
@@ -364,12 +371,6 @@ var hierarchy =
     ] ],
     [ "rpp::memory_model::use_shared", "structrpp_1_1memory__model_1_1use__shared.html", null ],
     [ "rpp::memory_model::use_stack", "structrpp_1_1memory__model_1_1use__stack.html", null ],
-    [ "rpp::operators::details::value_with_mutex< T >", "structrpp_1_1operators_1_1details_1_1value__with__mutex.html", null ],
-    [ "rpp::operators::details::value_with_mutex< Observer >", "structrpp_1_1operators_1_1details_1_1value__with__mutex.html", null ],
-    [ "rpp::operators::details::value_with_mutex< rpp::operators::details::timeout_disposable::observer_with_timeout >", "structrpp_1_1operators_1_1details_1_1value__with__mutex.html", null ],
-    [ "rpp::operators::details::value_with_mutex< rpp::operators::details::window_toggle_state::state_t >", "structrpp_1_1operators_1_1details_1_1value__with__mutex.html", null ],
-    [ "rpp::operators::details::value_with_mutex< std::queue< TObservable > >", "structrpp_1_1operators_1_1details_1_1value__with__mutex.html", null ],
-    [ "rpp::operators::details::value_with_mutex< TObserver >", "structrpp_1_1operators_1_1details_1_1value__with__mutex.html", null ],
     [ "rpp::subjects::details::replay_subject_base< Type, Serialized >::replay_state::value_with_time", "structrpp_1_1subjects_1_1details_1_1replay__subject__base_1_1replay__state_1_1value__with__time.html", null ],
     [ "rpp::operators::details::window_observer_strategy< TObserver >", "classrpp_1_1operators_1_1details_1_1window__observer__strategy.html", null ],
     [ "rpp::operators::details::window_toggle_closing_observer_strategy< TState >", "structrpp_1_1operators_1_1details_1_1window__toggle__closing__observer__strategy.html", null ],
