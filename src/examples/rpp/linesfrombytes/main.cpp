@@ -20,7 +20,7 @@ int main() // NOLINT(bugprone-exception-escape)
                      auto delim = rpp::source::just((uint8_t)'\r');
                      return rpp::source::concat(body, delim);
                  })
-               | rpp::operators::window(17) 
+               | rpp::operators::window(17)
                | rpp::operators::flat_map([](auto&& w) {
                      return std::forward<decltype(w)>(w) | rpp::operators::reduce(std::vector<uint8_t>(), [](std::vector<uint8_t> v, uint8_t b) {
                                 v.push_back(b);
@@ -48,7 +48,7 @@ int main() // NOLINT(bugprone-exception-escape)
                        std::regex                 delim(R"/(\r)/");
                        std::cregex_token_iterator cursor(&s[0], &s[0] + s.size(), delim, {-1, 0});
                        std::cregex_token_iterator end;
-                       std::vector<std::string>        splits(cursor, end);
+                       std::vector<std::string>   splits(cursor, end);
                        return rpp::source::from_iterable(std::move(splits));
                    })
                  | rpp::operators::concat()
