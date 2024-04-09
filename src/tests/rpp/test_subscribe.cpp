@@ -100,11 +100,7 @@ TEMPLATE_TEST_CASE("subscribe as operator", "", rpp::memory_model::use_stack, rp
     SECTION("subscribe lambdas with disposable")
     {
         static_assert(std::is_same_v<decltype(observable | rpp::operators::subscribe(rpp::composite_disposable_wrapper::make(), rpp::utils::empty_function_t<int>{}, rpp::utils::empty_function_t<std::exception_ptr>{}, rpp::utils::empty_function_t<>{})), rpp::composite_disposable_wrapper>);
-        auto d = observable | rpp::operators::subscribe(
-                     rpp::composite_disposable_wrapper::make(),
-                     [&mock](const auto& v) { mock.on_next(v); },
-                     rpp::utils::empty_function_t<std::exception_ptr>{},
-                     rpp::utils::empty_function_t<>{});
+        auto d = observable | rpp::operators::subscribe(rpp::composite_disposable_wrapper::make(), [&mock](const auto& v) { mock.on_next(v); }, rpp::utils::empty_function_t<std::exception_ptr>{}, rpp::utils::empty_function_t<>{});
         CHECK(d.is_disposed());
         CHECK(mock.get_received_values() == std::vector{1});
     }
@@ -112,11 +108,7 @@ TEMPLATE_TEST_CASE("subscribe as operator", "", rpp::memory_model::use_stack, rp
     SECTION("subscribe lambdas with disposed disposable")
     {
         static_assert(std::is_same_v<decltype(observable | rpp::operators::subscribe(rpp::composite_disposable_wrapper::empty(), rpp::utils::empty_function_t<int>{}, rpp::utils::empty_function_t<std::exception_ptr>{}, rpp::utils::empty_function_t<>{})), rpp::composite_disposable_wrapper>);
-        auto d = observable | rpp::operators::subscribe(
-                     rpp::composite_disposable_wrapper::empty(),
-                     [&mock](const auto& v) { mock.on_next(v); },
-                     rpp::utils::empty_function_t<std::exception_ptr>{},
-                     rpp::utils::empty_function_t<>{});
+        auto d = observable | rpp::operators::subscribe(rpp::composite_disposable_wrapper::empty(), [&mock](const auto& v) { mock.on_next(v); }, rpp::utils::empty_function_t<std::exception_ptr>{}, rpp::utils::empty_function_t<>{});
         CHECK(d.is_disposed());
         CHECK(mock.get_received_values().empty());
     }

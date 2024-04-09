@@ -10,10 +10,10 @@
 #include <snitch/snitch.hpp>
 
 #include <rpp/observers/dynamic_observer.hpp>
+#include <rpp/observers/mock_observer.hpp>
 
 #include <rppqt/schedulers/main_thread.hpp>
 
-#include <rpp/observers/mock_observer.hpp>
 #include "rpp/disposables/fwd.hpp"
 #include "rpp/schedulers/fwd.hpp"
 
