@@ -10,6 +10,7 @@
 
 #include <snitch/snitch.hpp>
 
+#include <rpp/observers/mock_observer.hpp>
 #include <rpp/operators/skip.hpp>
 #include <rpp/schedulers/current_thread.hpp>
 #include <rpp/schedulers/immediate.hpp>
@@ -19,7 +20,6 @@
 
 #include "copy_count_tracker.hpp"
 #include "disposable_observable.hpp"
-#include "mock_observer.hpp"
 
 
 TEMPLATE_TEST_CASE("skip ignores first `count` of items",

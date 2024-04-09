@@ -10,12 +10,12 @@
 
 #include <snitch/snitch.hpp>
 
+#include <rpp/observers/mock_observer.hpp>
 #include <rpp/operators/filter.hpp>
 #include <rpp/sources/just.hpp>
 
 #include "copy_count_tracker.hpp"
 #include "disposable_observable.hpp"
-#include "mock_observer.hpp"
 
 #include <stdexcept>
 #include <string>

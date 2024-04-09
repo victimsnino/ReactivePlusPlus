@@ -8,19 +8,18 @@
 // Project home: https://github.com/victimsnino/ReactivePlusPlus
 //
 
-#include "test_scheduler.hpp"
-
 #include <snitch/snitch.hpp>
 
 #include <rpp/disposables/callback_disposable.hpp>
 #include <rpp/observers/dynamic_observer.hpp>
 #include <rpp/observers/lambda_observer.hpp>
+#include <rpp/observers/mock_observer.hpp>
 #include <rpp/operators/as_blocking.hpp>
 #include <rpp/operators/subscribe_on.hpp>
 #include <rpp/schedulers.hpp>
+#include <rpp/schedulers/test_scheduler.hpp>
 #include <rpp/sources/just.hpp>
 
-#include "mock_observer.hpp"
 #include "rpp/disposables/fwd.hpp"
 
 #include <chrono>

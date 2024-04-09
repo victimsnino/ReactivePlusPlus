@@ -10,18 +10,18 @@
 
 #include <snitch/snitch.hpp>
 
+#include <rpp/observers/mock_observer.hpp>
 #include <rpp/operators/as_blocking.hpp>
 #include <rpp/operators/delay.hpp>
 #include <rpp/operators/observe_on.hpp>
+#include <rpp/schedulers/test_scheduler.hpp>
 #include <rpp/sources/empty.hpp>
 #include <rpp/sources/error.hpp>
 #include <rpp/sources/just.hpp>
 #include <rpp/subjects/publish_subject.hpp>
 
 #include "disposable_observable.hpp"
-#include "mock_observer.hpp"
 #include "snitch_logging.hpp"
-#include "test_scheduler.hpp"
 
 namespace
 {

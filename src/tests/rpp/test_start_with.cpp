@@ -10,9 +10,8 @@
 
 #include <snitch/snitch.hpp>
 
+#include <rpp/observers/mock_observer.hpp>
 #include <rpp/operators/start_with.hpp>
-
-#include "mock_observer.hpp"
 
 TEST_CASE("start_with works as concat with prepending instead of adding at the end")
 {

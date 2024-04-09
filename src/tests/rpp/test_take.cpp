@@ -10,12 +10,12 @@
 
 #include <snitch/snitch.hpp>
 
+#include <rpp/observers/mock_observer.hpp>
 #include <rpp/operators/take.hpp>
 #include <rpp/sources/create.hpp>
 
 #include "copy_count_tracker.hpp"
 #include "disposable_observable.hpp"
-#include "mock_observer.hpp"
 
 
 TEST_CASE("take operator limits emissions")

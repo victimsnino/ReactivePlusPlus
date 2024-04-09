@@ -10,13 +10,13 @@
 
 #include <snitch/snitch.hpp>
 
+#include <rpp/observers/mock_observer.hpp>
 #include <rpp/operators/window.hpp>
 #include <rpp/sources/error.hpp>
 #include <rpp/sources/just.hpp>
 #include <rpp/subjects/publish_subject.hpp>
 
 #include "disposable_observable.hpp"
-#include "mock_observer.hpp"
 #include "snitch_logging.hpp"
 
 TEST_CASE("window subdivide observable into sub-observables")

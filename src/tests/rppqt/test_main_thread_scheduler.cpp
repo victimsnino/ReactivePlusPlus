@@ -13,7 +13,7 @@
 
 #include <rppqt/schedulers/main_thread.hpp>
 
-#include "mock_observer.hpp"
+#include <rpp/observers/mock_observer.hpp>
 #include "rpp/disposables/fwd.hpp"
 #include "rpp/schedulers/fwd.hpp"
 

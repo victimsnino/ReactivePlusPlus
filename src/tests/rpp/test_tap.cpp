@@ -10,6 +10,7 @@
 
 #include <snitch/snitch.hpp>
 
+#include <rpp/observers/mock_observer.hpp>
 #include <rpp/operators/tap.hpp>
 #include <rpp/sources/concat.hpp>
 #include <rpp/sources/error.hpp>
@@ -17,7 +18,6 @@
 
 #include "copy_count_tracker.hpp"
 #include "disposable_observable.hpp"
-#include "mock_observer.hpp"
 
 TEMPLATE_TEST_CASE("tap observes emissions and doesn't modify them", "", rpp::memory_model::use_stack, rpp::memory_model::use_shared)
 {
