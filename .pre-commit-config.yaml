@@ -28,21 +28,3 @@ repos:
         args: ["-style=file", "-i"]
         types_or: [c++, c]
         require_serial: true
-
-# - repo: local
-#   hooks:
-#     - id: compile_json
-#       name: compile_json
-#       entry: cmake --preset=ci-coverage-clang
-#       always_run: true
-#       require_serial: true
-#       pass_filenames: false
-#       language: system
-
-# - repo: https://github.com/pocc/pre-commit-hooks
-#   rev: master
-#   hooks:
-#     - id: clang-tidy
-#       args: [--fix-errors, -config-file=.clang-tidy, "--checks=-*,bugprone-*,concurrency-*,performance-*", -p=build, ./src/*]
-#     #   files: src
-#       entry: /usr/local/opt/llvm/bin/clang-tidy
