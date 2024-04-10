@@ -2,4 +2,3 @@ add_executable(basic_rppqt basic_rppqt.cpp)
 target_link_libraries(basic_rppqt PRIVATE rpp rppqt)
 set_target_properties(basic_rppqt PROPERTIES FOLDER Examples/rppqt)
 rpp_add_qt_support_to_executable(basic_rppqt)
-
