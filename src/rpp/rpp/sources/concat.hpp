@@ -90,6 +90,7 @@ namespace rpp::details
             if (state->itr.value() == std::cend(state->container))
             {
                 state->observer.on_completed();
+                state->dispose();
                 return;
             }
 

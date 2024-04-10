@@ -10,6 +10,7 @@
 
 #pragma once
 
+#include <exception>
 #include <tuple>
 
 namespace rpp::utils

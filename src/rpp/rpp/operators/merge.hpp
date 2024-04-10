@@ -71,8 +71,8 @@ namespace rpp::operators::details
 
         void on_error(const std::exception_ptr& err) const
         {
-            m_disposable->dispose();
             m_disposable->get_observer_under_lock()->on_error(err);
+            m_disposable->dispose();
         }
 
         void on_completed() const
@@ -83,8 +83,8 @@ namespace rpp::operators::details
                 {
                     m_disposable->remove(v);
                 }
-                m_disposable->dispose();
                 m_disposable->get_observer_under_lock()->on_completed();
+                m_disposable->dispose();
             }
         }
 

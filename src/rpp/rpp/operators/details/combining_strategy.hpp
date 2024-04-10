@@ -62,16 +62,16 @@ namespace rpp::operators::details
 
         void on_error(const std::exception_ptr& err) const
         {
-            disposable->dispose();
             disposable->get_observer_under_lock()->on_error(err);
+            disposable->dispose();
         }
 
         void on_completed() const
         {
             if (disposable->decrement_on_completed())
             {
-                disposable->dispose();
                 disposable->get_observer_under_lock()->on_completed();
+                disposable->dispose();
             }
         }
     };

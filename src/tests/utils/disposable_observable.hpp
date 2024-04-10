@@ -46,6 +46,38 @@ struct wrapped_observable_strategy_no_set_upstream
 };
 
 template<typename T>
+void test_operator_over_observable_finish_before_dispose(auto&& op)
+{
+    SECTION("operator calls on_error before dispose")
+    {
+        bool callback_called       = false;
+        auto observable_disposable = rpp::make_callback_disposable([&callback_called]() noexcept {
+            callback_called = true;
+        });
+        auto observable            = rpp::source::create<T>([&observable_disposable](auto&& obs) {
+            obs.set_upstream(observable_disposable);
+            obs.on_error(std::make_exception_ptr(std::runtime_error{""}));
+        });
+
+        op(observable) | rpp::ops::subscribe([](const auto&) {}, [&callback_called](const std::exception_ptr&) { CHECK(!callback_called); });
+    }
+
+    SECTION("operator calls on_completed before dispose")
+    {
+        bool callback_called       = false;
+        auto observable_disposable = rpp::make_callback_disposable([&callback_called]() noexcept {
+            callback_called = true;
+        });
+        auto observable            = rpp::source::create<T>([&observable_disposable](auto&& obs) {
+            obs.set_upstream(observable_disposable);
+            obs.on_completed();
+        });
+
+        op(observable) | rpp::ops::subscribe([](const auto&) {}, [&callback_called]() { CHECK(!callback_called); });
+    }
+}
+
+template<typename T>
 void test_operator_over_observable_with_disposable(auto&& op)
 {
     SECTION("operator disposes disposable")
@@ -111,4 +143,10 @@ template<typename T>
 void test_operator_with_disposable(auto&& op)
 {
     test_operator_over_observable_with_disposable<T>([op](auto&& observable) { return observable | op; });
+}
+
+template<typename T>
+void test_operator_finish_before_dispose(auto&& op)
+{
+    test_operator_over_observable_finish_before_dispose<T>([op](auto&& observable) { return observable | op; });
 }

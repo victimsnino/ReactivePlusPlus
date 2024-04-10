@@ -121,8 +121,8 @@ namespace rpp::operators::details
 
         void on_error(const std::exception_ptr& err) const
         {
-            state->dispose();
             state->get_observer()->on_error(err);
+            state->dispose();
         }
 
         void set_upstream(const disposable_wrapper& d) const { refcounted.add(d); }
