@@ -11,6 +11,7 @@
 #include <snitch/snitch.hpp>
 
 #include <rpp/observables/dynamic_observable.hpp>
+#include <rpp/observers/mock_observer.hpp>
 #include <rpp/operators/switch_on_next.hpp>
 #include <rpp/sources/empty.hpp>
 #include <rpp/sources/error.hpp>
@@ -20,7 +21,6 @@
 
 #include "copy_count_tracker.hpp"
 #include "disposable_observable.hpp"
-#include "mock_observer.hpp"
 #include "snitch_logging.hpp"
 
 TEST_CASE("switch_on_next switches observable after obtaining new one")

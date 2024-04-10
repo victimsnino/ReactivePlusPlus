@@ -11,13 +11,13 @@
 #include <snitch/snitch.hpp>
 
 #include <rpp/observables/dynamic_observable.hpp>
+#include <rpp/observers/mock_observer.hpp>
 #include <rpp/operators/buffer.hpp>
 #include <rpp/operators/merge.hpp>
 #include <rpp/sources/error.hpp>
 #include <rpp/sources/just.hpp>
 
 #include "disposable_observable.hpp"
-#include "mock_observer.hpp"
 
 TEST_CASE("buffer bundles items")
 {

@@ -15,6 +15,7 @@
 #include <rpp/disposables/composite_disposable.hpp>
 #include <rpp/disposables/disposable_wrapper.hpp>
 #include <rpp/observables/dynamic_observable.hpp>
+#include <rpp/observers/mock_observer.hpp>
 #include <rpp/operators/concat.hpp>
 #include <rpp/schedulers/immediate.hpp>
 #include <rpp/sources/concat.hpp>
@@ -24,7 +25,6 @@
 
 #include "copy_count_tracker.hpp"
 #include "disposable_observable.hpp"
-#include "mock_observer.hpp"
 #include "snitch_logging.hpp"
 
 #include <memory>

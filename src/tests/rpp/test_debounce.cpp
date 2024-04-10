@@ -10,12 +10,12 @@
 
 #include <snitch/snitch.hpp>
 
+#include <rpp/observers/mock_observer.hpp>
 #include <rpp/operators/debounce.hpp>
+#include <rpp/schedulers/test_scheduler.hpp>
 #include <rpp/subjects/publish_subject.hpp>
 
 #include "disposable_observable.hpp"
-#include "mock_observer.hpp"
-#include "test_scheduler.hpp"
 
 
 TEST_CASE("debounce emit only items where timeout reached")

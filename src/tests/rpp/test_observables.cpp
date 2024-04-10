@@ -10,13 +10,13 @@
 #include <snitch/snitch.hpp>
 
 #include <rpp/observables.hpp>
+#include <rpp/observers/mock_observer.hpp>
 #include <rpp/operators/as_blocking.hpp>
 #include <rpp/sources/create.hpp>
 #include <rpp/sources/empty.hpp>
 #include <rpp/sources/error.hpp>
 #include <rpp/sources/never.hpp>
 
-#include "mock_observer.hpp"
 #include "rpp/disposables/fwd.hpp"
 #include "rpp/operators/fwd.hpp"
 #include "rpp/operators/subscribe.hpp"

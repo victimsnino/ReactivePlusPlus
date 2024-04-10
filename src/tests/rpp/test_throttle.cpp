@@ -10,14 +10,14 @@
 
 #include <snitch/snitch.hpp>
 
+#include <rpp/observers/mock_observer.hpp>
 #include <rpp/operators/map.hpp>
 #include <rpp/operators/throttle.hpp>
+#include <rpp/schedulers/test_scheduler.hpp>
 #include <rpp/subjects/publish_subject.hpp>
 
 #include "disposable_observable.hpp"
-#include "mock_observer.hpp"
 #include "snitch_logging.hpp"
-#include "test_scheduler.hpp"
 
 TEST_CASE("throttle throttles emissions")
 {

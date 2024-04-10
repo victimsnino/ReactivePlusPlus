@@ -10,12 +10,12 @@
 
 #include <snitch/snitch.hpp>
 
+#include <rpp/observers/mock_observer.hpp>
 #include <rpp/operators/with_latest_from.hpp>
 #include <rpp/sources/just.hpp>
 #include <rpp/subjects/publish_subject.hpp>
 
 #include "disposable_observable.hpp"
-#include "mock_observer.hpp"
 
 
 TEST_CASE("with_latest_from combines observables")

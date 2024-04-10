@@ -10,12 +10,12 @@
 
 #include <snitch/snitch.hpp>
 
+#include <rpp/observers/mock_observer.hpp>
 #include <rpp/operators/reduce.hpp>
 #include <rpp/sources/from.hpp>
 
 #include "copy_count_tracker.hpp"
 #include "disposable_observable.hpp"
-#include "mock_observer.hpp"
 
 TEMPLATE_TEST_CASE("reduce reduces values and store state", "", rpp::memory_model::use_stack, rpp::memory_model::use_shared)
 {

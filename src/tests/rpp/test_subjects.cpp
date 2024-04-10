@@ -11,6 +11,7 @@
 #include <snitch/snitch.hpp>
 
 #include <rpp/disposables/composite_disposable.hpp>
+#include <rpp/observers/mock_observer.hpp>
 #include <rpp/operators/as_blocking.hpp>
 #include <rpp/sources/create.hpp>
 #include <rpp/subjects/behavior_subject.hpp>
@@ -18,7 +19,6 @@
 #include <rpp/subjects/replay_subject.hpp>
 
 #include "copy_count_tracker.hpp"
-#include "mock_observer.hpp"
 #include "snitch_logging.hpp"
 
 #include <thread>

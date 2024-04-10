@@ -10,6 +10,7 @@
 
 #include <snitch/snitch.hpp>
 
+#include <rpp/observers/mock_observer.hpp>
 #include <rpp/operators/as_blocking.hpp>
 #include <rpp/operators/subscribe_on.hpp>
 #include <rpp/schedulers/current_thread.hpp>
@@ -18,7 +19,6 @@
 #include <rpp/sources/error.hpp>
 
 #include "disposable_observable.hpp"
-#include "mock_observer.hpp"
 #include "rpp/disposables/composite_disposable.hpp"
 #include "rpp/disposables/fwd.hpp"
 #include "rpp/operators/fwd.hpp"

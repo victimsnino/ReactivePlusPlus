@@ -10,14 +10,13 @@
 
 #include <snitch/snitch.hpp>
 
+#include <rpp/observers/mock_observer.hpp>
 #include <rpp/sources/create.hpp>
 #include <rpp/sources/defer.hpp>
 #include <rpp/sources/empty.hpp>
 #include <rpp/sources/error.hpp>
 #include <rpp/sources/from.hpp>
 #include <rpp/sources/never.hpp>
-
-#include "mock_observer.hpp"
 
 TEST_CASE("defer on different sources")
 {

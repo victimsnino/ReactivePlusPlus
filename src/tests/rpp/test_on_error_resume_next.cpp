@@ -10,6 +10,7 @@
 
 #include <snitch/snitch.hpp>
 
+#include <rpp/observers/mock_observer.hpp>
 #include <rpp/operators/on_error_resume_next.hpp>
 #include <rpp/schedulers/immediate.hpp>
 #include <rpp/sources/create.hpp>
@@ -17,7 +18,6 @@
 #include <rpp/sources/just.hpp>
 
 #include "disposable_observable.hpp"
-#include "mock_observer.hpp"
 
 TEMPLATE_TEST_CASE("on_error_resume_next switches observable on error", "", rpp::memory_model::use_stack, rpp::memory_model::use_shared)
 {
@@ -137,6 +137,27 @@ TEMPLATE_TEST_CASE("on_error_resume_next switches observable on error", "", rpp:
                 CHECK(mock.get_total_on_next_count() == 3);
                 CHECK(mock.get_on_error_count() == 0);
                 CHECK(mock.get_on_completed_count() == 1);
+            }
+        }
+    }
+
+    SECTION("selector throwing exception")
+    {
+        auto obs = rpp::source::create<int>([](const auto& sub) {
+            sub.on_error(std::make_exception_ptr(std::runtime_error{""}));
+        });
+        SECTION("subscribe")
+        {
+            obs | rpp::operators::on_error_resume_next([](const std::exception_ptr& ep) {
+                std::rethrow_exception(ep);
+                return rpp::source::empty<int>();
+            })
+                | rpp::ops::subscribe(mock);
+            SECTION("observer obtains selector error exception")
+            {
+                CHECK(mock.get_total_on_next_count() == 0);
+                CHECK(mock.get_on_error_count() == 1);
+                CHECK(mock.get_on_completed_count() == 0);
             }
         }
     }

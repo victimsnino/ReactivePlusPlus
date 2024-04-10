@@ -10,11 +10,11 @@
 
 #include <snitch/snitch.hpp>
 
+#include <rpp/observers/mock_observer.hpp>
 #include <rpp/operators/take.hpp>
 #include <rpp/sources/from.hpp>
 
 #include "copy_count_tracker.hpp"
-#include "mock_observer.hpp"
 #include "rpp/memory_model.hpp"
 #include "rpp/observers/fwd.hpp"
 #include "rpp/schedulers/current_thread.hpp"

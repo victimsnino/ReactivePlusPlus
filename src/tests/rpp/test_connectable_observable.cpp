@@ -11,12 +11,11 @@
 #include <snitch/snitch.hpp>
 
 #include <rpp/observables/connectable_observable.hpp>
+#include <rpp/observers/mock_observer.hpp>
 #include <rpp/operators/map.hpp>
 #include <rpp/operators/multicast.hpp>
 #include <rpp/sources/just.hpp>
 #include <rpp/subjects/publish_subject.hpp>
-
-#include "mock_observer.hpp"
 
 TEST_CASE("connectable observable")
 {

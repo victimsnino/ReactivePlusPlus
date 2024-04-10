@@ -12,6 +12,7 @@
 #include <snitch/snitch_macros_check.hpp>
 
 #include <rpp/observables/dynamic_observable.hpp>
+#include <rpp/observers/mock_observer.hpp>
 #include <rpp/operators/as_blocking.hpp>
 #include <rpp/operators/merge.hpp>
 #include <rpp/schedulers/immediate.hpp>
@@ -23,7 +24,6 @@
 
 #include "copy_count_tracker.hpp"
 #include "disposable_observable.hpp"
-#include "mock_observer.hpp"
 
 #include <stdexcept>
 #include <string>
