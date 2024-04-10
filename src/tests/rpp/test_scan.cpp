@@ -10,12 +10,12 @@
 
 #include <snitch/snitch.hpp>
 
+#include <rpp/observers/mock_observer.hpp>
 #include <rpp/operators/scan.hpp>
 #include <rpp/sources/just.hpp>
 
 #include "copy_count_tracker.hpp"
 #include "disposable_observable.hpp"
-#include "mock_observer.hpp"
 
 
 TEMPLATE_TEST_CASE("scan scans values and store state", "", rpp::memory_model::use_stack, rpp::memory_model::use_shared)

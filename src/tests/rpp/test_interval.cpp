@@ -10,17 +10,17 @@
 
 #include <snitch/snitch.hpp>
 
+#include <rpp/observers/mock_observer.hpp>
 #include <rpp/operators/as_blocking.hpp>
 #include <rpp/operators/subscribe.hpp>
 #include <rpp/operators/take.hpp>
 #include <rpp/schedulers/current_thread.hpp>
 #include <rpp/schedulers/immediate.hpp>
 #include <rpp/schedulers/new_thread.hpp>
+#include <rpp/schedulers/test_scheduler.hpp>
 #include <rpp/sources/interval.hpp>
 
-#include "mock_observer.hpp"
 #include "snitch_logging.hpp"
-#include "test_scheduler.hpp"
 
 #include <chrono>
 

@@ -27,3 +27,4 @@
 #include <rpp/sources/from.hpp>
 #include <rpp/sources/interval.hpp>
 #include <rpp/sources/never.hpp>
+#include <rpp/sources/timer.hpp>

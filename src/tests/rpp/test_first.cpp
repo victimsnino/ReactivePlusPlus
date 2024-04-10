@@ -10,6 +10,7 @@
 
 #include <snitch/snitch.hpp>
 
+#include <rpp/observers/mock_observer.hpp>
 #include <rpp/operators/first.hpp>
 #include <rpp/sources/empty.hpp>
 #include <rpp/sources/error.hpp>
@@ -18,7 +19,6 @@
 
 #include "copy_count_tracker.hpp"
 #include "disposable_observable.hpp"
-#include "mock_observer.hpp"
 
 
 TEST_CASE("first only emits once")

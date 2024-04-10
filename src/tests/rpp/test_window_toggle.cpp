@@ -10,6 +10,7 @@
 
 #include <snitch/snitch.hpp>
 
+#include <rpp/observers/mock_observer.hpp>
 #include <rpp/operators/window_toggle.hpp>
 #include <rpp/sources/empty.hpp>
 #include <rpp/sources/error.hpp>
@@ -17,7 +18,6 @@
 #include <rpp/sources/never.hpp>
 
 #include "disposable_observable.hpp"
-#include "mock_observer.hpp"
 #include "rpp/schedulers/immediate.hpp"
 #include "snitch_logging.hpp"
 

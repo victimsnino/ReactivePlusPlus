@@ -10,6 +10,7 @@
 
 #include <snitch/snitch.hpp>
 
+#include <rpp/observers/mock_observer.hpp>
 #include <rpp/operators/distinct.hpp>
 #include <rpp/sources/empty.hpp>
 #include <rpp/sources/error.hpp>
@@ -17,7 +18,6 @@
 
 #include "copy_count_tracker.hpp"
 #include "disposable_observable.hpp"
-#include "mock_observer.hpp"
 
 TEMPLATE_TEST_CASE("distinct filters out repeated values and emit only items that have not already been emitted", "", rpp::memory_model::use_stack, rpp::memory_model::use_shared)
 {

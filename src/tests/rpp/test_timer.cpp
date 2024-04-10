@@ -10,10 +10,9 @@
 
 #include <snitch/snitch.hpp>
 
+#include <rpp/observers/mock_observer.hpp>
+#include <rpp/schedulers/test_scheduler.hpp>
 #include <rpp/sources/timer.hpp>
-
-#include "mock_observer.hpp"
-#include "test_scheduler.hpp"
 
 #include <chrono>
 

@@ -11,6 +11,7 @@
 #include <snitch/snitch.hpp>
 
 #include <rpp/observables/dynamic_observable.hpp>
+#include <rpp/observers/mock_observer.hpp>
 #include <rpp/operators/delay.hpp>
 #include <rpp/operators/group_by.hpp>
 #include <rpp/operators/take.hpp>
@@ -19,7 +20,6 @@
 #include <rpp/sources/just.hpp>
 
 #include "disposable_observable.hpp"
-#include "mock_observer.hpp"
 #include "rpp/disposables/composite_disposable.hpp"
 #include "rpp/disposables/fwd.hpp"
 
