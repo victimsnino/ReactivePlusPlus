@@ -1,5 +1,9 @@
 var NAVTREEINDEX2 =
 {
+"structrpp_1_1operators_1_1details_1_1merge__observer__inner__strategy.html":[3,0,0,2,0,46],
+"structrpp_1_1operators_1_1details_1_1merge__t.html":[3,0,0,2,0,48],
+"structrpp_1_1operators_1_1details_1_1merge__t_1_1operator__traits.html":[3,0,0,2,0,48,0],
+"structrpp_1_1operators_1_1details_1_1merge__with__t.html":[3,0,0,2,0,49],
 "structrpp_1_1operators_1_1details_1_1merge__with__t_1_1operator__traits.html":[3,0,0,2,0,49,0],
 "structrpp_1_1operators_1_1details_1_1multicast__t.html":[3,0,0,2,0,50],
 "structrpp_1_1operators_1_1details_1_1on__error__resume__next__observer__strategy.html":[3,0,0,2,0,51],
@@ -85,6 +89,7 @@ var NAVTREEINDEX2 =
 "structrppqt_1_1details_1_1from__signal__on__event_3_01_arg_01_4.html":[3,0,1,0,1],
 "structrppqt_1_1details_1_1from__signal__on__event_3_4.html":[3,0,1,0,2],
 "structrppqt_1_1utils_1_1no__active__qapplication.html":[3,0,1,2,0],
+"structtest__scheduler_1_1state.html":[3,0,3,0],
 "subject__on__subscribe_8hpp_source.html":[4,0,0,0,0,6,0,0],
 "subject__state_8hpp_source.html":[4,0,0,0,0,6,0,1],
 "subjects_8hpp_source.html":[4,0,0,0,0,17],
@@ -106,6 +111,7 @@ var NAVTREEINDEX2 =
 "take_until_8cpp-example.html":[5,30],
 "take_while_8cpp-example.html":[5,31],
 "tap_8hpp_source.html":[4,0,0,0,0,3,35],
+"test__scheduler_8hpp_source.html":[4,0,0,0,0,4,6],
 "throttle_8cpp-example.html":[5,32],
 "throttle_8hpp_source.html":[4,0,0,0,0,3,36],
 "timeout_8cpp-example.html":[5,33],

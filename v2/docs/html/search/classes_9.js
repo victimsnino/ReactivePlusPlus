@@ -13,5 +13,6 @@ var searchData=
   ['merge_5fobserver_5fstrategy_10',['merge_observer_strategy',['../classrpp_1_1operators_1_1details_1_1merge__observer__strategy.html',1,'rpp::operators::details']]],
   ['merge_5ft_11',['merge_t',['../structrpp_1_1operators_1_1details_1_1merge__t.html',1,'rpp::operators::details']]],
   ['merge_5fwith_5ft_12',['merge_with_t',['../structrpp_1_1operators_1_1details_1_1merge__with__t.html',1,'rpp::operators::details']]],
-  ['multicast_5ft_13',['multicast_t',['../structrpp_1_1operators_1_1details_1_1multicast__t.html',1,'rpp::operators::details']]]
+  ['mock_5fobserver_5fstrategy_13',['mock_observer_strategy',['../classmock__observer__strategy.html',1,'']]],
+  ['multicast_5ft_14',['multicast_t',['../structrpp_1_1operators_1_1details_1_1multicast__t.html',1,'rpp::operators::details']]]
 ];

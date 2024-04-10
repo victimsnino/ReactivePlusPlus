@@ -1,0 +1,83 @@
+\doxysection{mock\+\_\+observer.\+hpp}
+\hypertarget{mock__observer_8hpp_source}{}\label{mock__observer_8hpp_source}\index{src/rpp/rpp/observers/mock\_observer.hpp@{src/rpp/rpp/observers/mock\_observer.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ReactivePlusPlus\ library}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ Copyright\ Aleksey\ Loginov\ 2023\ -\/\ present.}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ Distributed\ under\ the\ Boost\ Software\ License,\ Version\ 1.0.}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ \ \ \ (See\ accompanying\ file\ LICENSE\_1\_0.txt\ or\ copy\ at}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ https://www.boost.org/LICENSE\_1\_0.txt)}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ Project\ home:\ https://github.com/victimsnino/ReactivePlusPlus}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <rpp/disposables/fwd.hpp>}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <rpp/observers/observer.hpp>}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ Type>}
+\DoxyCodeLine{00020\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classmock__observer__strategy}{mock\_observer\_strategy}}\ final}
+\DoxyCodeLine{00021\ \{}
+\DoxyCodeLine{00022\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{classmock__observer__strategy}{mock\_observer\_strategy}}(\textcolor{keywordtype}{bool}\ copy\_values\ =\ \textcolor{keyword}{true})}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ :\ m\_state\{std::make\_shared<State>(copy\_values)\}}
+\DoxyCodeLine{00025\ \ \ \ \ \{}
+\DoxyCodeLine{00026\ \ \ \ \ \}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_next(\textcolor{keyword}{const}\ Type\&\ v)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00029\ \ \ \ \ \{}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ ++m\_state-\/>m\_on\_next\_const\_ref\_count;}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (m\_state-\/>m\_copy\_values)}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \ \ \ \ m\_state-\/>vals.push\_back(v);}
+\DoxyCodeLine{00033\ \ \ \ \ \}}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_next(Type\&\&\ v)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00036\ \ \ \ \ \{}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ ++m\_state-\/>m\_on\_next\_move\_count;}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (m\_state-\/>m\_copy\_values)}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \ \ \ \ m\_state-\/>vals.push\_back(std::move(v));}
+\DoxyCodeLine{00040\ \ \ \ \ \}}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_error(\textcolor{keyword}{const}\ std::exception\_ptr\&)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ ++m\_state-\/>m\_on\_error\_count;\ \}}
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_completed()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ ++m\_state-\/>m\_on\_completed\_count;\ \}}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ is\_disposed()\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};\ \}}
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ set\_upstream(\textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp::disposable\_wrapper}}\&)\ \textcolor{keyword}{noexcept}\ \{\}}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ get\_total\_on\_next\_count()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ m\_state-\/>m\_on\_next\_const\_ref\_count\ +\ m\_state-\/>m\_on\_next\_move\_count;\ \}}
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ get\_on\_next\_const\_ref\_count()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ m\_state-\/>m\_on\_next\_const\_ref\_count;\ \}}
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ get\_on\_next\_move\_count()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ m\_state-\/>m\_on\_next\_move\_count;\ \}}
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ get\_on\_error\_count()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ m\_state-\/>m\_on\_error\_count;\ \}}
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ get\_on\_completed\_count()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ m\_state-\/>m\_on\_completed\_count;\ \}}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \ \ \ \ std::vector<Type>\ get\_received\_values()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ m\_state-\/>vals;\ \}}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keyword}{auto}\ get\_observer()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classrpp_1_1observer}{rpp::observer<Type,\ mock\_observer\_strategy<Type>}}>\{*\textcolor{keyword}{this}\};\ \}}
+\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keyword}{auto}\ get\_observer(\mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp::composite\_disposable\_wrapper}}\ d)\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classrpp_1_1observer}{rpp::observer\_with\_disposable<Type,\ mock\_observer\_strategy<Type>}}>\{std::move(d),\ *\textcolor{keyword}{this}\};\ \}}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00060\ \ \ \ \ \textcolor{keyword}{struct\ }State}
+\DoxyCodeLine{00061\ \ \ \ \ \{}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \textcolor{keyword}{explicit}\ State(\textcolor{keywordtype}{bool}\ copy\_values)}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \ \ \ \ :\ m\_copy\_values\{copy\_values\}}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \ \ m\_copy\_values\ \ \ \ \ \ \ \ \ \ \ \ \ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ m\_on\_next\_const\_ref\_count\ =\ 0;}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ m\_on\_next\_move\_count\ \ \ \ \ \ =\ 0;}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ m\_on\_error\_count\ \ \ \ \ \ \ \ \ \ =\ 0;}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ m\_on\_completed\_count\ \ \ \ \ \ =\ 0;}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ std::vector<Type>\ vals\{\};}
+\DoxyCodeLine{00074\ \ \ \ \ \};}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \ \ \ \ std::shared\_ptr<State>\ m\_state\{\};}
+\DoxyCodeLine{00077\ \};}
+
+\end{DoxyCode}

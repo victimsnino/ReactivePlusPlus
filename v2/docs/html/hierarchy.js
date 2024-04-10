@@ -6,7 +6,8 @@ var hierarchy =
     [ "BaseInterface", null, [
       [ "rpp::details::base_disposable_impl< BaseInterface >", "classrpp_1_1details_1_1base__disposable__impl.html", [
         [ "rpp::callback_disposable< Fn >", "classrpp_1_1callback__disposable.html", null ],
-        [ "rpp::details::observables::blocking_disposble", "classrpp_1_1details_1_1observables_1_1blocking__disposble.html", null ]
+        [ "rpp::details::observables::blocking_disposble", "classrpp_1_1details_1_1observables_1_1blocking__disposble.html", null ],
+        [ "test_scheduler::state", "structtest__scheduler_1_1state.html", null ]
       ] ]
     ] ],
     [ "rpp::subjects::details::behavior_subject_base< Type, Serialized >", "classrpp_1_1subjects_1_1details_1_1behavior__subject__base.html", null ],
@@ -62,6 +63,7 @@ var hierarchy =
       [ "rpp::disposable_wrapper_impl< rpp::subjects::details::subject_state< Type, false > >", "classrpp_1_1disposable__wrapper__impl.html", null ],
       [ "rpp::disposable_wrapper_impl< interface_disposable >", "classrpp_1_1disposable__wrapper__impl.html", null ],
       [ "rpp::disposable_wrapper_impl< disposable >", "classrpp_1_1disposable__wrapper__impl.html", null ],
+      [ "rpp::disposable_wrapper_impl< test_scheduler::state >", "classrpp_1_1disposable__wrapper__impl.html", null ],
       [ "rpp::disposable_wrapper_impl< TDisposable >", "classrpp_1_1disposable__wrapper__impl.html", null ]
     ] ],
     [ "rpp::subjects::details::disposed", "structrpp_1_1subjects_1_1details_1_1disposed.html", null ],
@@ -230,6 +232,7 @@ var hierarchy =
       [ "rpp::operators::details::merge_observer_strategy< TObserver >", "classrpp_1_1operators_1_1details_1_1merge__observer__strategy.html", null ]
     ] ],
     [ "rpp::operators::details::merge_with_t< TObservables >", "structrpp_1_1operators_1_1details_1_1merge__with__t.html", null ],
+    [ "mock_observer_strategy< Type >", "classmock__observer__strategy.html", null ],
     [ "rpp::operators::details::multicast_t< Subject >", "structrpp_1_1operators_1_1details_1_1multicast__t.html", null ],
     [ "rpp::details::never_strategy< Type >", "structrpp_1_1details_1_1never__strategy.html", null ],
     [ "rpp::schedulers::new_thread", "classrpp_1_1schedulers_1_1new__thread.html", null ],
@@ -330,6 +333,7 @@ var hierarchy =
       [ "rpp::schedulers::details::specific_schedulable< NowStrategy, Fn, Handler, Args >", "classrpp_1_1schedulers_1_1details_1_1specific__schedulable.html", null ]
     ] ],
     [ "rpp::schedulers::details::schedulables_queue< NowStrategy >", "classrpp_1_1schedulers_1_1details_1_1schedulables__queue.html", null ],
+    [ "rpp::schedulers::details::schedulables_queue< test_scheduler::worker_strategy >", "classrpp_1_1schedulers_1_1details_1_1schedulables__queue.html", null ],
     [ "rpp::schedulers::details::schedulables_queue< worker_strategy >", "classrpp_1_1schedulers_1_1details_1_1schedulables__queue.html", null ],
     [ "rpp::details::shared_container< Container >", "classrpp_1_1details_1_1shared__container.html", null ],
     [ "rpp::schedulers::details::shared_queue_data", "structrpp_1_1schedulers_1_1details_1_1shared__queue__data.html", null ],
@@ -361,6 +365,7 @@ var hierarchy =
     [ "rpp::operators::details::take_while_observer_strategy< TObserver, Fn >", "structrpp_1_1operators_1_1details_1_1take__while__observer__strategy.html", null ],
     [ "rpp::operators::details::tap_observer_strategy< TObserver, OnNext, OnError, OnCompleted >", "structrpp_1_1operators_1_1details_1_1tap__observer__strategy.html", null ],
     [ "rpp::operators::details::template_multicast_t< Subject >", "structrpp_1_1operators_1_1details_1_1template__multicast__t.html", null ],
+    [ "test_scheduler", "classtest__scheduler.html", null ],
     [ "rpp::operators::details::throttle_observer_strategy< TObserver, Scheduler >", "structrpp_1_1operators_1_1details_1_1throttle__observer__strategy.html", null ],
     [ "rpp::operators::details::timeout_disposable_wrapper< TObserver, TFallbackObservable, Container >", "structrpp_1_1operators_1_1details_1_1timeout__disposable__wrapper.html", null ],
     [ "rpp::operators::details::timeout_observer_strategy< TObserver, TFallbackObservable, Container, TScheduler >", "structrpp_1_1operators_1_1details_1_1timeout__observer__strategy.html", null ],
@@ -383,5 +388,6 @@ var hierarchy =
     [ "rpp::operators::details::with_latest_from_t< TSelector, TObservables >", "structrpp_1_1operators_1_1details_1_1with__latest__from__t.html", null ],
     [ "rpp::schedulers::worker< Strategy >", "classrpp_1_1schedulers_1_1worker.html", null ],
     [ "rpp::schedulers::immediate::worker_strategy", "classrpp_1_1schedulers_1_1immediate_1_1worker__strategy.html", null ],
-    [ "rpp::schedulers::new_thread::worker_strategy", "classrpp_1_1schedulers_1_1new__thread_1_1worker__strategy.html", null ]
+    [ "rpp::schedulers::new_thread::worker_strategy", "classrpp_1_1schedulers_1_1new__thread_1_1worker__strategy.html", null ],
+    [ "test_scheduler::worker_strategy", "classtest__scheduler_1_1worker__strategy.html", null ]
 ];

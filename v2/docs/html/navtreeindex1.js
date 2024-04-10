@@ -1,5 +1,8 @@
 var NAVTREEINDEX1 =
 {
+"group__creational__operators.html#ga4f9024c949765737e6a99a05f74d382e":[1,0,3,8,1],
+"group__creational__operators.html#ga4fe060f48695cc3fadfbdb10f77f8acb":[1,0,3,8,6],
+"group__creational__operators.html#ga519523490394660d7e8c46d2d5612f75":[1,0,3,8,7],
 "group__creational__operators.html#ga65fe5e58c0179835d702de99475c86b3":[1,0,3,8,13],
 "group__creational__operators.html#ga95f6d310d6f17a4c248e43fb628527df":[1,0,3,8,10],
 "group__creational__operators.html#gab41bcf939ae57be84287d8ae8926846c":[1,0,3,8,16],
@@ -110,6 +113,7 @@ var NAVTREEINDEX1 =
 "memory__model_8hpp_source.html":[4,0,0,0,0,10],
 "merge_8cpp-example.html":[5,18],
 "merge_8hpp_source.html":[4,0,0,0,0,3,17],
+"mock__observer_8hpp_source.html":[4,0,0,0,0,2,4],
 "multicast_8cpp-example.html":[5,19],
 "multicast_8hpp_source.html":[4,0,0,0,0,3,18],
 "never_8hpp_source.html":[4,0,0,0,0,5,9],
@@ -119,7 +123,7 @@ var NAVTREEINDEX1 =
 "observables_8hpp_source.html":[4,0,0,0,0,11],
 "observe__on_8hpp_source.html":[4,0,0,0,0,3,19],
 "observe_on_8cpp-example.html":[5,20],
-"observer_8hpp_source.html":[4,0,0,0,0,2,4],
+"observer_8hpp_source.html":[4,0,0,0,0,2,5],
 "observers_2details_2disposable__strategy_8hpp_source.html":[4,0,0,0,0,2,0,0],
 "observers_8hpp_source.html":[4,0,0,0,0,12],
 "on__error__resume__next_8hpp_source.html":[4,0,0,0,0,3,20],
@@ -245,9 +249,5 @@ var NAVTREEINDEX1 =
 "structrpp_1_1operators_1_1details_1_1map__observer__strategy.html":[3,0,0,2,0,42],
 "structrpp_1_1operators_1_1details_1_1map__t.html":[3,0,0,2,0,43],
 "structrpp_1_1operators_1_1details_1_1map__t_1_1operator__traits.html":[3,0,0,2,0,43,0],
-"structrpp_1_1operators_1_1details_1_1merge__observer__base__strategy.html":[3,0,0,2,0,45],
-"structrpp_1_1operators_1_1details_1_1merge__observer__inner__strategy.html":[3,0,0,2,0,46],
-"structrpp_1_1operators_1_1details_1_1merge__t.html":[3,0,0,2,0,48],
-"structrpp_1_1operators_1_1details_1_1merge__t_1_1operator__traits.html":[3,0,0,2,0,48,0],
-"structrpp_1_1operators_1_1details_1_1merge__with__t.html":[3,0,0,2,0,49]
+"structrpp_1_1operators_1_1details_1_1merge__observer__base__strategy.html":[3,0,0,2,0,45]
 };

@@ -11,6 +11,7 @@ var NAVTREEINDEX0 =
 "callback__disposable_8hpp_source.html":[4,0,0,0,0,0,1],
 "chain__strategy_8hpp_source.html":[4,0,0,0,0,1,0,0],
 "classes.html":[3,1],
+"classmock__observer__strategy.html":[3,0,2],
 "classrpp_1_1blocking__observable.html":[1,0,1,0],
 "classrpp_1_1callback__disposable.html":[1,0,0,0],
 "classrpp_1_1composite__disposable.html":[1,0,0,2],
@@ -118,6 +119,8 @@ var NAVTREEINDEX0 =
 "classrpp_1_1subjects_1_1serialized__publish__subject.html":[1,0,5,3],
 "classrpp_1_1subjects_1_1serialized__replay__subject.html":[1,0,5,5],
 "classrppqt_1_1schedulers_1_1main__thread__scheduler.html":[1,1,1,0],
+"classtest__scheduler.html":[3,0,3],
+"classtest__scheduler_1_1worker__strategy.html":[3,0,3,1],
 "combine__latest_8hpp_source.html":[4,0,0,0,0,3,3],
 "combine_latest_8cpp-example.html":[5,2],
 "combining__strategy_8hpp_source.html":[4,0,0,0,0,3,0,0],
@@ -246,8 +249,5 @@ var NAVTREEINDEX0 =
 "group__creational__operators.html#ga0fdda8fec71eb1bc082065577d458f8e":[1,0,3,8,11],
 "group__creational__operators.html#ga16c57281cc1b24605ec23b09ec880416":[1,0,3,8,14],
 "group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0":[1,0,3,8,12],
-"group__creational__operators.html#ga4018b147fb99a358c6c01f21183c13e6":[1,0,3,8,9],
-"group__creational__operators.html#ga4f9024c949765737e6a99a05f74d382e":[1,0,3,8,1],
-"group__creational__operators.html#ga4fe060f48695cc3fadfbdb10f77f8acb":[1,0,3,8,6],
-"group__creational__operators.html#ga519523490394660d7e8c46d2d5612f75":[1,0,3,8,7]
+"group__creational__operators.html#ga4018b147fb99a358c6c01f21183c13e6":[1,0,3,8,9]
 };

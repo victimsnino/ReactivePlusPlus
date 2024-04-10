@@ -19,7 +19,8 @@ var searchData=
   ['merge_5ft_16',['merge_t',['../structrpp_1_1operators_1_1details_1_1merge__t.html',1,'rpp::operators::details']]],
   ['merge_5fwith_17',['merge_with',['../group__combining__operators.html#ga35392a84e52bf7101d0d0445ef391db7',1,'rpp::operators']]],
   ['merge_5fwith_5ft_18',['merge_with_t',['../structrpp_1_1operators_1_1details_1_1merge__with__t.html',1,'rpp::operators::details']]],
-  ['model_19',['Memory Model',['../md_docs_2readme.html#autotoc_md10',1,'']]],
-  ['multicast_20',['multicast',['../group__connectable__operators.html#gac99bc1fb7cbf8814e0eb2c9b843fc19a',1,'rpp::operators::multicast(Subject &amp;&amp;subject)'],['../group__connectable__operators.html#gac7b150abbdae0a5084dd3784d9c7babf',1,'rpp::operators::multicast()']]],
-  ['multicast_5ft_21',['multicast_t',['../structrpp_1_1operators_1_1details_1_1multicast__t.html',1,'rpp::operators::details']]]
+  ['mock_5fobserver_5fstrategy_19',['mock_observer_strategy',['../classmock__observer__strategy.html',1,'']]],
+  ['model_20',['Memory Model',['../md_docs_2readme.html#autotoc_md10',1,'']]],
+  ['multicast_21',['multicast',['../group__connectable__operators.html#gac99bc1fb7cbf8814e0eb2c9b843fc19a',1,'rpp::operators::multicast(Subject &amp;&amp;subject)'],['../group__connectable__operators.html#gac7b150abbdae0a5084dd3784d9c7babf',1,'rpp::operators::multicast()']]],
+  ['multicast_5ft_22',['multicast_t',['../structrpp_1_1operators_1_1details_1_1multicast__t.html',1,'rpp::operators::details']]]
 ];

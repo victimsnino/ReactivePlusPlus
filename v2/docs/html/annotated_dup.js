@@ -251,5 +251,7 @@ var annotated_dup =
       [ "utils", null, [
         [ "no_active_qapplication", "structrppqt_1_1utils_1_1no__active__qapplication.html", null ]
       ] ]
-    ] ]
+    ] ],
+    [ "mock_observer_strategy", "classmock__observer__strategy.html", null ],
+    [ "test_scheduler", "classtest__scheduler.html", "classtest__scheduler" ]
 ];

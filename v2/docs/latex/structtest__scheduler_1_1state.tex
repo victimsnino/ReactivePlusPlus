@@ -1,0 +1,52 @@
+\doxysection{test\+\_\+scheduler\+::state Struct Reference}
+\hypertarget{structtest__scheduler_1_1state}{}\label{structtest__scheduler_1_1state}\index{test\_scheduler::state@{test\_scheduler::state}}
+Inheritance diagram for test\+\_\+scheduler\+::state\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{structtest__scheduler_1_1state}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{structtest__scheduler_1_1state_a4150bc01ac36340d1ac775eaa5681eff}\label{structtest__scheduler_1_1state_a4150bc01ac36340d1ac775eaa5681eff} 
+{\footnotesize template$<$\mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1schedulable__handler}{rpp\+::schedulers\+::constraint\+::schedulable\+\_\+handler}} Handler, typename... Args, \mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1schedulable__fn}{rpp\+::schedulers\+::constraint\+::schedulable\+\_\+fn}}$<$ Handler, Args... $>$ Fn$>$ }\\void {\bfseries schedule} (rpp\+::schedulers\+::time\+\_\+point time\+\_\+point, Fn \&\&fn, Handler \&\&handler, Args \&\&... args)
+\item 
+\Hypertarget{structtest__scheduler_1_1state_af58b133a4cf27c1218dcdbcc21b32457}\label{structtest__scheduler_1_1state_af58b133a4cf27c1218dcdbcc21b32457} 
+void {\bfseries drain} ()
+\item 
+\Hypertarget{structtest__scheduler_1_1state_ad2886ec7eaa340133a34c16bb6249bf7}\label{structtest__scheduler_1_1state_ad2886ec7eaa340133a34c16bb6249bf7} 
+void {\bfseries base\+\_\+dispose\+\_\+impl} (interface\+\_\+disposable\+::\+Mode) noexcept override
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classrpp_1_1details_1_1base__disposable__impl}{rpp\+::details\+::base\+\_\+disposable\+\_\+impl$<$ Base\+Interface $>$}}}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries base\+\_\+disposable\+\_\+impl} (const \mbox{\hyperlink{classrpp_1_1details_1_1base__disposable__impl}{base\+\_\+disposable\+\_\+impl}} \&)=delete
+\item 
+{\bfseries base\+\_\+disposable\+\_\+impl} (\mbox{\hyperlink{classrpp_1_1details_1_1base__disposable__impl}{base\+\_\+disposable\+\_\+impl}} \&\&) noexcept=delete
+\item 
+bool {\bfseries is\+\_\+disposed} () const noexcept final
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{structtest__scheduler_1_1state_a3a6bb3424939bded5e829468cd10f29b}\label{structtest__scheduler_1_1state_a3a6bb3424939bded5e829468cd10f29b} 
+std\+::vector$<$ rpp\+::schedulers\+::time\+\_\+point $>$ {\bfseries schedulings} \{\}
+\item 
+\Hypertarget{structtest__scheduler_1_1state_a7d06307979ae1055e7d2a8b7b5cd0b71}\label{structtest__scheduler_1_1state_a7d06307979ae1055e7d2a8b7b5cd0b71} 
+std\+::vector$<$ rpp\+::schedulers\+::time\+\_\+point $>$ {\bfseries executions} \{\}
+\item 
+\Hypertarget{structtest__scheduler_1_1state_a6ac8df342f4779892fe3f146e0b6216d}\label{structtest__scheduler_1_1state_a6ac8df342f4779892fe3f146e0b6216d} 
+\mbox{\hyperlink{classrpp_1_1schedulers_1_1details_1_1schedulables__queue}{rpp\+::schedulers\+::details\+::schedulables\+\_\+queue}}$<$ \mbox{\hyperlink{classtest__scheduler_1_1worker__strategy}{worker\+\_\+strategy}} $>$ {\bfseries queue} \{\}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Protected Member Functions inherited from \mbox{\hyperlink{classrpp_1_1details_1_1base__disposable__impl}{rpp\+::details\+::base\+\_\+disposable\+\_\+impl$<$ Base\+Interface $>$}}}
+\begin{DoxyCompactItemize}
+\item 
+virtual void {\bfseries base\+\_\+dispose\+\_\+impl} (interface\+\_\+disposable\+::\+Mode mode) noexcept=0
+\end{DoxyCompactItemize}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/rpp/rpp/schedulers/test\+\_\+scheduler.\+hpp\end{DoxyCompactItemize}
