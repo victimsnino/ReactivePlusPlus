@@ -10,11 +10,16 @@ repos:
 -   repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.6.0
     hooks:
-    -   id: trailing-whitespace
-        require_serial: true
-    # -   id: end-of-file-fixer
-    -   id: check-yaml
-    -   id: check-added-large-files
+    -   id: check-added-large-files # prevents giant files from being committed.
+    -   id: check-case-conflict # checks for files that would conflict in case-insensitive filesystems.
+    -   id: check-merge-conflict # checks for files that contain merge conflict strings.
+    -   id: check-yaml # checks yaml files for parseable syntax.
+    -   id: detect-private-key # detects the presence of private keys.
+    -   id: end-of-file-fixer # ensures that a file is either empty, or ends with one newline.
+    -   id: fix-byte-order-marker # removes utf-8 byte order marker.
+    -   id: mixed-line-ending # replaces or checks mixed line ending.
+    -   id: requirements-txt-fixer # sorts entries in requirements.txt.
+    -   id: trailing-whitespace # trims trailing whitespace.
 
 -   repo: https://github.com/pre-commit/mirrors-clang-format
     rev: 'v18.1.3'
@@ -23,21 +28,3 @@ repos:
         args: ["-style=file", "-i"]
         types_or: [c++, c]
         require_serial: true
-
-# - repo: local
-#   hooks:
-#     - id: compile_json
-#       name: compile_json
-#       entry: cmake --preset=ci-coverage-clang
-#       always_run: true
-#       require_serial: true
-#       pass_filenames: false
-#       language: system
-
-# - repo: https://github.com/pocc/pre-commit-hooks
-#   rev: master
-#   hooks:
-#     - id: clang-tidy
-#       args: [--fix-errors, -config-file=.clang-tidy, "--checks=-*,bugprone-*,concurrency-*,performance-*", -p=build, ./src/*]
-#     #   files: src
-#       entry: /usr/local/opt/llvm/bin/clang-tidy

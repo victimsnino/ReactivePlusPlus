@@ -8,4 +8,3 @@ foreach(SOURCE ${FILES})
     set_target_properties(${TARGET} PROPERTIES FOLDER Examples/rppqt/Doxygen)
     rpp_add_qt_support_to_executable(${TARGET})
 endforeach()
-
