@@ -168,9 +168,10 @@ TEST_CASE("on_error_resume_next satisfies disposable contracts")
     auto observable_disposable = rpp::composite_disposable_wrapper::make();
     {
         auto observable = observable_with_disposable<int>(observable_disposable);
+        auto op         = rpp::ops::on_error_resume_next([](const std::exception_ptr&) { return rpp::source::empty<int>(); });
 
-        test_operator_with_disposable<int>(
-            rpp::ops::on_error_resume_next([](const std::exception_ptr&) { return rpp::source::empty<int>(); }));
+        test_operator_with_disposable<int>(op);
+        test_operator_finish_before_dispose<int>(op);
     }
 
     CHECK(observable_disposable.is_disposed() || observable_disposable.lock().use_count() == 2);
