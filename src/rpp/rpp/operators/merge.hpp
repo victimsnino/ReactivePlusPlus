@@ -15,9 +15,9 @@
 #include <rpp/defs.hpp>
 #include <rpp/disposables/composite_disposable.hpp>
 #include <rpp/operators/details/strategy.hpp>
-#include <rpp/operators/details/utils.hpp>
 #include <rpp/schedulers/current_thread.hpp>
 #include <rpp/utils/tuple.hpp>
+#include <rpp/utils/utils.hpp>
 
 #include <atomic>
 
@@ -38,11 +38,11 @@ namespace rpp::operators::details
         // just need atomicity, not guarding anything
         bool decrement_on_completed() { return m_on_completed_needed.fetch_sub(1, std::memory_order::seq_cst) == 1; }
 
-        pointer_under_lock<TObserver> get_observer_under_lock() { return pointer_under_lock{m_observer}; }
+        rpp::utils::pointer_under_lock<TObserver> get_observer_under_lock() { return m_observer; }
 
     private:
-        value_with_mutex<TObserver> m_observer{};
-        std::atomic_size_t          m_on_completed_needed{1};
+        rpp::utils::value_with_mutex<TObserver> m_observer{};
+        std::atomic_size_t                      m_on_completed_needed{1};
     };
 
     template<rpp::constraint::observer TObserver>

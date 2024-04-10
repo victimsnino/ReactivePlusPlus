@@ -15,7 +15,7 @@
 #include <rpp/defs.hpp>
 #include <rpp/disposables/refcount_disposable.hpp>
 #include <rpp/operators/details/strategy.hpp>
-#include <rpp/operators/details/utils.hpp>
+#include <rpp/utils/utils.hpp>
 
 namespace rpp::operators::details
 {
@@ -33,13 +33,13 @@ namespace rpp::operators::details
         switch_on_next_state_t(const switch_on_next_state_t&)     = delete;
         switch_on_next_state_t(switch_on_next_state_t&&) noexcept = delete;
 
-        pointer_under_lock<TObserver> get_observer()
+        rpp::utils::pointer_under_lock<TObserver> get_observer()
         {
-            return pointer_under_lock{m_observer_with_mutex};
+            return m_observer_with_mutex;
         }
 
     private:
-        value_with_mutex<TObserver> m_observer_with_mutex{};
+        rpp::utils::value_with_mutex<TObserver> m_observer_with_mutex{};
     };
 
     template<rpp::constraint::observer TObserver>

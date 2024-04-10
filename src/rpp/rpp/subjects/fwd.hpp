@@ -32,6 +32,13 @@ namespace rpp::subjects
     class serialized_replay_subject;
 
 
+    template<rpp::constraint::decayed_type Type>
+    class behavior_subject;
+
+    template<rpp::constraint::decayed_type Type>
+    class serialized_behavior_subject;
+
+
 } // namespace rpp::subjects
 
 namespace rpp::constraint

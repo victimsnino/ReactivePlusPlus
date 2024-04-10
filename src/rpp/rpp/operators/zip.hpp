@@ -57,7 +57,7 @@ namespace rpp::operators::details
 
     private:
         template<typename TDisposable>
-        static void apply_impl(const TDisposable& disposable, const pointer_under_lock<Observer>& observer, std::deque<Args>&... values)
+        static void apply_impl(const TDisposable& disposable, const rpp::utils::pointer_under_lock<Observer>& observer, std::deque<Args>&... values)
         {
             if ((!values.empty() && ...))
             {

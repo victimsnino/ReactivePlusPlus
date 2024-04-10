@@ -15,8 +15,8 @@
 #include <rpp/defs.hpp>
 #include <rpp/disposables/composite_disposable.hpp>
 #include <rpp/operators/details/strategy.hpp>
-#include <rpp/operators/details/utils.hpp>
 #include <rpp/schedulers/current_thread.hpp>
+#include <rpp/utils/utils.hpp>
 
 #include <memory>
 
@@ -31,7 +31,7 @@ namespace rpp::operators::details
         {
         }
 
-        pointer_under_lock<Observer> get_observer_under_lock() { return pointer_under_lock{m_observer_with_mutex}; }
+        rpp::utils::pointer_under_lock<Observer> get_observer_under_lock() { return m_observer_with_mutex; }
 
         bool decrement_on_completed()
         {
@@ -40,7 +40,7 @@ namespace rpp::operators::details
         }
 
     private:
-        value_with_mutex<Observer> m_observer_with_mutex{};
+        rpp::utils::value_with_mutex<Observer> m_observer_with_mutex{};
 
         std::atomic_size_t m_on_completed_needed{sizeof...(Args)};
     };

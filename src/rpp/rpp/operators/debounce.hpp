@@ -14,7 +14,7 @@
 
 #include <rpp/disposables/composite_disposable.hpp>
 #include <rpp/operators/details/strategy.hpp>
-#include <rpp/operators/details/utils.hpp>
+#include <rpp/utils/utils.hpp>
 
 namespace rpp::operators::details
 {
@@ -69,7 +69,7 @@ namespace rpp::operators::details
             return std::exchange(m_value_to_be_emitted, std::optional<T>{});
         }
 
-        pointer_under_lock<Observer> get_observer_under_lock() { return pointer_under_lock{m_observer}; }
+        rpp::utils::pointer_under_lock<Observer> get_observer_under_lock() { return m_observer; }
 
     private:
         void schedule()
@@ -104,9 +104,9 @@ namespace rpp::operators::details
             return v;
         }
 
-        value_with_mutex<Observer>   m_observer;
-        RPP_NO_UNIQUE_ADDRESS Worker m_worker;
-        rpp::schedulers::duration    m_period;
+        rpp::utils::value_with_mutex<Observer> m_observer;
+        RPP_NO_UNIQUE_ADDRESS Worker           m_worker;
+        rpp::schedulers::duration              m_period;
 
         std::mutex                            m_mutex{};
         std::optional<schedulers::time_point> m_time_when_value_should_be_emitted{};
