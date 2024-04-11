@@ -60,6 +60,7 @@ void test_operator_over_observable_finish_before_dispose(auto&& op)
         });
 
         op(observable) | rpp::ops::subscribe([](const auto&) {}, [&callback_called](const std::exception_ptr&) { CHECK(!callback_called); });
+        CHECK(callback_called);
     }
 
     SECTION("operator calls on_completed before dispose")
@@ -74,6 +75,7 @@ void test_operator_over_observable_finish_before_dispose(auto&& op)
         });
 
         op(observable) | rpp::ops::subscribe([](const auto&) {}, [&callback_called]() { CHECK(!callback_called); });
+        CHECK(callback_called);
     }
 }
 
