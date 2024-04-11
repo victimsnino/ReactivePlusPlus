@@ -38,8 +38,6 @@ namespace rpp::operators::details
 
         void on_error(const std::exception_ptr& err) const
         {
-            disposable.dispose();
-
             std::optional<std::invoke_result_t<Selector, std::exception_ptr>> selector_obs;
             try
             {
@@ -53,12 +51,13 @@ namespace rpp::operators::details
             {
                 std::move(selector_obs).value().subscribe(std::move(observer));
             }
+            disposable.dispose();
         }
 
         void on_completed() const
         {
-            disposable.dispose();
             observer.on_completed();
+            disposable.dispose();
         }
 
         void set_upstream(const disposable_wrapper& d)

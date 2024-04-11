@@ -198,8 +198,10 @@ TEST_CASE("with_latest_from satisfies disposable contracts")
     auto observable_disposable = rpp::composite_disposable_wrapper::make();
     {
         auto observable = observable_with_disposable<int>(observable_disposable);
+        auto op         = rpp::ops::with_latest_from(observable);
 
-        test_operator_with_disposable<int>(rpp::ops::with_latest_from(observable));
+        test_operator_with_disposable<int>(op);
+        test_operator_finish_before_dispose<int>(op);
     }
 
     CHECK(observable_disposable.is_disposed() || observable_disposable.lock().use_count() == 2);

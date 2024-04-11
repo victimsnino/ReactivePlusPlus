@@ -68,8 +68,8 @@ namespace rpp::operators::details
 
         void on_error(const std::exception_ptr& err) const
         {
-            disposable->dispose();
             disposable->get_observer_under_lock()->on_error(err);
+            disposable->dispose();
         }
 
         static constexpr rpp::utils::empty_function_t<> on_completed{};
@@ -112,14 +112,14 @@ namespace rpp::operators::details
 
         void on_error(const std::exception_ptr& err) const
         {
-            disposable->dispose();
             disposable->get_observer_under_lock()->on_error(err);
+            disposable->dispose();
         }
 
         void on_completed() const
         {
-            disposable->dispose();
             disposable->get_observer_under_lock()->on_completed();
+            disposable->dispose();
         }
     };
 
