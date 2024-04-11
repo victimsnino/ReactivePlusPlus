@@ -94,81 +94,82 @@
 \DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (state-\/>itr.value()\ ==\ std::cend(state-\/>container))}
 \DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
 \DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ state-\/>observer.on\_completed();}
-\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
-\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00095\ }
-\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }value\_type\ =\ rpp::utils::extract\_observable\_type\_t<utils::iterable\_value\_t<PackedContainer>>;}
-\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \ \ \ \ state-\/>clear();}
-\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \ \ \ \ state-\/>is\_inside\_drain.store(\textcolor{keyword}{true},\ std::memory\_order::seq\_cst);}
-\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
-\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (*(state-\/>itr.value()++)).subscribe(\mbox{\hyperlink{classrpp_1_1observer}{observer}}<value\_type,\ concat\_source\_observer\_strategy<std::decay\_t<TObserver>,\ std::decay\_t<PackedContainer>>>\{state\});}
-\DoxyCodeLine{00102\ }
-\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (state-\/>is\_inside\_drain.exchange(\textcolor{keyword}{false},\ std::memory\_order::seq\_cst))}
-\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
-\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (...)}
-\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ state-\/>observer.on\_error(std::current\_exception());}
-\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
-\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00112\ \ \ \ \ \}}
-\DoxyCodeLine{00113\ }
-\DoxyCodeLine{00114\ \ \ \ \ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type\ PackedContainer>}
-\DoxyCodeLine{00115\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1details_1_1concat__strategy}{concat\_strategy}}}
-\DoxyCodeLine{00116\ \ \ \ \ \{}
-\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}...\ Args>}
-\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{requires}\ (!constraint::variadic\_decayed\_same\_as<concat\_strategy<PackedContainer>,\ Args...>)}
-\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structrpp_1_1details_1_1concat__strategy}{concat\_strategy}}(Args\&\&...\ args)}
-\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \ \ \ \ :\ container\{std::forward<Args>(args)...\}}
-\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00123\ }
-\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ RPP\_NO\_UNIQUE\_ADDRESS\ PackedContainer\ container;}
-\DoxyCodeLine{00125\ }
-\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }value\_type\ =\ rpp::utils::extract\_observable\_type\_t<utils::iterable\_value\_t<PackedContainer>>;}
-\DoxyCodeLine{00127\ }
-\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::observer\_strategy<value\_type>\ Strategy>}
-\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ subscribe(\mbox{\hyperlink{classrpp_1_1observer}{observer<value\_type,\ Strategy>}}\&\&\ obs)\textcolor{keyword}{\ const}}
-\DoxyCodeLine{00130\ \textcolor{keyword}{\ \ \ \ \ \ \ \ }\{}
-\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ d\ \ \ \ \ =\ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{disposable\_wrapper\_impl<concat\_state\_t<observer<value\_type,\ Strategy>}},\ PackedContainer>>::make(std::move(obs),\ container);}
-\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ state\ =\ d.lock();}
-\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \ \ \ \ state-\/>observer.set\_upstream(d.as\_weak());}
-\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \ \ \ \ drain(state);}
-\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00136\ \ \ \ \ \};}
-\DoxyCodeLine{00137\ }
-\DoxyCodeLine{00138\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ PackedContainer,\ \textcolor{keyword}{typename}...\ Args>}
-\DoxyCodeLine{00139\ \ \ \ \ \textcolor{keyword}{auto}\ make\_concat\_from\_iterable(Args\&\&...\ args)}
-\DoxyCodeLine{00140\ \ \ \ \ \{}
-\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classrpp_1_1observable}{observable<utils::extract\_observable\_type\_t<utils::iterable\_value\_t<std::decay\_t<PackedContainer>}}>>,\ \mbox{\hyperlink{structrpp_1_1details_1_1concat__strategy}{concat\_strategy<std::decay\_t<PackedContainer>}}>>\{std::forward<Args>(args)...\};}
-\DoxyCodeLine{00142\ \ \ \ \ \}}
-\DoxyCodeLine{00143\ \}\ \textcolor{comment}{//\ namespace\ rpp::details}}
-\DoxyCodeLine{00144\ }
-\DoxyCodeLine{00145\ \textcolor{keyword}{namespace\ }rpp::source}
-\DoxyCodeLine{00146\ \{}
-\DoxyCodeLine{00174\ \ \ \ \ \textcolor{keyword}{template}<constraint::memory\_model\ MemoryModel\ \textcolor{comment}{/*=\ memory\_model::use\_stack*/},\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp::constraint::observable}}\ TObservable,\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp::constraint::observable}}...\ TObservables>}
-\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ \textcolor{keyword}{requires}\ (std::same\_as<rpp::utils::extract\_observable\_type\_t<TObservable>,\ rpp::utils::extract\_observable\_type\_t<TObservables>>\ \&\&\ ...)}
-\DoxyCodeLine{00176\ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{concat}}(TObservable\&\&\ obs,\ TObservables\&\&...\ others)}
-\DoxyCodeLine{00177\ \ \ \ \ \{}
-\DoxyCodeLine{00178\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keyword}{constexpr}\ ((rpp::constraint::decayed\_same\_as<TObservable,\ TObservables>\ \&\&\ ...))}
-\DoxyCodeLine{00179\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00180\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }inner\_container\ =\ std::array<std::decay\_t<TObservable>,\ \textcolor{keyword}{sizeof}...(TObservables)\ +\ 1>;}
-\DoxyCodeLine{00181\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }container\ \ \ \ \ \ \ =\ std::conditional\_t<std::same\_as<MemoryModel,\ rpp::memory\_model::use\_stack>,\ inner\_container,\ details::shared\_container<inner\_container>>;}
-\DoxyCodeLine{00182\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ rpp::details::make\_concat\_from\_iterable<container>(std::forward<TObservable>(obs),\ std::forward<TObservables>(others)...);}
-\DoxyCodeLine{00183\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00184\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
-\DoxyCodeLine{00185\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ concat<MemoryModel>(std::forward<TObservable>(obs).as\_dynamic(),\ std::forward<TObservables>(others).as\_dynamic()...);}
-\DoxyCodeLine{00186\ \ \ \ \ \}}
-\DoxyCodeLine{00187\ }
-\DoxyCodeLine{00214\ \ \ \ \ \textcolor{keyword}{template}<constraint::memory\_model\ MemoryModel\ \textcolor{comment}{/*=\ memory\_model::use\_stack*/},\ constraint::iterable\ Iterable>}
-\DoxyCodeLine{00215\ \ \ \ \ \ \ \ \ \textcolor{keyword}{requires}\ constraint::observable<utils::iterable\_value\_t<Iterable>>}
-\DoxyCodeLine{00216\ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{concat}}(Iterable\&\&\ iterable)}
-\DoxyCodeLine{00217\ \ \ \ \ \{}
-\DoxyCodeLine{00218\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }Container\ =\ std::conditional\_t<std::same\_as<MemoryModel,\ rpp::memory\_model::use\_stack>,\ std::decay\_t<Iterable>,\ details::shared\_container<std::decay\_t<Iterable>>>;}
-\DoxyCodeLine{00219\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ rpp::details::make\_concat\_from\_iterable<Container>(std::forward<Iterable>(iterable));}
-\DoxyCodeLine{00220\ \ \ \ \ \}}
-\DoxyCodeLine{00221\ \}\ \textcolor{comment}{//\ namespace\ rpp::source}}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ state-\/>dispose();}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }value\_type\ =\ rpp::utils::extract\_observable\_type\_t<utils::iterable\_value\_t<PackedContainer>>;}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \ \ \ \ state-\/>clear();}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \ \ \ \ state-\/>is\_inside\_drain.store(\textcolor{keyword}{true},\ std::memory\_order::seq\_cst);}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (*(state-\/>itr.value()++)).subscribe(\mbox{\hyperlink{classrpp_1_1observer}{observer}}<value\_type,\ concat\_source\_observer\_strategy<std::decay\_t<TObserver>,\ std::decay\_t<PackedContainer>>>\{state\});}
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (state-\/>is\_inside\_drain.exchange(\textcolor{keyword}{false},\ std::memory\_order::seq\_cst))}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (...)}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ state-\/>observer.on\_error(std::current\_exception());}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00113\ \ \ \ \ \}}
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00115\ \ \ \ \ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type\ PackedContainer>}
+\DoxyCodeLine{00116\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1details_1_1concat__strategy}{concat\_strategy}}}
+\DoxyCodeLine{00117\ \ \ \ \ \{}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}...\ Args>}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{requires}\ (!constraint::variadic\_decayed\_same\_as<concat\_strategy<PackedContainer>,\ Args...>)}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structrpp_1_1details_1_1concat__strategy}{concat\_strategy}}(Args\&\&...\ args)}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \ \ \ \ :\ container\{std::forward<Args>(args)...\}}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00124\ }
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ RPP\_NO\_UNIQUE\_ADDRESS\ PackedContainer\ container;}
+\DoxyCodeLine{00126\ }
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }value\_type\ =\ rpp::utils::extract\_observable\_type\_t<utils::iterable\_value\_t<PackedContainer>>;}
+\DoxyCodeLine{00128\ }
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::observer\_strategy<value\_type>\ Strategy>}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ subscribe(\mbox{\hyperlink{classrpp_1_1observer}{observer<value\_type,\ Strategy>}}\&\&\ obs)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00131\ \textcolor{keyword}{\ \ \ \ \ \ \ \ }\{}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ d\ \ \ \ \ =\ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{disposable\_wrapper\_impl<concat\_state\_t<observer<value\_type,\ Strategy>}},\ PackedContainer>>::make(std::move(obs),\ container);}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ state\ =\ d.lock();}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \ \ \ \ state-\/>observer.set\_upstream(d.as\_weak());}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \ \ \ \ drain(state);}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00137\ \ \ \ \ \};}
+\DoxyCodeLine{00138\ }
+\DoxyCodeLine{00139\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ PackedContainer,\ \textcolor{keyword}{typename}...\ Args>}
+\DoxyCodeLine{00140\ \ \ \ \ \textcolor{keyword}{auto}\ make\_concat\_from\_iterable(Args\&\&...\ args)}
+\DoxyCodeLine{00141\ \ \ \ \ \{}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classrpp_1_1observable}{observable<utils::extract\_observable\_type\_t<utils::iterable\_value\_t<std::decay\_t<PackedContainer>}}>>,\ \mbox{\hyperlink{structrpp_1_1details_1_1concat__strategy}{concat\_strategy<std::decay\_t<PackedContainer>}}>>\{std::forward<Args>(args)...\};}
+\DoxyCodeLine{00143\ \ \ \ \ \}}
+\DoxyCodeLine{00144\ \}\ \textcolor{comment}{//\ namespace\ rpp::details}}
+\DoxyCodeLine{00145\ }
+\DoxyCodeLine{00146\ \textcolor{keyword}{namespace\ }rpp::source}
+\DoxyCodeLine{00147\ \{}
+\DoxyCodeLine{00175\ \ \ \ \ \textcolor{keyword}{template}<constraint::memory\_model\ MemoryModel\ \textcolor{comment}{/*=\ memory\_model::use\_stack*/},\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp::constraint::observable}}\ TObservable,\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp::constraint::observable}}...\ TObservables>}
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ \textcolor{keyword}{requires}\ (std::same\_as<rpp::utils::extract\_observable\_type\_t<TObservable>,\ rpp::utils::extract\_observable\_type\_t<TObservables>>\ \&\&\ ...)}
+\DoxyCodeLine{00177\ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{concat}}(TObservable\&\&\ obs,\ TObservables\&\&...\ others)}
+\DoxyCodeLine{00178\ \ \ \ \ \{}
+\DoxyCodeLine{00179\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keyword}{constexpr}\ ((rpp::constraint::decayed\_same\_as<TObservable,\ TObservables>\ \&\&\ ...))}
+\DoxyCodeLine{00180\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00181\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }inner\_container\ =\ std::array<std::decay\_t<TObservable>,\ \textcolor{keyword}{sizeof}...(TObservables)\ +\ 1>;}
+\DoxyCodeLine{00182\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }container\ \ \ \ \ \ \ =\ std::conditional\_t<std::same\_as<MemoryModel,\ rpp::memory\_model::use\_stack>,\ inner\_container,\ details::shared\_container<inner\_container>>;}
+\DoxyCodeLine{00183\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ rpp::details::make\_concat\_from\_iterable<container>(std::forward<TObservable>(obs),\ std::forward<TObservables>(others)...);}
+\DoxyCodeLine{00184\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00185\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00186\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ concat<MemoryModel>(std::forward<TObservable>(obs).as\_dynamic(),\ std::forward<TObservables>(others).as\_dynamic()...);}
+\DoxyCodeLine{00187\ \ \ \ \ \}}
+\DoxyCodeLine{00188\ }
+\DoxyCodeLine{00215\ \ \ \ \ \textcolor{keyword}{template}<constraint::memory\_model\ MemoryModel\ \textcolor{comment}{/*=\ memory\_model::use\_stack*/},\ constraint::iterable\ Iterable>}
+\DoxyCodeLine{00216\ \ \ \ \ \ \ \ \ \textcolor{keyword}{requires}\ constraint::observable<utils::iterable\_value\_t<Iterable>>}
+\DoxyCodeLine{00217\ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{concat}}(Iterable\&\&\ iterable)}
+\DoxyCodeLine{00218\ \ \ \ \ \{}
+\DoxyCodeLine{00219\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }Container\ =\ std::conditional\_t<std::same\_as<MemoryModel,\ rpp::memory\_model::use\_stack>,\ std::decay\_t<Iterable>,\ details::shared\_container<std::decay\_t<Iterable>>>;}
+\DoxyCodeLine{00220\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ rpp::details::make\_concat\_from\_iterable<Container>(std::forward<Iterable>(iterable));}
+\DoxyCodeLine{00221\ \ \ \ \ \}}
+\DoxyCodeLine{00222\ \}\ \textcolor{comment}{//\ namespace\ rpp::source}}
 
 \end{DoxyCode}

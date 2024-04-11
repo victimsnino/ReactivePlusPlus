@@ -168,16 +168,16 @@ $(function(){initNavTree('combining__strategy_8hpp_source.html',''); initResizab
 <div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
 <div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>        <span class="keywordtype">void</span> on_error(<span class="keyword">const</span> std::exception_ptr&amp; err)<span class="keyword"> const</span></div>
 <div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span><span class="keyword">        </span>{</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>            disposable-&gt;dispose();</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>            disposable-&gt;get_observer_under_lock()-&gt;on_error(err);</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>            disposable-&gt;get_observer_under_lock()-&gt;on_error(err);</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>            disposable-&gt;dispose();</div>
 <div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>        }</div>
 <div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span> </div>
 <div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>        <span class="keywordtype">void</span> on_completed()<span class="keyword"> const</span></div>
 <div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span><span class="keyword">        </span>{</div>
 <div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>            <span class="keywordflow">if</span> (disposable-&gt;decrement_on_completed())</div>
 <div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>            {</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>                disposable-&gt;dispose();</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>                disposable-&gt;get_observer_under_lock()-&gt;on_completed();</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>                disposable-&gt;get_observer_under_lock()-&gt;on_completed();</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>                disposable-&gt;dispose();</div>
 <div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>            }</div>
 <div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>        }</div>
 <div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    };</div>
