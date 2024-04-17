@@ -151,7 +151,7 @@ namespace rpp::schedulers::details
         schedulables_queue& operator=(const schedulables_queue& other)     = delete;
         schedulables_queue& operator=(schedulables_queue&& other) noexcept = default;
 
-        schedulables_queue(std::shared_ptr<shared_queue_data> shared_data)
+        schedulables_queue(std::weak_ptr<shared_queue_data> shared_data)
             : m_shared_data{std::move(shared_data)}
         {
         }
@@ -162,8 +162,8 @@ namespace rpp::schedulers::details
             using schedulable_type = specific_schedulable<NowStrategy, std::decay_t<Fn>, std::decay_t<Handler>, std::decay_t<Args>...>;
 
             emplace_impl(std::make_shared<schedulable_type>(timepoint, std::forward<Fn>(fn), std::forward<Handler>(handler), std::forward<Args>(args)...));
-            if (m_shared_data)
-                m_shared_data->cv.notify_all();
+            if (const auto s = m_shared_data.lock())
+                s->cv.notify_all();
         }
 
         void emplace(const time_point& timepoint, std::shared_ptr<schedulable_base>&& schedulable)
@@ -173,8 +173,8 @@ namespace rpp::schedulers::details
 
             schedulable->set_timepoint(timepoint);
             emplace_impl(std::move(schedulable));
-            if (m_shared_data)
-                m_shared_data->cv.notify_all();
+            if (const auto s = m_shared_data.lock())
+                s->cv.notify_all();
         }
 
         bool is_empty() const { return !m_head; }
@@ -193,7 +193,8 @@ namespace rpp::schedulers::details
         void emplace_impl(std::shared_ptr<schedulable_base>&& schedulable)
         {
             // needed in case of new_thread and current_thread shares same queue
-            optional_mutex<std::recursive_mutex> mutex{m_shared_data ? &m_shared_data->mutex : nullptr};
+            const auto                           s = m_shared_data.lock();
+            optional_mutex<std::recursive_mutex> mutex{s ? &s->mutex : nullptr};
             std::lock_guard                      lock{mutex};
 
             if (!m_head || schedulable->get_timepoint() < m_head->get_timepoint())
@@ -215,7 +216,7 @@ namespace rpp::schedulers::details
         }
 
     private:
-        std::shared_ptr<schedulable_base>  m_head{};
-        std::shared_ptr<shared_queue_data> m_shared_data{};
+        std::shared_ptr<schedulable_base> m_head{};
+        std::weak_ptr<shared_queue_data>  m_shared_data{};
     };
 } // namespace rpp::schedulers::details
