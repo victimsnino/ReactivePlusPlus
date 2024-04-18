@@ -105,22 +105,29 @@ namespace rpp::schedulers
                 if (top->is_disposed())
                     continue;
 
-                std::optional<time_point> timepoint{top->get_timepoint()};
-                // immediate like scheduling
-                do
+                details::sleep_until(top->get_timepoint());
+                
+                while (true)
                 {
-                    if (timepoint && !top->is_disposed())
-                        details::sleep_until(top->get_timepoint());
+                    if (const auto res = top->make_advanced_call())
+                    {
+                        if (!top->is_disposed())
+                        {
+                            if (s_queue->is_empty())
+                            {
+                                if (const auto d = std::get_if<delay_from_now>(&res->get())) {
+                                    std::this_thread::sleep_for(d->value);
+                                } else {
+                                    details::sleep_until(top->handle_advanced_call(res.value()));
+                                }
+                                continue;
+                            }
 
-                    if (top->is_disposed())
-                        timepoint.reset();
-                    else
-                        timepoint = (*top)();
-
-                } while (s_queue->is_empty() && timepoint.has_value());
-
-                if (timepoint.has_value())
-                    s_queue->emplace(timepoint.value(), std::move(top));
+                            s_queue->emplace(top->handle_advanced_call(res.value()), std::move(top));
+                        }
+                    }
+                    break;
+                }
             }
 
             s_queue = nullptr;

@@ -49,6 +49,7 @@ namespace rpp::schedulers::details
             {
             }
 
+            const std::variant<delay_from_now, delay_from_this_timepoint, delay_to>& get() const { return m_data; }
 
             auto visit(const auto& fn) const
             {
