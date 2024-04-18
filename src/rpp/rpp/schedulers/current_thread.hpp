@@ -106,7 +106,7 @@ namespace rpp::schedulers
                     continue;
 
                 details::sleep_until(top->get_timepoint());
-                
+
                 while (true)
                 {
                     if (const auto res = top->make_advanced_call())
@@ -115,9 +115,12 @@ namespace rpp::schedulers
                         {
                             if (s_queue->is_empty())
                             {
-                                if (const auto d = std::get_if<delay_from_now>(&res->get())) {
+                                if (const auto d = std::get_if<delay_from_now>(&res->get()))
+                                {
                                     std::this_thread::sleep_for(d->value);
-                                } else {
+                                }
+                                else
+                                {
                                     details::sleep_until(top->handle_advanced_call(res.value()));
                                 }
                                 continue;
