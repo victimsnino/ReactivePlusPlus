@@ -89,16 +89,8 @@ namespace rpp::schedulers::details
                 next->set_next(std::move(m_next));
             m_next = std::move(next);
         }
-
-    private:
-        std::shared_ptr<schedulable_base> m_next{};
-        time_point                        m_time_point;
-    };
-
-    template<typename NowStrategy, rpp::constraint::decayed_type Fn, rpp::schedulers::constraint::schedulable_handler Handler, rpp::constraint::decayed_type... Args>
-        requires constraint::schedulable_fn<Fn, Handler, Args...>
-    class specific_schedulable final : public schedulable_base
-    {
+    protected:
+        template<typename NowStrategy>
         auto get_advanced_call_handler() const
         {
             return rpp::utils::overloaded{
@@ -113,6 +105,15 @@ namespace rpp::schedulers::details
                 }};
         }
 
+    private:
+        std::shared_ptr<schedulable_base> m_next{};
+        time_point                        m_time_point;
+    };
+
+    template<typename NowStrategy, rpp::constraint::decayed_type Fn, rpp::schedulers::constraint::schedulable_handler Handler, rpp::constraint::decayed_type... Args>
+        requires constraint::schedulable_fn<Fn, Handler, Args...>
+    class specific_schedulable final : public schedulable_base
+    {
     public:
         template<rpp::constraint::decayed_same_as<Fn> TFn, typename... TArgs>
         explicit specific_schedulable(const time_point& time_point, TFn&& in_fn, TArgs&&... in_args)
@@ -127,7 +128,7 @@ namespace rpp::schedulers::details
             try
             {
                 if (const auto res = m_args.apply(m_fn))
-                    return get_advanced_call_handler()(res.value());
+                    return get_advanced_call_handler<NowStrategy>()(res.value());
             }
             catch (...)
             {
@@ -152,7 +153,7 @@ namespace rpp::schedulers::details
 
         time_point handle_advanced_call(const advanced_call& v) noexcept override
         {
-            return v.visit(get_advanced_call_handler());
+            return v.visit(get_advanced_call_handler<NowStrategy>());
         }
 
         bool is_disposed() const noexcept override { return m_args.template get<0>().is_disposed(); }
