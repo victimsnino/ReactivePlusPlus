@@ -162,8 +162,6 @@ namespace rpp::schedulers::details
             using schedulable_type = specific_schedulable<NowStrategy, std::decay_t<Fn>, std::decay_t<Handler>, std::decay_t<Args>...>;
 
             emplace_impl(std::make_shared<schedulable_type>(timepoint, std::forward<Fn>(fn), std::forward<Handler>(handler), std::forward<Args>(args)...));
-            if (const auto s = m_shared_data.lock())
-                s->cv.notify_all();
         }
 
         void emplace(const time_point& timepoint, std::shared_ptr<schedulable_base>&& schedulable)
@@ -173,8 +171,6 @@ namespace rpp::schedulers::details
 
             schedulable->set_timepoint(timepoint);
             emplace_impl(std::move(schedulable));
-            if (const auto s = m_shared_data.lock())
-                s->cv.notify_all();
         }
 
         bool is_empty() const { return !m_head; }
@@ -193,7 +189,12 @@ namespace rpp::schedulers::details
         void emplace_impl(std::shared_ptr<schedulable_base>&& schedulable)
         {
             // needed in case of new_thread and current_thread shares same queue
-            const auto                           s = m_shared_data.lock();
+            const auto                       s = m_shared_data.lock();
+            const rpp::utils::finally_action _{[&] {
+                if (s)
+                    s->cv.notify_one();
+            }};
+
             optional_mutex<std::recursive_mutex> mutex{s ? &s->mutex : nullptr};
             std::lock_guard                      lock{mutex};
 
