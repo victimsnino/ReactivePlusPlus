@@ -45,7 +45,7 @@ namespace rpp::schedulers::details
         {
         public:
             advanced_call(std::variant<delay_from_now, delay_from_this_timepoint, delay_to> data)
-                : m_data{std::move(data)}
+                : m_data{data}
             {
             }
 
