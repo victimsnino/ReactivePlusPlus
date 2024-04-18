@@ -167,6 +167,7 @@ namespace rpp::schedulers
     class current_thread;
     class new_thread;
     class run_loop;
+    class thread_pool;
 
     namespace defaults
     {
