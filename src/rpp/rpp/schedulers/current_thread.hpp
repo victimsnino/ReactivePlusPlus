@@ -97,7 +97,7 @@ namespace rpp::schedulers
         };
 
 
-        static void drain_queue()
+        static void drain_queue() noexcept
         {
             while (s_queue && !s_queue->is_empty())
             {
