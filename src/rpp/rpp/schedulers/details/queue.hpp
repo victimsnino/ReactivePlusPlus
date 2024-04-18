@@ -89,6 +89,7 @@ namespace rpp::schedulers::details
                 next->set_next(std::move(m_next));
             m_next = std::move(next);
         }
+
     protected:
         template<typename NowStrategy>
         auto get_advanced_call_handler() const
