@@ -17,12 +17,15 @@
 #include <rpp/utils/tuple.hpp>
 #include <rpp/utils/utils.hpp>
 
+#include "rpp/utils/functors.hpp"
+
 #include <condition_variable>
 #include <exception>
 #include <memory>
 #include <mutex>
 #include <optional>
 #include <utility>
+#include <variant>
 
 namespace rpp::schedulers::details
 {
@@ -36,8 +39,40 @@ namespace rpp::schedulers::details
 
         virtual ~schedulable_base() noexcept = default;
 
-        virtual std::optional<time_point> operator()() noexcept        = 0;
-        virtual bool                      is_disposed() const noexcept = 0;
+        virtual std::optional<time_point> operator()() noexcept = 0;
+
+        class advanced_call
+        {
+        public:
+            advanced_call(std::variant<delay_from_now, delay_from_this_timepoint, delay_to> data)
+                : m_data{std::move(data)}
+            {
+            }
+
+
+            auto visit(const auto& fn) const
+            {
+                return std::visit(fn, m_data);
+            }
+
+            bool can_run_immediately() const noexcept
+            {
+                return visit(rpp::utils::overloaded{[](const delay_to&) {
+                                                        return false;
+                                                    },
+                                                    [](const auto& d) {
+                                                        return d.value == rpp::schedulers::duration::zero();
+                                                    }});
+            }
+
+        private:
+            std::variant<delay_from_now, delay_from_this_timepoint, delay_to> m_data;
+        };
+
+        virtual std::optional<advanced_call> make_advanced_call() noexcept                       = 0;
+        virtual time_point                   handle_advanced_call(const advanced_call&) noexcept = 0;
+
+        virtual bool is_disposed() const noexcept = 0;
 
         time_point get_timepoint() const { return m_time_point; }
 
@@ -63,6 +98,20 @@ namespace rpp::schedulers::details
         requires constraint::schedulable_fn<Fn, Handler, Args...>
     class specific_schedulable final : public schedulable_base
     {
+        auto get_advanced_call_handler() const
+        {
+            return rpp::utils::overloaded{
+                [](const delay_from_now& v) {
+                    return NowStrategy::now() + v.value;
+                },
+                [this](const delay_from_this_timepoint& v) {
+                    return get_timepoint() + v.value;
+                },
+                [](const delay_to& v) {
+                    return v.value;
+                }};
+        }
+
     public:
         template<rpp::constraint::decayed_same_as<Fn> TFn, typename... TArgs>
         explicit specific_schedulable(const time_point& time_point, TFn&& in_fn, TArgs&&... in_args)
@@ -77,27 +126,32 @@ namespace rpp::schedulers::details
             try
             {
                 if (const auto res = m_args.apply(m_fn))
-                {
-                    if constexpr (constraint::schedulable_delay_from_now_fn<Fn, Handler, Args...>)
-                    {
-                        return NowStrategy::now() + res->value;
-                    }
-                    else if constexpr (constraint::schedulable_delay_to_fn<Fn, Handler, Args...>)
-                    {
-                        return res->value;
-                    }
-                    else
-                    {
-                        static_assert(constraint::schedulable_delay_from_this_timepoint_fn<Fn, Handler, Args...>);
-                        return get_timepoint() + res->value;
-                    }
-                }
+                    return get_advanced_call_handler()(res.value());
             }
             catch (...)
             {
                 m_args.template get<0>().on_error(std::current_exception());
             }
             return std::nullopt;
+        }
+
+        std::optional<advanced_call> make_advanced_call() noexcept override
+        {
+            try
+            {
+                if (const auto res = m_args.apply(m_fn))
+                    return advanced_call{res.value()};
+            }
+            catch (...)
+            {
+                m_args.template get<0>().on_error(std::current_exception());
+            }
+            return std::nullopt;
+        }
+
+        time_point handle_advanced_call(const advanced_call& v) noexcept override
+        {
+            return v.visit(get_advanced_call_handler());
         }
 
         bool is_disposed() const noexcept override { return m_args.template get<0>().is_disposed(); }

@@ -38,6 +38,7 @@ namespace rpp::schedulers
             void defer_to(time_point time_point, Fn&& fn, Handler&& handler, Args&&... args)
             {
                 m_state->queue.emplace(time_point, std::forward<Fn>(fn), std::forward<Handler>(handler), std::forward<Args>(args)...);
+                m_state->has_fresh_data.store(true);
             }
 
         private:
@@ -62,6 +63,7 @@ namespace rpp::schedulers
             {
                 details::schedulables_queue<current_thread::worker_strategy> queue{};
                 bool                                                         is_disposed{};
+                std::atomic_bool                                             has_fresh_data{false};
             };
 
             static void data_thread(std::shared_ptr<state_t> state)
@@ -95,11 +97,23 @@ namespace rpp::schedulers
                     }
 
                     auto top = state->queue.pop();
+                    state->has_fresh_data.store(!state->queue.is_empty());
                     lock.unlock();
 
-                    if (const auto timepoint = (*top)())
-                        if (!top->is_disposed())
-                            state->queue.emplace(timepoint.value(), std::move(top));
+                    while (true)
+                    {
+                        if (const auto res = top->make_advanced_call())
+                        {
+                            if (!top->is_disposed())
+                            {
+                                if (res->can_run_immediately() && !state->has_fresh_data.load())
+                                    continue;
+
+                                state->queue.emplace(top->handle_advanced_call(res.value()), std::move(top));
+                            }
+                        }
+                        break;
+                    }
                 }
 
                 current_thread::s_queue = nullptr;
