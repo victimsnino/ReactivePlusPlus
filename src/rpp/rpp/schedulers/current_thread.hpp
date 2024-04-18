@@ -145,12 +145,10 @@ namespace rpp::schedulers
                         return drain_queue();
 
                     s_queue->emplace(timepoint.value(), std::forward<Fn>(fn), std::forward<Handler>(handler), std::forward<Args>(args)...);
-                    drain_queue();
-                    return;
+                    return drain_queue();
                 }
 
                 s_queue->emplace(now() + duration, std::forward<Fn>(fn), std::forward<Handler>(handler), std::forward<Args>(args)...);
-                drain_queue();
             }
 
             template<rpp::schedulers::constraint::schedulable_handler Handler, typename... Args, constraint::schedulable_fn<Handler, Args...> Fn>
