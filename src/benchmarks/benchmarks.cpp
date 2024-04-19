@@ -266,44 +266,6 @@ int main(int argc, char* argv[]) // NOLINT(bugprone-exception-escape)
                     });
                 });
         }
-        SECTION("new_thread scheduler create worker + schedule")
-        {
-            TEST_RPP([&]() {
-                rpp::schedulers::new_thread::create_worker().schedule([](const auto& v) { ankerl::nanobench::doNotOptimizeAway(v); return rpp::schedulers::optional_delay_from_now{}; }, rpp::make_lambda_observer([](int) {}));
-            });
-            TEST_RXCPP([&]() {
-                rxcpp::observe_on_new_thread().create_coordinator().get_worker().schedule([](const auto& v) { ankerl::nanobench::doNotOptimizeAway(v); });
-            });
-        }
-
-        SECTION("new_thread scheduler create worker + schedule + recursive schedule")
-        {
-            TEST_RPP(
-                [&]() {
-                    const auto worker = rpp::schedulers::new_thread::create_worker();
-                    worker.schedule(
-                        [&worker](auto&& v) {
-                            worker.schedule(
-                                [](const auto& v) {
-                                    ankerl::nanobench::doNotOptimizeAway(v);
-                                    return rpp::schedulers::optional_delay_from_now{};
-                                },
-                                std::move(v));
-                            return rpp::schedulers::optional_delay_from_now{};
-                        },
-                        rpp::make_lambda_observer([](int) {}));
-                });
-            TEST_RXCPP(
-                [&]() {
-                    const auto worker = rxcpp::observe_on_new_thread()
-                                            .create_coordinator()
-                                            .get_worker();
-
-                    worker.schedule([&worker](const auto&) {
-                        worker.schedule([](const auto& v) { ankerl::nanobench::doNotOptimizeAway(v); });
-                    });
-                });
-        }
     } // BENCHMARK("Schedulers")
 
     BENCHMARK("Combining Operators")
