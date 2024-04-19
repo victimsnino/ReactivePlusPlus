@@ -17,12 +17,15 @@
 #include <rpp/utils/tuple.hpp>
 #include <rpp/utils/utils.hpp>
 
+#include "rpp/utils/functors.hpp"
+
 #include <condition_variable>
 #include <exception>
 #include <memory>
 #include <mutex>
 #include <optional>
 #include <utility>
+#include <variant>
 
 namespace rpp::schedulers::details
 {
@@ -36,8 +39,41 @@ namespace rpp::schedulers::details
 
         virtual ~schedulable_base() noexcept = default;
 
-        virtual std::optional<time_point> operator()() noexcept        = 0;
-        virtual bool                      is_disposed() const noexcept = 0;
+        virtual std::optional<time_point> operator()() noexcept = 0;
+
+        class advanced_call
+        {
+        public:
+            advanced_call(std::variant<delay_from_now, delay_from_this_timepoint, delay_to> data)
+                : m_data{data}
+            {
+            }
+
+            const std::variant<delay_from_now, delay_from_this_timepoint, delay_to>& get() const { return m_data; }
+
+            auto visit(const auto& fn) const
+            {
+                return std::visit(fn, m_data);
+            }
+
+            bool can_run_immediately() const noexcept
+            {
+                return visit(rpp::utils::overloaded{[](const delay_to&) {
+                                                        return false;
+                                                    },
+                                                    [](const auto& d) {
+                                                        return d.value == rpp::schedulers::duration::zero();
+                                                    }});
+            }
+
+        private:
+            std::variant<delay_from_now, delay_from_this_timepoint, delay_to> m_data;
+        };
+
+        virtual std::optional<advanced_call> make_advanced_call() noexcept                       = 0;
+        virtual time_point                   handle_advanced_call(const advanced_call&) noexcept = 0;
+
+        virtual bool is_disposed() const noexcept = 0;
 
         time_point get_timepoint() const { return m_time_point; }
 
@@ -52,6 +88,22 @@ namespace rpp::schedulers::details
             if (next)
                 next->set_next(std::move(m_next));
             m_next = std::move(next);
+        }
+
+    protected:
+        template<typename NowStrategy>
+        auto get_advanced_call_handler() const
+        {
+            return rpp::utils::overloaded{
+                [](const delay_from_now& v) {
+                    return NowStrategy::now() + v.value;
+                },
+                [this](const delay_from_this_timepoint& v) {
+                    return get_timepoint() + v.value;
+                },
+                [](const delay_to& v) {
+                    return v.value;
+                }};
         }
 
     private:
@@ -77,27 +129,32 @@ namespace rpp::schedulers::details
             try
             {
                 if (const auto res = m_args.apply(m_fn))
-                {
-                    if constexpr (constraint::schedulable_delay_from_now_fn<Fn, Handler, Args...>)
-                    {
-                        return NowStrategy::now() + res->value;
-                    }
-                    else if constexpr (constraint::schedulable_delay_to_fn<Fn, Handler, Args...>)
-                    {
-                        return res->value;
-                    }
-                    else
-                    {
-                        static_assert(constraint::schedulable_delay_from_this_timepoint_fn<Fn, Handler, Args...>);
-                        return get_timepoint() + res->value;
-                    }
-                }
+                    return get_advanced_call_handler<NowStrategy>()(res.value());
             }
             catch (...)
             {
                 m_args.template get<0>().on_error(std::current_exception());
             }
             return std::nullopt;
+        }
+
+        std::optional<advanced_call> make_advanced_call() noexcept override
+        {
+            try
+            {
+                if (const auto res = m_args.apply(m_fn))
+                    return advanced_call{res.value()};
+            }
+            catch (...)
+            {
+                m_args.template get<0>().on_error(std::current_exception());
+            }
+            return std::nullopt;
+        }
+
+        time_point handle_advanced_call(const advanced_call& v) noexcept override
+        {
+            return v.visit(get_advanced_call_handler<NowStrategy>());
         }
 
         bool is_disposed() const noexcept override { return m_args.template get<0>().is_disposed(); }
@@ -151,7 +208,7 @@ namespace rpp::schedulers::details
         schedulables_queue& operator=(const schedulables_queue& other)     = delete;
         schedulables_queue& operator=(schedulables_queue&& other) noexcept = default;
 
-        schedulables_queue(std::shared_ptr<shared_queue_data> shared_data)
+        schedulables_queue(std::weak_ptr<shared_queue_data> shared_data)
             : m_shared_data{std::move(shared_data)}
         {
         }
@@ -162,8 +219,6 @@ namespace rpp::schedulers::details
             using schedulable_type = specific_schedulable<NowStrategy, std::decay_t<Fn>, std::decay_t<Handler>, std::decay_t<Args>...>;
 
             emplace_impl(std::make_shared<schedulable_type>(timepoint, std::forward<Fn>(fn), std::forward<Handler>(handler), std::forward<Args>(args)...));
-            if (m_shared_data)
-                m_shared_data->cv.notify_all();
         }
 
         void emplace(const time_point& timepoint, std::shared_ptr<schedulable_base>&& schedulable)
@@ -173,8 +228,6 @@ namespace rpp::schedulers::details
 
             schedulable->set_timepoint(timepoint);
             emplace_impl(std::move(schedulable));
-            if (m_shared_data)
-                m_shared_data->cv.notify_all();
         }
 
         bool is_empty() const { return !m_head; }
@@ -193,7 +246,13 @@ namespace rpp::schedulers::details
         void emplace_impl(std::shared_ptr<schedulable_base>&& schedulable)
         {
             // needed in case of new_thread and current_thread shares same queue
-            optional_mutex<std::recursive_mutex> mutex{m_shared_data ? &m_shared_data->mutex : nullptr};
+            const auto                       s = m_shared_data.lock();
+            const rpp::utils::finally_action _{[&] {
+                if (s)
+                    s->cv.notify_one();
+            }};
+
+            optional_mutex<std::recursive_mutex> mutex{s ? &s->mutex : nullptr};
             std::lock_guard                      lock{mutex};
 
             if (!m_head || schedulable->get_timepoint() < m_head->get_timepoint())
@@ -215,7 +274,7 @@ namespace rpp::schedulers::details
         }
 
     private:
-        std::shared_ptr<schedulable_base>  m_head{};
-        std::shared_ptr<shared_queue_data> m_shared_data{};
+        std::shared_ptr<schedulable_base> m_head{};
+        std::weak_ptr<shared_queue_data>  m_shared_data{};
     };
 } // namespace rpp::schedulers::details

@@ -32,21 +32,13 @@ namespace rpp::schedulers
         class disposable final : public rpp::details::base_disposable
         {
         public:
-            disposable()
-            {
-                // just waiting
-                while (!m_state->queue_ptr.load(std::memory_order::seq_cst))
-                {
-                };
-            }
+            disposable() = default;
 
             template<rpp::schedulers::constraint::schedulable_handler Handler, typename... Args, constraint::schedulable_fn<Handler, Args...> Fn>
             void defer_to(time_point time_point, Fn&& fn, Handler&& handler, Args&&... args)
             {
-                std::lock_guard lock{m_state->mutex};
-                // guarded by lock
-                if (const auto queue = m_state->queue_ptr.load(std::memory_order::seq_cst))
-                    queue->emplace(time_point, std::forward<Fn>(fn), std::forward<Handler>(handler), std::forward<Args>(args)...);
+                m_state->queue.emplace(time_point, std::forward<Fn>(fn), std::forward<Handler>(handler), std::forward<Args>(args)...);
+                m_state->has_fresh_data.store(true);
             }
 
         private:
@@ -57,7 +49,7 @@ namespace rpp::schedulers
 
                 {
                     std::lock_guard lock{m_state->mutex};
-                    m_state->is_disposed.store(true, std::memory_order::relaxed);
+                    m_state->is_disposed = true;
                 }
                 m_state->cv.notify_all();
 
@@ -69,58 +61,70 @@ namespace rpp::schedulers
 
             struct state_t : public details::shared_queue_data
             {
-                std::atomic<details::schedulables_queue<current_thread::worker_strategy>*> queue_ptr{};
-                std::atomic_bool                                                           is_disposed{};
+                details::schedulables_queue<current_thread::worker_strategy> queue{};
+                bool                                                         is_disposed{};
+                std::atomic_bool                                             has_fresh_data{false};
             };
 
             static void data_thread(std::shared_ptr<state_t> state)
             {
-                auto& queue = current_thread::s_queue;
-                state->queue_ptr.store(&queue.emplace(state), std::memory_order::seq_cst);
+                current_thread::s_queue = &state->queue;
 
                 while (true)
                 {
                     std::unique_lock lock{state->mutex};
-
-                    if (queue->is_empty() && state->is_disposed.load(std::memory_order::seq_cst))
+                    if (state->queue.is_empty() && state->is_disposed)
                         break;
 
-                    state->cv.wait(lock, [&] { return !queue->is_empty() || state->is_disposed.load(std::memory_order::seq_cst); });
+                    state->cv.wait(lock, [&] { return !state->queue.is_empty() || state->is_disposed; });
 
-                    if (queue->is_empty())
+                    if (state->queue.is_empty())
                         break;
 
-                    if (queue->top()->is_disposed())
+                    if (state->queue.top()->is_disposed())
                     {
-                        queue->pop();
+                        state->queue.pop();
                         continue;
                     }
 
-                    if (details::s_last_now_time < queue->top()->get_timepoint())
+                    if (details::s_last_now_time < state->queue.top()->get_timepoint())
                     {
-                        if (const auto now = worker_strategy::now(); now < queue->top()->get_timepoint())
+                        if (const auto now = worker_strategy::now(); now < state->queue.top()->get_timepoint())
                         {
-                            state->cv.wait_for(lock, queue->top()->get_timepoint() - now, [&] { return queue->top()->is_disposed() || worker_strategy::now() >= queue->top()->get_timepoint(); });
+                            state->cv.wait_for(lock, state->queue.top()->get_timepoint() - now, [&] { return state->queue.top()->is_disposed() || worker_strategy::now() >= state->queue.top()->get_timepoint(); });
                             continue;
                         }
                     }
 
-                    auto top = queue->pop();
+                    auto top = state->queue.pop();
+                    state->has_fresh_data.store(!state->queue.is_empty());
                     lock.unlock();
 
-                    if (const auto timepoint = (*top)())
-                        if (!top->is_disposed())
-                            queue->emplace(timepoint.value(), std::move(top));
+                    while (true)
+                    {
+                        if (const auto res = top->make_advanced_call())
+                        {
+                            if (!top->is_disposed())
+                            {
+                                if (res->can_run_immediately() && !state->has_fresh_data.load())
+                                    continue;
+
+                                state->queue.emplace(top->handle_advanced_call(res.value()), std::move(top));
+                            }
+                        }
+                        break;
+                    }
                 }
 
-                std::unique_lock lock{state->mutex};
-                state->queue_ptr.store(nullptr, std::memory_order::seq_cst);
-                queue.reset();
+                current_thread::s_queue = nullptr;
             }
 
         private:
             std::shared_ptr<state_t> m_state = std::make_shared<state_t>();
-            std::thread              m_thread{&data_thread, m_state};
+
+            RPP_CALL_DURING_CONSTRUCTION(m_state->queue = details::schedulables_queue<current_thread::worker_strategy>(m_state));
+
+            std::thread m_thread{&data_thread, m_state};
         };
 
     public:
