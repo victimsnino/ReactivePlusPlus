@@ -1,5 +1,6 @@
 var hierarchy =
 [
+    [ "rpp::schedulers::details::schedulable_base::advanced_call", "classrpp_1_1schedulers_1_1details_1_1schedulable__base_1_1advanced__call.html", null ],
     [ "rpp::operators::details::as_blocking_t", "structrpp_1_1operators_1_1details_1_1as__blocking__t.html", null ],
     [ "rpp::details::observers::atomic_bool", "classrpp_1_1details_1_1observers_1_1atomic__bool.html", null ],
     [ "rpp::details::auto_dispose_wrapper< TDisposable >", "classrpp_1_1details_1_1auto__dispose__wrapper.html", null ],
@@ -333,6 +334,7 @@ var hierarchy =
       [ "rpp::schedulers::details::specific_schedulable< NowStrategy, Fn, Handler, Args >", "classrpp_1_1schedulers_1_1details_1_1specific__schedulable.html", null ]
     ] ],
     [ "rpp::schedulers::details::schedulables_queue< NowStrategy >", "classrpp_1_1schedulers_1_1details_1_1schedulables__queue.html", null ],
+    [ "rpp::schedulers::details::schedulables_queue< current_thread::worker_strategy >", "classrpp_1_1schedulers_1_1details_1_1schedulables__queue.html", null ],
     [ "rpp::schedulers::details::schedulables_queue< test_scheduler::worker_strategy >", "classrpp_1_1schedulers_1_1details_1_1schedulables__queue.html", null ],
     [ "rpp::schedulers::details::schedulables_queue< worker_strategy >", "classrpp_1_1schedulers_1_1details_1_1schedulables__queue.html", null ],
     [ "rpp::details::shared_container< Container >", "classrpp_1_1details_1_1shared__container.html", null ],

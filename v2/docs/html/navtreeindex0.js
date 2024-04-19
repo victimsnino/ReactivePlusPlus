@@ -100,6 +100,7 @@ var NAVTREEINDEX0 =
 "classrpp_1_1schedulers_1_1current__thread.html":[1,0,4,0],
 "classrpp_1_1schedulers_1_1details_1_1optional__mutex.html":[3,0,0,3,1,2],
 "classrpp_1_1schedulers_1_1details_1_1schedulable__base.html":[3,0,0,3,1,3],
+"classrpp_1_1schedulers_1_1details_1_1schedulable__base_1_1advanced__call.html":[3,0,0,3,1,3,0],
 "classrpp_1_1schedulers_1_1details_1_1schedulables__queue.html":[3,0,0,3,1,4],
 "classrpp_1_1schedulers_1_1details_1_1specific__schedulable.html":[3,0,0,3,1,6],
 "classrpp_1_1schedulers_1_1immediate.html":[1,0,4,1],
@@ -248,6 +249,5 @@ var NAVTREEINDEX0 =
 "group__creational__operators.html":[1,0,3,8],
 "group__creational__operators.html#ga0fdda8fec71eb1bc082065577d458f8e":[1,0,3,8,11],
 "group__creational__operators.html#ga16c57281cc1b24605ec23b09ec880416":[1,0,3,8,14],
-"group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0":[1,0,3,8,12],
-"group__creational__operators.html#ga4018b147fb99a358c6c01f21183c13e6":[1,0,3,8,9]
+"group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0":[1,0,3,8,12]
 };

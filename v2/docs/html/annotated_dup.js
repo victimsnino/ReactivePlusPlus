@@ -187,7 +187,7 @@ var annotated_dup =
           [ "fake_schedulable_handler", "structrpp_1_1schedulers_1_1details_1_1fake__schedulable__handler.html", null ],
           [ "none_disposable", "structrpp_1_1schedulers_1_1details_1_1none__disposable.html", null ],
           [ "optional_mutex", "classrpp_1_1schedulers_1_1details_1_1optional__mutex.html", null ],
-          [ "schedulable_base", "classrpp_1_1schedulers_1_1details_1_1schedulable__base.html", null ],
+          [ "schedulable_base", "classrpp_1_1schedulers_1_1details_1_1schedulable__base.html", "classrpp_1_1schedulers_1_1details_1_1schedulable__base" ],
           [ "schedulables_queue", "classrpp_1_1schedulers_1_1details_1_1schedulables__queue.html", null ],
           [ "shared_queue_data", "structrpp_1_1schedulers_1_1details_1_1shared__queue__data.html", null ],
           [ "specific_schedulable", "classrpp_1_1schedulers_1_1details_1_1specific__schedulable.html", null ]

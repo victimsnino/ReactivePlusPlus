@@ -6,6 +6,11 @@ Inheritance diagram for rpp\+::schedulers\+::details\+::schedulable\+\_\+base\+:
 \includegraphics[height=2.000000cm]{classrpp_1_1schedulers_1_1details_1_1schedulable__base}
 \end{center}
 \end{figure}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classrpp_1_1schedulers_1_1details_1_1schedulable__base_1_1advanced__call}{advanced\+\_\+call}}
+\end{DoxyCompactItemize}
 \doxysubsubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -14,6 +19,12 @@ Inheritance diagram for rpp\+::schedulers\+::details\+::schedulable\+\_\+base\+:
 \item 
 \Hypertarget{classrpp_1_1schedulers_1_1details_1_1schedulable__base_a6f8c31e00850627c34a5b6bda431ec7d}\label{classrpp_1_1schedulers_1_1details_1_1schedulable__base_a6f8c31e00850627c34a5b6bda431ec7d} 
 virtual std\+::optional$<$ time\+\_\+point $>$ {\bfseries operator()} () noexcept=0
+\item 
+\Hypertarget{classrpp_1_1schedulers_1_1details_1_1schedulable__base_ae329d45b32a689b658c354e1e48d95f7}\label{classrpp_1_1schedulers_1_1details_1_1schedulable__base_ae329d45b32a689b658c354e1e48d95f7} 
+virtual std\+::optional$<$ \mbox{\hyperlink{classrpp_1_1schedulers_1_1details_1_1schedulable__base_1_1advanced__call}{advanced\+\_\+call}} $>$ {\bfseries make\+\_\+advanced\+\_\+call} () noexcept=0
+\item 
+\Hypertarget{classrpp_1_1schedulers_1_1details_1_1schedulable__base_a95a3efd4cf7766bb5f9d879a283d8b29}\label{classrpp_1_1schedulers_1_1details_1_1schedulable__base_a95a3efd4cf7766bb5f9d879a283d8b29} 
+virtual time\+\_\+point {\bfseries handle\+\_\+advanced\+\_\+call} (const \mbox{\hyperlink{classrpp_1_1schedulers_1_1details_1_1schedulable__base_1_1advanced__call}{advanced\+\_\+call}} \&) noexcept=0
 \item 
 \Hypertarget{classrpp_1_1schedulers_1_1details_1_1schedulable__base_af39d8c673e4863330c71a08e98b0790e}\label{classrpp_1_1schedulers_1_1details_1_1schedulable__base_af39d8c673e4863330c71a08e98b0790e} 
 virtual bool {\bfseries is\+\_\+disposed} () const noexcept=0
@@ -32,6 +43,12 @@ void {\bfseries set\+\_\+next} (std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class
 \item 
 \Hypertarget{classrpp_1_1schedulers_1_1details_1_1schedulable__base_af36c70b4f6e4d0dbd74938e5b0eb962f}\label{classrpp_1_1schedulers_1_1details_1_1schedulable__base_af36c70b4f6e4d0dbd74938e5b0eb962f} 
 void {\bfseries update\+\_\+next} (std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classrpp_1_1schedulers_1_1details_1_1schedulable__base}{schedulable\+\_\+base}} $>$ \&\&next)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classrpp_1_1schedulers_1_1details_1_1schedulable__base_af7b73626d865cbda41c1e176325943d1}\label{classrpp_1_1schedulers_1_1details_1_1schedulable__base_af7b73626d865cbda41c1e176325943d1} 
+{\footnotesize template$<$typename Now\+Strategy $>$ }\\auto {\bfseries get\+\_\+advanced\+\_\+call\+\_\+handler} () const
 \end{DoxyCompactItemize}
 
 

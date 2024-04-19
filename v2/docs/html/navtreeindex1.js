@@ -1,5 +1,6 @@
 var NAVTREEINDEX1 =
 {
+"group__creational__operators.html#ga4018b147fb99a358c6c01f21183c13e6":[1,0,3,8,9],
 "group__creational__operators.html#ga4f9024c949765737e6a99a05f74d382e":[1,0,3,8,1],
 "group__creational__operators.html#ga4fe060f48695cc3fadfbdb10f77f8acb":[1,0,3,8,6],
 "group__creational__operators.html#ga519523490394660d7e8c46d2d5612f75":[1,0,3,8,7],
@@ -248,6 +249,5 @@ var NAVTREEINDEX1 =
 "structrpp_1_1operators_1_1details_1_1last__t_1_1operator__traits.html":[3,0,0,2,0,40,0],
 "structrpp_1_1operators_1_1details_1_1map__observer__strategy.html":[3,0,0,2,0,42],
 "structrpp_1_1operators_1_1details_1_1map__t.html":[3,0,0,2,0,43],
-"structrpp_1_1operators_1_1details_1_1map__t_1_1operator__traits.html":[3,0,0,2,0,43,0],
-"structrpp_1_1operators_1_1details_1_1merge__observer__base__strategy.html":[3,0,0,2,0,45]
+"structrpp_1_1operators_1_1details_1_1map__t_1_1operator__traits.html":[3,0,0,2,0,43,0]
 };

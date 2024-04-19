@@ -1,5 +1,6 @@
 var NAVTREEINDEX2 =
 {
+"structrpp_1_1operators_1_1details_1_1merge__observer__base__strategy.html":[3,0,0,2,0,45],
 "structrpp_1_1operators_1_1details_1_1merge__observer__inner__strategy.html":[3,0,0,2,0,46],
 "structrpp_1_1operators_1_1details_1_1merge__t.html":[3,0,0,2,0,48],
 "structrpp_1_1operators_1_1details_1_1merge__t_1_1operator__traits.html":[3,0,0,2,0,48,0],
