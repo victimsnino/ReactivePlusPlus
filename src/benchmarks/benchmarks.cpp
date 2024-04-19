@@ -146,6 +146,31 @@ int main(int argc, char* argv[]) // NOLINT(bugprone-exception-escape)
             });
         }
 
+
+        SECTION("from array of 1 - create + as_blocking + subscribe + new_thread")
+        {
+            std::array<int, 1> vals{123};
+            TEST_RPP([&]() {
+                (rpp::source::from_iterable(vals, rpp::schedulers::new_thread{}) | rpp::ops::as_blocking()).subscribe([](int v) { ankerl::nanobench::doNotOptimizeAway(v); });
+            });
+
+            TEST_RXCPP([&]() {
+                (rxcpp::observable<>::iterate(vals, rxcpp::observe_on_new_thread()) | rxcpp::operators::as_blocking()).subscribe([](int v) { ankerl::nanobench::doNotOptimizeAway(v); });
+            });
+        }
+
+        SECTION("from array of 1000 - create + as_blocking + subscribe + new_thread")
+        {
+            std::array<int, 1000> vals{};
+            TEST_RPP([&]() {
+                (rpp::source::from_iterable(vals, rpp::schedulers::new_thread{}) | rpp::ops::as_blocking()).subscribe([](int v) { ankerl::nanobench::doNotOptimizeAway(v); });
+            });
+
+            TEST_RXCPP([&]() {
+                (rxcpp::observable<>::iterate(vals, rxcpp::observe_on_new_thread()) | rxcpp::operators::as_blocking()).subscribe([](int v) { ankerl::nanobench::doNotOptimizeAway(v); });
+            });
+        }
+
         SECTION("concat_as_source of just(1 immediate) create + subscribe")
         {
             TEST_RPP([&]() {
