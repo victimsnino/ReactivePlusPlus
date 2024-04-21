@@ -11,6 +11,7 @@
 #pragma once
 
 #include <rpp/schedulers/fwd.hpp>
+
 #include <rpp/schedulers/thread_pool.hpp>
 
 namespace rpp::schedulers
@@ -34,4 +35,4 @@ namespace rpp::schedulers
             return tp.create_worker();
         }
     };
-}
+} // namespace rpp::schedulers

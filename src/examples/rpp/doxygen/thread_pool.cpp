@@ -30,7 +30,7 @@ int main() // NOLINT(bugprone-exception-escape)
     //! [computational]
     rpp::source::just(1, 2, 3, 4, 5, 6, 7, 8)
         | rpp::operators::flat_map([](int value) { return rpp::source::just(rpp::schedulers::computational{}, value)
-                                                                 | rpp::operators::delay(std::chrono::nanoseconds{500}, rpp::schedulers::immediate{}); })
+                                                        | rpp::operators::delay(std::chrono::nanoseconds{500}, rpp::schedulers::immediate{}); })
         | rpp::operators::as_blocking()
         | rpp::operators::subscribe([](int v) { std::cout << "[" << std::this_thread::get_id() << "] " << v << std::endl; });
 

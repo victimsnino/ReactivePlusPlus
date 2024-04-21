@@ -17,9 +17,9 @@
  * @ingroup rpp
  */
 
+#include <rpp/schedulers/computational.hpp>
 #include <rpp/schedulers/current_thread.hpp>
 #include <rpp/schedulers/immediate.hpp>
 #include <rpp/schedulers/new_thread.hpp>
 #include <rpp/schedulers/run_loop.hpp>
 #include <rpp/schedulers/thread_pool.hpp>
-#include <rpp/schedulers/computational.hpp>
