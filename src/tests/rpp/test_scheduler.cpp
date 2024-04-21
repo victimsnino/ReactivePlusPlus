@@ -957,10 +957,11 @@ TEST_CASE("thread_pool uses multiple threads")
         scheduler.create_worker().schedule([&promise](const auto&) {
             promise.set_value(std::this_thread::get_id());
             return rpp::schedulers::optional_delay_from_now{};
-        }, obs);
+        },
+                                           obs);
         return promise.get_future().get();
     };
-   
+
     const auto thread_1_value = get_thread_id();
     const auto thread_2_value = get_thread_id();
     const auto thread_3_value = get_thread_id();
