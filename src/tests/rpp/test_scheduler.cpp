@@ -945,3 +945,61 @@ TEST_CASE("current_thread inside new_thread")
     REQUIRE(done->load());
     CHECK(current_thread_invoked->load());
 }
+
+TEST_CASE("thread_pool uses multiple threads")
+{
+    auto obs = mock_observer_strategy<int>{}.get_observer().as_dynamic();
+
+    auto scheduler = rpp::schedulers::thread_pool{3};
+
+    const auto get_thread_id = [&scheduler, &obs]() {
+        std::promise<std::thread::id> promise{};
+        scheduler.create_worker().schedule([&promise](const auto&) {
+            promise.set_value(std::this_thread::get_id());
+            return rpp::schedulers::optional_delay_from_now{};
+        },
+                                           obs);
+        return promise.get_future().get();
+    };
+
+    const auto thread_1_value = get_thread_id();
+    const auto thread_2_value = get_thread_id();
+    const auto thread_3_value = get_thread_id();
+    CHECK(thread_1_value != thread_2_value);
+    CHECK(thread_1_value != thread_3_value);
+    CHECK(thread_2_value != thread_3_value);
+
+    CHECK(thread_1_value == get_thread_id());
+    CHECK(thread_2_value == get_thread_id());
+    CHECK(thread_3_value == get_thread_id());
+}
+
+
+TEST_CASE("thread_pool shares same thread")
+{
+    auto obs = mock_observer_strategy<int>{}.get_observer().as_dynamic();
+
+    auto scheduler = rpp::schedulers::thread_pool{1};
+
+    std::atomic_bool first_job_done{};
+
+    scheduler.create_worker().schedule([&first_job_done](const auto&) {
+        while (!first_job_done)
+            std::this_thread::yield();
+        return rpp::schedulers::optional_delay_from_now{};
+    },
+                                       obs);
+
+    std::promise<bool> second_task_executed_promise{};
+    scheduler.create_worker().schedule([&second_task_executed_promise](const auto&) {
+        second_task_executed_promise.set_value(true);
+        return rpp::schedulers::optional_delay_from_now{};
+    },
+                                       obs);
+    auto f = second_task_executed_promise.get_future();
+
+    CHECK(f.wait_for(std::chrono::seconds{1}) == std::future_status::timeout);
+    first_job_done.store(true);
+
+    CHECK(f.get());
+}
