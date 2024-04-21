@@ -1,0 +1,47 @@
+\doxysection{thread\+\_\+pool.\+cpp}
+\hypertarget{thread_pool_8cpp-example}{}\label{thread_pool_8cpp-example}
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <rpp/rpp.hpp>}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{int}\ main()\ \textcolor{comment}{//\ NOLINT(bugprone-\/exception-\/escape)}}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ scheduler\ =\ \mbox{\hyperlink{classrpp_1_1schedulers_1_1thread__pool}{rpp::schedulers::thread\_pool}}\{4\};}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(1,\ 2,\ 3,\ 4,\ 5,\ 6,\ 7,\ 8)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__transforming__operators_ga633883e796101ceeab821e2a4912bd5e}{rpp::operators::flat\_map}}([scheduler](\textcolor{keywordtype}{int}\ value)\ \{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(scheduler,\ value)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_gae38caa489cf43c0aca1aa1c8822aed60}{rpp::operators::delay}}(std::chrono::nanoseconds\{500\},\ \mbox{\hyperlink{classrpp_1_1schedulers_1_1immediate}{rpp::schedulers::immediate}}\{\});\ \})}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_ga9df008c11eeff8c9383e56bf36e28ec2}{rpp::operators::as\_blocking}}()}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{rpp::operators::subscribe}}([](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}["{}}\ <<\ std::this\_thread::get\_id()\ <<\ \textcolor{stringliteral}{"{}]\ "{}}\ <<\ v\ <<\ std::endl;\ \});}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:\ (can\ be\ in\ any\ order\ but\ same\ correlation\ between\ thread\ and\ values)}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ [thread\_1]\ 1}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ [thread\_2]\ 2}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ [thread\_3]\ 3}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ [thread\_4]\ 4}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ [thread\_1]\ 5}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ [thread\_2]\ 6}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ [thread\_3]\ 7}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ [thread\_4]\ 8}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(1,\ 2,\ 3,\ 4,\ 5,\ 6,\ 7,\ 8)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__transforming__operators_ga633883e796101ceeab821e2a4912bd5e}{rpp::operators::flat\_map}}([](\textcolor{keywordtype}{int}\ value)\ \{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(\mbox{\hyperlink{classrpp_1_1schedulers_1_1computational}{rpp::schedulers::computational}}\{\},\ value)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_gae38caa489cf43c0aca1aa1c8822aed60}{rpp::operators::delay}}(std::chrono::nanoseconds\{500\},\ \mbox{\hyperlink{classrpp_1_1schedulers_1_1immediate}{rpp::schedulers::immediate}}\{\});\ \})}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_ga9df008c11eeff8c9383e56bf36e28ec2}{rpp::operators::as\_blocking}}()}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{rpp::operators::subscribe}}([](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}["{}}\ <<\ std::this\_thread::get\_id()\ <<\ \textcolor{stringliteral}{"{}]\ "{}}\ <<\ v\ <<\ std::endl;\ \});}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:\ (can\ be\ in\ any\ order\ but\ same\ correlation\ between\ thread\ and\ values)}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ [thread\_1]\ 1}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ [thread\_2]\ 2}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ [thread\_3]\ 3}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ [thread\_4]\ 4}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ [thread\_1]\ 5}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ [thread\_2]\ 6}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ [thread\_3]\ 7}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ [thread\_4]\ 8}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{\}}
+
+\end{DoxyCodeInclude}
+ 

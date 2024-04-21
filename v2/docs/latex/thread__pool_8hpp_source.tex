@@ -1,0 +1,88 @@
+\doxysection{thread\+\_\+pool.\+hpp}
+\hypertarget{thread__pool_8hpp_source}{}\label{thread__pool_8hpp_source}\index{src/rpp/rpp/schedulers/thread\_pool.hpp@{src/rpp/rpp/schedulers/thread\_pool.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ReactivePlusPlus\ library}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ Copyright\ Aleksey\ Loginov\ 2023\ -\/\ present.}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ Distributed\ under\ the\ Boost\ Software\ License,\ Version\ 1.0.}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ \ \ \ (See\ accompanying\ file\ LICENSE\_1\_0.txt\ or\ copy\ at}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ https://www.boost.org/LICENSE\_1\_0.txt)}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ Project\ home:\ https://github.com/victimsnino/ReactivePlusPlus}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <rpp/schedulers/fwd.hpp>}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <rpp/schedulers/new\_thread.hpp>}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{keyword}{namespace\ }rpp::schedulers}
+\DoxyCodeLine{00018\ \{}
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1schedulers_1_1thread__pool}{thread\_pool}}\ final}
+\DoxyCodeLine{00029\ \ \ \ \ \{}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }original\_worker\ =\ \textcolor{keyword}{decltype}(new\_thread::create\_worker());}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \textcolor{keyword}{class\ }worker\_strategy}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \ \ \ \ worker\_strategy(\textcolor{keyword}{const}\ original\_worker\&\ original\_worker)}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ m\_original\_worker\{original\_worker\}}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}<\mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1schedulable__handler}{rpp::schedulers::constraint::schedulable\_handler}}\ Handler,\ \textcolor{keyword}{typename}...\ Args,\ \mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1schedulable__fn}{constraint::schedulable\_fn}}<Handler,\ Args...>\ Fn>}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ defer\_for(duration\ duration,\ Fn\&\&\ fn,\ Handler\&\&\ handler,\ Args\&\&...\ args)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00042\ \textcolor{keyword}{\ \ \ \ \ \ \ \ \ \ \ \ }\{}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ m\_original\_worker.schedule(duration,\ std::forward<Fn>(fn),\ std::forward<Handler>(handler),\ std::forward<Args>(args)...);}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}<\mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1schedulable__handler}{rpp::schedulers::constraint::schedulable\_handler}}\ Handler,\ \textcolor{keyword}{typename}...\ Args,\ \mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1schedulable__fn}{constraint::schedulable\_fn}}<Handler,\ Args...>\ Fn>}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ defer\_to(time\_point\ tp,\ Fn\&\&\ fn,\ Handler\&\&\ handler,\ Args\&\&...\ args)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00048\ \textcolor{keyword}{\ \ \ \ \ \ \ \ \ \ \ \ }\{}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ m\_original\_worker.schedule(tp,\ std::forward<Fn>(fn),\ std::forward<Handler>(handler),\ std::forward<Args>(args)...);}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \mbox{\hyperlink{structrpp_1_1schedulers_1_1details_1_1none__disposable}{rpp::schedulers::details::none\_disposable}}\ get\_disposable()\ \{\ \textcolor{keywordflow}{return}\ \{\};\ \}}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ rpp::schedulers::time\_point\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ now()\ \{\ \textcolor{keywordflow}{return}\ original\_worker::now();\ \}}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \ \ \ \ original\_worker\ m\_original\_worker;}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{classrpp_1_1schedulers_1_1thread__pool}{thread\_pool}}(\textcolor{keywordtype}{size\_t}\ threads\_count\ =\ std::thread::hardware\_concurrency())}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \ \ \ \ :\ m\_state\{std::make\_shared<state>(threads\_count)\}}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrpp_1_1schedulers_1_1worker}{rpp::schedulers::worker<worker\_strategy>}}\ create\_worker()\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00066\ \textcolor{keyword}{\ \ \ \ \ \ \ \ }\{}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classrpp_1_1schedulers_1_1worker}{rpp::schedulers::worker<worker\_strategy>}}\{m\_state-\/>get()\};}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \textcolor{keyword}{class\ }state}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{explicit}\ state(\textcolor{keywordtype}{size\_t}\ threads\_count)}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ threads\_count\ =\ std::max(\textcolor{keywordtype}{size\_t}\{1\},\ threads\_count);}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ workers.reserve(threads\_count);}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ threads\_count;\ ++i)}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ workers.emplace\_back(new\_thread::create\_worker());}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ original\_worker\&\ get()\ \{\ \textcolor{keywordflow}{return}\ workers[index++\ \%\ workers.size()];\ \}}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<original\_worker>\ workers\{\};}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ index\{\};}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ std::shared\_ptr<state>\ m\_state\{\};}
+\DoxyCodeLine{00090\ \ \ \ \ \};}
+\DoxyCodeLine{00091\ \}\ \textcolor{comment}{//\ namespace\ rpp::schedulers}}
+
+\end{DoxyCode}

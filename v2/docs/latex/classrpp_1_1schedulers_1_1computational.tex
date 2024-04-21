@@ -1,0 +1,58 @@
+\doxysection{rpp\+::schedulers\+::computational Class Reference}
+\hypertarget{classrpp_1_1schedulers_1_1computational}{}\label{classrpp_1_1schedulers_1_1computational}\index{rpp::schedulers::computational@{rpp::schedulers::computational}}
+
+
+Scheduler owning static thread pool of workers and using "{}some"{} thread from this pool on {\ttfamily create\+\_\+worker} call.  
+
+
+
+
+{\ttfamily \#include $<$computational.\+hpp$>$}
+
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classrpp_1_1schedulers_1_1computational_a5e47d673d3ae080aea024a2d5a3ceeb9}\label{classrpp_1_1schedulers_1_1computational_a5e47d673d3ae080aea024a2d5a3ceeb9} 
+static auto {\bfseries create\+\_\+worker} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Scheduler owning static thread pool of workers and using "{}some"{} thread from this pool on {\ttfamily create\+\_\+worker} call. 
+
+\begin{DoxyWarning}{Warning}
+Actually it is static variable to {\ttfamily \doxylink{classrpp_1_1schedulers_1_1thread__pool}{thread\+\_\+pool}} scheduler 
+\end{DoxyWarning}
+\begin{DoxyNote}{Note}
+Expected to pass to this scheduler intensive CPU bound tasks with relatevely small duration of execution (to be sure that no any thread with tasks from some other operators would be blocked on that task)
+\end{DoxyNote}
+\begin{DoxyParagraph}{Examples}
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(1,\ 2,\ 3,\ 4,\ 5,\ 6,\ 7,\ 8)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__transforming__operators_ga633883e796101ceeab821e2a4912bd5e}{rpp::operators::flat\_map}}([](\textcolor{keywordtype}{int}\ value)\ \{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(\mbox{\hyperlink{classrpp_1_1schedulers_1_1computational}{rpp::schedulers::computational}}\{\},\ value)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_gae38caa489cf43c0aca1aa1c8822aed60}{rpp::operators::delay}}(std::chrono::nanoseconds\{500\},\ \mbox{\hyperlink{classrpp_1_1schedulers_1_1immediate}{rpp::schedulers::immediate}}\{\});\ \})}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_ga9df008c11eeff8c9383e56bf36e28ec2}{rpp::operators::as\_blocking}}()}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{rpp::operators::subscribe}}([](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}["{}}\ <<\ std::this\_thread::get\_id()\ <<\ \textcolor{stringliteral}{"{}]\ "{}}\ <<\ v\ <<\ std::endl;\ \});}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:\ (can\ be\ in\ any\ order\ but\ same\ correlation\ between\ thread\ and\ values)}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ [thread\_1]\ 1}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ [thread\_2]\ 2}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ [thread\_3]\ 3}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ [thread\_4]\ 4}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ [thread\_1]\ 5}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ [thread\_2]\ 6}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ [thread\_3]\ 7}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ [thread\_4]\ 8}}
+
+\end{DoxyCodeInclude}
+ 
+\end{DoxyParagraph}
+\begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{thread_pool_8cpp-example}{thread\+\_\+pool.\+cpp}}.\end{Desc}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/rpp/rpp/schedulers/computational.\+hpp\end{DoxyCompactItemize}

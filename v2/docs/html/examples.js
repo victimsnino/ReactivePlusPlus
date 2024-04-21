@@ -32,6 +32,7 @@ var examples =
     [ "take_last.cpp", "take_last_8cpp-example.html", null ],
     [ "take_until.cpp", "take_until_8cpp-example.html", null ],
     [ "take_while.cpp", "take_while_8cpp-example.html", null ],
+    [ "thread_pool.cpp", "thread_pool_8cpp-example.html", null ],
     [ "throttle.cpp", "throttle_8cpp-example.html", null ],
     [ "timeout.cpp", "timeout_8cpp-example.html", null ],
     [ "window.cpp", "window_8cpp-example.html", null ],

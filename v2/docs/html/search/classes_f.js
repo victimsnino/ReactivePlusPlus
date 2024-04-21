@@ -15,11 +15,12 @@ var searchData=
   ['tap_5ft_12',['tap_t',['../structrpp_1_1operators_1_1details_1_1tap__t.html',1,'rpp::operators::details']]],
   ['template_5fmulticast_5ft_13',['template_multicast_t',['../structrpp_1_1operators_1_1details_1_1template__multicast__t.html',1,'rpp::operators::details']]],
   ['test_5fscheduler_14',['test_scheduler',['../classtest__scheduler.html',1,'']]],
-  ['throttle_5fobserver_5fstrategy_15',['throttle_observer_strategy',['../structrpp_1_1operators_1_1details_1_1throttle__observer__strategy.html',1,'rpp::operators::details']]],
-  ['throttle_5ft_16',['throttle_t',['../structrpp_1_1operators_1_1details_1_1throttle__t.html',1,'rpp::operators::details']]],
-  ['timeout_5fdisposable_17',['timeout_disposable',['../classrpp_1_1operators_1_1details_1_1timeout__disposable.html',1,'rpp::operators::details']]],
-  ['timeout_5fdisposable_5fwrapper_18',['timeout_disposable_wrapper',['../structrpp_1_1operators_1_1details_1_1timeout__disposable__wrapper.html',1,'rpp::operators::details']]],
-  ['timeout_5fobserver_5fstrategy_19',['timeout_observer_strategy',['../structrpp_1_1operators_1_1details_1_1timeout__observer__strategy.html',1,'rpp::operators::details']]],
-  ['timeout_5ft_20',['timeout_t',['../structrpp_1_1operators_1_1details_1_1timeout__t.html',1,'rpp::operators::details']]],
-  ['timeout_5fwith_5ferror_5ft_21',['timeout_with_error_t',['../structrpp_1_1operators_1_1details_1_1timeout__with__error__t.html',1,'rpp::operators::details']]]
+  ['thread_5fpool_15',['thread_pool',['../classrpp_1_1schedulers_1_1thread__pool.html',1,'rpp::schedulers']]],
+  ['throttle_5fobserver_5fstrategy_16',['throttle_observer_strategy',['../structrpp_1_1operators_1_1details_1_1throttle__observer__strategy.html',1,'rpp::operators::details']]],
+  ['throttle_5ft_17',['throttle_t',['../structrpp_1_1operators_1_1details_1_1throttle__t.html',1,'rpp::operators::details']]],
+  ['timeout_5fdisposable_18',['timeout_disposable',['../classrpp_1_1operators_1_1details_1_1timeout__disposable.html',1,'rpp::operators::details']]],
+  ['timeout_5fdisposable_5fwrapper_19',['timeout_disposable_wrapper',['../structrpp_1_1operators_1_1details_1_1timeout__disposable__wrapper.html',1,'rpp::operators::details']]],
+  ['timeout_5fobserver_5fstrategy_20',['timeout_observer_strategy',['../structrpp_1_1operators_1_1details_1_1timeout__observer__strategy.html',1,'rpp::operators::details']]],
+  ['timeout_5ft_21',['timeout_t',['../structrpp_1_1operators_1_1details_1_1timeout__t.html',1,'rpp::operators::details']]],
+  ['timeout_5fwith_5ferror_5ft_22',['timeout_with_error_t',['../structrpp_1_1operators_1_1details_1_1timeout__with__error__t.html',1,'rpp::operators::details']]]
 ];

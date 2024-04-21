@@ -8,6 +8,8 @@ Scheduler is the way to introduce multi-\/threading in your application via RPP.
 \doxysubsubsubsection*{Classes}
 \begin{DoxyCompactItemize}
 \item 
+class \mbox{\hyperlink{classrpp_1_1schedulers_1_1computational}{rpp\+::schedulers\+::computational}}
+\begin{DoxyCompactList}\small\item\em Scheduler owning static thread pool of workers and using "{}some"{} thread from this pool on {\ttfamily create\+\_\+worker} call. \end{DoxyCompactList}\item 
 class \mbox{\hyperlink{classrpp_1_1schedulers_1_1current__thread}{rpp\+::schedulers\+::current\+\_\+thread}}
 \begin{DoxyCompactList}\small\item\em Schedules execution of schedulables via queueing tasks to the caller thread with priority to time\+\_\+point and order. \end{DoxyCompactList}\item 
 class \mbox{\hyperlink{classrpp_1_1schedulers_1_1immediate}{rpp\+::schedulers\+::immediate}}
@@ -15,7 +17,9 @@ class \mbox{\hyperlink{classrpp_1_1schedulers_1_1immediate}{rpp\+::schedulers\+:
 class \mbox{\hyperlink{classrpp_1_1schedulers_1_1new__thread}{rpp\+::schedulers\+::new\+\_\+thread}}
 \begin{DoxyCompactList}\small\item\em Scheduler which schedules invoking of schedulables to another thread via queueing tasks with priority to time\+\_\+point and order. \end{DoxyCompactList}\item 
 class \mbox{\hyperlink{classrpp_1_1schedulers_1_1run__loop}{rpp\+::schedulers\+::run\+\_\+loop}}
-\begin{DoxyCompactList}\small\item\em scheduler which schedules execution via queueing tasks, but execution of tasks should be manually dispatched \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em scheduler which schedules execution via queueing tasks, but execution of tasks should be manually dispatched \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classrpp_1_1schedulers_1_1thread__pool}{rpp\+::schedulers\+::thread\+\_\+pool}}
+\begin{DoxyCompactList}\small\item\em Scheduler owning static thread pool of workers and using "{}some"{} thread from this pool on {\ttfamily create\+\_\+worker} call. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsubsection{Detailed Description}

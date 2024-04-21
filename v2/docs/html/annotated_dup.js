@@ -192,6 +192,7 @@ var annotated_dup =
           [ "shared_queue_data", "structrpp_1_1schedulers_1_1details_1_1shared__queue__data.html", null ],
           [ "specific_schedulable", "classrpp_1_1schedulers_1_1details_1_1specific__schedulable.html", null ]
         ] ],
+        [ "computational", "classrpp_1_1schedulers_1_1computational.html", null ],
         [ "current_thread", "classrpp_1_1schedulers_1_1current__thread.html", null ],
         [ "delay_from_now", "structrpp_1_1schedulers_1_1delay__from__now.html", null ],
         [ "delay_from_this_timepoint", "structrpp_1_1schedulers_1_1delay__from__this__timepoint.html", null ],
@@ -199,6 +200,7 @@ var annotated_dup =
         [ "immediate", "classrpp_1_1schedulers_1_1immediate.html", "classrpp_1_1schedulers_1_1immediate" ],
         [ "new_thread", "classrpp_1_1schedulers_1_1new__thread.html", "classrpp_1_1schedulers_1_1new__thread" ],
         [ "run_loop", "classrpp_1_1schedulers_1_1run__loop.html", null ],
+        [ "thread_pool", "classrpp_1_1schedulers_1_1thread__pool.html", null ],
         [ "worker", "classrpp_1_1schedulers_1_1worker.html", null ]
       ] ],
       [ "subjects", null, [

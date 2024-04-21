@@ -1,0 +1,59 @@
+\doxysection{rpp\+::schedulers\+::thread\+\_\+pool Class Reference}
+\hypertarget{classrpp_1_1schedulers_1_1thread__pool}{}\label{classrpp_1_1schedulers_1_1thread__pool}\index{rpp::schedulers::thread\_pool@{rpp::schedulers::thread\_pool}}
+
+
+Scheduler owning static thread pool of workers and using "{}some"{} thread from this pool on {\ttfamily create\+\_\+worker} call.  
+
+
+
+
+{\ttfamily \#include $<$thread\+\_\+pool.\+hpp$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classrpp_1_1schedulers_1_1thread__pool_a115298f37eab7df26b121af4dc404a40}\label{classrpp_1_1schedulers_1_1thread__pool_a115298f37eab7df26b121af4dc404a40} 
+{\bfseries thread\+\_\+pool} (size\+\_\+t threads\+\_\+count=std\+::thread\+::hardware\+\_\+concurrency())
+\item 
+\Hypertarget{classrpp_1_1schedulers_1_1thread__pool_a217dd0d61fdec8f44a079a882279e190}\label{classrpp_1_1schedulers_1_1thread__pool_a217dd0d61fdec8f44a079a882279e190} 
+\mbox{\hyperlink{classrpp_1_1schedulers_1_1worker}{rpp\+::schedulers\+::worker}}$<$ worker\+\_\+strategy $>$ {\bfseries create\+\_\+worker} () const
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Scheduler owning static thread pool of workers and using "{}some"{} thread from this pool on {\ttfamily create\+\_\+worker} call. 
+
+\begin{DoxyWarning}{Warning}
+Expected to use this scheduler as local variable to share same threads between different operators or as static variable
+\end{DoxyWarning}
+\begin{DoxyParagraph}{Examples}
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ scheduler\ =\ \mbox{\hyperlink{classrpp_1_1schedulers_1_1thread__pool}{rpp::schedulers::thread\_pool}}\{4\};}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(1,\ 2,\ 3,\ 4,\ 5,\ 6,\ 7,\ 8)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__transforming__operators_ga633883e796101ceeab821e2a4912bd5e}{rpp::operators::flat\_map}}([scheduler](\textcolor{keywordtype}{int}\ value)\ \{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(scheduler,\ value)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_gae38caa489cf43c0aca1aa1c8822aed60}{rpp::operators::delay}}(std::chrono::nanoseconds\{500\},\ \mbox{\hyperlink{classrpp_1_1schedulers_1_1immediate}{rpp::schedulers::immediate}}\{\});\ \})}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_ga9df008c11eeff8c9383e56bf36e28ec2}{rpp::operators::as\_blocking}}()}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{rpp::operators::subscribe}}([](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}["{}}\ <<\ std::this\_thread::get\_id()\ <<\ \textcolor{stringliteral}{"{}]\ "{}}\ <<\ v\ <<\ std::endl;\ \});}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:\ (can\ be\ in\ any\ order\ but\ same\ correlation\ between\ thread\ and\ values)}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ [thread\_1]\ 1}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ [thread\_2]\ 2}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ [thread\_3]\ 3}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ [thread\_4]\ 4}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ [thread\_1]\ 5}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ [thread\_2]\ 6}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ [thread\_3]\ 7}}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ [thread\_4]\ 8}}
+
+\end{DoxyCodeInclude}
+ 
+\end{DoxyParagraph}
+\begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{thread_pool_8cpp-example}{thread\+\_\+pool.\+cpp}}.\end{Desc}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/rpp/rpp/schedulers/thread\+\_\+pool.\+hpp\end{DoxyCompactItemize}
