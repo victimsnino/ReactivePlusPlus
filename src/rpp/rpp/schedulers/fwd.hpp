@@ -168,6 +168,7 @@ namespace rpp::schedulers
     class new_thread;
     class run_loop;
     class thread_pool;
+    class computational;
 
     namespace defaults
     {

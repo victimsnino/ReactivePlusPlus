@@ -22,3 +22,4 @@
 #include <rpp/schedulers/new_thread.hpp>
 #include <rpp/schedulers/run_loop.hpp>
 #include <rpp/schedulers/thread_pool.hpp>
+#include <rpp/schedulers/computational.hpp>
