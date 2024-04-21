@@ -79,12 +79,6 @@ namespace rpp::schedulers
                     workers.emplace_back(new_thread::create_worker());
             }
 
-            ~state()
-            {
-                for (const auto& worker : workers)
-                    worker.get_disposable().dispose();
-            }
-
             const original_worker& get() { return workers[index++ % workers.size()]; }
 
         private:

@@ -52,7 +52,7 @@ static std::string simulate_nested_scheduling(auto worker, const auto& obs, std:
                     out.push_back("Task 3 runs "s + get_thread_id_as_string());
                     return rpp::schedulers::optional_delay_from_now{};
                 },
-                                obs);
+                                abs);
 
                 out.push_back("Task 2 ends "s + get_thread_id_as_string());
                 return rpp::schedulers::optional_delay_from_now{};
@@ -348,7 +348,7 @@ TEST_CASE("Immediate scheduler")
     }
 }
 
-TEMPLATE_TEST_CASE("queue_based scheduler", "", rpp::schedulers::current_thread, rpp::schedulers::new_thread)
+TEMPLATE_TEST_CASE("queue_based scheduler", "", rpp::schedulers::current_thread, rpp::schedulers::new_thread, rpp::schedulers::thread_pool)
 {
     auto d        = rpp::composite_disposable_wrapper::make();
     auto mock_obs = mock_observer_strategy<int>{};
@@ -944,4 +944,31 @@ TEST_CASE("current_thread inside new_thread")
 
     REQUIRE(done->load());
     CHECK(current_thread_invoked->load());
+}
+
+TEST_CASE("thread_pool uses multiple threads")
+{
+    auto obs = mock_observer_strategy<int>{}.get_observer().as_dynamic();
+
+    auto scheduler = rpp::schedulers::thread_pool{3};
+
+    const auto get_thread_id = [&scheduler, &obs]() {
+        std::promise<std::thread::id> promise{};
+        scheduler.create_worker().schedule([&promise](const auto&) {
+            promise.set_value(std::this_thread::get_id());
+            return rpp::schedulers::optional_delay_from_now{};
+        }, obs);
+        return promise.get_future().get();
+    };
+   
+    const auto thread_1_value = get_thread_id();
+    const auto thread_2_value = get_thread_id();
+    const auto thread_3_value = get_thread_id();
+    CHECK(thread_1_value != thread_2_value);
+    CHECK(thread_1_value != thread_3_value);
+    CHECK(thread_2_value != thread_3_value);
+
+    CHECK(thread_1_value == get_thread_id());
+    CHECK(thread_2_value == get_thread_id());
+    CHECK(thread_3_value == get_thread_id());
 }
