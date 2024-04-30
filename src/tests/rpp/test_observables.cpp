@@ -16,6 +16,7 @@
 #include <rpp/sources/empty.hpp>
 #include <rpp/sources/error.hpp>
 #include <rpp/sources/never.hpp>
+#include <rpp/subjects/replay_subject.hpp>
 
 #include "rpp/disposables/fwd.hpp"
 #include "rpp/operators/fwd.hpp"
@@ -239,5 +240,25 @@ TEST_CASE("create observable works properly as observable")
         CHECK(pipe_operator_observer.get_total_on_next_count() == pipe_function_observer.get_total_on_next_count());
         CHECK(pipe_operator_observer.get_on_error_count() == pipe_function_observer.get_on_error_count());
         CHECK(pipe_operator_observer.get_on_completed_count() == pipe_function_observer.get_on_completed_count());
+    }
+}
+
+TEMPLATE_TEST_CASE(
+    "observable has type traits defined",
+    "",
+    rpp::empty_observable<int>,
+    rpp::dynamic_observable<int>,
+    rpp::blocking_observable<int, rpp::details::empty_strategy<int>>,
+    rpp::connectable_observable<rpp::empty_observable<int>, rpp::subjects::replay_subject<int>>,
+    rpp::grouped_observable<int, int, rpp::details::empty_strategy<int>>)
+{
+    SECTION("value_type defined")
+    {
+        CONSTEVAL_CHECK(requires { typename TestType::value_type; });
+        CONSTEVAL_CHECK(std::is_same_v<typename TestType::value_type, int>);
+    }
+    SECTION("strategy_type defined")
+    {
+        CONSTEVAL_CHECK(requires { typename TestType::strategy_type; });
     }
 }
