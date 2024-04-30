@@ -25,20 +25,54 @@ if(PROJECT_IS_TOP_LEVEL)
 endif()
 
 
-# ---- Warning guard ----
+function(rpp_add_library NAME)
+  # ---- Warning guard ----
 
-# target_include_directories with the SYSTEM modifier will request the compiler
-# to omit warnings from the provided paths, if the compiler supports that
-# This is to provide a user experience similar to find_package when
-# add_subdirectory or FetchContent is used to consume this project
-set(RPP_WARNING_GUARD "")
-if(NOT PROJECT_IS_TOP_LEVEL)
-  option(RPP_INCLUDES_WITH_SYSTEM "Use SYSTEM modifier for RPP's includes, disabling warnings" ON)
-  mark_as_advanced(RPP_INCLUDES_WITH_SYSTEM)
-  if(RPP_INCLUDES_WITH_SYSTEM)
-    set(RPP_WARNING_GUARD SYSTEM)
+  # target_include_directories with the SYSTEM modifier will request the compiler
+  # to omit warnings from the provided paths, if the compiler supports that
+  # This is to provide a user experience similar to find_package when
+  # add_subdirectory or FetchContent is used to consume this project
+  set(RPP_WARNING_GUARD "")
+  if(NOT PROJECT_IS_TOP_LEVEL)
+    option(RPP_INCLUDES_WITH_SYSTEM "Use SYSTEM modifier for RPP's includes, disabling warnings" ON)
+    mark_as_advanced(RPP_INCLUDES_WITH_SYSTEM)
+    if(RPP_INCLUDES_WITH_SYSTEM)
+      set(RPP_WARNING_GUARD SYSTEM)
+    endif()
   endif()
-endif()
+
+  file(GLOB_RECURSE FILES "*.hpp")
+
+  if(${CMAKE_VERSION} VERSION_LESS "3.19.0")
+    add_library(${NAME} INTERFACE)
+  else()
+    add_library(${NAME} INTERFACE ${FILES})
+  endif()
+
+  add_library(RPP::${NAME} ALIAS ${NAME})
+
+  target_include_directories(${NAME} ${RPP_WARNING_GUARD}
+    INTERFACE
+      "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>"
+      # "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>"
+  )
+
+  target_link_libraries(${NAME} INTERFACE Threads::Threads RPP::rpp)
+  target_compile_features(${NAME} INTERFACE cxx_std_20)
+
+  if (CMAKE_CXX_COMPILER_ID MATCHES "Clang" OR CMAKE_CXX_COMPILER_ID MATCHES "GNU")
+    target_compile_options(${NAME} INTERFACE -fsized-deallocation)
+  endif()
+
+  foreach(FILE ${FILES})
+    get_filename_component(PARENT_DIR "${FILE}" PATH)
+    file(RELATIVE_PATH REL_PARENT_DIR "${CMAKE_CURRENT_SOURCE_DIR}/${NAME}" ${PARENT_DIR})
+    set(REL_PARENT_DIR "Header Files\\${REL_PARENT_DIR}")
+
+    string(REPLACE "/" "\\" GROUP ${REL_PARENT_DIR})
+    source_group("${GROUP}" FILES "${FILE}")
+  endforeach()
+endfunction()
 
 
 # ------------ Options to tweak ---------------------

@@ -6,8 +6,8 @@ set(package RPP)
 
 install(
     DIRECTORY
-        src/rpp
-       src/rppqt
+       src/rpp
+       src/extensions/rppqt
     DESTINATION
         "${CMAKE_INSTALL_INCLUDEDIR}"
     COMPONENT
