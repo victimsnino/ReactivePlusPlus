@@ -37,7 +37,8 @@ namespace rpp
     class observable
     {
     public:
-        using value_type = Type;
+        using value_type    = Type;
+        using strategy_type = Strategy;
 
         using expected_disposable_strategy = rpp::details::observables::deduce_disposable_strategy_t<Strategy>;
 
