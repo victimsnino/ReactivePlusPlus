@@ -1,0 +1,97 @@
+\doxysection{fwd.\+hpp}
+\hypertarget{rpp_2rpp_2sources_2fwd_8hpp_source}{}\label{rpp_2rpp_2sources_2fwd_8hpp_source}\index{src/rpp/rpp/sources/fwd.hpp@{src/rpp/rpp/sources/fwd.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ReactivePlusPlus\ library}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ Copyright\ Aleksey\ Loginov\ 2023\ -\/\ present.}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ Distributed\ under\ the\ Boost\ Software\ License,\ Version\ 1.0.}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ \ \ \ (See\ accompanying\ file\ LICENSE\_1\_0.txt\ or\ copy\ at}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ https://www.boost.org/LICENSE\_1\_0.txt)}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ Project\ home:\ https://github.com/victimsnino/ReactivePlusPlus}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <rpp/observables/fwd.hpp>}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <rpp/observers/fwd.hpp>}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <rpp/schedulers/fwd.hpp>}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ <rpp/memory\_model.hpp>}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ <rpp/utils/constraints.hpp>}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#include\ <rpp/utils/function\_traits.hpp>}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#include\ <rpp/utils/utils.hpp>}}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#include\ <exception>}}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \textcolor{keyword}{namespace\ }rpp::constraint}
+\DoxyCodeLine{00025\ \{}
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ S,\ \textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keyword}{concept\ }\mbox{\hyperlink{conceptrpp_1_1constraint_1_1on__subscribe}{on\_subscribe}}\ =\ \textcolor{keyword}{requires}(\textcolor{keyword}{const}\ S\&\ strategy,\ \mbox{\hyperlink{classrpp_1_1observer}{rpp::details::observers::fake\_observer<T>}}\&\&\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer}{observer}})\ \{}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \ \ \ \ strategy(std::move(\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer}{observer}}))}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \}\ -\/>\ std::same\_as<void>;}
+\DoxyCodeLine{00031\ \ \ \ \ \};}
+\DoxyCodeLine{00032\ \}\ \textcolor{comment}{//\ namespace\ rpp::constraint}}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \textcolor{keyword}{namespace\ }rpp::source}
+\DoxyCodeLine{00035\ \{}
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type\ Type,\ constra\textcolor{keywordtype}{int}::on\_subscribe<Type>\ OnSubscribe>}
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__creational__operators_gae68c87e7ae3a505258b733082bf68513}{create}}(OnSubscribe\&\&\ on\_subscribe);}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keyword}{template}<utils::is\_not\_\textcolor{keyword}{template}\_callable\ OnSubscribe,\ constra\textcolor{keywordtype}{int}::decayed\_type\ Type\ =\ rpp::utils::extract\_observer\_type\_t<rpp::utils::decayed\_function\_argument\_t<OnSubscribe>>>}
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__creational__operators_gae68c87e7ae3a505258b733082bf68513}{create}}(OnSubscribe\&\&\ on\_subscribe);}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::memory\_model\ MemoryModel\ =\ memory\_model::use\_stack,\ constra\textcolor{keywordtype}{int}::iterable\ Iterable,\ schedulers::constra\textcolor{keywordtype}{int}::scheduler\ TScheduler\ =\ rpp::schedulers::defaults::iteration\_scheduler>}
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__creational__operators_gad15a7e8bfb2f7ce0af1b44e22918116c}{from\_iterable}}(Iterable\&\&\ iterable,\ \textcolor{keyword}{const}\ TScheduler\&\ scheduler\ =\ TScheduler\{\});}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keyword}{template}<constraint::memory\_model\ MemoryModel\ =\ memory\_model::use\_stack,\ \textcolor{keyword}{typename}\ T,\ \textcolor{keyword}{typename}...\ Ts>}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \textcolor{keyword}{requires}\ (constraint::decayed\_same\_as<T,\ Ts>\ \&\&\ ...)}
+\DoxyCodeLine{00047\ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{just}}(T\&\&\ item,\ Ts\&\&...\ items);}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keyword}{template}<constraint::memory\_model\ MemoryModel\ =\ memory\_model::use\_stack,\ schedulers::constraint::scheduler\ TScheduler,\ \textcolor{keyword}{typename}\ T,\ \textcolor{keyword}{typename}...\ Ts>}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \textcolor{keyword}{requires}\ (constraint::decayed\_same\_as<T,\ Ts>\ \&\&\ ...)}
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{just}}(\textcolor{keyword}{const}\ TScheduler\&\ scheduler,\ T\&\&\ item,\ Ts\&\&...\ items);}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::memory\_model\ MemoryModel\ =\ memory\_model::use\_stack,\ std::invocable<>\ Callable>}
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__creational__operators_ga519523490394660d7e8c46d2d5612f75}{from\_callable}}(Callable\&\&\ callable);}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keyword}{template}<constraint::memory\_model\ MemoryModel\ =\ memory\_model::use\_stack,\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp::constraint::observable}}\ TObservable,\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp::constraint::observable}}...\ TObservables>}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \textcolor{keyword}{requires}\ (std::same\_as<rpp::utils::extract\_observable\_type\_t<TObservable>,\ rpp::utils::extract\_observable\_type\_t<TObservables>>\ \&\&\ ...)}
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{concat}}(TObservable\&\&\ obs,\ TObservables\&\&...\ others);}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \ \ \ \ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::memory\_model\ MemoryModel\ =\ memory\_model::use\_stack,\ constra\textcolor{keywordtype}{int}::iterable\ Iterable>}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \textcolor{keyword}{requires}\ constraint::observable<utils::iterable\_value\_t<Iterable>>}
+\DoxyCodeLine{00062\ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{concat}}(Iterable\&\&\ iterable);}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ \ \ \ \ \textcolor{keyword}{template}<std::invocable\ Factory>}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \textcolor{keyword}{requires}\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp::constraint::observable<std::invoke\_result\_t<Factory>}}>}
+\DoxyCodeLine{00066\ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__creational__operators_gad9a4bddea3780850a01b82b481951d18}{defer}}(Factory\&\&\ observable\_factory);}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ \ \ \ \ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type\ Type>}
+\DoxyCodeLine{00069\ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__creational__operators_ga4fe060f48695cc3fadfbdb10f77f8acb}{error}}(std::exception\_ptr\ err);}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \ \ \ \ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type\ Type>}
+\DoxyCodeLine{00072\ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__creational__operators_gad29c2904de57d176ccaf2614409789de}{empty}}();}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \ \ \ \ \textcolor{keyword}{template}<schedulers::constra\textcolor{keywordtype}{int}::scheduler\ TScheduler>}
+\DoxyCodeLine{00075\ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__creational__operators_ga4018b147fb99a358c6c01f21183c13e6}{interval}}(rpp::schedulers::duration\ initial,\ rpp::schedulers::duration\ period,\ TScheduler\&\&\ scheduler);}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \ \ \ \ \textcolor{keyword}{template}<schedulers::constra\textcolor{keywordtype}{int}::scheduler\ TScheduler>}
+\DoxyCodeLine{00078\ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__creational__operators_ga4018b147fb99a358c6c01f21183c13e6}{interval}}(rpp::schedulers::time\_point\ initial,\ rpp::schedulers::duration\ period,\ TScheduler\&\&\ scheduler);}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00080\ \ \ \ \ \textcolor{keyword}{template}<schedulers::constra\textcolor{keywordtype}{int}::scheduler\ TScheduler>}
+\DoxyCodeLine{00081\ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__creational__operators_ga4018b147fb99a358c6c01f21183c13e6}{interval}}(rpp::schedulers::duration\ period,\ TScheduler\&\&\ scheduler);}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ \ \ \ \ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type\ Type>}
+\DoxyCodeLine{00084\ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__creational__operators_ga16c57281cc1b24605ec23b09ec880416}{never}}();}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ \ \ \ \ \textcolor{keyword}{template}<schedulers::constra\textcolor{keywordtype}{int}::scheduler\ TScheduler>}
+\DoxyCodeLine{00087\ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__creational__operators_gae7248892783797dda894e18b2b499586}{timer}}(rpp::schedulers::duration\ when,\ TScheduler\&\&\ scheduler);}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00089\ \ \ \ \ \textcolor{keyword}{template}<schedulers::constra\textcolor{keywordtype}{int}::scheduler\ TScheduler>}
+\DoxyCodeLine{00090\ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__creational__operators_gae7248892783797dda894e18b2b499586}{timer}}(rpp::schedulers::time\_point\ when,\ TScheduler\&\&\ scheduler);}
+\DoxyCodeLine{00091\ \}\ \textcolor{comment}{//\ namespace\ rpp::source}}
+
+\end{DoxyCode}
