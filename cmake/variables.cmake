@@ -57,7 +57,11 @@ function(rpp_add_library NAME)
       # "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>"
   )
 
-  target_link_libraries(${NAME} INTERFACE Threads::Threads RPP::rpp)
+  target_link_libraries(${NAME} INTERFACE Threads::Threads)
+  if (NOT ${NAME} STREQUAL "rpp")
+    target_link_libraries(${NAME} INTERFACE RPP::rpp)
+  endif()
+
   target_compile_features(${NAME} INTERFACE cxx_std_20)
 
   if (CMAKE_CXX_COMPILER_ID MATCHES "Clang" OR CMAKE_CXX_COMPILER_ID MATCHES "GNU")
