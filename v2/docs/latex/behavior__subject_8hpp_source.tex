@@ -104,26 +104,32 @@
 \DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ m\_state;}
 \DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{00102\ }
-\DoxyCodeLine{00103\ \ \ \ \ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{disposable\_wrapper\_impl<behavior\_state>}}\ m\_state;}
-\DoxyCodeLine{00105\ \ \ \ \ \};}
-\DoxyCodeLine{00106\ \}\ \textcolor{comment}{//\ namespace\ rpp::subjects::details}}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ Type\ get\_value()\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00104\ \textcolor{keyword}{\ \ \ \ \ \ \ \ }\{}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *m\_state.lock()-\/>get\_value();}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{00107\ }
-\DoxyCodeLine{00108\ \textcolor{keyword}{namespace\ }rpp::subjects}
-\DoxyCodeLine{00109\ \{}
-\DoxyCodeLine{00118\ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type\ Type>}
-\DoxyCodeLine{00119\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1subjects_1_1behavior__subject}{behavior\_subject}}\ final\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classrpp_1_1subjects_1_1details_1_1behavior__subject__base}{details::behavior\_subject\_base}}<Type,\ false>}
-\DoxyCodeLine{00120\ \ \ \ \ \{}
-\DoxyCodeLine{00121\ \ \ \ \ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{classrpp_1_1subjects_1_1details_1_1behavior__subject__base}{details::behavior\_subject\_base}}<Type,\ \textcolor{keyword}{false}>::behavior\_subject\_base;}
-\DoxyCodeLine{00123\ \ \ \ \ \};}
-\DoxyCodeLine{00124\ }
-\DoxyCodeLine{00132\ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type\ Type>}
-\DoxyCodeLine{00133\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1subjects_1_1serialized__behavior__subject}{serialized\_behavior\_subject}}\ final\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classrpp_1_1subjects_1_1details_1_1behavior__subject__base}{details::behavior\_subject\_base}}<Type,\ true>}
-\DoxyCodeLine{00134\ \ \ \ \ \{}
-\DoxyCodeLine{00135\ \ \ \ \ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{classrpp_1_1subjects_1_1details_1_1behavior__subject__base}{details::behavior\_subject\_base}}<Type,\ \textcolor{keyword}{true}>::behavior\_subject\_base;}
-\DoxyCodeLine{00137\ \ \ \ \ \};}
-\DoxyCodeLine{00138\ \}\ \textcolor{comment}{//\ namespace\ rpp::subjects}}
+\DoxyCodeLine{00108\ }
+\DoxyCodeLine{00109\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{disposable\_wrapper\_impl<behavior\_state>}}\ m\_state;}
+\DoxyCodeLine{00111\ \ \ \ \ \};}
+\DoxyCodeLine{00112\ \}\ \textcolor{comment}{//\ namespace\ rpp::subjects::details}}
+\DoxyCodeLine{00113\ }
+\DoxyCodeLine{00114\ \textcolor{keyword}{namespace\ }rpp::subjects}
+\DoxyCodeLine{00115\ \{}
+\DoxyCodeLine{00124\ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type\ Type>}
+\DoxyCodeLine{00125\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1subjects_1_1behavior__subject}{behavior\_subject}}\ final\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classrpp_1_1subjects_1_1details_1_1behavior__subject__base}{details::behavior\_subject\_base}}<Type,\ false>}
+\DoxyCodeLine{00126\ \ \ \ \ \{}
+\DoxyCodeLine{00127\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{classrpp_1_1subjects_1_1details_1_1behavior__subject__base}{details::behavior\_subject\_base}}<Type,\ \textcolor{keyword}{false}>::behavior\_subject\_base;}
+\DoxyCodeLine{00129\ \ \ \ \ \};}
+\DoxyCodeLine{00130\ }
+\DoxyCodeLine{00138\ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type\ Type>}
+\DoxyCodeLine{00139\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1subjects_1_1serialized__behavior__subject}{serialized\_behavior\_subject}}\ final\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classrpp_1_1subjects_1_1details_1_1behavior__subject__base}{details::behavior\_subject\_base}}<Type,\ true>}
+\DoxyCodeLine{00140\ \ \ \ \ \{}
+\DoxyCodeLine{00141\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{classrpp_1_1subjects_1_1details_1_1behavior__subject__base}{details::behavior\_subject\_base}}<Type,\ \textcolor{keyword}{true}>::behavior\_subject\_base;}
+\DoxyCodeLine{00143\ \ \ \ \ \};}
+\DoxyCodeLine{00144\ \}\ \textcolor{comment}{//\ namespace\ rpp::subjects}}
 
 \end{DoxyCode}
