@@ -43,7 +43,7 @@ the project:
       "binaryDir": "${sourceDir}/build",
       "inherits": ["ci-<os>"],
       "cacheVariables": {
-        "CMAKE_BUILD_TYPE" : "Debug",
+        "CMAKE_BUILD_TYPE" : "Release",
         "RPP_BUILD_EXAMPLES" : "ON"
       }
     }
@@ -52,7 +52,7 @@ the project:
     {
       "name": "dev",
       "configurePreset": "dev",
-      "configuration": "Debug",
+      "configuration": "Release",
       "jobs" : 2
     }
   ],
@@ -60,7 +60,7 @@ the project:
     {
       "name": "dev",
       "configurePreset": "dev",
-      "configuration": "Debug",
+      "configuration": "Release",
       "output": {
         "outputOnFailure": true
       }
@@ -129,3 +129,10 @@ variable. -->
 
 [1]: https://cmake.org/cmake/help/latest/manual/cmake-presets.7.html
 [2]: https://cmake.org/download/
+
+### conan
+
+If you are going to build/run grpc/sfml related parts of code, then you can use conan to install all required dependecies. Install conan and just call cmd
+```cmd
+conan install . --output-folder=build --build=missing -s compiler.cppstd=gnu20 -c tools.system.package_manager:mode=install -c tools.system.package_manager:sudo=True --settings=build_type=Release
+```

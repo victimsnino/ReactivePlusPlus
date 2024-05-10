@@ -32,6 +32,20 @@ jobs:
       with:
         cache: true
 
+    - name: get conan
+      uses: turtlebrowser/get-conan@main
+
+    - name: cache conan
+      uses: actions/cache@v2
+      with:
+          path: ~/.conan2
+          key: ${{ runner.os }}-conan-2
+
+    - name: run conan
+      run: |
+        conan profile detect --force
+        conan install . --output-folder=build --build=missing -s compiler.cppstd=20 -c tools.system.package_manager:mode=install -c tools.system.package_manager:sudo=True
+
     # Work around https://github.com/actions/runner-images/issues/8659
     - name: "Remove GCC 13 from runner image (workaround)"
       shell: bash
@@ -94,6 +108,20 @@ jobs:
       with:
         cache: true
 
+    - name: get conan
+      uses: turtlebrowser/get-conan@main
+
+    - name: cache conan
+      uses: actions/cache@v2
+      with:
+          path: ~/.conan2
+          key: ${{ runner.os }}-conan-2
+
+    - name: run conan
+      run: |
+        conan profile detect --force
+        conan install . --output-folder=build --build=missing -s compiler.cppstd=20 -c tools.system.package_manager:mode=install -c tools.system.package_manager:sudo=True --settings=build_type=${{matrix.build_type.config}}
+
     - name: Run CMake
       uses: lukka/run-cmake@v10
       with:
@@ -154,6 +182,20 @@ jobs:
       uses: jurplel/install-qt-action@v3
       with:
         cache: true
+
+    - name: get conan
+      uses: turtlebrowser/get-conan@main
+
+    - name: cache conan
+      uses: actions/cache@v2
+      with:
+          path: ~/.conan2
+          key: ${{ runner.os }}-conan-2
+
+    - name: run conan
+      run: |
+        conan profile detect --force
+        conan install . --output-folder=build --build=missing -s compiler.cppstd=20 -c tools.system.package_manager:mode=install -c tools.system.package_manager:sudo=True
 
     - name: Install project and build
       env:
