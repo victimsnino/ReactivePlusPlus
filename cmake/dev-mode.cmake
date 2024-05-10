@@ -5,9 +5,6 @@
 # include(cmake/lint-targets.cmake)
 # include(cmake/spell-targets.cmake)
 
-if(CMAKE_EXPORT_COMPILE_COMMANDS)
-    set(CMAKE_CXX_STANDARD_INCLUDE_DIRECTORIES ${CMAKE_CXX_IMPLICIT_INCLUDE_DIRECTORIES})
-endif()
 
 if(POLICY CMP0091)
     cmake_policy(SET CMP0091 NEW)
