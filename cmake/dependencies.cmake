@@ -110,6 +110,7 @@ endif()
 
 # ===================== Snitch ===================
 if (RPP_BUILD_TESTS)
+  SET(SNITCH_CONSTEXPR_FLOAT_USE_BITCAST OFF)
   rpp_fetch_library(snitch https://github.com/cschreib/snitch.git v1.2.4)
 endif()
 
