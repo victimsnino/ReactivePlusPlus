@@ -441,6 +441,8 @@ TEMPLATE_TEST_CASE("replay subject multicasts values and replay", "", rpp::subje
     const auto mock_1 = mock_observer_strategy<int>{};
     const auto subj   = TestType{10};
 
+    CHECK(subj.get_value() == 10);
+
     SECTION("subscribe to subject with default")
     {
         subj.get_observable().subscribe(mock_1);
@@ -451,6 +453,7 @@ TEMPLATE_TEST_CASE("replay subject multicasts values and replay", "", rpp::subje
             const auto mock_2 = mock_observer_strategy<int>{};
 
             subj.get_observer().on_next(5);
+            CHECK(subj.get_value() == 5);
 
             CHECK(mock_1.get_received_values() == std::vector<int>{10, 5});
             CHECK(mock_2.get_received_values() == std::vector<int>{});
@@ -463,6 +466,7 @@ TEMPLATE_TEST_CASE("replay subject multicasts values and replay", "", rpp::subje
             {
                 const auto mock_3 = mock_observer_strategy<int>{};
                 subj.get_observer().on_next(1);
+                CHECK(subj.get_value() == 1);
 
                 CHECK(mock_1.get_received_values() == std::vector<int>{10, 5, 1});
                 CHECK(mock_2.get_received_values() == std::vector<int>{5, 1});

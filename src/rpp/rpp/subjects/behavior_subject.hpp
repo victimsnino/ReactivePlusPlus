@@ -100,6 +100,12 @@ namespace rpp::subjects::details
             return m_state;
         }
 
+        Type get_value() const
+        {
+            return *m_state.lock()->get_value();
+        }
+
+
     private:
         disposable_wrapper_impl<behavior_state> m_state;
     };
