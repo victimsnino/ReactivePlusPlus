@@ -99,6 +99,12 @@ jobs:
       with:
         key: ${{ matrix.type }}-${{ matrix.config.name }}-${{ matrix.build_type.config }}
 
+    - name: fix macos
+      if: matrix.config.os == 'macos-12'
+      run: |
+        sudo xcode-select --install
+        sudo xcode-select --switch /Library/Developer/CommandLineTools/
+
     - name: Install deps
       if: matrix.config.os == 'ubuntu-latest'
       run: |
