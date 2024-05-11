@@ -38,7 +38,9 @@ jobs:
     - name: cache conan
       uses: actions/cache@v2
       with:
-          path: ~/.conan2
+          path: |
+            ~/.conan2
+            /Users/runner/.conan2/
           key: ${{ runner.os }}-conan-2
 
     - name: run conan
@@ -114,7 +116,9 @@ jobs:
     - name: cache conan
       uses: actions/cache@v2
       with:
-          path: ~/.conan2
+          path: |
+            ~/.conan2
+            /Users/runner/.conan2/
           key: ${{ runner.os }}-conan-2
 
     - name: run conan
@@ -189,7 +193,9 @@ jobs:
     - name: cache conan
       uses: actions/cache@v2
       with:
-          path: ~/.conan2
+          path: |
+            ~/.conan2
+            /Users/runner/.conan2/
           key: ${{ runner.os }}-conan-2
 
     - name: run conan
