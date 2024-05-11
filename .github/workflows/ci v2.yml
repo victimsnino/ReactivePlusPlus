@@ -92,12 +92,6 @@ jobs:
           sudo apt-get purge -y g++-13 gcc-13 libstdc++-13-dev
           sudo apt-get install -y --allow-downgrades libstdc++-12-dev libstdc++6=12.* libgcc-s1=12.*
 
-    - name: Get right SDK for MacOS
-      if: matrix.config.os == 'macos-latest'
-      uses: maxim-lobanov/setup-xcode@v1
-      with:
-        xcode-version: latest-stable
-
     - name: ccache
       uses: hendrikmuhs/ccache-action@v1.2
       with:
