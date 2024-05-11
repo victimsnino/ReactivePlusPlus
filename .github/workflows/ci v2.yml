@@ -102,7 +102,6 @@ jobs:
     - name: fix macos
       if: matrix.config.os == 'macos-12'
       run: |
-        sudo xcode-select --install
         sudo xcode-select --switch /Library/Developer/CommandLineTools/
 
     - name: Install deps
