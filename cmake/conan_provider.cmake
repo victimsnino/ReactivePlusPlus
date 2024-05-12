@@ -212,6 +212,9 @@ function(detect_compiler COMPILER COMPILER_VERSION COMPILER_RUNTIME COMPILER_RUN
     message(STATUS "CMake-Conan: CMake compiler=${_COMPILER}")
     message(STATUS "CMake-Conan: CMake compiler version=${_COMPILER_VERSION}")
 
+    set(_COMPILER_RUNTIME "")
+    set(_COMPILER_RUNTIME_TYPE "")
+
     if(_COMPILER MATCHES MSVC)
         set(_COMPILER "msvc")
         string(SUBSTRING ${MSVC_VERSION} 0 3 _COMPILER_VERSION)
