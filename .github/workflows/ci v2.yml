@@ -88,6 +88,9 @@ jobs:
       run: |
         sudo apt-get update -q && sudo apt-get install clang-tidy cppcheck libsfml-dev -y -q
         pip install pyyaml
+        
+    - name: Cmake version
+      run: cmake --version
 
     - name: Install Qt
       uses: jurplel/install-qt-action@v3
