@@ -53,8 +53,8 @@ function(rpp_add_library NAME)
 
   target_include_directories(${NAME} ${RPP_WARNING_GUARD}
     INTERFACE
-      "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>"
-      # "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>"
+      $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+      # $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
   )
 
   target_link_libraries(${NAME} INTERFACE Threads::Threads)

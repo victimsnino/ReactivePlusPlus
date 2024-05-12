@@ -34,6 +34,17 @@ project(
 
 include(cmake/project-is-top-level.cmake)
 
+# ---- Developer mode ----
+
+if(RPP_DEVELOPER_MODE)
+  if(NOT PROJECT_IS_TOP_LEVEL)
+    message(AUTHOR_WARNING "RPP_DEVELOPER_MODE is intended for developers of ReactivePlusPlus")
+  endif()
+
+  include(cmake/dev-mode.cmake)
+endif()
+
+
 if (RPP_BUILD_TESTS OR RPP_BUILD_BENCHMARKS)
   enable_testing()
   set(RPP_TEST_RESULTS_DIR  ${CMAKE_BINARY_DIR}/test_results)
@@ -59,15 +70,3 @@ add_subdirectory(src)
 if(NOT CMAKE_SKIP_INSTALL_RULES)
   include(cmake/install-rules.cmake)
 endif()
-
-# ---- Developer mode ----
-
-if(NOT RPP_DEVELOPER_MODE)
-  return()
-endif()
-
-if(NOT PROJECT_IS_TOP_LEVEL)
-  message(AUTHOR_WARNING "RPP_DEVELOPER_MODE is intended for developers of ReactivePlusPlus")
-endif()
-
-include(cmake/dev-mode.cmake)
