@@ -69,7 +69,6 @@
 
 
 
-
     {
       "name": "cppcheck",
       "hidden": true,
@@ -104,23 +103,21 @@
       }
     },
     {
-      "name" : "ci-build-tests",
+      "name" : "build-tests",
       "hidden": true,
       "cacheVariables": {
-        "RPP_BUILD_TESTS" : "ON",
-        "RPP_BUILD_QT_CODE" : "ON"
+        "RPP_BUILD_TESTS" : "ON"
       }
     },
     {
-      "name" : "ci-build-examples",
+      "name" : "build-examples",
       "hidden": true,
       "cacheVariables": {
-        "RPP_BUILD_EXAMPLES" : "ON",
-        "RPP_BUILD_QT_CODE" : "ON"
+        "RPP_BUILD_EXAMPLES" : "ON"
       }
     },
     {
-      "name" : "ci-build-benchmarks",
+      "name" : "build-benchmarks",
       "hidden": true,
       "cacheVariables": {
         "RPP_BUILD_RXCPP" : "ON",
@@ -128,136 +125,134 @@
       }
     },
     {
-      "name" : "ci-build-sfml",
+      "name" : "build-sfml",
       "hidden": true,
       "cacheVariables": {
         "RPP_BUILD_SFML_CODE" : "ON"
       }
     },
     {
-      "name": "coverage-unix-gcc",
-      "inherits": ["ci-unix", "ci-gcc"],
+      "name" : "build-qt",
       "hidden": true,
       "cacheVariables": {
-        "RPP_ENABLE_COVERAGE": "ON",
-        "CMAKE_BUILD_TYPE": "Coverage",
-        "CMAKE_CXX_FLAGS_COVERAGE": "-O0 -g --coverage -fkeep-inline-functions -fkeep-static-functions -fprofile-arcs -ftest-coverage -fno-inline -fno-omit-frame-pointer -fno-optimize-sibling-calls",
-        "CMAKE_EXE_LINKER_FLAGS_COVERAGE": "--coverage",
-        "CMAKE_SHARED_LINKER_FLAGS_COVERAGE": "--coverage"
+        "RPP_BUILD_QT_CODE" : "ON"
       }
     },
     {
-      "name": "coverage-unix-clang",
-      "inherits": ["ci-unix", "ci-clang"],
+      "name" : "use-conan",
       "hidden": true,
       "cacheVariables": {
-        "RPP_ENABLE_COVERAGE": "ON",
-        "CMAKE_BUILD_TYPE": "Coverage",
-        "CMAKE_CXX_FLAGS_COVERAGE": "-fprofile-instr-generate -fcoverage-mapping",
-        "CMAKE_EXE_LINKER_FLAGS_COVERAGE": "-fprofile-instr-generate -fcoverage-mapping",
-        "RPP_USE_LLVM_COV" : "ON"
+        "CMAKE_PROJECT_TOP_LEVEL_INCLUDES": "cmake/conan_provider.cmake",
+        "CONAN_ARGS": "",
+        "CONAN_INSTALL_ARGS": "--build=missing;-s=compiler.cppstd=20;-c=tools.system.package_manager:mode=install;-c=tools.system.package_manager:sudo=True"
       }
+    },
+    {
+      "name": "build-dir",
+      "binaryDir": "${sourceDir}/build"
     },
 
 
 
     {
       "name": "ci-build",
-      "binaryDir": "${sourceDir}/build"
+      "inherits" : ["build-dir", "use-conan"]
     },
     {
       "name": "ci-coverage-gcc",
-      "inherits": ["ci-build", "ci-build-tests", "coverage-unix-gcc"],
+      "inherits": ["ci-build", "build-tests", "build-qt", "ci-unix", "ci-gcc"],
       "cacheVariables": {
+        "RPP_ENABLE_COVERAGE": "ON",
+        "CMAKE_CXX_FLAGS": "-O0 -g --coverage -fkeep-inline-functions -fkeep-static-functions -fprofile-arcs -ftest-coverage -fno-inline -fno-omit-frame-pointer -fno-optimize-sibling-calls",
+        "CMAKE_EXE_LINKER_FLAGS": "--coverage",
+        "CMAKE_SHARED_LINKER_FLAGS": "--coverage",
         "RPP_BUILD_TESTS_TOGETHER" : true
       }
     },
     {
       "name": "ci-coverage-clang",
-      "inherits": ["ci-build", "ci-build-tests", "coverage-unix-clang"],
+      "inherits": ["ci-build", "build-tests", "build-qt", "ci-unix", "ci-clang"],
       "cacheVariables": {
-        "RPP_BUILD_TESTS_TOGETHER" : true
+        "RPP_ENABLE_COVERAGE": "ON",
+        "CMAKE_CXX_FLAGS": "-fprofile-instr-generate -fcoverage-mapping",
+        "CMAKE_EXE_LINKER_FLAGS": "-fprofile-instr-generate -fcoverage-mapping",
+        "RPP_BUILD_TESTS_TOGETHER" : true,
+        "RPP_USE_LLVM_COV" : "ON"
       }
     },
     {
       "name": "ci-sanitize-tsan",
-      "inherits": ["ci-build", "ci-build-tests", "ci-build-benchmarks", "ci-unix", "ci-clang"],
+      "inherits": ["ci-build", "build-tests", "build-benchmarks", "build-qt", "ci-unix", "ci-clang"],
       "cacheVariables": {
-        "CMAKE_BUILD_TYPE": "Sanitize",
-        "CMAKE_CXX_FLAGS_SANITIZE": "-fsanitize=thread -g -O1"
+        "CMAKE_CXX_FLAGS": "-fsanitize=thread -g -O1"
       }
     },
     {
       "name": "ci-sanitize-asan",
-      "inherits": ["ci-build", "ci-build-tests", "ci-build-benchmarks", "ci-unix", "ci-clang"],
+      "inherits": ["ci-build", "build-tests", "build-benchmarks", "build-qt", "ci-unix", "ci-clang"],
       "cacheVariables": {
-        "CMAKE_BUILD_TYPE": "Sanitize",
-        "CMAKE_CXX_FLAGS_SANITIZE": "-fsanitize=address -fno-optimize-sibling-calls -fsanitize-address-use-after-scope -fno-omit-frame-pointer -g -O1"
+        "CMAKE_CXX_FLAGS": "-fsanitize=address -fno-optimize-sibling-calls -fsanitize-address-use-after-scope -fno-omit-frame-pointer -g -O1"
       }
     },
     {
       "name": "ci-sanitize-lsan",
-      "inherits": ["ci-build", "ci-build-tests", "ci-build-benchmarks", "ci-unix", "ci-clang"],
+      "inherits": ["ci-build", "build-tests", "build-benchmarks", "build-qt", "ci-unix", "ci-clang"],
       "cacheVariables": {
-        "CMAKE_BUILD_TYPE": "Sanitize",
-        "CMAKE_CXX_FLAGS_SANITIZE": "-fsanitize=leak -fno-omit-frame-pointer -g -O1"
+        "CMAKE_CXX_FLAGS": "-fsanitize=leak -fno-omit-frame-pointer -g -O1"
       }
     },
     {
       "name": "ci-sanitize-msan",
-      "inherits": ["ci-build", "ci-build-tests", "ci-build-benchmarks", "ci-unix", "ci-clang"],
+      "inherits": ["ci-build", "build-tests", "build-benchmarks", "build-qt", "ci-unix", "ci-clang"],
       "cacheVariables": {
-        "CMAKE_BUILD_TYPE": "Sanitize",
-        "CMAKE_CXX_FLAGS_SANITIZE": "-fsanitize=memory -fno-optimize-sibling-calls -fsanitize-memory-track-origins=2 -fno-omit-frame-pointer -g -O2"
+        "CMAKE_CXX_FLAGS": "-fsanitize=memory -fno-optimize-sibling-calls -fsanitize-memory-track-origins=2 -fno-omit-frame-pointer -g -O2"
       }
     },
     {
       "name": "ci-sanitize-ubsan",
-      "inherits": ["ci-build", "ci-build-tests", "ci-build-benchmarks", "ci-unix", "ci-clang"],
+      "inherits": ["ci-build", "build-tests", "build-benchmarks", "build-qt", "ci-unix", "ci-clang"],
       "cacheVariables": {
-        "CMAKE_BUILD_TYPE": "Sanitize",
-        "CMAKE_CXX_FLAGS_SANITIZE": "-fsanitize=undefined"
+        "CMAKE_CXX_FLAGS": "-fsanitize=undefined"
       }
     },
     {
       "name": "ci-macos-tests",
-      "inherits": ["ci-build", "ci-build-tests", "ci-build-examples", "ci-unix"]
+      "inherits": ["ci-build", "build-tests", "build-examples", "build-qt", "build-sfml", "ci-unix"]
     },
     {
       "name": "ci-ubuntu-clang-tests",
-      "inherits": ["ci-build", "ci-build-tests", "ci-build-examples", "ci-build-sfml", "ci-unix", "ci-clang", "cppcheck", "clang-tidy"]
+      "inherits": ["ci-build", "build-tests", "build-examples", "build-qt", "build-sfml", "ci-unix", "ci-clang", "cppcheck", "clang-tidy"]
     },
     {
       "name": "ci-ubuntu-gcc-tests",
-      "inherits": ["ci-build", "ci-build-tests", "ci-build-examples", "ci-build-sfml", "ci-unix", "ci-gcc", "cppcheck", "clang-tidy"]
+      "inherits": ["ci-build", "build-tests", "build-examples", "build-qt", "build-sfml", "ci-unix", "ci-gcc", "cppcheck", "clang-tidy"]
     },
     {
       "name": "ci-windows-tests",
-      "inherits": ["ci-build", "ci-build-tests", "ci-build-examples",  "ci-win64"]
+      "inherits": ["ci-build", "build-tests", "build-examples", "build-qt", "build-sfml", "ci-win64"]
     },
     {
       "name": "ci-ubuntu-clang-tests-no-checks",
-      "inherits": ["ci-build", "ci-build-tests", "ci-build-examples", "ci-build-sfml", "ci-unix", "ci-clang" ]
+      "inherits": ["ci-build", "build-tests", "build-examples", "build-qt", "build-sfml", "ci-unix", "ci-clang" ]
     },
-
 
 
 
     {
       "name": "ci-macos-benchmarks",
-      "inherits": ["ci-build", "ci-build-benchmarks", "ci-unix"]
+      "inherits": ["ci-build", "build-benchmarks", "ci-unix"]
     },
     {
       "name": "ci-ubuntu-clang-benchmarks",
-      "inherits": ["ci-build", "ci-build-benchmarks",  "ci-unix", "ci-clang", "cppcheck", "clang-tidy"]
+      "inherits": ["ci-build", "build-benchmarks",  "ci-unix", "ci-clang", "cppcheck", "clang-tidy"]
     },
     {
       "name": "ci-ubuntu-gcc-benchmarks",
-      "inherits": ["ci-build", "ci-build-benchmarks",  "ci-unix", "ci-gcc", "cppcheck",  "clang-tidy"]
+      "inherits": ["ci-build", "build-benchmarks",  "ci-unix", "ci-gcc", "cppcheck",  "clang-tidy"]
     },
     {
       "name": "ci-windows-benchmarks",
-      "inherits": ["ci-build", "ci-build-benchmarks", "ci-win64"]
+      "inherits": ["ci-build", "build-benchmarks", "ci-win64"]
     }
   ],
   "buildPresets" :[
