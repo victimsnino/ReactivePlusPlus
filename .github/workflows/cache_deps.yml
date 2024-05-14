@@ -1,4 +1,4 @@
-name: Cache conan deps
+name: Cache deps
 
 on:
   push:
@@ -15,7 +15,7 @@ concurrency:
 
 
 jobs:
-  cache_conan:
+  cache_deps:
     strategy:
       matrix:
         config: [{name: ci-ubuntu-gcc,  os: ubuntu-latest},
@@ -26,7 +26,7 @@ jobs:
 
     timeout-minutes: 120
     runs-on: ${{ matrix.config.os }}
-    name: Cache conan on ${{ matrix.config.name }} for ${{ matrix.build_type.config }}
+    name: Cache deps on ${{ matrix.config.name }} for ${{ matrix.build_type.config }}
 
     steps:
     - uses: actions/checkout@v4
