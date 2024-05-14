@@ -1,18 +1,14 @@
 name: CI v2
 
 on:
-  push:
-    branches:
-    - v2
-
-  pull_request:
-    branches:
-    - v2
+  workflow_run:
+    workflows: ["Cache conan deps"]
+    types:
+      - completed
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
-
 
 jobs:
   sanitize:
