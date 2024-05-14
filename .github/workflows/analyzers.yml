@@ -7,13 +7,13 @@ on:
     types:
       - completed
 
+
 jobs:
   pvs:
+    if: github.repository_owner == 'victimsnino' && github.event.workflow_run.conclusion == 'success'
 
     runs-on: ubuntu-latest
     timeout-minutes: 10
-
-    if: github.repository_owner == 'victimsnino' && github.event.workflow_run.conclusion == 'success'
 
     steps:
     - uses: haya14busa/action-workflow_run-status@v1
@@ -172,7 +172,7 @@ jobs:
 
 
     - name: Run sonar-scanner on PullRequest
-      if: github.event.workflow_run.event != 'push'
+      if: github.event.workflow_run.event == 'pull_request'
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
