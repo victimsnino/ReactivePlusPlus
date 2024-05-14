@@ -1,21 +1,19 @@
 name: CI v2
 
 on:
-  push:
-    branches:
-    - v2
-
-  pull_request:
-    branches:
-    - v2
+  workflow_run:
+    workflows: ["Cache deps"]
+    types:
+      - completed
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
 
-
 jobs:
   sanitize:
+    if: github.repository_owner == 'victimsnino' && github.event.workflow_run.conclusion == 'success'
+
     strategy:
       matrix:
         sanitizer: ["tsan", "asan", "lsan", "ubsan"]
@@ -25,7 +23,13 @@ jobs:
     timeout-minutes: 15
 
     steps:
+    - uses: haya14busa/action-workflow_run-status@v1
     - uses: actions/checkout@v4
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        fetch-depth: 0
+        repository: ${{ github.event.workflow_run.head_repository.full_name }}
+        ref: ${{ github.event.workflow_run.head_branch }}
 
     - name: Install Qt
       uses: jurplel/install-qt-action@v3
@@ -35,13 +39,13 @@ jobs:
     - name: get conan
       uses: turtlebrowser/get-conan@main
 
-    - name: cache conan
+    - name: cache deps
       uses: actions/cache@v2
       with:
           path: |
             ~/.conan2
             /Users/runner/.conan2/
-          key: ${{ runner.os }}-conan-2
+          key: deps-ci-ubuntu-clang-Release
 
     - name: run conan
       run: |
@@ -67,6 +71,7 @@ jobs:
         testPreset: ci-sanitize
 
   tests:
+    if: github.repository_owner == 'victimsnino' && github.event.workflow_run.conclusion == 'success'
     strategy:
       matrix:
         config: [{name: ci-ubuntu-gcc,  os: ubuntu-latest},
@@ -81,9 +86,13 @@ jobs:
     name: ${{ matrix.type }} ${{ matrix.config.name }} ${{ matrix.build_type.config }}
 
     steps:
+    - uses: haya14busa/action-workflow_run-status@v1
     - uses: actions/checkout@v4
       with:
-          fetch-depth: 0
+        token: ${{ secrets.GITHUB_TOKEN }}
+        fetch-depth: 0
+        repository: ${{ github.event.workflow_run.head_repository.full_name }}
+        ref: ${{ github.event.workflow_run.head_branch }}
 
     # Work around https://github.com/actions/runner-images/issues/8659
     - name: "Remove GCC 13 from runner image (workaround)"
@@ -115,13 +124,13 @@ jobs:
     - name: get conan
       uses: turtlebrowser/get-conan@main
 
-    - name: cache conan
+    - name: cache deps
       uses: actions/cache@v2
       with:
           path: |
             ~/.conan2
             /Users/runner/.conan2/
-          key: ${{ runner.os }}-conan-2
+          key: deps-${{ matrix.config.name }}-${{ matrix.build_type.config }}
 
     - name: run conan
       run: |
@@ -145,11 +154,19 @@ jobs:
         path: ${{github.workspace}}/build/test_results/benchmarks_results.json
 
   docs:
+    if: github.repository_owner == 'victimsnino' && github.event.workflow_run.conclusion == 'success'
+
     name: Build Doxygen Docs
     runs-on: ubuntu-latest
 
     steps:
+    - uses: haya14busa/action-workflow_run-status@v1
     - uses: actions/checkout@v4
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        fetch-depth: 0
+        repository: ${{ github.event.workflow_run.head_repository.full_name }}
+        ref: ${{ github.event.workflow_run.head_branch }}
 
     - uses: actions/setup-python@v5
       with: { python-version: "3.8" }
@@ -167,41 +184,31 @@ jobs:
 
     - name: Deploy
       uses: peaceiris/actions-gh-pages@v4
-      if: github.event_name == 'push' && github.repository_owner == 'victimsnino'
+      if: github.event.workflow_run.event == 'push' && github.repository_owner == 'victimsnino'
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: ./gen_docs
         destination_dir: v2/docs
 
   use_rpp_as_package:
+    if: github.repository_owner == 'victimsnino' && github.event.workflow_run.conclusion == 'success'
     timeout-minutes: 20
     runs-on: ubuntu-latest
     name: Test RPP as package - ubuntu-latest
 
     steps:
+    - uses: haya14busa/action-workflow_run-status@v1
     - uses: actions/checkout@v4
       with:
-          fetch-depth: 0
+        token: ${{ secrets.GITHUB_TOKEN }}
+        fetch-depth: 0
+        repository: ${{ github.event.workflow_run.head_repository.full_name }}
+        ref: ${{ github.event.workflow_run.head_branch }}
 
     - name: Install Qt
       uses: jurplel/install-qt-action@v3
       with:
         cache: true
-
-    - name: get conan
-      uses: turtlebrowser/get-conan@main
-
-    - name: cache conan
-      uses: actions/cache@v2
-      with:
-          path: |
-            ~/.conan2
-            /Users/runner/.conan2/
-          key: ${{ runner.os }}-conan-2
-
-    - name: run conan
-      run: |
-        conan profile detect --force
 
     - name: Install project and build
       env:

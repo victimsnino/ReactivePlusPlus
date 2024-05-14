@@ -54,7 +54,7 @@ jobs:
       - name: Find Comment
         uses: peter-evans/find-comment@v3
         id: fc
-        if: github.event.workflow_run.event != 'push'
+        if: github.event.workflow_run.event == 'pull_request'
         with:
           issue-number: ${{ steps.source-run-info.outputs.pullRequestNumber }}
           comment-author: 'github-actions[bot]'
@@ -69,7 +69,7 @@ jobs:
 
       - name: Update comment
         uses: peter-evans/create-or-update-comment@v4
-        if: github.event.workflow_run.event != 'push'
+        if: github.event.workflow_run.event == 'pull_request'
         with:
           comment-id: ${{ steps.fc.outputs.comment-id }}
           issue-number: ${{ steps.source-run-info.outputs.pullRequestNumber }}
