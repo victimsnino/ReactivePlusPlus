@@ -10,10 +10,10 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
 
-if: github.repository_owner == 'victimsnino' && github.event.workflow_run.conclusion == 'success'
-
 jobs:
   sanitize:
+    if: github.repository_owner == 'victimsnino' && github.event.workflow_run.conclusion == 'success'
+    
     strategy:
       matrix:
         sanitizer: ["tsan", "asan", "lsan", "ubsan"]
@@ -71,6 +71,7 @@ jobs:
         testPreset: ci-sanitize
 
   tests:
+    if: github.repository_owner == 'victimsnino' && github.event.workflow_run.conclusion == 'success'
     strategy:
       matrix:
         config: [{name: ci-ubuntu-gcc,  os: ubuntu-latest},
@@ -153,6 +154,8 @@ jobs:
         path: ${{github.workspace}}/build/test_results/benchmarks_results.json
 
   docs:
+    if: github.repository_owner == 'victimsnino' && github.event.workflow_run.conclusion == 'success'
+    
     name: Build Doxygen Docs
     runs-on: ubuntu-latest
 
@@ -188,6 +191,7 @@ jobs:
         destination_dir: v2/docs
 
   use_rpp_as_package:
+    if: github.repository_owner == 'victimsnino' && github.event.workflow_run.conclusion == 'success'
     timeout-minutes: 20
     runs-on: ubuntu-latest
     name: Test RPP as package - ubuntu-latest
