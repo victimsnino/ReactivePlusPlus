@@ -49,13 +49,13 @@ jobs:
     - name: get conan
       uses: turtlebrowser/get-conan@main
 
-    - name: cache conan
+    - name: cache deps
       uses: actions/cache@v2
       with:
           path: |
             ~/.conan2
             /Users/runner/.conan2/
-          key: conan-2-${{ matrix.config.name }}-${{ matrix.build_type.config }}
+          key: deps-${{ matrix.config.name }}-${{ matrix.build_type.config }}
 
     - name: conan detect profile
       run: |
