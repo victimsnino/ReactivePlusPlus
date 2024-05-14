@@ -13,7 +13,7 @@ concurrency:
 jobs:
   sanitize:
     if: github.repository_owner == 'victimsnino' && github.event.workflow_run.conclusion == 'success'
-    
+
     strategy:
       matrix:
         sanitizer: ["tsan", "asan", "lsan", "ubsan"]
@@ -155,7 +155,7 @@ jobs:
 
   docs:
     if: github.repository_owner == 'victimsnino' && github.event.workflow_run.conclusion == 'success'
-    
+
     name: Build Doxygen Docs
     runs-on: ubuntu-latest
 
