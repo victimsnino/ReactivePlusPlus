@@ -45,7 +45,7 @@ jobs:
           path: |
             ~/.conan2
             /Users/runner/.conan2/
-          key: ${{ runner.os }}-conan-2
+          key: conan-2-ci-ubuntu-clang-Release
 
     - name: run conan
       run: |
@@ -130,7 +130,7 @@ jobs:
           path: |
             ~/.conan2
             /Users/runner/.conan2/
-          key: ${{ runner.os }}-conan-2
+          key: conan-2-${{ matrix.config.name }}-${{ matrix.build_type.config }}
 
     - name: run conan
       run: |
@@ -209,21 +209,6 @@ jobs:
       uses: jurplel/install-qt-action@v3
       with:
         cache: true
-
-    - name: get conan
-      uses: turtlebrowser/get-conan@main
-
-    - name: cache conan
-      uses: actions/cache@v2
-      with:
-          path: |
-            ~/.conan2
-            /Users/runner/.conan2/
-          key: ${{ runner.os }}-conan-2
-
-    - name: run conan
-      run: |
-        conan profile detect --force
 
     - name: Install project and build
       env:
