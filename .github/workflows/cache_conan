@@ -1,0 +1,63 @@
+name: Cache conan deps
+
+on:
+  push:
+    branches:
+    - v2
+
+  pull_request:
+    branches:
+    - v2
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+
+jobs:
+  cache_conan:
+    strategy:
+      matrix:
+        config: [{name: ci-ubuntu-gcc,  os: ubuntu-latest},
+                {name: ci-ubuntu-clang, os: ubuntu-latest},
+                {name: ci-windows,      os: windows-latest},
+                {name: ci-macos,        os: macos-12}]
+        build_type: [{config: Release}, {config: Debug}]
+
+    timeout-minutes: 120
+    runs-on: ${{ matrix.config.os }}
+    name: Cache conan on ${{ matrix.config.name }} for ${{ matrix.build_type.config }}
+
+    steps:
+    - uses: actions/checkout@v4
+      with:
+          fetch-depth: 0
+
+    # Work around https://github.com/actions/runner-images/issues/8659
+    - name: "Remove GCC 13 from runner image (workaround)"
+      if: matrix.config.os == 'ubuntu-latest'
+      shell: bash
+      run: |
+          sudo apt-get purge -y g++-13 gcc-13 libstdc++-13-dev
+          sudo apt-get install -y --allow-downgrades libstdc++-12-dev libstdc++6=12.* libgcc-s1=12.*
+
+    - name: get conan
+      uses: turtlebrowser/get-conan@main
+
+    - name: cache conan
+      uses: actions/cache@v2
+      with:
+          path: |
+            ~/.conan2
+            /Users/runner/.conan2/
+          key: conan-2-${{ matrix.config.name }}-${{ matrix.build_type.config }}
+
+    - name: conan detect profile
+      run: |
+        conan profile detect --force
+
+    - name: Run CMake
+      uses: lukka/run-cmake@v10
+      with:
+        configurePreset: ${{ matrix.config.name }}-tests
+        configurePresetAdditionalArgs: "['-DCMAKE_BUILD_TYPE=${{ matrix.build_type.config }}']"
