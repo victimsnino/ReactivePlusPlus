@@ -37,13 +37,13 @@ jobs:
           fetch-depth: 0
 
     # Work around https://github.com/actions/runner-images/issues/8659
-    - name: "Remove GCC 13 from runner image (workaround)"
-      if: matrix.config.os == 'ubuntu-latest'
-      shell: bash
-      run: |
-          sudo apt-get update
-          sudo apt-get purge -y g++-13 gcc-13 libstdc++-13-dev
-          sudo apt-get install -y --allow-downgrades libstdc++-12-dev libstdc++6=12.* libgcc-s1=12.*
+    # - name: "Remove GCC 13 from runner image (workaround)"
+    #   if: matrix.config.os == 'ubuntu-latest'
+    #   shell: bash
+    #   run: |
+    #       sudo apt-get update
+    #       sudo apt-get purge -y g++-13 gcc-13 libstdc++-13-dev
+    #       sudo apt-get install -y --allow-downgrades libstdc++-12-dev libstdc++6=12.* libgcc-s1=12.*
 
     - name: Install Qt
       uses: jurplel/install-qt-action@v3
@@ -59,7 +59,8 @@ jobs:
           path: |
             ~/.conan2
             /Users/runner/.conan2/
-          key: deps-${{ matrix.config.name }}-${{ matrix.build_type.config }}
+          key: deps-${{ matrix.config.name }}-${{ matrix.build_type.config }}-${{ hashFiles('conanfile.py') }}
+          restore-keys: deps-${{ matrix.config.name }}-${{ matrix.build_type.config }}
 
     - name: conan detect profile
       run: |
@@ -88,12 +89,12 @@ jobs:
         fetch-depth: 0
 
     # Work around https://github.com/actions/runner-images/issues/8659
-    - name: "Remove GCC 13 from runner image (workaround)"
-      shell: bash
-      run: |
-          sudo apt-get update
-          sudo apt-get purge -y g++-13 gcc-13 libstdc++-13-dev
-          sudo apt-get install -y --allow-downgrades libstdc++-12-dev libstdc++6=12.* libgcc-s1=12.*
+    # - name: "Remove GCC 13 from runner image (workaround)"
+    #   shell: bash
+    #   run: |
+    #       sudo apt-get update
+    #       sudo apt-get purge -y g++-13 gcc-13 libstdc++-13-dev
+    #       sudo apt-get install -y --allow-downgrades libstdc++-12-dev libstdc++6=12.* libgcc-s1=12.*
 
     - name: Install Qt
       uses: jurplel/install-qt-action@v3
@@ -109,7 +110,8 @@ jobs:
           path: |
             ~/.conan2
             /Users/runner/.conan2/
-          key: deps-ci-ubuntu-clang-Release
+          key: deps-ci-ubuntu-clang-Release-${{ hashFiles('conanfile.py') }}
+          restore-keys: deps-ci-ubuntu-clang-Release
 
     - name: run conan
       run: |
@@ -149,13 +151,13 @@ jobs:
           fetch-depth: 0
 
     # Work around https://github.com/actions/runner-images/issues/8659
-    - name: "Remove GCC 13 from runner image (workaround)"
-      if: matrix.config.os == 'ubuntu-latest'
-      shell: bash
-      run: |
-          sudo apt-get update
-          sudo apt-get purge -y g++-13 gcc-13 libstdc++-13-dev
-          sudo apt-get install -y --allow-downgrades libstdc++-12-dev libstdc++6=12.* libgcc-s1=12.*
+    # - name: "Remove GCC 13 from runner image (workaround)"
+    #   if: matrix.config.os == 'ubuntu-latest'
+    #   shell: bash
+    #   run: |
+    #       sudo apt-get update
+    #       sudo apt-get purge -y g++-13 gcc-13 libstdc++-13-dev
+    #       sudo apt-get install -y --allow-downgrades libstdc++-12-dev libstdc++6=12.* libgcc-s1=12.*
 
     - name: ccache
       uses: hendrikmuhs/ccache-action@v1.2
@@ -185,7 +187,8 @@ jobs:
           path: |
             ~/.conan2
             /Users/runner/.conan2/
-          key: deps-${{ matrix.config.name }}-${{ matrix.build_type.config }}
+          key: deps-${{ matrix.config.name }}-${{ matrix.build_type.config }}-${{ hashFiles('conanfile.py') }}
+          restore-keys: deps-${{ matrix.config.name }}-${{ matrix.build_type.config }}
 
     - name: run conan
       run: |
