@@ -14,7 +14,7 @@ jobs:
     if: github.repository_owner == 'victimsnino' && github.event.workflow_run.conclusion == 'success'
 
     steps:
-      - uses: rivercitytech/action-workflow_run-status@v1
+      - uses: rivercitytech/action-workflow_run-status@main
 
       - name: "Get PR information"
         uses: potiuk/get-workflow-origin@v1_3

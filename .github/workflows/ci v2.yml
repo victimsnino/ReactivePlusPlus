@@ -23,7 +23,7 @@ jobs:
     timeout-minutes: 15
 
     steps:
-    - uses: haya14busa/action-workflow_run-status@v1
+    - uses: rivercitytech/action-workflow_run-status@main
     - uses: actions/checkout@v4
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
@@ -86,7 +86,7 @@ jobs:
     name: ${{ matrix.type }} ${{ matrix.config.name }} ${{ matrix.build_type.config }}
 
     steps:
-    - uses: haya14busa/action-workflow_run-status@v1
+    - uses: rivercitytech/action-workflow_run-status@main
     - uses: actions/checkout@v4
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
@@ -160,7 +160,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: haya14busa/action-workflow_run-status@v1
+    - uses: rivercitytech/action-workflow_run-status@main
     - uses: actions/checkout@v4
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
@@ -197,7 +197,7 @@ jobs:
     name: Test RPP as package - ubuntu-latest
 
     steps:
-    - uses: haya14busa/action-workflow_run-status@v1
+    - uses: rivercitytech/action-workflow_run-status@main
     - uses: actions/checkout@v4
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
