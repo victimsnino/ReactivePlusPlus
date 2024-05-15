@@ -18,12 +18,12 @@ jobs:
       matrix:
         sanitizer: ["tsan", "asan", "lsan", "ubsan"]
 
-    name: Sanitize - ${{ matrix.sanitizer }}
+    # name: Sanitize - ${{ matrix.sanitizer }}
     runs-on: ubuntu-latest
     timeout-minutes: 15
 
     steps:
-    - uses: rivercitytech/action-workflow_run-status@main
+    - uses: haya14busa/action-workflow_run-status@main
     - uses: actions/checkout@v4
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
@@ -70,7 +70,7 @@ jobs:
         buildPreset: ci-build
         testPreset: ci-sanitize
 
-  tests:
+  tests_and_benchmarks:
     if: github.repository_owner == 'victimsnino' && github.event.workflow_run.conclusion == 'success'
     strategy:
       matrix:
@@ -83,10 +83,10 @@ jobs:
 
     timeout-minutes: 20
     runs-on: ${{ matrix.config.os }}
-    name: ${{ matrix.type }} ${{ matrix.config.name }} ${{ matrix.build_type.config }}
+    # name: ${{ matrix.type }} ${{ matrix.config.name }} ${{ matrix.build_type.config }}
 
     steps:
-    - uses: rivercitytech/action-workflow_run-status@main
+    - uses: haya14busa/action-workflow_run-status@main
     - uses: actions/checkout@v4
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
@@ -153,14 +153,14 @@ jobs:
         name: ${{ matrix.config.name }}
         path: ${{github.workspace}}/build/test_results/benchmarks_results.json
 
-  docs:
+  doxygen_docs:
     if: github.repository_owner == 'victimsnino' && github.event.workflow_run.conclusion == 'success'
 
-    name: Build Doxygen Docs
+    # name: Build Doxygen Docs
     runs-on: ubuntu-latest
 
     steps:
-    - uses: rivercitytech/action-workflow_run-status@main
+    - uses: haya14busa/action-workflow_run-status@main
     - uses: actions/checkout@v4
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
@@ -194,10 +194,10 @@ jobs:
     if: github.repository_owner == 'victimsnino' && github.event.workflow_run.conclusion == 'success'
     timeout-minutes: 20
     runs-on: ubuntu-latest
-    name: Test RPP as package - ubuntu-latest
+    # name: Test RPP as package - ubuntu-latest
 
     steps:
-    - uses: rivercitytech/action-workflow_run-status@main
+    - uses: haya14busa/action-workflow_run-status@main
     - uses: actions/checkout@v4
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
