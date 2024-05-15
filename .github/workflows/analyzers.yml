@@ -47,7 +47,8 @@ jobs:
           path: |
             ~/.conan2
             /Users/runner/.conan2/
-          key: deps-ci-ubuntu-clang-Release
+          key: deps-ci-ubuntu-clang-Release-${{ hashFiles('conanfile.py') }}
+          restore-keys: deps-ci-ubuntu-clang-Release
 
     - name: run conan
       run: |
@@ -130,7 +131,8 @@ jobs:
           path: |
             ~/.conan2
             /Users/runner/.conan2/
-          key: deps-ci-ubuntu-clang-Release
+          key: deps-ci-ubuntu-clang-Release-${{ hashFiles('conanfile.py') }}
+          restore-keys: deps-ci-ubuntu-clang-Release
 
     - name: run conan
       run: |
