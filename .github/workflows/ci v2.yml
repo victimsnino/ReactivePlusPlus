@@ -70,7 +70,7 @@ jobs:
       uses: lukka/run-cmake@v10
       with:
         configurePreset: ${{ matrix.config.name }}-tests
-        configurePresetAdditionalArgs: "['-DCMAKE_BUILD_TYPE=${{ matrix.build_type.config }}']"
+        configurePresetAdditionalArgs: "['-DCMAKE_BUILD_TYPE=${{ matrix.build_type.config }}', '-DCMAKE_CONFIGURATION_TYPES=${{ matrix.build_type.config }}']"
 
   sanitize:
     needs: ["cache_deps"]
@@ -113,7 +113,7 @@ jobs:
           key: deps-ci-ubuntu-clang-Release-${{ hashFiles('conanfile.py') }}
           restore-keys: deps-ci-ubuntu-clang-Release
 
-    - name: run conan
+    - name: conan detect profile
       run: |
         conan profile detect --force
 
@@ -190,7 +190,7 @@ jobs:
           key: deps-${{ matrix.config.name }}-${{ matrix.build_type.config }}-${{ hashFiles('conanfile.py') }}
           restore-keys: deps-${{ matrix.config.name }}-${{ matrix.build_type.config }}
 
-    - name: run conan
+    - name: conan detect profile
       run: |
         conan profile detect --force
 
@@ -198,7 +198,7 @@ jobs:
       uses: lukka/run-cmake@v10
       with:
         configurePreset: ${{ matrix.config.name }}-${{ matrix.type }}
-        configurePresetAdditionalArgs: "['-DCMAKE_BUILD_TYPE=${{ matrix.build_type.config }}']"
+        configurePresetAdditionalArgs: "['-DCMAKE_BUILD_TYPE=${{ matrix.build_type.config }}', '-DCMAKE_CONFIGURATION_TYPES=${{ matrix.build_type.config }}']"
         buildPreset: ci-build
         buildPresetAdditionalArgs: "['--config ${{ matrix.build_type.config }}']"
         testPreset: ${{matrix.build_type.test_preset}}
@@ -242,6 +242,7 @@ jobs:
 
   use_rpp_as_package:
     timeout-minutes: 20
+
     runs-on: ubuntu-latest
     name: Test RPP as package - ubuntu-latest
 
