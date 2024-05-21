@@ -50,7 +50,7 @@ jobs:
           key: deps-ci-ubuntu-clang-Release-${{ hashFiles('conanfile.py') }}
           restore-keys: deps-ci-ubuntu-clang-Release
 
-    - name: run conan
+    - name: conan detect profile
       run: |
         conan profile detect --force
 
@@ -134,7 +134,7 @@ jobs:
           key: deps-ci-ubuntu-clang-Release-${{ hashFiles('conanfile.py') }}
           restore-keys: deps-ci-ubuntu-clang-Release
 
-    - name: run conan
+    - name: conan detect profile
       run: |
         conan profile detect --force
 
