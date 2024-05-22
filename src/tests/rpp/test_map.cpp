@@ -10,7 +10,6 @@
 
 #include <snitch/snitch.hpp>
 
-#include <rpp/observers/mock_observer.hpp>
 #include <rpp/operators/map.hpp>
 #include <rpp/sources/just.hpp>
 
@@ -30,9 +29,9 @@ TEMPLATE_TEST_CASE("map modifies values and forward errors/completions", "", rpp
         mock_observer<std::string> mock{};
         trompeloeil::sequence      seq;
 
-        REQUIRE_CALL(mock, on_next("TEST 1")).IN_SEQUENCE(seq);
-        REQUIRE_CALL(mock, on_next("TEST 2")).IN_SEQUENCE(seq);
-        REQUIRE_CALL(mock, on_completed()).IN_SEQUENCE(seq);
+        REQUIRE_CALL(*mock, on_next("TEST 1")).IN_SEQUENCE(seq);
+        REQUIRE_CALL(*mock, on_next("TEST 2")).IN_SEQUENCE(seq);
+        REQUIRE_CALL(*mock, on_completed()).IN_SEQUENCE(seq);
 
         obs | rpp::operators::map([](auto v) { return std::string("TEST ") + std::to_string(v); }) | rpp::operators::subscribe(std::move(mock));
     }
@@ -43,7 +42,7 @@ TEMPLATE_TEST_CASE("map modifies values and forward errors/completions", "", rpp
         mock_observer<int>    mock{};
         trompeloeil::sequence seq;
 
-        REQUIRE_CALL(mock, on_error(trompeloeil::_)).IN_SEQUENCE(seq);
+        REQUIRE_CALL(*mock, on_error(trompeloeil::_)).IN_SEQUENCE(seq);
 
         auto map = rpp::operators::map([](int) -> int { throw std::runtime_error{"map failed"}; });
 

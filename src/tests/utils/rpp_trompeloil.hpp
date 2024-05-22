@@ -35,15 +35,37 @@ namespace trompeloeil
 } // namespace trompeloeil
 
 template<typename T>
-struct mock_observer
+class mock_observer
 {
-    static constexpr bool trompeloeil_movable_mock = true;
+public:
+    struct impl_t
+    {
+        impl_t() = default;
 
-    MAKE_MOCK1(on_next, void(const T&), const);
-    MAKE_MOCK1(on_next, void(T&&), const);
-    MAKE_MOCK1(on_error, void(const std::exception_ptr& err), const);
-    MAKE_MOCK0(on_completed, void(), const);
+        MAKE_MOCK1(on_next, void(const T&), const);
+        MAKE_MOCK1(on_next, void(T&&), const);
+        MAKE_MOCK1(on_error, void(const std::exception_ptr& err), const);
+        MAKE_MOCK0(on_completed, void(), const);
+    };
+
+    impl_t& operator*() const noexcept { return *impl; }
+
+    void on_next(const T& v) const noexcept
+    {
+        impl->on_next(v);
+    }
+
+    void on_next(T&& v) const noexcept
+    {
+        impl->on_next(std::move(v));
+    }
+
+    void on_error(const std::exception_ptr& err) const noexcept { impl->on_error(err); }
+    void on_completed() const noexcept { impl->on_completed(); }
 
     static bool is_disposed() noexcept { return false; }
     static void set_upstream(const rpp::disposable_wrapper&) noexcept {}
+
+private:
+    std::shared_ptr<impl_t> impl = std::make_shared<impl_t>();
 };
