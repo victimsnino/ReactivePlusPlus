@@ -19,7 +19,7 @@
 
 namespace rpp::details::observables
 {
-    class blocking_disposble final : public base_disposable
+    class blocking_disposable final : public base_disposable
     {
     public:
         void wait()
@@ -63,7 +63,7 @@ namespace rpp::details::observables
         template<rpp::constraint::observer_strategy<Type> ObserverStrategy>
         void subscribe(observer<Type, ObserverStrategy>&& obs) const
         {
-            auto d = disposable_wrapper_impl<blocking_disposble>::make();
+            auto d = disposable_wrapper_impl<blocking_disposable>::make();
             obs.set_upstream(d);
             m_original.subscribe(std::move(obs));
 
