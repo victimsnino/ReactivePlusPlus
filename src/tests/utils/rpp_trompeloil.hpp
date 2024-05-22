@@ -14,22 +14,14 @@ namespace trompeloeil
   template <>
   inline void reporter<specialized>::send(
     severity s,
-    const char* file,
-    unsigned long line,
+    const char* ,
+    unsigned long ,
     const char* msg)
   {
-    std::ostringstream os;
-    if (line) os << file << ':' << line << '\n';
-    os << msg;
-    auto failure = os.str();
+    FAIL_CHECK(msg);
     if (s == severity::fatal)
     {
-      FAIL(failure);
-    }
-    else
-    {
-      CAPTURE(failure);
-      CHECK(failure.empty());
+      std::terminate(); // terminate due to rpp could catch exceptions but we dont want it
     }
   }
 
