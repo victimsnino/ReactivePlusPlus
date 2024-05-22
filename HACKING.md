@@ -133,4 +133,4 @@ variable. -->
 
 ### conan
 
-if your cmake version is >= 3.24, you can use conan to install RPP's CI dependencies. To use it your Cmake preset should be inherited from `use-conan`. CMake would configure conan properly.
+if your cmake version is >= 3.24, you can use conan to install RPP's dependencies. To use it your Cmake preset should be inherited from `use-conan`. CMake would configure conan properly.
