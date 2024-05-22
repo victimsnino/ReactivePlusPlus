@@ -16,7 +16,6 @@
 
 #include "copy_count_tracker.hpp"
 #include "disposable_observable.hpp"
-
 #include "rpp_trompeloil.hpp"
 
 #include <stdexcept>
@@ -29,7 +28,7 @@ TEMPLATE_TEST_CASE("map modifies values and forward errors/completions", "", rpp
     SECTION("map changes value")
     {
         mock_observer<std::string> mock{};
-        trompeloeil::sequence seq;
+        trompeloeil::sequence      seq;
 
         REQUIRE_CALL(mock, on_next("TEST 1")).IN_SEQUENCE(seq);
         REQUIRE_CALL(mock, on_next("TEST 2")).IN_SEQUENCE(seq);
@@ -41,7 +40,7 @@ TEMPLATE_TEST_CASE("map modifies values and forward errors/completions", "", rpp
 
     SECTION("map with exception value")
     {
-        mock_observer<int> mock{};
+        mock_observer<int>    mock{};
         trompeloeil::sequence seq;
 
         REQUIRE_CALL(mock, on_error(trompeloeil::_)).IN_SEQUENCE(seq);
