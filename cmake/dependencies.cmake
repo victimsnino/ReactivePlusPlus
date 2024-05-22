@@ -58,7 +58,11 @@ macro(rpp_fetch_library_extended NAME URL TAG TARGET_NAME)
 endmacro()
 
 macro(rpp_fetch_library NAME URL TAG)
-  rpp_fetch_library_extended(${NAME} ${URL} ${TAG} ${NAME})
+  find_package(${NAME} QUIET)
+  if (NOT ${NAME}_FOUND)
+    message("-- RPP: Fetching ${NAME}...")
+    rpp_fetch_library_extended(${NAME} ${URL} ${TAG} ${NAME})
+  endif()
 endmacro()
 
 # ==================== RXCPP =======================
@@ -69,12 +73,12 @@ endif()
 
 # ===================== Snitch ===================
 if (RPP_BUILD_TESTS)
-  find_package(snitch REQUIRED)
-  find_package(trompeloeil REQUIRED)
+  rpp_fetch_library(snitch https://github.com/cschreib/snitch.git main)
+  rpp_fetch_library(trompeloeil https://github.com/rollbear/trompeloeil.git main)
 endif()
 
 
 # ==================== Nanobench =================
 if (RPP_BUILD_BENCHMARKS)
-  find_package(nanobench REQUIRED)
+  rpp_fetch_library(nanobench https://github.com/martinus/nanobench.git master)
 endif()
