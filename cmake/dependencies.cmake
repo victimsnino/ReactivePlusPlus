@@ -64,18 +64,17 @@ endmacro()
 # ==================== RXCPP =======================
 if (RPP_BUILD_RXCPP AND RPP_BUILD_BENCHMARKS)
   set(RXCPP_DISABLE_TESTS_AND_EXAMPLES 1)
-
   rpp_fetch_library(rxcpp https://github.com/ReactiveX/RxCpp.git origin/main)
 endif()
 
 # ===================== Snitch ===================
 if (RPP_BUILD_TESTS)
-  rpp_fetch_library(snitch https://github.com/cschreib/snitch.git main)
+  find_package(snitch REQUIRED)
   find_package(trompeloeil REQUIRED)
 endif()
 
 
 # ==================== Nanobench =================
 if (RPP_BUILD_BENCHMARKS)
-  rpp_fetch_library(nanobench https://github.com/martinus/nanobench.git master)
+  find_package(nanobench REQUIRED)
 endif()
