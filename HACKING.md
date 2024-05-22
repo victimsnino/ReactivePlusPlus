@@ -133,8 +133,4 @@ variable. -->
 
 ### conan
 
-If you are going to build/run grpc/sfml related parts of code, then you can use conan to install all required dependecies. Install conan and just call cmd
-```cmd
-conan install . --output-folder=build --build=missing -s compiler.cppstd=gnu20 -c tools.system.package_manager:mode=install -c tools.system.package_manager:sudo=True --settings=build_type=Release
-```
-or if your cmake version is >= 3.24, then cmake would do it by itself if you set variable `RPP_USE_CONAN`.
+if your cmake version is >= 3.24, you can use conan to install RPP's CI dependencies. To use it your Cmake preset should be inherited from `use-conan`. CMake would configure conan properly.
