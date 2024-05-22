@@ -25,10 +25,16 @@ class RppConan(ConanFile):
             self.requires("trompeloeil/47")
 
         if self.options.with_sfml:
-            self.requires("sfml/2.6.1")
+            self.requires("sfml/2.6.1", options={"audio": False})
 
         if self.options.with_qt:
-            self.requires("qt/6.3.2")
+            self.requires("qt/6.3.2", options={"with_libjpeg": False,
+                                                "with_md4c": False,
+                                                "with_mysql": False,
+                                                "with_odbc": False,
+                                                "with_openal": False,
+                                                "with_pq": False,
+                                                "with_sqlite3":False})
             self.requires("libpng/1.6.42", override=True)
 
         # if self.options.with_grpc:
