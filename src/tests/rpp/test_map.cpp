@@ -29,8 +29,8 @@ TEMPLATE_TEST_CASE("map modifies values and forward errors/completions", "", rpp
         mock_observer<std::string> mock{};
         trompeloeil::sequence      seq;
 
-        REQUIRE_CALL(*mock, on_next("TEST 1")).IN_SEQUENCE(seq);
-        REQUIRE_CALL(*mock, on_next("TEST 2")).IN_SEQUENCE(seq);
+        REQUIRE_CALL(*mock, on_next_rvalue("TEST 1")).IN_SEQUENCE(seq);
+        REQUIRE_CALL(*mock, on_next_rvalue("TEST 2")).IN_SEQUENCE(seq);
         REQUIRE_CALL(*mock, on_completed()).IN_SEQUENCE(seq);
 
         obs | rpp::operators::map([](auto v) { return std::string("TEST ") + std::to_string(v); }) | rpp::operators::subscribe(std::move(mock));

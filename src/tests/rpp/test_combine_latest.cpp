@@ -10,7 +10,6 @@
 
 #include <snitch/snitch.hpp>
 
-#include <rpp/observers/mock_observer.hpp>
 #include <rpp/operators/as_blocking.hpp>
 #include <rpp/operators/combine_latest.hpp>
 #include <rpp/schedulers/current_thread.hpp>
@@ -22,29 +21,37 @@
 #include <rpp/subjects/publish_subject.hpp>
 
 #include "disposable_observable.hpp"
+#include "rpp_trompeloil.hpp"
 #include "snitch_logging.hpp"
 
 TEST_CASE("combine_latest bundles items")
 {
     SECTION("observable of -1-2-3-| combines with -4-5-6-| on immediate scheduler")
     {
-        auto mock = mock_observer_strategy<std::tuple<int, int>>{};
+        auto mock = mock_observer<std::tuple<int, int>>{};
+        trompeloeil::sequence      seq;
+
+        REQUIRE_CALL(*mock, on_next_rvalue(std::make_tuple(1, 6))).IN_SEQUENCE(seq);
+        REQUIRE_CALL(*mock, on_next_rvalue(std::make_tuple(2, 6))).IN_SEQUENCE(seq);
+        REQUIRE_CALL(*mock, on_next_rvalue(std::make_tuple(3, 6))).IN_SEQUENCE(seq);
+        REQUIRE_CALL(*mock, on_completed()).IN_SEQUENCE(seq);
+
         rpp::source::just(rpp::schedulers::immediate{}, 1, 2, 3)
             | rpp::ops::combine_latest(rpp::source::just(rpp::schedulers::immediate{}, 4, 5, 6))
             | rpp::ops::subscribe(mock);
-
-        CHECK(mock.get_received_values() == std::vector<std::tuple<int, int>>{
-                  std::make_tuple(1, 6),
-                  std::make_tuple(2, 6),
-                  std::make_tuple(3, 6),
-              });
-        CHECK(mock.get_on_completed_count() == 1);
-        CHECK(mock.get_on_error_count() == 0);
     }
 
     SECTION("observable of -1-2-3-| combines with -4-5-6-| on current_thread")
     {
-        auto mock = mock_observer_strategy<std::tuple<int, int>>{};
+        auto mock = mock_observer<std::tuple<int, int>>{};
+        trompeloeil::sequence      seq;
+
+        REQUIRE_CALL(*mock, on_next_rvalue(std::make_tuple(1, 4))).IN_SEQUENCE(seq);
+        REQUIRE_CALL(*mock, on_next_rvalue(std::make_tuple(1, 5))).IN_SEQUENCE(seq);
+        REQUIRE_CALL(*mock, on_next_rvalue(std::make_tuple(2, 5))).IN_SEQUENCE(seq);
+        REQUIRE_CALL(*mock, on_next_rvalue(std::make_tuple(2, 6))).IN_SEQUENCE(seq);
+        REQUIRE_CALL(*mock, on_next_rvalue(std::make_tuple(3, 6))).IN_SEQUENCE(seq);
+        REQUIRE_CALL(*mock, on_completed()).IN_SEQUENCE(seq);
 
         rpp::source::just(rpp::schedulers::current_thread{}, 1, 2, 3)                                 // source 1
             | rpp::ops::combine_latest(rpp::source::just(rpp::schedulers::current_thread{}, 4, 5, 6)) // source 2
@@ -53,21 +60,21 @@ TEST_CASE("combine_latest bundles items")
         // Above stream should output in such sequence
         // source 1:   -1---2---3-|
         // source 2: -4---5---6-|
-
-        CHECK(mock.get_received_values() == std::vector<std::tuple<int, int>>{
-                  std::make_tuple(1, 4),
-                  std::make_tuple(1, 5),
-                  std::make_tuple(2, 5),
-                  std::make_tuple(2, 6),
-                  std::make_tuple(3, 6),
-              });
-        CHECK(mock.get_on_completed_count() == 1);
-        CHECK(mock.get_on_error_count() == 0);
     }
 
     SECTION("observable of -1-2-3-| combines with two other sources on current_thread")
     {
-        auto mock = mock_observer_strategy<std::tuple<int, int, int>>{};
+        auto mock = mock_observer<std::tuple<int, int, int>>{};
+        trompeloeil::sequence      seq;
+
+        REQUIRE_CALL(*mock, on_next_rvalue(std::make_tuple(1, 4, 7))).IN_SEQUENCE(seq);
+        REQUIRE_CALL(*mock, on_next_rvalue(std::make_tuple(1, 5, 7))).IN_SEQUENCE(seq);
+        REQUIRE_CALL(*mock, on_next_rvalue(std::make_tuple(1, 5, 8))).IN_SEQUENCE(seq);
+        REQUIRE_CALL(*mock, on_next_rvalue(std::make_tuple(2, 5, 8))).IN_SEQUENCE(seq);
+        REQUIRE_CALL(*mock, on_next_rvalue(std::make_tuple(2, 6, 8))).IN_SEQUENCE(seq);
+        REQUIRE_CALL(*mock, on_next_rvalue(std::make_tuple(2, 6, 9))).IN_SEQUENCE(seq);
+        REQUIRE_CALL(*mock, on_next_rvalue(std::make_tuple(3, 6, 9))).IN_SEQUENCE(seq);
+        REQUIRE_CALL(*mock, on_completed()).IN_SEQUENCE(seq);
 
         rpp::source::just(rpp::schedulers::current_thread{}, 1, 2, 3) // source 1
             | rpp::ops::combine_latest(
@@ -79,18 +86,6 @@ TEST_CASE("combine_latest bundles items")
         // source 1:   --1---2---3-|
         // source 2: -4---5---6-|
         // source 3: --7---8---9-|
-
-        CHECK(mock.get_received_values() == std::vector<std::tuple<int, int, int>>{
-                  std::make_tuple(1, 4, 7),
-                  std::make_tuple(1, 5, 7),
-                  std::make_tuple(1, 5, 8),
-                  std::make_tuple(2, 5, 8),
-                  std::make_tuple(2, 6, 8),
-                  std::make_tuple(2, 6, 9),
-                  std::make_tuple(3, 6, 9),
-              });
-        CHECK(mock.get_on_completed_count() == 1);
-        CHECK(mock.get_on_error_count() == 0);
     }
 }
 
@@ -98,14 +93,11 @@ TEST_CASE("combine_latest defers completed event")
 {
     SECTION("observable of -1-2-3-| and never")
     {
-        auto mock = mock_observer_strategy<std::tuple<int, int>>{};
+        auto mock = mock_observer<std::tuple<int, int>>{};
+
         rpp::source::just(1, 2, 3)
             | rpp::ops::combine_latest(rpp::source::never<int>())
             | rpp::ops::subscribe(mock);
-
-        CHECK(mock.get_received_values().empty());
-        CHECK(mock.get_on_completed_count() == 0);
-        CHECK(mock.get_on_error_count() == 0);
     }
 }
 
@@ -113,44 +105,36 @@ TEST_CASE("combine_latest forwards errors")
 {
     SECTION("observable of -1-2-3-| combines with error")
     {
-        auto mock = mock_observer_strategy<std::tuple<int, int>>{};
+        auto mock = mock_observer<std::tuple<int, int>>{};
+        REQUIRE_CALL(*mock, on_error(trompeloeil::_));
         rpp::source::just(1, 2, 3)
             | rpp::ops::combine_latest(rpp::source::error<int>(std::make_exception_ptr(std::runtime_error{""})))
             | rpp::ops::subscribe(mock);
-
-        CHECK(mock.get_received_values().empty());
-        CHECK(mock.get_on_completed_count() == 0);
-        CHECK(mock.get_on_error_count() == 1);
     }
 }
 
 TEST_CASE("combine_latest handles race condition")
 {
-    SECTION("source observable in current thread pairs with error in other thread")
+    SECTION("suscribe on source observable in current thread pairs with error in other thread - on_error can't interleave with on_next")
     {
-        std::atomic_bool on_error_called{false};
-        auto             subject = rpp::subjects::publish_subject<int>{};
+        auto                  subject = rpp::subjects::publish_subject<int>{};
+        auto                  mock    = mock_observer<std::tuple<int, int>>{};
+        trompeloeil::sequence s{};
 
-        SECTION("subscribe on it")
-        {
-            SECTION("on_error can't interleave with on_next")
-            {
-                rpp::source::just(1, 1, 1)
-                    | rpp::ops::combine_latest(rpp::source::concat(rpp::source::just(2), subject.get_observable()))
-                    | rpp::ops::as_blocking()
-                    | rpp::ops::subscribe([&](auto&&) {
-                                       CHECK(!on_error_called);
-                                       std::thread{[&]
-                                       {
-                                           subject.get_observer().on_error(std::exception_ptr{});
-                                       }}.detach();
-                                       std::this_thread::sleep_for(std::chrono::seconds{1});
-                                       CHECK(!on_error_called); },
-                                          [&](auto) { on_error_called = true; });
+        REQUIRE_CALL(*mock, on_next_rvalue(trompeloeil::_))
+            .IN_SEQUENCE(s)
+            .LR_SIDE_EFFECT({
+                std::thread{[&] {
+                    subject.get_observer().on_error(std::exception_ptr{});
+                }}.detach();
+                std::this_thread::sleep_for(std::chrono::seconds{1});
+            });
+        REQUIRE_CALL(*mock, on_error(trompeloeil::_)).IN_SEQUENCE(s);
 
-                CHECK(on_error_called);
-            }
-        }
+        rpp::source::just(1, 1, 1)
+            | rpp::ops::combine_latest(rpp::source::concat(rpp::source::just(2), subject.get_observable()))
+            | rpp::ops::as_blocking()
+            | rpp::ops::subscribe(mock);
     }
 }
 

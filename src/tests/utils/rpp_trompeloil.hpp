@@ -42,8 +42,8 @@ public:
     {
         impl_t() = default;
 
-        MAKE_MOCK1(on_next, void(const T&), const);
-        MAKE_MOCK1(on_next, void(T&&), const);
+        MAKE_MOCK1(on_next_lvalue, void(const T&), const);
+        MAKE_MOCK1(on_next_rvalue, void(T&&), const);
         MAKE_MOCK1(on_error, void(const std::exception_ptr& err), const);
         MAKE_MOCK0(on_completed, void(), const);
     };
@@ -52,12 +52,12 @@ public:
 
     void on_next(const T& v) const noexcept
     {
-        impl->on_next(v);
+        impl->on_next_lvalue(v);
     }
 
     void on_next(T&& v) const noexcept
     {
-        impl->on_next(std::move(v));
+        impl->on_next_rvalue(std::move(v));
     }
 
     void on_error(const std::exception_ptr& err) const noexcept { impl->on_error(err); }
