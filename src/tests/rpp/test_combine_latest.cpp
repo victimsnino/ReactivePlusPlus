@@ -8,8 +8,8 @@
 // Project home: https://github.com/victimsnino/ReactivePlusPlus
 //
 
-#include <catch2/catch_test_macros.hpp>
 #include <catch2/catch_template_test_macros.hpp>
+#include <catch2/catch_test_macros.hpp>
 
 #include <rpp/operators/as_blocking.hpp>
 #include <rpp/operators/combine_latest.hpp>
@@ -28,8 +28,8 @@ TEST_CASE("combine_latest bundles items")
 {
     SECTION("observable of -1-2-3-| combines with -4-5-6-| on immediate scheduler")
     {
-        auto mock = mock_observer<std::tuple<int, int>>{};
-        trompeloeil::sequence      seq;
+        auto                  mock = mock_observer<std::tuple<int, int>>{};
+        trompeloeil::sequence seq;
 
         REQUIRE_CALL(*mock, on_next_rvalue(std::make_tuple(1, 6))).IN_SEQUENCE(seq);
         REQUIRE_CALL(*mock, on_next_rvalue(std::make_tuple(2, 6))).IN_SEQUENCE(seq);
@@ -43,8 +43,8 @@ TEST_CASE("combine_latest bundles items")
 
     SECTION("observable of -1-2-3-| combines with -4-5-6-| on current_thread")
     {
-        auto mock = mock_observer<std::tuple<int, int>>{};
-        trompeloeil::sequence      seq;
+        auto                  mock = mock_observer<std::tuple<int, int>>{};
+        trompeloeil::sequence seq;
 
         REQUIRE_CALL(*mock, on_next_rvalue(std::make_tuple(1, 4))).IN_SEQUENCE(seq);
         REQUIRE_CALL(*mock, on_next_rvalue(std::make_tuple(1, 5))).IN_SEQUENCE(seq);
@@ -64,8 +64,8 @@ TEST_CASE("combine_latest bundles items")
 
     SECTION("observable of -1-2-3-| combines with two other sources on current_thread")
     {
-        auto mock = mock_observer<std::tuple<int, int, int>>{};
-        trompeloeil::sequence      seq;
+        auto                  mock = mock_observer<std::tuple<int, int, int>>{};
+        trompeloeil::sequence seq;
 
         REQUIRE_CALL(*mock, on_next_rvalue(std::make_tuple(1, 4, 7))).IN_SEQUENCE(seq);
         REQUIRE_CALL(*mock, on_next_rvalue(std::make_tuple(1, 5, 7))).IN_SEQUENCE(seq);
