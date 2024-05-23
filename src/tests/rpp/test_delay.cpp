@@ -56,7 +56,7 @@ TEST_CASE("delay delays observable's emissions")
     std::chrono::milliseconds delay_duration{300};
     auto                      scheduler = test_scheduler{};
 
-    auto subscribe_with_delay = [&mock, &delay_duration](auto get_now) {
+    auto subscribe_with_delay = [&](auto get_now) {
         const auto now = get_now();
         return rpp::ops::subscribe(
             [&, now, get_now](const auto& v) {
@@ -244,7 +244,7 @@ TEST_CASE("observe_on forward error immediately")
     std::chrono::milliseconds delay_duration{300};
     auto                      scheduler = test_scheduler{};
 
-    auto subscribe_with_delay = [&mock, &delay_duration](auto get_now) {
+    auto subscribe_with_delay = [&](auto get_now) {
         const auto now = get_now();
         return rpp::ops::subscribe(
             [&, now, get_now](const auto& v) {

@@ -77,7 +77,7 @@ TEST_CASE("lambda observer works properly as base observer")
 
 TEST_CASE("as_dynamic keeps disposing")
 {
-    auto check = [](auto&& observer) {
+    auto check = [&](auto&& observer) {
         SECTION("dispose and convert to dynamic")
         {
             observer.on_completed();
@@ -162,7 +162,7 @@ TEST_CASE("set_upstream without base disposable makes it main disposalbe")
 {
     auto original_observer = rpp::make_lambda_observer<int>([](int) {}, [](const std::exception_ptr&) {}, []() {});
 
-    auto test_observer = [](auto&& observer) {
+    auto test_observer = [&](auto&& observer) {
         auto upstream = rpp::disposable_wrapper::make<rpp::composite_disposable>();
         observer.set_upstream(upstream);
         CHECK(!upstream.is_disposed());
@@ -233,7 +233,7 @@ TEST_CASE("set_upstream depends on base disposable")
         [](const std::exception_ptr&) {},
         []() {});
 
-    auto test_observer = [&d](auto&& observer) {
+    auto test_observer = [&](auto&& observer) {
         auto upstream = rpp::disposable_wrapper::make<rpp::composite_disposable>();
 
         CHECK(!d.is_disposed());
