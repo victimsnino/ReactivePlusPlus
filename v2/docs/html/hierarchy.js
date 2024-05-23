@@ -7,7 +7,7 @@ var hierarchy =
     [ "BaseInterface", null, [
       [ "rpp::details::base_disposable_impl< BaseInterface >", "classrpp_1_1details_1_1base__disposable__impl.html", [
         [ "rpp::callback_disposable< Fn >", "classrpp_1_1callback__disposable.html", null ],
-        [ "rpp::details::observables::blocking_disposble", "classrpp_1_1details_1_1observables_1_1blocking__disposble.html", null ],
+        [ "rpp::details::observables::blocking_disposable", "classrpp_1_1details_1_1observables_1_1blocking__disposable.html", null ],
         [ "test_scheduler::state", "structtest__scheduler_1_1state.html", null ]
       ] ]
     ] ],

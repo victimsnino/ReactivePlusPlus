@@ -22,15 +22,15 @@
 \DoxyCodeLine{00018\ \textcolor{keyword}{namespace\ }rpp}
 \DoxyCodeLine{00019\ \{}
 \DoxyCodeLine{00025\ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::is\_nothrow\_invocable\ Fn>}
-\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1callback__disposable}{callback\_disposable}}\ final\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classrpp_1_1details_1_1base__disposable__impl}{details::base\_disposable}}}
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keyword}{class\ }callback\_disposable\ final\ :\ \textcolor{keyword}{public}\ details::base\_disposable}
 \DoxyCodeLine{00027\ \ \ \ \ \{}
 \DoxyCodeLine{00028\ \ \ \ \ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{classrpp_1_1callback__disposable}{callback\_disposable}}(Fn\&\&\ fn)}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \textcolor{keyword}{explicit}\ callback\_disposable(Fn\&\&\ fn)}
 \DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \ \ \ \ :\ m\_fn\{std::move(fn)\}}
 \DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \{}
 \DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{00033\ }
-\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{classrpp_1_1callback__disposable}{callback\_disposable}}(\textcolor{keyword}{const}\ Fn\&\ fn)}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \textcolor{keyword}{explicit}\ callback\_disposable(\textcolor{keyword}{const}\ Fn\&\ fn)}
 \DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \ \ \ \ :\ m\_fn\{fn\}}
 \DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \{}
 \DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \}}
@@ -43,9 +43,9 @@
 \DoxyCodeLine{00044\ \ \ \ \ \};}
 \DoxyCodeLine{00045\ }
 \DoxyCodeLine{00046\ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::is\_nothrow\_invocable\ Fn>}
-\DoxyCodeLine{00047\ \ \ \ \ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{disposable\_wrapper}}\ make\_callback\_disposable(Fn\&\&\ invocable)}
+\DoxyCodeLine{00047\ \ \ \ \ \mbox{\hyperlink{group__disposables_ga9608d63c61b7da884b7f975dfa949d3c}{disposable\_wrapper}}\ make\_callback\_disposable(Fn\&\&\ invocable)}
 \DoxyCodeLine{00048\ \ \ \ \ \{}
-\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ disposable\_wrapper::make<rpp::callback\_disposable<std::decay\_t<Fn>>>(std::forward<Fn>(invocable));}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl_a677053a7d4cc81ab26dc7f740a6595e6}{disposable\_wrapper::make<rpp::callback\_disposable<std::decay\_t<Fn>}}>>(std::forward<Fn>(invocable));}
 \DoxyCodeLine{00050\ \ \ \ \ \}}
 \DoxyCodeLine{00051\ \}\ \textcolor{comment}{//\ namespace\ rpp}}
 

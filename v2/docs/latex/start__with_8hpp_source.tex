@@ -75,7 +75,7 @@
 \DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \textcolor{keyword}{requires}\ (rpp::constraint::decayed\_same\_as<T,\ Ts>\ \&\&\ ...)}
 \DoxyCodeLine{00119\ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__combining__operators_ga7bb4fbf5e43b500471881a900ef1d6b9}{start\_with\_values}}(T\&\&\ v,\ Ts\&\&...\ vals)}
 \DoxyCodeLine{00120\ \ \ \ \ \{}
-\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ start\_with\_values<MemoryModel>(\mbox{\hyperlink{classrpp_1_1schedulers_1_1current__thread}{rpp::schedulers::defaults::iteration\_scheduler}}\{\},\ std::forward<T>(v),\ std::forward<Ts>(vals)...);}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{group__combining__operators_ga7bb4fbf5e43b500471881a900ef1d6b9}{start\_with\_values<MemoryModel>}}(\mbox{\hyperlink{classrpp_1_1schedulers_1_1current__thread}{rpp::schedulers::defaults::iteration\_scheduler}}\{\},\ std::forward<T>(v),\ std::forward<Ts>(vals)...);}
 \DoxyCodeLine{00122\ \ \ \ \ \}}
 \DoxyCodeLine{00123\ }
 \DoxyCodeLine{00146\ \ \ \ \ \textcolor{keyword}{template}<constraint::memory\_model\ MemoryModel\ \textcolor{comment}{/*\ =\ memory\_model::use\_stack\ */},\ \mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1scheduler}{rpp::schedulers::constraint::scheduler}}\ TScheduler,\ \textcolor{keyword}{typename}\ T,\ \textcolor{keyword}{typename}...\ Ts>}
@@ -92,14 +92,14 @@
 \DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \textcolor{keyword}{requires}\ ((rpp::constraint::decayed\_same\_as<T,\ Ts>\ \&\&\ ...)\ \&\&\ !(\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp::constraint::observable<T>}}\ ||\ (\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp::constraint::observable<Ts>}}\ ||\ ...)))}
 \DoxyCodeLine{00158\ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__combining__operators_gadf12c4de9702425819b0d34b5fdf7db3}{start\_with}}(T\&\&\ v,\ Ts\&\&...\ vals)}
 \DoxyCodeLine{00159\ \ \ \ \ \{}
-\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ start\_with\_values<MemoryModel>(std::forward<T>(v),\ std::forward<Ts>(vals)...);}
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{group__combining__operators_ga7bb4fbf5e43b500471881a900ef1d6b9}{start\_with\_values<MemoryModel>}}(std::forward<T>(v),\ std::forward<Ts>(vals)...);}
 \DoxyCodeLine{00161\ \ \ \ \ \}}
 \DoxyCodeLine{00162\ }
 \DoxyCodeLine{00163\ \ \ \ \ \textcolor{keyword}{template}<constraint::memory\_model\ MemoryModel\ \textcolor{comment}{/*\ =\ memory\_model::use\_stack*/},\ \mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1scheduler}{rpp::schedulers::constraint::scheduler}}\ TScheduler,\ \textcolor{keyword}{typename}\ T,\ \textcolor{keyword}{typename}...\ Ts>}
 \DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ \textcolor{keyword}{requires}\ ((rpp::constraint::decayed\_same\_as<T,\ Ts>\ \&\&\ ...)\ \&\&\ !(\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp::constraint::observable<T>}}\ ||\ (\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp::constraint::observable<Ts>}}\ ||\ ...)))}
 \DoxyCodeLine{00165\ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__combining__operators_gadf12c4de9702425819b0d34b5fdf7db3}{start\_with}}(\textcolor{keyword}{const}\ TScheduler\&\ scheduler,\ T\&\&\ v,\ Ts\&\&...\ vals)}
 \DoxyCodeLine{00166\ \ \ \ \ \{}
-\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ start\_with\_values<MemoryModel>(scheduler,\ std::forward<T>(v),\ std::forward<Ts>(vals)...);}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{group__combining__operators_ga7bb4fbf5e43b500471881a900ef1d6b9}{start\_with\_values<MemoryModel>}}(scheduler,\ std::forward<T>(v),\ std::forward<Ts>(vals)...);}
 \DoxyCodeLine{00168\ \ \ \ \ \}}
 \DoxyCodeLine{00169\ \}\ \textcolor{comment}{//\ namespace\ rpp::operators}}
 

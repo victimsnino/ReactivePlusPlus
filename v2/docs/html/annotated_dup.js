@@ -9,7 +9,7 @@ var annotated_dup =
           [ "static_disposables_container", "classrpp_1_1details_1_1disposables_1_1static__disposables__container.html", null ]
         ] ],
         [ "observables", null, [
-          [ "blocking_disposble", "classrpp_1_1details_1_1observables_1_1blocking__disposble.html", null ],
+          [ "blocking_disposable", "classrpp_1_1details_1_1observables_1_1blocking__disposable.html", null ],
           [ "blocking_strategy", "classrpp_1_1details_1_1observables_1_1blocking__strategy.html", null ],
           [ "default_disposable_strategy_selector", "structrpp_1_1details_1_1observables_1_1default__disposable__strategy__selector.html", null ],
           [ "dynamic_disposable_strategy_selector", "structrpp_1_1details_1_1observables_1_1dynamic__disposable__strategy__selector.html", null ],

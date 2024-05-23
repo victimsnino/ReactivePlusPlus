@@ -24,12 +24,12 @@ Aggregate operators are operators that operate on the entire sequence of items e
 
 
 \doxysubsubsubsection{Function Documentation}
-\Hypertarget{group__aggregate__operators_gab78e390657e26675457156b21112d344}\label{group__aggregate__operators_gab78e390657e26675457156b21112d344} 
-\index{Aggregate Operators@{Aggregate Operators}!reduce@{reduce}}
+\Hypertarget{group__aggregate__operators_gab78e390657e26675457156b21112d344}\index{Aggregate Operators@{Aggregate Operators}!reduce@{reduce}}
 \index{reduce@{reduce}!Aggregate Operators@{Aggregate Operators}}
 \doxysubsubsubsubsection{\texorpdfstring{reduce()}{reduce()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
-{\footnotesize\ttfamily template$<$typename Accumulator $>$ \\
-auto rpp\+::operators\+::reduce (\begin{DoxyParamCaption}\item[{Accumulator \&\&}]{accumulator }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{group__aggregate__operators_gab78e390657e26675457156b21112d344} 
+template$<$typename Accumulator $>$ \\
+auto rpp\+::operators\+::reduce (\begin{DoxyParamCaption}\item[{Accumulator \&\&}]{accumulator}{}\end{DoxyParamCaption})}
 
 
 
@@ -63,13 +63,13 @@ There is no initial value for seed, so, first value would be used as seed value 
 \begin{DoxySeeAlso}{See also}
 \href{https://reactivex.io/documentation/operators/reduce.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/reduce.\+html}} 
 \end{DoxySeeAlso}
-\Hypertarget{group__aggregate__operators_ga519e29a9fe659e01e34485afba09dad5}\label{group__aggregate__operators_ga519e29a9fe659e01e34485afba09dad5} 
-\index{Aggregate Operators@{Aggregate Operators}!reduce@{reduce}}
+\Hypertarget{group__aggregate__operators_ga519e29a9fe659e01e34485afba09dad5}\index{Aggregate Operators@{Aggregate Operators}!reduce@{reduce}}
 \index{reduce@{reduce}!Aggregate Operators@{Aggregate Operators}}
 \doxysubsubsubsubsection{\texorpdfstring{reduce()}{reduce()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
-{\footnotesize\ttfamily template$<$typename Seed , typename Accumulator $>$ \newline
+{\footnotesize\ttfamily \label{group__aggregate__operators_ga519e29a9fe659e01e34485afba09dad5} 
+template$<$typename Seed , typename Accumulator $>$ \newline
 requires (!utils\+::is\+\_\+not\+\_\+template\+\_\+callable$<$Accumulator$>$ \texorpdfstring{$\vert$}{|}\texorpdfstring{$\vert$}{|} std\+::same\+\_\+as$<$std\+::decay\+\_\+t$<$Seed$>$, std\+::invoke\+\_\+result\+\_\+t$<$Accumulator, std\+::decay\+\_\+t$<$Seed$>$ \&\&, rpp\+::utils\+::convertible\+\_\+to\+\_\+any$>$$>$)\\
-auto rpp\+::operators\+::reduce (\begin{DoxyParamCaption}\item[{Seed \&\&}]{seed,  }\item[{Accumulator \&\&}]{accumulator }\end{DoxyParamCaption})}
+auto rpp\+::operators\+::reduce (\begin{DoxyParamCaption}\item[{Seed \&\&}]{seed}{, }\item[{Accumulator \&\&}]{accumulator}{}\end{DoxyParamCaption})}
 
 
 

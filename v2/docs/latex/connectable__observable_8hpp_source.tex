@@ -30,7 +30,7 @@
 \DoxyCodeLine{00026\ \ \ \ \ \{}
 \DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrpp_1_1connectable__observable}{rpp::connectable\_observable<OriginalObservable,\ Subject>}}\ original\_observable;}
 \DoxyCodeLine{00028\ }
-\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct\ }state\_t}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1details_1_1ref__count__on__subscribe__t_3_01rpp_1_1connectable__observable_3_01_ori08a6adc16d48deb4d454d582f87ab48e}{state\_t}}}
 \DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \{}
 \DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \ \ \ \ std::mutex\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ mutex\{\};}
 \DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{disposable\_wrapper\_impl<rpp::refcount\_disposable>}}\ disposable\ =\ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{disposable\_wrapper\_impl<rpp::refcount\_disposable>::empty}}();}
@@ -68,21 +68,21 @@
 \DoxyCodeLine{00064\ \textcolor{keyword}{namespace\ }rpp}
 \DoxyCodeLine{00065\ \{}
 \DoxyCodeLine{00071\ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::observable\ OriginalObservable,\ \textcolor{keyword}{typename}\ Subject>}
-\DoxyCodeLine{00072\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1connectable__observable}{connectable\_observable}}\ final\ :\ \textcolor{keyword}{public}\ decltype(std::declval<Subject>().get\_observable())}
+\DoxyCodeLine{00072\ \ \ \ \ \textcolor{keyword}{class\ }connectable\_observable\ final\ :\ \textcolor{keyword}{public}\ decltype(std::declval<Subject>().get\_observable())}
 \DoxyCodeLine{00073\ \ \ \ \ \{}
 \DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }base\ =\ \textcolor{keyword}{decltype}(std::declval<Subject>().get\_observable());}
 \DoxyCodeLine{00075\ }
 \DoxyCodeLine{00076\ \ \ \ \ \textcolor{keyword}{public}:}
 \DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static\_assert}(\mbox{\hyperlink{conceptrpp_1_1constraint_1_1subject}{rpp::constraint::subject<Subject>}});}
 \DoxyCodeLine{00078\ }
-\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrpp_1_1connectable__observable}{connectable\_observable}}(\textcolor{keyword}{const}\ OriginalObservable\&\ original\_observable,\ \textcolor{keyword}{const}\ Subject\&\ subject\ =\ Subject\{\})}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ connectable\_observable(\textcolor{keyword}{const}\ OriginalObservable\&\ original\_observable,\ \textcolor{keyword}{const}\ Subject\&\ subject\ =\ Subject\{\})}
 \DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \ \ \ \ :\ base\{subject.get\_observable()\}}
 \DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \ \ \ \ ,\ m\_original\_observable\{original\_observable\}}
 \DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \ \ \ \ ,\ m\_subject\{subject\}}
 \DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \{}
 \DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{00085\ }
-\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrpp_1_1connectable__observable}{connectable\_observable}}(OriginalObservable\ \&\&\ original\_observable,\ \textcolor{keyword}{const}\ Subject\&\ subject\ =\ Subject\{\})}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ connectable\_observable(OriginalObservable\ \&\&\ original\_observable,\ \textcolor{keyword}{const}\ Subject\&\ subject\ =\ Subject\{\})}
 \DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \ \ \ \ :\ base\{subject.get\_observable()\}}
 \DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \ \ \ \ ,\ m\_original\_observable\{std::move(original\_observable)\}}
 \DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \ \ \ \ ,\ m\_subject\{subject\}}

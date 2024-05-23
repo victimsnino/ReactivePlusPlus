@@ -29,12 +29,12 @@ Connectable operators are operators that provide extra functionality for multica
 
 
 \doxysubsubsubsection{Function Documentation}
-\Hypertarget{group__connectable__operators_gac7b150abbdae0a5084dd3784d9c7babf}\label{group__connectable__operators_gac7b150abbdae0a5084dd3784d9c7babf} 
-\index{Connectable Operators@{Connectable Operators}!multicast@{multicast}}
+\Hypertarget{group__connectable__operators_gac7b150abbdae0a5084dd3784d9c7babf}\index{Connectable Operators@{Connectable Operators}!multicast@{multicast}}
 \index{multicast@{multicast}!Connectable Operators@{Connectable Operators}}
 \doxysubsubsubsubsection{\texorpdfstring{multicast()}{multicast()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
-{\footnotesize\ttfamily template$<$template$<$ typename $>$ typename Subject = rpp\+::subjects\+::publish\+\_\+subject$>$ \\
-auto rpp\+::operators\+::multicast (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{group__connectable__operators_gac7b150abbdae0a5084dd3784d9c7babf} 
+template$<$template$<$ typename $>$ typename Subject = rpp\+::subjects\+::publish\+\_\+subject$>$ \\
+auto rpp\+::operators\+::multicast (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
 
 
 
@@ -54,7 +54,7 @@ This overloading creates fresh {\ttfamily Subject\texorpdfstring{$<$}{<}Type\tex
 \begin{DoxyParagraph}{Example}
 
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ observable\ =\ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(1,\ 2,\ 3)\ |\ rpp::operators::multicast<rpp::subjects::publish\_subject>();}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ observable\ =\ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(1,\ 2,\ 3)\ |\ \mbox{\hyperlink{group__connectable__operators_gac7b150abbdae0a5084dd3784d9c7babf}{rpp::operators::multicast<rpp::subjects::publish\_subject>}}();}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ observable.subscribe([](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}\#1\ "{}}\ <<\ v\ <<\ std::endl;\ \});}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ observable.subscribe([](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}\#2\ "{}}\ <<\ v\ <<\ std::endl;\ \});}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ observable.connect();}
@@ -75,12 +75,12 @@ This overloading creates fresh {\ttfamily Subject\texorpdfstring{$<$}{<}Type\tex
 \begin{Desc}
 \item[Examples]\par
 \mbox{\hyperlink{multicast_8cpp-example}{multicast.\+cpp}}, and \mbox{\hyperlink{ref_count_8cpp-example}{ref\+\_\+count.\+cpp}}.\end{Desc}
-\Hypertarget{group__connectable__operators_gac99bc1fb7cbf8814e0eb2c9b843fc19a}\label{group__connectable__operators_gac99bc1fb7cbf8814e0eb2c9b843fc19a} 
-\index{Connectable Operators@{Connectable Operators}!multicast@{multicast}}
+\Hypertarget{group__connectable__operators_gac99bc1fb7cbf8814e0eb2c9b843fc19a}\index{Connectable Operators@{Connectable Operators}!multicast@{multicast}}
 \index{multicast@{multicast}!Connectable Operators@{Connectable Operators}}
 \doxysubsubsubsubsection{\texorpdfstring{multicast()}{multicast()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
-{\footnotesize\ttfamily template$<$\mbox{\hyperlink{conceptrpp_1_1constraint_1_1subject}{rpp\+::constraint\+::subject}} Subject$>$ \\
-auto rpp\+::operators\+::multicast (\begin{DoxyParamCaption}\item[{Subject \&\&}]{subject }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{group__connectable__operators_gac99bc1fb7cbf8814e0eb2c9b843fc19a} 
+template$<$\mbox{\hyperlink{conceptrpp_1_1constraint_1_1subject}{rpp\+::constraint\+::subject}} Subject$>$ \\
+auto rpp\+::operators\+::multicast (\begin{DoxyParamCaption}\item[{Subject \&\&}]{subject}{}\end{DoxyParamCaption})}
 
 
 
@@ -119,11 +119,11 @@ Same subject would be used to all observables lifted via this operator. To have 
 \begin{DoxySeeAlso}{See also}
 \href{https://reactivex.io/documentation/operators/publish.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/publish.\+html}} 
 \end{DoxySeeAlso}
-\Hypertarget{group__connectable__operators_ga42498cc0bc565116e9deece3c3afa66f}\label{group__connectable__operators_ga42498cc0bc565116e9deece3c3afa66f} 
-\index{Connectable Operators@{Connectable Operators}!publish@{publish}}
+\Hypertarget{group__connectable__operators_ga42498cc0bc565116e9deece3c3afa66f}\index{Connectable Operators@{Connectable Operators}!publish@{publish}}
 \index{publish@{publish}!Connectable Operators@{Connectable Operators}}
 \doxysubsubsubsubsection{\texorpdfstring{publish()}{publish()}}
-{\footnotesize\ttfamily auto rpp\+::operators\+::publish (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily \label{group__connectable__operators_ga42498cc0bc565116e9deece3c3afa66f} 
+auto rpp\+::operators\+::publish (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -164,11 +164,12 @@ This overloading creates fresh {\ttfamily Subject\texorpdfstring{$<$}{<}Type\tex
 \begin{Desc}
 \item[Examples]\par
 \mbox{\hyperlink{multicast_8cpp-example}{multicast.\+cpp}}, and \mbox{\hyperlink{window_toggle_8cpp-example}{window\+\_\+toggle.\+cpp}}.\end{Desc}
-\Hypertarget{group__connectable__operators_ga7c5ba7b673ad2f41b767f4cea0b5af3e}\label{group__connectable__operators_ga7c5ba7b673ad2f41b767f4cea0b5af3e} 
-\index{Connectable Operators@{Connectable Operators}!ref\_count@{ref\_count}}
+\Hypertarget{group__connectable__operators_gadac4721de7506cc9a1c2a4453a6c28cf}\index{Connectable Operators@{Connectable Operators}!ref\_count@{ref\_count}}
 \index{ref\_count@{ref\_count}!Connectable Operators@{Connectable Operators}}
 \doxysubsubsubsubsection{\texorpdfstring{ref\_count()}{ref\_count()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
-{\footnotesize\ttfamily auto rpp\+::operators\+::ref\+\_\+count (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily \label{group__connectable__operators_gadac4721de7506cc9a1c2a4453a6c28cf} 
+template$<$\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp\+::constraint\+::observable}} Original\+Observable, typename Subject $>$ \\
+auto \mbox{\hyperlink{classrpp_1_1connectable__observable}{rpp\+::connectable\+\_\+observable}}$<$ Original\+Observable, Subject $>$\+::ref\+\_\+count (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -179,46 +180,7 @@ Connects \doxylink{classrpp_1_1connectable__observable}{rpp\+::connectable\+\_\+
 \begin{DoxyParagraph}{Example}
 
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ observable\ =\ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(1,\ 2,\ 3)\ |\ \mbox{\hyperlink{group__connectable__operators_gac7b150abbdae0a5084dd3784d9c7babf}{rpp::operators::multicast}}();}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ observable.subscribe([](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}\#1\ "{}}\ <<\ v\ <<\ std::endl;\ \});}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{comment}{//\ No\ Output}}
-\DoxyCodeLine{}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ observable\ |\ rpp::ops::ref\_count()\ |\ rpp::ops::subscribe([](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}\#2\ "{}}\ <<\ v\ <<\ std::endl;\ \});}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{comment}{//\ Output:}}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{comment}{//\ \#1\ 1}}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{comment}{//\ \#2\ 1}}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{comment}{//\ \#1\ 2}}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{comment}{//\ \#2\ 2}}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{comment}{//\ \#1\ 3}}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{comment}{//\ \#2\ 3}}
-\DoxyCodeLine{}
-
-\end{DoxyCodeInclude}
-
-\end{DoxyParagraph}
-\begin{DoxySeeAlso}{See also}
-\href{https://reactivex.io/documentation/operators/refcount.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/refcount.\+html}} 
-\end{DoxySeeAlso}
-\begin{Desc}
-\item[Examples]\par
-\mbox{\hyperlink{window_toggle_8cpp-example}{window\+\_\+toggle.\+cpp}}.\end{Desc}
-\Hypertarget{group__connectable__operators_gadac4721de7506cc9a1c2a4453a6c28cf}\label{group__connectable__operators_gadac4721de7506cc9a1c2a4453a6c28cf} 
-\index{Connectable Operators@{Connectable Operators}!ref\_count@{ref\_count}}
-\index{ref\_count@{ref\_count}!Connectable Operators@{Connectable Operators}}
-\doxysubsubsubsubsection{\texorpdfstring{ref\_count()}{ref\_count()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
-{\footnotesize\ttfamily template$<$\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp\+::constraint\+::observable}} Original\+Observable, typename Subject $>$ \\
-auto \mbox{\hyperlink{classrpp_1_1connectable__observable}{rpp\+::connectable\+\_\+observable}}$<$ Original\+Observable, Subject $>$\+::ref\+\_\+count (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
-
-
-
-Forces \doxylink{classrpp_1_1connectable__observable}{rpp\+::connectable\+\_\+observable} to behave like common observable. 
-
-Connects \doxylink{classrpp_1_1connectable__observable}{rpp\+::connectable\+\_\+observable} on the first subscription and unsubscribes on last unsubscription
-
-\begin{DoxyParagraph}{Example}
-
-\begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ observable\ =\ rpp::source::create<int>([](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ observer)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ observable\ =\ \mbox{\hyperlink{group__creational__operators_gae68c87e7ae3a505258b733082bf68513}{rpp::source::create<int>}}([](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ observer)\ \{}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}SUBSCRIBE"{}}\ <<\ std::endl;}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ 3;\ ++i)}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
@@ -252,3 +214,41 @@ Connects \doxylink{classrpp_1_1connectable__observable}{rpp\+::connectable\+\_\+
 \begin{DoxySeeAlso}{See also}
 \href{https://reactivex.io/documentation/operators/refcount.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/refcount.\+html}} 
 \end{DoxySeeAlso}
+\Hypertarget{group__connectable__operators_ga7c5ba7b673ad2f41b767f4cea0b5af3e}\index{Connectable Operators@{Connectable Operators}!ref\_count@{ref\_count}}
+\index{ref\_count@{ref\_count}!Connectable Operators@{Connectable Operators}}
+\doxysubsubsubsubsection{\texorpdfstring{ref\_count()}{ref\_count()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{group__connectable__operators_ga7c5ba7b673ad2f41b767f4cea0b5af3e} 
+auto rpp\+::operators\+::ref\+\_\+count (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Forces \doxylink{classrpp_1_1connectable__observable}{rpp\+::connectable\+\_\+observable} to behave like common observable. 
+
+Connects \doxylink{classrpp_1_1connectable__observable}{rpp\+::connectable\+\_\+observable} on the first subscription and unsubscribes on last unsubscription
+
+\begin{DoxyParagraph}{Example}
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ observable\ =\ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(1,\ 2,\ 3)\ |\ \mbox{\hyperlink{group__connectable__operators_gac7b150abbdae0a5084dd3784d9c7babf}{rpp::operators::multicast}}();}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ observable.subscribe([](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}\#1\ "{}}\ <<\ v\ <<\ std::endl;\ \});}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{comment}{//\ No\ Output}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ observable\ |\ rpp::ops::ref\_count()\ |\ rpp::ops::subscribe([](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}\#2\ "{}}\ <<\ v\ <<\ std::endl;\ \});}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{comment}{//\ Output:}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{comment}{//\ \#1\ 1}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{comment}{//\ \#2\ 1}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{comment}{//\ \#1\ 2}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{comment}{//\ \#2\ 2}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{comment}{//\ \#1\ 3}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{comment}{//\ \#2\ 3}}
+\DoxyCodeLine{}
+
+\end{DoxyCodeInclude}
+
+\end{DoxyParagraph}
+\begin{DoxySeeAlso}{See also}
+\href{https://reactivex.io/documentation/operators/refcount.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/refcount.\+html}} 
+\end{DoxySeeAlso}
+\begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{window_toggle_8cpp-example}{window\+\_\+toggle.\+cpp}}.\end{Desc}

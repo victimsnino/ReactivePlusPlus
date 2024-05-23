@@ -81,11 +81,11 @@ Utility operators are operators that provide some extra functionality without ch
 
 
 \doxysubsubsubsection{Function Documentation}
-\Hypertarget{group__utility__operators_ga9df008c11eeff8c9383e56bf36e28ec2}\label{group__utility__operators_ga9df008c11eeff8c9383e56bf36e28ec2} 
-\index{Utility Operators@{Utility Operators}!as\_blocking@{as\_blocking}}
+\Hypertarget{group__utility__operators_ga9df008c11eeff8c9383e56bf36e28ec2}\index{Utility Operators@{Utility Operators}!as\_blocking@{as\_blocking}}
 \index{as\_blocking@{as\_blocking}!Utility Operators@{Utility Operators}}
 \doxysubsubsubsubsection{\texorpdfstring{as\_blocking()}{as\_blocking()}}
-{\footnotesize\ttfamily auto rpp\+::operators\+::as\+\_\+blocking (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily \label{group__utility__operators_ga9df008c11eeff8c9383e56bf36e28ec2} 
+auto rpp\+::operators\+::as\+\_\+blocking (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -109,12 +109,12 @@ Converts {\ttfamily \doxylink{classrpp_1_1observable}{rpp\+::observable}} to {\t
 \begin{Desc}
 \item[Examples]\par
 \mbox{\hyperlink{as_blocking_8cpp-example}{as\+\_\+blocking.\+cpp}}, \mbox{\hyperlink{delay_8cpp-example}{delay.\+cpp}}, \mbox{\hyperlink{observe_on_8cpp-example}{observe\+\_\+on.\+cpp}}, \mbox{\hyperlink{subscribe_on_8cpp-example}{subscribe\+\_\+on.\+cpp}}, \mbox{\hyperlink{thread_pool_8cpp-example}{thread\+\_\+pool.\+cpp}}, and \mbox{\hyperlink{timeout_8cpp-example}{timeout.\+cpp}}.\end{Desc}
-\Hypertarget{group__utility__operators_ga49e91c6114f62ac261303814c818face}\label{group__utility__operators_ga49e91c6114f62ac261303814c818face} 
-\index{Utility Operators@{Utility Operators}!debounce@{debounce}}
+\Hypertarget{group__utility__operators_ga49e91c6114f62ac261303814c818face}\index{Utility Operators@{Utility Operators}!debounce@{debounce}}
 \index{debounce@{debounce}!Utility Operators@{Utility Operators}}
 \doxysubsubsubsubsection{\texorpdfstring{debounce()}{debounce()}}
-{\footnotesize\ttfamily template$<$\mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1scheduler}{rpp\+::schedulers\+::constraint\+::scheduler}} Scheduler$>$ \\
-auto rpp\+::operators\+::debounce (\begin{DoxyParamCaption}\item[{rpp\+::schedulers\+::duration}]{period,  }\item[{Scheduler \&\&}]{scheduler }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{group__utility__operators_ga49e91c6114f62ac261303814c818face} 
+template$<$\mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1scheduler}{rpp\+::schedulers\+::constraint\+::scheduler}} Scheduler$>$ \\
+auto rpp\+::operators\+::debounce (\begin{DoxyParamCaption}\item[{rpp\+::schedulers\+::duration}]{period}{, }\item[{Scheduler \&\&}]{scheduler}{}\end{DoxyParamCaption})}
 
 
 
@@ -173,12 +173,12 @@ Actually this operator resets time of last emission, schedules action to send th
 \begin{Desc}
 \item[Examples]\par
 \mbox{\hyperlink{debounce_8cpp-example}{debounce.\+cpp}}.\end{Desc}
-\Hypertarget{group__utility__operators_gae38caa489cf43c0aca1aa1c8822aed60}\label{group__utility__operators_gae38caa489cf43c0aca1aa1c8822aed60} 
-\index{Utility Operators@{Utility Operators}!delay@{delay}}
+\Hypertarget{group__utility__operators_gae38caa489cf43c0aca1aa1c8822aed60}\index{Utility Operators@{Utility Operators}!delay@{delay}}
 \index{delay@{delay}!Utility Operators@{Utility Operators}}
 \doxysubsubsubsubsection{\texorpdfstring{delay()}{delay()}}
-{\footnotesize\ttfamily template$<$\mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1scheduler}{rpp\+::schedulers\+::constraint\+::scheduler}} Scheduler$>$ \\
-auto rpp\+::operators\+::delay (\begin{DoxyParamCaption}\item[{rpp\+::schedulers\+::duration}]{delay\+\_\+duration,  }\item[{Scheduler \&\&}]{scheduler }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{group__utility__operators_gae38caa489cf43c0aca1aa1c8822aed60} 
+template$<$\mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1scheduler}{rpp\+::schedulers\+::constraint\+::scheduler}} Scheduler$>$ \\
+auto rpp\+::operators\+::delay (\begin{DoxyParamCaption}\item[{rpp\+::schedulers\+::duration}]{delay\+\_\+duration}{, }\item[{Scheduler \&\&}]{scheduler}{}\end{DoxyParamCaption})}
 
 
 
@@ -207,7 +207,7 @@ on\+\_\+error/on\+\_\+completed invoking also would be delayed as any other emis
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ \ \ \textcolor{keyword}{auto}\ start\ =\ rpp::schedulers::clock\_type::now();}
 \DoxyCodeLine{}
-\DoxyCodeLine{\ \ \ \ rpp::source::create<int>([\&start](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ obs)\ \{}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_gae68c87e7ae3a505258b733082bf68513}{rpp::source::create<int>}}([\&start](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ obs)\ \{}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ 3;\ ++i)}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \{}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ emitting\_time\ =\ rpp::schedulers::clock\_type::now();}
@@ -249,12 +249,12 @@ on\+\_\+error/on\+\_\+completed invoking also would be delayed as any other emis
 \begin{Desc}
 \item[Examples]\par
 \mbox{\hyperlink{as_blocking_8cpp-example}{as\+\_\+blocking.\+cpp}}, \mbox{\hyperlink{debounce_8cpp-example}{debounce.\+cpp}}, \mbox{\hyperlink{delay_8cpp-example}{delay.\+cpp}}, \mbox{\hyperlink{thread_pool_8cpp-example}{thread\+\_\+pool.\+cpp}}, \mbox{\hyperlink{throttle_8cpp-example}{throttle.\+cpp}}, and \mbox{\hyperlink{timeout_8cpp-example}{timeout.\+cpp}}.\end{Desc}
-\Hypertarget{group__utility__operators_ga8fd8305b11ea1d88fc9e128ebbeeb354}\label{group__utility__operators_ga8fd8305b11ea1d88fc9e128ebbeeb354} 
-\index{Utility Operators@{Utility Operators}!finally@{finally}}
+\Hypertarget{group__utility__operators_ga8fd8305b11ea1d88fc9e128ebbeeb354}\index{Utility Operators@{Utility Operators}!finally@{finally}}
 \index{finally@{finally}!Utility Operators@{Utility Operators}}
 \doxysubsubsubsubsection{\texorpdfstring{finally()}{finally()}}
-{\footnotesize\ttfamily template$<$std\+::invocable$<$$>$ Last\+Fn$>$ \\
-auto rpp\+::operators\+::finally (\begin{DoxyParamCaption}\item[{Last\+Fn \&\&}]{last\+\_\+fn }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{group__utility__operators_ga8fd8305b11ea1d88fc9e128ebbeeb354} 
+template$<$std\+::invocable$<$$>$ Last\+Fn$>$ \\
+auto rpp\+::operators\+::finally (\begin{DoxyParamCaption}\item[{Last\+Fn \&\&}]{last\+\_\+fn}{}\end{DoxyParamCaption})}
 
 
 
@@ -273,12 +273,12 @@ action callback needs to be noexcept as it is called on dispose, throwing during
 \begin{DoxySeeAlso}{See also}
 \href{https://reactivex.io/documentation/operators/do.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/do.\+html}} 
 \end{DoxySeeAlso}
-\Hypertarget{group__utility__operators_ga3feb1b1258c7e3e72c151abf176c30c4}\label{group__utility__operators_ga3feb1b1258c7e3e72c151abf176c30c4} 
-\index{Utility Operators@{Utility Operators}!observe\_on@{observe\_on}}
+\Hypertarget{group__utility__operators_ga3feb1b1258c7e3e72c151abf176c30c4}\index{Utility Operators@{Utility Operators}!observe\_on@{observe\_on}}
 \index{observe\_on@{observe\_on}!Utility Operators@{Utility Operators}}
 \doxysubsubsubsubsection{\texorpdfstring{observe\_on()}{observe\_on()}}
-{\footnotesize\ttfamily template$<$\mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1scheduler}{rpp\+::schedulers\+::constraint\+::scheduler}} Scheduler$>$ \\
-auto rpp\+::operators\+::observe\+\_\+on (\begin{DoxyParamCaption}\item[{Scheduler \&\&}]{scheduler,  }\item[{rpp\+::schedulers\+::duration}]{delay\+\_\+duration }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{group__utility__operators_ga3feb1b1258c7e3e72c151abf176c30c4} 
+template$<$\mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1scheduler}{rpp\+::schedulers\+::constraint\+::scheduler}} Scheduler$>$ \\
+auto rpp\+::operators\+::observe\+\_\+on (\begin{DoxyParamCaption}\item[{Scheduler \&\&}]{scheduler}{, }\item[{rpp\+::schedulers\+::duration}]{delay\+\_\+duration}{}\end{DoxyParamCaption})}
 
 
 
@@ -306,7 +306,7 @@ Actually this operator is just {\ttfamily delay}, but in case of obtaining {\ttf
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ \ \ \textcolor{keyword}{auto}\ start\ =\ rpp::schedulers::clock\_type::now();}
 \DoxyCodeLine{}
-\DoxyCodeLine{\ \ \ \ rpp::source::create<int>([\&start](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ obs)\ \{}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_gae68c87e7ae3a505258b733082bf68513}{rpp::source::create<int>}}([\&start](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ obs)\ \{}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ 3;\ ++i)}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \{}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ emitting\_time\ =\ rpp::schedulers::clock\_type::now();}
@@ -347,11 +347,11 @@ Actually this operator is just {\ttfamily delay}, but in case of obtaining {\ttf
 \begin{Desc}
 \item[Examples]\par
 \mbox{\hyperlink{observe_on_8cpp-example}{observe\+\_\+on.\+cpp}}.\end{Desc}
-\Hypertarget{group__utility__operators_ga41ef49dc75a3eadb0eb3fda7c3692c40}\label{group__utility__operators_ga41ef49dc75a3eadb0eb3fda7c3692c40} 
-\index{Utility Operators@{Utility Operators}!repeat@{repeat}}
+\Hypertarget{group__utility__operators_ga41ef49dc75a3eadb0eb3fda7c3692c40}\index{Utility Operators@{Utility Operators}!repeat@{repeat}}
 \index{repeat@{repeat}!Utility Operators@{Utility Operators}}
 \doxysubsubsubsubsection{\texorpdfstring{repeat()}{repeat()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
-{\footnotesize\ttfamily auto rpp\+::operators\+::repeat (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily \label{group__utility__operators_ga41ef49dc75a3eadb0eb3fda7c3692c40} 
+auto rpp\+::operators\+::repeat (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -386,11 +386,11 @@ Actually this operator is kind of {\ttfamily concat(obs, obs...)}
 \begin{Desc}
 \item[Examples]\par
 \mbox{\hyperlink{repeat_8cpp-example}{repeat.\+cpp}}.\end{Desc}
-\Hypertarget{group__utility__operators_ga96a3c17903a50c2f6dfd66d8b90a96f2}\label{group__utility__operators_ga96a3c17903a50c2f6dfd66d8b90a96f2} 
-\index{Utility Operators@{Utility Operators}!repeat@{repeat}}
+\Hypertarget{group__utility__operators_ga96a3c17903a50c2f6dfd66d8b90a96f2}\index{Utility Operators@{Utility Operators}!repeat@{repeat}}
 \index{repeat@{repeat}!Utility Operators@{Utility Operators}}
 \doxysubsubsubsubsection{\texorpdfstring{repeat()}{repeat()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
-{\footnotesize\ttfamily auto rpp\+::operators\+::repeat (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{count }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily \label{group__utility__operators_ga96a3c17903a50c2f6dfd66d8b90a96f2} 
+auto rpp\+::operators\+::repeat (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{count}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -429,12 +429,12 @@ Actually this operator is kind of {\ttfamily concat(obs, obs...)} where obs repe
 \begin{DoxySeeAlso}{See also}
 \href{https://reactivex.io/documentation/operators/repeat.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/repeat.\+html}} 
 \end{DoxySeeAlso}
-\Hypertarget{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}\label{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac} 
-\index{Utility Operators@{Utility Operators}!subscribe@{subscribe}}
+\Hypertarget{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}\index{Utility Operators@{Utility Operators}!subscribe@{subscribe}}
 \index{subscribe@{subscribe}!Utility Operators@{Utility Operators}}
 \doxysubsubsubsubsection{\texorpdfstring{subscribe()}{subscribe()}\hspace{0.1cm}{\footnotesize\ttfamily [1/6]}}
-{\footnotesize\ttfamily template$<$rpp\+::constraint\+::decayed\+\_\+type Type, \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer__strategy}{rpp\+::constraint\+::observer\+\_\+strategy}}$<$ Type $>$ Observer\+Strategy$>$ \\
-auto rpp\+::operators\+::subscribe (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classrpp_1_1observer}{observer}}$<$ Type, Observer\+Strategy $>$ \&\&}]{observer }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac} 
+template$<$rpp\+::constraint\+::decayed\+\_\+type Type, \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer__strategy}{rpp\+::constraint\+::observer\+\_\+strategy}}$<$ Type $>$ Observer\+Strategy$>$ \\
+auto rpp\+::operators\+::subscribe (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classrpp_1_1observer}{observer}}$<$ Type, Observer\+Strategy $>$ \&\&}]{observer}{}\end{DoxyParamCaption})}
 
 
 
@@ -446,12 +446,12 @@ Observer must be moved in to subscribe method. (Not recommended) If you need to 
 \begin{Desc}
 \item[Examples]\par
 \mbox{\hyperlink{as_blocking_8cpp-example}{as\+\_\+blocking.\+cpp}}, \mbox{\hyperlink{concat_8cpp-example}{concat.\+cpp}}, \mbox{\hyperlink{debounce_8cpp-example}{debounce.\+cpp}}, \mbox{\hyperlink{delay_8cpp-example}{delay.\+cpp}}, \mbox{\hyperlink{distinct_until_changed_8cpp-example}{distinct\+\_\+until\+\_\+changed.\+cpp}}, \mbox{\hyperlink{filter_8cpp-example}{filter.\+cpp}}, \mbox{\hyperlink{first_8cpp-example}{first.\+cpp}}, \mbox{\hyperlink{group_by_8cpp-example}{group\+\_\+by.\+cpp}}, \mbox{\hyperlink{interval_8cpp-example}{interval.\+cpp}}, \mbox{\hyperlink{last_8cpp-example}{last.\+cpp}}, \mbox{\hyperlink{map_8cpp-example}{map.\+cpp}}, \mbox{\hyperlink{merge_8cpp-example}{merge.\+cpp}}, \mbox{\hyperlink{observe_on_8cpp-example}{observe\+\_\+on.\+cpp}}, \mbox{\hyperlink{reduce_8cpp-example}{reduce.\+cpp}}, \mbox{\hyperlink{repeat_8cpp-example}{repeat.\+cpp}}, \mbox{\hyperlink{scan_8cpp-example}{scan.\+cpp}}, \mbox{\hyperlink{skip_8cpp-example}{skip.\+cpp}}, \mbox{\hyperlink{subscribe_on_8cpp-example}{subscribe\+\_\+on.\+cpp}}, \mbox{\hyperlink{take_8cpp-example}{take.\+cpp}}, \mbox{\hyperlink{take_while_8cpp-example}{take\+\_\+while.\+cpp}}, \mbox{\hyperlink{thread_pool_8cpp-example}{thread\+\_\+pool.\+cpp}}, \mbox{\hyperlink{throttle_8cpp-example}{throttle.\+cpp}}, \mbox{\hyperlink{timeout_8cpp-example}{timeout.\+cpp}}, \mbox{\hyperlink{window_8cpp-example}{window.\+cpp}}, \mbox{\hyperlink{window_toggle_8cpp-example}{window\+\_\+toggle.\+cpp}}, and \mbox{\hyperlink{with_latest_from_8cpp-example}{with\+\_\+latest\+\_\+from.\+cpp}}.\end{Desc}
-\Hypertarget{group__utility__operators_ga0966f5805b841c809c47a797bfc0e2f5}\label{group__utility__operators_ga0966f5805b841c809c47a797bfc0e2f5} 
-\index{Utility Operators@{Utility Operators}!subscribe@{subscribe}}
+\Hypertarget{group__utility__operators_ga0966f5805b841c809c47a797bfc0e2f5}\index{Utility Operators@{Utility Operators}!subscribe@{subscribe}}
 \index{subscribe@{subscribe}!Utility Operators@{Utility Operators}}
 \doxysubsubsubsubsection{\texorpdfstring{subscribe()}{subscribe()}\hspace{0.1cm}{\footnotesize\ttfamily [2/6]}}
-{\footnotesize\ttfamily template$<$details\+::on\+\_\+next\+\_\+like On\+Next, std\+::invocable$<$$>$ On\+Completed$>$ \\
-auto rpp\+::operators\+::subscribe (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{group__disposables_ga310f07bbdbf66ad978e748209bfea420}{rpp\+::composite\+\_\+disposable\+\_\+wrapper}}}]{d,  }\item[{On\+Next \&\&}]{on\+\_\+next,  }\item[{On\+Completed \&\&}]{on\+\_\+completed }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{group__utility__operators_ga0966f5805b841c809c47a797bfc0e2f5} 
+template$<$details\+::on\+\_\+next\+\_\+like On\+Next, std\+::invocable$<$$>$ On\+Completed$>$ \\
+auto rpp\+::operators\+::subscribe (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{group__disposables_ga310f07bbdbf66ad978e748209bfea420}{rpp\+::composite\+\_\+disposable\+\_\+wrapper}}}]{d}{, }\item[{On\+Next \&\&}]{on\+\_\+next}{, }\item[{On\+Completed \&\&}]{on\+\_\+completed}{}\end{DoxyParamCaption})}
 
 
 
@@ -465,12 +465,12 @@ This overloading has some performance penalties, use it only when you really nee
 {\em d} & is disposable to be attached to observer. If disposable is nullptr or disposed -\/\texorpdfstring{$>$}{>} no any subscription happens \\
 \hline
 \end{DoxyParams}
-\Hypertarget{group__utility__operators_ga5b742d7c99c0f577e5a6467c826384f7}\label{group__utility__operators_ga5b742d7c99c0f577e5a6467c826384f7} 
-\index{Utility Operators@{Utility Operators}!subscribe@{subscribe}}
+\Hypertarget{group__utility__operators_ga5b742d7c99c0f577e5a6467c826384f7}\index{Utility Operators@{Utility Operators}!subscribe@{subscribe}}
 \index{subscribe@{subscribe}!Utility Operators@{Utility Operators}}
 \doxysubsubsubsubsection{\texorpdfstring{subscribe()}{subscribe()}\hspace{0.1cm}{\footnotesize\ttfamily [3/6]}}
-{\footnotesize\ttfamily template$<$details\+::on\+\_\+next\+\_\+like On\+Next = rpp\+::utils\+::empty\+\_\+function\+\_\+any\+\_\+t, std\+::invocable$<$ const std\+::exception\+\_\+ptr \& $>$ On\+Error = rpp\+::utils\+::rethrow\+\_\+error\+\_\+t, std\+::invocable$<$$>$ On\+Completed = rpp\+::utils\+::empty\+\_\+function\+\_\+t$<$$>$$>$ \\
-auto rpp\+::operators\+::subscribe (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{group__disposables_ga310f07bbdbf66ad978e748209bfea420}{rpp\+::composite\+\_\+disposable\+\_\+wrapper}}}]{d,  }\item[{On\+Next \&\&}]{on\+\_\+next = {\ttfamily \{\}},  }\item[{On\+Error \&\&}]{on\+\_\+error = {\ttfamily \{\}},  }\item[{On\+Completed \&\&}]{on\+\_\+completed = {\ttfamily \{\}} }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{group__utility__operators_ga5b742d7c99c0f577e5a6467c826384f7} 
+template$<$details\+::on\+\_\+next\+\_\+like On\+Next = rpp\+::utils\+::empty\+\_\+function\+\_\+any\+\_\+t, std\+::invocable$<$ const std\+::exception\+\_\+ptr \& $>$ On\+Error = rpp\+::utils\+::rethrow\+\_\+error\+\_\+t, std\+::invocable$<$$>$ On\+Completed = rpp\+::utils\+::empty\+\_\+function\+\_\+t$<$$>$$>$ \\
+auto rpp\+::operators\+::subscribe (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{group__disposables_ga310f07bbdbf66ad978e748209bfea420}{rpp\+::composite\+\_\+disposable\+\_\+wrapper}}}]{d}{, }\item[{On\+Next \&\&}]{on\+\_\+next}{ = {\ttfamily \{\}}, }\item[{On\+Error \&\&}]{on\+\_\+error}{ = {\ttfamily \{\}}, }\item[{On\+Completed \&\&}]{on\+\_\+completed}{ = {\ttfamily \{\}}}\end{DoxyParamCaption})}
 
 
 
@@ -484,12 +484,12 @@ This overloading has some performance penalties, use it only when you really nee
 {\em d} & is disposable to be attached to observer. If disposable is nullptr or disposed -\/\texorpdfstring{$>$}{>} no any subscription happens \\
 \hline
 \end{DoxyParams}
-\Hypertarget{group__utility__operators_gaf47528e3e0556c51cfb24722be454179}\label{group__utility__operators_gaf47528e3e0556c51cfb24722be454179} 
-\index{Utility Operators@{Utility Operators}!subscribe@{subscribe}}
+\Hypertarget{group__utility__operators_gaf47528e3e0556c51cfb24722be454179}\index{Utility Operators@{Utility Operators}!subscribe@{subscribe}}
 \index{subscribe@{subscribe}!Utility Operators@{Utility Operators}}
 \doxysubsubsubsubsection{\texorpdfstring{subscribe()}{subscribe()}\hspace{0.1cm}{\footnotesize\ttfamily [4/6]}}
-{\footnotesize\ttfamily template$<$rpp\+::constraint\+::decayed\+\_\+type Type$>$ \\
-auto rpp\+::operators\+::subscribe (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{group__disposables_ga310f07bbdbf66ad978e748209bfea420}{rpp\+::composite\+\_\+disposable\+\_\+wrapper}}}]{disposable,  }\item[{\mbox{\hyperlink{classrpp_1_1dynamic__observer}{dynamic\+\_\+observer}}$<$ Type $>$}]{observer }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{group__utility__operators_gaf47528e3e0556c51cfb24722be454179} 
+template$<$rpp\+::constraint\+::decayed\+\_\+type Type$>$ \\
+auto rpp\+::operators\+::subscribe (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{group__disposables_ga310f07bbdbf66ad978e748209bfea420}{rpp\+::composite\+\_\+disposable\+\_\+wrapper}}}]{disposable}{, }\item[{\mbox{\hyperlink{classrpp_1_1dynamic__observer}{dynamic\+\_\+observer}}$<$ Type $>$}]{observer}{}\end{DoxyParamCaption})}
 
 
 
@@ -503,12 +503,12 @@ This overloading has some performance penalties, use it only when you really nee
 {\em d} & is disposable to be attached to observer. If disposable is nullptr or disposed -\/\texorpdfstring{$>$}{>} no any subscription happens \\
 \hline
 \end{DoxyParams}
-\Hypertarget{group__utility__operators_ga879876e1f0a7a421d4153224e144ba88}\label{group__utility__operators_ga879876e1f0a7a421d4153224e144ba88} 
-\index{Utility Operators@{Utility Operators}!subscribe@{subscribe}}
+\Hypertarget{group__utility__operators_ga879876e1f0a7a421d4153224e144ba88}\index{Utility Operators@{Utility Operators}!subscribe@{subscribe}}
 \index{subscribe@{subscribe}!Utility Operators@{Utility Operators}}
 \doxysubsubsubsubsection{\texorpdfstring{subscribe()}{subscribe()}\hspace{0.1cm}{\footnotesize\ttfamily [5/6]}}
-{\footnotesize\ttfamily template$<$rpp\+::constraint\+::decayed\+\_\+type Type, \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer__strategy}{rpp\+::constraint\+::observer\+\_\+strategy}}$<$ Type $>$ Observer\+Strategy$>$ \\
-auto rpp\+::operators\+::subscribe (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{group__disposables_ga310f07bbdbf66ad978e748209bfea420}{rpp\+::composite\+\_\+disposable\+\_\+wrapper}}}]{disposable,  }\item[{\mbox{\hyperlink{classrpp_1_1observer}{observer}}$<$ Type, Observer\+Strategy $>$ \&\&}]{observer }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{group__utility__operators_ga879876e1f0a7a421d4153224e144ba88} 
+template$<$rpp\+::constraint\+::decayed\+\_\+type Type, \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer__strategy}{rpp\+::constraint\+::observer\+\_\+strategy}}$<$ Type $>$ Observer\+Strategy$>$ \\
+auto rpp\+::operators\+::subscribe (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{group__disposables_ga310f07bbdbf66ad978e748209bfea420}{rpp\+::composite\+\_\+disposable\+\_\+wrapper}}}]{disposable}{, }\item[{\mbox{\hyperlink{classrpp_1_1observer}{observer}}$<$ Type, Observer\+Strategy $>$ \&\&}]{observer}{}\end{DoxyParamCaption})}
 
 
 
@@ -522,13 +522,13 @@ This overloading has some performance penalties, use it only when you really nee
 {\em d} & is disposable to be attached to observer. If disposable is nullptr or disposed -\/\texorpdfstring{$>$}{>} no any subscription happens \\
 \hline
 \end{DoxyParams}
-\Hypertarget{group__utility__operators_gac133e42caad03b922fc95722ef064264}\label{group__utility__operators_gac133e42caad03b922fc95722ef064264} 
-\index{Utility Operators@{Utility Operators}!subscribe@{subscribe}}
+\Hypertarget{group__utility__operators_gac133e42caad03b922fc95722ef064264}\index{Utility Operators@{Utility Operators}!subscribe@{subscribe}}
 \index{subscribe@{subscribe}!Utility Operators@{Utility Operators}}
 \doxysubsubsubsubsection{\texorpdfstring{subscribe()}{subscribe()}\hspace{0.1cm}{\footnotesize\ttfamily [6/6]}}
-{\footnotesize\ttfamily template$<$\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer__strategy__base}{rpp\+::constraint\+::observer\+\_\+strategy\+\_\+base}} Observer\+Strategy$>$ \newline
+{\footnotesize\ttfamily \label{group__utility__operators_gac133e42caad03b922fc95722ef064264} 
+template$<$\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer__strategy__base}{rpp\+::constraint\+::observer\+\_\+strategy\+\_\+base}} Observer\+Strategy$>$ \newline
 requires (!constraint\+::observer$<$Observer\+Strategy$>$)\\
-auto rpp\+::operators\+::subscribe (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{group__disposables_ga310f07bbdbf66ad978e748209bfea420}{rpp\+::composite\+\_\+disposable\+\_\+wrapper}}}]{disposable,  }\item[{Observer\+Strategy \&\&}]{observer\+\_\+strategy }\end{DoxyParamCaption})}
+auto rpp\+::operators\+::subscribe (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{group__disposables_ga310f07bbdbf66ad978e748209bfea420}{rpp\+::composite\+\_\+disposable\+\_\+wrapper}}}]{disposable}{, }\item[{Observer\+Strategy \&\&}]{observer\+\_\+strategy}{}\end{DoxyParamCaption})}
 
 
 
@@ -542,12 +542,12 @@ This overloading has some performance penalties, use it only when you really nee
 {\em d} & is disposable to be attached to observer. If disposable is nullptr or disposed -\/\texorpdfstring{$>$}{>} no any subscription happens \\
 \hline
 \end{DoxyParams}
-\Hypertarget{group__utility__operators_gace728cfbf71720901cb6f310edabf8b0}\label{group__utility__operators_gace728cfbf71720901cb6f310edabf8b0} 
-\index{Utility Operators@{Utility Operators}!subscribe\_on@{subscribe\_on}}
+\Hypertarget{group__utility__operators_gace728cfbf71720901cb6f310edabf8b0}\index{Utility Operators@{Utility Operators}!subscribe\_on@{subscribe\_on}}
 \index{subscribe\_on@{subscribe\_on}!Utility Operators@{Utility Operators}}
 \doxysubsubsubsubsection{\texorpdfstring{subscribe\_on()}{subscribe\_on()}}
-{\footnotesize\ttfamily template$<$\mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1scheduler}{rpp\+::schedulers\+::constraint\+::scheduler}} Scheduler$>$ \\
-auto rpp\+::operators\+::subscribe\+\_\+on (\begin{DoxyParamCaption}\item[{Scheduler \&\&}]{scheduler }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{group__utility__operators_gace728cfbf71720901cb6f310edabf8b0} 
+template$<$\mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1scheduler}{rpp\+::schedulers\+::constraint\+::scheduler}} Scheduler$>$ \\
+auto rpp\+::operators\+::subscribe\+\_\+on (\begin{DoxyParamCaption}\item[{Scheduler \&\&}]{scheduler}{}\end{DoxyParamCaption})}
 
 
 
@@ -567,7 +567,7 @@ Actually this operator just schedules subscription on original observable to pro
 
 \begin{DoxyCodeInclude}{0}
 \DoxyCodeLine{\ \ \ \ std::cout\ <<\ std::this\_thread::get\_id()\ <<\ std::endl;}
-\DoxyCodeLine{\ \ \ \ rpp::source::create<int>([](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ sub)\ \{}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_gae68c87e7ae3a505258b733082bf68513}{rpp::source::create<int>}}([](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ sub)\ \{}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}on\_subscribe\ thread\ "{}}\ <<\ std::this\_thread::get\_id()\ <<\ std::endl;}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ sub.on\_next(1);}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ sub.on\_completed();}
@@ -592,12 +592,12 @@ Actually this operator just schedules subscription on original observable to pro
 \begin{Desc}
 \item[Examples]\par
 \mbox{\hyperlink{subscribe_on_8cpp-example}{subscribe\+\_\+on.\+cpp}}.\end{Desc}
-\Hypertarget{group__utility__operators_ga33a523ff5b8bccc9e4e8d9e477e8cf90}\label{group__utility__operators_ga33a523ff5b8bccc9e4e8d9e477e8cf90} 
-\index{Utility Operators@{Utility Operators}!subscribe\_with\_disposable@{subscribe\_with\_disposable}}
+\Hypertarget{group__utility__operators_ga33a523ff5b8bccc9e4e8d9e477e8cf90}\index{Utility Operators@{Utility Operators}!subscribe\_with\_disposable@{subscribe\_with\_disposable}}
 \index{subscribe\_with\_disposable@{subscribe\_with\_disposable}!Utility Operators@{Utility Operators}}
 \doxysubsubsubsubsection{\texorpdfstring{subscribe\_with\_disposable()}{subscribe\_with\_disposable()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
-{\footnotesize\ttfamily template$<$rpp\+::constraint\+::decayed\+\_\+type Type$>$ \\
-auto rpp\+::operators\+::subscribe\+\_\+with\+\_\+disposable (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classrpp_1_1dynamic__observer}{dynamic\+\_\+observer}}$<$ Type $>$}]{observer }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{group__utility__operators_ga33a523ff5b8bccc9e4e8d9e477e8cf90} 
+template$<$rpp\+::constraint\+::decayed\+\_\+type Type$>$ \\
+auto rpp\+::operators\+::subscribe\+\_\+with\+\_\+disposable (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classrpp_1_1dynamic__observer}{dynamic\+\_\+observer}}$<$ Type $>$}]{observer}{}\end{DoxyParamCaption})}
 
 
 
@@ -606,12 +606,12 @@ Subscribes passed observer to emissions from this observable.
 This overloading attaches disposable to observer and return it to provide ability to dispose/disconnect observer early if needed. \begin{DoxyWarning}{Warning}
 This overloading has some performance penalties, use it only when you really need to use disposable 
 \end{DoxyWarning}
-\Hypertarget{group__utility__operators_ga8d5522fa0644d34943fee364429677fd}\label{group__utility__operators_ga8d5522fa0644d34943fee364429677fd} 
-\index{Utility Operators@{Utility Operators}!subscribe\_with\_disposable@{subscribe\_with\_disposable}}
+\Hypertarget{group__utility__operators_ga8d5522fa0644d34943fee364429677fd}\index{Utility Operators@{Utility Operators}!subscribe\_with\_disposable@{subscribe\_with\_disposable}}
 \index{subscribe\_with\_disposable@{subscribe\_with\_disposable}!Utility Operators@{Utility Operators}}
 \doxysubsubsubsubsection{\texorpdfstring{subscribe\_with\_disposable()}{subscribe\_with\_disposable()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
-{\footnotesize\ttfamily template$<$rpp\+::constraint\+::decayed\+\_\+type Type, \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer__strategy}{rpp\+::constraint\+::observer\+\_\+strategy}}$<$ Type $>$ Observer\+Strategy$>$ \\
-auto rpp\+::operators\+::subscribe\+\_\+with\+\_\+disposable (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classrpp_1_1observer}{observer}}$<$ Type, Observer\+Strategy $>$ \&\&}]{observer }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{group__utility__operators_ga8d5522fa0644d34943fee364429677fd} 
+template$<$rpp\+::constraint\+::decayed\+\_\+type Type, \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer__strategy}{rpp\+::constraint\+::observer\+\_\+strategy}}$<$ Type $>$ Observer\+Strategy$>$ \\
+auto rpp\+::operators\+::subscribe\+\_\+with\+\_\+disposable (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classrpp_1_1observer}{observer}}$<$ Type, Observer\+Strategy $>$ \&\&}]{observer}{}\end{DoxyParamCaption})}
 
 
 
@@ -622,12 +622,12 @@ This overloading has some performance penalties, use it only when you really nee
 
 Observer must be moved in to subscribe method. (Not recommended) If you need to copy observer, convert it to \doxylink{classrpp_1_1dynamic__observer}{dynamic\+\_\+observer} 
 \end{DoxyWarning}
-\Hypertarget{group__utility__operators_ga6c527da45630e08a1ee2a9bad47d562d}\label{group__utility__operators_ga6c527da45630e08a1ee2a9bad47d562d} 
-\index{Utility Operators@{Utility Operators}!subscribe\_with\_disposable@{subscribe\_with\_disposable}}
+\Hypertarget{group__utility__operators_ga6c527da45630e08a1ee2a9bad47d562d}\index{Utility Operators@{Utility Operators}!subscribe\_with\_disposable@{subscribe\_with\_disposable}}
 \index{subscribe\_with\_disposable@{subscribe\_with\_disposable}!Utility Operators@{Utility Operators}}
 \doxysubsubsubsubsection{\texorpdfstring{subscribe\_with\_disposable()}{subscribe\_with\_disposable()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
-{\footnotesize\ttfamily template$<$details\+::on\+\_\+next\+\_\+like On\+Next, std\+::invocable$<$$>$ On\+Completed$>$ \\
-auto rpp\+::operators\+::subscribe\+\_\+with\+\_\+disposable (\begin{DoxyParamCaption}\item[{On\+Next \&\&}]{on\+\_\+next,  }\item[{On\+Completed \&\&}]{on\+\_\+completed }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{group__utility__operators_ga6c527da45630e08a1ee2a9bad47d562d} 
+template$<$details\+::on\+\_\+next\+\_\+like On\+Next, std\+::invocable$<$$>$ On\+Completed$>$ \\
+auto rpp\+::operators\+::subscribe\+\_\+with\+\_\+disposable (\begin{DoxyParamCaption}\item[{On\+Next \&\&}]{on\+\_\+next}{, }\item[{On\+Completed \&\&}]{on\+\_\+completed}{}\end{DoxyParamCaption})}
 
 
 
@@ -636,12 +636,12 @@ Construct \doxylink{group__observers_ga76d808086fac28fdb0b00fc7513c741a}{rpp\+::
 This overloading attaches disposable to observer and return it to provide ability to dispose/disconnect observer early if needed. \begin{DoxyWarning}{Warning}
 This overloading has some performance penalties, use it only when you really need to use disposable 
 \end{DoxyWarning}
-\Hypertarget{group__utility__operators_gac87a7d53a94e23c8e444a431a2473a33}\label{group__utility__operators_gac87a7d53a94e23c8e444a431a2473a33} 
-\index{Utility Operators@{Utility Operators}!subscribe\_with\_disposable@{subscribe\_with\_disposable}}
+\Hypertarget{group__utility__operators_gac87a7d53a94e23c8e444a431a2473a33}\index{Utility Operators@{Utility Operators}!subscribe\_with\_disposable@{subscribe\_with\_disposable}}
 \index{subscribe\_with\_disposable@{subscribe\_with\_disposable}!Utility Operators@{Utility Operators}}
 \doxysubsubsubsubsection{\texorpdfstring{subscribe\_with\_disposable()}{subscribe\_with\_disposable()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
-{\footnotesize\ttfamily template$<$details\+::on\+\_\+next\+\_\+like On\+Next = rpp\+::utils\+::empty\+\_\+function\+\_\+any\+\_\+t, std\+::invocable$<$ const std\+::exception\+\_\+ptr \& $>$ On\+Error = rpp\+::utils\+::rethrow\+\_\+error\+\_\+t, std\+::invocable$<$$>$ On\+Completed = rpp\+::utils\+::empty\+\_\+function\+\_\+t$<$$>$$>$ \\
-auto rpp\+::operators\+::subscribe\+\_\+with\+\_\+disposable (\begin{DoxyParamCaption}\item[{On\+Next \&\&}]{on\+\_\+next = {\ttfamily \{\}},  }\item[{On\+Error \&\&}]{on\+\_\+error = {\ttfamily \{\}},  }\item[{On\+Completed \&\&}]{on\+\_\+completed = {\ttfamily \{\}} }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{group__utility__operators_gac87a7d53a94e23c8e444a431a2473a33} 
+template$<$details\+::on\+\_\+next\+\_\+like On\+Next = rpp\+::utils\+::empty\+\_\+function\+\_\+any\+\_\+t, std\+::invocable$<$ const std\+::exception\+\_\+ptr \& $>$ On\+Error = rpp\+::utils\+::rethrow\+\_\+error\+\_\+t, std\+::invocable$<$$>$ On\+Completed = rpp\+::utils\+::empty\+\_\+function\+\_\+t$<$$>$$>$ \\
+auto rpp\+::operators\+::subscribe\+\_\+with\+\_\+disposable (\begin{DoxyParamCaption}\item[{On\+Next \&\&}]{on\+\_\+next}{ = {\ttfamily \{\}}, }\item[{On\+Error \&\&}]{on\+\_\+error}{ = {\ttfamily \{\}}, }\item[{On\+Completed \&\&}]{on\+\_\+completed}{ = {\ttfamily \{\}}}\end{DoxyParamCaption})}
 
 
 
@@ -650,12 +650,12 @@ Construct \doxylink{group__observers_ga76d808086fac28fdb0b00fc7513c741a}{rpp\+::
 This overloading attaches disposable to observer and return it to provide ability to dispose/disconnect observer early if needed. \begin{DoxyWarning}{Warning}
 This overloading has some performance penalties, use it only when you really need to use disposable 
 \end{DoxyWarning}
-\Hypertarget{group__utility__operators_ga4278374427b8cb7d2e69de046ed5a4c9}\label{group__utility__operators_ga4278374427b8cb7d2e69de046ed5a4c9} 
-\index{Utility Operators@{Utility Operators}!tap@{tap}}
+\Hypertarget{group__utility__operators_ga4278374427b8cb7d2e69de046ed5a4c9}\index{Utility Operators@{Utility Operators}!tap@{tap}}
 \index{tap@{tap}!Utility Operators@{Utility Operators}}
 \doxysubsubsubsubsection{\texorpdfstring{tap()}{tap()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
-{\footnotesize\ttfamily template$<$std\+::invocable$<$$>$ On\+Completed = rpp\+::utils\+::empty\+\_\+function\+\_\+t$<$$>$$>$ \\
-auto rpp\+::operators\+::tap (\begin{DoxyParamCaption}\item[{On\+Completed \&\&}]{on\+\_\+completed }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{group__utility__operators_ga4278374427b8cb7d2e69de046ed5a4c9} 
+template$<$std\+::invocable$<$$>$ On\+Completed = rpp\+::utils\+::empty\+\_\+function\+\_\+t$<$$>$$>$ \\
+auto rpp\+::operators\+::tap (\begin{DoxyParamCaption}\item[{On\+Completed \&\&}]{on\+\_\+completed}{}\end{DoxyParamCaption})}
 
 
 
@@ -669,12 +669,12 @@ Register callbacks to inspect observable emissions and perform side-\/effects.
 \begin{DoxySeeAlso}{See also}
 \href{https://reactivex.io/documentation/operators/do.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/do.\+html}} 
 \end{DoxySeeAlso}
-\Hypertarget{group__utility__operators_gabfc589f5344d5231e52fb539fb5bd6ca}\label{group__utility__operators_gabfc589f5344d5231e52fb539fb5bd6ca} 
-\index{Utility Operators@{Utility Operators}!tap@{tap}}
+\Hypertarget{group__utility__operators_gabfc589f5344d5231e52fb539fb5bd6ca}\index{Utility Operators@{Utility Operators}!tap@{tap}}
 \index{tap@{tap}!Utility Operators@{Utility Operators}}
 \doxysubsubsubsubsection{\texorpdfstring{tap()}{tap()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
-{\footnotesize\ttfamily template$<$std\+::invocable$<$ const std\+::exception\+\_\+ptr \& $>$ On\+Error = rpp\+::utils\+::empty\+\_\+function\+\_\+t$<$std\+::exception\+\_\+ptr$>$$>$ \\
-auto rpp\+::operators\+::tap (\begin{DoxyParamCaption}\item[{On\+Error \&\&}]{on\+\_\+error }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{group__utility__operators_gabfc589f5344d5231e52fb539fb5bd6ca} 
+template$<$std\+::invocable$<$ const std\+::exception\+\_\+ptr \& $>$ On\+Error = rpp\+::utils\+::empty\+\_\+function\+\_\+t$<$std\+::exception\+\_\+ptr$>$$>$ \\
+auto rpp\+::operators\+::tap (\begin{DoxyParamCaption}\item[{On\+Error \&\&}]{on\+\_\+error}{}\end{DoxyParamCaption})}
 
 
 
@@ -688,12 +688,12 @@ Register callbacks to inspect observable emissions and perform side-\/effects.
 \begin{DoxySeeAlso}{See also}
 \href{https://reactivex.io/documentation/operators/do.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/do.\+html}} 
 \end{DoxySeeAlso}
-\Hypertarget{group__utility__operators_ga93b6a728431216d1eabf2074616667fe}\label{group__utility__operators_ga93b6a728431216d1eabf2074616667fe} 
-\index{Utility Operators@{Utility Operators}!tap@{tap}}
+\Hypertarget{group__utility__operators_ga93b6a728431216d1eabf2074616667fe}\index{Utility Operators@{Utility Operators}!tap@{tap}}
 \index{tap@{tap}!Utility Operators@{Utility Operators}}
 \doxysubsubsubsubsection{\texorpdfstring{tap()}{tap()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
-{\footnotesize\ttfamily template$<$typename On\+Next , std\+::invocable$<$$>$ On\+Completed = rpp\+::utils\+::empty\+\_\+function\+\_\+t$<$$>$$>$ \\
-auto rpp\+::operators\+::tap (\begin{DoxyParamCaption}\item[{On\+Next \&\&}]{on\+\_\+next,  }\item[{On\+Completed \&\&}]{on\+\_\+completed }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{group__utility__operators_ga93b6a728431216d1eabf2074616667fe} 
+template$<$typename On\+Next , std\+::invocable$<$$>$ On\+Completed = rpp\+::utils\+::empty\+\_\+function\+\_\+t$<$$>$$>$ \\
+auto rpp\+::operators\+::tap (\begin{DoxyParamCaption}\item[{On\+Next \&\&}]{on\+\_\+next}{, }\item[{On\+Completed \&\&}]{on\+\_\+completed}{}\end{DoxyParamCaption})}
 
 
 
@@ -709,12 +709,12 @@ Register callbacks to inspect observable emissions and perform side-\/effects.
 \begin{DoxySeeAlso}{See also}
 \href{https://reactivex.io/documentation/operators/do.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/do.\+html}} 
 \end{DoxySeeAlso}
-\Hypertarget{group__utility__operators_ga0ba6586e8ece142ca52ab831ce282ee3}\label{group__utility__operators_ga0ba6586e8ece142ca52ab831ce282ee3} 
-\index{Utility Operators@{Utility Operators}!tap@{tap}}
+\Hypertarget{group__utility__operators_ga0ba6586e8ece142ca52ab831ce282ee3}\index{Utility Operators@{Utility Operators}!tap@{tap}}
 \index{tap@{tap}!Utility Operators@{Utility Operators}}
 \doxysubsubsubsubsection{\texorpdfstring{tap()}{tap()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
-{\footnotesize\ttfamily template$<$typename On\+Next  = rpp\+::utils\+::empty\+\_\+function\+\_\+any\+\_\+t, std\+::invocable$<$ const std\+::exception\+\_\+ptr \& $>$ On\+Error = rpp\+::utils\+::empty\+\_\+function\+\_\+t$<$std\+::exception\+\_\+ptr$>$, std\+::invocable$<$$>$ On\+Completed = rpp\+::utils\+::empty\+\_\+function\+\_\+t$<$$>$$>$ \\
-auto rpp\+::operators\+::tap (\begin{DoxyParamCaption}\item[{On\+Next \&\&}]{on\+\_\+next,  }\item[{On\+Error \&\&}]{on\+\_\+error,  }\item[{On\+Completed \&\&}]{on\+\_\+completed }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{group__utility__operators_ga0ba6586e8ece142ca52ab831ce282ee3} 
+template$<$typename On\+Next  = rpp\+::utils\+::empty\+\_\+function\+\_\+any\+\_\+t, std\+::invocable$<$ const std\+::exception\+\_\+ptr \& $>$ On\+Error = rpp\+::utils\+::empty\+\_\+function\+\_\+t$<$std\+::exception\+\_\+ptr$>$, std\+::invocable$<$$>$ On\+Completed = rpp\+::utils\+::empty\+\_\+function\+\_\+t$<$$>$$>$ \\
+auto rpp\+::operators\+::tap (\begin{DoxyParamCaption}\item[{On\+Next \&\&}]{on\+\_\+next}{, }\item[{On\+Error \&\&}]{on\+\_\+error}{, }\item[{On\+Completed \&\&}]{on\+\_\+completed}{}\end{DoxyParamCaption})}
 
 
 
@@ -732,12 +732,12 @@ Register callbacks to inspect observable emissions and perform side-\/effects.
 \begin{DoxySeeAlso}{See also}
 \href{https://reactivex.io/documentation/operators/do.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/do.\+html}} 
 \end{DoxySeeAlso}
-\Hypertarget{group__utility__operators_ga08c63b0f0f0eae7e2ce0c4789569b9a7}\label{group__utility__operators_ga08c63b0f0f0eae7e2ce0c4789569b9a7} 
-\index{Utility Operators@{Utility Operators}!timeout@{timeout}}
+\Hypertarget{group__utility__operators_ga08c63b0f0f0eae7e2ce0c4789569b9a7}\index{Utility Operators@{Utility Operators}!timeout@{timeout}}
 \index{timeout@{timeout}!Utility Operators@{Utility Operators}}
 \doxysubsubsubsubsection{\texorpdfstring{timeout()}{timeout()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
-{\footnotesize\ttfamily template$<$\mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1scheduler}{rpp\+::schedulers\+::constraint\+::scheduler}} TScheduler$>$ \\
-auto rpp\+::operators\+::timeout (\begin{DoxyParamCaption}\item[{rpp\+::schedulers\+::duration}]{period,  }\item[{const TScheduler \&}]{scheduler }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{group__utility__operators_ga08c63b0f0f0eae7e2ce0c4789569b9a7} 
+template$<$\mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1scheduler}{rpp\+::schedulers\+::constraint\+::scheduler}} TScheduler$>$ \\
+auto rpp\+::operators\+::timeout (\begin{DoxyParamCaption}\item[{rpp\+::schedulers\+::duration}]{period}{, }\item[{const TScheduler \&}]{scheduler}{}\end{DoxyParamCaption})}
 
 
 
@@ -775,12 +775,12 @@ Forwards emissions from original observable, but emit error if no any events dur
 \begin{DoxySeeAlso}{See also}
 \href{https://reactivex.io/documentation/operators/timeout.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/timeout.\+html}} 
 \end{DoxySeeAlso}
-\Hypertarget{group__utility__operators_gaa758f1ad38da6b37357232317fcdc9b5}\label{group__utility__operators_gaa758f1ad38da6b37357232317fcdc9b5} 
-\index{Utility Operators@{Utility Operators}!timeout@{timeout}}
+\Hypertarget{group__utility__operators_gaa758f1ad38da6b37357232317fcdc9b5}\index{Utility Operators@{Utility Operators}!timeout@{timeout}}
 \index{timeout@{timeout}!Utility Operators@{Utility Operators}}
 \doxysubsubsubsubsection{\texorpdfstring{timeout()}{timeout()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
-{\footnotesize\ttfamily template$<$\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp\+::constraint\+::observable}} TFallback\+Observable, \mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1scheduler}{rpp\+::schedulers\+::constraint\+::scheduler}} TScheduler$>$ \\
-auto rpp\+::operators\+::timeout (\begin{DoxyParamCaption}\item[{rpp\+::schedulers\+::duration}]{period,  }\item[{TFallback\+Observable \&\&}]{fallback\+\_\+observable,  }\item[{const TScheduler \&}]{scheduler }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{group__utility__operators_gaa758f1ad38da6b37357232317fcdc9b5} 
+template$<$\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp\+::constraint\+::observable}} TFallback\+Observable, \mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1scheduler}{rpp\+::schedulers\+::constraint\+::scheduler}} TScheduler$>$ \\
+auto rpp\+::operators\+::timeout (\begin{DoxyParamCaption}\item[{rpp\+::schedulers\+::duration}]{period}{, }\item[{TFallback\+Observable \&\&}]{fallback\+\_\+observable}{, }\item[{const TScheduler \&}]{scheduler}{}\end{DoxyParamCaption})}
 
 
 

@@ -29,24 +29,24 @@
 \DoxyCodeLine{00025\ \ \ \ \ \textcolor{keyword}{class\ }enable\_wrapper\_from\_this;}
 \DoxyCodeLine{00026\ }
 \DoxyCodeLine{00027\ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type\ TDisposable>}
-\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1details_1_1auto__dispose__wrapper}{auto\_dispose\_wrapper}}\ final}
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keyword}{class\ }auto\_dispose\_wrapper\ final}
 \DoxyCodeLine{00029\ \ \ \ \ \{}
 \DoxyCodeLine{00030\ \ \ \ \ \textcolor{keyword}{public}:}
 \DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static\_assert}(std::derived\_from<TDisposable,\ interface\_disposable>);}
 \DoxyCodeLine{00032\ }
 \DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}...\ TArgs>}
-\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{requires}\ (std::constructible\_from<TDisposable,\ TArgs\ \&\&\ ...>\ \&\&\ !rpp::constraint::variadic\_decayed\_same\_as<\mbox{\hyperlink{classrpp_1_1details_1_1auto__dispose__wrapper}{auto\_dispose\_wrapper}},\ TArgs...>)}
-\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{classrpp_1_1details_1_1auto__dispose__wrapper}{auto\_dispose\_wrapper}}(TArgs\&\&...\ args)}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{requires}\ (std::constructible\_from<TDisposable,\ TArgs\ \&\&\ ...>\ \&\&\ !rpp::constraint::variadic\_decayed\_same\_as<auto\_dispose\_wrapper,\ TArgs...>)}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \textcolor{keyword}{explicit}\ auto\_dispose\_wrapper(TArgs\&\&...\ args)}
 \DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \ \ \ \ :\ m\_data\{std::forward<TArgs>(args)...\}}
 \DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \{}
 \DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{00039\ }
-\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrpp_1_1details_1_1auto__dispose__wrapper}{auto\_dispose\_wrapper}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1details_1_1auto__dispose__wrapper}{auto\_dispose\_wrapper}}\&)\ \ \ \ \ =\ \textcolor{keyword}{delete};}
-\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrpp_1_1details_1_1auto__dispose__wrapper}{auto\_dispose\_wrapper}}(\mbox{\hyperlink{classrpp_1_1details_1_1auto__dispose__wrapper}{auto\_dispose\_wrapper}}\&\&)\ \textcolor{keyword}{noexcept}\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ auto\_dispose\_wrapper(\textcolor{keyword}{const}\ auto\_dispose\_wrapper\&)\ \ \ \ \ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ auto\_dispose\_wrapper(auto\_dispose\_wrapper\&\&)\ noexcept\ =\ delete;}
 \DoxyCodeLine{00042\ }
-\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrpp_1_1details_1_1auto__dispose__wrapper}{\string~auto\_dispose\_wrapper}}()\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \string~auto\_dispose\_wrapper()\ noexcept}
 \DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{static\_cast<}\mbox{\hyperlink{structrpp_1_1interface__disposable}{interface\_disposable}}\&\textcolor{keyword}{>}(m\_data).dispose\_impl(rpp::interface\_disposable::Mode::Destroying);}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{static\_cast<}interface\_disposable\&\textcolor{keyword}{>}(m\_data).dispose\_impl(rpp::interface\_disposable::Mode::Destroying);}
 \DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{00047\ }
 \DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ TDisposable*\ get()\ \{\ \textcolor{keywordflow}{return}\ \&m\_data;\ \}}

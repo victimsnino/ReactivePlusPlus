@@ -49,13 +49,13 @@
 \DoxyCodeLine{00054\ \textcolor{keyword}{namespace\ }rpp::details::observers}
 \DoxyCodeLine{00055\ \{}
 \DoxyCodeLine{00056\ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type\ Type>}
-\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keyword}{class\ }dynamic\_strategy;}
+\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1details_1_1observers_1_1dynamic__strategy}{dynamic\_strategy}};}
 \DoxyCodeLine{00058\ }
 \DoxyCodeLine{00059\ \ \ \ \ \textcolor{keyword}{template}<rpp::constraint::decayed\_type\ \ \ \ \ \ \ \ \ \ \ \ \ Type,}
 \DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \ \ \ \ \ std::invocable<Type>\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ OnNext,}
 \DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \ \ \ \ \ std::invocable<const\ std::exception\_ptr\&>\ OnError,}
 \DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \ \ \ \ \ std::invocable<>\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ OnCompleted>}
-\DoxyCodeLine{00063\ \ \ \ \ \textcolor{keyword}{struct\ }lambda\_strategy;}
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1details_1_1observers_1_1lambda__strategy}{lambda\_strategy}};}
 \DoxyCodeLine{00064\ \}\ \textcolor{comment}{//\ namespace\ rpp::details::observers}}
 \DoxyCodeLine{00065\ }
 \DoxyCodeLine{00066\ \textcolor{keyword}{namespace\ }rpp::details}
@@ -127,7 +127,7 @@
 \DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ OnError\&\&\ \ \ \ \ on\_error\ \ \ \ \ =\ \{\},}
 \DoxyCodeLine{00174\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ OnCompleted\&\&\ on\_completed\ =\ \{\})}
 \DoxyCodeLine{00175\ \ \ \ \ \{}
-\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ make\_lambda\_observer<Type>(std::forward<OnNext>(on\_next),\ std::forward<OnError>(on\_error),\ std::forward<OnCompleted>(on\_completed));}
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{group__observers_gae17f62f64102925f4cd2eb29c4c27028}{make\_lambda\_observer<Type>}}(std::forward<OnNext>(on\_next),\ std::forward<OnError>(on\_error),\ std::forward<OnCompleted>(on\_completed));}
 \DoxyCodeLine{00177\ \ \ \ \ \}}
 \DoxyCodeLine{00178\ }
 \DoxyCodeLine{00191\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ OnNext,}
@@ -140,7 +140,7 @@
 \DoxyCodeLine{00198\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ OnError\&\&\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ on\_error\ \ \ \ \ =\ \{\},}
 \DoxyCodeLine{00199\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ OnCompleted\&\&\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ on\_completed\ =\ \{\})}
 \DoxyCodeLine{00200\ \ \ \ \ \{}
-\DoxyCodeLine{00201\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ make\_lambda\_observer<Type>(d,\ std::forward<OnNext>(on\_next),\ std::forward<OnError>(on\_error),\ std::forward<OnCompleted>(on\_completed));}
+\DoxyCodeLine{00201\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{group__observers_gae17f62f64102925f4cd2eb29c4c27028}{make\_lambda\_observer<Type>}}(d,\ std::forward<OnNext>(on\_next),\ std::forward<OnError>(on\_error),\ std::forward<OnCompleted>(on\_completed));}
 \DoxyCodeLine{00202\ \ \ \ \ \}}
 \DoxyCodeLine{00203\ \}\ \textcolor{comment}{//\ namespace\ rpp}}
 \DoxyCodeLine{00204\ }
