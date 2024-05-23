@@ -23,7 +23,7 @@ class RppConan(ConanFile):
     def requirements(self):
         if self.options.with_tests:
             self.requires("trompeloeil/47")
-            self.requires("snitch/1.2.3")
+            self.requires("catch2/3.6.0")
 
         if self.options.with_benchmarks:
             self.requires("nanobench/4.3.11")

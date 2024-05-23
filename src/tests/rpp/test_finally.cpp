@@ -8,7 +8,8 @@
 // Project home: https://github.com/victimsnino/ReactivePlusPlus
 //
 
-#include <snitch/snitch.hpp>
+#include <catch2/catch_test_macros.hpp>
+#include <catch2/catch_template_test_macros.hpp>
 
 #include <rpp/observers/mock_observer.hpp>
 #include <rpp/operators/finally.hpp>
@@ -111,5 +112,5 @@ TEST_CASE("finally satisfies disposable contracts")
             rpp::ops::finally([]() noexcept {}));
     }
 
-    CHECK(observable_disposable.is_disposed() || observable_disposable.lock().use_count() == 2);
+    CHECK((observable_disposable.is_disposed() || observable_disposable.lock().use_count() == 2));
 }

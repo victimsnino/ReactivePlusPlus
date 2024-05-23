@@ -8,7 +8,8 @@
 // Project home: https://github.com/victimsnino/ReactivePlusPlus
 //
 
-#include <snitch/snitch.hpp>
+#include <catch2/catch_test_macros.hpp>
+#include <catch2/catch_template_test_macros.hpp>
 
 #include <rpp/disposables/composite_disposable.hpp>
 #include <rpp/observers/mock_observer.hpp>
@@ -19,7 +20,6 @@
 #include <rpp/subjects/replay_subject.hpp>
 
 #include "copy_count_tracker.hpp"
-#include "snitch_logging.hpp"
 
 #include <thread>
 

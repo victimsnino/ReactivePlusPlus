@@ -8,7 +8,8 @@
 // Project home: https://github.com/victimsnino/ReactivePlusPlus
 //
 
-#include <snitch/snitch.hpp>
+#include <catch2/catch_test_macros.hpp>
+#include <catch2/catch_template_test_macros.hpp>
 
 #include <rpp/observers/mock_observer.hpp>
 #include <rpp/operators/with_latest_from.hpp>
@@ -204,5 +205,5 @@ TEST_CASE("with_latest_from satisfies disposable contracts")
         test_operator_finish_before_dispose<int>(op);
     }
 
-    CHECK(observable_disposable.is_disposed() || observable_disposable.lock().use_count() == 2);
+    CHECK((observable_disposable.is_disposed() || observable_disposable.lock().use_count() == 2));
 }

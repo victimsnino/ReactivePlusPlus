@@ -1,9 +1,9 @@
 #pragma once
 
-#include <snitch/snitch_macros_check.hpp>
-#include <snitch/snitch_macros_misc.hpp>
-
 #include <rpp/disposables/fwd.hpp>
+
+#include <catch2/catch_test_macros.hpp>
+#include <catch2/catch_template_test_macros.hpp>
 
 #include <trompeloeil.hpp>
 

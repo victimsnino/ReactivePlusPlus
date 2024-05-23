@@ -182,7 +182,7 @@ DEALINGS IN THE SOFTWARE.
 # Credits:
 ReactivePlusPlus library uses:
 - [PVS-Studio](https://pvs-studio.com/pvs-studio/?utm_source=website&utm_medium=github&utm_campaign=open_source) - static analyzer for C, C++, C#, and Java code.
-- [snitch](https://github.com/cschreib/snitch) for unit testing only, fetched automatically in case of `RPP_BUILD_TESTS` enabled
+- [catch](https://github.com/catchorg/Catch2) for unit testing only, fetched automatically in case of `RPP_BUILD_TESTS` enabled
 - [trompeloeil](https://github.com/rollbear/trompeloeil) for mocking in unit testing only, fetched automatically in case of `RPP_BUILD_TESTS` enabled
 - [nanobench](https://github.com/martinus/nanobench) for benchmarking only, fetched automatically in case of `RPP_BUILD_BENCHMARKS` enabled
 - [RxCpp](https://github.com/ReactiveX/RxCpp) only for comparison of performance between RPP and RxCpp in CI benchmarks. Used as cmake dependency under option

@@ -38,7 +38,8 @@ Q_SIGNALS:
     void NoValueSignal();
 };
 
-#include <snitch/snitch.hpp>
+#include <catch2/catch_test_macros.hpp>
+#include <catch2/catch_template_test_macros.hpp>
 
 #include <rpp/observers/mock_observer.hpp>
 

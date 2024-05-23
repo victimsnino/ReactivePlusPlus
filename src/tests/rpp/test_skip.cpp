@@ -8,7 +8,8 @@
 // Project home: https://github.com/victimsnino/ReactivePlusPlus
 //
 
-#include <snitch/snitch.hpp>
+#include <catch2/catch_test_macros.hpp>
+#include <catch2/catch_template_test_macros.hpp>
 
 #include <rpp/observers/mock_observer.hpp>
 #include <rpp/operators/skip.hpp>
@@ -24,10 +25,10 @@
 
 TEMPLATE_TEST_CASE("skip ignores first `count` of items",
                    "",
-                   std::pair<rpp::schedulers::current_thread, rpp::memory_model::use_stack>,
-                   std::pair<rpp::schedulers::immediate, rpp::memory_model::use_stack>,
-                   std::pair<rpp::schedulers::current_thread, rpp::memory_model::use_shared>,
-                   std::pair<rpp::schedulers::immediate, rpp::memory_model::use_shared>)
+                   (std::pair<rpp::schedulers::current_thread, rpp::memory_model::use_stack>),
+                   (std::pair<rpp::schedulers::immediate, rpp::memory_model::use_stack>),
+                   (std::pair<rpp::schedulers::current_thread, rpp::memory_model::use_shared>),
+                   (std::pair<rpp::schedulers::immediate, rpp::memory_model::use_shared>))
 {
     using memory_model = std::tuple_element_t<1, TestType>;
     using scheduler    = std::tuple_element_t<0, TestType>;

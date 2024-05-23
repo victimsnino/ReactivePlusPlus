@@ -8,7 +8,8 @@
 // Project home: https://github.com/victimsnino/ReactivePlusPlus
 //
 
-#include <snitch/snitch.hpp>
+#include <catch2/catch_test_macros.hpp>
+#include <catch2/catch_template_test_macros.hpp>
 
 #include <rpp/operators/as_blocking.hpp>
 #include <rpp/operators/combine_latest.hpp>
@@ -22,7 +23,6 @@
 
 #include "disposable_observable.hpp"
 #include "rpp_trompeloil.hpp"
-#include "snitch_logging.hpp"
 
 TEST_CASE("combine_latest bundles items")
 {
@@ -122,9 +122,10 @@ TEST_CASE("combine_latest handles race condition")
         trompeloeil::sequence s{};
 
         REQUIRE_CALL(*mock, on_next_rvalue(trompeloeil::_))
+            .TIMES(AT_LEAST(1))
             .IN_SEQUENCE(s)
             .LR_SIDE_EFFECT({
-                std::thread{[&] {
+                std::thread{[subject] {
                     subject.get_observer().on_error(std::exception_ptr{});
                 }}.detach();
                 std::this_thread::sleep_for(std::chrono::seconds{1});
@@ -149,5 +150,5 @@ TEST_CASE("combine_latest satisfies disposable contracts")
         test_operator_finish_before_dispose<int>(op);
     }
 
-    CHECK(observable_disposable.is_disposed() || observable_disposable.lock().use_count() == 2);
+    CHECK((observable_disposable.is_disposed() || observable_disposable.lock().use_count() == 2));
 }

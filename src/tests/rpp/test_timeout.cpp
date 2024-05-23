@@ -8,7 +8,8 @@
 // Project home: https://github.com/victimsnino/ReactivePlusPlus
 //
 
-#include <snitch/snitch.hpp>
+#include <catch2/catch_test_macros.hpp>
+#include <catch2/catch_template_test_macros.hpp>
 
 #include <rpp/observers/mock_observer.hpp>
 #include <rpp/operators/delay.hpp>
@@ -20,7 +21,6 @@
 #include <rpp/sources/never.hpp>
 
 #include "disposable_observable.hpp"
-#include "snitch_logging.hpp"
 
 
 TEST_CASE("timeout subscribes to passed observable in case of reaching timeout")
