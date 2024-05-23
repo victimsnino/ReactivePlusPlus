@@ -14,7 +14,7 @@ macro(add_test_target target_name module files)
   set(TARGET ${target_name})
 
   add_executable(${TARGET} ${files})
-  target_link_libraries(${TARGET} PRIVATE Catch2WithMain trompeloeil::trompeloeil rpp_tests_utils ${module})
+  target_link_libraries(${TARGET} PRIVATE Catch2::Catch2WithMain trompeloeil::trompeloeil rpp_tests_utils ${module})
   target_compile_definitions(${TARGET} PRIVATE "CATCH_CONFIG_FAST_COMPILE")
   set_target_properties(${TARGET} PROPERTIES FOLDER Tests/Suites/${module})
 
