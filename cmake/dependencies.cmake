@@ -74,6 +74,7 @@ endif()
 # ===================== Tests ===================
 if (RPP_BUILD_TESTS)
   rpp_fetch_library(Catch2 https://github.com/catchorg/Catch2.git v3.6.0)
+  rpp_handle_3rdparty(Catch2WithMain)
   rpp_fetch_library(trompeloeil https://github.com/rollbear/trompeloeil.git main)
 endif()
 
