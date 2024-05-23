@@ -14,7 +14,7 @@ macro(add_test_target target_name module files)
   set(TARGET ${target_name})
 
   add_executable(${TARGET} ${files})
-  target_link_libraries(${TARGET} PRIVATE snitch::snitch rpp_tests_utils ${module})
+  target_link_libraries(${TARGET} PRIVATE snitch::snitch trompeloeil::trompeloeil rpp_tests_utils ${module})
   set_target_properties(${TARGET} PROPERTIES FOLDER Tests/Suites/${module})
 
   add_test_with_coverage(${TARGET})

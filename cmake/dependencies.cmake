@@ -58,19 +58,23 @@ macro(rpp_fetch_library_extended NAME URL TAG TARGET_NAME)
 endmacro()
 
 macro(rpp_fetch_library NAME URL TAG)
-  rpp_fetch_library_extended(${NAME} ${URL} ${TAG} ${NAME})
+  find_package(${NAME} QUIET)
+  if (NOT ${NAME}_FOUND)
+    message("-- RPP: Fetching ${NAME}...")
+    rpp_fetch_library_extended(${NAME} ${URL} ${TAG} ${NAME})
+  endif()
 endmacro()
 
 # ==================== RXCPP =======================
 if (RPP_BUILD_RXCPP AND RPP_BUILD_BENCHMARKS)
   set(RXCPP_DISABLE_TESTS_AND_EXAMPLES 1)
-
   rpp_fetch_library(rxcpp https://github.com/ReactiveX/RxCpp.git origin/main)
 endif()
 
 # ===================== Snitch ===================
 if (RPP_BUILD_TESTS)
   rpp_fetch_library(snitch https://github.com/cschreib/snitch.git main)
+  rpp_fetch_library(trompeloeil https://github.com/rollbear/trompeloeil.git main)
 endif()
 
 

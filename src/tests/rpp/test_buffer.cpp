@@ -11,81 +11,65 @@
 #include <snitch/snitch.hpp>
 
 #include <rpp/observables/dynamic_observable.hpp>
-#include <rpp/observers/mock_observer.hpp>
 #include <rpp/operators/buffer.hpp>
 #include <rpp/operators/merge.hpp>
 #include <rpp/sources/error.hpp>
 #include <rpp/sources/just.hpp>
 
 #include "disposable_observable.hpp"
+#include "rpp_trompeloil.hpp"
 
 TEST_CASE("buffer bundles items")
 {
+    trompeloeil::sequence s{};
+    auto                  mock = mock_observer<std::vector<int>>{};
+
     SECTION("observable of -1-2-3-|")
     {
-        auto mock = mock_observer_strategy<std::vector<int>>{};
-        auto obs  = rpp::source::just(1, 2, 3);
-        SECTION("subscribe on it via buffer(0)")
+        auto obs = rpp::source::just(1, 2, 3);
+        SECTION("buffer(0) - shall see -{1}-{2}-{3}-|")
         {
-            obs | rpp::ops::buffer(0)
-                | rpp::ops::subscribe(mock);
-            SECTION("shall see -{1}-{2}-{3}-|")
-            {
-                CHECK(mock.get_received_values() == std::vector{std::vector{1}, std::vector{2}, std::vector{3}});
-                CHECK(mock.get_on_completed_count() == 1);
-                CHECK(mock.get_on_error_count() == 0);
-            }
+            REQUIRE_CALL(*mock, on_next(std::vector{1})).IN_SEQUENCE(s);
+            REQUIRE_CALL(*mock, on_next(std::vector{2})).IN_SEQUENCE(s);
+            REQUIRE_CALL(*mock, on_next(std::vector{3})).IN_SEQUENCE(s);
+            REQUIRE_CALL(*mock, on_completed()).IN_SEQUENCE(s);
+
+            obs | rpp::ops::buffer(0) | rpp::ops::subscribe(mock);
         }
-        SECTION("subscribe on it via buffer(1)")
+        SECTION("buffer(1) - shall see -{1}-{2}-{3}-|")
         {
+            REQUIRE_CALL(*mock, on_next(std::vector{1})).IN_SEQUENCE(s);
+            REQUIRE_CALL(*mock, on_next(std::vector{2})).IN_SEQUENCE(s);
+            REQUIRE_CALL(*mock, on_next(std::vector{3})).IN_SEQUENCE(s);
+            REQUIRE_CALL(*mock, on_completed()).IN_SEQUENCE(s);
+
             obs | rpp::ops::buffer(1)
                 | rpp::ops::subscribe(mock);
-            SECTION("shall see -{1}-{2}-{3}-|")
-            {
-                CHECK(mock.get_received_values() == std::vector{std::vector{1}, std::vector{2}, std::vector{3}});
-                CHECK(mock.get_on_completed_count() == 1);
-                CHECK(mock.get_on_error_count() == 0);
-            }
         }
-        SECTION("subscribe on it via buffer(2)")
+        SECTION("buffer(2) - shall see -{1,2}-{3}|")
         {
+            REQUIRE_CALL(*mock, on_next(std::vector{1, 2})).IN_SEQUENCE(s);
+            REQUIRE_CALL(*mock, on_next(std::vector{3})).IN_SEQUENCE(s);
+            REQUIRE_CALL(*mock, on_completed()).IN_SEQUENCE(s);
+
             obs | rpp::ops::buffer(2)
                 | rpp::ops::subscribe(mock);
-            SECTION("shall see -{1,2}-{3}|")
-            {
-                CHECK(mock.get_received_values() == std::vector<std::vector<int>>{
-                          std::vector{1, 2},
-                          std::vector{3},
-                      });
-                CHECK(mock.get_on_completed_count() == 1);
-                CHECK(mock.get_on_error_count() == 0);
-            }
         }
-        SECTION("subscribe on it via buffer(3)")
+        SECTION("buffer(3) - shall see -{1,2,3}-|")
         {
+            REQUIRE_CALL(*mock, on_next(std::vector{1, 2, 3})).IN_SEQUENCE(s);
+            REQUIRE_CALL(*mock, on_completed()).IN_SEQUENCE(s);
+
             obs | rpp::ops::buffer(3)
                 | rpp::ops::subscribe(mock);
-            SECTION("shall see -{1,2,3}-|")
-            {
-                CHECK(mock.get_received_values() == std::vector<std::vector<int>>{
-                          std::vector{1, 2, 3},
-                      });
-                CHECK(mock.get_on_completed_count() == 1);
-                CHECK(mock.get_on_error_count() == 0);
-            }
         }
-        SECTION("subscribe on it via buffer(4)")
+        SECTION("buffer(4) - shall see -{1,2,3}-|")
         {
+            REQUIRE_CALL(*mock, on_next(std::vector{1, 2, 3})).IN_SEQUENCE(s);
+            REQUIRE_CALL(*mock, on_completed()).IN_SEQUENCE(s);
+
             obs | rpp::ops::buffer(4)
                 | rpp::ops::subscribe(mock);
-            SECTION("shall see -{1,2,3}-|")
-            {
-                CHECK(mock.get_received_values() == std::vector<std::vector<int>>{
-                          std::vector{1, 2, 3},
-                      });
-                CHECK(mock.get_on_completed_count() == 1);
-                CHECK(mock.get_on_error_count() == 0);
-            }
         }
     }
 
@@ -95,43 +79,28 @@ TEST_CASE("buffer bundles items")
                                      rpp::source::error<int>(std::make_exception_ptr(std::runtime_error{""})).as_dynamic(),
                                      rpp::source::just(2).as_dynamic())
                  | rpp::ops::merge();
-        auto mock = mock_observer_strategy<std::vector<int>>{};
-        SECTION("subscribe on it via buffer(0)")
+        SECTION("buffer(0) - shall see -{1}-x, which means error event is through")
         {
+            REQUIRE_CALL(*mock, on_next(std::vector{1})).IN_SEQUENCE(s);
+            REQUIRE_CALL(*mock, on_error(trompeloeil::_)).IN_SEQUENCE(s);
+
             obs | rpp::ops::buffer(0)
                 | rpp::ops::subscribe(mock);
-            SECTION("shall see -{1}-x, which means error event is through")
-            {
-                CHECK(mock.get_received_values() == std::vector<std::vector<int>>{
-                          std::vector{1},
-                      });
-                CHECK(mock.get_on_completed_count() == 0);
-                CHECK(mock.get_on_error_count() == 1);
-            }
         }
-        SECTION("subscribe on it via buffer(1)")
+        SECTION("buffer(1) - shall see -{1}-x, which means error event is through")
         {
+            REQUIRE_CALL(*mock, on_next(std::vector{1})).IN_SEQUENCE(s);
+            REQUIRE_CALL(*mock, on_error(trompeloeil::_)).IN_SEQUENCE(s);
+
             obs | rpp::ops::buffer(1)
                 | rpp::ops::subscribe(mock);
-            SECTION("shall see -{1}-x, which means error event is through")
-            {
-                CHECK(mock.get_received_values() == std::vector<std::vector<int>>{
-                          std::vector{1},
-                      });
-                CHECK(mock.get_on_completed_count() == 0);
-                CHECK(mock.get_on_error_count() == 1);
-            }
         }
-        SECTION("subscribe on it via buffer(2)")
+        SECTION("buffer(2) - shall see --x, which means error event is through")
         {
+            REQUIRE_CALL(*mock, on_error(trompeloeil::_)).IN_SEQUENCE(s);
+
             obs | rpp::ops::buffer(2)
                 | rpp::ops::subscribe(mock);
-            SECTION("shall see --x, which means error event is through")
-            {
-                CHECK(mock.get_received_values().empty());
-                CHECK(mock.get_on_completed_count() == 0);
-                CHECK(mock.get_on_error_count() == 1);
-            }
         }
     }
 }

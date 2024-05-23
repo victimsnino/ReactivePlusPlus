@@ -12,7 +12,7 @@ set(TARGET benchmarks)
 
 add_executable(${TARGET} benchmarks.cpp)
 
-target_link_libraries(${TARGET} PRIVATE rpp nanobench)
+target_link_libraries(${TARGET} PRIVATE rpp nanobench::nanobench)
 if (RPP_BUILD_RXCPP)
     target_link_libraries(${TARGET} PRIVATE rxcpp)
     target_compile_definitions(${TARGET} PRIVATE RPP_BUILD_RXCPP)

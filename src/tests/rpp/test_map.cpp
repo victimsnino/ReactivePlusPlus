@@ -10,12 +10,12 @@
 
 #include <snitch/snitch.hpp>
 
-#include <rpp/observers/mock_observer.hpp>
 #include <rpp/operators/map.hpp>
 #include <rpp/sources/just.hpp>
 
 #include "copy_count_tracker.hpp"
 #include "disposable_observable.hpp"
+#include "rpp_trompeloil.hpp"
 
 #include <stdexcept>
 #include <string>
@@ -26,27 +26,27 @@ TEMPLATE_TEST_CASE("map modifies values and forward errors/completions", "", rpp
 
     SECTION("map changes value")
     {
-        mock_observer_strategy<std::string> mock{};
+        mock_observer<std::string> mock{};
+        trompeloeil::sequence      seq;
 
-        obs | rpp::operators::map([](auto v) { return std::string("TEST ") + std::to_string(v); }) | rpp::operators::subscribe(mock);
+        REQUIRE_CALL(*mock, on_next("TEST 1")).IN_SEQUENCE(seq);
+        REQUIRE_CALL(*mock, on_next("TEST 2")).IN_SEQUENCE(seq);
+        REQUIRE_CALL(*mock, on_completed()).IN_SEQUENCE(seq);
 
-        CHECK(mock.get_received_values() == std::vector<std::string>{"TEST 1", "TEST 2"});
-        CHECK(mock.get_on_error_count() == 0);
-        CHECK(mock.get_on_completed_count() == 1);
+        obs | rpp::operators::map([](auto v) { return std::string("TEST ") + std::to_string(v); }) | rpp::operators::subscribe(std::move(mock));
     }
 
 
     SECTION("map with exception value")
     {
-        mock_observer_strategy<int> mock{};
+        mock_observer<int>    mock{};
+        trompeloeil::sequence seq;
 
-        auto map = rpp::operators::map([](int) -> int { throw std::runtime_error{""}; });
+        REQUIRE_CALL(*mock, on_error(trompeloeil::_)).IN_SEQUENCE(seq);
 
-        obs | map | rpp::operators::subscribe(mock); // NOLINT
+        auto map = rpp::operators::map([](int) -> int { throw std::runtime_error{"map failed"}; });
 
-        CHECK(mock.get_received_values() == std::vector<int>{});
-        CHECK(mock.get_on_error_count() == 1);
-        CHECK(mock.get_on_completed_count() == 0);
+        obs | map | rpp::operators::subscribe(std::move(mock)); // NOLINT
     }
 }
 

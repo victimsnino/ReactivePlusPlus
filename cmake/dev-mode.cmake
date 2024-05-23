@@ -9,6 +9,7 @@
 if(POLICY CMP0091)
     cmake_policy(SET CMP0091 NEW)
 endif()
+
 if(POLICY CMP0144)
     cmake_policy(SET CMP0144 NEW)
 endif()
