@@ -24,6 +24,8 @@ macro(add_test_target target_name module files)
     rpp_add_qt_support_to_executable(${TARGET})
   endif()
 
+  target_compile_features(${TARGET} PRIVATE cxx_std_20)
+
   if(MSVC)
     target_compile_options(${TARGET} PRIVATE /W4 /WX /wd4702)
   else()
