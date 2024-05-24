@@ -8,7 +8,8 @@
 // Project home: https://github.com/victimsnino/ReactivePlusPlus
 //
 
-#include <snitch/snitch.hpp>
+#include <catch2/catch_template_test_macros.hpp>
+#include <catch2/catch_test_macros.hpp>
 
 #include <rpp/observers/mock_observer.hpp>
 #include <rpp/operators/take.hpp>
@@ -56,10 +57,10 @@ struct infinite_container
 
 TEMPLATE_TEST_CASE("from iterable emit items from container",
                    "",
-                   std::pair<rpp::schedulers::current_thread, rpp::memory_model::use_stack>,
-                   std::pair<rpp::schedulers::immediate, rpp::memory_model::use_stack>,
-                   std::pair<rpp::schedulers::current_thread, rpp::memory_model::use_shared>,
-                   std::pair<rpp::schedulers::immediate, rpp::memory_model::use_shared>)
+                   (std::pair<rpp::schedulers::current_thread, rpp::memory_model::use_stack>),
+                   (std::pair<rpp::schedulers::immediate, rpp::memory_model::use_stack>),
+                   (std::pair<rpp::schedulers::current_thread, rpp::memory_model::use_shared>),
+                   (std::pair<rpp::schedulers::immediate, rpp::memory_model::use_shared>))
 {
     using memory_model = std::tuple_element_t<1, TestType>;
     using scheduler    = std::tuple_element_t<0, TestType>;
@@ -369,10 +370,10 @@ TEST_CASE("just")
 
 TEMPLATE_TEST_CASE("just variadic",
                    "",
-                   std::pair<rpp::schedulers::current_thread, rpp::memory_model::use_stack>,
-                   std::pair<rpp::schedulers::immediate, rpp::memory_model::use_stack>,
-                   std::pair<rpp::schedulers::current_thread, rpp::memory_model::use_shared>,
-                   std::pair<rpp::schedulers::immediate, rpp::memory_model::use_shared>)
+                   (std::pair<rpp::schedulers::current_thread, rpp::memory_model::use_stack>),
+                   (std::pair<rpp::schedulers::immediate, rpp::memory_model::use_stack>),
+                   (std::pair<rpp::schedulers::current_thread, rpp::memory_model::use_shared>),
+                   (std::pair<rpp::schedulers::immediate, rpp::memory_model::use_shared>))
 {
     using memory_model = std::tuple_element_t<1, TestType>;
     using scheduler    = std::tuple_element_t<0, TestType>;

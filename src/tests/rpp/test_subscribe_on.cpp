@@ -8,7 +8,8 @@
 // Project home: https://github.com/victimsnino/ReactivePlusPlus
 //
 
-#include <snitch/snitch.hpp>
+#include <catch2/catch_template_test_macros.hpp>
+#include <catch2/catch_test_macros.hpp>
 
 #include <rpp/observers/mock_observer.hpp>
 #include <rpp/operators/as_blocking.hpp>
@@ -111,7 +112,7 @@ TEST_CASE("subscribe_on schedules job in another scheduler")
 }
 
 
-TEST_CASE("group_by satisfies disposable contracts")
+TEST_CASE("subscribe_on satisfies disposable contracts")
 {
     test_operator_with_disposable<int>(rpp::ops::subscribe_on(rpp::schedulers::current_thread{}));
 }

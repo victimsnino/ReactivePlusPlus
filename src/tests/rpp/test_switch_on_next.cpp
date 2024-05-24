@@ -8,7 +8,8 @@
 // Project home: https://github.com/victimsnino/ReactivePlusPlus
 //
 
-#include <snitch/snitch.hpp>
+#include <catch2/catch_template_test_macros.hpp>
+#include <catch2/catch_test_macros.hpp>
 
 #include <rpp/observables/dynamic_observable.hpp>
 #include <rpp/observers/mock_observer.hpp>
@@ -21,7 +22,6 @@
 
 #include "copy_count_tracker.hpp"
 #include "disposable_observable.hpp"
-#include "snitch_logging.hpp"
 
 TEST_CASE("switch_on_next switches observable after obtaining new one")
 {

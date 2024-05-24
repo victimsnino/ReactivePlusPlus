@@ -7,7 +7,8 @@
 //
 //  Project home: https://github.com/victimsnino/ReactivePlusPlus
 
-#include <snitch/snitch.hpp>
+#include <catch2/catch_template_test_macros.hpp>
+#include <catch2/catch_test_macros.hpp>
 
 #include <rpp/observables.hpp>
 #include <rpp/observers/mock_observer.hpp>
@@ -203,7 +204,7 @@ TEST_CASE("base observables")
     }
 }
 
-TEST_CASE("create observable works properly as observable")
+TEST_CASE("pipe observable works properly as observable")
 {
     SECTION("using const& variant")
     {
@@ -246,19 +247,19 @@ TEST_CASE("create observable works properly as observable")
 TEMPLATE_TEST_CASE(
     "observable has type traits defined",
     "",
-    rpp::empty_observable<int>,
-    rpp::dynamic_observable<int>,
-    rpp::blocking_observable<int, rpp::details::empty_strategy<int>>,
-    rpp::connectable_observable<rpp::empty_observable<int>, rpp::subjects::replay_subject<int>>,
-    rpp::grouped_observable<int, int, rpp::details::empty_strategy<int>>)
+    (rpp::empty_observable<int>),
+    (rpp::dynamic_observable<int>),
+    (rpp::blocking_observable<int, rpp::details::empty_strategy<int>>),
+    (rpp::connectable_observable<rpp::empty_observable<int>, rpp::subjects::replay_subject<int>>),
+    (rpp::grouped_observable<int, int, rpp::details::empty_strategy<int>>))
 {
     SECTION("value_type defined")
     {
-        CONSTEVAL_CHECK(requires { typename TestType::value_type; });
-        CONSTEVAL_CHECK(std::is_same_v<typename TestType::value_type, int>);
+        CHECK(requires { typename TestType::value_type; });
+        CHECK(std::is_same_v<typename TestType::value_type, int>);
     }
     SECTION("strategy_type defined")
     {
-        CONSTEVAL_CHECK(requires { typename TestType::strategy_type; });
+        CHECK(requires { typename TestType::strategy_type; });
     }
 }

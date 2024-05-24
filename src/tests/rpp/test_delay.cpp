@@ -8,7 +8,8 @@
 // Project home: https://github.com/victimsnino/ReactivePlusPlus
 //
 
-#include <snitch/snitch.hpp>
+#include <catch2/catch_template_test_macros.hpp>
+#include <catch2/catch_test_macros.hpp>
 
 #include <rpp/observers/mock_observer.hpp>
 #include <rpp/operators/as_blocking.hpp>
@@ -21,7 +22,6 @@
 #include <rpp/subjects/publish_subject.hpp>
 
 #include "disposable_observable.hpp"
-#include "snitch_logging.hpp"
 
 namespace
 {
@@ -56,7 +56,7 @@ TEST_CASE("delay delays observable's emissions")
     std::chrono::milliseconds delay_duration{300};
     auto                      scheduler = test_scheduler{};
 
-    auto subscribe_with_delay = [&mock, &delay_duration](auto get_now) {
+    auto subscribe_with_delay = [&](auto get_now) {
         const auto now = get_now();
         return rpp::ops::subscribe(
             [&, now, get_now](const auto& v) {
@@ -244,7 +244,7 @@ TEST_CASE("observe_on forward error immediately")
     std::chrono::milliseconds delay_duration{300};
     auto                      scheduler = test_scheduler{};
 
-    auto subscribe_with_delay = [&mock, &delay_duration](auto get_now) {
+    auto subscribe_with_delay = [&](auto get_now) {
         const auto now = get_now();
         return rpp::ops::subscribe(
             [&, now, get_now](const auto& v) {

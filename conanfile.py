@@ -4,6 +4,7 @@ class RppConan(ConanFile):
     name = "rpp"
     settings = "os", "compiler", "build_type", "arch"
     generators = "CMakeDeps", "CMakeToolchain"
+    extension_properties = {"compatibility_cppstd": False}
 
     options = {
         "with_grpc" : [False, True],
@@ -23,7 +24,7 @@ class RppConan(ConanFile):
     def requirements(self):
         if self.options.with_tests:
             self.requires("trompeloeil/47")
-            self.requires("snitch/1.2.3")
+            self.requires("catch2/3.6.0")
 
         if self.options.with_benchmarks:
             self.requires("nanobench/4.3.11")

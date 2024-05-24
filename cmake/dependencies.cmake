@@ -71,9 +71,10 @@ if (RPP_BUILD_RXCPP AND RPP_BUILD_BENCHMARKS)
   rpp_fetch_library(rxcpp https://github.com/ReactiveX/RxCpp.git origin/main)
 endif()
 
-# ===================== Snitch ===================
+# ===================== Tests ===================
 if (RPP_BUILD_TESTS)
-  rpp_fetch_library(snitch https://github.com/cschreib/snitch.git main)
+  rpp_fetch_library(Catch2 https://github.com/catchorg/Catch2.git v3.6.0)
+  target_compile_features(Catch2::Catch2WithMain INTERFACE cxx_std_20)
   rpp_fetch_library(trompeloeil https://github.com/rollbear/trompeloeil.git main)
 endif()
 

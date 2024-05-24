@@ -8,7 +8,8 @@
 // Project home: https://github.com/victimsnino/ReactivePlusPlus
 //
 
-#include <snitch/snitch.hpp>
+#include <catch2/catch_template_test_macros.hpp>
+#include <catch2/catch_test_macros.hpp>
 
 #include <rpp/observables/connectable_observable.hpp>
 #include <rpp/observers/mock_observer.hpp>
@@ -25,7 +26,7 @@ TEST_CASE("connectable observable")
     SECTION("source and connectable observable from it")
     {
         auto source = rpp::source::just(1);
-        auto test   = [&mock, &d](auto&& connectable) {
+        auto test   = [&](auto&& connectable) {
             SECTION("subscribe on connectable")
             {
                 connectable.subscribe(mock.get_observer(d));
@@ -86,7 +87,7 @@ TEST_CASE("connectable observable")
     SECTION("subject as source and connectable observable from it")
     {
         auto source = rpp::subjects::publish_subject<int>();
-        auto test   = [&mock, &source, &d](auto&& connectable) {
+        auto test   = [&](auto&& connectable) {
             SECTION("subscribe on connectable and connect")
             {
                 connectable.subscribe(mock.get_observer(d));

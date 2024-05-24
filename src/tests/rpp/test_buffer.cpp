@@ -8,7 +8,8 @@
 // Project home: https://github.com/victimsnino/ReactivePlusPlus
 //
 
-#include <snitch/snitch.hpp>
+#include <catch2/catch_template_test_macros.hpp>
+#include <catch2/catch_test_macros.hpp>
 
 #include <rpp/observables/dynamic_observable.hpp>
 #include <rpp/operators/buffer.hpp>
@@ -29,18 +30,18 @@ TEST_CASE("buffer bundles items")
         auto obs = rpp::source::just(1, 2, 3);
         SECTION("buffer(0) - shall see -{1}-{2}-{3}-|")
         {
-            REQUIRE_CALL(*mock, on_next(std::vector{1})).IN_SEQUENCE(s);
-            REQUIRE_CALL(*mock, on_next(std::vector{2})).IN_SEQUENCE(s);
-            REQUIRE_CALL(*mock, on_next(std::vector{3})).IN_SEQUENCE(s);
+            REQUIRE_CALL(*mock, on_next_rvalue(std::vector{1})).IN_SEQUENCE(s);
+            REQUIRE_CALL(*mock, on_next_rvalue(std::vector{2})).IN_SEQUENCE(s);
+            REQUIRE_CALL(*mock, on_next_rvalue(std::vector{3})).IN_SEQUENCE(s);
             REQUIRE_CALL(*mock, on_completed()).IN_SEQUENCE(s);
 
             obs | rpp::ops::buffer(0) | rpp::ops::subscribe(mock);
         }
         SECTION("buffer(1) - shall see -{1}-{2}-{3}-|")
         {
-            REQUIRE_CALL(*mock, on_next(std::vector{1})).IN_SEQUENCE(s);
-            REQUIRE_CALL(*mock, on_next(std::vector{2})).IN_SEQUENCE(s);
-            REQUIRE_CALL(*mock, on_next(std::vector{3})).IN_SEQUENCE(s);
+            REQUIRE_CALL(*mock, on_next_rvalue(std::vector{1})).IN_SEQUENCE(s);
+            REQUIRE_CALL(*mock, on_next_rvalue(std::vector{2})).IN_SEQUENCE(s);
+            REQUIRE_CALL(*mock, on_next_rvalue(std::vector{3})).IN_SEQUENCE(s);
             REQUIRE_CALL(*mock, on_completed()).IN_SEQUENCE(s);
 
             obs | rpp::ops::buffer(1)
@@ -48,8 +49,8 @@ TEST_CASE("buffer bundles items")
         }
         SECTION("buffer(2) - shall see -{1,2}-{3}|")
         {
-            REQUIRE_CALL(*mock, on_next(std::vector{1, 2})).IN_SEQUENCE(s);
-            REQUIRE_CALL(*mock, on_next(std::vector{3})).IN_SEQUENCE(s);
+            REQUIRE_CALL(*mock, on_next_rvalue(std::vector{1, 2})).IN_SEQUENCE(s);
+            REQUIRE_CALL(*mock, on_next_rvalue(std::vector{3})).IN_SEQUENCE(s);
             REQUIRE_CALL(*mock, on_completed()).IN_SEQUENCE(s);
 
             obs | rpp::ops::buffer(2)
@@ -57,7 +58,7 @@ TEST_CASE("buffer bundles items")
         }
         SECTION("buffer(3) - shall see -{1,2,3}-|")
         {
-            REQUIRE_CALL(*mock, on_next(std::vector{1, 2, 3})).IN_SEQUENCE(s);
+            REQUIRE_CALL(*mock, on_next_rvalue(std::vector{1, 2, 3})).IN_SEQUENCE(s);
             REQUIRE_CALL(*mock, on_completed()).IN_SEQUENCE(s);
 
             obs | rpp::ops::buffer(3)
@@ -65,7 +66,7 @@ TEST_CASE("buffer bundles items")
         }
         SECTION("buffer(4) - shall see -{1,2,3}-|")
         {
-            REQUIRE_CALL(*mock, on_next(std::vector{1, 2, 3})).IN_SEQUENCE(s);
+            REQUIRE_CALL(*mock, on_next_rvalue(std::vector{1, 2, 3})).IN_SEQUENCE(s);
             REQUIRE_CALL(*mock, on_completed()).IN_SEQUENCE(s);
 
             obs | rpp::ops::buffer(4)
@@ -81,7 +82,7 @@ TEST_CASE("buffer bundles items")
                  | rpp::ops::merge();
         SECTION("buffer(0) - shall see -{1}-x, which means error event is through")
         {
-            REQUIRE_CALL(*mock, on_next(std::vector{1})).IN_SEQUENCE(s);
+            REQUIRE_CALL(*mock, on_next_rvalue(std::vector{1})).IN_SEQUENCE(s);
             REQUIRE_CALL(*mock, on_error(trompeloeil::_)).IN_SEQUENCE(s);
 
             obs | rpp::ops::buffer(0)
@@ -89,7 +90,7 @@ TEST_CASE("buffer bundles items")
         }
         SECTION("buffer(1) - shall see -{1}-x, which means error event is through")
         {
-            REQUIRE_CALL(*mock, on_next(std::vector{1})).IN_SEQUENCE(s);
+            REQUIRE_CALL(*mock, on_next_rvalue(std::vector{1})).IN_SEQUENCE(s);
             REQUIRE_CALL(*mock, on_error(trompeloeil::_)).IN_SEQUENCE(s);
 
             obs | rpp::ops::buffer(1)
