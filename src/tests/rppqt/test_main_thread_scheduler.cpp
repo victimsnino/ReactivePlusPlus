@@ -21,6 +21,7 @@
 #include <QApplication>
 #include <future>
 #include <optional>
+#include <thread>
 
 TEST_CASE("main_thread_scheduler schedules actions to main thread")
 {
@@ -48,7 +49,7 @@ TEST_CASE("main_thread_scheduler schedules actions to main thread")
         {
             auto future = execution_thread.get_future();
             REQUIRE(future.wait_for(std::chrono::seconds{1}) == std::future_status::ready);
-            CHECK(future.get() == std::this_thread::get_id());
+            CHECK((future.get() == std::this_thread::get_id()));
         }
     }
 
