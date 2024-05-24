@@ -4,6 +4,7 @@ class RppConan(ConanFile):
     name = "rpp"
     settings = "os", "compiler", "build_type", "arch"
     generators = "CMakeDeps", "CMakeToolchain"
+    extension_properties = {"compatibility_cppstd": False}
 
     options = {
         "with_grpc" : [False, True],
