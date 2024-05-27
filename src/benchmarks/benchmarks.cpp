@@ -182,7 +182,7 @@ int main(int argc, char* argv[]) // NOLINT(bugprone-exception-escape)
                 rxcpp::observable<>::just(rxcpp::observable<>::just(1, rxcpp::identity_immediate()), rxcpp::identity_immediate()) | rxcpp::operators::concat() | rxcpp::operators::subscribe<int>([](int v) { ankerl::nanobench::doNotOptimizeAway(v); });
             });
         }
-        
+
         SECTION("concat_as_source of just(1 immediate) and just(1,2 immediate)create + subscribe")
         {
             TEST_RPP([&]() {
