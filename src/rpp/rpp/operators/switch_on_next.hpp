@@ -157,6 +157,30 @@ namespace rpp::operators::details
 
 namespace rpp::operators
 {
+   /**
+    * @brief Converts observable of observables into observable of values which emits values from most recent underlying observable till new observable obtained
+    *
+    * @marble switch_on_next
+    {
+        source observable: 
+        {   
+            +--1-2-3-5--|
+            .....+4--6-9|
+            .......+7-8-|
+        }
+        operator "switch_on_next" : +--1-24-7-8|
+    }
+    *
+    * @details Actually this operator just unsubscribes from previous observable and subscribes on new observable when obtained in `on_next`
+    *
+    * @warning #include <rpp/operators/switch_on_next.hpp>
+    *
+    * @par Example:
+    * @snippet switch_on_next.cpp switch_on_next
+    *
+    * @ingroup combining_operators
+    * @see https://reactivex.io/documentation/operators/switch.html
+    */
     inline auto switch_on_next()
     {
         return details::switch_on_next_t{};
