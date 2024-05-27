@@ -12,8 +12,8 @@
 #include <rpp/sources/fwd.hpp>
 
 #include <rpp/memory_model.hpp>
-#include <rpp/observables/variant_observable.hpp>
 #include <rpp/observables/observable.hpp>
+#include <rpp/observables/variant_observable.hpp>
 #include <rpp/operators/details/strategy.hpp>
 #include <rpp/sources/from.hpp>
 

@@ -19,7 +19,7 @@ namespace rpp::details
     template<constraint::decayed_type Type, constraint::observable_of_type<Type>... Observables>
     struct variant_observable_strategy
     {
-        using value_type                   = Type;
+        using value_type = Type;
 
         utils::unique_variant<Observables...> observables;
 
@@ -29,7 +29,7 @@ namespace rpp::details
             std::visit([&](const auto& o) { o.subscribe(std::forward<TObs>(obs)); }, observables);
         }
     };
-} // namespace rpp
+} // namespace rpp::details
 
 namespace rpp
 {
@@ -42,16 +42,23 @@ namespace rpp
     class variant_observable : public rpp::observable<Type, details::variant_observable_strategy<Type, Observables...>>
     {
         using base = rpp::observable<Type, details::variant_observable_strategy<Type, Observables...>>;
+
     public:
-        variant_observable(std::variant<Observables...> variant) : base{std::move(variant)} {}
+        variant_observable(std::variant<Observables...> variant)
+            : base{std::move(variant)}
+        {
+        }
 
         template<typename T>
             requires (constraint::decayed_any_of<T, Observables...>)
-        variant_observable(T&& o) : base{std::forward<T>(o)} {}
+        variant_observable(T&& o)
+            : base{std::forward<T>(o)}
+        {
+        }
 
         using base::base;
     };
 
     template<constraint::observable T, constraint::observable_of_type<rpp::utils::extract_observable_type_t<T>>... Observables>
     variant_observable(std::variant<T, Observables...> variant) -> variant_observable<rpp::utils::extract_observable_type_t<T>, T, Observables...>;
-}
+} // namespace rpp

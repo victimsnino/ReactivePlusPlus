@@ -20,9 +20,9 @@
 
 #include <rpp/observables/fwd.hpp>
 
-#include <rpp/observables/observable.hpp>
 #include <rpp/observables/blocking_observable.hpp>
 #include <rpp/observables/connectable_observable.hpp>
 #include <rpp/observables/dynamic_observable.hpp>
 #include <rpp/observables/grouped_observable.hpp>
+#include <rpp/observables/observable.hpp>
 #include <rpp/observables/variant_observable.hpp>

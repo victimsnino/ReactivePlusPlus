@@ -50,7 +50,7 @@ namespace rpp
 
     template<constraint::decayed_type Type, constraint::observable_strategy<Type> Strategy>
     class observable;
-}
+} // namespace rpp
 
 
 namespace rpp::constraint
@@ -130,7 +130,6 @@ namespace rpp
     template<constraint::decayed_type Type, rpp::constraint::observable_of_type<Type>... Observables>
     class variant_observable;
 } // namespace rpp
-
 
 
 #define RPP_CHECK_IF_TRAIT_ASSERTS_SATISFIED(Op, Type)                            \

@@ -315,18 +315,24 @@ namespace rpp::utils
 
     namespace details
     {
-        template <typename T, typename... Ts>
-        struct unique_variant_t : std::type_identity<T> {};
+        template<typename T, typename... Ts>
+        struct unique_variant_t : std::type_identity<T>
+        {
+        };
 
-        template <typename... Ts, typename U, typename... Us>
+        template<typename... Ts, typename U, typename... Us>
             requires (std::is_same_v<U, Ts> || ...)
-        struct unique_variant_t<std::variant<Ts...>, U, Us...> : unique_variant_t<std::variant<Ts...>, Us...>{};
+        struct unique_variant_t<std::variant<Ts...>, U, Us...> : unique_variant_t<std::variant<Ts...>, Us...>
+        {
+        };
 
-        template <typename... Ts, typename U, typename... Us>
-        struct unique_variant_t<std::variant<Ts...>, U, Us...> : public unique_variant_t<std::variant<Ts..., U>, Us...> {};
-    }
+        template<typename... Ts, typename U, typename... Us>
+        struct unique_variant_t<std::variant<Ts...>, U, Us...> : public unique_variant_t<std::variant<Ts..., U>, Us...>
+        {
+        };
+    } // namespace details
 
-    template <typename... Ts>
+    template<typename... Ts>
     using unique_variant = typename details::unique_variant_t<std::variant<>, Ts...>::type; // inspired by https://stackoverflow.com/a/57528226/17771792
 
 
