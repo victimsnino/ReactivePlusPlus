@@ -50,7 +50,7 @@ namespace rpp
         }
 
         template<typename T>
-            requires (constraint::decayed_any_of<T, Observables...>)
+            requires (!constraint::decayed_same_as<T, variant_observable> && constraint::decayed_any_of<T, Observables...>)
         variant_observable(T&& o)
             : base{std::forward<T>(o)}
         {
