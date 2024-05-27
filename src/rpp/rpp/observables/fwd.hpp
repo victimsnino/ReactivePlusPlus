@@ -50,16 +50,8 @@ namespace rpp
 
     template<constraint::decayed_type Type, constraint::observable_strategy<Type> Strategy>
     class observable;
+}
 
-    template<constraint::decayed_type Type>
-    class dynamic_observable;
-
-    template<constraint::decayed_type Type, constraint::observable_strategy<Type> Strategy>
-    class blocking_observable;
-
-    template<constraint::decayed_type KeyType, constraint::decayed_type Type, constraint::observable_strategy<Type> Strategy>
-    class grouped_observable;
-} // namespace rpp
 
 namespace rpp::constraint
 {
@@ -123,6 +115,23 @@ namespace rpp::constraint
     template<typename TObservable, typename... TObservables>
     concept observables_of_same_type = rpp::constraint::observable<TObservable> && (rpp::constraint::observable<TObservables> && ...) && (std::same_as<rpp::utils::extract_observable_type_t<TObservable>, rpp::utils::extract_observable_type_t<TObservables>> && ...);
 } // namespace rpp::constraint
+
+namespace rpp
+{
+    template<constraint::decayed_type Type>
+    class dynamic_observable;
+
+    template<constraint::decayed_type Type, constraint::observable_strategy<Type> Strategy>
+    class blocking_observable;
+
+    template<constraint::decayed_type KeyType, constraint::decayed_type Type, constraint::observable_strategy<Type> Strategy>
+    class grouped_observable;
+
+    template<constraint::decayed_type Type, rpp::constraint::observable_of_type<Type>... Observables>
+    class variant_observable;
+} // namespace rpp
+
+
 
 #define RPP_CHECK_IF_TRAIT_ASSERTS_SATISFIED(Op, Type)                            \
     /* operator_traits can be instantiated if all inner static_asserts are fine*/ \
