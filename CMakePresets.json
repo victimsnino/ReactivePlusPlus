@@ -139,6 +139,13 @@
       }
     },
     {
+      "name" : "build-asio",
+      "hidden": true,
+      "cacheVariables": {
+        "RPP_BUILD_ASIO_CODE" : "ON"
+      }
+    },
+    {
       "name" : "use-conan",
       "hidden": true,
       "cacheVariables": {
@@ -160,7 +167,7 @@
     },
     {
       "name": "ci-coverage-gcc",
-      "inherits": ["ci-build", "build-tests", "build-qt", "ci-unix", "ci-gcc"],
+      "inherits": ["ci-build", "build-tests", "build-qt", "build-asio", "ci-unix", "ci-gcc"],
       "cacheVariables": {
         "RPP_ENABLE_COVERAGE": "ON",
         "CMAKE_CXX_FLAGS": "-O0 -g --coverage -fkeep-inline-functions -fkeep-static-functions -fprofile-arcs -ftest-coverage -fno-inline -fno-omit-frame-pointer -fno-optimize-sibling-calls",
@@ -171,7 +178,7 @@
     },
     {
       "name": "ci-coverage-clang",
-      "inherits": ["ci-build", "build-tests", "build-qt", "ci-unix", "ci-clang"],
+      "inherits": ["ci-build", "build-tests", "build-qt", "build-asio", "ci-unix", "ci-clang"],
       "cacheVariables": {
         "RPP_ENABLE_COVERAGE": "ON",
         "CMAKE_CXX_FLAGS": "-fprofile-instr-generate -fcoverage-mapping",
@@ -182,58 +189,58 @@
     },
     {
       "name": "ci-sanitize-tsan",
-      "inherits": ["ci-build", "build-tests", "build-benchmarks", "build-qt", "ci-unix", "ci-clang"],
+      "inherits": ["ci-build", "build-tests", "build-benchmarks", "build-qt", "build-asio", "ci-unix", "ci-clang"],
       "cacheVariables": {
         "CMAKE_CXX_FLAGS": "-fsanitize=thread -g -O1"
       }
     },
     {
       "name": "ci-sanitize-asan",
-      "inherits": ["ci-build", "build-tests", "build-benchmarks", "build-qt", "ci-unix", "ci-clang"],
+      "inherits": ["ci-build", "build-tests", "build-benchmarks", "build-qt", "build-asio", "ci-unix", "ci-clang"],
       "cacheVariables": {
         "CMAKE_CXX_FLAGS": "-fsanitize=address -fno-optimize-sibling-calls -fsanitize-address-use-after-scope -fno-omit-frame-pointer -g -O1"
       }
     },
     {
       "name": "ci-sanitize-lsan",
-      "inherits": ["ci-build", "build-tests", "build-benchmarks", "build-qt", "ci-unix", "ci-clang"],
+      "inherits": ["ci-build", "build-tests", "build-benchmarks", "build-qt", "build-asio", "ci-unix", "ci-clang"],
       "cacheVariables": {
         "CMAKE_CXX_FLAGS": "-fsanitize=leak -fno-omit-frame-pointer -g -O1"
       }
     },
     {
       "name": "ci-sanitize-msan",
-      "inherits": ["ci-build", "build-tests", "build-benchmarks", "build-qt", "ci-unix", "ci-clang"],
+      "inherits": ["ci-build", "build-tests", "build-benchmarks", "build-qt", "build-asio", "ci-unix", "ci-clang"],
       "cacheVariables": {
         "CMAKE_CXX_FLAGS": "-fsanitize=memory -fno-optimize-sibling-calls -fsanitize-memory-track-origins=2 -fno-omit-frame-pointer -g -O2"
       }
     },
     {
       "name": "ci-sanitize-ubsan",
-      "inherits": ["ci-build", "build-tests", "build-benchmarks", "build-qt", "ci-unix", "ci-clang"],
+      "inherits": ["ci-build", "build-tests", "build-benchmarks", "build-qt", "build-asio", "ci-unix", "ci-clang"],
       "cacheVariables": {
         "CMAKE_CXX_FLAGS": "-fsanitize=undefined"
       }
     },
     {
       "name": "ci-macos-tests",
-      "inherits": ["ci-build", "build-tests", "build-examples", "build-qt", "build-sfml", "ci-unix"]
+      "inherits": ["ci-build", "build-tests", "build-examples", "build-qt", "build-asio", "build-sfml", "ci-unix"]
     },
     {
       "name": "ci-ubuntu-clang-tests",
-      "inherits": ["ci-build", "build-tests", "build-examples", "build-qt", "build-sfml", "ci-unix", "ci-clang", "cppcheck", "clang-tidy"]
+      "inherits": ["ci-build", "build-tests", "build-examples", "build-qt", "build-asio", "build-sfml", "ci-unix", "ci-clang", "cppcheck", "clang-tidy"]
     },
     {
       "name": "ci-ubuntu-gcc-tests",
-      "inherits": ["ci-build", "build-tests", "build-examples", "build-qt", "build-sfml", "ci-unix", "ci-gcc", "cppcheck", "clang-tidy"]
+      "inherits": ["ci-build", "build-tests", "build-examples", "build-qt", "build-asio", "build-sfml", "ci-unix", "ci-gcc", "cppcheck", "clang-tidy"]
     },
     {
       "name": "ci-windows-tests",
-      "inherits": ["ci-build", "build-tests", "build-examples", "build-qt", "build-sfml", "ci-win64"]
+      "inherits": ["ci-build", "build-tests", "build-examples", "build-qt", "build-asio", "build-sfml", "ci-win64"]
     },
     {
       "name": "ci-ubuntu-clang-tests-no-checks",
-      "inherits": ["ci-build", "build-tests", "build-examples", "build-qt", "build-sfml", "ci-unix", "ci-clang" ]
+      "inherits": ["ci-build", "build-tests", "build-examples", "build-qt", "build-asio", "build-sfml", "ci-unix", "ci-clang" ]
     },
 
 

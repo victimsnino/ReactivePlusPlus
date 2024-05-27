@@ -82,6 +82,7 @@ endfunction()
 # ------------ Options to tweak ---------------------
 option(RPP_BUILD_SFML_CODE "Enable SFML support in examples/code." OFF)
 option(RPP_BUILD_QT_CODE "Enable QT support in examples/code." OFF)
+option(RPP_BUILD_ASIO_CODE "Enable ASIO support in examples/code." OFF)
 
 if (RPP_DEVELOPER_MODE)
   option(RPP_BUILD_TESTS      "Build unit tests tree." OFF)
@@ -99,6 +100,9 @@ if (RPP_DEVELOPER_MODE)
     endif()
     if (RPP_BUILD_BENCHMARKS)
       set(CONAN_ARGS "${CONAN_ARGS};-o rpp/*:with_benchmarks=True")
+    endif()
+    if (RPP_BUILD_ASIO_CODE)
+      set(CONAN_ARGS "${CONAN_ARGS};-o rpp/*:with_asio=True")
     endif()
   endif()
 

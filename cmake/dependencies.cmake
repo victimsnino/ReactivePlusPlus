@@ -83,3 +83,8 @@ endif()
 if (RPP_BUILD_BENCHMARKS)
   rpp_fetch_library(nanobench https://github.com/martinus/nanobench.git master)
 endif()
+
+# ==================== ASIO =====================
+if (RPP_BUILD_ASIO_CODE)
+  find_package(asio REQUIRED)
+endif()
