@@ -26,6 +26,12 @@ install(
     INCLUDES DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/rppqt"
 )
 
+install(
+    TARGETS rppasio
+    EXPORT RPPTargets
+    INCLUDES DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/rppasio"
+)
+
 write_basic_package_version_file(
     "${package}ConfigVersion.cmake"
     COMPATIBILITY SameMajorVersion

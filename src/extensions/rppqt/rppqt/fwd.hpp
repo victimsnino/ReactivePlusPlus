@@ -24,9 +24,7 @@
 #include <rppqt/sources/fwd.hpp>
 
 /**
- * @defgroup schedulers Schedulers
- * @brief Scheduler is the way to introduce multi-threading in your application via RPP
- * @see https://reactivex.io/documentation/scheduler.html
- * @ingroup rpp
+ * @defgroup qt_schedulers Schedulers
+ * @ingroup rppqt
  */
 #include <rppqt/schedulers/fwd.hpp>
