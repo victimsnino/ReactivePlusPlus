@@ -124,3 +124,13 @@ endif()
 if (RPP_BUILD_BENCHMARKS)
   rpp_fetch_library(nanobench https://github.com/martinus/nanobench.git master)
 endif()
+
+# ==================== ASIO =====================
+if (RPP_BUILD_ASIO_CODE)
+  find_package(asio REQUIRED)
+
+  macro(rpp_add_asio_support_to_executable TARGET)
+    target_link_libraries(${TARGET} PRIVATE asio::asio)
+    target_compile_definitions(${TARGET} PRIVATE "ASIO_NO_TYPEID")
+  endmacro()
+endif()

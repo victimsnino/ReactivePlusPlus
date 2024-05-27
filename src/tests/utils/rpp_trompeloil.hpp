@@ -3,6 +3,7 @@
 #include <catch2/catch_template_test_macros.hpp>
 #include <catch2/catch_test_macros.hpp>
 
+#include <rpp/observers/observer.hpp>
 #include <rpp/disposables/fwd.hpp>
 
 #include <trompeloeil.hpp>
@@ -65,6 +66,9 @@ public:
 
     static bool is_disposed() noexcept { return false; }
     static void set_upstream(const rpp::disposable_wrapper&) noexcept {}
+
+    auto get_observer() const { return rpp::observer<T, mock_observer<T>>{*this}; }
+    auto get_observer(rpp::composite_disposable_wrapper d) const { return rpp::observer_with_disposable<T, mock_observer<T>>{std::move(d), *this}; }
 
 private:
     std::shared_ptr<impl_t> m_impl = std::make_shared<impl_t>();
