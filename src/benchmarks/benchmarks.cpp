@@ -190,7 +190,7 @@ int main(int argc, char* argv[]) // NOLINT(bugprone-exception-escape)
             });
 
             TEST_RXCPP([&]() {
-                rxcpp::observable<>::from(rxcpp::identity_immediate(), rxcpp::observable<>::just(1, rxcpp::identity_immediate()), rxcpp::observable<>::from(rxcpp::identity_immediate(), 1, 2)) | rxcpp::operators::concat() | rxcpp::operators::subscribe<int>([](int v) { ankerl::nanobench::doNotOptimizeAway(v); });
+                rxcpp::observable<>::from(rxcpp::identity_immediate(), rxcpp::observable<>::just(1, rxcpp::identity_immediate()).as_dynamic(), rxcpp::observable<>::from(rxcpp::identity_immediate(), 1, 2).as_dynamic()) | rxcpp::operators::concat() | rxcpp::operators::subscribe<int>([](int v) { ankerl::nanobench::doNotOptimizeAway(v); });
             });
         }
 
