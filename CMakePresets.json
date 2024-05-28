@@ -253,6 +253,80 @@
     {
       "name": "ci-windows-benchmarks",
       "inherits": ["ci-build", "build-benchmarks", "ci-win64"]
+    },
+
+
+    {
+      "name": "user-macos-tests",
+      "inherits": [
+          "build-dir",
+          "build-tests",
+          "build-examples",
+          "ci-unix"
+      ]
+    },
+    {
+        "name": "user-ubuntu-clang-tests",
+        "inherits": [
+            "build-dir",
+            "build-tests",
+            "build-examples",
+            "ci-unix",
+            "ci-clang"
+        ]
+    },
+    {
+        "name": "user-ubuntu-gcc-tests",
+        "inherits": [
+            "build-dir",
+            "build-tests",
+            "build-examples",
+            "ci-unix",
+            "ci-gcc"
+        ]
+    },
+    {
+        "name": "user-windows-tests",
+        "inherits": [
+            "build-dir",
+            "build-tests",
+            "build-examples",
+            "ci-win64"
+        ]
+    },
+    {
+        "name": "user-macos-benchmarks",
+        "inherits": [
+            "build-dir",
+            "build-benchmarks",
+            "ci-unix"
+        ]
+    },
+    {
+        "name": "user-ubuntu-clang-benchmarks",
+        "inherits": [
+            "build-dir",
+            "build-benchmarks",
+            "ci-unix",
+            "ci-clang"
+        ]
+    },
+    {
+        "name": "user-ubuntu-gcc-benchmarks",
+        "inherits": [
+            "build-dir",
+            "build-benchmarks",
+            "ci-unix",
+            "ci-gcc"
+        ]
+    },
+    {
+        "name": "user-windows-benchmarks",
+        "inherits": [
+            "build-dir",
+            "build-benchmarks",
+            "ci-win64"
+        ]
     }
   ],
   "buildPresets" :[
