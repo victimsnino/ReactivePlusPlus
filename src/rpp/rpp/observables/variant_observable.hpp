@@ -56,7 +56,7 @@ namespace rpp
         {
         }
 
-        variant_observable(const variant_observable&) = default;
+        variant_observable(const variant_observable&)     = default;
         variant_observable(variant_observable&&) noexcept = default;
 
         using base::base;
