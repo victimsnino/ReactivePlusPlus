@@ -12,8 +12,8 @@
 #include <rpp/sources/fwd.hpp>
 
 #include <rpp/memory_model.hpp>
-#include <rpp/observables/dynamic_observable.hpp>
 #include <rpp/observables/observable.hpp>
+#include <rpp/observables/variant_observable.hpp>
 #include <rpp/operators/details/strategy.hpp>
 #include <rpp/sources/from.hpp>
 
@@ -183,7 +183,10 @@ namespace rpp::source
             return rpp::details::make_concat_from_iterable<container>(std::forward<TObservable>(obs), std::forward<TObservables>(others)...);
         }
         else
-            return concat<MemoryModel>(std::forward<TObservable>(obs).as_dynamic(), std::forward<TObservables>(others).as_dynamic()...);
+        {
+            using variant_observable_t = rpp::variant_observable<rpp::utils::extract_observable_type_t<TObservable>, std::decay_t<TObservable>, std::decay_t<TObservables>...>;
+            return concat<MemoryModel>(variant_observable_t{std::forward<TObservable>(obs)}, variant_observable_t{std::forward<TObservables>(others)}...);
+        }
     }
 
     /**

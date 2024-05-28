@@ -183,6 +183,17 @@ int main(int argc, char* argv[]) // NOLINT(bugprone-exception-escape)
             });
         }
 
+        SECTION("concat_as_source of just(1 immediate) and just(1,2 immediate)create + subscribe")
+        {
+            TEST_RPP([&]() {
+                rpp::source::concat(rpp::source::just(rpp::schedulers::immediate{}, 1), rpp::source::just(rpp::schedulers::immediate{}, 1, 2)).subscribe([](int v) { ankerl::nanobench::doNotOptimizeAway(v); });
+            });
+
+            TEST_RXCPP([&]() {
+                rxcpp::observable<>::from(rxcpp::identity_immediate(), rxcpp::observable<>::just(1, rxcpp::identity_immediate()).as_dynamic(), rxcpp::observable<>::from(rxcpp::identity_immediate(), 1, 2).as_dynamic()) | rxcpp::operators::concat() | rxcpp::operators::subscribe<int>([](int v) { ankerl::nanobench::doNotOptimizeAway(v); });
+            });
+        }
+
         SECTION("defer from array of 1 - defer + create + subscribe + immediate")
         {
             TEST_RPP([&]() {

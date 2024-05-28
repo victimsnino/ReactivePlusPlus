@@ -25,3 +25,4 @@
 #include <rpp/observables/dynamic_observable.hpp>
 #include <rpp/observables/grouped_observable.hpp>
 #include <rpp/observables/observable.hpp>
+#include <rpp/observables/variant_observable.hpp>
