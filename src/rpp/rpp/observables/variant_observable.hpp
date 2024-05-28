@@ -20,6 +20,16 @@ namespace rpp::details
     struct variant_observable_strategy
     {
         using value_type = Type;
+        template<constraint::decayed_any_of<Observables...> TT>
+            requires (!constraint::decayed_same_as<variant_observable_strategy, TT>)
+        explicit variant_observable_strategy(TT&& observable) // NOLINT
+            : observables(std::forward<TT>(observable))
+        {
+        }
+
+
+        variant_observable_strategy(const variant_observable_strategy& other)     = default;
+        variant_observable_strategy(variant_observable_strategy&& other) noexcept = default;
 
         utils::unique_variant<Observables...> observables;
 
@@ -44,21 +54,6 @@ namespace rpp
         using base = rpp::observable<Type, details::variant_observable_strategy<Type, Observables...>>;
 
     public:
-        variant_observable(std::variant<Observables...> variant)
-            : base{std::move(variant)}
-        {
-        }
-
-        template<typename T>
-            requires (!constraint::decayed_same_as<T, variant_observable<Type, Observables...>> && constraint::decayed_any_of<T, Observables...>)
-        variant_observable(T&& o)
-            : base{std::forward<T>(o)}
-        {
-        }
-
-        variant_observable(const variant_observable&)     = default;
-        variant_observable(variant_observable&&) noexcept = default;
-
         using base::base;
     };
 
