@@ -51,6 +51,7 @@ var annotated_dup =
         [ "ref_count_on_subscribe_t< rpp::connectable_observable< OriginalObservable, Subject > >", "structrpp_1_1details_1_1ref__count__on__subscribe__t_3_01rpp_1_1connectable__observable_3_01_oria02afbb30282d4727b872472b2af56d8.html", "structrpp_1_1details_1_1ref__count__on__subscribe__t_3_01rpp_1_1connectable__observable_3_01_oria02afbb30282d4727b872472b2af56d8" ],
         [ "refocunt_disposable_inner", "classrpp_1_1details_1_1refocunt__disposable__inner.html", null ],
         [ "shared_container", "classrpp_1_1details_1_1shared__container.html", null ],
+        [ "variant_observable_strategy", "structrpp_1_1details_1_1variant__observable__strategy.html", null ],
         [ "with_disposable_strategy", "structrpp_1_1details_1_1with__disposable__strategy.html", null ]
       ] ],
       [ "memory_model", null, [
@@ -239,7 +240,8 @@ var annotated_dup =
       [ "observer", "classrpp_1_1observer.html", "classrpp_1_1observer" ],
       [ "observer< Type, details::with_disposable_strategy< Strategy, DisposableStrategy > >", "classrpp_1_1observer_3_01_type_00_01details_1_1with__disposable__strategy_3_01_strategy_00_01_disposable_strategy_01_4_01_4.html", "classrpp_1_1observer_3_01_type_00_01details_1_1with__disposable__strategy_3_01_strategy_00_01_disposable_strategy_01_4_01_4" ],
       [ "observer< Type, rpp::details::observers::dynamic_strategy< Type > >", "classrpp_1_1observer_3_01_type_00_01rpp_1_1details_1_1observers_1_1dynamic__strategy_3_01_type_01_4_01_4.html", null ],
-      [ "refcount_disposable", "classrpp_1_1refcount__disposable.html", null ]
+      [ "refcount_disposable", "classrpp_1_1refcount__disposable.html", null ],
+      [ "variant_observable", "classrpp_1_1variant__observable.html", null ]
     ] ],
     [ "rppqt", null, [
       [ "details", null, [

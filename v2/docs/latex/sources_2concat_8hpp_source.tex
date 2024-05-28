@@ -16,8 +16,8 @@
 \DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <rpp/sources/fwd.hpp>}}
 \DoxyCodeLine{00013\ }
 \DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <rpp/memory\_model.hpp>}}
-\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <rpp/observables/dynamic\_observable.hpp>}}
-\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ <rpp/observables/observable.hpp>}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <rpp/observables/observable.hpp>}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ <rpp/observables/variant\_observable.hpp>}}
 \DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ <rpp/operators/details/strategy.hpp>}}
 \DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ <rpp/sources/from.hpp>}}
 \DoxyCodeLine{00019\ }
@@ -160,16 +160,19 @@
 \DoxyCodeLine{00183\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ rpp::details::make\_concat\_from\_iterable<container>(std::forward<TObservable>(obs),\ std::forward<TObservables>(others)...);}
 \DoxyCodeLine{00184\ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{00185\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
-\DoxyCodeLine{00186\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{concat<MemoryModel>}}(std::forward<TObservable>(obs).as\_dynamic(),\ std::forward<TObservables>(others).as\_dynamic()...);}
-\DoxyCodeLine{00187\ \ \ \ \ \}}
-\DoxyCodeLine{00188\ }
-\DoxyCodeLine{00215\ \ \ \ \ \textcolor{keyword}{template}<constraint::memory\_model\ MemoryModel\ \textcolor{comment}{/*=\ memory\_model::use\_stack*/},\ constraint::iterable\ Iterable>}
-\DoxyCodeLine{00216\ \ \ \ \ \ \ \ \ \textcolor{keyword}{requires}\ constraint::observable<utils::iterable\_value\_t<Iterable>>}
-\DoxyCodeLine{00217\ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{concat}}(Iterable\&\&\ iterable)}
-\DoxyCodeLine{00218\ \ \ \ \ \{}
-\DoxyCodeLine{00219\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }Container\ =\ std::conditional\_t<std::same\_as<MemoryModel,\ rpp::memory\_model::use\_stack>,\ std::decay\_t<Iterable>,\ details::shared\_container<std::decay\_t<Iterable>>>;}
-\DoxyCodeLine{00220\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ rpp::details::make\_concat\_from\_iterable<Container>(std::forward<Iterable>(iterable));}
-\DoxyCodeLine{00221\ \ \ \ \ \}}
-\DoxyCodeLine{00222\ \}\ \textcolor{comment}{//\ namespace\ rpp::source}}
+\DoxyCodeLine{00186\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00187\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }variant\_observable\_t\ =\ \mbox{\hyperlink{classrpp_1_1variant__observable}{rpp::variant\_observable<rpp::utils::extract\_observable\_type\_t<TObservable>}},\ std::decay\_t<TObservable>,\ std::decay\_t<TObservables>...>;}
+\DoxyCodeLine{00188\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{concat<MemoryModel>}}(variant\_observable\_t\{std::forward<TObservable>(obs)\},\ variant\_observable\_t\{std::forward<TObservables>(others)\}...);}
+\DoxyCodeLine{00189\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00190\ \ \ \ \ \}}
+\DoxyCodeLine{00191\ }
+\DoxyCodeLine{00218\ \ \ \ \ \textcolor{keyword}{template}<constraint::memory\_model\ MemoryModel\ \textcolor{comment}{/*=\ memory\_model::use\_stack*/},\ constraint::iterable\ Iterable>}
+\DoxyCodeLine{00219\ \ \ \ \ \ \ \ \ \textcolor{keyword}{requires}\ constraint::observable<utils::iterable\_value\_t<Iterable>>}
+\DoxyCodeLine{00220\ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__creational__operators_gab6cfd9da2e3590fd199c9972477e04df}{concat}}(Iterable\&\&\ iterable)}
+\DoxyCodeLine{00221\ \ \ \ \ \{}
+\DoxyCodeLine{00222\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }Container\ =\ std::conditional\_t<std::same\_as<MemoryModel,\ rpp::memory\_model::use\_stack>,\ std::decay\_t<Iterable>,\ details::shared\_container<std::decay\_t<Iterable>>>;}
+\DoxyCodeLine{00223\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ rpp::details::make\_concat\_from\_iterable<Container>(std::forward<Iterable>(iterable));}
+\DoxyCodeLine{00224\ \ \ \ \ \}}
+\DoxyCodeLine{00225\ \}\ \textcolor{comment}{//\ namespace\ rpp::source}}
 
 \end{DoxyCode}

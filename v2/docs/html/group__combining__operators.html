@@ -146,6 +146,9 @@ requires (rpp::constraint::decayed_same_as&lt;T, Ts&gt; &amp;&amp; ...)</td></tr
 <tr class="memitem:ga04a8768b213581b77f025c39c42e1e78"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#ga04a8768b213581b77f025c39c42e1e78">rpp::operators::start_with_values</a> (const TScheduler &amp;scheduler, T &amp;&amp;v, Ts &amp;&amp;... vals)</td></tr>
 <tr class="memdesc:ga04a8768b213581b77f025c39c42e1e78"><td class="mdescLeft">&#160;</td><td class="mdescRight">Combines submissions from current observable with values into one but without overlapping and starting from values provided as arguments.  <br /></td></tr>
 <tr class="separator:ga04a8768b213581b77f025c39c42e1e78"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga917329dc13be7f4d037a12dcc1a1abe9" id="r_ga917329dc13be7f4d037a12dcc1a1abe9"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ga917329dc13be7f4d037a12dcc1a1abe9">rpp::operators::switch_on_next</a> ()</td></tr>
+<tr class="memdesc:ga917329dc13be7f4d037a12dcc1a1abe9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts observable of observables into observable of values which emits values from most recent underlying observable till new observable obtained.  <br /></td></tr>
+<tr class="separator:ga917329dc13be7f4d037a12dcc1a1abe9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga9345ba5faac717ba85fc88f1c5fff58b" id="r_ga9345ba5faac717ba85fc88f1c5fff58b"><td class="memTemplParams" colspan="2">template&lt;typename TSelector , <a class="el" href="conceptrpp_1_1constraint_1_1observable.html">rpp::constraint::observable</a> TObservable, rpp::constraint::observable... TObservables&gt; <br />
 requires (!<a class="el" href="conceptrpp_1_1constraint_1_1observable.html">rpp::constraint::observable</a>&lt;TSelector&gt; &amp;&amp; (!utils::is_not_template_callable&lt;TSelector&gt; || std::invocable&lt;TSelector, rpp::utils::convertible_to_any, utils::extract_observable_type_t&lt;TObservable&gt;, utils::extract_observable_type_t&lt;TObservables&gt;...&gt;))</td></tr>
 <tr class="memitem:ga9345ba5faac717ba85fc88f1c5fff58b"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#ga9345ba5faac717ba85fc88f1c5fff58b">rpp::operators::with_latest_from</a> (TSelector &amp;&amp;selector, TObservable &amp;&amp;<a class="el" href="classrpp_1_1observable.html">observable</a>, TObservables &amp;&amp;... observables)</td></tr>
@@ -509,6 +512,48 @@ requires (rpp::constraint::decayed_same_as&lt;T, Ts&gt; &amp;&amp; ...)</div>
 <dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="start__with_8hpp_source.html">rpp/operators/start_with.hpp</a>&gt;</dd></dl>
 <dl class="section user"><dt>Example</dt><dd><div class="fragment"></div><!-- fragment --> <div class="fragment"></div><!-- fragment --></dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/startwith.html">https://reactivex.io/documentation/operators/startwith.html</a> </dd></dl>
+
+</div>
+</div>
+<a id="ga917329dc13be7f4d037a12dcc1a1abe9" name="ga917329dc13be7f4d037a12dcc1a1abe9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga917329dc13be7f4d037a12dcc1a1abe9">&#9670;&#160;</a></span>switch_on_next()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto rpp::operators::switch_on_next </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Converts observable of observables into observable of values which emits values from most recent underlying observable till new observable obtained. </p>
+<div class="image">
+<object type="image/svg+xml" data="switch_on_next.svg" style="pointer-events: none;"></object>
+</div>
+<p>Actually this operator just unsubscribes from previous observable and subscribes on new observable when obtained in <code>on_next</code></p>
+<dl class="section warning"><dt>Warning</dt><dd>#include &lt;<a class="el" href="switch__on__next_8hpp_source.html">rpp/operators/switch_on_next.hpp</a>&gt;</dd></dl>
+<dl class="section user"><dt>Example:</dt><dd><div class="fragment"><div class="line">    <a class="code hl_function" href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">rpp::source::just</a>(<a class="code hl_function" href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">rpp::source::just</a>(1).as_dynamic(),</div>
+<div class="line">                      <a class="code hl_function" href="group__creational__operators.html#ga16c57281cc1b24605ec23b09ec880416">rpp::source::never&lt;int&gt;</a>().as_dynamic(),</div>
+<div class="line">                      <a class="code hl_function" href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">rpp::source::just</a>(2).as_dynamic())</div>
+<div class="line">        | <a class="code hl_function" href="#ga917329dc13be7f4d037a12dcc1a1abe9">rpp::operators::switch_on_next</a>()</div>
+<div class="line">        | <a class="code hl_function" href="group__utility__operators.html#ga149309d4b2e0f1201f1ab42597ace8ac">rpp::operators::subscribe</a>([](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; v &lt;&lt; <span class="stringliteral">&quot; &quot;</span>; });</div>
+<div class="line">    <span class="comment">// Output: 1 2</span></div>
+</div><!-- fragment --></dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/switch.html">https://reactivex.io/documentation/operators/switch.html</a> </dd></dl>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="switch_on_next_8cpp-example.html#a2">switch_on_next.cpp</a>.</dd>
+</dl>
 
 </div>
 </div>

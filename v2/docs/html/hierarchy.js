@@ -251,6 +251,9 @@ var hierarchy =
     [ "rpp::observable< Type, details::observables::dynamic_strategy< Type > >", "classrpp_1_1observable.html", [
       [ "rpp::dynamic_observable< Type >", "classrpp_1_1dynamic__observable.html", null ]
     ] ],
+    [ "rpp::observable< Type, details::variant_observable_strategy< Type, Observables... > >", "classrpp_1_1observable.html", [
+      [ "rpp::variant_observable< Type, Observables >", "classrpp_1_1variant__observable.html", null ]
+    ] ],
     [ "rpp::observable_chain_strategy< TStrategy, TStrategies >", "classrpp_1_1observable__chain__strategy.html", null ],
     [ "rpp::observable_chain_strategy< TStrategy >", "classrpp_1_1observable__chain__strategy_3_01_t_strategy_01_4.html", null ],
     [ "rpp::details::observer_impl< Type, Strategy, DisposablesStrategy >", "classrpp_1_1details_1_1observer__impl.html", null ],
@@ -381,6 +384,7 @@ var hierarchy =
     [ "rpp::memory_model::use_shared", "structrpp_1_1memory__model_1_1use__shared.html", null ],
     [ "rpp::memory_model::use_stack", "structrpp_1_1memory__model_1_1use__stack.html", null ],
     [ "rpp::subjects::details::replay_subject_base< Type, Serialized >::replay_state::value_with_time", "structrpp_1_1subjects_1_1details_1_1replay__subject__base_1_1replay__state_1_1value__with__time.html", null ],
+    [ "rpp::details::variant_observable_strategy< Type, Observables >", "structrpp_1_1details_1_1variant__observable__strategy.html", null ],
     [ "rpp::operators::details::window_observer_strategy< TObserver >", "classrpp_1_1operators_1_1details_1_1window__observer__strategy.html", null ],
     [ "rpp::operators::details::window_toggle_closing_observer_strategy< TState >", "structrpp_1_1operators_1_1details_1_1window__toggle__closing__observer__strategy.html", null ],
     [ "rpp::operators::details::window_toggle_observer_strategy< TObserver, TOpeningsObservable, TClosingsSelectorFn >", "classrpp_1_1operators_1_1details_1_1window__toggle__observer__strategy.html", null ],

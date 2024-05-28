@@ -24,5 +24,6 @@ var group__observables =
       [ "subscribe_with_disposable", "classrpp_1_1observable.html#aa236bfd268904fe6cb2a930f6b44cd58", null ],
       [ "subscribe_with_disposable", "classrpp_1_1observable.html#aa264608e3b4b845fa739b32c2e44d167", null ],
       [ "subscribe_with_disposable", "classrpp_1_1observable.html#acb875b06e348c6d77706e6d04aed4944", null ]
-    ] ]
+    ] ],
+    [ "rpp::variant_observable< Type, Observables >", "classrpp_1_1variant__observable.html", null ]
 ];

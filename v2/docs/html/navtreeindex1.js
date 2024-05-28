@@ -1,5 +1,7 @@
 var NAVTREEINDEX1 =
 {
+"group__conditional__operators.html#gae40802b5608766bfcc1417e210f41707":[1,0,3,2,0],
+"group__connectable__operators.html":[1,0,3,5],
 "group__connectable__operators.html#ga42498cc0bc565116e9deece3c3afa66f":[1,0,3,5,2],
 "group__connectable__operators.html#ga7c5ba7b673ad2f41b767f4cea0b5af3e":[1,0,3,5,4],
 "group__connectable__operators.html#gac7b150abbdae0a5084dd3784d9c7babf":[1,0,3,5,0],
@@ -200,7 +202,8 @@ var NAVTREEINDEX1 =
 "structrpp_1_1details_1_1ref__count__on__subscribe__t.html":[3,0,0,0,21],
 "structrpp_1_1details_1_1ref__count__on__subscribe__t_3_01rpp_1_1connectable__observable_3_01_ori08a6adc16d48deb4d454d582f87ab48e.html":[3,0,0,0,22,0],
 "structrpp_1_1details_1_1ref__count__on__subscribe__t_3_01rpp_1_1connectable__observable_3_01_oria02afbb30282d4727b872472b2af56d8.html":[3,0,0,0,22],
-"structrpp_1_1details_1_1with__disposable__strategy.html":[3,0,0,0,25],
+"structrpp_1_1details_1_1variant__observable__strategy.html":[3,0,0,0,25],
+"structrpp_1_1details_1_1with__disposable__strategy.html":[3,0,0,0,26],
 "structrpp_1_1interface__composite__disposable.html":[3,0,0,14],
 "structrpp_1_1interface__disposable.html":[1,0,0,4],
 "structrpp_1_1interface__disposable.html#a0348da95fe5929a3861e80b6651c347f":[1,0,0,4,1],
@@ -246,8 +249,5 @@ var NAVTREEINDEX1 =
 "structrpp_1_1operators_1_1details_1_1first__observer__strategy.html":[3,0,0,2,0,30],
 "structrpp_1_1operators_1_1details_1_1first__t.html":[3,0,0,2,0,31],
 "structrpp_1_1operators_1_1details_1_1first__t_1_1operator__traits.html":[3,0,0,2,0,31,0],
-"structrpp_1_1operators_1_1details_1_1flat__map__t.html":[3,0,0,2,0,32],
-"structrpp_1_1operators_1_1details_1_1group__by__inner__observer__strategy.html":[3,0,0,2,0,34],
-"structrpp_1_1operators_1_1details_1_1group__by__observable__strategy.html":[3,0,0,2,0,35],
-"structrpp_1_1operators_1_1details_1_1group__by__observer__strategy.html":[3,0,0,2,0,36]
+"structrpp_1_1operators_1_1details_1_1flat__map__t.html":[3,0,0,2,0,32]
 };

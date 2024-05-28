@@ -1,0 +1,63 @@
+\doxysection{variant\+\_\+observable.\+hpp}
+\hypertarget{variant__observable_8hpp_source}{}\label{variant__observable_8hpp_source}\index{src/rpp/rpp/observables/variant\_observable.hpp@{src/rpp/rpp/observables/variant\_observable.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ReactivePlusPlus\ library}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ Copyright\ Aleksey\ Loginov\ 2023\ -\/\ present.}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ \ Distributed\ under\ the\ Boost\ Software\ License,\ Version\ 1.0.}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ \ \ \ \ (See\ accompanying\ file\ LICENSE\_1\_0.txt\ or\ copy\ at}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ https://www.boost.org/LICENSE\_1\_0.txt)}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ \ Project\ home:\ https://github.com/victimsnino/ReactivePlusPlus}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <rpp/observables/observable.hpp>}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <rpp/utils/utils.hpp>}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <variant>}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{keyword}{namespace\ }rpp::details}
+\DoxyCodeLine{00018\ \{}
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type\ Type,\ constra\textcolor{keywordtype}{int}::observable\_of\_type<Type>...\ Observables>}
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1details_1_1variant__observable__strategy}{variant\_observable\_strategy}}}
+\DoxyCodeLine{00021\ \ \ \ \ \{}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }value\_type\ =\ Type;}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}<constraint::decayed\_any\_of<Observables...>\ TT>}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{requires}\ (!constraint::decayed\_same\_as<variant\_observable\_strategy,\ TT>)}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{structrpp_1_1details_1_1variant__observable__strategy}{variant\_observable\_strategy}}(TT\&\&\ \mbox{\hyperlink{classrpp_1_1observable}{observable}})\ \textcolor{comment}{//\ NOLINT}}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \ \ \ \ :\ observables(std::forward<TT>(\mbox{\hyperlink{classrpp_1_1observable}{observable}}))}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structrpp_1_1details_1_1variant__observable__strategy}{variant\_observable\_strategy}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structrpp_1_1details_1_1variant__observable__strategy}{variant\_observable\_strategy}}\&\ other)\ \ \ \ \ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structrpp_1_1details_1_1variant__observable__strategy}{variant\_observable\_strategy}}(\mbox{\hyperlink{structrpp_1_1details_1_1variant__observable__strategy}{variant\_observable\_strategy}}\&\&\ other)\ \textcolor{keyword}{noexcept}\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ utils::unique\_variant<Observables...>\ observables;}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::observer\_of\_type<value\_type>\ TObs>}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ subscribe(TObs\&\&\ obs)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00038\ \textcolor{keyword}{\ \ \ \ \ \ \ \ }\{}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \ \ \ \ std::visit([\&](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ o)\ \{\ o.subscribe(std::forward<TObs>(obs));\ \},\ observables);}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00041\ \ \ \ \ \};}
+\DoxyCodeLine{00042\ \}\ \textcolor{comment}{//\ namespace\ rpp::details}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{keyword}{namespace\ }rpp}
+\DoxyCodeLine{00045\ \{}
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type\ Type,\ constra\textcolor{keywordtype}{int}::observable\_of\_type<Type>...\ Observables>}
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1variant__observable}{variant\_observable}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classrpp_1_1observable}{rpp::observable}}<Type,\ \mbox{\hyperlink{structrpp_1_1details_1_1variant__observable__strategy}{details::variant\_observable\_strategy}}<Type,\ Observables...>>}
+\DoxyCodeLine{00053\ \ \ \ \ \{}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{classrpp_1_1observable}{base}}\ =\ \mbox{\hyperlink{classrpp_1_1observable}{rpp::observable}}<Type,\ \mbox{\hyperlink{structrpp_1_1details_1_1variant__observable__strategy}{details::variant\_observable\_strategy}}<Type,\ Observables...>>;}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }base::base;}
+\DoxyCodeLine{00058\ \ \ \ \ \};}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \ \ \ \ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::observable\ T,\ constra\textcolor{keywordtype}{int}::observable\_of\_type<rpp::utils::extract\_observable\_type\_t<T>>...\ Observables>}
+\DoxyCodeLine{00061\ \ \ \ \ \mbox{\hyperlink{classrpp_1_1variant__observable}{variant\_observable}}(std::variant<T,\ Observables...>\ variant)\ -\/>\ \mbox{\hyperlink{classrpp_1_1variant__observable}{variant\_observable<rpp::utils::extract\_observable\_type\_t<T>}},\ T,\ Observables...>;}
+\DoxyCodeLine{00062\ \}\ \textcolor{comment}{//\ namespace\ rpp}}
+
+\end{DoxyCode}

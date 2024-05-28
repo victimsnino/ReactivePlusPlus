@@ -450,7 +450,7 @@ dynamic_* versions to keep classes as variables</h2>
 <div class="line"> </div>
 <div class="line">    v.observable.subscribe(v.observer);</div>
 <div class="line">}</div>
-<div class="ttc" id="aclassrpp_1_1dynamic__observable_html"><div class="ttname"><a href="classrpp_1_1dynamic__observable.html">rpp::dynamic_observable</a></div><div class="ttdoc">Type-erased version of the rpp::observable. Any observable can be converted to dynamic_observable via...</div><div class="ttdef"><b>Definition</b> fwd.hpp:55</div></div>
+<div class="ttc" id="aclassrpp_1_1dynamic__observable_html"><div class="ttname"><a href="classrpp_1_1dynamic__observable.html">rpp::dynamic_observable</a></div><div class="ttdoc">Type-erased version of the rpp::observable. Any observable can be converted to dynamic_observable via...</div><div class="ttdef"><b>Definition</b> fwd.hpp:122</div></div>
 </div><!-- fragment --></li>
 <li>to convert observable/observer to dynamic_* version you could manually call <code>as_dynamic()</code> member function or just pass them to ctor</li>
 <li>actually they are similar to rxcpp's <code>observer&lt;T&gt;</code> and <code>observable&lt;T&gt;</code> but provides EXPLICIT definition of <code>dynamic</code> fact</li>
@@ -464,7 +464,7 @@ dynamic_* versions to keep classes as variables</h2>
 <div class="line">| rpp::ops::flat_map([](<span class="keyword">const</span> <a class="code hl_concept" href="conceptrpp_1_1constraint_1_1observable__of__type.html">rpp::constraint::observable_of_type&lt;int&gt;</a> <span class="keyword">auto</span>&amp; observable) { <span class="comment">// or just `const auto&amp; observable`</span></div>
 <div class="line"><span class="keywordflow">return</span> observable | rpp::ops::filter([](<span class="keywordtype">int</span> v){ <span class="keywordflow">return</span> v % 2 == 0;});</div>
 <div class="line">});</div>
-<div class="ttc" id="aconceptrpp_1_1constraint_1_1observable__of__type_html"><div class="ttname"><a href="conceptrpp_1_1constraint_1_1observable__of__type.html">rpp::constraint::observable_of_type</a></div><div class="ttdef"><b>Definition</b> fwd.hpp:85</div></div>
+<div class="ttc" id="aconceptrpp_1_1constraint_1_1observable__of__type_html"><div class="ttname"><a href="conceptrpp_1_1constraint_1_1observable__of__type.html">rpp::constraint::observable_of_type</a></div><div class="ttdef"><b>Definition</b> fwd.hpp:77</div></div>
 </div><!-- fragment --> </li>
 </ul>
 </div></div><!-- contents -->

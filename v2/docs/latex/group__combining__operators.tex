@@ -27,6 +27,8 @@ requires (rpp\+::constraint\+::decayed\+\_\+same\+\_\+as$<$T, Ts$>$ \&\& ...)}\\
 {\footnotesize template$<$constraint\+::memory\+\_\+model Memory\+Model = memory\+\_\+model\+::use\+\_\+stack, \mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1scheduler}{rpp\+::schedulers\+::constraint\+::scheduler}} TScheduler, typename T , typename... Ts$>$ \newline
 requires (rpp\+::constraint\+::decayed\+\_\+same\+\_\+as$<$T, Ts$>$ \&\& ...)}\\auto \mbox{\hyperlink{group__combining__operators_ga04a8768b213581b77f025c39c42e1e78}{rpp\+::operators\+::start\+\_\+with\+\_\+values}} (const TScheduler \&scheduler, T \&\&v, Ts \&\&... vals)
 \begin{DoxyCompactList}\small\item\em Combines submissions from current observable with values into one but without overlapping and starting from values provided as arguments. \end{DoxyCompactList}\item 
+auto \mbox{\hyperlink{group__combining__operators_ga917329dc13be7f4d037a12dcc1a1abe9}{rpp\+::operators\+::switch\+\_\+on\+\_\+next}} ()
+\begin{DoxyCompactList}\small\item\em Converts observable of observables into observable of values which emits values from most recent underlying observable till new observable obtained. \end{DoxyCompactList}\item 
 {\footnotesize template$<$typename TSelector , \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp\+::constraint\+::observable}} TObservable, rpp\+::constraint\+::observable... TObservables$>$ \newline
 requires (!\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp\+::constraint\+::observable}}$<$TSelector$>$ \&\& (!utils\+::is\+\_\+not\+\_\+template\+\_\+callable$<$TSelector$>$ \texorpdfstring{$\vert$}{|}\texorpdfstring{$\vert$}{|} std\+::invocable$<$TSelector, rpp\+::utils\+::convertible\+\_\+to\+\_\+any, utils\+::extract\+\_\+observable\+\_\+type\+\_\+t$<$TObservable$>$, utils\+::extract\+\_\+observable\+\_\+type\+\_\+t$<$TObservables$>$...$>$))}\\auto \mbox{\hyperlink{group__combining__operators_ga9345ba5faac717ba85fc88f1c5fff58b}{rpp\+::operators\+::with\+\_\+latest\+\_\+from}} (TSelector \&\&selector, TObservable \&\&\mbox{\hyperlink{classrpp_1_1observable}{observable}}, TObservables \&\&... observables)
 \begin{DoxyCompactList}\small\item\em Combines latest emissions from observables with emission from current observable when it sends new value via applying selector. \end{DoxyCompactList}\item 
@@ -370,6 +372,42 @@ This overloading operates on \doxylink{classrpp_1_1schedulers_1_1current__thread
 \begin{DoxySeeAlso}{See also}
 \href{https://reactivex.io/documentation/operators/startwith.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/startwith.\+html}} 
 \end{DoxySeeAlso}
+\Hypertarget{group__combining__operators_ga917329dc13be7f4d037a12dcc1a1abe9}\index{Combining Operators@{Combining Operators}!switch\_on\_next@{switch\_on\_next}}
+\index{switch\_on\_next@{switch\_on\_next}!Combining Operators@{Combining Operators}}
+\doxysubsubsubsubsection{\texorpdfstring{switch\_on\_next()}{switch\_on\_next()}}
+{\footnotesize\ttfamily \label{group__combining__operators_ga917329dc13be7f4d037a12dcc1a1abe9} 
+auto rpp\+::operators\+::switch\+\_\+on\+\_\+next (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Converts observable of observables into observable of values which emits values from most recent underlying observable till new observable obtained. 
+
+
+
+Actually this operator just unsubscribes from previous observable and subscribes on new observable when obtained in {\ttfamily on\+\_\+next}
+
+\begin{DoxyWarning}{Warning}
+\#include \texorpdfstring{$<$}{<}\doxylink{switch__on__next_8hpp_source}{rpp/operators/switch\+\_\+on\+\_\+next.\+hpp}\texorpdfstring{$>$}{>}
+\end{DoxyWarning}
+\begin{DoxyParagraph}{Example\+:}
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(\mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(1).as\_dynamic(),}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__creational__operators_ga16c57281cc1b24605ec23b09ec880416}{rpp::source::never<int>}}().as\_dynamic(),}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(2).as\_dynamic())}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__combining__operators_ga917329dc13be7f4d037a12dcc1a1abe9}{rpp::operators::switch\_on\_next}}()}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{rpp::operators::subscribe}}([](\textcolor{keywordtype}{int}\ v)\ \{\ std::cout\ <<\ v\ <<\ \textcolor{stringliteral}{"{}\ "{}};\ \});}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Output:\ 1\ 2}}
+
+\end{DoxyCodeInclude}
+
+\end{DoxyParagraph}
+\begin{DoxySeeAlso}{See also}
+\href{https://reactivex.io/documentation/operators/switch.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/switch.\+html}} 
+\end{DoxySeeAlso}
+\begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{switch_on_next_8cpp-example}{switch\+\_\+on\+\_\+next.\+cpp}}.\end{Desc}
 \Hypertarget{group__combining__operators_ga20acc2f23cb06163f9d5e56c5522ce6c}\index{Combining Operators@{Combining Operators}!with\_latest\_from@{with\_latest\_from}}
 \index{with\_latest\_from@{with\_latest\_from}!Combining Operators@{Combining Operators}}
 \doxysubsubsubsubsection{\texorpdfstring{with\_latest\_from()}{with\_latest\_from()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
