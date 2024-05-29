@@ -13,6 +13,7 @@
 
 #include <rpp/observers/mock_observer.hpp>
 #include <rpp/operators/as_blocking.hpp>
+#include <rpp/operators/finally.hpp>
 #include <rpp/operators/take_until.hpp>
 #include <rpp/schedulers/current_thread.hpp>
 #include <rpp/sources/empty.hpp>
@@ -223,4 +224,14 @@ TEST_CASE("take_until satisfies disposable contracts")
 {
     test_operator_with_disposable<int>(rpp::ops::take_until(rpp::source::never<int>()));
     test_operator_with_disposable<int>(rpp::ops::take_until(rpp::source::empty<int>()));
+}
+
+TEST_CASE("take_until dispose after completion")
+{
+    std::vector<std::string> log{};
+    rpp::source::empty<int>()
+        | rpp::ops::finally([&]() noexcept { log.push_back("finally"); })
+        | rpp::ops::subscribe([](int) {}, [&log]() { log.push_back("completed"); })
+
+            CHECK(log == std::vector<std::string>{"completed", "finally"});
 }

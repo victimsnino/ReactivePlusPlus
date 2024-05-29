@@ -89,22 +89,26 @@ namespace rpp::operators::details
 
         void on_error(const std::exception_ptr& err) const noexcept
         {
-            const auto obs_with_timeout = disposable->get_observer_with_timeout_under_lock();
-            if (disposable->is_disposed())
-                return;
+            {
+                const auto obs_with_timeout = disposable->get_observer_with_timeout_under_lock();
+                if (disposable->is_disposed())
+                    return;
 
+                obs_with_timeout->observer.on_error(err);
+            }
             disposable->dispose();
-            obs_with_timeout->observer.on_error(err);
         }
 
         void on_completed() const noexcept
         {
-            const auto obs_with_timeout = disposable->get_observer_with_timeout_under_lock();
-            if (disposable->is_disposed())
-                return;
+            {
+                const auto obs_with_timeout = disposable->get_observer_with_timeout_under_lock();
+                if (disposable->is_disposed())
+                    return;
 
+                obs_with_timeout->observer.on_completed();
+            }
             disposable->dispose();
-            obs_with_timeout->observer.on_completed();
         }
     };
 

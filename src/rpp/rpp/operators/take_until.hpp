@@ -48,14 +48,14 @@ namespace rpp::operators::details
 
         void on_error(const std::exception_ptr& err) const
         {
-            state->dispose();
             state->get_observer()->on_error(err);
+            state->dispose();
         }
 
         void on_completed() const
         {
-            state->dispose();
             state->get_observer()->on_completed();
+            state->dispose();
         }
 
         void set_upstream(const disposable_wrapper& d) { state->add(d); }
@@ -69,8 +69,8 @@ namespace rpp::operators::details
         template<typename T>
         void on_next(const T&) const
         {
-            take_until_observer_strategy_base<TObserver>::state->dispose();
             take_until_observer_strategy_base<TObserver>::state->get_observer()->on_completed();
+            take_until_observer_strategy_base<TObserver>::state->dispose();
         }
     };
 
