@@ -171,7 +171,7 @@ $(function(){initNavTree('new__thread_8hpp_source.html',''); initResizable(true)
 <div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span> </div>
 <div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>            <span class="keyword">static</span> <span class="keywordtype">void</span> data_thread(std::shared_ptr&lt;state_t&gt; state)</div>
 <div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>            {</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>                current_thread::s_queue = &amp;state-&gt;queue;</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>                current_thread::get_queue() = &amp;state-&gt;queue;</div>
 <div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span> </div>
 <div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>                <span class="keywordflow">while</span> (<span class="keyword">true</span>)</div>
 <div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>                {</div>
@@ -219,7 +219,7 @@ $(function(){initNavTree('new__thread_8hpp_source.html',''); initResizable(true)
 <div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>                    }</div>
 <div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>                }</div>
 <div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span> </div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>                current_thread::s_queue = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>                current_thread::get_queue() = <span class="keyword">nullptr</span>;</div>
 <div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>            }</div>
 <div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span> </div>
 <div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>        <span class="keyword">private</span>:</div>
