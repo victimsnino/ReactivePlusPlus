@@ -231,7 +231,7 @@ TEST_CASE("take_until dispose after completion")
     std::vector<std::string> log{};
     rpp::source::empty<int>()
         | rpp::ops::finally([&]() noexcept { log.push_back("finally"); })
-        | rpp::ops::subscribe([](int) {}, [&log]() { log.push_back("completed"); })
+        | rpp::ops::subscribe([](int) {}, [&log]() { log.push_back("completed"); });
 
-            CHECK(log == std::vector<std::string>{"completed", "finally"});
+    CHECK(log == std::vector<std::string>{"completed", "finally"});
 }
