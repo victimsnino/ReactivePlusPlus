@@ -87,7 +87,11 @@ namespace rpp::schedulers
         friend class new_thread;
         class worker_strategy;
 
-        inline static thread_local details::schedulables_queue<worker_strategy>* s_queue{};
+        static details::schedulables_queue<worker_strategy>*& get_queue()
+        {
+            thread_local details::schedulables_queue<worker_strategy>* queue{};
+            return queue;
+        }
 
         struct is_queue_is_empty
         {
@@ -99,9 +103,9 @@ namespace rpp::schedulers
 
         static void drain_queue() noexcept
         {
-            while (s_queue && !s_queue->is_empty())
+            while (get_queue() && !get_queue()->is_empty())
             {
-                auto top = s_queue->pop();
+                auto top = get_queue()->pop();
                 if (top->is_disposed())
                     continue;
 
@@ -113,7 +117,7 @@ namespace rpp::schedulers
                     {
                         if (!top->is_disposed())
                         {
-                            if (s_queue->is_empty())
+                            if (get_queue()->is_empty())
                             {
                                 if (const auto d = std::get_if<delay_from_now>(&res->get()))
                                 {
@@ -126,14 +130,14 @@ namespace rpp::schedulers
                                 continue;
                             }
 
-                            s_queue->emplace(top->handle_advanced_call(res.value()), std::move(top));
+                            get_queue()->emplace(top->handle_advanced_call(res.value()), std::move(top));
                         }
                     }
                     break;
                 }
             }
 
-            s_queue = nullptr;
+            get_queue() = nullptr;
         }
 
         class worker_strategy
@@ -145,20 +149,20 @@ namespace rpp::schedulers
                 if (handler.is_disposed())
                     return;
 
-                if (!s_queue)
+                if (!get_queue())
                 {
                     details::schedulables_queue<worker_strategy> queue{};
-                    s_queue = &queue;
+                    get_queue() = &queue;
 
                     const auto timepoint = details::immediate_scheduling_while_condition<worker_strategy>(duration, is_queue_is_empty{queue}, fn, handler, args...);
                     if (!timepoint || handler.is_disposed())
                         return drain_queue();
 
-                    s_queue->emplace(timepoint.value(), std::forward<Fn>(fn), std::forward<Handler>(handler), std::forward<Args>(args)...);
+                    get_queue()->emplace(timepoint.value(), std::forward<Fn>(fn), std::forward<Handler>(handler), std::forward<Args>(args)...);
                     return drain_queue();
                 }
 
-                s_queue->emplace(now() + duration, std::forward<Fn>(fn), std::forward<Handler>(handler), std::forward<Args>(args)...);
+                get_queue()->emplace(now() + duration, std::forward<Fn>(fn), std::forward<Handler>(handler), std::forward<Args>(args)...);
             }
 
             template<rpp::schedulers::constraint::schedulable_handler Handler, typename... Args, constraint::schedulable_fn<Handler, Args...> Fn>
@@ -167,9 +171,9 @@ namespace rpp::schedulers
                 if (handler.is_disposed())
                     return;
 
-                if (s_queue)
+                if (get_queue())
                 {
-                    s_queue->emplace(tp, std::forward<Fn>(fn), std::forward<Handler>(handler), std::forward<Args>(args)...);
+                    get_queue()->emplace(tp, std::forward<Fn>(fn), std::forward<Handler>(handler), std::forward<Args>(args)...);
                 }
                 else
                 {
@@ -187,10 +191,10 @@ namespace rpp::schedulers
         {
         public:
             own_queue_guard()
-                : m_clear_on_destruction{!s_queue}
+                : m_clear_on_destruction{!get_queue()}
             {
                 if (m_clear_on_destruction)
-                    s_queue = &m_queue;
+                    get_queue() = &m_queue;
             }
             ~own_queue_guard()
             {

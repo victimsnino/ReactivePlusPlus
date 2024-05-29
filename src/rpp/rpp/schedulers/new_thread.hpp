@@ -68,7 +68,7 @@ namespace rpp::schedulers
 
             static void data_thread(std::shared_ptr<state_t> state)
             {
-                current_thread::s_queue = &state->queue;
+                current_thread::get_queue() = &state->queue;
 
                 while (true)
                 {
@@ -116,7 +116,7 @@ namespace rpp::schedulers
                     }
                 }
 
-                current_thread::s_queue = nullptr;
+                current_thread::get_queue() = nullptr;
             }
 
         private:
