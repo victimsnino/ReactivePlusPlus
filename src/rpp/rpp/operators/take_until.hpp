@@ -33,10 +33,15 @@ namespace rpp::operators::details
         {
         }
 
+        void stop() { m_stopped = true; }
+        bool is_stopped() const { return m_stopped; }
+        bool stop_return_was_stopped() { return m_stopped.exchange(true); }
+
         rpp::utils::pointer_under_lock<TObserver> get_observer() { return m_observer_with_mutex; }
 
     private:
         rpp::utils::value_with_mutex<TObserver> m_observer_with_mutex{};
+        std::atomic_bool                        m_stopped{};
     };
 
     template<rpp::constraint::observer TObserver>
@@ -48,14 +53,14 @@ namespace rpp::operators::details
 
         void on_error(const std::exception_ptr& err) const
         {
-            state->dispose();
-            state->get_observer()->on_error(err);
+            if (!state->stop_return_was_stopped())
+                state->get_observer()->on_error(err);
         }
 
         void on_completed() const
         {
-            state->dispose();
-            state->get_observer()->on_completed();
+            if (!state->stop_return_was_stopped())
+                state->get_observer()->on_completed();
         }
 
         void set_upstream(const disposable_wrapper& d) { state->add(d); }
@@ -69,8 +74,8 @@ namespace rpp::operators::details
         template<typename T>
         void on_next(const T&) const
         {
-            take_until_observer_strategy_base<TObserver>::state->dispose();
-            take_until_observer_strategy_base<TObserver>::state->get_observer()->on_completed();
+            if (!take_until_observer_strategy_base<TObserver>::state->stop_return_was_stopped())
+                take_until_observer_strategy_base<TObserver>::state->get_observer()->on_completed();
         }
     };
 
@@ -80,7 +85,8 @@ namespace rpp::operators::details
         template<typename T>
         void on_next(T&& v) const
         {
-            take_until_observer_strategy_base<TObserver>::state->get_observer()->on_next(std::forward<T>(v));
+            if (!take_until_observer_strategy_base<TObserver>::state->is_stopped())
+                take_until_observer_strategy_base<TObserver>::state->get_observer()->on_next(std::forward<T>(v));
         }
     };
 
