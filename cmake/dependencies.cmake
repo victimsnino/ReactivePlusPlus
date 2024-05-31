@@ -6,12 +6,12 @@ macro(rpp_handle_3rdparty TARGET_NAME)
     target_compile_options(${TARGET_NAME} INTERFACE "-w")
   else()
     target_compile_options(${TARGET_NAME} PRIVATE "-w")
+    set_target_properties(${TARGET_NAME} PROPERTIES CXX_CLANG_TIDY "")
+    set_target_properties(${TARGET_NAME} PROPERTIES CXX_CPPCHECK "")
+    set_target_properties(${TARGET_NAME} PROPERTIES FOLDER 3rdparty)
   endif()
 
   set_target_properties(${TARGET_NAME} PROPERTIES INTERFACE_SYSTEM_INCLUDE_DIRECTORIES $<TARGET_PROPERTY:${TARGET_NAME},INTERFACE_INCLUDE_DIRECTORIES>)
-  set_target_properties(${TARGET_NAME} PROPERTIES CXX_CLANG_TIDY "")
-  set_target_properties(${TARGET_NAME} PROPERTIES CXX_CPPCHECK "")
-  set_target_properties(${TARGET_NAME} PROPERTIES FOLDER 3rdparty)
 endmacro()
 
 # ===================== SFML =======================
