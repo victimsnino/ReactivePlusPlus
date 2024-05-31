@@ -31,7 +31,7 @@ namespace rpp::operators::details
         take_until_disposable(const TObserver& observer)
             : m_observer_with_mutex(observer)
         {
-        }   
+        }
 
         void stop() { m_stopped = true; }
         bool is_stopped() const { return m_stopped; }
