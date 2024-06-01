@@ -14,7 +14,6 @@
 #include <rpp/disposables/composite_disposable.hpp>
 #include <rpp/disposables/disposable_wrapper.hpp>
 #include <rpp/observables/dynamic_observable.hpp>
-#include <rpp/observers/mock_observer.hpp>
 #include <rpp/operators/concat.hpp>
 #include <rpp/schedulers/immediate.hpp>
 #include <rpp/sources/concat.hpp>
@@ -28,6 +27,7 @@
 #include <memory>
 #include <optional>
 #include <stdexcept>
+#include "rpp_trompeloil.hpp"
 
 struct my_container_with_error : std::vector<rpp::dynamic_observable<int>>
 {
@@ -69,313 +69,181 @@ private:
     rpp::dynamic_observable<int> m_obs = rpp::source::just(1).as_dynamic();
 };
 
-TEMPLATE_TEST_CASE("concat as source", "", rpp::memory_model::use_stack, rpp::memory_model::use_shared)
+TEMPLATE_TEST_CASE("concat", "", rpp::memory_model::use_stack, rpp::memory_model::use_shared)
 {
-    mock_observer_strategy<int> mock{};
-    SECTION("concat of solo observable")
-    {
-        auto observable = rpp::source::concat<TestType>(rpp::source::just<TestType>(1, 2));
-        observable.subscribe(mock);
-
-        CHECK(mock.get_received_values() == std::vector{1, 2});
-        CHECK(mock.get_on_error_count() == 0);
-        CHECK(mock.get_on_completed_count() == 1);
-    }
-    SECTION("concat of multiple same observables")
-    {
-        auto observable = rpp::source::concat<TestType>(rpp::source::just<TestType>(1, 2), rpp::source::just<TestType>(1, 2));
-        observable.subscribe(mock);
-
-        CHECK(mock.get_received_values() == std::vector{1, 2, 1, 2});
-        CHECK(mock.get_on_error_count() == 0);
-        CHECK(mock.get_on_completed_count() == 1);
-    }
-    SECTION("concat of multiple different observables")
-    {
-        auto observable = rpp::source::concat<TestType>(rpp::source::just<TestType>(1, 2), rpp::source::just<TestType>(1));
-        observable.subscribe(mock);
-
-        CHECK(mock.get_received_values() == std::vector{1, 2, 1});
-        CHECK(mock.get_on_error_count() == 0);
-        CHECK(mock.get_on_completed_count() == 1);
-    }
-    SECTION("concat of array of different observables")
-    {
-        auto observable = rpp::source::concat<TestType>(std::array{rpp::source::just<TestType>(1, 2), rpp::source::just<TestType>(1, 1)});
-        observable.subscribe(mock);
-
-        CHECK(mock.get_received_values() == std::vector{1, 2, 1, 1});
-        CHECK(mock.get_on_error_count() == 0);
-        CHECK(mock.get_on_completed_count() == 1);
-    }
-    SECTION("concat stop if no completion")
-    {
-        std::optional<rpp::dynamic_observer<int>> observer{};
-        auto                                      observable = rpp::source::concat<TestType>(rpp::source::just<TestType>(1, 2), rpp::source::create<int>([&](auto&& obs) { observer.emplace(std::forward<decltype(obs)>(obs).as_dynamic()); }), rpp::source::just<TestType>(3));
-        observable.subscribe(mock);
-
-        CHECK(mock.get_received_values() == std::vector{1, 2});
-        CHECK(mock.get_on_error_count() == 0);
-        CHECK(mock.get_on_completed_count() == 0);
-        REQUIRE(observer.has_value());
-
-        SECTION("send completion later")
+    mock_observer<int> mock{};
+    trompeloeil::sequence s{};
+    auto test = [&](const auto& make_concat) {
+        SECTION("concat of solo observable")
         {
-            observer->on_completed();
+            REQUIRE_CALL(*mock, on_next_lvalue(1)).IN_SEQUENCE(s);
+            REQUIRE_CALL(*mock, on_next_lvalue(2)).IN_SEQUENCE(s);
+            REQUIRE_CALL(*mock, on_completed()).IN_SEQUENCE(s);
 
-            CHECK(mock.get_received_values() == std::vector{1, 2, 3});
-            CHECK(mock.get_on_error_count() == 0);
-            CHECK(mock.get_on_completed_count() == 1);
+            auto observable = make_concat(rpp::source::just<TestType>(1, 2));
+            observable.subscribe(mock);
         }
-        SECTION("send emission later")
+        SECTION("concat of multiple same observables")
         {
-            observer->on_next(10);
+            REQUIRE_CALL(*mock, on_next_lvalue(1)).IN_SEQUENCE(s);
+            REQUIRE_CALL(*mock, on_next_lvalue(2)).IN_SEQUENCE(s);
+            REQUIRE_CALL(*mock, on_next_lvalue(1)).IN_SEQUENCE(s);
+            REQUIRE_CALL(*mock, on_next_lvalue(2)).IN_SEQUENCE(s);
+            REQUIRE_CALL(*mock, on_completed()).IN_SEQUENCE(s);
 
-            CHECK(mock.get_received_values() == std::vector{1, 2, 10});
-            CHECK(mock.get_on_error_count() == 0);
-            CHECK(mock.get_on_completed_count() == 0);
+            auto observable = make_concat(rpp::source::just<TestType>(1, 2), rpp::source::just<TestType>(1, 2));
+            observable.subscribe(mock);
         }
-        SECTION("send error later")
+        SECTION("concat of multiple different observables")
         {
-            observer->on_error({});
+            REQUIRE_CALL(*mock, on_next_lvalue(1)).IN_SEQUENCE(s);
+            REQUIRE_CALL(*mock, on_next_lvalue(2)).IN_SEQUENCE(s);
+            REQUIRE_CALL(*mock, on_next_lvalue(1)).IN_SEQUENCE(s);
+            REQUIRE_CALL(*mock, on_completed()).IN_SEQUENCE(s);
 
-            CHECK(mock.get_received_values() == std::vector{1, 2});
-            CHECK(mock.get_on_error_count() == 1);
-            CHECK(mock.get_on_completed_count() == 0);
+            auto observable = make_concat(rpp::source::just<TestType>(1, 2), rpp::source::just<TestType>(1));
+            observable.subscribe(mock);
         }
-    }
-    SECTION("concat stoped if disposed")
-    {
-        auto d = rpp::composite_disposable_wrapper::make();
-        auto observable =
-            rpp::source::concat<TestType>(rpp::source::just<TestType>(1),
-                                          rpp::source::create<int>([&](auto&& obs) { d.dispose(); obs.on_completed(); }),
-                                          rpp::source::create<int>([&](auto&&) { FAIL("Shouldn't be called"); }),
-                                          rpp::source::just<TestType>(3));
-        observable.subscribe(rpp::composite_disposable_wrapper{d}, mock);
-
-        CHECK(mock.get_received_values() == std::vector{1});
-        CHECK(mock.get_on_error_count() == 0);
-        CHECK(mock.get_on_completed_count() == 0);
-    }
-
-    SECTION("concat tracks actual upstream")
-    {
-        auto d  = rpp::composite_disposable_wrapper::make();
-        auto d1 = rpp::composite_disposable_wrapper::make();
-
-        auto observable = rpp::source::concat<TestType>(rpp::source::create<int>([&](auto&& obs) {
-            obs.set_upstream(rpp::disposable_wrapper{d1});
-
-            CHECK(!d.is_disposed());
-            CHECK(!d1.is_disposed());
-
-            d.dispose();
-
-            CHECK(d.is_disposed());
-            CHECK(d1.is_disposed());
-        }));
-        observable.subscribe(rpp::composite_disposable_wrapper{d}, mock);
-    }
-
-    SECTION("concat tracks actual upstream for 2 upstreams")
-    {
-        auto d  = rpp::composite_disposable_wrapper::make();
-        auto d1 = rpp::composite_disposable_wrapper::make();
-        auto d2 = rpp::composite_disposable_wrapper::make();
-
-        auto observable =
-            rpp::source::concat<TestType>(rpp::source::create<int>([&](auto&& obs) { obs.set_upstream(rpp::disposable_wrapper{d1}); obs.on_completed(); }),
-                                          rpp::source::create<int>([&](auto&& obs) {
-                                              obs.set_upstream(rpp::disposable_wrapper{d2});
-
-                                              CHECK(!d.is_disposed());
-                                              CHECK(d1.is_disposed());
-                                              CHECK(!d2.is_disposed());
-
-                                              d.dispose();
-
-                                              CHECK(d.is_disposed());
-                                              CHECK(d2.is_disposed());
-                                          }));
-
-        observable.subscribe(rpp::composite_disposable_wrapper{d}, mock);
-    }
-
-    SECTION("container with error on begin")
-    {
-        rpp::source::concat<TestType>(my_container_with_error{}).subscribe(mock);
-
-        CHECK(mock.get_on_error_count() == 1);
-    }
-
-    SECTION("container with error on increment")
-    {
-        rpp::source::concat<TestType>(my_container_with_error_on_increment{}).subscribe(mock);
-
-        CHECK(mock.get_on_error_count() == 1);
-    }
-}
-
-TEMPLATE_TEST_CASE("concat as operator", "", rpp::schedulers::current_thread, rpp::schedulers::immediate)
-{
-    mock_observer_strategy<int> mock{};
-    SECTION("concat of solo observable")
-    {
-        auto observable = rpp::source::just(TestType{}, rpp::source::just(TestType{}, 1, 2)) | rpp::operators::concat();
-        observable.subscribe(mock);
-
-        CHECK(mock.get_received_values() == std::vector{1, 2});
-        CHECK(mock.get_on_error_count() == 0);
-        CHECK(mock.get_on_completed_count() == 1);
-    }
-    SECTION("concat of multiple same observables")
-    {
-        auto observable = rpp::source::just(TestType{}, rpp::source::just(TestType{}, 1, 2), rpp::source::just(TestType{}, 1, 2)) | rpp::operators::concat();
-        observable.subscribe(mock);
-
-        CHECK(mock.get_received_values() == std::vector{1, 2, 1, 2});
-        CHECK(mock.get_on_error_count() == 0);
-        CHECK(mock.get_on_completed_count() == 1);
-    }
-    SECTION("concat of multiple different observables")
-    {
-        auto observable = rpp::source::just(TestType{}, rpp::source::just(TestType{}, 1, 2).as_dynamic(), rpp::source::just(TestType{}, 1).as_dynamic()) | rpp::operators::concat();
-        observable.subscribe(mock);
-
-        CHECK(mock.get_received_values() == std::vector{1, 2, 1});
-        CHECK(mock.get_on_error_count() == 0);
-        CHECK(mock.get_on_completed_count() == 1);
-    }
-    SECTION("concat of array of different observables")
-    {
-        auto observable = rpp::source::from_iterable(std::array{rpp::source::just(TestType{}, 1, 2), rpp::source::just(TestType{}, 1, 1)}) | rpp::operators::concat();
-        observable.subscribe(mock);
-
-        CHECK(mock.get_received_values() == std::vector{1, 2, 1, 1});
-        CHECK(mock.get_on_error_count() == 0);
-        CHECK(mock.get_on_completed_count() == 1);
-    }
-    SECTION("concat stop if no completion")
-    {
-        std::optional<rpp::dynamic_observer<int>> observer{};
-        auto                                      observable = rpp::source::just(TestType{}, rpp::source::just(TestType{}, 1, 2).as_dynamic(), rpp::source::create<int>([&](auto&& obs) { observer.emplace(std::forward<decltype(obs)>(obs).as_dynamic()); }).as_dynamic(), rpp::source::just(TestType{}, 3).as_dynamic()) | rpp::operators::concat();
-        observable.subscribe(mock);
-
-        CHECK(mock.get_received_values() == std::vector{1, 2});
-        CHECK(mock.get_on_error_count() == 0);
-        CHECK(mock.get_on_completed_count() == 0);
-        REQUIRE(observer.has_value());
-
-        SECTION("send completion later")
+        SECTION("concat stop if no completion")
         {
-            observer->on_completed();
+            REQUIRE_CALL(*mock, on_next_lvalue(1)).IN_SEQUENCE(s);
+            REQUIRE_CALL(*mock, on_next_lvalue(2)).IN_SEQUENCE(s);
 
-            CHECK(mock.get_received_values() == std::vector{1, 2, 3});
-            CHECK(mock.get_on_error_count() == 0);
-            CHECK(mock.get_on_completed_count() == 1);
+            std::optional<rpp::dynamic_observer<int>> observer{};
+            auto                                      observable = make_concat(rpp::source::just<TestType>(1, 2), rpp::source::create<int>([&](auto&& obs) { observer.emplace(std::forward<decltype(obs)>(obs).as_dynamic()); }), rpp::source::just<TestType>(3));
+            observable.subscribe(mock);
+
+            REQUIRE(observer.has_value());
+
+            SECTION("send completion later")
+            {
+                REQUIRE_CALL(*mock, on_next_lvalue(3)).IN_SEQUENCE(s);
+                REQUIRE_CALL(*mock, on_completed()).IN_SEQUENCE(s);
+
+                observer->on_completed();
+            }
+            SECTION("send emission later")
+            {
+                REQUIRE_CALL(*mock, on_next_rvalue(10)).IN_SEQUENCE(s);
+
+                observer->on_next(10);
+            }
+            SECTION("send error later")
+            {
+                REQUIRE_CALL(*mock, on_error(trompeloeil::_)).IN_SEQUENCE(s);
+
+                observer->on_error({});
+            }
         }
-        SECTION("send emission later")
+        SECTION("concat stoped if disposed")
         {
-            observer->on_next(10);
+            REQUIRE_CALL(*mock, on_next_lvalue(1)).IN_SEQUENCE(s);
 
-            CHECK(mock.get_received_values() == std::vector{1, 2, 10});
-            CHECK(mock.get_on_error_count() == 0);
-            CHECK(mock.get_on_completed_count() == 0);
+            auto d = rpp::composite_disposable_wrapper::make();
+            auto observable =
+                make_concat(rpp::source::just<TestType>(1),
+                                            rpp::source::create<int>([&](auto&& obs) { d.dispose(); obs.on_completed(); }),
+                                            rpp::source::create<int>([&](auto&&) { FAIL("Shouldn't be called"); }),
+                                            rpp::source::just<TestType>(3));
+            observable.subscribe(rpp::composite_disposable_wrapper{d}, mock);
         }
-        SECTION("send error later")
+
+        SECTION("concat tracks actual upstream")
         {
-            observer->on_error({});
+            auto d  = rpp::composite_disposable_wrapper::make();
+            auto d1 = rpp::composite_disposable_wrapper::make();
 
-            CHECK(mock.get_received_values() == std::vector{1, 2});
-            CHECK(mock.get_on_error_count() == 1);
-            CHECK(mock.get_on_completed_count() == 0);
+            auto observable = make_concat(rpp::source::create<int>([&](auto&& obs) {
+                obs.set_upstream(rpp::disposable_wrapper{d1});
+
+                CHECK(!d.is_disposed());
+                CHECK(!d1.is_disposed());
+
+                d.dispose();
+
+                CHECK(d.is_disposed());
+                CHECK(d1.is_disposed());
+            }));
+            observable.subscribe(rpp::composite_disposable_wrapper{d}, mock);
         }
-    }
-    SECTION("concat stoped if disposed")
-    {
-        auto d = rpp::composite_disposable_wrapper::make();
-        auto observable =
-            rpp::source::just(TestType{}, rpp::source::just(TestType{}, 1).as_dynamic(), rpp::source::create<int>([&](auto&& obs) { obs.on_next(2); d.dispose(); obs.on_completed(); }).as_dynamic(), rpp::source::create<int>([&](auto&&) { FAIL("Shouldn't be called"); }).as_dynamic(), rpp::source::just(TestType{}, 3).as_dynamic())
-            | rpp::operators::concat();
-        observable.subscribe(rpp::composite_disposable_wrapper{d}, mock);
 
-        CHECK(mock.get_received_values() == std::vector{1, 2});
-        CHECK(mock.get_on_error_count() == 0);
-        CHECK(mock.get_on_completed_count() == 0);
-    }
-    SECTION("concat tracks actual upstream")
-    {
-        auto d  = rpp::composite_disposable_wrapper::make();
-        auto d1 = rpp::composite_disposable_wrapper::make();
+        SECTION("concat tracks actual upstream for 2 upstreams")
+        {
+            auto d  = rpp::composite_disposable_wrapper::make();
+            auto d1 = rpp::composite_disposable_wrapper::make();
+            auto d2 = rpp::composite_disposable_wrapper::make();
 
-        auto observable = rpp::source::just(TestType{}, rpp::source::create<int>([&](auto&& obs) {
-                                                obs.set_upstream(rpp::disposable_wrapper{d1});
+            auto observable =
+                make_concat(rpp::source::create<int>([&](auto&& obs) { obs.set_upstream(rpp::disposable_wrapper{d1}); obs.on_completed(); }),
+                                            rpp::source::create<int>([&](auto&& obs) {
+                                                obs.set_upstream(rpp::disposable_wrapper{d2});
 
                                                 CHECK(!d.is_disposed());
-                                                CHECK(!d1.is_disposed());
+                                                CHECK(d1.is_disposed());
+                                                CHECK(!d2.is_disposed());
 
                                                 d.dispose();
 
                                                 CHECK(d.is_disposed());
-                                                CHECK(d1.is_disposed());
-                                            }))
-                        | rpp::operators::concat();
-        observable.subscribe(rpp::composite_disposable_wrapper{d}, mock);
+                                                CHECK(d2.is_disposed());
+                                            }));
+
+            observable.subscribe(rpp::composite_disposable_wrapper{d}, mock);
+        }
+    };
+
+    SECTION("concat as source") {
+        test([](auto&& ...vals) {
+            return rpp::source::concat<TestType>(std::forward<decltype(vals)>(vals)...);
+        });
+        SECTION("concat of array of different observables")
+        {
+            REQUIRE_CALL(*mock, on_next_lvalue(1)).IN_SEQUENCE(s);
+            REQUIRE_CALL(*mock, on_next_lvalue(2)).IN_SEQUENCE(s);
+            REQUIRE_CALL(*mock, on_next_lvalue(1)).IN_SEQUENCE(s);
+            REQUIRE_CALL(*mock, on_next_lvalue(1)).IN_SEQUENCE(s);
+            REQUIRE_CALL(*mock, on_completed()).IN_SEQUENCE(s);
+
+            auto observable = rpp::source::concat<TestType>(std::array{rpp::source::just<TestType>(1, 2), rpp::source::just<TestType>(1, 1)});
+            observable.subscribe(mock);
+        }
+        SECTION("container with error on begin")
+        {
+            REQUIRE_CALL(*mock, on_error(trompeloeil::_)).IN_SEQUENCE(s);
+
+            rpp::source::concat<TestType>(my_container_with_error{}).subscribe(mock);
+        }
+
+        SECTION("container with error on increment")
+        {
+            REQUIRE_CALL(*mock, on_error(trompeloeil::_)).IN_SEQUENCE(s);
+
+            rpp::source::concat<TestType>(my_container_with_error_on_increment{}).subscribe(mock);
+        }
     }
-    SECTION("concat tracks actual upstream for 2 upstreams")
-    {
-        auto d  = rpp::composite_disposable_wrapper::make();
-        auto d1 = rpp::composite_disposable_wrapper::make();
-        auto d2 = rpp::composite_disposable_wrapper::make();
-
-        auto observable =
-            rpp::source::just(TestType{}, rpp::source::create<int>([&](auto&& obs) { obs.set_upstream(rpp::disposable_wrapper{d1}); obs.on_completed(); }).as_dynamic(), rpp::source::create<int>([&](auto&& obs) {
-                                                                                                          obs.set_upstream(rpp::disposable_wrapper{d2});
-
-                                                                                                          CHECK(!d.is_disposed());
-                                                                                                          CHECK(d1.is_disposed());
-                                                                                                          CHECK(!d2.is_disposed());
-
-                                                                                                          d.dispose();
-
-                                                                                                          CHECK(d.is_disposed());
-                                                                                                          CHECK(d2.is_disposed());
-                                                                                                      }).as_dynamic())
-            | rpp::operators::concat();
-
-        observable.subscribe(rpp::composite_disposable_wrapper{d}, mock);
+    SECTION("concat as operator") {
+        test([](auto&& ...vals) {
+            return rpp::source::just(std::forward<decltype(vals)>(vals).as_dynamic()...) | rpp::ops::concat();
+        });
     }
 }
 
 TEST_CASE("concat as operator async completiton")
 {
-    mock_observer_strategy<int>         mock{};
+    mock_observer<int>         mock{};
+    trompeloeil::sequence s{};
     rpp::subjects::publish_subject<int> subj{};
     rpp::source::just(subj.get_observable().as_dynamic(), rpp::source::just(100).as_dynamic())
         | rpp::ops::concat()
         | rpp::ops::subscribe(mock);
 
-    SECTION("nothing happens before emitting values from subj")
-    {
-        CHECK(mock.get_received_values() == std::vector<int>{});
-        CHECK(mock.get_on_error_count() == 0);
-        CHECK(mock.get_on_completed_count() == 0);
-    }
+
+    REQUIRE_CALL(*mock, on_next_lvalue(1)).IN_SEQUENCE(s);
     subj.get_observer().on_next(1);
-    SECTION("observer see first value from subject")
-    {
-        CHECK(mock.get_received_values() == std::vector<int>{1});
-        CHECK(mock.get_on_error_count() == 0);
-        CHECK(mock.get_on_completed_count() == 0);
-    }
+
+    REQUIRE_CALL(*mock, on_next_lvalue(100)).IN_SEQUENCE(s);
+    REQUIRE_CALL(*mock, on_completed()).IN_SEQUENCE(s);
     subj.get_observer().on_completed();
-    SECTION("observer see values from first observable when first completes")
-    {
-        CHECK(mock.get_received_values() == std::vector<int>{1, 100});
-        CHECK(mock.get_on_error_count() == 0);
-        CHECK(mock.get_on_completed_count() == 1);
-    }
 }
 
 TEST_CASE("concat doesn't produce extra copies")
