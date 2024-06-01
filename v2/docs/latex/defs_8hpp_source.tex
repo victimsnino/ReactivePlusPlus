@@ -23,8 +23,10 @@
 \DoxyCodeLine{00019\ \textcolor{comment}{//\ MSVC\ has\ bad\ support\ for\ the\ no\_unique\_address\ from\ the\ box\ NOW,\ but\ provides\ specificator\ to\ enable\ full\ support.\ GCC/Clang\ works\ as\ expected}}
 \DoxyCodeLine{00020\ \textcolor{preprocessor}{\#if\ defined(\_MSC\_VER)\ \&\&\ \_MSC\_FULL\_VER\ >=\ 192829913}}
 \DoxyCodeLine{00021\ \textcolor{preprocessor}{\ \ \ \ \#define\ RPP\_NO\_UNIQUE\_ADDRESS\ [[msvc::no\_unique\_address]]}}
-\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#else}}
-\DoxyCodeLine{00023\ \textcolor{preprocessor}{\ \ \ \ \#define\ RPP\_NO\_UNIQUE\_ADDRESS\ [[no\_unique\_address]]}}
-\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#elif\ defined(\_\_APPLE\_\_)\ \&\&\ defined(\_\_clang\_\_)\ }\textcolor{comment}{//\ apple\ works\ unexpectedly\ bad\ on\ clang\ 15\ =C}}
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\ \ \ \ \#define\ RPP\_NO\_UNIQUE\_ADDRESS}}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\ \ \ \ \#define\ RPP\_NO\_UNIQUE\_ADDRESS\ [[no\_unique\_address]]}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#endif}}
 
 \end{DoxyCode}
