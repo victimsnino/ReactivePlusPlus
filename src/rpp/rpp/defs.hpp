@@ -19,6 +19,8 @@
 // MSVC has bad support for the no_unique_address from the box NOW, but provides specificator to enable full support. GCC/Clang works as expected
 #if defined(_MSC_VER) && _MSC_FULL_VER >= 192829913
     #define RPP_NO_UNIQUE_ADDRESS [[msvc::no_unique_address]]
+#elif defined(__APPLE__) && defined(__clang__) // apple works unexpectedly bad on clang 15 =C
+    #define RPP_NO_UNIQUE_ADDRESS
 #else
     #define RPP_NO_UNIQUE_ADDRESS [[no_unique_address]]
 #endif
