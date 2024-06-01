@@ -23,11 +23,11 @@
 
 #include "copy_count_tracker.hpp"
 #include "disposable_observable.hpp"
+#include "rpp_trompeloil.hpp"
 
 #include <memory>
 #include <optional>
 #include <stdexcept>
-#include "rpp_trompeloil.hpp"
 
 struct my_container_with_error : std::vector<rpp::dynamic_observable<int>>
 {
@@ -71,9 +71,9 @@ private:
 
 TEMPLATE_TEST_CASE("concat", "", rpp::memory_model::use_stack, rpp::memory_model::use_shared)
 {
-    mock_observer<int> mock{};
+    mock_observer<int>    mock{};
     trompeloeil::sequence s{};
-    auto test = [&](const auto& make_concat) {
+    auto                  test = [&](const auto& make_concat) {
         SECTION("concat of solo observable")
         {
             REQUIRE_CALL(*mock, on_next_lvalue(1)).IN_SEQUENCE(s);
@@ -142,9 +142,9 @@ TEMPLATE_TEST_CASE("concat", "", rpp::memory_model::use_stack, rpp::memory_model
             auto d = rpp::composite_disposable_wrapper::make();
             auto observable =
                 make_concat(rpp::source::just<TestType>(1),
-                                            rpp::source::create<int>([&](auto&& obs) { d.dispose(); obs.on_completed(); }),
-                                            rpp::source::create<int>([&](auto&&) { FAIL("Shouldn't be called"); }),
-                                            rpp::source::just<TestType>(3));
+                            rpp::source::create<int>([&](auto&& obs) { d.dispose(); obs.on_completed(); }),
+                            rpp::source::create<int>([&](auto&&) { FAIL("Shouldn't be called"); }),
+                            rpp::source::just<TestType>(3));
             observable.subscribe(rpp::composite_disposable_wrapper{d}, mock);
         }
 
@@ -175,25 +175,26 @@ TEMPLATE_TEST_CASE("concat", "", rpp::memory_model::use_stack, rpp::memory_model
 
             auto observable =
                 make_concat(rpp::source::create<int>([&](auto&& obs) { obs.set_upstream(rpp::disposable_wrapper{d1}); obs.on_completed(); }),
-                                            rpp::source::create<int>([&](auto&& obs) {
-                                                obs.set_upstream(rpp::disposable_wrapper{d2});
+                            rpp::source::create<int>([&](auto&& obs) {
+                                obs.set_upstream(rpp::disposable_wrapper{d2});
 
-                                                CHECK(!d.is_disposed());
-                                                CHECK(d1.is_disposed());
-                                                CHECK(!d2.is_disposed());
+                                CHECK(!d.is_disposed());
+                                CHECK(d1.is_disposed());
+                                CHECK(!d2.is_disposed());
 
-                                                d.dispose();
+                                d.dispose();
 
-                                                CHECK(d.is_disposed());
-                                                CHECK(d2.is_disposed());
-                                            }));
+                                CHECK(d.is_disposed());
+                                CHECK(d2.is_disposed());
+                            }));
 
             observable.subscribe(rpp::composite_disposable_wrapper{d}, mock);
         }
     };
 
-    SECTION("concat as source") {
-        test([](auto&& ...vals) {
+    SECTION("concat as source")
+    {
+        test([](auto&&... vals) {
             return rpp::source::concat<TestType>(std::forward<decltype(vals)>(vals)...);
         });
         SECTION("concat of array of different observables")
@@ -221,8 +222,9 @@ TEMPLATE_TEST_CASE("concat", "", rpp::memory_model::use_stack, rpp::memory_model
             rpp::source::concat<TestType>(my_container_with_error_on_increment{}).subscribe(mock);
         }
     }
-    SECTION("concat as operator") {
-        test([](auto&& ...vals) {
+    SECTION("concat as operator")
+    {
+        test([](auto&&... vals) {
             return rpp::source::just(std::forward<decltype(vals)>(vals).as_dynamic()...) | rpp::ops::concat();
         });
     }
@@ -230,8 +232,8 @@ TEMPLATE_TEST_CASE("concat", "", rpp::memory_model::use_stack, rpp::memory_model
 
 TEST_CASE("concat as operator async completiton")
 {
-    mock_observer<int>         mock{};
-    trompeloeil::sequence s{};
+    mock_observer<int>                  mock{};
+    trompeloeil::sequence               s{};
     rpp::subjects::publish_subject<int> subj{};
     rpp::source::just(subj.get_observable().as_dynamic(), rpp::source::just(100).as_dynamic())
         | rpp::ops::concat()
