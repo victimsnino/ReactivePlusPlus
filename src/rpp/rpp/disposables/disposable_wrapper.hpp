@@ -130,7 +130,7 @@ namespace rpp
          */
         template<std::derived_from<TDisposable> TTarget = TDefaultMake, typename... TArgs>
             requires (std::constructible_from<TTarget, TArgs && ...>)
-        static disposable_wrapper_impl make(TArgs&&... args)
+        [[nodiscard]] static disposable_wrapper_impl make(TArgs&&... args)
         {
             const auto ptr      = std::make_shared<details::auto_dispose_wrapper<TTarget>>(std::forward<TArgs>(args)...);
             auto       base_ptr = std::shared_ptr<TDisposable>{ptr, static_cast<TDisposable*>(ptr->get())};
@@ -144,7 +144,7 @@ namespace rpp
         /**
          * @brief Creates disposable_wrapper which behaves like disposed disposable
          */
-        static disposable_wrapper_impl empty()
+        [[nodiscard]] static disposable_wrapper_impl empty()
         {
             return disposable_wrapper_impl{};
         }
@@ -181,12 +181,12 @@ namespace rpp
                 locked->clear();
         }
 
-        std::shared_ptr<TDisposable> lock() const noexcept
+        [[nodiscard]] std::shared_ptr<TDisposable> lock() const noexcept
         {
             return std::static_pointer_cast<TDisposable>(get().first);
         }
 
-        disposable_wrapper_impl as_weak() const
+        [[nodiscard]] disposable_wrapper_impl as_weak() const
         {
             auto [locked, is_shared] = get();
             if (is_shared)

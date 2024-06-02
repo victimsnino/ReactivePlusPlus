@@ -1,8 +1,11 @@
-# User Guide
+# Documentation
 
-## Introduction
+[TOC]
 
-I'm highly recommend to read this article: [The introduction to Reactive Programming you've been missing](https://gist.github.com/staltz/868e7e9bc2a7b8c1f754)
+## Introduction to Reactive Programming
+
+> [!IMPORTANT]
+> I'm highly recommend to read this article beforehand: [The introduction to Reactive Programming you've been missing](https://gist.github.com/staltz/868e7e9bc2a7b8c1f754)
 
 ### What is Reactive Programming?
 
@@ -50,7 +53,7 @@ Reactive programming is a powerful way to handle input that is **distributed in 
 
 See <https://reactivex.io/intro.html> for more details.
 
-## Core concepts of Reactive Programming
+### Core concepts of Reactive Programming
 
 In short, Reactive Programming can be described as follows:
 
@@ -398,7 +401,56 @@ makes only 1 copy/move to shared_ptr and then uses it instead.
 
 As a a result, users can select preferable way of handling of their types.
 
-## ReactivePlusPlus specific
+
+## ReactivePlusPlus details
+### Disposable
+
+Rpp has following disposables related classes:
+- `interface_disposable` - is base inerface for all disposables in RPP. Simplest ever disposable with `dispose()` and `is_disposed()` method. This type of disposable observable is passing to observer.
+  - `callback_disposable` - is just **noexcept** to be called on dispose. Can be constructed like this:
+  ```cpp
+  auto d = rpp::make_callback_disposable([]() noexcept { std::cout << "DISPOSED! " << std::endl; });
+  ```
+- `interface_composite_disposable` - is base interface for disposables able to keep dependent disposables inside: main difference - new method `add` accepting another dispoable inhereting from `interface_disposable`. Main idea: `interface_composite_disposable` is aggregating other disposables inside and during `dispose()` method calling `dispose()` method of its dependents.
+  - `composite_disposable` - is concrete realization of `interface_composite_disposable`
+  - `refcount_disposable` - is variant of `composite_disposable` but it keeps refcounter inside. This counter can be incremented with help of `add_ref()` method returning new dependent `composite_disposable`. Idea is simple: original `refcount_disposable` would be disposed IF all of its dependents disposables (created via `add_ref()` ) `dispose()` methods were called.
+
+All disposable in RPP should be created and used via `rpp::disposable_wrapper_impl<T>` wrapper. For simplicity usage it has 2 base aliases:
+- `disposable_wrapper` - wrapper over `interface_disposable`
+- `composite_disposable_wrapper` - wrapper over `interface_composite_disposable`
+
+`disposable_wrapper` is kind of smart_pointer (like std::unique_ptr) but for disposables. So, default constructed wrapper is empty wrapper.
+```cpp
+auto d = rpp::disposable_wrapper{};
+```
+Comparing to unique_ptr wrapper's methods are safe to use for empty wrapper.
+To construct wrapper you have to use `make` method:
+```cpp
+auto d = rpp::disposable_wrapper::make<SomeSpecificDisposableType>(some_arguments, to_construct_it);
+```
+
+Wrapper has popluar methods to work with disposable: `dispose()`, `is_disposed()` and `add()`/`remove()`/`clear()` (for `interface_composite_disposable`).
+
+In case of you want to obtain original disposable, you can use `lock()` method returning shared_ptr.
+
+`disposable_wrapper` can be strong and weak:
+- strong (it is default behavior) is keeping disposable as shared_ptr, so, such an instance of wrapper is extending life-time is underlying disposable
+- weak (disposable_wrapper can be forced to weak via `as_weak()` method) is keeping disposable as weak_ptr, so, such an instance of wrapper is **NOT** extendning life-time is underlying disposable
+
+This wrapper is needed for 2 goals:
+- provide safe usage of disposables avoiding manual handling of empty/weak disposables
+- automatically call `dispose()` during destruction of any disposable
+
+To achieve desired performance RPP is avoiding to returning disposable by default. So, it is why `subscribe` method is not returning anything by default. If you want to attach disposable to observer you can use overloading method accepting disposable as first argument like this:
+```cpp
+auto d = rpp::composite_disposable_wrapper::make();
+observable.subscribe(d, [](int v){});
+```
+or use `subscribe_with_disposable` method instead
+```cpp
+auto d = observable.subscribe_with_disposable([](int){});
+```
+
 ### dynamic_* versions to keep classes as variables
 
 Most of the classes inside rpp library including `observable`, `observer` and others are heavy-templated classes. It means, it could has a lot of template params. In most cases you shouldn't worry about it due to it is purely internal problem.
