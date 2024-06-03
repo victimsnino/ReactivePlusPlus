@@ -46,11 +46,15 @@ macro(rpp_fetch_library_extended NAME URL TAG TARGET_NAME)
   Include(FetchContent)
   set(BUILD_SHARED_LIBS OFF CACHE INTERNAL "Build SHARED libraries")
 
+  Set(FETCHCONTENT_QUIET FALSE)
+
   FetchContent_Declare(
     ${NAME}
     GIT_REPOSITORY ${URL}
     GIT_TAG        ${TAG}
-    GIT_SHALLOW TRUE
+    GIT_SHALLOW    TRUE
+    GIT_PROGRESS   TRUE
+    GIT_SUBMODULES ""
   )
 
   FetchContent_MakeAvailable(${NAME})
@@ -60,7 +64,7 @@ endmacro()
 macro(rpp_fetch_library NAME URL TAG)
   find_package(${NAME} QUIET)
   if (NOT ${NAME}_FOUND)
-    message("-- RPP: Fetching ${NAME}...")
+    message("-- RPP: Fetching ${NAME} from ${URL} by ${TAG}...")
     rpp_fetch_library_extended(${NAME} ${URL} ${TAG} ${NAME})
   endif()
 endmacro()
@@ -68,7 +72,7 @@ endmacro()
 # ==================== RXCPP =======================
 if (RPP_BUILD_RXCPP AND RPP_BUILD_BENCHMARKS)
   set(RXCPP_DISABLE_TESTS_AND_EXAMPLES 1)
-  rpp_fetch_library(rxcpp https://github.com/ReactiveX/RxCpp.git origin/main)
+  rpp_fetch_library(rxcpp https://github.com/ReactiveX/RxCpp.git main)
 endif()
 
 # ===================== Tests ===================

@@ -661,6 +661,23 @@ int main(int argc, char* argv[]) // NOLINT(bugprone-exception-escape)
                 });
             }
         }
+        SECTION("subscribe 1000 observers to publish_subject")
+        {
+            TEST_RPP([&]{
+                rpp::subjects::publish_subject<int> s{};
+                for(size_t i =0; i < 1000; ++i) {
+                    s.get_observable().subscribe(rpp::make_lambda_observer([](int v) { ankerl::nanobench::doNotOptimizeAway(v); }));
+                }
+                s.get_observer().on_next(1);
+            });
+            TEST_RXCPP([&]{
+                rxcpp::subjects::subject<int> s{};
+                for(size_t i =0; i < 1000; ++i) {
+                    s.get_observable().subscribe(rxcpp::make_subscriber<int>([](int v) { ankerl::nanobench::doNotOptimizeAway(v); }));
+                }
+                s.get_subscriber().on_next(1);
+            });
+        }
     } // BENCHMARK("Subjects")
 
     BENCHMARK("Scenarios")
