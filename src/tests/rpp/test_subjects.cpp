@@ -141,9 +141,10 @@ TEST_CASE("publish subject multicasts values")
 TEST_CASE("subject can be modified from on_next call")
 {
     rpp::subjects::publish_subject<int> subject{};
-    mock_observer<int> inner_mock{};
+    mock_observer<int>                  inner_mock{};
 
-    SECTION("subscribe inside on_next") {
+    SECTION("subscribe inside on_next")
+    {
         subject.get_observable().subscribe([&subject, &inner_mock](int) {
             subject.get_observable().subscribe(inner_mock);
         });
@@ -154,7 +155,8 @@ TEST_CASE("subject can be modified from on_next call")
         subject.get_observer().on_next(2);
     }
 
-    SECTION("unsubscribe inside on_next") {
+    SECTION("unsubscribe inside on_next")
+    {
         auto d = rpp::composite_disposable_wrapper::make();
 
         subject.get_observable().subscribe([d](int) {

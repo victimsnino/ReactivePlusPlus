@@ -20,10 +20,10 @@
 #include <rpp/utils/utils.hpp>
 
 #include <algorithm>
+#include <deque>
 #include <memory>
 #include <mutex>
 #include <variant>
-#include <deque>
 
 namespace rpp::subjects::details
 {
@@ -93,8 +93,8 @@ namespace rpp::subjects::details
 
             // we are getting copy of curent deque and obtaining CURRENT begin/end of in case of some new observer would be added during on_next call
             const auto observers = std::get<shared_observers>(m_state);
-            const auto begin = observers->cbegin();
-            const auto end = observers->cend();
+            const auto begin     = observers->cbegin();
+            const auto end       = observers->cend();
 
             observers_lock.unlock();
 
@@ -137,7 +137,7 @@ namespace rpp::subjects::details
                              current_subs->cend(),
                              std::back_inserter(*subs),
                              [](const auto& pair) {
-                                return !pair.first.is_disposed() && !pair.second.is_disposed();
+                                 return !pair.first.is_disposed() && !pair.second.is_disposed();
                              });
             }
             return subs;
