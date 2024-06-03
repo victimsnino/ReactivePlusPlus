@@ -684,22 +684,24 @@ int main(int argc, char* argv[]) // NOLINT(bugprone-exception-escape)
         {
             {
                 rpp::subjects::publish_subject<int> rpp_subj{};
-                for(size_t i =0; i < 100; ++i) {
+                for (size_t i = 0; i < 100; ++i)
+                {
                     rpp_subj.get_observable().subscribe(rpp::make_lambda_observer([](int v) { ankerl::nanobench::doNotOptimizeAway(v); }));
                 }
-                TEST_RPP([&]{
-                    for(size_t i =0; i < 100; ++i)
+                TEST_RPP([&] {
+                    for (size_t i = 0; i < 100; ++i)
                         rpp_subj.get_observer().on_next(i);
                 });
             }
 
             {
                 rxcpp::subjects::subject<int> rxcpp_subj{};
-                for(size_t i =0; i < 100; ++i) {
+                for (size_t i = 0; i < 100; ++i)
+                {
                     rxcpp_subj.get_observable().subscribe(rxcpp::make_subscriber<int>([](int v) { ankerl::nanobench::doNotOptimizeAway(v); }));
                 }
-                TEST_RXCPP([&]{
-                    for(size_t i =0; i < 100; ++i)
+                TEST_RXCPP([&] {
+                    for (size_t i = 0; i < 100; ++i)
                         rxcpp_subj.get_subscriber().on_next(i);
                 });
             }
