@@ -2,53 +2,23 @@
 [![GitHub](https://img.shields.io/github/license/victimsnino/ReactivePlusPlus)](https://github.com/victimsnino/ReactivePlusPlus/blob/main/LICENSE)
 [![C++20](https://img.shields.io/badge/C%2B%2B-20-green.svg)](https://isocpp.org/std/the-standard )
 [![CI v2](https://github.com/victimsnino/ReactivePlusPlus/actions/workflows/ci%20v2.yml/badge.svg?branch=v2)](https://github.com/victimsnino/ReactivePlusPlus/actions/workflows/ci%20v2.yml)
-[![Join the chat at https://gitter.im/ReactivePlusPlus/community](https://badges.gitter.im/ReactivePlusPlus/community.svg)](https://gitter.im/ReactivePlusPlus/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-[![Join the chat in Discord: https://discord.gg/KWMR3RNkVz](https://img.shields.io/badge/Discord-Chat!-brightgreen.svg)](https://discord.gg/KWMR3RNkVz)
-
 [![codecov](https://codecov.io/gh/victimsnino/ReactivePlusPlus/branch/v2/graph/badge.svg?token=INEHPRF18E)](https://app.codecov.io/gh/victimsnino/ReactivePlusPlus/tree/v2)
 [![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=victimsnino_ReactivePlusPlus&metric=ncloc&branch=v2)](https://sonarcloud.io/summary/new_code?id=victimsnino_ReactivePlusPlus&branch=v2)
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=victimsnino_ReactivePlusPlus&metric=sqale_rating&branch=v2)](https://sonarcloud.io/summary/new_code?id=victimsnino_ReactivePlusPlus&branch=v2)
 ![GitHub commit activity (v2)](https://img.shields.io/github/commit-activity/m/victimsnino/ReactivePlusPlus/v2)
 
-## Usage:
+
+[![Join the chat at https://gitter.im/ReactivePlusPlus/community](https://badges.gitter.im/ReactivePlusPlus/community.svg)](https://gitter.im/ReactivePlusPlus/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Join the chat in Discord: https://discord.gg/KWMR3RNkVz](https://img.shields.io/badge/Discord-Chat!-brightgreen.svg)](https://discord.gg/KWMR3RNkVz)
+
+## What is that?
 
 ReactivePlusPlus is reactive programming library for C++20 language inspired by "official implementation" ([RxCpp](https://github.com/ReactiveX/RxCpp)) and original idea ([ReactiveX](https://reactivex.io/)) that only depends on standard library and C++20 features (mostly on [concepts](https://en.cppreference.com/w/cpp/language/constraints)).
 
-See the [BUILDING](BUILDING.md) document to know how to build/install RPP.
-If you are going to know more details about developing for RPP check [HACKING](HACKING.md) document.
 
-Try out rpp on [godbolt.org](https://godbolt.org/z/48fh1hcbn)!
+### But... what is that?
 
-## Documentation:
-
-Check [User Guide](https://victimsnino.github.io/ReactivePlusPlus/v2/docs/html/md_docs_2readme.html) and [API Reference of RPP](https://victimsnino.github.io/ReactivePlusPlus/v2/docs/html/group__rpp.html).
-
-## Note about V2:
-Currently I'm working on RPP v2 (`v2` branch). RPP v2 follows [**"zero-overhead principle"**](https://en.cppreference.com/w/cpp/language/Zero-overhead_principle) and most of the operators are (and will) minimize overhead.
-
-**How?** Due to elimination of heap allocations and avoiding unnecessary things. During implementatuon of `v1` I've found a lot of cases where RPP does unnecessary expensive things. As a result, `v2` does only required things and nothing else.
-
-For example, `v1`'s `create+map+subscribe` spends about `63.7768ns`, while `v2` is about `0.4ns`.
-
-v2 started from the scratch, so, each operator would be re-implemented from the scratch too. Implementation status can be tracked in [#324](https://github.com/victimsnino/ReactivePlusPlus/issues/324)
-
-You still can use previous implementation. It placed in `v1` branch
-
-## Overview:
-
-In short: ReactivePlusPlus is library for building asynchronous event-driven streams of data with help of sequences of primitive operators in the declarative form.
-
-Currently ReactivePlusPlus is still under development but it has a lot of implemented operators for now. List of implemented features can be found in [API Reference](https://victimsnino.github.io/ReactivePlusPlus/v2/docs/html/group__rpp.html) with very detailed documentation for each of them.
-
-Main advantages of ReactivePlusPlus are that it is written in Modern C++ with Performance and Usage in mind. v2 written to follow zero-overhead principle As a result it is fast, readable, easy to use and well-documented. And it is proven with [continous benchmarking results of v2 and comparison with RxCpp](https://victimsnino.github.io/ReactivePlusPlus/v2/benchmark)
-
-**NOTE**: ReactivePlusPlus is library for C++20. So, it works only on compilers that supports most C++20 features. List of minimal supported compilers:
-- (ubuntu) gcc-10
-- (ubuntu) clang-11
-- (windows) visual studio 2022
-- (macos) Apple Clang 14
-
-## Example:
+To put it even simpler: ReactivePlusPlus is library for building asynchronous event-driven streams of data with help of sequences of primitive operators in the declarative form. Like this:
 
 ```cpp
 rpp::source::from_callable(&::getchar)
@@ -58,68 +28,26 @@ rpp::source::from_callable(&::getchar)
    | rpp::operators::map(&::toupper)
    | rpp::operators::subscribe([](char v) { std::cout << v; });
 ```
+[Try it on godbolt!](https://godbolt.org/#g:!((g:!((g:!((h:codeEditor,i:(filename:'1',fontScale:14,fontUsePx:'0',j:1,lang:c%2B%2B,selection:(endColumn:65,endLineNumber:12,positionColumn:1,positionLineNumber:8,selectionStartColumn:65,selectionStartLineNumber:12,startColumn:1,startLineNumber:8),source:'%23include+%3Crpp/rpp.hpp%3E%0A%23include+%3Ciostream%3E%0A%23include+%3Cfunctional%3E%0A%0Aint+main()%0A%7B%0A++++rpp::source::from_callable(%26::getchar)%0A++++%7C+rpp::operators::repeat()%0A++++%7C+rpp::operators::take_while(%5B%5D(char+v)+%7B+return+v+!!%3D+!'0!'%3B+%7D)%0A++++%7C+rpp::operators::filter(std::not_fn(%26::isdigit))%0A++++%7C+rpp::operators::map(%26::toupper)%0A++++%7C+rpp::operators::subscribe(%5B%5D(char+v)+%7B+std::cout+%3C%3C+v%3B+%7D)%3B%0A++++return+0%3B%0A%7D'),l:'5',n:'1',o:'C%2B%2B+source+%231',t:'0')),k:60.849967804249836,l:'4',m:100,n:'0',o:'',s:0,t:'0'),(g:!((h:executor,i:(argsPanelShown:'1',compilationPanelShown:'0',compiler:g132,compilerName:'',compilerOutShown:'0',execArgs:'',execStdin:'He11lLo+%23@!!$+W%23oRl@123d+!!0001123W',fontScale:14,fontUsePx:'0',j:1,lang:c%2B%2B,libs:!((name:reactive_plus_plus,ver:v2)),options:'-std%3Dc%2B%2B20',overrides:!(),runtimeTools:!(),source:1,stdinPanelShown:'0',wrap:'1'),l:'5',n:'0',o:'Executor+x86-64+gcc+13.2+(C%2B%2B,+Editor+%231)',t:'0')),header:(),k:39.150032195750164,l:'4',n:'0',o:'',s:0,t:'0')),l:'2',n:'0',o:'',t:'0')),version:4)
 
-There we are creating observable which emits value via invoking of `getchar` function, then `repeat`s it infinite amount of time till termination event happes. It emits values while symbol is not equal to `0`, takes only not digits, maps them to upper case and then just prints to console.
+There we are creating observable (soure of emissions/values/data) to emit value via invoking of `getchar` function, `repeat`-ing it infinite amount of time till termination event happening. It emits values while symbol is not equal to `0`, takeing only **not** digits, maping them to upper case and then just printing to console.
 
-Also it supports QT out of box. Checkout [RPPQT reference](https://victimsnino.github.io/ReactivePlusPlus/v2/docs/html/group__rppqt.html)
 
-## Why do you need it?
-
-Check the [User Guide](https://victimsnino.github.io/ReactivePlusPlus/v2/docs/html/md_docs_2readme.html) for a detailed overview of the Reactive Programming concept and RPP itself.
-
-In short, RPP can help you build complex pipelines to distribute values over time, connect "some sources of data" without directly connecting them.
-
-Take a look at the example code for  QT. Here, you can see how to connect a button to a label and update it based on the number of clicks.
+Also RPP supports QT out of box. Checkout [RPPQT reference](https://victimsnino.github.io/ReactivePlusPlus/v2/docs/html/group__rppqt.html). For example:
 ```cpp
-auto button          = new QPushButton("Click me!");
-auto clicks_count_label = new QLabel();
-QObject::connect(button, &QPushButton::clicked, [&clicks_count_label, count = 0]() mutable {
-   clicks_count_label->setText(QString{"Clicked %1 times!"}.arg(++count));
-});
+auto button = new QPushButton("Click me!");
+auto label  = new QLabel();
+rppqt::source::from_signal(*button, &QPushButton::clicked); // <------ react on signals
+   | rpp::operators::observe_on(rpp::schedulers::new_thread{})
+   // some heavy job
+   // .....
+   | rpp::operators::scan(0, [](int seed, auto) { return ++seed; })
+   | rpp::operators::observe_on(rppqt::schedulers::main_thread_scheduler{}) // <--- go back to main QT scheduler
+   | rpp::operators::subscribe([&clicks_count_label](int clicks)
+   {
+      clicks_count_label->setText(QString{"Clicked %1 times in total!"}.arg(clicks));
+   });
 ```
-
-In this example, the button is directly connected to the label. What if you want to link another widget to the same button?
-
-```cpp
-auto button          = new QPushButton("Click me!");
-auto clicks_count_label = new QLabel();
-auto clicks_duration_label = new QLabel();
-QObject::connect(button, &QPushButton::clicked, [&clicks_count_label, count = 0]() mutable {
-   clicks_count_label->setText(QString{"Clicked %1 times!"}.arg(++count));
-});
-QObject::connect(button, &QPushButton::clicked, [&clicks_duration_label, now = std::chrono::high_resolution_clock::now()]() mutable {
-   const auto old = std::exchange(now, std::chrono::high_resolution_clock::now());
-   clicks_duration_label->setText(QString{"MS since last click %1!"}.arg(std::chrono::duration_cast<std::chrono::milliseconds>(now-old).count()));
-});
-```
-Again directly connected... and it becomes a bit complex.. what if i want to accumulate two buttons at the same time? should i make a separate variable for this case? Build complex state to track it? Ideally it would be nice also to update "MS since last click %1!" at runtime each 1ms... So, looks like each label have to depend on multiple sources of data. It is not a trivial case. In this case it is nice opportunity to try RPP!
-```cpp
-auto button_1              = new QPushButton("Click me!");
-auto button_2              = new QPushButton("Click me!");
-auto clicks_count_label    = new QLabel();
-auto clicks_duration_label = new QLabel();
-
-const auto clicks_1      = rppqt::source::from_signal(*button_1, &QPushButton::clicked);
-const auto clicks_2      = rppqt::source::from_signal(*button_2, &QPushButton::clicked);
-const auto merged_clicks = clicks_1 | rpp::operators::merge_with(clicks_2);
-
-const auto total_clicks     = merged_clicks | rpp::operators::scan(0, [](int seed, auto) { return ++seed; });
-const auto click_times      = merged_clicks | rpp::operators::map([](auto) { return std::chrono::high_resolution_clock::now(); });
-const auto time_since_click = rpp::source::interval(std::chrono::milliseconds{1}, rppqt::schedulers::main_thread_scheduler{})
-                              | rpp::operators::with_latest_from([](auto, const auto click_time) { return std::chrono::high_resolution_clock::now() - click_time; }, click_times);
-
-// .....
-
-total_clicks.subscribe([&clicks_count_label](int clicks)
-{
-   clicks_count_label->setText(QString{"Clicked %1 times in total!"}.arg(clicks));
-});
-
-time_since_click.subscribe([&clicks_duration_label](std::chrono::high_resolution_clock::duration ms) {
-   clicks_duration_label->setText(QString{"MS since last click %1!"}.arg(std::chrono::duration_cast<std::chrono::milliseconds>(ms).count()));
-});
-```
-Now we have separate observables for separate sources of dynamic data like clicks itself, clicks count and time of clicks. As a result, we can combine them in any way we want. At the same time now observables and actions for events can be separated easily - we have "some observable of some clicks or any counted event" and "some observable of durations". How this observables was obtained - doesn't matter. Also we easily built a much more complex pipeline without any difficulties.
 
 ## What about existing Reactive Extension libraries for C++?
 
@@ -141,6 +69,37 @@ Another implementation of RX for c++: [another-rxcpp](https://github.com/CODIANZ
    - Everywhere while possible used deduction of template arguments, for example, type of values of observable by type of subscriber used in on_subscribe and etc
 - **ReactivePlusPlus** keeps balance between performance and type-erasing mechanism
 - **ReactivePlusPlus** is fast: every part of code written with perfomance in mind. Starting from tests over amount of copies/move and finishing to Continous Benchmarking. Benchmarks prove that RPP faster than RxCPP in most cases: [Continous benchmarking results and comparison with RxCpp](https://victimsnino.github.io/ReactivePlusPlus/v2/benchmark)
+
+Currently ReactivePlusPlus is still under development but it has a lot of implemented operators for now. List of implemented features can be found in [API Reference](https://victimsnino.github.io/ReactivePlusPlus/v2/docs/html/group__rpp.html) with very detailed documentation for each of them.
+
+Main advantages of ReactivePlusPlus are that it is written in Modern C++ with Performance and Usage in mind. v2 written to follow zero-overhead principle As a result it is fast, readable, easy to use and well-documented. And it is proven with [continous benchmarking results of v2 and comparison with RxCpp](https://victimsnino.github.io/ReactivePlusPlus/v2/benchmark)
+
+## Note about `v2`:
+Currently I'm working on RPP v2 (`v2` branch). RPP v2 follows [**"zero-overhead principle"**](https://en.cppreference.com/w/cpp/language/Zero-overhead_principle) and most of the operators are (and will) minimize overhead.
+
+**How?** Due to elimination of heap allocations and avoiding unnecessary things. During implementatuon of `v1` I've found a lot of cases where RPP does unnecessary expensive things. As a result, `v2` does only required things and nothing else.
+
+For example, `v1`'s `create+map+subscribe` spends about `63.7768ns`, while `v2` is about `0.4ns`.
+
+v2 started from the scratch, so, each operator would be re-implemented from the scratch too. Implementation status can be tracked in [#324](https://github.com/victimsnino/ReactivePlusPlus/issues/324)
+
+You still can use previous implementation. It placed in `v1` branch
+
+## Usage
+
+See the [BUILDING](BUILDING.md) document to know how to build/install RPP.
+If you are going to know more details about developing for RPP check [HACKING](HACKING.md) document.
+
+>[!IMPORTANT]
+> ReactivePlusPlus is library for C++20. So, it works only on compilers that supports most C++20 features. List of minimal supported compilers:
+> - (ubuntu) gcc-10
+> - (ubuntu) clang-11
+> - (windows) visual studio 2022
+> - (macos) Apple Clang 14
+
+## Documentation:
+
+Check [User Guide](https://victimsnino.github.io/ReactivePlusPlus/v2/docs/html/md_docs_2readme.html) and [API Reference of RPP](https://victimsnino.github.io/ReactivePlusPlus/v2/docs/html/group__rpp.html).
 
 
 # Useful links
