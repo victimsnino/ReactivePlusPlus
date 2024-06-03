@@ -1,7 +1,7 @@
 var searchData=
 [
   ['callback_5fdisposable_0',['callback_disposable',['../classrpp_1_1callback__disposable.html',1,'rpp']]],
-  ['classes_20as_20variables_1',['dynamic_* versions to keep classes as variables',['../md_docs_2readme.html#autotoc_md13',1,'']]],
+  ['classes_20as_20variables_1',['dynamic_* versions to keep classes as variables',['../md_docs_2readme.html#autotoc_md14',1,'']]],
   ['combine_5flatest_2',['combine_latest',['../group__combining__operators.html#gab241e6bd601f534355a2833d38cfd669',1,'rpp::operators::combine_latest(TSelector &amp;&amp;selector, TObservable &amp;&amp;observable, TObservables &amp;&amp;... observables)'],['../group__combining__operators.html#ga5c6073a2a2858a3f037a5ec930da33d2',1,'rpp::operators::combine_latest(TObservable &amp;&amp;observable, TObservables &amp;&amp;... observables)']]],
   ['combine_5flatest_5fdisposable_3',['combine_latest_disposable',['../classrpp_1_1operators_1_1details_1_1combine__latest__disposable.html',1,'rpp::operators::details']]],
   ['combine_5flatest_5fobserver_5fstrategy_4',['combine_latest_observer_strategy',['../structrpp_1_1operators_1_1details_1_1combine__latest__observer__strategy.html',1,'rpp::operators::details']]],

@@ -1,9 +1,12 @@
-\chapter{User Guide}
-\hypertarget{md_docs_2readme}{}\label{md_docs_2readme}\index{User Guide@{User Guide}}
+\chapter{Documentation}
+\hypertarget{md_docs_2readme}{}\label{md_docs_2readme}\index{Documentation@{Documentation}}
 \label{md_docs_2readme_autotoc_md0}%
 \Hypertarget{md_docs_2readme_autotoc_md0}%
- \hypertarget{md_docs_2readme_autotoc_md1}{}\doxysection{\texorpdfstring{Introduction}{Introduction}}\label{md_docs_2readme_autotoc_md1}
-I\textquotesingle{}m highly recommend to read this article\+: \href{https://gist.github.com/staltz/868e7e9bc2a7b8c1f754}{\texttt{ The introduction to Reactive Programming you\textquotesingle{}ve been missing}}\hypertarget{md_docs_2readme_autotoc_md2}{}\doxysubsection{\texorpdfstring{What is Reactive Programming?}{What is Reactive Programming?}}\label{md_docs_2readme_autotoc_md2}
+\hypertarget{md_docs_2readme_autotoc_md1}{}\doxysection{\texorpdfstring{Introduction to Reactive Programming}{Introduction to Reactive Programming}}\label{md_docs_2readme_autotoc_md1}
+\begin{DoxyImportant}{Important}
+I\textquotesingle{}m highly recommend to read this article beforehand\+: \href{https://gist.github.com/staltz/868e7e9bc2a7b8c1f754}{\texttt{ The introduction to Reactive Programming you\textquotesingle{}ve been missing}}
+\end{DoxyImportant}
+\hypertarget{md_docs_2readme_autotoc_md2}{}\doxysubsection{\texorpdfstring{What is Reactive Programming?}{What is Reactive Programming?}}\label{md_docs_2readme_autotoc_md2}
 {\bfseries{Reactive programming}} is a {\itshape design paradigm} that focuses on building applications that can efficiently respond to asynchronous {\bfseries{events}}.
 
 Actually, any application or function has two core parts\+: input and output. Input/output can even be empty\+:
@@ -63,7 +66,7 @@ When dealing with input that is {\bfseries{distributed in time}}, there are two 
 
 Reactive programming is a powerful way to handle input that is {\bfseries{distributed in time}}. Instead of constantly polling for updates or waiting for input to arrive, reactive programming allows you to {\bfseries{register}} callbacks to be executed {\bfseries{when the input becomes available}}.
 
-See \href{https://reactivex.io/intro.html}{\texttt{ https\+://reactivex.\+io/intro.\+html}} for more details.\hypertarget{md_docs_2readme_autotoc_md3}{}\doxysection{\texorpdfstring{Core concepts of Reactive Programming}{Core concepts of Reactive Programming}}\label{md_docs_2readme_autotoc_md3}
+See \href{https://reactivex.io/intro.html}{\texttt{ https\+://reactivex.\+io/intro.\+html}} for more details.\hypertarget{md_docs_2readme_autotoc_md3}{}\doxysubsection{\texorpdfstring{Core concepts of Reactive Programming}{Core concepts of Reactive Programming}}\label{md_docs_2readme_autotoc_md3}
 In short, Reactive Programming can be described as follows\+:
 
 
@@ -436,8 +439,72 @@ For example, {\ttfamily \doxylink{group__creational__operators_ga1edf47f176050dd
 \end{DoxyCode}
  makes only 1 copy/move to shared\+\_\+ptr and then uses it instead.
 
-As a a result, users can select preferable way of handling of their types.\hypertarget{md_docs_2readme_autotoc_md12}{}\doxysection{\texorpdfstring{Reactive\+Plus\+Plus specific}{Reactive\+Plus\+Plus specific}}\label{md_docs_2readme_autotoc_md12}
-\hypertarget{md_docs_2readme_autotoc_md13}{}\doxysubsection{\texorpdfstring{dynamic\+\_\+\texorpdfstring{$\ast$}{*} versions to keep classes as variables}{dynamic\+\_\+\texorpdfstring{$\ast$}{*} versions to keep classes as variables}}\label{md_docs_2readme_autotoc_md13}
+As a a result, users can select preferable way of handling of their types.\hypertarget{md_docs_2readme_autotoc_md12}{}\doxysection{\texorpdfstring{Reactive\+Plus\+Plus details}{Reactive\+Plus\+Plus details}}\label{md_docs_2readme_autotoc_md12}
+\hypertarget{md_docs_2readme_autotoc_md13}{}\doxysubsection{\texorpdfstring{Disposable}{Disposable}}\label{md_docs_2readme_autotoc_md13}
+Rpp has following disposables related classes\+:
+\begin{DoxyItemize}
+\item {\ttfamily interface\+\_\+disposable} -\/ is base inerface for all disposables in RPP. Simplest ever disposable with {\ttfamily dispose()} and {\ttfamily is\+\_\+disposed()} method. This type of disposable observable is passing to observer.
+\begin{DoxyItemize}
+\item {\ttfamily callback\+\_\+disposable} -\/ is just {\bfseries{noexcept}} to be called on dispose. Can be constructed like this\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{auto}\ d\ =\ rpp::make\_callback\_disposable([]()\ \textcolor{keyword}{noexcept}\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}DISPOSED!\ "{}}\ <<\ std::endl;\ \});}
+
+\end{DoxyCode}
+
+\end{DoxyItemize}
+\item {\ttfamily interface\+\_\+composite\+\_\+disposable} -\/ is base interface for disposables able to keep dependent disposables inside\+: main difference -\/ new method {\ttfamily add} accepting another dispoable inhereting from {\ttfamily interface\+\_\+disposable}. Main idea\+: {\ttfamily interface\+\_\+composite\+\_\+disposable} is aggregating other disposables inside and during {\ttfamily dispose()} method calling {\ttfamily dispose()} method of its dependents.
+\begin{DoxyItemize}
+\item {\ttfamily composite\+\_\+disposable} -\/ is concrete realization of {\ttfamily interface\+\_\+composite\+\_\+disposable}
+\item {\ttfamily refcount\+\_\+disposable} -\/ is variant of {\ttfamily composite\+\_\+disposable} but it keeps refcounter inside. This counter can be incremented with help of {\ttfamily add\+\_\+ref()} method returning new dependent {\ttfamily composite\+\_\+disposable}. Idea is simple\+: original {\ttfamily refcount\+\_\+disposable} would be disposed IF all of its dependents disposables (created via {\ttfamily add\+\_\+ref()} ) {\ttfamily dispose()} methods were called.
+\end{DoxyItemize}
+\end{DoxyItemize}
+
+All disposable in RPP should be created and used via {\ttfamily \doxylink{classrpp_1_1disposable__wrapper__impl}{rpp\+::disposable\+\_\+wrapper\+\_\+impl}\texorpdfstring{$<$}{<}T\texorpdfstring{$>$}{>}} wrapper. For simplicity usage it has 2 base aliases\+:
+\begin{DoxyItemize}
+\item {\ttfamily disposable\+\_\+wrapper} -\/ wrapper over {\ttfamily interface\+\_\+disposable}
+\item {\ttfamily composite\+\_\+disposable\+\_\+wrapper} -\/ wrapper over {\ttfamily interface\+\_\+composite\+\_\+disposable}
+\end{DoxyItemize}
+
+{\ttfamily disposable\+\_\+wrapper} is kind of smart\+\_\+pointer (like std\+::unique\+\_\+ptr) but for disposables. So, default constructed wrapper is empty wrapper. 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{auto}\ d\ =\ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp::disposable\_wrapper}}\{\};}
+
+\end{DoxyCode}
+ Comparing to unique\+\_\+ptr wrapper\textquotesingle{}s methods are safe to use for empty wrapper. To construct wrapper you have to use {\ttfamily make} method\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{auto}\ d\ =\ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl_a677053a7d4cc81ab26dc7f740a6595e6}{rpp::disposable\_wrapper::make<SomeSpecificDisposableType>}}(some\_arguments,\ to\_construct\_it);}
+
+\end{DoxyCode}
+
+
+Wrapper has popluar methods to work with disposable\+: {\ttfamily dispose()}, {\ttfamily is\+\_\+disposed()} and {\ttfamily add()}/{\ttfamily remove()}/{\ttfamily clear()} (for {\ttfamily interface\+\_\+composite\+\_\+disposable}).
+
+In case of you want to obtain original disposable, you can use {\ttfamily lock()} method returning shared\+\_\+ptr.
+
+{\ttfamily disposable\+\_\+wrapper} can be strong and weak\+:
+\begin{DoxyItemize}
+\item strong (it is default behavior) is keeping disposable as shared\+\_\+ptr, so, such an instance of wrapper is extending life-\/time is underlying disposable
+\item weak (disposable\+\_\+wrapper can be forced to weak via {\ttfamily as\+\_\+weak()} method) is keeping disposable as weak\+\_\+ptr, so, such an instance of wrapper is {\bfseries{NOT}} extendning life-\/time is underlying disposable
+\end{DoxyItemize}
+
+This wrapper is needed for 2 goals\+:
+\begin{DoxyItemize}
+\item provide safe usage of disposables avoiding manual handling of empty/weak disposables
+\item automatically call {\ttfamily dispose()} during destruction of any disposable
+\end{DoxyItemize}
+
+To achieve desired performance RPP is avoiding to returning disposable by default. So, it is why {\ttfamily subscribe} method is not returning anything by default. If you want to attach disposable to observer you can use overloading method accepting disposable as first argument like this\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{auto}\ d\ =\ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl_a677053a7d4cc81ab26dc7f740a6595e6}{rpp::composite\_disposable\_wrapper::make}}();}
+\DoxyCodeLine{observable.\mbox{\hyperlink{classrpp_1_1observable_a193b0e08c516912c04afd8379ec27182}{subscribe}}(d,\ [](\textcolor{keywordtype}{int}\ v)\{\});}
+
+\end{DoxyCode}
+ or use {\ttfamily subscribe\+\_\+with\+\_\+disposable} method instead 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{auto}\ d\ =\ observable.\mbox{\hyperlink{classrpp_1_1observable_ac81ee3d805386d492ab54e40ccd6adc2}{subscribe\_with\_disposable}}([](\textcolor{keywordtype}{int})\{\});}
+
+\end{DoxyCode}
+\hypertarget{md_docs_2readme_autotoc_md14}{}\doxysubsection{\texorpdfstring{dynamic\+\_\+\texorpdfstring{$\ast$}{*} versions to keep classes as variables}{dynamic\+\_\+\texorpdfstring{$\ast$}{*} versions to keep classes as variables}}\label{md_docs_2readme_autotoc_md14}
 Most of the classes inside rpp library including {\ttfamily observable}, {\ttfamily observer} and others are heavy-\/templated classes. It means, it could has a lot of template params. In most cases you shouldn\textquotesingle{}t worry about it due to it is purely internal problem.
 
 But in some cases you want to keep observable or observer inside your classes or return it from function. In most cases I strongly recommend you to use {\ttfamily auto} to deduce type automatically. But in some cases it is not possible (for example, to keep observable as member variable). For such an usage you could use {\ttfamily dynamic\+\_\+observable} and {\ttfamily dynamic\+\_\+observer}\+:

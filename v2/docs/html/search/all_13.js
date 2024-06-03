@@ -31,6 +31,7 @@ var searchData=
   ['timeout_5ft_28',['timeout_t',['../structrpp_1_1operators_1_1details_1_1timeout__t.html',1,'rpp::operators::details']]],
   ['timeout_5fwith_5ferror_5ft_29',['timeout_with_error_t',['../structrpp_1_1operators_1_1details_1_1timeout__with__error__t.html',1,'rpp::operators::details']]],
   ['timer_30',['timer',['../group__creational__operators.html#gae7248892783797dda894e18b2b499586',1,'rpp::source::timer(rpp::schedulers::duration when, TScheduler &amp;&amp;scheduler)'],['../group__creational__operators.html#gab41bcf939ae57be84287d8ae8926846c',1,'rpp::source::timer(rpp::schedulers::time_point when, TScheduler &amp;&amp;scheduler)']]],
-  ['to_20keep_20classes_20as_20variables_31',['dynamic_* versions to keep classes as variables',['../md_docs_2readme.html#autotoc_md13',1,'']]],
-  ['transforming_20operators_32',['Transforming Operators',['../group__transforming__operators.html',1,'']]]
+  ['to_20keep_20classes_20as_20variables_31',['dynamic_* versions to keep classes as variables',['../md_docs_2readme.html#autotoc_md14',1,'']]],
+  ['to_20reactive_20programming_32',['Introduction to Reactive Programming',['../md_docs_2readme.html#autotoc_md1',1,'']]],
+  ['transforming_20operators_33',['Transforming Operators',['../group__transforming__operators.html',1,'']]]
 ];

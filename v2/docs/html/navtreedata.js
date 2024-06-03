@@ -25,11 +25,10 @@
 var NAVTREE =
 [
   [ "ReactivePlusPlus", "index.html", [
-    [ "User Guide", "md_docs_2readme.html", [
-      [ "Introduction", "md_docs_2readme.html#autotoc_md1", [
-        [ "What is Reactive Programming?", "md_docs_2readme.html#autotoc_md2", null ]
-      ] ],
-      [ "Core concepts of Reactive Programming", "md_docs_2readme.html#autotoc_md3", [
+    [ "Documentation", "md_docs_2readme.html", [
+      [ "Introduction to Reactive Programming", "md_docs_2readme.html#autotoc_md1", [
+        [ "What is Reactive Programming?", "md_docs_2readme.html#autotoc_md2", null ],
+        [ "Core concepts of Reactive Programming", "md_docs_2readme.html#autotoc_md3", null ],
         [ "Observable contract", "md_docs_2readme.html#autotoc_md4", null ],
         [ "Operators", "md_docs_2readme.html#autotoc_md5", [
           [ "How operator works?", "md_docs_2readme.html#autotoc_md6", null ]
@@ -41,8 +40,9 @@ var NAVTREE =
           [ "Examples", "md_docs_2readme.html#autotoc_md11", null ]
         ] ]
       ] ],
-      [ "ReactivePlusPlus specific", "md_docs_2readme.html#autotoc_md12", [
-        [ "dynamic_* versions to keep classes as variables", "md_docs_2readme.html#autotoc_md13", null ]
+      [ "ReactivePlusPlus details", "md_docs_2readme.html#autotoc_md12", [
+        [ "Disposable", "md_docs_2readme.html#autotoc_md13", null ],
+        [ "dynamic_* versions to keep classes as variables", "md_docs_2readme.html#autotoc_md14", null ]
       ] ]
     ] ],
     [ "API reference", "topics.html", "topics" ],
@@ -67,7 +67,7 @@ var NAVTREEINDEX =
 [
 "annotated.html",
 "group__conditional__operators.html#gae40802b5608766bfcc1417e210f41707",
-"structrpp_1_1operators_1_1details_1_1group__by__inner__observer__strategy.html"
+"structrpp_1_1operators_1_1details_1_1flat__map__t.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.11.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ReactivePlusPlus: User Guide</title>
+<title>ReactivePlusPlus: Documentation</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -103,13 +103,34 @@ $(function(){initNavTree('md_docs_2readme.html',''); initResizable(true); });
 </div>
 
 <div><div class="header">
-  <div class="headertitle"><div class="title">User Guide</div></div>
+  <div class="headertitle"><div class="title">Documentation</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><a class="anchor" id="autotoc_md0"></a> </p>
+<div class="toc"><h3>Table of Contents</h3>
+<ul><li class="level1"><a href="#autotoc_md1">Introduction to Reactive Programming</a><ul><li class="level2"><a href="#autotoc_md2">What is Reactive Programming?</a></li>
+<li class="level2"><a href="#autotoc_md3">Core concepts of Reactive Programming</a></li>
+<li class="level2"><a href="#autotoc_md4">Observable contract</a></li>
+<li class="level2"><a href="#autotoc_md5">Operators</a><ul><li class="level3"><a href="#autotoc_md6">How operator works?</a></li>
+</ul>
+</li>
+<li class="level2"><a href="#autotoc_md7">Schedulers</a></li>
+<li class="level2"><a href="#autotoc_md8">Disposable</a></li>
+<li class="level2"><a href="#autotoc_md9">Exception guarantee</a></li>
+<li class="level2"><a href="#autotoc_md10">Memory Model</a><ul><li class="level3"><a href="#autotoc_md11">Examples</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="level1"><a href="#autotoc_md12">ReactivePlusPlus details</a><ul><li class="level2"><a href="#autotoc_md13">Disposable</a></li>
+<li class="level2"><a href="#autotoc_md14">dynamic_* versions to keep classes as variables</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="textblock"><p><a class="anchor" id="autotoc_md0"></a></p>
 <h1><a class="anchor" id="autotoc_md1"></a>
-Introduction</h1>
-<p>I'm highly recommend to read this article: <a href="https://gist.github.com/staltz/868e7e9bc2a7b8c1f754">The introduction to Reactive Programming you've been missing</a></p>
+Introduction to Reactive Programming</h1>
+<dl class="section important"><dt>Important</dt><dd>I'm highly recommend to read this article beforehand: <a href="https://gist.github.com/staltz/868e7e9bc2a7b8c1f754">The introduction to Reactive Programming you've been missing</a></dd></dl>
 <h2><a class="anchor" id="autotoc_md2"></a>
 What is Reactive Programming?</h2>
 <p><b>Reactive programming</b> is a <em>design paradigm</em> that focuses on building applications that can efficiently respond to asynchronous <b>events</b>.</p>
@@ -143,8 +164,8 @@ What is Reactive Programming?</h2>
 </ul>
 <p>Reactive programming is a powerful way to handle input that is <b>distributed in time</b>. Instead of constantly polling for updates or waiting for input to arrive, reactive programming allows you to <b>register</b> callbacks to be executed <b>when the input becomes available</b>.</p>
 <p>See <a href="https://reactivex.io/intro.html">https://reactivex.io/intro.html</a> for more details.</p>
-<h1><a class="anchor" id="autotoc_md3"></a>
-Core concepts of Reactive Programming</h1>
+<h2><a class="anchor" id="autotoc_md3"></a>
+Core concepts of Reactive Programming</h2>
 <p>In short, Reactive Programming can be described as follows:</p>
 <ul>
 <li>An <b>Observer</b> subscribes to an <b>Observable</b>.</li>
@@ -427,8 +448,44 @@ Examples</h3>
 </div><!-- fragment --><p> makes only 1 copy/move to shared_ptr and then uses it instead.</p>
 <p>As a a result, users can select preferable way of handling of their types.</p>
 <h1><a class="anchor" id="autotoc_md12"></a>
-ReactivePlusPlus specific</h1>
+ReactivePlusPlus details</h1>
 <h2><a class="anchor" id="autotoc_md13"></a>
+Disposable</h2>
+<p>Rpp has following disposables related classes:</p><ul>
+<li><code>interface_disposable</code> - is base inerface for all disposables in RPP. Simplest ever disposable with <code>dispose()</code> and <code>is_disposed()</code> method. This type of disposable observable is passing to observer.<ul>
+<li><code>callback_disposable</code> - is just <b>noexcept</b> to be called on dispose. Can be constructed like this: <div class="fragment"><div class="line"><span class="keyword">auto</span> d = rpp::make_callback_disposable([]() <span class="keyword">noexcept</span> { std::cout &lt;&lt; <span class="stringliteral">&quot;DISPOSED! &quot;</span> &lt;&lt; std::endl; });</div>
+</div><!-- fragment --></li>
+</ul>
+</li>
+<li><code>interface_composite_disposable</code> - is base interface for disposables able to keep dependent disposables inside: main difference - new method <code>add</code> accepting another dispoable inhereting from <code>interface_disposable</code>. Main idea: <code>interface_composite_disposable</code> is aggregating other disposables inside and during <code>dispose()</code> method calling <code>dispose()</code> method of its dependents.<ul>
+<li><code>composite_disposable</code> - is concrete realization of <code>interface_composite_disposable</code></li>
+<li><code>refcount_disposable</code> - is variant of <code>composite_disposable</code> but it keeps refcounter inside. This counter can be incremented with help of <code>add_ref()</code> method returning new dependent <code>composite_disposable</code>. Idea is simple: original <code>refcount_disposable</code> would be disposed IF all of its dependents disposables (created via <code>add_ref()</code> ) <code>dispose()</code> methods were called.</li>
+</ul>
+</li>
+</ul>
+<p>All disposable in RPP should be created and used via <code><a class="el" href="classrpp_1_1disposable__wrapper__impl.html" title="Wrapper to keep disposable. Any disposable have to be created right from this wrapper with help of ma...">rpp::disposable_wrapper_impl</a>&lt;T&gt;</code> wrapper. For simplicity usage it has 2 base aliases:</p><ul>
+<li><code>disposable_wrapper</code> - wrapper over <code>interface_disposable</code></li>
+<li><code>composite_disposable_wrapper</code> - wrapper over <code>interface_composite_disposable</code></li>
+</ul>
+<p><code>disposable_wrapper</code> is kind of smart_pointer (like std::unique_ptr) but for disposables. So, default constructed wrapper is empty wrapper. </p><div class="fragment"><div class="line"><span class="keyword">auto</span> d = <a class="code hl_class" href="classrpp_1_1disposable__wrapper__impl.html">rpp::disposable_wrapper</a>{};</div>
+<div class="ttc" id="aclassrpp_1_1disposable__wrapper__impl_html"><div class="ttname"><a href="classrpp_1_1disposable__wrapper__impl.html">rpp::disposable_wrapper_impl&lt; interface_disposable &gt;</a></div></div>
+</div><!-- fragment --><p> Comparing to unique_ptr wrapper's methods are safe to use for empty wrapper. To construct wrapper you have to use <code>make</code> method: </p><div class="fragment"><div class="line"><span class="keyword">auto</span> d = <a class="code hl_function" href="classrpp_1_1disposable__wrapper__impl.html#a677053a7d4cc81ab26dc7f740a6595e6">rpp::disposable_wrapper::make&lt;SomeSpecificDisposableType&gt;</a>(some_arguments, to_construct_it);</div>
+<div class="ttc" id="aclassrpp_1_1disposable__wrapper__impl_html_a677053a7d4cc81ab26dc7f740a6595e6"><div class="ttname"><a href="classrpp_1_1disposable__wrapper__impl.html#a677053a7d4cc81ab26dc7f740a6595e6">rpp::disposable_wrapper_impl&lt; interface_disposable &gt;::make</a></div><div class="ttdeci">static disposable_wrapper_impl make(TArgs &amp;&amp;... args)</div><div class="ttdef"><b>Definition</b> disposable_wrapper.hpp:133</div></div>
+</div><!-- fragment --><p>Wrapper has popluar methods to work with disposable: <code>dispose()</code>, <code>is_disposed()</code> and <code>add()</code>/<code>remove()</code>/<code>clear()</code> (for <code>interface_composite_disposable</code>).</p>
+<p>In case of you want to obtain original disposable, you can use <code>lock()</code> method returning shared_ptr.</p>
+<p><code>disposable_wrapper</code> can be strong and weak:</p><ul>
+<li>strong (it is default behavior) is keeping disposable as shared_ptr, so, such an instance of wrapper is extending life-time is underlying disposable</li>
+<li>weak (disposable_wrapper can be forced to weak via <code>as_weak()</code> method) is keeping disposable as weak_ptr, so, such an instance of wrapper is <b>NOT</b> extendning life-time is underlying disposable</li>
+</ul>
+<p>This wrapper is needed for 2 goals:</p><ul>
+<li>provide safe usage of disposables avoiding manual handling of empty/weak disposables</li>
+<li>automatically call <code>dispose()</code> during destruction of any disposable</li>
+</ul>
+<p>To achieve desired performance RPP is avoiding to returning disposable by default. So, it is why <code>subscribe</code> method is not returning anything by default. If you want to attach disposable to observer you can use overloading method accepting disposable as first argument like this: </p><div class="fragment"><div class="line"><span class="keyword">auto</span> d = <a class="code hl_function" href="classrpp_1_1disposable__wrapper__impl.html#a677053a7d4cc81ab26dc7f740a6595e6">rpp::composite_disposable_wrapper::make</a>();</div>
+<div class="line">observable.<a class="code hl_function" href="classrpp_1_1observable.html#a193b0e08c516912c04afd8379ec27182">subscribe</a>(d, [](<span class="keywordtype">int</span> v){});</div>
+</div><!-- fragment --><p> or use <code>subscribe_with_disposable</code> method instead </p><div class="fragment"><div class="line"><span class="keyword">auto</span> d = observable.<a class="code hl_function" href="classrpp_1_1observable.html#ac81ee3d805386d492ab54e40ccd6adc2">subscribe_with_disposable</a>([](<span class="keywordtype">int</span>){});</div>
+<div class="ttc" id="aclassrpp_1_1observable_html_ac81ee3d805386d492ab54e40ccd6adc2"><div class="ttname"><a href="classrpp_1_1observable.html#ac81ee3d805386d492ab54e40ccd6adc2">rpp::observable::subscribe_with_disposable</a></div><div class="ttdeci">composite_disposable_wrapper subscribe_with_disposable(observer&lt; Type, ObserverStrategy &gt; &amp;&amp;observer) const</div><div class="ttdoc">Subscribes passed observer to emissions from this observable.</div><div class="ttdef"><b>Definition</b> observable.hpp:142</div></div>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md14"></a>
 dynamic_* versions to keep classes as variables</h2>
 <p>Most of the classes inside rpp library including <code>observable</code>, <code>observer</code> and others are heavy-templated classes. It means, it could has a lot of template params. In most cases you shouldn't worry about it due to it is purely internal problem.</p>
 <p>But in some cases you want to keep observable or observer inside your classes or return it from function. In most cases I strongly recommend you to use <code>auto</code> to deduce type automatically. But in some cases it is not possible (for example, to keep observable as member variable). For such an usage you could use <code>dynamic_observable</code> and <code>dynamic_observer</code>:</p><ul>

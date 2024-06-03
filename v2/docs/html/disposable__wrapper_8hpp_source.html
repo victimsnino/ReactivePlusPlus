@@ -231,7 +231,7 @@ $(function(){initNavTree('disposable__wrapper_8hpp_source.html',''); initResizab
 <div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>        <span class="keyword">template</span>&lt;std::derived_from&lt;TDisposable&gt; TTarget = TDefaultMake, <span class="keyword">typename</span>... TArgs&gt;</div>
 <div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>            <span class="keyword">requires</span> (std::constructible_from&lt;TTarget, TArgs &amp;&amp; ...&gt;)</div>
 <div class="foldopen" id="foldopen00133" data-start="{" data-end="}">
-<div class="line"><a id="l00133" name="l00133"></a><span class="lineno"><a class="line" href="classrpp_1_1disposable__wrapper__impl.html#a677053a7d4cc81ab26dc7f740a6595e6">  133</a></span>        <span class="keyword">static</span> <a class="code hl_class" href="classrpp_1_1disposable__wrapper__impl.html">disposable_wrapper_impl</a> <a class="code hl_function" href="classrpp_1_1disposable__wrapper__impl.html#a677053a7d4cc81ab26dc7f740a6595e6">make</a>(TArgs&amp;&amp;... args)</div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno"><a class="line" href="classrpp_1_1disposable__wrapper__impl.html#a677053a7d4cc81ab26dc7f740a6595e6">  133</a></span>        [[nodiscard]] <span class="keyword">static</span> <a class="code hl_class" href="classrpp_1_1disposable__wrapper__impl.html">disposable_wrapper_impl</a> <a class="code hl_function" href="classrpp_1_1disposable__wrapper__impl.html#a677053a7d4cc81ab26dc7f740a6595e6">make</a>(TArgs&amp;&amp;... args)</div>
 <div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>        {</div>
 <div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>            <span class="keyword">const</span> <span class="keyword">auto</span> ptr      = std::make_shared&lt;details::auto_dispose_wrapper&lt;TTarget&gt;&gt;(std::forward&lt;TArgs&gt;(args)...);</div>
 <div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>            <span class="keyword">auto</span>       base_ptr = std::shared_ptr&lt;TDisposable&gt;{ptr, <span class="keyword">static_cast&lt;</span>TDisposable*<span class="keyword">&gt;</span>(ptr-&gt;get())};</div>
@@ -244,7 +244,7 @@ $(function(){initNavTree('disposable__wrapper_8hpp_source.html',''); initResizab
 </div>
 <div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span> </div>
 <div class="foldopen" id="foldopen00147" data-start="{" data-end="}">
-<div class="line"><a id="l00147" name="l00147"></a><span class="lineno"><a class="line" href="classrpp_1_1disposable__wrapper__impl.html#ac80a18753f28c349713dca275a23a085">  147</a></span>        <span class="keyword">static</span> <a class="code hl_class" href="classrpp_1_1disposable__wrapper__impl.html">disposable_wrapper_impl</a> <a class="code hl_function" href="classrpp_1_1disposable__wrapper__impl.html#ac80a18753f28c349713dca275a23a085">empty</a>()</div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno"><a class="line" href="classrpp_1_1disposable__wrapper__impl.html#ac80a18753f28c349713dca275a23a085">  147</a></span>        [[nodiscard]] <span class="keyword">static</span> <a class="code hl_class" href="classrpp_1_1disposable__wrapper__impl.html">disposable_wrapper_impl</a> <a class="code hl_function" href="classrpp_1_1disposable__wrapper__impl.html#ac80a18753f28c349713dca275a23a085">empty</a>()</div>
 <div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>        {</div>
 <div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>            <span class="keywordflow">return</span> <a class="code hl_class" href="classrpp_1_1disposable__wrapper__impl.html">disposable_wrapper_impl</a>{};</div>
 <div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>        }</div>
@@ -282,12 +282,12 @@ $(function(){initNavTree('disposable__wrapper_8hpp_source.html',''); initResizab
 <div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span>                locked-&gt;clear();</div>
 <div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>        }</div>
 <div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span> </div>
-<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>        std::shared_ptr&lt;TDisposable&gt; lock() const noexcept</div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>        [[nodiscard]] std::shared_ptr&lt;TDisposable&gt; lock() const noexcept</div>
 <div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>        {</div>
 <div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>            <span class="keywordflow">return</span> std::static_pointer_cast&lt;TDisposable&gt;(get().first);</div>
 <div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>        }</div>
 <div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span> </div>
-<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>        disposable_wrapper_impl as_weak()<span class="keyword"> const</span></div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>        [[nodiscard]] disposable_wrapper_impl as_weak()<span class="keyword"> const</span></div>
 <div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span><span class="keyword">        </span>{</div>
 <div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>            <span class="keyword">auto</span> [locked, is_shared] = get();</div>
 <div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>            <span class="keywordflow">if</span> (is_shared)</div>
