@@ -661,11 +661,11 @@ int main(int argc, char* argv[]) // NOLINT(bugprone-exception-escape)
                 });
             }
         }
-        SECTION("subscribe 1000 observers to publish_subject")
+        SECTION("subscribe 100 observers to publish_subject")
         {
             TEST_RPP([&] {
                 rpp::subjects::publish_subject<int> s{};
-                for (size_t i = 0; i < 1000; ++i)
+                for (size_t i = 0; i < 100; ++i)
                 {
                     s.get_observable().subscribe(rpp::make_lambda_observer([](int v) { ankerl::nanobench::doNotOptimizeAway(v); }));
                 }
@@ -673,18 +673,18 @@ int main(int argc, char* argv[]) // NOLINT(bugprone-exception-escape)
             });
             TEST_RXCPP([&] {
                 rxcpp::subjects::subject<int> s{};
-                for (size_t i = 0; i < 1000; ++i)
+                for (size_t i = 0; i < 100; ++i)
                 {
                     s.get_observable().subscribe(rxcpp::make_subscriber<int>([](int v) { ankerl::nanobench::doNotOptimizeAway(v); }));
                 }
                 s.get_subscriber().on_next(1);
             });
         }
-        SECTION("100 on_next to 1000 observers to publish_subject")
+        SECTION("100 on_next to 100 observers to publish_subject")
         {
             {
                 rpp::subjects::publish_subject<int> rpp_subj{};
-                for(size_t i =0; i < 1000; ++i) {
+                for(size_t i =0; i < 100; ++i) {
                     rpp_subj.get_observable().subscribe(rpp::make_lambda_observer([](int v) { ankerl::nanobench::doNotOptimizeAway(v); }));
                 }
                 TEST_RPP([&]{
@@ -695,7 +695,7 @@ int main(int argc, char* argv[]) // NOLINT(bugprone-exception-escape)
 
             {
                 rxcpp::subjects::subject<int> rxcpp_subj{};
-                for(size_t i =0; i < 1000; ++i) {
+                for(size_t i =0; i < 100; ++i) {
                     rxcpp_subj.get_observable().subscribe(rxcpp::make_subscriber<int>([](int v) { ankerl::nanobench::doNotOptimizeAway(v); }));
                 }
                 TEST_RXCPP([&]{
