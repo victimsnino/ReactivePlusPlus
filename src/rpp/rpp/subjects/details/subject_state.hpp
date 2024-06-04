@@ -39,7 +39,35 @@ namespace rpp::subjects::details
     class subject_state : public composite_disposable
         , public rpp::details::enable_wrapper_from_this<subject_state<Type, Serialized>>
     {
-        using observers        = std::deque<std::pair<rpp::disposable_wrapper, rpp::dynamic_observer<Type>>>;
+        template<rpp::constraint::observer TObs>
+        class disposable_with_observer : public rpp::details::observers::type_erased_observer<TObs>
+                                       , public rpp::details::base_disposable
+        {
+        public:
+            disposable_with_observer(TObs&& observer, disposable_wrapper_impl<subject_state> state)
+                : rpp::details::observers::type_erased_observer<TObs>{std::move(observer)}
+                , m_state{std::move(state)}
+            {
+            }
+
+        private:
+            void base_dispose_impl(interface_disposable::Mode) noexcept override
+            {
+                if (const auto shared = m_state.lock())
+                {
+                    std::unique_lock lock{shared->m_mutex};
+                    process_state_unsafe(shared->m_state,
+                                        [&](const shared_observers& observers) {
+                                            shared->m_state = cleanup_observers(observers, this);
+                                        });
+                }
+            }
+
+            rpp::disposable_wrapper_impl<subject_state> m_state{};
+        };
+
+        using observer         = std::shared_ptr<rpp::details::observers::observer_vtable<Type>>;
+        using observers        = std::deque<observer>;
         using shared_observers = std::shared_ptr<observers>;
         using state_t          = std::variant<shared_observers, std::exception_ptr, completed, disposed>;
 
@@ -55,24 +83,13 @@ namespace rpp::subjects::details
             process_state_unsafe(
                 m_state,
                 [&](const shared_observers& observers) {
-                    auto d = rpp::disposable_wrapper{make_callback_disposable(
-                        [weak = this->wrapper_from_this().as_weak()]() noexcept // NOLINT(bugprone-exception-escape)
-                        {
-                            if (const auto shared = weak.lock())
-                            {
-                                std::unique_lock lock{shared->m_mutex};
-                                process_state_unsafe(shared->m_state,
-                                                     [&](const shared_observers& observers) {
-                                                         shared->m_state = cleanup_observers(observers);
-                                                     });
-                            }
-                        })};
+                    auto d = disposable_wrapper_impl<disposable_with_observer<std::decay_t<TObs>>>::make(std::forward<TObs>(observer), this->wrapper_from_this().as_weak());
+                    auto ptr = d.lock();
 
-                    auto observer_as_dynamic = std::forward<TObs>(observer).as_dynamic();
-                    observers->emplace_back(d.as_weak(), observer_as_dynamic);
+                    observers->emplace_back(ptr);
 
                     lock.unlock();
-                    observer_as_dynamic.set_upstream(std::move(d));
+                    ptr->set_upstream(ptr.get(), d.as_weak());
                 },
                 [&](const std::exception_ptr& err) {
                     lock.unlock();
@@ -99,7 +116,7 @@ namespace rpp::subjects::details
             observers_lock.unlock();
 
             std::lock_guard lock{m_serialized_mutex};
-            std::for_each(begin, end, [&](const auto& pair) { pair.second.on_next(v); });
+            std::for_each(begin, end, [&](const observer& obs) { obs->on_next_lvalue(obs.get(), v); });
         }
 
         void on_error(const std::exception_ptr& err)
@@ -107,7 +124,7 @@ namespace rpp::subjects::details
             {
                 std::lock_guard lock{m_serialized_mutex};
                 if (const auto observers = exchange_observers_under_lock_if_there(err))
-                    rpp::utils::for_each(*observers, [&](const auto& pair) { pair.second.on_error(err); });
+                    rpp::utils::for_each(*observers, [&](const observer& obs) { obs->on_error(obs.get(), err); });
             }
             dispose();
         }
@@ -117,7 +134,7 @@ namespace rpp::subjects::details
             {
                 std::lock_guard lock{m_serialized_mutex};
                 if (const auto observers = exchange_observers_under_lock_if_there(completed{}))
-                    rpp::utils::for_each(*observers, [](const auto& pair) { pair.second.on_completed(); });
+                    rpp::utils::for_each(*observers, [](const observer& obs) { obs->on_completed(obs.get()); });
             }
             dispose();
         }
@@ -128,7 +145,7 @@ namespace rpp::subjects::details
             exchange_observers_under_lock_if_there(disposed{});
         }
 
-        static shared_observers cleanup_observers(const shared_observers& current_subs)
+        static shared_observers cleanup_observers(const shared_observers& current_subs, const rpp::details::observers::observer_vtable<Type>* to_delete)
         {
             auto subs = std::make_shared<observers>();
             if (current_subs)
@@ -136,8 +153,8 @@ namespace rpp::subjects::details
                 std::copy_if(current_subs->cbegin(),
                              current_subs->cend(),
                              std::back_inserter(*subs),
-                             [](const auto& pair) {
-                                 return !pair.first.is_disposed() && !pair.second.is_disposed();
+                             [&to_delete](const observer& obs) {
+                                 return to_delete != obs.get() && !obs->is_disposed(obs.get());
                              });
             }
             return subs;
