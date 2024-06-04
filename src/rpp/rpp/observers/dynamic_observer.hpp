@@ -55,8 +55,9 @@ namespace rpp::details::observers
                   .on_error       = +[](const Base* b, const std::exception_ptr& err) { cast(b).on_error(err); },
                   .on_completed   = +[](const Base* b) { cast(b).on_completed(); },
                   .set_upstream   = +[](Base* b, const rpp::disposable_wrapper& d) { cast(b).set_upstream(d); },
-                  .is_disposed    = +[](const Base* b) { return cast(b).is_disposed(); }
-              }
+                  .is_disposed    = +[](const Base* b) {
+                      return cast(b).is_disposed();
+                  }}
             , m_observer{std::move(observer)}
         {
         }
@@ -87,6 +88,7 @@ namespace rpp::details::observers
         void on_error(const std::exception_ptr& err) const noexcept { m_observer->on_error(m_observer.get(), err); }
 
         void on_completed() const noexcept { m_observer->on_completed(m_observer.get()); }
+
     private:
         std::shared_ptr<observer_vtable<Type>> m_observer;
     };

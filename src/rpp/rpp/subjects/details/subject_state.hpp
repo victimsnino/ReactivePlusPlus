@@ -41,7 +41,7 @@ namespace rpp::subjects::details
     {
         template<rpp::constraint::observer TObs>
         class disposable_with_observer : public rpp::details::observers::type_erased_observer<TObs>
-                                       , public rpp::details::base_disposable
+            , public rpp::details::base_disposable
         {
         public:
             disposable_with_observer(TObs&& observer, disposable_wrapper_impl<subject_state> state)
@@ -57,9 +57,9 @@ namespace rpp::subjects::details
                 {
                     std::unique_lock lock{shared->m_mutex};
                     process_state_unsafe(shared->m_state,
-                                        [&](const shared_observers& observers) {
-                                            shared->m_state = cleanup_observers(observers, this);
-                                        });
+                                         [&](const shared_observers& observers) {
+                                             shared->m_state = cleanup_observers(observers, this);
+                                         });
                 }
             }
 
@@ -83,7 +83,7 @@ namespace rpp::subjects::details
             process_state_unsafe(
                 m_state,
                 [&](const shared_observers& observers) {
-                    auto d = disposable_wrapper_impl<disposable_with_observer<std::decay_t<TObs>>>::make(std::forward<TObs>(observer), this->wrapper_from_this().as_weak());
+                    auto d   = disposable_wrapper_impl<disposable_with_observer<std::decay_t<TObs>>>::make(std::forward<TObs>(observer), this->wrapper_from_this().as_weak());
                     auto ptr = d.lock();
 
                     observers->emplace_back(ptr);
