@@ -20,15 +20,33 @@
 namespace rpp::details::observers
 {
     template<typename Type>
-    struct observer_vtable
+    class observer_vtable
     {
-        void (*on_next_lvalue)(const observer_vtable*, const Type&){};
-        void (*on_next_rvalue)(const observer_vtable*, Type&&){};
-        void (*on_error)(const observer_vtable*, const std::exception_ptr&){};
-        void (*on_completed)(const observer_vtable*){};
+    public:
+        void set_upstream(const disposable_wrapper& d) noexcept { m_vtable.set_upstream_ptr(this, d); }
+        bool is_disposed() const noexcept { return m_vtable.is_disposed_ptr(this); }
 
-        void (*set_upstream)(observer_vtable*, const disposable_wrapper&){};
-        bool (*is_disposed)(const observer_vtable*){};
+        void on_next(const Type& v) const noexcept { m_vtable.on_next_lvalue_ptr(this, v); }
+        void on_next(Type&& v) const noexcept { m_vtable.on_next_rvalue_ptr(this, std::move(v)); }
+        void on_error(const std::exception_ptr& err) const noexcept { m_vtable.on_error_ptr(this, err); }
+        void on_completed() const noexcept { m_vtable.on_completed_ptr(this); }
+
+    protected:
+        struct vtable_t
+        {
+            void (*const on_next_lvalue_ptr)(const observer_vtable*, const Type&){};
+            void (*const on_next_rvalue_ptr)(const observer_vtable*, Type&&){};
+            void (*const on_error_ptr)(const observer_vtable*, const std::exception_ptr&){};
+            void (*const on_completed_ptr)(const observer_vtable*){};
+
+            void (*const set_upstream_ptr)(observer_vtable*, const disposable_wrapper&){};
+            bool (*const is_disposed_ptr)(const observer_vtable*){};
+        };
+
+        observer_vtable(vtable_t&& vtable)
+            : m_vtable{std::move(vtable)}{}
+
+        const vtable_t m_vtable{};
     };
 
     template<rpp::constraint::observer TObs>
@@ -36,6 +54,7 @@ namespace rpp::details::observers
     {
         using Type = rpp::utils::extract_observer_type_t<TObs>;
         using Base = observer_vtable<Type>;
+        using Vtable = typename Base::vtable_t;
 
         static constexpr const TObs& cast(const Base* ptr)
         {
@@ -49,15 +68,15 @@ namespace rpp::details::observers
 
     public:
         type_erased_observer(TObs&& observer)
-            : Base{
-                  .on_next_lvalue = +[](const Base* b, const Type& v) { cast(b).on_next(v); },
-                  .on_next_rvalue = +[](const Base* b, Type&& v) { cast(b).on_next(std::move(v)); },
-                  .on_error       = +[](const Base* b, const std::exception_ptr& err) { cast(b).on_error(err); },
-                  .on_completed   = +[](const Base* b) { cast(b).on_completed(); },
-                  .set_upstream   = +[](Base* b, const rpp::disposable_wrapper& d) { cast(b).set_upstream(d); },
-                  .is_disposed    = +[](const Base* b) {
+            : Base{Vtable{
+                  .on_next_lvalue_ptr = +[](const Base* b, const Type& v) { cast(b).on_next(v); },
+                  .on_next_rvalue_ptr = +[](const Base* b, Type&& v) { cast(b).on_next(std::move(v)); },
+                  .on_error_ptr       = +[](const Base* b, const std::exception_ptr& err) { cast(b).on_error(err); },
+                  .on_completed_ptr   = +[](const Base* b) { cast(b).on_completed(); },
+                  .set_upstream_ptr   = +[](Base* b, const rpp::disposable_wrapper& d) { cast(b).set_upstream(d); },
+                  .is_disposed_ptr    = +[](const Base* b) {
                       return cast(b).is_disposed();
-                  }}
+                  }}}
             , m_observer{std::move(observer)}
         {
         }
@@ -77,17 +96,13 @@ namespace rpp::details::observers
         {
         }
 
-        void set_upstream(const disposable_wrapper& d) noexcept { m_observer->set_upstream(m_observer.get(), d); }
+        void set_upstream(const disposable_wrapper& d) noexcept { m_observer->set_upstream(d); }
+        bool is_disposed() const noexcept { return m_observer->is_disposed(); }
 
-        bool is_disposed() const noexcept { return m_observer->is_disposed(m_observer.get()); }
-
-        void on_next(const Type& v) const noexcept { m_observer->on_next_lvalue(m_observer.get(), v); }
-
-        void on_next(Type&& v) const noexcept { m_observer->on_next_rvalue(m_observer.get(), std::move(v)); }
-
-        void on_error(const std::exception_ptr& err) const noexcept { m_observer->on_error(m_observer.get(), err); }
-
-        void on_completed() const noexcept { m_observer->on_completed(m_observer.get()); }
+        void on_next(const Type& v) const noexcept { m_observer->on_next(v); }
+        void on_next(Type&& v) const noexcept { m_observer->on_next(std::move(v)); }
+        void on_error(const std::exception_ptr& err) const noexcept { m_observer->on_error(err); }
+        void on_completed() const noexcept { m_observer->on_completed(); }
 
     private:
         std::shared_ptr<observer_vtable<Type>> m_observer;
