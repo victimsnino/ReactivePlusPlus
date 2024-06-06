@@ -1,5 +1,5 @@
 
-include(CMakeFindDependencyMacro)
+message("TEST 1")
 find_package(Threads)
 
 macro(rpp_handle_3rdparty TARGET_NAME)
