@@ -1,4 +1,4 @@
-find_package(Threads REQUIRED)
+find_dependency(Threads)
 
 macro(rpp_handle_3rdparty TARGET_NAME)
   get_target_property(TARGET_TYPE ${TARGET_NAME} TYPE)
