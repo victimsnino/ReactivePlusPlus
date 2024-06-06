@@ -1,5 +1,7 @@
 var NAVTREEINDEX1 =
 {
+"group__conditional__operators.html":[1,0,3,2],
+"group__conditional__operators.html#gac65952f7460d8f0e71a93d95810d2061":[1,0,3,2,1],
 "group__conditional__operators.html#gae40802b5608766bfcc1417e210f41707":[1,0,3,2,0],
 "group__connectable__operators.html":[1,0,3,5],
 "group__connectable__operators.html#ga42498cc0bc565116e9deece3c3afa66f":[1,0,3,5,2],
@@ -197,9 +199,8 @@ var NAVTREEINDEX1 =
 "structrpp_1_1details_1_1observables_1_1fixed__disposable__strategy__selector_3_010_00_01_mode_01_4.html":[3,0,0,0,1,7],
 "structrpp_1_1details_1_1observers_1_1fake__strategy.html":[3,0,0,0,2,2],
 "structrpp_1_1details_1_1observers_1_1lambda__strategy.html":[3,0,0,0,2,3],
-"structrpp_1_1details_1_1observers_1_1member__ptr__caller__impl.html":[3,0,0,0,2,5],
-"structrpp_1_1details_1_1observers_1_1member__ptr__caller__impl_3_01_f_00_01_no_except_01_4.html":[3,0,0,0,2,6],
-"structrpp_1_1details_1_1observers_1_1none__disposable__strategy.html":[3,0,0,0,2,8],
+"structrpp_1_1details_1_1observers_1_1none__disposable__strategy.html":[3,0,0,0,2,6],
+"structrpp_1_1details_1_1observers_1_1observer__vtable_1_1vtable__t.html":[3,0,0,0,2,7,0],
 "structrpp_1_1details_1_1ref__count__on__subscribe__t.html":[3,0,0,0,21],
 "structrpp_1_1details_1_1ref__count__on__subscribe__t_3_01rpp_1_1connectable__observable_3_01_ori08a6adc16d48deb4d454d582f87ab48e.html":[3,0,0,0,22,0],
 "structrpp_1_1details_1_1ref__count__on__subscribe__t_3_01rpp_1_1connectable__observable_3_01_oria02afbb30282d4727b872472b2af56d8.html":[3,0,0,0,22],
@@ -248,6 +249,5 @@ var NAVTREEINDEX1 =
 "structrpp_1_1operators_1_1details_1_1finally__t.html":[3,0,0,2,0,29],
 "structrpp_1_1operators_1_1details_1_1finally__t_1_1operator__traits.html":[3,0,0,2,0,29,0],
 "structrpp_1_1operators_1_1details_1_1first__observer__strategy.html":[3,0,0,2,0,30],
-"structrpp_1_1operators_1_1details_1_1first__t.html":[3,0,0,2,0,31],
-"structrpp_1_1operators_1_1details_1_1first__t_1_1operator__traits.html":[3,0,0,2,0,31,0]
+"structrpp_1_1operators_1_1details_1_1first__t.html":[3,0,0,2,0,31]
 };

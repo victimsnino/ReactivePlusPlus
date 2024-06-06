@@ -22,5 +22,6 @@ var searchData=
   ['timeout_5fdisposable_5fwrapper_19',['timeout_disposable_wrapper',['../structrpp_1_1operators_1_1details_1_1timeout__disposable__wrapper.html',1,'rpp::operators::details']]],
   ['timeout_5fobserver_5fstrategy_20',['timeout_observer_strategy',['../structrpp_1_1operators_1_1details_1_1timeout__observer__strategy.html',1,'rpp::operators::details']]],
   ['timeout_5ft_21',['timeout_t',['../structrpp_1_1operators_1_1details_1_1timeout__t.html',1,'rpp::operators::details']]],
-  ['timeout_5fwith_5ferror_5ft_22',['timeout_with_error_t',['../structrpp_1_1operators_1_1details_1_1timeout__with__error__t.html',1,'rpp::operators::details']]]
+  ['timeout_5fwith_5ferror_5ft_22',['timeout_with_error_t',['../structrpp_1_1operators_1_1details_1_1timeout__with__error__t.html',1,'rpp::operators::details']]],
+  ['type_5ferased_5fobserver_23',['type_erased_observer',['../classrpp_1_1details_1_1observers_1_1type__erased__observer.html',1,'rpp::details::observers']]]
 ];

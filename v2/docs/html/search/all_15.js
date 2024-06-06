@@ -4,5 +4,6 @@ var searchData=
   ['variables_1',['dynamic_* versions to keep classes as variables',['../md_docs_2readme.html#autotoc_md14',1,'']]],
   ['variant_5fobservable_2',['variant_observable',['../classrpp_1_1variant__observable.html',1,'rpp']]],
   ['variant_5fobservable_5fstrategy_3',['variant_observable_strategy',['../structrpp_1_1details_1_1variant__observable__strategy.html',1,'rpp::details']]],
-  ['versions_20to_20keep_20classes_20as_20variables_4',['dynamic_* versions to keep classes as variables',['../md_docs_2readme.html#autotoc_md14',1,'']]]
+  ['versions_20to_20keep_20classes_20as_20variables_4',['dynamic_* versions to keep classes as variables',['../md_docs_2readme.html#autotoc_md14',1,'']]],
+  ['vtable_5ft_5',['vtable_t',['../structrpp_1_1details_1_1observers_1_1observer__vtable_1_1vtable__t.html',1,'rpp::details::observers::observer_vtable']]]
 ];

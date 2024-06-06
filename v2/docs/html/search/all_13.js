@@ -33,5 +33,6 @@ var searchData=
   ['timer_30',['timer',['../group__creational__operators.html#gae7248892783797dda894e18b2b499586',1,'rpp::source::timer(rpp::schedulers::duration when, TScheduler &amp;&amp;scheduler)'],['../group__creational__operators.html#gab41bcf939ae57be84287d8ae8926846c',1,'rpp::source::timer(rpp::schedulers::time_point when, TScheduler &amp;&amp;scheduler)']]],
   ['to_20keep_20classes_20as_20variables_31',['dynamic_* versions to keep classes as variables',['../md_docs_2readme.html#autotoc_md14',1,'']]],
   ['to_20reactive_20programming_32',['Introduction to Reactive Programming',['../md_docs_2readme.html#autotoc_md1',1,'']]],
-  ['transforming_20operators_33',['Transforming Operators',['../group__transforming__operators.html',1,'']]]
+  ['transforming_20operators_33',['Transforming Operators',['../group__transforming__operators.html',1,'']]],
+  ['type_5ferased_5fobserver_34',['type_erased_observer',['../classrpp_1_1details_1_1observers_1_1type__erased__observer.html',1,'rpp::details::observers']]]
 ];

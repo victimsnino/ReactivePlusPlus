@@ -227,8 +227,6 @@ var hierarchy =
     [ "rpp::make_chain_observable< New, Old >", "structrpp_1_1make__chain__observable.html", null ],
     [ "rpp::make_chain_observable< New, observable_chain_strategy< Args... > >", "structrpp_1_1make__chain__observable_3_01_new_00_01observable__chain__strategy_3_01_args_8_8_8_01_4_01_4.html", null ],
     [ "rpp::operators::details::map_observer_strategy< TObserver, Fn >", "structrpp_1_1operators_1_1details_1_1map__observer__strategy.html", null ],
-    [ "rpp::details::observers::member_ptr_caller_impl< Fn, NoExcept >", "structrpp_1_1details_1_1observers_1_1member__ptr__caller__impl.html", null ],
-    [ "rpp::details::observers::member_ptr_caller_impl< F, NoExcept >", "structrpp_1_1details_1_1observers_1_1member__ptr__caller__impl_3_01_f_00_01_no_except_01_4.html", null ],
     [ "rpp::operators::details::merge_observer_base_strategy< TObserver >", "structrpp_1_1operators_1_1details_1_1merge__observer__base__strategy.html", [
       [ "rpp::operators::details::merge_observer_inner_strategy< TObserver >", "structrpp_1_1operators_1_1details_1_1merge__observer__inner__strategy.html", null ],
       [ "rpp::operators::details::merge_observer_strategy< TObserver >", "classrpp_1_1operators_1_1details_1_1merge__observer__strategy.html", null ]
@@ -269,6 +267,10 @@ var hierarchy =
     ] ],
     [ "rpp::details::observer_impl< Type, Strategy, DisposableStrategy >", "classrpp_1_1details_1_1observer__impl.html", [
       [ "rpp::observer< Type, details::with_disposable_strategy< Strategy, DisposableStrategy > >", "classrpp_1_1observer_3_01_type_00_01details_1_1with__disposable__strategy_3_01_strategy_00_01_disposable_strategy_01_4_01_4.html", null ]
+    ] ],
+    [ "rpp::details::observers::observer_vtable< Type >", "classrpp_1_1details_1_1observers_1_1observer__vtable.html", null ],
+    [ "rpp::details::observers::observer_vtable< rpp::utils::extract_observer_type_t< TObs > >", "classrpp_1_1details_1_1observers_1_1observer__vtable.html", [
+      [ "rpp::details::observers::type_erased_observer< TObs >", "classrpp_1_1details_1_1observers_1_1type__erased__observer.html", null ]
     ] ],
     [ "rpp::operators::details::timeout_disposable< TObserver, TFallbackObservable, Container >::observer_with_timeout", "structrpp_1_1operators_1_1details_1_1timeout__disposable_1_1observer__with__timeout.html", null ],
     [ "rpp::operators::details::on_error_resume_next_observer_strategy< TObserver, Selector >", "structrpp_1_1operators_1_1details_1_1on__error__resume__next__observer__strategy.html", null ],
@@ -385,6 +387,7 @@ var hierarchy =
     [ "rpp::memory_model::use_stack", "structrpp_1_1memory__model_1_1use__stack.html", null ],
     [ "rpp::subjects::details::replay_subject_base< Type, Serialized >::replay_state::value_with_time", "structrpp_1_1subjects_1_1details_1_1replay__subject__base_1_1replay__state_1_1value__with__time.html", null ],
     [ "rpp::details::variant_observable_strategy< Type, Observables >", "structrpp_1_1details_1_1variant__observable__strategy.html", null ],
+    [ "rpp::details::observers::observer_vtable< Type >::vtable_t", "structrpp_1_1details_1_1observers_1_1observer__vtable_1_1vtable__t.html", null ],
     [ "rpp::operators::details::window_observer_strategy< TObserver >", "classrpp_1_1operators_1_1details_1_1window__observer__strategy.html", null ],
     [ "rpp::operators::details::window_toggle_closing_observer_strategy< TState >", "structrpp_1_1operators_1_1details_1_1window__toggle__closing__observer__strategy.html", null ],
     [ "rpp::operators::details::window_toggle_observer_strategy< TObserver, TOpeningsObservable, TClosingsSelectorFn >", "classrpp_1_1operators_1_1details_1_1window__toggle__observer__strategy.html", null ],

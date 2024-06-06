@@ -24,10 +24,10 @@ var annotated_dup =
           [ "fake_strategy", "structrpp_1_1details_1_1observers_1_1fake__strategy.html", null ],
           [ "lambda_strategy", "structrpp_1_1details_1_1observers_1_1lambda__strategy.html", null ],
           [ "local_disposable_strategy", "classrpp_1_1details_1_1observers_1_1local__disposable__strategy.html", null ],
-          [ "member_ptr_caller_impl", "structrpp_1_1details_1_1observers_1_1member__ptr__caller__impl.html", null ],
-          [ "member_ptr_caller_impl< F, NoExcept >", "structrpp_1_1details_1_1observers_1_1member__ptr__caller__impl_3_01_f_00_01_no_except_01_4.html", null ],
           [ "non_atomic_bool", "classrpp_1_1details_1_1observers_1_1non__atomic__bool.html", null ],
-          [ "none_disposable_strategy", "structrpp_1_1details_1_1observers_1_1none__disposable__strategy.html", null ]
+          [ "none_disposable_strategy", "structrpp_1_1details_1_1observers_1_1none__disposable__strategy.html", null ],
+          [ "observer_vtable", "classrpp_1_1details_1_1observers_1_1observer__vtable.html", "classrpp_1_1details_1_1observers_1_1observer__vtable" ],
+          [ "type_erased_observer", "classrpp_1_1details_1_1observers_1_1type__erased__observer.html", null ]
         ] ],
         [ "auto_dispose_wrapper", "classrpp_1_1details_1_1auto__dispose__wrapper.html", null ],
         [ "base_disposable_impl", "classrpp_1_1details_1_1base__disposable__impl.html", null ],
