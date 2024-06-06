@@ -1,4 +1,4 @@
-
+set(THREADS_PREFER_PTHREAD_FLAG ON)
 message("TEST 1")
 find_package(Threads)
 
