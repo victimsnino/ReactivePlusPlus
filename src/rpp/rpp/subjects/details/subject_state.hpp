@@ -115,8 +115,8 @@ namespace rpp::subjects::details
             if (!observers)
                 return;
 
-            const auto begin     = observers->cbegin();
-            const auto end       = observers->cend();
+            const auto begin = observers->cbegin();
+            const auto end   = observers->cend();
 
             observers_lock.unlock();
 

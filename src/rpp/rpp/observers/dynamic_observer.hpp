@@ -44,7 +44,9 @@ namespace rpp::details::observers
         };
 
         observer_vtable(vtable_t&& vtable)
-            : m_vtable{std::move(vtable)}{}
+            : m_vtable{std::move(vtable)}
+        {
+        }
 
         const vtable_t m_vtable{};
     };
@@ -52,8 +54,8 @@ namespace rpp::details::observers
     template<rpp::constraint::observer TObs>
     class type_erased_observer : public observer_vtable<rpp::utils::extract_observer_type_t<TObs>>
     {
-        using Type = rpp::utils::extract_observer_type_t<TObs>;
-        using Base = observer_vtable<Type>;
+        using Type   = rpp::utils::extract_observer_type_t<TObs>;
+        using Base   = observer_vtable<Type>;
         using Vtable = typename Base::vtable_t;
 
         static constexpr const TObs& cast(const Base* ptr)
