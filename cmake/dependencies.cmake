@@ -1,6 +1,5 @@
 
-message("TEST 1")
-find_package(Threads)
+find_package(TEST_1)
 
 macro(rpp_handle_3rdparty TARGET_NAME)
   get_target_property(TARGET_TYPE ${TARGET_NAME} TYPE)
