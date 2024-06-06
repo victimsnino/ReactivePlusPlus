@@ -82,13 +82,16 @@ namespace rpp::subjects::details
             std::unique_lock lock{m_mutex};
             process_state_unsafe(
                 m_state,
-                [&](shared_observers& observers) {
+                [&](const shared_observers& observers) {
                     auto d   = disposable_wrapper_impl<disposable_with_observer<std::decay_t<TObs>>>::make(std::forward<TObs>(observer), this->wrapper_from_this().lock());
                     auto ptr = d.lock();
-
-                    if (!observers)
-                        observers = std::make_shared<subject_state::observers>();
-                    observers->emplace_back(ptr);
+                    if (!observers) {
+                        auto new_observers = std::make_shared<subject_state::observers>();
+                        new_observers->emplace_back(ptr);
+                        m_state = std::move(new_observers);
+                    } else {
+                        observers->emplace_back(ptr);
+                    }
 
                     lock.unlock();
                     ptr->set_upstream(d.as_weak());
