@@ -1,5 +1,5 @@
 
-find_package(TEST_1)
+# find_package(Threads)
 
 macro(rpp_handle_3rdparty TARGET_NAME)
   get_target_property(TARGET_TYPE ${TARGET_NAME} TYPE)
