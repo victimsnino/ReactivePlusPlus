@@ -85,11 +85,14 @@ namespace rpp::subjects::details
                 [&](const shared_observers& observers) {
                     auto d   = disposable_wrapper_impl<disposable_with_observer<std::decay_t<TObs>>>::make(std::forward<TObs>(observer), this->wrapper_from_this().lock());
                     auto ptr = d.lock();
-                    if (!observers) {
+                    if (!observers)
+                    {
                         auto new_observers = std::make_shared<subject_state::observers>();
                         new_observers->emplace_back(ptr);
                         m_state = std::move(new_observers);
-                    } else {
+                    }
+                    else
+                    {
                         observers->emplace_back(ptr);
                     }
 
