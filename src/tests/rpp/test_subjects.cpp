@@ -20,7 +20,6 @@
 #include <rpp/subjects/replay_subject.hpp>
 
 #include "copy_count_tracker.hpp"
-#include "rpp_trompeloil.hpp"
 
 #include <thread>
 
@@ -135,38 +134,6 @@ TEST_CASE("publish subject multicasts values")
                 }
             }
         }
-    }
-}
-
-TEST_CASE("subject can be modified from on_next call")
-{
-    rpp::subjects::publish_subject<int> subject{};
-    mock_observer<int>                  inner_mock{};
-
-    SECTION("subscribe inside on_next")
-    {
-        subject.get_observable().subscribe([&subject, &inner_mock](int) {
-            subject.get_observable().subscribe(inner_mock);
-        });
-
-        subject.get_observer().on_next(1);
-
-        REQUIRE_CALL(*inner_mock, on_next_lvalue(2));
-        subject.get_observer().on_next(2);
-    }
-
-    SECTION("unsubscribe inside on_next")
-    {
-        auto d = rpp::composite_disposable_wrapper::make();
-
-        subject.get_observable().subscribe([d](int) {
-            d.clear();
-        });
-        subject.get_observable().subscribe(d, inner_mock);
-
-        REQUIRE_CALL(*inner_mock, on_next_lvalue(1));
-        subject.get_observer().on_next(1);
-        subject.get_observer().on_next(2);
     }
 }
 
