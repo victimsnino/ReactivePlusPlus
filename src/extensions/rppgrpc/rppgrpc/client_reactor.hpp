@@ -181,10 +181,18 @@ namespace rppgrpc
                         Base::StartWrite(&m_write.front());
                 },
                 [this](const std::exception_ptr&) {
-                    Base::StartWritesDone();
+                    std::lock_guard lock{m_write_mutex};
+                    m_finished = true;
+
+                    if (m_write.size() == 0)
+                        Base::StartWritesDone();
                 },
                 [this]() {
-                    Base::StartWritesDone();
+                    std::lock_guard lock{m_write_mutex};
+                    m_finished = true;
+
+                    if (m_write.size() == 0)
+                        Base::StartWritesDone();
                 });
         }
 
@@ -211,11 +219,8 @@ namespace rppgrpc
         void OnReadDone(bool ok) override
         {
             if (!ok)
-            {
-                m_requests.get_disposable().dispose();
-                m_observer.get_observer().on_error(std::make_exception_ptr(rppgrpc::utils::reactor_failed{"OnReadDone is not ok"}));
                 return;
-            }
+
             m_observer.get_observer().on_next(m_read);
             Base::StartRead(&m_read);
         }
@@ -223,11 +228,7 @@ namespace rppgrpc
         void OnWriteDone(bool ok) override
         {
             if (!ok)
-            {
-                m_requests.get_disposable().dispose();
-                m_observer.get_observer().on_error(std::make_exception_ptr(rppgrpc::utils::reactor_failed{"OnWriteDone is not ok"}));
                 return;
-            }
 
             std::lock_guard lock{m_write_mutex};
             m_write.pop_front();
@@ -235,6 +236,10 @@ namespace rppgrpc
             if (!m_write.empty())
             {
                 Base::StartWrite(&m_write.front());
+            }
+            else if (m_finished)
+            {
+                Base::StartWritesDone();
             }
         }
 
@@ -261,5 +266,6 @@ namespace rppgrpc
 
         std::mutex          m_write_mutex{};
         std::deque<Request> m_write{};
+        bool                m_finished{};
     };
 } // namespace rppgrpc
