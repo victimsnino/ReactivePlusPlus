@@ -106,7 +106,6 @@ if (RPP_BUILD_GRPC_CODE AND (RPP_BUILD_TESTS OR RPP_BUILD_EXAMPLES))
     set_target_properties(${TARGET} PROPERTIES CXX_CPPCHECK "")
   endmacro()
 endif()
->>>>>>> 9561a40d (all ine one)
 
 # ==================== RXCPP =======================
 if (RPP_BUILD_RXCPP AND RPP_BUILD_BENCHMARKS)
