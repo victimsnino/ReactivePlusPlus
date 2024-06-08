@@ -32,6 +32,7 @@ rpp::source::from_callable(&::getchar)
 
 There we are creating observable (soure of emissions/values/data) to emit value via invoking of `getchar` function, `repeat`-ing it infinite amount of time till termination event happening. It emits values while symbol is not equal to `0`, takeing only **not** digits, maping them to upper case and then just printing to console.
 
+<<<<<<< HEAD
 
 Also RPP supports QT out of box. Checkout [RPPQT reference](https://victimsnino.github.io/ReactivePlusPlus/v2/docs/html/group__rppqt.html). For example:
 ```cpp
@@ -47,6 +48,40 @@ rppqt::source::from_signal(*button, &QPushButton::clicked); // <------ react on 
    {
       clicks_count_label->setText(QString{"Clicked %1 times in total!"}.arg(clicks));
    });
+=======
+## QT
+Also it supports QT out of box. Checkout [RPPQT reference](https://victimsnino.github.io/ReactivePlusPlus/v2/docs/html/group__rppqt.html)
+
+```cpp
+auto button = new QPushButton("Click me!");
+auto label  = new QLabel();
+
+rppqt::source::from_signal(*button, &QPushButton::clicked);
+   | rpp::operators::observe_on(rpp::schedulers::new_thread{})
+   // some heavy job
+   | rpp::operators::scan(0, [](int seed, auto) { return ++seed; })
+   | rpp::operators::observe_on(rppqt::schedulers::main_thread_scheduler{}) // <--- go back to main QT scheduler
+   | rpp::operators::subscribe([&clicks_count_label](int clicks)
+   {
+      clicks_count_label->setText(QString{"Clicked %1 times in total!"}.arg(clicks));
+   });
+```
+
+<!-- ## GRPC -->
+<!-- RPP also supports GRPC out of box! Checkout [GRPC reference](https://victimsnino.github.io/ReactivePlusPlus/v2/docs/html/group__rppgrpc.html) -->
+
+## Why do you need it?
+
+Check the [User Guide](https://victimsnino.github.io/ReactivePlusPlus/v2/docs/html/md_docs_2readme.html) for a detailed overview of the Reactive Programming concept and RPP itself.
+
+In short, RPP can help you build complex pipelines to distribute values over time, connect "some sources of data" without directly connecting them.
+
+Take a look at the example code for  QT. Here, you can see how to connect a button to a label and update it based on the number of clicks.
+```cpp
+auto button          = new QPushButton("Click me!");
+auto clicks_count_label = new QLabel();
+rppqt::source::from_signal(*button_1, &QPushButton::clicked);
+>>>>>>> 9561a40d (all ine one)
 ```
 
 ## What about existing Reactive Extension libraries for C++?

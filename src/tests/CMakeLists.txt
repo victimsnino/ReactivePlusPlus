@@ -24,6 +24,11 @@ macro(add_test_target target_name module files)
     rpp_add_qt_support_to_executable(${TARGET})
   endif()
 
+  if (${module} STREQUAL rppgrpc)
+    rpp_add_proto_target(${TARGET}_proto rppgrpc/proto.proto)
+    target_link_libraries(${TARGET} PRIVATE ${TARGET}_proto)
+  endif()
+
   target_compile_features(${TARGET} PRIVATE cxx_std_20)
 
   if(MSVC)
@@ -49,4 +54,8 @@ rpp_register_tests(rpp)
 
 if (RPP_BUILD_QT_CODE)
   rpp_register_tests(rppqt)
+endif()
+
+if (RPP_BUILD_GRPC_CODE)
+  rpp_register_tests(rppgrpc)
 endif()
