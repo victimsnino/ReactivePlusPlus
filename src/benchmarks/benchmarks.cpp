@@ -15,15 +15,19 @@
 #endif
 
 #define BENCHMARK(NAME)                     \
+    std::cout << "Running benchmark: " << NAME << std::endl; \
     bench.context("benchmark_title", NAME); \
     if (!benchmark.has_value() || std::string_view{NAME}.find(benchmark.value()) != std::string_view::npos)
 #define SECTION(NAME)                      \
+    std::cout << "Running section: " << NAME << std::endl; \
     bench.context("benchmark_name", NAME); \
     if (!section.has_value() || std::string_view{NAME}.find(section.value()) != std::string_view::npos)
 #define TEST_RPP(...) \
+    std::cout << "Running RPP" << std::endl; \
     if (!disable_rpp) bench.context("source", "rpp").run(__VA_ARGS__)
 #ifdef RPP_BUILD_RXCPP
     #define TEST_RXCPP(...) \
+        std::cout << "Running RXCPP" << std::endl; \
         if (!disable_rxcpp) bench.context("source", "rxcpp").run(__VA_ARGS__)
 #else
     #define TEST_RXCPP(...)
