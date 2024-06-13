@@ -57,7 +57,6 @@ TEST_CASE("async client reactor")
         bidi_reactor->get_observable() | rpp::ops::map([](const Response& out) { return out.value(); }) | rpp::ops::observe_on(rpp::schedulers::new_thread{}) | rpp::ops::subscribe(out_mock);
         subj.get_observable() | rpp::ops::map([](int v) { Request request{}; request.set_value(v); return request; }) | rpp::ops::subscribe(bidi_reactor->get_observer());
 
-
         stub->async()->Bidirectional(&ctx, bidi_reactor);
         SECTION("no stream job - completion")
         {
@@ -67,6 +66,7 @@ TEST_CASE("async client reactor")
 
             wait(initial_call);
         }
+
         SECTION("error status - error")
         {
             const auto initial_call = NAMED_REQUIRE_CALL(*mock_service, Bidirectional(trompeloeil::_, trompeloeil::_)).RETURN(grpc::Status::CANCELLED).IN_SEQUENCE(s);
@@ -75,16 +75,17 @@ TEST_CASE("async client reactor")
 
             wait(initial_call);
         }
+
         SECTION("manual client-side completion")
         {
-            const auto initial_call = NAMED_REQUIRE_CALL(*mock_service, Bidirectional(trompeloeil::_, trompeloeil::_))
-                                          .RETURN(grpc::Status::OK)
-                                          .LR_SIDE_EFFECT({
-                                              Request request{};
-                                              while (_2->Read(&request))
-                                              {
-                                              }
-                                          });
+            REQUIRE_CALL(*mock_service, Bidirectional(trompeloeil::_, trompeloeil::_))
+                .RETURN(grpc::Status::OK)
+                .LR_SIDE_EFFECT({
+                    Request request{};
+                    while (_2->Read(&request))
+                    {
+                    }
+                });
 
             bidi_reactor->init();
 
@@ -93,20 +94,21 @@ TEST_CASE("async client reactor")
 
             wait(completed);
         }
+
         SECTION("client-side write + completion")
         {
             std::promise<std::vector<int>> results{};
-            const auto                     initial_call = NAMED_REQUIRE_CALL(*mock_service, Bidirectional(trompeloeil::_, trompeloeil::_))
-                                          .RETURN(grpc::Status::OK)
-                                          .LR_SIDE_EFFECT({
-                                              std::vector<int> reads{};
-                                              Request          request{};
-                                              while (_2->Read(&request))
-                                              {
-                                                  reads.push_back(request.value());
-                                              }
-                                              results.set_value(reads);
-                                          });
+            REQUIRE_CALL(*mock_service, Bidirectional(trompeloeil::_, trompeloeil::_))
+                .RETURN(grpc::Status::OK)
+                .LR_SIDE_EFFECT({
+                    std::vector<int> reads{};
+                    Request          request{};
+                    while (_2->Read(&request))
+                    {
+                        reads.push_back(request.value());
+                    }
+                    results.set_value(reads);
+                });
 
             bidi_reactor->init();
             subj.get_observer().on_next(1);
@@ -121,6 +123,7 @@ TEST_CASE("async client reactor")
 
             wait(completed);
         }
+
         SECTION("client-side read + completion")
         {
             REQUIRE_CALL(*mock_service, Bidirectional(trompeloeil::_, trompeloeil::_))
@@ -143,6 +146,7 @@ TEST_CASE("async client reactor")
 
             wait(completed);
         }
+
         SECTION("client-side read-write + completeion")
         {
             REQUIRE_CALL(*mock_service, Bidirectional(trompeloeil::_, trompeloeil::_))
