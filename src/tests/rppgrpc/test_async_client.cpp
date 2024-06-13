@@ -2,6 +2,8 @@
 
 #include <rpp/observers/mock_observer.hpp>
 #include <rpp/operators/map.hpp>
+#include <rpp/operators/observe_on.hpp>
+#include <rpp/schedulers/new_thread.hpp>
 #include <rpp/subjects/publish_subject.hpp>
 
 #include <grpc++/server_builder.h>
@@ -52,7 +54,7 @@ TEST_CASE("async client reactor")
         grpc::ClientContext ctx{};
 
         const auto bidi_reactor = new rppgrpc::client_bidi_reactor<Request, Response>();
-        bidi_reactor->get_observable() | rpp::ops::map([](const Response& out) { return out.value(); }) | rpp::ops::subscribe(out_mock);
+        bidi_reactor->get_observable() | rpp::ops::map([](const Response& out) { return out.value(); }) | rpp::ops::observe_on(rpp::schedulers::new_thread{}) | rpp::ops::subscribe(out_mock);
         subj.get_observable() | rpp::ops::map([](int v) { Request request{}; request.set_value(v); return request; }) | rpp::ops::subscribe(bidi_reactor->get_observer());
 
 
@@ -121,62 +123,54 @@ TEST_CASE("async client reactor")
         }
         SECTION("client-side read + completion")
         {
-            const auto initial_call = NAMED_REQUIRE_CALL(*mock_service, Bidirectional(trompeloeil::_, trompeloeil::_))
-                                          .RETURN(grpc::Status::OK)
-                                          .LR_SIDE_EFFECT({
-                                              Response response{};
-                                              std::cout << std::this_thread::get_id() << __LINE__ << std::endl;
+            REQUIRE_CALL(*mock_service, Bidirectional(trompeloeil::_, trompeloeil::_))
+                .RETURN(grpc::Status::OK)
+                .LR_SIDE_EFFECT({
+                    Response response{};
 
-                                              for (int v : {1, 2, 3})
-                                              {
-                                                  std::cout << std::this_thread::get_id() << __LINE__ << std::endl;
-                                                  response.set_value(v);
-                                                  _2->Write(response);
-                                              }
-                                              std::cout << std::this_thread::get_id() << __LINE__ << std::endl;
-                                          });
-            std::cout << std::this_thread::get_id() << __LINE__ << std::endl;
+                    for (int v : {1, 2, 3})
+                    {
+                        response.set_value(v);
+                        _2->Write(response);
+                    }
+                });
             bidi_reactor->init();
 
-            std::thread{[&] {
-                REQUIRE_CALL(*out_mock, on_next_rvalue(1)).IN_SEQUENCE(s);
-                REQUIRE_CALL(*out_mock, on_next_rvalue(2)).IN_SEQUENCE(s);
-                REQUIRE_CALL(*out_mock, on_next_rvalue(3)).IN_SEQUENCE(s);
-                const auto completed = NAMED_REQUIRE_CALL(*out_mock, on_completed()).IN_SEQUENCE(s);
+            REQUIRE_CALL(*out_mock, on_next_rvalue(1)).IN_SEQUENCE(s);
+            REQUIRE_CALL(*out_mock, on_next_rvalue(2)).IN_SEQUENCE(s);
+            REQUIRE_CALL(*out_mock, on_next_rvalue(3)).IN_SEQUENCE(s);
+            const auto completed = NAMED_REQUIRE_CALL(*out_mock, on_completed()).IN_SEQUENCE(s);
 
-                std::cout << std::this_thread::get_id() << __LINE__ << std::endl;
-
-                wait(initial_call);
-            }}.join();
+            wait(completed);
         }
-        // SECTION("successful read-write")
-        // {
-        //     REQUIRE_CALL(*mock_service, Bidirectional(trompeloeil::_, trompeloeil::_))
-        //                        .RETURN(grpc::Status::OK)
-        //                        .LR_SIDE_EFFECT({
-        //                             Request request{};
-        //                             while(_2->Read(&request)) {
-        //                                 Response response{};
-        //                                 response.set_value(request.value()*10);
-        //                                 _2->Write(response);
-        //                             }
-        //                        });
+        SECTION("client-side read-write + completeion")
+        {
+            REQUIRE_CALL(*mock_service, Bidirectional(trompeloeil::_, trompeloeil::_))
+                .RETURN(grpc::Status::OK)
+                .LR_SIDE_EFFECT({
+                    Request request{};
+                    while (_2->Read(&request))
+                    {
+                        Response response{};
+                        response.set_value(request.value() * 10);
+                        _2->Write(response);
+                    }
+                });
 
-        //     bidi_reactor->init();
+            bidi_reactor->init();
 
-        //     REQUIRE_CALL(*out_mock, on_next_rvalue(10)).IN_SEQUENCE(s);
-        //     subj.get_observer().on_next(1);
+            REQUIRE_CALL(*out_mock, on_next_rvalue(10)).IN_SEQUENCE(s);
+            subj.get_observer().on_next(1);
 
-        //     REQUIRE_CALL(*out_mock, on_next_rvalue(20)).IN_SEQUENCE(s);
-        //     subj.get_observer().on_next(2);
+            REQUIRE_CALL(*out_mock, on_next_rvalue(20)).IN_SEQUENCE(s);
+            subj.get_observer().on_next(2);
 
-        //     const auto completed = NAMED_REQUIRE_CALL(*out_mock, on_completed()).IN_SEQUENCE(s);
-        //     subj.get_observer().on_completed();
+            const auto completed = NAMED_REQUIRE_CALL(*out_mock, on_completed()).IN_SEQUENCE(s);
+            subj.get_observer().on_completed();
 
-        //     wait(completed);
-        // }
+            wait(completed);
+        }
     }
-
 
     // auto validate_write = [&](auto& stream_mock, auto*& reactor) {
     //     SECTION("write to stream")
