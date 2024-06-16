@@ -24,10 +24,9 @@ struct service : public trompeloeil::mock_interface<TestService::Service>
 
 void wait(const std::unique_ptr<trompeloeil::expectation>& e)
 {
-    const auto start = std::chrono::system_clock::now();
-    while (!e->is_satisfied() && std::chrono::system_clock::now() - start < std::chrono::seconds{1})
+    while (!e->is_satisfied())
     {
-        std::this_thread::sleep_for(std::chrono::milliseconds{10});
+        std::this_thread::yield();
     }
 }
 
@@ -60,20 +59,20 @@ TEST_CASE("async client reactor")
         stub->async()->Bidirectional(&ctx, bidi_reactor);
         SECTION("no stream job - completion")
         {
-            const auto initial_call = NAMED_REQUIRE_CALL(*mock_service, Bidirectional(trompeloeil::_, trompeloeil::_)).RETURN(grpc::Status::OK).IN_SEQUENCE(s);
-            REQUIRE_CALL(*out_mock, on_completed()).IN_SEQUENCE(s);
+            REQUIRE_CALL(*mock_service, Bidirectional(trompeloeil::_, trompeloeil::_)).RETURN(grpc::Status::OK).IN_SEQUENCE(s);
+            const auto last = NAMED_REQUIRE_CALL(*out_mock, on_completed()).IN_SEQUENCE(s);
             bidi_reactor->init();
 
-            wait(initial_call);
+            wait(last);
         }
 
         SECTION("error status - error")
         {
-            const auto initial_call = NAMED_REQUIRE_CALL(*mock_service, Bidirectional(trompeloeil::_, trompeloeil::_)).RETURN(grpc::Status::CANCELLED).IN_SEQUENCE(s);
-            REQUIRE_CALL(*out_mock, on_error(trompeloeil::_)).IN_SEQUENCE(s);
+            REQUIRE_CALL(*mock_service, Bidirectional(trompeloeil::_, trompeloeil::_)).RETURN(grpc::Status::CANCELLED).IN_SEQUENCE(s);
+            const auto last = NAMED_REQUIRE_CALL(*out_mock, on_error(trompeloeil::_)).IN_SEQUENCE(s);
             bidi_reactor->init();
 
-            wait(initial_call);
+            wait(last);
         }
 
         SECTION("manual client-side completion")
@@ -89,10 +88,10 @@ TEST_CASE("async client reactor")
 
             bidi_reactor->init();
 
-            const auto completed = NAMED_REQUIRE_CALL(*out_mock, on_completed()).IN_SEQUENCE(s);
+            const auto last = NAMED_REQUIRE_CALL(*out_mock, on_completed()).IN_SEQUENCE(s);
             subj.get_observer().on_completed();
 
-            wait(completed);
+            wait(last);
         }
 
         SECTION("client-side write + completion")
@@ -114,14 +113,14 @@ TEST_CASE("async client reactor")
             subj.get_observer().on_next(1);
             subj.get_observer().on_next(2);
 
-            const auto completed = NAMED_REQUIRE_CALL(*out_mock, on_completed()).IN_SEQUENCE(s);
+            const auto last = NAMED_REQUIRE_CALL(*out_mock, on_completed()).IN_SEQUENCE(s);
             subj.get_observer().on_completed();
 
             auto f = results.get_future();
             REQUIRE(f.wait_for(std::chrono::seconds{1}) == std::future_status::ready);
             CHECK(f.get() == std::vector<int>{1, 2});
 
-            wait(completed);
+            wait(last);
         }
 
         SECTION("client-side read + completion")
@@ -142,9 +141,9 @@ TEST_CASE("async client reactor")
             REQUIRE_CALL(*out_mock, on_next_rvalue(1)).IN_SEQUENCE(s);
             REQUIRE_CALL(*out_mock, on_next_rvalue(2)).IN_SEQUENCE(s);
             REQUIRE_CALL(*out_mock, on_next_rvalue(3)).IN_SEQUENCE(s);
-            const auto completed = NAMED_REQUIRE_CALL(*out_mock, on_completed()).IN_SEQUENCE(s);
+            const auto last = NAMED_REQUIRE_CALL(*out_mock, on_completed()).IN_SEQUENCE(s);
 
-            wait(completed);
+            wait(last);
         }
 
         SECTION("client-side read-write + completeion")
@@ -169,10 +168,10 @@ TEST_CASE("async client reactor")
             REQUIRE_CALL(*out_mock, on_next_rvalue(20)).IN_SEQUENCE(s);
             subj.get_observer().on_next(2);
 
-            const auto completed = NAMED_REQUIRE_CALL(*out_mock, on_completed()).IN_SEQUENCE(s);
+            const auto last = NAMED_REQUIRE_CALL(*out_mock, on_completed()).IN_SEQUENCE(s);
             subj.get_observer().on_completed();
 
-            wait(completed);
+            wait(last);
         }
     }
     server->Shutdown();
