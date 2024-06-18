@@ -26,7 +26,7 @@ void wait(const std::unique_ptr<trompeloeil::expectation>& e)
 {
     while (!e->is_satisfied())
     {
-        std::this_thread::sleep_for(std::chrono::nanoseconds{100});
+        std::this_thread::sleep_for(std::chrono::seconds{1});
     }
 }
 
