@@ -108,9 +108,11 @@ TEST_CASE("async client reactor")
                     }
                     results.set_value(reads);
                 });
-    
-            auto t = std::thread{[&]{ bidi_reactor->init();}};
-    
+
+            auto t = std::thread{[&] {
+                bidi_reactor->init();
+            }};
+
             subj.get_observer().on_next(1);
             subj.get_observer().on_next(2);
 
