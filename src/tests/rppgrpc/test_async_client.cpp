@@ -61,18 +61,24 @@ TEST_CASE("async client reactor")
         {
             REQUIRE_CALL(*mock_service, Bidirectional(trompeloeil::_, trompeloeil::_)).RETURN(grpc::Status::OK).IN_SEQUENCE(s);
             const auto last = NAMED_REQUIRE_CALL(*out_mock, on_completed()).IN_SEQUENCE(s);
-            bidi_reactor->init();
+            auto t = std::thread{[&] {
+                bidi_reactor->init();
+            }};
 
             wait(last);
+            t.join();
         }
 
         SECTION("error status - error")
         {
             REQUIRE_CALL(*mock_service, Bidirectional(trompeloeil::_, trompeloeil::_)).RETURN(grpc::Status::CANCELLED).IN_SEQUENCE(s);
             const auto last = NAMED_REQUIRE_CALL(*out_mock, on_error(trompeloeil::_)).IN_SEQUENCE(s);
-            bidi_reactor->init();
+            auto t = std::thread{[&] {
+                bidi_reactor->init();
+            }};
 
             wait(last);
+            t.join();
         }
 
         SECTION("manual client-side completion")
@@ -86,12 +92,15 @@ TEST_CASE("async client reactor")
                     }
                 });
 
-            bidi_reactor->init();
+            auto t = std::thread{[&] {
+                bidi_reactor->init();
+            }};
 
             const auto last = NAMED_REQUIRE_CALL(*out_mock, on_completed()).IN_SEQUENCE(s);
             subj.get_observer().on_completed();
 
             wait(last);
+            t.join();
         }
 
         SECTION("client-side write + completion")
@@ -140,7 +149,9 @@ TEST_CASE("async client reactor")
                         _2->Write(response);
                     }
                 });
-            bidi_reactor->init();
+            auto t = std::thread{[&] {
+                bidi_reactor->init();
+            }};
 
             REQUIRE_CALL(*out_mock, on_next_rvalue(1)).IN_SEQUENCE(s);
             REQUIRE_CALL(*out_mock, on_next_rvalue(2)).IN_SEQUENCE(s);
@@ -148,6 +159,7 @@ TEST_CASE("async client reactor")
             const auto last = NAMED_REQUIRE_CALL(*out_mock, on_completed()).IN_SEQUENCE(s);
 
             wait(last);
+            t.join();
         }
 
         SECTION("client-side read-write + completeion")
@@ -164,7 +176,9 @@ TEST_CASE("async client reactor")
                     }
                 });
 
-            bidi_reactor->init();
+            auto t = std::thread{[&] {
+                bidi_reactor->init();
+            }};
 
             REQUIRE_CALL(*out_mock, on_next_rvalue(10)).IN_SEQUENCE(s);
             subj.get_observer().on_next(1);
@@ -176,6 +190,7 @@ TEST_CASE("async client reactor")
             subj.get_observer().on_completed();
 
             wait(last);
+            t.join();
         }
     }
     server->Shutdown();
