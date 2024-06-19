@@ -15,10 +15,14 @@ int main() // NOLINT(bugprone-exception-escape)
         auto channel = grpc::CreateChannel("localhost:50051", grpc::InsecureChannelCredentials());
         auto stub    = TestService::NewStub(channel);
 
-        grpc::ClientContext                      ctx{};
-        rpp::subjects::publish_subject<Request>  requests{};
-        rpp::subjects::publish_subject<Response> responses{};
-        rppgrpc::add_client_reactor(&TestService::StubInterface::async_interface::Bidirectional, *stub->async(), &ctx, requests.get_observable(), responses.get_observer());
+        grpc::ClientContext ctx{};
+        const auto          reactor = new rppgrpc::client_bidi_reactor<Request, Response>();
+        stub->async()->Bidirectional(&ctx, reactor);
+        reactor->get_observable().subscribe([](const Response&) {});
+
+        reactor->init();
+
+        reactor->get_observer().on_next(Request{});
         //! [bidi_reactor]
     }
     {
@@ -26,10 +30,13 @@ int main() // NOLINT(bugprone-exception-escape)
         auto channel = grpc::CreateChannel("localhost:50051", grpc::InsecureChannelCredentials());
         auto stub    = TestService::NewStub(channel);
 
-        grpc::ClientContext                      ctx{};
-        rpp::subjects::publish_subject<Response> responses{};
-        Request                                  request{};
-        rppgrpc::add_client_reactor(&TestService::StubInterface::async_interface::ServerSide, *stub->async(), &ctx, &request, responses.get_observer());
+        grpc::ClientContext ctx{};
+        const auto          reactor = new rppgrpc::client_read_reactor<Response>();
+        Request             req{};
+        stub->async()->ServerSide(&ctx, &req, reactor);
+        reactor->get_observable().subscribe([](const Response&) {});
+
+        reactor->init();
         //! [read_reactor]
     }
     {
@@ -37,10 +44,15 @@ int main() // NOLINT(bugprone-exception-escape)
         auto channel = grpc::CreateChannel("localhost:50051", grpc::InsecureChannelCredentials());
         auto stub    = TestService::NewStub(channel);
 
-        grpc::ClientContext                      ctx{};
-        rpp::subjects::publish_subject<Request>  requests{};
-        rpp::subjects::publish_subject<Response> responses{};
-        rppgrpc::add_client_reactor(&TestService::StubInterface::async_interface::ClientSide, *stub->async(), &ctx, requests.get_observable(), responses.get_observer());
+        grpc::ClientContext ctx{};
+        const auto          reactor = new rppgrpc::client_write_reactor<Request>();
+        Response            resp{};
+        stub->async()->ClientSide(&ctx, &resp, reactor);
+        reactor->get_observable().subscribe([](const rpp::utils::none&) {});
+
+        reactor->init();
+
+        reactor->get_observer().on_next(Request{});
         //! [write_reactor]
     }
 

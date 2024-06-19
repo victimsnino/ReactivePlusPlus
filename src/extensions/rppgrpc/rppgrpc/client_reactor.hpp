@@ -22,6 +22,15 @@
 
 namespace rppgrpc
 {
+    /**
+     * @brief RPP's based implementation for grpc client bidirectional reactor.
+     * @details To use it you need:
+     * - create it via `new` operator OR be sure it is alive while it is used inside grpc.
+     * - pass it to `stub->async()->GrpcBidirectionalStream(ctx, reactor);`
+     * - call `reactor->init()` method for actual starting of grpc logic
+     * - to access values FROM stream you can subscribe to observable obtained via `reactor->get_observable()` (same observable WOULD emit on_completed in case of successful stream termination and on_error in case of some errors with grpc stream)
+     * - to pass values TO stream you can emit values to observer obtained via `reactor->get_observer()`
+     */
     template<rpp::constraint::decayed_type Request, rpp::constraint::decayed_type Response>
     class client_bidi_reactor final : public grpc::ClientBidiReactor<Request, Response>
     {
@@ -126,6 +135,15 @@ namespace rppgrpc
         bool                m_finished{};
     };
 
+    /**
+     * @brief RPP's based implementation for grpc client write reactor
+     * @details To use it you need:
+     * - create it via `new` operator OR be sure it is alive while it is used inside grpc.
+     * - pass it to `stub->async()->GrpcWriteStream(ctx, &request, reactor);`
+     * - call `reactor->init()` method for actual starting of grpc logic
+     * - to pass values TO stream you can emit values to observer obtained via `reactor->get_observer()`
+     * - reactor provides `reactor->get_observable()` method but such as observable emits nothing and can be used only to be notified about completion/error
+     */
     template<rpp::constraint::decayed_type Request>
     class client_write_reactor final : public grpc::ClientWriteReactor<Request>
     {
@@ -217,6 +235,14 @@ namespace rppgrpc
         bool                m_finished{};
     };
 
+    /**
+     * @brief RPP's based implementation for grpc client read reactor.
+     * @details To use it you need:
+     * - create it via `new` operator OR be sure it is alive while it is used inside grpc.
+     * - pass it to `stub->async()->GrpcReadStream(ctx, &response, reactor);`
+     * - call `reactor->init()` method for actual starting of grpc logic
+     * - to access values FROM stream you can subscribe to observable obtained via `reactor->get_observable()` (same observable WOULD emit on_completed in case of successful stream termination and on_error in case of some errors with grpc stream)
+     */
     template<rpp::constraint::decayed_type Response>
     class client_read_reactor final : public grpc::ClientReadReactor<Response>
     {

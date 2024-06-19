@@ -21,4 +21,10 @@ namespace rppgrpc
 {
     template<rpp::constraint::decayed_type Request, rpp::constraint::decayed_type Response>
     class client_bidi_reactor;
+
+    template<rpp::constraint::decayed_type Request>
+    class client_write_reactor;
+
+    template<rpp::constraint::decayed_type Response>
+    class client_read_reactor;
 } // namespace rppgrpc
