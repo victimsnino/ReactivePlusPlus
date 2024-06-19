@@ -61,7 +61,7 @@ TEST_CASE("async client reactor")
         {
             REQUIRE_CALL(*mock_service, Bidirectional(trompeloeil::_, trompeloeil::_)).RETURN(grpc::Status::OK).IN_SEQUENCE(s);
             const auto last = NAMED_REQUIRE_CALL(*out_mock, on_completed()).IN_SEQUENCE(s);
-            auto t = std::thread{[&] {
+            auto       t    = std::thread{[&] {
                 bidi_reactor->init();
             }};
 
@@ -73,7 +73,7 @@ TEST_CASE("async client reactor")
         {
             REQUIRE_CALL(*mock_service, Bidirectional(trompeloeil::_, trompeloeil::_)).RETURN(grpc::Status::CANCELLED).IN_SEQUENCE(s);
             const auto last = NAMED_REQUIRE_CALL(*out_mock, on_error(trompeloeil::_)).IN_SEQUENCE(s);
-            auto t = std::thread{[&] {
+            auto       t    = std::thread{[&] {
                 bidi_reactor->init();
             }};
 
