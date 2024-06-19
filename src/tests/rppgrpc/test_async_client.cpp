@@ -108,8 +108,9 @@ TEST_CASE("async client reactor")
                     }
                     results.set_value(reads);
                 });
-
-            bidi_reactor->init();
+    
+            auto t = std::thread{[&]{ bidi_reactor->init();}};
+    
             subj.get_observer().on_next(1);
             subj.get_observer().on_next(2);
 
@@ -121,6 +122,7 @@ TEST_CASE("async client reactor")
             CHECK(f.get() == std::vector<int>{1, 2});
 
             wait(last);
+            t.join();
         }
 
         SECTION("client-side read + completion")
