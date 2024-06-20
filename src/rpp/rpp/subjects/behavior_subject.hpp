@@ -17,7 +17,6 @@
 #include <rpp/subjects/details/subject_on_subscribe.hpp>
 #include <rpp/subjects/details/subject_state.hpp>
 
-#include <deque>
 #include <utility>
 
 namespace rpp::subjects::details

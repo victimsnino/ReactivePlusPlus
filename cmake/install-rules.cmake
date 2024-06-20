@@ -8,6 +8,7 @@ install(
     DIRECTORY
        src/rpp
        src/extensions/rppqt
+       src/extensions/rppgrpc
     DESTINATION
         "${CMAKE_INSTALL_INCLUDEDIR}"
     COMPONENT
@@ -24,6 +25,11 @@ install(
     TARGETS rppqt
     EXPORT RPPTargets
     INCLUDES DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/rppqt"
+)
+install(
+    TARGETS rppgrpc
+    EXPORT RPPTargets
+    INCLUDES DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/rppgrpc"
 )
 
 write_basic_package_version_file(

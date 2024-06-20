@@ -26,7 +26,8 @@ But RPP is header-only library, so, without enabling any extra options is just c
 - `RPP_BUILD_TESTS` - (ON/OFF) build unit tests (default OFF)
 - `RPP_BUILD_EXAMPLES` - (ON/OFF) build examples of usage of RPP (default OFF)
 - `RPP_BUILD_SFML_CODE` - (ON/OFF) build RPP code related to SFML or not (default OFF) - requires SFML to be installed
-- `RPP_BUILD_QT_CODE` - (ON/OFF) build RPPQT related code (examples/tests)(rppqt module doesn't requires this one) (default OFF) - requires QT5/6 to be installed
+- `RPP_BUILD_QT_CODE` - (ON/OFF) build QT related code (examples/tests)(rppqt module doesn't requires this one) (default OFF) - requires QT5/6 to be installed
+- `RPP_BUILD_GRPC_CODE` - (ON/OFF) build GRPC related code (examples/tests)(rppgrpc module doesn't requires this one) (default OFF) - requires grpc++/protobuf to be installed
 
 By default, it provides rpp and rppqt INTERFACE modules.
 

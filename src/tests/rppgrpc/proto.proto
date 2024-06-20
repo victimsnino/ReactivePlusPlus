@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+message Request {
+    uint32 Value = 1;
+}
+
+message Response {
+    uint32 Value = 1;
+}
+
+service TestService {
+    rpc ServerSide(Request) returns (stream Response) {}
+    rpc ClientSide(stream Request) returns (Response) {}
+    rpc Bidirectional(stream Request) returns (stream Response) {}
+}
