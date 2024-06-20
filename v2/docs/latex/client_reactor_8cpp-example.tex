@@ -1,0 +1,56 @@
+\doxysection{client\+\_\+reactor.\+cpp}
+\hypertarget{client_reactor_8cpp-example}{}\label{client_reactor_8cpp-example}
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <rpp/rpp.hpp>}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <grpc++/create\_channel.h>}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <rppgrpc/rppgrpc.hpp>}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ "{}protocol.grpc.pb.h"{}}}
+\DoxyCodeLine{\textcolor{keywordtype}{int}\ main()\ \textcolor{comment}{//\ NOLINT(bugprone-\/exception-\/escape)}}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ channel\ =\ grpc::CreateChannel(\textcolor{stringliteral}{"{}localhost:50051"{}},\ grpc::InsecureChannelCredentials());}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ stub\ \ \ \ =\ TestService::NewStub(channel);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ grpc::ClientContext\ ctx\{\};}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ \ \ \ \ \ \ \ \ \ reactor\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{classrppgrpc_1_1client__bidi__reactor}{rppgrpc::client\_bidi\_reactor<Request,\ Response>}}();}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ stub-\/>async()-\/>Bidirectional(\&ctx,\ reactor);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ reactor-\/>get\_observable().subscribe([](\textcolor{keyword}{const}\ Response\&)\ \{\});}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ reactor-\/>init();}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ reactor-\/>get\_observer().on\_next(Request\{\});}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ channel\ =\ grpc::CreateChannel(\textcolor{stringliteral}{"{}localhost:50051"{}},\ grpc::InsecureChannelCredentials());}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ stub\ \ \ \ =\ TestService::NewStub(channel);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ grpc::ClientContext\ ctx\{\};}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ \ \ \ \ \ \ \ \ \ reactor\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{classrppgrpc_1_1client__read__reactor}{rppgrpc::client\_read\_reactor<Response>}}();}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ Request\ \ \ \ \ \ \ \ \ \ \ \ \ req\{\};}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ stub-\/>async()-\/>ServerSide(\&ctx,\ \&req,\ reactor);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ reactor-\/>get\_observable().subscribe([](\textcolor{keyword}{const}\ Response\&)\ \{\});}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ reactor-\/>init();}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ channel\ =\ grpc::CreateChannel(\textcolor{stringliteral}{"{}localhost:50051"{}},\ grpc::InsecureChannelCredentials());}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ stub\ \ \ \ =\ TestService::NewStub(channel);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ grpc::ClientContext\ ctx\{\};}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ \ \ \ \ \ \ \ \ \ reactor\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{classrppgrpc_1_1client__write__reactor}{rppgrpc::client\_write\_reactor<Request>}}();}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ Response\ \ \ \ \ \ \ \ \ \ \ \ resp\{\};}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ stub-\/>async()-\/>ClientSide(\&ctx,\ \&resp,\ reactor);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ reactor-\/>get\_observable().subscribe([](\textcolor{keyword}{const}\ rpp::utils::none\&)\ \{\});}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ reactor-\/>init();}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ reactor-\/>get\_observer().on\_next(Request\{\});}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{\}}
+
+\end{DoxyCodeInclude}
+ 

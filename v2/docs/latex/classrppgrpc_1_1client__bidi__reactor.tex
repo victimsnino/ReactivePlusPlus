@@ -1,0 +1,52 @@
+\doxysection{rppgrpc\+::client\+\_\+bidi\+\_\+reactor\texorpdfstring{$<$}{<} Request, Response \texorpdfstring{$>$}{>} Class Template Reference}
+\hypertarget{classrppgrpc_1_1client__bidi__reactor}{}\label{classrppgrpc_1_1client__bidi__reactor}\index{rppgrpc::client\_bidi\_reactor$<$ Request, Response $>$@{rppgrpc::client\_bidi\_reactor$<$ Request, Response $>$}}
+
+
+RPP\textquotesingle{}s based implementation for grpc client bidirectional reactor.  
+
+
+
+
+{\ttfamily \#include $<$client\+\_\+reactor.\+hpp$>$}
+
+Inheritance diagram for rppgrpc\+::client\+\_\+bidi\+\_\+reactor\texorpdfstring{$<$}{<} Request, Response \texorpdfstring{$>$}{>}\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classrppgrpc_1_1client__bidi__reactor}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classrppgrpc_1_1client__bidi__reactor_af2a6021ef1f91fb0869305e35284c40d}\label{classrppgrpc_1_1client__bidi__reactor_af2a6021ef1f91fb0869305e35284c40d} 
+void {\bfseries init} ()
+\item 
+\Hypertarget{classrppgrpc_1_1client__bidi__reactor_ab75295a62ba10c19a9e2c7f61691d37b}\label{classrppgrpc_1_1client__bidi__reactor_ab75295a62ba10c19a9e2c7f61691d37b} 
+auto {\bfseries get\+\_\+observer} ()
+\item 
+\Hypertarget{classrppgrpc_1_1client__bidi__reactor_ab4f35826ec11e0683869350ac85aeaef}\label{classrppgrpc_1_1client__bidi__reactor_ab4f35826ec11e0683869350ac85aeaef} 
+auto {\bfseries get\+\_\+observable} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$rpp\+::constraint\+::decayed\+\_\+type Request, rpp\+::constraint\+::decayed\+\_\+type Response$>$\newline
+class rppgrpc\+::client\+\_\+bidi\+\_\+reactor$<$ Request, Response $>$}
+RPP\textquotesingle{}s based implementation for grpc client bidirectional reactor. 
+
+To use it you need\+:
+\begin{DoxyItemize}
+\item create it via {\ttfamily new} operator OR be sure it is alive while it is used inside grpc.
+\item pass it to {\ttfamily stub-\/\texorpdfstring{$>$}{>}async()-\/\texorpdfstring{$>$}{>}Grpc\+Bidirectional\+Stream(ctx, reactor);}
+\item call {\ttfamily reactor-\/\texorpdfstring{$>$}{>}init()} method for actual starting of grpc logic
+\item to access values FROM stream you can subscribe to observable obtained via {\ttfamily reactor-\/\texorpdfstring{$>$}{>}get\+\_\+observable()} (same observable WOULD emit on\+\_\+completed in case of successful stream termination and on\+\_\+error in case of some errors with grpc stream)
+\item to pass values TO stream you can emit values to observer obtained via {\ttfamily reactor-\/\texorpdfstring{$>$}{>}get\+\_\+observer()} 
+\end{DoxyItemize}\begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{client_reactor_8cpp-example}{client\+\_\+reactor.\+cpp}}.\end{Desc}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/extensions/rppgrpc/rppgrpc/client\+\_\+reactor.\+hpp\item 
+src/extensions/rppgrpc/rppgrpc/fwd.\+hpp\end{DoxyCompactItemize}

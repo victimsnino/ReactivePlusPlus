@@ -243,6 +243,17 @@ var annotated_dup =
       [ "refcount_disposable", "classrpp_1_1refcount__disposable.html", null ],
       [ "variant_observable", "classrpp_1_1variant__observable.html", null ]
     ] ],
+    [ "rppgrpc", null, [
+      [ "details", null, [
+        [ "server_bidi_reactor", "classrppgrpc_1_1details_1_1server__bidi__reactor.html", null ]
+      ] ],
+      [ "utils", null, [
+        [ "reactor_failed", "structrppgrpc_1_1utils_1_1reactor__failed.html", null ]
+      ] ],
+      [ "client_bidi_reactor", "classrppgrpc_1_1client__bidi__reactor.html", null ],
+      [ "client_read_reactor", "classrppgrpc_1_1client__read__reactor.html", null ],
+      [ "client_write_reactor", "classrppgrpc_1_1client__write__reactor.html", null ]
+    ] ],
     [ "rppqt", null, [
       [ "details", null, [
         [ "from_signal_on_event", "structrppqt_1_1details_1_1from__signal__on__event.html", null ],

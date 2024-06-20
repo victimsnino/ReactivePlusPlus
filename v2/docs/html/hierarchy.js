@@ -20,6 +20,15 @@ var hierarchy =
     ] ],
     [ "rpp::details::observables::blocking_strategy< Type, Strategy >", "classrpp_1_1details_1_1observables_1_1blocking__strategy.html", null ],
     [ "rpp::operators::details::buffer_observer_strategy< TObserver >", "classrpp_1_1operators_1_1details_1_1buffer__observer__strategy.html", null ],
+    [ "grpc::ClientBidiReactor", null, [
+      [ "rppgrpc::client_bidi_reactor< Request, Response >", "classrppgrpc_1_1client__bidi__reactor.html", null ]
+    ] ],
+    [ "grpc::ClientReadReactor", null, [
+      [ "rppgrpc::client_read_reactor< Response >", "classrppgrpc_1_1client__read__reactor.html", null ]
+    ] ],
+    [ "grpc::ClientWriteReactor", null, [
+      [ "rppgrpc::client_write_reactor< Request >", "classrppgrpc_1_1client__write__reactor.html", null ]
+    ] ],
     [ "rpp::operators::details::combining_observer_strategy< TDisposable >", "structrpp_1_1operators_1_1details_1_1combining__observer__strategy.html", null ],
     [ "rpp::operators::details::combining_observer_strategy< combine_latest_disposable< Observer, TSelector, Args... > >", "structrpp_1_1operators_1_1details_1_1combining__observer__strategy.html", [
       [ "rpp::operators::details::combine_latest_observer_strategy< I, Observer, TSelector, Args >", "structrpp_1_1operators_1_1details_1_1combine__latest__observer__strategy.html", null ]
@@ -312,9 +321,12 @@ var hierarchy =
     [ "rpp::subjects::details::publish_subject_base< Type, Serialized >", "classrpp_1_1subjects_1_1details_1_1publish__subject__base.html", null ],
     [ "rpp::subjects::details::publish_subject_base< Type, false >", "classrpp_1_1subjects_1_1details_1_1publish__subject__base.html", [
       [ "rpp::subjects::publish_subject< T >", "classrpp_1_1subjects_1_1publish__subject.html", null ],
+      [ "rpp::subjects::publish_subject< Response >", "classrpp_1_1subjects_1_1publish__subject.html", null ],
+      [ "rpp::subjects::publish_subject< rpp::utils::none >", "classrpp_1_1subjects_1_1publish__subject.html", null ],
       [ "rpp::subjects::publish_subject< Type >", "classrpp_1_1subjects_1_1publish__subject.html", null ]
     ] ],
     [ "rpp::subjects::details::publish_subject_base< Type, true >", "classrpp_1_1subjects_1_1details_1_1publish__subject__base.html", [
+      [ "rpp::subjects::serialized_publish_subject< Request >", "classrpp_1_1subjects_1_1serialized__publish__subject.html", null ],
       [ "rpp::subjects::serialized_publish_subject< Type >", "classrpp_1_1subjects_1_1serialized__publish__subject.html", null ]
     ] ],
     [ "rpp::operators::details::reduce_no_seed_observer_strategy< TObserver, Accumulator >", "structrpp_1_1operators_1_1details_1_1reduce__no__seed__observer__strategy.html", null ],
@@ -332,6 +344,7 @@ var hierarchy =
     ] ],
     [ "rpp::schedulers::run_loop", "classrpp_1_1schedulers_1_1run__loop.html", null ],
     [ "std::runtime_error", null, [
+      [ "rppgrpc::utils::reactor_failed", "structrppgrpc_1_1utils_1_1reactor__failed.html", null ],
       [ "rppqt::utils::no_active_qapplication", "structrppqt_1_1utils_1_1no__active__qapplication.html", null ]
     ] ],
     [ "rpp::operators::details::scan_no_seed_observer_strategy< TObserver, Fn >", "structrpp_1_1operators_1_1details_1_1scan__no__seed__observer__strategy.html", null ],
@@ -343,6 +356,9 @@ var hierarchy =
     [ "rpp::schedulers::details::schedulables_queue< current_thread::worker_strategy >", "classrpp_1_1schedulers_1_1details_1_1schedulables__queue.html", null ],
     [ "rpp::schedulers::details::schedulables_queue< test_scheduler::worker_strategy >", "classrpp_1_1schedulers_1_1details_1_1schedulables__queue.html", null ],
     [ "rpp::schedulers::details::schedulables_queue< worker_strategy >", "classrpp_1_1schedulers_1_1details_1_1schedulables__queue.html", null ],
+    [ "grpc::ServerBidiReactor", null, [
+      [ "rppgrpc::details::server_bidi_reactor< Response, Observer >", "classrppgrpc_1_1details_1_1server__bidi__reactor.html", null ]
+    ] ],
     [ "rpp::details::shared_container< Container >", "classrpp_1_1details_1_1shared__container.html", null ],
     [ "rpp::schedulers::details::shared_queue_data", "structrpp_1_1schedulers_1_1details_1_1shared__queue__data.html", null ],
     [ "rpp::operators::details::skip_observer_strategy< TObserver >", "structrpp_1_1operators_1_1details_1_1skip__observer__strategy.html", null ],

@@ -1,0 +1,52 @@
+\doxysection{rppgrpc\+::client\+\_\+write\+\_\+reactor\texorpdfstring{$<$}{<} Request \texorpdfstring{$>$}{>} Class Template Reference}
+\hypertarget{classrppgrpc_1_1client__write__reactor}{}\label{classrppgrpc_1_1client__write__reactor}\index{rppgrpc::client\_write\_reactor$<$ Request $>$@{rppgrpc::client\_write\_reactor$<$ Request $>$}}
+
+
+RPP\textquotesingle{}s based implementation for grpc client write reactor.  
+
+
+
+
+{\ttfamily \#include $<$client\+\_\+reactor.\+hpp$>$}
+
+Inheritance diagram for rppgrpc\+::client\+\_\+write\+\_\+reactor\texorpdfstring{$<$}{<} Request \texorpdfstring{$>$}{>}\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classrppgrpc_1_1client__write__reactor}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classrppgrpc_1_1client__write__reactor_a9c13d234c64573c4ebd1a6d58a442287}\label{classrppgrpc_1_1client__write__reactor_a9c13d234c64573c4ebd1a6d58a442287} 
+void {\bfseries init} ()
+\item 
+\Hypertarget{classrppgrpc_1_1client__write__reactor_ab89e00d5aa50343e9aa4cf2153808ff7}\label{classrppgrpc_1_1client__write__reactor_ab89e00d5aa50343e9aa4cf2153808ff7} 
+auto {\bfseries get\+\_\+observer} ()
+\item 
+\Hypertarget{classrppgrpc_1_1client__write__reactor_a30bd66fba9617ecce8631d20b5957930}\label{classrppgrpc_1_1client__write__reactor_a30bd66fba9617ecce8631d20b5957930} 
+auto {\bfseries get\+\_\+observable} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$rpp\+::constraint\+::decayed\+\_\+type Request$>$\newline
+class rppgrpc\+::client\+\_\+write\+\_\+reactor$<$ Request $>$}
+RPP\textquotesingle{}s based implementation for grpc client write reactor. 
+
+To use it you need\+:
+\begin{DoxyItemize}
+\item create it via {\ttfamily new} operator OR be sure it is alive while it is used inside grpc.
+\item pass it to {\ttfamily stub-\/\texorpdfstring{$>$}{>}async()-\/\texorpdfstring{$>$}{>}Grpc\+Write\+Stream(ctx, \&request, reactor);}
+\item call {\ttfamily reactor-\/\texorpdfstring{$>$}{>}init()} method for actual starting of grpc logic
+\item to pass values TO stream you can emit values to observer obtained via {\ttfamily reactor-\/\texorpdfstring{$>$}{>}get\+\_\+observer()}
+\item reactor provides {\ttfamily reactor-\/\texorpdfstring{$>$}{>}get\+\_\+observable()} method but such as observable emits nothing and can be used only to be notified about completion/error 
+\end{DoxyItemize}\begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{client_reactor_8cpp-example}{client\+\_\+reactor.\+cpp}}.\end{Desc}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/extensions/rppgrpc/rppgrpc/client\+\_\+reactor.\+hpp\item 
+src/extensions/rppgrpc/rppgrpc/fwd.\+hpp\end{DoxyCompactItemize}
