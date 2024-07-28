@@ -20,6 +20,52 @@
 
 #include <deque>
 
+namespace rppgrpc::details
+{
+    template<rpp::constraint::decayed_type Request>
+    struct write_data
+    {
+        std::mutex          write_mutex{};
+        std::deque<Request> write{};
+        bool                finished{};
+    };
+
+    template<rpp::constraint::decayed_type Request, rpp::constraint::decayed_type TOwner>
+    struct write_observer_strategy
+    {
+        template<rpp::constraint::decayed_same_as<Request> T>
+        void on_next(T&& message) const
+        {
+            std::lock_guard lock{owner->m_write_data.write_mutex};
+            owner->m_write_data.write.push_back(std::forward<T>(message));
+            if (owner->m_write_data.write.size() == 1)
+                owner->StartWrite(&owner->m_write_data.write.front());
+        }
+
+        void on_error(const std::exception_ptr&) const
+        {
+            std::lock_guard lock{owner->m_write_data.write_mutex};
+            owner->m_write_data.finished = true;
+
+            if (owner->m_write_data.write.size() == 0)
+                owner->StartWritesDone();
+        }
+        void on_completed() const
+        {
+            std::lock_guard lock{owner->m_write_data.write_mutex};
+            owner->m_write_data.finished = true;
+
+            if (owner->m_write_data.write.size() == 0)
+                owner->StartWritesDone();
+        }
+
+        static constexpr bool is_disposed() { return false; }
+        static constexpr void set_upstream(const rpp::disposable_wrapper&) {}
+
+        std::reference_wrapper<TOwner> owner{};
+    };
+} // namespace rppgrpc::details
+
 namespace rppgrpc
 {
     /**
@@ -37,29 +83,11 @@ namespace rppgrpc
         using Base = grpc::ClientBidiReactor<Request, Response>;
 
     public:
+        friend struct details::write_observer_strategy<Request, client_bidi_reactor>;
+
         client_bidi_reactor()
         {
-            m_requests.get_observable().subscribe(
-                [this]<rpp::constraint::decayed_same_as<Request> T>(T&& message) {
-                    std::lock_guard lock{m_write_mutex};
-                    m_write.push_back(std::forward<T>(message));
-                    if (m_write.size() == 1)
-                        Base::StartWrite(&m_write.front());
-                },
-                [this](const std::exception_ptr&) {
-                    std::lock_guard lock{m_write_mutex};
-                    m_finished = true;
-
-                    if (m_write.size() == 0)
-                        Base::StartWritesDone();
-                },
-                [this]() {
-                    std::lock_guard lock{m_write_mutex};
-                    m_finished = true;
-
-                    if (m_write.size() == 0)
-                        Base::StartWritesDone();
-                });
+            m_requests.get_observable().subscribe(details::write_observer_strategy<Request, client_bidi_reactor>{*this});
         }
 
         void init()
@@ -96,14 +124,14 @@ namespace rppgrpc
             if (!ok)
                 return;
 
-            std::lock_guard lock{m_write_mutex};
-            m_write.pop_front();
+            std::lock_guard lock{m_write_data.write_mutex};
+            m_write_data.write.pop_front();
 
-            if (!m_write.empty())
+            if (!m_write_data.write.empty())
             {
-                Base::StartWrite(&m_write.front());
+                Base::StartWrite(&m_write_data.write.front());
             }
-            else if (m_finished)
+            else if (m_write_data.finished)
             {
                 Base::StartWritesDone();
             }
@@ -130,9 +158,7 @@ namespace rppgrpc
         rpp::subjects::publish_subject<Response> m_observer;
         Response                                 m_read{};
 
-        std::mutex          m_write_mutex{};
-        std::deque<Request> m_write{};
-        bool                m_finished{};
+        details::write_data<Request> m_write_data{};
     };
 
     /**
@@ -150,29 +176,11 @@ namespace rppgrpc
         using Base = grpc::ClientWriteReactor<Request>;
 
     public:
+        friend struct details::write_observer_strategy<Request, client_write_reactor>;
+
         client_write_reactor()
         {
-            m_requests.get_observable().subscribe(
-                [this]<rpp::constraint::decayed_same_as<Request> T>(T&& message) {
-                    std::lock_guard lock{m_write_mutex};
-                    m_write.push_back(std::forward<T>(message));
-                    if (m_write.size() == 1)
-                        Base::StartWrite(&m_write.front());
-                },
-                [this](const std::exception_ptr&) {
-                    std::lock_guard lock{m_write_mutex};
-                    m_finished = true;
-
-                    if (m_write.size() == 0)
-                        Base::StartWritesDone();
-                },
-                [this]() {
-                    std::lock_guard lock{m_write_mutex};
-                    m_finished = true;
-
-                    if (m_write.size() == 0)
-                        Base::StartWritesDone();
-                });
+            m_requests.get_observable().subscribe(details::write_observer_strategy<Request, client_write_reactor>{*this});
         }
 
         void init()
@@ -198,14 +206,14 @@ namespace rppgrpc
             if (!ok)
                 return;
 
-            std::lock_guard lock{m_write_mutex};
-            m_write.pop_front();
+            std::lock_guard lock{m_write_data.write_mutex};
+            m_write_data.write.pop_front();
 
-            if (!m_write.empty())
+            if (!m_write_data.write.empty())
             {
-                Base::StartWrite(&m_write.front());
+                Base::StartWrite(&m_write_data.write.front());
             }
-            else if (m_finished)
+            else if (m_write_data.finished)
             {
                 Base::StartWritesDone();
             }
@@ -230,9 +238,7 @@ namespace rppgrpc
         rpp::subjects::serialized_publish_subject<Request> m_requests{};
         rpp::subjects::publish_subject<rpp::utils::none>   m_observer;
 
-        std::mutex          m_write_mutex{};
-        std::deque<Request> m_write{};
-        bool                m_finished{};
+        details::write_data<Request> m_write_data{};
     };
 
     /**
@@ -249,9 +255,7 @@ namespace rppgrpc
         using Base = grpc::ClientReadReactor<Response>;
 
     public:
-        client_read_reactor()
-        {
-        }
+        client_read_reactor() = default;
 
         void init()
         {
