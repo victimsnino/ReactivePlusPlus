@@ -20,7 +20,7 @@
 
 #include <deque>
 
-namespace rppgrpc::details
+namespace rppgrpc
 {
     template<rpp::constraint::decayed_type Response, rpp::constraint::observer Observer>
     class server_bidi_reactor final : public grpc::ServerBidiReactor<rpp::utils::extract_observer_type_t<Observer>, Response>
@@ -107,7 +107,4 @@ namespace rppgrpc::details
         std::mutex           m_write_mutex{};
         std::deque<Response> m_write{};
     };
-} // namespace rppgrpc::details
-namespace rppgrpc
-{
 } // namespace rppgrpc
