@@ -55,6 +55,9 @@ TEST_CASE("Async server")
 
         const auto writer = stub->Bidirectional(&ctx);
 
+        wait(bidirectional_call);
+
+
         SECTION("writer immediate finish")
         {
             const auto last = NAMED_REQUIRE_CALL(*out_mock, on_completed()).IN_SEQUENCE(s);
@@ -77,8 +80,6 @@ TEST_CASE("Async server")
 
         SECTION("server cancels")
         {
-            wait(bidirectional_call);
-
             const auto last = NAMED_REQUIRE_CALL(*out_mock, on_error(trompeloeil::_)).IN_SEQUENCE(s);
             obtained_context->TryCancel();
             wait(last);
@@ -86,6 +87,7 @@ TEST_CASE("Async server")
 
         SECTION("writer writes")
         {
+
             REQUIRE_CALL(*out_mock, on_next_rvalue(1)).IN_SEQUENCE(s);
             REQUIRE_CALL(*out_mock, on_next_rvalue(2)).IN_SEQUENCE(s);
             REQUIRE_CALL(*out_mock, on_next_rvalue(3)).IN_SEQUENCE(s);
@@ -98,8 +100,14 @@ TEST_CASE("Async server")
                     writer->Write(request);
                 }
                 writer->WritesDone();
+            }}.join();
+
+            reactor->get_observer().on_completed();
+
+            std::thread{[&] {
                 REQUIRE(writer->Finish().ok());
             }}.join();
+
             wait(last);
         }
 
@@ -123,7 +131,7 @@ TEST_CASE("Async server")
                     REQUIRE(writer->Read(&response));
                     REQUIRE(response.value() == i);
                 }
-                // REQUIRE(!writer->Read(&response));
+                REQUIRE(!writer->Read(&response));
                 REQUIRE(writer->Finish().ok());
             }}.join();
             wait(last);
