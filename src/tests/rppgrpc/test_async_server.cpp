@@ -97,7 +97,7 @@ TEST_CASE("Async server")
                 for (int i : {1, 2, 3})
                 {
                     request.set_value(i);
-                    writer->Write(request);
+                    REQUIRE(writer->Write(request));
                 }
                 writer->WritesDone();
             }}.join();
