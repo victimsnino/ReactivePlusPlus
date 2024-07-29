@@ -23,7 +23,7 @@
 namespace rppgrpc::details
 {
     template<rpp::constraint::decayed_type Request>
-    struct write_data
+    struct client_write_data
     {
         std::mutex          write_mutex{};
         std::deque<Request> write{};
@@ -31,32 +31,32 @@ namespace rppgrpc::details
     };
 
     template<rpp::constraint::decayed_type Request, rpp::constraint::decayed_type TOwner>
-    struct write_observer_strategy
+    struct client_write_observer_strategy
     {
         template<rpp::constraint::decayed_same_as<Request> T>
         void on_next(T&& message) const
         {
-            std::lock_guard lock{owner->m_write_data.write_mutex};
-            owner->m_write_data.write.push_back(std::forward<T>(message));
-            if (owner->m_write_data.write.size() == 1)
-                owner->StartWrite(&owner->m_write_data.write.front());
+            std::lock_guard lock{owner.get().m_write_data.write_mutex};
+            owner.get().m_write_data.write.push_back(std::forward<T>(message));
+            if (owner.get().m_write_data.write.size() == 1)
+                owner.get().StartWrite(&owner.get().m_write_data.write.front());
         }
 
         void on_error(const std::exception_ptr&) const
         {
-            std::lock_guard lock{owner->m_write_data.write_mutex};
-            owner->m_write_data.finished = true;
+            std::lock_guard lock{owner.get().m_write_data.write_mutex};
+            owner.get().m_write_data.finished = true;
 
-            if (owner->m_write_data.write.size() == 0)
-                owner->StartWritesDone();
+            if (owner.get().m_write_data.write.size() == 0)
+                owner.get().StartWritesDone();
         }
         void on_completed() const
         {
-            std::lock_guard lock{owner->m_write_data.write_mutex};
-            owner->m_write_data.finished = true;
+            std::lock_guard lock{owner.get().m_write_data.write_mutex};
+            owner.get().m_write_data.finished = true;
 
-            if (owner->m_write_data.write.size() == 0)
-                owner->StartWritesDone();
+            if (owner.get().m_write_data.write.size() == 0)
+                owner.get().StartWritesDone();
         }
 
         static constexpr bool is_disposed() { return false; }
@@ -83,11 +83,11 @@ namespace rppgrpc
         using Base = grpc::ClientBidiReactor<Request, Response>;
 
     public:
-        friend struct details::write_observer_strategy<Request, client_bidi_reactor>;
+        friend struct details::client_write_observer_strategy<Request, client_bidi_reactor>;
 
         client_bidi_reactor()
         {
-            m_requests.get_observable().subscribe(details::write_observer_strategy<Request, client_bidi_reactor>{*this});
+            m_requests.get_observable().subscribe(details::client_write_observer_strategy<Request, client_bidi_reactor>{*this});
         }
 
         void init()
@@ -158,7 +158,7 @@ namespace rppgrpc
         rpp::subjects::publish_subject<Response> m_observer;
         Response                                 m_read{};
 
-        details::write_data<Request> m_write_data{};
+        details::client_write_data<Request> m_write_data{};
     };
 
     /**
@@ -176,11 +176,11 @@ namespace rppgrpc
         using Base = grpc::ClientWriteReactor<Request>;
 
     public:
-        friend struct details::write_observer_strategy<Request, client_write_reactor>;
+        friend struct details::client_write_observer_strategy<Request, client_write_reactor>;
 
         client_write_reactor()
         {
-            m_requests.get_observable().subscribe(details::write_observer_strategy<Request, client_write_reactor>{*this});
+            m_requests.get_observable().subscribe(details::client_write_observer_strategy<Request, client_write_reactor>{*this});
         }
 
         void init()
@@ -238,7 +238,7 @@ namespace rppgrpc
         rpp::subjects::serialized_publish_subject<Request> m_requests{};
         rpp::subjects::publish_subject<rpp::utils::none>   m_observer;
 
-        details::write_data<Request> m_write_data{};
+        details::client_write_data<Request> m_write_data{};
     };
 
     /**
