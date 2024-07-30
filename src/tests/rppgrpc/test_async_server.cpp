@@ -57,7 +57,6 @@ TEST_CASE("Async server")
 
         wait(bidirectional_call);
 
-
         SECTION("writer immediate finish")
         {
             const auto last = NAMED_REQUIRE_CALL(*out_mock, on_completed()).IN_SEQUENCE(s);

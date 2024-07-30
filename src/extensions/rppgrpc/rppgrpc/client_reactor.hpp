@@ -15,56 +15,11 @@
 #include <rpp/subjects/publish_subject.hpp>
 
 #include <grpcpp/support/client_callback.h>
+#include <rppgrpc/details/base.hpp>
 #include <rppgrpc/fwd.hpp>
 #include <rppgrpc/utils/exceptions.hpp>
 
 #include <deque>
-
-namespace rppgrpc::details
-{
-    template<rpp::constraint::decayed_type Request>
-    struct client_write_data
-    {
-        std::mutex          write_mutex{};
-        std::deque<Request> write{};
-        bool                finished{};
-    };
-
-    template<rpp::constraint::decayed_type Request, rpp::constraint::decayed_type TOwner>
-    struct client_write_observer_strategy
-    {
-        template<rpp::constraint::decayed_same_as<Request> T>
-        void on_next(T&& message) const
-        {
-            std::lock_guard lock{owner.get().m_write_data.write_mutex};
-            owner.get().m_write_data.write.push_back(std::forward<T>(message));
-            if (owner.get().m_write_data.write.size() == 1)
-                owner.get().StartWrite(&owner.get().m_write_data.write.front());
-        }
-
-        void on_error(const std::exception_ptr&) const
-        {
-            std::lock_guard lock{owner.get().m_write_data.write_mutex};
-            owner.get().m_write_data.finished = true;
-
-            if (owner.get().m_write_data.write.size() == 0)
-                owner.get().StartWritesDone();
-        }
-        void on_completed() const
-        {
-            std::lock_guard lock{owner.get().m_write_data.write_mutex};
-            owner.get().m_write_data.finished = true;
-
-            if (owner.get().m_write_data.write.size() == 0)
-                owner.get().StartWritesDone();
-        }
-
-        static constexpr bool is_disposed() { return false; }
-        static constexpr void set_upstream(const rpp::disposable_wrapper&) {}
-
-        std::reference_wrapper<TOwner> owner{};
-    };
-} // namespace rppgrpc::details
 
 namespace rppgrpc
 {
@@ -79,16 +34,12 @@ namespace rppgrpc
      */
     template<rpp::constraint::decayed_type Request, rpp::constraint::decayed_type Response>
     class client_bidi_reactor final : public grpc::ClientBidiReactor<Request, Response>
+        , private details::base_writer<Request>
     {
         using Base = grpc::ClientBidiReactor<Request, Response>;
 
     public:
-        friend struct details::client_write_observer_strategy<Request, client_bidi_reactor>;
-
-        client_bidi_reactor()
-        {
-            m_requests.get_observable().subscribe(details::client_write_observer_strategy<Request, client_bidi_reactor>{*this});
-        }
+        client_bidi_reactor() = default;
 
         void init()
         {
@@ -96,10 +47,7 @@ namespace rppgrpc
             Base::StartRead(&m_read);
         }
 
-        auto get_observer()
-        {
-            return m_requests.get_observer();
-        }
+        using details::base_writer<Request>::get_observer;
 
         auto get_observable()
         {
@@ -107,6 +55,16 @@ namespace rppgrpc
         }
 
     private:
+        void start_write(const Request& v) override
+        {
+            Base::StartWrite(&v);
+        }
+
+        void finish_writes() override
+        {
+            Base::StartWritesDone();
+        }
+
         using Base::StartCall;
         using Base::StartRead;
 
@@ -124,22 +82,12 @@ namespace rppgrpc
             if (!ok)
                 return;
 
-            std::lock_guard lock{m_write_data.write_mutex};
-            m_write_data.write.pop_front();
-
-            if (!m_write_data.write.empty())
-            {
-                Base::StartWrite(&m_write_data.write.front());
-            }
-            else if (m_write_data.finished)
-            {
-                Base::StartWritesDone();
-            }
+            details::base_writer<Request>::handle_write_done();
         }
 
         void OnDone(const grpc::Status& s) override
         {
-            m_requests.get_disposable().dispose();
+            details::base_writer<Request>::handle_on_done();
 
             if (s.ok())
             {
@@ -153,12 +101,8 @@ namespace rppgrpc
         }
 
     private:
-        rpp::subjects::serialized_publish_subject<Request> m_requests{};
-
         rpp::subjects::publish_subject<Response> m_observer;
         Response                                 m_read{};
-
-        details::client_write_data<Request> m_write_data{};
     };
 
     /**
@@ -172,26 +116,19 @@ namespace rppgrpc
      */
     template<rpp::constraint::decayed_type Request>
     class client_write_reactor final : public grpc::ClientWriteReactor<Request>
+        , private details::base_writer<Request>
     {
         using Base = grpc::ClientWriteReactor<Request>;
 
     public:
-        friend struct details::client_write_observer_strategy<Request, client_write_reactor>;
-
-        client_write_reactor()
-        {
-            m_requests.get_observable().subscribe(details::client_write_observer_strategy<Request, client_write_reactor>{*this});
-        }
+        client_write_reactor() = default;
 
         void init()
         {
             Base::StartCall();
         }
 
-        auto get_observer()
-        {
-            return m_requests.get_observer();
-        }
+        using details::base_writer<Request>::get_observer;
 
         auto get_observable()
         {
@@ -199,6 +136,16 @@ namespace rppgrpc
         }
 
     private:
+        void start_write(const Request& v) override
+        {
+            Base::StartWrite(&v);
+        }
+
+        void finish_writes() override
+        {
+            Base::StartWritesDone();
+        }
+
         using Base::StartCall;
 
         void OnWriteDone(bool ok) override
@@ -206,22 +153,12 @@ namespace rppgrpc
             if (!ok)
                 return;
 
-            std::lock_guard lock{m_write_data.write_mutex};
-            m_write_data.write.pop_front();
-
-            if (!m_write_data.write.empty())
-            {
-                Base::StartWrite(&m_write_data.write.front());
-            }
-            else if (m_write_data.finished)
-            {
-                Base::StartWritesDone();
-            }
+            details::base_writer<Request>::handle_write_done();
         }
 
         void OnDone(const grpc::Status& s) override
         {
-            m_requests.get_disposable().dispose();
+            details::base_writer<Request>::handle_on_done();
 
             if (s.ok())
             {
@@ -235,10 +172,7 @@ namespace rppgrpc
         }
 
     private:
-        rpp::subjects::serialized_publish_subject<Request> m_requests{};
-        rpp::subjects::publish_subject<rpp::utils::none>   m_observer;
-
-        details::client_write_data<Request> m_write_data{};
+        rpp::subjects::publish_subject<rpp::utils::none> m_observer;
     };
 
     /**
