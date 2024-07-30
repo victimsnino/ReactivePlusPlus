@@ -103,4 +103,39 @@ namespace rppgrpc::details
         bool              finished{};
     };
 
+    template<rpp::constraint::decayed_type TData>
+    class base_reader
+    {
+    public:
+        base_reader()          = default;
+        virtual ~base_reader() = default;
+
+        auto get_observable()
+        {
+            return m_observer.get_observable();
+        }
+
+    protected:
+        virtual void start_read(TData& data) = 0;
+
+        void handle_read_done(bool initial = false)
+        {
+            if (!initial)
+                m_observer.get_observer().on_next(m_data);
+            start_read(m_data);
+        }
+
+        void handle_on_done(std::exception_ptr err)
+        {
+            if (err)
+                m_observer.get_observer().on_error(err);
+            else
+                m_observer.get_observer().on_completed();
+        }
+
+    private:
+        rpp::subjects::publish_subject<TData> m_observer;
+        TData                                 m_data{};
+    };
+
 } // namespace rppgrpc::details

@@ -19,8 +19,6 @@
 #include <rppgrpc/fwd.hpp>
 #include <rppgrpc/utils/exceptions.hpp>
 
-#include <deque>
-
 namespace rppgrpc
 {
     /**
@@ -35,6 +33,7 @@ namespace rppgrpc
     template<rpp::constraint::decayed_type Request, rpp::constraint::decayed_type Response>
     class client_bidi_reactor final : public grpc::ClientBidiReactor<Request, Response>
         , private details::base_writer<Request>
+        , private details::base_reader<Response>
     {
         using Base = grpc::ClientBidiReactor<Request, Response>;
 
@@ -44,17 +43,18 @@ namespace rppgrpc
         void init()
         {
             Base::StartCall();
-            Base::StartRead(&m_read);
+            details::base_reader<Response>::handle_read_done(true);
         }
 
         using details::base_writer<Request>::get_observer;
-
-        auto get_observable()
-        {
-            return m_observer.get_observable();
-        }
+        using details::base_reader<Response>::get_observable;
 
     private:
+        void start_read(Response& data) override
+        {
+            Base::StartRead(&data);
+        }
+
         void start_write(const Request& v) override
         {
             Base::StartWrite(&v);
@@ -73,8 +73,7 @@ namespace rppgrpc
             if (!ok)
                 return;
 
-            m_observer.get_observer().on_next(m_read);
-            Base::StartRead(&m_read);
+            details::base_reader<Response>::handle_read_done();
         }
 
         void OnWriteDone(bool ok) override
@@ -88,21 +87,9 @@ namespace rppgrpc
         void OnDone(const grpc::Status& s) override
         {
             details::base_writer<Request>::handle_on_done();
-
-            if (s.ok())
-            {
-                m_observer.get_observer().on_completed();
-            }
-            else
-            {
-                m_observer.get_observer().on_error(std::make_exception_ptr(rppgrpc::utils::reactor_failed{s.error_message()}));
-            }
+            details::base_reader<Response>::handle_on_done(s.ok() ? std::exception_ptr{} : std::make_exception_ptr(rppgrpc::utils::reactor_failed{s.error_message()}));
             delete this;
         }
-
-    private:
-        rpp::subjects::publish_subject<Response> m_observer;
-        Response                                 m_read{};
     };
 
     /**
@@ -117,6 +104,7 @@ namespace rppgrpc
     template<rpp::constraint::decayed_type Request>
     class client_write_reactor final : public grpc::ClientWriteReactor<Request>
         , private details::base_writer<Request>
+        , private details::base_reader<rpp::utils::none>
     {
         using Base = grpc::ClientWriteReactor<Request>;
 
@@ -129,13 +117,13 @@ namespace rppgrpc
         }
 
         using details::base_writer<Request>::get_observer;
-
-        auto get_observable()
-        {
-            return m_observer.get_observable();
-        }
+        using details::base_reader<rpp::utils::none>::get_observable;
 
     private:
+        void start_read(rpp::utils::none& data) override
+        {
+        }
+
         void start_write(const Request& v) override
         {
             Base::StartWrite(&v);
@@ -159,20 +147,10 @@ namespace rppgrpc
         void OnDone(const grpc::Status& s) override
         {
             details::base_writer<Request>::handle_on_done();
+            details::base_reader<rpp::utils::none>::handle_on_done(s.ok() ? std::exception_ptr{} : std::make_exception_ptr(rppgrpc::utils::reactor_failed{s.error_message()}));
 
-            if (s.ok())
-            {
-                m_observer.get_observer().on_completed();
-            }
-            else
-            {
-                m_observer.get_observer().on_error(std::make_exception_ptr(rppgrpc::utils::reactor_failed{s.error_message()}));
-            }
             delete this;
         }
-
-    private:
-        rpp::subjects::publish_subject<rpp::utils::none> m_observer;
     };
 
     /**
@@ -185,6 +163,7 @@ namespace rppgrpc
      */
     template<rpp::constraint::decayed_type Response>
     class client_read_reactor final : public grpc::ClientReadReactor<Response>
+        , private details::base_reader<Response>
     {
         using Base = grpc::ClientReadReactor<Response>;
 
@@ -194,42 +173,32 @@ namespace rppgrpc
         void init()
         {
             Base::StartCall();
-            Base::StartRead(&m_read);
+            details::base_reader<Response>::handle_read_done(true);
         }
 
-        auto get_observable()
-        {
-            return m_observer.get_observable();
-        }
+        using details::base_reader<Response>::get_observable;
 
     private:
         using Base::StartCall;
         using Base::StartRead;
+
+        void start_read(Response& data) override
+        {
+            Base::StartRead(&data);
+        }
 
         void OnReadDone(bool ok) override
         {
             if (!ok)
                 return;
 
-            m_observer.get_observer().on_next(m_read);
-            Base::StartRead(&m_read);
+            details::base_reader<Response>::handle_read_done();
         }
 
         void OnDone(const grpc::Status& s) override
         {
-            if (s.ok())
-            {
-                m_observer.get_observer().on_completed();
-            }
-            else
-            {
-                m_observer.get_observer().on_error(std::make_exception_ptr(rppgrpc::utils::reactor_failed{s.error_message()}));
-            }
+            details::base_reader<Response>::handle_on_done(s.ok() ? std::exception_ptr{} : std::make_exception_ptr(rppgrpc::utils::reactor_failed{s.error_message()}));
             delete this;
         }
-
-    private:
-        rpp::subjects::publish_subject<Response> m_observer;
-        Response                                 m_read{};
     };
 } // namespace rppgrpc
