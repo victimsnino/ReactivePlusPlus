@@ -14,6 +14,8 @@
 
 #include <rpp/utils/constraints.hpp>
 
+#include <grpcpp/support/status.h>
+
 #include "rpp/subjects/publish_subject.hpp"
 
 #include <deque>
@@ -38,8 +40,8 @@ namespace rppgrpc::details
         }
 
     protected:
-        virtual void start_write(const TData& v) = 0;
-        virtual void finish_writes()             = 0;
+        virtual void start_write(const TData& v)               = 0;
+        virtual void finish_writes(const grpc::Status& status) = 0;
 
         void handle_on_done()
         {
@@ -57,7 +59,7 @@ namespace rppgrpc::details
             }
             else if (finished)
             {
-                finish_writes();
+                finish_writes(grpc::Status::OK);
             }
         }
 
@@ -80,7 +82,7 @@ namespace rppgrpc::details
                 owner.get().finished = true;
 
                 if (owner.get().write.size() == 0)
-                    owner.get().finish_writes();
+                    owner.get().finish_writes(grpc::Status{grpc::StatusCode::INTERNAL, "Internal error happens"});
             }
             void on_completed() const
             {
@@ -88,7 +90,7 @@ namespace rppgrpc::details
                 owner.get().finished = true;
 
                 if (owner.get().write.size() == 0)
-                    owner.get().finish_writes();
+                    owner.get().finish_writes(grpc::Status::OK);
             }
 
             static constexpr bool is_disposed() { return false; }

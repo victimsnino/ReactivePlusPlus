@@ -12,8 +12,6 @@
 
 #include <rpp/observables/fwd.hpp>
 
-#include <rpp/subjects/publish_subject.hpp>
-
 #include <grpcpp/support/client_callback.h>
 #include <rppgrpc/details/base.hpp>
 #include <rppgrpc/fwd.hpp>
@@ -60,7 +58,7 @@ namespace rppgrpc
             Base::StartWrite(&v);
         }
 
-        void finish_writes() override
+        void finish_writes(const grpc::Status) override
         {
             Base::StartWritesDone();
         }
@@ -129,7 +127,7 @@ namespace rppgrpc
             Base::StartWrite(&v);
         }
 
-        void finish_writes() override
+        void finish_writes(const grpc::Status&) override
         {
             Base::StartWritesDone();
         }
