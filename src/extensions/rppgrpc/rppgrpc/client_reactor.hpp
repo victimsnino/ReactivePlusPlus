@@ -58,7 +58,7 @@ namespace rppgrpc
             Base::StartWrite(&v);
         }
 
-        void finish_writes(const grpc::Status) override
+        void finish_writes(const grpc::Status&) override
         {
             Base::StartWritesDone();
         }
