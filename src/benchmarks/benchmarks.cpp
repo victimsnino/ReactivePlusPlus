@@ -580,6 +580,21 @@ int main(int argc, char* argv[]) // NOLINT(bugprone-exception-escape)
                     | rxcpp::operators::subscribe<int>([](int v) { ankerl::nanobench::doNotOptimizeAway(v); });
             });
         }
+
+        SECTION("immediate_just(1,2,3)+element_at(1)+subscribe")
+        {
+            TEST_RPP([&]() {
+                rpp::immediate_just(1, 2, 3)
+                    | rpp::operators::element_at(1)
+                    | rpp::operators::subscribe([](int v) { ankerl::nanobench::doNotOptimizeAway(v); });
+            });
+
+            TEST_RXCPP([&]() {
+                rxcpp::immediate_just(1, 2, 3)
+                    | rxcpp::operators::element_at(1)
+                    | rxcpp::operators::subscribe<int>([](int v) { ankerl::nanobench::doNotOptimizeAway(v); });
+            });
+        }
     }; // BENCHMARK("Filtering Operators")
 
     BENCHMARK("Utility Operators")

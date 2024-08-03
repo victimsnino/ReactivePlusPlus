@@ -45,6 +45,8 @@ namespace rpp::operators
         requires (!utils::is_not_template_callable<EqualityFn> || std::same_as<bool, std::invoke_result_t<EqualityFn, rpp::utils::convertible_to_any, rpp::utils::convertible_to_any>>)
     auto distinct_until_changed(EqualityFn&& equality_fn = {});
 
+    auto element_at(size_t index);
+
     auto first();
 
     template<typename Fn>
