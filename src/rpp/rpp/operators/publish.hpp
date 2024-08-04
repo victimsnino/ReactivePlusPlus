@@ -1,6 +1,5 @@
 #pragma once
 
-#include <rpp/subjects/publish_subject.hpp>
 #include <rpp/operators/multicast.hpp>
 #include <rpp/subjects/publish_subject.hpp>
 
