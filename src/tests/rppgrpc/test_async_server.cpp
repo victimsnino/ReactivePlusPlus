@@ -14,9 +14,9 @@
 
 struct service : public trompeloeil::mock_interface<TestService::CallbackService>
 {
-    MAKE_MOCK2(ServerSide, (grpc::ServerWriteReactor<::Response>*)(::grpc::CallbackServerContext* /*context*/, const ::Request* /*request*/));
-    MAKE_MOCK2(ClientSide, (::grpc::ServerReadReactor<::Request>*)(::grpc::CallbackServerContext* /*context*/, ::Response* /*response*/));
-    MAKE_MOCK1(Bidirectional, (::grpc::ServerBidiReactor<::Request, ::Response>*)(::grpc::CallbackServerContext* /*context*/));
+    MAKE_MOCK2(ServerSide, (grpc::ServerWriteReactor<::Response> * (::grpc::CallbackServerContext* /*context*/, const ::Request* /*request*/)));
+    MAKE_MOCK2(ClientSide, (::grpc::ServerReadReactor<::Request> * (::grpc::CallbackServerContext* /*context*/, ::Response* /*response*/)));
+    MAKE_MOCK1(Bidirectional, (::grpc::ServerBidiReactor<::Request, ::Response> * (::grpc::CallbackServerContext* /*context*/)));
 };
 
 void wait(const std::unique_ptr<trompeloeil::expectation>& e)
