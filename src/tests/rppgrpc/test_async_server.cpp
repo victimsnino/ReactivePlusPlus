@@ -47,7 +47,7 @@ TEST_CASE("Async server")
     grpc::ClientContext          ctx{};
     grpc::CallbackServerContext* obtained_context{};
 
-    auto test_common = [&out_mock, &ctx, &obtained_context, &s](const auto& writer, const auto* reactor) {
+    auto test_common = [&](const auto& writer, const auto* reactor) {
         SECTION("writer immediate finish")
         {
             const auto last = NAMED_REQUIRE_CALL(*out_mock, on_completed()).IN_SEQUENCE(s);
@@ -79,7 +79,7 @@ TEST_CASE("Async server")
         }
     };
 
-    auto test_read = [&out_mock, &ctx, &obtained_context, &s](const auto& writer, const auto* reactor) {
+    auto test_read = [&](const auto& writer, const auto* reactor) {
         SECTION("writer writes")
         {
             REQUIRE_CALL(*out_mock, on_next_rvalue(1)).IN_SEQUENCE(s);
@@ -107,7 +107,7 @@ TEST_CASE("Async server")
         }
     };
 
-    auto test_write = [&out_mock, &ctx, &obtained_context, &s](const auto& writer, const auto* reactor) {
+    auto test_write = [&](const auto& writer, const auto* reactor) {
         SECTION("writer reads")
         {
             const auto last = NAMED_REQUIRE_CALL(*out_mock, on_completed()).IN_SEQUENCE(s);
