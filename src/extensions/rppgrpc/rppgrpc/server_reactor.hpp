@@ -84,4 +84,106 @@ namespace rppgrpc
             Base::Finish(grpc::Status::CANCELLED);
         }
     };
+
+    template<rpp::constraint::decayed_type Response>
+    class server_write_reactor final : public grpc::ServerWriteReactor<Response>
+        , private details::base_writer<Response>
+        , private details::base_reader<rpp::utils::none>
+    {
+        using Base = grpc::ServerWriteReactor<Response>;
+
+    public:
+        server_write_reactor()
+        {
+            Base::StartSendInitialMetadata();
+        }
+
+        using details::base_writer<Response>::get_observer;
+        using details::base_reader<rpp::utils::none>::get_observable;
+
+    private:
+        void start_write(const Response& v) override
+        {
+            Base::StartWrite(&v);
+        }
+
+        void start_read(rpp::utils::none& data) override {}
+
+        void finish_writes(const grpc::Status& status) override
+        {
+            Base::Finish(status);
+        }
+
+        void OnWriteDone(bool ok) override
+        {
+            if (!ok)
+            {
+                Base::Finish(grpc::Status::OK);
+                return;
+            }
+
+            details::base_writer<Response>::handle_write_done();
+        }
+
+        void OnDone() override
+        {
+            details::base_writer<Response>::handle_on_done();
+            details::base_reader<rpp::utils::none>::handle_on_done({});
+
+            delete this;
+        }
+
+        void OnCancel() override
+        {
+            details::base_writer<Response>::handle_on_done();
+            details::base_reader<rpp::utils::none>::handle_on_done(std::make_exception_ptr(rppgrpc::utils::reactor_failed{"OnCancel called"}));
+
+            Base::Finish(grpc::Status::CANCELLED);
+        }
+    };
+
+    template<rpp::constraint::decayed_type Request>
+    class server_read_reactor final : public grpc::ServerReadReactor<Request>
+        , private details::base_reader<Request>
+    {
+        using Base = grpc::ServerReadReactor<Request>;
+
+    public:
+        server_read_reactor()
+        {
+            Base::StartSendInitialMetadata();
+            details::base_reader<Request>::handle_read_done(true);
+        }
+
+        using details::base_reader<Request>::get_observable;
+
+    private:
+        void start_read(Request& data) override
+        {
+            Base::StartRead(&data);
+        }
+
+        void OnReadDone(bool ok) override
+        {
+            if (!ok)
+            {
+                Base::Finish(grpc::Status::OK);
+                return;
+            }
+
+            details::base_reader<Request>::handle_read_done();
+        }
+
+        void OnDone() override
+        {
+            details::base_reader<Request>::handle_on_done({});
+
+            delete this;
+        }
+
+        void OnCancel() override
+        {
+            details::base_reader<Request>::handle_on_done(std::make_exception_ptr(rppgrpc::utils::reactor_failed{"OnCancel called"}));
+        }
+    };
 } // namespace rppgrpc

@@ -14,16 +14,17 @@
 
 struct service : public trompeloeil::mock_interface<TestService::CallbackService>
 {
-    MAKE_MOCK2(ServerSide, (grpc::ServerWriteReactor<::Response> * (::grpc::CallbackServerContext* /*context*/, const ::Request* /*request*/)));
-    MAKE_MOCK2(ClientSide, (::grpc::ServerReadReactor<::Request> * (::grpc::CallbackServerContext* /*context*/, ::Response* /*response*/)));
-    MAKE_MOCK1(Bidirectional, (::grpc::ServerBidiReactor<::Request, ::Response> * (::grpc::CallbackServerContext* /*context*/)));
+    MAKE_MOCK2(ServerSide, (grpc::ServerWriteReactor<Response> * (grpc::CallbackServerContext* /*context*/, const Request* /*request*/)));
+    MAKE_MOCK2(ClientSide, (grpc::ServerReadReactor<Request> * (grpc::CallbackServerContext* /*context*/, Response* /*response*/)));
+    MAKE_MOCK1(Bidirectional, (grpc::ServerBidiReactor<Request, Response> * (grpc::CallbackServerContext* /*context*/)));
 };
 
 void wait(const std::unique_ptr<trompeloeil::expectation>& e)
 {
     while (!e->is_satisfied())
     {
-        std::this_thread::sleep_for(std::chrono::seconds{1});
+        std::this_thread::sleep_for(std::chrono::milliseconds{1});
+        std::this_thread::yield();
     }
 }
 
@@ -42,30 +43,23 @@ TEST_CASE("Async server")
     const auto channel = server->InProcessChannel({});
     const auto stub    = TestService::NewStub(channel, {});
 
-    mock_observer<uint32_t> out_mock{};
+    mock_observer<uint32_t>      out_mock{};
+    grpc::ClientContext          ctx{};
+    grpc::CallbackServerContext* obtained_context{};
 
-    SECTION("bidirectionl")
-    {
-        grpc::ClientContext ctx{};
-        const auto          reactor = new rppgrpc::server_bidi_reactor<Request, Response>();
-        reactor->get_observable() | rpp::ops::map([](const Request& out) { return out.value(); }) | rpp::ops::observe_on(rpp::schedulers::new_thread{}) | rpp::ops::subscribe(out_mock);
-
-        ::grpc::CallbackServerContext* obtained_context{};
-        const auto                     bidirectional_call = NAMED_REQUIRE_CALL(*mock_service, Bidirectional(trompeloeil::_)).LR_SIDE_EFFECT(obtained_context = _1;).RETURN(reactor).IN_SEQUENCE(s);
-
-        const auto writer = stub->Bidirectional(&ctx);
-
-        wait(bidirectional_call);
-
+    auto test_common = [&out_mock, &ctx, &obtained_context, &s](const auto& writer, const auto* reactor) {
         SECTION("writer immediate finish")
         {
             const auto last = NAMED_REQUIRE_CALL(*out_mock, on_completed()).IN_SEQUENCE(s);
             auto       t    = std::thread{[&] {
-                writer->WritesDone();
+                if constexpr (requires { writer->WritesDone(); })
+                    writer->WritesDone();
                 CHECK(writer->Finish().ok());
             }};
 
-            reactor->get_observer().on_completed();
+            if constexpr (requires { reactor->get_observer(); })
+                reactor->get_observer().on_completed();
+
             t.join();
             wait(last);
         }
@@ -83,10 +77,11 @@ TEST_CASE("Async server")
             obtained_context->TryCancel();
             wait(last);
         }
+    };
 
+    auto test_read = [&out_mock, &ctx, &obtained_context, &s](const auto& writer, const auto* reactor) {
         SECTION("writer writes")
         {
-
             REQUIRE_CALL(*out_mock, on_next_rvalue(1)).IN_SEQUENCE(s);
             REQUIRE_CALL(*out_mock, on_next_rvalue(2)).IN_SEQUENCE(s);
             REQUIRE_CALL(*out_mock, on_next_rvalue(3)).IN_SEQUENCE(s);
@@ -101,7 +96,8 @@ TEST_CASE("Async server")
                 writer->WritesDone();
             }}.join();
 
-            reactor->get_observer().on_completed();
+            if constexpr (requires { reactor->get_observer(); })
+                reactor->get_observer().on_completed();
 
             std::thread{[&] {
                 REQUIRE(writer->Finish().ok());
@@ -109,7 +105,9 @@ TEST_CASE("Async server")
 
             wait(last);
         }
+    };
 
+    auto test_write = [&out_mock, &ctx, &obtained_context, &s](const auto& writer, const auto* reactor) {
         SECTION("writer reads")
         {
             const auto last = NAMED_REQUIRE_CALL(*out_mock, on_completed()).IN_SEQUENCE(s);
@@ -122,7 +120,8 @@ TEST_CASE("Async server")
             reactor->get_observer().on_completed();
 
             std::thread{[&] {
-                writer->WritesDone();
+                if constexpr (requires { writer->WritesDone(); })
+                    writer->WritesDone();
 
                 Response response{};
                 for (int i : {1, 2, 3})
@@ -135,6 +134,53 @@ TEST_CASE("Async server")
             }}.join();
             wait(last);
         }
+    };
+
+    SECTION("bidirectionl")
+    {
+        const auto reactor = new rppgrpc::server_bidi_reactor<Request, Response>();
+        reactor->get_observable() | rpp::ops::map([](const Request& out) { return out.value(); }) | rpp::ops::observe_on(rpp::schedulers::new_thread{}) | rpp::ops::subscribe(out_mock);
+
+        const auto call = NAMED_REQUIRE_CALL(*mock_service, Bidirectional(trompeloeil::_)).LR_SIDE_EFFECT(obtained_context = _1;).RETURN(reactor).IN_SEQUENCE(s);
+
+        const auto writer = stub->Bidirectional(&ctx);
+
+        wait(call);
+
+        test_common(writer, reactor);
+        test_read(writer, reactor);
+        test_write(writer, reactor);
+    }
+
+    SECTION("server-side")
+    {
+        const auto reactor = new rppgrpc::server_write_reactor<Response>();
+        reactor->get_observable() | rpp::ops::map([](const rpp::utils::none&) { return 0; }) | rpp::ops::observe_on(rpp::schedulers::new_thread{}) | rpp::ops::subscribe(out_mock);
+
+        const auto call = NAMED_REQUIRE_CALL(*mock_service, ServerSide(trompeloeil::_, trompeloeil::_)).LR_SIDE_EFFECT(obtained_context = _1;).RETURN(reactor).IN_SEQUENCE(s);
+
+        const auto writer = stub->ServerSide(&ctx, {});
+
+        wait(call);
+
+        test_common(writer, reactor);
+        test_write(writer, reactor);
+    }
+
+    SECTION("client-side")
+    {
+        const auto reactor = new rppgrpc::server_read_reactor<Request>();
+        reactor->get_observable() | rpp::ops::map([](const Request& out) { return out.value(); }) | rpp::ops::observe_on(rpp::schedulers::new_thread{}) | rpp::ops::subscribe(out_mock);
+
+        const auto call = NAMED_REQUIRE_CALL(*mock_service, ClientSide(trompeloeil::_, trompeloeil::_)).LR_SIDE_EFFECT(obtained_context = _1;).RETURN(reactor).IN_SEQUENCE(s);
+
+        Response   response{};
+        const auto writer = stub->ClientSide(&ctx, &response);
+
+        wait(call);
+
+        test_common(writer, reactor);
+        test_read(writer, reactor);
     }
 
     server->Shutdown();
