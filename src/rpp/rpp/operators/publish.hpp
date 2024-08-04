@@ -1,6 +1,7 @@
 #pragma once
 
 #include <rpp/operators/multicast.hpp>
+#include <rpp/subjects/publish_subject.hpp>
 
 namespace rpp::operators
 {
