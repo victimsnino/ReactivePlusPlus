@@ -13,6 +13,8 @@ auto \mbox{\hyperlink{group__filtering__operators_ga80efca3cff11e046dc0de608a54d
 {\footnotesize template$<$typename Equality\+Fn $>$ \newline
 requires (!utils\+::is\+\_\+not\+\_\+template\+\_\+callable$<$Equality\+Fn$>$ \texorpdfstring{$\vert$}{|}\texorpdfstring{$\vert$}{|} std\+::same\+\_\+as$<$bool, std\+::invoke\+\_\+result\+\_\+t$<$Equality\+Fn, rpp\+::utils\+::convertible\+\_\+to\+\_\+any, rpp\+::utils\+::convertible\+\_\+to\+\_\+any$>$$>$)}\\auto \mbox{\hyperlink{group__filtering__operators_gaa8ed11faabd5b31d63d0481f9018fc68}{rpp\+::operators\+::distinct\+\_\+until\+\_\+changed}} (Equality\+Fn \&\&equality\+\_\+fn)
 \begin{DoxyCompactList}\small\item\em Suppress consecutive duplicates of emissions from original observable. \end{DoxyCompactList}\item 
+auto \mbox{\hyperlink{group__filtering__operators_ga33b11f3d474baf1a0410dbe02a985faa}{rpp\+::operators\+::element\+\_\+at}} (size\+\_\+t index)
+\begin{DoxyCompactList}\small\item\em Emit item located at specified {\ttfamily index} location in the sequence of items emitted by the source observable. \end{DoxyCompactList}\item 
 {\footnotesize template$<$typename Fn $>$ \newline
 requires (!utils\+::is\+\_\+not\+\_\+template\+\_\+callable$<$Fn$>$ \texorpdfstring{$\vert$}{|}\texorpdfstring{$\vert$}{|} std\+::same\+\_\+as$<$bool, std\+::invoke\+\_\+result\+\_\+t$<$Fn, rpp\+::utils\+::convertible\+\_\+to\+\_\+any$>$$>$)}\\auto \mbox{\hyperlink{group__filtering__operators_ga3ad579153e7975af6ae4b75f585fb873}{rpp\+::operators\+::filter}} (Fn \&\&predicate)
 \begin{DoxyCompactList}\small\item\em Emit only those items from an Observable that satisfies a provided predicate. \end{DoxyCompactList}\item 
@@ -114,6 +116,31 @@ Actually this operator has {\ttfamily std\+::optional} with last item and checks
 \begin{Desc}
 \item[Examples]\par
 \mbox{\hyperlink{distinct_until_changed_8cpp-example}{distinct\+\_\+until\+\_\+changed.\+cpp}}.\end{Desc}
+\Hypertarget{group__filtering__operators_ga33b11f3d474baf1a0410dbe02a985faa}\index{Filtering Operators@{Filtering Operators}!element\_at@{element\_at}}
+\index{element\_at@{element\_at}!Filtering Operators@{Filtering Operators}}
+\doxysubsubsubsubsection{\texorpdfstring{element\_at()}{element\_at()}}
+{\footnotesize\ttfamily \label{group__filtering__operators_ga33b11f3d474baf1a0410dbe02a985faa} 
+auto rpp\+::operators\+::element\+\_\+at (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{index}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Emit item located at specified {\ttfamily index} location in the sequence of items emitted by the source observable. 
+
+
+
+If source observable completes without emitting at least {\ttfamily index} + 1 items, observable emits an error
+
+
+\begin{DoxyParams}{Parameters}
+{\em index} & index of the item to return \\
+\hline
+\end{DoxyParams}
+\begin{DoxyWarning}{Warning}
+\#include \texorpdfstring{$<$}{<}\doxylink{element__at_8hpp_source}{rpp/operators/element\+\_\+at.\+hpp}\texorpdfstring{$>$}{>}
+\end{DoxyWarning}
+\begin{DoxySeeAlso}{See also}
+\href{https://reactivex.io/documentation/operators/elementat.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/elementat.\+html}} 
+\end{DoxySeeAlso}
 \Hypertarget{group__filtering__operators_ga3ad579153e7975af6ae4b75f585fb873}\index{Filtering Operators@{Filtering Operators}!filter@{filter}}
 \index{filter@{filter}!Filtering Operators@{Filtering Operators}}
 \doxysubsubsubsubsection{\texorpdfstring{filter()}{filter()}}

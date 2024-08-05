@@ -88,6 +88,7 @@ var hierarchy =
     ] ],
     [ "rpp::details::observables::dynamic_strategy< Type >", "classrpp_1_1details_1_1observables_1_1dynamic__strategy.html", null ],
     [ "rpp::details::observers::dynamic_strategy< Type >", "classrpp_1_1details_1_1observers_1_1dynamic__strategy.html", null ],
+    [ "rpp::operators::details::element_at_observer_strategy< TObserver >", "structrpp_1_1operators_1_1details_1_1element__at__observer__strategy.html", null ],
     [ "rpp::operators::details::emission< T >", "structrpp_1_1operators_1_1details_1_1emission.html", null ],
     [ "rpp::details::empty_strategy< Type >", "structrpp_1_1details_1_1empty__strategy.html", null ],
     [ "rpp::details::enable_wrapper_from_this< TStrategy >", "classrpp_1_1details_1_1enable__wrapper__from__this.html", null ],
@@ -172,6 +173,9 @@ var hierarchy =
     ] ],
     [ "rpp::operators::details::lift_operator< distinct_until_changed_t< EqualityFn >, EqualityFn >", "classrpp_1_1operators_1_1details_1_1lift__operator.html", [
       [ "rpp::operators::details::distinct_until_changed_t< EqualityFn >", "structrpp_1_1operators_1_1details_1_1distinct__until__changed__t.html", null ]
+    ] ],
+    [ "rpp::operators::details::lift_operator< element_at_t, size_t >", "classrpp_1_1operators_1_1details_1_1lift__operator.html", [
+      [ "rpp::operators::details::element_at_t", "structrpp_1_1operators_1_1details_1_1element__at__t.html", null ]
     ] ],
     [ "rpp::operators::details::lift_operator< filter_t< Fn >, Fn >", "classrpp_1_1operators_1_1details_1_1lift__operator.html", [
       [ "rpp::operators::details::filter_t< Fn >", "structrpp_1_1operators_1_1details_1_1filter__t.html", null ]
@@ -290,6 +294,7 @@ var hierarchy =
     [ "rpp::operators::details::delay_t< Scheduler, ClearOnError >::operator_traits< T >", "structrpp_1_1operators_1_1details_1_1delay__t_1_1operator__traits.html", null ],
     [ "rpp::operators::details::distinct_t::operator_traits< T >", "structrpp_1_1operators_1_1details_1_1distinct__t_1_1operator__traits.html", null ],
     [ "rpp::operators::details::distinct_until_changed_t< EqualityFn >::operator_traits< T >", "structrpp_1_1operators_1_1details_1_1distinct__until__changed__t_1_1operator__traits.html", null ],
+    [ "rpp::operators::details::element_at_t::operator_traits< T >", "structrpp_1_1operators_1_1details_1_1element__at__t_1_1operator__traits.html", null ],
     [ "rpp::operators::details::filter_t< Fn >::operator_traits< T >", "structrpp_1_1operators_1_1details_1_1filter__t_1_1operator__traits.html", null ],
     [ "rpp::operators::details::finally_t< LastFn >::operator_traits< T >", "structrpp_1_1operators_1_1details_1_1finally__t_1_1operator__traits.html", null ],
     [ "rpp::operators::details::first_t::operator_traits< T >", "structrpp_1_1operators_1_1details_1_1first__t_1_1operator__traits.html", null ],
