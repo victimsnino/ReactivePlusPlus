@@ -49,6 +49,7 @@
 #include <rpp/operators/debounce.hpp>
 #include <rpp/operators/distinct.hpp>
 #include <rpp/operators/distinct_until_changed.hpp>
+#include <rpp/operators/element_at.hpp>
 #include <rpp/operators/filter.hpp>
 #include <rpp/operators/first.hpp>
 #include <rpp/operators/last.hpp>

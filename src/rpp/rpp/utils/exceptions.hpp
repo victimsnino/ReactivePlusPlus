@@ -28,4 +28,9 @@ namespace rpp::utils
     {
         using std::runtime_error::runtime_error;
     };
+
+    struct out_of_range : public std::range_error
+    {
+        using std::range_error::range_error;
+    };
 } // namespace rpp::utils
