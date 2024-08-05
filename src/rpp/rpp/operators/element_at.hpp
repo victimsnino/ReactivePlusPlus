@@ -14,6 +14,7 @@
 
 #include <rpp/defs.hpp>
 #include <rpp/operators/details/strategy.hpp>
+#include <rpp/utils/exceptions.hpp>
 
 #include <cstddef>
 
@@ -34,6 +35,7 @@ namespace rpp::operators::details
             if (current++ == index)
             {
                 observer.on_next(std::forward<T>(v));
+                observer.on_completed(); 
             }
         }
 
@@ -43,9 +45,9 @@ namespace rpp::operators::details
         {
             if (current <= index)
             {
-                observer.on_error(std::make_exception_ptr(std::range_error{"index is out of bounds"}));
+                observer.on_error(std::make_exception_ptr(utils::out_of_range{"index is out of bounds"}));
             }
-            else
+            else 
             {
                 observer.on_completed();
             }
@@ -79,7 +81,7 @@ namespace rpp::operators
     /**
      * @brief Emit item located at specified `index` location in the sequence of items emitted by the source observable
      *
-     * @marble take
+     * @marble element_at
      {
          source observable        : +--1-2--3-4---|
          operator "element_at(2)" : +-------3|

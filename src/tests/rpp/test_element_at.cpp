@@ -104,7 +104,7 @@ TEST_CASE("element_at doesn't produce extra copies")
     }
 }
 
-TEST_CASE("take satisfies disposable contracts")
+TEST_CASE("element_at satisfies disposable contracts")
 {
     test_operator_with_disposable<int>(rpp::ops::element_at(1));
 }
