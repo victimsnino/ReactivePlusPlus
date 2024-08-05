@@ -12,25 +12,20 @@
 
 #include "rpp_trompeloil.hpp"
 
-struct service : public trompeloeil::mock_interface<TestService::CallbackService>
-{
-    using write_reactor_ptr = grpc::ServerWriteReactor<Response>*;
-    using read_reactor_ptr  = grpc::ServerReadReactor<Request>*;
-    using bidi_reactor_ptr  = grpc::ServerBidiReactor<Request, Response>*;
 
-    MAKE_MOCK2(ServerSide, write_reactor_ptr(grpc::CallbackServerContext* /*context*/, const Request* /*request*/));
-    MAKE_MOCK2(ClientSide, read_reactor_ptr(grpc::CallbackServerContext* /*context*/, Response* /*response*/));
-    MAKE_MOCK1(Bidirectional, bidi_reactor_ptr(grpc::CallbackServerContext* /*context*/));
-};
-
-void wait(const std::unique_ptr<trompeloeil::expectation>& e)
+namespace
 {
-    while (!e->is_satisfied())
+    struct service : public trompeloeil::mock_interface<TestService::CallbackService>
     {
-        std::this_thread::sleep_for(std::chrono::milliseconds{1});
-        std::this_thread::yield();
-    }
-}
+        using write_reactor_ptr = grpc::ServerWriteReactor<Response>*;
+        using read_reactor_ptr  = grpc::ServerReadReactor<Request>*;
+        using bidi_reactor_ptr  = grpc::ServerBidiReactor<Request, Response>*;
+
+        MAKE_MOCK2(ServerSide, write_reactor_ptr(grpc::CallbackServerContext* /*context*/, const Request* /*request*/));
+        MAKE_MOCK2(ClientSide, read_reactor_ptr(grpc::CallbackServerContext* /*context*/, Response* /*response*/));
+        MAKE_MOCK1(Bidirectional, bidi_reactor_ptr(grpc::CallbackServerContext* /*context*/));
+    };
+} // namespace
 
 
 TEST_CASE("Async server")

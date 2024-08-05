@@ -8,7 +8,7 @@
 #include <trompeloeil.hpp>
 
 #include <exception>
-
+#include <thread>
 
 namespace trompeloeil
 {
@@ -69,3 +69,11 @@ public:
 private:
     std::shared_ptr<impl_t> impl = std::make_shared<impl_t>();
 };
+
+inline void wait(const std::unique_ptr<trompeloeil::expectation>& e)
+{
+    while (!e->is_satisfied())
+    {
+        std::this_thread::sleep_for(std::chrono::seconds{1});
+    }
+}

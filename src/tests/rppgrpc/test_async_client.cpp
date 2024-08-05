@@ -15,20 +15,15 @@
 
 #include <future>
 
-struct service : public trompeloeil::mock_interface<TestService::Service>
+namespace
 {
-    IMPLEMENT_MOCK3(ServerSide);
-    IMPLEMENT_MOCK3(ClientSide);
-    IMPLEMENT_MOCK2(Bidirectional);
-};
-
-void wait(const std::unique_ptr<trompeloeil::expectation>& e)
-{
-    while (!e->is_satisfied())
+    struct service : public trompeloeil::mock_interface<TestService::Service>
     {
-        std::this_thread::sleep_for(std::chrono::seconds{1});
-    }
-}
+        IMPLEMENT_MOCK3(ServerSide);
+        IMPLEMENT_MOCK3(ClientSide);
+        IMPLEMENT_MOCK2(Bidirectional);
+    };
+} // namespace
 
 TEST_CASE("async client reactor")
 {
