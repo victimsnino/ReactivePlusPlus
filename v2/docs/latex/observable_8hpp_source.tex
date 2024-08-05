@@ -218,13 +218,13 @@
 \DoxyCodeLine{00364\ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::operator\_chain<Type,\ expected\_disposable\_strategy>\ Op>}
 \DoxyCodeLine{00365\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ inner\_make\_chain\_operator(Op\&\&\ op)\ \textcolor{keyword}{const}\ \&}
 \DoxyCodeLine{00366\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00367\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ observable<typename\ std::decay\_t<Op>::template\ operator\_traits<Type>::result\_type,\ make\_chain\_observable\_t<std::decay\_t<Op>,\ Strategy>>\{std::forward<Op>(op),\ m\_strategy\};}
+\DoxyCodeLine{00367\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ observable<typename\ std::decay\_t<Op>::template\ operator\_traits<Type>::result\_type,\ details::observables::make\_chain\_t<std::decay\_t<Op>,\ Strategy>>\{std::forward<Op>(op),\ m\_strategy\};}
 \DoxyCodeLine{00368\ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{00369\ }
 \DoxyCodeLine{00370\ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::operator\_chain<Type,\ expected\_disposable\_strategy>\ Op>}
 \DoxyCodeLine{00371\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ inner\_make\_chain\_operator(Op\&\&\ op)\ \&\&}
 \DoxyCodeLine{00372\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00373\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ observable<typename\ std::decay\_t<Op>::template\ operator\_traits<Type>::result\_type,\ make\_chain\_observable\_t<std::decay\_t<Op>,\ Strategy>>\{std::forward<Op>(op),\ std::move(m\_strategy)\};}
+\DoxyCodeLine{00373\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ observable<typename\ std::decay\_t<Op>::template\ operator\_traits<Type>::result\_type,\ details::observables::make\_chain\_t<std::decay\_t<Op>,\ Strategy>>\{std::forward<Op>(op),\ std::move(m\_strategy)\};}
 \DoxyCodeLine{00374\ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{00375\ }
 \DoxyCodeLine{00376\ \ \ \ \ \textcolor{keyword}{private}:}

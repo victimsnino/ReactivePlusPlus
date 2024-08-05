@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.11.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ReactivePlusPlus: rpp::make_chain_observable&lt; New, Old &gt; Struct Template Reference</title>
+<title>ReactivePlusPlus: rpp::details::observables::chain&lt; TStrategy, TStrategies &gt; Class Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -77,7 +77,7 @@ $(function() { codefold.init(0); });
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(function(){initNavTree('structrpp_1_1make__chain__observable.html',''); initResizable(true); });
+$(function(){initNavTree('classrpp_1_1details_1_1observables_1_1chain.html',''); initResizable(true); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -105,26 +105,44 @@ $(function(){initNavTree('structrpp_1_1make__chain__observable.html',''); initRe
 <div class="header">
   <div class="summary">
 <a href="#pub-types">Public Types</a> &#124;
-<a href="structrpp_1_1make__chain__observable-members.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">rpp::make_chain_observable&lt; New, Old &gt; Struct Template Reference</div></div>
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="classrpp_1_1details_1_1observables_1_1chain-members.html">List of all members</a>  </div>
+  <div class="headertitle"><div class="title">rpp::details::observables::chain&lt; TStrategy, TStrategies &gt; Class Template Reference</div></div>
 </div><!--header-->
 <div class="contents">
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:aea5361fec947d9f7b683c180716659b6" id="r_aea5361fec947d9f7b683c180716659b6"><td class="memItemLeft" align="right" valign="top"><a id="aea5361fec947d9f7b683c180716659b6" name="aea5361fec947d9f7b683c180716659b6"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><b>type</b> = <a class="el" href="classrpp_1_1observable__chain__strategy.html">observable_chain_strategy</a>&lt;New, Old&gt;</td></tr>
-<tr class="separator:aea5361fec947d9f7b683c180716659b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2d62c1c2b05ff4a507eb0442d03bad9f" id="r_a2d62c1c2b05ff4a507eb0442d03bad9f"><td class="memItemLeft" align="right" valign="top"><a id="a2d62c1c2b05ff4a507eb0442d03bad9f" name="a2d62c1c2b05ff4a507eb0442d03bad9f"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>expected_disposable_strategy</b> = deduce_updated_disposable_strategy&lt;TStrategy, typename base::expected_disposable_strategy&gt;</td></tr>
+<tr class="separator:a2d62c1c2b05ff4a507eb0442d03bad9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a24c0f1dd29d549b2194ad7e7e12cc6b4" id="r_a24c0f1dd29d549b2194ad7e7e12cc6b4"><td class="memItemLeft" align="right" valign="top"><a id="a24c0f1dd29d549b2194ad7e7e12cc6b4" name="a24c0f1dd29d549b2194ad7e7e12cc6b4"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>value_type</b> = typename operator_traits::result_type</td></tr>
+<tr class="separator:a24c0f1dd29d549b2194ad7e7e12cc6b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a3840dcc9924866230c6448a52a34cbe3" id="r_a3840dcc9924866230c6448a52a34cbe3"><td class="memItemLeft" align="right" valign="top"><a id="a3840dcc9924866230c6448a52a34cbe3" name="a3840dcc9924866230c6448a52a34cbe3"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>chain</b> (const TStrategy &amp;strategy, const TStrategies &amp;... strategies)</td></tr>
+<tr class="separator:a3840dcc9924866230c6448a52a34cbe3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7373da1df674901cb2c7bdb85371ba88" id="r_a7373da1df674901cb2c7bdb85371ba88"><td class="memItemLeft" align="right" valign="top"><a id="a7373da1df674901cb2c7bdb85371ba88" name="a7373da1df674901cb2c7bdb85371ba88"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>chain</b> (const TStrategy &amp;strategy, const <a class="el" href="classrpp_1_1details_1_1observables_1_1chain.html">chain</a>&lt; TStrategies... &gt; &amp;strategies)</td></tr>
+<tr class="separator:a7373da1df674901cb2c7bdb85371ba88"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a24f35c66b3e0e7e6fe097697c7391b92" id="r_a24f35c66b3e0e7e6fe097697c7391b92"><td class="memTemplParams" colspan="2"><a id="a24f35c66b3e0e7e6fe097697c7391b92" name="a24f35c66b3e0e7e6fe097697c7391b92"></a>
+template&lt;<a class="el" href="conceptrpp_1_1constraint_1_1observer__of__type.html">rpp::constraint::observer_of_type</a>&lt; value_type &gt; Observer&gt; </td></tr>
+<tr class="memitem:a24f35c66b3e0e7e6fe097697c7391b92"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>subscribe</b> (Observer &amp;&amp;<a class="el" href="classrpp_1_1observer.html">observer</a>) const</td></tr>
+<tr class="separator:a24f35c66b3e0e7e6fe097697c7391b92"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<hr/>The documentation for this struct was generated from the following file:<ul>
+<hr/>The documentation for this class was generated from the following files:<ul>
 <li>src/rpp/rpp/observables/details/<a class="el" href="chain__strategy_8hpp_source.html">chain_strategy.hpp</a></li>
+<li>src/rpp/rpp/observables/<a class="el" href="rpp_2rpp_2observables_2fwd_8hpp_source.html">fwd.hpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>rpp</b></li><li class="navelem"><a class="el" href="structrpp_1_1make__chain__observable.html">make_chain_observable</a></li>
+    <li class="navelem"><b>rpp</b></li><li class="navelem"><b>details</b></li><li class="navelem"><b>observables</b></li><li class="navelem"><a class="el" href="classrpp_1_1details_1_1observables_1_1chain.html">chain</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.11.0 </li>
   </ul>
 </div>

@@ -20,6 +20,8 @@ var hierarchy =
     ] ],
     [ "rpp::details::observables::blocking_strategy< Type, Strategy >", "classrpp_1_1details_1_1observables_1_1blocking__strategy.html", null ],
     [ "rpp::operators::details::buffer_observer_strategy< TObserver >", "classrpp_1_1operators_1_1details_1_1buffer__observer__strategy.html", null ],
+    [ "rpp::details::observables::chain< TStrategy, TStrategies >", "classrpp_1_1details_1_1observables_1_1chain.html", null ],
+    [ "rpp::details::observables::chain< TStrategy >", "classrpp_1_1details_1_1observables_1_1chain_3_01_t_strategy_01_4.html", null ],
     [ "grpc::ClientBidiReactor", null, [
       [ "rppgrpc::client_bidi_reactor< Request, Response >", "classrppgrpc_1_1client__bidi__reactor.html", null ]
     ] ],
@@ -233,8 +235,8 @@ var hierarchy =
     ] ],
     [ "rpp::details::observers::local_disposable_strategy< DisposableContainer, Bool >", "classrpp_1_1details_1_1observers_1_1local__disposable__strategy.html", null ],
     [ "rppqt::schedulers::main_thread_scheduler", "classrppqt_1_1schedulers_1_1main__thread__scheduler.html", null ],
-    [ "rpp::make_chain_observable< New, Old >", "structrpp_1_1make__chain__observable.html", null ],
-    [ "rpp::make_chain_observable< New, observable_chain_strategy< Args... > >", "structrpp_1_1make__chain__observable_3_01_new_00_01observable__chain__strategy_3_01_args_8_8_8_01_4_01_4.html", null ],
+    [ "rpp::details::observables::make_chain< New, Old >", "structrpp_1_1details_1_1observables_1_1make__chain.html", null ],
+    [ "rpp::details::observables::make_chain< New, chain< Args... > >", "structrpp_1_1details_1_1observables_1_1make__chain_3_01_new_00_01chain_3_01_args_8_8_8_01_4_01_4.html", null ],
     [ "rpp::operators::details::map_observer_strategy< TObserver, Fn >", "structrpp_1_1operators_1_1details_1_1map__observer__strategy.html", null ],
     [ "rpp::operators::details::merge_observer_base_strategy< TObserver >", "structrpp_1_1operators_1_1details_1_1merge__observer__base__strategy.html", [
       [ "rpp::operators::details::merge_observer_inner_strategy< TObserver >", "structrpp_1_1operators_1_1details_1_1merge__observer__inner__strategy.html", null ],
@@ -261,8 +263,6 @@ var hierarchy =
     [ "rpp::observable< Type, details::variant_observable_strategy< Type, Observables... > >", "classrpp_1_1observable.html", [
       [ "rpp::variant_observable< Type, Observables >", "classrpp_1_1variant__observable.html", null ]
     ] ],
-    [ "rpp::observable_chain_strategy< TStrategy, TStrategies >", "classrpp_1_1observable__chain__strategy.html", null ],
-    [ "rpp::observable_chain_strategy< TStrategy >", "classrpp_1_1observable__chain__strategy_3_01_t_strategy_01_4.html", null ],
     [ "rpp::details::observer_impl< Type, Strategy, DisposablesStrategy >", "classrpp_1_1details_1_1observer__impl.html", null ],
     [ "rpp::details::observer_impl< Type, rpp::details::observers::dynamic_strategy< Type >, details::observers::none_disposable_strategy >", "classrpp_1_1details_1_1observer__impl.html", [
       [ "rpp::observer< Type, rpp::details::observers::dynamic_strategy< Type > >", "classrpp_1_1observer_3_01_type_00_01rpp_1_1details_1_1observers_1_1dynamic__strategy_3_01_type_01_4_01_4.html", null ]

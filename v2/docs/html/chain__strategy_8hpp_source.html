@@ -123,26 +123,26 @@ $(function(){initNavTree('chain__strategy_8hpp_source.html',''); initResizable(t
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &lt;rpp/defs.hpp&gt;</span></div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &lt;rpp/schedulers/current_thread.hpp&gt;</span></div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="keyword">namespace </span>rpp</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="keyword">namespace </span>rpp::details::observables</div>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>{</div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> TStrategy, <span class="keyword">typename</span>... TStrategies&gt;</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    <span class="keyword">class </span>observable_chain_strategy</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    <span class="keyword">class </span>chain</div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    {</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>        <span class="keyword">using </span>base = observable_chain_strategy&lt;TStrategies...&gt;;</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>        <span class="keyword">using </span>base = chain&lt;TStrategies...&gt;;</div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>        <span class="keyword">using </span>operator_traits = <span class="keyword">typename</span> TStrategy::template operator_traits&lt;typename base::value_type&gt;;</div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>        <span class="keyword">using </span>expected_disposable_strategy = details::observables::deduce_updated_disposable_strategy&lt;TStrategy, typename base::expected_disposable_strategy&gt;;</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>        <span class="keyword">using </span>expected_disposable_strategy = deduce_updated_disposable_strategy&lt;TStrategy, typename base::expected_disposable_strategy&gt;;</div>
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>        <span class="keyword">using </span>value_type                   = <span class="keyword">typename</span> operator_traits::result_type;</div>
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>        observable_chain_strategy(<span class="keyword">const</span> TStrategy&amp; strategy, <span class="keyword">const</span> TStrategies&amp;... strategies)</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>        chain(<span class="keyword">const</span> TStrategy&amp; strategy, <span class="keyword">const</span> TStrategies&amp;... strategies)</div>
 <div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>            : m_strategy(strategy)</div>
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>            , m_strategies(strategies...)</div>
 <div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        {</div>
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>        }</div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>        observable_chain_strategy(<span class="keyword">const</span> TStrategy&amp; strategy, <span class="keyword">const</span> observable_chain_strategy&lt;TStrategies...&gt;&amp; strategies)</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>        chain(<span class="keyword">const</span> TStrategy&amp; strategy, <span class="keyword">const</span> chain&lt;TStrategies...&gt;&amp; strategies)</div>
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>            : m_strategy(strategy)</div>
 <div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>            , m_strategies(strategies)</div>
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>        {</div>
@@ -171,19 +171,19 @@ $(function(){initNavTree('chain__strategy_8hpp_source.html',''); initResizable(t
 <div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>        }</div>
 <div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
 <div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    <span class="keyword">private</span>:</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>        RPP_NO_UNIQUE_ADDRESS TStrategy                                 m_strategy;</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>        RPP_NO_UNIQUE_ADDRESS observable_chain_strategy&lt;TStrategies...&gt; m_strategies;</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>        RPP_NO_UNIQUE_ADDRESS TStrategy             m_strategy;</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>        RPP_NO_UNIQUE_ADDRESS chain&lt;TStrategies...&gt; m_strategies;</div>
 <div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    };</div>
 <div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span> </div>
 <div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> TStrategy&gt;</div>
 <div class="foldopen" id="foldopen00071" data-start="{" data-end="};">
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno"><a class="line" href="classrpp_1_1observable__chain__strategy_3_01_t_strategy_01_4.html">   71</a></span>    <span class="keyword">class </span><a class="code hl_class" href="classrpp_1_1observable__chain__strategy.html">observable_chain_strategy</a>&lt;TStrategy&gt;</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno"><a class="line" href="classrpp_1_1details_1_1observables_1_1chain_3_01_t_strategy_01_4.html">   71</a></span>    <span class="keyword">class </span><a class="code hl_class" href="classrpp_1_1details_1_1observables_1_1chain.html">chain</a>&lt;TStrategy&gt;</div>
 <div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    {</div>
 <div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    <span class="keyword">public</span>:</div>
 <div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>        <span class="keyword">using </span>expected_disposable_strategy = rpp::details::observables::deduce_disposable_strategy_t&lt;TStrategy&gt;;</div>
 <div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>        <span class="keyword">using </span>value_type                   = <span class="keyword">typename</span> TStrategy::value_type;</div>
 <div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span> </div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>        <a class="code hl_class" href="classrpp_1_1observable__chain__strategy.html">observable_chain_strategy</a>(<span class="keyword">const</span> TStrategy&amp; strategy)</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>        <a class="code hl_class" href="classrpp_1_1details_1_1observables_1_1chain.html">chain</a>(<span class="keyword">const</span> TStrategy&amp; strategy)</div>
 <div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>            : m_strategy(strategy)</div>
 <div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>        {</div>
 <div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>        }</div>
@@ -201,28 +201,28 @@ $(function(){initNavTree('chain__strategy_8hpp_source.html',''); initResizable(t
 <div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span> </div>
 <div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> New, <span class="keyword">typename</span> Old&gt;</div>
 <div class="foldopen" id="foldopen00093" data-start="{" data-end="};">
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno"><a class="line" href="structrpp_1_1make__chain__observable.html">   93</a></span>    <span class="keyword">struct </span><a class="code hl_struct" href="structrpp_1_1make__chain__observable.html">make_chain_observable</a></div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno"><a class="line" href="structrpp_1_1details_1_1observables_1_1make__chain.html">   93</a></span>    <span class="keyword">struct </span><a class="code hl_struct" href="structrpp_1_1details_1_1observables_1_1make__chain.html">make_chain</a></div>
 <div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>    {</div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>        <span class="keyword">using </span><a class="code hl_class" href="classrpp_1_1observable__chain__strategy.html">type</a> = <a class="code hl_class" href="classrpp_1_1observable__chain__strategy.html">observable_chain_strategy&lt;New, Old&gt;</a>;</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>        <span class="keyword">using </span><a class="code hl_class" href="classrpp_1_1details_1_1observables_1_1chain.html">type</a> = <a class="code hl_class" href="classrpp_1_1details_1_1observables_1_1chain.html">chain&lt;New, Old&gt;</a>;</div>
 <div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>    };</div>
 </div>
 <div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span> </div>
 <div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> New, <span class="keyword">typename</span>... Args&gt;</div>
 <div class="foldopen" id="foldopen00099" data-start="{" data-end="};">
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno"><a class="line" href="structrpp_1_1make__chain__observable_3_01_new_00_01observable__chain__strategy_3_01_args_8_8_8_01_4_01_4.html">   99</a></span>    <span class="keyword">struct </span><a class="code hl_struct" href="structrpp_1_1make__chain__observable.html">make_chain_observable</a>&lt;New, <a class="code hl_class" href="classrpp_1_1observable__chain__strategy.html">observable_chain_strategy</a>&lt;Args...&gt;&gt;</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno"><a class="line" href="structrpp_1_1details_1_1observables_1_1make__chain_3_01_new_00_01chain_3_01_args_8_8_8_01_4_01_4.html">   99</a></span>    <span class="keyword">struct </span><a class="code hl_struct" href="structrpp_1_1details_1_1observables_1_1make__chain.html">make_chain</a>&lt;New, <a class="code hl_class" href="classrpp_1_1details_1_1observables_1_1chain.html">chain</a>&lt;Args...&gt;&gt;</div>
 <div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>    {</div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>        <span class="keyword">using </span><a class="code hl_class" href="classrpp_1_1observable__chain__strategy.html">type</a> = <a class="code hl_class" href="classrpp_1_1observable__chain__strategy.html">observable_chain_strategy</a>&lt;New, Args...&gt;;</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>        <span class="keyword">using </span><a class="code hl_class" href="classrpp_1_1details_1_1observables_1_1chain.html">type</a> = <a class="code hl_class" href="classrpp_1_1details_1_1observables_1_1chain.html">chain</a>&lt;New, Args...&gt;;</div>
 <div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>    };</div>
 </div>
 <div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span> </div>
 <div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> New, <span class="keyword">typename</span> Old&gt;</div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>    <span class="keyword">using </span>make_chain_observable_t = <span class="keyword">typename</span> <a class="code hl_class" href="classrpp_1_1observable__chain__strategy.html">make_chain_observable&lt;New, Old&gt;::type</a>;</div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>} <span class="comment">// namespace rpp</span></div>
-<div class="ttc" id="aclassrpp_1_1observable__chain__strategy_html"><div class="ttname"><a href="classrpp_1_1observable__chain__strategy.html">rpp::observable_chain_strategy</a></div><div class="ttdef"><b>Definition</b> fwd.hpp:49</div></div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>    <span class="keyword">using </span>make_chain_t = <span class="keyword">typename</span> <a class="code hl_class" href="classrpp_1_1details_1_1observables_1_1chain.html">make_chain&lt;New, Old&gt;::type</a>;</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>} <span class="comment">// namespace rpp::details::observables</span></div>
+<div class="ttc" id="aclassrpp_1_1details_1_1observables_1_1chain_html"><div class="ttname"><a href="classrpp_1_1details_1_1observables_1_1chain.html">rpp::details::observables::chain</a></div><div class="ttdef"><b>Definition</b> fwd.hpp:49</div></div>
 <div class="ttc" id="aclassrpp_1_1observer_html"><div class="ttname"><a href="classrpp_1_1observer.html">rpp::observer</a></div><div class="ttdoc">Base class for any observer used in RPP. It handles core callbacks of observers. Objects of this clas...</div><div class="ttdef"><b>Definition</b> observer.hpp:172</div></div>
-<div class="ttc" id="aconceptrpp_1_1constraint_1_1operator__lift__with__disposable__strategy_html"><div class="ttname"><a href="conceptrpp_1_1constraint_1_1operator__lift__with__disposable__strategy.html">rpp::constraint::operator_lift_with_disposable_strategy</a></div><div class="ttdef"><b>Definition</b> fwd.hpp:104</div></div>
-<div class="ttc" id="aconceptrpp_1_1constraint_1_1operator__lift_html"><div class="ttname"><a href="conceptrpp_1_1constraint_1_1operator__lift.html">rpp::constraint::operator_lift</a></div><div class="ttdef"><b>Definition</b> fwd.hpp:97</div></div>
-<div class="ttc" id="astructrpp_1_1make__chain__observable_html"><div class="ttname"><a href="structrpp_1_1make__chain__observable.html">rpp::make_chain_observable</a></div><div class="ttdef"><b>Definition</b> chain_strategy.hpp:94</div></div>
+<div class="ttc" id="aconceptrpp_1_1constraint_1_1operator__lift__with__disposable__strategy_html"><div class="ttname"><a href="conceptrpp_1_1constraint_1_1operator__lift__with__disposable__strategy.html">rpp::constraint::operator_lift_with_disposable_strategy</a></div><div class="ttdef"><b>Definition</b> fwd.hpp:107</div></div>
+<div class="ttc" id="aconceptrpp_1_1constraint_1_1operator__lift_html"><div class="ttname"><a href="conceptrpp_1_1constraint_1_1operator__lift.html">rpp::constraint::operator_lift</a></div><div class="ttdef"><b>Definition</b> fwd.hpp:100</div></div>
+<div class="ttc" id="astructrpp_1_1details_1_1observables_1_1make__chain_html"><div class="ttname"><a href="structrpp_1_1details_1_1observables_1_1make__chain.html">rpp::details::observables::make_chain</a></div><div class="ttdef"><b>Definition</b> chain_strategy.hpp:94</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

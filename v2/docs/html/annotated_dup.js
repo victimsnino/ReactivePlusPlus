@@ -11,12 +11,16 @@ var annotated_dup =
         [ "observables", null, [
           [ "blocking_disposable", "classrpp_1_1details_1_1observables_1_1blocking__disposable.html", null ],
           [ "blocking_strategy", "classrpp_1_1details_1_1observables_1_1blocking__strategy.html", null ],
+          [ "chain", "classrpp_1_1details_1_1observables_1_1chain.html", null ],
+          [ "chain< TStrategy >", "classrpp_1_1details_1_1observables_1_1chain_3_01_t_strategy_01_4.html", null ],
           [ "default_disposable_strategy_selector", "structrpp_1_1details_1_1observables_1_1default__disposable__strategy__selector.html", null ],
           [ "dynamic_disposable_strategy_selector", "structrpp_1_1details_1_1observables_1_1dynamic__disposable__strategy__selector.html", null ],
           [ "dynamic_strategy", "classrpp_1_1details_1_1observables_1_1dynamic__strategy.html", null ],
           [ "fake_strategy", "structrpp_1_1details_1_1observables_1_1fake__strategy.html", null ],
           [ "fixed_disposable_strategy_selector", "structrpp_1_1details_1_1observables_1_1fixed__disposable__strategy__selector.html", null ],
-          [ "fixed_disposable_strategy_selector< 0, Mode >", "structrpp_1_1details_1_1observables_1_1fixed__disposable__strategy__selector_3_010_00_01_mode_01_4.html", null ]
+          [ "fixed_disposable_strategy_selector< 0, Mode >", "structrpp_1_1details_1_1observables_1_1fixed__disposable__strategy__selector_3_010_00_01_mode_01_4.html", null ],
+          [ "make_chain", "structrpp_1_1details_1_1observables_1_1make__chain.html", null ],
+          [ "make_chain< New, chain< Args... > >", "structrpp_1_1details_1_1observables_1_1make__chain_3_01_new_00_01chain_3_01_args_8_8_8_01_4_01_4.html", null ]
         ] ],
         [ "observers", null, [
           [ "atomic_bool", "classrpp_1_1details_1_1observers_1_1atomic__bool.html", null ],
@@ -232,11 +236,7 @@ var annotated_dup =
       [ "grouped_observable", "classrpp_1_1grouped__observable.html", null ],
       [ "interface_composite_disposable", "structrpp_1_1interface__composite__disposable.html", null ],
       [ "interface_disposable", "structrpp_1_1interface__disposable.html", "structrpp_1_1interface__disposable" ],
-      [ "make_chain_observable", "structrpp_1_1make__chain__observable.html", null ],
-      [ "make_chain_observable< New, observable_chain_strategy< Args... > >", "structrpp_1_1make__chain__observable_3_01_new_00_01observable__chain__strategy_3_01_args_8_8_8_01_4_01_4.html", null ],
       [ "observable", "classrpp_1_1observable.html", "classrpp_1_1observable" ],
-      [ "observable_chain_strategy", "classrpp_1_1observable__chain__strategy.html", null ],
-      [ "observable_chain_strategy< TStrategy >", "classrpp_1_1observable__chain__strategy_3_01_t_strategy_01_4.html", null ],
       [ "observer", "classrpp_1_1observer.html", "classrpp_1_1observer" ],
       [ "observer< Type, details::with_disposable_strategy< Strategy, DisposableStrategy > >", "classrpp_1_1observer_3_01_type_00_01details_1_1with__disposable__strategy_3_01_strategy_00_01_disposable_strategy_01_4_01_4.html", "classrpp_1_1observer_3_01_type_00_01details_1_1with__disposable__strategy_3_01_strategy_00_01_disposable_strategy_01_4_01_4" ],
       [ "observer< Type, rpp::details::observers::dynamic_strategy< Type > >", "classrpp_1_1observer_3_01_type_00_01rpp_1_1details_1_1observers_1_1dynamic__strategy_3_01_type_01_4_01_4.html", null ],
