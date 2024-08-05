@@ -169,7 +169,7 @@ namespace rpp::operators::details
         using updated_disposable_strategy = rpp::details::observables::fixed_disposable_strategy_selector<1>;
 
         template<rpp::constraint::observer Observer, typename... Strategies>
-        void subscribe(Observer&& observer, const observable_chain_strategy<Strategies...>& observable_strategy) const
+        void subscribe(Observer&& observer, const rpp::details::observables::chain<Strategies...>& observable_strategy) const
         {
             merge_observer_strategy<std::decay_t<Observer>> strategy{std::forward<Observer>(observer)};
 
