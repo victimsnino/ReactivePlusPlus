@@ -35,7 +35,7 @@ namespace rpp::operators::details
             if (current++ == index)
             {
                 observer.on_next(std::forward<T>(v));
-                observer.on_completed(); 
+                observer.on_completed();
             }
         }
 
@@ -47,7 +47,7 @@ namespace rpp::operators::details
             {
                 observer.on_error(std::make_exception_ptr(utils::out_of_range{"index is out of bounds"}));
             }
-            else 
+            else
             {
                 observer.on_completed();
             }
