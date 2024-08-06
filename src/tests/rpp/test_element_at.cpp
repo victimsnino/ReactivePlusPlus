@@ -20,7 +20,7 @@
 #include "copy_count_tracker.hpp"
 #include "disposable_observable.hpp"
 
-TEST_CASE("element_at emits element at index")
+TEST_CASE("element_at emits element at provided index")
 {
     mock_observer_strategy<int> mock{};
 
