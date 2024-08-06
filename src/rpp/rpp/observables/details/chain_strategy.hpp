@@ -15,26 +15,26 @@
 #include <rpp/defs.hpp>
 #include <rpp/schedulers/current_thread.hpp>
 
-namespace rpp
+namespace rpp::details::observables
 {
     template<typename TStrategy, typename... TStrategies>
-    class observable_chain_strategy
+    class chain
     {
-        using base = observable_chain_strategy<TStrategies...>;
+        using base = chain<TStrategies...>;
 
         using operator_traits = typename TStrategy::template operator_traits<typename base::value_type>;
 
     public:
-        using expected_disposable_strategy = details::observables::deduce_updated_disposable_strategy<TStrategy, typename base::expected_disposable_strategy>;
+        using expected_disposable_strategy = deduce_updated_disposable_strategy<TStrategy, typename base::expected_disposable_strategy>;
         using value_type                   = typename operator_traits::result_type;
 
-        observable_chain_strategy(const TStrategy& strategy, const TStrategies&... strategies)
+        chain(const TStrategy& strategy, const TStrategies&... strategies)
             : m_strategy(strategy)
             , m_strategies(strategies...)
         {
         }
 
-        observable_chain_strategy(const TStrategy& strategy, const observable_chain_strategy<TStrategies...>& strategies)
+        chain(const TStrategy& strategy, const chain<TStrategies...>& strategies)
             : m_strategy(strategy)
             , m_strategies(strategies)
         {
@@ -63,18 +63,18 @@ namespace rpp
         }
 
     private:
-        RPP_NO_UNIQUE_ADDRESS TStrategy                                 m_strategy;
-        RPP_NO_UNIQUE_ADDRESS observable_chain_strategy<TStrategies...> m_strategies;
+        RPP_NO_UNIQUE_ADDRESS TStrategy             m_strategy;
+        RPP_NO_UNIQUE_ADDRESS chain<TStrategies...> m_strategies;
     };
 
     template<typename TStrategy>
-    class observable_chain_strategy<TStrategy>
+    class chain<TStrategy>
     {
     public:
         using expected_disposable_strategy = rpp::details::observables::deduce_disposable_strategy_t<TStrategy>;
         using value_type                   = typename TStrategy::value_type;
 
-        observable_chain_strategy(const TStrategy& strategy)
+        chain(const TStrategy& strategy)
             : m_strategy(strategy)
         {
         }
@@ -90,17 +90,17 @@ namespace rpp
     };
 
     template<typename New, typename Old>
-    struct make_chain_observable
+    struct make_chain
     {
-        using type = observable_chain_strategy<New, Old>;
+        using type = chain<New, Old>;
     };
 
     template<typename New, typename... Args>
-    struct make_chain_observable<New, observable_chain_strategy<Args...>>
+    struct make_chain<New, chain<Args...>>
     {
-        using type = observable_chain_strategy<New, Args...>;
+        using type = chain<New, Args...>;
     };
 
     template<typename New, typename Old>
-    using make_chain_observable_t = typename make_chain_observable<New, Old>::type;
-} // namespace rpp
+    using make_chain_t = typename make_chain<New, Old>::type;
+} // namespace rpp::details::observables

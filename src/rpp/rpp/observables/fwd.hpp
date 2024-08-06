@@ -43,12 +43,15 @@ namespace rpp::details::observables
     };
 } // namespace rpp::details::observables
 
-namespace rpp
+namespace rpp::details::observables
 {
     template<typename TStrategy, typename... TStrategies>
-    class observable_chain_strategy;
+    class chain;
+} // namespace rpp::details::observables
 
-    template<constraint::decayed_type Type, constraint::observable_strategy<Type> Strategy>
+namespace rpp
+{
+    template<rpp::constraint::decayed_type Type, rpp::constraint::observable_strategy<Type> Strategy>
     class observable;
 } // namespace rpp
 
@@ -84,10 +87,10 @@ namespace rpp::constraint
     };
 
     template<typename Op, typename Type>
-    concept operator_base = requires(const Op& op) { typename std::decay_t<Op>::template operator_traits<Type>; } && details::observables::constraint::disposable_strategy<details::observables::deduce_updated_disposable_strategy<std::decay_t<Op>, typename observable_chain_strategy<details::observables::fake_strategy<Type>>::expected_disposable_strategy>>;
+    concept operator_base = requires(const Op& op) { typename std::decay_t<Op>::template operator_traits<Type>; } && details::observables::constraint::disposable_strategy<details::observables::deduce_updated_disposable_strategy<std::decay_t<Op>, typename details::observables::chain<details::observables::fake_strategy<Type>>::expected_disposable_strategy>>;
 
     template<typename Op, typename Type>
-    concept operator_subscribe = operator_base<Op, Type> && requires(const Op& op, rpp::details::observers::fake_observer<typename std::decay_t<Op>::template operator_traits<Type>::result_type>&& observer, const observable_chain_strategy<details::observables::fake_strategy<Type>>& chain) {
+    concept operator_subscribe = operator_base<Op, Type> && requires(const Op& op, rpp::details::observers::fake_observer<typename std::decay_t<Op>::template operator_traits<Type>::result_type>&& observer, const details::observables::chain<details::observables::fake_strategy<Type>>& chain) {
         {
             op.subscribe(std::move(observer), chain)
         };
