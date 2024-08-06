@@ -26,13 +26,17 @@ namespace rpp::operators::details
         using preferred_disposable_strategy = rpp::details::observers::none_disposable_strategy;
 
         RPP_NO_UNIQUE_ADDRESS TObserver observer;
-        size_t                          index{};
-        mutable size_t                  current{};
+        mutable size_t                  count;
 
         template<typename T>
         void on_next(T&& v) const
         {
-            if (current++ == index)
+            if (count)
+            {
+                --count;
+            }
+
+            if (!count)
             {
                 observer.on_next(std::forward<T>(v));
                 observer.on_completed();
@@ -43,7 +47,7 @@ namespace rpp::operators::details
 
         void on_completed() const
         {
-            if (current <= index)
+            if (count)
             {
                 observer.on_error(std::make_exception_ptr(utils::out_of_range{"index is out of bounds"}));
             }
@@ -96,6 +100,6 @@ namespace rpp::operators
      */
     inline auto element_at(size_t index)
     {
-        return details::element_at_t{index};
+        return details::element_at_t{index + 1};
     }
 } // namespace rpp::operators
