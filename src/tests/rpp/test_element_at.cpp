@@ -20,13 +20,23 @@
 #include "copy_count_tracker.hpp"
 #include "disposable_observable.hpp"
 
-TEST_CASE("element_at emits element at index")
+TEST_CASE("element_at emits element at provided index")
 {
     mock_observer_strategy<int> mock{};
 
     SECTION("sequence of values")
     {
         auto obs = rpp::source::just(1, 2, 3);
+
+        SECTION("subscribe via element_at(2)")
+        {
+            (obs | rpp::operators::element_at(2)).subscribe(mock);
+
+            CHECK(mock.get_received_values() == std::vector{3});
+            CHECK(mock.get_on_error_count() == 0);
+            CHECK(mock.get_on_completed_count() == 1);
+        }
+
 
         SECTION("subscribe via element_at(1)")
         {
