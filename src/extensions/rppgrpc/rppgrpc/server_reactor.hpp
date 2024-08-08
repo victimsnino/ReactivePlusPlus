@@ -19,6 +19,16 @@
 
 namespace rppgrpc
 {
+    /**
+     * @brief RPP's based implementation for grpc server bidirectional reactor.
+     * @details To use it you need:
+     * - create it via `new` operator
+     * - return it from bidirection method of CallbackService interface
+     * - to access values FROM stream you can subscribe to observable obtained via `reactor->get_observable()` (same observable WOULD emit on_completed in case of successful stream termination and on_error in case of some errors with grpc stream)
+     * - to pass values TO stream you can emit values to observer obtained via `reactor->get_observer()`
+     *
+     * @warning grpc server reactor have to finish manually, so it is expected that you call `on_completed()` on reactor->get_observer()
+     */
     template<rpp::constraint::decayed_type Request, rpp::constraint::decayed_type Response>
     class server_bidi_reactor final : public grpc::ServerBidiReactor<Request, Response>
         , private details::base_writer<Response>
@@ -85,6 +95,14 @@ namespace rppgrpc
         }
     };
 
+    /**
+     * @brief RPP's based implementation for grpc server write reactor.
+     * @details To use it you need:
+     * - create it via `new` operator
+     * - return it from write-based method of CallbackService interface
+     * - reactor provides `reactor->get_observable()` method but such as observable emits nothing and can be used only to be notified about completion/error
+     * - to pass values TO stream you can emit values to observer obtained via `reactor->get_observer()`
+     */
     template<rpp::constraint::decayed_type Response>
     class server_write_reactor final : public grpc::ServerWriteReactor<Response>
         , private details::base_writer<Response>
@@ -142,6 +160,13 @@ namespace rppgrpc
         }
     };
 
+    /**
+     * @brief RPP's based implementation for grpc server read reactor.
+     * @details To use it you need:
+     * - create it via `new` operator
+     * - return it from read-based method of CallbackService interface
+     * - to access values FROM stream you can subscribe to observable obtained via `reactor->get_observable()` (same observable WOULD emit on_completed in case of successful stream termination and on_error in case of some errors with grpc stream)
+     */
     template<rpp::constraint::decayed_type Request>
     class server_read_reactor final : public grpc::ServerReadReactor<Request>
         , private details::base_reader<Request>

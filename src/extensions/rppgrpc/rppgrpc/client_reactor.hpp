@@ -22,7 +22,7 @@ namespace rppgrpc
     /**
      * @brief RPP's based implementation for grpc client bidirectional reactor.
      * @details To use it you need:
-     * - create it via `new` operator OR be sure it is alive while it is used inside grpc.
+     * - create it via `new` operator
      * - pass it to `stub->async()->GrpcBidirectionalStream(ctx, reactor);`
      * - call `reactor->init()` method for actual starting of grpc logic
      * - to access values FROM stream you can subscribe to observable obtained via `reactor->get_observable()` (same observable WOULD emit on_completed in case of successful stream termination and on_error in case of some errors with grpc stream)
@@ -93,7 +93,7 @@ namespace rppgrpc
     /**
      * @brief RPP's based implementation for grpc client write reactor
      * @details To use it you need:
-     * - create it via `new` operator OR be sure it is alive while it is used inside grpc.
+     * - create it via `new` operator
      * - pass it to `stub->async()->GrpcWriteStream(ctx, &request, reactor);`
      * - call `reactor->init()` method for actual starting of grpc logic
      * - to pass values TO stream you can emit values to observer obtained via `reactor->get_observer()`
@@ -154,7 +154,7 @@ namespace rppgrpc
     /**
      * @brief RPP's based implementation for grpc client read reactor.
      * @details To use it you need:
-     * - create it via `new` operator OR be sure it is alive while it is used inside grpc.
+     * - create it via `new` operator
      * - pass it to `stub->async()->GrpcReadStream(ctx, &response, reactor);`
      * - call `reactor->init()` method for actual starting of grpc logic
      * - to access values FROM stream you can subscribe to observable obtained via `reactor->get_observable()` (same observable WOULD emit on_completed in case of successful stream termination and on_error in case of some errors with grpc stream)
