@@ -16,104 +16,180 @@
 \DoxyCodeLine{00012\ }
 \DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <rpp/observables/fwd.hpp>}}
 \DoxyCodeLine{00014\ }
-\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <rpp/subjects/publish\_subject.hpp>}}
-\DoxyCodeLine{00016\ }
-\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ <grpcpp/support/server\_callback.h>}}
-\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ <rppgrpc/fwd.hpp>}}
-\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#include\ <rppgrpc/utils/exceptions.hpp>}}
-\DoxyCodeLine{00020\ }
-\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#include\ <deque>}}
-\DoxyCodeLine{00022\ }
-\DoxyCodeLine{00023\ \textcolor{keyword}{namespace\ }rppgrpc::details}
-\DoxyCodeLine{00024\ \{}
-\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type\ Response,\ rpp::constra\textcolor{keywordtype}{int}::observer\ Observer>}
-\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrppgrpc_1_1details_1_1server__bidi__reactor}{server\_bidi\_reactor}}\ final\ :\ \textcolor{keyword}{public}\ grpc::ServerBidiReactor<rpp::utils::extract\_observer\_type\_t<Observer>,\ Response>}
-\DoxyCodeLine{00027\ \ \ \ \ \{}
-\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }Request\ =\ rpp::utils::extract\_observer\_type\_t<Observer>;}
-\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }Base\ \ \ \ =\ grpc::ServerBidiReactor<Request,\ Response>;}
-\DoxyCodeLine{00030\ }
-\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::observable\_of\_type<Response>\ Observable,\ rpp::constra\textcolor{keywordtype}{int}::decayed\_same\_as<Observer>\ TObserver>}
-\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrppgrpc_1_1details_1_1server__bidi__reactor}{server\_bidi\_reactor}}(\textcolor{keyword}{const}\ Observable\&\ messages,\ TObserver\&\&\ events)}
-\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \ \ \ \ :\ m\_observer\{std::forward<TObserver>(events)\}}
-\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \ \ \ \ ,\ m\_disposable\{messages.subscribe\_with\_disposable([\textcolor{keyword}{this}]<rpp::constraint::decayed\_same\_as<Response>\ T>(T\&\&\ message)\ \{}
-\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::lock\_guard\ lock\{m\_write\_mutex\};}
-\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ m\_write.push\_back(std::forward<T>(message));}
-\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (m\_write.size()\ ==\ 1)}
-\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Base::StartWrite(\&m\_write.front());\ \},}
-\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [\textcolor{keyword}{this}](\textcolor{keyword}{const}\ std::exception\_ptr\&)\ \{}
-\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Base::Finish(grpc::Status\{grpc::StatusCode::INTERNAL,\ \textcolor{stringliteral}{"{}Internal\ error\ happens"{}}\});}
-\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \},}
-\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [\textcolor{keyword}{this}]()\ \{}
-\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Base::Finish(grpc::Status::OK);}
-\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \})\}}
-\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \ \ \ \ Base::StartSendInitialMetadata();}
-\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ Base::StartRead(\&m\_read);}
-\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00050\ }
-\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ OnReadDone(\textcolor{keywordtype}{bool}\ ok)\textcolor{keyword}{\ override}}
-\DoxyCodeLine{00053\ \textcolor{keyword}{\ \ \ \ \ \ \ \ }\{}
-\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!ok)}
-\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ m\_observer.on\_error(std::make\_exception\_ptr(\mbox{\hyperlink{structrppgrpc_1_1utils_1_1reactor__failed}{rppgrpc::utils::reactor\_failed}}\{\textcolor{stringliteral}{"{}OnReadDone\ is\ not\ ok"{}}\}));}
-\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Base::Finish(grpc::Status::CANCELLED);}
-\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
-\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \ \ \ \ m\_observer.on\_next(m\_read);}
-\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \ \ \ \ Base::StartRead(\&m\_read);}
-\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00063\ }
-\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ OnWriteDone(\textcolor{keywordtype}{bool}\ ok)\textcolor{keyword}{\ override}}
-\DoxyCodeLine{00065\ \textcolor{keyword}{\ \ \ \ \ \ \ \ }\{}
-\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!ok)}
-\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ m\_observer.on\_error(std::make\_exception\_ptr(\mbox{\hyperlink{structrppgrpc_1_1utils_1_1reactor__failed}{rppgrpc::utils::reactor\_failed}}\{\textcolor{stringliteral}{"{}OnWriteDone\ is\ not\ ok"{}}\}));}
-\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Base::Finish(grpc::Status::CANCELLED);}
-\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
-\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <grpcpp/support/server\_callback.h>}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ <rppgrpc/details/base.hpp>}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ <rppgrpc/fwd.hpp>}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ <rppgrpc/utils/exceptions.hpp>}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{keyword}{namespace\ }rppgrpc}
+\DoxyCodeLine{00021\ \{}
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type\ Request,\ rpp::constra\textcolor{keywordtype}{int}::decayed\_type\ Response>}
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrppgrpc_1_1server__bidi__reactor}{server\_bidi\_reactor}}\ final\ :\ \textcolor{keyword}{public}\ grpc::ServerBidiReactor<Request,\ Response>}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ ,\ \textcolor{keyword}{private}\ \mbox{\hyperlink{classrppgrpc_1_1details_1_1base__writer}{details::base\_writer}}<Response>}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ ,\ \textcolor{keyword}{private}\ \mbox{\hyperlink{classrppgrpc_1_1details_1_1base__reader}{details::base\_reader}}<Request>}
+\DoxyCodeLine{00039\ \ \ \ \ \{}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }Base\ =\ grpc::ServerBidiReactor<Request,\ Response>;}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrppgrpc_1_1server__bidi__reactor}{server\_bidi\_reactor}}()}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \ \ \ \ Base::StartSendInitialMetadata();}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrppgrpc_1_1details_1_1base__reader}{details::base\_reader<Request>::handle\_read\_done}}(\textcolor{keyword}{true});}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{classrppgrpc_1_1details_1_1base__writer}{details::base\_writer}}<Response>::get\_observer;}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{classrppgrpc_1_1details_1_1base__reader}{details::base\_reader}}<Request>::get\_observable;}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ start\_write(\textcolor{keyword}{const}\ Response\&\ v)\textcolor{keyword}{\ override}}
+\DoxyCodeLine{00054\ \textcolor{keyword}{\ \ \ \ \ \ \ \ }\{}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \ \ \ \ Base::StartWrite(\&v);}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ start\_read(Request\&\ data)\textcolor{keyword}{\ override}}
+\DoxyCodeLine{00059\ \textcolor{keyword}{\ \ \ \ \ \ \ \ }\{}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \ \ \ \ Base::StartRead(\&data);}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ finish\_writes(\textcolor{keyword}{const}\ grpc::Status\&\ status)\textcolor{keyword}{\ override}}
+\DoxyCodeLine{00064\ \textcolor{keyword}{\ \ \ \ \ \ \ \ }\{}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \ \ \ \ Base::Finish(status);}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ OnReadDone(\textcolor{keywordtype}{bool}\ ok)\textcolor{keyword}{\ override}}
+\DoxyCodeLine{00069\ \textcolor{keyword}{\ \ \ \ \ \ \ \ }\{}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!ok)}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
 \DoxyCodeLine{00072\ }
-\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \ \ \ \ std::lock\_guard\ lock\{m\_write\_mutex\};}
-\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \ \ \ \ m\_write.pop\_front();}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrppgrpc_1_1details_1_1base__reader}{details::base\_reader<Request>::handle\_read\_done}}();}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{00075\ }
-\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!m\_write.empty())}
-\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Base::StartWrite(\&m\_write.front());}
-\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00081\ }
-\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ OnDone()\textcolor{keyword}{\ override}}
-\DoxyCodeLine{00083\ \textcolor{keyword}{\ \ \ \ \ \ \ \ }\{}
-\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \ \ \ \ m\_observer.on\_completed();}
-\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \ \ \ \ Destroy();}
-\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00087\ }
-\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ OnCancel()\textcolor{keyword}{\ override}}
-\DoxyCodeLine{00089\ \textcolor{keyword}{\ \ \ \ \ \ \ \ }\{}
-\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \ \ \ \ m\_observer.on\_error(std::make\_exception\_ptr(\mbox{\hyperlink{structrppgrpc_1_1utils_1_1reactor__failed}{rppgrpc::utils::reactor\_failed}}\{\textcolor{stringliteral}{"{}OnCancel\ called"{}}\}));}
-\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \ \ \ \ Base::Finish(grpc::Status::CANCELLED);}
-\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00093\ }
-\DoxyCodeLine{00094\ \ \ \ \ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ Destroy()}
-\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \ \ \ \ m\_disposable.dispose();}
-\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}\ \textcolor{keyword}{this};}
-\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ OnWriteDone(\textcolor{keywordtype}{bool}\ ok)\textcolor{keyword}{\ override}}
+\DoxyCodeLine{00077\ \textcolor{keyword}{\ \ \ \ \ \ \ \ }\{}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!ok)}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrppgrpc_1_1details_1_1base__writer}{details::base\_writer<Response>::handle\_write\_done}}();}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ OnDone()\textcolor{keyword}{\ override}}
+\DoxyCodeLine{00085\ \textcolor{keyword}{\ \ \ \ \ \ \ \ }\{}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrppgrpc_1_1details_1_1base__writer}{details::base\_writer<Response>::handle\_on\_done}}();}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrppgrpc_1_1details_1_1base__reader}{details::base\_reader<Request>::handle\_on\_done}}(\{\});}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}\ \textcolor{keyword}{this};}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ OnCancel()\textcolor{keyword}{\ override}}
+\DoxyCodeLine{00093\ \textcolor{keyword}{\ \ \ \ \ \ \ \ }\{}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrppgrpc_1_1details_1_1base__writer}{details::base\_writer<Response>::handle\_on\_done}}();}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrppgrpc_1_1details_1_1base__reader}{details::base\_reader<Request>::handle\_on\_done}}(std::make\_exception\_ptr(\mbox{\hyperlink{structrppgrpc_1_1utils_1_1reactor__failed}{rppgrpc::utils::reactor\_failed}}\{\textcolor{stringliteral}{"{}OnCancel\ called"{}}\}));}
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \ \ \ \ Base::Finish(grpc::Status::CANCELLED);}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00099\ \ \ \ \ \};}
 \DoxyCodeLine{00100\ }
-\DoxyCodeLine{00101\ \ \ \ \ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ Observer\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ m\_observer;}
-\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp::disposable\_wrapper}}\ m\_disposable;}
-\DoxyCodeLine{00104\ }
-\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ Request\ m\_read\{\};}
-\DoxyCodeLine{00106\ }
-\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ std::mutex\ \ \ \ \ \ \ \ \ \ \ m\_write\_mutex\{\};}
-\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ std::deque<Response>\ m\_write\{\};}
-\DoxyCodeLine{00109\ \ \ \ \ \};}
-\DoxyCodeLine{00110\ \}\ \textcolor{comment}{//\ namespace\ rppgrpc::details}}
-\DoxyCodeLine{00111\ \textcolor{keyword}{namespace\ }rppgrpc}
-\DoxyCodeLine{00112\ \{}
-\DoxyCodeLine{00113\ \}\ \textcolor{comment}{//\ namespace\ rppgrpc}}
+\DoxyCodeLine{00112\ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type\ Response>}
+\DoxyCodeLine{00113\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrppgrpc_1_1server__write__reactor}{server\_write\_reactor}}\ final\ :\ \textcolor{keyword}{public}\ grpc::ServerWriteReactor<Response>}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ ,\ \textcolor{keyword}{private}\ \mbox{\hyperlink{classrppgrpc_1_1details_1_1base__writer}{details::base\_writer}}<Response>}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ ,\ \textcolor{keyword}{private}\ \mbox{\hyperlink{classrppgrpc_1_1details_1_1base__reader}{details::base\_reader}}<rpp::utils::none>}
+\DoxyCodeLine{00116\ \ \ \ \ \{}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }Base\ =\ grpc::ServerWriteReactor<Response>;}
+\DoxyCodeLine{00118\ }
+\DoxyCodeLine{00119\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrppgrpc_1_1server__write__reactor}{server\_write\_reactor}}()}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \ \ \ \ Base::StartSendInitialMetadata();}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00124\ }
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{classrppgrpc_1_1details_1_1base__writer}{details::base\_writer}}<Response>::get\_observer;}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{classrppgrpc_1_1details_1_1base__reader}{details::base\_reader}}<rpp::utils::none>::get\_observable;}
+\DoxyCodeLine{00127\ }
+\DoxyCodeLine{00128\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ start\_write(\textcolor{keyword}{const}\ Response\&\ v)\textcolor{keyword}{\ override}}
+\DoxyCodeLine{00130\ \textcolor{keyword}{\ \ \ \ \ \ \ \ }\{}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \ \ \ \ Base::StartWrite(\&v);}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00133\ }
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ start\_read(rpp::utils::none\&\ data)\textcolor{keyword}{\ override\ }\{\}}
+\DoxyCodeLine{00135\ }
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ finish\_writes(\textcolor{keyword}{const}\ grpc::Status\&\ status)\textcolor{keyword}{\ override}}
+\DoxyCodeLine{00137\ \textcolor{keyword}{\ \ \ \ \ \ \ \ }\{}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ \ \ \ \ Base::Finish(status);}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00140\ }
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ OnWriteDone(\textcolor{keywordtype}{bool}\ ok)\textcolor{keyword}{\ override}}
+\DoxyCodeLine{00142\ \textcolor{keyword}{\ \ \ \ \ \ \ \ }\{}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!ok)}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Base::Finish(grpc::Status::OK);}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00148\ }
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrppgrpc_1_1details_1_1base__writer}{details::base\_writer<Response>::handle\_write\_done}}();}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00151\ }
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ OnDone()\textcolor{keyword}{\ override}}
+\DoxyCodeLine{00153\ \textcolor{keyword}{\ \ \ \ \ \ \ \ }\{}
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrppgrpc_1_1details_1_1base__writer}{details::base\_writer<Response>::handle\_on\_done}}();}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrppgrpc_1_1details_1_1base__reader}{details::base\_reader<rpp::utils::none>::handle\_on\_done}}(\{\});}
+\DoxyCodeLine{00156\ }
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}\ \textcolor{keyword}{this};}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00159\ }
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ OnCancel()\textcolor{keyword}{\ override}}
+\DoxyCodeLine{00161\ \textcolor{keyword}{\ \ \ \ \ \ \ \ }\{}
+\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrppgrpc_1_1details_1_1base__writer}{details::base\_writer<Response>::handle\_on\_done}}();}
+\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrppgrpc_1_1details_1_1base__reader}{details::base\_reader<rpp::utils::none>::handle\_on\_done}}(std::make\_exception\_ptr(\mbox{\hyperlink{structrppgrpc_1_1utils_1_1reactor__failed}{rppgrpc::utils::reactor\_failed}}\{\textcolor{stringliteral}{"{}OnCancel\ called"{}}\}));}
+\DoxyCodeLine{00164\ }
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ \ \ \ \ Base::Finish(grpc::Status::CANCELLED);}
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00167\ \ \ \ \ \};}
+\DoxyCodeLine{00168\ }
+\DoxyCodeLine{00179\ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type\ Request>}
+\DoxyCodeLine{00180\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrppgrpc_1_1server__read__reactor}{server\_read\_reactor}}\ final\ :\ \textcolor{keyword}{public}\ grpc::ServerReadReactor<Request>}
+\DoxyCodeLine{00181\ \ \ \ \ \ \ \ \ ,\ \textcolor{keyword}{private}\ \mbox{\hyperlink{classrppgrpc_1_1details_1_1base__reader}{details::base\_reader}}<Request>}
+\DoxyCodeLine{00182\ \ \ \ \ \{}
+\DoxyCodeLine{00183\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }Base\ =\ grpc::ServerReadReactor<Request>;}
+\DoxyCodeLine{00184\ }
+\DoxyCodeLine{00185\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00186\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrppgrpc_1_1server__read__reactor}{server\_read\_reactor}}()}
+\DoxyCodeLine{00187\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00188\ \ \ \ \ \ \ \ \ \ \ \ \ Base::StartSendInitialMetadata();}
+\DoxyCodeLine{00189\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrppgrpc_1_1details_1_1base__reader}{details::base\_reader<Request>::handle\_read\_done}}(\textcolor{keyword}{true});}
+\DoxyCodeLine{00190\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00191\ }
+\DoxyCodeLine{00192\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{classrppgrpc_1_1details_1_1base__reader}{details::base\_reader}}<Request>::get\_observable;}
+\DoxyCodeLine{00193\ }
+\DoxyCodeLine{00194\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00195\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ start\_read(Request\&\ data)\textcolor{keyword}{\ override}}
+\DoxyCodeLine{00196\ \textcolor{keyword}{\ \ \ \ \ \ \ \ }\{}
+\DoxyCodeLine{00197\ \ \ \ \ \ \ \ \ \ \ \ \ Base::StartRead(\&data);}
+\DoxyCodeLine{00198\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00199\ }
+\DoxyCodeLine{00200\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ OnReadDone(\textcolor{keywordtype}{bool}\ ok)\textcolor{keyword}{\ override}}
+\DoxyCodeLine{00201\ \textcolor{keyword}{\ \ \ \ \ \ \ \ }\{}
+\DoxyCodeLine{00202\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!ok)}
+\DoxyCodeLine{00203\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00204\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Base::Finish(grpc::Status::OK);}
+\DoxyCodeLine{00205\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00206\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00207\ }
+\DoxyCodeLine{00208\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrppgrpc_1_1details_1_1base__reader}{details::base\_reader<Request>::handle\_read\_done}}();}
+\DoxyCodeLine{00209\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00210\ }
+\DoxyCodeLine{00211\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ OnDone()\textcolor{keyword}{\ override}}
+\DoxyCodeLine{00212\ \textcolor{keyword}{\ \ \ \ \ \ \ \ }\{}
+\DoxyCodeLine{00213\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrppgrpc_1_1details_1_1base__reader}{details::base\_reader<Request>::handle\_on\_done}}(\{\});}
+\DoxyCodeLine{00214\ }
+\DoxyCodeLine{00215\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}\ \textcolor{keyword}{this};}
+\DoxyCodeLine{00216\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00217\ }
+\DoxyCodeLine{00218\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ OnCancel()\textcolor{keyword}{\ override}}
+\DoxyCodeLine{00219\ \textcolor{keyword}{\ \ \ \ \ \ \ \ }\{}
+\DoxyCodeLine{00220\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrppgrpc_1_1details_1_1base__reader}{details::base\_reader<Request>::handle\_on\_done}}(std::make\_exception\_ptr(\mbox{\hyperlink{structrppgrpc_1_1utils_1_1reactor__failed}{rppgrpc::utils::reactor\_failed}}\{\textcolor{stringliteral}{"{}OnCancel\ called"{}}\}));}
+\DoxyCodeLine{00221\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00222\ \ \ \ \ \};}
+\DoxyCodeLine{00223\ \}\ \textcolor{comment}{//\ namespace\ rppgrpc}}
 
 \end{DoxyCode}

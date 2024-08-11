@@ -12,7 +12,7 @@ RPP\textquotesingle{}s based implementation for grpc client write reactor.
 Inheritance diagram for rppgrpc\+::client\+\_\+write\+\_\+reactor\texorpdfstring{$<$}{<} Request \texorpdfstring{$>$}{>}\+:\begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[height=2.000000cm]{classrppgrpc_1_1client__write__reactor}
+\includegraphics[height=1.287356cm]{classrppgrpc_1_1client__write__reactor}
 \end{center}
 \end{figure}
 \doxysubsubsection*{Public Member Functions}
@@ -20,12 +20,6 @@ Inheritance diagram for rppgrpc\+::client\+\_\+write\+\_\+reactor\texorpdfstring
 \item 
 \Hypertarget{classrppgrpc_1_1client__write__reactor_a9c13d234c64573c4ebd1a6d58a442287}\label{classrppgrpc_1_1client__write__reactor_a9c13d234c64573c4ebd1a6d58a442287} 
 void {\bfseries init} ()
-\item 
-\Hypertarget{classrppgrpc_1_1client__write__reactor_ab89e00d5aa50343e9aa4cf2153808ff7}\label{classrppgrpc_1_1client__write__reactor_ab89e00d5aa50343e9aa4cf2153808ff7} 
-auto {\bfseries get\+\_\+observer} ()
-\item 
-\Hypertarget{classrppgrpc_1_1client__write__reactor_a30bd66fba9617ecce8631d20b5957930}\label{classrppgrpc_1_1client__write__reactor_a30bd66fba9617ecce8631d20b5957930} 
-auto {\bfseries get\+\_\+observable} ()
 \end{DoxyCompactItemize}
 
 
@@ -36,12 +30,30 @@ RPP\textquotesingle{}s based implementation for grpc client write reactor.
 
 To use it you need\+:
 \begin{DoxyItemize}
-\item create it via {\ttfamily new} operator OR be sure it is alive while it is used inside grpc.
+\item create it via {\ttfamily new} operator
 \item pass it to {\ttfamily stub-\/\texorpdfstring{$>$}{>}async()-\/\texorpdfstring{$>$}{>}Grpc\+Write\+Stream(ctx, \&request, reactor);}
 \item call {\ttfamily reactor-\/\texorpdfstring{$>$}{>}init()} method for actual starting of grpc logic
 \item to pass values TO stream you can emit values to observer obtained via {\ttfamily reactor-\/\texorpdfstring{$>$}{>}get\+\_\+observer()}
-\item reactor provides {\ttfamily reactor-\/\texorpdfstring{$>$}{>}get\+\_\+observable()} method but such as observable emits nothing and can be used only to be notified about completion/error 
-\end{DoxyItemize}\begin{Desc}
+\item reactor provides {\ttfamily reactor-\/\texorpdfstring{$>$}{>}get\+\_\+observable()} method but such as observable emits nothing and can be used only to be notified about completion/error
+\end{DoxyItemize}
+
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ channel\ =\ grpc::CreateChannel(\textcolor{stringliteral}{"{}localhost:50051"{}},\ grpc::InsecureChannelCredentials());}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ stub\ \ \ \ =\ TestService::NewStub(channel);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ grpc::ClientContext\ ctx\{\};}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ \ \ \ \ \ \ \ \ \ reactor\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{classrppgrpc_1_1client__write__reactor}{rppgrpc::client\_write\_reactor<Request>}}();}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ Response\ \ \ \ \ \ \ \ \ \ \ \ resp\{\};}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ stub-\/>async()-\/>ClientSide(\&ctx,\ \&resp,\ reactor);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ reactor-\/>get\_observable().subscribe([](\textcolor{keyword}{const}\ rpp::utils::none\&)\ \{\});}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ reactor-\/>init();}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ reactor-\/>get\_observer().on\_next(Request\{\});}
+
+\end{DoxyCodeInclude}
+ \begin{Desc}
 \item[Examples]\par
 \mbox{\hyperlink{client_reactor_8cpp-example}{client\+\_\+reactor.\+cpp}}.\end{Desc}
 

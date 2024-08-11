@@ -12,7 +12,7 @@ RPP\textquotesingle{}s based implementation for grpc client bidirectional reacto
 Inheritance diagram for rppgrpc\+::client\+\_\+bidi\+\_\+reactor\texorpdfstring{$<$}{<} Request, Response \texorpdfstring{$>$}{>}\+:\begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[height=2.000000cm]{classrppgrpc_1_1client__bidi__reactor}
+\includegraphics[height=1.212121cm]{classrppgrpc_1_1client__bidi__reactor}
 \end{center}
 \end{figure}
 \doxysubsubsection*{Public Member Functions}
@@ -20,12 +20,6 @@ Inheritance diagram for rppgrpc\+::client\+\_\+bidi\+\_\+reactor\texorpdfstring{
 \item 
 \Hypertarget{classrppgrpc_1_1client__bidi__reactor_af2a6021ef1f91fb0869305e35284c40d}\label{classrppgrpc_1_1client__bidi__reactor_af2a6021ef1f91fb0869305e35284c40d} 
 void {\bfseries init} ()
-\item 
-\Hypertarget{classrppgrpc_1_1client__bidi__reactor_ab75295a62ba10c19a9e2c7f61691d37b}\label{classrppgrpc_1_1client__bidi__reactor_ab75295a62ba10c19a9e2c7f61691d37b} 
-auto {\bfseries get\+\_\+observer} ()
-\item 
-\Hypertarget{classrppgrpc_1_1client__bidi__reactor_ab4f35826ec11e0683869350ac85aeaef}\label{classrppgrpc_1_1client__bidi__reactor_ab4f35826ec11e0683869350ac85aeaef} 
-auto {\bfseries get\+\_\+observable} ()
 \end{DoxyCompactItemize}
 
 
@@ -36,12 +30,29 @@ RPP\textquotesingle{}s based implementation for grpc client bidirectional reacto
 
 To use it you need\+:
 \begin{DoxyItemize}
-\item create it via {\ttfamily new} operator OR be sure it is alive while it is used inside grpc.
+\item create it via {\ttfamily new} operator
 \item pass it to {\ttfamily stub-\/\texorpdfstring{$>$}{>}async()-\/\texorpdfstring{$>$}{>}Grpc\+Bidirectional\+Stream(ctx, reactor);}
 \item call {\ttfamily reactor-\/\texorpdfstring{$>$}{>}init()} method for actual starting of grpc logic
 \item to access values FROM stream you can subscribe to observable obtained via {\ttfamily reactor-\/\texorpdfstring{$>$}{>}get\+\_\+observable()} (same observable WOULD emit on\+\_\+completed in case of successful stream termination and on\+\_\+error in case of some errors with grpc stream)
-\item to pass values TO stream you can emit values to observer obtained via {\ttfamily reactor-\/\texorpdfstring{$>$}{>}get\+\_\+observer()} 
-\end{DoxyItemize}\begin{Desc}
+\item to pass values TO stream you can emit values to observer obtained via {\ttfamily reactor-\/\texorpdfstring{$>$}{>}get\+\_\+observer()}
+\end{DoxyItemize}
+
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ channel\ =\ grpc::CreateChannel(\textcolor{stringliteral}{"{}localhost:50051"{}},\ grpc::InsecureChannelCredentials());}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ stub\ \ \ \ =\ TestService::NewStub(channel);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ grpc::ClientContext\ ctx\{\};}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ \ \ \ \ \ \ \ \ \ reactor\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{classrppgrpc_1_1client__bidi__reactor}{rppgrpc::client\_bidi\_reactor<Request,\ Response>}}();}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ stub-\/>async()-\/>Bidirectional(\&ctx,\ reactor);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ reactor-\/>get\_observable().subscribe([](\textcolor{keyword}{const}\ Response\&)\ \{\});}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ reactor-\/>init();}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ reactor-\/>get\_observer().on\_next(Request\{\});}
+
+\end{DoxyCodeInclude}
+ \begin{Desc}
 \item[Examples]\par
 \mbox{\hyperlink{client_reactor_8cpp-example}{client\+\_\+reactor.\+cpp}}.\end{Desc}
 

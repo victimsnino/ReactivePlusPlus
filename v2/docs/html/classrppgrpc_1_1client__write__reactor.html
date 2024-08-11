@@ -118,32 +118,42 @@ $(function(){initNavTree('classrppgrpc_1_1client__write__reactor.html',''); init
 Inheritance diagram for rppgrpc::client_write_reactor&lt; Request &gt;:</div>
 <div class="dyncontent">
  <div class="center">
-  <img src="classrppgrpc_1_1client__write__reactor.png" alt=""/>
- </div></div>
+  <img src="classrppgrpc_1_1client__write__reactor.png" usemap="#rppgrpc::client_5Fwrite_5Freactor_3C_20Request_20_3E_map" alt=""/>
+  <map id="rppgrpc::client_5Fwrite_5Freactor_3C_20Request_20_3E_map" name="rppgrpc::client_5Fwrite_5Freactor_3C_20Request_20_3E_map">
+<area href="classrppgrpc_1_1details_1_1base__writer.html" alt="rppgrpc::details::base_writer&lt; Request &gt;" shape="rect" coords="292,0,574,24"/>
+<area href="classrppgrpc_1_1details_1_1base__reader.html" alt="rppgrpc::details::base_reader&lt; rpp::utils::none &gt;" shape="rect" coords="584,0,866,24"/>
+  </map>
+</div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a9c13d234c64573c4ebd1a6d58a442287" id="r_a9c13d234c64573c4ebd1a6d58a442287"><td class="memItemLeft" align="right" valign="top"><a id="a9c13d234c64573c4ebd1a6d58a442287" name="a9c13d234c64573c4ebd1a6d58a442287"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>init</b> ()</td></tr>
 <tr class="separator:a9c13d234c64573c4ebd1a6d58a442287"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab89e00d5aa50343e9aa4cf2153808ff7" id="r_ab89e00d5aa50343e9aa4cf2153808ff7"><td class="memItemLeft" align="right" valign="top"><a id="ab89e00d5aa50343e9aa4cf2153808ff7" name="ab89e00d5aa50343e9aa4cf2153808ff7"></a>
-auto&#160;</td><td class="memItemRight" valign="bottom"><b>get_observer</b> ()</td></tr>
-<tr class="separator:ab89e00d5aa50343e9aa4cf2153808ff7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a30bd66fba9617ecce8631d20b5957930" id="r_a30bd66fba9617ecce8631d20b5957930"><td class="memItemLeft" align="right" valign="top"><a id="a30bd66fba9617ecce8631d20b5957930" name="a30bd66fba9617ecce8631d20b5957930"></a>
-auto&#160;</td><td class="memItemRight" valign="bottom"><b>get_observable</b> ()</td></tr>
-<tr class="separator:a30bd66fba9617ecce8631d20b5957930"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><div class="compoundTemplParams">template&lt;rpp::constraint::decayed_type Request&gt;<br />
 class rppgrpc::client_write_reactor&lt; Request &gt;</div><p>RPP's based implementation for grpc client write reactor. </p>
 <p>To use it you need:</p><ul>
-<li>create it via <code>new</code> operator OR be sure it is alive while it is used inside grpc.</li>
+<li>create it via <code>new</code> operator</li>
 <li>pass it to <code>stub-&gt;async()-&gt;GrpcWriteStream(ctx, &amp;request, reactor);</code></li>
 <li>call <code>reactor-&gt;init()</code> method for actual starting of grpc logic</li>
 <li>to pass values TO stream you can emit values to observer obtained via <code>reactor-&gt;get_observer()</code></li>
-<li>reactor provides <code>reactor-&gt;get_observable()</code> method but such as observable emits nothing and can be used only to be notified about completion/error </li>
+<li>reactor provides <code>reactor-&gt;get_observable()</code> method but such as observable emits nothing and can be used only to be notified about completion/error</li>
 </ul>
-<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="client_reactor_8cpp-example.html#_a2">client_reactor.cpp</a>.</dd>
+<div class="fragment"><div class="line">        <span class="keyword">auto</span> channel = grpc::CreateChannel(<span class="stringliteral">&quot;localhost:50051&quot;</span>, grpc::InsecureChannelCredentials());</div>
+<div class="line">        <span class="keyword">auto</span> stub    = TestService::NewStub(channel);</div>
+<div class="line"> </div>
+<div class="line">        grpc::ClientContext ctx{};</div>
+<div class="line">        <span class="keyword">const</span> <span class="keyword">auto</span>          reactor = <span class="keyword">new</span> <a class="code hl_class" href="classrppgrpc_1_1client__write__reactor.html">rppgrpc::client_write_reactor&lt;Request&gt;</a>();</div>
+<div class="line">        Response            resp{};</div>
+<div class="line">        stub-&gt;async()-&gt;ClientSide(&amp;ctx, &amp;resp, reactor);</div>
+<div class="line">        reactor-&gt;get_observable().subscribe([](<span class="keyword">const</span> rpp::utils::none&amp;) {});</div>
+<div class="line"> </div>
+<div class="line">        reactor-&gt;init();</div>
+<div class="line"> </div>
+<div class="line">        reactor-&gt;get_observer().on_next(Request{});</div>
+</div><!-- fragment --> <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="client_reactor_8cpp-example.html#_a2">client_reactor.cpp</a>.</dd>
 </dl>
 </div><hr/>The documentation for this class was generated from the following files:<ul>
 <li>src/extensions/rppgrpc/rppgrpc/<a class="el" href="client__reactor_8hpp_source.html">client_reactor.hpp</a></li>

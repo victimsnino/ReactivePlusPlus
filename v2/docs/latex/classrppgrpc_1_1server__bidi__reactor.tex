@@ -1,0 +1,57 @@
+\doxysection{rppgrpc\+::server\+\_\+bidi\+\_\+reactor\texorpdfstring{$<$}{<} Request, Response \texorpdfstring{$>$}{>} Class Template Reference}
+\hypertarget{classrppgrpc_1_1server__bidi__reactor}{}\label{classrppgrpc_1_1server__bidi__reactor}\index{rppgrpc::server\_bidi\_reactor$<$ Request, Response $>$@{rppgrpc::server\_bidi\_reactor$<$ Request, Response $>$}}
+
+
+RPP\textquotesingle{}s based implementation for grpc server bidirectional reactor.  
+
+
+
+
+{\ttfamily \#include $<$server\+\_\+reactor.\+hpp$>$}
+
+Inheritance diagram for rppgrpc\+::server\+\_\+bidi\+\_\+reactor\texorpdfstring{$<$}{<} Request, Response \texorpdfstring{$>$}{>}\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=1.185185cm]{classrppgrpc_1_1server__bidi__reactor}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$rpp\+::constraint\+::decayed\+\_\+type Request, rpp\+::constraint\+::decayed\+\_\+type Response$>$\newline
+class rppgrpc\+::server\+\_\+bidi\+\_\+reactor$<$ Request, Response $>$}
+RPP\textquotesingle{}s based implementation for grpc server bidirectional reactor. 
+
+To use it you need\+:
+\begin{DoxyItemize}
+\item create it via {\ttfamily new} operator
+\item return it from bidirection method of Callback\+Service interface
+\item to access values FROM stream you can subscribe to observable obtained via {\ttfamily reactor-\/\texorpdfstring{$>$}{>}get\+\_\+observable()} (same observable WOULD emit on\+\_\+completed in case of successful stream termination and on\+\_\+error in case of some errors with grpc stream)
+\item to pass values TO stream you can emit values to observer obtained via {\ttfamily reactor-\/\texorpdfstring{$>$}{>}get\+\_\+observer()}
+\end{DoxyItemize}
+
+\begin{DoxyWarning}{Warning}
+grpc server reactor have to finish manually, so it is expected that you call {\ttfamily on\+\_\+completed()} on reactor-\/\texorpdfstring{$>$}{>}get\+\_\+observer()
+\end{DoxyWarning}
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\ \ \ \ grpc::ServerBidiReactor<Request,\ Response>*\ Bidirectional(grpc::CallbackServerContext*\ \textcolor{comment}{/*context*/})\textcolor{keyword}{\ override}}
+\DoxyCodeLine{\textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ reactor\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{classrppgrpc_1_1server__bidi__reactor}{rppgrpc::server\_bidi\_reactor<Request,\ Response>}}();}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ reactor-\/>get\_observable().subscribe([](\textcolor{keyword}{const}\ Request\&)\ \{\},\ []()\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}DONE"{}}\ <<\ std::endl;\ \});}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ reactor-\/>get\_observer().on\_next(Response\{\});}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ reactor;}
+\DoxyCodeLine{\ \ \ \ \}}
+
+\end{DoxyCodeInclude}
+ \begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{server_reactor_8cpp-example}{server\+\_\+reactor.\+cpp}}.\end{Desc}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/extensions/rppgrpc/rppgrpc/fwd.\+hpp\item 
+src/extensions/rppgrpc/rppgrpc/server\+\_\+reactor.\+hpp\end{DoxyCompactItemize}

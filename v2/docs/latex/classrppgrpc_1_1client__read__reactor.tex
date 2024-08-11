@@ -20,9 +20,6 @@ Inheritance diagram for rppgrpc\+::client\+\_\+read\+\_\+reactor\texorpdfstring{
 \item 
 \Hypertarget{classrppgrpc_1_1client__read__reactor_a70616fdb69057a2de5d5abd762ac7256}\label{classrppgrpc_1_1client__read__reactor_a70616fdb69057a2de5d5abd762ac7256} 
 void {\bfseries init} ()
-\item 
-\Hypertarget{classrppgrpc_1_1client__read__reactor_a446a16e52fe9363b17596df1c859a8d2}\label{classrppgrpc_1_1client__read__reactor_a446a16e52fe9363b17596df1c859a8d2} 
-auto {\bfseries get\+\_\+observable} ()
 \end{DoxyCompactItemize}
 
 
@@ -33,11 +30,27 @@ RPP\textquotesingle{}s based implementation for grpc client read reactor.
 
 To use it you need\+:
 \begin{DoxyItemize}
-\item create it via {\ttfamily new} operator OR be sure it is alive while it is used inside grpc.
+\item create it via {\ttfamily new} operator
 \item pass it to {\ttfamily stub-\/\texorpdfstring{$>$}{>}async()-\/\texorpdfstring{$>$}{>}Grpc\+Read\+Stream(ctx, \&response, reactor);}
 \item call {\ttfamily reactor-\/\texorpdfstring{$>$}{>}init()} method for actual starting of grpc logic
-\item to access values FROM stream you can subscribe to observable obtained via {\ttfamily reactor-\/\texorpdfstring{$>$}{>}get\+\_\+observable()} (same observable WOULD emit on\+\_\+completed in case of successful stream termination and on\+\_\+error in case of some errors with grpc stream) 
-\end{DoxyItemize}\begin{Desc}
+\item to access values FROM stream you can subscribe to observable obtained via {\ttfamily reactor-\/\texorpdfstring{$>$}{>}get\+\_\+observable()} (same observable WOULD emit on\+\_\+completed in case of successful stream termination and on\+\_\+error in case of some errors with grpc stream)
+\end{DoxyItemize}
+
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ channel\ =\ grpc::CreateChannel(\textcolor{stringliteral}{"{}localhost:50051"{}},\ grpc::InsecureChannelCredentials());}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ stub\ \ \ \ =\ TestService::NewStub(channel);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ grpc::ClientContext\ ctx\{\};}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ \ \ \ \ \ \ \ \ \ reactor\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{classrppgrpc_1_1client__read__reactor}{rppgrpc::client\_read\_reactor<Response>}}();}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ Request\ \ \ \ \ \ \ \ \ \ \ \ \ req\{\};}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ stub-\/>async()-\/>ServerSide(\&ctx,\ \&req,\ reactor);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ reactor-\/>get\_observable().subscribe([](\textcolor{keyword}{const}\ Response\&)\ \{\});}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ reactor-\/>init();}
+
+\end{DoxyCodeInclude}
+ \begin{Desc}
 \item[Examples]\par
 \mbox{\hyperlink{client_reactor_8cpp-example}{client\+\_\+reactor.\+cpp}}.\end{Desc}
 

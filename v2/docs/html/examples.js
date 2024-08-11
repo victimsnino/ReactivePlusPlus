@@ -40,5 +40,6 @@ var examples =
     [ "window_toggle.cpp", "window_toggle_8cpp-example.html", null ],
     [ "with_latest_from.cpp", "with_latest_from_8cpp-example.html", null ],
     [ "from_signal.cpp", "from_signal_8cpp-example.html", null ],
-    [ "client_reactor.cpp", "client_reactor_8cpp-example.html", null ]
+    [ "client_reactor.cpp", "client_reactor_8cpp-example.html", null ],
+    [ "server_reactor.cpp", "server_reactor_8cpp-example.html", null ]
 ];

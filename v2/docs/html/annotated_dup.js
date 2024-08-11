@@ -247,14 +247,18 @@ var annotated_dup =
     ] ],
     [ "rppgrpc", null, [
       [ "details", null, [
-        [ "server_bidi_reactor", "classrppgrpc_1_1details_1_1server__bidi__reactor.html", null ]
+        [ "base_reader", "classrppgrpc_1_1details_1_1base__reader.html", null ],
+        [ "base_writer", "classrppgrpc_1_1details_1_1base__writer.html", "classrppgrpc_1_1details_1_1base__writer" ]
       ] ],
       [ "utils", null, [
         [ "reactor_failed", "structrppgrpc_1_1utils_1_1reactor__failed.html", null ]
       ] ],
       [ "client_bidi_reactor", "classrppgrpc_1_1client__bidi__reactor.html", null ],
       [ "client_read_reactor", "classrppgrpc_1_1client__read__reactor.html", null ],
-      [ "client_write_reactor", "classrppgrpc_1_1client__write__reactor.html", null ]
+      [ "client_write_reactor", "classrppgrpc_1_1client__write__reactor.html", null ],
+      [ "server_bidi_reactor", "classrppgrpc_1_1server__bidi__reactor.html", null ],
+      [ "server_read_reactor", "classrppgrpc_1_1server__read__reactor.html", null ],
+      [ "server_write_reactor", "classrppgrpc_1_1server__write__reactor.html", null ]
     ] ],
     [ "rppqt", null, [
       [ "details", null, [
@@ -270,5 +274,6 @@ var annotated_dup =
       ] ]
     ] ],
     [ "mock_observer_strategy", "classmock__observer__strategy.html", null ],
+    [ "Server", "class_server.html", null ],
     [ "test_scheduler", "classtest__scheduler.html", "classtest__scheduler" ]
 ];

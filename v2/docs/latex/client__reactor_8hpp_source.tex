@@ -16,262 +16,167 @@
 \DoxyCodeLine{00012\ }
 \DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <rpp/observables/fwd.hpp>}}
 \DoxyCodeLine{00014\ }
-\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <rpp/subjects/publish\_subject.hpp>}}
-\DoxyCodeLine{00016\ }
-\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ <grpcpp/support/client\_callback.h>}}
-\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ <rppgrpc/fwd.hpp>}}
-\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#include\ <rppgrpc/utils/exceptions.hpp>}}
-\DoxyCodeLine{00020\ }
-\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#include\ <deque>}}
-\DoxyCodeLine{00022\ }
-\DoxyCodeLine{00023\ \textcolor{keyword}{namespace\ }rppgrpc}
-\DoxyCodeLine{00024\ \{}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <grpcpp/support/client\_callback.h>}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ <rppgrpc/details/base.hpp>}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ <rppgrpc/fwd.hpp>}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ <rppgrpc/utils/exceptions.hpp>}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{keyword}{namespace\ }rppgrpc}
+\DoxyCodeLine{00021\ \{}
 \DoxyCodeLine{00034\ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type\ Request,\ rpp::constra\textcolor{keywordtype}{int}::decayed\_type\ Response>}
 \DoxyCodeLine{00035\ \ \ \ \ \textcolor{keyword}{class\ }client\_bidi\_reactor\ final\ :\ \textcolor{keyword}{public}\ grpc::ClientBidiReactor<Request,\ Response>}
-\DoxyCodeLine{00036\ \ \ \ \ \{}
-\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }Base\ =\ grpc::ClientBidiReactor<Request,\ Response>;}
-\DoxyCodeLine{00038\ }
-\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ client\_bidi\_reactor()}
-\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \ \ \ \ m\_requests.get\_observable().subscribe(}
-\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [\textcolor{keyword}{this}]<rpp::constraint::decayed\_same\_as<Request>\ T>(T\&\&\ message)\ \{}
-\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::lock\_guard\ lock\{m\_write\_mutex\};}
-\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ m\_write.push\_back(std::forward<T>(message));}
-\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (m\_write.size()\ ==\ 1)}
-\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Base::StartWrite(\&m\_write.front());}
-\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \},}
-\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [\textcolor{keyword}{this}](\textcolor{keyword}{const}\ std::exception\_ptr\&)\ \{}
-\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::lock\_guard\ lock\{m\_write\_mutex\};}
-\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ m\_finished\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ ,\ \textcolor{keyword}{private}\ details::base\_writer<Request>}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ ,\ \textcolor{keyword}{private}\ details::base\_reader<Response>}
+\DoxyCodeLine{00038\ \ \ \ \ \{}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }Base\ =\ grpc::ClientBidiReactor<Request,\ Response>;}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ client\_bidi\_reactor()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ init()}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \ \ \ \ Base::StartCall();}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \ \ \ \ details::base\_reader<Response>::handle\_read\_done(\textcolor{keyword}{true});}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }details::base\_writer<Request>::get\_observer;}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }details::base\_reader<Response>::get\_observable;}
 \DoxyCodeLine{00052\ }
-\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (m\_write.size()\ ==\ 0)}
-\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Base::StartWritesDone();}
-\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \},}
-\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [\textcolor{keyword}{this}]()\ \{}
-\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::lock\_guard\ lock\{m\_write\_mutex\};}
-\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ m\_finished\ =\ \textcolor{keyword}{true};}
-\DoxyCodeLine{00059\ }
-\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (m\_write.size()\ ==\ 0)}
-\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Base::StartWritesDone();}
-\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \});}
-\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00064\ }
-\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ init()}
-\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \ \ \ \ Base::StartCall();}
-\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \ \ \ \ Base::StartRead(\&m\_read);}
-\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00070\ }
-\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ get\_observer()}
-\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ m\_requests.get\_observer();}
-\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00075\ }
-\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ get\_observable()}
-\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ m\_observer.get\_observable();}
-\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00080\ }
-\DoxyCodeLine{00081\ \ \ \ \ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }Base::StartCall;}
-\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }Base::StartRead;}
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ start\_read(Response\&\ data)\textcolor{keyword}{\ override}}
+\DoxyCodeLine{00055\ \textcolor{keyword}{\ \ \ \ \ \ \ \ }\{}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \ \ \ \ Base::StartRead(\&data);}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ start\_write(\textcolor{keyword}{const}\ Request\&\ v)\textcolor{keyword}{\ override}}
+\DoxyCodeLine{00060\ \textcolor{keyword}{\ \ \ \ \ \ \ \ }\{}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \ \ \ \ Base::StartWrite(\&v);}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ finish\_writes(\textcolor{keyword}{const}\ grpc::Status\&)\textcolor{keyword}{\ override}}
+\DoxyCodeLine{00065\ \textcolor{keyword}{\ \ \ \ \ \ \ \ }\{}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \ \ \ \ Base::StartWritesDone();}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }Base::StartCall;}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }Base::StartRead;}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ OnReadDone(\textcolor{keywordtype}{bool}\ ok)\textcolor{keyword}{\ override}}
+\DoxyCodeLine{00073\ \textcolor{keyword}{\ \ \ \ \ \ \ \ }\{}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!ok)}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \ \ \ \ details::base\_reader<Response>::handle\_read\_done();}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ OnWriteDone(\textcolor{keywordtype}{bool}\ ok)\textcolor{keyword}{\ override}}
+\DoxyCodeLine{00081\ \textcolor{keyword}{\ \ \ \ \ \ \ \ }\{}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!ok)}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
 \DoxyCodeLine{00084\ }
-\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ OnReadDone(\textcolor{keywordtype}{bool}\ ok)\textcolor{keyword}{\ override}}
-\DoxyCodeLine{00086\ \textcolor{keyword}{\ \ \ \ \ \ \ \ }\{}
-\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!ok)}
-\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
-\DoxyCodeLine{00089\ }
-\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \ \ \ \ m\_observer.get\_observer().on\_next(m\_read);}
-\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \ \ \ \ Base::StartRead(\&m\_read);}
-\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00093\ }
-\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ OnWriteDone(\textcolor{keywordtype}{bool}\ ok)\textcolor{keyword}{\ override}}
-\DoxyCodeLine{00095\ \textcolor{keyword}{\ \ \ \ \ \ \ \ }\{}
-\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!ok)}
-\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
-\DoxyCodeLine{00098\ }
-\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \ \ \ \ std::lock\_guard\ lock\{m\_write\_mutex\};}
-\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \ \ \ \ m\_write.pop\_front();}
-\DoxyCodeLine{00101\ }
-\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!m\_write.empty())}
-\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Base::StartWrite(\&m\_write.front());}
-\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (m\_finished)}
-\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Base::StartWritesDone();}
-\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00111\ }
-\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ OnDone(\textcolor{keyword}{const}\ grpc::Status\&\ s)\textcolor{keyword}{\ override}}
-\DoxyCodeLine{00113\ \textcolor{keyword}{\ \ \ \ \ \ \ \ }\{}
-\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \ \ \ \ m\_requests.get\_disposable().dispose();}
-\DoxyCodeLine{00115\ }
-\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (s.ok())}
-\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ m\_observer.get\_observer().on\_completed();}
-\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
-\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ m\_observer.get\_observer().on\_error(std::make\_exception\_ptr(\mbox{\hyperlink{structrppgrpc_1_1utils_1_1reactor__failed}{rppgrpc::utils::reactor\_failed}}\{s.error\_message()\}));}
-\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}\ \textcolor{keyword}{this};}
-\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00126\ }
-\DoxyCodeLine{00127\ \ \ \ \ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrpp_1_1subjects_1_1serialized__publish__subject}{rpp::subjects::serialized\_publish\_subject<Request>}}\ m\_requests\{\};}
-\DoxyCodeLine{00129\ }
-\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrpp_1_1subjects_1_1publish__subject}{rpp::subjects::publish\_subject<Response>}}\ m\_observer;}
-\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ Response\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ m\_read\{\};}
-\DoxyCodeLine{00132\ }
-\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ std::mutex\ \ \ \ \ \ \ \ \ \ m\_write\_mutex\{\};}
-\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ std::deque<Request>\ m\_write\{\};}
-\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ m\_finished\{\};}
-\DoxyCodeLine{00136\ \ \ \ \ \};}
-\DoxyCodeLine{00137\ }
-\DoxyCodeLine{00147\ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type\ Request>}
-\DoxyCodeLine{00148\ \ \ \ \ \textcolor{keyword}{class\ }client\_write\_reactor\ final\ :\ \textcolor{keyword}{public}\ grpc::ClientWriteReactor<Request>}
-\DoxyCodeLine{00149\ \ \ \ \ \{}
-\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }Base\ =\ grpc::ClientWriteReactor<Request>;}
-\DoxyCodeLine{00151\ }
-\DoxyCodeLine{00152\ \ \ \ \ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ client\_write\_reactor()}
-\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ \ \ \ \ m\_requests.get\_observable().subscribe(}
-\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [\textcolor{keyword}{this}]<rpp::constraint::decayed\_same\_as<Request>\ T>(T\&\&\ message)\ \{}
-\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::lock\_guard\ lock\{m\_write\_mutex\};}
-\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ m\_write.push\_back(std::forward<T>(message));}
-\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (m\_write.size()\ ==\ 1)}
-\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Base::StartWrite(\&m\_write.front());}
-\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \},}
-\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [\textcolor{keyword}{this}](\textcolor{keyword}{const}\ std::exception\_ptr\&)\ \{}
-\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::lock\_guard\ lock\{m\_write\_mutex\};}
-\DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ m\_finished\ =\ \textcolor{keyword}{true};}
-\DoxyCodeLine{00165\ }
-\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (m\_write.size()\ ==\ 0)}
-\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Base::StartWritesDone();}
-\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \},}
-\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [\textcolor{keyword}{this}]()\ \{}
-\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::lock\_guard\ lock\{m\_write\_mutex\};}
-\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ m\_finished\ =\ \textcolor{keyword}{true};}
-\DoxyCodeLine{00172\ }
-\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (m\_write.size()\ ==\ 0)}
-\DoxyCodeLine{00174\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Base::StartWritesDone();}
-\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \});}
-\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00177\ }
-\DoxyCodeLine{00178\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ init()}
-\DoxyCodeLine{00179\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00180\ \ \ \ \ \ \ \ \ \ \ \ \ Base::StartCall();}
-\DoxyCodeLine{00181\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00182\ }
-\DoxyCodeLine{00183\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ get\_observer()}
-\DoxyCodeLine{00184\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00185\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ m\_requests.get\_observer();}
-\DoxyCodeLine{00186\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \ \ \ \ details::base\_writer<Request>::handle\_write\_done();}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ OnDone(\textcolor{keyword}{const}\ grpc::Status\&\ s)\textcolor{keyword}{\ override}}
+\DoxyCodeLine{00089\ \textcolor{keyword}{\ \ \ \ \ \ \ \ }\{}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \ \ \ \ details::base\_writer<Request>::handle\_on\_done();}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \ \ \ \ details::base\_reader<Response>::handle\_on\_done(s.ok()\ ?\ std::exception\_ptr\{\}\ :\ std::make\_exception\_ptr(rppgrpc::utils::reactor\_failed\{s.error\_message()\}));}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}\ \textcolor{keyword}{this};}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00094\ \ \ \ \ \};}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00108\ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type\ Request>}
+\DoxyCodeLine{00109\ \ \ \ \ \textcolor{keyword}{class\ }client\_write\_reactor\ final\ :\ \textcolor{keyword}{public}\ grpc::ClientWriteReactor<Request>}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ ,\ \textcolor{keyword}{private}\ details::base\_writer<Request>}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ ,\ \textcolor{keyword}{private}\ details::base\_reader<rpp::utils::none>}
+\DoxyCodeLine{00112\ \ \ \ \ \{}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }Base\ =\ grpc::ClientWriteReactor<Request>;}
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00115\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ client\_write\_reactor()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00117\ }
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ init()}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \ \ \ \ Base::StartCall();}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00122\ }
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }details::base\_writer<Request>::get\_observer;}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }details::base\_reader<rpp::utils::none>::get\_observable;}
+\DoxyCodeLine{00125\ }
+\DoxyCodeLine{00126\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ start\_read(rpp::utils::none\&\ data)\textcolor{keyword}{\ override}}
+\DoxyCodeLine{00128\ \textcolor{keyword}{\ \ \ \ \ \ \ \ }\{}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00130\ }
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ start\_write(\textcolor{keyword}{const}\ Request\&\ v)\textcolor{keyword}{\ override}}
+\DoxyCodeLine{00132\ \textcolor{keyword}{\ \ \ \ \ \ \ \ }\{}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \ \ \ \ Base::StartWrite(\&v);}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00135\ }
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ finish\_writes(\textcolor{keyword}{const}\ grpc::Status\&)\textcolor{keyword}{\ override}}
+\DoxyCodeLine{00137\ \textcolor{keyword}{\ \ \ \ \ \ \ \ }\{}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ \ \ \ \ Base::StartWritesDone();}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00140\ }
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }Base::StartCall;}
+\DoxyCodeLine{00142\ }
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ OnWriteDone(\textcolor{keywordtype}{bool}\ ok)\textcolor{keyword}{\ override}}
+\DoxyCodeLine{00144\ \textcolor{keyword}{\ \ \ \ \ \ \ \ }\{}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!ok)}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00147\ }
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \ \ \ \ details::base\_writer<Request>::handle\_write\_done();}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00150\ }
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ OnDone(\textcolor{keyword}{const}\ grpc::Status\&\ s)\textcolor{keyword}{\ override}}
+\DoxyCodeLine{00152\ \textcolor{keyword}{\ \ \ \ \ \ \ \ }\{}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \ \ \ \ details::base\_writer<Request>::handle\_on\_done();}
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ \ \ \ \ details::base\_reader<rpp::utils::none>::handle\_on\_done(s.ok()\ ?\ std::exception\_ptr\{\}\ :\ std::make\_exception\_ptr(rppgrpc::utils::reactor\_failed\{s.error\_message()\}));}
+\DoxyCodeLine{00155\ }
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}\ \textcolor{keyword}{this};}
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00158\ \ \ \ \ \};}
+\DoxyCodeLine{00159\ }
+\DoxyCodeLine{00171\ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type\ Response>}
+\DoxyCodeLine{00172\ \ \ \ \ \textcolor{keyword}{class\ }client\_read\_reactor\ final\ :\ \textcolor{keyword}{public}\ grpc::ClientReadReactor<Response>}
+\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ ,\ \textcolor{keyword}{private}\ details::base\_reader<Response>}
+\DoxyCodeLine{00174\ \ \ \ \ \{}
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }Base\ =\ grpc::ClientReadReactor<Response>;}
+\DoxyCodeLine{00176\ }
+\DoxyCodeLine{00177\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00178\ \ \ \ \ \ \ \ \ client\_read\_reactor()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00179\ }
+\DoxyCodeLine{00180\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ init()}
+\DoxyCodeLine{00181\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00182\ \ \ \ \ \ \ \ \ \ \ \ \ Base::StartCall();}
+\DoxyCodeLine{00183\ \ \ \ \ \ \ \ \ \ \ \ \ details::base\_reader<Response>::handle\_read\_done(\textcolor{keyword}{true});}
+\DoxyCodeLine{00184\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00185\ }
+\DoxyCodeLine{00186\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }details::base\_reader<Response>::get\_observable;}
 \DoxyCodeLine{00187\ }
-\DoxyCodeLine{00188\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ get\_observable()}
-\DoxyCodeLine{00189\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00190\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ m\_observer.get\_observable();}
-\DoxyCodeLine{00191\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00192\ }
-\DoxyCodeLine{00193\ \ \ \ \ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00194\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }Base::StartCall;}
-\DoxyCodeLine{00195\ }
-\DoxyCodeLine{00196\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ OnWriteDone(\textcolor{keywordtype}{bool}\ ok)\textcolor{keyword}{\ override}}
-\DoxyCodeLine{00197\ \textcolor{keyword}{\ \ \ \ \ \ \ \ }\{}
-\DoxyCodeLine{00198\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!ok)}
-\DoxyCodeLine{00199\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
-\DoxyCodeLine{00200\ }
-\DoxyCodeLine{00201\ \ \ \ \ \ \ \ \ \ \ \ \ std::lock\_guard\ lock\{m\_write\_mutex\};}
-\DoxyCodeLine{00202\ \ \ \ \ \ \ \ \ \ \ \ \ m\_write.pop\_front();}
-\DoxyCodeLine{00203\ }
-\DoxyCodeLine{00204\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!m\_write.empty())}
-\DoxyCodeLine{00205\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00206\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Base::StartWrite(\&m\_write.front());}
-\DoxyCodeLine{00207\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00208\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (m\_finished)}
-\DoxyCodeLine{00209\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00210\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Base::StartWritesDone();}
-\DoxyCodeLine{00211\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00212\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00213\ }
-\DoxyCodeLine{00214\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ OnDone(\textcolor{keyword}{const}\ grpc::Status\&\ s)\textcolor{keyword}{\ override}}
-\DoxyCodeLine{00215\ \textcolor{keyword}{\ \ \ \ \ \ \ \ }\{}
-\DoxyCodeLine{00216\ \ \ \ \ \ \ \ \ \ \ \ \ m\_requests.get\_disposable().dispose();}
-\DoxyCodeLine{00217\ }
-\DoxyCodeLine{00218\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (s.ok())}
-\DoxyCodeLine{00219\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00220\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ m\_observer.get\_observer().on\_completed();}
-\DoxyCodeLine{00221\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00222\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
-\DoxyCodeLine{00223\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00224\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ m\_observer.get\_observer().on\_error(std::make\_exception\_ptr(\mbox{\hyperlink{structrppgrpc_1_1utils_1_1reactor__failed}{rppgrpc::utils::reactor\_failed}}\{s.error\_message()\}));}
-\DoxyCodeLine{00225\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00226\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}\ \textcolor{keyword}{this};}
-\DoxyCodeLine{00227\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00228\ }
-\DoxyCodeLine{00229\ \ \ \ \ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00230\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrpp_1_1subjects_1_1serialized__publish__subject}{rpp::subjects::serialized\_publish\_subject<Request>}}\ m\_requests\{\};}
-\DoxyCodeLine{00231\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrpp_1_1subjects_1_1publish__subject}{rpp::subjects::publish\_subject<rpp::utils::none>}}\ \ \ m\_observer;}
-\DoxyCodeLine{00232\ }
-\DoxyCodeLine{00233\ \ \ \ \ \ \ \ \ std::mutex\ \ \ \ \ \ \ \ \ \ m\_write\_mutex\{\};}
-\DoxyCodeLine{00234\ \ \ \ \ \ \ \ \ std::deque<Request>\ m\_write\{\};}
-\DoxyCodeLine{00235\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ m\_finished\{\};}
-\DoxyCodeLine{00236\ \ \ \ \ \};}
-\DoxyCodeLine{00237\ }
-\DoxyCodeLine{00246\ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type\ Response>}
-\DoxyCodeLine{00247\ \ \ \ \ \textcolor{keyword}{class\ }client\_read\_reactor\ final\ :\ \textcolor{keyword}{public}\ grpc::ClientReadReactor<Response>}
-\DoxyCodeLine{00248\ \ \ \ \ \{}
-\DoxyCodeLine{00249\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }Base\ =\ grpc::ClientReadReactor<Response>;}
-\DoxyCodeLine{00250\ }
-\DoxyCodeLine{00251\ \ \ \ \ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00252\ \ \ \ \ \ \ \ \ client\_read\_reactor()}
-\DoxyCodeLine{00253\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00254\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00255\ }
-\DoxyCodeLine{00256\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ init()}
-\DoxyCodeLine{00257\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00258\ \ \ \ \ \ \ \ \ \ \ \ \ Base::StartCall();}
-\DoxyCodeLine{00259\ \ \ \ \ \ \ \ \ \ \ \ \ Base::StartRead(\&m\_read);}
-\DoxyCodeLine{00260\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00261\ }
-\DoxyCodeLine{00262\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ get\_observable()}
-\DoxyCodeLine{00263\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00264\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ m\_observer.get\_observable();}
-\DoxyCodeLine{00265\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00266\ }
-\DoxyCodeLine{00267\ \ \ \ \ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00268\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }Base::StartCall;}
-\DoxyCodeLine{00269\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }Base::StartRead;}
-\DoxyCodeLine{00270\ }
-\DoxyCodeLine{00271\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ OnReadDone(\textcolor{keywordtype}{bool}\ ok)\textcolor{keyword}{\ override}}
-\DoxyCodeLine{00272\ \textcolor{keyword}{\ \ \ \ \ \ \ \ }\{}
-\DoxyCodeLine{00273\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!ok)}
-\DoxyCodeLine{00274\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
-\DoxyCodeLine{00275\ }
-\DoxyCodeLine{00276\ \ \ \ \ \ \ \ \ \ \ \ \ m\_observer.get\_observer().on\_next(m\_read);}
-\DoxyCodeLine{00277\ \ \ \ \ \ \ \ \ \ \ \ \ Base::StartRead(\&m\_read);}
-\DoxyCodeLine{00278\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00279\ }
-\DoxyCodeLine{00280\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ OnDone(\textcolor{keyword}{const}\ grpc::Status\&\ s)\textcolor{keyword}{\ override}}
-\DoxyCodeLine{00281\ \textcolor{keyword}{\ \ \ \ \ \ \ \ }\{}
-\DoxyCodeLine{00282\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (s.ok())}
-\DoxyCodeLine{00283\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00284\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ m\_observer.get\_observer().on\_completed();}
-\DoxyCodeLine{00285\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00286\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
-\DoxyCodeLine{00287\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00288\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ m\_observer.get\_observer().on\_error(std::make\_exception\_ptr(\mbox{\hyperlink{structrppgrpc_1_1utils_1_1reactor__failed}{rppgrpc::utils::reactor\_failed}}\{s.error\_message()\}));}
-\DoxyCodeLine{00289\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00290\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}\ \textcolor{keyword}{this};}
-\DoxyCodeLine{00291\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00292\ }
-\DoxyCodeLine{00293\ \ \ \ \ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00294\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrpp_1_1subjects_1_1publish__subject}{rpp::subjects::publish\_subject<Response>}}\ m\_observer;}
-\DoxyCodeLine{00295\ \ \ \ \ \ \ \ \ Response\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ m\_read\{\};}
-\DoxyCodeLine{00296\ \ \ \ \ \};}
-\DoxyCodeLine{00297\ \}\ \textcolor{comment}{//\ namespace\ rppgrpc}}
+\DoxyCodeLine{00188\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00189\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }Base::StartCall;}
+\DoxyCodeLine{00190\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }Base::StartRead;}
+\DoxyCodeLine{00191\ }
+\DoxyCodeLine{00192\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ start\_read(Response\&\ data)\textcolor{keyword}{\ override}}
+\DoxyCodeLine{00193\ \textcolor{keyword}{\ \ \ \ \ \ \ \ }\{}
+\DoxyCodeLine{00194\ \ \ \ \ \ \ \ \ \ \ \ \ Base::StartRead(\&data);}
+\DoxyCodeLine{00195\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00196\ }
+\DoxyCodeLine{00197\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ OnReadDone(\textcolor{keywordtype}{bool}\ ok)\textcolor{keyword}{\ override}}
+\DoxyCodeLine{00198\ \textcolor{keyword}{\ \ \ \ \ \ \ \ }\{}
+\DoxyCodeLine{00199\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!ok)}
+\DoxyCodeLine{00200\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00201\ }
+\DoxyCodeLine{00202\ \ \ \ \ \ \ \ \ \ \ \ \ details::base\_reader<Response>::handle\_read\_done();}
+\DoxyCodeLine{00203\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00204\ }
+\DoxyCodeLine{00205\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ OnDone(\textcolor{keyword}{const}\ grpc::Status\&\ s)\textcolor{keyword}{\ override}}
+\DoxyCodeLine{00206\ \textcolor{keyword}{\ \ \ \ \ \ \ \ }\{}
+\DoxyCodeLine{00207\ \ \ \ \ \ \ \ \ \ \ \ \ details::base\_reader<Response>::handle\_on\_done(s.ok()\ ?\ std::exception\_ptr\{\}\ :\ std::make\_exception\_ptr(rppgrpc::utils::reactor\_failed\{s.error\_message()\}));}
+\DoxyCodeLine{00208\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}\ \textcolor{keyword}{this};}
+\DoxyCodeLine{00209\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00210\ \ \ \ \ \};}
+\DoxyCodeLine{00211\ \}\ \textcolor{comment}{//\ namespace\ rppgrpc}}
 
 \end{DoxyCode}
