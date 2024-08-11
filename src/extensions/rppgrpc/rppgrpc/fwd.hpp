@@ -27,4 +27,13 @@ namespace rppgrpc
 
     template<rpp::constraint::decayed_type Response>
     class client_read_reactor;
+
+    template<rpp::constraint::decayed_type Request, rpp::constraint::decayed_type Response>
+    class server_bidi_reactor;
+
+    template<rpp::constraint::decayed_type Request>
+    class server_write_reactor;
+
+    template<rpp::constraint::decayed_type Response>
+    class server_read_reactor;
 } // namespace rppgrpc

@@ -25,8 +25,7 @@ macro(add_test_target target_name module files)
   endif()
 
   if (${module} STREQUAL rppgrpc)
-    rpp_add_proto_target(${TARGET}_proto rppgrpc/proto.proto)
-    target_link_libraries(${TARGET} PRIVATE ${TARGET}_proto)
+    target_link_libraries(${TARGET} PRIVATE rppgrpc_tests_proto)
   endif()
 
   target_compile_features(${TARGET} PRIVATE cxx_std_20)
@@ -57,5 +56,6 @@ if (RPP_BUILD_QT_CODE)
 endif()
 
 if (RPP_BUILD_GRPC_CODE)
+  rpp_add_proto_target(rppgrpc_tests_proto rppgrpc/proto.proto)
   rpp_register_tests(rppgrpc)
 endif()

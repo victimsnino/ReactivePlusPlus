@@ -12,102 +12,212 @@
 
 #include <rpp/observables/fwd.hpp>
 
-#include <rpp/subjects/publish_subject.hpp>
-
 #include <grpcpp/support/server_callback.h>
+#include <rppgrpc/details/base.hpp>
 #include <rppgrpc/fwd.hpp>
 #include <rppgrpc/utils/exceptions.hpp>
 
-#include <deque>
-
-namespace rppgrpc::details
+namespace rppgrpc
 {
-    template<rpp::constraint::decayed_type Response, rpp::constraint::observer Observer>
-    class server_bidi_reactor final : public grpc::ServerBidiReactor<rpp::utils::extract_observer_type_t<Observer>, Response>
+    /**
+     * @brief RPP's based implementation for grpc server bidirectional reactor.
+     * @details To use it you need:
+     * - create it via `new` operator
+     * - return it from bidirection method of CallbackService interface
+     * - to access values FROM stream you can subscribe to observable obtained via `reactor->get_observable()` (same observable WOULD emit on_completed in case of successful stream termination and on_error in case of some errors with grpc stream)
+     * - to pass values TO stream you can emit values to observer obtained via `reactor->get_observer()`
+     *
+     * @warning grpc server reactor have to finish manually, so it is expected that you call `on_completed()` on reactor->get_observer()
+     *
+     * @snippet server_reactor.cpp bidi_reactor
+     *
+     */
+    template<rpp::constraint::decayed_type Request, rpp::constraint::decayed_type Response>
+    class server_bidi_reactor final : public grpc::ServerBidiReactor<Request, Response>
+        , private details::base_writer<Response>
+        , private details::base_reader<Request>
     {
-        using Request = rpp::utils::extract_observer_type_t<Observer>;
-        using Base    = grpc::ServerBidiReactor<Request, Response>;
+        using Base = grpc::ServerBidiReactor<Request, Response>;
 
     public:
-        template<rpp::constraint::observable_of_type<Response> Observable, rpp::constraint::decayed_same_as<Observer> TObserver>
-        server_bidi_reactor(const Observable& messages, TObserver&& events)
-            : m_observer{std::forward<TObserver>(events)}
-            , m_disposable{messages.subscribe_with_disposable([this]<rpp::constraint::decayed_same_as<Response> T>(T&& message) {
-                std::lock_guard lock{m_write_mutex};
-                m_write.push_back(std::forward<T>(message));
-                if (m_write.size() == 1)
-                    Base::StartWrite(&m_write.front()); },
-                                                              [this](const std::exception_ptr&) {
-                                                                  Base::Finish(grpc::Status{grpc::StatusCode::INTERNAL, "Internal error happens"});
-                                                              },
-                                                              [this]() {
-                                                                  Base::Finish(grpc::Status::OK);
-                                                              })}
+        server_bidi_reactor()
         {
             Base::StartSendInitialMetadata();
-            Base::StartRead(&m_read);
+            details::base_reader<Request>::handle_read_done(true);
         }
 
+        using details::base_writer<Response>::get_observer;
+        using details::base_reader<Request>::get_observable;
+
     private:
+        void start_write(const Response& v) override
+        {
+            Base::StartWrite(&v);
+        }
+
+        void start_read(Request& data) override
+        {
+            Base::StartRead(&data);
+        }
+
+        void finish_writes(const grpc::Status& status) override
+        {
+            Base::Finish(status);
+        }
+
         void OnReadDone(bool ok) override
         {
             if (!ok)
-            {
-                m_observer.on_error(std::make_exception_ptr(rppgrpc::utils::reactor_failed{"OnReadDone is not ok"}));
-                Base::Finish(grpc::Status::CANCELLED);
                 return;
-            }
-            m_observer.on_next(m_read);
-            Base::StartRead(&m_read);
+
+            details::base_reader<Request>::handle_read_done();
+        }
+
+        void OnWriteDone(bool ok) override
+        {
+            if (!ok)
+                return;
+
+            details::base_writer<Response>::handle_write_done();
+        }
+
+        void OnDone() override
+        {
+            details::base_writer<Response>::handle_on_done();
+            details::base_reader<Request>::handle_on_done({});
+
+            delete this;
+        }
+
+        void OnCancel() override
+        {
+            details::base_writer<Response>::handle_on_done();
+            details::base_reader<Request>::handle_on_done(std::make_exception_ptr(rppgrpc::utils::reactor_failed{"OnCancel called"}));
+
+            Base::Finish(grpc::Status::CANCELLED);
+        }
+    };
+
+    /**
+     * @brief RPP's based implementation for grpc server write reactor.
+     * @details To use it you need:
+     * - create it via `new` operator
+     * - return it from write-based method of CallbackService interface
+     * - reactor provides `reactor->get_observable()` method but such as observable emits nothing and can be used only to be notified about completion/error
+     * - to pass values TO stream you can emit values to observer obtained via `reactor->get_observer()`
+     *
+     * @snippet server_reactor.cpp write_reactor
+     *
+     */
+    template<rpp::constraint::decayed_type Response>
+    class server_write_reactor final : public grpc::ServerWriteReactor<Response>
+        , private details::base_writer<Response>
+        , private details::base_reader<rpp::utils::none>
+    {
+        using Base = grpc::ServerWriteReactor<Response>;
+
+    public:
+        server_write_reactor()
+        {
+            Base::StartSendInitialMetadata();
+        }
+
+        using details::base_writer<Response>::get_observer;
+        using details::base_reader<rpp::utils::none>::get_observable;
+
+    private:
+        void start_write(const Response& v) override
+        {
+            Base::StartWrite(&v);
+        }
+
+        void start_read(rpp::utils::none& data) override {}
+
+        void finish_writes(const grpc::Status& status) override
+        {
+            Base::Finish(status);
         }
 
         void OnWriteDone(bool ok) override
         {
             if (!ok)
             {
-                m_observer.on_error(std::make_exception_ptr(rppgrpc::utils::reactor_failed{"OnWriteDone is not ok"}));
-                Base::Finish(grpc::Status::CANCELLED);
+                Base::Finish(grpc::Status::OK);
                 return;
             }
 
-            std::lock_guard lock{m_write_mutex};
-            m_write.pop_front();
-
-            if (!m_write.empty())
-            {
-                Base::StartWrite(&m_write.front());
-            }
+            details::base_writer<Response>::handle_write_done();
         }
 
         void OnDone() override
         {
-            m_observer.on_completed();
-            Destroy();
+            details::base_writer<Response>::handle_on_done();
+            details::base_reader<rpp::utils::none>::handle_on_done({});
+
+            delete this;
         }
 
         void OnCancel() override
         {
-            m_observer.on_error(std::make_exception_ptr(rppgrpc::utils::reactor_failed{"OnCancel called"}));
+            details::base_writer<Response>::handle_on_done();
+            details::base_reader<rpp::utils::none>::handle_on_done(std::make_exception_ptr(rppgrpc::utils::reactor_failed{"OnCancel called"}));
+
             Base::Finish(grpc::Status::CANCELLED);
         }
+    };
+
+    /**
+     * @brief RPP's based implementation for grpc server read reactor.
+     * @details To use it you need:
+     * - create it via `new` operator
+     * - return it from read-based method of CallbackService interface
+     * - to access values FROM stream you can subscribe to observable obtained via `reactor->get_observable()` (same observable WOULD emit on_completed in case of successful stream termination and on_error in case of some errors with grpc stream)
+     *
+     * @snippet server_reactor.cpp read_reactor
+     *
+     */
+    template<rpp::constraint::decayed_type Request>
+    class server_read_reactor final : public grpc::ServerReadReactor<Request>
+        , private details::base_reader<Request>
+    {
+        using Base = grpc::ServerReadReactor<Request>;
+
+    public:
+        server_read_reactor()
+        {
+            Base::StartSendInitialMetadata();
+            details::base_reader<Request>::handle_read_done(true);
+        }
+
+        using details::base_reader<Request>::get_observable;
 
     private:
-        void Destroy()
+        void start_read(Request& data) override
         {
-            m_disposable.dispose();
+            Base::StartRead(&data);
+        }
+
+        void OnReadDone(bool ok) override
+        {
+            if (!ok)
+            {
+                Base::Finish(grpc::Status::OK);
+                return;
+            }
+
+            details::base_reader<Request>::handle_read_done();
+        }
+
+        void OnDone() override
+        {
+            details::base_reader<Request>::handle_on_done({});
+
             delete this;
         }
 
-    private:
-        Observer                m_observer;
-        rpp::disposable_wrapper m_disposable;
-
-        Request m_read{};
-
-        std::mutex           m_write_mutex{};
-        std::deque<Response> m_write{};
+        void OnCancel() override
+        {
+            details::base_reader<Request>::handle_on_done(std::make_exception_ptr(rppgrpc::utils::reactor_failed{"OnCancel called"}));
+        }
     };
-} // namespace rppgrpc::details
-namespace rppgrpc
-{
 } // namespace rppgrpc
