@@ -321,6 +321,17 @@ namespace rpp::operators
 
     /**
      * @brief Construct rpp::lambda_observer on the fly and subscribe it to emissions from observable
+     *
+     * @ingroup utility_operators
+     */
+    template<std::invocable<> OnCompleted>
+    auto subscribe(OnCompleted&& on_completed)
+    {
+        return details::subscribe_t{rpp::utils::empty_function_any_t{}, rpp::utils::rethrow_error_t{}, std::forward<OnCompleted>(on_completed)};
+    }
+
+    /**
+     * @brief Construct rpp::lambda_observer on the fly and subscribe it to emissions from observable
      * @details This overloading attaches passed disposable to observer and return it to provide ability to dispose observer early if needed.
      * @warning This overloading has some performance penalties, use it only when you really need to use disposable
      *

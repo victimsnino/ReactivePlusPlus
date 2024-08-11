@@ -27,6 +27,9 @@ namespace rppgrpc
      * - call `reactor->init()` method for actual starting of grpc logic
      * - to access values FROM stream you can subscribe to observable obtained via `reactor->get_observable()` (same observable WOULD emit on_completed in case of successful stream termination and on_error in case of some errors with grpc stream)
      * - to pass values TO stream you can emit values to observer obtained via `reactor->get_observer()`
+     *
+     * @snippet client_reactor.cpp bidi_reactor
+     *
      */
     template<rpp::constraint::decayed_type Request, rpp::constraint::decayed_type Response>
     class client_bidi_reactor final : public grpc::ClientBidiReactor<Request, Response>
@@ -98,6 +101,9 @@ namespace rppgrpc
      * - call `reactor->init()` method for actual starting of grpc logic
      * - to pass values TO stream you can emit values to observer obtained via `reactor->get_observer()`
      * - reactor provides `reactor->get_observable()` method but such as observable emits nothing and can be used only to be notified about completion/error
+     *
+     * @snippet client_reactor.cpp write_reactor
+     *
      */
     template<rpp::constraint::decayed_type Request>
     class client_write_reactor final : public grpc::ClientWriteReactor<Request>
@@ -158,6 +164,9 @@ namespace rppgrpc
      * - pass it to `stub->async()->GrpcReadStream(ctx, &response, reactor);`
      * - call `reactor->init()` method for actual starting of grpc logic
      * - to access values FROM stream you can subscribe to observable obtained via `reactor->get_observable()` (same observable WOULD emit on_completed in case of successful stream termination and on_error in case of some errors with grpc stream)
+     *
+     * @snippet client_reactor.cpp read_reactor
+     *
      */
     template<rpp::constraint::decayed_type Response>
     class client_read_reactor final : public grpc::ClientReadReactor<Response>
