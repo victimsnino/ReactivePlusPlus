@@ -37,7 +37,7 @@ class Server : public TestService::CallbackService
     grpc::ServerWriteReactor<Response>* ServerSide(grpc::CallbackServerContext* /*context*/, const Request* /*request*/) override
     {
         const auto reactor = new rppgrpc::server_write_reactor<Response>();
-        reactor->get_observable().subscribe([]() { std::cout << "DONE" << std::endl; });
+        reactor->get_observable().subscribe([](rpp::utils::none) {}, []() { std::cout << "DONE" << std::endl; });
 
         reactor->get_observer().on_next(Response{});
 
