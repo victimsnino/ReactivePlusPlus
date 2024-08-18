@@ -59,9 +59,9 @@ namespace rpp::operators::details
     {
         using preferred_disposable_strategy = rpp::details::observers::none_disposable_strategy;
 
-        RPP_NO_UNIQUE_ADDRESS mutable TObserver observer;
-        RPP_NO_UNIQUE_ADDRESS TObservable       observable;
-        RPP_NO_UNIQUE_ADDRESS Notifier          notifier;
+        RPP_NO_UNIQUE_ADDRESS mutable TObserver   observer;
+        RPP_NO_UNIQUE_ADDRESS mutable TObservable observable;
+        RPP_NO_UNIQUE_ADDRESS mutable Notifier    notifier;
 
         template<typename T>
         void on_next(T&& v) const
