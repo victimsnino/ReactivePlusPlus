@@ -60,7 +60,7 @@ namespace rpp::operators::details
             disposable.dispose();
         }
 
-        void set_upstream(const disposable_wrapper& d)
+        void set_upstream(const disposable_wrapper& d) const
         {
             disposable.add(d);
         }
