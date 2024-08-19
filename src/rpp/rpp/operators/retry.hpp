@@ -34,6 +34,9 @@ namespace rpp::operators::details
     };
 
     template<rpp::constraint::observer TObserver, rpp::constraint::observable TObservable>
+    void drain(const std::shared_ptr<retry_state_t<std::decay_t<TObserver>, std::decay_t<TObservable>>>& state);
+
+    template<rpp::constraint::observer TObserver, rpp::constraint::observable TObservable>
     struct retry_observer_strategy
     {
         using preferred_disposable_strategy = rpp::details::observers::none_disposable_strategy;
@@ -56,6 +59,7 @@ namespace rpp::operators::details
                 state->dispose();
                 return;
             }
+
             if (state->is_inside_drain.exchange(false, std::memory_order::seq_cst))
                 return;
 
