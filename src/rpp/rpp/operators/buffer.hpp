@@ -41,8 +41,11 @@ namespace rpp::operators::details
             m_bucket.push_back(std::forward<T>(v));
             if (m_bucket.size() == m_bucket.capacity())
             {
+                const auto capacity = m_bucket.capacity();
                 m_observer.on_next(std::move(m_bucket));
+
                 m_bucket.clear();
+                m_bucket.reserve(capacity);
             }
         }
 
