@@ -13,6 +13,7 @@
 
 #include <rpp/observers/mock_observer.hpp>
 #include <rpp/operators/retry_when.hpp>
+#include <rpp/sources/concat.hpp>
 #include <rpp/sources/create.hpp>
 #include <rpp/sources/empty.hpp>
 #include <rpp/sources/error.hpp>
@@ -140,6 +141,36 @@ TEST_CASE("retry_when resubscribes on notifier emission")
             }
         }
     }
+
+    SECTION("observable with 4 errors")
+    {
+        size_t subscribe_count = 0;
+        auto   observable      = rpp::source::create<std::string>([&subscribe_count](const auto& sub) {
+            if (subscribe_count++ < 4)
+            {
+                sub.on_error(std::make_exception_ptr(std::runtime_error{""}));
+            }
+            else
+            {
+                sub.on_next(std::string{"1"});
+                sub.on_completed();
+            }
+        });
+
+        SECTION("subscribe on it with single emission notifier")
+        {
+            observable
+                | rpp::operators::retry_when([](const std::exception_ptr&) { return rpp::source::just(1); })
+                | rpp::operators::subscribe(observer);
+            SECTION("original observable is subscribed 5 times and observer receives one emission")
+            {
+                CHECK(subscribe_count == 4 + 1);
+                CHECK(observer.get_total_on_next_count() == 1);
+                CHECK(observer.get_on_error_count() == 0);
+                CHECK(observer.get_on_completed_count() == 1);
+            }
+        }
+    }
 }
 
 TEST_CASE("retry_when doesn't produce extra copies")
@@ -165,6 +196,12 @@ TEST_CASE("retry_when satisfies disposable contracts")
 
         test_operator_with_disposable<int>(op);
         test_operator_finish_before_dispose<int>(op);
+
+        test_operator_over_observable_with_disposable<int>(
+            [](auto observable) {
+                return rpp::source::concat(observable, rpp::source::error<int>(std::make_exception_ptr(std::runtime_error{"error"})))
+                     | rpp::ops::retry_when([](const std::exception_ptr&) { return rpp::source::just(1); });
+            });
     }
 
     CHECK((observable_disposable.is_disposed() || observable_disposable.lock().use_count() == 2));
