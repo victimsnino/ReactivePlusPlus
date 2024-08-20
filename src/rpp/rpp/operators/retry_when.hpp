@@ -23,7 +23,7 @@ namespace rpp::operators::details
     template<rpp::constraint::observer     TObserver,
              rpp::constraint::observable   TObservable,
              rpp::constraint::decayed_type TNotifier>
-    struct retry_when_state : public rpp::composite_disposable
+    struct retry_when_state final : public rpp::composite_disposable
     {
         template<typename Observer, typename Observable, typename Notifier>
         retry_when_state(Observer&& observer, Observable&& observable, Notifier&& notifier)
@@ -33,11 +33,11 @@ namespace rpp::operators::details
         {
         }
 
+        bool retrying{};
+
         RPP_NO_UNIQUE_ADDRESS TObserver   observer;
         RPP_NO_UNIQUE_ADDRESS TObservable observable;
         RPP_NO_UNIQUE_ADDRESS TNotifier   notifier;
-
-        bool retrying{};
     };
 
     template<rpp::constraint::observer     TObserver,
@@ -57,9 +57,12 @@ namespace rpp::operators::details
         template<typename T>
         void on_next(T&&) const
         {
-            state->retrying = true;
-            state->clear();
-            state->observable.subscribe(rpp::observer<rpp::utils::extract_observer_type_t<TObserver>, retry_when_impl_strategy<std::decay_t<TObserver>, std::decay_t<TObservable>, std::decay_t<TNotifier>>>(std::move(state)));
+            if (!state->retrying)
+            {
+                state->retrying = true;
+                state->clear();
+                state->observable.subscribe(rpp::observer<rpp::utils::extract_observer_type_t<TObserver>, retry_when_impl_strategy<std::decay_t<TObserver>, std::decay_t<TObservable>, std::decay_t<TNotifier>>>(std::move(state)));
+            }
         }
 
         void on_error(const std::exception_ptr& err) const
@@ -76,7 +79,7 @@ namespace rpp::operators::details
 
         void set_upstream(const disposable_wrapper& d) { state->observer.set_upstream(d); }
 
-        bool is_disposed() const { return state->observer.is_disposed(); }
+        bool is_disposed() const { return state->retrying; }
     };
 
     template<rpp::constraint::observer     TObserver,
@@ -101,12 +104,13 @@ namespace rpp::operators::details
             {
                 notifier_obs.emplace(state->notifier(err));
             }
-            catch (const std::exception& e)
+            catch (...)
             {
                 state->observer.on_error(std::current_exception());
             }
             if (notifier_obs.has_value())
             {
+                state->retrying = false;
                 std::move(notifier_obs).value().subscribe(retry_when_impl_inner_strategy<TObserver, TObservable, TNotifier>{state});
             }
         }
