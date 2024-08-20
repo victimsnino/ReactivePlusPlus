@@ -32,11 +32,11 @@ namespace rpp::operators::details
         {
         }
 
+        std::atomic_bool is_inside_drain{};
+
         RPP_NO_UNIQUE_ADDRESS TObserver   observer;
         RPP_NO_UNIQUE_ADDRESS TObservable observable;
         RPP_NO_UNIQUE_ADDRESS TNotifier   notifier;
-
-        std::atomic_bool is_inside_drain{};
     };
 
     template<rpp::constraint::observer TObserver, typename TObservable, typename TNotifier>
@@ -144,7 +144,7 @@ namespace rpp::operators::details
     template<rpp::constraint::decayed_type TNotifier>
     struct retry_when_t
     {
-        RPP_NO_UNIQUE_ADDRESS TNotifier notifier;
+        TNotifier notifier;
 
         template<rpp::constraint::decayed_type T>
         struct operator_traits
