@@ -106,6 +106,10 @@ namespace rpp::operators
 
     auto repeat();
 
+    auto retry(size_t count);
+
+    auto retry();
+
     template<typename InitialValue, typename Fn>
         requires (!utils::is_not_template_callable<Fn> || std::same_as<std::decay_t<InitialValue>, std::invoke_result_t<Fn, std::decay_t<InitialValue> &&, rpp::utils::convertible_to_any>>)
     auto scan(InitialValue&& initial_value, Fn&& accumulator);

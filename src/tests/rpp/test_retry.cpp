@@ -56,6 +56,20 @@ TEST_CASE("retry handles errors properly")
 
             observable | rpp::operators::retry(2) | rpp::operators::subscribe(mock);
         }
+
+        SECTION("retry()")
+        {
+            auto d = rpp::composite_disposable_wrapper::make();
+
+            REQUIRE_CALL(*mock, on_next_lvalue(1)).IN_SEQUENCE(seq);
+            REQUIRE_CALL(*mock, on_next_lvalue(1)).IN_SEQUENCE(seq);
+            REQUIRE_CALL(*mock, on_next_lvalue(1)).IN_SEQUENCE(seq);
+            REQUIRE_CALL(*mock, on_next_lvalue(1)).IN_SEQUENCE(seq);
+            REQUIRE_CALL(*mock, on_next_lvalue(1)).IN_SEQUENCE(seq);
+            REQUIRE_CALL(*mock, on_next_lvalue(1)).LR_SIDE_EFFECT(d.dispose()).IN_SEQUENCE(seq);
+
+            observable | rpp::operators::retry() | rpp::operators::subscribe(d, mock);
+        }
     }
     SECTION("observable 1-|")
     {
@@ -76,6 +90,14 @@ TEST_CASE("retry handles errors properly")
 
             observable | rpp::operators::retry(2) | rpp::operators::subscribe(mock);
         }
+
+        SECTION("retry()")
+        {
+            REQUIRE_CALL(*mock, on_next_lvalue(1)).IN_SEQUENCE(seq);
+            REQUIRE_CALL(*mock, on_completed()).IN_SEQUENCE(seq);
+
+            observable | rpp::operators::retry() | rpp::operators::subscribe(mock);
+        }
     }
     SECTION("observable 1->")
     {
@@ -93,6 +115,13 @@ TEST_CASE("retry handles errors properly")
             REQUIRE_CALL(*mock, on_next_lvalue(1)).IN_SEQUENCE(seq);
 
             observable | rpp::operators::retry(2) | rpp::operators::subscribe(mock);
+        }
+
+        SECTION("retry()")
+        {
+            REQUIRE_CALL(*mock, on_next_lvalue(1)).IN_SEQUENCE(seq);
+
+            observable | rpp::operators::retry() | rpp::operators::subscribe(mock);
         }
     }
 }
@@ -120,6 +149,16 @@ TEST_CASE("retry doesn't produce extra copies")
     SECTION("retry(2)")
     {
         copy_count_tracker::test_operator(rpp::ops::retry(2),
+                                          {
+                                              .send_by_copy = {.copy_count = 1, // 1 copy to final subscriber
+                                                               .move_count = 0},
+                                              .send_by_move = {.copy_count = 0,
+                                                               .move_count = 1} // 1 move to final subscriber
+                                          });
+    }
+    SECTION("retry()")
+    {
+        copy_count_tracker::test_operator(rpp::ops::retry(),
                                           {
                                               .send_by_copy = {.copy_count = 1, // 1 copy to final subscriber
                                                                .move_count = 0},

@@ -20,17 +20,19 @@ namespace rpp::operators::details
     template<rpp::constraint::observer TObserver, constraint::decayed_type Observable>
     struct retry_state_t final : public rpp::composite_disposable
     {
-        retry_state_t(TObserver&& in_observer, const Observable& observable, size_t count)
-            : observer(std::move(in_observer))
+        retry_state_t(TObserver&& in_observer, const Observable& observable, std::optional<size_t> count)
+            : count{count}
+            , observer(std::move(in_observer))
             , observable(observable)
-            , count{count}
+
         {
         }
 
+        std::optional<size_t> count;
+        std::atomic<bool>     is_inside_drain{};
+
         RPP_NO_UNIQUE_ADDRESS TObserver  observer;
         RPP_NO_UNIQUE_ADDRESS Observable observable;
-        size_t                           count;
-        std::atomic<bool>                is_inside_drain{};
     };
 
     template<rpp::constraint::observer TObserver, typename TObservable>
@@ -85,7 +87,8 @@ namespace rpp::operators::details
     {
         while (!state->is_disposed())
         {
-            --state->count;
+            if (state->count)
+                --state->count.value();
             state->clear();
             state->is_inside_drain.store(true, std::memory_order::seq_cst);
             try
@@ -106,7 +109,7 @@ namespace rpp::operators::details
 
     struct retry_t
     {
-        const size_t count{};
+        const std::optional<size_t> count{};
 
         template<rpp::constraint::decayed_type T>
         struct operator_traits
@@ -120,7 +123,7 @@ namespace rpp::operators::details
         template<rpp::constraint::observer TObserver, typename TObservable>
         void subscribe(TObserver&& observer, TObservable&& observble) const
         {
-            const auto d   = disposable_wrapper_impl<retry_state_t<std::decay_t<TObserver>, std::decay_t<TObservable>>>::make(std::forward<TObserver>(observer), std::forward<TObservable>(observble), count + 1);
+            const auto d   = disposable_wrapper_impl<retry_state_t<std::decay_t<TObserver>, std::decay_t<TObservable>>>::make(std::forward<TObserver>(observer), std::forward<TObservable>(observble), count ? count.value() + 1 : count);
             auto       ptr = d.lock();
 
             ptr->observer.set_upstream(d.as_weak());
@@ -132,7 +135,7 @@ namespace rpp::operators::details
 namespace rpp::operators
 {
     /**
-     * @brief If an error occurs, resubscribe to the same observable. Repeat it up to the specified count.
+     * @brief Resubscribe to the same observable specified number of counts in case of obtaining errors from underlying observable
      *
      * @marble retry
        {
@@ -150,5 +153,24 @@ namespace rpp::operators
     inline auto retry(size_t count)
     {
         return details::retry_t{count};
+    }
+
+    /**
+    * @brief Resubscribe to the same observable (without any limits) in case of obtaining errors from underlying observable
+    *
+    * @marble infinite_retry
+      {
+          source observable    : +-1-x
+          operator "retry:()"  : +-1-1-1-1-1-1-1-1-1-1-1->
+      }
+    *
+    * @warning #include <rpp/operators/retry.hpp>
+    *
+    * @ingroup error_handling_operators
+    * @see https://reactivex.io/documentation/operators/retry.html
+    */
+    inline auto retry()
+    {
+        return details::retry_t{};
     }
 } // namespace rpp::operators
