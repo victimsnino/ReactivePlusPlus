@@ -33,17 +33,16 @@ namespace rpp::operators::details
         {
         }
 
-        bool retrying{};
+        bool             retrying{};
+        std::atomic_bool is_inside_drain{};
 
         RPP_NO_UNIQUE_ADDRESS TObserver   observer;
         RPP_NO_UNIQUE_ADDRESS TObservable observable;
         RPP_NO_UNIQUE_ADDRESS TNotifier   notifier;
     };
 
-    template<rpp::constraint::observer     TObserver,
-             rpp::constraint::observable   TObservable,
-             rpp::constraint::decayed_type TNotifier>
-    struct retry_when_impl_strategy;
+    template<rpp::constraint::observer TObserver, rpp::constraint::observable TObservable, rpp::constraint::decayed_type TNotifier>
+    void drain(const std::shared_ptr<retry_when_state<std::decay_t<TObserver>, std::decay_t<TObservable>, std::decay_t<TNotifier>>>& state);
 
     template<rpp::constraint::observer     TObserver,
              rpp::constraint::observable   TObservable,
@@ -57,23 +56,18 @@ namespace rpp::operators::details
         template<typename T>
         void on_next(T&&) const
         {
-            if (!state->retrying)
-            {
-                state->retrying = true;
-                state->clear();
-                state->observable.subscribe(rpp::observer<rpp::utils::extract_observer_type_t<TObserver>, retry_when_impl_strategy<std::decay_t<TObserver>, std::decay_t<TObservable>, std::decay_t<TNotifier>>>(std::move(state)));
-            }
+            drain<TObserver, TObservable, TNotifier>(state);
         }
 
         void on_error(const std::exception_ptr& err) const
         {
-            if (!state->retrying)
+            if (!state->is_inside_drain.exchange(false, std::memory_order::seq_cst))
                 state->observer.on_error(err);
         }
 
         void on_completed() const
         {
-            if (!state->retrying)
+            if (!state->is_inside_drain.exchange(false, std::memory_order::seq_cst))
                 state->observer.on_completed();
         }
 
@@ -110,7 +104,6 @@ namespace rpp::operators::details
             }
             if (notifier_obs.has_value())
             {
-                state->retrying = false;
                 std::move(notifier_obs).value().subscribe(retry_when_impl_inner_strategy<TObserver, TObservable, TNotifier>{state});
             }
         }
@@ -122,8 +115,31 @@ namespace rpp::operators::details
 
         void set_upstream(const disposable_wrapper& d) { state->add(d); }
 
-        bool is_disposed() const { return state->observer.is_disposed(); }
+        bool is_disposed() const { return state->is_disposed(); }
     };
+
+    template<rpp::constraint::observer TObserver, rpp::constraint::observable TObservable, rpp::constraint::decayed_type TNotifier>
+    void drain(const std::shared_ptr<retry_when_state<std::decay_t<TObserver>, std::decay_t<TObservable>, std::decay_t<TNotifier>>>& state)
+    {
+        while (!state->is_disposed())
+        {
+            state->clear();
+            state->is_inside_drain.store(true, std::memory_order::seq_cst);
+            try
+            {
+                using value_type = rpp::utils::extract_observable_type_t<TObservable>;
+                state->observable.subscribe(rpp::observer<value_type, retry_when_impl_strategy<TObserver, TObservable, TNotifier>>{state});
+
+                if (!state->is_inside_drain.exchange(false, std::memory_order::seq_cst))
+                    return;
+            }
+            catch (...)
+            {
+                state->observer.on_error(std::current_exception());
+                return;
+            }
+        }
+    }
 
     template<rpp::constraint::observable TObservable, rpp::constraint::decayed_type TNotifier>
     struct retry_when_impl_t
@@ -131,26 +147,16 @@ namespace rpp::operators::details
         RPP_NO_UNIQUE_ADDRESS TObservable observable;
         RPP_NO_UNIQUE_ADDRESS TNotifier   notifier;
 
-        template<rpp::constraint::decayed_type T>
-        struct operator_traits
+        using value_type = rpp::utils::extract_observable_type_t<TObservable>;
+
+        template<rpp::constraint::observer TObserver>
+        void subscribe(TObserver&& observer) const
         {
-            using result_type = T;
-
-            template<rpp::constraint::observer_of_type<result_type> TObserver>
-            using observer_strategy = retry_when_impl_strategy<TObserver, TObservable, TNotifier>;
-        };
-
-        template<rpp::details::observables::constraint::disposable_strategy Prev>
-        using updated_disposable_strategy = rpp::details::observables::fixed_disposable_strategy_selector<1>;
-
-        template<rpp::constraint::decayed_type Type, rpp::constraint::observer Observer>
-        auto lift(Observer&& observer) const
-        {
-            const auto d   = disposable_wrapper_impl<retry_when_state<std::decay_t<Observer>, std::decay_t<TObservable>, std::decay_t<TNotifier>>>::make(std::forward<Observer>(observer), observable, notifier);
+            const auto d   = disposable_wrapper_impl<retry_when_state<std::decay_t<TObserver>, std::decay_t<TObservable>, std::decay_t<TNotifier>>>::make(std::forward<TObserver>(observer), observable, notifier);
             auto       ptr = d.lock();
             ptr->observer.set_upstream(d.as_weak());
 
-            return rpp::observer<Type, retry_when_impl_strategy<std::decay_t<Observer>, std::decay_t<TObservable>, std::decay_t<TNotifier>>>(std::move(ptr));
+            drain<TObserver, TObservable, TNotifier>(ptr);
         }
     };
 
@@ -162,15 +168,13 @@ namespace rpp::operators::details
         template<rpp::constraint::observable TObservable>
         auto operator()(TObservable&& observable) const &
         {
-            return std::forward<TObservable>(observable)
-                 | retry_when_impl_t<std::decay_t<TObservable>, std::decay_t<TNotifier>>{observable, notifier};
+            return rpp::observable<utils::extract_observable_type_t<TObservable>, retry_when_impl_t<std::decay_t<TObservable>, std::decay_t<TNotifier>>>{observable, notifier};
         }
 
         template<rpp::constraint::observable TObservable>
         auto operator()(TObservable&& observable) &&
         {
-            return std::forward<TObservable>(observable)
-                 | retry_when_impl_t<std::decay_t<TObservable>, std::decay_t<TNotifier>>{observable, std::forward<TNotifier>(notifier)};
+            return rpp::observable<utils::extract_observable_type_t<TObservable>, retry_when_impl_t<std::decay_t<TObservable>, std::decay_t<TNotifier>>>{observable, std::forward<TNotifier>(notifier)};
         }
     };
 } // namespace rpp::operators::details
