@@ -33,7 +33,6 @@ namespace rpp::operators::details
         {
         }
 
-        bool             retrying{};
         std::atomic_bool is_inside_drain{};
 
         RPP_NO_UNIQUE_ADDRESS TObserver   observer;
@@ -52,28 +51,32 @@ namespace rpp::operators::details
         using preferred_disposable_strategy = rpp::details::observers::none_disposable_strategy;
 
         std::shared_ptr<retry_when_state<TObserver, TObservable, TNotifier>> state;
+        mutable bool                                                         locally_disposed{};
 
         template<typename T>
         void on_next(T&&) const
         {
+            locally_disposed = true;
             drain<TObserver, TObservable, TNotifier>(state);
         }
 
         void on_error(const std::exception_ptr& err) const
         {
+            locally_disposed = true;
             if (!state->is_inside_drain.exchange(false, std::memory_order::seq_cst))
                 state->observer.on_error(err);
         }
 
         void on_completed() const
         {
+            locally_disposed = true;
             if (!state->is_inside_drain.exchange(false, std::memory_order::seq_cst))
                 state->observer.on_completed();
         }
 
         void set_upstream(const disposable_wrapper& d) { state->observer.set_upstream(d); }
 
-        bool is_disposed() const { return state->retrying; }
+        bool is_disposed() const { return locally_disposed || state->is_disposed(); }
     };
 
     template<rpp::constraint::observer     TObserver,
