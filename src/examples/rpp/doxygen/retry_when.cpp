@@ -12,7 +12,7 @@ int main()
     //! [retry_when delay]
     size_t retry_count = 0;
     rpp::source::create<std::string>([&retry_count](const auto& sub) {
-        if (retry_count != 4)
+        if (++retry_count != 4)
         {
             sub.on_error({});
         }
@@ -32,7 +32,7 @@ int main()
     //! [retry_when]
     retry_count = 0;
     rpp::source::create<std::string>([&retry_count](const auto& sub) {
-        if (retry_count != 4)
+        if (++retry_count != 4)
         {
             sub.on_error({});
         }
