@@ -15,5 +15,8 @@ var searchData=
   ['replay_5fsubject_5fbase_12',['replay_subject_base',['../classrpp_1_1subjects_1_1details_1_1replay__subject__base.html',1,'rpp::subjects::details']]],
   ['replay_5fsubject_5fbase_3c_20type_2c_20false_20_3e_13',['replay_subject_base&lt; Type, false &gt;',['../classrpp_1_1subjects_1_1details_1_1replay__subject__base.html',1,'rpp::subjects::details']]],
   ['replay_5fsubject_5fbase_3c_20type_2c_20true_20_3e_14',['replay_subject_base&lt; Type, true &gt;',['../classrpp_1_1subjects_1_1details_1_1replay__subject__base.html',1,'rpp::subjects::details']]],
-  ['run_5floop_15',['run_loop',['../classrpp_1_1schedulers_1_1run__loop.html',1,'rpp::schedulers']]]
+  ['retry_5fobserver_5fstrategy_15',['retry_observer_strategy',['../structrpp_1_1operators_1_1details_1_1retry__observer__strategy.html',1,'rpp::operators::details']]],
+  ['retry_5fstate_5ft_16',['retry_state_t',['../structrpp_1_1operators_1_1details_1_1retry__state__t.html',1,'rpp::operators::details']]],
+  ['retry_5ft_17',['retry_t',['../structrpp_1_1operators_1_1details_1_1retry__t.html',1,'rpp::operators::details']]],
+  ['run_5floop_18',['run_loop',['../classrpp_1_1schedulers_1_1run__loop.html',1,'rpp::schedulers']]]
 ];

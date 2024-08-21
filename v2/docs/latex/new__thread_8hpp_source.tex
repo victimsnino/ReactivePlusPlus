@@ -89,7 +89,7 @@
 \DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
 \DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ now\ =\ worker\_strategy::now();\ now\ <\ state-\/>queue.top()-\/>get\_timepoint())}
 \DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ state-\/>cv.wait\_for(lock,\ state-\/>queue.top()-\/>get\_timepoint()\ -\/\ now,\ [\&]\ \{\ \textcolor{keywordflow}{return}\ state-\/>queue.top()-\/>is\_disposed()\ ||\ worker\_strategy::now()\ >=\ state-\/>queue.top()-\/>get\_timepoint();\ \});}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ state-\/>cv.wait\_for(lock,\ state-\/>queue.top()-\/>get\_timepoint()\ -\/\ now,\ [\&]\ \{\ return\ state-\/>queue.top()-\/>is\_disposed()\ ||\ worker\_strategy::now()\ >=\ state-\/>queue.top()-\/>get\_timepoint();\ \});}
 \DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{continue};}
 \DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}

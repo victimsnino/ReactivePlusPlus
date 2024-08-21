@@ -85,7 +85,7 @@
 \DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ if\ (auto*\ timepoint\ =\ std::get\_if<schedulers::time\_point>(\&value\_or\_duration))}
 \DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ return\ schedulers::optional\_delay\_to\{*timepoint\};}
 \DoxyCodeLine{00083\ }
-\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{auto}*\ value\ =\ std::get\_if<T>(\&value\_or\_duration))}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ if\ (\textcolor{keyword}{auto}*\ value\ =\ std::get\_if<T>(\&value\_or\_duration))}
 \DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ handler.disposable-\/>get\_observer\_under\_lock()-\/>on\_next(std::move(*value));}
 \DoxyCodeLine{00086\ }
 \DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::nullopt;}

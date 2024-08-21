@@ -97,11 +97,11 @@ For example\+:
 \DoxyCodeLine{\ \ \ \ \{}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (!observer.is\_disposed())}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ char\ ch\ =\ ::getchar();}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ if\ (!::isdigit(ch))}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ ch\ =\ ::getchar();}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!::isdigit(ch))}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \{}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ observer.on\_error(std::make\_exception\_ptr(std::runtime\_error\{\textcolor{stringliteral}{"{}Invalid\ symbol"{}}\}));}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ return;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ digit\ =\ ch\ -\/\ \textcolor{charliteral}{'0'};}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (digit\ ==\ 0)}
@@ -156,8 +156,6 @@ This contact has next important part\+:
 
 \begin{quote}
 Observables must issue notifications to observers serially (not in parallel). They may issue these notifications from different threads, but there must be a formal happens-\/before relationship between the notifications \end{quote}
-
-
 RPP follows this contract and especially this part. It means, that\+:
 
 
@@ -347,7 +345,7 @@ Example\+:
 \end{DoxyCode}
  In this case you providing logic how to convert downstream observer to upstream observer. Actually this implementation is equal to previous one, but without handling of observable -\/ you are expressing your operator in terms of observers
 
-\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}(Advanced)\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} In case of implementing operator via {\ttfamily lift} you can control disposable strategy via {\ttfamily updated\+\_\+disposable\+\_\+strategy} parameter. It accepts disposable strategy of upstream and returns disposable strategy for downstream. It needed only for optimization and reducing disposables handling cost and it is purely advanced thing. Not sure if anyone is going to use it by its own for now =)\hypertarget{md_docs_2readme_autotoc_md7}{}\doxysubsection{\texorpdfstring{Schedulers}{Schedulers}}\label{md_docs_2readme_autotoc_md7}
+{\bfseries{(Advanced)}} In case of implementing operator via {\ttfamily lift} you can control disposable strategy via {\ttfamily updated\+\_\+disposable\+\_\+strategy} parameter. It accepts disposable strategy of upstream and returns disposable strategy for downstream. It needed only for optimization and reducing disposables handling cost and it is purely advanced thing. Not sure if anyone is going to use it by its own for now =)\hypertarget{md_docs_2readme_autotoc_md7}{}\doxysubsection{\texorpdfstring{Schedulers}{Schedulers}}\label{md_docs_2readme_autotoc_md7}
 Reactive programming becomes even more powerful when observables can operate across multiple threads, rather than being confined to the thread of creation and subscription. This allows for non-\/blocking, asynchronous operations and provides significant advantages over raw iteration or other pull-\/based approaches. To enable multithreading in your observables, you can use {\bfseries{Schedulers}}.
 
 By default, an {\bfseries{Observable}} will perform its work in the thread where the {\bfseries{subscribe}} operation occurs. However, you can change this behavior using the {\bfseries{subscribe\+\_\+on}} operator. This operator forces the observable to perform the {\bfseries{subscription}} and any subsequent work in the specified {\bfseries{scheduler}}. For example\+:
