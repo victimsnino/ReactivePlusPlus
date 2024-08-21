@@ -135,7 +135,7 @@ namespace rpp::operators::details
 namespace rpp::operators
 {
     /**
-     * @brief Resubscribe to the same observable specified number of counts in case of obtaining errors from underlying observable
+     * @brief The retry operator attempts to resubscribe to the observable when an error occurs, up to the specified number of retries.
      *
      * @marble retry
        {
@@ -159,7 +159,7 @@ namespace rpp::operators
     }
 
     /**
-    * @brief Resubscribe to the same observable (without any limits) in case of obtaining errors from underlying observable
+    * @brief The infinite retry operator continuously attempts to resubscribe to the observable upon error, without a retry limit.
     *
     * @marble infinite_retry
       {

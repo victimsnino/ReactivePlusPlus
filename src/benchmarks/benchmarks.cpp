@@ -655,6 +655,24 @@ int main(int argc, char* argv[]) // NOLINT(bugprone-exception-escape)
                     | rxcpp::operators::subscribe<int>([](int v) { ankerl::nanobench::doNotOptimizeAway(v); });
             });
         }
+        SECTION("create(on_next(1), on_error())+retry(1)+subscribe")
+        {
+            TEST_RPP([&]() {
+                rpp::source::create<int>([&](auto&& observer) {
+                    observer.on_error({});
+                })
+                    | rpp::operators::retry(1)
+                    | rpp::operators::subscribe([](int) { }, [](const std::exception_ptr& e){  ankerl::nanobench::doNotOptimizeAway(e);});
+            });
+
+            TEST_RXCPP([&]() {
+                rxcpp::observable<>::create<int>([&](auto&& observer) {
+                    observer.on_error({});
+                })
+                    | rxcpp::operators::retry(1)
+                    | rxcpp::operators::subscribe<int>([](int) { }, [](const std::exception_ptr& e){  ankerl::nanobench::doNotOptimizeAway(e);});
+            });
+        }
     } // BENCHMARK("Error Handling Operators")
 
     BENCHMARK("Subjects")
