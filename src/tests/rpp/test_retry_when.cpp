@@ -14,6 +14,7 @@
 #include <rpp/observables/dynamic_observable.hpp>
 #include <rpp/observers/mock_observer.hpp>
 #include <rpp/operators/retry_when.hpp>
+#include <rpp/schedulers/immediate.hpp>
 #include <rpp/sources/concat.hpp>
 #include <rpp/sources/create.hpp>
 #include <rpp/sources/empty.hpp>
@@ -176,7 +177,7 @@ TEST_CASE("repeat_when does not stack overflow")
     })
         | rpp::operators::retry_when([i = count](const std::exception_ptr& ep) mutable {
             if (--i != 0)
-                return rpp::source::just(1).as_dynamic();
+                return rpp::source::just(rpp::schedulers::immediate{}, 1).as_dynamic(); // Use immediate scheduler for recursion
             return rpp::source::error<int>(ep).as_dynamic(); })
         | rpp::operators::subscribe(mock);
 }

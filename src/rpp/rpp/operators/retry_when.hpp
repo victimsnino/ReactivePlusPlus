@@ -56,6 +56,9 @@ namespace rpp::operators::details
         void on_next(T&&) const
         {
             locally_disposed = true;
+
+            if (state->is_inside_drain.exchange(false, std::memory_order::seq_cst))
+                return;
             drain<TObserver, TObservable, TNotifier>(state);
         }
 
@@ -177,6 +180,10 @@ namespace rpp::operators
      * @param notifier callable taking a std::exception_ptr and returning observable notifying when to resubscribe
      *
      * @warning #include <rpp/operators/retry_when.hpp>
+     *
+     * @par Examples:
+     * @snippet retry_when.cpp retry_when delay
+     * @snippet retry_when.cpp retry_when
      *
      * @ingroup error_handling_operators
      * @see https://reactivex.io/documentation/operators/retry.html
