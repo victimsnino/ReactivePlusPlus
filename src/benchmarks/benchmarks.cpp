@@ -655,7 +655,7 @@ int main(int argc, char* argv[]) // NOLINT(bugprone-exception-escape)
                     | rxcpp::operators::subscribe<int>([](int v) { ankerl::nanobench::doNotOptimizeAway(v); });
             });
         }
-        SECTION("create(on_next(1), on_error())+retry(1)+subscribe")
+        SECTION("create(on_error())+retry(1)+subscribe")
         {
             TEST_RPP([&]() {
                 rpp::source::create<int>([&](auto&& observer) {
