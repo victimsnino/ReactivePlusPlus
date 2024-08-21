@@ -147,6 +147,9 @@ namespace rpp::operators
      *
      * @warning #include <rpp/operators/retry.hpp>
      *
+     * @par Examples:
+     * @snippet retry.cpp retry
+     *
      * @ingroup error_handling_operators
      * @see https://reactivex.io/documentation/operators/retry.html
      */
@@ -165,6 +168,9 @@ namespace rpp::operators
       }
     *
     * @warning #include <rpp/operators/retry.hpp>
+    *
+    * @par Examples:
+    * @snippet retry.cpp retry_infinitely
     *
     * @ingroup error_handling_operators
     * @see https://reactivex.io/documentation/operators/retry.html
