@@ -129,4 +129,5 @@
  */
 
 #include <rpp/operators/on_error_resume_next.hpp>
+#include <rpp/operators/retry.hpp>
 #include <rpp/operators/retry_when.hpp>

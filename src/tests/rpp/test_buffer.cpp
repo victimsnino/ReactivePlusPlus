@@ -104,6 +104,18 @@ TEST_CASE("buffer bundles items")
                 | rpp::ops::subscribe(mock);
         }
     }
+    SECTION("accept by moving")
+    {
+        REQUIRE_CALL(*mock, on_next_rvalue(std::vector{1, 2})).IN_SEQUENCE(s);
+        REQUIRE_CALL(*mock, on_next_rvalue(std::vector{3, 4})).IN_SEQUENCE(s);
+
+        rpp::source::just(1, 2, 3, 4)
+            | rpp::ops::buffer(2)
+            | rpp::ops::subscribe([&mock](std::vector<int> b) // NOLINT
+                                  {
+                                      mock.on_next(std::move(b));
+                                  });
+    }
 }
 
 TEST_CASE("buffer satisfies disposable contracts")
