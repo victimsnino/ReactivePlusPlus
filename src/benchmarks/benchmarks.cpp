@@ -662,7 +662,7 @@ int main(int argc, char* argv[]) // NOLINT(bugprone-exception-escape)
                     observer.on_error({});
                 })
                     | rpp::operators::retry(1)
-                    | rpp::operators::subscribe([](int) { }, [](const std::exception_ptr& e){  ankerl::nanobench::doNotOptimizeAway(e);});
+                    | rpp::operators::subscribe([](int) {}, [](const std::exception_ptr& e) { ankerl::nanobench::doNotOptimizeAway(e); });
             });
 
             TEST_RXCPP([&]() {
@@ -670,7 +670,7 @@ int main(int argc, char* argv[]) // NOLINT(bugprone-exception-escape)
                     observer.on_error({});
                 })
                     | rxcpp::operators::retry(1)
-                    | rxcpp::operators::subscribe<int>([](int) { }, [](const std::exception_ptr& e){  ankerl::nanobench::doNotOptimizeAway(e);});
+                    | rxcpp::operators::subscribe<int>([](int) {}, [](const std::exception_ptr& e) { ankerl::nanobench::doNotOptimizeAway(e); });
             });
         }
     } // BENCHMARK("Error Handling Operators")
