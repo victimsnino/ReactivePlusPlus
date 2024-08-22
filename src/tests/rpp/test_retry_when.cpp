@@ -13,8 +13,10 @@
 
 #include <rpp/observables/dynamic_observable.hpp>
 #include <rpp/observers/mock_observer.hpp>
+#include <rpp/operators/as_blocking.hpp>
 #include <rpp/operators/retry_when.hpp>
 #include <rpp/schedulers/immediate.hpp>
+#include <rpp/schedulers/new_thread.hpp>
 #include <rpp/sources/concat.hpp>
 #include <rpp/sources/create.hpp>
 #include <rpp/sources/empty.hpp>
@@ -74,6 +76,19 @@ TEST_CASE("retry_when resubscribes on notifier emission")
 
             observable
                 | rpp::operators::retry_when([](const std::exception_ptr&) { return rpp::source::just(1); })
+                | rpp::operators::subscribe(mock);
+
+            CHECK(subscribe_count == 2);
+        }
+
+        SECTION("original observable is subscribed twice and observer receives one emission, notifier emits on new_thread")
+        {
+            REQUIRE_CALL(*mock, on_next_rvalue("1")).IN_SEQUENCE(seq);
+            REQUIRE_CALL(*mock, on_completed()).IN_SEQUENCE(seq);
+
+            observable
+                | rpp::operators::retry_when([](const std::exception_ptr&) { return rpp::source::just(rpp::schedulers::new_thread{}, 1); })
+                | rpp::operators::as_blocking()
                 | rpp::operators::subscribe(mock);
 
             CHECK(subscribe_count == 2);
@@ -154,6 +169,19 @@ TEST_CASE("retry_when resubscribes on notifier emission")
 
             observable
                 | rpp::operators::retry_when([](const std::exception_ptr&) { return rpp::source::just(1); })
+                | rpp::operators::subscribe(mock);
+
+            CHECK(subscribe_count == 4 + 1);
+        }
+
+        SECTION("original observable is subscribed twice and observer receives one emission, notifier emits on new_thread")
+        {
+            REQUIRE_CALL(*mock, on_next_rvalue("1")).IN_SEQUENCE(seq);
+            REQUIRE_CALL(*mock, on_completed()).IN_SEQUENCE(seq);
+
+            observable
+                | rpp::operators::retry_when([](const std::exception_ptr&) { return rpp::source::just(rpp::schedulers::new_thread{}, 1); })
+                | rpp::operators::as_blocking()
                 | rpp::operators::subscribe(mock);
 
             CHECK(subscribe_count == 4 + 1);

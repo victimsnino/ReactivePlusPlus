@@ -74,7 +74,7 @@ namespace rpp::operators::details
             state->observer.on_completed();
         }
 
-        void set_upstream(const disposable_wrapper& d) { state->observer.set_upstream(d); }
+        void set_upstream(const disposable_wrapper& d) { state->add(d); }
 
         bool is_disposed() const { return locally_disposed || state->is_disposed(); }
     };
@@ -147,7 +147,7 @@ namespace rpp::operators::details
     template<rpp::constraint::decayed_type TNotifier>
     struct retry_when_t
     {
-        TNotifier notifier;
+        RPP_NO_UNIQUE_ADDRESS TNotifier notifier;
 
         template<rpp::constraint::decayed_type T>
         struct operator_traits
@@ -178,6 +178,11 @@ namespace rpp::operators
      * observable, then error/completed emission is forwarded to original subscription.
      *
      * @param notifier callable taking a std::exception_ptr and returning observable notifying when to resubscribe
+     *
+     * @warning retry_when along with other re-subscribing operators needs to be carefully used with
+     * hot observables, as re-subscribing to a hot observable can have unwanted behaviors. For example,
+     * a hot observable behind a replay subject can indefinitely yield an error on each re-subscription
+     * and using retry_when on it would lead to an infinite execution.
      *
      * @warning #include <rpp/operators/retry_when.hpp>
      *
