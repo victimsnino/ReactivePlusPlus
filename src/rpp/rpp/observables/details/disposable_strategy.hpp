@@ -79,7 +79,7 @@ namespace rpp::details::observables
         concept has_expected_disposable_strategy = requires { typename T::expected_disposable_strategy; };
 
         template<typename T>
-        auto* deduce_disposable_strategy()
+        consteval auto* deduce_disposable_strategy()
         {
             if constexpr (has_expected_disposable_strategy<T>)
                 return static_cast<typename T::expected_disposable_strategy*>(nullptr);
@@ -91,7 +91,7 @@ namespace rpp::details::observables
         concept has_updated_disposable_strategy = requires { typename T::template updated_disposable_strategy<Prev>; };
 
         template<typename T, typename Prev>
-        auto* deduce_updated_disposable_strategy()
+        consteval auto* deduce_updated_disposable_strategy()
         {
             if constexpr (has_updated_disposable_strategy<T, Prev>)
                 return static_cast<typename T::template updated_disposable_strategy<Prev>*>(nullptr);

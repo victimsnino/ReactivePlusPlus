@@ -70,7 +70,7 @@ namespace rpp::details::observers
     namespace details
     {
         template<typename T>
-        auto* deduce_disposable_strategy()
+        consteval auto* deduce_disposable_strategy()
         {
             if constexpr (has_disposable_strategy<T>)
                 return static_cast<typename T::preferred_disposable_strategy*>(nullptr);
