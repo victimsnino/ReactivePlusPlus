@@ -83,7 +83,7 @@
 \DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \textcolor{keyword}{concept\ }\mbox{\hyperlink{conceptrpp_1_1details_1_1observables_1_1details_1_1has__expected__disposable__strategy}{has\_expected\_disposable\_strategy}}\ =\ \textcolor{keyword}{requires}\ \{\ \textcolor{keyword}{typename}\ T::expected\_disposable\_strategy;\ \};}
 \DoxyCodeLine{00080\ }
 \DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
-\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}*\ deduce\_disposable\_strategy()}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \textcolor{keyword}{consteval}\ \textcolor{keyword}{auto}*\ deduce\_disposable\_strategy()}
 \DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \{}
 \DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keyword}{constexpr}\ (\mbox{\hyperlink{conceptrpp_1_1details_1_1observables_1_1details_1_1has__expected__disposable__strategy}{has\_expected\_disposable\_strategy<T>}})}
 \DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{static\_cast<}typename\ T::expected\_disposable\_strategy*\textcolor{keyword}{>}(\textcolor{keyword}{nullptr});}
@@ -95,7 +95,7 @@
 \DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \textcolor{keyword}{concept\ }\mbox{\hyperlink{conceptrpp_1_1details_1_1observables_1_1details_1_1has__updated__disposable__strategy}{has\_updated\_disposable\_strategy}}\ =\ \textcolor{keyword}{requires}\ \{\ \textcolor{keyword}{typename}\ T::template\ updated\_disposable\_strategy<Prev>;\ \};}
 \DoxyCodeLine{00092\ }
 \DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T,\ \textcolor{keyword}{typename}\ Prev>}
-\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}*\ deduce\_updated\_disposable\_strategy()}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \textcolor{keyword}{consteval}\ \textcolor{keyword}{auto}*\ deduce\_updated\_disposable\_strategy()}
 \DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \{}
 \DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keyword}{constexpr}\ (\mbox{\hyperlink{conceptrpp_1_1details_1_1observables_1_1details_1_1has__updated__disposable__strategy}{has\_updated\_disposable\_strategy<T,\ Prev>}})}
 \DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{static\_cast<}typename\ T::template\ updated\_disposable\_strategy<Prev>*\textcolor{keyword}{>}(\textcolor{keyword}{nullptr});}
