@@ -186,6 +186,10 @@ namespace rpp::operators
         requires rpp::constraint::observable<std::invoke_result_t<Selector, std::exception_ptr>>
     auto on_error_resume_next(Selector&& selector);
 
+    template<typename Notifier>
+        requires rpp::constraint::observable<std::invoke_result_t<Notifier, std::exception_ptr>>
+    auto retry_when(Notifier&& notifier);
+
     template<typename TSelector, rpp::constraint::observable TObservable, rpp::constraint::observable... TObservables>
         requires (!rpp::constraint::observable<TSelector> && (!utils::is_not_template_callable<TSelector> || std::invocable<TSelector, rpp::utils::convertible_to_any, utils::extract_observable_type_t<TObservable>, utils::extract_observable_type_t<TObservables>...>))
     auto with_latest_from(TSelector&& selector, TObservable&& observable, TObservables&&... observables);
