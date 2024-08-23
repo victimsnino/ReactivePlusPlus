@@ -1,0 +1,61 @@
+\doxysection{retry\+\_\+when.\+cpp}
+\hypertarget{retry_when_8cpp-example}{}\label{retry_when_8cpp-example}
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <rpp/rpp.hpp>}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{int}\ main()}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordtype}{size\_t}\ retry\_count\ =\ 0;}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_gae68c87e7ae3a505258b733082bf68513}{rpp::source::create<std::string>}}([\&retry\_count](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ sub)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (++retry\_count\ !=\ 4)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ sub.on\_error(\{\});}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ sub.on\_next(std::string\{\textcolor{stringliteral}{"{}success"{}}\});}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ sub.on\_completed();}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \})}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ rpp::operators::retry\_when([](\textcolor{keyword}{const}\ std::exception\_ptr\&)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{group__creational__operators_gae7248892783797dda894e18b2b499586}{rpp::source::timer}}(std::chrono::seconds\{5\},\ \mbox{\hyperlink{classrpp_1_1schedulers_1_1current__thread}{rpp::schedulers::current\_thread}}\{\});}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \})}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{rpp::operators::subscribe}}([](\textcolor{keyword}{const}\ std::string\&\ v)\ \{\ std::cout\ <<\ v\ <<\ std::endl;\ \});}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Source\ observable\ is\ resubscribed\ after\ 5\ seconds\ on\ each\ error\ emission}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ retry\_count\ =\ 0;}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_gae68c87e7ae3a505258b733082bf68513}{rpp::source::create<std::string>}}([\&retry\_count](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ sub)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (++retry\_count\ !=\ 4)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ sub.on\_error(\{\});}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ sub.on\_next(std::string\{\textcolor{stringliteral}{"{}success"{}}\});}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ sub.on\_completed();}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \})}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ rpp::operators::retry\_when([](\textcolor{keyword}{const}\ std::exception\_ptr\&\ ep)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::rethrow\_exception(ep);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ std::runtime\_error\&)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{group__creational__operators_gae7248892783797dda894e18b2b499586}{rpp::source::timer}}(std::chrono::seconds\{5\},\ \mbox{\hyperlink{classrpp_1_1schedulers_1_1current__thread}{rpp::schedulers::current\_thread}}\{\});}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (...)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw};}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \})}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{rpp::operators::subscribe}}([](\textcolor{keyword}{const}\ std::string\&\ v)\ \{\ std::cout\ <<\ v\ <<\ std::endl;\ \});}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Source\ observable\ is\ resubscribed\ after\ 5\ seconds\ only\ on\ particular\ error\ emissions}}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{\}}
+
+\end{DoxyCodeInclude}
+ 

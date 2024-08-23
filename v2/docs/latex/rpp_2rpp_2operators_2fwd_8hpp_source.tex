@@ -190,30 +190,34 @@
 \DoxyCodeLine{00186\ \ \ \ \ \ \ \ \ \textcolor{keyword}{requires}\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp::constraint::observable<std::invoke\_result\_t<Selector,\ std::exception\_ptr>}}>}
 \DoxyCodeLine{00187\ \ \ \ \ \textcolor{keyword}{auto}\ on\_error\_resume\_next(Selector\&\&\ selector);}
 \DoxyCodeLine{00188\ }
-\DoxyCodeLine{00189\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ TSelector,\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp::constraint::observable}}\ TObservable,\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp::constraint::observable}}...\ TObservables>}
-\DoxyCodeLine{00190\ \ \ \ \ \ \ \ \ \textcolor{keyword}{requires}\ (!\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp::constraint::observable<TSelector>}}\ \&\&\ (!utils::is\_not\_template\_callable<TSelector>\ ||\ std::invocable<TSelector,\ rpp::utils::convertible\_to\_any,\ utils::extract\_observable\_type\_t<TObservable>,\ utils::extract\_observable\_type\_t<TObservables>...>))}
-\DoxyCodeLine{00191\ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__combining__operators_ga9345ba5faac717ba85fc88f1c5fff58b}{with\_latest\_from}}(TSelector\&\&\ selector,\ TObservable\&\&\ observable,\ TObservables\&\&...\ observables);}
+\DoxyCodeLine{00189\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ Notifier>}
+\DoxyCodeLine{00190\ \ \ \ \ \ \ \ \ \textcolor{keyword}{requires}\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp::constraint::observable<std::invoke\_result\_t<Notifier,\ std::exception\_ptr>}}>}
+\DoxyCodeLine{00191\ \ \ \ \ \textcolor{keyword}{auto}\ retry\_when(Notifier\&\&\ notifier);}
 \DoxyCodeLine{00192\ }
-\DoxyCodeLine{00193\ \ \ \ \ \textcolor{keyword}{template}<\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp::constraint::observable}}\ TObservable,\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp::constraint::observable}}...\ TObservables>}
-\DoxyCodeLine{00194\ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__combining__operators_ga9345ba5faac717ba85fc88f1c5fff58b}{with\_latest\_from}}(TObservable\&\&\ observable,\ TObservables\&\&...\ observables);}
-\DoxyCodeLine{00195\ }
-\DoxyCodeLine{00196\ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__transforming__operators_gab947bced93ea29bcaa791904a49f43e5}{window}}(\textcolor{keywordtype}{size\_t}\ count);}
-\DoxyCodeLine{00197\ }
-\DoxyCodeLine{00198\ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::observable\ TOpeningsObservable,\ \textcolor{keyword}{typename}\ TClosingsSelectorFn>}
-\DoxyCodeLine{00199\ \ \ \ \ \ \ \ \ \textcolor{keyword}{requires}\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp::constraint::observable<std::invoke\_result\_t<TClosingsSelectorFn,\ rpp::utils::extract\_observable\_type\_t<TOpeningsObservable>}}>>}
-\DoxyCodeLine{00200\ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__transforming__operators_gad53dfa28fff9b19c3f6aca51970737de}{window\_toggle}}(TOpeningsObservable\&\&\ openings,\ TClosingsSelectorFn\&\&\ closings\_selector);}
+\DoxyCodeLine{00193\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ TSelector,\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp::constraint::observable}}\ TObservable,\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp::constraint::observable}}...\ TObservables>}
+\DoxyCodeLine{00194\ \ \ \ \ \ \ \ \ \textcolor{keyword}{requires}\ (!\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp::constraint::observable<TSelector>}}\ \&\&\ (!utils::is\_not\_template\_callable<TSelector>\ ||\ std::invocable<TSelector,\ rpp::utils::convertible\_to\_any,\ utils::extract\_observable\_type\_t<TObservable>,\ utils::extract\_observable\_type\_t<TObservables>...>))}
+\DoxyCodeLine{00195\ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__combining__operators_ga9345ba5faac717ba85fc88f1c5fff58b}{with\_latest\_from}}(TSelector\&\&\ selector,\ TObservable\&\&\ observable,\ TObservables\&\&...\ observables);}
+\DoxyCodeLine{00196\ }
+\DoxyCodeLine{00197\ \ \ \ \ \textcolor{keyword}{template}<\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp::constraint::observable}}\ TObservable,\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp::constraint::observable}}...\ TObservables>}
+\DoxyCodeLine{00198\ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__combining__operators_ga9345ba5faac717ba85fc88f1c5fff58b}{with\_latest\_from}}(TObservable\&\&\ observable,\ TObservables\&\&...\ observables);}
+\DoxyCodeLine{00199\ }
+\DoxyCodeLine{00200\ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__transforming__operators_gab947bced93ea29bcaa791904a49f43e5}{window}}(\textcolor{keywordtype}{size\_t}\ count);}
 \DoxyCodeLine{00201\ }
-\DoxyCodeLine{00202\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ TSelector,\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp::constraint::observable}}\ TObservable,\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp::constraint::observable}}...\ TObservables>}
-\DoxyCodeLine{00203\ \ \ \ \ \ \ \ \ \textcolor{keyword}{requires}\ (!\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp::constraint::observable<TSelector>}}\ \&\&\ (!utils::is\_not\_template\_callable<TSelector>\ ||\ std::invocable<TSelector,\ rpp::utils::convertible\_to\_any,\ utils::extract\_observable\_type\_t<TObservable>,\ utils::extract\_observable\_type\_t<TObservables>...>))}
-\DoxyCodeLine{00204\ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__combining__operators_gae2e89ade7cae676333672b78db5f1a8b}{zip}}(TSelector\&\&\ selector,\ TObservable\&\&\ observable,\ TObservables\&\&...\ observables);}
+\DoxyCodeLine{00202\ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::observable\ TOpeningsObservable,\ \textcolor{keyword}{typename}\ TClosingsSelectorFn>}
+\DoxyCodeLine{00203\ \ \ \ \ \ \ \ \ \textcolor{keyword}{requires}\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp::constraint::observable<std::invoke\_result\_t<TClosingsSelectorFn,\ rpp::utils::extract\_observable\_type\_t<TOpeningsObservable>}}>>}
+\DoxyCodeLine{00204\ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__transforming__operators_gad53dfa28fff9b19c3f6aca51970737de}{window\_toggle}}(TOpeningsObservable\&\&\ openings,\ TClosingsSelectorFn\&\&\ closings\_selector);}
 \DoxyCodeLine{00205\ }
-\DoxyCodeLine{00206\ \ \ \ \ \textcolor{keyword}{template}<\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp::constraint::observable}}\ TObservable,\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp::constraint::observable}}...\ TObservables>}
-\DoxyCodeLine{00207\ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__combining__operators_gae2e89ade7cae676333672b78db5f1a8b}{zip}}(TObservable\&\&\ observable,\ TObservables\&\&...\ observables);}
-\DoxyCodeLine{00208\ \}\ \textcolor{comment}{//\ namespace\ rpp::operators}}
+\DoxyCodeLine{00206\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ TSelector,\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp::constraint::observable}}\ TObservable,\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp::constraint::observable}}...\ TObservables>}
+\DoxyCodeLine{00207\ \ \ \ \ \ \ \ \ \textcolor{keyword}{requires}\ (!\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp::constraint::observable<TSelector>}}\ \&\&\ (!utils::is\_not\_template\_callable<TSelector>\ ||\ std::invocable<TSelector,\ rpp::utils::convertible\_to\_any,\ utils::extract\_observable\_type\_t<TObservable>,\ utils::extract\_observable\_type\_t<TObservables>...>))}
+\DoxyCodeLine{00208\ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__combining__operators_gae2e89ade7cae676333672b78db5f1a8b}{zip}}(TSelector\&\&\ selector,\ TObservable\&\&\ observable,\ TObservables\&\&...\ observables);}
 \DoxyCodeLine{00209\ }
-\DoxyCodeLine{00210\ \textcolor{keyword}{namespace\ }rpp}
-\DoxyCodeLine{00211\ \{}
-\DoxyCodeLine{00212\ \ \ \ \ \textcolor{keyword}{namespace\ }ops\ =\ operators;}
-\DoxyCodeLine{00213\ \}\ \textcolor{comment}{//\ namespace\ rpp}}
+\DoxyCodeLine{00210\ \ \ \ \ \textcolor{keyword}{template}<\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp::constraint::observable}}\ TObservable,\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp::constraint::observable}}...\ TObservables>}
+\DoxyCodeLine{00211\ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__combining__operators_gae2e89ade7cae676333672b78db5f1a8b}{zip}}(TObservable\&\&\ observable,\ TObservables\&\&...\ observables);}
+\DoxyCodeLine{00212\ \}\ \textcolor{comment}{//\ namespace\ rpp::operators}}
+\DoxyCodeLine{00213\ }
+\DoxyCodeLine{00214\ \textcolor{keyword}{namespace\ }rpp}
+\DoxyCodeLine{00215\ \{}
+\DoxyCodeLine{00216\ \ \ \ \ \textcolor{keyword}{namespace\ }ops\ =\ operators;}
+\DoxyCodeLine{00217\ \}\ \textcolor{comment}{//\ namespace\ rpp}}
 
 \end{DoxyCode}
