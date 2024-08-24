@@ -137,7 +137,7 @@ namespace rppgrpc::details
 
     private:
         rpp::subjects::publish_subject<TData> m_observer;
-        TData                                 m_data{};
+        RPP_NO_UNIQUE_ADDRESS TData           m_data{};
     };
 
 } // namespace rppgrpc::details

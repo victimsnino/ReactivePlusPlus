@@ -42,7 +42,7 @@ namespace rpp::details::disposables
 
         void dispose() const
         {
-            for (auto& d : m_data)
+            for (const auto& d : m_data)
             {
                 d.dispose();
             }

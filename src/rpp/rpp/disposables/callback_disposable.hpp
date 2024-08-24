@@ -40,7 +40,7 @@ namespace rpp
         void base_dispose_impl(interface_disposable::Mode) noexcept override { std::move(m_fn)(); } // NOLINT(bugprone-exception-escape)
 
     private:
-        Fn m_fn;
+        RPP_NO_UNIQUE_ADDRESS Fn m_fn;
     };
 
     template<rpp::constraint::is_nothrow_invocable Fn>
