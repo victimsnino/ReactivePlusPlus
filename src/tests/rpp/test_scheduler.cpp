@@ -368,7 +368,7 @@ TEMPLATE_TEST_CASE("queue_based scheduler", "", rpp::schedulers::current_thread,
 
     worker->schedule([&](const auto&) {
         thread_of_schedule_promise.set_value(get_thread_id_as_string(std::this_thread::get_id()));
-        if constexpr (std::same_as<TestType, rpp::schedulers::new_thread>)
+        if constexpr (!std::same_as<TestType, rpp::schedulers::current_thread>)
             thread_local rpp::utils::finally_action s_a{[done] {
                 done->store(true);
             }};

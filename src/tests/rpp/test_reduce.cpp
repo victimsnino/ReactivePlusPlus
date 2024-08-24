@@ -90,6 +90,16 @@ TEST_CASE("reduce forwards callbacks")
             | rpp::ops::reduce(0, std::plus<int>{})
             | rpp::ops::subscribe(mock);
 
+        CHECK(mock.get_received_values() == std::vector<int>{0});
+        CHECK(mock.get_on_completed_count() == 1);
+    }
+
+    SECTION("on_completed no_seed")
+    {
+        rpp::source::empty<int>()
+            | rpp::ops::reduce(std::plus<int>{})
+            | rpp::ops::subscribe(mock);
+
         CHECK(mock.get_received_values().empty());
         CHECK(mock.get_on_completed_count() == 1);
     }

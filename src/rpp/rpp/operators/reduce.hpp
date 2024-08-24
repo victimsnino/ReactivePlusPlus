@@ -89,7 +89,8 @@ namespace rpp::operators::details
 
         void on_completed() const
         {
-            observer.on_next(std::move(seed).value());
+            if (seed.has_value())
+                observer.on_next(std::move(seed).value());
             observer.on_completed();
         }
 
