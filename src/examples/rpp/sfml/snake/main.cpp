@@ -20,7 +20,7 @@ static auto get_events_observable(sf::RenderWindow& window)
                 return res;
 
             // indicate new frame
-            obs.on_next(PresentEvent{frame_number++});
+            obs.on_next(present_event{frame_number++});
 
             while (window.pollEvent(ev))
                 obs.on_next(ev);
@@ -43,12 +43,12 @@ int main()
 
     auto   start        = rpp::schedulers::clock_type::now();
     size_t frames_delta = 0;
-    presents.subscribe([&window](const PresentEvent&) {
+    presents.subscribe([&window](const present_event&) {
         window.display();
         window.clear(sf::Color{0, 128, 0});
     });
 
-    presents | rpp::ops::observe_on(rpp::schedulers::new_thread{}) | rpp::ops::subscribe([&start, &frames_delta](const PresentEvent& p) {
+    presents | rpp::ops::observe_on(rpp::schedulers::new_thread{}) | rpp::ops::subscribe([&start, &frames_delta](const present_event& p) {
         const auto diff = p.frame_number - frames_delta;
         if (diff > 50)
         {

@@ -369,7 +369,7 @@ TEMPLATE_TEST_CASE("queue_based scheduler", "", rpp::schedulers::current_thread,
     worker->schedule([&](const auto&) {
         thread_of_schedule_promise.set_value(get_thread_id_as_string(std::this_thread::get_id()));
         if constexpr (std::same_as<TestType, rpp::schedulers::new_thread>)
-            thread_local rpp::utils::finally_action a{[done] {
+            thread_local rpp::utils::finally_action s_a{[done] {
                 done->store(true);
             }};
         else
@@ -906,7 +906,7 @@ TEST_CASE("current_thread inside new_thread")
     auto done    = std::make_shared<std::atomic_bool>();
 
     worker->schedule([&](const auto&) {
-        thread_local rpp::utils::finally_action th{[done] {
+        thread_local rpp::utils::finally_action s_th{[done] {
             done->store(true);
         }};
         return rpp::schedulers::optional_delay_from_now{};

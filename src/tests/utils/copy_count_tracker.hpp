@@ -22,28 +22,28 @@ class copy_count_tracker
 {
 public:
     copy_count_tracker()
-        : _state(std::make_shared<state>())
+        : m_state(std::make_shared<state>())
     {
     }
 
     copy_count_tracker(const copy_count_tracker& other)
-        : _state{other._state}
+        : m_state{other.m_state}
     {
-        ++_state->copy_count;
+        ++m_state->copy_count;
     }
 
     copy_count_tracker(copy_count_tracker&& other) noexcept
-        : _state{other._state} // NOLINT(performance-move-constructor-init)
+        : m_state{other.m_state} // NOLINT(performance-move-constructor-init)
     {
-        ++_state->move_count;
+        ++m_state->move_count;
     }
 
     copy_count_tracker& operator=(const copy_count_tracker& other)
     {
         if (this == &other)
             return *this;
-        _state = other._state;
-        ++_state->copy_count;
+        m_state = other.m_state;
+        ++m_state->copy_count;
         return *this;
     }
 
@@ -51,14 +51,14 @@ public:
     {
         if (this == &other)
             return *this;
-        _state = other._state;
-        ++_state->move_count;
+        m_state = other.m_state;
+        ++m_state->move_count;
         return *this;
     }
 
     bool operator==(const copy_count_tracker& other) const
     {
-        return _state == other._state;
+        return m_state == other.m_state;
     }
 
     bool operator!=(const copy_count_tracker& other) const { return !(*this == other); }
@@ -112,11 +112,11 @@ public:
         }
     }
 
-    int get_copy_count() const { return _state->copy_count; }
-    int get_move_count() const { return _state->move_count; }
+    int get_copy_count() const { return m_state->copy_count; }
+    int get_move_count() const { return m_state->move_count; }
 
 private:
-    std::shared_ptr<state> _state;
+    std::shared_ptr<state> m_state;
 };
 
 namespace std

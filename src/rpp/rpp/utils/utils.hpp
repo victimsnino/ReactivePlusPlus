@@ -90,19 +90,19 @@ namespace rpp::utils
         return std::all_of(std::cbegin(container), std::cend(container), fn);
     }
 
-    template<auto Fn, bool inverse = false>
+    template<auto Fn, bool Inverse = false>
         requires std::is_member_function_pointer_v<decltype(Fn)>
     struct static_mem_fn
     {
         template<typename TT>
-            requires (inverse == false && std::invocable<decltype(Fn), TT &&>)
+            requires (Inverse == false && std::invocable<decltype(Fn), TT &&>)
         auto operator()(TT&& d) const
         {
             return (std::forward<TT>(d).*Fn)();
         }
 
         template<typename TT>
-            requires (inverse == true && std::invocable<decltype(Fn), TT &&>)
+            requires (Inverse == true && std::invocable<decltype(Fn), TT &&>)
         auto operator()(TT&& d) const
         {
             return !(std::forward<TT>(d).*Fn)();

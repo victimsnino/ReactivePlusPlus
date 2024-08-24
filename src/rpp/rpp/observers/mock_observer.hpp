@@ -21,7 +21,7 @@ class mock_observer_strategy final
 {
 public:
     explicit mock_observer_strategy(bool copy_values = true)
-        : m_state{std::make_shared<State>(copy_values)}
+        : m_state{std::make_shared<state>(copy_values)}
     {
     }
 
@@ -57,9 +57,9 @@ public:
     auto get_observer(rpp::composite_disposable_wrapper d) const { return rpp::observer_with_disposable<Type, mock_observer_strategy<Type>>{std::move(d), *this}; }
 
 private:
-    struct State
+    struct state
     {
-        explicit State(bool copy_values)
+        explicit state(bool copy_values)
             : m_copy_values{copy_values}
         {
         }
@@ -73,5 +73,5 @@ private:
         std::vector<Type> vals{};
     };
 
-    std::shared_ptr<State> m_state{};
+    std::shared_ptr<state> m_state{};
 };

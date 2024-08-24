@@ -48,26 +48,26 @@ public:
         MAKE_MOCK0(on_completed, void(), const);
     };
 
-    impl_t& operator*() const noexcept { return *impl; }
+    impl_t& operator*() const noexcept { return *m_impl; }
 
     void on_next(const T& v) const noexcept
     {
-        impl->on_next_lvalue(v);
+        m_impl->on_next_lvalue(v);
     }
 
     void on_next(T&& v) const noexcept
     {
-        impl->on_next_rvalue(std::move(v));
+        m_impl->on_next_rvalue(std::move(v));
     }
 
-    void on_error(const std::exception_ptr& err) const noexcept { impl->on_error(err); }
-    void on_completed() const noexcept { impl->on_completed(); }
+    void on_error(const std::exception_ptr& err) const noexcept { m_impl->on_error(err); }
+    void on_completed() const noexcept { m_impl->on_completed(); }
 
     static bool is_disposed() noexcept { return false; }
     static void set_upstream(const rpp::disposable_wrapper&) noexcept {}
 
 private:
-    std::shared_ptr<impl_t> impl = std::make_shared<impl_t>();
+    std::shared_ptr<impl_t> m_impl = std::make_shared<impl_t>();
 };
 
 inline void wait(const std::unique_ptr<trompeloeil::expectation>& e)

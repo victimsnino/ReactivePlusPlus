@@ -9,7 +9,7 @@
  * \example server_reactor.cpp
  **/
 
-class Server : public TestService::CallbackService
+class server : public TestService::CallbackService
 {
 
     //! [read_reactor]
