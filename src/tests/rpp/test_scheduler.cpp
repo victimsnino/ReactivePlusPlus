@@ -349,13 +349,13 @@ TEST_CASE("Immediate scheduler")
     }
 }
 
-TEMPLATE_TEST_CASE("queue_based scheduler", "", rpp::schedulers::current_thread, rpp::schedulers::new_thread)
+TEMPLATE_TEST_CASE("queue_based scheduler", "", rpp::schedulers::current_thread, rpp::schedulers::new_thread, rpp::schedulers::computational, rpp::schedulers::thread_pool)
 {
     auto d        = rpp::composite_disposable_wrapper::make();
     auto mock_obs = mock_observer_strategy<int>{};
     auto obs      = std::optional{mock_obs.get_observer(d).as_dynamic()};
 
-    auto worker = std::optional{TestType::create_worker()};
+    auto worker = std::optional{TestType{}.create_worker()};
     if constexpr (std::same_as<TestType, rpp::schedulers::current_thread>)
         CHECK(worker->get_disposable().is_disposed());
 
