@@ -155,8 +155,8 @@ namespace rpp
         }
 
     private:
-        OriginalObservable m_original_observable;
-        Subject            m_subject;
+        RPP_NO_UNIQUE_ADDRESS OriginalObservable m_original_observable;
+        Subject                                  m_subject;
 
         struct state_t
         {

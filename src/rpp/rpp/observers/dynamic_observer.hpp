@@ -84,7 +84,7 @@ namespace rpp::details::observers
         }
 
     private:
-        TObs m_observer;
+        RPP_NO_UNIQUE_ADDRESS TObs m_observer;
     };
 
     template<rpp::constraint::decayed_type Type>
