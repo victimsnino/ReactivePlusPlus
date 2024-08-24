@@ -96,18 +96,13 @@ namespace rpp::operators::details
 
         void on_error(const std::exception_ptr& err) const
         {
-            std::optional<std::invoke_result_t<TNotifier, std::exception_ptr>> notifier_obs;
             try
             {
-                notifier_obs.emplace(state->notifier(err));
+                state->notifier(err).subscribe(retry_when_impl_inner_strategy<TObserver, TObservable, TNotifier>{state});
             }
             catch (...)
             {
                 state->observer.on_error(std::current_exception());
-            }
-            if (notifier_obs.has_value())
-            {
-                std::move(notifier_obs).value().subscribe(retry_when_impl_inner_strategy<TObserver, TObservable, TNotifier>{state});
             }
         }
 

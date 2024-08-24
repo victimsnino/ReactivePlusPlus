@@ -14,6 +14,7 @@
 #include <rpp/observers/mock_observer.hpp>
 #include <rpp/operators/debounce.hpp>
 #include <rpp/schedulers/test_scheduler.hpp>
+#include <rpp/sources/error.hpp>
 #include <rpp/subjects/publish_subject.hpp>
 
 #include "disposable_observable.hpp"
@@ -118,6 +119,16 @@ TEST_CASE("debounce emit only items where timeout reached")
             }
         }
     }
+}
+
+TEST_CASE("debounce forwards error")
+{
+    auto mock = mock_observer_strategy<int>{};
+
+    rpp::source::error<int>({}) | rpp::operators::debounce({}, rpp::schedulers::immediate{}) | rpp::ops::subscribe(mock);
+    CHECK(mock.get_received_values() == std::vector<int>{});
+    CHECK(mock.get_on_error_count() == 1);
+    CHECK(mock.get_on_completed_count() == 0);
 }
 
 
