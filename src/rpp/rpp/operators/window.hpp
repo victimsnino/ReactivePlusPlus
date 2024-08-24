@@ -93,8 +93,16 @@ namespace rpp::operators::details
 
         struct subject_data
         {
-            decltype(std::declval<Subject>().get_observer()) observer;
-            rpp::disposable_wrapper                          disposable;
+            using TObs = decltype(std::declval<Subject>().get_observer());
+
+            subject_data(TObs&& obs, rpp::disposable_wrapper&& d)
+                : observer{std::move(obs)}
+                , disposable{std::move(d)}
+            {
+            }
+
+            TObs                    observer;
+            rpp::disposable_wrapper disposable;
         };
 
         mutable std::optional<subject_data> m_subject_data;

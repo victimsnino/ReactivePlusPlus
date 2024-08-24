@@ -25,14 +25,14 @@
 
 TEST_CASE("interval emit values with provided interval")
 {
-    auto scheduler = test_scheduler{};
+    auto scheduler = rpp::schedulers::test_scheduler{};
     auto mock      = mock_observer_strategy<size_t>{};
 
     SECTION("interval observable")
     {
         auto interval     = std::chrono::seconds{1};
         auto obs          = rpp::source::interval(interval, scheduler);
-        auto initial_time = test_scheduler::worker_strategy::now();
+        auto initial_time = rpp::schedulers::test_scheduler::worker_strategy::now();
 
         SECTION("subscribe on it via take 3")
         {
@@ -91,7 +91,7 @@ TEST_CASE("interval emit values with provided interval")
         auto initial_delay = std::chrono::seconds{2};
         auto interval      = std::chrono::seconds{1};
         auto obs           = rpp::source::interval(initial_delay, interval, scheduler);
-        auto initial_time  = test_scheduler::worker_strategy::now();
+        auto initial_time  = rpp::schedulers::test_scheduler::worker_strategy::now();
 
         SECTION("subscribe on it via take 3")
         {

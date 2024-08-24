@@ -861,11 +861,11 @@ TEST_CASE("run_loop scheduler dispatches tasks only manually")
 
 TEST_CASE("different delaying strategies")
 {
-    test_scheduler scheduler{};
-    auto           obs     = mock_observer_strategy<int>{}.get_observer().as_dynamic();
-    auto           advance = std::chrono::seconds{1};
-    auto           delay   = advance * 2;
-    auto           now     = scheduler.now();
+    rpp::schedulers::test_scheduler scheduler{};
+    auto                            obs     = mock_observer_strategy<int>{}.get_observer().as_dynamic();
+    auto                            advance = std::chrono::seconds{1};
+    auto                            delay   = advance * 2;
+    auto                            now     = scheduler.now();
 
     auto test = [&](auto res) {
         scheduler.create_worker().schedule([&, res](const auto&) {

@@ -54,7 +54,7 @@ TEST_CASE("delay delays observable's emissions")
 {
     auto                      mock = mock_observer_strategy<int>{};
     std::chrono::milliseconds delay_duration{300};
-    auto                      scheduler = test_scheduler{};
+    auto                      scheduler = rpp::schedulers::test_scheduler{};
 
     auto subscribe_with_delay = [&](auto get_now) {
         const auto now = get_now();
@@ -181,7 +181,7 @@ TEST_CASE("delay delays observable's emissions")
     {
         rpp::source::just(1)
             | rpp::ops::delay(delay_duration, scheduler)
-            | subscribe_with_delay([]() { return test_scheduler::worker_strategy::now(); });
+            | subscribe_with_delay([]() { return rpp::schedulers::test_scheduler::worker_strategy::now(); });
 
         SECTION("shouldn't see anything before manual invoking")
         {
@@ -213,7 +213,7 @@ TEST_CASE("delay delays observable's emissions")
             obs.on_error({});
         })
             | rpp::ops::delay(delay_duration, scheduler)
-            | subscribe_with_delay([]() { return test_scheduler::worker_strategy::now(); });
+            | subscribe_with_delay([]() { return rpp::schedulers::test_scheduler::worker_strategy::now(); });
 
         SECTION("shouldn't see anything before manual invoking")
         {
@@ -242,7 +242,7 @@ TEST_CASE("observe_on forward error immediately")
 {
     auto                      mock = mock_observer_strategy<int>{};
     std::chrono::milliseconds delay_duration{300};
-    auto                      scheduler = test_scheduler{};
+    auto                      scheduler = rpp::schedulers::test_scheduler{};
 
     auto subscribe_with_delay = [&](auto get_now) {
         const auto now = get_now();
@@ -268,13 +268,13 @@ TEST_CASE("observe_on forward error immediately")
 
     SECTION("observable of -1-x but with invoking schedulable after subscription")
     {
-        const auto now = test_scheduler::worker_strategy::now();
+        const auto now = rpp::schedulers::test_scheduler::worker_strategy::now();
         rpp::source::create<int>([](const auto& obs) {
             obs.on_next(1);
             obs.on_error({});
         })
             | rpp::ops::observe_on(scheduler, delay_duration)
-            | subscribe_with_delay([]() { return test_scheduler::worker_strategy::now(); });
+            | subscribe_with_delay([]() { return rpp::schedulers::test_scheduler::worker_strategy::now(); });
 
         SECTION("should see on_error immediately")
         {

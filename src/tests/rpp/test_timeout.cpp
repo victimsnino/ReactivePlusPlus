@@ -25,7 +25,7 @@
 
 TEST_CASE("timeout subscribes to passed observable in case of reaching timeout")
 {
-    auto       scheduler = test_scheduler{};
+    auto       scheduler = rpp::schedulers::test_scheduler{};
     auto       mock      = mock_observer_strategy<int>{};
     const auto now       = scheduler.now();
 
@@ -156,5 +156,5 @@ TEST_CASE("timeout handles current_thread scheduling")
 
 TEST_CASE("timeout satisfies disposable contracts")
 {
-    test_operator_with_disposable<int>(rpp::ops::timeout(std::chrono::seconds{10000000}, test_scheduler{}));
+    test_operator_with_disposable<int>(rpp::ops::timeout(std::chrono::seconds{10000000}, rpp::schedulers::test_scheduler{}));
 }
