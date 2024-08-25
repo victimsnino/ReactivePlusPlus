@@ -17,55 +17,100 @@
 
 namespace rpp::operators::details
 {
+    template<rpp::constraint::observer TObserver>
+    struct on_error_resume_next_disposable final : public rpp::composite_disposable
+    {
+        on_error_resume_next_disposable(TObserver&& observer)
+            : rpp::composite_disposable{}
+            , observer(std::move(observer))
+        {
+        }
+
+        RPP_NO_UNIQUE_ADDRESS TObserver observer;
+    };
+
+    template<rpp::constraint::observer TObserver>
+    struct on_error_resume_next_inner_observer_strategy
+    {
+        using preferred_disposable_strategy = rpp::details::observers::none_disposable_strategy;
+
+        std::shared_ptr<TObserver> observer;
+
+        template<typename T>
+        void on_next(T&& v) const
+        {
+            observer->on_next(std::forward<T>(v));
+        }
+
+        void on_error(const std::exception_ptr& err) const
+        {
+            observer->on_error(err);
+        }
+
+        void on_completed() const
+        {
+            observer->on_completed();
+        }
+
+        void set_upstream(const disposable_wrapper& d) { observer->set_upstream(d); }
+
+        bool is_disposed() const { return observer->is_disposed(); }
+    };
+
+
     template<rpp::constraint::observer TObserver, rpp::constraint::decayed_type Selector>
     struct on_error_resume_next_observer_strategy
     {
         using preferred_disposable_strategy = rpp::details::observers::none_disposable_strategy;
 
-        RPP_NO_UNIQUE_ADDRESS mutable TObserver observer;
-        RPP_NO_UNIQUE_ADDRESS Selector          selector;
-        // Manually control disposable to ensure observer is not used after move in on_error emission
-        mutable rpp::composite_disposable_wrapper disposable = composite_disposable_wrapper::make();
+        on_error_resume_next_observer_strategy(TObserver&& observer, const Selector& selector)
+            : state{init_state(std::move(observer))}
+            , selector{selector}
+        {
+        }
 
-        RPP_CALL_DURING_CONSTRUCTION(
-            observer.set_upstream(disposable););
+        std::shared_ptr<on_error_resume_next_disposable<TObserver>> state;
+        RPP_NO_UNIQUE_ADDRESS Selector                              selector;
 
         template<typename T>
         void on_next(T&& v) const
         {
-            observer.on_next(std::forward<T>(v));
+            state->observer.on_next(std::forward<T>(v));
         }
 
         void on_error(const std::exception_ptr& err) const
         {
-            std::optional<std::invoke_result_t<Selector, std::exception_ptr>> selector_obs;
             try
             {
-                selector_obs.emplace(selector(err));
+                selector(err).subscribe(on_error_resume_next_inner_observer_strategy<TObserver>{std::shared_ptr<TObserver>(state, &state->observer)});
             }
             catch (...)
             {
-                observer.on_error(std::current_exception());
+                state->observer.on_error(std::current_exception());
             }
-            if (selector_obs.has_value())
-            {
-                std::move(selector_obs).value().subscribe(std::move(observer));
-            }
-            disposable.dispose();
+            state->dispose();
         }
 
         void on_completed() const
         {
-            observer.on_completed();
-            disposable.dispose();
+            state->observer.on_completed();
+            state->dispose();
         }
 
         void set_upstream(const disposable_wrapper& d) const
         {
-            disposable.add(d);
+            state->add(d);
         }
 
-        bool is_disposed() const { return disposable.is_disposed(); }
+        bool is_disposed() const { return state->is_disposed(); }
+
+        static std::shared_ptr<on_error_resume_next_disposable<TObserver>> init_state(TObserver&& observer)
+        {
+            const auto d   = disposable_wrapper_impl<on_error_resume_next_disposable<TObserver>>::make(std::move(observer));
+            auto       ptr = d.lock();
+            ptr->observer.set_upstream(d.as_weak());
+            return ptr;
+        }
     };
 
     template<rpp::constraint::decayed_type Selector>

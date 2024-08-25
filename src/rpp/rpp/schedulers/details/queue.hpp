@@ -168,7 +168,7 @@ namespace rpp::schedulers::details
     class optional_mutex
     {
     public:
-        optional_mutex() {}
+        optional_mutex() = default;
 
         optional_mutex(Mutex* mutex)
             : m_mutex{mutex}

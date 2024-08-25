@@ -11,11 +11,15 @@
 #include <catch2/catch_template_test_macros.hpp>
 #include <catch2/catch_test_macros.hpp>
 
+#include <rpp/operators/as_blocking.hpp>
 #include <rpp/operators/retry.hpp>
+#include <rpp/operators/subscribe_on.hpp>
+#include <rpp/schedulers/new_thread.hpp>
 #include <rpp/sources/concat.hpp>
 #include <rpp/sources/error.hpp>
 #include <rpp/sources/just.hpp>
 #include <rpp/sources/never.hpp>
+#include <rpp/subjects/publish_subject.hpp>
 
 #include "copy_count_tracker.hpp"
 #include "disposable_observable.hpp"
@@ -55,6 +59,15 @@ TEST_CASE("retry handles errors properly")
             REQUIRE_CALL(*mock, on_error(trompeloeil::_)).IN_SEQUENCE(seq);
 
             observable | rpp::operators::retry(2) | rpp::operators::subscribe(mock);
+        }
+        SECTION("retry(2) from another thread")
+        {
+            REQUIRE_CALL(*mock, on_next_lvalue(1)).IN_SEQUENCE(seq);
+            REQUIRE_CALL(*mock, on_next_lvalue(1)).IN_SEQUENCE(seq);
+            REQUIRE_CALL(*mock, on_next_lvalue(1)).IN_SEQUENCE(seq);
+            REQUIRE_CALL(*mock, on_error(trompeloeil::_)).IN_SEQUENCE(seq);
+
+            observable | rpp::ops::subscribe_on(rpp::schedulers::new_thread{}) | rpp::operators::retry(2) | rpp::ops::as_blocking() | rpp::operators::subscribe(mock);
         }
 
         SECTION("retry()")
@@ -120,6 +133,22 @@ TEST_CASE("retry handles errors properly")
         SECTION("retry()")
         {
             REQUIRE_CALL(*mock, on_next_lvalue(1)).IN_SEQUENCE(seq);
+
+            observable | rpp::operators::retry() | rpp::operators::subscribe(mock);
+        }
+    }
+    SECTION("observable throws exception")
+    {
+        size_t     i          = 0;
+        const auto observable = rpp::source::create<int>([&i](const auto& sub) {
+            if (i++)
+                throw 1;
+            sub.on_error({});
+        });
+
+        SECTION("retry()")
+        {
+            REQUIRE_CALL(*mock, on_error(trompeloeil::_)).IN_SEQUENCE(seq);
 
             observable | rpp::operators::retry() | rpp::operators::subscribe(mock);
         }

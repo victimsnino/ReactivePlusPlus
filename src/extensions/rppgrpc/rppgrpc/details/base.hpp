@@ -50,14 +50,14 @@ namespace rppgrpc::details
 
         void handle_write_done()
         {
-            std::lock_guard lock{write_mutex};
-            write.pop_front();
+            std::lock_guard lock{m_write_mutex};
+            m_write.pop_front();
 
-            if (!write.empty())
+            if (!m_write.empty())
             {
-                start_write(write.front());
+                start_write(m_write.front());
             }
-            else if (finished)
+            else if (m_finished)
             {
                 finish_writes(grpc::Status::OK);
             }
@@ -70,26 +70,26 @@ namespace rppgrpc::details
             template<rpp::constraint::decayed_same_as<TData> T>
             void on_next(T&& message) const
             {
-                std::lock_guard lock{owner.get().write_mutex};
-                owner.get().write.push_back(std::forward<T>(message));
-                if (owner.get().write.size() == 1)
-                    owner.get().start_write(owner.get().write.front());
+                std::lock_guard lock{owner.get().m_write_mutex};
+                owner.get().m_write.push_back(std::forward<T>(message));
+                if (owner.get().m_write.size() == 1)
+                    owner.get().start_write(owner.get().m_write.front());
             }
 
             void on_error(const std::exception_ptr&) const
             {
-                std::lock_guard lock{owner.get().write_mutex};
-                owner.get().finished = true;
+                std::lock_guard lock{owner.get().m_write_mutex};
+                owner.get().m_finished = true;
 
-                if (owner.get().write.size() == 0)
+                if (owner.get().m_write.size() == 0)
                     owner.get().finish_writes(grpc::Status{grpc::StatusCode::INTERNAL, "Internal error happens"});
             }
             void on_completed() const
             {
-                std::lock_guard lock{owner.get().write_mutex};
-                owner.get().finished = true;
+                std::lock_guard lock{owner.get().m_write_mutex};
+                owner.get().m_finished = true;
 
-                if (owner.get().write.size() == 0)
+                if (owner.get().m_write.size() == 0)
                     owner.get().finish_writes(grpc::Status::OK);
             }
 
@@ -100,9 +100,9 @@ namespace rppgrpc::details
     private:
         rpp::subjects::serialized_publish_subject<TData> m_subject{};
 
-        std::mutex        write_mutex{};
-        std::deque<TData> write{};
-        bool              finished{};
+        std::mutex        m_write_mutex{};
+        std::deque<TData> m_write{};
+        bool              m_finished{};
     };
 
     template<rpp::constraint::decayed_type TData>
@@ -137,7 +137,7 @@ namespace rppgrpc::details
 
     private:
         rpp::subjects::publish_subject<TData> m_observer;
-        TData                                 m_data{};
+        RPP_NO_UNIQUE_ADDRESS TData           m_data{};
     };
 
 } // namespace rppgrpc::details

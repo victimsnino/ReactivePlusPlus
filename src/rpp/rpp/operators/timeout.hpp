@@ -25,8 +25,8 @@ namespace rpp::operators::details
     public:
         struct observer_with_timeout
         {
-            TObserver                   observer;
-            rpp::schedulers::time_point timeout;
+            RPP_NO_UNIQUE_ADDRESS TObserver observer;
+            rpp::schedulers::time_point     timeout;
         };
 
         timeout_disposable(TObserver&& observer, rpp::schedulers::duration period, const TFallbackObservable& fallback, rpp::schedulers::time_point timeout)
@@ -44,8 +44,8 @@ namespace rpp::operators::details
     private:
         rpp::utils::value_with_mutex<observer_with_timeout> m_observer_with_timeout;
 
-        const rpp::schedulers::duration m_period;
-        const TFallbackObservable       m_fallback;
+        const rpp::schedulers::duration                 m_period;
+        RPP_NO_UNIQUE_ADDRESS const TFallbackObservable m_fallback;
     };
 
     template<rpp::constraint::observer TObserver, rpp::constraint::observable TFallbackObservable, rpp::details::disposables::constraint::disposable_container Container>

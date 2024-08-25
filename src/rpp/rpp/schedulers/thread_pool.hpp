@@ -14,6 +14,8 @@
 
 #include <rpp/schedulers/new_thread.hpp>
 
+#include <vector>
+
 namespace rpp::schedulers
 {
     /**
@@ -74,16 +76,16 @@ namespace rpp::schedulers
             explicit state(size_t threads_count)
             {
                 threads_count = std::max(size_t{1}, threads_count);
-                workers.reserve(threads_count);
+                m_workers.reserve(threads_count);
                 for (size_t i = 0; i < threads_count; ++i)
-                    workers.emplace_back(new_thread::create_worker());
+                    m_workers.emplace_back(new_thread::create_worker());
             }
 
-            const original_worker& get() { return workers[index++ % workers.size()]; }
+            const original_worker& get() { return m_workers[m_index++ % m_workers.size()]; }
 
         private:
-            std::vector<original_worker> workers{};
-            size_t                       index{};
+            std::vector<original_worker> m_workers{};
+            size_t                       m_index{};
         };
 
         std::shared_ptr<state> m_state{};

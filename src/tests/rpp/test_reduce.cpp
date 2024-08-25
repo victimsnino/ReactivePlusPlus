@@ -13,6 +13,8 @@
 
 #include <rpp/observers/mock_observer.hpp>
 #include <rpp/operators/reduce.hpp>
+#include <rpp/sources/empty.hpp>
+#include <rpp/sources/error.hpp>
 #include <rpp/sources/from.hpp>
 
 #include "copy_count_tracker.hpp"
@@ -66,6 +68,40 @@ TEMPLATE_TEST_CASE("reduce reduces values and store state", "", rpp::memory_mode
             CHECK(mock.get_on_error_count() == 1);
             CHECK(mock.get_on_completed_count() == 0);
         }
+    }
+}
+
+TEST_CASE("reduce forwards callbacks")
+{
+    auto mock = mock_observer_strategy<int>{};
+    SECTION("on_error")
+    {
+        rpp::source::error<int>({})
+            | rpp::ops::reduce(0, std::plus<int>{})
+            | rpp::ops::subscribe(mock);
+
+        CHECK(mock.get_received_values().empty());
+        CHECK(mock.get_on_error_count() == 1);
+    }
+
+    SECTION("on_completed")
+    {
+        rpp::source::empty<int>()
+            | rpp::ops::reduce(0, std::plus<int>{})
+            | rpp::ops::subscribe(mock);
+
+        CHECK(mock.get_received_values() == std::vector<int>{0});
+        CHECK(mock.get_on_completed_count() == 1);
+    }
+
+    SECTION("on_completed no_seed")
+    {
+        rpp::source::empty<int>()
+            | rpp::ops::reduce(std::plus<int>{})
+            | rpp::ops::subscribe(mock);
+
+        CHECK(mock.get_received_values().empty());
+        CHECK(mock.get_on_completed_count() == 1);
     }
 }
 

@@ -27,21 +27,21 @@ namespace rpp::operators::details
     {
     public:
         explicit with_latest_from_disposable(Observer&& observer, const TSelector& selector)
-            : observer_with_mutex{std::move(observer)}
-            , selector{selector}
+            : m_observer_with_mutex{std::move(observer)}
+            , m_selector{selector}
         {
         }
 
-        rpp::utils::pointer_under_lock<Observer> get_observer_under_lock() { return observer_with_mutex; }
+        rpp::utils::pointer_under_lock<Observer> get_observer_under_lock() { return m_observer_with_mutex; }
 
-        rpp::utils::tuple<rpp::utils::value_with_mutex<std::optional<RestArgs>>...>& get_values() { return values; }
+        rpp::utils::tuple<rpp::utils::value_with_mutex<std::optional<RestArgs>>...>& get_values() { return m_values; }
 
-        const TSelector& get_selector() const { return selector; }
+        const TSelector& get_selector() const { return m_selector; }
 
     private:
-        rpp::utils::value_with_mutex<Observer>                                      observer_with_mutex{};
-        rpp::utils::tuple<rpp::utils::value_with_mutex<std::optional<RestArgs>>...> values{};
-        RPP_NO_UNIQUE_ADDRESS TSelector                                             selector;
+        rpp::utils::value_with_mutex<Observer>                                      m_observer_with_mutex{};
+        rpp::utils::tuple<rpp::utils::value_with_mutex<std::optional<RestArgs>>...> m_values{};
+        RPP_NO_UNIQUE_ADDRESS TSelector                                             m_selector;
     };
 
     template<size_t I, rpp::constraint::observer Observer, typename TSelector, rpp::constraint::decayed_type... RestArgs>

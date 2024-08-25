@@ -186,6 +186,44 @@ TEST_CASE("retry_when resubscribes on notifier emission")
 
             CHECK(subscribe_count == 4 + 1);
         }
+        SECTION("callable throws exception")
+        {
+            REQUIRE_CALL(*mock, on_error(trompeloeil::_)).IN_SEQUENCE(seq);
+
+            observable
+                | rpp::operators::retry_when([](const std::exception_ptr&) { throw 1; return rpp::source::just(rpp::schedulers::new_thread{}, 1); })
+                | rpp::operators::as_blocking()
+                | rpp::operators::subscribe(mock);
+
+            CHECK(subscribe_count == 1);
+        }
+        SECTION("callable return observable throwing exception")
+        {
+            REQUIRE_CALL(*mock, on_error(trompeloeil::_)).IN_SEQUENCE(seq);
+
+            observable
+                | rpp::operators::retry_when([](const std::exception_ptr&) { return rpp::source::create<int>([](const auto&) { throw 1; }); })
+                | rpp::operators::as_blocking()
+                | rpp::operators::subscribe(mock);
+
+            CHECK(subscribe_count == 1);
+        }
+    }
+    SECTION("observable throws exception")
+    {
+        size_t     i          = 0;
+        const auto observable = rpp::source::create<std::string>([&i](const auto& sub) {
+            if (i++)
+                throw 1;
+            sub.on_error({});
+        });
+
+        SECTION("retry()")
+        {
+            REQUIRE_CALL(*mock, on_error(trompeloeil::_)).IN_SEQUENCE(seq);
+
+            observable | rpp::operators::retry_when([](const std::exception_ptr&) { return rpp::source::just(rpp::schedulers::new_thread{}, 1); }) | rpp::operators::as_blocking() | rpp::operators::subscribe(mock);
+        }
     }
 }
 

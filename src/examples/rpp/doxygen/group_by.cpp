@@ -30,18 +30,18 @@ int main()
     //! [group_by]
     //
     //! [group_by selector]
-    struct Person
+    struct person
     {
         std::string name;
         int         age;
     };
-    rpp::source::just(Person{"Kate", 18},
-                      Person{"Alex", 25},
-                      Person{"Nick", 18},
-                      Person{"Jack", 25},
-                      Person{"Tom", 30},
-                      Person{"Vanda", 18})
-        | rpp::operators::group_by([](const Person& v) { return v.age; }, [](const Person& v) { return v.name; })
+    rpp::source::just(person{"Kate", 18},
+                      person{"Alex", 25},
+                      person{"Nick", 18},
+                      person{"Jack", 25},
+                      person{"Tom", 30},
+                      person{"Vanda", 18})
+        | rpp::operators::group_by([](const person& v) { return v.age; }, [](const person& v) { return v.name; })
         | rpp::operators::subscribe([](auto grouped_observable) {
               grouped_observable.subscribe([age = grouped_observable.get_key()](const std::string& name) {
                   std::cout << "Age [" << age << "] Name: " << name << std::endl;

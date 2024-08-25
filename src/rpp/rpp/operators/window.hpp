@@ -52,7 +52,7 @@ namespace rpp::operators::details
             if (m_items_in_current_window == m_window_size)
             {
                 Subject subject{m_disposable->wrapper_from_this()};
-                m_subject_data.emplace(subject_data{subject.get_observer(), subject.get_disposable()});
+                m_subject_data.emplace(subject.get_observer(), subject.get_disposable());
                 m_disposable->add(m_subject_data->disposable);
                 m_observer.on_next(subject.get_observable());
                 m_items_in_current_window = 0;
@@ -93,8 +93,16 @@ namespace rpp::operators::details
 
         struct subject_data
         {
-            decltype(std::declval<Subject>().get_observer()) observer;
-            rpp::disposable_wrapper                          disposable;
+            using TObs = decltype(std::declval<Subject>().get_observer());
+
+            subject_data(TObs&& obs, rpp::disposable_wrapper&& d)
+                : observer{std::move(obs)}
+                , disposable{std::move(d)}
+            {
+            }
+
+            TObs                    observer;
+            rpp::disposable_wrapper disposable;
         };
 
         mutable std::optional<subject_data> m_subject_data;

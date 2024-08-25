@@ -44,7 +44,7 @@ namespace rppqt::schedulers
                     return;
                 }
 
-                QTimer::singleShot(std::chrono::duration_cast<std::chrono::milliseconds>(duration), application, [fn = std::forward<Fn>(fn), handler = std::forward<Handler>(handler), ... args = std::forward<Args>(args)]() mutable {
+                QTimer::singleShot(std::chrono::duration_cast<std::chrono::milliseconds>(std::max(rpp::schedulers::duration{}, duration)), application, [fn = std::forward<Fn>(fn), handler = std::forward<Handler>(handler), ... args = std::forward<Args>(args)]() mutable {
                     if (!handler.is_disposed())
                         invoke(std::move(fn), std::move(handler), std::move(args)...);
                 });

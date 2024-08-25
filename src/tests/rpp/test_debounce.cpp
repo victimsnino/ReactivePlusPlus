@@ -14,6 +14,7 @@
 #include <rpp/observers/mock_observer.hpp>
 #include <rpp/operators/debounce.hpp>
 #include <rpp/schedulers/test_scheduler.hpp>
+#include <rpp/sources/error.hpp>
 #include <rpp/subjects/publish_subject.hpp>
 
 #include "disposable_observable.hpp"
@@ -21,9 +22,9 @@
 
 TEST_CASE("debounce emit only items where timeout reached")
 {
-    auto           debounce_delay = std::chrono::seconds{2};
-    test_scheduler scheduler{};
-    auto           start = s_current_time;
+    auto                            debounce_delay = std::chrono::seconds{2};
+    rpp::schedulers::test_scheduler scheduler{};
+    auto                            start = rpp::schedulers::test_scheduler::s_current_time;
 
     SECTION("subject of items and subscriber subscribed on it via debounce")
     {
@@ -120,8 +121,18 @@ TEST_CASE("debounce emit only items where timeout reached")
     }
 }
 
+TEST_CASE("debounce forwards error")
+{
+    auto mock = mock_observer_strategy<int>{};
+
+    rpp::source::error<int>({}) | rpp::operators::debounce({}, rpp::schedulers::immediate{}) | rpp::ops::subscribe(mock);
+    CHECK(mock.get_received_values() == std::vector<int>{});
+    CHECK(mock.get_on_error_count() == 1);
+    CHECK(mock.get_on_completed_count() == 0);
+}
+
 
 TEST_CASE("debounce satisfies disposable contracts")
 {
-    test_operator_with_disposable<int>(rpp::ops::debounce(std::chrono::seconds{1}, test_scheduler{}));
+    test_operator_with_disposable<int>(rpp::ops::debounce(std::chrono::seconds{1}, rpp::schedulers::test_scheduler{}));
 }

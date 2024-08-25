@@ -349,13 +349,13 @@ TEST_CASE("Immediate scheduler")
     }
 }
 
-TEMPLATE_TEST_CASE("queue_based scheduler", "", rpp::schedulers::current_thread, rpp::schedulers::new_thread)
+TEMPLATE_TEST_CASE("queue_based scheduler", "", rpp::schedulers::current_thread, rpp::schedulers::new_thread, rpp::schedulers::thread_pool)
 {
     auto d        = rpp::composite_disposable_wrapper::make();
     auto mock_obs = mock_observer_strategy<int>{};
     auto obs      = std::optional{mock_obs.get_observer(d).as_dynamic()};
 
-    auto worker = std::optional{TestType::create_worker()};
+    auto worker = std::optional{TestType{}.create_worker()};
     if constexpr (std::same_as<TestType, rpp::schedulers::current_thread>)
         CHECK(worker->get_disposable().is_disposed());
 
@@ -368,8 +368,8 @@ TEMPLATE_TEST_CASE("queue_based scheduler", "", rpp::schedulers::current_thread,
 
     worker->schedule([&](const auto&) {
         thread_of_schedule_promise.set_value(get_thread_id_as_string(std::this_thread::get_id()));
-        if constexpr (std::same_as<TestType, rpp::schedulers::new_thread>)
-            thread_local rpp::utils::finally_action a{[done] {
+        if constexpr (!std::same_as<TestType, rpp::schedulers::current_thread>)
+            thread_local rpp::utils::finally_action s_a{[done] {
                 done->store(true);
             }};
         else
@@ -861,11 +861,11 @@ TEST_CASE("run_loop scheduler dispatches tasks only manually")
 
 TEST_CASE("different delaying strategies")
 {
-    test_scheduler scheduler{};
-    auto           obs     = mock_observer_strategy<int>{}.get_observer().as_dynamic();
-    auto           advance = std::chrono::seconds{1};
-    auto           delay   = advance * 2;
-    auto           now     = scheduler.now();
+    rpp::schedulers::test_scheduler scheduler{};
+    auto                            obs     = mock_observer_strategy<int>{}.get_observer().as_dynamic();
+    auto                            advance = std::chrono::seconds{1};
+    auto                            delay   = advance * 2;
+    auto                            now     = scheduler.now();
 
     auto test = [&](auto res) {
         scheduler.create_worker().schedule([&, res](const auto&) {
@@ -906,7 +906,7 @@ TEST_CASE("current_thread inside new_thread")
     auto done    = std::make_shared<std::atomic_bool>();
 
     worker->schedule([&](const auto&) {
-        thread_local rpp::utils::finally_action th{[done] {
+        thread_local rpp::utils::finally_action s_th{[done] {
             done->store(true);
         }};
         return rpp::schedulers::optional_delay_from_now{};

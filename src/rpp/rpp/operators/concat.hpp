@@ -25,7 +25,7 @@ namespace rpp::operators::details
     template<rpp::constraint::observable TObservable, rpp::constraint::observer TObserver>
     struct concat_inner_observer_strategy;
 
-    enum ConcatStage : uint8_t
+    enum class ConcatStage : uint8_t
     {
         None                   = 0,
         Draining               = 1,

@@ -6,7 +6,7 @@
 static constexpr float s_gap_size  = 1.0f;
 static constexpr float s_cell_size = 10.0f;
 
-sf::RectangleShape get_rectangle_at(Coordinates location, sf::Color color)
+sf::RectangleShape get_rectangle_at(coordinates location, sf::Color color)
 {
     sf::RectangleShape box;
     box.setSize(sf::Vector2f{s_cell_size, s_cell_size});

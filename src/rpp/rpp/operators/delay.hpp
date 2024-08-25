@@ -52,9 +52,9 @@ namespace rpp::operators::details
             }
         }
 
-        Observer                     observer;
-        RPP_NO_UNIQUE_ADDRESS Worker worker;
-        rpp::schedulers::duration    delay;
+        RPP_NO_UNIQUE_ADDRESS Observer observer;
+        RPP_NO_UNIQUE_ADDRESS Worker   worker;
+        rpp::schedulers::duration      delay;
 
         std::mutex              mutex{};
         std::queue<emission<T>> queue;

@@ -31,8 +31,8 @@ namespace rpp::schedulers
     public:
         static auto create_worker()
         {
-            static thread_pool tp{};
-            return tp.create_worker();
+            static thread_pool s_tp{};
+            return s_tp.create_worker();
         }
     };
 } // namespace rpp::schedulers

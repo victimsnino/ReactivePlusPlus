@@ -71,32 +71,50 @@ TEST_CASE("main_thread_scheduler schedules actions to main thread")
         REQUIRE(future.wait_for(std::chrono::seconds{1}) == std::future_status::timeout);
     }
 
-    SECTION("recursive scheduling to main thread")
-    {
-        std::string execution{};
-        std::thread{[&] {
-            rppqt::schedulers::main_thread_scheduler::create_worker().schedule([&](const auto&) -> rpp::schedulers::optional_delay_from_now {
-                rppqt::schedulers::main_thread_scheduler::create_worker().schedule([&](const auto&) -> rpp::schedulers::optional_delay_from_now {
-                    execution += "inner ";
-                    return {};
+    auto test_recursive_scheduling = [&](const auto& duration) {
+        SECTION("recursive scheduling to main thread")
+        {
+            std::string execution{};
+            std::thread{[&] {
+                rppqt::schedulers::main_thread_scheduler::create_worker().schedule([&](const auto&) {
+                    rppqt::schedulers::main_thread_scheduler::create_worker().schedule([&](const auto&) -> rpp::schedulers::optional_delay_from_now {
+                        execution += "inner ";
+                        return {};
+                    },
+                                                                                       observer);
+
+                    const bool first_run = execution.empty();
+                    execution += "outer ";
+                    return first_run ? duration : std::nullopt;
                 },
                                                                                    observer);
+            }}.join();
 
-                const bool first_run = execution.empty();
-                execution += "outer ";
-                return first_run ? rpp::schedulers::optional_delay_from_now{std::chrono::nanoseconds{}} : std::nullopt;
-            },
-                                                                               observer);
-        }}.join();
-
-        application.exec();
-        CHECK(execution == "outer inner outer inner ");
-    }
-
-    SECTION("scheduler can be applied for all types of schedulables")
+            application.exec();
+            CHECK(execution == "outer inner outer inner ");
+        }
+    };
+    SECTION("optional_delay_from_now")
     {
-        rppqt::schedulers::main_thread_scheduler::create_worker().schedule([&](const auto&) -> rpp::schedulers::optional_delay_from_now { return std::nullopt; }, observer);
-        rppqt::schedulers::main_thread_scheduler::create_worker().schedule([&](const auto&) -> rpp::schedulers::optional_delay_from_this_timepoint { return std::nullopt; }, observer);
-        rppqt::schedulers::main_thread_scheduler::create_worker().schedule([&](const auto&) -> rpp::schedulers::optional_delay_to { return std::nullopt; }, observer);
+        test_recursive_scheduling(rpp::schedulers::optional_delay_from_now{std::chrono::nanoseconds{}});
     }
+    SECTION("optional_delay_from_this_timepoint")
+    {
+        test_recursive_scheduling(rpp::schedulers::optional_delay_from_this_timepoint{std::chrono::nanoseconds{}});
+    }
+    SECTION("optional_delay_to")
+    {
+        test_recursive_scheduling(rpp::schedulers::optional_delay_to{rpp::schedulers::time_point{}});
+    }
+}
+
+TEST_CASE("no application")
+{
+    mock_observer_strategy<int> mock{};
+    rppqt::schedulers::main_thread_scheduler::create_worker().schedule([&](const auto&) -> rpp::schedulers::optional_delay_from_now {
+        return {};
+    },
+                                                                       mock);
+
+    CHECK(mock.get_on_error_count() == 1);
 }

@@ -89,8 +89,8 @@ namespace rpp::schedulers
 
         static details::schedulables_queue<worker_strategy>*& get_queue()
         {
-            thread_local details::schedulables_queue<worker_strategy>* queue{};
-            return queue;
+            thread_local details::schedulables_queue<worker_strategy>* s_queue{};
+            return s_queue;
         }
 
         struct is_queue_is_empty
