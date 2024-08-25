@@ -149,7 +149,7 @@ $(function(){initNavTree('main__thread_8hpp_source.html',''); initResizable(true
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>                    <span class="keywordflow">return</span>;</div>
 <div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>                }</div>
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>                QTimer::singleShot(std::chrono::duration_cast&lt;std::chrono::milliseconds&gt;(duration), application, [fn = std::forward&lt;Fn&gt;(fn), handler = std::forward&lt;Handler&gt;(handler), ... args = std::forward&lt;Args&gt;(args)]() <span class="keyword">mutable</span> {</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>                QTimer::singleShot(std::chrono::duration_cast&lt;std::chrono::milliseconds&gt;(std::max(rpp::schedulers::duration{}, duration)), application, [fn = std::forward&lt;Fn&gt;(fn), handler = std::forward&lt;Handler&gt;(handler), ... args = std::forward&lt;Args&gt;(args)]() <span class="keyword">mutable</span> {</div>
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>                    <span class="keywordflow">if</span> (!handler.is_disposed())</div>
 <div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>                        invoke(std::move(fn), std::move(handler), std::move(args)...);</div>
 <div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>                });</div>

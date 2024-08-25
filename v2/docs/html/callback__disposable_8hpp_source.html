@@ -143,7 +143,7 @@ $(function(){initNavTree('callback__disposable_8hpp_source.html',''); initResiza
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>        <span class="keywordtype">void</span> base_dispose_impl(interface_disposable::Mode) <span class="keyword">noexcept</span> <span class="keyword">override</span> { std::move(m_fn)(); } <span class="comment">// NOLINT(bugprone-exception-escape)</span></div>
 <div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
 <div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <span class="keyword">private</span>:</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>        Fn m_fn;</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>        RPP_NO_UNIQUE_ADDRESS Fn m_fn;</div>
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    };</div>
 <div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    <span class="keyword">template</span>&lt;rpp::constra<span class="keywordtype">int</span>::is_nothrow_invocable Fn&gt;</div>

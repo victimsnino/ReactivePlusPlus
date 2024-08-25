@@ -93,50 +93,51 @@
 \DoxyCodeLine{00089\ }
 \DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ on\_completed()\textcolor{keyword}{\ const}}
 \DoxyCodeLine{00091\ \textcolor{keyword}{\ \ \ \ \ \ \ \ }\{}
-\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrpp_1_1observer}{observer}}.\mbox{\hyperlink{classrpp_1_1details_1_1observer__impl_a14747a5260ecc183a6d0f1adafee4f68}{on\_next}}(std::move(seed).value());}
-\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrpp_1_1observer}{observer}}.\mbox{\hyperlink{classrpp_1_1details_1_1observer__impl_a7a73f13eae52effde01a2d3b2cf1d1b4}{on\_completed}}();}
-\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00095\ }
-\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ set\_upstream(\textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{disposable\_wrapper}}\&\ d)\ \{\ \mbox{\hyperlink{classrpp_1_1observer}{observer}}.\mbox{\hyperlink{classrpp_1_1details_1_1observer__impl_a3ae7822fe5f962a69ee190af8ff8f0e2}{set\_upstream}}(d);\ \}}
-\DoxyCodeLine{00097\ }
-\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ is\_disposed()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classrpp_1_1observer}{observer}}.\mbox{\hyperlink{classrpp_1_1details_1_1observer__impl_ab4d6f3e513e55f94547c8fa4d042f0cb}{is\_disposed}}();\ \}}
-\DoxyCodeLine{00099\ \ \ \ \ \};}
-\DoxyCodeLine{00100\ }
-\DoxyCodeLine{00101\ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type\ Accumulator>}
-\DoxyCodeLine{00102\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1reduce__no__seed__t}{reduce\_no\_seed\_t}}\ :\ \mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1lift__operator}{lift\_operator}}<reduce\_no\_seed\_t<Accumulator>,\ Accumulator>}
-\DoxyCodeLine{00103\ \ \ \ \ \{}
-\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1lift__operator}{lift\_operator}}<\mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1reduce__no__seed__t}{reduce\_no\_seed\_t<Accumulator>}},\ Accumulator>::lift\_operator;}
-\DoxyCodeLine{00105\ }
-\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type\ T>}
-\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1reduce__no__seed__t_1_1operator__traits}{operator\_traits}}}
-\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{static\_assert}(std::is\_invocable\_r\_v<T,\ Accumulator,\ T\&\&,\ T>,\ \textcolor{stringliteral}{"{}Accumulator\ is\ not\ invocable\ with\ T\&\&\ abnd\ T\ returning\ T"{}});}
-\DoxyCodeLine{00110\ }
-\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }result\_type\ =\ T;}
-\DoxyCodeLine{00112\ }
-\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::observer\_of\_type<result\_type>\ TObserver>}
-\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1reduce__no__seed__observer__strategy}{observer\_strategy}}\ =\ \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1reduce__no__seed__observer__strategy}{reduce\_no\_seed\_observer\_strategy<TObserver,\ Accumulator>}};}
-\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \};}
-\DoxyCodeLine{00116\ }
-\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}<rpp::details::observables::constra\textcolor{keywordtype}{int}::disposable\_strategy\ Prev>}
-\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }updated\_disposable\_strategy\ =\ Prev;}
-\DoxyCodeLine{00119\ \ \ \ \ \};}
-\DoxyCodeLine{00120\ \}\ \textcolor{comment}{//\ namespace\ rpp::operators::details}}
-\DoxyCodeLine{00121\ }
-\DoxyCodeLine{00122\ \textcolor{keyword}{namespace\ }rpp::operators}
-\DoxyCodeLine{00123\ \{}
-\DoxyCodeLine{00144\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ Seed,\ \textcolor{keyword}{typename}\ Accumulator>}
-\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \textcolor{keyword}{requires}\ (!utils::is\_not\_template\_callable<Accumulator>\ ||\ std::same\_as<std::decay\_t<Seed>,\ std::invoke\_result\_t<Accumulator,\ std::decay\_t<Seed>\ \&\&,\ rpp::utils::convertible\_to\_any>>)}
-\DoxyCodeLine{00146\ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__aggregate__operators_ga519e29a9fe659e01e34485afba09dad5}{reduce}}(Seed\&\&\ seed,\ Accumulator\&\&\ accumulator)}
-\DoxyCodeLine{00147\ \ \ \ \ \{}
-\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1reduce__t}{details::reduce\_t<std::decay\_t<Seed>}},\ std::decay\_t<Accumulator>>\{std::forward<Seed>(seed),\ std::forward<Accumulator>(accumulator)\};}
-\DoxyCodeLine{00149\ \ \ \ \ \}}
-\DoxyCodeLine{00150\ }
-\DoxyCodeLine{00173\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ Accumulator>}
-\DoxyCodeLine{00174\ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__aggregate__operators_ga519e29a9fe659e01e34485afba09dad5}{reduce}}(Accumulator\&\&\ accumulator)}
-\DoxyCodeLine{00175\ \ \ \ \ \{}
-\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ details::reduce\_no\_seed\_t<std::decay\_t<Accumulator>>\{std::forward<Accumulator>(accumulator)\};}
-\DoxyCodeLine{00177\ \ \ \ \ \}}
-\DoxyCodeLine{00178\ \}\ \textcolor{comment}{//\ namespace\ rpp::operators}}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (seed.has\_value())}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrpp_1_1observer}{observer}}.\mbox{\hyperlink{classrpp_1_1details_1_1observer__impl_a14747a5260ecc183a6d0f1adafee4f68}{on\_next}}(std::move(seed).value());}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrpp_1_1observer}{observer}}.\mbox{\hyperlink{classrpp_1_1details_1_1observer__impl_a7a73f13eae52effde01a2d3b2cf1d1b4}{on\_completed}}();}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ set\_upstream(\textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{disposable\_wrapper}}\&\ d)\ \{\ \mbox{\hyperlink{classrpp_1_1observer}{observer}}.\mbox{\hyperlink{classrpp_1_1details_1_1observer__impl_a3ae7822fe5f962a69ee190af8ff8f0e2}{set\_upstream}}(d);\ \}}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ is\_disposed()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classrpp_1_1observer}{observer}}.\mbox{\hyperlink{classrpp_1_1details_1_1observer__impl_ab4d6f3e513e55f94547c8fa4d042f0cb}{is\_disposed}}();\ \}}
+\DoxyCodeLine{00100\ \ \ \ \ \};}
+\DoxyCodeLine{00101\ }
+\DoxyCodeLine{00102\ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type\ Accumulator>}
+\DoxyCodeLine{00103\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1reduce__no__seed__t}{reduce\_no\_seed\_t}}\ :\ \mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1lift__operator}{lift\_operator}}<reduce\_no\_seed\_t<Accumulator>,\ Accumulator>}
+\DoxyCodeLine{00104\ \ \ \ \ \{}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1lift__operator}{lift\_operator}}<\mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1reduce__no__seed__t}{reduce\_no\_seed\_t<Accumulator>}},\ Accumulator>::lift\_operator;}
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type\ T>}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1reduce__no__seed__t_1_1operator__traits}{operator\_traits}}}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{static\_assert}(std::is\_invocable\_r\_v<T,\ Accumulator,\ T\&\&,\ T>,\ \textcolor{stringliteral}{"{}Accumulator\ is\ not\ invocable\ with\ T\&\&\ abnd\ T\ returning\ T"{}});}
+\DoxyCodeLine{00111\ }
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }result\_type\ =\ T;}
+\DoxyCodeLine{00113\ }
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::observer\_of\_type<result\_type>\ TObserver>}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1reduce__no__seed__observer__strategy}{observer\_strategy}}\ =\ \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1reduce__no__seed__observer__strategy}{reduce\_no\_seed\_observer\_strategy<TObserver,\ Accumulator>}};}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00117\ }
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}<rpp::details::observables::constra\textcolor{keywordtype}{int}::disposable\_strategy\ Prev>}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }updated\_disposable\_strategy\ =\ Prev;}
+\DoxyCodeLine{00120\ \ \ \ \ \};}
+\DoxyCodeLine{00121\ \}\ \textcolor{comment}{//\ namespace\ rpp::operators::details}}
+\DoxyCodeLine{00122\ }
+\DoxyCodeLine{00123\ \textcolor{keyword}{namespace\ }rpp::operators}
+\DoxyCodeLine{00124\ \{}
+\DoxyCodeLine{00145\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ Seed,\ \textcolor{keyword}{typename}\ Accumulator>}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \textcolor{keyword}{requires}\ (!utils::is\_not\_template\_callable<Accumulator>\ ||\ std::same\_as<std::decay\_t<Seed>,\ std::invoke\_result\_t<Accumulator,\ std::decay\_t<Seed>\ \&\&,\ rpp::utils::convertible\_to\_any>>)}
+\DoxyCodeLine{00147\ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__aggregate__operators_ga519e29a9fe659e01e34485afba09dad5}{reduce}}(Seed\&\&\ seed,\ Accumulator\&\&\ accumulator)}
+\DoxyCodeLine{00148\ \ \ \ \ \{}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1reduce__t}{details::reduce\_t<std::decay\_t<Seed>}},\ std::decay\_t<Accumulator>>\{std::forward<Seed>(seed),\ std::forward<Accumulator>(accumulator)\};}
+\DoxyCodeLine{00150\ \ \ \ \ \}}
+\DoxyCodeLine{00151\ }
+\DoxyCodeLine{00174\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ Accumulator>}
+\DoxyCodeLine{00175\ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__aggregate__operators_ga519e29a9fe659e01e34485afba09dad5}{reduce}}(Accumulator\&\&\ accumulator)}
+\DoxyCodeLine{00176\ \ \ \ \ \{}
+\DoxyCodeLine{00177\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ details::reduce\_no\_seed\_t<std::decay\_t<Accumulator>>\{std::forward<Accumulator>(accumulator)\};}
+\DoxyCodeLine{00178\ \ \ \ \ \}}
+\DoxyCodeLine{00179\ \}\ \textcolor{comment}{//\ namespace\ rpp::operators}}
 
 \end{DoxyCode}

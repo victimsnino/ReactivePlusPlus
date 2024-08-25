@@ -100,88 +100,83 @@
 \DoxyCodeLine{00096\ }
 \DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ on\_error(\textcolor{keyword}{const}\ std::exception\_ptr\&\ err)\textcolor{keyword}{\ const}}
 \DoxyCodeLine{00098\ \textcolor{keyword}{\ \ \ \ \ \ \ \ }\{}
-\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \ \ \ \ std::optional<std::invoke\_result\_t<TNotifier,\ std::exception\_ptr>>\ notifier\_obs;}
-\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
-\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ notifier\_obs.emplace(state-\/>notifier(err));}
-\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (...)}
-\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ state-\/>observer.on\_error(std::current\_exception());}
-\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (notifier\_obs.has\_value())}
-\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::move(notifier\_obs).value().subscribe(\mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1retry__when__impl__inner__strategy}{retry\_when\_impl\_inner\_strategy<TObserver,\ TObservable,\ TNotifier>}}\{state\});}
-\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ state-\/>notifier(err).subscribe(\mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1retry__when__impl__inner__strategy}{retry\_when\_impl\_inner\_strategy<TObserver,\ TObservable,\ TNotifier>}}\{state\});}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (...)}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ state-\/>observer.on\_error(std::current\_exception());}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00108\ }
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ on\_completed()\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00110\ \textcolor{keyword}{\ \ \ \ \ \ \ \ }\{}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \ \ \ \ state-\/>observer.on\_completed();}
 \DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{00113\ }
-\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ on\_completed()\textcolor{keyword}{\ const}}
-\DoxyCodeLine{00115\ \textcolor{keyword}{\ \ \ \ \ \ \ \ }\{}
-\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \ \ \ \ state-\/>observer.on\_completed();}
-\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ set\_upstream(\textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{disposable\_wrapper}}\&\ d)\ \{\ state-\/>add(d);\ \}}
+\DoxyCodeLine{00115\ }
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ is\_disposed()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ state-\/>is\_disposed();\ \}}
+\DoxyCodeLine{00117\ \ \ \ \ \};}
 \DoxyCodeLine{00118\ }
-\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ set\_upstream(\textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{disposable\_wrapper}}\&\ d)\ \{\ state-\/>add(d);\ \}}
-\DoxyCodeLine{00120\ }
-\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ is\_disposed()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ state-\/>is\_disposed();\ \}}
-\DoxyCodeLine{00122\ \ \ \ \ \};}
-\DoxyCodeLine{00123\ }
-\DoxyCodeLine{00124\ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::observer\ TObserver,\ \textcolor{keyword}{typename}\ TObservable,\ \textcolor{keyword}{typename}\ TNotifier>}
-\DoxyCodeLine{00125\ \ \ \ \ \textcolor{keywordtype}{void}\ drain(\textcolor{keyword}{const}\ std::shared\_ptr<\mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1retry__when__state}{retry\_when\_state<TObserver,\ TObservable,\ TNotifier>}}>\&\ state)}
-\DoxyCodeLine{00126\ \ \ \ \ \{}
-\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (!state-\/>is\_disposed())}
-\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \ \ \ \ state-\/>clear();}
-\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \ \ \ \ state-\/>is\_inside\_drain.store(\textcolor{keyword}{true},\ std::memory\_order::seq\_cst);}
-\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
-\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }value\_type\ =\ rpp::utils::extract\_observer\_type\_t<TObserver>;}
-\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ state-\/>observable.subscribe(\mbox{\hyperlink{classrpp_1_1observer}{rpp::observer}}<value\_type,\ \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1retry__when__impl__strategy}{retry\_when\_impl\_strategy<TObserver,\ TObservable,\ TNotifier>}}>\{state\});}
-\DoxyCodeLine{00135\ }
-\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (state-\/>is\_inside\_drain.exchange(\textcolor{keyword}{false},\ std::memory\_order::seq\_cst))}
-\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00119\ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::observer\ TObserver,\ \textcolor{keyword}{typename}\ TObservable,\ \textcolor{keyword}{typename}\ TNotifier>}
+\DoxyCodeLine{00120\ \ \ \ \ \textcolor{keywordtype}{void}\ drain(\textcolor{keyword}{const}\ std::shared\_ptr<\mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1retry__when__state}{retry\_when\_state<TObserver,\ TObservable,\ TNotifier>}}>\&\ state)}
+\DoxyCodeLine{00121\ \ \ \ \ \{}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (!state-\/>is\_disposed())}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \ \ \ \ state-\/>clear();}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \ \ \ \ state-\/>is\_inside\_drain.store(\textcolor{keyword}{true},\ std::memory\_order::seq\_cst);}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }value\_type\ =\ rpp::utils::extract\_observer\_type\_t<TObserver>;}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ state-\/>observable.subscribe(\mbox{\hyperlink{classrpp_1_1observer}{rpp::observer}}<value\_type,\ \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1retry__when__impl__strategy}{retry\_when\_impl\_strategy<TObserver,\ TObservable,\ TNotifier>}}>\{state\});}
+\DoxyCodeLine{00130\ }
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (state-\/>is\_inside\_drain.exchange(\textcolor{keyword}{false},\ std::memory\_order::seq\_cst))}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (...)}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ state-\/>observer.on\_error(std::current\_exception());}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
 \DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (...)}
-\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ state-\/>observer.on\_error(std::current\_exception());}
-\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
-\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00145\ \ \ \ \ \}}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00140\ \ \ \ \ \}}
+\DoxyCodeLine{00141\ }
+\DoxyCodeLine{00142\ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type\ TNotifier>}
+\DoxyCodeLine{00143\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1retry__when__t}{retry\_when\_t}}}
+\DoxyCodeLine{00144\ \ \ \ \ \{}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ RPP\_NO\_UNIQUE\_ADDRESS\ TNotifier\ notifier;}
 \DoxyCodeLine{00146\ }
-\DoxyCodeLine{00147\ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type\ TNotifier>}
-\DoxyCodeLine{00148\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1retry__when__t}{retry\_when\_t}}}
-\DoxyCodeLine{00149\ \ \ \ \ \{}
-\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ RPP\_NO\_UNIQUE\_ADDRESS\ TNotifier\ notifier;}
-\DoxyCodeLine{00151\ }
-\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type\ T>}
-\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1retry__when__t_1_1operator__traits}{operator\_traits}}}
-\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }result\_type\ =\ T;}
-\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ \};}
-\DoxyCodeLine{00157\ }
-\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}<rpp::details::observables::constra\textcolor{keywordtype}{int}::disposable\_strategy\ Prev>}
-\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{structrpp_1_1details_1_1observables_1_1fixed__disposable__strategy__selector}{updated\_disposable\_strategy}}\ =\ \mbox{\hyperlink{structrpp_1_1details_1_1observables_1_1fixed__disposable__strategy__selector}{rpp::details::observables::fixed\_disposable\_strategy\_selector<1>}};}
-\DoxyCodeLine{00160\ }
-\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::observer\ TObserver,\ \textcolor{keyword}{typename}\ TObservable>}
-\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ subscribe(TObserver\&\&\ \mbox{\hyperlink{classrpp_1_1observer}{observer}},\ TObservable\&\&\ \mbox{\hyperlink{classrpp_1_1observable}{observable}})\textcolor{keyword}{\ const}}
-\DoxyCodeLine{00163\ \textcolor{keyword}{\ \ \ \ \ \ \ \ }\{}
-\DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ d\ \ \ =\ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{disposable\_wrapper\_impl<retry\_when\_state<std::decay\_t<TObserver>}},\ std::decay\_t<TObservable>,\ std::decay\_t<TNotifier>>>::make(std::forward<TObserver>(\mbox{\hyperlink{classrpp_1_1observer}{observer}}),\ std::forward<TObservable>(\mbox{\hyperlink{classrpp_1_1observable}{observable}}),\ notifier);}
-\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ \ \ \ \ \ \ ptr\ =\ d.lock();}
-\DoxyCodeLine{00166\ }
-\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \ \ \ \ ptr-\/>observer.set\_upstream(d.as\_weak());}
-\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \ \ \ \ drain(ptr);}
-\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00170\ \ \ \ \ \};}
-\DoxyCodeLine{00171\ \}\ \textcolor{comment}{//\ namespace\ rpp::operators::details}}
-\DoxyCodeLine{00172\ }
-\DoxyCodeLine{00173\ \textcolor{keyword}{namespace\ }rpp::operators}
-\DoxyCodeLine{00174\ \{}
-\DoxyCodeLine{00196\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ TNotifier>}
-\DoxyCodeLine{00197\ \ \ \ \ \ \ \ \ \textcolor{keyword}{requires}\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp::constraint::observable<std::invoke\_result\_t<TNotifier,\ std::exception\_ptr>}}>}
-\DoxyCodeLine{00198\ \ \ \ \ \textcolor{keyword}{auto}\ retry\_when(TNotifier\&\&\ notifier)}
-\DoxyCodeLine{00199\ \ \ \ \ \{}
-\DoxyCodeLine{00200\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1retry__when__t}{details::retry\_when\_t<std::decay\_t<TNotifier>}}>\{std::forward<TNotifier>(notifier)\};}
-\DoxyCodeLine{00201\ \ \ \ \ \}}
-\DoxyCodeLine{00202\ \}\ \textcolor{comment}{//\ namespace\ rpp::operators}}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type\ T>}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1retry__when__t_1_1operator__traits}{operator\_traits}}}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }result\_type\ =\ T;}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00152\ }
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}<rpp::details::observables::constra\textcolor{keywordtype}{int}::disposable\_strategy\ Prev>}
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{structrpp_1_1details_1_1observables_1_1fixed__disposable__strategy__selector}{updated\_disposable\_strategy}}\ =\ \mbox{\hyperlink{structrpp_1_1details_1_1observables_1_1fixed__disposable__strategy__selector}{rpp::details::observables::fixed\_disposable\_strategy\_selector<1>}};}
+\DoxyCodeLine{00155\ }
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::observer\ TObserver,\ \textcolor{keyword}{typename}\ TObservable>}
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ subscribe(TObserver\&\&\ \mbox{\hyperlink{classrpp_1_1observer}{observer}},\ TObservable\&\&\ \mbox{\hyperlink{classrpp_1_1observable}{observable}})\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00158\ \textcolor{keyword}{\ \ \ \ \ \ \ \ }\{}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ d\ \ \ =\ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{disposable\_wrapper\_impl<retry\_when\_state<std::decay\_t<TObserver>}},\ std::decay\_t<TObservable>,\ std::decay\_t<TNotifier>>>::make(std::forward<TObserver>(\mbox{\hyperlink{classrpp_1_1observer}{observer}}),\ std::forward<TObservable>(\mbox{\hyperlink{classrpp_1_1observable}{observable}}),\ notifier);}
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ \ \ \ \ \ \ ptr\ =\ d.lock();}
+\DoxyCodeLine{00161\ }
+\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ \ \ \ \ ptr-\/>observer.set\_upstream(d.as\_weak());}
+\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ \ \ \ \ drain(ptr);}
+\DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00165\ \ \ \ \ \};}
+\DoxyCodeLine{00166\ \}\ \textcolor{comment}{//\ namespace\ rpp::operators::details}}
+\DoxyCodeLine{00167\ }
+\DoxyCodeLine{00168\ \textcolor{keyword}{namespace\ }rpp::operators}
+\DoxyCodeLine{00169\ \{}
+\DoxyCodeLine{00191\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ TNotifier>}
+\DoxyCodeLine{00192\ \ \ \ \ \ \ \ \ \textcolor{keyword}{requires}\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp::constraint::observable<std::invoke\_result\_t<TNotifier,\ std::exception\_ptr>}}>}
+\DoxyCodeLine{00193\ \ \ \ \ \textcolor{keyword}{auto}\ retry\_when(TNotifier\&\&\ notifier)}
+\DoxyCodeLine{00194\ \ \ \ \ \{}
+\DoxyCodeLine{00195\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1retry__when__t}{details::retry\_when\_t<std::decay\_t<TNotifier>}}>\{std::forward<TNotifier>(notifier)\};}
+\DoxyCodeLine{00196\ \ \ \ \ \}}
+\DoxyCodeLine{00197\ \}\ \textcolor{comment}{//\ namespace\ rpp::operators}}
 
 \end{DoxyCode}

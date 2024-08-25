@@ -167,18 +167,18 @@ Actually this operator applies {\ttfamily key\+\_\+selector} to emission to obta
 \end{DoxyCodeInclude}
  
 \begin{DoxyCodeInclude}{0}
-\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{struct\ }Person}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{struct\ }person}
 \DoxyCodeLine{\ \ \ \ \{}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ std::string\ name;}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ age;}
 \DoxyCodeLine{\ \ \ \ \};}
-\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(Person\{\textcolor{stringliteral}{"{}Kate"{}},\ 18\},}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Person\{\textcolor{stringliteral}{"{}Alex"{}},\ 25\},}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Person\{\textcolor{stringliteral}{"{}Nick"{}},\ 18\},}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Person\{\textcolor{stringliteral}{"{}Jack"{}},\ 25\},}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Person\{\textcolor{stringliteral}{"{}Tom"{}},\ 30\},}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Person\{\textcolor{stringliteral}{"{}Vanda"{}},\ 18\})}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__transforming__operators_ga2fa21790af1c065382cd37faa3462851}{rpp::operators::group\_by}}([](\textcolor{keyword}{const}\ Person\&\ v)\ \{\ \textcolor{keywordflow}{return}\ v.age;\ \},\ [](\textcolor{keyword}{const}\ Person\&\ v)\ \{\ \textcolor{keywordflow}{return}\ v.name;\ \})}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__creational__operators_ga1edf47f176050dd414e28a1c0616b7c0}{rpp::source::just}}(person\{\textcolor{stringliteral}{"{}Kate"{}},\ 18\},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ person\{\textcolor{stringliteral}{"{}Alex"{}},\ 25\},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ person\{\textcolor{stringliteral}{"{}Nick"{}},\ 18\},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ person\{\textcolor{stringliteral}{"{}Jack"{}},\ 25\},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ person\{\textcolor{stringliteral}{"{}Tom"{}},\ 30\},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ person\{\textcolor{stringliteral}{"{}Vanda"{}},\ 18\})}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__transforming__operators_ga2fa21790af1c065382cd37faa3462851}{rpp::operators::group\_by}}([](\textcolor{keyword}{const}\ person\&\ v)\ \{\ \textcolor{keywordflow}{return}\ v.age;\ \},\ [](\textcolor{keyword}{const}\ person\&\ v)\ \{\ \textcolor{keywordflow}{return}\ v.name;\ \})}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ |\ \mbox{\hyperlink{group__utility__operators_ga149309d4b2e0f1201f1ab42597ace8ac}{rpp::operators::subscribe}}([](\textcolor{keyword}{auto}\ grouped\_observable)\ \{}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ grouped\_observable.subscribe([age\ =\ grouped\_observable.get\_key()](\textcolor{keyword}{const}\ std::string\&\ name)\ \{}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Age\ ["{}}\ <<\ age\ <<\ \textcolor{stringliteral}{"{}]\ Name:\ "{}}\ <<\ name\ <<\ std::endl;}

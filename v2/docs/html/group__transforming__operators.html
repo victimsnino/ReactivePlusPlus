@@ -300,18 +300,18 @@ requires ( (!utils::is_not_template_callable&lt;KeySelector&gt; || !std::same_as
 <div class="line">    <span class="comment">//         key [1] Val: 6</span></div>
 <div class="line">    <span class="comment">//         key [0] Val: 7</span></div>
 <div class="line">    <span class="comment">//         key [1] Val: 8</span></div>
-</div><!-- fragment --> <div class="fragment"><div class="line">    <span class="keyword">struct </span>Person</div>
+</div><!-- fragment --> <div class="fragment"><div class="line">    <span class="keyword">struct </span>person</div>
 <div class="line">    {</div>
 <div class="line">        std::string name;</div>
 <div class="line">        <span class="keywordtype">int</span>         age;</div>
 <div class="line">    };</div>
-<div class="line">    <a class="code hl_function" href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">rpp::source::just</a>(Person{<span class="stringliteral">&quot;Kate&quot;</span>, 18},</div>
-<div class="line">                      Person{<span class="stringliteral">&quot;Alex&quot;</span>, 25},</div>
-<div class="line">                      Person{<span class="stringliteral">&quot;Nick&quot;</span>, 18},</div>
-<div class="line">                      Person{<span class="stringliteral">&quot;Jack&quot;</span>, 25},</div>
-<div class="line">                      Person{<span class="stringliteral">&quot;Tom&quot;</span>, 30},</div>
-<div class="line">                      Person{<span class="stringliteral">&quot;Vanda&quot;</span>, 18})</div>
-<div class="line">        | <a class="code hl_function" href="#ga2fa21790af1c065382cd37faa3462851">rpp::operators::group_by</a>([](<span class="keyword">const</span> Person&amp; v) { <span class="keywordflow">return</span> v.age; }, [](<span class="keyword">const</span> Person&amp; v) { <span class="keywordflow">return</span> v.name; })</div>
+<div class="line">    <a class="code hl_function" href="group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0">rpp::source::just</a>(person{<span class="stringliteral">&quot;Kate&quot;</span>, 18},</div>
+<div class="line">                      person{<span class="stringliteral">&quot;Alex&quot;</span>, 25},</div>
+<div class="line">                      person{<span class="stringliteral">&quot;Nick&quot;</span>, 18},</div>
+<div class="line">                      person{<span class="stringliteral">&quot;Jack&quot;</span>, 25},</div>
+<div class="line">                      person{<span class="stringliteral">&quot;Tom&quot;</span>, 30},</div>
+<div class="line">                      person{<span class="stringliteral">&quot;Vanda&quot;</span>, 18})</div>
+<div class="line">        | <a class="code hl_function" href="#ga2fa21790af1c065382cd37faa3462851">rpp::operators::group_by</a>([](<span class="keyword">const</span> person&amp; v) { <span class="keywordflow">return</span> v.age; }, [](<span class="keyword">const</span> person&amp; v) { <span class="keywordflow">return</span> v.name; })</div>
 <div class="line">        | <a class="code hl_function" href="group__utility__operators.html#ga149309d4b2e0f1201f1ab42597ace8ac">rpp::operators::subscribe</a>([](<span class="keyword">auto</span> grouped_observable) {</div>
 <div class="line">              grouped_observable.subscribe([age = grouped_observable.get_key()](<span class="keyword">const</span> std::string&amp; name) {</div>
 <div class="line">                  std::cout &lt;&lt; <span class="stringliteral">&quot;Age [&quot;</span> &lt;&lt; age &lt;&lt; <span class="stringliteral">&quot;] Name: &quot;</span> &lt;&lt; name &lt;&lt; std::endl;</div>

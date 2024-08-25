@@ -31,21 +31,21 @@
 \DoxyCodeLine{00027\ \ \ \ \ \{}
 \DoxyCodeLine{00028\ \ \ \ \ \textcolor{keyword}{public}:}
 \DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1with__latest__from__disposable}{with\_latest\_from\_disposable}}(Observer\&\&\ \mbox{\hyperlink{classrpp_1_1observer}{observer}},\ \textcolor{keyword}{const}\ TSelector\&\ selector)}
-\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \ \ \ \ :\ observer\_with\_mutex\{std::move(\mbox{\hyperlink{classrpp_1_1observer}{observer}})\}}
-\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \ \ \ \ ,\ selector\{selector\}}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \ \ \ \ :\ m\_observer\_with\_mutex\{std::move(\mbox{\hyperlink{classrpp_1_1observer}{observer}})\}}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \ \ \ \ ,\ m\_selector\{selector\}}
 \DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \{}
 \DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{00034\ }
-\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ rpp::utils::pointer\_under\_lock<Observer>\ get\_observer\_under\_lock()\ \{\ \textcolor{keywordflow}{return}\ observer\_with\_mutex;\ \}}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ rpp::utils::pointer\_under\_lock<Observer>\ get\_observer\_under\_lock()\ \{\ \textcolor{keywordflow}{return}\ m\_observer\_with\_mutex;\ \}}
 \DoxyCodeLine{00036\ }
-\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ rpp::utils::tuple<rpp::utils::value\_with\_mutex<std::optional<RestArgs>>...>\&\ get\_values()\ \{\ \textcolor{keywordflow}{return}\ values;\ \}}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ rpp::utils::tuple<rpp::utils::value\_with\_mutex<std::optional<RestArgs>>...>\&\ get\_values()\ \{\ \textcolor{keywordflow}{return}\ m\_values;\ \}}
 \DoxyCodeLine{00038\ }
-\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ TSelector\&\ get\_selector()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ selector;\ \}}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ TSelector\&\ get\_selector()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ m\_selector;\ \}}
 \DoxyCodeLine{00040\ }
 \DoxyCodeLine{00041\ \ \ \ \ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ rpp::utils::value\_with\_mutex<Observer>\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ observer\_with\_mutex\{\};}
-\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ rpp::utils::tuple<rpp::utils::value\_with\_mutex<std::optional<RestArgs>>...>\ values\{\};}
-\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ RPP\_NO\_UNIQUE\_ADDRESS\ TSelector\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ selector;}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ rpp::utils::value\_with\_mutex<Observer>\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ m\_observer\_with\_mutex\{\};}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ rpp::utils::tuple<rpp::utils::value\_with\_mutex<std::optional<RestArgs>>...>\ m\_values\{\};}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ RPP\_NO\_UNIQUE\_ADDRESS\ TSelector\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ m\_selector;}
 \DoxyCodeLine{00045\ \ \ \ \ \};}
 \DoxyCodeLine{00046\ }
 \DoxyCodeLine{00047\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keywordtype}{size\_t}\ I,\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer}{rpp::constraint::observer}}\ Observer,\ \textcolor{keyword}{typename}\ TSelector,\ rpp::constraint::decayed\_type...\ RestArgs>}

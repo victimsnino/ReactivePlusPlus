@@ -19,7 +19,7 @@ var searchData=
   ['tap_5fobserver_5fstrategy_16',['tap_observer_strategy',['../structrpp_1_1operators_1_1details_1_1tap__observer__strategy.html',1,'rpp::operators::details']]],
   ['tap_5ft_17',['tap_t',['../structrpp_1_1operators_1_1details_1_1tap__t.html',1,'rpp::operators::details']]],
   ['template_5fmulticast_5ft_18',['template_multicast_t',['../structrpp_1_1operators_1_1details_1_1template__multicast__t.html',1,'rpp::operators::details']]],
-  ['test_5fscheduler_19',['test_scheduler',['../classtest__scheduler.html',1,'']]],
+  ['test_5fscheduler_19',['test_scheduler',['../classrpp_1_1schedulers_1_1test__scheduler.html',1,'rpp::schedulers']]],
   ['thread_5fpool_20',['thread_pool',['../classrpp_1_1schedulers_1_1thread__pool.html',1,'rpp::schedulers']]],
   ['throttle_21',['throttle',['../group__filtering__operators.html#gada7d22ff6ee83d4aca44411561f56f98',1,'rpp::operators']]],
   ['throttle_5fobserver_5fstrategy_22',['throttle_observer_strategy',['../structrpp_1_1operators_1_1details_1_1throttle__observer__strategy.html',1,'rpp::operators::details']]],

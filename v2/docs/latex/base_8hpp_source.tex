@@ -54,14 +54,14 @@
 \DoxyCodeLine{00050\ }
 \DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ handle\_write\_done()}
 \DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \ \ \ \ std::lock\_guard\ lock\{write\_mutex\};}
-\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \ \ \ \ write.pop\_front();}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \ \ \ \ std::lock\_guard\ lock\{m\_write\_mutex\};}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \ \ \ \ m\_write.pop\_front();}
 \DoxyCodeLine{00055\ }
-\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!write.empty())}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!m\_write.empty())}
 \DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ start\_write(write.front());}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ start\_write(m\_write.front());}
 \DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (finished)}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (m\_finished)}
 \DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
 \DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ finish\_writes(grpc::Status::OK);}
 \DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
@@ -74,26 +74,26 @@
 \DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_same\_as<TData>\ T>}
 \DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ on\_next(T\&\&\ message)\textcolor{keyword}{\ const}}
 \DoxyCodeLine{00072\ \textcolor{keyword}{\ \ \ \ \ \ \ \ \ \ \ \ }\{}
-\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::lock\_guard\ lock\{owner.get().write\_mutex\};}
-\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ owner.get().write.push\_back(std::forward<T>(message));}
-\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (owner.get().write.size()\ ==\ 1)}
-\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ owner.get().start\_write(owner.get().write.front());}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::lock\_guard\ lock\{owner.get().m\_write\_mutex\};}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ owner.get().m\_write.push\_back(std::forward<T>(message));}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (owner.get().m\_write.size()\ ==\ 1)}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ owner.get().start\_write(owner.get().m\_write.front());}
 \DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{00078\ }
 \DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ on\_error(\textcolor{keyword}{const}\ std::exception\_ptr\&)\textcolor{keyword}{\ const}}
 \DoxyCodeLine{00080\ \textcolor{keyword}{\ \ \ \ \ \ \ \ \ \ \ \ }\{}
-\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::lock\_guard\ lock\{owner.get().write\_mutex\};}
-\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ owner.get().finished\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::lock\_guard\ lock\{owner.get().m\_write\_mutex\};}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ owner.get().m\_finished\ =\ \textcolor{keyword}{true};}
 \DoxyCodeLine{00083\ }
-\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (owner.get().write.size()\ ==\ 0)}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (owner.get().m\_write.size()\ ==\ 0)}
 \DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ owner.get().finish\_writes(grpc::Status\{grpc::StatusCode::INTERNAL,\ \textcolor{stringliteral}{"{}Internal\ error\ happens"{}}\});}
 \DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ on\_completed()\textcolor{keyword}{\ const}}
 \DoxyCodeLine{00088\ \textcolor{keyword}{\ \ \ \ \ \ \ \ \ \ \ \ }\{}
-\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::lock\_guard\ lock\{owner.get().write\_mutex\};}
-\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ owner.get().finished\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::lock\_guard\ lock\{owner.get().m\_write\_mutex\};}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ owner.get().m\_finished\ =\ \textcolor{keyword}{true};}
 \DoxyCodeLine{00091\ }
-\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (owner.get().write.size()\ ==\ 0)}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (owner.get().m\_write.size()\ ==\ 0)}
 \DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ owner.get().finish\_writes(grpc::Status::OK);}
 \DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{00095\ }
@@ -104,9 +104,9 @@
 \DoxyCodeLine{00100\ \ \ \ \ \textcolor{keyword}{private}:}
 \DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrpp_1_1subjects_1_1serialized__publish__subject}{rpp::subjects::serialized\_publish\_subject<TData>}}\ m\_subject\{\};}
 \DoxyCodeLine{00102\ }
-\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ std::mutex\ \ \ \ \ \ \ \ write\_mutex\{\};}
-\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ std::deque<TData>\ write\{\};}
-\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \ \ \ \ \ \ \ \ \ \ \ \ \ finished\{\};}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ std::mutex\ \ \ \ \ \ \ \ m\_write\_mutex\{\};}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ std::deque<TData>\ m\_write\{\};}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \ \ \ \ \ \ \ \ \ \ \ \ \ m\_finished\{\};}
 \DoxyCodeLine{00106\ \ \ \ \ \};}
 \DoxyCodeLine{00107\ }
 \DoxyCodeLine{00108\ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type\ TData>}
@@ -141,7 +141,7 @@
 \DoxyCodeLine{00137\ }
 \DoxyCodeLine{00138\ \ \ \ \ \textcolor{keyword}{private}:}
 \DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrpp_1_1subjects_1_1publish__subject}{rpp::subjects::publish\_subject<TData>}}\ m\_observer;}
-\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ TData\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ m\_data\{\};}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ RPP\_NO\_UNIQUE\_ADDRESS\ TData\ \ \ \ \ \ \ \ \ \ \ m\_data\{\};}
 \DoxyCodeLine{00141\ \ \ \ \ \};}
 \DoxyCodeLine{00142\ }
 \DoxyCodeLine{00143\ \}\ \textcolor{comment}{//\ namespace\ rppgrpc::details}}

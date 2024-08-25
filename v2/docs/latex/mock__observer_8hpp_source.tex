@@ -25,7 +25,7 @@
 \DoxyCodeLine{00021\ \{}
 \DoxyCodeLine{00022\ \textcolor{keyword}{public}:}
 \DoxyCodeLine{00023\ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{classmock__observer__strategy}{mock\_observer\_strategy}}(\textcolor{keywordtype}{bool}\ copy\_values\ =\ \textcolor{keyword}{true})}
-\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ :\ m\_state\{std::make\_shared<State>(copy\_values)\}}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ :\ m\_state\{std::make\_shared<state>(copy\_values)\}}
 \DoxyCodeLine{00025\ \ \ \ \ \{}
 \DoxyCodeLine{00026\ \ \ \ \ \}}
 \DoxyCodeLine{00027\ }
@@ -61,9 +61,9 @@
 \DoxyCodeLine{00057\ \ \ \ \ \textcolor{keyword}{auto}\ get\_observer(\mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp::composite\_disposable\_wrapper}}\ d)\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classrpp_1_1observer}{rpp::observer\_with\_disposable<Type,\ mock\_observer\_strategy<Type>}}>\{std::move(d),\ *\textcolor{keyword}{this}\};\ \}}
 \DoxyCodeLine{00058\ }
 \DoxyCodeLine{00059\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00060\ \ \ \ \ \textcolor{keyword}{struct\ }State}
+\DoxyCodeLine{00060\ \ \ \ \ \textcolor{keyword}{struct\ }state}
 \DoxyCodeLine{00061\ \ \ \ \ \{}
-\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \textcolor{keyword}{explicit}\ State(\textcolor{keywordtype}{bool}\ copy\_values)}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \textcolor{keyword}{explicit}\ state(\textcolor{keywordtype}{bool}\ copy\_values)}
 \DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \ \ \ \ :\ m\_copy\_values\{copy\_values\}}
 \DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \{}
 \DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \}}
@@ -77,7 +77,7 @@
 \DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ std::vector<Type>\ vals\{\};}
 \DoxyCodeLine{00074\ \ \ \ \ \};}
 \DoxyCodeLine{00075\ }
-\DoxyCodeLine{00076\ \ \ \ \ std::shared\_ptr<State>\ m\_state\{\};}
+\DoxyCodeLine{00076\ \ \ \ \ std::shared\_ptr<state>\ m\_state\{\};}
 \DoxyCodeLine{00077\ \};}
 
 \end{DoxyCode}

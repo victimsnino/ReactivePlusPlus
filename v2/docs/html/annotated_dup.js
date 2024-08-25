@@ -117,6 +117,8 @@ var annotated_dup =
           [ "merge_t", "structrpp_1_1operators_1_1details_1_1merge__t.html", "structrpp_1_1operators_1_1details_1_1merge__t" ],
           [ "merge_with_t", "structrpp_1_1operators_1_1details_1_1merge__with__t.html", "structrpp_1_1operators_1_1details_1_1merge__with__t" ],
           [ "multicast_t", "structrpp_1_1operators_1_1details_1_1multicast__t.html", null ],
+          [ "on_error_resume_next_disposable", "structrpp_1_1operators_1_1details_1_1on__error__resume__next__disposable.html", null ],
+          [ "on_error_resume_next_inner_observer_strategy", "structrpp_1_1operators_1_1details_1_1on__error__resume__next__inner__observer__strategy.html", null ],
           [ "on_error_resume_next_observer_strategy", "structrpp_1_1operators_1_1details_1_1on__error__resume__next__observer__strategy.html", null ],
           [ "on_error_resume_next_t", "structrpp_1_1operators_1_1details_1_1on__error__resume__next__t.html", "structrpp_1_1operators_1_1details_1_1on__error__resume__next__t" ],
           [ "reduce_no_seed_observer_strategy", "structrpp_1_1operators_1_1details_1_1reduce__no__seed__observer__strategy.html", null ],
@@ -214,6 +216,7 @@ var annotated_dup =
         [ "immediate", "classrpp_1_1schedulers_1_1immediate.html", "classrpp_1_1schedulers_1_1immediate" ],
         [ "new_thread", "classrpp_1_1schedulers_1_1new__thread.html", "classrpp_1_1schedulers_1_1new__thread" ],
         [ "run_loop", "classrpp_1_1schedulers_1_1run__loop.html", null ],
+        [ "test_scheduler", "classrpp_1_1schedulers_1_1test__scheduler.html", "classrpp_1_1schedulers_1_1test__scheduler" ],
         [ "thread_pool", "classrpp_1_1schedulers_1_1thread__pool.html", null ],
         [ "worker", "classrpp_1_1schedulers_1_1worker.html", null ]
       ] ],
@@ -281,6 +284,5 @@ var annotated_dup =
       ] ]
     ] ],
     [ "mock_observer_strategy", "classmock__observer__strategy.html", null ],
-    [ "Server", "class_server.html", null ],
-    [ "test_scheduler", "classtest__scheduler.html", "classtest__scheduler" ]
+    [ "server", "classserver.html", null ]
 ];

@@ -130,14 +130,14 @@ $(function(){initNavTree('computational_8hpp_source.html',''); initResizable(tru
 <div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    <span class="keyword">public</span>:</div>
 <div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>        <span class="keyword">static</span> <span class="keyword">auto</span> create_worker()</div>
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>        {</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>            <span class="keyword">static</span> <a class="code hl_class" href="classrpp_1_1schedulers_1_1thread__pool.html">thread_pool</a> tp{};</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>            <span class="keywordflow">return</span> tp.create_worker();</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>            <span class="keyword">static</span> <a class="code hl_class" href="classrpp_1_1schedulers_1_1thread__pool.html">thread_pool</a> s_tp{};</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>            <span class="keywordflow">return</span> s_tp.create_worker();</div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>        }</div>
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    };</div>
 </div>
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>} <span class="comment">// namespace rpp::schedulers</span></div>
 <div class="ttc" id="aclassrpp_1_1schedulers_1_1computational_html"><div class="ttname"><a href="classrpp_1_1schedulers_1_1computational.html">rpp::schedulers::computational</a></div><div class="ttdoc">Scheduler owning static thread pool of workers and using &quot;some&quot; thread from this pool on create_worke...</div><div class="ttdef"><b>Definition</b> computational.hpp:30</div></div>
-<div class="ttc" id="aclassrpp_1_1schedulers_1_1thread__pool_html"><div class="ttname"><a href="classrpp_1_1schedulers_1_1thread__pool.html">rpp::schedulers::thread_pool</a></div><div class="ttdoc">Scheduler owning static thread pool of workers and using &quot;some&quot; thread from this pool on create_worke...</div><div class="ttdef"><b>Definition</b> thread_pool.hpp:29</div></div>
+<div class="ttc" id="aclassrpp_1_1schedulers_1_1thread__pool_html"><div class="ttname"><a href="classrpp_1_1schedulers_1_1thread__pool.html">rpp::schedulers::thread_pool</a></div><div class="ttdoc">Scheduler owning static thread pool of workers and using &quot;some&quot; thread from this pool on create_worke...</div><div class="ttdef"><b>Definition</b> thread_pool.hpp:31</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

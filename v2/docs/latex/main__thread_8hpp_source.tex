@@ -44,7 +44,7 @@
 \DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
 \DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{00046\ }
-\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ QTimer::singleShot(std::chrono::duration\_cast<std::chrono::milliseconds>(duration),\ application,\ [fn\ =\ std::forward<Fn>(fn),\ handler\ =\ std::forward<Handler>(handler),\ ...\ args\ =\ std::forward<Args>(args)]()\ \textcolor{keyword}{mutable}\ \{}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ QTimer::singleShot(std::chrono::duration\_cast<std::chrono::milliseconds>(std::max(rpp::schedulers::duration\{\},\ duration)),\ application,\ [fn\ =\ std::forward<Fn>(fn),\ handler\ =\ std::forward<Handler>(handler),\ ...\ args\ =\ std::forward<Args>(args)]()\ \textcolor{keyword}{mutable}\ \{}
 \DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!handler.is\_disposed())}
 \DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ invoke(std::move(fn),\ std::move(handler),\ std::move(args)...);}
 \DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \});}
