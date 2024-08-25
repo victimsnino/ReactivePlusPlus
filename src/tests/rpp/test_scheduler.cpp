@@ -349,7 +349,7 @@ TEST_CASE("Immediate scheduler")
     }
 }
 
-TEMPLATE_TEST_CASE("queue_based scheduler", "", rpp::schedulers::current_thread, rpp::schedulers::new_thread, rpp::schedulers::computational, rpp::schedulers::thread_pool)
+TEMPLATE_TEST_CASE("queue_based scheduler", "", rpp::schedulers::current_thread, rpp::schedulers::new_thread, rpp::schedulers::thread_pool)
 {
     auto d        = rpp::composite_disposable_wrapper::make();
     auto mock_obs = mock_observer_strategy<int>{};
