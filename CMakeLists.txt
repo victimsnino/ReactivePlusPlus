@@ -51,7 +51,7 @@ if (RPP_BUILD_TESTS OR RPP_BUILD_BENCHMARKS)
   file(MAKE_DIRECTORY ${RPP_TEST_RESULTS_DIR})
 
   macro(add_test_with_coverage TARGET)
-    if (RPP_USE_LLVM_COV)
+    if (RPP_ENABLE_COVERAGE)
       add_test(NAME ${TARGET} COMMAND ${CMAKE_COMMAND} -E env LLVM_PROFILE_FILE=${RPP_TEST_RESULTS_DIR}/${TARGET}.profraw $<TARGET_FILE:${TARGET}> -v high)
     else()
       add_test(NAME ${TARGET} COMMAND $<TARGET_FILE:${TARGET}> -v high -s)
