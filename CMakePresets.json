@@ -167,25 +167,12 @@
       "inherits" : ["build-dir", "use-conan"]
     },
     {
-      "name": "ci-coverage-gcc",
-      "inherits": ["ci-build", "build-tests", "build-qt", "build-grpc", "ci-unix", "ci-gcc"],
-      "cacheVariables": {
-        "RPP_ENABLE_COVERAGE": "ON",
-        "CMAKE_CXX_FLAGS": "-O0 -g --coverage -fkeep-inline-functions -fkeep-static-functions -fprofile-arcs -ftest-coverage -fno-inline -fno-omit-frame-pointer -fno-optimize-sibling-calls",
-        "CMAKE_EXE_LINKER_FLAGS": "--coverage",
-        "CMAKE_SHARED_LINKER_FLAGS": "--coverage",
-        "RPP_BUILD_TESTS_TOGETHER" : true
-      }
-    },
-    {
       "name": "ci-coverage-clang",
       "inherits": ["ci-build", "build-tests", "build-qt", "build-grpc", "ci-unix", "ci-clang"],
       "cacheVariables": {
         "RPP_ENABLE_COVERAGE": "ON",
-        "CMAKE_CXX_FLAGS": "-fprofile-instr-generate -fcoverage-mapping",
-        "CMAKE_EXE_LINKER_FLAGS": "-fprofile-instr-generate -fcoverage-mapping",
-        "RPP_BUILD_TESTS_TOGETHER" : true,
-        "RPP_USE_LLVM_COV" : "ON"
+        "CMAKE_CXX_FLAGS": "-O0 -g -fprofile-instr-generate -fcoverage-mapping --coverage",
+        "RPP_BUILD_TESTS_TOGETHER" : true
       }
     },
     {
