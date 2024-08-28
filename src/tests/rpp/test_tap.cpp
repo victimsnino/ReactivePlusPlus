@@ -77,7 +77,7 @@ TEMPLATE_TEST_CASE("tap observes emissions and doesn't modify them", "", rpp::me
 
         SECTION("pass on_next callback with auto argument")
         {
-            size_t on_next_invoked      = 0;
+            size_t on_next_invoked = 0;
 
             obs | rpp::ops::tap([&](const auto&) { ++on_next_invoked; })
                 | rpp::ops::subscribe(mock);
