@@ -17,4 +17,4 @@
  * @ingroup rppasio
  */
 
- #include <rppasio/schedulers/thread_pool.hpp>
+#include <rppasio/schedulers/thread_pool.hpp>

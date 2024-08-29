@@ -3,8 +3,9 @@
 #include <catch2/catch_template_test_macros.hpp>
 #include <catch2/catch_test_macros.hpp>
 
-#include <rpp/observers/observer.hpp>
 #include <rpp/disposables/fwd.hpp>
+
+#include <rpp/observers/observer.hpp>
 
 #include <trompeloeil.hpp>
 
