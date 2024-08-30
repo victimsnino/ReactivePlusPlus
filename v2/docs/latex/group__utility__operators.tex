@@ -58,13 +58,15 @@ requires (!constraint\+::observer$<$Observer\+Strategy$>$)}\\auto \mbox{\hyperli
 \begin{DoxyCompactList}\small\item\em Construct \doxylink{group__observers_ga76d808086fac28fdb0b00fc7513c741a}{rpp\+::lambda\+\_\+observer} on the fly and subscribe it to emissions from observable. \end{DoxyCompactList}\item 
 {\footnotesize template$<$\mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1scheduler}{rpp\+::schedulers\+::constraint\+::scheduler}} Scheduler$>$ }\\auto \mbox{\hyperlink{group__utility__operators_gace728cfbf71720901cb6f310edabf8b0}{rpp\+::operators\+::subscribe\+\_\+on}} (Scheduler \&\&scheduler)
 \begin{DoxyCompactList}\small\item\em On\+Subscribe function for this observable will be scheduled via provided scheduler. \end{DoxyCompactList}\item 
-{\footnotesize template$<$std\+::invocable$<$ const std\+::exception\+\_\+ptr \& $>$ On\+Error = rpp\+::utils\+::empty\+\_\+function\+\_\+t$<$std\+::exception\+\_\+ptr$>$$>$ }\\auto \mbox{\hyperlink{group__utility__operators_gabfc589f5344d5231e52fb539fb5bd6ca}{rpp\+::operators\+::tap}} (On\+Error \&\&on\+\_\+error)
+{\footnotesize template$<$std\+::invocable$<$ const std\+::exception\+\_\+ptr \& $>$ On\+Error = rpp\+::utils\+::empty\+\_\+function\+\_\+t$<$std\+::exception\+\_\+ptr$>$$>$ \newline
+requires utils\+::is\+\_\+not\+\_\+template\+\_\+callable$<$On\+Error$>$}\\auto \mbox{\hyperlink{group__utility__operators_ga1730e4d7f0298c4e50e224041a695a16}{rpp\+::operators\+::tap}} (On\+Error \&\&on\+\_\+error)
 \begin{DoxyCompactList}\small\item\em Register callbacks to inspect observable emissions and perform side-\/effects. \end{DoxyCompactList}\item 
 {\footnotesize template$<$std\+::invocable$<$$>$ On\+Completed = rpp\+::utils\+::empty\+\_\+function\+\_\+t$<$$>$$>$ }\\auto \mbox{\hyperlink{group__utility__operators_ga4278374427b8cb7d2e69de046ed5a4c9}{rpp\+::operators\+::tap}} (On\+Completed \&\&on\+\_\+completed)
 \begin{DoxyCompactList}\small\item\em Register callbacks to inspect observable emissions and perform side-\/effects. \end{DoxyCompactList}\item 
 {\footnotesize template$<$typename On\+Next , std\+::invocable$<$$>$ On\+Completed = rpp\+::utils\+::empty\+\_\+function\+\_\+t$<$$>$$>$ }\\auto \mbox{\hyperlink{group__utility__operators_ga93b6a728431216d1eabf2074616667fe}{rpp\+::operators\+::tap}} (On\+Next \&\&on\+\_\+next, On\+Completed \&\&on\+\_\+completed)
 \begin{DoxyCompactList}\small\item\em Register callbacks to inspect observable emissions and perform side-\/effects. \end{DoxyCompactList}\item 
-{\footnotesize template$<$typename On\+Next  = rpp\+::utils\+::empty\+\_\+function\+\_\+any\+\_\+t, std\+::invocable$<$ const std\+::exception\+\_\+ptr \& $>$ On\+Error = rpp\+::utils\+::empty\+\_\+function\+\_\+t$<$std\+::exception\+\_\+ptr$>$, std\+::invocable$<$$>$ On\+Completed = rpp\+::utils\+::empty\+\_\+function\+\_\+t$<$$>$$>$ }\\auto \mbox{\hyperlink{group__utility__operators_ga0ba6586e8ece142ca52ab831ce282ee3}{rpp\+::operators\+::tap}} (On\+Next \&\&on\+\_\+next, On\+Error \&\&on\+\_\+error, On\+Completed \&\&on\+\_\+completed)
+{\footnotesize template$<$typename On\+Next  = rpp\+::utils\+::empty\+\_\+function\+\_\+any\+\_\+t, std\+::invocable$<$ const std\+::exception\+\_\+ptr \& $>$ On\+Error = rpp\+::utils\+::empty\+\_\+function\+\_\+t$<$std\+::exception\+\_\+ptr$>$, std\+::invocable$<$$>$ On\+Completed = rpp\+::utils\+::empty\+\_\+function\+\_\+t$<$$>$$>$ \newline
+requires utils\+::is\+\_\+not\+\_\+template\+\_\+callable$<$On\+Error$>$}\\auto \mbox{\hyperlink{group__utility__operators_gada6b3aa896ef87213836a70500d53be0}{rpp\+::operators\+::tap}} (On\+Next \&\&on\+\_\+next, On\+Error \&\&on\+\_\+error, On\+Completed \&\&on\+\_\+completed)
 \begin{DoxyCompactList}\small\item\em Register callbacks to inspect observable emissions and perform side-\/effects. \end{DoxyCompactList}\item 
 {\footnotesize template$<$\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp\+::constraint\+::observable}} TFallback\+Observable, \mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1scheduler}{rpp\+::schedulers\+::constraint\+::scheduler}} TScheduler$>$ }\\auto \mbox{\hyperlink{group__utility__operators_gaa758f1ad38da6b37357232317fcdc9b5}{rpp\+::operators\+::timeout}} (rpp\+::schedulers\+::duration period, TFallback\+Observable \&\&fallback\+\_\+observable, const TScheduler \&scheduler)
 \begin{DoxyCompactList}\small\item\em Forwards emissions from original observable, but subscribes on fallback observable if no any events during specified period of time (since last emission) \end{DoxyCompactList}\item 
@@ -669,11 +671,12 @@ Register callbacks to inspect observable emissions and perform side-\/effects.
 \begin{DoxySeeAlso}{See also}
 \href{https://reactivex.io/documentation/operators/do.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/do.\+html}} 
 \end{DoxySeeAlso}
-\Hypertarget{group__utility__operators_gabfc589f5344d5231e52fb539fb5bd6ca}\index{Utility Operators@{Utility Operators}!tap@{tap}}
+\Hypertarget{group__utility__operators_ga1730e4d7f0298c4e50e224041a695a16}\index{Utility Operators@{Utility Operators}!tap@{tap}}
 \index{tap@{tap}!Utility Operators@{Utility Operators}}
 \doxysubsubsubsubsection{\texorpdfstring{tap()}{tap()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
-{\footnotesize\ttfamily \label{group__utility__operators_gabfc589f5344d5231e52fb539fb5bd6ca} 
-template$<$std\+::invocable$<$ const std\+::exception\+\_\+ptr \& $>$ On\+Error = rpp\+::utils\+::empty\+\_\+function\+\_\+t$<$std\+::exception\+\_\+ptr$>$$>$ \\
+{\footnotesize\ttfamily \label{group__utility__operators_ga1730e4d7f0298c4e50e224041a695a16} 
+template$<$std\+::invocable$<$ const std\+::exception\+\_\+ptr \& $>$ On\+Error = rpp\+::utils\+::empty\+\_\+function\+\_\+t$<$std\+::exception\+\_\+ptr$>$$>$ \newline
+requires utils\+::is\+\_\+not\+\_\+template\+\_\+callable$<$On\+Error$>$\\
 auto rpp\+::operators\+::tap (\begin{DoxyParamCaption}\item[{On\+Error \&\&}]{on\+\_\+error}{}\end{DoxyParamCaption})}
 
 
@@ -709,11 +712,12 @@ Register callbacks to inspect observable emissions and perform side-\/effects.
 \begin{DoxySeeAlso}{See also}
 \href{https://reactivex.io/documentation/operators/do.html}{\texttt{ https\+://reactivex.\+io/documentation/operators/do.\+html}} 
 \end{DoxySeeAlso}
-\Hypertarget{group__utility__operators_ga0ba6586e8ece142ca52ab831ce282ee3}\index{Utility Operators@{Utility Operators}!tap@{tap}}
+\Hypertarget{group__utility__operators_gada6b3aa896ef87213836a70500d53be0}\index{Utility Operators@{Utility Operators}!tap@{tap}}
 \index{tap@{tap}!Utility Operators@{Utility Operators}}
 \doxysubsubsubsubsection{\texorpdfstring{tap()}{tap()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
-{\footnotesize\ttfamily \label{group__utility__operators_ga0ba6586e8ece142ca52ab831ce282ee3} 
-template$<$typename On\+Next  = rpp\+::utils\+::empty\+\_\+function\+\_\+any\+\_\+t, std\+::invocable$<$ const std\+::exception\+\_\+ptr \& $>$ On\+Error = rpp\+::utils\+::empty\+\_\+function\+\_\+t$<$std\+::exception\+\_\+ptr$>$, std\+::invocable$<$$>$ On\+Completed = rpp\+::utils\+::empty\+\_\+function\+\_\+t$<$$>$$>$ \\
+{\footnotesize\ttfamily \label{group__utility__operators_gada6b3aa896ef87213836a70500d53be0} 
+template$<$typename On\+Next  = rpp\+::utils\+::empty\+\_\+function\+\_\+any\+\_\+t, std\+::invocable$<$ const std\+::exception\+\_\+ptr \& $>$ On\+Error = rpp\+::utils\+::empty\+\_\+function\+\_\+t$<$std\+::exception\+\_\+ptr$>$, std\+::invocable$<$$>$ On\+Completed = rpp\+::utils\+::empty\+\_\+function\+\_\+t$<$$>$$>$ \newline
+requires utils\+::is\+\_\+not\+\_\+template\+\_\+callable$<$On\+Error$>$\\
 auto rpp\+::operators\+::tap (\begin{DoxyParamCaption}\item[{On\+Next \&\&}]{on\+\_\+next}{, }\item[{On\+Error \&\&}]{on\+\_\+error}{, }\item[{On\+Completed \&\&}]{on\+\_\+completed}{}\end{DoxyParamCaption})}
 
 

@@ -205,10 +205,11 @@ template&lt;details::on_next_like OnNext, std::invocable&lt;&gt; OnCompleted&gt;
 <tr class="memitem:gace728cfbf71720901cb6f310edabf8b0"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#gace728cfbf71720901cb6f310edabf8b0">rpp::operators::subscribe_on</a> (Scheduler &amp;&amp;scheduler)</td></tr>
 <tr class="memdesc:gace728cfbf71720901cb6f310edabf8b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">OnSubscribe function for this observable will be scheduled via provided scheduler.  <br /></td></tr>
 <tr class="separator:gace728cfbf71720901cb6f310edabf8b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gabfc589f5344d5231e52fb539fb5bd6ca" id="r_gabfc589f5344d5231e52fb539fb5bd6ca"><td class="memTemplParams" colspan="2">template&lt;std::invocable&lt; const std::exception_ptr &amp; &gt; OnError = rpp::utils::empty_function_t&lt;std::exception_ptr&gt;&gt; </td></tr>
-<tr class="memitem:gabfc589f5344d5231e52fb539fb5bd6ca"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#gabfc589f5344d5231e52fb539fb5bd6ca">rpp::operators::tap</a> (OnError &amp;&amp;on_error)</td></tr>
-<tr class="memdesc:gabfc589f5344d5231e52fb539fb5bd6ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Register callbacks to inspect observable emissions and perform side-effects.  <br /></td></tr>
-<tr class="separator:gabfc589f5344d5231e52fb539fb5bd6ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga1730e4d7f0298c4e50e224041a695a16" id="r_ga1730e4d7f0298c4e50e224041a695a16"><td class="memTemplParams" colspan="2">template&lt;std::invocable&lt; const std::exception_ptr &amp; &gt; OnError = rpp::utils::empty_function_t&lt;std::exception_ptr&gt;&gt; <br />
+requires utils::is_not_template_callable&lt;OnError&gt;</td></tr>
+<tr class="memitem:ga1730e4d7f0298c4e50e224041a695a16"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#ga1730e4d7f0298c4e50e224041a695a16">rpp::operators::tap</a> (OnError &amp;&amp;on_error)</td></tr>
+<tr class="memdesc:ga1730e4d7f0298c4e50e224041a695a16"><td class="mdescLeft">&#160;</td><td class="mdescRight">Register callbacks to inspect observable emissions and perform side-effects.  <br /></td></tr>
+<tr class="separator:ga1730e4d7f0298c4e50e224041a695a16"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga4278374427b8cb7d2e69de046ed5a4c9" id="r_ga4278374427b8cb7d2e69de046ed5a4c9"><td class="memTemplParams" colspan="2">template&lt;std::invocable&lt;&gt; OnCompleted = rpp::utils::empty_function_t&lt;&gt;&gt; </td></tr>
 <tr class="memitem:ga4278374427b8cb7d2e69de046ed5a4c9"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#ga4278374427b8cb7d2e69de046ed5a4c9">rpp::operators::tap</a> (OnCompleted &amp;&amp;on_completed)</td></tr>
 <tr class="memdesc:ga4278374427b8cb7d2e69de046ed5a4c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Register callbacks to inspect observable emissions and perform side-effects.  <br /></td></tr>
@@ -217,10 +218,11 @@ template&lt;details::on_next_like OnNext, std::invocable&lt;&gt; OnCompleted&gt;
 <tr class="memitem:ga93b6a728431216d1eabf2074616667fe"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#ga93b6a728431216d1eabf2074616667fe">rpp::operators::tap</a> (OnNext &amp;&amp;on_next, OnCompleted &amp;&amp;on_completed)</td></tr>
 <tr class="memdesc:ga93b6a728431216d1eabf2074616667fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Register callbacks to inspect observable emissions and perform side-effects.  <br /></td></tr>
 <tr class="separator:ga93b6a728431216d1eabf2074616667fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga0ba6586e8ece142ca52ab831ce282ee3" id="r_ga0ba6586e8ece142ca52ab831ce282ee3"><td class="memTemplParams" colspan="2">template&lt;typename OnNext  = rpp::utils::empty_function_any_t, std::invocable&lt; const std::exception_ptr &amp; &gt; OnError = rpp::utils::empty_function_t&lt;std::exception_ptr&gt;, std::invocable&lt;&gt; OnCompleted = rpp::utils::empty_function_t&lt;&gt;&gt; </td></tr>
-<tr class="memitem:ga0ba6586e8ece142ca52ab831ce282ee3"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#ga0ba6586e8ece142ca52ab831ce282ee3">rpp::operators::tap</a> (OnNext &amp;&amp;on_next, OnError &amp;&amp;on_error, OnCompleted &amp;&amp;on_completed)</td></tr>
-<tr class="memdesc:ga0ba6586e8ece142ca52ab831ce282ee3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Register callbacks to inspect observable emissions and perform side-effects.  <br /></td></tr>
-<tr class="separator:ga0ba6586e8ece142ca52ab831ce282ee3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gada6b3aa896ef87213836a70500d53be0" id="r_gada6b3aa896ef87213836a70500d53be0"><td class="memTemplParams" colspan="2">template&lt;typename OnNext  = rpp::utils::empty_function_any_t, std::invocable&lt; const std::exception_ptr &amp; &gt; OnError = rpp::utils::empty_function_t&lt;std::exception_ptr&gt;, std::invocable&lt;&gt; OnCompleted = rpp::utils::empty_function_t&lt;&gt;&gt; <br />
+requires utils::is_not_template_callable&lt;OnError&gt;</td></tr>
+<tr class="memitem:gada6b3aa896ef87213836a70500d53be0"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#gada6b3aa896ef87213836a70500d53be0">rpp::operators::tap</a> (OnNext &amp;&amp;on_next, OnError &amp;&amp;on_error, OnCompleted &amp;&amp;on_completed)</td></tr>
+<tr class="memdesc:gada6b3aa896ef87213836a70500d53be0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Register callbacks to inspect observable emissions and perform side-effects.  <br /></td></tr>
+<tr class="separator:gada6b3aa896ef87213836a70500d53be0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaa758f1ad38da6b37357232317fcdc9b5" id="r_gaa758f1ad38da6b37357232317fcdc9b5"><td class="memTemplParams" colspan="2">template&lt;<a class="el" href="conceptrpp_1_1constraint_1_1observable.html">rpp::constraint::observable</a> TFallbackObservable, <a class="el" href="conceptrpp_1_1schedulers_1_1constraint_1_1scheduler.html">rpp::schedulers::constraint::scheduler</a> TScheduler&gt; </td></tr>
 <tr class="memitem:gaa758f1ad38da6b37357232317fcdc9b5"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#gaa758f1ad38da6b37357232317fcdc9b5">rpp::operators::timeout</a> (rpp::schedulers::duration period, TFallbackObservable &amp;&amp;fallback_observable, const TScheduler &amp;scheduler)</td></tr>
 <tr class="memdesc:gaa758f1ad38da6b37357232317fcdc9b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Forwards emissions from original observable, but subscribes on fallback observable if no any events during specified period of time (since last emission)  <br /></td></tr>
@@ -997,13 +999,14 @@ template&lt;std::invocable&lt;&gt; OnCompleted = rpp::utils::empty_function_t&lt
 
 </div>
 </div>
-<a id="gabfc589f5344d5231e52fb539fb5bd6ca" name="gabfc589f5344d5231e52fb539fb5bd6ca"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gabfc589f5344d5231e52fb539fb5bd6ca">&#9670;&#160;</a></span>tap() <span class="overload">[2/4]</span></h2>
+<a id="ga1730e4d7f0298c4e50e224041a695a16" name="ga1730e4d7f0298c4e50e224041a695a16"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga1730e4d7f0298c4e50e224041a695a16">&#9670;&#160;</a></span>tap() <span class="overload">[2/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;std::invocable&lt; const std::exception_ptr &amp; &gt; OnError = rpp::utils::empty_function_t&lt;std::exception_ptr&gt;&gt; </div>
+template&lt;std::invocable&lt; const std::exception_ptr &amp; &gt; OnError = rpp::utils::empty_function_t&lt;std::exception_ptr&gt;&gt; <br />
+requires utils::is_not_template_callable&lt;OnError&gt;</div>
       <table class="memname">
         <tr>
           <td class="memname">auto rpp::operators::tap </td>
@@ -1058,13 +1061,14 @@ template&lt;typename OnNext , std::invocable&lt;&gt; OnCompleted = rpp::utils::e
 
 </div>
 </div>
-<a id="ga0ba6586e8ece142ca52ab831ce282ee3" name="ga0ba6586e8ece142ca52ab831ce282ee3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga0ba6586e8ece142ca52ab831ce282ee3">&#9670;&#160;</a></span>tap() <span class="overload">[4/4]</span></h2>
+<a id="gada6b3aa896ef87213836a70500d53be0" name="gada6b3aa896ef87213836a70500d53be0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gada6b3aa896ef87213836a70500d53be0">&#9670;&#160;</a></span>tap() <span class="overload">[4/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename OnNext  = rpp::utils::empty_function_any_t, std::invocable&lt; const std::exception_ptr &amp; &gt; OnError = rpp::utils::empty_function_t&lt;std::exception_ptr&gt;, std::invocable&lt;&gt; OnCompleted = rpp::utils::empty_function_t&lt;&gt;&gt; </div>
+template&lt;typename OnNext  = rpp::utils::empty_function_any_t, std::invocable&lt; const std::exception_ptr &amp; &gt; OnError = rpp::utils::empty_function_t&lt;std::exception_ptr&gt;, std::invocable&lt;&gt; OnCompleted = rpp::utils::empty_function_t&lt;&gt;&gt; <br />
+requires utils::is_not_template_callable&lt;OnError&gt;</div>
       <table class="memname">
         <tr>
           <td class="memname">auto rpp::operators::tap </td>

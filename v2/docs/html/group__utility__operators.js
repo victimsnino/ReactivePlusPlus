@@ -23,9 +23,9 @@ var group__utility__operators =
     [ "rpp::operators::subscribe_with_disposable", "group__utility__operators.html#ga6c527da45630e08a1ee2a9bad47d562d", null ],
     [ "rpp::operators::subscribe_with_disposable", "group__utility__operators.html#gac87a7d53a94e23c8e444a431a2473a33", null ],
     [ "rpp::operators::tap", "group__utility__operators.html#ga4278374427b8cb7d2e69de046ed5a4c9", null ],
-    [ "rpp::operators::tap", "group__utility__operators.html#gabfc589f5344d5231e52fb539fb5bd6ca", null ],
+    [ "rpp::operators::tap", "group__utility__operators.html#ga1730e4d7f0298c4e50e224041a695a16", null ],
     [ "rpp::operators::tap", "group__utility__operators.html#ga93b6a728431216d1eabf2074616667fe", null ],
-    [ "rpp::operators::tap", "group__utility__operators.html#ga0ba6586e8ece142ca52ab831ce282ee3", null ],
+    [ "rpp::operators::tap", "group__utility__operators.html#gada6b3aa896ef87213836a70500d53be0", null ],
     [ "rpp::operators::timeout", "group__utility__operators.html#ga08c63b0f0f0eae7e2ce0c4789569b9a7", null ],
     [ "rpp::operators::timeout", "group__utility__operators.html#gaa758f1ad38da6b37357232317fcdc9b5", null ]
 ];

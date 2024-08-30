@@ -86,54 +86,56 @@
 \DoxyCodeLine{00082\ \textcolor{keyword}{namespace\ }rpp::operators}
 \DoxyCodeLine{00083\ \{}
 \DoxyCodeLine{00092\ \ \ \ \ \textcolor{keyword}{template}<std::invocable<const\ std::exception\_ptr\&>\ OnError\ \textcolor{comment}{/*\ =\ rpp::utils::empty\_function\_t<std::exception\_ptr>\ */}>}
-\DoxyCodeLine{00093\ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__utility__operators_gabfc589f5344d5231e52fb539fb5bd6ca}{tap}}(OnError\&\&\ on\_error)}
-\DoxyCodeLine{00094\ \ \ \ \ \{}
-\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }OnNext\ \ \ \ \ \ =\ rpp::utils::empty\_function\_any\_t;}
-\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }OnCompleted\ =\ rpp::utils::empty\_function\_t<>;}
-\DoxyCodeLine{00097\ }
-\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1tap__t}{details::tap\_t<std::decay\_t<OnNext>}},\ std::decay\_t<OnError>,\ std::decay\_t<OnCompleted>>\{}
-\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \ \ \ \ OnNext\{\},}
-\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \ \ \ \ std::forward<OnError>(on\_error),}
-\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \ \ \ \ OnCompleted\{\}\};}
-\DoxyCodeLine{00102\ \ \ \ \ \}}
-\DoxyCodeLine{00103\ }
-\DoxyCodeLine{00112\ \ \ \ \ \textcolor{keyword}{template}<std::invocable<>\ OnCompleted\ \textcolor{comment}{/*\ =\ rpp::utils::empty\_function\_t<>\ */}>}
-\DoxyCodeLine{00113\ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__utility__operators_gabfc589f5344d5231e52fb539fb5bd6ca}{tap}}(OnCompleted\&\&\ on\_completed)}
-\DoxyCodeLine{00114\ \ \ \ \ \{}
-\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }OnNext\ \ =\ rpp::utils::empty\_function\_any\_t;}
-\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }OnError\ =\ rpp::utils::empty\_function\_t<std::exception\_ptr>;}
-\DoxyCodeLine{00117\ }
-\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1tap__t}{details::tap\_t<std::decay\_t<OnNext>}},\ std::decay\_t<OnError>,\ std::decay\_t<OnCompleted>>\{}
-\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \ \ \ \ OnNext\{\},}
-\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \ \ \ \ OnError\{\},}
-\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \ \ \ \ std::forward<OnCompleted>(on\_completed)\};}
-\DoxyCodeLine{00122\ \ \ \ \ \}}
-\DoxyCodeLine{00123\ }
-\DoxyCodeLine{00133\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ OnNext,}
-\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \ \ \ \ \ std::invocable<>\ OnCompleted\ \textcolor{comment}{/*\ =\ rpp::utils::empty\_function\_t<>\ */}>}
-\DoxyCodeLine{00135\ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__utility__operators_gabfc589f5344d5231e52fb539fb5bd6ca}{tap}}(OnNext\&\&\ \ \ \ \ \ on\_next,}
-\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \ \ \ \ \ OnCompleted\&\&\ on\_completed)}
-\DoxyCodeLine{00137\ \ \ \ \ \{}
-\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }OnError\ =\ rpp::utils::empty\_function\_t<std::exception\_ptr>;}
-\DoxyCodeLine{00139\ }
-\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1tap__t}{details::tap\_t<std::decay\_t<OnNext>}},\ std::decay\_t<OnError>,\ std::decay\_t<OnCompleted>>\{}
-\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \ \ \ \ std::forward<OnNext>(on\_next),}
-\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \ \ \ \ OnError\{\},}
-\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \ \ \ \ std::forward<OnCompleted>(on\_completed)\};}
-\DoxyCodeLine{00144\ \ \ \ \ \}}
-\DoxyCodeLine{00145\ }
-\DoxyCodeLine{00156\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ OnNext\ \textcolor{comment}{/*\ =\ rpp::utils::empty\_function\_any\_t\ */},}
-\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \ \ \ \ \ std::invocable<const\ std::exception\_ptr\&>\ OnError\ \textcolor{comment}{/*\ =\ rpp::utils::empty\_function\_t<std::exception\_ptr>\ */},}
-\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \ \ \ \ \ std::invocable<>\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ OnCompleted\ \textcolor{comment}{/*\ =\ rpp::utils::empty\_function\_t<>\ */}>}
-\DoxyCodeLine{00159\ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__utility__operators_gabfc589f5344d5231e52fb539fb5bd6ca}{tap}}(OnNext\&\&\ \ \ \ \ \ on\_next\ \textcolor{comment}{/*\ =\ \{\}\ */},}
-\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ \ \ \ \ \ OnError\&\&\ \ \ \ \ on\_error\ \textcolor{comment}{/*\ =\ \{\}\ */},}
-\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ \ \ \ \ \ OnCompleted\&\&\ on\_completed\ \textcolor{comment}{/*\ =\ \{\}\ */})}
-\DoxyCodeLine{00162\ \ \ \ \ \{}
-\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1tap__t}{details::tap\_t<std::decay\_t<OnNext>}},\ std::decay\_t<OnError>,\ std::decay\_t<OnCompleted>>\{}
-\DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ \ \ \ \ std::forward<OnNext>(on\_next),}
-\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ \ \ \ \ std::forward<OnError>(on\_error),}
-\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ \ \ \ \ std::forward<OnCompleted>(on\_completed)\};}
-\DoxyCodeLine{00167\ \ \ \ \ \}}
-\DoxyCodeLine{00168\ \}\ \textcolor{comment}{//\ namespace\ rpp::operators}}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \textcolor{keyword}{requires}\ utils::is\_not\_template\_callable<OnError>}
+\DoxyCodeLine{00094\ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__utility__operators_ga1730e4d7f0298c4e50e224041a695a16}{tap}}(OnError\&\&\ on\_error)}
+\DoxyCodeLine{00095\ \ \ \ \ \{}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }OnNext\ \ \ \ \ \ =\ rpp::utils::empty\_function\_any\_t;}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }OnCompleted\ =\ rpp::utils::empty\_function\_t<>;}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1tap__t}{details::tap\_t<std::decay\_t<OnNext>}},\ std::decay\_t<OnError>,\ std::decay\_t<OnCompleted>>\{}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \ \ \ \ OnNext\{\},}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \ \ \ \ std::forward<OnError>(on\_error),}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \ \ \ \ OnCompleted\{\}\};}
+\DoxyCodeLine{00103\ \ \ \ \ \}}
+\DoxyCodeLine{00104\ }
+\DoxyCodeLine{00113\ \ \ \ \ \textcolor{keyword}{template}<std::invocable<>\ OnCompleted\ \textcolor{comment}{/*\ =\ rpp::utils::empty\_function\_t<>\ */}>}
+\DoxyCodeLine{00114\ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__utility__operators_ga1730e4d7f0298c4e50e224041a695a16}{tap}}(OnCompleted\&\&\ on\_completed)}
+\DoxyCodeLine{00115\ \ \ \ \ \{}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }OnNext\ \ =\ rpp::utils::empty\_function\_any\_t;}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }OnError\ =\ rpp::utils::empty\_function\_t<std::exception\_ptr>;}
+\DoxyCodeLine{00118\ }
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1tap__t}{details::tap\_t<std::decay\_t<OnNext>}},\ std::decay\_t<OnError>,\ std::decay\_t<OnCompleted>>\{}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \ \ \ \ OnNext\{\},}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \ \ \ \ OnError\{\},}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \ \ \ \ std::forward<OnCompleted>(on\_completed)\};}
+\DoxyCodeLine{00123\ \ \ \ \ \}}
+\DoxyCodeLine{00124\ }
+\DoxyCodeLine{00134\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ OnNext,}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \ \ \ \ \ std::invocable<>\ OnCompleted\ \textcolor{comment}{/*\ =\ rpp::utils::empty\_function\_t<>\ */}>}
+\DoxyCodeLine{00136\ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__utility__operators_ga1730e4d7f0298c4e50e224041a695a16}{tap}}(OnNext\&\&\ \ \ \ \ \ on\_next,}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \ \ \ \ \ OnCompleted\&\&\ on\_completed)}
+\DoxyCodeLine{00138\ \ \ \ \ \{}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }OnError\ =\ rpp::utils::empty\_function\_t<std::exception\_ptr>;}
+\DoxyCodeLine{00140\ }
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1tap__t}{details::tap\_t<std::decay\_t<OnNext>}},\ std::decay\_t<OnError>,\ std::decay\_t<OnCompleted>>\{}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \ \ \ \ std::forward<OnNext>(on\_next),}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \ \ \ \ OnError\{\},}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \ \ \ \ std::forward<OnCompleted>(on\_completed)\};}
+\DoxyCodeLine{00145\ \ \ \ \ \}}
+\DoxyCodeLine{00146\ }
+\DoxyCodeLine{00157\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ OnNext\ \textcolor{comment}{/*\ =\ rpp::utils::empty\_function\_any\_t\ */},}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \ \ \ \ \ std::invocable<const\ std::exception\_ptr\&>\ OnError\ \textcolor{comment}{/*\ =\ rpp::utils::empty\_function\_t<std::exception\_ptr>\ */},}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ \ \ \ \ \ std::invocable<>\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ OnCompleted\ \textcolor{comment}{/*\ =\ rpp::utils::empty\_function\_t<>\ */}>}
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ \textcolor{keyword}{requires}\ utils::is\_not\_template\_callable<OnError>}
+\DoxyCodeLine{00161\ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__utility__operators_ga1730e4d7f0298c4e50e224041a695a16}{tap}}(OnNext\&\&\ \ \ \ \ \ on\_next\ \textcolor{comment}{/*\ =\ \{\}\ */},}
+\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ \ \ \ \ \ OnError\&\&\ \ \ \ \ on\_error\ \textcolor{comment}{/*\ =\ \{\}\ */},}
+\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ \ \ \ \ \ OnCompleted\&\&\ on\_completed\ \textcolor{comment}{/*\ =\ \{\}\ */})}
+\DoxyCodeLine{00164\ \ \ \ \ \{}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1tap__t}{details::tap\_t<std::decay\_t<OnNext>}},\ std::decay\_t<OnError>,\ std::decay\_t<OnCompleted>>\{}
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ \ \ \ \ std::forward<OnNext>(on\_next),}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \ \ \ \ std::forward<OnError>(on\_error),}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \ \ \ \ std::forward<OnCompleted>(on\_completed)\};}
+\DoxyCodeLine{00169\ \ \ \ \ \}}
+\DoxyCodeLine{00170\ \}\ \textcolor{comment}{//\ namespace\ rpp::operators}}
 
 \end{DoxyCode}
