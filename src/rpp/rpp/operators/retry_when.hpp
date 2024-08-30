@@ -56,9 +56,11 @@ namespace rpp::operators::details
         void on_next(T&&) const
         {
             locally_disposed = true;
+            state->clear();
 
             if (state->is_inside_drain.exchange(false, std::memory_order::seq_cst))
                 return;
+
             drain<TObserver, TObservable, TNotifier>(state);
         }
 
@@ -74,7 +76,7 @@ namespace rpp::operators::details
             state->observer.on_completed();
         }
 
-        void set_upstream(const disposable_wrapper& d) { state->add(d); }
+        void set_upstream(const disposable_wrapper& d) const { state->add(d); }
 
         bool is_disposed() const { return locally_disposed || state->is_disposed(); }
     };
@@ -121,7 +123,6 @@ namespace rpp::operators::details
     {
         while (!state->is_disposed())
         {
-            state->clear();
             state->is_inside_drain.store(true, std::memory_order::seq_cst);
             try
             {

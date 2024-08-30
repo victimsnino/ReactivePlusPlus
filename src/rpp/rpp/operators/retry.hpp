@@ -62,6 +62,8 @@ namespace rpp::operators::details
                 return;
             }
 
+            state->clear();
+
             if (state->is_inside_drain.exchange(false, std::memory_order::seq_cst))
                 return;
 
@@ -89,7 +91,6 @@ namespace rpp::operators::details
         {
             if (state->count)
                 --state->count.value();
-            state->clear();
             state->is_inside_drain.store(true, std::memory_order::seq_cst);
             try
             {

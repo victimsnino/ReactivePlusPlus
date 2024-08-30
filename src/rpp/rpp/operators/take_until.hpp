@@ -65,7 +65,7 @@ namespace rpp::operators::details
 
         void set_upstream(const disposable_wrapper& d) { state->add(d); }
 
-        bool is_disposed() const { return state->is_stopped() || state->is_disposed(); }
+        bool is_disposed() const { return state->is_disposed(); }
     };
 
     template<rpp::constraint::observer TObserver>

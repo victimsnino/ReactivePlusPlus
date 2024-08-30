@@ -253,14 +253,14 @@ TEST_CASE("take_until infinite loop")
         obs.on_completed();
     })
         | rpp::ops::map([](int) {
-              const auto delay = rpp::source::timer(std::chrono::seconds{1}, rpp::schedulers::current_thread{});
+              const auto delay = rpp::source::timer(std::chrono::nanoseconds{100}, rpp::schedulers::current_thread{});
               return rpp::source::never<int>()
                    | rpp::ops::take_until(delay)
                    | rpp::ops::start_with(1);
           })
         | rpp::ops::concat()
         | rpp::ops::repeat()
-        | rpp::ops::take(5)
+        | rpp::ops::take(2)
         | rpp::ops::subscribe([](int) {});
     ;
 }
