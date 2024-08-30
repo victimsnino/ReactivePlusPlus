@@ -211,11 +211,11 @@ $(function(){initNavTree('with__latest__from_8hpp_source.html',''); initResizabl
 <div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>        <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
 <div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>        <span class="keywordtype">void</span> on_next(T&amp;&amp; v)<span class="keyword"> const</span></div>
 <div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span><span class="keyword">        </span>{</div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>            <span class="keyword">auto</span> result = disposable-&gt;get_values().apply([<span class="keyword">this</span>, &amp;v](rpp::utils::value_with_mutex&lt;std::optional&lt;RestArgs&gt;&gt;&amp;... vals) -&gt; std::optional&lt;Result&gt; {</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>            <span class="keyword">auto</span> result = disposable-&gt;get_values().apply([&amp;d = this-&gt;disposable, &amp;v](rpp::utils::value_with_mutex&lt;std::optional&lt;RestArgs&gt;&gt;&amp;... vals) -&gt; std::optional&lt;Result&gt; {</div>
 <div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>                <span class="keyword">auto</span> lock = std::scoped_lock{vals.get_mutex()...};</div>
 <div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span> </div>
 <div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>                <span class="keywordflow">if</span> ((vals.get_value_unsafe().has_value() &amp;&amp; ...))</div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>                    <span class="keywordflow">return</span> disposable-&gt;get_selector()(rpp::utils::as_const(std::forward&lt;T&gt;(v)), rpp::utils::as_const(vals.get_value_unsafe().value())...);</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>                    <span class="keywordflow">return</span> d-&gt;get_selector()(rpp::utils::as_const(std::forward&lt;T&gt;(v)), rpp::utils::as_const(vals.get_value_unsafe().value())...);</div>
 <div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>                <span class="keywordflow">return</span> std::nullopt;</div>
 <div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>            });</div>
 <div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span> </div>

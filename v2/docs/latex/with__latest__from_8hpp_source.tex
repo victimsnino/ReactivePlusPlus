@@ -102,11 +102,11 @@
 \DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
 \DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ on\_next(T\&\&\ v)\textcolor{keyword}{\ const}}
 \DoxyCodeLine{00100\ \textcolor{keyword}{\ \ \ \ \ \ \ \ }\{}
-\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ result\ =\ disposable-\/>get\_values().apply([\textcolor{keyword}{this},\ \&v](rpp::utils::value\_with\_mutex<std::optional<RestArgs>>\&...\ vals)\ -\/>\ std::optional<Result>\ \{}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ result\ =\ disposable-\/>get\_values().apply([\&d\ =\ this-\/>disposable,\ \&v](rpp::utils::value\_with\_mutex<std::optional<RestArgs>>\&...\ vals)\ -\/>\ std::optional<Result>\ \{}
 \DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ lock\ =\ std::scoped\_lock\{vals.get\_mutex()...\};}
 \DoxyCodeLine{00103\ }
 \DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ ((vals.get\_value\_unsafe().has\_value()\ \&\&\ ...))}
-\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ disposable-\/>get\_selector()(rpp::utils::as\_const(std::forward<T>(v)),\ rpp::utils::as\_const(vals.get\_value\_unsafe().value())...);}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ d-\/>get\_selector()(rpp::utils::as\_const(std::forward<T>(v)),\ rpp::utils::as\_const(vals.get\_value\_unsafe().value())...);}
 \DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::nullopt;}
 \DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \ \ \ \ \});}
 \DoxyCodeLine{00108\ }
