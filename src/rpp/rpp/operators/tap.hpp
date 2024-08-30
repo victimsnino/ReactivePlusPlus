@@ -90,6 +90,7 @@ namespace rpp::operators
      * @see https://reactivex.io/documentation/operators/do.html
      */
     template<std::invocable<const std::exception_ptr&> OnError /* = rpp::utils::empty_function_t<std::exception_ptr> */>
+        requires utils::is_not_template_callable<OnError>
     auto tap(OnError&& on_error)
     {
         using OnNext      = rpp::utils::empty_function_any_t;
@@ -156,6 +157,7 @@ namespace rpp::operators
     template<typename OnNext /* = rpp::utils::empty_function_any_t */,
              std::invocable<const std::exception_ptr&> OnError /* = rpp::utils::empty_function_t<std::exception_ptr> */,
              std::invocable<>                          OnCompleted /* = rpp::utils::empty_function_t<> */>
+        requires utils::is_not_template_callable<OnError>
     auto tap(OnNext&&      on_next /* = {} */,
              OnError&&     on_error /* = {} */,
              OnCompleted&& on_completed /* = {} */)
