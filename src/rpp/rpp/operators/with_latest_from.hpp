@@ -98,7 +98,7 @@ namespace rpp::operators::details
         template<typename T>
         void on_next(T&& v) const
         {
-            auto result = disposable->get_values().apply([&d=this->disposable, &v](rpp::utils::value_with_mutex<std::optional<RestArgs>>&... vals) -> std::optional<Result> {
+            auto result = disposable->get_values().apply([&d = this->disposable, &v](rpp::utils::value_with_mutex<std::optional<RestArgs>>&... vals) -> std::optional<Result> {
                 auto lock = std::scoped_lock{vals.get_mutex()...};
 
                 if ((vals.get_value_unsafe().has_value() && ...))
