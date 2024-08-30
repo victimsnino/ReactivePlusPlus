@@ -248,6 +248,24 @@ TEST_CASE("repeat_when does not stack overflow")
         | rpp::operators::subscribe(mock);
 }
 
+TEST_CASE("retry_when disposes on looping")
+{
+    mock_observer<int> mock{};
+    REQUIRE_CALL(*mock, on_next_rvalue(1)).TIMES(2);
+    REQUIRE_CALL(*mock, on_error(trompeloeil::_));
+
+    size_t i = 0;
+
+    rpp::source::concat(rpp::source::create<int>([](auto&& subscriber) {
+        auto d = rpp::composite_disposable_wrapper::make();
+        subscriber.set_upstream(d);
+        subscriber.on_next(1);
+        subscriber.on_error({});
+        CHECK(d.is_disposed());
+    })) | rpp::ops::retry_when([&i](const std::exception_ptr& e) { return i++ ? rpp::source::error<int>(e).as_dynamic() : rpp::source::just(1).as_dynamic(); })
+        | rpp::ops::subscribe(mock);
+}
+
 TEST_CASE("retry_when doesn't produce extra copies")
 {
     SECTION("retry_when(empty_notifier)")

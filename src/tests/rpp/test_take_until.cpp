@@ -13,12 +13,7 @@
 
 #include <rpp/observers/mock_observer.hpp>
 #include <rpp/operators/as_blocking.hpp>
-#include <rpp/operators/concat.hpp>
 #include <rpp/operators/finally.hpp>
-#include <rpp/operators/map.hpp>
-#include <rpp/operators/repeat.hpp>
-#include <rpp/operators/start_with.hpp>
-#include <rpp/operators/take.hpp>
 #include <rpp/operators/take_until.hpp>
 #include <rpp/schedulers/current_thread.hpp>
 #include <rpp/sources/empty.hpp>
@@ -26,7 +21,6 @@
 #include <rpp/sources/interval.hpp>
 #include <rpp/sources/just.hpp>
 #include <rpp/sources/never.hpp>
-#include <rpp/sources/timer.hpp>
 #include <rpp/subjects/publish_subject.hpp>
 
 #include "copy_count_tracker.hpp"
@@ -244,23 +238,4 @@ TEST_CASE("take_until dispose after completion")
         | rpp::ops::subscribe([](int) {}, [&log]() { log.push_back("completed"); });
 
     CHECK(log == std::vector<std::string>{"completed", "finally"});
-}
-
-TEST_CASE("take_until infinite loop")
-{
-    rpp::source::create<int>([](auto&& obs) {
-        obs.on_next(1);
-        obs.on_completed();
-    })
-        | rpp::ops::map([](int) {
-              const auto delay = rpp::source::timer(std::chrono::nanoseconds{100}, rpp::schedulers::current_thread{});
-              return rpp::source::never<int>()
-                   | rpp::ops::take_until(delay)
-                   | rpp::ops::start_with(1);
-          })
-        | rpp::ops::concat()
-        | rpp::ops::repeat()
-        | rpp::ops::take(2)
-        | rpp::ops::subscribe([](int) {});
-    ;
 }

@@ -248,6 +248,21 @@ TEST_CASE("concat as operator async completiton")
     subj.get_observer().on_completed();
 }
 
+TEST_CASE("concat disposes on looping")
+{
+    mock_observer<int> mock{};
+    REQUIRE_CALL(*mock, on_next_rvalue(1));
+    REQUIRE_CALL(*mock, on_completed());
+
+    rpp::source::concat(rpp::source::create<int>([](auto&& subscriber) {
+        auto d = rpp::composite_disposable_wrapper::make();
+        subscriber.set_upstream(d);
+        subscriber.on_next(1);
+        subscriber.on_completed();
+        CHECK(d.is_disposed());
+    })) | rpp::ops::subscribe(mock);
+}
+
 TEST_CASE("concat doesn't produce extra copies")
 {
     copy_count_tracker tracker{};

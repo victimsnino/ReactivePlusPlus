@@ -173,6 +173,22 @@ TEST_CASE("retry handles stack overflow")
         | rpp::operators::subscribe(mock);
 }
 
+TEST_CASE("retry disposes on looping")
+{
+    mock_observer<int> mock{};
+    REQUIRE_CALL(*mock, on_next_rvalue(1)).TIMES(2);
+    REQUIRE_CALL(*mock, on_error(trompeloeil::_));
+
+    rpp::source::concat(rpp::source::create<int>([](auto&& subscriber) {
+        auto d = rpp::composite_disposable_wrapper::make();
+        subscriber.set_upstream(d);
+        subscriber.on_next(1);
+        subscriber.on_error({});
+        CHECK(d.is_disposed());
+    })) | rpp::ops::retry(1)
+        | rpp::ops::subscribe(mock);
+}
+
 TEST_CASE("retry doesn't produce extra copies")
 {
     SECTION("retry(2)")
