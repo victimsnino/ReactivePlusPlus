@@ -13,20 +13,20 @@
 
 #include <rpp/observers/mock_observer.hpp>
 #include <rpp/operators/as_blocking.hpp>
+#include <rpp/operators/concat.hpp>
 #include <rpp/operators/finally.hpp>
 #include <rpp/operators/map.hpp>
-#include <rpp/operators/start_with.hpp>
-#include <rpp/operators/concat.hpp>
 #include <rpp/operators/repeat.hpp>
+#include <rpp/operators/start_with.hpp>
 #include <rpp/operators/take.hpp>
 #include <rpp/operators/take_until.hpp>
 #include <rpp/schedulers/current_thread.hpp>
 #include <rpp/sources/empty.hpp>
-#include <rpp/sources/timer.hpp>
 #include <rpp/sources/error.hpp>
 #include <rpp/sources/interval.hpp>
 #include <rpp/sources/just.hpp>
 #include <rpp/sources/never.hpp>
+#include <rpp/sources/timer.hpp>
 #include <rpp/subjects/publish_subject.hpp>
 
 #include "copy_count_tracker.hpp"
