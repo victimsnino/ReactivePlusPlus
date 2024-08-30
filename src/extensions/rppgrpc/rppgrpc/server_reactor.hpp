@@ -17,6 +17,9 @@
 #include <rppgrpc/fwd.hpp>
 #include <rppgrpc/utils/exceptions.hpp>
 
+#include <iostream>
+#define DEBUG(X) std::cout << X << std::endl;
+
 namespace rppgrpc
 {
     /**
@@ -46,27 +49,36 @@ namespace rppgrpc
             details::base_reader<Request>::handle_read_done(true);
         }
 
+        ~server_bidi_reactor() override
+        {
+            DEBUG("server_bidi_reactor::~()");
+        }
+
         using details::base_writer<Response>::get_observer;
         using details::base_reader<Request>::get_observable;
 
     private:
         void start_write(const Response& v) override
         {
+            DEBUG("server_bidi_reactor::start_write()");
             Base::StartWrite(&v);
         }
 
         void start_read(Request& data) override
         {
+            DEBUG("server_bidi_reactor::start_read()");
             Base::StartRead(&data);
         }
 
         void finish_writes(const grpc::Status& status) override
         {
+            DEBUG("server_bidi_reactor::finish_writes()");
             Base::Finish(status);
         }
 
         void OnReadDone(bool ok) override
         {
+            DEBUG("server_bidi_reactor::OnReadDone()");
             if (!ok)
                 return;
 
@@ -75,6 +87,7 @@ namespace rppgrpc
 
         void OnWriteDone(bool ok) override
         {
+            DEBUG("server_bidi_reactor::OnWriteDone()");
             if (!ok)
                 return;
 
@@ -83,6 +96,8 @@ namespace rppgrpc
 
         void OnDone() override
         {
+            DEBUG("server_bidi_reactor::OnDone()");
+
             details::base_writer<Response>::handle_on_done();
             details::base_reader<Request>::handle_on_done({});
 
@@ -91,6 +106,8 @@ namespace rppgrpc
 
         void OnCancel() override
         {
+            DEBUG("server_bidi_reactor::OnCancel()");
+
             details::base_writer<Response>::handle_on_done();
             details::base_reader<Request>::handle_on_done(std::make_exception_ptr(rppgrpc::utils::reactor_failed{"OnCancel called"}));
 
@@ -121,6 +138,10 @@ namespace rppgrpc
         {
             Base::StartSendInitialMetadata();
         }
+        ~server_write_reactor() override
+        {
+            DEBUG("server_write_reactor::~()");
+        }
 
         using details::base_writer<Response>::get_observer;
         using details::base_reader<rpp::utils::none>::get_observable;
@@ -128,6 +149,7 @@ namespace rppgrpc
     private:
         void start_write(const Response& v) override
         {
+            DEBUG("server_write_reactor::start_write()");
             Base::StartWrite(&v);
         }
 
@@ -135,11 +157,13 @@ namespace rppgrpc
 
         void finish_writes(const grpc::Status& status) override
         {
+            DEBUG("server_write_reactor::finish_writes()");
             Base::Finish(status);
         }
 
         void OnWriteDone(bool ok) override
         {
+            DEBUG("server_write_reactor::OnWriteDone()");
             if (!ok)
             {
                 Base::Finish(grpc::Status::OK);
@@ -151,6 +175,7 @@ namespace rppgrpc
 
         void OnDone() override
         {
+            DEBUG("server_write_reactor::OnDone()");
             details::base_writer<Response>::handle_on_done();
             details::base_reader<rpp::utils::none>::handle_on_done({});
 
@@ -159,6 +184,8 @@ namespace rppgrpc
 
         void OnCancel() override
         {
+            DEBUG("server_write_reactor::OnCancel()");
+
             details::base_writer<Response>::handle_on_done();
             details::base_reader<rpp::utils::none>::handle_on_done(std::make_exception_ptr(rppgrpc::utils::reactor_failed{"OnCancel called"}));
 
@@ -189,16 +216,23 @@ namespace rppgrpc
             details::base_reader<Request>::handle_read_done(true);
         }
 
+        ~server_read_reactor() override
+        {
+            DEBUG("server_read_reactor::~()");
+        }
+
         using details::base_reader<Request>::get_observable;
 
     private:
         void start_read(Request& data) override
         {
+            DEBUG("server_read_reactor::start_read()");
             Base::StartRead(&data);
         }
 
         void OnReadDone(bool ok) override
         {
+            DEBUG("server_read_reactor::OnReadDone()");
             if (!ok)
             {
                 Base::Finish(grpc::Status::OK);
@@ -210,6 +244,7 @@ namespace rppgrpc
 
         void OnDone() override
         {
+            DEBUG("server_read_reactor::OnDone()");
             details::base_reader<Request>::handle_on_done({});
 
             delete this;
@@ -217,6 +252,7 @@ namespace rppgrpc
 
         void OnCancel() override
         {
+            DEBUG("server_read_reactor::OnCancel()");
             details::base_reader<Request>::handle_on_done(std::make_exception_ptr(rppgrpc::utils::reactor_failed{"OnCancel called"}));
         }
     };

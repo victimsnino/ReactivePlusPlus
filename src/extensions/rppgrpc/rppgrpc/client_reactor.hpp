@@ -17,6 +17,9 @@
 #include <rppgrpc/fwd.hpp>
 #include <rppgrpc/utils/exceptions.hpp>
 
+#include <iostream>
+#define DEBUG(X) std::cout << X << std::endl;
+
 namespace rppgrpc
 {
     /**
@@ -40,9 +43,14 @@ namespace rppgrpc
 
     public:
         client_bidi_reactor() = default;
+        ~client_bidi_reactor() override
+        {
+            DEBUG("client_bidi_reactor::~()");
+        }
 
         void init()
         {
+            DEBUG("client_bidi_reactor::init()");
             Base::StartCall();
             details::base_reader<Response>::handle_read_done(true);
         }
@@ -53,16 +61,19 @@ namespace rppgrpc
     private:
         void start_read(Response& data) override
         {
+            DEBUG("client_bidi_reactor::start_read()");
             Base::StartRead(&data);
         }
 
         void start_write(const Request& v) override
         {
+            DEBUG("client_bidi_reactor::start_write()");
             Base::StartWrite(&v);
         }
 
         void finish_writes(const grpc::Status&) override
         {
+            DEBUG("client_bidi_reactor::finish_writes()");
             Base::StartWritesDone();
         }
 
@@ -71,6 +82,8 @@ namespace rppgrpc
 
         void OnReadDone(bool ok) override
         {
+            DEBUG("client_bidi_reactor::OnReadDone");
+
             if (!ok)
                 return;
 
@@ -79,6 +92,8 @@ namespace rppgrpc
 
         void OnWriteDone(bool ok) override
         {
+            DEBUG("client_bidi_reactor::OnWriteDone");
+
             if (!ok)
                 return;
 
@@ -87,6 +102,8 @@ namespace rppgrpc
 
         void OnDone(const grpc::Status& s) override
         {
+            DEBUG("client_bidi_reactor::OnDone");
+
             details::base_writer<Request>::handle_on_done();
             details::base_reader<Response>::handle_on_done(s.ok() ? std::exception_ptr{} : std::make_exception_ptr(rppgrpc::utils::reactor_failed{s.error_message()}));
             delete this;
@@ -114,9 +131,14 @@ namespace rppgrpc
 
     public:
         client_write_reactor() = default;
+        ~client_write_reactor() override
+        {
+            DEBUG("client_write_reactor::~()");
+        }
 
         void init()
         {
+            DEBUG("client_write_reactor::init()");
             Base::StartCall();
         }
 
@@ -126,15 +148,18 @@ namespace rppgrpc
     private:
         void start_read(rpp::utils::none& data) override
         {
+            DEBUG("client_write_reactor::start_read()");
         }
 
         void start_write(const Request& v) override
         {
+            DEBUG("client_write_reactor::start_write()");
             Base::StartWrite(&v);
         }
 
         void finish_writes(const grpc::Status&) override
         {
+            DEBUG("client_write_reactor::finish_writes()");
             Base::StartWritesDone();
         }
 
@@ -142,6 +167,8 @@ namespace rppgrpc
 
         void OnWriteDone(bool ok) override
         {
+            DEBUG("client_write_reactor::OnWriteDone()");
+
             if (!ok)
                 return;
 
@@ -150,6 +177,8 @@ namespace rppgrpc
 
         void OnDone(const grpc::Status& s) override
         {
+            DEBUG("client_write_reactor::OnDone()");
+
             details::base_writer<Request>::handle_on_done();
             details::base_reader<rpp::utils::none>::handle_on_done(s.ok() ? std::exception_ptr{} : std::make_exception_ptr(rppgrpc::utils::reactor_failed{s.error_message()}));
 
@@ -176,9 +205,14 @@ namespace rppgrpc
 
     public:
         client_read_reactor() = default;
+        ~client_read_reactor() override
+        {
+            DEBUG("client_read_reactor::~()");
+        }
 
         void init()
         {
+            DEBUG("client_read_reactor::init()");
             Base::StartCall();
             details::base_reader<Response>::handle_read_done(true);
         }
@@ -191,11 +225,13 @@ namespace rppgrpc
 
         void start_read(Response& data) override
         {
+            DEBUG("client_read_reactor::start_read()");
             Base::StartRead(&data);
         }
 
         void OnReadDone(bool ok) override
         {
+            DEBUG("client_read_reactor::OnReadDone()");
             if (!ok)
                 return;
 
@@ -204,6 +240,8 @@ namespace rppgrpc
 
         void OnDone(const grpc::Status& s) override
         {
+            DEBUG("client_read_reactor::OnDone()");
+
             details::base_reader<Response>::handle_on_done(s.ok() ? std::exception_ptr{} : std::make_exception_ptr(rppgrpc::utils::reactor_failed{s.error_message()}));
             delete this;
         }
