@@ -18,7 +18,7 @@
 #include <rppgrpc/utils/exceptions.hpp>
 
 #include <iostream>
-#define DEBUG(X) std::cout << X << std::endl;
+#define DEBUG(X) std::cout << (X) << std::endl;
 
 namespace rppgrpc
 {
