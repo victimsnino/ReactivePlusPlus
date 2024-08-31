@@ -99,6 +99,26 @@ void test_operator_over_observable_with_disposable(auto&& op)
         CHECK(observable_disposable.is_disposed());
     }
 
+    SECTION("operator disposes disposable on_error")
+    {
+        op(rpp::source::create<T>([](auto&& obs) {
+            const auto d = rpp::composite_disposable_wrapper::make();
+            obs.set_upstream(d);
+            obs.on_error({});
+            CHECK(d.is_disposed());
+        })).subscribe([](const auto&) {}, [](const std::exception_ptr&) {});
+    }
+
+    SECTION("operator disposes disposable on_completed")
+    {
+        op(rpp::source::create<T>([](auto&& obs) {
+            const auto d = rpp::composite_disposable_wrapper::make();
+            obs.set_upstream(d);
+            obs.on_completed();
+            CHECK(d.is_disposed());
+        })).subscribe([](const auto&) {}, [](const std::exception_ptr&) {});
+    }
+
     SECTION("set_upstream with fixed_disposable_strategy_selector<1>")
     {
         CHECK_NOTHROW(op(rpp::observable<T, wrapped_observable_strategy_set_upstream<T, rpp::details::observables::fixed_disposable_strategy_selector<1>>>{})

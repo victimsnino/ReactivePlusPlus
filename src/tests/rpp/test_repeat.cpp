@@ -134,7 +134,7 @@ TEST_CASE("repeat doesn't produce extra copies")
 
 TEST_CASE("repeat satisfies disposable contracts")
 {
-    test_operator_with_disposable<int>(rpp::ops::repeat());
+    test_operator_with_disposable<int>(rpp::ops::repeat(1));
 }
 
 

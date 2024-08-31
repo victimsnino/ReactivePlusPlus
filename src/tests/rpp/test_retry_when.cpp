@@ -282,20 +282,13 @@ TEST_CASE("retry_when doesn't produce extra copies")
 
 TEST_CASE("retry_when satisfies disposable contracts")
 {
-    auto observable_disposable = rpp::composite_disposable_wrapper::make();
-    {
-        auto observable = observable_with_disposable<int>(observable_disposable);
-        auto op         = rpp::ops::retry_when([](const std::exception_ptr&) { return rpp::source::empty<int>(); });
 
-        test_operator_with_disposable<int>(op);
-        test_operator_finish_before_dispose<int>(op);
+    test_operator_with_disposable<int>(rpp::ops::retry_when([](const std::exception_ptr&) { return rpp::source::empty<int>(); }));
+    test_operator_finish_before_dispose<int>(rpp::ops::retry_when([](const std::exception_ptr&) { return rpp::source::empty<int>(); }));
 
-        test_operator_over_observable_with_disposable<int>(
-            [](auto observable) {
-                return rpp::source::concat(observable, rpp::source::error<int>(std::make_exception_ptr(std::runtime_error{"error"})))
-                     | rpp::ops::retry_when([](const std::exception_ptr&) { return rpp::source::just(1); });
-            });
-    }
-
-    CHECK((observable_disposable.is_disposed() || observable_disposable.lock().use_count() == 2));
+    test_operator_over_observable_with_disposable<int>(
+        [](auto observable) {
+            return rpp::source::concat(observable, rpp::source::error<int>(std::make_exception_ptr(std::runtime_error{"error"})))
+                 | rpp::ops::retry_when([](const std::exception_ptr&) { return rpp::source::just(1); });
+        });
 }
