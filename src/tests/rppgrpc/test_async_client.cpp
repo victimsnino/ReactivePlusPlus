@@ -124,7 +124,7 @@ TEST_CASE("async client reactor")
 
             const auto last = NAMED_REQUIRE_CALL(*out_mock, on_completed()).IN_SEQUENCE(s);
             subj.get_observer().on_completed();
-    
+
             bidi_reactor->init();
 
             auto f = results.get_future();
