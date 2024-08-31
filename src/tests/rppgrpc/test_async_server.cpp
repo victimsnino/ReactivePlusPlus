@@ -50,16 +50,13 @@ TEST_CASE("Async server")
         SECTION("writer immediate finish")
         {
             const auto last = NAMED_REQUIRE_CALL(*out_mock, on_completed()).IN_SEQUENCE(s);
-            auto       t    = std::thread{[&] {
-                if constexpr (requires { writer->WritesDone(); })
-                    writer->WritesDone();
-                CHECK(writer->Finish().ok());
-            }};
+            if constexpr (requires { writer->WritesDone(); })
+                writer->WritesDone();
 
             if constexpr (requires { reactor->get_observer(); })
                 reactor->get_observer().on_completed();
 
-            t.join();
+            CHECK(writer->Finish().ok());
             wait(last);
         }
 
@@ -85,22 +82,18 @@ TEST_CASE("Async server")
             REQUIRE_CALL(*out_mock, on_next_rvalue(2)).IN_SEQUENCE(s);
             REQUIRE_CALL(*out_mock, on_next_rvalue(3)).IN_SEQUENCE(s);
             const auto last = NAMED_REQUIRE_CALL(*out_mock, on_completed()).IN_SEQUENCE(s);
-            std::thread{[&] {
-                Request request{};
-                for (int i : {1, 2, 3})
-                {
-                    request.set_value(i);
-                    REQUIRE(writer->Write(request));
-                }
-                writer->WritesDone();
-            }}.join();
+            Request    request{};
+            for (int i : {1, 2, 3})
+            {
+                request.set_value(i);
+                REQUIRE(writer->Write(request));
+            }
+            writer->WritesDone();
 
             if constexpr (requires { reactor->get_observer(); })
                 reactor->get_observer().on_completed();
 
-            std::thread{[&] {
-                REQUIRE(writer->Finish().ok());
-            }}.join();
+            REQUIRE(writer->Finish().ok());
 
             wait(last);
         }
@@ -118,19 +111,16 @@ TEST_CASE("Async server")
             }
             reactor->get_observer().on_completed();
 
-            std::thread{[&] {
-                if constexpr (requires { writer->WritesDone(); })
-                    writer->WritesDone();
+            if constexpr (requires { writer->WritesDone(); })
+                writer->WritesDone();
 
-                Response response{};
-                for (int i : {1, 2, 3})
-                {
-                    REQUIRE(writer->Read(&response));
-                    REQUIRE(response.value() == i);
-                }
-                REQUIRE(!writer->Read(&response));
-                REQUIRE(writer->Finish().ok());
-            }}.join();
+            for (int i : {1, 2, 3})
+            {
+                REQUIRE(writer->Read(&response));
+                REQUIRE(response.value() == i);
+            }
+            REQUIRE(!writer->Read(&response));
+            REQUIRE(writer->Finish().ok());
             wait(last);
         }
     };
