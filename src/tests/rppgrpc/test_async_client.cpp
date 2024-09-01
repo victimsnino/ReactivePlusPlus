@@ -341,13 +341,14 @@ TEST_CASE("async client reactor")
                     results.set_value(reads);
                 });
 
-            write_reactor->init();
 
             subj.get_observer().on_next(1);
             subj.get_observer().on_next(2);
 
             const auto last = NAMED_REQUIRE_CALL(*out_mock, on_completed()).IN_SEQUENCE(s);
             subj.get_observer().on_completed();
+
+            write_reactor->init();
 
             auto f = results.get_future();
             REQUIRE(f.wait_for(std::chrono::seconds{1}) == std::future_status::ready);
