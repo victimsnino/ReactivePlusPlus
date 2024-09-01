@@ -20,7 +20,12 @@
 namespace rppasio::schedulers
 {
     /**
-     * @brief TODO
+     * @brief Asio based scheduler where each worker is assigned an asio `strand` to execute schedulables with the
+     * guarantee that none of those `schedulables` will execute concurrently.
+     * @details This scheduler can efficiently enable multi-threading execution when running provided io_context
+     * in multiple threads. Compared to the `thread_pool` scheduler, a worker is not pinned to a single thread and
+     * `schedulables` are instead dynamically dispatched to potentially different io_context threads depending
+     * on load.
      * @ingroup asio_schedulers
      */
     class strand
@@ -47,19 +52,18 @@ namespace rppasio::schedulers
                             return;
 
                         if (const auto new_duration = fn(handler, args...))
-                            self->defer_for(new_duration->value, std::forward<Fn>(fn), std::forward<Handler>(handler), std::forward<Args>(args)...);
+                            self->defer_for(new_duration->value, std::move(fn), std::move(handler), std::move(args)...);
                     }));
                 }
                 else
                 {
                     auto timer = std::make_shared<asio::basic_waitable_timer<rpp::schedulers::clock_type>>(m_strand.context(), duration);
-                    timer->async_wait(asio::bind_executor(m_strand, [self = this->shared_from_this(), timer = std::move(timer), fn = std::forward<Fn>(fn), handler = std::forward<Handler>(handler), ... args = std::forward<Args>(args)](const asio::error_code& ec) mutable {
+                    timer->async_wait(asio::bind_executor(m_strand, [self = this->shared_from_this(), timer, fn = std::forward<Fn>(fn), handler = std::forward<Handler>(handler), ... args = std::forward<Args>(args)](const asio::error_code& ec) mutable {
                         if (ec || handler.is_disposed())
                             return;
 
-
                         if (const auto new_duration = fn(handler, args...))
-                            self->defer_for(new_duration->value, std::forward<Fn>(fn), std::forward<Handler>(handler), std::forward<Args>(args)...);
+                            self->defer_for(new_duration->value, std::move(fn), std::move(handler), std::move(args)...);
                     }));
                 }
             }
