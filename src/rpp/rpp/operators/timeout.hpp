@@ -133,22 +133,16 @@ namespace rpp::operators::details
         auto lift_with_disposable_strategy(Observer&& observer) const
         {
             using worker_t  = rpp::schedulers::utils::get_worker_t<TScheduler>;
-            using container = typename DisposableStrategy::template add<worker_t::is_none_disposable ? 0 : 1>::disposable_container;
+            using container = typename DisposableStrategy::disposable_container;
 
-            const auto timeout = rpp::schedulers::utils::get_worker_t<TScheduler>::now() + period;
+            const auto timeout = worker_t::now() + period;
 
             const auto disposable = disposable_wrapper_impl<timeout_disposable<std::decay_t<Observer>, TFallbackObservable, container>>::make(std::forward<Observer>(observer), period, fallback, timeout);
             auto       ptr        = disposable.lock();
             ptr->get_observer_with_timeout_under_lock()->observer.set_upstream(disposable.as_weak());
 
             const auto worker = scheduler.create_worker();
-            if constexpr (!rpp::schedulers::utils::get_worker_t<TScheduler>::is_none_disposable)
-            {
-                if (auto d = worker.get_disposable(); !d.is_disposed())
-                    disposable.add(std::move(d));
-            }
-
-            using wrapper = timeout_disposable_wrapper<std::decay_t<Observer>, TFallbackObservable, container>;
+            using wrapper     = timeout_disposable_wrapper<std::decay_t<Observer>, TFallbackObservable, container>;
             worker.schedule(
                 timeout,
                 [](wrapper& handler) -> rpp::schedulers::optional_delay_to {

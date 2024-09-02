@@ -89,10 +89,6 @@ namespace rpp::schedulers::details
 
         static void on_error(const std::exception_ptr&) {}
     };
-
-    struct none_disposable
-    {
-    };
 } // namespace rpp::schedulers::details
 
 namespace rpp::schedulers::constraint
@@ -148,10 +144,9 @@ namespace rpp::schedulers::constraint
     };
 
     template<typename S>
-    concept strategy = (defer_for_strategy<S> || defer_to_strategy<S>) && requires(const S& s, const details::fake_schedulable_handler& handler) {
-        {
-            s.get_disposable()
-        } -> rpp::constraint::any_of<rpp::disposable_wrapper, details::none_disposable>;
+    concept strategy = (defer_for_strategy<S> || defer_to_strategy<S>)&&
+        requires ()
+    {
         {
             S::now()
         } -> std::same_as<rpp::schedulers::time_point>;

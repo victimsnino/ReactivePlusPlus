@@ -9,7 +9,6 @@
 
 #pragma once
 
-#include <rpp/disposables.hpp>
 #include <rpp/schedulers.hpp>
 
 namespace rpp::schedulers
@@ -23,16 +22,13 @@ namespace rpp::schedulers
 
         class worker_strategy;
 
-        struct state : public rpp::details::base_disposable
+        struct state
         {
             state() = default;
 
             template<rpp::schedulers::constraint::schedulable_handler Handler, typename... Args, rpp::schedulers::constraint::schedulable_fn<Handler, Args...> Fn>
             void schedule(rpp::schedulers::time_point time_point, Fn&& fn, Handler&& handler, Args&&... args)
             {
-                if (is_disposed())
-                    return;
-
                 schedulings.push_back(time_point);
                 queue.emplace(time_point, std::forward<Fn>(fn), std::forward<Handler>(handler), std::forward<Args>(args)...);
             }
@@ -53,16 +49,11 @@ namespace rpp::schedulers
                     executions.push_back(s_current_time);
                     if (auto new_timepoint = (*fn)())
                     {
-                        if (!is_disposed())
-                        {
-                            schedulings.push_back(std::max(s_current_time, new_timepoint.value()));
-                            queue.emplace(schedulings.back(), std::move(fn));
-                        }
+                        schedulings.push_back(std::max(s_current_time, new_timepoint.value()));
+                        queue.emplace(schedulings.back(), std::move(fn));
                     }
                 }
             }
-
-            void base_dispose_impl(interface_disposable::Mode) noexcept override {}
 
             std::vector<rpp::schedulers::time_point>                      schedulings{};
             std::vector<rpp::schedulers::time_point>                      executions{};
@@ -72,7 +63,7 @@ namespace rpp::schedulers
         class worker_strategy
         {
         public:
-            worker_strategy(rpp::disposable_wrapper_impl<state> state)
+            worker_strategy(std::weak_ptr<state> state)
                 : m_state{std::move(state)}
             {
             }
@@ -82,41 +73,36 @@ namespace rpp::schedulers
             {
                 if (auto locked = m_state.lock())
                 {
-                    if (!locked->is_disposed())
-                    {
-                        locked->schedule(now() + duration, std::forward<Fn>(fn), std::forward<Handler>(handler), std::forward<Args>(args)...);
-                        locked->drain();
-                    }
+                    locked->schedule(now() + duration, std::forward<Fn>(fn), std::forward<Handler>(handler), std::forward<Args>(args)...);
+                    locked->drain();
                 }
             }
 
             static rpp::schedulers::time_point now() { return s_current_time; }
 
-            rpp::disposable_wrapper get_disposable() const { return m_state.as_weak(); }
-
         private:
-            rpp::disposable_wrapper_impl<state> m_state;
+            std::weak_ptr<state> m_state;
         };
 
         test_scheduler() = default;
 
         rpp::schedulers::worker<worker_strategy> create_worker() const
         {
-            return rpp::schedulers::worker<worker_strategy>{m_state.as_weak()};
+            return rpp::schedulers::worker<worker_strategy>{m_state};
         }
 
-        const auto& get_schedulings() const { return m_state.lock()->schedulings; }
-        const auto& get_executions() const { return m_state.lock()->executions; }
+        const auto& get_schedulings() const { return m_state->schedulings; }
+        const auto& get_executions() const { return m_state->executions; }
 
         static rpp::schedulers::time_point now() { return s_current_time; }
 
         void time_advance(rpp::schedulers::duration dur) const
         {
             s_current_time += dur;
-            m_state.lock()->drain();
+            m_state->drain();
         }
 
     private:
-        rpp::disposable_wrapper_impl<state> m_state = rpp::disposable_wrapper_impl<state>::make();
+        std::shared_ptr<state> m_state = std::make_shared<state>();
     };
 } // namespace rpp::schedulers

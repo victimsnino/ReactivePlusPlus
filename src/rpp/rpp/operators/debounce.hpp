@@ -43,11 +43,6 @@ namespace rpp::operators::details
             , m_worker{std::move(in_worker)}
             , m_period{period}
         {
-            if constexpr (!Worker::is_none_disposable)
-            {
-                if (auto d = m_worker.get_disposable(); !d.is_disposed())
-                    rpp::composite_disposable_impl<Container>::add(std::move(d));
-            }
         }
 
         template<typename TT>
@@ -172,7 +167,7 @@ namespace rpp::operators::details
         auto lift_with_disposable_strategy(Observer&& observer) const
         {
             using worker_t  = rpp::schedulers::utils::get_worker_t<Scheduler>;
-            using container = typename DisposableStrategy::template add<worker_t::is_none_disposable ? 0 : 1>::disposable_container;
+            using container = typename DisposableStrategy::disposable_container;
 
             const auto disposable = disposable_wrapper_impl<debounce_disposable<std::decay_t<Observer>, worker_t, container>>::make(std::forward<Observer>(observer), scheduler.create_worker(), duration);
             auto       ptr        = disposable.lock();
