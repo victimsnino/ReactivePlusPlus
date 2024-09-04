@@ -143,7 +143,7 @@ TEST_CASE("Async server")
     SECTION("server-side")
     {
         const auto reactor = new rppgrpc::server_write_reactor<Response>();
-        reactor->get_observable() | rpp::ops::map([](const rpp::utils::none&) { return 0; })  | rpp::ops::subscribe(out_mock);
+        reactor->get_observable() | rpp::ops::map([](const rpp::utils::none&) { return 0; }) | rpp::ops::subscribe(out_mock);
 
         const auto call = NAMED_REQUIRE_CALL(*mock_service, ServerSide(trompeloeil::_, trompeloeil::_)).LR_SIDE_EFFECT(obtained_context = _1;).RETURN(reactor).IN_SEQUENCE(s);
 
