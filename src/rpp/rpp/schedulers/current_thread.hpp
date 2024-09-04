@@ -181,8 +181,6 @@ namespace rpp::schedulers
                 }
             }
 
-            static constexpr rpp::schedulers::details::none_disposable get_disposable() { return {}; }
-
             static rpp::schedulers::time_point now() { return details::now(); }
         };
 

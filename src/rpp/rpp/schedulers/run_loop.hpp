@@ -120,8 +120,6 @@ namespace rpp::schedulers
                     shared->emplace_and_notify(tp, std::forward<Fn>(fn), std::forward<Handler>(handler), std::forward<Args>(args)...);
             }
 
-            static constexpr rpp::schedulers::details::none_disposable get_disposable() { return {}; }
-
             static rpp::schedulers::time_point now() { return details::now(); }
 
         private:

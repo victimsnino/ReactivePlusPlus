@@ -56,17 +56,7 @@ namespace rpp::schedulers
                 schedule(tp - now(), std::forward<Fn>(fn), std::forward<Handler>(handler), std::forward<Args>(args)...);
         }
 
-        rpp::disposable_wrapper get_disposable() const
-        {
-            if constexpr (is_none_disposable)
-                return disposable_wrapper::empty();
-            else
-                return m_strategy.get_disposable();
-        }
-
         static rpp::schedulers::time_point now() { return Strategy::now(); }
-
-        static constexpr bool is_none_disposable = std::same_as<decltype(std::declval<Strategy>().get_disposable()), rpp::schedulers::details::none_disposable>;
 
     private:
         RPP_NO_UNIQUE_ADDRESS Strategy m_strategy;
