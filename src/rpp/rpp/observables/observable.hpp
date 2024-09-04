@@ -324,14 +324,14 @@ namespace rpp
             return std::move(*this).inner_make_chain_operator(std::forward<Op>(op));
         }
 
-        template<constraint::operator_observable_transform<const observable&> Op>
-        auto operator|(Op&& op) const &
+        template<typename Op>
+        rpp::constraint::observable auto operator|(Op&& op) const &
         {
             return std::forward<Op>(op)(*this);
         }
 
-        template<constraint::operator_observable_transform<observable&&> Op>
-        auto operator|(Op&& op) &&
+        template<typename Op>
+        rpp::constraint::observable auto operator|(Op&& op) &&
         {
             return std::forward<Op>(op)(std::move(*this));
         }

@@ -79,13 +79,6 @@ namespace rpp::constraint
     template<typename T, typename Type>
     concept observable_of_type = observable<T> && std::same_as<utils::extract_observable_type_t<T>, std::decay_t<Type>>;
 
-    template<typename Op, typename TObs>
-    concept operator_observable_transform = requires(const Op& op, TObs obs) {
-        {
-            op(static_cast<TObs>(obs))
-        } -> rpp::constraint::observable;
-    };
-
     template<typename Op, typename Type>
     concept operator_base = requires(const Op& op) { typename std::decay_t<Op>::template operator_traits<Type>; } && details::observables::constraint::disposable_strategy<details::observables::deduce_updated_disposable_strategy<std::decay_t<Op>, typename details::observables::chain<details::observables::fake_strategy<Type>>::expected_disposable_strategy>>;
 
