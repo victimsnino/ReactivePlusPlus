@@ -3,7 +3,6 @@
 #include <rpp/observers/mock_observer.hpp>
 #include <rpp/operators/map.hpp>
 #include <rpp/operators/observe_on.hpp>
-#include <rpp/schedulers/new_thread.hpp>
 
 #include <grpc++/server_builder.h>
 #include <rppgrpc/proto.grpc.pb.h>
@@ -128,7 +127,7 @@ TEST_CASE("Async server")
     SECTION("bidirectionl")
     {
         const auto reactor = new rppgrpc::server_bidi_reactor<Request, Response>();
-        reactor->get_observable() | rpp::ops::map([](const Request& out) { return out.value(); }) | rpp::ops::observe_on(rpp::schedulers::new_thread{}) | rpp::ops::subscribe(out_mock);
+        reactor->get_observable() | rpp::ops::map([](const Request& out) { return out.value(); }) | rpp::ops::subscribe(out_mock);
 
         const auto call = NAMED_REQUIRE_CALL(*mock_service, Bidirectional(trompeloeil::_)).LR_SIDE_EFFECT(obtained_context = _1;).RETURN(reactor).IN_SEQUENCE(s);
 
@@ -144,7 +143,7 @@ TEST_CASE("Async server")
     SECTION("server-side")
     {
         const auto reactor = new rppgrpc::server_write_reactor<Response>();
-        reactor->get_observable() | rpp::ops::map([](const rpp::utils::none&) { return 0; }) | rpp::ops::observe_on(rpp::schedulers::new_thread{}) | rpp::ops::subscribe(out_mock);
+        reactor->get_observable() | rpp::ops::map([](const rpp::utils::none&) { return 0; })  | rpp::ops::subscribe(out_mock);
 
         const auto call = NAMED_REQUIRE_CALL(*mock_service, ServerSide(trompeloeil::_, trompeloeil::_)).LR_SIDE_EFFECT(obtained_context = _1;).RETURN(reactor).IN_SEQUENCE(s);
 
@@ -159,7 +158,7 @@ TEST_CASE("Async server")
     SECTION("client-side")
     {
         const auto reactor = new rppgrpc::server_read_reactor<Request>();
-        reactor->get_observable() | rpp::ops::map([](const Request& out) { return out.value(); }) | rpp::ops::observe_on(rpp::schedulers::new_thread{}) | rpp::ops::subscribe(out_mock);
+        reactor->get_observable() | rpp::ops::map([](const Request& out) { return out.value(); }) | rpp::ops::subscribe(out_mock);
 
         const auto call = NAMED_REQUIRE_CALL(*mock_service, ClientSide(trompeloeil::_, trompeloeil::_)).LR_SIDE_EFFECT(obtained_context = _1;).RETURN(reactor).IN_SEQUENCE(s);
 
