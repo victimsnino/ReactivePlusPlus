@@ -33,7 +33,7 @@
 \DoxyCodeLine{00029\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1details_1_1interval__strategy}{interval\_strategy}}}
 \DoxyCodeLine{00030\ \ \ \ \ \{}
 \DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }value\_type\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ size\_t;}
-\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }expected\_disposable\_strategy\ =\ std::conditional\_t<rpp::schedulers::utils::get\_worker\_t<TScheduler>::is\_none\_disposable,\ \mbox{\hyperlink{structrpp_1_1details_1_1observables_1_1fixed__disposable__strategy__selector}{rpp::details::observables::bool\_disposable\_strategy\_selector}},\ \mbox{\hyperlink{structrpp_1_1details_1_1observables_1_1fixed__disposable__strategy__selector}{rpp::details::observables::fixed\_disposable\_strategy\_selector<1>}}>;}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{structrpp_1_1details_1_1observables_1_1fixed__disposable__strategy__selector}{expected\_disposable\_strategy}}\ =\ \mbox{\hyperlink{structrpp_1_1details_1_1observables_1_1fixed__disposable__strategy__selector}{rpp::details::observables::bool\_disposable\_strategy\_selector}};}
 \DoxyCodeLine{00033\ }
 \DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ RPP\_NO\_UNIQUE\_ADDRESS\ TScheduler\ scheduler;}
 \DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ TimePointOrDuration\ \ \ \ \ \ \ \ \ \ \ \ \ \ initial;}
@@ -43,43 +43,37 @@
 \DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ subscribe(TObs\&\&\ \mbox{\hyperlink{classrpp_1_1observer}{observer}})\textcolor{keyword}{\ const}}
 \DoxyCodeLine{00040\ \textcolor{keyword}{\ \ \ \ \ \ \ \ }\{}
 \DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ worker\ =\ scheduler.create\_worker();}
-\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keyword}{constexpr}\ (!rpp::schedulers::utils::get\_worker\_t<TScheduler>::is\_none\_disposable)}
-\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{auto}\ d\ =\ worker.get\_disposable();\ !d.is\_disposed())}
-\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrpp_1_1observer}{observer}}.\mbox{\hyperlink{classrpp_1_1details_1_1observer__impl_a3ae7822fe5f962a69ee190af8ff8f0e2}{set\_upstream}}(std::move(d));}
-\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00047\ }
-\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ worker.schedule(initial,\ \mbox{\hyperlink{structrpp_1_1details_1_1interval__schedulable}{interval\_schedulable}}\{\},\ std::forward<TObs>(\mbox{\hyperlink{classrpp_1_1observer}{observer}}),\ period,\ \textcolor{keywordtype}{size\_t}\{\});}
-\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00050\ \ \ \ \ \};}
-\DoxyCodeLine{00051\ \}\ \textcolor{comment}{//\ namespace\ rpp::details}}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \ \ \ \ worker.schedule(initial,\ \mbox{\hyperlink{structrpp_1_1details_1_1interval__schedulable}{interval\_schedulable}}\{\},\ std::forward<TObs>(\mbox{\hyperlink{classrpp_1_1observer}{observer}}),\ period,\ \textcolor{keywordtype}{size\_t}\{\});}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00044\ \ \ \ \ \};}
+\DoxyCodeLine{00045\ \}\ \textcolor{comment}{//\ namespace\ rpp::details}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{keyword}{namespace\ }rpp}
+\DoxyCodeLine{00048\ \{}
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keyword}{template}<schedulers::constra\textcolor{keywordtype}{int}::scheduler\ TScheduler,\ \textcolor{keyword}{typename}\ TimePo\textcolor{keywordtype}{int}OrDuration>}
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{classrpp_1_1observable}{interval\_observable}}\ =\ \mbox{\hyperlink{classrpp_1_1observable}{observable<size\_t,\ details::interval\_strategy<TScheduler,\ TimePointOrDuration>}}>;}
+\DoxyCodeLine{00051\ \}\ \textcolor{comment}{//\ namespace\ rpp}}
 \DoxyCodeLine{00052\ }
-\DoxyCodeLine{00053\ \textcolor{keyword}{namespace\ }rpp}
+\DoxyCodeLine{00053\ \textcolor{keyword}{namespace\ }rpp::source}
 \DoxyCodeLine{00054\ \{}
-\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keyword}{template}<schedulers::constra\textcolor{keywordtype}{int}::scheduler\ TScheduler,\ \textcolor{keyword}{typename}\ TimePo\textcolor{keywordtype}{int}OrDuration>}
-\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{classrpp_1_1observable}{interval\_observable}}\ =\ \mbox{\hyperlink{classrpp_1_1observable}{observable<size\_t,\ details::interval\_strategy<TScheduler,\ TimePointOrDuration>}}>;}
-\DoxyCodeLine{00057\ \}\ \textcolor{comment}{//\ namespace\ rpp}}
-\DoxyCodeLine{00058\ }
-\DoxyCodeLine{00059\ \textcolor{keyword}{namespace\ }rpp::source}
-\DoxyCodeLine{00060\ \{}
-\DoxyCodeLine{00061\ }
-\DoxyCodeLine{00080\ \ \ \ \ \textcolor{keyword}{template}<schedulers::constra\textcolor{keywordtype}{int}::scheduler\ TScheduler>}
-\DoxyCodeLine{00081\ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__creational__operators_ga4018b147fb99a358c6c01f21183c13e6}{interval}}(rpp::schedulers::duration\ initial,\ rpp::schedulers::duration\ period,\ TScheduler\&\&\ scheduler)}
-\DoxyCodeLine{00082\ \ \ \ \ \{}
-\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ interval\_observable<std::decay\_t<TScheduler>,\ rpp::schedulers::duration>\{std::forward<TScheduler>(scheduler),\ initial,\ period\};}
-\DoxyCodeLine{00084\ \ \ \ \ \}}
-\DoxyCodeLine{00085\ }
-\DoxyCodeLine{00096\ \ \ \ \ \textcolor{keyword}{template}<schedulers::constra\textcolor{keywordtype}{int}::scheduler\ TScheduler>}
-\DoxyCodeLine{00097\ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__creational__operators_ga4018b147fb99a358c6c01f21183c13e6}{interval}}(rpp::schedulers::time\_point\ initial,\ rpp::schedulers::duration\ period,\ TScheduler\&\&\ scheduler)}
-\DoxyCodeLine{00098\ \ \ \ \ \{}
-\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ interval\_observable<std::decay\_t<TScheduler>,\ rpp::schedulers::time\_point>\{std::forward<TScheduler>(scheduler),\ initial,\ period\};}
-\DoxyCodeLine{00100\ \ \ \ \ \}}
-\DoxyCodeLine{00101\ }
-\DoxyCodeLine{00118\ \ \ \ \ \textcolor{keyword}{template}<schedulers::constra\textcolor{keywordtype}{int}::scheduler\ TScheduler>}
-\DoxyCodeLine{00119\ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__creational__operators_ga4018b147fb99a358c6c01f21183c13e6}{interval}}(rpp::schedulers::duration\ period,\ TScheduler\&\&\ scheduler)}
-\DoxyCodeLine{00120\ \ \ \ \ \{}
-\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{group__creational__operators_ga4018b147fb99a358c6c01f21183c13e6}{interval}}(period,\ period,\ std::forward<TScheduler>(scheduler));}
-\DoxyCodeLine{00122\ \ \ \ \ \}}
-\DoxyCodeLine{00123\ \}\ \textcolor{comment}{//\ namespace\ rpp::source}}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00074\ \ \ \ \ \textcolor{keyword}{template}<schedulers::constra\textcolor{keywordtype}{int}::scheduler\ TScheduler>}
+\DoxyCodeLine{00075\ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__creational__operators_ga4018b147fb99a358c6c01f21183c13e6}{interval}}(rpp::schedulers::duration\ initial,\ rpp::schedulers::duration\ period,\ TScheduler\&\&\ scheduler)}
+\DoxyCodeLine{00076\ \ \ \ \ \{}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ interval\_observable<std::decay\_t<TScheduler>,\ rpp::schedulers::duration>\{std::forward<TScheduler>(scheduler),\ initial,\ period\};}
+\DoxyCodeLine{00078\ \ \ \ \ \}}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00090\ \ \ \ \ \textcolor{keyword}{template}<schedulers::constra\textcolor{keywordtype}{int}::scheduler\ TScheduler>}
+\DoxyCodeLine{00091\ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__creational__operators_ga4018b147fb99a358c6c01f21183c13e6}{interval}}(rpp::schedulers::time\_point\ initial,\ rpp::schedulers::duration\ period,\ TScheduler\&\&\ scheduler)}
+\DoxyCodeLine{00092\ \ \ \ \ \{}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ interval\_observable<std::decay\_t<TScheduler>,\ rpp::schedulers::time\_point>\{std::forward<TScheduler>(scheduler),\ initial,\ period\};}
+\DoxyCodeLine{00094\ \ \ \ \ \}}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00112\ \ \ \ \ \textcolor{keyword}{template}<schedulers::constra\textcolor{keywordtype}{int}::scheduler\ TScheduler>}
+\DoxyCodeLine{00113\ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{group__creational__operators_ga4018b147fb99a358c6c01f21183c13e6}{interval}}(rpp::schedulers::duration\ period,\ TScheduler\&\&\ scheduler)}
+\DoxyCodeLine{00114\ \ \ \ \ \{}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{group__creational__operators_ga4018b147fb99a358c6c01f21183c13e6}{interval}}(period,\ period,\ std::forward<TScheduler>(scheduler));}
+\DoxyCodeLine{00116\ \ \ \ \ \}}
+\DoxyCodeLine{00117\ \}\ \textcolor{comment}{//\ namespace\ rpp::source}}
 
 \end{DoxyCode}

@@ -29,8 +29,7 @@ var hierarchy =
     [ "BaseInterface", null, [
       [ "rpp::details::base_disposable_impl< BaseInterface >", "classrpp_1_1details_1_1base__disposable__impl.html", [
         [ "rpp::callback_disposable< Fn >", "classrpp_1_1callback__disposable.html", null ],
-        [ "rpp::details::observables::blocking_disposable", "classrpp_1_1details_1_1observables_1_1blocking__disposable.html", null ],
-        [ "rpp::schedulers::test_scheduler::state", "structrpp_1_1schedulers_1_1test__scheduler_1_1state.html", null ]
+        [ "rpp::details::observables::blocking_disposable", "classrpp_1_1details_1_1observables_1_1blocking__disposable.html", null ]
       ] ]
     ] ],
     [ "rpp::subjects::details::behavior_subject_base< Type, Serialized >", "classrpp_1_1subjects_1_1details_1_1behavior__subject__base.html", null ],
@@ -100,8 +99,6 @@ var hierarchy =
       [ "rpp::disposable_wrapper_impl< rpp::refcount_disposable >", "classrpp_1_1disposable__wrapper__impl.html", null ],
       [ "rpp::disposable_wrapper_impl< rpp::subjects::details::subject_state< Type, false > >", "classrpp_1_1disposable__wrapper__impl.html", null ],
       [ "rpp::disposable_wrapper_impl< interface_disposable >", "classrpp_1_1disposable__wrapper__impl.html", null ],
-      [ "rpp::disposable_wrapper_impl< disposable >", "classrpp_1_1disposable__wrapper__impl.html", null ],
-      [ "rpp::disposable_wrapper_impl< rpp::schedulers::test_scheduler::state >", "classrpp_1_1disposable__wrapper__impl.html", null ],
       [ "rpp::disposable_wrapper_impl< TDisposable >", "classrpp_1_1disposable__wrapper__impl.html", null ]
     ] ],
     [ "rpp::subjects::details::disposed", "structrpp_1_1subjects_1_1details_1_1disposed.html", null ],
@@ -280,7 +277,6 @@ var hierarchy =
     [ "rpp::details::never_strategy< Type >", "structrpp_1_1details_1_1never__strategy.html", null ],
     [ "rpp::schedulers::new_thread", "classrpp_1_1schedulers_1_1new__thread.html", null ],
     [ "rpp::details::observers::non_atomic_bool", "classrpp_1_1details_1_1observers_1_1non__atomic__bool.html", null ],
-    [ "rpp::schedulers::details::none_disposable", "structrpp_1_1schedulers_1_1details_1_1none__disposable.html", null ],
     [ "rpp::details::observers::none_disposable_strategy", "structrpp_1_1details_1_1observers_1_1none__disposable__strategy.html", null ],
     [ "rpp::details::disposables::none_disposables_container", "structrpp_1_1details_1_1disposables_1_1none__disposables__container.html", null ],
     [ "rpp::observable< Type, Strategy >", "classrpp_1_1observable.html", [
@@ -411,6 +407,7 @@ var hierarchy =
     [ "rpp::operators::details::skip_observer_strategy< TObserver >", "structrpp_1_1operators_1_1details_1_1skip__observer__strategy.html", null ],
     [ "rpp::operators::details::start_with_t< TObservables >", "structrpp_1_1operators_1_1details_1_1start__with__t.html", null ],
     [ "rpp::operators::details::start_with_values_t< PackedContainer, TScheduler >", "structrpp_1_1operators_1_1details_1_1start__with__values__t.html", null ],
+    [ "rpp::schedulers::test_scheduler::state", "structrpp_1_1schedulers_1_1test__scheduler_1_1state.html", null ],
     [ "rpp::details::ref_count_on_subscribe_t< rpp::connectable_observable< OriginalObservable, Subject > >::state_t", "structrpp_1_1details_1_1ref__count__on__subscribe__t_3_01rpp_1_1connectable__observable_3_01_ori08a6adc16d48deb4d454d582f87ab48e.html", null ],
     [ "rpp::operators::details::window_toggle_state< TObserver, TClosingsSelectorFn >::state_t", "structrpp_1_1operators_1_1details_1_1window__toggle__state_1_1state__t.html", null ],
     [ "rpp::details::disposables::static_disposables_container< Count >", "classrpp_1_1details_1_1disposables_1_1static__disposables__container.html", null ],
