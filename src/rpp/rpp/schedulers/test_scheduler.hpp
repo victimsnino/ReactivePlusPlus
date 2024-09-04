@@ -51,7 +51,7 @@ namespace rpp::schedulers
                     {
                         if (fn->is_disposed())
                             continue;
-                        
+
                         schedulings.push_back(std::max(s_current_time, new_timepoint.value()));
                         queue.emplace(schedulings.back(), std::move(fn));
                     }
