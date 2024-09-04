@@ -147,12 +147,13 @@ TEST_CASE("async client reactor")
                         _2->Write(response);
                     }
                 });
-            bidi_reactor->init();
 
             REQUIRE_CALL(*out_mock, on_next_rvalue(1)).IN_SEQUENCE(s);
             REQUIRE_CALL(*out_mock, on_next_rvalue(2)).IN_SEQUENCE(s);
             REQUIRE_CALL(*out_mock, on_next_rvalue(3)).IN_SEQUENCE(s);
             const auto last = NAMED_REQUIRE_CALL(*out_mock, on_completed()).IN_SEQUENCE(s);
+
+            bidi_reactor->init();
 
             wait(last);
         }
