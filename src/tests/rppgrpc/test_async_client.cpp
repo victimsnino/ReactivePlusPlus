@@ -47,7 +47,7 @@ TEST_CASE("async client reactor")
         grpc::ClientContext ctx{};
 
         const auto bidi_reactor = new rppgrpc::client_bidi_reactor<Request, Response>();
-        bidi_reactor->get_observable() | rpp::ops::map([](const Response& out) { return out.value(); })  | rpp::ops::subscribe(out_mock);
+        bidi_reactor->get_observable() | rpp::ops::map([](const Response& out) { return out.value(); }) | rpp::ops::subscribe(out_mock);
         subj.get_observable() | rpp::ops::map([](int v) { Request request{}; request.set_value(v); return request; }) | rpp::ops::subscribe(bidi_reactor->get_observer());
 
         stub->async()->Bidirectional(&ctx, bidi_reactor);
@@ -269,7 +269,7 @@ TEST_CASE("async client reactor")
         grpc::ClientContext ctx{};
 
         const auto write_reactor = new rppgrpc::client_write_reactor<Request>();
-        write_reactor->get_observable() | rpp::ops::map([](const rpp::utils::none& out) { return 0; })  | rpp::ops::subscribe(out_mock);
+        write_reactor->get_observable() | rpp::ops::map([](const rpp::utils::none& out) { return 0; }) | rpp::ops::subscribe(out_mock);
         subj.get_observable() | rpp::ops::map([](int v) { Request request{}; request.set_value(v); return request; }) | rpp::ops::subscribe(write_reactor->get_observer());
 
         Response r{};
