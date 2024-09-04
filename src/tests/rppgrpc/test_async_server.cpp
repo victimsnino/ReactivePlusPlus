@@ -55,7 +55,8 @@ TEST_CASE("Async server")
             if constexpr (requires { reactor->get_observer(); })
                 reactor->get_observer().on_completed();
 
-            CHECK(writer->Finish().ok());
+            const auto res = writer->Finish().ok();
+            CHECK(res);
             wait(last);
         }
 
@@ -92,7 +93,8 @@ TEST_CASE("Async server")
             if constexpr (requires { reactor->get_observer(); })
                 reactor->get_observer().on_completed();
 
-            REQUIRE(writer->Finish().ok());
+            const auto res = writer->Finish().ok();
+            REQUIRE(res);
 
             wait(last);
         }
@@ -119,7 +121,8 @@ TEST_CASE("Async server")
                 REQUIRE(response.value() == i);
             }
             REQUIRE(!writer->Read(&response));
-            REQUIRE(writer->Finish().ok());
+            const auto res = writer->Finish().ok();
+            REQUIRE(res);
             wait(last);
         }
     };
