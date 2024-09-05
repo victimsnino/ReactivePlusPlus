@@ -108,7 +108,7 @@ namespace rpp::schedulers
                             {
                                 if (res->can_run_immediately() && !state->has_fresh_data.load())
                                     continue;
-                                
+
                                 const auto tp = top->handle_advanced_call(res.value());
                                 state->queue.emplace(tp, std::move(top));
                             }
