@@ -175,8 +175,8 @@ $(function(){initNavTree('current__thread_8hpp_source.html',''); initResizable(t
 <div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>                                }</div>
 <div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>                                <span class="keywordflow">continue</span>;</div>
 <div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>                            }</div>
-<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span> </div>
-<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>                            get_queue()-&gt;emplace(top-&gt;handle_advanced_call(res.value()), std::move(top));</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>                            <span class="keyword">const</span> <span class="keyword">auto</span> tp = top-&gt;handle_advanced_call(res.value());</div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>                            get_queue()-&gt;emplace(tp, std::move(top));</div>
 <div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>                        }</div>
 <div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>                    }</div>
 <div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>                    <span class="keywordflow">break</span>;</div>
