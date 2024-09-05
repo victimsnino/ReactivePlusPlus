@@ -41,51 +41,36 @@ namespace rppasio::schedulers
             {
             }
 
-            template<rpp::schedulers::constraint::schedulable_handler Handler, typename... Args, rpp::schedulers::constraint::schedulable_fn<Handler, Args...> Fn>
-            void defer_for(rpp::schedulers::duration duration, Fn&& fn, Handler&& handler, Args&&... args) const
+            template<typename Handler, typename... Args, typename Fn>
+            void defer(Fn&& fn, Handler&& handler, Args&&... args) const
             {
                 if (handler.is_disposed())
                     return;
 
-                if (duration == rpp::schedulers::duration::zero())
-                {
-                    asio::post(asio::bind_executor(m_strand, [self = this->shared_from_this(), fn = std::forward<Fn>(fn), handler = std::forward<Handler>(handler), ... args = std::forward<Args>(args)]() mutable {
-                        if (handler.is_disposed())
-                            return;
+                asio::post(asio::bind_executor(m_strand, [self = this->shared_from_this(), fn = std::forward<Fn>(fn), handler = std::forward<Handler>(handler), ... args = std::forward<Args>(args)]() mutable {
+                    if (handler.is_disposed())
+                        return;
 
-                        current_thread_queue_guard guard{*self};
-                        if (const auto new_duration = fn(handler, args...))
-                            self->defer_for(new_duration->value, std::move(fn), std::move(handler), std::move(args)...);
-                    }));
-                }
-                else
-                {
-                    auto timer = std::make_shared<asio::basic_waitable_timer<rpp::schedulers::clock_type>>(m_strand.context(), duration);
-                    timer->async_wait(asio::bind_executor(m_strand, [self = this->shared_from_this(), timer, fn = std::forward<Fn>(fn), handler = std::forward<Handler>(handler), ... args = std::forward<Args>(args)](const asio::error_code& ec) mutable {
-                        if (ec || handler.is_disposed())
-                            return;
-
-                        current_thread_queue_guard guard{*self};
-                        if (const auto new_duration = fn(handler, args...))
-                            self->defer_for(new_duration->value, std::move(fn), std::move(handler), std::move(args)...);
-                    }));
-                }
+                    current_thread_queue_guard guard{*self};
+                    if (const auto new_duration = fn(handler, args...))
+                        self->defer_with_time(new_duration->value, std::move(fn), std::move(handler), std::move(args)...);
+                }));
             }
 
-            template<rpp::schedulers::constraint::schedulable_handler Handler, typename... Args, rpp::schedulers::constraint::schedulable_fn<Handler, Args...> Fn>
-            void defer_to(rpp::schedulers::time_point tp, Fn&& fn, Handler&& handler, Args&&... args) const
+            template<typename Time, typename Handler, typename... Args, typename Fn>
+            void defer_with_time(Time time, Fn&& fn, Handler&& handler, Args&&... args) const
             {
                 if (handler.is_disposed())
                     return;
 
-                auto timer = std::make_shared<asio::basic_waitable_timer<rpp::schedulers::clock_type>>(m_strand.context(), tp);
+                auto timer = std::make_shared<asio::basic_waitable_timer<rpp::schedulers::clock_type>>(m_strand.context(), time);
                 timer->async_wait(asio::bind_executor(m_strand, [self = this->shared_from_this(), timer, fn = std::forward<Fn>(fn), handler = std::forward<Handler>(handler), ... args = std::forward<Args>(args)](const asio::error_code& ec) mutable {
                     if (ec || handler.is_disposed())
                         return;
 
                     current_thread_queue_guard guard{*self};
                     if (const auto new_duration = fn(handler, args...))
-                        self->defer_to(new_duration->value, std::move(fn), std::move(handler), std::move(args)...);
+                        self->defer_with_time(new_duration->value, std::move(fn), std::move(handler), std::move(args)...);
                 }));
             }
 
@@ -134,7 +119,7 @@ namespace rppasio::schedulers
                         if (top->is_disposed())
                             continue;
 
-                        m_state.defer_to(
+                        m_state.defer_with_time(
                             top->get_timepoint(),
                             [top](const auto&) -> rpp::schedulers::optional_delay_to {
                                 if (const auto advanced_call = top->make_advanced_call())
@@ -170,7 +155,16 @@ namespace rppasio::schedulers
             template<rpp::schedulers::constraint::schedulable_handler Handler, typename... Args, rpp::schedulers::constraint::schedulable_fn<Handler, Args...> Fn>
             void defer_for(rpp::schedulers::duration duration, Fn&& fn, Handler&& handler, Args&&... args) const
             {
-                m_state->defer_for(duration, std::forward<Fn>(fn), std::forward<Handler>(handler), std::forward<Args>(args)...);
+                if (duration == rpp::schedulers::duration::zero())
+                    m_state->defer(std::forward<Fn>(fn), std::forward<Handler>(handler), std::forward<Args>(args)...);
+                else
+                    m_state->defer_with_time(duration, std::forward<Fn>(fn), std::forward<Handler>(handler), std::forward<Args>(args)...);
+            }
+
+            template<rpp::schedulers::constraint::schedulable_handler Handler, typename... Args, rpp::schedulers::constraint::schedulable_fn<Handler, Args...> Fn>
+            void defer_to(rpp::schedulers::time_point tp, Fn&& fn, Handler&& handler, Args&&... args) const
+            {
+                m_state->defer_with_time(tp, std::forward<Fn>(fn), std::forward<Handler>(handler), std::forward<Args>(args)...);
             }
 
             static rpp::schedulers::time_point now() { return rpp::schedulers::clock_type::now(); }
