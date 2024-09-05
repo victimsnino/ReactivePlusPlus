@@ -75,6 +75,8 @@ namespace rpp::schedulers::details
 
         virtual bool is_disposed() const noexcept = 0;
 
+        virtual void on_error(const std::exception_ptr& ep) const = 0;
+
         time_point get_timepoint() const { return m_time_point; }
 
         void set_timepoint(const time_point& timepoint) { m_time_point = timepoint; }
@@ -158,6 +160,8 @@ namespace rpp::schedulers::details
         }
 
         bool is_disposed() const noexcept override { return m_args.template get<0>().is_disposed(); }
+
+        void on_error(const std::exception_ptr& ep) const override { m_args.template get<0>().on_error(ep); }
 
     private:
         RPP_NO_UNIQUE_ADDRESS rpp::utils::tuple<Handler, Args...> m_args;

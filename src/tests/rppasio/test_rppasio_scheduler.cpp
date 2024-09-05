@@ -14,7 +14,9 @@
 #include <rpp/operators/as_blocking.hpp>
 #include <rpp/operators/flat_map.hpp>
 #include <rpp/operators/subscribe_on.hpp>
+#include <rpp/operators/take.hpp>
 #include <rpp/operators/tap.hpp>
+#include <rpp/sources/interval.hpp>
 #include <rpp/sources/just.hpp>
 
 #include <asio/io_context.hpp>
@@ -37,31 +39,56 @@ namespace
     }
 } // namespace
 
-TEST_CASE("strand utilized current_thread")
+TEST_CASE("strand shares current_thread queue")
 {
     asio::io_context   context;
     mock_observer<int> mock;
+    bool               inner_schedule_executed = false;
 
     {
         auto worker = rppasio::schedulers::strand{context.get_executor()}.create_worker();
         auto obs    = mock.get_observer().as_dynamic();
 
-        worker.schedule([](const auto& obs) {
-            // As a strand can be executed on different threads it doesn't share queue with current_thread
-            bool inner_schedule_executed = false;
+        worker.schedule([&](const auto& obs) {
+            // Strand and current_thread share same queue that can be potentially executed in different threads
             rpp::schedulers::current_thread::create_worker().schedule([&inner_schedule_executed](const auto&) {
                 inner_schedule_executed = true;
                 return rpp::schedulers::optional_delay_from_now{};
             },
                                                                       obs);
 
-            CHECK(inner_schedule_executed);
+            CHECK_FALSE(inner_schedule_executed);
             return rpp::schedulers::optional_delay_from_now{};
         },
                         obs);
     }
 
     context.run_one();
+    context.run_one();
+
+    CHECK(inner_schedule_executed);
+}
+
+TEST_CASE("strand drains current_thread queue")
+{
+    asio::io_context      context;
+    mock_observer<int>    mock;
+    trompeloeil::sequence seq;
+
+    auto disposable = rpp::source::just(rppasio::schedulers::strand{context.get_executor()}, 1, 2, 3)
+                    | rpp::ops::flat_map([](int v) {
+                          return rpp::source::interval(10ms, rpp::schedulers::current_thread{})
+                               | rpp::ops::map([v](long) { return v; });
+                      })
+                    | rpp::ops::take(3)
+                    | rpp::ops::subscribe_with_disposable(mock.get_observer());
+
+    REQUIRE_CALL(*mock, on_next_rvalue(1)).IN_SEQUENCE(seq);
+    REQUIRE_CALL(*mock, on_next_rvalue(2)).IN_SEQUENCE(seq);
+    REQUIRE_CALL(*mock, on_next_rvalue(3)).IN_SEQUENCE(seq);
+    REQUIRE_CALL(*mock, on_completed()).IN_SEQUENCE(seq);
+
+    drain(disposable, context);
 }
 
 TEST_CASE("strand works till end")

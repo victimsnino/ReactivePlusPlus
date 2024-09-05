@@ -31,10 +31,12 @@ namespace rppasio::schedulers
     class strand
     {
     private:
-        class state : public std::enable_shared_from_this<state>
+        class state_t : public std::enable_shared_from_this<state_t>
         {
+            class current_thread_queue_guard;
+
         public:
-            state(const asio::io_context::executor_type& executor)
+            state_t(const asio::io_context::executor_type& executor)
                 : m_strand{executor.context()}
             {
             }
@@ -51,6 +53,7 @@ namespace rppasio::schedulers
                         if (handler.is_disposed())
                             return;
 
+                        current_thread_queue_guard guard{*self};
                         if (const auto new_duration = fn(handler, args...))
                             self->defer_for(new_duration->value, std::move(fn), std::move(handler), std::move(args)...);
                     }));
@@ -62,11 +65,95 @@ namespace rppasio::schedulers
                         if (ec || handler.is_disposed())
                             return;
 
+                        current_thread_queue_guard guard{*self};
                         if (const auto new_duration = fn(handler, args...))
                             self->defer_for(new_duration->value, std::move(fn), std::move(handler), std::move(args)...);
                     }));
                 }
             }
+
+            template<rpp::schedulers::constraint::schedulable_handler Handler, typename... Args, rpp::schedulers::constraint::schedulable_fn<Handler, Args...> Fn>
+            void defer_to(rpp::schedulers::time_point tp, Fn&& fn, Handler&& handler, Args&&... args) const
+            {
+                if (handler.is_disposed())
+                    return;
+
+                auto timer = std::make_shared<asio::basic_waitable_timer<rpp::schedulers::clock_type>>(m_strand.context(), tp);
+                timer->async_wait(asio::bind_executor(m_strand, [self = this->shared_from_this(), timer, fn = std::forward<Fn>(fn), handler = std::forward<Handler>(handler), ... args = std::forward<Args>(args)](const asio::error_code& ec) mutable {
+                    if (ec || handler.is_disposed())
+                        return;
+
+                    current_thread_queue_guard guard{*self};
+                    if (const auto new_duration = fn(handler, args...))
+                        self->defer_to(new_duration->value, std::move(fn), std::move(handler), std::move(args)...);
+                }));
+            }
+
+        private:
+            // Guard draining schedulables queued to thread local queue to schedule them back to strand queue
+            class current_thread_queue_guard
+            {
+            public:
+                current_thread_queue_guard(const state_t& state)
+                    : m_process_on_destruction{!rpp::schedulers::current_thread::get_queue()}
+                    , m_state(state)
+                {
+                    if (m_process_on_destruction)
+                        rpp::schedulers::current_thread::get_queue() = &m_queue;
+                }
+                ~current_thread_queue_guard()
+                {
+                    if (m_process_on_destruction)
+                        process_queue();
+                }
+                current_thread_queue_guard(const current_thread_queue_guard&) = delete;
+                current_thread_queue_guard(current_thread_queue_guard&&)      = delete;
+
+            private:
+                struct handler
+                {
+                    bool is_disposed() const noexcept
+                    {
+                        return m_schedulable->is_disposed();
+                    }
+
+                    void on_error(const std::exception_ptr& ep) const
+                    {
+                        m_schedulable->on_error(ep);
+                    }
+
+                    std::shared_ptr<rpp::schedulers::details::schedulable_base> m_schedulable;
+                };
+
+            private:
+                void process_queue()
+                {
+                    while (!m_queue.is_empty())
+                    {
+                        const auto top = m_queue.pop();
+                        if (top->is_disposed())
+                            continue;
+
+                        m_state.defer_to(
+                            top->get_timepoint(),
+                            [top](const auto&) -> rpp::schedulers::optional_delay_to {
+                                if (const auto advanced_call = top->make_advanced_call())
+                                {
+                                    top->set_timepoint(worker_strategy::now());
+                                    return rpp::schedulers::delay_to{top->handle_advanced_call(*advanced_call)};
+                                }
+                                return std::nullopt;
+                            },
+                            handler{top});
+                    }
+                    rpp::schedulers::current_thread::get_queue() = nullptr;
+                }
+
+            private:
+                rpp::schedulers::details::schedulables_queue<rpp::schedulers::current_thread::worker_strategy> m_queue;
+                bool                                                                                           m_process_on_destruction;
+                const state_t&                                                                                 m_state;
+            };
 
         private:
             asio::io_context::strand m_strand;
@@ -76,7 +163,7 @@ namespace rppasio::schedulers
         {
         public:
             explicit worker_strategy(const asio::io_context::executor_type& executor)
-                : m_state{std::make_shared<state>(executor)}
+                : m_state{std::make_shared<state_t>(executor)}
             {
             }
 
@@ -86,11 +173,10 @@ namespace rppasio::schedulers
                 m_state->defer_for(duration, std::forward<Fn>(fn), std::forward<Handler>(handler), std::forward<Args>(args)...);
             }
 
-            static constexpr rpp::schedulers::details::none_disposable get_disposable() { return {}; }
-            static rpp::schedulers::time_point                         now() { return rpp::schedulers::clock_type::now(); }
+            static rpp::schedulers::time_point now() { return rpp::schedulers::clock_type::now(); }
 
         private:
-            std::shared_ptr<state> m_state;
+            std::shared_ptr<state_t> m_state;
         };
 
     public:

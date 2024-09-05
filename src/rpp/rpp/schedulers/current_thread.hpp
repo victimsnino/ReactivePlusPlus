@@ -84,6 +84,7 @@ namespace rpp::schedulers
      */
     class current_thread
     {
+    public:
         friend class new_thread;
         class worker_strategy;
 
