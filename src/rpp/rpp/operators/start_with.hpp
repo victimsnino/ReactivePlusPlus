@@ -23,9 +23,9 @@ namespace rpp::operators::details
         rpp::utils::tuple<TObservables...> observables{};
 
         template<rpp::constraint::observable TObservable>
-            requires rpp::constraint::observables_of_same_type<TObservable, TObservables...>
         auto operator()(TObservable&& observable) const
         {
+            static_assert(rpp::constraint::observables_of_same_type<TObservable, TObservables...>, "observables should be of same type");
             return observables.apply(&apply<TObservable>, std::forward<TObservable>(observable));
         }
 

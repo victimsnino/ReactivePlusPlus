@@ -310,32 +310,6 @@ namespace rpp
          */
         auto as_dynamic() && { return rpp::dynamic_observable<Type>{std::move(*this)}; }
 
-        template<constraint::operator_base<Type> Op>
-        auto operator|(Op&& op) const &
-        {
-            RPP_CHECK_IF_TRAIT_ASSERTS_SATISFIED(Op, Type)
-            return inner_make_chain_operator(std::forward<Op>(op));
-        }
-
-        template<constraint::operator_base<Type> Op>
-        auto operator|(Op&& op) &&
-        {
-            RPP_CHECK_IF_TRAIT_ASSERTS_SATISFIED(Op, Type)
-            return std::move(*this).inner_make_chain_operator(std::forward<Op>(op));
-        }
-
-        template<typename Op>
-        rpp::constraint::observable auto operator|(Op&& op) const &
-        {
-            return std::forward<Op>(op)(*this);
-        }
-
-        template<typename Op>
-        rpp::constraint::observable auto operator|(Op&& op) &&
-        {
-            return std::forward<Op>(op)(std::move(*this));
-        }
-
         template<typename... Args>
         auto operator|(const rpp::operators::details::subscribe_t<Args...>& op) const
         {
@@ -348,6 +322,36 @@ namespace rpp
             return std::move(op)(*this);
         }
 
+        template<std::invocable<const observable&> Op>
+            requires (!rpp::utils::is_base_of_v<std::decay_t<Op>, rpp::operators::details::subscribe_t>)
+        rpp::constraint::observable auto operator|(Op&& op) const &
+        {
+            return std::forward<Op>(op)(*this);
+        }
+
+        template<std::invocable<observable&&> Op>
+            requires (!rpp::utils::is_base_of_v<std::decay_t<Op>, rpp::operators::details::subscribe_t>)
+        rpp::constraint::observable auto operator|(Op&& op) &&
+        {
+            return std::forward<Op>(op)(std::move(*this));
+        }
+
+        template<typename Op>
+            requires requires { typename std::decay_t<Op>::template operator_traits<Type>; }
+        rpp::constraint::observable auto operator|(Op&& op) const &
+        {
+            using result_type = typename std::decay_t<Op>::template operator_traits<Type>::result_type;
+            return observable<result_type, details::observables::make_chain_t<std::decay_t<Op>, Strategy>>{std::forward<Op>(op), m_strategy};
+        }
+
+        template<typename Op>
+            requires requires { typename std::decay_t<Op>::template operator_traits<Type>; }
+        rpp::constraint::observable auto operator|(Op&& op) &&
+        {
+            using result_type = typename std::decay_t<Op>::template operator_traits<Type>::result_type;
+            return observable<result_type, details::observables::make_chain_t<std::decay_t<Op>, Strategy>>{std::forward<Op>(op), std::move(m_strategy)};
+        }
+
         template<typename Op>
         auto pipe(Op&& op) const &
         {
@@ -358,19 +362,6 @@ namespace rpp
         auto pipe(Op&& op) &&
         {
             return std::move(*this) | std::forward<Op>(op);
-        }
-
-    private:
-        template<constraint::operator_chain<Type, expected_disposable_strategy> Op>
-        auto inner_make_chain_operator(Op&& op) const &
-        {
-            return observable<typename std::decay_t<Op>::template operator_traits<Type>::result_type, details::observables::make_chain_t<std::decay_t<Op>, Strategy>>{std::forward<Op>(op), m_strategy};
-        }
-
-        template<constraint::operator_chain<Type, expected_disposable_strategy> Op>
-        auto inner_make_chain_operator(Op&& op) &&
-        {
-            return observable<typename std::decay_t<Op>::template operator_traits<Type>::result_type, details::observables::make_chain_t<std::decay_t<Op>, Strategy>>{std::forward<Op>(op), std::move(m_strategy)};
         }
 
     private:

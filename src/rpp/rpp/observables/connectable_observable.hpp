@@ -130,13 +130,13 @@ namespace rpp
                                    details::ref_count_on_subscribe_t<connectable_observable<OriginalObservable, Subject>>>{*this};
         }
 
-        template<typename Op>
+        template<std::invocable<const connectable_observable&> Op>
         rpp::constraint::observable auto operator|(Op&& op) const &
         {
             return std::forward<Op>(op)(*this);
         }
 
-        template<typename Op>
+        template<std::invocable<connectable_observable&&> Op>
         rpp::constraint::observable auto operator|(Op&& op)&&
         {
             return std::forward<Op>(op)(std::move(*this));

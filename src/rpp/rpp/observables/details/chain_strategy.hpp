@@ -24,6 +24,8 @@ namespace rpp::details::observables
 
         using operator_traits = typename TStrategy::template operator_traits<typename base::value_type>;
 
+        static_assert(rpp::constraint::operator_chain<TStrategy, typename base::value_type, typename base::expected_disposable_strategy>);
+
     public:
         using expected_disposable_strategy = deduce_updated_disposable_strategy<TStrategy, typename base::expected_disposable_strategy>;
         using value_type                   = typename operator_traits::result_type;
