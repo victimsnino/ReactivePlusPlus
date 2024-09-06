@@ -322,34 +322,29 @@ namespace rpp
             return std::move(op)(*this);
         }
 
-        template<std::invocable<const observable&> Op>
+
+        template<typename Op>
             requires (!rpp::utils::is_base_of_v<std::decay_t<Op>, rpp::operators::details::subscribe_t>)
         rpp::constraint::observable auto operator|(Op&& op) const &
         {
-            return std::forward<Op>(op)(*this);
+            if constexpr(requires { typename std::decay_t<Op>::template operator_traits<Type>; }) {
+                using result_type = typename std::decay_t<Op>::template operator_traits<Type>::result_type;
+                return observable<result_type, details::observables::make_chain_t<std::decay_t<Op>, Strategy>>{std::forward<Op>(op), m_strategy};
+            } else {
+                return std::forward<Op>(op)(*this);
+            }
         }
 
-        template<std::invocable<observable&&> Op>
+        template<typename Op>
             requires (!rpp::utils::is_base_of_v<std::decay_t<Op>, rpp::operators::details::subscribe_t>)
         rpp::constraint::observable auto operator|(Op&& op) &&
         {
-            return std::forward<Op>(op)(std::move(*this));
-        }
-
-        template<typename Op>
-            requires requires { typename std::decay_t<Op>::template operator_traits<Type>; }
-        rpp::constraint::observable auto operator|(Op&& op) const &
-        {
-            using result_type = typename std::decay_t<Op>::template operator_traits<Type>::result_type;
-            return observable<result_type, details::observables::make_chain_t<std::decay_t<Op>, Strategy>>{std::forward<Op>(op), m_strategy};
-        }
-
-        template<typename Op>
-            requires requires { typename std::decay_t<Op>::template operator_traits<Type>; }
-        rpp::constraint::observable auto operator|(Op&& op) &&
-        {
-            using result_type = typename std::decay_t<Op>::template operator_traits<Type>::result_type;
-            return observable<result_type, details::observables::make_chain_t<std::decay_t<Op>, Strategy>>{std::forward<Op>(op), std::move(m_strategy)};
+            if constexpr(requires { typename std::decay_t<Op>::template operator_traits<Type>; }) {
+                using result_type = typename std::decay_t<Op>::template operator_traits<Type>::result_type;
+                return observable<result_type, details::observables::make_chain_t<std::decay_t<Op>, Strategy>>{std::forward<Op>(op), std::move(m_strategy)};
+            } else {
+                return std::forward<Op>(op)(std::move(*this));
+            }
         }
 
         template<typename Op>

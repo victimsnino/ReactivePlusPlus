@@ -50,9 +50,10 @@ namespace rpp::operators::details
         {
         }
 
-        template<rpp::constraint::observable_of_type<rpp::utils::iterable_value_t<PackedContainer>> TObservable>
+        template<rpp::constraint::observable TObservable>
         auto operator()(TObservable&& observable) const
         {
+            static_assert(rpp::constraint::observable_of_type<TObservable, rpp::utils::iterable_value_t<PackedContainer>>, "observables should be of same type");
             return rpp::source::concat(rpp::source::from_iterable(container, scheduler), std::forward<TObservable>(observable));
         }
     };
