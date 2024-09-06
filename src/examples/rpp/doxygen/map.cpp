@@ -11,7 +11,6 @@ int main() // NOLINT(bugprone-exception-escape)
     //! [Same type]
     rpp::source::just(42)
         | rpp::operators::map([](int value) { return value + 10; })
-        | rpp::ops::start_with(std::string{})
         | rpp::operators::subscribe([](int v) { std::cout << v << std::endl; });
     // Output: 52
     //! [Same type]
