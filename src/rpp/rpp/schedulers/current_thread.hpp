@@ -130,8 +130,8 @@ namespace rpp::schedulers
                                 }
                                 continue;
                             }
-
-                            get_queue()->emplace(top->handle_advanced_call(res.value()), std::move(top));
+                            const auto tp = top->handle_advanced_call(res.value());
+                            get_queue()->emplace(tp, std::move(top));
                         }
                     }
                     break;

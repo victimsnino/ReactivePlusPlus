@@ -60,16 +60,16 @@ namespace rpp::operators::details
         }
 
         template<rpp::constraint::observable Observable>
-            requires rpp::constraint::observer_strategy<ObserverStrategy, rpp::utils::extract_observable_type_t<Observable>>
         void operator()(const Observable& observable) const &
         {
+            static_assert(rpp::constraint::observer_strategy<ObserverStrategy, rpp::utils::extract_observable_type_t<Observable>>, "observer and observable should be of same type");
             observable.subscribe(m_observer_strategy);
         }
 
         template<rpp::constraint::observable Observable>
-            requires rpp::constraint::observer_strategy<ObserverStrategy, rpp::utils::extract_observable_type_t<Observable>>
         void operator()(const Observable& observable) &&
         {
+            static_assert(rpp::constraint::observer_strategy<ObserverStrategy, rpp::utils::extract_observable_type_t<Observable>>, "observer and observable should be of same type");
             observable.subscribe(std::move(m_observer_strategy));
         }
 
@@ -116,17 +116,17 @@ namespace rpp::operators::details
         }
 
         template<rpp::constraint::observable Observable>
-            requires rpp::constraint::observer_strategy<ObserverStrategy, rpp::utils::extract_observable_type_t<Observable>>
         rpp::composite_disposable_wrapper operator()(const Observable& observable) const &
         {
+            static_assert(rpp::constraint::observer_strategy<ObserverStrategy, rpp::utils::extract_observable_type_t<Observable>>, "observer and observable should be of same type");
             observable.subscribe(m_disposable, m_observer_strategy);
             return m_disposable;
         }
 
         template<rpp::constraint::observable Observable>
-            requires rpp::constraint::observer_strategy<ObserverStrategy, rpp::utils::extract_observable_type_t<Observable>>
         rpp::composite_disposable_wrapper operator()(const Observable& observable) &&
         {
+            static_assert(rpp::constraint::observer_strategy<ObserverStrategy, rpp::utils::extract_observable_type_t<Observable>>, "observer and observable should be of same type");
             observable.subscribe(m_disposable, std::move(m_observer_strategy));
             return m_disposable;
         }
@@ -150,16 +150,16 @@ namespace rpp::operators::details
         }
 
         template<rpp::constraint::decayed_type Type, rpp::constraint::observable_strategy<Type> Strategy>
-            requires std::invocable<OnNext, Type>
         void operator()(const rpp::observable<Type, Strategy>& observable) &&
         {
+            static_assert(std::invocable<OnNext, Type>, "OnNext should be suitable for type of observable");
             observable.subscribe(std::move(m_on_next), std::move(m_on_error), std::move(m_on_completed));
         }
 
         template<rpp::constraint::decayed_type Type, rpp::constraint::observable_strategy<Type> Strategy>
-            requires std::invocable<OnNext, Type>
         void operator()(const rpp::observable<Type, Strategy>& observable) const &
         {
+            static_assert(std::invocable<OnNext, Type>, "OnNext should be suitable for type of observable");
             observable.subscribe(m_on_next, m_on_error, m_on_completed);
         }
 
@@ -183,17 +183,17 @@ namespace rpp::operators::details
         }
 
         template<rpp::constraint::decayed_type Type, rpp::constraint::observable_strategy<Type> Strategy>
-            requires std::invocable<OnNext, Type>
         rpp::composite_disposable_wrapper operator()(const rpp::observable<Type, Strategy>& observable) &&
         {
+            static_assert(std::invocable<OnNext, Type>, "OnNext should be suitable for type of observable");
             observable.subscribe(m_disposable, std::move(m_on_next), std::move(m_on_error), std::move(m_on_completed));
             return std::move(m_disposable);
         }
 
         template<rpp::constraint::decayed_type Type, rpp::constraint::observable_strategy<Type> Strategy>
-            requires std::invocable<OnNext, Type>
         rpp::composite_disposable_wrapper operator()(const rpp::observable<Type, Strategy>& observable) const &
         {
+            static_assert(std::invocable<OnNext, Type>, "OnNext should be suitable for type of observable");
             observable.subscribe(m_disposable, m_on_next, m_on_error, m_on_completed);
             return m_disposable;
         }

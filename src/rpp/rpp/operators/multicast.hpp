@@ -22,9 +22,9 @@ namespace rpp::operators::details
         RPP_NO_UNIQUE_ADDRESS Subject m_subject;
 
         template<rpp::constraint::observable TObservable>
-            requires std::same_as<rpp::utils::extract_observable_type_t<TObservable>, rpp::subjects::utils::extract_subject_type_t<Subject>>
         auto operator()(TObservable&& observable) const
         {
+            static_assert(std::same_as<rpp::utils::extract_observable_type_t<TObservable>, rpp::subjects::utils::extract_subject_type_t<Subject>>, "observable and subject should be of same type");
             return rpp::connectable_observable<std::decay_t<TObservable>, Subject>{std::forward<TObservable>(observable), m_subject};
         }
     };
@@ -33,9 +33,10 @@ namespace rpp::operators::details
     struct template_multicast_t
     {
         template<rpp::constraint::observable TObservable>
-            requires rpp::constraint::subject<Subject<rpp::utils::extract_observable_type_t<TObservable>>>
         auto operator()(TObservable&& observable) const
         {
+            static_assert(rpp::constraint::subject<Subject<rpp::utils::extract_observable_type_t<TObservable>>>, "subject should be constructible with type of observable");
+
             return rpp::connectable_observable<std::decay_t<TObservable>,
                                                Subject<rpp::utils::extract_observable_type_t<TObservable>>>{std::forward<TObservable>(observable),
                                                                                                             Subject<rpp::utils::extract_observable_type_t<TObservable>>{}};
