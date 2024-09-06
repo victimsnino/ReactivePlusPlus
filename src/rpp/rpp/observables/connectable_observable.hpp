@@ -130,28 +130,40 @@ namespace rpp
                                    details::ref_count_on_subscribe_t<connectable_observable<OriginalObservable, Subject>>>{*this};
         }
 
-        template<rpp::constraint::operator_observable_transform<const connectable_observable&> Op>
+        template<typename Op>
         auto operator|(Op&& op) const &
         {
-            return std::forward<Op>(op)(*this);
+            if constexpr (std::invocable<std::decay_t<Op>, const connectable_observable&>)
+            {
+                static_assert(rpp::constraint::observable<std::invoke_result_t<std::decay_t<Op>, const connectable_observable&>>, "Result of Op should be observable");
+                return std::forward<Op>(op)(*this);
+            }
+            else
+                return static_cast<const base&>(*this) | std::forward<Op>(op);
         }
 
-        template<rpp::constraint::operator_observable_transform<connectable_observable&&> Op>
+        template<typename Op>
         auto operator|(Op&& op)&&
         {
-            return std::forward<Op>(op)(std::move(*this));
+            if constexpr (std::invocable<std::decay_t<Op>, connectable_observable&&>)
+            {
+                static_assert(rpp::constraint::observable<std::invoke_result_t<std::decay_t<Op>, connectable_observable&&>>, "Result of Op should be observable");
+                return std::forward<Op>(op)(std::move(*this));
+            }
+            else
+                return static_cast<base&&>(*this) | std::forward<Op>(op);
         }
 
         template<typename Op>
-        decltype(std::declval<const base>() | std::declval<Op>()) operator|(Op&& op) const &
+        auto pipe(Op && op) const &
         {
-            return static_cast<const base&>(*this) | std::forward<Op>(op);
+            return *this | std::forward<Op>(op);
         }
 
         template<typename Op>
-        decltype(std::declval<base>() | std::declval<Op>()) operator|(Op&& op)&&
+        auto pipe(Op && op)&&
         {
-            return static_cast<base&&>(*this) | std::forward<Op>(op);
+            return std::move(*this) | std::forward<Op>(op);
         }
 
     private:
