@@ -124,8 +124,9 @@ namespace rppasio::schedulers
                             [top](const auto&) -> rpp::schedulers::optional_delay_to {
                                 if (const auto advanced_call = top->make_advanced_call())
                                 {
-                                    top->set_timepoint(worker_strategy::now());
-                                    return rpp::schedulers::delay_to{top->handle_advanced_call(*advanced_call)};
+                                    const auto tp = top->handle_advanced_call(*advanced_call);
+                                    top->set_timepoint(tp);
+                                    return rpp::schedulers::delay_to{tp};
                                 }
                                 return std::nullopt;
                             },
