@@ -130,28 +130,22 @@ namespace rpp
                                    details::ref_count_on_subscribe_t<connectable_observable<OriginalObservable, Subject>>>{*this};
         }
 
-        template<std::invocable<const connectable_observable&> Op>
-        rpp::constraint::observable auto operator|(Op&& op) const &
+        template<typename Op>
+        auto operator|(Op&& op) const &
         {
-            return std::forward<Op>(op)(*this);
-        }
-
-        template<std::invocable<connectable_observable&&> Op>
-        rpp::constraint::observable auto operator|(Op&& op)&&
-        {
-            return std::forward<Op>(op)(std::move(*this));
+            if constexpr (std::invocable<std::decay_t<Op>, const connectable_observable&>)
+                return std::forward<Op>(op)(*this);
+            else
+                return static_cast<const base&>(*this) | std::forward<Op>(op);
         }
 
         template<typename Op>
-        decltype(std::declval<const base>() | std::declval<Op>()) operator|(Op&& op) const &
+        auto operator|(Op&& op)&&
         {
-            return static_cast<const base&>(*this) | std::forward<Op>(op);
-        }
-
-        template<typename Op>
-        decltype(std::declval<base>() | std::declval<Op>()) operator|(Op&& op)&&
-        {
-            return static_cast<base&&>(*this) | std::forward<Op>(op);
+            if constexpr (std::invocable<std::decay_t<Op>, connectable_observable&&>)
+                return std::forward<Op>(op)(std::move(*this));
+            else
+                return static_cast<base&&>(*this) | std::forward<Op>(op);
         }
 
     private:
