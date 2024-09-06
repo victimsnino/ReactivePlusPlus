@@ -310,18 +310,12 @@ namespace rpp
          */
         auto as_dynamic() && { return rpp::dynamic_observable<Type>{std::move(*this)}; }
 
-        template<typename... Args>
-        auto operator|(const rpp::operators::details::subscribe_t<Args...>& op) const
+        template<typename Subscribe>
+            requires rpp::utils::is_base_of_v<std::decay_t<Subscribe>, rpp::operators::details::subscribe_t>
+        auto operator|(Subscribe&& op) const
         {
-            return op(*this);
+            return std::forward<Subscribe>(op)(*this);
         }
-
-        template<typename... Args>
-        auto operator|(rpp::operators::details::subscribe_t<Args...>&& op) const
-        {
-            return std::move(op)(*this);
-        }
-
 
         template<typename Op>
             requires (!rpp::utils::is_base_of_v<std::decay_t<Op>, rpp::operators::details::subscribe_t>)
