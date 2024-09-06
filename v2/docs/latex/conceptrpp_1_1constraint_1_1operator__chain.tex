@@ -4,8 +4,13 @@
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename}\ Op,\ \textcolor{keyword}{typename}\ Type,\ \textcolor{keyword}{typename}\ DisposableStrategy>}
-\DoxyCodeLine{\textcolor{keyword}{concept\ }\mbox{\hyperlink{conceptrpp_1_1constraint_1_1operator__chain}{rpp::constraint::operator\_chain}}\ =\ \ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1operator__base}{operator\_base<std::decay\_t<Op>}},\ Type>}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&\&\ \textcolor{keyword}{requires}\ \{\ \textcolor{keyword}{typename}\ std::decay\_t<Op>::template\ operator\_traits<Type>::result\_type;\ \}}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&\&\ (\mbox{\hyperlink{conceptrpp_1_1constraint_1_1operator__subscribe}{operator\_subscribe<std::decay\_t<Op>}},\ Type>\ ||\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1operator__lift}{operator\_lift<std::decay\_t<Op>}},\ Type>\ ||\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1operator__lift__with__disposable__strategy}{operator\_lift\_with\_disposable\_strategy<std::decay\_t<Op>}},\ Type,\ DisposableStrategy>)}
+\DoxyCodeLine{\textcolor{keyword}{concept\ }\mbox{\hyperlink{conceptrpp_1_1constraint_1_1operator__chain}{rpp::constraint::operator\_chain}}\ =\ }
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keyword}{requires}()\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ std::decay\_t<Op>::template\ operator\_traits<Type>;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ std::decay\_t<Op>::template\ operator\_traits<Type>::result\_type;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \&\&\ \mbox{\hyperlink{conceptrpp_1_1details_1_1observables_1_1constraint_1_1disposable__strategy}{details::observables::constraint::disposable\_strategy<details::observables::deduce\_updated\_disposable\_strategy<std::decay\_t<Op>}},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ \mbox{\hyperlink{classrpp_1_1details_1_1observables_1_1chain}{details::observables::chain<details::observables::fake\_strategy<Type>}}>::expected\_disposable\_strategy>>}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \&\&\ (\mbox{\hyperlink{conceptrpp_1_1constraint_1_1operator__subscribe}{operator\_subscribe<std::decay\_t<Op>}},\ Type>\ ||\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1operator__lift}{operator\_lift<std::decay\_t<Op>}},\ Type>\ ||\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1operator__lift__with__disposable__strategy}{operator\_lift\_with\_disposable\_strategy<std::decay\_t<Op>}},\ Type,\ DisposableStrategy>)}
 
 \end{DoxyCode}

@@ -1,7 +1,5 @@
 var NAVTREEINDEX1 =
 {
-"group__aggregate__operators.html":[1,0,3,6],
-"group__aggregate__operators.html#ga519e29a9fe659e01e34485afba09dad5":[1,0,3,6,1],
 "group__aggregate__operators.html#gab78e390657e26675457156b21112d344":[1,0,3,6,0],
 "group__by_8hpp_source.html":[4,0,0,1,0,3,15],
 "group__combining__operators.html":[1,0,3,3],
@@ -249,5 +247,7 @@ var NAVTREEINDEX1 =
 "structrpp_1_1operators_1_1details_1_1combine__latest__observer__strategy.html":[3,0,0,2,0,4],
 "structrpp_1_1operators_1_1details_1_1combine__latest__t.html":[3,0,0,2,0,5],
 "structrpp_1_1operators_1_1details_1_1combining__observer__strategy.html":[3,0,0,2,0,7],
-"structrpp_1_1operators_1_1details_1_1combining__operator__t.html":[3,0,0,2,0,8]
+"structrpp_1_1operators_1_1details_1_1combining__operator__t.html":[3,0,0,2,0,8],
+"structrpp_1_1operators_1_1details_1_1combining__operator__t_1_1operator__traits.html":[3,0,0,2,0,8,0],
+"structrpp_1_1operators_1_1details_1_1concat__inner__observer__strategy.html":[3,0,0,2,0,9]
 };

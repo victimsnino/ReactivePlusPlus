@@ -74,23 +74,17 @@ auto {\bfseries as\+\_\+dynamic} () const \&
 \Hypertarget{classrpp_1_1observable_a7f3a86ce4541938d7e4c7c73f883b30b}\label{classrpp_1_1observable_a7f3a86ce4541938d7e4c7c73f883b30b} 
 auto {\bfseries as\+\_\+dynamic} () \&\&
 \begin{DoxyCompactList}\small\item\em Convert observable to type-\/erased version. \end{DoxyCompactList}\item 
-\Hypertarget{classrpp_1_1observable_a49b71120ba6733e2aba8975304de7e11}\label{classrpp_1_1observable_a49b71120ba6733e2aba8975304de7e11} 
-{\footnotesize template$<$constraint\+::operator\+\_\+base$<$ Type $>$ Op$>$ }\\auto {\bfseries operator\texorpdfstring{$\vert$}{|}} (Op \&\&op) const \&
+\Hypertarget{classrpp_1_1observable_a1fd0928551e25d6cf12d186eafdf8520}\label{classrpp_1_1observable_a1fd0928551e25d6cf12d186eafdf8520} 
+{\footnotesize template$<$typename Subscribe $>$ \newline
+requires rpp\+::utils\+::is\+\_\+base\+\_\+of\+\_\+v$<$std\+::decay\+\_\+t$<$Subscribe$>$, \mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1subscribe__t}{rpp\+::operators\+::details\+::subscribe\+\_\+t}}$>$}\\auto {\bfseries operator\texorpdfstring{$\vert$}{|}} (Subscribe \&\&op) const
 \item 
-\Hypertarget{classrpp_1_1observable_a452660c2284e7a9d9c3513c9b4d79c16}\label{classrpp_1_1observable_a452660c2284e7a9d9c3513c9b4d79c16} 
-{\footnotesize template$<$constraint\+::operator\+\_\+base$<$ Type $>$ Op$>$ }\\auto {\bfseries operator\texorpdfstring{$\vert$}{|}} (Op \&\&op) \&\&
+\Hypertarget{classrpp_1_1observable_a30b064913e9aab5de576532a46520c13}\label{classrpp_1_1observable_a30b064913e9aab5de576532a46520c13} 
+{\footnotesize template$<$typename Op $>$ \newline
+requires (!rpp\+::utils\+::is\+\_\+base\+\_\+of\+\_\+v$<$std\+::decay\+\_\+t$<$Op$>$, \mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1subscribe__t}{rpp\+::operators\+::details\+::subscribe\+\_\+t}}$>$)}\\\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp\+::constraint\+::observable}} auto {\bfseries operator\texorpdfstring{$\vert$}{|}} (Op \&\&op) const \&
 \item 
-\Hypertarget{classrpp_1_1observable_a49b71120ba6733e2aba8975304de7e11}\label{classrpp_1_1observable_a49b71120ba6733e2aba8975304de7e11} 
-{\footnotesize template$<$constraint\+::operator\+\_\+observable\+\_\+transform$<$ const \mbox{\hyperlink{classrpp_1_1observable}{observable}} \& $>$ Op$>$ }\\auto {\bfseries operator\texorpdfstring{$\vert$}{|}} (Op \&\&op) const \&
-\item 
-\Hypertarget{classrpp_1_1observable_a452660c2284e7a9d9c3513c9b4d79c16}\label{classrpp_1_1observable_a452660c2284e7a9d9c3513c9b4d79c16} 
-{\footnotesize template$<$constraint\+::operator\+\_\+observable\+\_\+transform$<$ \mbox{\hyperlink{classrpp_1_1observable}{observable}} \&\& $>$ Op$>$ }\\auto {\bfseries operator\texorpdfstring{$\vert$}{|}} (Op \&\&op) \&\&
-\item 
-\Hypertarget{classrpp_1_1observable_a9a2be2bf26a236af21456ef41c11fade}\label{classrpp_1_1observable_a9a2be2bf26a236af21456ef41c11fade} 
-{\footnotesize template$<$typename... Args$>$ }\\auto {\bfseries operator\texorpdfstring{$\vert$}{|}} (const \mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1subscribe__t}{rpp\+::operators\+::details\+::subscribe\+\_\+t}}$<$ Args... $>$ \&op) const
-\item 
-\Hypertarget{classrpp_1_1observable_a7b505782e5671547f497d370dac97049}\label{classrpp_1_1observable_a7b505782e5671547f497d370dac97049} 
-{\footnotesize template$<$typename... Args$>$ }\\auto {\bfseries operator\texorpdfstring{$\vert$}{|}} (\mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1subscribe__t}{rpp\+::operators\+::details\+::subscribe\+\_\+t}}$<$ Args... $>$ \&\&op) const
+\Hypertarget{classrpp_1_1observable_ae424a6c2672d885807b076da00b3f48f}\label{classrpp_1_1observable_ae424a6c2672d885807b076da00b3f48f} 
+{\footnotesize template$<$typename Op $>$ \newline
+requires (!rpp\+::utils\+::is\+\_\+base\+\_\+of\+\_\+v$<$std\+::decay\+\_\+t$<$Op$>$, \mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1subscribe__t}{rpp\+::operators\+::details\+::subscribe\+\_\+t}}$>$)}\\\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp\+::constraint\+::observable}} auto {\bfseries operator\texorpdfstring{$\vert$}{|}} (Op \&\&op) \&\&
 \item 
 \Hypertarget{classrpp_1_1observable_a56af73b3856d21772c3faa58a1bf81f0}\label{classrpp_1_1observable_a56af73b3856d21772c3faa58a1bf81f0} 
 {\footnotesize template$<$typename Op $>$ }\\auto {\bfseries pipe} (Op \&\&op) const \&

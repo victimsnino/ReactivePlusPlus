@@ -64,16 +64,16 @@
 \DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{00061\ }
 \DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::observable\ Observable>}
-\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{requires}\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer__strategy}{rpp::constraint::observer\_strategy<ObserverStrategy,\ rpp::utils::extract\_observable\_type\_t<Observable>}}>}
-\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ operator()(\textcolor{keyword}{const}\ Observable\&\ \mbox{\hyperlink{classrpp_1_1observable}{observable}})\ \textcolor{keyword}{const}\ \&}
-\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ operator()(\textcolor{keyword}{const}\ Observable\&\ \mbox{\hyperlink{classrpp_1_1observable}{observable}})\ \textcolor{keyword}{const}\ \&}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{static\_assert}(\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer__strategy}{rpp::constraint::observer\_strategy<ObserverStrategy,\ rpp::utils::extract\_observable\_type\_t<Observable>}}>,\ \textcolor{stringliteral}{"{}observer\ and\ observable\ should\ be\ of\ same\ type"{}});}
 \DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrpp_1_1observable}{observable}}.\mbox{\hyperlink{classrpp_1_1observable_a193b0e08c516912c04afd8379ec27182}{subscribe}}(m\_observer\_strategy);}
 \DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{00068\ }
 \DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::observable\ Observable>}
-\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{requires}\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer__strategy}{rpp::constraint::observer\_strategy<ObserverStrategy,\ rpp::utils::extract\_observable\_type\_t<Observable>}}>}
-\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ operator()(\textcolor{keyword}{const}\ Observable\&\ \mbox{\hyperlink{classrpp_1_1observable}{observable}})\ \&\&}
-\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ operator()(\textcolor{keyword}{const}\ Observable\&\ \mbox{\hyperlink{classrpp_1_1observable}{observable}})\ \&\&}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{static\_assert}(\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer__strategy}{rpp::constraint::observer\_strategy<ObserverStrategy,\ rpp::utils::extract\_observable\_type\_t<Observable>}}>,\ \textcolor{stringliteral}{"{}observer\ and\ observable\ should\ be\ of\ same\ type"{}});}
 \DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrpp_1_1observable}{observable}}.\mbox{\hyperlink{classrpp_1_1observable_a193b0e08c516912c04afd8379ec27182}{subscribe}}(std::move(m\_observer\_strategy));}
 \DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{00075\ }
@@ -120,17 +120,17 @@
 \DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{00117\ }
 \DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::observable\ Observable>}
-\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{requires}\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer__strategy}{rpp::constraint::observer\_strategy<ObserverStrategy,\ rpp::utils::extract\_observable\_type\_t<Observable>}}>}
-\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp::composite\_disposable\_wrapper}}\ operator()(\textcolor{keyword}{const}\ Observable\&\ \mbox{\hyperlink{classrpp_1_1observable}{observable}})\ \textcolor{keyword}{const}\ \&}
-\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp::composite\_disposable\_wrapper}}\ operator()(\textcolor{keyword}{const}\ Observable\&\ \mbox{\hyperlink{classrpp_1_1observable}{observable}})\ \textcolor{keyword}{const}\ \&}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{static\_assert}(\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer__strategy}{rpp::constraint::observer\_strategy<ObserverStrategy,\ rpp::utils::extract\_observable\_type\_t<Observable>}}>,\ \textcolor{stringliteral}{"{}observer\ and\ observable\ should\ be\ of\ same\ type"{}});}
 \DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrpp_1_1observable}{observable}}.\mbox{\hyperlink{classrpp_1_1observable_a193b0e08c516912c04afd8379ec27182}{subscribe}}(m\_disposable,\ m\_observer\_strategy);}
 \DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ m\_disposable;}
 \DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{00125\ }
 \DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::observable\ Observable>}
-\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{requires}\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer__strategy}{rpp::constraint::observer\_strategy<ObserverStrategy,\ rpp::utils::extract\_observable\_type\_t<Observable>}}>}
-\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp::composite\_disposable\_wrapper}}\ operator()(\textcolor{keyword}{const}\ Observable\&\ \mbox{\hyperlink{classrpp_1_1observable}{observable}})\ \&\&}
-\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp::composite\_disposable\_wrapper}}\ operator()(\textcolor{keyword}{const}\ Observable\&\ \mbox{\hyperlink{classrpp_1_1observable}{observable}})\ \&\&}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{static\_assert}(\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer__strategy}{rpp::constraint::observer\_strategy<ObserverStrategy,\ rpp::utils::extract\_observable\_type\_t<Observable>}}>,\ \textcolor{stringliteral}{"{}observer\ and\ observable\ should\ be\ of\ same\ type"{}});}
 \DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrpp_1_1observable}{observable}}.\mbox{\hyperlink{classrpp_1_1observable_a193b0e08c516912c04afd8379ec27182}{subscribe}}(m\_disposable,\ std::move(m\_observer\_strategy));}
 \DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ m\_disposable;}
 \DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \}}
@@ -154,16 +154,16 @@
 \DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{00151\ }
 \DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type\ Type,\ rpp::constra\textcolor{keywordtype}{int}::observable\_strategy<Type>\ Strategy>}
-\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{requires}\ std::invocable<OnNext,\ Type>}
-\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ operator()(\textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1observable}{rpp::observable<Type,\ Strategy>}}\&\ \mbox{\hyperlink{classrpp_1_1observable}{observable}})\ \&\&}
-\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ operator()(\textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1observable}{rpp::observable<Type,\ Strategy>}}\&\ \mbox{\hyperlink{classrpp_1_1observable}{observable}})\ \&\&}
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{static\_assert}(std::invocable<OnNext,\ Type>,\ \textcolor{stringliteral}{"{}OnNext\ should\ be\ suitable\ for\ type\ of\ observable"{}});}
 \DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrpp_1_1observable}{observable}}.\mbox{\hyperlink{classrpp_1_1observable_a193b0e08c516912c04afd8379ec27182}{subscribe}}(std::move(m\_on\_next),\ std::move(m\_on\_error),\ std::move(m\_on\_completed));}
 \DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{00158\ }
 \DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type\ Type,\ rpp::constra\textcolor{keywordtype}{int}::observable\_strategy<Type>\ Strategy>}
-\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{requires}\ std::invocable<OnNext,\ Type>}
-\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ operator()(\textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1observable}{rpp::observable<Type,\ Strategy>}}\&\ \mbox{\hyperlink{classrpp_1_1observable}{observable}})\ \textcolor{keyword}{const}\ \&}
-\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ operator()(\textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1observable}{rpp::observable<Type,\ Strategy>}}\&\ \mbox{\hyperlink{classrpp_1_1observable}{observable}})\ \textcolor{keyword}{const}\ \&}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{static\_assert}(std::invocable<OnNext,\ Type>,\ \textcolor{stringliteral}{"{}OnNext\ should\ be\ suitable\ for\ type\ of\ observable"{}});}
 \DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrpp_1_1observable}{observable}}.\mbox{\hyperlink{classrpp_1_1observable_a193b0e08c516912c04afd8379ec27182}{subscribe}}(m\_on\_next,\ m\_on\_error,\ m\_on\_completed);}
 \DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{00165\ }
@@ -187,17 +187,17 @@
 \DoxyCodeLine{00183\ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{00184\ }
 \DoxyCodeLine{00185\ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type\ Type,\ rpp::constra\textcolor{keywordtype}{int}::observable\_strategy<Type>\ Strategy>}
-\DoxyCodeLine{00186\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{requires}\ std::invocable<OnNext,\ Type>}
-\DoxyCodeLine{00187\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp::composite\_disposable\_wrapper}}\ operator()(\textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1observable}{rpp::observable<Type,\ Strategy>}}\&\ \mbox{\hyperlink{classrpp_1_1observable}{observable}})\ \&\&}
-\DoxyCodeLine{00188\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00186\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp::composite\_disposable\_wrapper}}\ operator()(\textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1observable}{rpp::observable<Type,\ Strategy>}}\&\ \mbox{\hyperlink{classrpp_1_1observable}{observable}})\ \&\&}
+\DoxyCodeLine{00187\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00188\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{static\_assert}(std::invocable<OnNext,\ Type>,\ \textcolor{stringliteral}{"{}OnNext\ should\ be\ suitable\ for\ type\ of\ observable"{}});}
 \DoxyCodeLine{00189\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrpp_1_1observable}{observable}}.\mbox{\hyperlink{classrpp_1_1observable_a193b0e08c516912c04afd8379ec27182}{subscribe}}(m\_disposable,\ std::move(m\_on\_next),\ std::move(m\_on\_error),\ std::move(m\_on\_completed));}
 \DoxyCodeLine{00190\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::move(m\_disposable);}
 \DoxyCodeLine{00191\ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{00192\ }
 \DoxyCodeLine{00193\ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type\ Type,\ rpp::constra\textcolor{keywordtype}{int}::observable\_strategy<Type>\ Strategy>}
-\DoxyCodeLine{00194\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{requires}\ std::invocable<OnNext,\ Type>}
-\DoxyCodeLine{00195\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp::composite\_disposable\_wrapper}}\ operator()(\textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1observable}{rpp::observable<Type,\ Strategy>}}\&\ \mbox{\hyperlink{classrpp_1_1observable}{observable}})\ \textcolor{keyword}{const}\ \&}
-\DoxyCodeLine{00196\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00194\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{rpp::composite\_disposable\_wrapper}}\ operator()(\textcolor{keyword}{const}\ \mbox{\hyperlink{classrpp_1_1observable}{rpp::observable<Type,\ Strategy>}}\&\ \mbox{\hyperlink{classrpp_1_1observable}{observable}})\ \textcolor{keyword}{const}\ \&}
+\DoxyCodeLine{00195\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00196\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{static\_assert}(std::invocable<OnNext,\ Type>,\ \textcolor{stringliteral}{"{}OnNext\ should\ be\ suitable\ for\ type\ of\ observable"{}});}
 \DoxyCodeLine{00197\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrpp_1_1observable}{observable}}.\mbox{\hyperlink{classrpp_1_1observable_a193b0e08c516912c04afd8379ec27182}{subscribe}}(m\_disposable,\ m\_on\_next,\ m\_on\_error,\ m\_on\_completed);}
 \DoxyCodeLine{00198\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ m\_disposable;}
 \DoxyCodeLine{00199\ \ \ \ \ \ \ \ \ \}}

@@ -68,17 +68,14 @@ auto {\bfseries as\+\_\+dynamic} () const \&
 \begin{DoxyCompactList}\small\item\em Convert observable to type-\/erased version. \end{DoxyCompactList}\item 
 auto {\bfseries as\+\_\+dynamic} () \&\&
 \begin{DoxyCompactList}\small\item\em Convert observable to type-\/erased version. \end{DoxyCompactList}\item 
-{\footnotesize template$<$constraint\+::operator\+\_\+base$<$ Type $>$ Op$>$ }\\auto {\bfseries operator\texorpdfstring{$\vert$}{|}} (Op \&\&op) const \&
+{\footnotesize template$<$typename Subscribe $>$ \newline
+requires rpp\+::utils\+::is\+\_\+base\+\_\+of\+\_\+v$<$std\+::decay\+\_\+t$<$Subscribe$>$, \mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1subscribe__t}{rpp\+::operators\+::details\+::subscribe\+\_\+t}}$>$}\\auto {\bfseries operator\texorpdfstring{$\vert$}{|}} (Subscribe \&\&op) const
 \item 
-{\footnotesize template$<$constraint\+::operator\+\_\+base$<$ Type $>$ Op$>$ }\\auto {\bfseries operator\texorpdfstring{$\vert$}{|}} (Op \&\&op) \&\&
+{\footnotesize template$<$typename Op $>$ \newline
+requires (!rpp\+::utils\+::is\+\_\+base\+\_\+of\+\_\+v$<$std\+::decay\+\_\+t$<$Op$>$, \mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1subscribe__t}{rpp\+::operators\+::details\+::subscribe\+\_\+t}}$>$)}\\\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp\+::constraint\+::observable}} auto {\bfseries operator\texorpdfstring{$\vert$}{|}} (Op \&\&op) const \&
 \item 
-{\footnotesize template$<$constraint\+::operator\+\_\+observable\+\_\+transform$<$ const \mbox{\hyperlink{classrpp_1_1observable}{observable}} \& $>$ Op$>$ }\\auto {\bfseries operator\texorpdfstring{$\vert$}{|}} (Op \&\&op) const \&
-\item 
-{\footnotesize template$<$constraint\+::operator\+\_\+observable\+\_\+transform$<$ \mbox{\hyperlink{classrpp_1_1observable}{observable}} \&\& $>$ Op$>$ }\\auto {\bfseries operator\texorpdfstring{$\vert$}{|}} (Op \&\&op) \&\&
-\item 
-{\footnotesize template$<$typename... Args$>$ }\\auto {\bfseries operator\texorpdfstring{$\vert$}{|}} (const \mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1subscribe__t}{rpp\+::operators\+::details\+::subscribe\+\_\+t}}$<$ Args... $>$ \&op) const
-\item 
-{\footnotesize template$<$typename... Args$>$ }\\auto {\bfseries operator\texorpdfstring{$\vert$}{|}} (\mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1subscribe__t}{rpp\+::operators\+::details\+::subscribe\+\_\+t}}$<$ Args... $>$ \&\&op) const
+{\footnotesize template$<$typename Op $>$ \newline
+requires (!rpp\+::utils\+::is\+\_\+base\+\_\+of\+\_\+v$<$std\+::decay\+\_\+t$<$Op$>$, \mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1subscribe__t}{rpp\+::operators\+::details\+::subscribe\+\_\+t}}$>$)}\\\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp\+::constraint\+::observable}} auto {\bfseries operator\texorpdfstring{$\vert$}{|}} (Op \&\&op) \&\&
 \item 
 {\footnotesize template$<$typename Op $>$ }\\auto {\bfseries pipe} (Op \&\&op) const \&
 \item 

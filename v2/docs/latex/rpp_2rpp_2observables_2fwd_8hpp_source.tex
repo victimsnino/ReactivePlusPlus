@@ -83,64 +83,55 @@
 \DoxyCodeLine{00079\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T,\ \textcolor{keyword}{typename}\ Type>}
 \DoxyCodeLine{00080\ \ \ \ \ \textcolor{keyword}{concept\ }\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable__of__type}{observable\_of\_type}}\ =\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{observable<T>}}\ \&\&\ std::same\_as<utils::extract\_observable\_type\_t<T>,\ std::decay\_t<Type>>;}
 \DoxyCodeLine{00081\ }
-\DoxyCodeLine{00082\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ Op,\ \textcolor{keyword}{typename}\ TObs>}
-\DoxyCodeLine{00083\ \ \ \ \ \textcolor{keyword}{concept\ }\mbox{\hyperlink{conceptrpp_1_1constraint_1_1operator__observable__transform}{operator\_observable\_transform}}\ =\ \textcolor{keyword}{requires}(\textcolor{keyword}{const}\ Op\&\ op,\ TObs\ obs)\ \{}
-\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \ \ \ \ op(\textcolor{keyword}{static\_cast<}TObs\textcolor{keyword}{>}(obs))}
-\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \}\ -\/>\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp::constraint::observable}};}
-\DoxyCodeLine{00087\ \ \ \ \ \};}
-\DoxyCodeLine{00088\ }
-\DoxyCodeLine{00089\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ Op,\ \textcolor{keyword}{typename}\ Type>}
-\DoxyCodeLine{00090\ \ \ \ \ \textcolor{keyword}{concept\ }\mbox{\hyperlink{conceptrpp_1_1constraint_1_1operator__base}{operator\_base}}\ =\ \textcolor{keyword}{requires}(\textcolor{keyword}{const}\ Op\&\ op)\ \{\ \textcolor{keyword}{typename}\ std::decay\_t<Op>::template\ operator\_traits<Type>;\ \}\ \&\&\ \mbox{\hyperlink{conceptrpp_1_1details_1_1observables_1_1constraint_1_1disposable__strategy}{details::observables::constraint::disposable\_strategy<details::observables::deduce\_updated\_disposable\_strategy<std::decay\_t<Op>}},\ \textcolor{keyword}{typename}\ \mbox{\hyperlink{classrpp_1_1details_1_1observables_1_1chain}{details::observables::chain<details::observables::fake\_strategy<Type>}}>::expected\_disposable\_strategy>>;}
+\DoxyCodeLine{00082\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ TObservable,\ \textcolor{keyword}{typename}...\ TObservables>}
+\DoxyCodeLine{00083\ \ \ \ \ \textcolor{keyword}{concept\ }\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observables__of__same__type}{observables\_of\_same\_type}}\ =\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp::constraint::observable<TObservable>}}\ \&\&\ (\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp::constraint::observable<TObservables>}}\ \&\&\ ...)\ \&\&\ (std::same\_as<rpp::utils::extract\_observable\_type\_t<TObservable>,\ rpp::utils::extract\_observable\_type\_t<TObservables>>\ \&\&\ ...);}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ Op,\ \textcolor{keyword}{typename}\ Type>}
+\DoxyCodeLine{00086\ \ \ \ \ \textcolor{keyword}{concept\ }\mbox{\hyperlink{conceptrpp_1_1constraint_1_1operator__subscribe}{operator\_subscribe}}\ =\ \textcolor{keyword}{requires}(\textcolor{keyword}{const}\ Op\&\ op,\ \mbox{\hyperlink{classrpp_1_1observer}{rpp::details::observers::fake\_observer<typename\ std::decay\_t<Op>::template}}\ operator\_traits<Type>::result\_type>\&\&\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer}{observer}},\ \textcolor{keyword}{const}\ details::observables::chain<details::observables::fake\_strategy<Type>>\&\ chain)\ \{}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \ \ \ \ op.subscribe(std::move(\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer}{observer}}),\ chain)}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00090\ \ \ \ \ \};}
 \DoxyCodeLine{00091\ }
 \DoxyCodeLine{00092\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ Op,\ \textcolor{keyword}{typename}\ Type>}
-\DoxyCodeLine{00093\ \ \ \ \ \textcolor{keyword}{concept\ }\mbox{\hyperlink{conceptrpp_1_1constraint_1_1operator__subscribe}{operator\_subscribe}}\ =\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1operator__base}{operator\_base<Op,\ Type>}}\ \&\&\ \textcolor{keyword}{requires}(\textcolor{keyword}{const}\ Op\&\ op,\ \mbox{\hyperlink{classrpp_1_1observer}{rpp::details::observers::fake\_observer<typename\ std::decay\_t<Op>::template}}\ operator\_traits<Type>::result\_type>\&\&\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer}{observer}},\ \textcolor{keyword}{const}\ details::observables::chain<details::observables::fake\_strategy<Type>>\&\ chain)\ \{}
+\DoxyCodeLine{00093\ \ \ \ \ \textcolor{keyword}{concept\ }\mbox{\hyperlink{conceptrpp_1_1constraint_1_1operator__lift}{operator\_lift}}\ =\ \textcolor{keyword}{requires}(\textcolor{keyword}{const}\ Op\&\ op,\ \mbox{\hyperlink{classrpp_1_1observer}{rpp::details::observers::fake\_observer<typename\ std::decay\_t<Op>::template}}\ operator\_traits<Type>::result\_type>\&\&\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer}{observer}})\ \{}
 \DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \ \ \ \ op.subscribe(std::move(\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer}{observer}}),\ chain)}
-\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \ \ \ \ op.template\ lift<Type>(std::move(\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer}{observer}}))}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \}\ -\/>\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer__of__type}{rpp::constraint::observer\_of\_type<Type>}};}
 \DoxyCodeLine{00097\ \ \ \ \ \};}
 \DoxyCodeLine{00098\ }
-\DoxyCodeLine{00099\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ Op,\ \textcolor{keyword}{typename}\ Type>}
-\DoxyCodeLine{00100\ \ \ \ \ \textcolor{keyword}{concept\ }\mbox{\hyperlink{conceptrpp_1_1constraint_1_1operator__lift}{operator\_lift}}\ =\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1operator__base}{operator\_base<Op,\ Type>}}\ \&\&\ \textcolor{keyword}{requires}(\textcolor{keyword}{const}\ Op\&\ op,\ \mbox{\hyperlink{classrpp_1_1observer}{rpp::details::observers::fake\_observer<typename\ std::decay\_t<Op>::template}}\ operator\_traits<Type>::result\_type>\&\&\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer}{observer}})\ \{}
+\DoxyCodeLine{00099\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ Op,\ \textcolor{keyword}{typename}\ Type,\ \textcolor{keyword}{typename}\ DisposableStrategy>}
+\DoxyCodeLine{00100\ \ \ \ \ \textcolor{keyword}{concept\ }\mbox{\hyperlink{conceptrpp_1_1constraint_1_1operator__lift__with__disposable__strategy}{operator\_lift\_with\_disposable\_strategy}}\ =\ \textcolor{keyword}{requires}(\textcolor{keyword}{const}\ Op\&\ op,\ \mbox{\hyperlink{classrpp_1_1observer}{rpp::details::observers::fake\_observer<typename\ std::decay\_t<Op>::template}}\ operator\_traits<Type>::result\_type>\&\&\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer}{observer}})\ \{}
 \DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \ \ \ \ op.template\ lift<Type>(std::move(\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer}{observer}}))}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \ \ \ \ op.template\ lift\_with\_disposable\_strategy<Type,\ DisposableStrategy>(std::move(\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer}{observer}}))}
 \DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \}\ -\/>\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer__of__type}{rpp::constraint::observer\_of\_type<Type>}};}
 \DoxyCodeLine{00104\ \ \ \ \ \};}
 \DoxyCodeLine{00105\ }
 \DoxyCodeLine{00106\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ Op,\ \textcolor{keyword}{typename}\ Type,\ \textcolor{keyword}{typename}\ DisposableStrategy>}
-\DoxyCodeLine{00107\ \ \ \ \ \textcolor{keyword}{concept\ }\mbox{\hyperlink{conceptrpp_1_1constraint_1_1operator__lift__with__disposable__strategy}{operator\_lift\_with\_disposable\_strategy}}\ =\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1operator__base}{operator\_base<Op,\ Type>}}\ \&\&\ \textcolor{keyword}{requires}(\textcolor{keyword}{const}\ Op\&\ op,\ \mbox{\hyperlink{classrpp_1_1observer}{rpp::details::observers::fake\_observer<typename\ std::decay\_t<Op>::template}}\ operator\_traits<Type>::result\_type>\&\&\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer}{observer}})\ \{}
-\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \ \ \ \ op.template\ lift\_with\_disposable\_strategy<Type,\ DisposableStrategy>(std::move(\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer}{observer}}))}
-\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \}\ -\/>\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer__of__type}{rpp::constraint::observer\_of\_type<Type>}};}
-\DoxyCodeLine{00111\ \ \ \ \ \};}
-\DoxyCodeLine{00112\ }
-\DoxyCodeLine{00113\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ Op,\ \textcolor{keyword}{typename}\ Type,\ \textcolor{keyword}{typename}\ DisposableStrategy>}
-\DoxyCodeLine{00114\ \ \ \ \ \textcolor{keyword}{concept\ }\mbox{\hyperlink{conceptrpp_1_1constraint_1_1operator__chain}{operator\_chain}}\ =\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1operator__base}{operator\_base<std::decay\_t<Op>}},\ Type>}
-\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&\&\ \textcolor{keyword}{requires}\ \{\ \textcolor{keyword}{typename}\ std::decay\_t<Op>::template\ operator\_traits<Type>::result\_type;\ \}}
-\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&\&\ (\mbox{\hyperlink{conceptrpp_1_1constraint_1_1operator__subscribe}{operator\_subscribe<std::decay\_t<Op>}},\ Type>\ ||\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1operator__lift}{operator\_lift<std::decay\_t<Op>}},\ Type>\ ||\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1operator__lift__with__disposable__strategy}{operator\_lift\_with\_disposable\_strategy<std::decay\_t<Op>}},\ Type,\ DisposableStrategy>);}
+\DoxyCodeLine{00107\ \ \ \ \ \textcolor{keyword}{concept\ }\mbox{\hyperlink{conceptrpp_1_1constraint_1_1operator__chain}{operator\_chain}}\ =}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \textcolor{keyword}{requires}()\ \{}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ std::decay\_t<Op>::template\ operator\_traits<Type>;}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ std::decay\_t<Op>::template\ operator\_traits<Type>::result\_type;}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \&\&\ \mbox{\hyperlink{conceptrpp_1_1details_1_1observables_1_1constraint_1_1disposable__strategy}{details::observables::constraint::disposable\_strategy<details::observables::deduce\_updated\_disposable\_strategy<std::decay\_t<Op>}},}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ \mbox{\hyperlink{classrpp_1_1details_1_1observables_1_1chain}{details::observables::chain<details::observables::fake\_strategy<Type>}}>::expected\_disposable\_strategy>>}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \&\&\ (\mbox{\hyperlink{conceptrpp_1_1constraint_1_1operator__subscribe}{operator\_subscribe<std::decay\_t<Op>}},\ Type>\ ||\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1operator__lift}{operator\_lift<std::decay\_t<Op>}},\ Type>\ ||\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1operator__lift__with__disposable__strategy}{operator\_lift\_with\_disposable\_strategy<std::decay\_t<Op>}},\ Type,\ DisposableStrategy>);}
+\DoxyCodeLine{00115\ }
+\DoxyCodeLine{00116\ \}\ \textcolor{comment}{//\ namespace\ rpp::constraint}}
 \DoxyCodeLine{00117\ }
-\DoxyCodeLine{00118\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ TObservable,\ \textcolor{keyword}{typename}...\ TObservables>}
-\DoxyCodeLine{00119\ \ \ \ \ \textcolor{keyword}{concept\ }\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observables__of__same__type}{observables\_of\_same\_type}}\ =\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp::constraint::observable<TObservable>}}\ \&\&\ (\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp::constraint::observable<TObservables>}}\ \&\&\ ...)\ \&\&\ (std::same\_as<rpp::utils::extract\_observable\_type\_t<TObservable>,\ rpp::utils::extract\_observable\_type\_t<TObservables>>\ \&\&\ ...);}
-\DoxyCodeLine{00120\ \}\ \textcolor{comment}{//\ namespace\ rpp::constraint}}
-\DoxyCodeLine{00121\ }
-\DoxyCodeLine{00122\ \textcolor{keyword}{namespace\ }rpp}
-\DoxyCodeLine{00123\ \{}
-\DoxyCodeLine{00124\ \ \ \ \ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type\ Type>}
-\DoxyCodeLine{00125\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1dynamic__observable}{dynamic\_observable}};}
-\DoxyCodeLine{00126\ }
-\DoxyCodeLine{00127\ \ \ \ \ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type\ Type,\ constra\textcolor{keywordtype}{int}::observable\_strategy<Type>\ Strategy>}
-\DoxyCodeLine{00128\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1blocking__observable}{blocking\_observable}};}
-\DoxyCodeLine{00129\ }
-\DoxyCodeLine{00130\ \ \ \ \ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type\ KeyType,\ constra\textcolor{keywordtype}{int}::decayed\_type\ Type,\ constra\textcolor{keywordtype}{int}::observable\_strategy<Type>\ Strategy>}
-\DoxyCodeLine{00131\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1grouped__observable}{grouped\_observable}};}
-\DoxyCodeLine{00132\ }
-\DoxyCodeLine{00133\ \ \ \ \ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type\ Type,\ rpp::constra\textcolor{keywordtype}{int}::observable\_of\_type<Type>...\ Observables>}
-\DoxyCodeLine{00134\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1variant__observable}{variant\_observable}};}
-\DoxyCodeLine{00135\ \}\ \textcolor{comment}{//\ namespace\ rpp}}
-\DoxyCodeLine{00136\ }
-\DoxyCodeLine{00137\ }
-\DoxyCodeLine{00138\ \textcolor{preprocessor}{\#define\ RPP\_CHECK\_IF\_TRAIT\_ASSERTS\_SATISFIED(Op,\ Type)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
-\DoxyCodeLine{00139\ \textcolor{preprocessor}{\ \ \ \ }\textcolor{comment}{/*\ operator\_traits\ can\ be\ instantiated\ if\ all\ inner\ static\_asserts\ are\ fine*/}\textcolor{preprocessor}{\ \(\backslash\)}}
-\DoxyCodeLine{00140\ \textcolor{preprocessor}{\ \ \ \ if\ constexpr\ (requires\ \{\ \{\ typename\ std::decay\_t<Op>::template\ operator\_traits<Type>\{\}\};\ \})}}
+\DoxyCodeLine{00118\ \textcolor{keyword}{namespace\ }rpp}
+\DoxyCodeLine{00119\ \{}
+\DoxyCodeLine{00120\ \ \ \ \ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type\ Type>}
+\DoxyCodeLine{00121\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1dynamic__observable}{dynamic\_observable}};}
+\DoxyCodeLine{00122\ }
+\DoxyCodeLine{00123\ \ \ \ \ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type\ Type,\ constra\textcolor{keywordtype}{int}::observable\_strategy<Type>\ Strategy>}
+\DoxyCodeLine{00124\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1blocking__observable}{blocking\_observable}};}
+\DoxyCodeLine{00125\ }
+\DoxyCodeLine{00126\ \ \ \ \ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type\ KeyType,\ constra\textcolor{keywordtype}{int}::decayed\_type\ Type,\ constra\textcolor{keywordtype}{int}::observable\_strategy<Type>\ Strategy>}
+\DoxyCodeLine{00127\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1grouped__observable}{grouped\_observable}};}
+\DoxyCodeLine{00128\ }
+\DoxyCodeLine{00129\ \ \ \ \ \textcolor{keyword}{template}<constra\textcolor{keywordtype}{int}::decayed\_type\ Type,\ rpp::constra\textcolor{keywordtype}{int}::observable\_of\_type<Type>...\ Observables>}
+\DoxyCodeLine{00130\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1variant__observable}{variant\_observable}};}
+\DoxyCodeLine{00131\ \}\ \textcolor{comment}{//\ namespace\ rpp}}
 
 \end{DoxyCode}
