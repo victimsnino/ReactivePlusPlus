@@ -51,8 +51,7 @@ namespace rpp::schedulers
                 m_original_worker.schedule(tp, std::forward<Fn>(fn), std::forward<Handler>(handler), std::forward<Args>(args)...);
             }
 
-            static constexpr rpp::schedulers::details::none_disposable get_disposable() { return {}; }
-            static rpp::schedulers::time_point                         now() { return original_worker::now(); }
+            static rpp::schedulers::time_point now() { return original_worker::now(); }
 
         private:
             original_worker m_original_worker;

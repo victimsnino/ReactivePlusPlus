@@ -129,8 +129,8 @@ namespace rpp::schedulers
                                 }
                                 continue;
                             }
-
-                            get_queue()->emplace(top->handle_advanced_call(res.value()), std::move(top));
+                            const auto tp = top->handle_advanced_call(res.value());
+                            get_queue()->emplace(tp, std::move(top));
                         }
                     }
                     break;
@@ -180,8 +180,6 @@ namespace rpp::schedulers
                     defer_for(tp - now(), std::forward<Fn>(fn), std::forward<Handler>(handler), std::forward<Args>(args)...);
                 }
             }
-
-            static constexpr rpp::schedulers::details::none_disposable get_disposable() { return {}; }
 
             static rpp::schedulers::time_point now() { return details::now(); }
         };

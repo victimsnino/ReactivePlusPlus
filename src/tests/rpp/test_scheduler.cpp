@@ -172,8 +172,6 @@ TEST_CASE("Immediate scheduler")
 
     auto worker = scheduler.create_worker();
 
-    CHECK(worker.get_disposable().is_disposed());
-
     size_t call_count{};
 
     SECTION("immediate scheduler schedules and re-schedules action immediately")
@@ -355,11 +353,7 @@ TEMPLATE_TEST_CASE("queue_based scheduler", "", rpp::schedulers::current_thread,
     auto mock_obs = mock_observer_strategy<int>{};
     auto obs      = std::optional{mock_obs.get_observer(d).as_dynamic()};
 
-    auto worker = std::optional{TestType{}.create_worker()};
-    if constexpr (std::same_as<TestType, rpp::schedulers::current_thread>)
-        CHECK(worker->get_disposable().is_disposed());
-
-    obs->set_upstream(worker->get_disposable());
+    auto   worker = std::optional{TestType{}.create_worker()};
     size_t call_count{};
 
     std::promise<std::string> thread_of_schedule_promise{};
@@ -717,7 +711,6 @@ TEST_CASE("new_thread utilized current_thread")
     {
         auto worker = rpp::schedulers::new_thread::create_worker();
         auto obs    = mock.get_observer().as_dynamic();
-        obs.set_upstream(worker.get_disposable());
         worker.schedule([&inner_schedule_executed](const auto& obs) {
             rpp::schedulers::current_thread::create_worker().schedule([&inner_schedule_executed](const auto&) {
                 inner_schedule_executed = true;
@@ -916,8 +909,6 @@ TEST_CASE("current_thread inside new_thread")
     auto current_thread_invoked = std::make_shared<std::atomic_bool>();
 
     worker->schedule([&](const auto& obs) {
-        worker->get_disposable().dispose();
-
         rpp::schedulers::current_thread{}.create_worker().schedule([current_thread_invoked](const auto&) {
             current_thread_invoked->store(true);
             return rpp::schedulers::optional_delay_from_now{};
