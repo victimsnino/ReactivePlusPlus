@@ -155,13 +155,13 @@ namespace rpp
         }
 
         template<typename Op>
-        auto pipe(Op&& op) const &
+        auto pipe(Op && op) const &
         {
             return *this | std::forward<Op>(op);
         }
 
         template<typename Op>
-        auto pipe(Op&& op) &&
+        auto pipe(Op && op)&&
         {
             return std::move(*this) | std::forward<Op>(op);
         }
