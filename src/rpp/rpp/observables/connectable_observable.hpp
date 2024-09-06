@@ -134,7 +134,10 @@ namespace rpp
         auto operator|(Op&& op) const &
         {
             if constexpr (std::invocable<std::decay_t<Op>, const connectable_observable&>)
+            {
+                static_assert(rpp::constraint::observable<std::invoke_result_t<std::decay_t<Op>, const connectable_observable&>>, "Result of Op should be observable");
                 return std::forward<Op>(op)(*this);
+            }
             else
                 return static_cast<const base&>(*this) | std::forward<Op>(op);
         }
@@ -143,9 +146,24 @@ namespace rpp
         auto operator|(Op&& op)&&
         {
             if constexpr (std::invocable<std::decay_t<Op>, connectable_observable&&>)
+            {
+                static_assert(rpp::constraint::observable<std::invoke_result_t<std::decay_t<Op>, connectable_observable&&>>, "Result of Op should be observable");
                 return std::forward<Op>(op)(std::move(*this));
+            }
             else
                 return static_cast<base&&>(*this) | std::forward<Op>(op);
+        }
+
+        template<typename Op>
+        auto pipe(Op&& op) const &
+        {
+            return *this | std::forward<Op>(op);
+        }
+
+        template<typename Op>
+        auto pipe(Op&& op) &&
+        {
+            return std::move(*this) | std::forward<Op>(op);
         }
 
     private:
