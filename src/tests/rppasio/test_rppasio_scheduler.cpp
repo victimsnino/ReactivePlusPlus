@@ -78,7 +78,7 @@ TEST_CASE("strand drains current_thread queue")
     auto disposable = rpp::source::just(rppasio::schedulers::strand{context.get_executor()}, 1, 2, 3)
                     | rpp::ops::flat_map([](int v) {
                           return rpp::source::interval(10ms, rpp::schedulers::current_thread{})
-                               | rpp::ops::map([v](long) { return v; });
+                               | rpp::ops::map([v](size_t) { return v; });
                       })
                     | rpp::ops::take(3)
                     | rpp::ops::subscribe_with_disposable(mock.get_observer());
