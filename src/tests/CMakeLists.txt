@@ -28,6 +28,10 @@ macro(add_test_target target_name module files)
     target_link_libraries(${TARGET} PRIVATE rppgrpc_tests_proto)
   endif()
 
+  if (${module} STREQUAL rppasio)
+    rpp_add_asio_support_to_executable(${TARGET})
+  endif()
+
   target_compile_features(${TARGET} PRIVATE cxx_std_20)
 
   if(MSVC)
@@ -58,4 +62,8 @@ endif()
 if (RPP_BUILD_GRPC_CODE)
   rpp_add_proto_target(rppgrpc_tests_proto rppgrpc/proto.proto)
   rpp_register_tests(rppgrpc)
+endif()
+
+if (RPP_BUILD_ASIO_CODE)
+  rpp_register_tests(rppasio)
 endif()

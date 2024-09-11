@@ -11,14 +11,16 @@ class RppConan(ConanFile):
         "with_sfml" : [False, True],
         "with_tests" : [False, True],
         "with_cmake" : [False, True],
-        "with_benchmarks" : [False, True]
+        "with_benchmarks" : [False, True],
+        "with_asio" : [False, True]
     }
     default_options = {
         "with_grpc" : False,
         "with_sfml" : False,
         "with_tests": False,
         "with_cmake": False,
-        "with_benchmarks" : False
+        "with_benchmarks" : False,
+        "with_asio" : False
     }
 
     def requirements(self):
@@ -36,6 +38,9 @@ class RppConan(ConanFile):
             self.requires("grpc/1.54.3", transitive_libs=True, transitive_headers=True)
             self.requires("protobuf/3.21.12")
             self.requires("libmount/2.39", override=True)
+
+        if self.options.with_asio:
+            self.requires("asio/1.30.2")
 
         if self.options.with_cmake:
             self.tool_requires("cmake/3.29.3")
