@@ -10,6 +10,7 @@ var searchData=
   ['introduction_20to_20reactive_20programming_7',['Introduction to Reactive Programming',['../md_docs_2readme.html#autotoc_md1',1,'']]],
   ['is_20reactive_20programming_8',['What is Reactive Programming?',['../md_docs_2readme.html#autotoc_md2',1,'']]],
   ['is_5fdisposed_9',['is_disposed',['../classrpp_1_1composite__disposable__impl.html#a4d8dc7195e0594586a1583e7f5308d4c',1,'rpp::composite_disposable_impl::is_disposed()'],['../structrpp_1_1interface__disposable.html#a0348da95fe5929a3861e80b6651c347f',1,'rpp::interface_disposable::is_disposed()'],['../classrpp_1_1details_1_1observer__impl.html#ab4d6f3e513e55f94547c8fa4d042f0cb',1,'rpp::details::observer_impl::is_disposed()']]],
-  ['is_5fworker_10',['is_worker',['../structrpp_1_1schedulers_1_1constraint_1_1details_1_1is__worker.html',1,'rpp::schedulers::constraint::details']]],
-  ['is_5fworker_3c_20rpp_3a_3aschedulers_3a_3aworker_3c_20strategy_20_3e_20_3e_11',['is_worker&lt; rpp::schedulers::worker&lt; Strategy &gt; &gt;',['../structrpp_1_1schedulers_1_1constraint_1_1details_1_1is__worker_3_01rpp_1_1schedulers_1_1worker_3_01_strategy_01_4_01_4.html',1,'rpp::schedulers::constraint::details']]]
+  ['is_5fqueue_5fis_5fempty_10',['is_queue_is_empty',['../structrpp_1_1schedulers_1_1current__thread_1_1is__queue__is__empty.html',1,'rpp::schedulers::current_thread']]],
+  ['is_5fworker_11',['is_worker',['../structrpp_1_1schedulers_1_1constraint_1_1details_1_1is__worker.html',1,'rpp::schedulers::constraint::details']]],
+  ['is_5fworker_3c_20rpp_3a_3aschedulers_3a_3aworker_3c_20strategy_20_3e_20_3e_12',['is_worker&lt; rpp::schedulers::worker&lt; Strategy &gt; &gt;',['../structrpp_1_1schedulers_1_1constraint_1_1details_1_1is__worker_3_01rpp_1_1schedulers_1_1worker_3_01_strategy_01_4_01_4.html',1,'rpp::schedulers::constraint::details']]]
 ];

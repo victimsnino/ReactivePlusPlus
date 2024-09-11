@@ -61,7 +61,8 @@ var searchData=
   ['rpp_3a_3aschedulers_3a_3aconstraint_3a_3ascheduler_58',['scheduler',['../conceptrpp_1_1schedulers_1_1constraint_1_1scheduler.html',1,'rpp::schedulers::constraint']]],
   ['rpp_3a_3aschedulers_3a_3aconstraint_3a_3astrategy_59',['strategy',['../conceptrpp_1_1schedulers_1_1constraint_1_1strategy.html',1,'rpp::schedulers::constraint']]],
   ['rpp_3a_3aschedulers_3a_3aconstraint_3a_3aworker_60',['worker',['../conceptrpp_1_1schedulers_1_1constraint_1_1worker.html',1,'rpp::schedulers::constraint']]],
-  ['rppgrpc_61',['RPPGRPC',['../group__rppgrpc.html',1,'']]],
-  ['rppqt_62',['RPPQT',['../group__rppqt.html',1,'']]],
-  ['run_5floop_63',['run_loop',['../classrpp_1_1schedulers_1_1run__loop.html',1,'rpp::schedulers']]]
+  ['rppasio_61',['RPPASIO',['../group__rppasio.html',1,'']]],
+  ['rppgrpc_62',['RPPGRPC',['../group__rppgrpc.html',1,'']]],
+  ['rppqt_63',['RPPQT',['../group__rppqt.html',1,'']]],
+  ['run_5floop_64',['run_loop',['../classrpp_1_1schedulers_1_1run__loop.html',1,'rpp::schedulers']]]
 ];

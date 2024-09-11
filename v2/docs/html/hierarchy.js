@@ -184,6 +184,7 @@ var hierarchy =
     ] ],
     [ "rpp::details::interval_schedulable", "structrpp_1_1details_1_1interval__schedulable.html", null ],
     [ "rpp::details::interval_strategy< TScheduler, TimePointOrDuration >", "structrpp_1_1details_1_1interval__strategy.html", null ],
+    [ "rpp::schedulers::current_thread::is_queue_is_empty", "structrpp_1_1schedulers_1_1current__thread_1_1is__queue__is__empty.html", null ],
     [ "rpp::details::observers::lambda_strategy< Type, OnNext, OnError, OnCompleted >", "structrpp_1_1details_1_1observers_1_1lambda__strategy.html", null ],
     [ "rpp::operators::details::last_observer_strategy< Type, TObserver >", "structrpp_1_1operators_1_1details_1_1last__observer__strategy.html", null ],
     [ "rpp::operators::details::lift_operator< Operator, TArgs >", "classrpp_1_1operators_1_1details_1_1lift__operator.html", null ],
@@ -390,7 +391,7 @@ var hierarchy =
       [ "rpp::schedulers::details::specific_schedulable< NowStrategy, Fn, Handler, Args >", "classrpp_1_1schedulers_1_1details_1_1specific__schedulable.html", null ]
     ] ],
     [ "rpp::schedulers::details::schedulables_queue< NowStrategy >", "classrpp_1_1schedulers_1_1details_1_1schedulables__queue.html", null ],
-    [ "rpp::schedulers::details::schedulables_queue< current_thread::worker_strategy >", "classrpp_1_1schedulers_1_1details_1_1schedulables__queue.html", null ],
+    [ "rpp::schedulers::details::schedulables_queue< rpp::schedulers::current_thread::worker_strategy >", "classrpp_1_1schedulers_1_1details_1_1schedulables__queue.html", null ],
     [ "rpp::schedulers::details::schedulables_queue< rpp::schedulers::test_scheduler::worker_strategy >", "classrpp_1_1schedulers_1_1details_1_1schedulables__queue.html", null ],
     [ "rpp::schedulers::details::schedulables_queue< worker_strategy >", "classrpp_1_1schedulers_1_1details_1_1schedulables__queue.html", null ],
     [ "grpc::ServerBidiReactor", null, [
@@ -411,6 +412,7 @@ var hierarchy =
     [ "rpp::details::ref_count_on_subscribe_t< rpp::connectable_observable< OriginalObservable, Subject > >::state_t", "structrpp_1_1details_1_1ref__count__on__subscribe__t_3_01rpp_1_1connectable__observable_3_01_ori08a6adc16d48deb4d454d582f87ab48e.html", null ],
     [ "rpp::operators::details::window_toggle_state< TObserver, TClosingsSelectorFn >::state_t", "structrpp_1_1operators_1_1details_1_1window__toggle__state_1_1state__t.html", null ],
     [ "rpp::details::disposables::static_disposables_container< Count >", "classrpp_1_1details_1_1disposables_1_1static__disposables__container.html", null ],
+    [ "rppasio::schedulers::strand", "classrppasio_1_1schedulers_1_1strand.html", null ],
     [ "rpp::subjects::details::subject_on_subscribe_strategy< Type, OnSubscribe, DisposableStrategy >", "structrpp_1_1subjects_1_1details_1_1subject__on__subscribe__strategy.html", null ],
     [ "rpp::operators::details::subscribe_on_schedulable< TObservableChainStrategy >", "structrpp_1_1operators_1_1details_1_1subscribe__on__schedulable.html", null ],
     [ "rpp::operators::details::subscribe_on_t< TScheduler >", "structrpp_1_1operators_1_1details_1_1subscribe__on__t.html", null ],
@@ -458,6 +460,7 @@ var hierarchy =
     [ "rpp::operators::details::with_latest_from_observer_strategy< Observer, TSelector, OriginalValue, RestArgs >", "structrpp_1_1operators_1_1details_1_1with__latest__from__observer__strategy.html", null ],
     [ "rpp::operators::details::with_latest_from_t< TSelector, TObservables >", "structrpp_1_1operators_1_1details_1_1with__latest__from__t.html", null ],
     [ "rpp::schedulers::worker< Strategy >", "classrpp_1_1schedulers_1_1worker.html", null ],
+    [ "rpp::schedulers::current_thread::worker_strategy", "classrpp_1_1schedulers_1_1current__thread_1_1worker__strategy.html", null ],
     [ "rpp::schedulers::immediate::worker_strategy", "classrpp_1_1schedulers_1_1immediate_1_1worker__strategy.html", null ],
     [ "rpp::schedulers::new_thread::worker_strategy", "classrpp_1_1schedulers_1_1new__thread_1_1worker__strategy.html", null ],
     [ "rpp::schedulers::test_scheduler::worker_strategy", "classrpp_1_1schedulers_1_1test__scheduler_1_1worker__strategy.html", null ]

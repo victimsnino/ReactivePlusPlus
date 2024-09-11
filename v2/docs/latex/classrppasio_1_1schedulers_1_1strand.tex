@@ -1,0 +1,36 @@
+\doxysection{rppasio\+::schedulers\+::strand Class Reference}
+\hypertarget{classrppasio_1_1schedulers_1_1strand}{}\label{classrppasio_1_1schedulers_1_1strand}\index{rppasio::schedulers::strand@{rppasio::schedulers::strand}}
+
+
+Asio based scheduler where each worker is assigned an asio {\ttfamily strand} to execute schedulables with the guarantee that none of those {\ttfamily schedulables} will execute concurrently.  
+
+
+
+
+{\ttfamily \#include $<$strand.\+hpp$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classrppasio_1_1schedulers_1_1strand_a5a7cb987a5de4966bf195bb62f48c652}\label{classrppasio_1_1schedulers_1_1strand_a5a7cb987a5de4966bf195bb62f48c652} 
+{\bfseries strand} (asio\+::io\+\_\+context\+::executor\+\_\+type executor)
+\item 
+\Hypertarget{classrppasio_1_1schedulers_1_1strand_abe17e9afbb24cc2de88d581a771bbefa}\label{classrppasio_1_1schedulers_1_1strand_abe17e9afbb24cc2de88d581a771bbefa} 
+auto {\bfseries create\+\_\+worker} () const
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classrppasio_1_1schedulers_1_1strand_a9c1675c30d2d6172fbc90f9e834c3f35}\label{classrppasio_1_1schedulers_1_1strand_a9c1675c30d2d6172fbc90f9e834c3f35} 
+asio\+::io\+\_\+context\+::executor\+\_\+type {\bfseries m\+\_\+executor}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Asio based scheduler where each worker is assigned an asio {\ttfamily strand} to execute schedulables with the guarantee that none of those {\ttfamily schedulables} will execute concurrently. 
+
+This scheduler can efficiently enable multi-\/threading execution when running provided io\+\_\+context in multiple threads. Compared to the {\ttfamily thread\+\_\+pool} scheduler, a worker is not pinned to a single thread and {\ttfamily schedulables} are instead dynamically dispatched to potentially different io\+\_\+context threads depending on load. 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/extensions/rppasio/rppasio/schedulers/strand.\+hpp\end{DoxyCompactItemize}

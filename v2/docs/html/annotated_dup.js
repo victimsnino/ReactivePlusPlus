@@ -208,7 +208,7 @@ var annotated_dup =
           [ "specific_schedulable", "classrpp_1_1schedulers_1_1details_1_1specific__schedulable.html", null ]
         ] ],
         [ "computational", "classrpp_1_1schedulers_1_1computational.html", null ],
-        [ "current_thread", "classrpp_1_1schedulers_1_1current__thread.html", null ],
+        [ "current_thread", "classrpp_1_1schedulers_1_1current__thread.html", "classrpp_1_1schedulers_1_1current__thread" ],
         [ "delay_from_now", "structrpp_1_1schedulers_1_1delay__from__now.html", null ],
         [ "delay_from_this_timepoint", "structrpp_1_1schedulers_1_1delay__from__this__timepoint.html", null ],
         [ "delay_to", "structrpp_1_1schedulers_1_1delay__to.html", null ],
@@ -253,6 +253,11 @@ var annotated_dup =
       [ "observer< Type, rpp::details::observers::dynamic_strategy< Type > >", "classrpp_1_1observer_3_01_type_00_01rpp_1_1details_1_1observers_1_1dynamic__strategy_3_01_type_01_4_01_4.html", null ],
       [ "refcount_disposable", "classrpp_1_1refcount__disposable.html", null ],
       [ "variant_observable", "classrpp_1_1variant__observable.html", null ]
+    ] ],
+    [ "rppasio", null, [
+      [ "schedulers", null, [
+        [ "strand", "classrppasio_1_1schedulers_1_1strand.html", null ]
+      ] ]
     ] ],
     [ "rppgrpc", null, [
       [ "details", null, [
