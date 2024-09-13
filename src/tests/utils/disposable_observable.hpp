@@ -99,6 +99,21 @@ void test_operator_over_observable_with_disposable(auto&& op)
         CHECK(observable_disposable.is_disposed());
     }
 
+    SECTION("operator doesn't disposes disposable too early")
+    {
+        auto observable_disposable = rpp::composite_disposable_wrapper::make();
+        auto observable            = rpp::source::create<T>([&observable_disposable](auto&& obs) {
+            obs.set_upstream(observable_disposable);
+        });
+
+        auto observer_disposable = rpp::composite_disposable_wrapper::make();
+        op(observable) | rpp::ops::subscribe(observer_disposable, [](const auto&) {});
+
+        CHECK(!observable_disposable.is_disposed());
+        observer_disposable.dispose();
+        CHECK(observable_disposable.is_disposed());
+    }
+
     SECTION("operator disposes disposable on_error")
     {
         op(rpp::source::create<T>([](auto&& obs) {
