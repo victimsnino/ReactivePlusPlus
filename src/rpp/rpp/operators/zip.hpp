@@ -21,11 +21,11 @@
 namespace rpp::operators::details
 {
     template<rpp::constraint::observer Observer, typename TSelector, rpp::constraint::decayed_type... Args>
-    class zip_disposable final : public combining_disposable<Observer, Args...>
+    class zip_state final : public combining_state<Observer>
     {
     public:
-        explicit zip_disposable(Observer&& observer, const TSelector& selector)
-            : combining_disposable<Observer, Args...>(std::move(observer))
+        explicit zip_state(Observer&& observer, const TSelector& selector)
+            : combining_state<Observer>(std::move(observer), sizeof...(Args))
             , m_selector(selector)
         {
         }
@@ -42,17 +42,17 @@ namespace rpp::operators::details
 
     template<size_t I, rpp::constraint::observer Observer, typename TSelector, rpp::constraint::decayed_type... Args>
     struct zip_observer_strategy final
-        : public combining_observer_strategy<zip_disposable<Observer, TSelector, Args...>>
+        : public combining_observer_strategy<zip_state<Observer, TSelector, Args...>>
     {
-        using combining_observer_strategy<zip_disposable<Observer, TSelector, Args...>>::disposable;
+        using combining_observer_strategy<zip_state<Observer, TSelector, Args...>>::state;
 
         template<typename T>
         void on_next(T&& v) const
         {
-            const auto observer = disposable->get_observer_under_lock();
-            disposable->get_pendings().template get<I>().push_back(std::forward<T>(v));
+            const auto observer = state->get_observer_under_lock();
+            state->get_pendings().template get<I>().push_back(std::forward<T>(v));
 
-            disposable->get_pendings().apply(&apply_impl<decltype(disposable)>, disposable, observer);
+            state->get_pendings().apply(&apply_impl<decltype(state)>, state, observer);
         }
 
     private:
@@ -68,7 +68,7 @@ namespace rpp::operators::details
     };
 
     template<typename TSelector, rpp::constraint::observable... TObservables>
-    struct zip_t : public combining_operator_t<zip_disposable, zip_observer_strategy, TSelector, TObservables...>
+    struct zip_t : public combining_operator_t<zip_state, zip_observer_strategy, TSelector, TObservables...>
     {
     };
 } // namespace rpp::operators::details
