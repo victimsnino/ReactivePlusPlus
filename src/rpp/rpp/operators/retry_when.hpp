@@ -160,7 +160,7 @@ namespace rpp::operators::details
         template<rpp::constraint::observer TObserver, typename TObservable>
         void subscribe(TObserver&& observer, TObservable&& observable) const
         {
-            const auto ptr   = std::make_shared<retry_when_state<std::decay_t<TObserver>, std::decay_t<TObservable>, std::decay_t<TNotifier>>>(std::forward<TObserver>(observer), std::forward<TObservable>(observable), notifier);
+            const auto ptr = std::make_shared<retry_when_state<std::decay_t<TObserver>, std::decay_t<TObservable>, std::decay_t<TNotifier>>>(std::forward<TObserver>(observer), std::forward<TObservable>(observable), notifier);
             drain(ptr);
         }
     };

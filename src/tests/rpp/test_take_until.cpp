@@ -17,9 +17,9 @@
 #include <rpp/operators/take.hpp>
 #include <rpp/operators/take_until.hpp>
 #include <rpp/schedulers/current_thread.hpp>
+#include <rpp/sources/concat.hpp>
 #include <rpp/sources/empty.hpp>
 #include <rpp/sources/error.hpp>
-#include <rpp/sources/concat.hpp>
 #include <rpp/sources/interval.hpp>
 #include <rpp/sources/just.hpp>
 #include <rpp/sources/never.hpp>
@@ -148,7 +148,7 @@ TEST_CASE("take_until can handle race condition")
 
         SECTION("on_completed shall not interleave with on_next")
         {
-                rpp::source::concat(rpp::source::just(1) | rpp::ops::take(1), rpp::source::never<int>())
+            rpp::source::concat(rpp::source::just(1) | rpp::ops::take(1), rpp::source::never<int>())
                 | rpp::ops::take_until(subject.get_observable())
                 | rpp::ops::as_blocking()
                 | rpp::ops::subscribe([&](auto&&) {

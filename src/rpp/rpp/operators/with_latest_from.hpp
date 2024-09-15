@@ -37,7 +37,7 @@ namespace rpp::operators::details
 
         rpp::utils::tuple<rpp::utils::value_with_mutex<std::optional<RestArgs>>...>& get_values() { return m_values; }
 
-        const TSelector& get_selector() const { return m_selector; }
+        const TSelector&                    get_selector() const { return m_selector; }
         const composite_disposable_wrapper& get_disposable() const { return m_disposable; }
 
     private:
