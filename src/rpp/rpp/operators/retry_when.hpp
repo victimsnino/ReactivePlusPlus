@@ -40,7 +40,6 @@ namespace rpp::operators::details
         RPP_NO_UNIQUE_ADDRESS TNotifier   notifier;
 
         rpp::composite_disposable_wrapper disposable = composite_disposable_wrapper::make();
-
     };
 
     template<rpp::constraint::observer TObserver, typename TObservable, typename TNotifier>
