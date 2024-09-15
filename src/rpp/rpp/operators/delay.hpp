@@ -180,7 +180,7 @@ namespace rpp::operators::details
         template<rpp::constraint::decayed_type Type, rpp::constraint::observer Observer>
         auto lift(Observer&& observer) const
         {
-            using worker_t  = rpp::schedulers::utils::get_worker_t<Scheduler>;
+            using worker_t = rpp::schedulers::utils::get_worker_t<Scheduler>;
 
             auto state = std::make_shared<delay_state<std::decay_t<Observer>, worker_t>>(std::forward<Observer>(observer), scheduler.create_worker(), duration);
             return rpp::observer<Type, delay_observer_strategy<std::decay_t<Observer>, worker_t, ClearOnError>>{std::move(state)};

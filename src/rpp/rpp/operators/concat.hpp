@@ -47,7 +47,7 @@ namespace rpp::operators::details
 
         rpp::utils::pointer_under_lock<TObserver>               get_observer() { return m_observer; }
         rpp::utils::pointer_under_lock<std::queue<TObservable>> get_queue() { return m_queue; }
-        const std::shared_ptr<refcount_disposable>& get_disposable() const { return m_disposable; }
+        const std::shared_ptr<refcount_disposable>&             get_disposable() const { return m_disposable; }
 
         std::atomic<ConcatStage>& stage() { return m_stage; }
 

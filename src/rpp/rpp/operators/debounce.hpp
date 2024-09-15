@@ -138,7 +138,7 @@ namespace rpp::operators::details
         void on_completed() const noexcept
         {
             const auto observer = state->get_observer_under_lock();
-            if (const auto value    = state->extract_value())
+            if (const auto value = state->extract_value())
                 observer->on_next(std::move(value).value());
             observer->on_completed();
         }
@@ -162,7 +162,7 @@ namespace rpp::operators::details
         template<rpp::constraint::decayed_type Type, rpp::constraint::observer Observer>
         auto lift(Observer&& observer) const
         {
-            using worker_t  = rpp::schedulers::utils::get_worker_t<Scheduler>;
+            using worker_t = rpp::schedulers::utils::get_worker_t<Scheduler>;
 
             auto ptr = std::make_shared<debounce_state<std::decay_t<Observer>, worker_t>>(std::forward<Observer>(observer), scheduler.create_worker(), duration);
             return rpp::observer<Type, debounce_observer_strategy<std::decay_t<Observer>, worker_t>>{std::move(ptr)};
