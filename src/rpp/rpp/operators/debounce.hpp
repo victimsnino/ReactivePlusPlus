@@ -12,7 +12,6 @@
 
 #include <rpp/operators/fwd.hpp>
 
-#include <rpp/disposables/composite_disposable.hpp>
 #include <rpp/operators/details/strategy.hpp>
 #include <rpp/utils/utils.hpp>
 
