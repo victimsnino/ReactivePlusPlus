@@ -54,7 +54,12 @@ namespace rpp
         friend class details::refocunt_disposable_inner;
         refcount_disposable() = default;
 
-        composite_disposable_wrapper add_ref();
+        enum class Mode : bool
+        {
+            Weak,
+            Strong
+        };
+        composite_disposable_wrapper add_ref(Mode mode = Mode::Weak);
 
     private:
         std::atomic<size_t>     m_refcount{0};
@@ -91,7 +96,7 @@ namespace rpp::details
 
 namespace rpp
 {
-    inline composite_disposable_wrapper refcount_disposable::add_ref()
+    inline composite_disposable_wrapper refcount_disposable::add_ref(refcount_disposable::Mode mode)
     {
         auto current_value = m_refcount.load(std::memory_order::seq_cst);
         while (true)
@@ -103,7 +108,7 @@ namespace rpp
             if (m_refcount.compare_exchange_strong(current_value, current_value + 1, std::memory_order::seq_cst))
             {
                 auto inner = composite_disposable_wrapper::make<details::refocunt_disposable_inner>(wrapper_from_this());
-                add(inner.as_weak());
+                add(mode == Mode::Weak ? inner.as_weak() : inner);
                 return inner;
             }
         }
