@@ -93,7 +93,7 @@ namespace rpp::operators::details
         }
 
     protected:
-        std::shared_ptr<merge_state<TObserver>> m_state;
+        std::shared_ptr<merge_state<TObserver>>      m_state;
         mutable std::vector<rpp::disposable_wrapper> m_disposables{};
     };
 
