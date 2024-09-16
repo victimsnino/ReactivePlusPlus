@@ -118,7 +118,7 @@ namespace rpp::operators::details
         }
 
         concat_observer_strategy_base(std::shared_ptr<concat_state_t<TObservable, TObserver>> state)
-            : concat_observer_strategy_base{state, state->get_disposable()->add_ref(refcount_disposable::Mode::Strong)}
+            : concat_observer_strategy_base{state, state->get_disposable()->add_ref(refcount_disposable::Mode::StrongRefRefSource)}
         {
         }
 
@@ -177,7 +177,7 @@ namespace rpp::operators::details
         {
             ConcatStage current = ConcatStage::None;
             if (base::state->stage().compare_exchange_strong(current, ConcatStage::Draining, std::memory_order::seq_cst))
-                base::state->handle_observable(std::forward<T>(v), base::state->get_disposable()->add_ref(refcount_disposable::Mode::Strong));
+                base::state->handle_observable(std::forward<T>(v), base::state->get_disposable()->add_ref(refcount_disposable::Mode::StrongRefRefSource));
             else
                 base::state->get_queue()->push(std::forward<T>(v));
         }
