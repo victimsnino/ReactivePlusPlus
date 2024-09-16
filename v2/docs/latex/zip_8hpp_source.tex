@@ -25,11 +25,11 @@
 \DoxyCodeLine{00021\ \textcolor{keyword}{namespace\ }rpp::operators::details}
 \DoxyCodeLine{00022\ \{}
 \DoxyCodeLine{00023\ \ \ \ \ \textcolor{keyword}{template}<\mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer}{rpp::constraint::observer}}\ Observer,\ \textcolor{keyword}{typename}\ TSelector,\ rpp::constraint::decayed\_type...\ Args>}
-\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1zip__disposable}{zip\_disposable}}\ final\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1combining__disposable}{combining\_disposable}}<Observer,\ Args...>}
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1zip__state}{zip\_state}}\ final\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1combining__state}{combining\_state}}<Observer>}
 \DoxyCodeLine{00025\ \ \ \ \ \{}
 \DoxyCodeLine{00026\ \ \ \ \ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1zip__disposable}{zip\_disposable}}(Observer\&\&\ \mbox{\hyperlink{classrpp_1_1observer}{observer}},\ \textcolor{keyword}{const}\ TSelector\&\ selector)}
-\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \ \ \ \ :\ \mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1combining__disposable}{combining\_disposable}}<Observer,\ Args...>(std::move(\mbox{\hyperlink{classrpp_1_1observer}{observer}}))}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1zip__state}{zip\_state}}(Observer\&\&\ \mbox{\hyperlink{classrpp_1_1observer}{observer}},\ \textcolor{keyword}{const}\ TSelector\&\ selector)}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \ \ \ \ :\ \mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1combining__state}{combining\_state<Observer>}}(std::move(\mbox{\hyperlink{classrpp_1_1observer}{observer}}),\ \textcolor{keyword}{sizeof}...(Args))}
 \DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \ \ \ \ ,\ m\_selector(selector)}
 \DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \{}
 \DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \}}
@@ -46,17 +46,17 @@
 \DoxyCodeLine{00042\ }
 \DoxyCodeLine{00043\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keywordtype}{size\_t}\ I,\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observer}{rpp::constraint::observer}}\ Observer,\ \textcolor{keyword}{typename}\ TSelector,\ rpp::constraint::decayed\_type...\ Args>}
 \DoxyCodeLine{00044\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1zip__observer__strategy}{zip\_observer\_strategy}}\ final}
-\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1combining__observer__strategy}{combining\_observer\_strategy}}<zip\_disposable<Observer,\ TSelector,\ Args...>>}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1combining__observer__strategy}{combining\_observer\_strategy}}<zip\_state<Observer,\ TSelector,\ Args...>>}
 \DoxyCodeLine{00046\ \ \ \ \ \{}
-\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1combining__observer__strategy}{combining\_observer\_strategy}}<\mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1zip__disposable}{zip\_disposable}}<Observer,\ TSelector,\ Args...>>::disposable;}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1combining__observer__strategy}{combining\_observer\_strategy}}<\mbox{\hyperlink{classrpp_1_1operators_1_1details_1_1zip__state}{zip\_state}}<Observer,\ TSelector,\ Args...>>::state;}
 \DoxyCodeLine{00048\ }
 \DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
 \DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ on\_next(T\&\&\ v)\textcolor{keyword}{\ const}}
 \DoxyCodeLine{00051\ \textcolor{keyword}{\ \ \ \ \ \ \ \ }\{}
-\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{classrpp_1_1observer}{observer}}\ =\ disposable-\/>get\_observer\_under\_lock();}
-\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \ \ \ \ disposable-\/>get\_pendings().template\ get<I>().push\_back(std::forward<T>(v));}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{classrpp_1_1observer}{observer}}\ =\ state-\/>get\_observer\_under\_lock();}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \ \ \ \ state-\/>get\_pendings().template\ get<I>().push\_back(std::forward<T>(v));}
 \DoxyCodeLine{00054\ }
-\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \ \ \ \ disposable-\/>get\_pendings().apply(\&apply\_impl<\textcolor{keyword}{decltype}(disposable)>,\ disposable,\ \mbox{\hyperlink{classrpp_1_1observer}{observer}});}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \ \ \ \ state-\/>get\_pendings().apply(\&apply\_impl<\textcolor{keyword}{decltype}(state)>,\ state,\ \mbox{\hyperlink{classrpp_1_1observer}{observer}});}
 \DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{00057\ }
 \DoxyCodeLine{00058\ \ \ \ \ \textcolor{keyword}{private}:}
@@ -72,7 +72,7 @@
 \DoxyCodeLine{00068\ \ \ \ \ \};}
 \DoxyCodeLine{00069\ }
 \DoxyCodeLine{00070\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ TSelector,\ \mbox{\hyperlink{conceptrpp_1_1constraint_1_1observable}{rpp::constraint::observable}}...\ TObservables>}
-\DoxyCodeLine{00071\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1zip__t}{zip\_t}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1combining__operator__t}{combining\_operator\_t}}<zip\_disposable,\ zip\_observer\_strategy,\ TSelector,\ TObservables...>}
+\DoxyCodeLine{00071\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1zip__t}{zip\_t}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1combining__operator__t}{combining\_operator\_t}}<zip\_state,\ zip\_observer\_strategy,\ TSelector,\ TObservables...>}
 \DoxyCodeLine{00072\ \ \ \ \ \{}
 \DoxyCodeLine{00073\ \ \ \ \ \};}
 \DoxyCodeLine{00074\ \}\ \textcolor{comment}{//\ namespace\ rpp::operators::details}}

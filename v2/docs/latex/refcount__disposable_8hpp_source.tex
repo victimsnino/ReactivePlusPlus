@@ -58,60 +58,65 @@
 \DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1details_1_1refocunt__disposable__inner}{details::refocunt\_disposable\_inner}};}
 \DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrpp_1_1refcount__disposable}{refcount\_disposable}}()\ =\ \textcolor{keywordflow}{default};}
 \DoxyCodeLine{00056\ }
-\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{composite\_disposable\_wrapper}}\ add\_ref();}
-\DoxyCodeLine{00058\ }
-\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ std::atomic<size\_t>\ \ \ \ \ m\_refcount\{0\};}
-\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{size\_t}\ s\_disposed\ =\ std::numeric\_limits<size\_t>::max();}
-\DoxyCodeLine{00062\ \ \ \ \ \};}
-\DoxyCodeLine{00063\ \}\ \textcolor{comment}{//\ namespace\ rpp}}
-\DoxyCodeLine{00064\ }
-\DoxyCodeLine{00065\ \textcolor{keyword}{namespace\ }rpp::details}
-\DoxyCodeLine{00066\ \{}
-\DoxyCodeLine{00067\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1details_1_1refocunt__disposable__inner}{refocunt\_disposable\_inner}}\ final\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classrpp_1_1composite__disposable}{rpp::composite\_disposable}}}
-\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ ,\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classrpp_1_1details_1_1enable__wrapper__from__this}{rpp::details::enable\_wrapper\_from\_this}}<refocunt\_disposable\_inner>}
-\DoxyCodeLine{00069\ \ \ \ \ \{}
-\DoxyCodeLine{00070\ \ \ \ \ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrpp_1_1details_1_1refocunt__disposable__inner}{refocunt\_disposable\_inner}}(\mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{disposable\_wrapper\_impl<refcount\_disposable>}}\ state)}
-\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ \ \ :\ m\_state\{std::move(state)\}}
-\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00075\ }
-\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ composite\_dispose\_impl(interface\_disposable::Mode\ mode)\ \textcolor{keyword}{noexcept}\ \textcolor{keyword}{override}}
-\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (mode\ !=\ interface\_disposable::Mode::Destroying)}
-\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ m\_state.remove(this-\/>wrapper\_from\_this());}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \textcolor{keyword}{enum\ class}\ Mode\ :\ \textcolor{keywordtype}{bool}}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \ \ \ WeakRefStrongSource,}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \ \ \ \ StrongRefRefSource}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{composite\_disposable\_wrapper}}\ add\_ref(Mode\ mode\ =\ Mode::WeakRefStrongSource);}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ std::atomic<size\_t>\ \ \ \ \ m\_refcount\{0\};}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{size\_t}\ s\_disposed\ =\ std::numeric\_limits<size\_t>::max();}
+\DoxyCodeLine{00067\ \ \ \ \ \};}
+\DoxyCodeLine{00068\ \}\ \textcolor{comment}{//\ namespace\ rpp}}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \textcolor{keyword}{namespace\ }rpp::details}
+\DoxyCodeLine{00071\ \{}
+\DoxyCodeLine{00072\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrpp_1_1details_1_1refocunt__disposable__inner}{refocunt\_disposable\_inner}}\ final\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classrpp_1_1composite__disposable}{rpp::composite\_disposable}}}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ ,\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classrpp_1_1details_1_1enable__wrapper__from__this}{rpp::details::enable\_wrapper\_from\_this}}<refocunt\_disposable\_inner>}
+\DoxyCodeLine{00074\ \ \ \ \ \{}
+\DoxyCodeLine{00075\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrpp_1_1details_1_1refocunt__disposable__inner}{refocunt\_disposable\_inner}}(\mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{disposable\_wrapper\_impl<refcount\_disposable>}}\ state)}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \ \ \ \ :\ m\_state\{std::move(state)\}}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{00080\ }
-\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ locked\ =\ m\_state.lock())}
-\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ locked-\/>release();}
-\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \ \ \ \ m\_state\ =\ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl_ac80a18753f28c349713dca275a23a085}{disposable\_wrapper\_impl<refcount\_disposable>::empty}}();}
-\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ composite\_dispose\_impl(interface\_disposable::Mode\ mode)\ \textcolor{keyword}{noexcept}\ \textcolor{keyword}{override}}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (mode\ !=\ interface\_disposable::Mode::Destroying)}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ m\_state.remove(this-\/>wrapper\_from\_this());}
 \DoxyCodeLine{00085\ }
-\DoxyCodeLine{00086\ \ \ \ \ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{disposable\_wrapper\_impl<refcount\_disposable>}}\ m\_state;}
-\DoxyCodeLine{00088\ \ \ \ \ \};}
-\DoxyCodeLine{00089\ }
-\DoxyCodeLine{00090\ \}\ \textcolor{comment}{//\ namespace\ rpp::details}}
-\DoxyCodeLine{00091\ }
-\DoxyCodeLine{00092\ \textcolor{keyword}{namespace\ }rpp}
-\DoxyCodeLine{00093\ \{}
-\DoxyCodeLine{00094\ \ \ \ \ \textcolor{keyword}{inline}\ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{composite\_disposable\_wrapper}}\ refcount\_disposable::add\_ref()}
-\DoxyCodeLine{00095\ \ \ \ \ \{}
-\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ current\_value\ =\ m\_refcount.load(std::memory\_order::seq\_cst);}
-\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (\textcolor{keyword}{true})}
-\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (current\_value\ ==\ s\_disposed)}
-\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl_ac80a18753f28c349713dca275a23a085}{composite\_disposable\_wrapper::empty}}();}
-\DoxyCodeLine{00101\ }
-\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ just\ need\ atomicity,\ not\ guarding\ anything}}
-\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (m\_refcount.compare\_exchange\_strong(current\_value,\ current\_value\ +\ 1,\ std::memory\_order::seq\_cst))}
-\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ inner\ =\ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl_a677053a7d4cc81ab26dc7f740a6595e6}{composite\_disposable\_wrapper::make<details::refocunt\_disposable\_inner>}}(wrapper\_from\_this());}
-\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ add(inner.as\_weak());}
-\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ inner;}
-\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00110\ \ \ \ \ \}}
-\DoxyCodeLine{00111\ \}\ \textcolor{comment}{//\ namespace\ rpp}}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ locked\ =\ m\_state.lock())}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ locked-\/>release();}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \ \ \ \ m\_state\ =\ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl_ac80a18753f28c349713dca275a23a085}{disposable\_wrapper\_impl<refcount\_disposable>::empty}}();}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00091\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{disposable\_wrapper\_impl<refcount\_disposable>}}\ m\_state;}
+\DoxyCodeLine{00093\ \ \ \ \ \};}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00095\ \}\ \textcolor{comment}{//\ namespace\ rpp::details}}
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00097\ \textcolor{keyword}{namespace\ }rpp}
+\DoxyCodeLine{00098\ \{}
+\DoxyCodeLine{00099\ \ \ \ \ \textcolor{keyword}{inline}\ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl}{composite\_disposable\_wrapper}}\ refcount\_disposable::add\_ref(refcount\_disposable::Mode\ mode)}
+\DoxyCodeLine{00100\ \ \ \ \ \{}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ current\_value\ =\ m\_refcount.load(std::memory\_order::seq\_cst);}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (\textcolor{keyword}{true})}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (current\_value\ ==\ s\_disposed)}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl_ac80a18753f28c349713dca275a23a085}{composite\_disposable\_wrapper::empty}}();}
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ just\ need\ atomicity,\ not\ guarding\ anything}}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (m\_refcount.compare\_exchange\_strong(current\_value,\ current\_value\ +\ 1,\ std::memory\_order::seq\_cst))}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ inner\ =\ \mbox{\hyperlink{classrpp_1_1disposable__wrapper__impl_a677053a7d4cc81ab26dc7f740a6595e6}{composite\_disposable\_wrapper::make<details::refocunt\_disposable\_inner>}}(mode\ ==\ Mode::WeakRefStrongSource\ ?\ wrapper\_from\_this()\ :\ wrapper\_from\_this().as\_weak());}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ add(mode\ ==\ Mode::WeakRefStrongSource\ ?\ inner.as\_weak()\ :\ inner);}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ inner;}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00115\ \ \ \ \ \}}
+\DoxyCodeLine{00116\ \}\ \textcolor{comment}{//\ namespace\ rpp}}
 
 \end{DoxyCode}
