@@ -18,18 +18,6 @@
 namespace rpp::operators::details
 {
     template<rpp::constraint::observer TObserver>
-    struct on_error_resume_next_disposable final : public rpp::composite_disposable
-    {
-        on_error_resume_next_disposable(TObserver&& observer)
-            : rpp::composite_disposable{}
-            , observer(std::move(observer))
-        {
-        }
-
-        RPP_NO_UNIQUE_ADDRESS TObserver observer;
-    };
-
-    template<rpp::constraint::observer TObserver>
     struct on_error_resume_next_inner_observer_strategy
     {
         using preferred_disposable_strategy = rpp::details::observers::none_disposable_strategy;
@@ -64,53 +52,43 @@ namespace rpp::operators::details
         using preferred_disposable_strategy = rpp::details::observers::none_disposable_strategy;
 
         on_error_resume_next_observer_strategy(TObserver&& observer, const Selector& selector)
-            : state{init_state(std::move(observer))}
+            : state{std::make_shared<TObserver>(std::move(observer))}
             , selector{selector}
         {
         }
 
-        std::shared_ptr<on_error_resume_next_disposable<TObserver>> state;
-        RPP_NO_UNIQUE_ADDRESS Selector                              selector;
+        std::shared_ptr<TObserver>     state;
+        RPP_NO_UNIQUE_ADDRESS Selector selector;
 
         template<typename T>
         void on_next(T&& v) const
         {
-            state->observer.on_next(std::forward<T>(v));
+            state->on_next(std::forward<T>(v));
         }
 
         void on_error(const std::exception_ptr& err) const
         {
             try
             {
-                selector(err).subscribe(on_error_resume_next_inner_observer_strategy<TObserver>{std::shared_ptr<TObserver>(state, &state->observer)});
+                selector(err).subscribe(on_error_resume_next_inner_observer_strategy<TObserver>{state});
             }
             catch (...)
             {
-                state->observer.on_error(std::current_exception());
+                state->on_error(std::current_exception());
             }
-            state->dispose();
         }
 
         void on_completed() const
         {
-            state->observer.on_completed();
-            state->dispose();
+            state->on_completed();
         }
 
         void set_upstream(const disposable_wrapper& d) const
         {
-            state->add(d);
+            state->set_upstream(d);
         }
 
         bool is_disposed() const { return state->is_disposed(); }
-
-        static std::shared_ptr<on_error_resume_next_disposable<TObserver>> init_state(TObserver&& observer)
-        {
-            const auto d   = disposable_wrapper_impl<on_error_resume_next_disposable<TObserver>>::make(std::move(observer));
-            auto       ptr = d.lock();
-            ptr->observer.set_upstream(d.as_weak());
-            return ptr;
-        }
     };
 
     template<rpp::constraint::decayed_type Selector>
@@ -135,7 +113,7 @@ namespace rpp::operators::details
         };
 
         template<rpp::details::observables::constraint::disposable_strategy Prev>
-        using updated_disposable_strategy = rpp::details::observables::atomic_dynamic_disposable_strategy_selector<1>;
+        using updated_disposable_strategy = rpp::details::observables::default_disposable_strategy_selector;
     };
 } // namespace rpp::operators::details
 

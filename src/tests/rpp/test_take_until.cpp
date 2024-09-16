@@ -14,8 +14,10 @@
 #include <rpp/observers/mock_observer.hpp>
 #include <rpp/operators/as_blocking.hpp>
 #include <rpp/operators/finally.hpp>
+#include <rpp/operators/take.hpp>
 #include <rpp/operators/take_until.hpp>
 #include <rpp/schedulers/current_thread.hpp>
+#include <rpp/sources/concat.hpp>
 #include <rpp/sources/empty.hpp>
 #include <rpp/sources/error.hpp>
 #include <rpp/sources/interval.hpp>
@@ -146,7 +148,7 @@ TEST_CASE("take_until can handle race condition")
 
         SECTION("on_completed shall not interleave with on_next")
         {
-            rpp::source::interval(std::chrono::milliseconds{200}, rpp::schedulers::current_thread{})
+            rpp::source::concat(rpp::source::just(1) | rpp::ops::take(1), rpp::source::never<int>())
                 | rpp::ops::take_until(subject.get_observable())
                 | rpp::ops::as_blocking()
                 | rpp::ops::subscribe([&](auto&&) {
@@ -173,7 +175,7 @@ TEST_CASE("take_until can handle race condition")
 
         SECTION("on_error shall not interleave with on_next")
         {
-            rpp::source::interval(std::chrono::milliseconds{200}, rpp::schedulers::current_thread{})
+            rpp::source::concat(rpp::source::just(1) | rpp::ops::take(1), rpp::source::never<int>())
                 | rpp::ops::take_until(subject.get_observable())
                 | rpp::ops::as_blocking()
                 | rpp::ops::subscribe([&](auto&&) {

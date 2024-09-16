@@ -19,11 +19,11 @@
 namespace rpp::operators::details
 {
     template<rpp::constraint::observer Observer, typename TSelector, rpp::constraint::decayed_type... Args>
-    class combine_latest_disposable final : public combining_disposable<Observer, Args...>
+    class combine_latest_state final : public combining_state<Observer>
     {
     public:
-        explicit combine_latest_disposable(Observer&& observer, const TSelector& selector)
-            : combining_disposable<Observer, Args...>(std::move(observer))
+        explicit combine_latest_state(Observer&& observer, const TSelector& selector)
+            : combining_state<Observer>(std::move(observer), sizeof...(Args))
             , m_selector(selector)
         {
         }
@@ -40,23 +40,23 @@ namespace rpp::operators::details
 
     template<size_t I, rpp::constraint::observer Observer, typename TSelector, rpp::constraint::decayed_type... Args>
     struct combine_latest_observer_strategy final
-        : public combining_observer_strategy<combine_latest_disposable<Observer, TSelector, Args...>>
+        : public combining_observer_strategy<combine_latest_state<Observer, TSelector, Args...>>
     {
-        using combining_observer_strategy<combine_latest_disposable<Observer, TSelector, Args...>>::disposable;
+        using combining_observer_strategy<combine_latest_state<Observer, TSelector, Args...>>::state;
 
         template<typename T>
         void on_next(T&& v) const
         {
             // mutex need to be locked during changing of values, generating new values and sending of new values due to we can't update value while we are sending old one
-            const auto observer = disposable->get_observer_under_lock();
-            disposable->get_values().template get<I>().emplace(std::forward<T>(v));
+            const auto observer = state->get_observer_under_lock();
+            state->get_values().template get<I>().emplace(std::forward<T>(v));
 
-            disposable->get_values().apply(&apply_impl<decltype(disposable)>, disposable, observer);
+            state->get_values().apply(&apply_impl<decltype(state)>, state, observer);
         }
 
     private:
-        template<typename TDisposable>
-        static void apply_impl(const TDisposable& disposable, const rpp::utils::pointer_under_lock<Observer>& observer, const std::optional<Args>&... vals)
+        template<typename TState>
+        static void apply_impl(const TState& disposable, const rpp::utils::pointer_under_lock<Observer>& observer, const std::optional<Args>&... vals)
         {
             if ((vals.has_value() && ...))
                 observer->on_next(disposable->get_selector()(vals.value()...));
@@ -64,7 +64,7 @@ namespace rpp::operators::details
     };
 
     template<typename TSelector, rpp::constraint::observable... TObservables>
-    struct combine_latest_t : public combining_operator_t<combine_latest_disposable, combine_latest_observer_strategy, TSelector, TObservables...>
+    struct combine_latest_t : public combining_operator_t<combine_latest_state, combine_latest_observer_strategy, TSelector, TObservables...>
     {
     };
 } // namespace rpp::operators::details

@@ -13,7 +13,6 @@
 #include <rpp/operators/fwd.hpp>
 
 #include <rpp/defs.hpp>
-#include <rpp/disposables/composite_disposable.hpp>
 #include <rpp/operators/details/strategy.hpp>
 #include <rpp/schedulers/current_thread.hpp>
 #include <rpp/utils/utils.hpp>
@@ -22,12 +21,13 @@
 
 namespace rpp::operators::details
 {
-    template<rpp::constraint::observer Observer, rpp::constraint::decayed_type... Args>
-    class combining_disposable : public composite_disposable
+    template<rpp::constraint::observer Observer>
+    class combining_state
     {
     public:
-        explicit combining_disposable(Observer&& observer)
+        explicit combining_state(Observer&& observer, size_t on_completed_needed)
             : m_observer_with_mutex{std::move(observer)}
+            , m_on_completed_needed{on_completed_needed}
         {
         }
 
@@ -42,41 +42,37 @@ namespace rpp::operators::details
     private:
         rpp::utils::value_with_mutex<Observer> m_observer_with_mutex{};
 
-        std::atomic_size_t m_on_completed_needed{sizeof...(Args)};
+        std::atomic_size_t m_on_completed_needed;
     };
 
-    template<typename TDisposable>
+    template<typename TState>
     struct combining_observer_strategy
     {
-        std::shared_ptr<TDisposable> disposable{};
+        std::shared_ptr<TState> state{};
 
         void set_upstream(const rpp::disposable_wrapper& d) const
         {
-            disposable->add(d);
+            state->get_observer_under_lock()->set_upstream(d);
         }
 
         bool is_disposed() const
         {
-            return disposable->is_disposed();
+            return state->get_observer_under_lock()->is_disposed();
         }
 
         void on_error(const std::exception_ptr& err) const
         {
-            disposable->get_observer_under_lock()->on_error(err);
-            disposable->dispose();
+            state->get_observer_under_lock()->on_error(err);
         }
 
         void on_completed() const
         {
-            if (disposable->decrement_on_completed())
-            {
-                disposable->get_observer_under_lock()->on_completed();
-                disposable->dispose();
-            }
+            if (state->decrement_on_completed())
+                state->get_observer_under_lock()->on_completed();
         }
     };
 
-    template<template<typename...> typename TDisposable, template<auto, typename...> typename TStrategy, typename TSelector, rpp::constraint::observable... TObservables>
+    template<template<typename...> typename TState, template<auto, typename...> typename TStrategy, typename TSelector, rpp::constraint::observable... TObservables>
     struct combining_operator_t
     {
         RPP_NO_UNIQUE_ADDRESS rpp::utils::tuple<TObservables...> observables;
@@ -93,7 +89,7 @@ namespace rpp::operators::details
         };
 
         template<rpp::details::observables::constraint::disposable_strategy Prev>
-        using updated_disposable_strategy = rpp::details::observables::fixed_disposable_strategy_selector<1>;
+        using updated_disposable_strategy = ::rpp::details::observables::default_disposable_strategy_selector; // TODO: sum of Prev + TObservables
 
         template<rpp::constraint::decayed_type Type, rpp::constraint::observer Observer>
         auto lift(Observer&& observer) const
@@ -105,20 +101,18 @@ namespace rpp::operators::details
         template<rpp::constraint::decayed_type Type, rpp::constraint::observer Observer>
         static auto subscribe_impl(Observer&& observer, const TSelector& selector, const TObservables&... observables)
         {
-            using Disposable = TDisposable<Observer, TSelector, Type, rpp::utils::extract_observable_type_t<TObservables>...>;
+            using State = TState<Observer, TSelector, Type, rpp::utils::extract_observable_type_t<TObservables>...>;
 
-            const auto disposable = disposable_wrapper_impl<Disposable>::make(std::forward<Observer>(observer), selector);
-            auto       locked     = disposable.lock();
-            locked->get_observer_under_lock()->set_upstream(disposable.as_weak());
-            subscribe<std::decay_t<Type>>(locked, std::index_sequence_for<TObservables...>{}, observables...);
+            const auto state = std::make_shared<State>(std::forward<Observer>(observer), selector);
+            subscribe<std::decay_t<Type>>(state, std::index_sequence_for<TObservables...>{}, observables...);
 
-            return rpp::observer<Type, TStrategy<0, std::decay_t<Observer>, TSelector, Type, rpp::utils::extract_observable_type_t<TObservables>...>>{std::move(locked)};
+            return rpp::observer<Type, TStrategy<0, std::decay_t<Observer>, TSelector, Type, rpp::utils::extract_observable_type_t<TObservables>...>>{std::move(state)};
         }
 
         template<typename ExpectedValue, rpp::constraint::observer Observer, size_t... I>
-        static void subscribe(const std::shared_ptr<TDisposable<Observer, TSelector, ExpectedValue, rpp::utils::extract_observable_type_t<TObservables>...>>& disposable, std::index_sequence<I...>, const TObservables&... observables)
+        static void subscribe(const std::shared_ptr<TState<Observer, TSelector, ExpectedValue, rpp::utils::extract_observable_type_t<TObservables>...>>& state, std::index_sequence<I...>, const TObservables&... observables)
         {
-            (..., observables.subscribe(rpp::observer<rpp::utils::extract_observable_type_t<TObservables>, TStrategy<I + 1, Observer, TSelector, ExpectedValue, rpp::utils::extract_observable_type_t<TObservables>...>>{disposable}));
+            (..., observables.subscribe(rpp::observer<rpp::utils::extract_observable_type_t<TObservables>, TStrategy<I + 1, Observer, TSelector, ExpectedValue, rpp::utils::extract_observable_type_t<TObservables>...>>{state}));
         }
     };
 } // namespace rpp::operators::details
