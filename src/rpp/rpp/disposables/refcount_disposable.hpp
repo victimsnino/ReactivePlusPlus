@@ -56,10 +56,10 @@ namespace rpp
 
         enum class Mode : bool
         {
-            Weak,
-            Strong
+            WeakRefStrongSource,
+            StrongRefRefSource
         };
-        composite_disposable_wrapper add_ref(Mode mode = Mode::Weak);
+        composite_disposable_wrapper add_ref(Mode mode = Mode::WeakRefStrongSource);
 
     private:
         std::atomic<size_t>     m_refcount{0};
@@ -107,8 +107,8 @@ namespace rpp
             // just need atomicity, not guarding anything
             if (m_refcount.compare_exchange_strong(current_value, current_value + 1, std::memory_order::seq_cst))
             {
-                auto inner = composite_disposable_wrapper::make<details::refocunt_disposable_inner>(wrapper_from_this());
-                add(mode == Mode::Weak ? inner.as_weak() : inner);
+                auto inner = composite_disposable_wrapper::make<details::refocunt_disposable_inner>(mode == Mode::WeakRefStrongSource ? wrapper_from_this() : wrapper_from_this().as_weak());
+                add(mode == Mode::WeakRefStrongSource ? inner.as_weak() : inner);
                 return inner;
             }
         }
