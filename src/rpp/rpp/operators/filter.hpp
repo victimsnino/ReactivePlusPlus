@@ -93,7 +93,7 @@ namespace rpp::operators
     template<typename Fn>
     auto filter(Fn&& predicate)
     {
-        static_assert (constraint::template_callable_or_invocable_ret<bool, Fn, rpp::utils::convertible_to_any>, "Fn is not invocable with T returning bool");
+        static_assert(constraint::template_callable_or_invocable_ret<bool, Fn, rpp::utils::convertible_to_any>, "Fn is not invocable with T returning bool");
         return details::filter_t<std::decay_t<Fn>>{std::forward<Fn>(predicate)};
     }
 } // namespace rpp::operators

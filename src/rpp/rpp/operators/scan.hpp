@@ -153,7 +153,7 @@ namespace rpp::operators
     template<typename Seed, typename Fn>
     auto scan(Seed&& seed, Fn&& accumulator)
     {
-        static_assert (constraint::template_callable_or_invocable_ret<std::decay_t<Seed>, std::invoke_result_t<Fn, std::decay_t<Seed> &&, rpp::utils::convertible_to_any>>, "Accumulator is not invocable with Seed and T returning seed");
+        static_assert(constraint::template_callable_or_invocable_ret<std::decay_t<Seed>, std::invoke_result_t<Fn, std::decay_t<Seed>&&, rpp::utils::convertible_to_any>>, "Accumulator is not invocable with Seed and T returning seed");
         return details::scan_t<std::decay_t<Seed>, std::decay_t<Fn>>{std::forward<Seed>(seed), std::forward<Fn>(accumulator)};
     }
 

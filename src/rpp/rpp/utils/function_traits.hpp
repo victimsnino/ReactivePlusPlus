@@ -41,7 +41,7 @@ namespace rpp::utils
     {
     };
 
-}
+} // namespace rpp::utils
 
 namespace rpp::constraint
 {
@@ -66,7 +66,7 @@ namespace rpp::constraint
 
     template<typename Fn, typename... Args>
     concept is_nothrow_invocable = std::is_nothrow_invocable_v<Fn, Args...>;
-}
+} // namespace rpp::constraint
 
 namespace rpp::utils
 {

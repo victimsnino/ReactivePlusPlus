@@ -145,7 +145,7 @@ namespace rpp::operators
     template<typename Seed, typename Accumulator>
     auto reduce(Seed&& seed, Accumulator&& accumulator)
     {
-        static_assert(constraint::template_callable_or_invocable_ret<std::decay_t<Seed>, std::invoke_result_t<Accumulator, std::decay_t<Seed> &&, rpp::utils::convertible_to_any>>, "Accumulator is not invocable with Seed&& and T returning Seed");
+        static_assert(constraint::template_callable_or_invocable_ret<std::decay_t<Seed>, std::invoke_result_t<Accumulator, std::decay_t<Seed>&&, rpp::utils::convertible_to_any>>, "Accumulator is not invocable with Seed&& and T returning Seed");
         return details::reduce_t<std::decay_t<Seed>, std::decay_t<Accumulator>>{std::forward<Seed>(seed), std::forward<Accumulator>(accumulator)};
     }
 

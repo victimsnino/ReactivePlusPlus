@@ -101,7 +101,7 @@ namespace rpp::operators::details
         {
             using selector_observable_result_type =
                 rpp::utils::extract_observable_type_t<std::invoke_result_t<Selector, std::exception_ptr>>;
-    
+
             static_assert(
                 rpp::constraint::decayed_same_as<selector_observable_result_type, T>,
                 "Selector observable result type is not the same as T");
