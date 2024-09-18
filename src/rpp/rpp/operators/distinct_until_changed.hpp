@@ -55,7 +55,7 @@ namespace rpp::operators::details
         template<rpp::constraint::decayed_type T>
         struct operator_traits
         {
-            static_assert(rpp::constraint::invocable_r_v<bool, EqualityFn, T, T>, "EqualityFn is not invocable with T and T returning bool");
+            static_assert(rpp::constraint::invocable_ret<bool, EqualityFn, T, T>, "EqualityFn is not invocable with T and T returning bool");
 
             using result_type = T;
 
@@ -97,7 +97,7 @@ namespace rpp::operators
      * @see https://reactivex.io/documentation/operators/distinct.html
      */
     template<typename EqualityFn>
-        requires (!utils::is_not_template_callable<EqualityFn> || std::same_as<bool, std::invoke_result_t<EqualityFn, rpp::utils::convertible_to_any, rpp::utils::convertible_to_any>>)
+        requires (constraint::template_callable_or_invocable_ret<bool, EqualityFn, rpp::utils::convertible_to_any, rpp::utils::convertible_to_any>)
     auto distinct_until_changed(EqualityFn&& equality_fn)
     {
         return details::distinct_until_changed_t<std::decay_t<EqualityFn>>{std::forward<EqualityFn>(equality_fn)};

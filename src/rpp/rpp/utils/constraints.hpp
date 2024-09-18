@@ -46,12 +46,6 @@ namespace rpp::constraint
         } -> std::same_as<T>;
     };
 
-    template<typename Ret, typename Fn, typename... Args>
-    concept invocable_r_v = std::invocable<Fn, Args...> && std::same_as<Ret, std::invoke_result_t<Fn, Args...>>;
-
-    template<typename Fn, typename... Args>
-    concept is_nothrow_invocable = std::is_nothrow_invocable_v<Fn, Args...>;
-
     template<typename T>
     concept hashable = requires(T a) {
         {

@@ -198,7 +198,7 @@ namespace rpp::operators
      * @see https://reactivex.io/documentation/operators/combinelatest.html
      */
     template<typename TSelector, rpp::constraint::observable TObservable, rpp::constraint::observable... TObservables>
-        requires (!rpp::constraint::observable<TSelector> && (!utils::is_not_template_callable<TSelector> || std::invocable<TSelector, rpp::utils::convertible_to_any, utils::extract_observable_type_t<TObservable>, utils::extract_observable_type_t<TObservables>...>))
+        requires (!rpp::constraint::observable<TSelector> && (constraint::template_callable_or_invocable<TSelector, rpp::utils::convertible_to_any, utils::extract_observable_type_t<TObservable>, utils::extract_observable_type_t<TObservables>...>))
     auto with_latest_from(TSelector&& selector, TObservable&& observable, TObservables&&... observables)
     {
         return details::with_latest_from_t<std::decay_t<TSelector>, std::decay_t<TObservable>, std::decay_t<TObservables>...>{

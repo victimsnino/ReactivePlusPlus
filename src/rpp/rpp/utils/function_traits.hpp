@@ -41,11 +41,35 @@ namespace rpp::utils
     {
     };
 
+}
+
+namespace rpp::constraint
+{
+
     template<typename T>
-    concept is_not_template_callable = is_not_template_callable_t<T>::value;
+    concept is_not_template_callable = utils::is_not_template_callable_t<T>::value;
+
+    template<typename Fn, typename... Args>
+    concept invocable = std::invocable<Fn, Args...>;
+
+    template<typename Ret, typename Fn, typename... Args>
+    concept invocable_ret = invocable<Fn, Args...> && std::same_as<Ret, std::invoke_result_t<Fn, Args...>>;
+
+    template<typename Fn, typename... Args>
+    concept template_callable_or_invocable = !is_not_template_callable<Fn> || invocable<Fn, Args...>;
+
+    template<typename Ret, typename Fn, typename... Args>
+    concept template_callable_or_invocable_ret = !is_not_template_callable<Fn> || invocable_ret<Ret, Fn, Args...>;
+
+    template<typename Fn, typename... Args>
+    concept is_nothrow_invocable = std::is_nothrow_invocable_v<Fn, Args...>;
+}
+
+namespace rpp::utils
+{
 
     // Lambda
-    template<is_not_template_callable T>
+    template<constraint::is_not_template_callable T>
     struct function_traits : function_traits<decltype(&T::operator())>
     {
     };
