@@ -64,9 +64,9 @@ namespace rpp::operators
      * @see https://reactivex.io/documentation/operators/flatmap.html
      */
     template<typename Fn>
-        requires (!constraint::is_not_template_callable<Fn> || rpp::constraint::observable<std::invoke_result_t<Fn, rpp::utils::convertible_to_any>>)
     auto flat_map(Fn&& callable)
     {
+        static_assert(!constraint::is_not_template_callable<Fn> || rpp::constraint::observable<std::invoke_result_t<Fn, rpp::utils::convertible_to_any>>, "Fn is not invocable with T returning observable");
         return details::flat_map_t<std::decay_t<Fn>>{std::forward<Fn>(callable)};
     }
 

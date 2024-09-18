@@ -190,9 +190,9 @@ namespace rpp::operators
      * @see https://reactivex.io/documentation/operators/retry.html
      */
     template<typename TNotifier>
-        requires rpp::constraint::observable<std::invoke_result_t<TNotifier, std::exception_ptr>>
     auto retry_when(TNotifier&& notifier)
     {
+        static_assert(rpp::constraint::observable<std::invoke_result_t<TNotifier, std::exception_ptr>>, "Notifier is not invocable with std::exception_ptr returning new observable");
         return details::retry_when_t<std::decay_t<TNotifier>>{std::forward<TNotifier>(notifier)};
     }
 } // namespace rpp::operators

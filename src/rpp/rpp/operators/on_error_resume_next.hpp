@@ -101,7 +101,7 @@ namespace rpp::operators::details
         {
             using selector_observable_result_type =
                 rpp::utils::extract_observable_type_t<std::invoke_result_t<Selector, std::exception_ptr>>;
-
+    
             static_assert(
                 rpp::constraint::decayed_same_as<selector_observable_result_type, T>,
                 "Selector observable result type is not the same as T");
@@ -136,9 +136,9 @@ namespace rpp::operators
      * @see https://reactivex.io/documentation/operators/catch.html
      */
     template<typename Selector>
-        requires rpp::constraint::observable<std::invoke_result_t<Selector, std::exception_ptr>>
     auto on_error_resume_next(Selector&& selector)
     {
+        static_assert(rpp::constraint::observable<std::invoke_result_t<Selector, std::exception_ptr>>, "Selector is not invocable with std::exception_ptr returning new observable");
         return details::on_error_resume_next_t<std::decay_t<Selector>>{std::forward<Selector>(selector)};
     }
 } // namespace rpp::operators

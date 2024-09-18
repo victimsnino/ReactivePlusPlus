@@ -138,7 +138,7 @@ namespace rpp::operators
      * - No any heap allocations at all
      * - Keep actual seed/cache inside observable and updating it every emission
      *
-     * @param initial_value initial value for seed which would be sent during subscription and applied for first value from observable. Then it will be replaced with result and etc.
+     * @param seed initial value for seed which would be sent during subscription and applied for first value from observable. Then it will be replaced with result and etc.
      * @param accumulator function which accepts seed value and new value from observable and return new value of seed. Can accept seed by move-reference.
      *
      * @warning #include <rpp/operators/scan.hpp>
@@ -150,11 +150,11 @@ namespace rpp::operators
      * @ingroup transforming_operators
      * @see https://reactivex.io/documentation/operators/scan.html
      */
-    template<typename InitialValue, typename Fn>
-        requires (!constraint::is_not_template_callable<Fn> || std::same_as<std::decay_t<InitialValue>, std::invoke_result_t<Fn, std::decay_t<InitialValue> &&, rpp::utils::convertible_to_any>>)
-    auto scan(InitialValue&& initial_value, Fn&& accumulator)
+    template<typename Seed, typename Fn>
+    auto scan(Seed&& seed, Fn&& accumulator)
     {
-        return details::scan_t<std::decay_t<InitialValue>, std::decay_t<Fn>>{std::forward<InitialValue>(initial_value), std::forward<Fn>(accumulator)};
+        static_assert (constraint::template_callable_or_invocable_ret<std::decay_t<Seed>, std::invoke_result_t<Fn, std::decay_t<Seed> &&, rpp::utils::convertible_to_any>>, "Accumulator is not invocable with Seed and T returning seed");
+        return details::scan_t<std::decay_t<Seed>, std::decay_t<Fn>>{std::forward<Seed>(seed), std::forward<Fn>(accumulator)};
     }
 
     /**

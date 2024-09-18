@@ -131,7 +131,7 @@ namespace rpp::operators
          operator "reduce: s=10, (s,x)=>s+x" : +------16|
      }
      *
-     * @param initial_value initial value for seed
+     * @param seed initial value for seed
      * @param accumulator function which accepts seed value and new value from observable and return new value of seed. Can accept seed by move-reference.
      *
      * @warning #include <rpp/operators/reduce.hpp>
@@ -143,9 +143,9 @@ namespace rpp::operators
      * @see https://reactivex.io/documentation/operators/reduce.html
      */
     template<typename Seed, typename Accumulator>
-        requires (!constraint::is_not_template_callable<Accumulator> || std::same_as<std::decay_t<Seed>, std::invoke_result_t<Accumulator, std::decay_t<Seed> &&, rpp::utils::convertible_to_any>>)
     auto reduce(Seed&& seed, Accumulator&& accumulator)
     {
+        static_assert(constraint::template_callable_or_invocable_ret<std::decay_t<Seed>, std::invoke_result_t<Accumulator, std::decay_t<Seed> &&, rpp::utils::convertible_to_any>>, "Accumulator is not invocable with Seed&& and T returning Seed");
         return details::reduce_t<std::decay_t<Seed>, std::decay_t<Accumulator>>{std::forward<Seed>(seed), std::forward<Accumulator>(accumulator)};
     }
 
@@ -160,7 +160,6 @@ namespace rpp::operators
      *
      * @details There is no initial value for seed, so, first value would be used as seed value and forwarded as is.
      *
-     * @param initial_value initial value for seed
      * @param accumulator function which accepts seed value and new value from observable and return new value of seed. Can accept seed by move-reference.
      *
      * @warning #include <rpp/operators/reduce.hpp>

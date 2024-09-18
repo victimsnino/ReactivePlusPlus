@@ -42,7 +42,6 @@ namespace rpp::operators
     auto distinct();
 
     template<typename EqualityFn = rpp::utils::equal_to>
-        requires (constraint::template_callable_or_invocable_ret<bool, EqualityFn, rpp::utils::convertible_to_any, rpp::utils::convertible_to_any>)
     auto distinct_until_changed(EqualityFn&& equality_fn = {});
 
     auto element_at(size_t index);
@@ -50,27 +49,20 @@ namespace rpp::operators
     auto first();
 
     template<typename Fn>
-        requires (constraint::template_callable_or_invocable_ret<bool, Fn, rpp::utils::convertible_to_any>)
     auto filter(Fn&& predicate);
 
     template<std::invocable<> LastFn>
     auto finally(LastFn&& lastFn);
 
     template<typename Fn>
-        requires (!constraint::is_not_template_callable<Fn> || rpp::constraint::observable<std::invoke_result_t<Fn, rpp::utils::convertible_to_any>>)
     auto flat_map(Fn&& callable);
 
-    template<typename KeySelector,
-             typename ValueSelector = std::identity,
-             typename KeyComparator = rpp::utils::less>
-        requires (
-            (!constraint::is_not_template_callable<KeySelector> || !std::same_as<void, std::invoke_result_t<KeySelector, rpp::utils::convertible_to_any>>) && (!constraint::is_not_template_callable<ValueSelector> || !std::same_as<void, std::invoke_result_t<ValueSelector, rpp::utils::convertible_to_any>>) && (!constraint::is_not_template_callable<KeyComparator> || std::strict_weak_order<KeyComparator, rpp::utils::convertible_to_any, rpp::utils::convertible_to_any>))
+    template<typename KeySelector, typename ValueSelector = std::identity, typename KeyComparator = rpp::utils::less>
     auto group_by(KeySelector&& key_selector, ValueSelector&& value_selector = {}, KeyComparator&& comparator = {});
 
     auto last();
 
     template<typename Fn>
-        requires (!constraint::is_not_template_callable<Fn> || !std::same_as<void, std::invoke_result_t<Fn, rpp::utils::convertible_to_any>>)
     auto map(Fn&& callable);
 
     template<rpp::constraint::subject Subject>
@@ -79,13 +71,9 @@ namespace rpp::operators
     template<template<typename> typename Subject = rpp::subjects::publish_subject>
     auto multicast();
 
-    template<typename Fn>
-        requires (!constraint::is_not_template_callable<Fn> || rpp::constraint::observable<std::invoke_result_t<Fn, rpp::utils::convertible_to_any>>)
-    auto flat_map(Fn&& callable);
-
     template<rpp::constraint::observable TObservable, rpp::constraint::observable... TObservables>
-        requires constraint::observables_of_same_type<std::decay_t<TObservable>, std::decay_t<TObservables>...>
     auto merge_with(TObservable&& observable, TObservables&&... observables);
+
     auto merge();
 
     template<rpp::schedulers::constraint::scheduler Scheduler>
@@ -94,7 +82,6 @@ namespace rpp::operators
     auto publish();
 
     template<typename Seed, typename Accumulator>
-        requires (!constraint::is_not_template_callable<Accumulator> || std::same_as<std::decay_t<Seed>, std::invoke_result_t<Accumulator, std::decay_t<Seed> &&, rpp::utils::convertible_to_any>>)
     auto reduce(Seed&& seed, Accumulator&& accumulator);
 
     template<typename Accumulator>
@@ -110,9 +97,8 @@ namespace rpp::operators
 
     auto retry();
 
-    template<typename InitialValue, typename Fn>
-        requires (!constraint::is_not_template_callable<Fn> || std::same_as<std::decay_t<InitialValue>, std::invoke_result_t<Fn, std::decay_t<InitialValue> &&, rpp::utils::convertible_to_any>>)
-    auto scan(InitialValue&& initial_value, Fn&& accumulator);
+    template<typename Seed, typename Fn>
+    auto scan(Seed&& seed, Fn&& accumulator);
 
     template<typename Fn>
     auto scan(Fn&& accumulator);
@@ -149,14 +135,13 @@ namespace rpp::operators
     auto take_last(size_t count);
 
     template<typename Fn>
-        requires (constraint::template_callable_or_invocable_ret<bool, Fn, rpp::utils::convertible_to_any>)
     auto take_while(Fn&& predicate);
 
     template<rpp::constraint::observable TObservable>
     auto take_until(TObservable&& until_observable);
 
     template<std::invocable<const std::exception_ptr&> OnError = rpp::utils::empty_function_t<std::exception_ptr>>
-        requires constraint::is_not_template_callable<OnError>
+        requires (constraint::is_not_template_callable<OnError>)
     auto tap(OnError&& on_error);
 
     template<std::invocable<> OnCompleted = rpp::utils::empty_function_t<>>
@@ -170,7 +155,7 @@ namespace rpp::operators
     template<typename OnNext                                       = rpp::utils::empty_function_any_t,
              std::invocable<const std::exception_ptr&> OnError     = rpp::utils::empty_function_t<std::exception_ptr>,
              std::invocable<>                          OnCompleted = rpp::utils::empty_function_t<>>
-        requires constraint::is_not_template_callable<OnError>
+        requires (constraint::is_not_template_callable<OnError>)
     auto tap(OnNext&&      on_next      = {},
              OnError&&     on_error     = {},
              OnCompleted&& on_completed = {});
@@ -185,11 +170,9 @@ namespace rpp::operators
     auto throttle(rpp::schedulers::duration period);
 
     template<typename Selector>
-        requires rpp::constraint::observable<std::invoke_result_t<Selector, std::exception_ptr>>
     auto on_error_resume_next(Selector&& selector);
 
     template<typename Notifier>
-        requires rpp::constraint::observable<std::invoke_result_t<Notifier, std::exception_ptr>>
     auto retry_when(Notifier&& notifier);
 
     template<typename TSelector, rpp::constraint::observable TObservable, rpp::constraint::observable... TObservables>

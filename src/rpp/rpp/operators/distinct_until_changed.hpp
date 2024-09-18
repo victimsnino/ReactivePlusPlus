@@ -97,9 +97,9 @@ namespace rpp::operators
      * @see https://reactivex.io/documentation/operators/distinct.html
      */
     template<typename EqualityFn>
-        requires (constraint::template_callable_or_invocable_ret<bool, EqualityFn, rpp::utils::convertible_to_any, rpp::utils::convertible_to_any>)
     auto distinct_until_changed(EqualityFn&& equality_fn)
     {
+        static_assert(constraint::template_callable_or_invocable_ret<bool, EqualityFn, rpp::utils::convertible_to_any, rpp::utils::convertible_to_any>, "EqualityFn is not invocable with T and T returning bool");
         return details::distinct_until_changed_t<std::decay_t<EqualityFn>>{std::forward<EqualityFn>(equality_fn)};
     }
 } // namespace rpp::operators

@@ -253,9 +253,9 @@ namespace rpp::operators
      * @see https://reactivex.io/documentation/operators/merge.html
      */
     template<rpp::constraint::observable TObservable, rpp::constraint::observable... TObservables>
-        requires constraint::observables_of_same_type<std::decay_t<TObservable>, std::decay_t<TObservables>...>
     auto merge_with(TObservable&& observable, TObservables&&... observables)
     {
+        static_assert(constraint::observables_of_same_type<std::decay_t<TObservable>, std::decay_t<TObservables>...>, "observables should be of same type");
         return details::merge_with_t<std::decay_t<TObservable>, std::decay_t<TObservables>...>{
             rpp::utils::tuple{std::forward<TObservable>(observable), std::forward<TObservables>(observables)...}};
     }
