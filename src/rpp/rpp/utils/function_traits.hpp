@@ -58,6 +58,9 @@ namespace rpp::constraint
     template<typename Fn, typename... Args>
     concept template_callable_or_invocable = !is_not_template_callable<Fn> || invocable<Fn, Args...>;
 
+    template<typename Fn, typename... Args>
+    concept template_callable_or_invocable_ret_non_void = !is_not_template_callable<Fn> || (invocable<Fn, Args...> && !invocable_ret<void, Fn, Args...>);
+
     template<typename Ret, typename Fn, typename... Args>
     concept template_callable_or_invocable_ret = !is_not_template_callable<Fn> || invocable_ret<Ret, Fn, Args...>;
 

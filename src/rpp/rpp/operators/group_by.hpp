@@ -217,8 +217,8 @@ namespace rpp::operators
              typename KeyComparator>
     auto group_by(KeySelector&& key_selector, ValueSelector&& value_selector, KeyComparator&& comparator)
     {
-        static_assert(!constraint::is_not_template_callable<KeySelector> || !std::same_as<void, std::invoke_result_t<KeySelector, rpp::utils::convertible_to_any>>, "KeySelector is not invocable with T returning non-void");
-        static_assert(!constraint::is_not_template_callable<ValueSelector> || !std::same_as<void, std::invoke_result_t<ValueSelector, rpp::utils::convertible_to_any>>, "ValueSelector is not invocable with T returning non-void");
+        static_assert(constraint::template_callable_or_invocable_ret_non_void<KeySelector, rpp::utils::convertible_to_any>, "KeySelector is not invocable with T returning non-void");
+        static_assert(constraint::template_callable_or_invocable_ret_non_void<ValueSelector, rpp::utils::convertible_to_any>, "ValueSelector is not invocable with T returning non-void");
         static_assert(!constraint::is_not_template_callable<KeyComparator> || std::strict_weak_order<KeyComparator, rpp::utils::convertible_to_any, rpp::utils::convertible_to_any>, "KeyComparator is not invocable with (result of KeySelector, result of KeySelector) returning bool");
 
         return details::group_by_t<std::decay_t<KeySelector>, std::decay_t<ValueSelector>, std::decay_t<KeyComparator>>{

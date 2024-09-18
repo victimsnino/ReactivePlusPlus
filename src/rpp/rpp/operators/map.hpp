@@ -96,7 +96,7 @@ namespace rpp::operators
     template<typename Fn>
     auto map(Fn&& callable)
     {
-        static_assert(!constraint::is_not_template_callable<Fn> || !std::same_as<void, std::invoke_result_t<Fn, rpp::utils::convertible_to_any>>, "Fn is not invocable with T returning non-void");
+        static_assert(constraint::template_callable_or_invocable_ret_non_void<Fn, rpp::utils::convertible_to_any>, "Fn is not invocable with T returning non-void");
         return details::map_t<std::decay_t<Fn>>{std::forward<Fn>(callable)};
     }
 } // namespace rpp::operators
