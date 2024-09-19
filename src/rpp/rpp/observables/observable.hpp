@@ -339,7 +339,7 @@ namespace rpp
             if constexpr (requires { typename std::decay_t<Op>::template operator_traits<Type>; })
             {
                 using result_type = typename std::decay_t<Op>::template operator_traits<Type>::result_type;
-                if constexpr (requires { typename std::decay_t<Op>::template operator_traits<Type>::result_type; })  // narrow compilataion error a bit
+                if constexpr (requires { typename std::decay_t<Op>::template operator_traits<Type>::result_type; }) // narrow compilataion error a bit
                     return observable<result_type, details::observables::make_chain_t<std::decay_t<Op>, Strategy>>{std::forward<Op>(op), std::move(m_strategy)};
             }
             else
