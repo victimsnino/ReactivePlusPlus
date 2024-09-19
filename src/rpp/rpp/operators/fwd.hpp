@@ -80,7 +80,7 @@ namespace rpp::operators
     auto multicast();
 
     template<rpp::constraint::observable TObservable, rpp::constraint::observable... TObservables>
-        requires (constraint::observables_of_same_type<std::decay_t<TObservable>, std::decay_t<TObservables>...>)
+        requires constraint::observables_of_same_type<std::decay_t<TObservable>, std::decay_t<TObservables>...>
     auto merge_with(TObservable&& observable, TObservables&&... observables);
     auto merge();
 
