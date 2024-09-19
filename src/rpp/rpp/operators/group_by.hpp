@@ -166,8 +166,8 @@ namespace rpp::operators::details
         template<rpp::constraint::decayed_type T>
         struct operator_traits
         {
-            static_assert(std::invocable<KeySelector, T>, "KeySelector is not invocacble with T");
-            static_assert(std::invocable<ValueSelector, T>, "ValueSelector is not invocable with T");
+            static_assert(!std::same_as<void, std::invoke_result_t<KeySelector, T>>, "KeySelector is not invocacble with T");
+            static_assert(!std::same_as<void, std::invoke_result_t<ValueSelector, T>>, "ValueSelector is not invocable with T");
             static_assert(std::strict_weak_order<KeyComparator, rpp::utils::decayed_invoke_result_t<KeySelector, T>, rpp::utils::decayed_invoke_result_t<KeySelector, T>>, "KeyComparator is not invocable with result of KeySelector");
 
             using result_type = grouped_observable<utils::decayed_invoke_result_t<KeySelector, T>, rpp::utils::decayed_invoke_result_t<ValueSelector, T>, group_by_observable_strategy<utils::decayed_invoke_result_t<ValueSelector, T>>>;

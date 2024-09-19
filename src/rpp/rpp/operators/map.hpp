@@ -50,7 +50,7 @@ namespace rpp::operators::details
         template<rpp::constraint::decayed_type T>
         struct operator_traits
         {
-            static_assert(std::invocable<Fn, T>, "Fn is not invocable with T");
+            static_assert(!std::same_as<void, std::invoke_result_t<Fn, T>>, "Fn is not invocable with T");
 
             using result_type = std::invoke_result_t<Fn, T>;
 

@@ -31,7 +31,7 @@ namespace rpp::constraint
     concept variadic_decayed_same_as = sizeof...(Types) == 1 && (decayed_same_as<Type, Types> && ...);
 
     template<typename T, typename Target>
-    concept static_pointer_convertible_to = requires { static_cast<Target*>(std::declval<T*>()); };
+    concept static_pointer_convertible_to = requires(T* ptr) { static_cast<Target*>(ptr); };
 
     template<typename R>
     concept iterable = requires(R& rng) {
