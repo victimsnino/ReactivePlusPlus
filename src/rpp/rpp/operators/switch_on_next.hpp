@@ -63,7 +63,6 @@ namespace rpp::operators::details
         void on_error(const std::exception_ptr& err) const
         {
             m_state->get_observer()->on_error(err);
-            m_state->dispose();
         }
 
         void on_completed() const
@@ -107,7 +106,6 @@ namespace rpp::operators::details
         void on_error(const std::exception_ptr& err) const
         {
             m_state->get_observer()->on_error(err);
-            m_state->dispose();
         }
 
         void on_completed() const
