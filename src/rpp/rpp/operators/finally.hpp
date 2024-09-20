@@ -53,7 +53,7 @@ namespace rpp::operators
      * @ingroup utility_operators
      * @see https://reactivex.io/documentation/operators/do.html
      */
-    template<std::invocable<> LastFn>
+    template<rpp::constraint::is_nothrow_invocable LastFn>
     auto finally(LastFn&& last_fn)
     {
         return details::finally_t<std::decay_t<LastFn>>{std::forward<LastFn>(last_fn)};
