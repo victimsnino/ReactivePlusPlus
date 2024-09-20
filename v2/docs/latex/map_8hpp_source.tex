@@ -54,7 +54,7 @@
 \DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type\ T>}
 \DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1map__t_1_1operator__traits}{operator\_traits}}}
 \DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{static\_assert}(std::invocable<Fn,\ T>,\ \textcolor{stringliteral}{"{}Fn\ is\ not\ invocable\ with\ T"{}});}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{static\_assert}(!std::same\_as<void,\ std::invoke\_result\_t<Fn,\ T>>,\ \textcolor{stringliteral}{"{}Fn\ is\ not\ invocable\ with\ T"{}});}
 \DoxyCodeLine{00054\ }
 \DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }result\_type\ =\ std::invoke\_result\_t<Fn,\ T>;}
 \DoxyCodeLine{00056\ }

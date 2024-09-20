@@ -170,8 +170,8 @@
 \DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}<rpp::constra\textcolor{keywordtype}{int}::decayed\_type\ T>}
 \DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1group__by__t_1_1operator__traits}{operator\_traits}}}
 \DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{static\_assert}(std::invocable<KeySelector,\ T>,\ \textcolor{stringliteral}{"{}KeySelector\ is\ not\ invocacble\ with\ T"{}});}
-\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{static\_assert}(std::invocable<ValueSelector,\ T>,\ \textcolor{stringliteral}{"{}ValueSelector\ is\ not\ invocable\ with\ T"{}});}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{static\_assert}(!std::same\_as<void,\ std::invoke\_result\_t<KeySelector,\ T>>,\ \textcolor{stringliteral}{"{}KeySelector\ is\ not\ invocacble\ with\ T"{}});}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{static\_assert}(!std::same\_as<void,\ std::invoke\_result\_t<ValueSelector,\ T>>,\ \textcolor{stringliteral}{"{}ValueSelector\ is\ not\ invocable\ with\ T"{}});}
 \DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{static\_assert}(std::strict\_weak\_order<KeyComparator,\ rpp::utils::decayed\_invoke\_result\_t<KeySelector,\ T>,\ rpp::utils::decayed\_invoke\_result\_t<KeySelector,\ T>>,\ \textcolor{stringliteral}{"{}KeyComparator\ is\ not\ invocable\ with\ result\ of\ KeySelector"{}});}
 \DoxyCodeLine{00172\ }
 \DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{classrpp_1_1grouped__observable}{result\_type}}\ =\ \mbox{\hyperlink{classrpp_1_1grouped__observable}{grouped\_observable<utils::decayed\_invoke\_result\_t<KeySelector,\ T>}},\ rpp::utils::decayed\_invoke\_result\_t<ValueSelector,\ T>,\ \mbox{\hyperlink{structrpp_1_1operators_1_1details_1_1group__by__observable__strategy}{group\_by\_observable\_strategy<utils::decayed\_invoke\_result\_t<ValueSelector,\ T>}}>>;}

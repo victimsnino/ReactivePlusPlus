@@ -125,7 +125,7 @@ Functions</h2></td></tr>
 <tr class="memitem:gae38caa489cf43c0aca1aa1c8822aed60"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#gae38caa489cf43c0aca1aa1c8822aed60">rpp::operators::delay</a> (rpp::schedulers::duration delay_duration, Scheduler &amp;&amp;scheduler)</td></tr>
 <tr class="memdesc:gae38caa489cf43c0aca1aa1c8822aed60"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shift the emissions from an Observable forward in time by a particular amount.  <br /></td></tr>
 <tr class="separator:gae38caa489cf43c0aca1aa1c8822aed60"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga8fd8305b11ea1d88fc9e128ebbeeb354" id="r_ga8fd8305b11ea1d88fc9e128ebbeeb354"><td class="memTemplParams" colspan="2">template&lt;std::invocable&lt;&gt; LastFn&gt; </td></tr>
+<tr class="memitem:ga8fd8305b11ea1d88fc9e128ebbeeb354" id="r_ga8fd8305b11ea1d88fc9e128ebbeeb354"><td class="memTemplParams" colspan="2">template&lt;rpp::constraint::is_nothrow_invocable LastFn&gt; </td></tr>
 <tr class="memitem:ga8fd8305b11ea1d88fc9e128ebbeeb354"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#ga8fd8305b11ea1d88fc9e128ebbeeb354">rpp::operators::finally</a> (LastFn &amp;&amp;last_fn)</td></tr>
 <tr class="memdesc:ga8fd8305b11ea1d88fc9e128ebbeeb354"><td class="mdescLeft">&#160;</td><td class="mdescRight">Register callback to be called when execution is done and disposable bound to observer is disposed.  <br /></td></tr>
 <tr class="separator:ga8fd8305b11ea1d88fc9e128ebbeeb354"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -423,7 +423,7 @@ template&lt;<a class="el" href="conceptrpp_1_1schedulers_1_1constraint_1_1schedu
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;std::invocable&lt;&gt; LastFn&gt; </div>
+template&lt;rpp::constraint::is_nothrow_invocable LastFn&gt; </div>
       <table class="memname">
         <tr>
           <td class="memname">auto rpp::operators::finally </td>
