@@ -36,7 +36,6 @@ namespace rpp::details
             catch (...)
             {
                 this->observer.on_error(std::current_exception());
-                this->disposable.dispose();
             }
         }
 
@@ -94,7 +93,6 @@ namespace rpp::details
             if (state->itr.value() == std::cend(state->container))
             {
                 state->observer.on_completed();
-                state->disposable.dispose();
                 return;
             }
 
