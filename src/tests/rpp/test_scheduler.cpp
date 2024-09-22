@@ -22,6 +22,7 @@
 #include <rpp/sources/just.hpp>
 
 #include "rpp/disposables/fwd.hpp"
+#include "rpp_trompeloil.hpp"
 
 #include <chrono>
 #include <future>
@@ -735,14 +736,22 @@ TEST_CASE("new_thread utilized current_thread")
 
 TEST_CASE("new_thread works till end")
 {
-    auto mock = mock_observer_strategy<int>{};
+    auto mock = mock_observer<int>{};
+    trompeloeil::sequence s{};
 
-    rpp::source::just(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+    const auto vals = std::array{1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+
+    REQUIRE_CALL(*mock, on_next_lvalue(trompeloeil::_)).TIMES(10).IN_SEQUENCE(s);
+
+    const auto last = NAMED_REQUIRE_CALL(*mock, on_completed()).IN_SEQUENCE(s);
+
+    rpp::source::from_iterable(vals)
         | rpp::operators::subscribe_on(rpp::schedulers::new_thread{})
-        | rpp::operators::as_blocking()
         | rpp::operators::subscribe(mock);
 
-    CHECK(mock.get_received_values().size() == 10);
+    CHECK(!last->is_satisfied());
+
+    wait(last);
 }
 
 TEST_CASE("run_loop scheduler dispatches tasks only manually")

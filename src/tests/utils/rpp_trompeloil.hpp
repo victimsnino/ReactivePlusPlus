@@ -75,7 +75,8 @@ private:
     std::shared_ptr<impl_t> m_impl = std::make_shared<impl_t>();
 };
 
-inline void wait(const std::unique_ptr<trompeloeil::expectation>& e)
+template<typename T>
+inline void wait(const std::unique_ptr<T>& e)
 {
     while (!e->is_satisfied())
     {
