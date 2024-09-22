@@ -736,7 +736,7 @@ TEST_CASE("new_thread utilized current_thread")
 
 TEST_CASE("new_thread works till end")
 {
-    auto mock = mock_observer<int>{};
+    auto                  mock = mock_observer<int>{};
     trompeloeil::sequence s{};
 
     const auto vals = std::array{1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
