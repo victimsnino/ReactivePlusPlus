@@ -743,7 +743,14 @@ TEST_CASE("new_thread works till end")
 
     REQUIRE_CALL(*mock, on_next_lvalue(trompeloeil::_)).TIMES(10).IN_SEQUENCE(s);
 
-    const auto last = NAMED_REQUIRE_CALL(*mock, on_completed()).IN_SEQUENCE(s);
+    auto done    = std::make_shared<std::atomic_bool>();
+
+    const auto last = NAMED_REQUIRE_CALL(*mock, on_completed()).LR_SIDE_EFFECT({
+                                                                   thread_local rpp::utils::finally_action s_a{[done] {
+                                                                       done->store(true);
+                                                                   }};
+                                                               })
+                          .IN_SEQUENCE(s);
 
     rpp::source::from_iterable(vals)
         | rpp::operators::subscribe_on(rpp::schedulers::new_thread{})
@@ -752,6 +759,8 @@ TEST_CASE("new_thread works till end")
     CHECK(!last->is_satisfied());
 
     wait(last);
+
+    while (!done->load()){};
 }
 
 TEST_CASE("run_loop scheduler dispatches tasks only manually")
