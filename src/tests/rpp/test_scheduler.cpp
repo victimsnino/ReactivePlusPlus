@@ -743,7 +743,7 @@ TEST_CASE("new_thread works till end")
 
     REQUIRE_CALL(*mock, on_next_lvalue(trompeloeil::_)).TIMES(10).IN_SEQUENCE(s);
 
-    auto done    = std::make_shared<std::atomic_bool>();
+    auto done = std::make_shared<std::atomic_bool>();
 
     const auto last = NAMED_REQUIRE_CALL(*mock, on_completed()).LR_SIDE_EFFECT({
                                                                    thread_local rpp::utils::finally_action s_a{[done] {
@@ -760,7 +760,9 @@ TEST_CASE("new_thread works till end")
 
     wait(last);
 
-    while (!done->load()){};
+    while (!done->load())
+    {
+    };
 }
 
 TEST_CASE("run_loop scheduler dispatches tasks only manually")
