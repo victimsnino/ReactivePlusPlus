@@ -44,11 +44,7 @@ namespace rpp::schedulers
                     m_state->is_stoping = true;
                 }
                 m_state->cv.notify_all();
-
-                if (m_thread.get_id() != std::this_thread::get_id())
-                    m_thread.join();
-                else
-                    m_thread.detach();
+                m_thread.detach();
             }
 
             template<rpp::schedulers::constraint::schedulable_handler Handler, typename... Args, constraint::schedulable_fn<Handler, Args...> Fn>
