@@ -11,13 +11,8 @@
 #pragma once
 
 /**
- * @defgroup rppasio RPPASIO
+ * @defgroup rppasio rppasio
  * @brief RppAsio is extension of RPP which enables support of boost-asio library.
  */
 
-
-/**
- * @defgroup asio_schedulers Asio Schedulers
- * @ingroup rppasio
- */
 #include <rppasio/schedulers/fwd.hpp>

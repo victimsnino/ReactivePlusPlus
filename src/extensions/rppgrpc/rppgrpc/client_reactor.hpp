@@ -29,6 +29,7 @@ namespace rppgrpc
      * - to pass values TO stream you can emit values to observer obtained via `reactor->get_observer()`
      *
      * @snippet client_reactor.cpp bidi_reactor
+     * @ingroup rppgrpc
      *
      */
     template<rpp::constraint::decayed_type Request, rpp::constraint::decayed_type Response>
@@ -103,6 +104,7 @@ namespace rppgrpc
      * - reactor provides `reactor->get_observable()` method but such as observable emits nothing and can be used only to be notified about completion/error
      *
      * @snippet client_reactor.cpp write_reactor
+     * @ingroup rppgrpc
      *
      */
     template<rpp::constraint::decayed_type Request>
@@ -166,6 +168,7 @@ namespace rppgrpc
      * - to access values FROM stream you can subscribe to observable obtained via `reactor->get_observable()` (same observable WOULD emit on_completed in case of successful stream termination and on_error in case of some errors with grpc stream)
      *
      * @snippet client_reactor.cpp read_reactor
+     * @ingroup rppgrpc
      *
      */
     template<rpp::constraint::decayed_type Response>

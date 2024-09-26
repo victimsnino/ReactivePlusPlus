@@ -13,7 +13,7 @@
 #include <rpp/utils/constraints.hpp>
 
 /**
- * @defgroup rppgrpc RPPGRPC
+ * @defgroup rppgrpc rppgrpc
  * @brief RppGrpc is extension of RPP which enables support of grpc library.
  */
 
