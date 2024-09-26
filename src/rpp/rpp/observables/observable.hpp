@@ -89,6 +89,7 @@ namespace rpp
          * @warning This overloading has some performance penalties, use it only when you really need to use disposable
          *
          * @param d is disposable to be attached to observer. If disposable is nullptr or disposed -> no any subscription happens
+         * @param obs is observer to subscribe to this observable
          * @return composite_disposable_wrapper is disposable to be able to dispose observer when it needed
          *
          * @par Example
@@ -119,6 +120,7 @@ namespace rpp
          * @warning This overloading has some performance penalties, use it only when you really need to use disposable
          *
          * @param d is disposable to be attached to observer. If disposable is nullptr or disposed -> no any subscription happens
+         * @param observer_strategy is strategy to create observer to subscribe to this observable
          * @return composite_disposable_wrapper is disposable to be able to dispose observer when it needed
          */
         template<constraint::observer_strategy<Type> ObserverStrategy>
@@ -242,6 +244,9 @@ namespace rpp
          * @warning This overloading has some performance penalties, use it only when you really need to use disposable
          *
          * @param d is disposable to be attached to observer. If disposable is nullptr or disposed -> no any subscription happens
+         * @param on_next is callback to handle values from this observable
+         * @param on_error is callback to handle error from this observable
+         * @param on_completed is callback to handle completion of this observable
          * @return composite_disposable_wrapper is disposable to be able to dispose observer when it needed
          *
          * @par Example
@@ -277,6 +282,9 @@ namespace rpp
          * @warning This overloading has some performance penalties, use it only when you really need to use disposable
          *
          * @param d is disposable to be attached to observer. If disposable is nullptr or disposed -> no any subscription happens
+         * @param on_next is callback to handle values from this observable
+         * @param on_completed is callback to handle completion of this observable
+         *
          * @return composite_disposable_wrapper is disposable to be able to dispose observer when it needed
          *
          * @par Example
