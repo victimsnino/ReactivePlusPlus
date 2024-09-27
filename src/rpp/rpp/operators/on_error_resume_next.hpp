@@ -124,7 +124,7 @@ namespace rpp::operators
      *
      * @marble on_error_resume_next
        {
-           source observable                                  : +-1-x
+           source observable                                  : +-1-#
            operator "on_error_resume_next: () => obs(-2-3-|)" : +-1-2-3-|
        }
      *

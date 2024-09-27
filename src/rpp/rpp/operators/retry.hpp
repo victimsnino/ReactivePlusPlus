@@ -139,8 +139,8 @@ namespace rpp::operators
      *
      * @marble retry
        {
-           source observable    : +-1-x
-           operator "retry:(2)" : +-1-1-1-x
+           source observable    : +-1-#
+           operator "retry:(2)" : +-1-1-1-#
        }
      *
      * @param count is the number of retries
@@ -163,7 +163,7 @@ namespace rpp::operators
     *
     * @marble infinite_retry
       {
-          source observable    : +-1-x
+          source observable    : +-1-#
           operator "retry:()"  : +-1-1-1-1-1-1-1-1-1-1-1->
       }
     *
