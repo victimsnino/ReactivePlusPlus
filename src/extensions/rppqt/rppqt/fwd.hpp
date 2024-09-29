@@ -21,6 +21,5 @@
  * @ingroup rppqt
  */
 
-#include <rppqt/sources/fwd.hpp>
-
 #include <rppqt/schedulers/fwd.hpp>
+#include <rppqt/sources/fwd.hpp>
