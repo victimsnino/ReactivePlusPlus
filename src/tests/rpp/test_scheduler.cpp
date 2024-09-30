@@ -756,13 +756,15 @@ TEST_CASE("new_thread works till end")
         | rpp::operators::subscribe_on(rpp::schedulers::new_thread{})
         | rpp::operators::subscribe(mock);
 
-    CHECK(!last->is_satisfied());
+    const bool before = last->is_satisfied();
 
     wait(last);
 
     while (!done->load())
     {
     };
+
+    CHECK(!before);
 }
 
 TEST_CASE("run_loop scheduler dispatches tasks only manually")
