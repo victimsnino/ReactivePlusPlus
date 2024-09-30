@@ -8,8 +8,7 @@
 // Project home: https://github.com/victimsnino/ReactivePlusPlus
 //
 
-#include <catch2/catch_template_test_macros.hpp>
-#include <catch2/catch_test_macros.hpp>
+#include <doctest/doctest.h>
 
 #include <rpp/observers/mock_observer.hpp>
 #include <rpp/operators/element_at.hpp>
@@ -24,11 +23,11 @@ TEST_CASE("element_at emits element at provided index")
 {
     mock_observer_strategy<int> mock{};
 
-    SECTION("sequence of values")
+    SUBCASE("sequence of values")
     {
         auto obs = rpp::source::just(1, 2, 3);
 
-        SECTION("subscribe via element_at(2)")
+        SUBCASE("subscribe via element_at(2)")
         {
             (obs | rpp::operators::element_at(2)).subscribe(mock);
 
@@ -38,7 +37,7 @@ TEST_CASE("element_at emits element at provided index")
         }
 
 
-        SECTION("subscribe via element_at(1)")
+        SUBCASE("subscribe via element_at(1)")
         {
             (obs | rpp::operators::element_at(1)).subscribe(mock);
 
@@ -47,7 +46,7 @@ TEST_CASE("element_at emits element at provided index")
             CHECK(mock.get_on_completed_count() == 1);
         }
 
-        SECTION("subscribe via element_at(0)")
+        SUBCASE("subscribe via element_at(0)")
         {
             (obs | rpp::operators::element_at(0)).subscribe(mock);
 
@@ -56,7 +55,7 @@ TEST_CASE("element_at emits element at provided index")
             CHECK(mock.get_on_completed_count() == 1);
         }
 
-        SECTION("subscribe via element_at(3)")
+        SUBCASE("subscribe via element_at(3)")
         {
             (obs | rpp::operators::element_at(3)).subscribe(mock);
 
@@ -66,13 +65,13 @@ TEST_CASE("element_at emits element at provided index")
         }
     }
 
-    SECTION("empty sequence")
+    SUBCASE("empty sequence")
     {
         auto obs = rpp::source::create<int>([](auto&& obs) {
             obs.on_completed();
         });
 
-        SECTION("subscribe via element_at(0)")
+        SUBCASE("subscribe via element_at(0)")
         {
             (obs | rpp::operators::element_at(0)).subscribe(mock);
 
@@ -82,13 +81,13 @@ TEST_CASE("element_at emits element at provided index")
         }
     }
 
-    SECTION("error sequence")
+    SUBCASE("error sequence")
     {
         auto obs = rpp::source::create<int>([](auto&& obs) {
             obs.on_error({});
         });
 
-        SECTION("subscribe via element_at(0)")
+        SUBCASE("subscribe via element_at(0)")
         {
             (obs | rpp::operators::element_at(0)).subscribe(mock);
 
@@ -101,7 +100,7 @@ TEST_CASE("element_at emits element at provided index")
 
 TEST_CASE("element_at doesn't produce extra copies")
 {
-    SECTION("element_at(1)")
+    SUBCASE("element_at(1)")
     {
         copy_count_tracker::test_operator(rpp::ops::element_at(1),
                                           {

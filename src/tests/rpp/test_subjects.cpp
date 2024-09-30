@@ -8,8 +8,7 @@
 // Project home: https://github.com/victimsnino/ReactivePlusPlus
 //
 
-#include <catch2/catch_template_test_macros.hpp>
-#include <catch2/catch_test_macros.hpp>
+#include <doctest/doctest.h>
 
 #include <rpp/disposables/composite_disposable.hpp>
 #include <rpp/observers/mock_observer.hpp>
@@ -28,20 +27,20 @@ TEST_CASE("publish subject multicasts values")
 {
     auto mock_1 = mock_observer_strategy<int>{};
     auto mock_2 = mock_observer_strategy<int>{};
-    SECTION("publish subject")
+    SUBCASE("publish subject")
     {
         auto sub = rpp::subjects::publish_subject<int>{};
-        SECTION("subscribe multiple observers")
+        SUBCASE("subscribe multiple observers")
         {
             auto dis_1 = rpp::composite_disposable_wrapper::make();
             auto dis_2 = rpp::composite_disposable_wrapper::make();
             sub.get_observable().subscribe(mock_1.get_observer(dis_1));
             sub.get_observable().subscribe(mock_2.get_observer(dis_2));
 
-            SECTION("emit value")
+            SUBCASE("emit value")
             {
                 sub.get_observer().on_next(1);
-                SECTION("observers obtain value")
+                SUBCASE("observers obtain value")
                 {
                     auto validate = [](auto mock) {
                         CHECK(mock.get_received_values() == std::vector{1});
@@ -53,10 +52,10 @@ TEST_CASE("publish subject multicasts values")
                     validate(mock_2);
                 }
             }
-            SECTION("emit error")
+            SUBCASE("emit error")
             {
                 sub.get_observer().on_error(std::make_exception_ptr(std::runtime_error{""}));
-                SECTION("observers obtain error")
+                SUBCASE("observers obtain error")
                 {
                     auto validate = [](auto mock) {
                         CHECK(mock.get_total_on_next_count() == 0);
@@ -65,7 +64,7 @@ TEST_CASE("publish subject multicasts values")
                     };
                     validate(mock_1);
                     validate(mock_2);
-                    SECTION("and then emission of on_next does nothing")
+                    SUBCASE("and then emission of on_next does nothing")
                     {
                         sub.get_observer().on_next(1);
                         validate(mock_1);
@@ -73,10 +72,10 @@ TEST_CASE("publish subject multicasts values")
                     }
                 }
             }
-            SECTION("emit on_completed")
+            SUBCASE("emit on_completed")
             {
                 sub.get_observer().on_completed();
-                SECTION("observers obtain on_completed")
+                SUBCASE("observers obtain on_completed")
                 {
                     auto validate = [](auto mock) {
                         CHECK(mock.get_total_on_next_count() == 0);
@@ -86,7 +85,7 @@ TEST_CASE("publish subject multicasts values")
                     validate(mock_1);
                     validate(mock_2);
 
-                    SECTION("and then emission of on_next does nothing")
+                    SUBCASE("and then emission of on_next does nothing")
                     {
                         sub.get_observer().on_next(1);
                         validate(mock_1);
@@ -94,9 +93,9 @@ TEST_CASE("publish subject multicasts values")
                     }
                 }
             }
-            SECTION("emit multiple values")
+            SUBCASE("emit multiple values")
             {
-                SECTION("each sbuscriber obtain first value, then seconds and etc")
+                SUBCASE("each sbuscriber obtain first value, then seconds and etc")
                 {
                     sub.get_observer().on_next(1);
                     auto check_1 = [](auto mock) {
@@ -113,7 +112,7 @@ TEST_CASE("publish subject multicasts values")
                     check_2(mock_2);
                 }
             }
-            SECTION("first subscriber unsubscribes and then emit value")
+            SUBCASE("first subscriber unsubscribes and then emit value")
             {
                 // 1 native, 1 inside subject
                 // CHECK(dis_1.use_count() == 2);
@@ -122,7 +121,7 @@ TEST_CASE("publish subject multicasts values")
                 // CHECK(dis_1.use_count() == 1);
 
                 sub.get_observer().on_next(1);
-                SECTION("observers obtain value")
+                SUBCASE("observers obtain value")
                 {
                     CHECK(mock_1.get_total_on_next_count() == 0);
                     CHECK(mock_1.get_on_error_count() == 0);
@@ -143,7 +142,7 @@ TEST_CASE("subject can be modified from on_next call")
     rpp::subjects::publish_subject<int> subject{};
     mock_observer<int>                  inner_mock{};
 
-    SECTION("subscribe inside on_next")
+    SUBCASE("subscribe inside on_next")
     {
         subject.get_observable().subscribe([&subject, &inner_mock](int) {
             subject.get_observable().subscribe(inner_mock);
@@ -155,7 +154,7 @@ TEST_CASE("subject can be modified from on_next call")
         subject.get_observer().on_next(2);
     }
 
-    SECTION("unsubscribe inside on_next")
+    SUBCASE("unsubscribe inside on_next")
     {
         auto d = rpp::composite_disposable_wrapper::make();
 
@@ -173,16 +172,16 @@ TEST_CASE("subject can be modified from on_next call")
 TEST_CASE("publish subject caches error/completed")
 {
     auto mock = mock_observer_strategy<int>{};
-    SECTION("publish subject")
+    SUBCASE("publish subject")
     {
         auto subj = rpp::subjects::publish_subject<int>{};
-        SECTION("emit value")
+        SUBCASE("emit value")
         {
             subj.get_observer().on_next(1);
-            SECTION("subscribe observer after emission")
+            SUBCASE("subscribe observer after emission")
             {
                 subj.get_observable().subscribe(mock);
-                SECTION("observer doesn't obtain value")
+                SUBCASE("observer doesn't obtain value")
                 {
                     CHECK(mock.get_total_on_next_count() == 0);
                     CHECK(mock.get_on_error_count() == 0);
@@ -190,13 +189,13 @@ TEST_CASE("publish subject caches error/completed")
                 }
             }
         }
-        SECTION("emit error")
+        SUBCASE("emit error")
         {
             subj.get_observer().on_error(std::make_exception_ptr(std::runtime_error{""}));
-            SECTION("subscribe observer after emission")
+            SUBCASE("subscribe observer after emission")
             {
                 subj.get_observable().subscribe(mock);
-                SECTION("observer obtains error")
+                SUBCASE("observer obtains error")
                 {
                     CHECK(mock.get_total_on_next_count() == 0);
                     CHECK(mock.get_on_error_count() == 1);
@@ -204,13 +203,13 @@ TEST_CASE("publish subject caches error/completed")
                 }
             }
         }
-        SECTION("emit on_completed")
+        SUBCASE("emit on_completed")
         {
             subj.get_observer().on_completed();
-            SECTION("subscribe observer after emission")
+            SUBCASE("subscribe observer after emission")
             {
                 subj.get_observable().subscribe(mock);
-                SECTION("observer obtains on_completed")
+                SUBCASE("observer obtains on_completed")
                 {
                     CHECK(mock.get_total_on_next_count() == 0);
                     CHECK(mock.get_on_error_count() == 0);
@@ -218,14 +217,14 @@ TEST_CASE("publish subject caches error/completed")
                 }
             }
         }
-        SECTION("emit error and on_completed")
+        SUBCASE("emit error and on_completed")
         {
             subj.get_observer().on_error(std::make_exception_ptr(std::runtime_error{""}));
             subj.get_observer().on_completed();
-            SECTION("subscribe observer after emission")
+            SUBCASE("subscribe observer after emission")
             {
                 subj.get_observable().subscribe(mock);
-                SECTION("observer obtains error")
+                SUBCASE("observer obtains error")
                 {
                     CHECK(mock.get_total_on_next_count() == 0);
                     CHECK(mock.get_on_error_count() == 1);
@@ -233,14 +232,14 @@ TEST_CASE("publish subject caches error/completed")
                 }
             }
         }
-        SECTION("emit on_completed and error")
+        SUBCASE("emit on_completed and error")
         {
             subj.get_observer().on_completed();
             subj.get_observer().on_error(std::make_exception_ptr(std::runtime_error{""}));
-            SECTION("subscribe observer after emission")
+            SUBCASE("subscribe observer after emission")
             {
                 subj.get_observable().subscribe(mock);
-                SECTION("observer obtains on_completed")
+                SUBCASE("observer obtains on_completed")
                 {
                     CHECK(mock.get_total_on_next_count() == 0);
                     CHECK(mock.get_on_error_count() == 0);
@@ -248,7 +247,7 @@ TEST_CASE("publish subject caches error/completed")
                 }
             }
         }
-        SECTION("emit everything after on_completed via get_observer to avoid subscription")
+        SUBCASE("emit everything after on_completed via get_observer to avoid subscription")
         {
             auto observer = subj.get_observer();
             observer.on_completed();
@@ -256,7 +255,7 @@ TEST_CASE("publish subject caches error/completed")
             observer.on_next(1);
             observer.on_error(std::make_exception_ptr(std::runtime_error{""}));
             observer.on_completed();
-            SECTION("no any calls except of cached on_completed")
+            SUBCASE("no any calls except of cached on_completed")
             {
                 CHECK(mock.get_total_on_next_count() == 0);
                 CHECK(mock.get_on_error_count() == 0);
@@ -266,7 +265,7 @@ TEST_CASE("publish subject caches error/completed")
     }
 }
 
-TEMPLATE_TEST_CASE("serialized subjects handles race condition", "", rpp::subjects::serialized_publish_subject<int>, rpp::subjects::serialized_replay_subject<int>, rpp::subjects::serialized_behavior_subject<int>)
+TEST_CASE_TEMPLATE("serialized subjects handles race condition", TestType, rpp::subjects::serialized_publish_subject<int>, rpp::subjects::serialized_replay_subject<int>, rpp::subjects::serialized_behavior_subject<int>)
 {
     auto subj = []() {
         if constexpr (std::same_as<TestType, rpp::subjects::serialized_behavior_subject<int>>)
@@ -275,7 +274,7 @@ TEMPLATE_TEST_CASE("serialized subjects handles race condition", "", rpp::subjec
             return TestType{};
     }();
 
-    SECTION("call on_next from 2 threads")
+    SUBCASE("call on_next from 2 threads")
     {
         bool on_error_called{};
         rpp::source::create<int>([&](auto&& obs) {
@@ -295,9 +294,9 @@ TEMPLATE_TEST_CASE("serialized subjects handles race condition", "", rpp::subjec
     }
 }
 
-TEMPLATE_TEST_CASE("replay subject multicasts values and replay", "", rpp::subjects::replay_subject<int>, rpp::subjects::serialized_replay_subject<int>)
+TEST_CASE_TEMPLATE("replay subject multicasts values and replay", TestType, rpp::subjects::replay_subject<int>, rpp::subjects::serialized_replay_subject<int>)
 {
-    SECTION("replay subject")
+    SUBCASE("replay subject")
     {
         auto mock_1 = mock_observer_strategy<int>{};
         auto mock_2 = mock_observer_strategy<int>{};
@@ -305,7 +304,7 @@ TEMPLATE_TEST_CASE("replay subject multicasts values and replay", "", rpp::subje
 
         auto sub = TestType{};
 
-        SECTION("subscribe multiple observers")
+        SUBCASE("subscribe multiple observers")
         {
             sub.get_observable().subscribe(mock_1.get_observer());
             sub.get_observable().subscribe(mock_2.get_observer());
@@ -314,7 +313,7 @@ TEMPLATE_TEST_CASE("replay subject multicasts values and replay", "", rpp::subje
             sub.get_observer().on_next(2);
             sub.get_observer().on_next(3);
 
-            SECTION("observers obtain values")
+            SUBCASE("observers obtain values")
             {
                 auto validate = [](auto mock) {
                     CHECK(mock.get_received_values() == std::vector{1, 2, 3});
@@ -328,7 +327,7 @@ TEMPLATE_TEST_CASE("replay subject multicasts values and replay", "", rpp::subje
 
             sub.get_observable().subscribe(mock_3.get_observer());
 
-            SECTION("observer obtains replayed values")
+            SUBCASE("observer obtains replayed values")
             {
                 CHECK(mock_3.get_received_values() == std::vector{1, 2, 3});
                 CHECK(mock_3.get_total_on_next_count() == 3);
@@ -338,7 +337,7 @@ TEMPLATE_TEST_CASE("replay subject multicasts values and replay", "", rpp::subje
 
             sub.get_observer().on_next(4);
 
-            SECTION("observers stil obtain values")
+            SUBCASE("observers stil obtain values")
             {
                 auto validate = [](auto mock) {
                     CHECK(mock.get_received_values() == std::vector{1, 2, 3, 4});
@@ -353,7 +352,7 @@ TEMPLATE_TEST_CASE("replay subject multicasts values and replay", "", rpp::subje
         }
     }
 
-    SECTION("bounded replay subject")
+    SUBCASE("bounded replay subject")
     {
         auto mock_1 = mock_observer_strategy<int>{};
         auto mock_2 = mock_observer_strategy<int>{};
@@ -361,7 +360,7 @@ TEMPLATE_TEST_CASE("replay subject multicasts values and replay", "", rpp::subje
         size_t bound = 1;
         auto   sub   = TestType{bound};
 
-        SECTION("subscribe multiple observers")
+        SUBCASE("subscribe multiple observers")
         {
             sub.get_observable().subscribe(mock_1.get_observer());
 
@@ -369,7 +368,7 @@ TEMPLATE_TEST_CASE("replay subject multicasts values and replay", "", rpp::subje
             sub.get_observer().on_next(2);
             sub.get_observer().on_next(3);
 
-            SECTION("observer obtains values")
+            SUBCASE("observer obtains values")
             {
                 CHECK(mock_1.get_received_values() == std::vector{1, 2, 3});
                 CHECK(mock_1.get_total_on_next_count() == 3);
@@ -379,7 +378,7 @@ TEMPLATE_TEST_CASE("replay subject multicasts values and replay", "", rpp::subje
 
             sub.get_observable().subscribe(mock_2.get_observer());
 
-            SECTION("observer obtains latest replayed values")
+            SUBCASE("observer obtains latest replayed values")
             {
                 CHECK(mock_2.get_received_values() == std::vector{3});
                 CHECK(mock_2.get_total_on_next_count() == 1);
@@ -389,7 +388,7 @@ TEMPLATE_TEST_CASE("replay subject multicasts values and replay", "", rpp::subje
         }
     }
 
-    SECTION("bounded replay subject with duration")
+    SUBCASE("bounded replay subject with duration")
     {
         using namespace std::chrono_literals;
 
@@ -400,7 +399,7 @@ TEMPLATE_TEST_CASE("replay subject multicasts values and replay", "", rpp::subje
         auto   duration = 5ms;
         auto   sub      = TestType{bound, duration};
 
-        SECTION("subscribe multiple observers")
+        SUBCASE("subscribe multiple observers")
         {
             sub.get_observable().subscribe(mock_1.get_observer());
 
@@ -408,7 +407,7 @@ TEMPLATE_TEST_CASE("replay subject multicasts values and replay", "", rpp::subje
             sub.get_observer().on_next(2);
             sub.get_observer().on_next(3);
 
-            SECTION("observer obtains values")
+            SUBCASE("observer obtains values")
             {
                 CHECK(mock_1.get_received_values() == std::vector{1, 2, 3});
                 CHECK(mock_1.get_total_on_next_count() == 3);
@@ -420,7 +419,7 @@ TEMPLATE_TEST_CASE("replay subject multicasts values and replay", "", rpp::subje
 
             sub.get_observable().subscribe(mock_2.get_observer());
 
-            SECTION("subject replay only non expired values")
+            SUBCASE("subject replay only non expired values")
             {
                 CHECK(mock_2.get_received_values() == std::vector<int>{});
                 CHECK(mock_2.get_total_on_next_count() == 0);
@@ -431,9 +430,9 @@ TEMPLATE_TEST_CASE("replay subject multicasts values and replay", "", rpp::subje
     }
 }
 
-TEMPLATE_TEST_CASE("replay subject doesn't introduce additional copies", "", rpp::subjects::replay_subject<copy_count_tracker>, rpp::subjects::serialized_replay_subject<copy_count_tracker>)
+TEST_CASE_TEMPLATE("replay subject doesn't introduce additional copies", TestType, rpp::subjects::replay_subject<copy_count_tracker>, rpp::subjects::serialized_replay_subject<copy_count_tracker>)
 {
-    SECTION("on_next by rvalue")
+    SUBCASE("on_next by rvalue")
     {
         auto sub = TestType{};
 
@@ -450,7 +449,7 @@ TEMPLATE_TEST_CASE("replay subject doesn't introduce additional copies", "", rpp
         });
     }
 
-    SECTION("on_next by lvalue")
+    SUBCASE("on_next by lvalue")
     {
         copy_count_tracker tracker{};
         auto               sub = TestType{};
@@ -469,19 +468,19 @@ TEMPLATE_TEST_CASE("replay subject doesn't introduce additional copies", "", rpp
     }
 }
 
-TEMPLATE_TEST_CASE("replay subject multicasts values and replay", "", rpp::subjects::behavior_subject<int>, rpp::subjects::serialized_behavior_subject<int>)
+TEST_CASE_TEMPLATE("replay subject multicasts values and replay", TestType, rpp::subjects::behavior_subject<int>, rpp::subjects::serialized_behavior_subject<int>)
 {
     const auto mock_1 = mock_observer_strategy<int>{};
     const auto subj   = TestType{10};
 
     CHECK(subj.get_value() == 10);
 
-    SECTION("subscribe to subject with default")
+    SUBCASE("subscribe to subject with default")
     {
         subj.get_observable().subscribe(mock_1);
         CHECK(mock_1.get_received_values() == std::vector<int>{10});
 
-        SECTION("emit value and subscribe other observer")
+        SUBCASE("emit value and subscribe other observer")
         {
             const auto mock_2 = mock_observer_strategy<int>{};
 
@@ -495,7 +494,7 @@ TEMPLATE_TEST_CASE("replay subject multicasts values and replay", "", rpp::subje
 
             CHECK(mock_2.get_received_values() == std::vector<int>{5});
 
-            SECTION("emit one more value and subscribe one more other observer")
+            SUBCASE("emit one more value and subscribe one more other observer")
             {
                 const auto mock_3 = mock_observer_strategy<int>{};
                 subj.get_observer().on_next(1);
@@ -511,7 +510,7 @@ TEMPLATE_TEST_CASE("replay subject multicasts values and replay", "", rpp::subje
             }
         }
 
-        SECTION("subject keeps error")
+        SUBCASE("subject keeps error")
         {
             subj.get_observer().on_error(std::exception_ptr{});
             CHECK(mock_1.get_on_error_count() == 1);

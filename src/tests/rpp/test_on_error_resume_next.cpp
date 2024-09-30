@@ -8,8 +8,7 @@
 // Project home: https://github.com/victimsnino/ReactivePlusPlus
 //
 
-#include <catch2/catch_template_test_macros.hpp>
-#include <catch2/catch_test_macros.hpp>
+#include <doctest/doctest.h>
 
 #include <rpp/observers/mock_observer.hpp>
 #include <rpp/operators/on_error_resume_next.hpp>
@@ -20,17 +19,17 @@
 
 #include "disposable_observable.hpp"
 
-TEMPLATE_TEST_CASE("on_error_resume_next switches observable on error", "", rpp::memory_model::use_stack, rpp::memory_model::use_shared)
+TEST_CASE_TEMPLATE("on_error_resume_next switches observable on error", TestType, rpp::memory_model::use_stack, rpp::memory_model::use_shared)
 {
     auto mock = mock_observer_strategy<int>();
-    SECTION("observable without error emission")
+    SUBCASE("observable without error emission")
     {
         auto obs = rpp::source::just<TestType>(rpp::schedulers::immediate{}, 1, 2, 3);
-        SECTION("subscribe")
+        SUBCASE("subscribe")
         {
             obs | rpp::operators::on_error_resume_next([](const std::exception_ptr&) { return rpp::source::empty<int>(); })
                 | rpp::ops::subscribe(mock);
-            SECTION("observer obtains values from observable")
+            SUBCASE("observer obtains values from observable")
             {
                 CHECK(mock.get_received_values() == std::vector{1, 2, 3});
                 CHECK(mock.get_total_on_next_count() == 3);
@@ -40,20 +39,20 @@ TEMPLATE_TEST_CASE("on_error_resume_next switches observable on error", "", rpp:
         }
     }
 
-    SECTION("observable with one error emission")
+    SUBCASE("observable with one error emission")
     {
         auto obs = rpp::source::create<int>([](const auto& sub) {
             sub.on_next(1);
             sub.on_next(2);
             sub.on_error(std::make_exception_ptr(std::runtime_error{""}));
         });
-        SECTION("subscribe")
+        SUBCASE("subscribe")
         {
             obs | rpp::operators::on_error_resume_next([](const std::exception_ptr&) {
                 return rpp::source::just<TestType>(rpp::schedulers::immediate{}, 3);
             })
                 | rpp::ops::subscribe(mock);
-            SECTION("observer obtains values from both outer and inner observable")
+            SUBCASE("observer obtains values from both outer and inner observable")
             {
                 CHECK(mock.get_received_values() == std::vector{1, 2, 3});
                 CHECK(mock.get_total_on_next_count() == 3);
@@ -63,31 +62,7 @@ TEMPLATE_TEST_CASE("on_error_resume_next switches observable on error", "", rpp:
         }
     }
 
-    SECTION("observable with two error emissions")
-    {
-        auto obs = rpp::source::create<int>([](const auto& sub) {
-            sub.on_next(1);
-            sub.on_next(2);
-            sub.on_error(std::make_exception_ptr(std::runtime_error{""}));
-            sub.on_error(std::make_exception_ptr(std::runtime_error{""}));
-        });
-        SECTION("subscribe")
-        {
-            obs | rpp::operators::on_error_resume_next([](const std::exception_ptr&) {
-                return rpp::source::just<TestType>(rpp::schedulers::immediate{}, 3);
-            })
-                | rpp::ops::subscribe(mock);
-            SECTION("observer only receives values from first inner observable")
-            {
-                CHECK(mock.get_received_values() == std::vector{1, 2, 3});
-                CHECK(mock.get_total_on_next_count() == 3);
-                CHECK(mock.get_on_error_count() == 0);
-                CHECK(mock.get_on_completed_count() == 1);
-            }
-        }
-    }
-
-    SECTION("inner observable different emission type")
+    SUBCASE("observable with two error emissions")
     {
         auto obs = rpp::source::create<int>([](const auto& sub) {
             sub.on_next(1);
@@ -95,13 +70,13 @@ TEMPLATE_TEST_CASE("on_error_resume_next switches observable on error", "", rpp:
             sub.on_error(std::make_exception_ptr(std::runtime_error{""}));
             sub.on_error(std::make_exception_ptr(std::runtime_error{""}));
         });
-        SECTION("subscribe")
+        SUBCASE("subscribe")
         {
             obs | rpp::operators::on_error_resume_next([](const std::exception_ptr&) {
                 return rpp::source::just<TestType>(rpp::schedulers::immediate{}, 3);
             })
                 | rpp::ops::subscribe(mock);
-            SECTION("observer only receives values from first inner observable")
+            SUBCASE("observer only receives values from first inner observable")
             {
                 CHECK(mock.get_received_values() == std::vector{1, 2, 3});
                 CHECK(mock.get_total_on_next_count() == 3);
@@ -111,13 +86,37 @@ TEMPLATE_TEST_CASE("on_error_resume_next switches observable on error", "", rpp:
         }
     }
 
-    SECTION("nested on_error_resume_next operators")
+    SUBCASE("inner observable different emission type")
+    {
+        auto obs = rpp::source::create<int>([](const auto& sub) {
+            sub.on_next(1);
+            sub.on_next(2);
+            sub.on_error(std::make_exception_ptr(std::runtime_error{""}));
+            sub.on_error(std::make_exception_ptr(std::runtime_error{""}));
+        });
+        SUBCASE("subscribe")
+        {
+            obs | rpp::operators::on_error_resume_next([](const std::exception_ptr&) {
+                return rpp::source::just<TestType>(rpp::schedulers::immediate{}, 3);
+            })
+                | rpp::ops::subscribe(mock);
+            SUBCASE("observer only receives values from first inner observable")
+            {
+                CHECK(mock.get_received_values() == std::vector{1, 2, 3});
+                CHECK(mock.get_total_on_next_count() == 3);
+                CHECK(mock.get_on_error_count() == 0);
+                CHECK(mock.get_on_completed_count() == 1);
+            }
+        }
+    }
+
+    SUBCASE("nested on_error_resume_next operators")
     {
         auto obs = rpp::source::create<int>([](const auto& sub) {
             sub.on_next(1);
             sub.on_error(std::make_exception_ptr(std::runtime_error{""}));
         });
-        SECTION("subscribe")
+        SUBCASE("subscribe")
         {
             obs | rpp::operators::on_error_resume_next([](const std::exception_ptr&) {
                 return rpp::source::create<int>([](const auto& sub) {
@@ -132,7 +131,7 @@ TEMPLATE_TEST_CASE("on_error_resume_next switches observable on error", "", rpp:
                        });
             })
                 | rpp::ops::subscribe(mock);
-            SECTION("observer receives values without any errors")
+            SUBCASE("observer receives values without any errors")
             {
                 CHECK(mock.get_received_values() == std::vector{1, 2, 3});
                 CHECK(mock.get_total_on_next_count() == 3);
@@ -142,19 +141,19 @@ TEMPLATE_TEST_CASE("on_error_resume_next switches observable on error", "", rpp:
         }
     }
 
-    SECTION("selector throwing exception")
+    SUBCASE("selector throwing exception")
     {
         auto obs = rpp::source::create<int>([](const auto& sub) {
             sub.on_error(std::make_exception_ptr(std::runtime_error{""}));
         });
-        SECTION("subscribe")
+        SUBCASE("subscribe")
         {
             obs | rpp::operators::on_error_resume_next([](const std::exception_ptr& ep) {
                 std::rethrow_exception(ep);
                 return rpp::source::empty<int>();
             })
                 | rpp::ops::subscribe(mock);
-            SECTION("observer obtains selector error exception")
+            SUBCASE("observer obtains selector error exception")
             {
                 CHECK(mock.get_total_on_next_count() == 0);
                 CHECK(mock.get_on_error_count() == 1);

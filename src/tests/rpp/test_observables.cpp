@@ -7,8 +7,7 @@
 //
 //  Project home: https://github.com/victimsnino/ReactivePlusPlus
 
-#include <catch2/catch_template_test_macros.hpp>
-#include <catch2/catch_test_macros.hpp>
+#include <doctest/doctest.h>
 
 #include <rpp/observables.hpp>
 #include <rpp/observers/mock_observer.hpp>
@@ -37,7 +36,7 @@ TEST_CASE("create observable works properly as observable")
     });
 
     auto test = [&](auto&& observable) {
-        SECTION("subscribe valid observer")
+        SUBCASE("subscribe valid observer")
         {
             std::vector<int> on_next_vals{};
             size_t           on_error{};
@@ -53,7 +52,7 @@ TEST_CASE("create observable works properly as observable")
             CHECK(on_completed == 1u);
         }
 
-        SECTION("subscribe disposed callbacks")
+        SUBCASE("subscribe disposed callbacks")
         {
             observable.subscribe(
                 rpp::composite_disposable_wrapper::empty(),
@@ -64,14 +63,14 @@ TEST_CASE("create observable works properly as observable")
             CHECK(on_subscribe_called == 0u);
         }
 
-        SECTION("subscribe disposed observer")
+        SUBCASE("subscribe disposed observer")
         {
             observable.subscribe(rpp::composite_disposable_wrapper::empty(), rpp::make_lambda_observer([](int) {}, [](const std::exception_ptr&) {}, []() {}));
 
             CHECK(on_subscribe_called == 0u);
         }
 
-        SECTION("subscribe non-disposed callbacks")
+        SUBCASE("subscribe non-disposed callbacks")
         {
             observable.subscribe(
                 rpp::composite_disposable_wrapper::make(),
@@ -82,7 +81,7 @@ TEST_CASE("create observable works properly as observable")
             CHECK(on_subscribe_called == 1u);
         }
 
-        SECTION("subscribe non-disposed observer")
+        SUBCASE("subscribe non-disposed observer")
         {
             observable.subscribe(rpp::composite_disposable_wrapper::make(), rpp::make_lambda_observer([](int) {}, [](const std::exception_ptr&) {}, []() {}));
 
@@ -90,17 +89,17 @@ TEST_CASE("create observable works properly as observable")
         }
     };
 
-    SECTION("original observable")
+    SUBCASE("original observable")
     {
         test(observable);
     }
 
-    SECTION("dynamic observable")
+    SUBCASE("dynamic observable")
     {
         test(observable.as_dynamic());
     }
 
-    SECTION("dynamic observable via move")
+    SUBCASE("dynamic observable via move")
     {
         test(std::move(observable).as_dynamic()); // NOLINT
     }
@@ -109,7 +108,7 @@ TEST_CASE("create observable works properly as observable")
 TEST_CASE("blocking_observable blocks subscribe call")
 {
     mock_observer_strategy<int> mock{};
-    SECTION("on_completed inside observable")
+    SUBCASE("on_completed inside observable")
     {
         rpp::source::create<int>([](auto&& observer) {
             std::thread(
@@ -124,7 +123,7 @@ TEST_CASE("blocking_observable blocks subscribe call")
 
         CHECK(mock.get_on_completed_count() == 1);
     }
-    SECTION("on_error inside observable")
+    SUBCASE("on_error inside observable")
     {
         auto op  = rpp::operators::as_blocking();
         auto obs = rpp::source::create<int>([](auto&& observer) {
@@ -142,7 +141,7 @@ TEST_CASE("blocking_observable blocks subscribe call")
 
         CHECK(mock.get_on_error_count() == 1);
     }
-    SECTION("as_blocking + take(1)")
+    SUBCASE("as_blocking + take(1)")
     {
         rpp::source::create<int>([](const auto& obs) {
             obs.on_next(1);
@@ -160,13 +159,13 @@ TEST_CASE("base observables")
 {
     mock_observer_strategy<int> mock{};
 
-    SECTION("empty")
+    SUBCASE("empty")
     {
         auto observable = rpp::source::empty<int>();
-        SECTION("subscribe on this observable")
+        SUBCASE("subscribe on this observable")
         {
             observable.subscribe(mock);
-            SECTION("only on_completed called")
+            SUBCASE("only on_completed called")
             {
                 CHECK(mock.get_total_on_next_count() == 0);
                 CHECK(mock.get_on_error_count() == 0);
@@ -174,13 +173,13 @@ TEST_CASE("base observables")
             }
         }
     }
-    SECTION("never")
+    SUBCASE("never")
     {
         auto observable = rpp::source::never<int>();
-        SECTION("subscribe on this observable")
+        SUBCASE("subscribe on this observable")
         {
             observable.subscribe(mock);
-            SECTION("no any callbacks")
+            SUBCASE("no any callbacks")
             {
                 CHECK(mock.get_total_on_next_count() == 0);
                 CHECK(mock.get_on_error_count() == 0);
@@ -188,13 +187,13 @@ TEST_CASE("base observables")
             }
         }
     }
-    SECTION("error")
+    SUBCASE("error")
     {
         auto observable = rpp::source::error<int>(std::make_exception_ptr(std::runtime_error{"MY EXCEPTION"}));
-        SECTION("subscribe on this observable")
+        SUBCASE("subscribe on this observable")
         {
             observable.subscribe(mock);
-            SECTION("only on_error callback once")
+            SUBCASE("only on_error callback once")
             {
                 CHECK(mock.get_total_on_next_count() == 0);
                 CHECK(mock.get_on_error_count() == 1);
@@ -206,7 +205,7 @@ TEST_CASE("base observables")
 
 TEST_CASE("pipe observable works properly as observable")
 {
-    SECTION("using const& variant")
+    SUBCASE("using const& variant")
     {
         auto observable = rpp::source::create<int>([](auto&& observer) {
             observer.on_next(1);
@@ -223,7 +222,7 @@ TEST_CASE("pipe observable works properly as observable")
         CHECK(pipe_operator_observer.get_on_error_count() == pipe_function_observer.get_on_error_count());
         CHECK(pipe_operator_observer.get_on_completed_count() == pipe_function_observer.get_on_completed_count());
     }
-    SECTION("using && variant")
+    SUBCASE("using && variant")
     {
         mock_observer_strategy<int> pipe_operator_observer{};
         mock_observer_strategy<int> pipe_function_observer{};
@@ -244,21 +243,21 @@ TEST_CASE("pipe observable works properly as observable")
     }
 }
 
-TEMPLATE_TEST_CASE(
+TEST_CASE_TEMPLATE(
     "observable has type traits defined",
-    "",
-    (rpp::empty_observable<int>),
-    (rpp::dynamic_observable<int>),
-    (rpp::blocking_observable<int, rpp::details::empty_strategy<int>>),
-    (rpp::connectable_observable<rpp::empty_observable<int>, rpp::subjects::replay_subject<int>>),
-    (rpp::grouped_observable<int, int, rpp::details::empty_strategy<int>>))
+    TestType,
+    rpp::empty_observable<int>,
+    rpp::dynamic_observable<int>,
+    rpp::blocking_observable<int, rpp::details::empty_strategy<int>>,
+    rpp::connectable_observable<rpp::empty_observable<int>, rpp::subjects::replay_subject<int>>,
+    rpp::grouped_observable<int, int, rpp::details::empty_strategy<int>>)
 {
-    SECTION("value_type defined")
+    SUBCASE("value_type defined")
     {
         CHECK(requires { typename TestType::value_type; });
         CHECK(std::is_same_v<typename TestType::value_type, int>);
     }
-    SECTION("strategy_type defined")
+    SUBCASE("strategy_type defined")
     {
         CHECK(requires { typename TestType::strategy_type; });
     }

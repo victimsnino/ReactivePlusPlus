@@ -8,8 +8,7 @@
 // Project home: https://github.com/victimsnino/ReactivePlusPlus
 //
 
-#include <catch2/catch_template_test_macros.hpp>
-#include <catch2/catch_test_macros.hpp>
+#include <doctest/doctest.h>
 
 #include <rpp/observers/mock_observer.hpp>
 #include <rpp/operators/take_while.hpp>
@@ -26,7 +25,7 @@
 TEST_CASE("take_while")
 {
     auto mock = mock_observer_strategy<int>{};
-    SECTION("-1-2-3-...")
+    SUBCASE("-1-2-3-...")
     {
         auto obs = rpp::source::create<int>(
             [](const auto& sub) {
@@ -35,14 +34,14 @@ TEST_CASE("take_while")
                     sub.on_next(v++);
             });
 
-        SECTION("take while val <= 5")
+        SUBCASE("take while val <= 5")
         {
             obs | rpp::operators::take_while([](int val) { return val <= 5; }) | rpp::operators::subscribe(mock);
 
             CHECK(mock.get_received_values() == std::vector{0, 1, 2, 3, 4, 5});
         }
 
-        SECTION("take while false")
+        SUBCASE("take while false")
         {
             auto op = rpp::operators::take_while([](auto) { return false; });
             obs | op | rpp::operators::subscribe(mock);
@@ -50,7 +49,7 @@ TEST_CASE("take_while")
             CHECK(mock.get_received_values().empty());
         }
     }
-    SECTION("-x")
+    SUBCASE("-x")
     {
         rpp::source::error<int>({}) | rpp::operators::take_while([](int) { return false; }) | rpp::ops::subscribe(mock);
         CHECK(mock.get_received_values() == std::vector<int>{});
@@ -58,7 +57,7 @@ TEST_CASE("take_while")
         CHECK(mock.get_on_completed_count() == 0);
     }
 
-    SECTION("-|")
+    SUBCASE("-|")
     {
         rpp::source::empty<int>() | rpp::operators::take_while([](int) { return true; }) | rpp::ops::subscribe(mock);
         CHECK(mock.get_received_values() == std::vector<int>{});
@@ -69,7 +68,7 @@ TEST_CASE("take_while")
 
 TEST_CASE("take_while doesn't produce extra copies")
 {
-    SECTION("take_while([](auto) { return true; })")
+    SUBCASE("take_while([](auto) { return true; })")
     {
         copy_count_tracker::test_operator(rpp::ops::take_while([](auto) { return true; }),
                                           {

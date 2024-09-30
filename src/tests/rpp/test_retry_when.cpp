@@ -8,8 +8,7 @@
 // Project home: https://github.com/victimsnino/ReactivePlusPlus
 //
 
-#include <catch2/catch_template_test_macros.hpp>
-#include <catch2/catch_test_macros.hpp>
+#include <doctest/doctest.h>
 
 #include <rpp/observables/dynamic_observable.hpp>
 #include <rpp/observers/mock_observer.hpp>
@@ -33,7 +32,7 @@ TEST_CASE("retry_when resubscribes on notifier emission")
     mock_observer<std::string> mock{};
     trompeloeil::sequence      seq;
 
-    SECTION("observable without error emission")
+    SUBCASE("observable without error emission")
     {
         size_t subscribe_count = 0;
         auto   observable      = rpp::source::create<std::string>([&subscribe_count](const auto& sub) {
@@ -41,7 +40,7 @@ TEST_CASE("retry_when resubscribes on notifier emission")
             sub.on_next(std::string{"1"});
             sub.on_completed();
         });
-        SECTION("observer obtains values from observable")
+        SUBCASE("observer obtains values from observable")
         {
             REQUIRE_CALL(*mock, on_next_rvalue("1")).IN_SEQUENCE(seq);
             REQUIRE_CALL(*mock, on_completed()).IN_SEQUENCE(seq);
@@ -54,7 +53,7 @@ TEST_CASE("retry_when resubscribes on notifier emission")
         }
     }
 
-    SECTION("observable with 1 error")
+    SUBCASE("observable with 1 error")
     {
         size_t subscribe_count = 0;
         auto   observable      = rpp::source::create<std::string>([&subscribe_count](const auto& sub) {
@@ -69,7 +68,7 @@ TEST_CASE("retry_when resubscribes on notifier emission")
             }
         });
 
-        SECTION("original observable is subscribed twice and observer receives one emission")
+        SUBCASE("original observable is subscribed twice and observer receives one emission")
         {
             REQUIRE_CALL(*mock, on_next_rvalue("1")).IN_SEQUENCE(seq);
             REQUIRE_CALL(*mock, on_completed()).IN_SEQUENCE(seq);
@@ -81,7 +80,7 @@ TEST_CASE("retry_when resubscribes on notifier emission")
             CHECK(subscribe_count == 2);
         }
 
-        SECTION("original observable is subscribed twice and observer receives one emission, notifier emits on new_thread")
+        SUBCASE("original observable is subscribed twice and observer receives one emission, notifier emits on new_thread")
         {
             REQUIRE_CALL(*mock, on_next_rvalue("1")).IN_SEQUENCE(seq);
             REQUIRE_CALL(*mock, on_completed()).IN_SEQUENCE(seq);
@@ -94,7 +93,7 @@ TEST_CASE("retry_when resubscribes on notifier emission")
             CHECK(subscribe_count == 2);
         }
 
-        SECTION("original observable is subscribed twice and observer receives only one emission")
+        SUBCASE("original observable is subscribed twice and observer receives only one emission")
         {
             REQUIRE_CALL(*mock, on_next_rvalue("1")).IN_SEQUENCE(seq);
             REQUIRE_CALL(*mock, on_completed()).IN_SEQUENCE(seq);
@@ -106,7 +105,7 @@ TEST_CASE("retry_when resubscribes on notifier emission")
             CHECK(subscribe_count == 2);
         }
 
-        SECTION("original observable is subscribed only once and observer receives error emission")
+        SUBCASE("original observable is subscribed only once and observer receives error emission")
         {
             REQUIRE_CALL(*mock, on_error(trompeloeil::_)).IN_SEQUENCE(seq);
 
@@ -120,7 +119,7 @@ TEST_CASE("retry_when resubscribes on notifier emission")
             CHECK(subscribe_count == 1);
         }
 
-        SECTION("original observable is subscribed only once and observer receives error emission")
+        SUBCASE("original observable is subscribed only once and observer receives error emission")
         {
             REQUIRE_CALL(*mock, on_error(trompeloeil::_)).IN_SEQUENCE(seq);
 
@@ -133,7 +132,7 @@ TEST_CASE("retry_when resubscribes on notifier emission")
             CHECK(subscribe_count == 1);
         }
 
-        SECTION("original observable is subscribed only once and observer receives completed emission")
+        SUBCASE("original observable is subscribed only once and observer receives completed emission")
         {
             REQUIRE_CALL(*mock, on_completed()).IN_SEQUENCE(seq);
 
@@ -147,7 +146,7 @@ TEST_CASE("retry_when resubscribes on notifier emission")
         }
     }
 
-    SECTION("observable with 4 errors")
+    SUBCASE("observable with 4 errors")
     {
         size_t subscribe_count = 0;
         auto   observable      = rpp::source::create<std::string>([&subscribe_count](const auto& sub) {
@@ -162,7 +161,7 @@ TEST_CASE("retry_when resubscribes on notifier emission")
             }
         });
 
-        SECTION("original observable is subscribed 5 times and observer receives one emission")
+        SUBCASE("original observable is subscribed 5 times and observer receives one emission")
         {
             REQUIRE_CALL(*mock, on_next_rvalue("1")).IN_SEQUENCE(seq);
             REQUIRE_CALL(*mock, on_completed()).IN_SEQUENCE(seq);
@@ -174,7 +173,7 @@ TEST_CASE("retry_when resubscribes on notifier emission")
             CHECK(subscribe_count == 4 + 1);
         }
 
-        SECTION("original observable is subscribed twice and observer receives one emission, notifier emits on new_thread")
+        SUBCASE("original observable is subscribed twice and observer receives one emission, notifier emits on new_thread")
         {
             REQUIRE_CALL(*mock, on_next_rvalue("1")).IN_SEQUENCE(seq);
             REQUIRE_CALL(*mock, on_completed()).IN_SEQUENCE(seq);
@@ -186,7 +185,7 @@ TEST_CASE("retry_when resubscribes on notifier emission")
 
             CHECK(subscribe_count == 4 + 1);
         }
-        SECTION("callable throws exception")
+        SUBCASE("callable throws exception")
         {
             REQUIRE_CALL(*mock, on_error(trompeloeil::_)).IN_SEQUENCE(seq);
 
@@ -197,7 +196,7 @@ TEST_CASE("retry_when resubscribes on notifier emission")
 
             CHECK(subscribe_count == 1);
         }
-        SECTION("callable return observable throwing exception")
+        SUBCASE("callable return observable throwing exception")
         {
             REQUIRE_CALL(*mock, on_error(trompeloeil::_)).IN_SEQUENCE(seq);
 
@@ -209,7 +208,7 @@ TEST_CASE("retry_when resubscribes on notifier emission")
             CHECK(subscribe_count == 1);
         }
     }
-    SECTION("observable throws exception")
+    SUBCASE("observable throws exception")
     {
         size_t     i          = 0;
         const auto observable = rpp::source::create<std::string>([&i](const auto& sub) {
@@ -218,7 +217,7 @@ TEST_CASE("retry_when resubscribes on notifier emission")
             sub.on_error({});
         });
 
-        SECTION("retry()")
+        SUBCASE("retry()")
         {
             REQUIRE_CALL(*mock, on_error(trompeloeil::_)).IN_SEQUENCE(seq);
 
@@ -268,7 +267,7 @@ TEST_CASE("retry_when disposes on looping")
 
 TEST_CASE("retry_when doesn't produce extra copies")
 {
-    SECTION("retry_when(empty_notifier)")
+    SUBCASE("retry_when(empty_notifier)")
     {
         copy_count_tracker::test_operator(rpp::ops::retry_when([](const std::exception_ptr&) { return rpp::source::empty<int>(); }),
                                           {

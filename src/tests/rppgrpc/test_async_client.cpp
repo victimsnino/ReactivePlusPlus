@@ -1,4 +1,4 @@
-#include <catch2/catch_test_macros.hpp>
+#include <doctest/doctest.h>
 
 #include <rpp/observers/mock_observer.hpp>
 #include <rpp/operators/map.hpp>
@@ -42,7 +42,7 @@ TEST_CASE("async client reactor")
     rpp::subjects::publish_subject<uint32_t> subj{};
     mock_observer<uint32_t>                  out_mock{};
 
-    SECTION("bidirectional")
+    SUBCASE("bidirectional")
     {
         grpc::ClientContext ctx{};
 
@@ -51,7 +51,7 @@ TEST_CASE("async client reactor")
         subj.get_observable() | rpp::ops::map([](int v) { Request request{}; request.set_value(v); return request; }) | rpp::ops::subscribe(bidi_reactor->get_observer());
 
         stub->async()->Bidirectional(&ctx, bidi_reactor);
-        SECTION("no stream job - completion")
+        SUBCASE("no stream job - completion")
         {
             REQUIRE_CALL(*mock_service, Bidirectional(trompeloeil::_, trompeloeil::_)).RETURN(grpc::Status::OK).IN_SEQUENCE(s);
             const auto last = NAMED_REQUIRE_CALL(*out_mock, on_completed()).IN_SEQUENCE(s);
@@ -60,7 +60,7 @@ TEST_CASE("async client reactor")
             wait(last);
         }
 
-        SECTION("error status - error")
+        SUBCASE("error status - error")
         {
             REQUIRE_CALL(*mock_service, Bidirectional(trompeloeil::_, trompeloeil::_)).RETURN(grpc::Status::CANCELLED).IN_SEQUENCE(s);
             const auto last = NAMED_REQUIRE_CALL(*out_mock, on_error(trompeloeil::_)).IN_SEQUENCE(s);
@@ -69,7 +69,7 @@ TEST_CASE("async client reactor")
             wait(last);
         }
 
-        SECTION("manual server-side cancel")
+        SUBCASE("manual server-side cancel")
         {
             REQUIRE_CALL(*mock_service, Bidirectional(trompeloeil::_, trompeloeil::_))
                 .RETURN(grpc::Status::OK)
@@ -85,7 +85,7 @@ TEST_CASE("async client reactor")
             wait(last);
         }
 
-        SECTION("manual client-side completion")
+        SUBCASE("manual client-side completion")
         {
             REQUIRE_CALL(*mock_service, Bidirectional(trompeloeil::_, trompeloeil::_))
                 .RETURN(grpc::Status::OK)
@@ -105,7 +105,7 @@ TEST_CASE("async client reactor")
             wait(last);
         }
 
-        SECTION("client-side write + completion")
+        SUBCASE("client-side write + completion")
         {
             std::promise<std::vector<int>> results{};
             REQUIRE_CALL(*mock_service, Bidirectional(trompeloeil::_, trompeloeil::_))
@@ -136,7 +136,7 @@ TEST_CASE("async client reactor")
             wait(last);
         }
 
-        SECTION("client-side read + completion")
+        SUBCASE("client-side read + completion")
         {
             REQUIRE_CALL(*mock_service, Bidirectional(trompeloeil::_, trompeloeil::_))
                 .RETURN(grpc::Status::OK)
@@ -160,7 +160,7 @@ TEST_CASE("async client reactor")
             wait(last);
         }
 
-        SECTION("client-side read-write + completeion")
+        SUBCASE("client-side read-write + completeion")
         {
             REQUIRE_CALL(*mock_service, Bidirectional(trompeloeil::_, trompeloeil::_))
                 .RETURN(grpc::Status::OK)
@@ -189,14 +189,14 @@ TEST_CASE("async client reactor")
             wait(last);
         }
     }
-    SECTION("server-side")
+    SUBCASE("server-side")
     {
         grpc::ClientContext ctx{};
 
         const auto read_reactor = new rppgrpc::client_read_reactor<Response>();
         read_reactor->get_observable() | rpp::ops::map([](const Response& out) { return out.value(); }) | rpp::ops::observe_on(rpp::schedulers::new_thread{}) | rpp::ops::subscribe(out_mock);
 
-        SECTION("empty request")
+        SUBCASE("empty request")
         {
             stub->async()->ServerSide(&ctx, nullptr, read_reactor);
 
@@ -205,12 +205,12 @@ TEST_CASE("async client reactor")
 
             wait(last);
         }
-        SECTION("normal request")
+        SUBCASE("normal request")
         {
             Request r{};
             stub->async()->ServerSide(&ctx, &r, read_reactor);
 
-            SECTION("no stream job - completion")
+            SUBCASE("no stream job - completion")
             {
                 REQUIRE_CALL(*mock_service, ServerSide(trompeloeil::_, trompeloeil::_, trompeloeil::_)).RETURN(grpc::Status::OK).IN_SEQUENCE(s);
                 const auto last = NAMED_REQUIRE_CALL(*out_mock, on_completed()).IN_SEQUENCE(s);
@@ -219,7 +219,7 @@ TEST_CASE("async client reactor")
                 wait(last);
             }
 
-            SECTION("error status - error")
+            SUBCASE("error status - error")
             {
                 REQUIRE_CALL(*mock_service, ServerSide(trompeloeil::_, trompeloeil::_, trompeloeil::_)).RETURN(grpc::Status::CANCELLED).IN_SEQUENCE(s);
                 const auto last = NAMED_REQUIRE_CALL(*out_mock, on_error(trompeloeil::_)).IN_SEQUENCE(s);
@@ -228,7 +228,7 @@ TEST_CASE("async client reactor")
                 wait(last);
             }
 
-            SECTION("manual server-side cancel")
+            SUBCASE("manual server-side cancel")
             {
                 REQUIRE_CALL(*mock_service, ServerSide(trompeloeil::_, trompeloeil::_, trompeloeil::_))
                     .RETURN(grpc::Status::OK)
@@ -244,7 +244,7 @@ TEST_CASE("async client reactor")
                 wait(last);
             }
 
-            SECTION("client-side read + completion")
+            SUBCASE("client-side read + completion")
             {
                 REQUIRE_CALL(*mock_service, ServerSide(trompeloeil::_, trompeloeil::_, trompeloeil::_))
                     .RETURN(grpc::Status::OK)
@@ -269,7 +269,7 @@ TEST_CASE("async client reactor")
             }
         }
     }
-    SECTION("client-side")
+    SUBCASE("client-side")
     {
         grpc::ClientContext ctx{};
 
@@ -279,7 +279,7 @@ TEST_CASE("async client reactor")
 
         Response r{};
         stub->async()->ClientSide(&ctx, &r, write_reactor);
-        SECTION("no stream job - completion")
+        SUBCASE("no stream job - completion")
         {
             REQUIRE_CALL(*mock_service, ClientSide(trompeloeil::_, trompeloeil::_, trompeloeil::_)).RETURN(grpc::Status::OK).IN_SEQUENCE(s);
             const auto last = NAMED_REQUIRE_CALL(*out_mock, on_completed()).IN_SEQUENCE(s);
@@ -288,7 +288,7 @@ TEST_CASE("async client reactor")
             wait(last);
         }
 
-        SECTION("error status - error")
+        SUBCASE("error status - error")
         {
             REQUIRE_CALL(*mock_service, ClientSide(trompeloeil::_, trompeloeil::_, trompeloeil::_)).RETURN(grpc::Status::CANCELLED).IN_SEQUENCE(s);
             const auto last = NAMED_REQUIRE_CALL(*out_mock, on_error(trompeloeil::_)).IN_SEQUENCE(s);
@@ -297,7 +297,7 @@ TEST_CASE("async client reactor")
             wait(last);
         }
 
-        SECTION("manual server-side cancel")
+        SUBCASE("manual server-side cancel")
         {
             REQUIRE_CALL(*mock_service, ClientSide(trompeloeil::_, trompeloeil::_, trompeloeil::_))
                 .RETURN(grpc::Status::OK)
@@ -313,7 +313,7 @@ TEST_CASE("async client reactor")
             wait(last);
         }
 
-        SECTION("manual client-side completion")
+        SUBCASE("manual client-side completion")
         {
             REQUIRE_CALL(*mock_service, ClientSide(trompeloeil::_, trompeloeil::_, trompeloeil::_))
                 .RETURN(grpc::Status::OK)
@@ -333,7 +333,7 @@ TEST_CASE("async client reactor")
             wait(last);
         }
 
-        SECTION("client-side write + completion")
+        SUBCASE("client-side write + completion")
         {
             std::promise<std::vector<int>> results{};
             REQUIRE_CALL(*mock_service, ClientSide(trompeloeil::_, trompeloeil::_, trompeloeil::_))

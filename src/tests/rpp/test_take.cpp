@@ -8,8 +8,7 @@
 // Project home: https://github.com/victimsnino/ReactivePlusPlus
 //
 
-#include <catch2/catch_template_test_macros.hpp>
-#include <catch2/catch_test_macros.hpp>
+#include <doctest/doctest.h>
 
 #include <rpp/observers/mock_observer.hpp>
 #include <rpp/operators/take.hpp>
@@ -38,7 +37,7 @@ TEST_CASE("take operator limits emissions")
     mock_observer_strategy<int> mock{};
 
 
-    SECTION("subscribe via take(3)")
+    SUBCASE("subscribe via take(3)")
     {
         (obs | rpp::operators::take(3)).subscribe(mock);
 
@@ -47,7 +46,7 @@ TEST_CASE("take operator limits emissions")
         CHECK(mock.get_on_completed_count() == 1);
     }
 
-    SECTION("subscribe via take(2) | take(3)")
+    SUBCASE("subscribe via take(2) | take(3)")
     {
         (obs | rpp::operators::take(2) | rpp::operators::take(3)).subscribe(mock);
 
@@ -56,7 +55,7 @@ TEST_CASE("take operator limits emissions")
         CHECK(mock.get_on_completed_count() == 1);
     }
 
-    SECTION("subscribe via take(0)")
+    SUBCASE("subscribe via take(0)")
     {
         (obs | rpp::operators::take(0)).subscribe(mock);
 
@@ -96,7 +95,7 @@ TEST_CASE("take operator forwards on_error")
 
 TEST_CASE("take doesn't produce extra copies")
 {
-    SECTION("take(1)")
+    SUBCASE("take(1)")
     {
         copy_count_tracker::test_operator(rpp::ops::take(1),
                                           {

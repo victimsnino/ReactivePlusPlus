@@ -8,8 +8,7 @@
 // Project home: https://github.com/victimsnino/ReactivePlusPlus
 //
 
-#include <catch2/catch_template_test_macros.hpp>
-#include <catch2/catch_test_macros.hpp>
+#include <doctest/doctest.h>
 
 #include <rpp/observers/mock_observer.hpp>
 #include <rpp/operators/distinct.hpp>
@@ -20,12 +19,12 @@
 #include "copy_count_tracker.hpp"
 #include "disposable_observable.hpp"
 
-TEMPLATE_TEST_CASE("distinct filters out repeated values and emit only items that have not already been emitted", "", rpp::memory_model::use_stack, rpp::memory_model::use_shared)
+TEST_CASE_TEMPLATE("distinct filters out repeated values and emit only items that have not already been emitted", TestType, rpp::memory_model::use_stack, rpp::memory_model::use_shared)
 {
     auto mock = mock_observer_strategy<int>{};
     auto obs  = rpp::source::just<TestType>(1, 1, 2, 2, 3, 4, 4, 2, 2, 1, 3);
 
-    SECTION("WHEN subscribe on observable with duplicates via distinct THEN subscriber obtains values without duplicates")
+    SUBCASE("WHEN subscribe on observable with duplicates via distinct THEN subscriber obtains values without duplicates")
     {
         obs | rpp::ops::distinct() | rpp::ops::subscribe(mock);
         CHECK(mock.get_received_values() == std::vector{1, 2, 3, 4});

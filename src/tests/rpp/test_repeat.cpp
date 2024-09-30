@@ -8,8 +8,7 @@
 // Project home: https://github.com/victimsnino/ReactivePlusPlus
 //
 
-#include <catch2/catch_template_test_macros.hpp>
-#include <catch2/catch_test_macros.hpp>
+#include <doctest/doctest.h>
 
 #include <rpp/observers/mock_observer.hpp>
 #include <rpp/operators/repeat.hpp>
@@ -24,7 +23,7 @@
 TEST_CASE("repeat resubscribes")
 {
     auto observer = mock_observer_strategy<int>();
-    SECTION("observable with value")
+    SUBCASE("observable with value")
     {
         size_t subscribe_count = 0;
         auto   observable      = rpp::source::create<int>([&subscribe_count](const auto& sub) {
@@ -33,10 +32,10 @@ TEST_CASE("repeat resubscribes")
             sub.on_completed();
         });
 
-        SECTION("subscribe on it via repeat(0)")
+        SUBCASE("subscribe on it via repeat(0)")
         {
             observable | rpp::operators::repeat(0) | rpp::operators::subscribe(observer);
-            SECTION("only on_completed sent")
+            SUBCASE("only on_completed sent")
             {
                 CHECK(subscribe_count == 0);
                 CHECK(observer.get_total_on_next_count() == 0);
@@ -44,10 +43,10 @@ TEST_CASE("repeat resubscribes")
                 CHECK(observer.get_on_completed_count() == 1);
             }
         }
-        SECTION("subscribe on it via repeat(1)")
+        SUBCASE("subscribe on it via repeat(1)")
         {
             observable | rpp::operators::repeat(1) | rpp::operators::subscribe(observer);
-            SECTION("sent value once")
+            SUBCASE("sent value once")
             {
                 CHECK(subscribe_count == 1);
                 CHECK(observer.get_total_on_next_count() == 1);
@@ -55,10 +54,10 @@ TEST_CASE("repeat resubscribes")
                 CHECK(observer.get_on_completed_count() == 1);
             }
         }
-        SECTION("subscribe on it via repeat(10)")
+        SUBCASE("subscribe on it via repeat(10)")
         {
             observable | rpp::operators::repeat(10) | rpp::operators::subscribe(observer);
-            SECTION("sent value 10 times")
+            SUBCASE("sent value 10 times")
             {
                 CHECK(subscribe_count == 10);
                 CHECK(observer.get_total_on_next_count() == 10);
@@ -66,10 +65,10 @@ TEST_CASE("repeat resubscribes")
                 CHECK(observer.get_on_completed_count() == 1);
             }
         }
-        SECTION("subscribe on it via repeat()")
+        SUBCASE("subscribe on it via repeat()")
         {
             observable | rpp::operators::repeat() | rpp::operators::take(10) | rpp::operators::subscribe(observer);
-            SECTION("sent value infinitely")
+            SUBCASE("sent value infinitely")
             {
                 CHECK(subscribe_count == 10);
                 CHECK(observer.get_total_on_next_count() == 10);
@@ -78,17 +77,17 @@ TEST_CASE("repeat resubscribes")
             }
         }
     }
-    SECTION("observable with on_error")
+    SUBCASE("observable with on_error")
     {
         size_t subscribe_count = 0;
         auto   observable      = rpp::source::create<int>([&subscribe_count](const auto& sub) {
             ++subscribe_count;
             sub.on_error(std::make_exception_ptr(std::runtime_error{""}));
         });
-        SECTION("subscribe on it via repeat(10)")
+        SUBCASE("subscribe on it via repeat(10)")
         {
             observable | rpp::operators::repeat(10) | rpp::operators::subscribe(observer);
-            SECTION("only on_error once")
+            SUBCASE("only on_error once")
             {
                 CHECK(subscribe_count == 1);
                 CHECK(observer.get_total_on_next_count() == 0);
@@ -97,17 +96,17 @@ TEST_CASE("repeat resubscribes")
             }
         }
     }
-    SECTION("observable with on_completed")
+    SUBCASE("observable with on_completed")
     {
         size_t subscribe_count = 0;
         auto   observable      = rpp::source::create<int>([&subscribe_count](const auto& sub) {
             ++subscribe_count;
             sub.on_completed();
         });
-        SECTION("subscribe on it via repeat(10)")
+        SUBCASE("subscribe on it via repeat(10)")
         {
             observable | rpp::operators::repeat(10) | rpp::operators::subscribe(observer);
-            SECTION("on_ompleted once")
+            SUBCASE("on_ompleted once")
             {
                 CHECK(subscribe_count == 10);
                 CHECK(observer.get_total_on_next_count() == 0);
@@ -120,7 +119,7 @@ TEST_CASE("repeat resubscribes")
 
 TEST_CASE("repeat doesn't produce extra copies")
 {
-    SECTION("repeat(2)")
+    SUBCASE("repeat(2)")
     {
         copy_count_tracker::test_operator(rpp::ops::repeat(2),
                                           {

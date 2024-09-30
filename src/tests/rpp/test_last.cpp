@@ -8,8 +8,7 @@
 // Project home: https://github.com/victimsnino/ReactivePlusPlus
 //
 
-#include <catch2/catch_template_test_macros.hpp>
-#include <catch2/catch_test_macros.hpp>
+#include <doctest/doctest.h>
 
 #include <rpp/observers/mock_observer.hpp>
 #include <rpp/operators/last.hpp>
@@ -26,7 +25,7 @@ TEST_CASE("last only emits once")
 {
     auto mock = mock_observer_strategy<int>{};
 
-    SECTION("observable of -1-| - shall see -1-|")
+    SUBCASE("observable of -1-| - shall see -1-|")
     {
         rpp::source::just(1)
             | rpp::ops::last()
@@ -37,7 +36,7 @@ TEST_CASE("last only emits once")
         CHECK(mock.get_on_error_count() == 0);
     }
 
-    SECTION("observable of -1-2-3-| - shall see -3-|")
+    SUBCASE("observable of -1-2-3-| - shall see -3-|")
     {
         rpp::source::just(1, 2, 3)
             | rpp::ops::last()
@@ -48,7 +47,7 @@ TEST_CASE("last only emits once")
         CHECK(mock.get_on_error_count() == 0);
     }
 
-    SECTION("observable of never - shall not see neither completed nor error event")
+    SUBCASE("observable of never - shall not see neither completed nor error event")
     {
         rpp::source::never<int>()
             | rpp::ops::last()
@@ -59,7 +58,7 @@ TEST_CASE("last only emits once")
         CHECK(mock.get_on_error_count() == 0);
     }
 
-    SECTION("observable of x-| - shall see error and no-completed event")
+    SUBCASE("observable of x-| - shall see error and no-completed event")
     {
         rpp::source::error<int>(std::make_exception_ptr(std::runtime_error{""}))
             | rpp::ops::last()
@@ -70,7 +69,7 @@ TEST_CASE("last only emits once")
         CHECK(mock.get_on_error_count() == 1);
     }
 
-    SECTION("observable of ---| - shall see -x")
+    SUBCASE("observable of ---| - shall see -x")
     {
         rpp::source::empty<int>()
             | rpp::ops::last()
@@ -84,7 +83,7 @@ TEST_CASE("last only emits once")
 
 TEST_CASE("last doesn't produce extra copies")
 {
-    SECTION("last()")
+    SUBCASE("last()")
     {
         copy_count_tracker::test_operator(rpp::ops::last(),
                                           {

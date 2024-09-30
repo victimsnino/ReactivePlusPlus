@@ -8,8 +8,7 @@
 // Project home: https://github.com/victimsnino/ReactivePlusPlus
 //
 
-#include <catch2/catch_template_test_macros.hpp>
-#include <catch2/catch_test_macros.hpp>
+#include <doctest/doctest.h>
 
 #include <rpp/observers/mock_observer.hpp>
 #include <rpp/operators/finally.hpp>
@@ -20,16 +19,16 @@
 TEST_CASE("finally executes only at the end")
 {
     auto mock = mock_observer_strategy<int>();
-    SECTION("observable with no emissions")
+    SUBCASE("observable with no emissions")
     {
         auto   obs     = rpp::source::create<int>([](const auto&) {
         });
         size_t invoked = 0;
-        SECTION("subscribe")
+        SUBCASE("subscribe")
         {
             obs | rpp::operators::finally([&]() noexcept { ++invoked; })
                 | rpp::ops::subscribe(mock);
-            SECTION("observer obtains values from observable")
+            SUBCASE("observer obtains values from observable")
             {
                 CHECK(invoked == 1);
                 CHECK(mock.get_total_on_next_count() == 0);
@@ -39,17 +38,17 @@ TEST_CASE("finally executes only at the end")
         }
     }
 
-    SECTION("observable with on_completed emission")
+    SUBCASE("observable with on_completed emission")
     {
         auto   obs     = rpp::source::create<int>([](const auto& sub) {
             sub.on_completed();
         });
         size_t invoked = 0;
-        SECTION("subscribe")
+        SUBCASE("subscribe")
         {
             obs | rpp::operators::finally([&]() noexcept { ++invoked; })
                 | rpp::ops::subscribe(mock);
-            SECTION("observer obtains values from observable")
+            SUBCASE("observer obtains values from observable")
             {
                 CHECK(invoked == 1);
                 CHECK(mock.get_total_on_next_count() == 0);
@@ -59,18 +58,18 @@ TEST_CASE("finally executes only at the end")
         }
     }
 
-    SECTION("observable with on_next emission")
+    SUBCASE("observable with on_next emission")
     {
         auto   obs     = rpp::source::create<int>([](const auto& sub) {
             sub.on_next(1);
             sub.on_completed();
         });
         size_t invoked = 0;
-        SECTION("subscribe")
+        SUBCASE("subscribe")
         {
             obs | rpp::operators::finally([&]() noexcept { ++invoked; })
                 | rpp::ops::subscribe(mock);
-            SECTION("observer obtains values from observable")
+            SUBCASE("observer obtains values from observable")
             {
                 CHECK(invoked == 1);
                 CHECK(mock.get_total_on_next_count() == 1);
@@ -80,18 +79,18 @@ TEST_CASE("finally executes only at the end")
         }
     }
 
-    SECTION("observable with on_error emission")
+    SUBCASE("observable with on_error emission")
     {
         auto   obs     = rpp::source::create<int>([](const auto& sub) {
             sub.on_next(1);
             sub.on_error(std::make_exception_ptr(std::runtime_error{""}));
         });
         size_t invoked = 0;
-        SECTION("subscribe")
+        SUBCASE("subscribe")
         {
             obs | rpp::operators::finally([&]() noexcept { ++invoked; })
                 | rpp::ops::subscribe(mock);
-            SECTION("observer obtains values from observable")
+            SUBCASE("observer obtains values from observable")
             {
                 CHECK(invoked == 1);
                 CHECK(mock.get_total_on_next_count() == 1);
