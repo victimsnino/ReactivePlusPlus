@@ -34,7 +34,7 @@ rpp::source::from_callable(&::getchar)
 ```
 [Try it on godbolt!](https://godbolt.org/#g:!((g:!((g:!((h:codeEditor,i:(filename:'1',fontScale:14,fontUsePx:'0',j:1,lang:c%2B%2B,selection:(endColumn:65,endLineNumber:12,positionColumn:1,positionLineNumber:8,selectionStartColumn:65,selectionStartLineNumber:12,startColumn:1,startLineNumber:8),source:'%23include+%3Crpp/rpp.hpp%3E%0A%23include+%3Ciostream%3E%0A%23include+%3Cfunctional%3E%0A%0Aint+main()%0A%7B%0A++++rpp::source::from_callable(%26::getchar)%0A++++%7C+rpp::operators::repeat()%0A++++%7C+rpp::operators::take_while(%5B%5D(char+v)+%7B+return+v+!!%3D+!'0!'%3B+%7D)%0A++++%7C+rpp::operators::filter(std::not_fn(%26::isdigit))%0A++++%7C+rpp::operators::map(%26::toupper)%0A++++%7C+rpp::operators::subscribe(%5B%5D(char+v)+%7B+std::cout+%3C%3C+v%3B+%7D)%3B%0A++++return+0%3B%0A%7D'),l:'5',n:'1',o:'C%2B%2B+source+%231',t:'0')),k:60.849967804249836,l:'4',m:100,n:'0',o:'',s:0,t:'0'),(g:!((h:executor,i:(argsPanelShown:'1',compilationPanelShown:'0',compiler:g132,compilerName:'',compilerOutShown:'0',execArgs:'',execStdin:'He11lLo+%23@!!$+W%23oRl@123d+!!0001123W',fontScale:14,fontUsePx:'0',j:1,lang:c%2B%2B,libs:!((name:reactive_plus_plus,ver:v2)),options:'-std%3Dc%2B%2B20',overrides:!(),runtimeTools:!(),source:1,stdinPanelShown:'0',wrap:'1'),l:'5',n:'0',o:'Executor+x86-64+gcc+13.2+(C%2B%2B,+Editor+%231)',t:'0')),header:(),k:39.150032195750164,l:'4',n:'0',o:'',s:0,t:'0')),l:'2',n:'0',o:'',t:'0')),version:4)
 
-There we are creating observable (soure of emissions/values/data) to emit value via invoking of `getchar` function, `repeat`-ing it infinite amount of time till termination event happening. It emits values while symbol is not equal to `0`, takeing only **not** digits, maping them to upper case and then just printing to console.
+There we are creating observable (soure of emissions/values/data) to emit value via invoking of `getchar` function, `repeat`-ing it infinite amount of time till termination event happening. It emits values while symbol is not equal to `0`, taking only **not** digits, maping them to upper case and then just printing to console.
 
 
 Also RPP supports QT out of box. Checkout [RPPQT reference](https://victimsnino.github.io/ReactivePlusPlus/v2/docs/html/group__rppqt.html). For example:
@@ -55,15 +55,11 @@ rppqt::source::from_signal(*button, &QPushButton::clicked); // <------ react on 
 
 ## What about existing Reactive Extension libraries for C++?
 
-Reactive programming is excelent programming paradigm and approach for creation of multi-threading and real-time programs which reacts on some events. Unfortunately, there is only one stable and fully-implemented library at the moment of creation of ReactivePlusPlus - [RxCpp](https://github.com/ReactiveX/RxCpp).
+Reactive programming is a powerful paradigm for creating multi-threaded and real-time applications. Unfortunately, at the moment of creating ReactivePlusPlus, there is only one stable and fully-implemented library available - [RxCpp](https://github.com/ReactiveX/RxCpp).
 
-[RxCpp](https://github.com/ReactiveX/RxCpp) is great and awesome library and perfect implementation of ReactiveX approach. However RxCpp has some disadvantages:
-- It is a bit **"old" library written in C++11** with some parts written in the **pre-C++11 style** (mess of old-style classes and wrappers)
-- **Issue** with **template parameters**:  `rxcpp::observable` contains **full chain of operators** as second template parameter... where each operator has a bunch of another template parameters itself. It forces **IDEs** works **slower** while parsing resulting type of observable. Also it forces to generate **heavier binaries and debug symbols and slower build time**.
-- It has high perfomance cost due to tremendous amount of usage of heap.
-- Some parts of code written with non-effective logic
+While RxCpp is a great and powerful library, it has some disadvantages. It is written in C++11 and contains parts written in pre-C++11 style. This leads to a mess of old-style classes and wrappers. Additionally, the `rxcpp::observable` type has a long chain of template parameters, which can lead to slower IDE performance and larger binaries. Sometimes it has bad perfomance due to tremendous amount of usage of heap or just non-effective logic.
 
-Another implementation of RX for c++: [another-rxcpp](https://github.com/CODIANZ/another-rxcpp). It partly solves issues of RxCpp via **eliminating of template parameter**  with help of **type-erasing** and making each callback as `std::function`. As a result issue with templates resvoled, but this approach has disadvantages related to runtime: resulting size of observers/observables becomes greater due to heavy `std::function` object, usage of heap for storing everything causes perfomance issues, implementation is just pretty simple and provides a lot of copies of passed objects.
+Another implementation is [another-rxcpp](https://github.com/CODIANZ/another-rxcpp) which uses type erasure and `std::function`, but itt casues larger observer/observable size and potentially casues performance issues.
 
 ### Why ReactivePlusPlus?
 
@@ -76,18 +72,7 @@ Another implementation of RX for c++: [another-rxcpp](https://github.com/CODIANZ
 
 Currently ReactivePlusPlus is still under development but it has a lot of implemented operators for now. List of implemented features can be found in [API Reference](https://victimsnino.github.io/ReactivePlusPlus/v2/docs/html/group__rpp.html) with very detailed documentation for each of them.
 
-Main advantages of ReactivePlusPlus are that it is written in Modern C++ with Performance and Usage in mind. v2 written to follow zero-overhead principle As a result it is fast, readable, easy to use and well-documented. And it is proven with [continous benchmarking results of v2 and comparison with RxCpp](https://victimsnino.github.io/ReactivePlusPlus/v2/benchmark)
-
-## Note about `v2`:
-Currently I'm working on RPP v2 (`v2` branch). RPP v2 follows [**"zero-overhead principle"**](https://en.cppreference.com/w/cpp/language/Zero-overhead_principle) and most of the operators are (and will) minimize overhead.
-
-**How?** Due to elimination of heap allocations and avoiding unnecessary things. During implementatuon of `v1` I've found a lot of cases where RPP does unnecessary expensive things. As a result, `v2` does only required things and nothing else.
-
-For example, `v1`'s `create+map+subscribe` spends about `63.7768ns`, while `v2` is about `0.4ns`.
-
-v2 started from the scratch, so, each operator would be re-implemented from the scratch too. Implementation status can be tracked in [#324](https://github.com/victimsnino/ReactivePlusPlus/issues/324)
-
-You still can use previous implementation. It placed in `v1` branch
+Main advantages of ReactivePlusPlus are that it is written in Modern C++ with Performance and Usage in mind. v2 written to follow [**"zero-overhead principle"**](https://en.cppreference.com/w/cpp/language/Zero-overhead_principle) As a result it is fast, readable, easy to use and well-documented. And it is proven with [continous benchmarking results of v2 and comparison with RxCpp](https://victimsnino.github.io/ReactivePlusPlus/v2/benchmark)
 
 ## Usage
 
@@ -103,7 +88,7 @@ If you are going to know more details about developing for RPP check [HACKING](H
 
 ## Documentation:
 
-Check [User Guide](https://victimsnino.github.io/ReactivePlusPlus/v2/docs/html/md_docs_2readme.html) and [API Reference of RPP](https://victimsnino.github.io/ReactivePlusPlus/v2/docs/html/group__rpp.html).
+Check [User Guide/Tutorial](https://victimsnino.github.io/ReactivePlusPlus/v2/docs/html/md_docs_2readme.html) and [API Reference of RPP](https://victimsnino.github.io/ReactivePlusPlus/v2/docs/html/group__rpp.html).
 
 
 # Useful links
