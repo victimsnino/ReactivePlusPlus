@@ -223,12 +223,14 @@ TEST_CASE("take_until doesn't produce extra copies")
 
 TEST_CASE("take_until satisfies disposable contracts")
 {
-    test_operator_with_disposable<int>(rpp::ops::take_until(rpp::source::never<int>()));
-    test_operator_with_disposable<int>(rpp::ops::take_until(rpp::source::empty<int>()));
-    test_operator_finish_before_dispose<int>(rpp::ops::take_until(rpp::source::empty<int>()));
-    test_operator_over_observable_finish_before_dispose<int>([](const auto& ob) {
-        return rpp::source::never<int>() | rpp::ops::take_until(ob);
-    });
+    SUBCASE("take_until(never)")
+        test_operator_with_disposable<int>(rpp::ops::take_until(rpp::source::never<int>()));
+    SUBCASE("take_until(empty)")
+        test_operator_finish_before_dispose<int>(rpp::ops::take_until(rpp::source::empty<int>()));
+    SUBCASE("never | take_until(ob)")
+        test_operator_over_observable_finish_before_dispose<int>([](const auto& ob) {
+            return rpp::source::never<int>() | rpp::ops::take_until(ob);
+        });
 }
 
 TEST_CASE("take_until dispose after completion")
