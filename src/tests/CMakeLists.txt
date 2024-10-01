@@ -14,7 +14,7 @@ macro(add_test_target target_name module files)
   set(TARGET ${target_name})
 
   add_executable(${TARGET} ${files})
-  target_link_libraries(${TARGET} PRIVATE doctest trompeloeil::trompeloeil rpp_tests_utils ${module})
+  target_link_libraries(${TARGET} PRIVATE doctest::doctest trompeloeil::trompeloeil rpp_tests_utils ${module})
   target_compile_definitions(${TARGET} PRIVATE "DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN")
   set_target_properties(${TARGET} PROPERTIES FOLDER Tests/Suites/${module})
 
