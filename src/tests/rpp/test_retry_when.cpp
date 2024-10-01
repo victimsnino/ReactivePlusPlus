@@ -287,7 +287,8 @@ TEST_CASE("retry_when satisfies disposable contracts")
 
     test_operator_over_observable_with_disposable<int>(
         [](auto observable) {
+            auto c = std::make_shared<size_t>();
             return rpp::source::concat(observable, rpp::source::error<int>(std::make_exception_ptr(std::runtime_error{"error"})))
-                 | rpp::ops::retry_when([](const std::exception_ptr&) { return rpp::source::just(1); });
+                 | rpp::ops::retry_when([c](const std::exception_ptr&) -> rpp::dynamic_observable<int> {  if ((*c)++ ==0) return rpp::source::just(1); return rpp::source::empty<int>(); });
         });
 }
