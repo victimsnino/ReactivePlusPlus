@@ -126,6 +126,8 @@ jobs:
       uses: lukka/run-cmake@v10
       with:
         configurePreset: ci-ubuntu-clang-tests-no-checks
+        buildPreset: ci-build
+        testPreset: ci-tests
 
     - name: Process coverage info
       run: cmake --build build -t coverage
