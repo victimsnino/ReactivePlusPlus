@@ -25,14 +25,6 @@ jobs:
         repository: ${{ github.event.workflow_run.head_repository.full_name }}
         ref: ${{ github.event.workflow_run.head_branch }}
 
-    # Work around https://github.com/actions/runner-images/issues/8659
-    # - name: "Remove GCC 13 from runner image (workaround)"
-    #   shell: bash
-    #   run: |
-    #       sudo apt-get update
-    #       sudo apt-get purge -y g++-13 gcc-13 libstdc++-13-dev
-    #       sudo apt-get install -y --allow-downgrades libstdc++-12-dev libstdc++6=12.* libgcc-s1=12.*
-
     - name: Install Qt
       uses: jurplel/install-qt-action@v4
       with:
@@ -93,9 +85,6 @@ jobs:
 
     if: github.repository_owner == 'victimsnino' && github.event.workflow_run.conclusion == 'success'
 
-    env:
-        BUILD_WRAPPER_OUT_DIR: build_wrapper_output_directory # Directory where build-wrapper output will be placed
-
     steps:
     - uses: haya14busa/action-workflow_run-status@main
 
@@ -105,14 +94,6 @@ jobs:
         fetch-depth: 0
         repository: ${{ github.event.workflow_run.head_repository.full_name }}
         ref: ${{ github.event.workflow_run.head_branch }}
-
-    # Work around https://github.com/actions/runner-images/issues/8659
-    # - name: "Remove GCC 13 from runner image (workaround)"
-    #   shell: bash
-    #   run: |
-    #       sudo apt-get update
-    #       sudo apt-get purge -y g++-13 gcc-13 libstdc++-13-dev
-    #       sudo apt-get install -y --allow-downgrades libstdc++-12-dev libstdc++6=12.* libgcc-s1=12.*
 
     - name: Install llvm
       run: sudo apt-get update -q && sudo apt-get install llvm -q -y
@@ -141,12 +122,10 @@ jobs:
     - name:  Install sonar-scanner and build-wrapper
       uses: sonarsource/sonarcloud-github-c-cpp@v3
 
-    - name: Run build-wrapper
-      run: |
-        mkdir build
-        cmake --preset=ci-coverage-clang
-        build-wrapper-linux-x86-64 --out-dir ${{ env.BUILD_WRAPPER_OUT_DIR }} cmake --build --preset=ci-build
-        ctest --preset=ci-tests
+    - name: Run CMake
+      uses: lukka/run-cmake@v10
+      with:
+        configurePreset: ci-ubuntu-clang-tests-no-checks
 
     - name: Process coverage info
       run: cmake --build build -t coverage
@@ -173,8 +152,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       run: |
-        sonar-scanner --define sonar.cfamily.build-wrapper-output="${{ env.BUILD_WRAPPER_OUT_DIR }}" --define sonar.scm.revision=${{ github.event.workflow_run.head_sha }}
-
+        sonar-scanner --define sonar.scm.revision=${{ github.event.workflow_run.head_sha }}
 
     - name: Run sonar-scanner on PullRequest
       if: github.event.workflow_run.event == 'pull_request'
@@ -182,4 +160,4 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       run: |
-        sonar-scanner --define sonar.cfamily.build-wrapper-output="${{ env.BUILD_WRAPPER_OUT_DIR }}" --define sonar.scm.revision=${{ github.event.workflow_run.head_sha }} --define sonar.pullrequest.key=${{ steps.source-run-info.outputs.pullRequestNumber }} --define sonar.pullrequest.branch=${{ steps.source-run-info.outputs.sourceHeadBranch }} --define sonar.pullrequest.base=${{ steps.source-run-info.outputs.targetBranch }}
+        sonar-scanner --define sonar.scm.revision=${{ github.event.workflow_run.head_sha }} --define sonar.pullrequest.key=${{ steps.source-run-info.outputs.pullRequestNumber }} --define sonar.pullrequest.branch=${{ steps.source-run-info.outputs.sourceHeadBranch }} --define sonar.pullrequest.base=${{ steps.source-run-info.outputs.targetBranch }}
