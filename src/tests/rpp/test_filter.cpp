@@ -8,8 +8,7 @@
 // Project home: https://github.com/victimsnino/ReactivePlusPlus
 //
 
-#include <catch2/catch_template_test_macros.hpp>
-#include <catch2/catch_test_macros.hpp>
+#include <doctest/doctest.h>
 
 #include <rpp/observers/mock_observer.hpp>
 #include <rpp/operators/filter.hpp>
@@ -21,13 +20,13 @@
 #include <stdexcept>
 #include <string>
 
-TEMPLATE_TEST_CASE("filter", "", rpp::memory_model::use_stack, rpp::memory_model::use_shared)
+TEST_CASE_TEMPLATE("filter", TestType, rpp::memory_model::use_stack, rpp::memory_model::use_shared)
 {
     mock_observer_strategy<int> mock{};
 
     auto obs = rpp::source::just<TestType>(1, 2, 3, 4);
 
-    SECTION("filter emits only satisfying values")
+    SUBCASE("filter emits only satisfying values")
     {
         auto filter = rpp::operators::filter([](auto v) { return v % 2 == 0; });
         obs | filter | rpp::operators::subscribe(mock);
@@ -38,7 +37,7 @@ TEMPLATE_TEST_CASE("filter", "", rpp::memory_model::use_stack, rpp::memory_model
     }
 
 
-    SECTION("filter with exception value")
+    SUBCASE("filter with exception value")
     {
         obs | rpp::operators::filter([](int) -> bool { throw std::runtime_error{""}; }) | rpp::operators::subscribe(mock); // NOLINT
 
@@ -50,7 +49,7 @@ TEMPLATE_TEST_CASE("filter", "", rpp::memory_model::use_stack, rpp::memory_model
 
 TEST_CASE("filter doesn't produce extra copies")
 {
-    SECTION("filter([](copy_count_tracker){return true;})")
+    SUBCASE("filter([](copy_count_tracker){return true;})")
     {
         copy_count_tracker::test_operator(rpp::ops::filter([](copy_count_tracker) { return true; }), // NOLINT
                                           {
@@ -61,7 +60,7 @@ TEST_CASE("filter doesn't produce extra copies")
                                           });
     }
 
-    SECTION("filter([](const copy_count_tracker&){return false;})")
+    SUBCASE("filter([](const copy_count_tracker&){return false;})")
     {
         copy_count_tracker::test_operator(rpp::ops::filter([](const copy_count_tracker&) { return false; }),
                                           {.send_by_copy = {.copy_count = 0,

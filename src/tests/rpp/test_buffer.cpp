@@ -8,8 +8,7 @@
 // Project home: https://github.com/victimsnino/ReactivePlusPlus
 //
 
-#include <catch2/catch_template_test_macros.hpp>
-#include <catch2/catch_test_macros.hpp>
+#include <doctest/doctest.h>
 
 #include <rpp/observables/dynamic_observable.hpp>
 #include <rpp/operators/buffer.hpp>
@@ -25,10 +24,10 @@ TEST_CASE("buffer bundles items")
     trompeloeil::sequence s{};
     auto                  mock = mock_observer<std::vector<int>>{};
 
-    SECTION("observable of -1-2-3-|")
+    SUBCASE("observable of -1-2-3-|")
     {
         auto obs = rpp::source::just(1, 2, 3);
-        SECTION("buffer(0) - shall see -{1}-{2}-{3}-|")
+        SUBCASE("buffer(0) - shall see -{1}-{2}-{3}-|")
         {
             REQUIRE_CALL(*mock, on_next_rvalue(std::vector{1})).IN_SEQUENCE(s);
             REQUIRE_CALL(*mock, on_next_rvalue(std::vector{2})).IN_SEQUENCE(s);
@@ -37,7 +36,7 @@ TEST_CASE("buffer bundles items")
 
             obs | rpp::ops::buffer(0) | rpp::ops::subscribe(mock);
         }
-        SECTION("buffer(1) - shall see -{1}-{2}-{3}-|")
+        SUBCASE("buffer(1) - shall see -{1}-{2}-{3}-|")
         {
             REQUIRE_CALL(*mock, on_next_rvalue(std::vector{1})).IN_SEQUENCE(s);
             REQUIRE_CALL(*mock, on_next_rvalue(std::vector{2})).IN_SEQUENCE(s);
@@ -47,7 +46,7 @@ TEST_CASE("buffer bundles items")
             obs | rpp::ops::buffer(1)
                 | rpp::ops::subscribe(mock);
         }
-        SECTION("buffer(2) - shall see -{1,2}-{3}|")
+        SUBCASE("buffer(2) - shall see -{1,2}-{3}|")
         {
             REQUIRE_CALL(*mock, on_next_rvalue(std::vector{1, 2})).IN_SEQUENCE(s);
             REQUIRE_CALL(*mock, on_next_rvalue(std::vector{3})).IN_SEQUENCE(s);
@@ -56,7 +55,7 @@ TEST_CASE("buffer bundles items")
             obs | rpp::ops::buffer(2)
                 | rpp::ops::subscribe(mock);
         }
-        SECTION("buffer(3) - shall see -{1,2,3}-|")
+        SUBCASE("buffer(3) - shall see -{1,2,3}-|")
         {
             REQUIRE_CALL(*mock, on_next_rvalue(std::vector{1, 2, 3})).IN_SEQUENCE(s);
             REQUIRE_CALL(*mock, on_completed()).IN_SEQUENCE(s);
@@ -64,7 +63,7 @@ TEST_CASE("buffer bundles items")
             obs | rpp::ops::buffer(3)
                 | rpp::ops::subscribe(mock);
         }
-        SECTION("buffer(4) - shall see -{1,2,3}-|")
+        SUBCASE("buffer(4) - shall see -{1,2,3}-|")
         {
             REQUIRE_CALL(*mock, on_next_rvalue(std::vector{1, 2, 3})).IN_SEQUENCE(s);
             REQUIRE_CALL(*mock, on_completed()).IN_SEQUENCE(s);
@@ -74,13 +73,13 @@ TEST_CASE("buffer bundles items")
         }
     }
 
-    SECTION("observable of -1-x-2-|, which error is raised in the middle")
+    SUBCASE("observable of -1-x-2-|, which error is raised in the middle")
     {
         auto obs = rpp::source::just(rpp::source::just(1).as_dynamic(),
                                      rpp::source::error<int>(std::make_exception_ptr(std::runtime_error{""})).as_dynamic(),
                                      rpp::source::just(2).as_dynamic())
                  | rpp::ops::merge();
-        SECTION("buffer(0) - shall see -{1}-x, which means error event is through")
+        SUBCASE("buffer(0) - shall see -{1}-x, which means error event is through")
         {
             REQUIRE_CALL(*mock, on_next_rvalue(std::vector{1})).IN_SEQUENCE(s);
             REQUIRE_CALL(*mock, on_error(trompeloeil::_)).IN_SEQUENCE(s);
@@ -88,7 +87,7 @@ TEST_CASE("buffer bundles items")
             obs | rpp::ops::buffer(0)
                 | rpp::ops::subscribe(mock);
         }
-        SECTION("buffer(1) - shall see -{1}-x, which means error event is through")
+        SUBCASE("buffer(1) - shall see -{1}-x, which means error event is through")
         {
             REQUIRE_CALL(*mock, on_next_rvalue(std::vector{1})).IN_SEQUENCE(s);
             REQUIRE_CALL(*mock, on_error(trompeloeil::_)).IN_SEQUENCE(s);
@@ -96,7 +95,7 @@ TEST_CASE("buffer bundles items")
             obs | rpp::ops::buffer(1)
                 | rpp::ops::subscribe(mock);
         }
-        SECTION("buffer(2) - shall see --x, which means error event is through")
+        SUBCASE("buffer(2) - shall see --x, which means error event is through")
         {
             REQUIRE_CALL(*mock, on_error(trompeloeil::_)).IN_SEQUENCE(s);
 
@@ -104,7 +103,7 @@ TEST_CASE("buffer bundles items")
                 | rpp::ops::subscribe(mock);
         }
     }
-    SECTION("accept by moving")
+    SUBCASE("accept by moving")
     {
         REQUIRE_CALL(*mock, on_next_rvalue(std::vector{1, 2})).IN_SEQUENCE(s);
         REQUIRE_CALL(*mock, on_next_rvalue(std::vector{3, 4})).IN_SEQUENCE(s);

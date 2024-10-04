@@ -8,8 +8,7 @@
 // Project home: https://github.com/victimsnino/ReactivePlusPlus
 //
 
-#include <catch2/catch_template_test_macros.hpp>
-#include <catch2/catch_test_macros.hpp>
+#include <doctest/doctest.h>
 
 #include <rpp/observers/mock_observer.hpp>
 #include <rpp/operators/as_blocking.hpp>
@@ -28,17 +27,17 @@ TEST_CASE("interval emit values with provided interval")
     auto scheduler = rpp::schedulers::test_scheduler{};
     auto mock      = mock_observer_strategy<size_t>{};
 
-    SECTION("interval observable")
+    SUBCASE("interval observable")
     {
         auto interval     = std::chrono::seconds{1};
         auto obs          = rpp::source::interval(interval, scheduler);
         auto initial_time = rpp::schedulers::test_scheduler::worker_strategy::now();
 
-        SECTION("subscribe on it via take 3")
+        SUBCASE("subscribe on it via take 3")
         {
             obs | rpp::ops::take(3) | rpp::ops::subscribe(mock);
 
-            SECTION("nothing happens immediately till scheduler advanced")
+            SUBCASE("nothing happens immediately till scheduler advanced")
             {
                 CHECK(mock.get_received_values() == std::vector<size_t>{});
                 CHECK(mock.get_on_error_count() == 0);
@@ -47,37 +46,37 @@ TEST_CASE("interval emit values with provided interval")
                 CHECK(scheduler.get_executions().empty());
             }
 
-            SECTION("move time in advance on interval once")
+            SUBCASE("move time in advance on interval once")
             {
                 scheduler.time_advance(interval);
 
-                SECTION("observer obtains first value")
+                SUBCASE("observer obtains first value")
                 {
                     CHECK(mock.get_received_values() == std::vector<size_t>{0});
                     CHECK(mock.get_on_error_count() == 0);
                     CHECK(mock.get_on_completed_count() == 0);
                 }
 
-                SECTION("interval schedules schedulable with provided interval")
+                SUBCASE("interval schedules schedulable with provided interval")
                 {
                     CHECK(scheduler.get_schedulings() == std::vector{initial_time + interval, initial_time + 2 * interval});
                     CHECK(scheduler.get_executions() == std::vector{initial_time + interval});
                 }
             }
 
-            SECTION("move time in advance on interval enough amount of time")
+            SUBCASE("move time in advance on interval enough amount of time")
             {
                 for (size_t i = 0; i < 5; ++i)
                     scheduler.time_advance(interval);
 
-                SECTION("observer obtains sequence of values")
+                SUBCASE("observer obtains sequence of values")
                 {
                     CHECK(mock.get_received_values() == std::vector<size_t>{0, 1, 2});
                     CHECK(mock.get_on_error_count() == 0);
                     CHECK(mock.get_on_completed_count() == 1);
                 }
 
-                SECTION("interval schedules schedulable with provided interval")
+                SUBCASE("interval schedules schedulable with provided interval")
                 {
                     CHECK(scheduler.get_executions() == std::vector{initial_time + interval, initial_time + 2 * interval, initial_time + 3 * interval});
                     CHECK(scheduler.get_schedulings() == std::vector{initial_time + interval, initial_time + 2 * interval, initial_time + 3 * interval});
@@ -86,18 +85,18 @@ TEST_CASE("interval emit values with provided interval")
         }
     }
 
-    SECTION("interval observable with initial delay duration")
+    SUBCASE("interval observable with initial delay duration")
     {
         auto initial_delay = std::chrono::seconds{2};
         auto interval      = std::chrono::seconds{1};
         auto obs           = rpp::source::interval(initial_delay, interval, scheduler);
         auto initial_time  = rpp::schedulers::test_scheduler::worker_strategy::now();
 
-        SECTION("subscribe on it via take 3")
+        SUBCASE("subscribe on it via take 3")
         {
             obs | rpp::ops::take(3) | rpp::ops::subscribe(mock);
 
-            SECTION("nothing happens immediately till scheduler advanced")
+            SUBCASE("nothing happens immediately till scheduler advanced")
             {
                 CHECK(mock.get_received_values() == std::vector<size_t>{});
                 CHECK(mock.get_on_error_count() == 0);
@@ -106,20 +105,20 @@ TEST_CASE("interval emit values with provided interval")
                 CHECK(scheduler.get_executions().empty());
             }
 
-            SECTION("move time in advance on interval enough amount of time")
+            SUBCASE("move time in advance on interval enough amount of time")
             {
                 for (size_t i = 0; i < 5; ++i)
                     scheduler.time_advance(interval);
                 scheduler.time_advance(interval);
 
-                SECTION("observer obtains sequence of values")
+                SUBCASE("observer obtains sequence of values")
                 {
                     CHECK(mock.get_received_values() == std::vector<size_t>{0, 1, 2});
                     CHECK(mock.get_on_error_count() == 0);
                     CHECK(mock.get_on_completed_count() == 1);
                 }
 
-                SECTION("interval schedules schedulable with provided interval")
+                SUBCASE("interval schedules schedulable with provided interval")
                 {
                     CHECK(scheduler.get_schedulings() == std::vector{initial_time + initial_delay, initial_time + initial_delay + interval, initial_time + initial_delay + 2 * interval});
                     CHECK(scheduler.get_executions() == std::vector{initial_time + initial_delay, initial_time + initial_delay + interval, initial_time + initial_delay + 2 * interval});
@@ -128,19 +127,19 @@ TEST_CASE("interval emit values with provided interval")
         }
     }
 
-    SECTION("interval observable with initial delay time_point")
+    SUBCASE("interval observable with initial delay time_point")
     {
         auto when          = std::chrono::seconds{2};
         auto initial_delay = scheduler.now() + when;
         auto interval      = std::chrono::seconds{1};
         auto obs           = rpp::source::interval(initial_delay, interval, scheduler);
 
-        SECTION("subscribe")
+        SUBCASE("subscribe")
         {
             scheduler.time_advance(when * 2);
             obs | rpp::ops::take(1) | rpp::ops::subscribe(mock);
 
-            SECTION("expect value as initial_delay time_point is in the past")
+            SUBCASE("expect value as initial_delay time_point is in the past")
             {
                 CHECK(mock.get_received_values() == std::vector<size_t>{0});
                 CHECK(mock.get_on_error_count() == 0);

@@ -8,8 +8,7 @@
 // Project home: https://github.com/victimsnino/ReactivePlusPlus
 //
 
-#include <catch2/catch_template_test_macros.hpp>
-#include <catch2/catch_test_macros.hpp>
+#include <doctest/doctest.h>
 
 #include <rpp/observers/mock_observer.hpp>
 #include <rpp/operators/scan.hpp>
@@ -19,61 +18,61 @@
 #include "disposable_observable.hpp"
 
 
-TEMPLATE_TEST_CASE("scan scans values and store state", "", rpp::memory_model::use_stack, rpp::memory_model::use_shared)
+TEST_CASE_TEMPLATE("scan scans values and store state", TestType, rpp::memory_model::use_stack, rpp::memory_model::use_shared)
 {
     auto obs = rpp::source::just<TestType>(1, 2, 3);
 
-    SECTION("subscribe on it via scan with plus")
+    SUBCASE("subscribe on it via scan with plus")
     {
         auto mock = mock_observer_strategy<int>{};
 
         obs | rpp::operators::scan(10, std::plus<int>{}) | rpp::operators::subscribe(mock);
-        SECTION("observer obtains partial sums")
+        SUBCASE("observer obtains partial sums")
         {
             CHECK(mock.get_received_values() == std::vector{10, 11, 13, 16});
             CHECK(mock.get_on_error_count() == 0);
             CHECK(mock.get_on_completed_count() == 1);
         }
     }
-    SECTION("subscribe on it via scan with plus with no seed")
+    SUBCASE("subscribe on it via scan with plus with no seed")
     {
         auto mock = mock_observer_strategy<int>{};
 
         obs | rpp::operators::scan(std::plus<int>{}) | rpp::operators::subscribe(mock);
-        SECTION("observer obtains partial sums")
+        SUBCASE("observer obtains partial sums")
         {
             CHECK(mock.get_received_values() == std::vector{1, 3, 6});
             CHECK(mock.get_on_error_count() == 0);
             CHECK(mock.get_on_completed_count() == 1);
         }
     }
-    SECTION("subscribe on it via scan as lvalue with plus")
+    SUBCASE("subscribe on it via scan as lvalue with plus")
     {
         auto mock = mock_observer_strategy<int>{};
 
         auto op = rpp::operators::scan(10, std::plus<int>{});
         obs | op | rpp::operators::subscribe(mock);
-        SECTION("observer obtains partial sums")
+        SUBCASE("observer obtains partial sums")
         {
             CHECK(mock.get_received_values() == std::vector{10, 11, 13, 16});
             CHECK(mock.get_on_error_count() == 0);
             CHECK(mock.get_on_completed_count() == 1);
         }
     }
-    SECTION("subscribe on it via scan with plus as lvalue with no seed")
+    SUBCASE("subscribe on it via scan with plus as lvalue with no seed")
     {
         auto mock = mock_observer_strategy<int>{};
 
         auto op = rpp::operators::scan(std::plus<int>{});
         obs | op | rpp::operators::subscribe(mock);
-        SECTION("observer obtains partial sums")
+        SUBCASE("observer obtains partial sums")
         {
             CHECK(mock.get_received_values() == std::vector{1, 3, 6});
             CHECK(mock.get_on_error_count() == 0);
             CHECK(mock.get_on_completed_count() == 1);
         }
     }
-    SECTION("subscribe on it via scan with aggregating in vector")
+    SUBCASE("subscribe on it via scan with aggregating in vector")
     {
         auto mock = mock_observer_strategy<std::vector<int>>{};
 
@@ -85,14 +84,14 @@ TEMPLATE_TEST_CASE("scan scans values and store state", "", rpp::memory_model::u
                                    })
             | rpp::operators::subscribe(mock);
 
-        SECTION("observer obtains partial vectors")
+        SUBCASE("observer obtains partial vectors")
         {
             CHECK(mock.get_received_values() == std::vector{std::vector<int>{}, std::vector{1}, std::vector{1, 2}, std::vector{1, 2, 3}});
             CHECK(mock.get_on_error_count() == 0);
             CHECK(mock.get_on_completed_count() == 1);
         }
     }
-    SECTION("subscribe on it via scan with exception")
+    SUBCASE("subscribe on it via scan with exception")
     {
         auto mock = mock_observer_strategy<int>{};
 
@@ -103,14 +102,14 @@ TEMPLATE_TEST_CASE("scan scans values and store state", "", rpp::memory_model::u
             throw std::runtime_error{""};
         }) | rpp::operators::subscribe(mock);
 
-        SECTION("observer obtains only on_error")
+        SUBCASE("observer obtains only on_error")
         {
             CHECK(mock.get_received_values() == std::vector{0});
             CHECK(mock.get_on_error_count() == 1);
             CHECK(mock.get_on_completed_count() == 0);
         }
     }
-    SECTION("subscribe on it via scan with exception with no seed")
+    SUBCASE("subscribe on it via scan with exception with no seed")
     {
         auto mock = mock_observer_strategy<int>{};
 
@@ -122,7 +121,7 @@ TEMPLATE_TEST_CASE("scan scans values and store state", "", rpp::memory_model::u
         })
             | rpp::operators::subscribe(mock);
 
-        SECTION("observer obtains only on_error")
+        SUBCASE("observer obtains only on_error")
         {
             CHECK(mock.get_received_values() == std::vector{1});
             CHECK(mock.get_on_error_count() == 1);
@@ -133,9 +132,9 @@ TEMPLATE_TEST_CASE("scan scans values and store state", "", rpp::memory_model::u
 
 TEST_CASE("scan doesn't produce extra copies")
 {
-    SECTION("scan([](verifier&& seed, auto&& v){return forward(v); }")
+    SUBCASE("scan([](verifier&& seed, auto&& v){return forward(v); }")
     {
-        SECTION("send value by copy")
+        SUBCASE("send value by copy")
         {
             copy_count_tracker tracker{};
             tracker.get_observable(2) | rpp::ops::scan([](copy_count_tracker&&, auto&& value) { return std::forward<decltype(value)>(value); }) | rpp::ops::subscribe([](copy_count_tracker) {}); // NOLINT
@@ -147,7 +146,7 @@ TEST_CASE("scan doesn't produce extra copies")
             CHECK(tracker.get_move_count() == 1);
         }
 
-        SECTION("send value by move")
+        SUBCASE("send value by move")
         {
             copy_count_tracker tracker{};
             tracker.get_observable_for_move(2) | rpp::ops::scan([](copy_count_tracker&&, auto&& value) { return std::forward<decltype(value)>(value); }) | rpp::ops::subscribe([](copy_count_tracker) {}); // NOLINT

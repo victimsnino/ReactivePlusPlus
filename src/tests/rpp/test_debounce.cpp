@@ -8,8 +8,7 @@
 // Project home: https://github.com/victimsnino/ReactivePlusPlus
 //
 
-#include <catch2/catch_template_test_macros.hpp>
-#include <catch2/catch_test_macros.hpp>
+#include <doctest/doctest.h>
 
 #include <rpp/observers/mock_observer.hpp>
 #include <rpp/operators/debounce.hpp>
@@ -26,16 +25,16 @@ TEST_CASE("debounce emit only items where timeout reached")
     rpp::schedulers::test_scheduler scheduler{};
     auto                            start = rpp::schedulers::test_scheduler::s_current_time;
 
-    SECTION("subject of items and subscriber subscribed on it via debounce")
+    SUBCASE("subject of items and subscriber subscribed on it via debounce")
     {
         auto                                               mock = mock_observer_strategy<int>{};
         std::optional<rpp::subjects::publish_subject<int>> optional_subj{rpp::subjects::publish_subject<int>{}};
         auto&                                              subj = optional_subj.value();
         subj.get_observable() | rpp::ops::debounce(debounce_delay, scheduler) | rpp::ops::subscribe(mock);
-        SECTION("emit value")
+        SUBCASE("emit value")
         {
             subj.get_observer().on_next(1);
-            SECTION("delay scheduled action to track period")
+            SUBCASE("delay scheduled action to track period")
             {
                 CHECK(scheduler.get_schedulings() == std::vector{start + debounce_delay});
                 CHECK(scheduler.get_executions().empty());
@@ -43,10 +42,10 @@ TEST_CASE("debounce emit only items where timeout reached")
                 CHECK(mock.get_on_error_count() == 0);
                 CHECK(mock.get_on_completed_count() == 0);
             }
-            SECTION("scheduler reached delayed time")
+            SUBCASE("scheduler reached delayed time")
             {
                 scheduler.time_advance(debounce_delay);
-                SECTION("emission reached mock")
+                SUBCASE("emission reached mock")
                 {
                     CHECK(scheduler.get_schedulings() == std::vector{start + debounce_delay});
                     CHECK(scheduler.get_executions() == std::vector{start + debounce_delay});
@@ -55,10 +54,10 @@ TEST_CASE("debounce emit only items where timeout reached")
                     CHECK(mock.get_on_completed_count() == 0);
                 }
             }
-            SECTION("emit on completed")
+            SUBCASE("emit on completed")
             {
                 subj.get_observer().on_completed();
-                SECTION("emission reached mock with on completed without schedulable exection")
+                SUBCASE("emission reached mock with on completed without schedulable exection")
                 {
                     CHECK(scheduler.get_schedulings() == std::vector{start + debounce_delay});
                     CHECK(scheduler.get_executions().empty());
@@ -67,11 +66,11 @@ TEST_CASE("debounce emit only items where timeout reached")
                     CHECK(mock.get_on_completed_count() == 1);
                 }
             }
-            SECTION("new value emitted before scheduler reached requested time")
+            SUBCASE("new value emitted before scheduler reached requested time")
             {
                 scheduler.time_advance(debounce_delay / 2);
                 subj.get_observer().on_next(2);
-                SECTION("nothing changed immediately")
+                SUBCASE("nothing changed immediately")
                 {
                     CHECK(scheduler.get_schedulings() == std::vector{start + debounce_delay});
                     CHECK(scheduler.get_executions().empty());
@@ -79,10 +78,10 @@ TEST_CASE("debounce emit only items where timeout reached")
                     CHECK(mock.get_on_error_count() == 0);
                     CHECK(mock.get_on_completed_count() == 0);
                 }
-                SECTION("scheduler reached originally requested time")
+                SUBCASE("scheduler reached originally requested time")
                 {
                     scheduler.time_advance(debounce_delay / 2);
-                    SECTION("delay re-schedule schedulable to new delay timepoint")
+                    SUBCASE("delay re-schedule schedulable to new delay timepoint")
                     {
                         CHECK(scheduler.get_schedulings() == std::vector{start + debounce_delay, start + debounce_delay / 2 + debounce_delay});
                         CHECK(scheduler.get_executions() == std::vector{start + debounce_delay});
@@ -90,10 +89,10 @@ TEST_CASE("debounce emit only items where timeout reached")
                         CHECK(mock.get_on_error_count() == 0);
                         CHECK(mock.get_on_completed_count() == 0);
                     }
-                    SECTION("scheduler reached delayed time")
+                    SUBCASE("scheduler reached delayed time")
                     {
                         scheduler.time_advance(debounce_delay / 2);
-                        SECTION("emission reached mock")
+                        SUBCASE("emission reached mock")
                         {
                             CHECK(scheduler.get_schedulings() == std::vector{start + debounce_delay, start + debounce_delay / 2 + debounce_delay});
                             CHECK(scheduler.get_executions() == std::vector{start + debounce_delay, start + debounce_delay / 2 + debounce_delay});
@@ -104,11 +103,11 @@ TEST_CASE("debounce emit only items where timeout reached")
                     }
                 }
             }
-            SECTION("subject destoryed and then schedulable reaches schedulable")
+            SUBCASE("subject destoryed and then schedulable reaches schedulable")
             {
                 optional_subj.reset();
                 scheduler.time_advance(debounce_delay);
-                SECTION("emission reached mock")
+                SUBCASE("emission reached mock")
                 {
                     CHECK(scheduler.get_schedulings() == std::vector{start + debounce_delay});
                     CHECK(scheduler.get_executions() == std::vector{start + debounce_delay});

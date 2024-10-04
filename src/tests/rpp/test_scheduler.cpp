@@ -8,8 +8,7 @@
 // Project home: https://github.com/victimsnino/ReactivePlusPlus
 //
 
-#include <catch2/catch_template_test_macros.hpp>
-#include <catch2/catch_test_macros.hpp>
+#include <doctest/doctest.h>
 
 #include <rpp/disposables/callback_disposable.hpp>
 #include <rpp/observers/dynamic_observer.hpp>
@@ -175,7 +174,7 @@ TEST_CASE("Immediate scheduler")
 
     size_t call_count{};
 
-    SECTION("immediate scheduler schedules and re-schedules action immediately")
+    SUBCASE("immediate scheduler schedules and re-schedules action immediately")
     {
         worker.schedule([&call_count](const auto&) -> rpp::schedulers::optional_delay_from_now {
             if (++call_count <= 1)
@@ -187,7 +186,7 @@ TEST_CASE("Immediate scheduler")
         CHECK(call_count == 2);
     }
 
-    SECTION("immediate scheduler schedules action with delay")
+    SUBCASE("immediate scheduler schedules action with delay")
     {
         auto now  = rpp::schedulers::clock_type::now();
         auto diff = std::chrono::milliseconds{500};
@@ -205,7 +204,7 @@ TEST_CASE("Immediate scheduler")
         REQUIRE(execute_time - now >= diff);
     }
 
-    SECTION("immediate scheduler re-schedules action at provided timepoint with duration")
+    SUBCASE("immediate scheduler re-schedules action at provided timepoint with duration")
     {
         std::vector<rpp::schedulers::time_point> executions{};
         std::chrono::milliseconds                diff = std::chrono::milliseconds{500};
@@ -221,7 +220,7 @@ TEST_CASE("Immediate scheduler")
         REQUIRE(executions[1] - executions[0] >= (diff - std::chrono::milliseconds(100)));
     }
 
-    SECTION("immediate scheduler re-schedules action at provided timepoint")
+    SUBCASE("immediate scheduler re-schedules action at provided timepoint")
     {
         std::vector<rpp::schedulers::time_point> executions{};
         std::chrono::milliseconds                diff = std::chrono::milliseconds{500};
@@ -237,7 +236,7 @@ TEST_CASE("Immediate scheduler")
         REQUIRE(executions[1] - executions[0] >= (diff - std::chrono::milliseconds(100)));
     }
 
-    SECTION("immediate scheduler with nesting scheduling should be like call-stack in a recursive order")
+    SUBCASE("immediate scheduler with nesting scheduling should be like call-stack in a recursive order")
     {
         std::vector<std::string> call_stack;
 
@@ -252,7 +251,7 @@ TEST_CASE("Immediate scheduler")
                 });
     }
 
-    SECTION("immediate scheduler with complex scheduling with delay should be like call-stack in a recursive order")
+    SUBCASE("immediate scheduler with complex scheduling with delay should be like call-stack in a recursive order")
     {
         std::vector<std::string> call_stack;
 
@@ -273,7 +272,7 @@ TEST_CASE("Immediate scheduler")
                     "Task 1 ends "s + execution_thread,
                 });
     }
-    SECTION("immediate scheduler with complex scheduling should be like call-stack in a recursive order")
+    SUBCASE("immediate scheduler with complex scheduling should be like call-stack in a recursive order")
     {
         std::vector<std::string> call_stack;
 
@@ -295,7 +294,7 @@ TEST_CASE("Immediate scheduler")
                 });
     }
 
-    SECTION("immediate scheduler does nothing with disposed observer")
+    SUBCASE("immediate scheduler does nothing with disposed observer")
     {
         d.dispose();
         worker.schedule([&call_count](const auto&) -> rpp::schedulers::optional_delay_from_now {
@@ -307,7 +306,7 @@ TEST_CASE("Immediate scheduler")
         CHECK(call_count == 0);
     }
 
-    SECTION("immediate scheduler does nothing with observer disposed during wait")
+    SUBCASE("immediate scheduler does nothing with observer disposed during wait")
     {
         worker.schedule(
             [&call_count, obs](const auto&) -> rpp::schedulers::optional_delay_from_now {
@@ -324,7 +323,7 @@ TEST_CASE("Immediate scheduler")
         CHECK(call_count == 1);
     }
 
-    SECTION("immediate scheduler does not reschedule after disposing inside schedulable")
+    SUBCASE("immediate scheduler does not reschedule after disposing inside schedulable")
     {
         worker.schedule([&call_count, &d](const auto&) -> rpp::schedulers::optional_delay_from_now {
             if (++call_count > 1)
@@ -336,19 +335,19 @@ TEST_CASE("Immediate scheduler")
         CHECK(call_count == 2);
     }
 
-    SECTION("immediate scheduler forwards any arguments")
+    SUBCASE("immediate scheduler forwards any arguments")
     {
         worker.schedule([](const auto&, int, const std::string&) { return rpp::schedulers::optional_delay_from_now{}; }, obs, int{}, std::string{});
     }
 
-    SECTION("error during schedulable")
+    SUBCASE("error during schedulable")
     {
         worker.schedule([](const auto&) -> rpp::schedulers::optional_delay_from_now { throw std::runtime_error{"test"}; }, obs);
         CHECK(mock_obs.get_on_error_count() == 1);
     }
 }
 
-TEMPLATE_TEST_CASE("queue_based scheduler", "", rpp::schedulers::current_thread, rpp::schedulers::new_thread, rpp::schedulers::thread_pool)
+TEST_CASE_TEMPLATE("queue_based scheduler", TestType, rpp::schedulers::current_thread, rpp::schedulers::new_thread, rpp::schedulers::thread_pool)
 {
     auto d        = rpp::composite_disposable_wrapper::make();
     auto mock_obs = mock_observer_strategy<int>{};
@@ -393,7 +392,7 @@ TEMPLATE_TEST_CASE("queue_based scheduler", "", rpp::schedulers::current_thread,
         };
     };
 
-    SECTION("scheduler schedules and re-schedules action immediately")
+    SUBCASE("scheduler schedules and re-schedules action immediately")
     {
         worker->schedule([&call_count](const auto&) -> rpp::schedulers::optional_delay_from_now {
             if (++call_count <= 1)
@@ -407,7 +406,7 @@ TEMPLATE_TEST_CASE("queue_based scheduler", "", rpp::schedulers::current_thread,
         CHECK(call_count == 2);
     }
 
-    SECTION("scheduler recursive scheduling")
+    SUBCASE("scheduler recursive scheduling")
     {
         worker->schedule([&call_count, worker](const auto& obs) -> rpp::schedulers::optional_delay_from_now {
             worker->schedule([&call_count](const auto&) -> rpp::schedulers::optional_delay_from_now {
@@ -425,7 +424,7 @@ TEMPLATE_TEST_CASE("queue_based scheduler", "", rpp::schedulers::current_thread,
         CHECK(call_count == 2);
     }
 
-    SECTION("scheduler recursive scheduling with original")
+    SUBCASE("scheduler recursive scheduling with original")
     {
         worker->schedule([&call_count, worker](const auto& obs) -> rpp::schedulers::optional_delay_from_now {
             worker->schedule([&call_count](const auto&) -> rpp::schedulers::optional_delay_from_now {
@@ -446,7 +445,7 @@ TEMPLATE_TEST_CASE("queue_based scheduler", "", rpp::schedulers::current_thread,
         CHECK(call_count == 3);
     }
 
-    SECTION("scheduler schedules action with delay")
+    SUBCASE("scheduler schedules action with delay")
     {
         auto now  = rpp::schedulers::clock_type::now();
         auto diff = std::chrono::milliseconds{500};
@@ -467,7 +466,7 @@ TEMPLATE_TEST_CASE("queue_based scheduler", "", rpp::schedulers::current_thread,
         REQUIRE(execute_time - now >= diff);
     }
 
-    SECTION("scheduler re-schedules action at provided timepoint")
+    SUBCASE("scheduler re-schedules action at provided timepoint")
     {
         std::vector<rpp::schedulers::time_point> executions{};
         std::chrono::milliseconds                diff = std::chrono::milliseconds{500};
@@ -485,7 +484,7 @@ TEMPLATE_TEST_CASE("queue_based scheduler", "", rpp::schedulers::current_thread,
         REQUIRE(executions[1] - executions[0] >= (diff - std::chrono::milliseconds(100)));
     }
 
-    SECTION("scheduler with nesting scheduling should defer actual execution of tasks")
+    SUBCASE("scheduler with nesting scheduling should defer actual execution of tasks")
     {
         std::vector<std::string> call_stack;
 
@@ -502,7 +501,7 @@ TEMPLATE_TEST_CASE("queue_based scheduler", "", rpp::schedulers::current_thread,
                 });
     }
 
-    SECTION("scheduler with complex scheduling should defer actual execution of tasks")
+    SUBCASE("scheduler with complex scheduling should defer actual execution of tasks")
     {
         std::vector<std::string> call_stack;
 
@@ -526,7 +525,7 @@ TEMPLATE_TEST_CASE("queue_based scheduler", "", rpp::schedulers::current_thread,
                 });
     }
 
-    SECTION("scheduler with complex scheduling with delay should defer actual execution of tasks")
+    SUBCASE("scheduler with complex scheduling with delay should defer actual execution of tasks")
     {
         std::vector<std::string> call_stack;
 
@@ -550,7 +549,7 @@ TEMPLATE_TEST_CASE("queue_based scheduler", "", rpp::schedulers::current_thread,
                 });
     }
 
-    SECTION("scheduler does nothing with disposed observer")
+    SUBCASE("scheduler does nothing with disposed observer")
     {
         d.dispose();
         worker->schedule([&call_count](const auto&) -> rpp::schedulers::optional_delay_from_now {
@@ -564,7 +563,7 @@ TEMPLATE_TEST_CASE("queue_based scheduler", "", rpp::schedulers::current_thread,
         CHECK(call_count == 0);
     }
 
-    SECTION("scheduler does nothing with recursive disposed observer")
+    SUBCASE("scheduler does nothing with recursive disposed observer")
     {
         worker->schedule([&call_count, d, worker](const auto& obs) -> rpp::schedulers::optional_delay_from_now {
             d.dispose();
@@ -583,7 +582,7 @@ TEMPLATE_TEST_CASE("queue_based scheduler", "", rpp::schedulers::current_thread,
         CHECK(call_count == 0);
     }
 
-    SECTION("scheduler does not reschedule after disposing inside schedulable")
+    SUBCASE("scheduler does not reschedule after disposing inside schedulable")
     {
         worker->schedule([&call_count, d](const auto&) -> rpp::schedulers::optional_delay_from_now {
             if (++call_count > 1)
@@ -597,7 +596,7 @@ TEMPLATE_TEST_CASE("queue_based scheduler", "", rpp::schedulers::current_thread,
         CHECK(call_count == 2);
     }
 
-    SECTION("scheduler does not reschedule after disposing inside recursive schedulable")
+    SUBCASE("scheduler does not reschedule after disposing inside recursive schedulable")
     {
         worker->schedule([&call_count, d, worker](const auto& obs) -> rpp::schedulers::optional_delay_from_now {
             worker->schedule([&call_count, d](const auto&) -> rpp::schedulers::optional_delay_from_now {
@@ -615,7 +614,7 @@ TEMPLATE_TEST_CASE("queue_based scheduler", "", rpp::schedulers::current_thread,
         CHECK(call_count == 2);
     }
 
-    SECTION("scheduler does not reschedule after disposing inside recursive schedulable")
+    SUBCASE("scheduler does not reschedule after disposing inside recursive schedulable")
     {
         worker->schedule([&call_count, d, worker](const auto& obs) -> rpp::schedulers::optional_delay_from_now {
             worker->schedule([&call_count, d](const auto&) -> rpp::schedulers::optional_delay_from_now {
@@ -633,7 +632,7 @@ TEMPLATE_TEST_CASE("queue_based scheduler", "", rpp::schedulers::current_thread,
         CHECK(call_count == 2);
     }
 
-    SECTION("scheduler does not dispatch schedulable after disposing of disposable")
+    SUBCASE("scheduler does not dispatch schedulable after disposing of disposable")
     {
         worker->schedule([&call_count, d, worker](const auto& obs) -> rpp::schedulers::optional_delay_from_now {
             ++call_count;
@@ -652,7 +651,7 @@ TEMPLATE_TEST_CASE("queue_based scheduler", "", rpp::schedulers::current_thread,
         CHECK(call_count == 1);
     }
 
-    SECTION("scheduler respects to time point")
+    SUBCASE("scheduler respects to time point")
     {
         std::vector<int> executions{};
         worker->schedule([&executions, worker](const auto& obs) -> rpp::schedulers::optional_delay_from_now {
@@ -677,12 +676,12 @@ TEMPLATE_TEST_CASE("queue_based scheduler", "", rpp::schedulers::current_thread,
         CHECK(executions == std::vector{1, 2, 3});
     }
 
-    SECTION("scheduler forwards any arguments")
+    SUBCASE("scheduler forwards any arguments")
     {
         worker->schedule([](const auto&, int, const std::string&) { return rpp::schedulers::optional_delay_from_now{}; }, obs.value(), int{}, std::string{});
     }
 
-    SECTION("error during schedulable")
+    SUBCASE("error during schedulable")
     {
         worker->schedule([](const auto&) -> rpp::schedulers::optional_delay_from_now { throw std::runtime_error{"test"}; }, obs.value());
 
@@ -691,7 +690,7 @@ TEMPLATE_TEST_CASE("queue_based scheduler", "", rpp::schedulers::current_thread,
         CHECK(mock_obs.get_on_error_count() == 1);
     }
 
-    SECTION("error during recursive schedulable")
+    SUBCASE("error during recursive schedulable")
     {
         worker->schedule([worker](const auto& obs) {
             worker->schedule([](const auto&) -> rpp::schedulers::optional_delay_from_now { throw std::runtime_error{"test"}; }, obs);
@@ -756,13 +755,15 @@ TEST_CASE("new_thread works till end")
         | rpp::operators::subscribe_on(rpp::schedulers::new_thread{})
         | rpp::operators::subscribe(mock);
 
-    CHECK(!last->is_satisfied());
+    const bool before = last->is_satisfied();
 
     wait(last);
 
     while (!done->load())
     {
     };
+
+    CHECK(!before);
 }
 
 TEST_CASE("run_loop scheduler dispatches tasks only manually")
@@ -772,7 +773,7 @@ TEST_CASE("run_loop scheduler dispatches tasks only manually")
     auto d         = rpp::composite_disposable_wrapper::make();
     auto obs       = mock_observer_strategy<int>{}.get_observer(d).as_dynamic();
 
-    SECTION("submit 3 tasks to run_loop")
+    SUBCASE("submit 3 tasks to run_loop")
     {
         size_t schedulable_1_executed_count{};
         size_t schedulable_2_executed_count{};
@@ -781,7 +782,7 @@ TEST_CASE("run_loop scheduler dispatches tasks only manually")
         worker.schedule([&](const auto&) -> rpp::schedulers::optional_delay_from_now {++schedulable_2_executed_count; d.dispose(); return {}; }, obs);
         worker.schedule([&](const auto&) -> rpp::schedulers::optional_delay_from_now {++schedulable_3_executed_count; return {}; }, obs);
 
-        SECTION("nothing happens but scheduler has schedulable to dispatch")
+        SUBCASE("nothing happens but scheduler has schedulable to dispatch")
         {
             CHECK(schedulable_1_executed_count == 0);
             CHECK(schedulable_2_executed_count == 0);
@@ -790,10 +791,10 @@ TEST_CASE("run_loop scheduler dispatches tasks only manually")
             CHECK(scheduler.is_empty() == false);
             CHECK(scheduler.is_any_ready_schedulable() == true);
         }
-        SECTION("call dispatch_if_ready")
+        SUBCASE("call dispatch_if_ready")
         {
             scheduler.dispatch_if_ready();
-            SECTION("only first schedulable dispatched")
+            SUBCASE("only first schedulable dispatched")
             {
                 CHECK(schedulable_1_executed_count == 1);
                 CHECK(schedulable_2_executed_count == 0);
@@ -802,10 +803,10 @@ TEST_CASE("run_loop scheduler dispatches tasks only manually")
                 CHECK(scheduler.is_empty() == false);
                 CHECK(scheduler.is_any_ready_schedulable() == true);
 
-                SECTION("call dispatch_if_ready again")
+                SUBCASE("call dispatch_if_ready again")
                 {
                     scheduler.dispatch_if_ready();
-                    SECTION("both schedulable dispatched")
+                    SUBCASE("both schedulable dispatched")
                     {
                         CHECK(schedulable_1_executed_count == 1);
                         CHECK(schedulable_2_executed_count == 1);
@@ -814,10 +815,10 @@ TEST_CASE("run_loop scheduler dispatches tasks only manually")
                         CHECK(scheduler.is_empty() == false);
                         CHECK(scheduler.is_any_ready_schedulable() == true);
                     }
-                    SECTION("call dispatch_if_ready again")
+                    SUBCASE("call dispatch_if_ready again")
                     {
                         scheduler.dispatch_if_ready();
-                        SECTION("third scehdulable not dispatched, but scheduler is empty")
+                        SUBCASE("third scehdulable not dispatched, but scheduler is empty")
                         {
                             CHECK(schedulable_1_executed_count == 1);
                             CHECK(schedulable_2_executed_count == 1);
@@ -831,22 +832,22 @@ TEST_CASE("run_loop scheduler dispatches tasks only manually")
             }
         }
     }
-    SECTION("submit 1 task to run_loop")
+    SUBCASE("submit 1 task to run_loop")
     {
         size_t schedulable_1_executed_count{};
         worker.schedule([&](const auto&) -> rpp::schedulers::optional_delay_from_now {++schedulable_1_executed_count; return {}; }, obs);
 
-        SECTION("call dispatch")
+        SUBCASE("call dispatch")
         {
             scheduler.dispatch();
-            SECTION("only first schedulable dispatched")
+            SUBCASE("only first schedulable dispatched")
             {
                 CHECK(schedulable_1_executed_count == 1);
                 CHECK(d.is_disposed() == false);
                 CHECK(scheduler.is_empty() == true);
                 CHECK(scheduler.is_any_ready_schedulable() == false);
 
-                SECTION("call dispatch and schedule in other thread")
+                SUBCASE("call dispatch and schedule in other thread")
                 {
                     std::atomic_bool dispatched{};
                     size_t           schedulable_2_executed_count{};
@@ -888,21 +889,21 @@ TEST_CASE("different delaying strategies")
                                            obs);
     };
 
-    SECTION("return delay_from_now")
+    SUBCASE("return delay_from_now")
     {
         test(rpp::schedulers::optional_delay_from_now{delay});
         CHECK(scheduler.get_schedulings() == std::vector{now, now + advance + delay});
         CHECK(scheduler.get_executions() == std::vector{now});
     }
 
-    SECTION("return delay_from_this_timepoint")
+    SUBCASE("return delay_from_this_timepoint")
     {
         test(rpp::schedulers::optional_delay_from_this_timepoint{delay});
         CHECK(scheduler.get_schedulings() == std::vector{now, now + delay});
         CHECK(scheduler.get_executions() == std::vector{now});
     }
 
-    SECTION("return delay_to")
+    SUBCASE("return delay_to")
     {
         test(rpp::schedulers::optional_delay_to{now + delay});
         CHECK(scheduler.get_schedulings() == std::vector{now, now + delay});

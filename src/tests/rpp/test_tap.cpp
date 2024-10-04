@@ -8,8 +8,7 @@
 // Project home: https://github.com/victimsnino/ReactivePlusPlus
 //
 
-#include <catch2/catch_template_test_macros.hpp>
-#include <catch2/catch_test_macros.hpp>
+#include <doctest/doctest.h>
 
 #include <rpp/observers/mock_observer.hpp>
 #include <rpp/operators/tap.hpp>
@@ -20,17 +19,17 @@
 #include "copy_count_tracker.hpp"
 #include "disposable_observable.hpp"
 
-TEMPLATE_TEST_CASE("tap observes emissions and doesn't modify them", "", rpp::memory_model::use_stack, rpp::memory_model::use_shared)
+TEST_CASE_TEMPLATE("tap observes emissions and doesn't modify them", TestType, rpp::memory_model::use_stack, rpp::memory_model::use_shared)
 {
     auto mock = mock_observer_strategy<int>{};
 
-    SECTION("observable with error emission")
+    SUBCASE("observable with error emission")
     {
         auto obs =
             rpp::source::concat<TestType>(rpp::source::just<TestType>(1, 2, 3),
                                           rpp::source::error<int>(std::make_exception_ptr(std::runtime_error{""})));
 
-        SECTION("subscribe")
+        SUBCASE("subscribe")
         {
             size_t on_next_invoked  = 0;
             size_t on_error_invoked = 0;
@@ -51,11 +50,11 @@ TEMPLATE_TEST_CASE("tap observes emissions and doesn't modify them", "", rpp::me
         }
     }
 
-    SECTION("observable with completed emission")
+    SUBCASE("observable with completed emission")
     {
         auto obs = rpp::source::just<TestType>(1, 2, 3);
 
-        SECTION("subscribe")
+        SUBCASE("subscribe")
         {
             size_t on_next_invoked      = 0;
             size_t on_completed_invoked = 0;
@@ -75,7 +74,7 @@ TEMPLATE_TEST_CASE("tap observes emissions and doesn't modify them", "", rpp::me
             CHECK(on_completed_invoked == mock.get_on_completed_count());
         }
 
-        SECTION("pass on_next callback with auto argument")
+        SUBCASE("pass on_next callback with auto argument")
         {
             size_t on_next_invoked = 0;
 

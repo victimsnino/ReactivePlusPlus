@@ -8,8 +8,7 @@
 // Project home: https://github.com/victimsnino/ReactivePlusPlus
 //
 
-#include <catch2/catch_template_test_macros.hpp>
-#include <catch2/catch_test_macros.hpp>
+#include <doctest/doctest.h>
 
 #include <rpp/operators/as_blocking.hpp>
 #include <rpp/operators/combine_latest.hpp>
@@ -26,7 +25,7 @@
 
 TEST_CASE("combine_latest bundles items")
 {
-    SECTION("observable of -1-2-3-| combines with -4-5-6-| on immediate scheduler")
+    SUBCASE("observable of -1-2-3-| combines with -4-5-6-| on immediate scheduler")
     {
         auto                  mock = mock_observer<std::tuple<int, int>>{};
         trompeloeil::sequence seq;
@@ -41,7 +40,7 @@ TEST_CASE("combine_latest bundles items")
             | rpp::ops::subscribe(mock);
     }
 
-    SECTION("observable of -1-2-3-| combines with -4-5-6-| on current_thread")
+    SUBCASE("observable of -1-2-3-| combines with -4-5-6-| on current_thread")
     {
         auto                  mock = mock_observer<std::tuple<int, int>>{};
         trompeloeil::sequence seq;
@@ -62,7 +61,7 @@ TEST_CASE("combine_latest bundles items")
         // source 2: -4---5---6-|
     }
 
-    SECTION("observable of -1-2-3-| combines with two other sources on current_thread")
+    SUBCASE("observable of -1-2-3-| combines with two other sources on current_thread")
     {
         auto                  mock = mock_observer<std::tuple<int, int, int>>{};
         trompeloeil::sequence seq;
@@ -91,7 +90,7 @@ TEST_CASE("combine_latest bundles items")
 
 TEST_CASE("combine_latest defers completed event")
 {
-    SECTION("observable of -1-2-3-| and never")
+    SUBCASE("observable of -1-2-3-| and never")
     {
         auto mock = mock_observer<std::tuple<int, int>>{};
 
@@ -103,7 +102,7 @@ TEST_CASE("combine_latest defers completed event")
 
 TEST_CASE("combine_latest forwards errors")
 {
-    SECTION("observable of -1-2-3-| combines with error")
+    SUBCASE("observable of -1-2-3-| combines with error")
     {
         auto mock = mock_observer<std::tuple<int, int>>{};
         REQUIRE_CALL(*mock, on_error(trompeloeil::_));
@@ -115,7 +114,7 @@ TEST_CASE("combine_latest forwards errors")
 
 TEST_CASE("combine_latest handles race condition")
 {
-    SECTION("suscribe on source observable in current thread pairs with error in other thread - on_error can't interleave with on_next")
+    SUBCASE("suscribe on source observable in current thread pairs with error in other thread - on_error can't interleave with on_next")
     {
         auto                  subject = rpp::subjects::publish_subject<int>{};
         auto                  mock    = mock_observer<std::tuple<int, int>>{};

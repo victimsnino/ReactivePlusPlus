@@ -8,8 +8,7 @@
 // Project home: https://github.com/victimsnino/ReactivePlusPlus
 //
 
-#include <catch2/catch_template_test_macros.hpp>
-#include <catch2/catch_test_macros.hpp>
+#include <doctest/doctest.h>
 
 #include <rpp/observers/mock_observer.hpp>
 #include <rpp/sources/create.hpp>
@@ -23,7 +22,7 @@ TEST_CASE("defer on different sources")
 {
     auto mock = mock_observer_strategy<int>{};
 
-    SECTION("just")
+    SUBCASE("just")
     {
         auto obs = rpp::source::defer([] { return rpp::source::just(1); });
         obs.subscribe(mock);
@@ -33,7 +32,7 @@ TEST_CASE("defer on different sources")
         CHECK(mock.get_on_error_count() == 0);
         CHECK(mock.get_on_completed_count() == 1);
     }
-    SECTION("error")
+    SUBCASE("error")
     {
         auto obs = rpp::source::defer([] { return rpp::source::error<int>(std::make_exception_ptr(std::runtime_error{"error"})); });
         obs.subscribe(mock);
@@ -42,7 +41,7 @@ TEST_CASE("defer on different sources")
         CHECK(mock.get_on_error_count() == 1);
         CHECK(mock.get_on_completed_count() == 0);
     }
-    SECTION("empty")
+    SUBCASE("empty")
     {
         auto obs = rpp::source::defer([] { return rpp::source::empty<int>(); });
         obs.subscribe(mock);
@@ -51,7 +50,7 @@ TEST_CASE("defer on different sources")
         CHECK(mock.get_on_error_count() == 0);
         CHECK(mock.get_on_completed_count() == 1);
     }
-    SECTION("never")
+    SUBCASE("never")
     {
         auto obs = rpp::source::defer([] { return rpp::source::never<int>(); });
         obs.subscribe(mock);
@@ -73,7 +72,7 @@ TEST_CASE("defer on mutable sources")
         return inner_obs;
     });
 
-    SECTION("defer returns same value on multiple subscriptions")
+    SUBCASE("defer returns same value on multiple subscriptions")
     {
         auto mock1 = mock_observer_strategy<int>{};
         auto mock2 = mock_observer_strategy<int>{};

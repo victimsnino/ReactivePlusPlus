@@ -8,8 +8,7 @@
 // Project home: https://github.com/victimsnino/ReactivePlusPlus
 //
 
-#include <catch2/catch_template_test_macros.hpp>
-#include <catch2/catch_test_macros.hpp>
+#include <doctest/doctest.h>
 
 #include <rpp/observers/mock_observer.hpp>
 #include <rpp/operators/window_toggle.hpp>
@@ -35,7 +34,7 @@ TEST_CASE("window_toggle")
                              [&mock]() { mock.on_completed(); });
     };
 
-    SECTION("opening - just(1), closing - never()")
+    SUBCASE("opening - just(1), closing - never()")
     {
         subscribe_mocks(rpp::source::just(1, 2, 3)
                         | rpp::ops::window_toggle(rpp::source::just(1), [](int) { return rpp::source::never<int>(); }));
@@ -50,7 +49,7 @@ TEST_CASE("window_toggle")
             CHECK(inner.get_on_completed_count() == 1);
         }
     }
-    SECTION("opening - just(1), closing - empty()")
+    SUBCASE("opening - just(1), closing - empty()")
     {
         subscribe_mocks(rpp::source::just(1, 2, 3)
                         | rpp::ops::window_toggle(rpp::source::just(1), [](int) { return rpp::source::empty<int>(); }));
@@ -65,7 +64,7 @@ TEST_CASE("window_toggle")
             CHECK(inner.get_on_completed_count() == 1);
         }
     }
-    SECTION("opening - just(1,2,3), closing - empty()")
+    SUBCASE("opening - just(1,2,3), closing - empty()")
     {
         subscribe_mocks(rpp::source::just(1, 2, 3)
                         | rpp::ops::window_toggle(rpp::source::just(1, 2, 3), [](int) { return rpp::source::empty<int>(); }));
@@ -80,7 +79,7 @@ TEST_CASE("window_toggle")
             CHECK(inner.get_on_completed_count() == 1);
         }
     }
-    SECTION("opening - just(1,2,3), closing - never()")
+    SUBCASE("opening - just(1,2,3), closing - never()")
     {
         subscribe_mocks(rpp::source::just(1, 2, 3)
                         | rpp::ops::window_toggle(rpp::source::just(1, 2, 3), [](int) { return rpp::source::never<int>(); }));
@@ -97,7 +96,7 @@ TEST_CASE("window_toggle")
         CHECK(inner_mocks[1].get_received_values() == std::vector<int>{2, 3});
         CHECK(inner_mocks[2].get_received_values() == std::vector<int>{3});
     }
-    SECTION("opening - just(1,2,3), closing - just(1)")
+    SUBCASE("opening - just(1,2,3), closing - just(1)")
     {
         subscribe_mocks(rpp::source::just(1, 2, 3)
                         | rpp::ops::window_toggle(rpp::source::just(1, 2, 3), [](int) { return rpp::source::just(1); }));
@@ -114,7 +113,7 @@ TEST_CASE("window_toggle")
         CHECK(inner_mocks[1].get_received_values() == std::vector<int>{2});
         CHECK(inner_mocks[2].get_received_values() == std::vector<int>{3});
     }
-    SECTION("opening - never(), closing - just(1)")
+    SUBCASE("opening - never(), closing - just(1)")
     {
         subscribe_mocks(rpp::source::never<int>()
                         | rpp::ops::window_toggle(rpp::source::just(1, 2, 3), [](int) { return rpp::source::just(1); }));
@@ -128,7 +127,7 @@ TEST_CASE("window_toggle")
             CHECK(inner.get_on_completed_count() == 1);
         }
     }
-    SECTION("opening - empty(), closing - just(1)")
+    SUBCASE("opening - empty(), closing - just(1)")
     {
         subscribe_mocks(rpp::source::empty<int>()
                         | rpp::ops::window_toggle(rpp::source::just(1, 2, 3), [](int) { return rpp::source::just(1); }));
@@ -137,7 +136,7 @@ TEST_CASE("window_toggle")
         CHECK(mock.get_on_completed_count() == 1);
         REQUIRE(inner_mocks.size() == 0);
     }
-    SECTION("source - error")
+    SUBCASE("source - error")
     {
         subscribe_mocks(rpp::source::error<int>({})
                         | rpp::ops::window_toggle(rpp::source::just(rpp::schedulers::immediate{}, 1), [](int) { return rpp::source::never<int>(); }));
@@ -145,7 +144,7 @@ TEST_CASE("window_toggle")
         CHECK(mock.get_on_error_count() == 1);
         CHECK(mock.get_on_completed_count() == 0);
     }
-    SECTION("openings - error")
+    SUBCASE("openings - error")
     {
         subscribe_mocks(rpp::source::never<int>()
                         | rpp::ops::window_toggle(rpp::source::error<int>({}), [](int) { return rpp::source::never<int>(); }));
@@ -153,7 +152,7 @@ TEST_CASE("window_toggle")
         CHECK(mock.get_on_error_count() == 1);
         CHECK(mock.get_on_completed_count() == 0);
     }
-    SECTION("openings - just(1), closings - error")
+    SUBCASE("openings - just(1), closings - error")
     {
         subscribe_mocks(rpp::source::never<int>()
                         | rpp::ops::window_toggle(rpp::source::just(1), [](int) { return rpp::source::error<int>({}); }));
@@ -167,7 +166,7 @@ TEST_CASE("window_toggle")
             CHECK(inner.get_on_completed_count() == 0);
         }
     }
-    SECTION("openings - just(1), closings - throw")
+    SUBCASE("openings - just(1), closings - throw")
     {
         subscribe_mocks(rpp::source::never<int>()
                         | rpp::ops::window_toggle(rpp::source::just(1), [](int) { throw std::runtime_error{""}; return rpp::source::error<int>({}); }));
