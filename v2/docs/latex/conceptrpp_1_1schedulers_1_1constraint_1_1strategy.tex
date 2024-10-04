@@ -4,9 +4,7 @@
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename}\ S>}
-\DoxyCodeLine{\textcolor{keyword}{concept\ }\mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1strategy}{rpp::schedulers::constraint::strategy}}\ =\ \ (\mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1defer__for__strategy}{defer\_for\_strategy<S>}}\ ||\ \mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1defer__to__strategy}{defer\_to\_strategy<S>}})\&\&}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keyword}{requires}\ ()}
-\DoxyCodeLine{\ \ \ \ \{}
+\DoxyCodeLine{\textcolor{keyword}{concept\ }\mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1strategy}{rpp::schedulers::constraint::strategy}}\ =\ \ (\mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1defer__for__strategy}{defer\_for\_strategy<S>}}\ ||\ \mbox{\hyperlink{conceptrpp_1_1schedulers_1_1constraint_1_1defer__to__strategy}{defer\_to\_strategy<S>}})\ \&\&\ \textcolor{keyword}{requires}()\ \{}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \{}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ S::now()}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \}\ -\/>\ std::same\_as<rpp::schedulers::time\_point>;}
