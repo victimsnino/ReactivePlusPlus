@@ -144,9 +144,7 @@ namespace rpp::schedulers::constraint
     };
 
     template<typename S>
-    concept strategy = (defer_for_strategy<S> || defer_to_strategy<S>)&&
-        requires ()
-    {
+    concept strategy = (defer_for_strategy<S> || defer_to_strategy<S>) && requires() {
         {
             S::now()
         } -> std::same_as<rpp::schedulers::time_point>;
