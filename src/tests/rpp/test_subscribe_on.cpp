@@ -8,8 +8,7 @@
 // Project home: https://github.com/victimsnino/ReactivePlusPlus
 //
 
-#include <catch2/catch_template_test_macros.hpp>
-#include <catch2/catch_test_macros.hpp>
+#include <doctest/doctest.h>
 
 #include <rpp/observers/mock_observer.hpp>
 #include <rpp/operators/as_blocking.hpp>
@@ -35,7 +34,7 @@ TEST_CASE("subscribe_on schedules job in another scheduler")
     auto mock      = mock_observer_strategy<int>{};
     auto scheduler = rpp::schedulers::new_thread{};
 
-    SECTION("observable")
+    SUBCASE("observable")
     {
         std::promise<std::thread::id> thread_id{};
         auto                          obs = rpp::source::create<int>([&](auto&& sub) {
@@ -44,10 +43,10 @@ TEST_CASE("subscribe_on schedules job in another scheduler")
             sub.on_next(1);
             sub.on_completed();
         });
-        SECTION("subscribe on it with subscribe_on")
+        SUBCASE("subscribe on it with subscribe_on")
         {
             obs | rpp::ops::subscribe_on(scheduler) | rpp::ops::as_blocking() | rpp::ops::subscribe(mock);
-            SECTION("expect to obtain value via scheduling")
+            SUBCASE("expect to obtain value via scheduling")
             {
                 REQUIRE(mock.get_total_on_next_count() == 1);
                 REQUIRE(mock.get_on_completed_count() == 1);
@@ -55,13 +54,13 @@ TEST_CASE("subscribe_on schedules job in another scheduler")
             }
         }
     }
-    SECTION("observable with error")
+    SUBCASE("observable with error")
     {
         auto obs = rpp::source::error<int>(std::make_exception_ptr(std::runtime_error{""}));
-        SECTION("subscribe on it with subscribe_on")
+        SUBCASE("subscribe on it with subscribe_on")
         {
             obs | rpp::ops::subscribe_on(scheduler) | rpp::ops::as_blocking() | rpp::ops::subscribe(mock);
-            SECTION("expect to obtain error via scheduling")
+            SUBCASE("expect to obtain error via scheduling")
             {
                 REQUIRE(mock.get_total_on_next_count() == 0);
                 REQUIRE(mock.get_on_error_count() == 1);
@@ -69,7 +68,7 @@ TEST_CASE("subscribe_on schedules job in another scheduler")
             }
         }
     }
-    SECTION("subscribe_on inside current_thread scheduler and disposing it before execution")
+    SUBCASE("subscribe_on inside current_thread scheduler and disposing it before execution")
     {
         bool executed{};
 
@@ -93,7 +92,7 @@ TEST_CASE("subscribe_on schedules job in another scheduler")
         CHECK(!executed);
     }
 
-    SECTION("subscribe_on and then upstream updates upstream inside observer")
+    SUBCASE("subscribe_on and then upstream updates upstream inside observer")
     {
         auto d      = rpp::composite_disposable_wrapper::make();
         auto second = rpp::composite_disposable_wrapper::make();

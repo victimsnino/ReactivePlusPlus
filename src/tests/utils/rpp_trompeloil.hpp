@@ -1,7 +1,7 @@
 #pragma once
 
-#include <catch2/catch_template_test_macros.hpp>
-#include <catch2/catch_test_macros.hpp>
+#include <doctest/doctest.h>
+#include <doctest/trompeloeil.hpp>
 
 #include <rpp/disposables/fwd.hpp>
 
@@ -11,30 +11,6 @@
 
 #include <exception>
 #include <thread>
-
-namespace trompeloeil
-{
-    template<>
-    inline void reporter<specialized>::send(
-        severity s,
-        const char*,
-        unsigned long,
-        const char* msg)
-    {
-        FAIL_CHECK(msg);
-        if (s == severity::fatal)
-        {
-            std::terminate(); // terminate due to rpp could catch exceptions but we dont want it
-        }
-    }
-
-    template<>
-    inline void reporter<specialized>::sendOk(
-        const char* trompeloeil_mock_calls_done_correctly)
-    {
-        REQUIRE(trompeloeil_mock_calls_done_correctly);
-    }
-} // namespace trompeloeil
 
 template<typename T>
 class mock_observer

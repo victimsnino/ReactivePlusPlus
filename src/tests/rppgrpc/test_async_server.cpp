@@ -1,4 +1,4 @@
-#include <catch2/catch_test_macros.hpp>
+#include <doctest/doctest.h>
 
 #include <rpp/observers/mock_observer.hpp>
 #include <rpp/operators/map.hpp>
@@ -46,7 +46,7 @@ TEST_CASE("Async server")
     grpc::CallbackServerContext* obtained_context{};
 
     auto test_common = [&](const auto& writer, const auto* reactor) {
-        SECTION("writer immediate finish")
+        SUBCASE("writer immediate finish")
         {
             const auto last = NAMED_REQUIRE_CALL(*out_mock, on_completed()).IN_SEQUENCE(s);
             if constexpr (requires { writer->WritesDone(); })
@@ -60,14 +60,14 @@ TEST_CASE("Async server")
             wait(last);
         }
 
-        SECTION("writer cancels")
+        SUBCASE("writer cancels")
         {
             const auto last = NAMED_REQUIRE_CALL(*out_mock, on_error(trompeloeil::_)).IN_SEQUENCE(s);
             ctx.TryCancel();
             wait(last);
         }
 
-        SECTION("server cancels")
+        SUBCASE("server cancels")
         {
             const auto last = NAMED_REQUIRE_CALL(*out_mock, on_error(trompeloeil::_)).IN_SEQUENCE(s);
             obtained_context->TryCancel();
@@ -76,7 +76,7 @@ TEST_CASE("Async server")
     };
 
     auto test_read = [&](const auto& writer, const auto* reactor) {
-        SECTION("writer writes")
+        SUBCASE("writer writes")
         {
             REQUIRE_CALL(*out_mock, on_next_rvalue(1)).IN_SEQUENCE(s);
             REQUIRE_CALL(*out_mock, on_next_rvalue(2)).IN_SEQUENCE(s);
@@ -101,7 +101,7 @@ TEST_CASE("Async server")
     };
 
     auto test_write = [&](const auto& writer, const auto* reactor) {
-        SECTION("writer reads")
+        SUBCASE("writer reads")
         {
             const auto last = NAMED_REQUIRE_CALL(*out_mock, on_completed()).IN_SEQUENCE(s);
             Response   response{};
@@ -127,7 +127,7 @@ TEST_CASE("Async server")
         }
     };
 
-    SECTION("bidirectionl")
+    SUBCASE("bidirectionl")
     {
         const auto reactor = new rppgrpc::server_bidi_reactor<Request, Response>();
         reactor->get_observable() | rpp::ops::map([](const Request& out) { return out.value(); }) | rpp::ops::subscribe(out_mock);
@@ -143,7 +143,7 @@ TEST_CASE("Async server")
         test_write(writer, reactor);
     }
 
-    SECTION("server-side")
+    SUBCASE("server-side")
     {
         const auto reactor = new rppgrpc::server_write_reactor<Response>();
         reactor->get_observable() | rpp::ops::map([](const rpp::utils::none&) { return 0; }) | rpp::ops::subscribe(out_mock);
@@ -158,7 +158,7 @@ TEST_CASE("Async server")
         test_write(writer, reactor);
     }
 
-    SECTION("client-side")
+    SUBCASE("client-side")
     {
         const auto reactor = new rppgrpc::server_read_reactor<Request>();
         reactor->get_observable() | rpp::ops::map([](const Request& out) { return out.value(); }) | rpp::ops::subscribe(out_mock);

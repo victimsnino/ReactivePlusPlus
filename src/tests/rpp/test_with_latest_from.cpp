@@ -8,8 +8,7 @@
 // Project home: https://github.com/victimsnino/ReactivePlusPlus
 //
 
-#include <catch2/catch_template_test_macros.hpp>
-#include <catch2/catch_test_macros.hpp>
+#include <doctest/doctest.h>
 
 #include <rpp/observers/mock_observer.hpp>
 #include <rpp/operators/with_latest_from.hpp>
@@ -23,22 +22,22 @@ TEST_CASE("with_latest_from combines observables")
 {
     auto obs_1 = rpp::source::just(1);
     auto obs_2 = rpp::source::just(2.2);
-    SECTION("subscribe on it via with_latest_from")
+    SUBCASE("subscribe on it via with_latest_from")
     {
         auto mock = mock_observer_strategy<std::tuple<int, double>>{};
         obs_1 | rpp::ops::with_latest_from(obs_2) | rpp::ops::subscribe(mock);
-        SECTION("obtain tuple of values")
+        SUBCASE("obtain tuple of values")
         {
             CHECK(mock.get_received_values() == std::vector{std::tuple{1, 2.2}});
             CHECK(mock.get_total_on_next_count() == 1);
             CHECK(mock.get_on_completed_count() == 1);
         }
     }
-    SECTION("subscribe on it via with_latest_from with custom selector")
+    SUBCASE("subscribe on it via with_latest_from with custom selector")
     {
         auto mock = mock_observer_strategy<double>{};
         obs_1 | rpp::ops::with_latest_from([](int left, double right) { return left + right; }, obs_2) | rpp::ops::subscribe(mock);
-        SECTION("obtain values")
+        SUBCASE("obtain values")
         {
             CHECK(mock.get_received_values() == std::vector{1 + 2.2});
             CHECK(mock.get_total_on_next_count() == 1);
@@ -49,49 +48,49 @@ TEST_CASE("with_latest_from combines observables")
 
 TEST_CASE("with_latest_from reacts only on main root but sends last value from others")
 {
-    SECTION("subjects and subscribe on it with_latest_from")
+    SUBCASE("subjects and subscribe on it with_latest_from")
     {
         auto subj_1 = rpp::subjects::publish_subject<int>{};
         auto subj_2 = rpp::subjects::publish_subject<int>{};
         auto mock   = mock_observer_strategy<std::tuple<int, int>>{};
         subj_1.get_observable() | rpp::ops::with_latest_from(subj_2.get_observable()) | rpp::ops::subscribe(mock);
-        SECTION("send only first subject sends value")
+        SUBCASE("send only first subject sends value")
         {
             subj_1.get_observer().on_next(1);
-            SECTION("No values to observer")
+            SUBCASE("No values to observer")
             {
                 CHECK(mock.get_total_on_next_count() == 0);
                 CHECK(mock.get_on_error_count() == 0);
                 CHECK(mock.get_on_completed_count() == 0);
             }
         }
-        SECTION("send only second subject sends value")
+        SUBCASE("send only second subject sends value")
         {
             subj_2.get_observer().on_next(1);
-            SECTION("No values to observer")
+            SUBCASE("No values to observer")
             {
                 CHECK(mock.get_total_on_next_count() == 0);
                 CHECK(mock.get_on_error_count() == 0);
                 CHECK(mock.get_on_completed_count() == 0);
             }
         }
-        SECTION("send first subject sends value SECTION combine called with last second value")
+        SUBCASE("send first subject sends value SUBCASE combine called with last second value")
         {
             subj_2.get_observer().on_next(1);
             subj_2.get_observer().on_next(2);
             subj_2.get_observer().on_next(3);
             subj_1.get_observer().on_next(4);
-            SECTION("obtain last combintaion")
+            SUBCASE("obtain last combintaion")
             {
                 CHECK(mock.get_received_values() == std::vector{std::tuple{4, 3}});
                 CHECK(mock.get_total_on_next_count() == 1);
                 CHECK(mock.get_on_error_count() == 0);
                 CHECK(mock.get_on_completed_count() == 0);
             }
-            SECTION("second sends values again")
+            SUBCASE("second sends values again")
             {
                 subj_2.get_observer().on_next(5);
-                SECTION("nothing new happens")
+                SUBCASE("nothing new happens")
                 {
                     CHECK(mock.get_received_values() == std::vector{std::tuple{4, 3}});
                     CHECK(mock.get_total_on_next_count() == 1);
@@ -100,40 +99,40 @@ TEST_CASE("with_latest_from reacts only on main root but sends last value from o
                 }
             }
         }
-        SECTION("second completes")
+        SUBCASE("second completes")
         {
             subj_2.get_observer().on_completed();
-            SECTION("nothing happens")
+            SUBCASE("nothing happens")
             {
                 CHECK(mock.get_total_on_next_count() == 0);
                 CHECK(mock.get_on_error_count() == 0);
                 CHECK(mock.get_on_completed_count() == 0);
             }
         }
-        SECTION("second errors")
+        SUBCASE("second errors")
         {
             subj_2.get_observer().on_error({});
-            SECTION("error obtained")
+            SUBCASE("error obtained")
             {
                 CHECK(mock.get_total_on_next_count() == 0);
                 CHECK(mock.get_on_error_count() == 1);
                 CHECK(mock.get_on_completed_count() == 0);
             }
         }
-        SECTION("first completes")
+        SUBCASE("first completes")
         {
             subj_1.get_observer().on_completed();
-            SECTION("observer completed")
+            SUBCASE("observer completed")
             {
                 CHECK(mock.get_total_on_next_count() == 0);
                 CHECK(mock.get_on_error_count() == 0);
                 CHECK(mock.get_on_completed_count() == 1);
             }
         }
-        SECTION("first errors")
+        SUBCASE("first errors")
         {
             subj_1.get_observer().on_error({});
-            SECTION("error obtained")
+            SUBCASE("error obtained")
             {
                 CHECK(mock.get_total_on_next_count() == 0);
                 CHECK(mock.get_on_error_count() == 1);
@@ -145,14 +144,14 @@ TEST_CASE("with_latest_from reacts only on main root but sends last value from o
 
 TEST_CASE("with_latest_from handles race condition")
 {
-    SECTION("source observable in current thread pairs with error in other thread")
+    SUBCASE("source observable in current thread pairs with error in other thread")
     {
         std::atomic_bool on_error_called{false};
         auto             subject = rpp::subjects::publish_subject<int>{};
 
-        SECTION("subscribe on it")
+        SUBCASE("subscribe on it")
         {
-            SECTION("on_error can't interleave with on_next")
+            SUBCASE("on_error can't interleave with on_next")
             {
                 std::thread th{};
                 auto        source = rpp::subjects::publish_subject<int>{};

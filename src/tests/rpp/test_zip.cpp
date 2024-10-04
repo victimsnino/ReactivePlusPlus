@@ -8,8 +8,7 @@
 // Project home: https://github.com/victimsnino/ReactivePlusPlus
 //
 
-#include <catch2/catch_template_test_macros.hpp>
-#include <catch2/catch_test_macros.hpp>
+#include <doctest/doctest.h>
 
 #include <rpp/observers/mock_observer.hpp>
 #include <rpp/operators/as_blocking.hpp>
@@ -27,7 +26,7 @@
 
 TEST_CASE("zip zips items")
 {
-    SECTION("observable of -1-2-3-| zip with -4-5-6-| on immediate scheduler")
+    SUBCASE("observable of -1-2-3-| zip with -4-5-6-| on immediate scheduler")
     {
         auto mock = mock_observer_strategy<std::tuple<int, int>>{};
         rpp::source::just(rpp::schedulers::immediate{}, 1, 2, 3)
@@ -43,7 +42,7 @@ TEST_CASE("zip zips items")
         CHECK(mock.get_on_error_count() == 0);
     }
 
-    SECTION("observable of -1-2-3-| zip with -4-5-6-| on current_thread")
+    SUBCASE("observable of -1-2-3-| zip with -4-5-6-| on current_thread")
     {
         auto mock = mock_observer_strategy<std::tuple<int, int>>{};
 
@@ -64,7 +63,7 @@ TEST_CASE("zip zips items")
         CHECK(mock.get_on_error_count() == 0);
     }
 
-    SECTION("observable of -1-2-3-| zip with two other sources on current_thread")
+    SUBCASE("observable of -1-2-3-| zip with two other sources on current_thread")
     {
         auto mock = mock_observer_strategy<std::tuple<int, int, int>>{};
 
@@ -91,7 +90,7 @@ TEST_CASE("zip zips items")
 
 TEST_CASE("zip waits for all emissions")
 {
-    SECTION("observable of -1-2-3-| and never")
+    SUBCASE("observable of -1-2-3-| and never")
     {
         auto mock = mock_observer_strategy<std::tuple<int, int>>{};
         rpp::source::just(1, 2, 3)
@@ -106,7 +105,7 @@ TEST_CASE("zip waits for all emissions")
 
 TEST_CASE("zip forwards errors")
 {
-    SECTION("observable of -1-2-3-| combines with error")
+    SUBCASE("observable of -1-2-3-| combines with error")
     {
         auto mock = mock_observer_strategy<std::tuple<int, int>>{};
         rpp::source::just(1, 2, 3)
@@ -121,14 +120,14 @@ TEST_CASE("zip forwards errors")
 
 TEST_CASE("zip handles race conditions")
 {
-    SECTION("source observable in current thread pairs with error in other thread")
+    SUBCASE("source observable in current thread pairs with error in other thread")
     {
         std::atomic_bool on_error_called{false};
         auto             subject = rpp::subjects::publish_subject<int>{};
 
-        SECTION("subscribe on it")
+        SUBCASE("subscribe on it")
         {
-            SECTION("on_error can't interleave with on_next")
+            SUBCASE("on_error can't interleave with on_next")
             {
                 rpp::source::just(1, 1, 1)
                     | rpp::ops::zip(rpp::source::concat(rpp::source::just(2), subject.get_observable()))
@@ -151,7 +150,7 @@ TEST_CASE("zip handles race conditions")
 
 TEST_CASE("zip doesn't produce extra copies")
 {
-    SECTION("send value by copy")
+    SUBCASE("send value by copy")
     {
         copy_count_tracker verifier{};
         auto               obs = verifier.get_observable()
@@ -163,7 +162,7 @@ TEST_CASE("zip doesn't produce extra copies")
         REQUIRE(verifier.get_move_count() == 2);  // 1 move to selector + 1 move to final subscriber
     }
 
-    SECTION("send value by move")
+    SUBCASE("send value by move")
     {
         copy_count_tracker verifier{};
         auto               obs = verifier.get_observable_for_move()

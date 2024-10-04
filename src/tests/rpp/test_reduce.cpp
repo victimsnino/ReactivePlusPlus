@@ -8,8 +8,7 @@
 // Project home: https://github.com/victimsnino/ReactivePlusPlus
 //
 
-#include <catch2/catch_template_test_macros.hpp>
-#include <catch2/catch_test_macros.hpp>
+#include <doctest/doctest.h>
 
 #include <rpp/observers/mock_observer.hpp>
 #include <rpp/operators/reduce.hpp>
@@ -20,17 +19,17 @@
 #include "copy_count_tracker.hpp"
 #include "disposable_observable.hpp"
 
-TEMPLATE_TEST_CASE("reduce reduces values and store state", "", rpp::memory_model::use_stack, rpp::memory_model::use_shared)
+TEST_CASE_TEMPLATE("reduce reduces values and store state", TestType, rpp::memory_model::use_stack, rpp::memory_model::use_shared)
 {
     auto obs = rpp::source::just<TestType>(1, 2, 3);
 
-    SECTION("subscribe on it with plus and initial seed")
+    SUBCASE("subscribe on it with plus and initial seed")
     {
         auto mock = mock_observer_strategy<int>{};
 
         obs | rpp::operators::reduce(0, std::plus<int>{}) | rpp::operators::subscribe(mock);
 
-        SECTION("observer obtains sum")
+        SUBCASE("observer obtains sum")
         {
             CHECK(mock.get_received_values() == std::vector{6});
             CHECK(mock.get_on_error_count() == 0);
@@ -38,13 +37,13 @@ TEMPLATE_TEST_CASE("reduce reduces values and store state", "", rpp::memory_mode
         }
     }
 
-    SECTION("subscribe on it with plus and no initial seed")
+    SUBCASE("subscribe on it with plus and no initial seed")
     {
         auto mock = mock_observer_strategy<int>{};
 
         obs | rpp::operators::reduce(std::plus<int>{}) | rpp::operators::subscribe(mock);
 
-        SECTION("observer obtains sum")
+        SUBCASE("observer obtains sum")
         {
             CHECK(mock.get_received_values() == std::vector{6});
             CHECK(mock.get_on_error_count() == 0);
@@ -52,7 +51,7 @@ TEMPLATE_TEST_CASE("reduce reduces values and store state", "", rpp::memory_mode
         }
     }
 
-    SECTION("subscribe on it with exception and no seed")
+    SUBCASE("subscribe on it with exception and no seed")
     {
         auto mock = mock_observer_strategy<int>{};
 
@@ -62,7 +61,7 @@ TEMPLATE_TEST_CASE("reduce reduces values and store state", "", rpp::memory_mode
             throw std::runtime_error{""};
         }) | rpp::operators::subscribe(mock);
 
-        SECTION("observer obtains only on_error")
+        SUBCASE("observer obtains only on_error")
         {
             CHECK(mock.get_total_on_next_count() == 0);
             CHECK(mock.get_on_error_count() == 1);
@@ -74,7 +73,7 @@ TEMPLATE_TEST_CASE("reduce reduces values and store state", "", rpp::memory_mode
 TEST_CASE("reduce forwards callbacks")
 {
     auto mock = mock_observer_strategy<int>{};
-    SECTION("on_error")
+    SUBCASE("on_error")
     {
         rpp::source::error<int>({})
             | rpp::ops::reduce(0, std::plus<int>{})
@@ -84,7 +83,7 @@ TEST_CASE("reduce forwards callbacks")
         CHECK(mock.get_on_error_count() == 1);
     }
 
-    SECTION("on_completed")
+    SUBCASE("on_completed")
     {
         rpp::source::empty<int>()
             | rpp::ops::reduce(0, std::plus<int>{})
@@ -94,7 +93,7 @@ TEST_CASE("reduce forwards callbacks")
         CHECK(mock.get_on_completed_count() == 1);
     }
 
-    SECTION("on_completed no_seed")
+    SUBCASE("on_completed no_seed")
     {
         rpp::source::empty<int>()
             | rpp::ops::reduce(std::plus<int>{})
@@ -107,9 +106,9 @@ TEST_CASE("reduce forwards callbacks")
 
 TEST_CASE("reduce doesn't produce extra copies")
 {
-    SECTION("reduce([](verifier&& seed, auto&& v){return forward(v); }")
+    SUBCASE("reduce([](verifier&& seed, auto&& v){return forward(v); }")
     {
-        SECTION("send value by copy")
+        SUBCASE("send value by copy")
         {
             copy_count_tracker tracker{};
             tracker.get_observable(2) | rpp::ops::reduce([](copy_count_tracker&&, auto&& value) { return std::forward<decltype(value)>(value); }) | rpp::ops::subscribe([](copy_count_tracker) {}); // NOLINT
@@ -121,7 +120,7 @@ TEST_CASE("reduce doesn't produce extra copies")
             CHECK(tracker.get_move_count() == 2);
         }
 
-        SECTION("send value by move")
+        SUBCASE("send value by move")
         {
             copy_count_tracker tracker{};
             tracker.get_observable_for_move(2) | rpp::ops::reduce([](copy_count_tracker&&, auto&& value) { return std::forward<decltype(value)>(value); }) | rpp::ops::subscribe([](copy_count_tracker) {}); // NOLINT

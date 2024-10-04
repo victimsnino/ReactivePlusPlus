@@ -8,8 +8,7 @@
 // Project home: https://github.com/victimsnino/ReactivePlusPlus
 //
 
-#include <catch2/catch_template_test_macros.hpp>
-#include <catch2/catch_test_macros.hpp>
+#include <doctest/doctest.h>
 
 #include <rpp/observers/mock_observer.hpp>
 #include <rpp/operators/take_last.hpp>
@@ -26,13 +25,13 @@
 TEST_CASE("take_last sends last values in correct order on completed")
 {
     auto mock = mock_observer_strategy<int>{};
-    SECTION("observable of +-1-2-3-4-5-|")
+    SUBCASE("observable of +-1-2-3-4-5-|")
     {
         auto obs = rpp::source::just(1, 2, 3, 4, 5);
-        SECTION("subscribe on it via take_last(1)")
+        SUBCASE("subscribe on it via take_last(1)")
         {
             obs | rpp::ops::take_last(1) | rpp::ops::subscribe(mock);
-            SECTION("see +-5-|")
+            SUBCASE("see +-5-|")
             {
                 CHECK(mock.get_received_values() == std::vector{5});
                 CHECK(mock.get_on_error_count() == 0);
@@ -40,10 +39,10 @@ TEST_CASE("take_last sends last values in correct order on completed")
             }
         }
 
-        SECTION("subscribe on it via take_last(3)")
+        SUBCASE("subscribe on it via take_last(3)")
         {
             obs | rpp::ops::take_last(3) | rpp::ops::subscribe(mock);
-            SECTION("see +-3-4-5-|")
+            SUBCASE("see +-3-4-5-|")
             {
                 CHECK(mock.get_received_values() == std::vector{3, 4, 5});
                 CHECK(mock.get_on_error_count() == 0);
@@ -51,10 +50,10 @@ TEST_CASE("take_last sends last values in correct order on completed")
             }
         }
 
-        SECTION("subscribe on it via take_last(5)")
+        SUBCASE("subscribe on it via take_last(5)")
         {
             obs | rpp::ops::take_last(5) | rpp::ops::subscribe(mock);
-            SECTION("see +-1-2-3-4-5-|")
+            SUBCASE("see +-1-2-3-4-5-|")
             {
                 CHECK(mock.get_received_values() == std::vector{1, 2, 3, 4, 5});
                 CHECK(mock.get_on_error_count() == 0);
@@ -62,20 +61,20 @@ TEST_CASE("take_last sends last values in correct order on completed")
             }
         }
 
-        SECTION("subscribe on it via take_last(10)")
+        SUBCASE("subscribe on it via take_last(10)")
         {
             obs | rpp::ops::take_last(10) | rpp::ops::subscribe(mock);
-            SECTION("see +-1-2-3-4-5-|")
+            SUBCASE("see +-1-2-3-4-5-|")
             {
                 CHECK(mock.get_received_values() == std::vector{1, 2, 3, 4, 5});
                 CHECK(mock.get_on_error_count() == 0);
                 CHECK(mock.get_on_completed_count() == 1);
             }
         }
-        SECTION("subscribe on it via take_last(0)")
+        SUBCASE("subscribe on it via take_last(0)")
         {
             obs | rpp::ops::take_last(0) | rpp::ops::subscribe(mock);
-            SECTION("see +-|")
+            SUBCASE("see +-|")
             {
                 CHECK(mock.get_received_values().empty());
                 CHECK(mock.get_on_error_count() == 0);
@@ -89,13 +88,13 @@ TEST_CASE("take_last sends last values in correct order on completed")
 TEST_CASE("take_last forwards error")
 {
     auto mock = mock_observer_strategy<int>{};
-    SECTION("observable of +-x")
+    SUBCASE("observable of +-x")
     {
         auto source = rpp::source::error<int>(std::exception_ptr{});
-        SECTION("subscribe on it via take(2)")
+        SUBCASE("subscribe on it via take(2)")
         {
             source | rpp::ops::take_last(2) | rpp::ops::subscribe(mock);
-            SECTION("see error")
+            SUBCASE("see error")
             {
                 CHECK(mock.get_received_values().empty());
                 CHECK(mock.get_on_error_count() == 1);
@@ -104,17 +103,17 @@ TEST_CASE("take_last forwards error")
         }
     }
 
-    SECTION("observable of +-1-x")
+    SUBCASE("observable of +-1-x")
     {
         auto source = rpp::source::create<int>([](const auto& obs) {
             obs.on_next(1);
             obs.on_error({});
         });
 
-        SECTION("subscribe on it via take(2)")
+        SUBCASE("subscribe on it via take(2)")
         {
             source | rpp::ops::take_last(2) | rpp::ops::subscribe(mock);
-            SECTION("see error")
+            SUBCASE("see error")
             {
                 CHECK(mock.get_received_values().empty());
                 CHECK(mock.get_on_error_count() == 1);
@@ -127,13 +126,13 @@ TEST_CASE("take_last forwards error")
 TEST_CASE("take_last completes with empty")
 {
     auto mock = mock_observer_strategy<int>{};
-    SECTION("observable of +-|")
+    SUBCASE("observable of +-|")
     {
         auto source = rpp::source::empty<int>();
-        SECTION("subscribe on it via take(2)")
+        SUBCASE("subscribe on it via take(2)")
         {
             source | rpp::ops::take_last(2) | rpp::ops::subscribe(mock);
-            SECTION("see completed")
+            SUBCASE("see completed")
             {
                 CHECK(mock.get_received_values().empty());
                 CHECK(mock.get_on_error_count() == 0);
@@ -146,13 +145,13 @@ TEST_CASE("take_last completes with empty")
 TEST_CASE("take_last nothing with never")
 {
     auto mock = mock_observer_strategy<int>{};
-    SECTION("observable of +-|")
+    SUBCASE("observable of +-|")
     {
         auto source = rpp::source::never<int>();
-        SECTION("subscribe on it via take(2)")
+        SUBCASE("subscribe on it via take(2)")
         {
             source | rpp::ops::take_last(2) | rpp::ops::subscribe(mock);
-            SECTION("see nothing")
+            SUBCASE("see nothing")
             {
                 CHECK(mock.get_received_values().empty());
                 CHECK(mock.get_on_error_count() == 0);
@@ -164,7 +163,7 @@ TEST_CASE("take_last nothing with never")
 
 TEST_CASE("take_last doesn't produce extra copies")
 {
-    SECTION("take_last(1)")
+    SUBCASE("take_last(1)")
     {
         copy_count_tracker::test_operator(rpp::ops::take_last(1),
                                           {

@@ -8,8 +8,7 @@
 // Project home: https://github.com/victimsnino/ReactivePlusPlus
 //
 
-#include <catch2/catch_template_test_macros.hpp>
-#include <catch2/catch_test_macros.hpp>
+#include <doctest/doctest.h>
 
 #include <rpp/observables/dynamic_observable.hpp>
 #include <rpp/observers/mock_observer.hpp>
@@ -28,17 +27,17 @@
 #include <stdexcept>
 #include <string>
 
-TEMPLATE_TEST_CASE("merge for observable of observables", "", rpp::memory_model::use_stack, rpp::memory_model::use_shared)
+TEST_CASE_TEMPLATE("merge for observable of observables", TestType, rpp::memory_model::use_stack, rpp::memory_model::use_shared)
 {
     auto mock = mock_observer_strategy<int>();
-    SECTION("observable of observables")
+    SUBCASE("observable of observables")
     {
         auto obs = rpp::source::just<TestType>(rpp::schedulers::immediate{}, rpp::source::just<TestType>(rpp::schedulers::immediate{}, 1), rpp::source::just<TestType>(rpp::schedulers::immediate{}, 2));
 
-        SECTION("subscribe on merge of observable")
+        SUBCASE("subscribe on merge of observable")
         {
             obs | rpp::operators::merge() | rpp::ops::subscribe(mock);
-            SECTION("observer obtains values FROM underlying observables")
+            SUBCASE("observer obtains values FROM underlying observables")
             {
                 CHECK(mock.get_received_values() == std::vector{1, 2});
                 CHECK(mock.get_on_completed_count() == 1);
@@ -46,38 +45,38 @@ TEMPLATE_TEST_CASE("merge for observable of observables", "", rpp::memory_model:
         }
     }
 
-    SECTION("observable of observables with first never")
+    SUBCASE("observable of observables with first never")
     {
         auto obs = rpp::source::just<TestType>(rpp::source::never<int>().as_dynamic(), rpp::source::just<TestType>(2).as_dynamic());
 
-        SECTION("subscribe on merge of observable")
+        SUBCASE("subscribe on merge of observable")
         {
             obs | rpp::ops::merge() | rpp::ops::subscribe(mock);
-            SECTION("observer obtains values from second observable even if first emits nothing")
+            SUBCASE("observer obtains values from second observable even if first emits nothing")
             {
                 CHECK(mock.get_received_values() == std::vector{2});
                 CHECK(mock.get_on_completed_count() == 0); // no complete due to first observable sends nothing
             }
         }
     }
-    SECTION("observable of observables without complete")
+    SUBCASE("observable of observables without complete")
     {
         auto obs = rpp::source::create<rpp::dynamic_observable<int>>([](const auto& sub) {
             sub.on_next(rpp::source::just<TestType>(1).as_dynamic());
             sub.on_next(rpp::source::just<TestType>(2).as_dynamic());
         });
 
-        SECTION("subscribe on merge of observable")
+        SUBCASE("subscribe on merge of observable")
         {
             obs | rpp::ops::merge() | rpp::ops::subscribe(mock);
-            SECTION("observer obtains values from second observable even if first emits nothing")
+            SUBCASE("observer obtains values from second observable even if first emits nothing")
             {
                 CHECK(mock.get_received_values() == std::vector{1, 2});
                 CHECK(mock.get_on_completed_count() == 0); // no complete due to root observable is not completed
             }
         }
     }
-    SECTION("observable of observables with error")
+    SUBCASE("observable of observables with error")
     {
         auto obs = rpp::source::create<rpp::dynamic_observable<int>>([](const auto& sub) {
             sub.on_next(rpp::source::just<TestType>(rpp::schedulers::immediate{}, 1).as_dynamic());
@@ -85,10 +84,10 @@ TEMPLATE_TEST_CASE("merge for observable of observables", "", rpp::memory_model:
             sub.on_next(rpp::source::just<TestType>(rpp::schedulers::immediate{}, 2).as_dynamic());
         });
 
-        SECTION("subscribe on merge of observable")
+        SUBCASE("subscribe on merge of observable")
         {
             obs | rpp::ops::merge() | rpp::ops::subscribe(mock);
-            SECTION("observer obtains values from second observable even if first emits nothing")
+            SUBCASE("observer obtains values from second observable even if first emits nothing")
             {
                 CHECK(mock.get_received_values() == std::vector{1});
                 CHECK(mock.get_on_error_count() == 1);
@@ -96,17 +95,17 @@ TEMPLATE_TEST_CASE("merge for observable of observables", "", rpp::memory_model:
             }
         }
     }
-    SECTION("observable of observables with error")
+    SUBCASE("observable of observables with error")
     {
         auto obs = rpp::source::create<rpp::dynamic_observable<int>>([](const auto& sub) {
             sub.on_error(std::make_exception_ptr(std::runtime_error{""}));
             sub.on_next(rpp::source::just<TestType>(1).as_dynamic());
         });
 
-        SECTION("subscribe on merge of observable")
+        SUBCASE("subscribe on merge of observable")
         {
             obs | rpp::ops::merge() | rpp::ops::subscribe(mock);
-            SECTION("observer obtains values from second observable even if first emits nothing")
+            SUBCASE("observer obtains values from second observable even if first emits nothing")
             {
                 CHECK(mock.get_total_on_next_count() == 0);
                 CHECK(mock.get_on_error_count() == 1);
@@ -116,18 +115,18 @@ TEMPLATE_TEST_CASE("merge for observable of observables", "", rpp::memory_model:
     }
 }
 
-TEMPLATE_TEST_CASE("merge_with", "", rpp::memory_model::use_stack, rpp::memory_model::use_shared)
+TEST_CASE_TEMPLATE("merge_with", TestType, rpp::memory_model::use_stack, rpp::memory_model::use_shared)
 {
     auto mock = mock_observer_strategy<int>();
-    SECTION("2 observables")
+    SUBCASE("2 observables")
     {
         auto obs_1 = rpp::source::just<TestType>(1);
         auto obs_2 = rpp::source::just<TestType>(2);
 
-        SECTION("subscribe on merge of this observables")
+        SUBCASE("subscribe on merge of this observables")
         {
             obs_1 | rpp::ops::merge_with(obs_2) | rpp::ops::subscribe(mock);
-            SECTION("observer obtains values FROM both observables")
+            SUBCASE("observer obtains values FROM both observables")
             {
                 CHECK(mock.get_received_values() == std::vector{1, 2});
                 CHECK(mock.get_on_completed_count() == 1);
@@ -135,26 +134,26 @@ TEMPLATE_TEST_CASE("merge_with", "", rpp::memory_model::use_stack, rpp::memory_m
         }
     }
 
-    SECTION("never observable with just observable")
+    SUBCASE("never observable with just observable")
     {
         auto obs_1 = rpp::source::never<int>();
         auto obs_2 = rpp::source::just<TestType>(2);
 
-        SECTION("subscribe on merge of this observables")
+        SUBCASE("subscribe on merge of this observables")
         {
             auto op = rpp::ops::merge_with(obs_2);
             obs_1 | op | rpp::ops::subscribe(mock);
-            SECTION("observer obtains values FROM both observables")
+            SUBCASE("observer obtains values FROM both observables")
             {
                 CHECK(mock.get_received_values() == std::vector{2});
                 CHECK(mock.get_on_completed_count() == 0); // first observable never completes
             }
         }
 
-        SECTION("subscribe on merge of this observables in reverse oreder")
+        SUBCASE("subscribe on merge of this observables in reverse oreder")
         {
             obs_2 | rpp::ops::merge_with(obs_1) | rpp::ops::subscribe(mock);
-            SECTION("observer obtains values FROM both observables")
+            SUBCASE("observer obtains values FROM both observables")
             {
                 CHECK(mock.get_received_values() == std::vector{2});
                 CHECK(mock.get_on_completed_count() == 0); // first observable never completes
@@ -162,15 +161,15 @@ TEMPLATE_TEST_CASE("merge_with", "", rpp::memory_model::use_stack, rpp::memory_m
         }
     }
 
-    SECTION("error observable with just observable")
+    SUBCASE("error observable with just observable")
     {
         auto obs_1 = rpp::source::error<int>(std::make_exception_ptr(std::runtime_error{""}));
         auto obs_2 = rpp::source::just<TestType>(2);
 
-        SECTION("subscribe on merge of this observables")
+        SUBCASE("subscribe on merge of this observables")
         {
             obs_1 | rpp::ops::merge_with(obs_2) | rpp::ops::subscribe(mock);
-            SECTION("observer obtains values FROM both observables")
+            SUBCASE("observer obtains values FROM both observables")
             {
                 CHECK(mock.get_total_on_next_count() == 0);
                 CHECK(mock.get_on_error_count() == 1);
@@ -180,15 +179,15 @@ TEMPLATE_TEST_CASE("merge_with", "", rpp::memory_model::use_stack, rpp::memory_m
     }
 }
 
-TEMPLATE_TEST_CASE("merge serializes emissions", "", rpp::memory_model::use_stack, rpp::memory_model::use_shared)
+TEST_CASE_TEMPLATE("merge serializes emissions", TestType, rpp::memory_model::use_stack, rpp::memory_model::use_shared)
 {
-    SECTION("observables from different threads")
+    SUBCASE("observables from different threads")
     {
         auto s1 = rpp::source::just<TestType>(rpp::schedulers::new_thread{}, 1);
         auto s2 = rpp::source::just<TestType>(rpp::schedulers::new_thread{}, 2);
-        SECTION("subscribe on merge of this observables")
+        SUBCASE("subscribe on merge of this observables")
         {
-            SECTION("resulting observable emits items sequentially")
+            SUBCASE("resulting observable emits items sequentially")
             {
                 std::atomic_size_t counter{};
                 size_t             max_value = 0;
@@ -207,9 +206,9 @@ TEMPLATE_TEST_CASE("merge serializes emissions", "", rpp::memory_model::use_stac
     }
 }
 
-TEMPLATE_TEST_CASE("merge handles race condition", "", rpp::memory_model::use_stack, rpp::memory_model::use_shared)
+TEST_CASE_TEMPLATE("merge handles race condition", TestType, rpp::memory_model::use_stack, rpp::memory_model::use_shared)
 {
-    SECTION("source observable in current thread pairs with error in other thread")
+    SUBCASE("source observable in current thread pairs with error in other thread")
     {
         std::atomic_bool                          on_error_called{false};
         std::optional<rpp::dynamic_observer<int>> extracted_obs{};
@@ -218,9 +217,9 @@ TEMPLATE_TEST_CASE("merge handles race condition", "", rpp::memory_model::use_st
         });
 
         auto test = [&](auto source) {
-            SECTION("subscribe on it")
+            SUBCASE("subscribe on it")
             {
-                SECTION("on_error can't interleave with on_next")
+                SUBCASE("on_error can't interleave with on_next")
                 {
                     source
                         | rpp::ops::as_blocking()
@@ -239,10 +238,10 @@ TEMPLATE_TEST_CASE("merge handles race condition", "", rpp::memory_model::use_st
                 }
             }
         };
-        SECTION("just + merge_with")
+        SUBCASE("just + merge_with")
         test(rpp::source::just<TestType>(1, 1, 1) | rpp::ops::merge_with(delayed_obs));
 
-        SECTION("just<TestType>(just) + merge")
+        SUBCASE("just<TestType>(just) + merge")
         test(rpp::source::just<TestType>(rpp::schedulers::immediate{}, rpp::source::just<TestType>(1, 1, 1).as_dynamic(), delayed_obs.as_dynamic()) | rpp::ops::merge());
     }
 }
@@ -261,7 +260,7 @@ TEST_CASE("merge dispose inner_disposable immediately")
 
 TEST_CASE("merge doesn't produce extra copies")
 {
-    SECTION("send value by copy")
+    SUBCASE("send value by copy")
     {
         copy_count_tracker verifier{};
         auto               obs = rpp::source::just(verifier.get_observable()) | rpp::ops::merge();
@@ -270,7 +269,7 @@ TEST_CASE("merge doesn't produce extra copies")
         REQUIRE(verifier.get_move_count() == 0);
     }
 
-    SECTION("send value by move")
+    SUBCASE("send value by move")
     {
         copy_count_tracker verifier{};
         auto               obs = rpp::source::just(verifier.get_observable_for_move()) | rpp::ops::merge();

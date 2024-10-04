@@ -10,8 +10,7 @@
 
 #pragma once
 
-#include <catch2/catch_template_test_macros.hpp>
-#include <catch2/catch_test_macros.hpp>
+#include <doctest/doctest.h>
 
 #include <rpp/disposables/composite_disposable.hpp>
 #include <rpp/observers/dynamic_observer.hpp>
@@ -49,7 +48,7 @@ struct wrapped_observable_strategy_no_set_upstream
 template<typename T>
 void test_operator_over_observable_finish_before_dispose(auto&& op)
 {
-    SECTION("operator calls on_error before dispose")
+    SUBCASE("operator calls on_error before dispose")
     {
         bool callback_called       = false;
         auto observable_disposable = rpp::make_callback_disposable([&callback_called]() noexcept {
@@ -64,7 +63,7 @@ void test_operator_over_observable_finish_before_dispose(auto&& op)
         CHECK(callback_called);
     }
 
-    SECTION("operator calls on_completed before dispose")
+    SUBCASE("operator calls on_completed before dispose")
     {
         bool callback_called       = false;
         auto observable_disposable = rpp::make_callback_disposable([&callback_called]() noexcept {
@@ -83,7 +82,7 @@ void test_operator_over_observable_finish_before_dispose(auto&& op)
 template<typename T>
 void test_operator_over_observable_with_disposable(auto&& op)
 {
-    SECTION("operator disposes disposable")
+    SUBCASE("operator disposes disposable")
     {
         auto                                    observable_disposable = rpp::composite_disposable_wrapper::make();
         std::optional<rpp::dynamic_observer<T>> saved_observer{};
@@ -99,7 +98,7 @@ void test_operator_over_observable_with_disposable(auto&& op)
         CHECK(observable_disposable.is_disposed());
     }
 
-    SECTION("operator doesn't disposes disposable too early")
+    SUBCASE("operator doesn't disposes disposable too early")
     {
         auto observable_disposable = rpp::composite_disposable_wrapper::make();
         auto observable            = rpp::source::create<T>([&observable_disposable](auto&& obs) {
@@ -114,7 +113,7 @@ void test_operator_over_observable_with_disposable(auto&& op)
         CHECK(observable_disposable.is_disposed());
     }
 
-    SECTION("operator disposes disposable on_error")
+    SUBCASE("operator disposes disposable on_error")
     {
         op(rpp::source::create<T>([](auto&& obs) {
             const auto d = rpp::composite_disposable_wrapper::make();
@@ -124,7 +123,7 @@ void test_operator_over_observable_with_disposable(auto&& op)
         })).subscribe([](const auto&) {}, [](const std::exception_ptr&) {});
     }
 
-    SECTION("operator disposes disposable on_completed")
+    SUBCASE("operator disposes disposable on_completed")
     {
         op(rpp::source::create<T>([](auto&& obs) {
             const auto d = rpp::composite_disposable_wrapper::make();
@@ -134,43 +133,43 @@ void test_operator_over_observable_with_disposable(auto&& op)
         })).subscribe([](const auto&) {}, [](const std::exception_ptr&) {});
     }
 
-    SECTION("set_upstream with fixed_disposable_strategy_selector<1>")
+    SUBCASE("set_upstream with fixed_disposable_strategy_selector<1>")
     {
         CHECK_NOTHROW(op(rpp::observable<T, wrapped_observable_strategy_set_upstream<T, rpp::details::observables::fixed_disposable_strategy_selector<1>>>{})
                           .subscribe([](const auto&) {}, rpp::utils::rethrow_error_t{}));
     }
 
-    SECTION("set_upstream with dynamic_disposable_strategy_selector<0>")
+    SUBCASE("set_upstream with dynamic_disposable_strategy_selector<0>")
     {
         CHECK_NOTHROW(op(rpp::observable<T, wrapped_observable_strategy_set_upstream<T, rpp::details::observables::dynamic_disposable_strategy_selector<0>>>{})
                           .subscribe([](const auto&) {}, rpp::utils::rethrow_error_t{}));
     }
 
-    SECTION("none_disposable_strategy")
+    SUBCASE("none_disposable_strategy")
     {
         CHECK_NOTHROW(op(rpp::observable<T, wrapped_observable_strategy_no_set_upstream<T, rpp::details::observables::bool_disposable_strategy_selector>>{})
                           .subscribe([](const auto&) {}, rpp::utils::rethrow_error_t{}));
     }
 
-    SECTION("fixed_disposable_strategy_selector<0>")
+    SUBCASE("fixed_disposable_strategy_selector<0>")
     {
         CHECK_NOTHROW(op(rpp::observable<T, wrapped_observable_strategy_no_set_upstream<T, rpp::details::observables::fixed_disposable_strategy_selector<0>>>{})
                           .subscribe([](const auto&) {}, rpp::utils::rethrow_error_t{}));
     }
 
-    SECTION("dynamic_disposable_strategy_selector<0>")
+    SUBCASE("dynamic_disposable_strategy_selector<0>")
     {
         CHECK_NOTHROW(op(rpp::observable<T, wrapped_observable_strategy_no_set_upstream<T, rpp::details::observables::dynamic_disposable_strategy_selector<0>>>{})
                           .subscribe([](const auto&) {}, rpp::utils::rethrow_error_t{}));
     }
 
-    SECTION("set_upstream with none_disposable_strategy calls on_error")
+    SUBCASE("set_upstream with none_disposable_strategy calls on_error")
     {
         CHECK_NOTHROW(op(rpp::observable<T, wrapped_observable_strategy_set_upstream<T, rpp::details::observables::bool_disposable_strategy_selector>>{})
                           .subscribe([](const auto&) {}, [](const std::exception_ptr& err) { CHECK_THROWS_AS(std::rethrow_exception(err), rpp::utils::more_disposables_than_expected); }));
     }
 
-    SECTION("set_upstream with fixed_disposable_strategy_selector<0> calls on_error")
+    SUBCASE("set_upstream with fixed_disposable_strategy_selector<0> calls on_error")
     {
         CHECK_NOTHROW(op(rpp::observable<T, wrapped_observable_strategy_set_upstream<T, rpp::details::observables::fixed_disposable_strategy_selector<0>>>{})
                           .subscribe([](const auto&) {}, [](const std::exception_ptr& err) { CHECK_THROWS_AS(std::rethrow_exception(err), rpp::utils::more_disposables_than_expected); }));

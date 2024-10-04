@@ -10,8 +10,7 @@
 
 #pragma once
 
-#include <catch2/catch_template_test_macros.hpp>
-#include <catch2/catch_test_macros.hpp>
+#include <doctest/doctest.h>
 
 #include <rpp/sources/create.hpp>
 #include <rpp/utils/functors.hpp>
@@ -97,14 +96,14 @@ public:
     static void test_operator(auto&& op, test_expectations expectations, size_t count = 1)
     {
         copy_count_tracker tracker{};
-        SECTION("send value by copy")
+        SUBCASE("send value by copy")
         {
             tracker.get_observable(count) | op | rpp::ops::subscribe(rpp::utils::empty_function_any_by_lvalue_t{});
             CHECK(tracker.get_copy_count() == expectations.send_by_copy.copy_count);
             CHECK(tracker.get_move_count() == expectations.send_by_copy.move_count);
         }
 
-        SECTION("send value by move")
+        SUBCASE("send value by move")
         {
             tracker.get_observable_for_move(count) | op | rpp::ops::subscribe(rpp::utils::empty_function_any_by_lvalue_t{});
             CHECK(tracker.get_copy_count() == expectations.send_by_move.copy_count);
