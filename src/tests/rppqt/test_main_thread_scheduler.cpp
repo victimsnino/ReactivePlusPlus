@@ -7,8 +7,7 @@
 //
 //  Project home: https://github.com/victimsnino/ReactivePlusPlus
 
-#include <catch2/catch_template_test_macros.hpp>
-#include <catch2/catch_test_macros.hpp>
+#include <doctest/doctest.h>
 
 #include <rpp/observers/dynamic_observer.hpp>
 #include <rpp/observers/mock_observer.hpp>
@@ -33,7 +32,7 @@ TEST_CASE("main_thread_scheduler schedules actions to main thread")
     QTimer::singleShot(10, &application, [&] { application.exit(); });
 
 
-    SECTION("submitting action to main scheduler from another thread")
+    SUBCASE("submitting action to main scheduler from another thread")
     {
         std::promise<std::thread::id> execution_thread{};
         std::thread{[&] {
@@ -45,7 +44,7 @@ TEST_CASE("main_thread_scheduler schedules actions to main thread")
         }}.join();
 
         application.exec();
-        SECTION("thread of exectuion of schedulable should be same as thread of application")
+        SUBCASE("thread of exectuion of schedulable should be same as thread of application")
         {
             auto future = execution_thread.get_future();
             REQUIRE(future.wait_for(std::chrono::seconds{1}) == std::future_status::ready);
@@ -53,7 +52,7 @@ TEST_CASE("main_thread_scheduler schedules actions to main thread")
         }
     }
 
-    SECTION("nothing happens for disposed handler")
+    SUBCASE("nothing happens for disposed handler")
     {
         std::promise<std::thread::id> execution_thread{};
         std::thread{[&] {
@@ -72,7 +71,7 @@ TEST_CASE("main_thread_scheduler schedules actions to main thread")
     }
 
     auto test_recursive_scheduling = [&](const auto& duration) {
-        SECTION("recursive scheduling to main thread")
+        SUBCASE("recursive scheduling to main thread")
         {
             std::string execution{};
             std::thread{[&] {
@@ -94,15 +93,15 @@ TEST_CASE("main_thread_scheduler schedules actions to main thread")
             CHECK(execution == "outer inner outer inner ");
         }
     };
-    SECTION("optional_delay_from_now")
+    SUBCASE("optional_delay_from_now")
     {
         test_recursive_scheduling(rpp::schedulers::optional_delay_from_now{std::chrono::nanoseconds{}});
     }
-    SECTION("optional_delay_from_this_timepoint")
+    SUBCASE("optional_delay_from_this_timepoint")
     {
         test_recursive_scheduling(rpp::schedulers::optional_delay_from_this_timepoint{std::chrono::nanoseconds{}});
     }
-    SECTION("optional_delay_to")
+    SUBCASE("optional_delay_to")
     {
         test_recursive_scheduling(rpp::schedulers::optional_delay_to{rpp::schedulers::time_point{}});
     }

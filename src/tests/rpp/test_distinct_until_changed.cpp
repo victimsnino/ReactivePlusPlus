@@ -8,8 +8,7 @@
 // Project home: https://github.com/victimsnino/ReactivePlusPlus
 //
 
-#include <catch2/catch_template_test_macros.hpp>
-#include <catch2/catch_test_macros.hpp>
+#include <doctest/doctest.h>
 
 #include <rpp/observers/mock_observer.hpp>
 #include <rpp/operators/distinct_until_changed.hpp>
@@ -21,18 +20,18 @@
 #include "disposable_observable.hpp"
 
 
-TEMPLATE_TEST_CASE("distinct_until_changed filters out consecutive duplicates and send first value from duplicates", "", rpp::memory_model::use_stack, rpp::memory_model::use_shared)
+TEST_CASE_TEMPLATE("distinct_until_changed filters out consecutive duplicates and send first value from duplicates", TestType, rpp::memory_model::use_stack, rpp::memory_model::use_shared)
 {
     auto mock = mock_observer_strategy<int>{};
     auto obs  = rpp::source::just<TestType>(1, 1, 2, 2, 3, 2, 2, 1);
-    SECTION("WHEN subscribe on observable with duplicates via distinct_until_changed THEN subscriber obtains values without consecutive duplicates")
+    SUBCASE("WHEN subscribe on observable with duplicates via distinct_until_changed THEN subscriber obtains values without consecutive duplicates")
     {
         obs | rpp::ops::distinct_until_changed() | rpp::ops::subscribe(mock);
         CHECK(mock.get_received_values() == std::vector{1, 2, 3, 2, 1});
         CHECK(mock.get_on_error_count() == 0);
         CHECK(mock.get_on_completed_count() == 1);
     }
-    SECTION("WHEN subscribe on observable with duplicates via distinct_until_changed with custom comparator THEN subscriber obtains values without consecutive duplicates")
+    SUBCASE("WHEN subscribe on observable with duplicates via distinct_until_changed with custom comparator THEN subscriber obtains values without consecutive duplicates")
     {
         auto op = rpp::ops::distinct_until_changed([](int old_value, int new_value) { return old_value % 2 != new_value % 2; });
         obs | op | rpp::ops::subscribe(mock);

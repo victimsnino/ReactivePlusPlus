@@ -8,8 +8,7 @@
 // Project home: https://github.com/victimsnino/ReactivePlusPlus
 //
 
-#include <catch2/catch_template_test_macros.hpp>
-#include <catch2/catch_test_macros.hpp>
+#include <doctest/doctest.h>
 
 #include <rpp/observers/mock_observer.hpp>
 #include <rpp/operators/as_blocking.hpp>
@@ -60,32 +59,32 @@ TEST_CASE("delay delays observable's emissions")
         const auto now = get_now();
         return rpp::ops::subscribe(
             [&, now, get_now](const auto& v) {
-                SECTION("should see event after the delay")
+                SUBCASE("should see event after the delay")
                 CHECK(get_now() >= now + delay_duration);
 
                 mock.on_next(v);
             },
             [&, now, get_now](const std::exception_ptr& err) {
-                SECTION("should see event after the delay")
+                SUBCASE("should see event after the delay")
                 CHECK(get_now() >= now + delay_duration);
                 mock.on_error(err);
             },
             [&, now, get_now]() {
-                SECTION("should see event after the delay")
+                SUBCASE("should see event after the delay")
                 CHECK(get_now() >= now + delay_duration);
 
                 mock.on_completed();
             });
     };
 
-    SECTION("observable of -1-|")
+    SUBCASE("observable of -1-|")
     {
         rpp::source::just(1)
             | rpp::ops::delay(delay_duration, rpp::schedulers::current_thread{})
             | rpp::ops::as_blocking()
             | subscribe_with_delay([]() { return rpp::schedulers::clock_type::now(); });
 
-        SECTION("should see -1-|")
+        SUBCASE("should see -1-|")
         {
             CHECK(mock.get_received_values() == std::vector<int>{1});
             CHECK(mock.get_on_completed_count() == 1);
@@ -93,14 +92,14 @@ TEST_CASE("delay delays observable's emissions")
         }
     }
 
-    SECTION("observable of -x")
+    SUBCASE("observable of -x")
     {
         rpp::source::error<int>(std::make_exception_ptr(std::runtime_error{""}))
             | rpp::ops::delay(delay_duration, rpp::schedulers::current_thread{})
             | rpp::ops::as_blocking()
             | subscribe_with_delay([]() { return rpp::schedulers::clock_type::now(); });
 
-        SECTION("should see -x after the delay")
+        SUBCASE("should see -x after the delay")
         {
             CHECK(mock.get_received_values().empty());
             CHECK(mock.get_on_completed_count() == 0);
@@ -108,14 +107,14 @@ TEST_CASE("delay delays observable's emissions")
         }
     }
 
-    SECTION("observable of -|")
+    SUBCASE("observable of -|")
     {
         rpp::source::empty<int>()
             | rpp::ops::delay(delay_duration, rpp::schedulers::current_thread{})
             | rpp::ops::as_blocking()
             | subscribe_with_delay([]() { return rpp::schedulers::clock_type::now(); });
 
-        SECTION("should see -|")
+        SUBCASE("should see -|")
         {
             CHECK(mock.get_received_values().empty());
             CHECK(mock.get_on_completed_count() == 1);
@@ -123,13 +122,13 @@ TEST_CASE("delay delays observable's emissions")
         }
     }
 
-    SECTION("subject with items")
+    SUBCASE("subject with items")
     {
         auto subj = rpp::subjects::publish_subject<int>{};
 
-        SECTION("subscribe on subject via delay and doing recursive submit from another thread")
+        SUBCASE("subscribe on subject via delay and doing recursive submit from another thread")
         {
-            SECTION("all values obtained in the same thread")
+            SUBCASE("all values obtained in the same thread")
             {
                 auto current_thread = std::this_thread::get_id();
 
@@ -146,7 +145,7 @@ TEST_CASE("delay delays observable's emissions")
                                   subj.get_observer().on_next(2);
                               }}.join();
 
-                              SECTION("no recursive on_next calls")
+                              SUBCASE("no recursive on_next calls")
                               {
                                   CHECK(mock.get_received_values() == std::vector{1});
                               }
@@ -155,13 +154,13 @@ TEST_CASE("delay delays observable's emissions")
 
                 subj.get_observer().on_next(1);
 
-                SECTION("all values obtained")
+                SUBCASE("all values obtained")
                 {
                     CHECK(mock.get_received_values() == std::vector{1, 2});
                 }
             }
         }
-        SECTION("subscribe on subject via delay via test_scheduler, sent value")
+        SUBCASE("subscribe on subject via delay via test_scheduler, sent value")
         {
             subj.get_observable()
                 | rpp::ops::delay(std::chrono::seconds{30000}, manual_scheduler{})
@@ -169,7 +168,7 @@ TEST_CASE("delay delays observable's emissions")
 
             subj.get_observer().on_next(1);
 
-            SECTION("no memory leak")
+            SUBCASE("no memory leak")
             {
                 manual_scheduler::worker_strategy::s_test_queue = rpp::schedulers::details::schedulables_queue<manual_scheduler::worker_strategy>{};
                 // checked via sanitizer
@@ -177,20 +176,20 @@ TEST_CASE("delay delays observable's emissions")
         }
     }
 
-    SECTION("observable of -1-| but with invoking schedulable after subscription")
+    SUBCASE("observable of -1-| but with invoking schedulable after subscription")
     {
         rpp::source::just(1)
             | rpp::ops::delay(delay_duration, scheduler)
             | subscribe_with_delay([]() { return rpp::schedulers::test_scheduler::worker_strategy::now(); });
 
-        SECTION("shouldn't see anything before manual invoking")
+        SUBCASE("shouldn't see anything before manual invoking")
         {
             CHECK(mock.get_received_values() == std::vector<int>{});
             CHECK(mock.get_on_completed_count() == 0);
             CHECK(mock.get_on_error_count() == 0);
         }
 
-        SECTION("should see nothing before reaching of time")
+        SUBCASE("should see nothing before reaching of time")
         {
             CHECK(mock.get_received_values() == std::vector<int>{});
             CHECK(mock.get_on_completed_count() == 0);
@@ -199,14 +198,14 @@ TEST_CASE("delay delays observable's emissions")
 
         scheduler.time_advance(delay_duration);
 
-        SECTION("should see -1-|")
+        SUBCASE("should see -1-|")
         {
             CHECK(mock.get_received_values() == std::vector<int>{1});
             CHECK(mock.get_on_completed_count() == 1);
             CHECK(mock.get_on_error_count() == 0);
         }
     }
-    SECTION("observable of -1-x but with invoking schedulable after subscription")
+    SUBCASE("observable of -1-x but with invoking schedulable after subscription")
     {
         rpp::source::create<int>([](const auto& obs) {
             obs.on_next(1);
@@ -215,7 +214,7 @@ TEST_CASE("delay delays observable's emissions")
             | rpp::ops::delay(delay_duration, scheduler)
             | subscribe_with_delay([]() { return rpp::schedulers::test_scheduler::worker_strategy::now(); });
 
-        SECTION("shouldn't see anything before manual invoking")
+        SUBCASE("shouldn't see anything before manual invoking")
         {
             CHECK(mock.get_received_values() == std::vector<int>{});
             CHECK(mock.get_on_completed_count() == 0);
@@ -224,7 +223,7 @@ TEST_CASE("delay delays observable's emissions")
 
         scheduler.time_advance(delay_duration);
 
-        SECTION("should see --1-x")
+        SUBCASE("should see --1-x")
         {
             CHECK(mock.get_received_values() == std::vector<int>{1});
             CHECK(mock.get_on_completed_count() == 0);
@@ -248,25 +247,25 @@ TEST_CASE("observe_on forward error immediately")
         const auto now = get_now();
         return rpp::ops::subscribe(
             [&, now, get_now](const auto& v) {
-                SECTION("should see event after the delay")
+                SUBCASE("should see event after the delay")
                 CHECK(get_now() >= now + delay_duration);
 
                 mock.on_next(v);
             },
             [&, now, get_now](const std::exception_ptr& err) {
-                SECTION("should see event after the delay")
+                SUBCASE("should see event after the delay")
                 CHECK(get_now() == now);
                 mock.on_error(err);
             },
             [&, now, get_now]() {
-                SECTION("should see event after the delay")
+                SUBCASE("should see event after the delay")
                 CHECK(get_now() >= now + delay_duration);
 
                 mock.on_completed();
             });
     };
 
-    SECTION("observable of -1-x but with invoking schedulable after subscription")
+    SUBCASE("observable of -1-x but with invoking schedulable after subscription")
     {
         const auto now = rpp::schedulers::test_scheduler::worker_strategy::now();
         rpp::source::create<int>([](const auto& obs) {
@@ -276,7 +275,7 @@ TEST_CASE("observe_on forward error immediately")
             | rpp::ops::observe_on(scheduler, delay_duration)
             | subscribe_with_delay([]() { return rpp::schedulers::test_scheduler::worker_strategy::now(); });
 
-        SECTION("should see on_error immediately")
+        SUBCASE("should see on_error immediately")
         {
             CHECK(mock.get_received_values() == std::vector<int>{});
             CHECK(mock.get_on_completed_count() == 0);

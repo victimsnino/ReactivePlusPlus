@@ -8,8 +8,7 @@
 // Project home: https://github.com/victimsnino/ReactivePlusPlus
 //
 
-#include <catch2/catch_template_test_macros.hpp>
-#include <catch2/catch_test_macros.hpp>
+#include <doctest/doctest.h>
 
 #include <rpp/observers/mock_observer.hpp>
 #include <rpp/operators/delay.hpp>
@@ -29,7 +28,7 @@ TEST_CASE("timeout subscribes to passed observable in case of reaching timeout")
     auto       mock      = mock_observer_strategy<int>{};
     const auto now       = scheduler.now();
 
-    SECTION("timeout not reached")
+    SUBCASE("timeout not reached")
     {
         rpp::source::just(scheduler, 1, 2, 3)
             | rpp::ops::timeout(std::chrono::seconds{1}, rpp::source::just(100), scheduler)
@@ -46,7 +45,7 @@ TEST_CASE("timeout subscribes to passed observable in case of reaching timeout")
         CHECK(mock.get_on_completed_count() == 1);
     }
 
-    SECTION("timeout reached")
+    SUBCASE("timeout reached")
     {
         rpp::source::just(scheduler, 1)
             | rpp::ops::delay(std::chrono::seconds{5}, scheduler)
@@ -65,7 +64,7 @@ TEST_CASE("timeout subscribes to passed observable in case of reaching timeout")
         CHECK(mock.get_on_completed_count() == 1);
     }
 
-    SECTION("timeout with never")
+    SUBCASE("timeout with never")
     {
         rpp::source::never<int>()
             | rpp::ops::timeout(std::chrono::seconds{1}, rpp::source::just(100), scheduler)
@@ -80,7 +79,7 @@ TEST_CASE("timeout subscribes to passed observable in case of reaching timeout")
         CHECK(mock.get_on_completed_count() == 1);
     }
 
-    SECTION("timeout with empty")
+    SUBCASE("timeout with empty")
     {
         rpp::source::empty<int>()
             | rpp::ops::timeout(std::chrono::seconds{1}, rpp::source::just(100), scheduler)
@@ -95,7 +94,7 @@ TEST_CASE("timeout subscribes to passed observable in case of reaching timeout")
         CHECK(mock.get_on_completed_count() == 1);
     }
 
-    SECTION("timeout with error")
+    SUBCASE("timeout with error")
     {
         rpp::source::error<int>({})
             | rpp::ops::timeout(std::chrono::seconds{1}, rpp::source::just(100), scheduler)
@@ -110,7 +109,7 @@ TEST_CASE("timeout subscribes to passed observable in case of reaching timeout")
         CHECK(mock.get_on_completed_count() == 0);
     }
 
-    SECTION("timeout with default args")
+    SUBCASE("timeout with default args")
     {
         rpp::source::never<int>()
             | rpp::ops::timeout(std::chrono::seconds{1}, scheduler)
@@ -125,7 +124,7 @@ TEST_CASE("timeout subscribes to passed observable in case of reaching timeout")
         CHECK(mock.get_on_completed_count() == 0);
     }
 
-    SECTION("never timeout with never")
+    SUBCASE("never timeout with never")
     {
         rpp::source::never<int>()
             | rpp::ops::timeout(std::chrono::seconds{1}, rpp::source::never<int>(), scheduler)

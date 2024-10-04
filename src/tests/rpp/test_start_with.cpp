@@ -8,8 +8,7 @@
 // Project home: https://github.com/victimsnino/ReactivePlusPlus
 //
 
-#include <catch2/catch_template_test_macros.hpp>
-#include <catch2/catch_test_macros.hpp>
+#include <doctest/doctest.h>
 
 #include <rpp/observers/mock_observer.hpp>
 #include <rpp/operators/start_with.hpp>
@@ -19,19 +18,19 @@ TEST_CASE("start_with works as concat with prepending instead of adding at the e
     auto mock = mock_observer_strategy<int>{};
 
     auto check = [&] {
-        SECTION("obtain values from start_with firstly, then from original observable")
+        SUBCASE("obtain values from start_with firstly, then from original observable")
         {
             CHECK(mock.get_received_values() == std::vector{2, 3, 1});
             CHECK(mock.get_on_error_count() == 0);
             CHECK(mock.get_on_completed_count() == 1);
         }
     };
-    SECTION("3 observables")
+    SUBCASE("3 observables")
     {
         auto obs_1 = rpp::source::just(1);
         auto obs_2 = rpp::source::just(2);
         auto obs_3 = rpp::source::just(3);
-        SECTION("subscribe on them via start_with")
+        SUBCASE("subscribe on them via start_with")
         {
             obs_1 | rpp::ops::start_with(obs_2, obs_3) | rpp::ops::subscribe(mock);
 
@@ -39,16 +38,16 @@ TEST_CASE("start_with works as concat with prepending instead of adding at the e
         }
     }
 
-    SECTION("observable")
+    SUBCASE("observable")
     {
         auto obs_1 = rpp::source::just(1);
-        SECTION("subscribe on it via start_with with values")
+        SUBCASE("subscribe on it via start_with with values")
         {
             obs_1 | rpp::ops::start_with(2, 3) | rpp::ops::subscribe(mock);
 
             check();
         }
-        SECTION("subscribe on it via start_with<shared> with values")
+        SUBCASE("subscribe on it via start_with<shared> with values")
         {
             obs_1 | rpp::ops::start_with<rpp::memory_model::use_shared>(2, 3) | rpp::ops::subscribe(mock);
 

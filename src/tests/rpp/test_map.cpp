@@ -8,8 +8,7 @@
 // Project home: https://github.com/victimsnino/ReactivePlusPlus
 //
 
-#include <catch2/catch_template_test_macros.hpp>
-#include <catch2/catch_test_macros.hpp>
+#include <doctest/doctest.h>
 
 #include <rpp/operators/map.hpp>
 #include <rpp/sources/just.hpp>
@@ -21,11 +20,11 @@
 #include <stdexcept>
 #include <string>
 
-TEMPLATE_TEST_CASE("map modifies values and forward errors/completions", "", rpp::memory_model::use_stack, rpp::memory_model::use_shared)
+TEST_CASE_TEMPLATE("map modifies values and forward errors/completions", TestType, rpp::memory_model::use_stack, rpp::memory_model::use_shared)
 {
     auto obs = rpp::source::just<TestType>(1, 2);
 
-    SECTION("map changes value")
+    SUBCASE("map changes value")
     {
         mock_observer<std::string> mock{};
         trompeloeil::sequence      seq;
@@ -38,7 +37,7 @@ TEMPLATE_TEST_CASE("map modifies values and forward errors/completions", "", rpp
     }
 
 
-    SECTION("map with exception value")
+    SUBCASE("map with exception value")
     {
         mock_observer<int>    mock{};
         trompeloeil::sequence seq;
@@ -54,7 +53,7 @@ TEMPLATE_TEST_CASE("map modifies values and forward errors/completions", "", rpp
 
 TEST_CASE("map doesn't produce extra copies")
 {
-    SECTION("map([](auto&& v){return std::forward(v);})")
+    SUBCASE("map([](auto&& v){return std::forward(v);})")
     {
         copy_count_tracker::test_operator(rpp::ops::map([](auto&& v) { return std::forward<decltype(v)>(v); }),
                                           {

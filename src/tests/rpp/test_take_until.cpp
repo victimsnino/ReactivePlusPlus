@@ -8,8 +8,7 @@
 // Project home: https://github.com/victimsnino/ReactivePlusPlus
 //
 
-#include <catch2/catch_template_test_macros.hpp>
-#include <catch2/catch_test_macros.hpp>
+#include <doctest/doctest.h>
 
 #include <rpp/observers/mock_observer.hpp>
 #include <rpp/operators/as_blocking.hpp>
@@ -31,7 +30,7 @@
 TEST_CASE("take_until mirrors both source observable and trigger observable")
 {
     auto mock = mock_observer_strategy<int>{};
-    SECTION("observable of -1-2... pairs with trigger observable from a publish subject")
+    SUBCASE("observable of -1-2... pairs with trigger observable from a publish subject")
     {
         auto test = [&mock](auto inner_action) {
             auto subject          = rpp::subjects::publish_subject<bool>{};
@@ -50,30 +49,30 @@ TEST_CASE("take_until mirrors both source observable and trigger observable")
                 | rpp::ops::subscribe(mock);
         };
 
-        SECTION("subcject emits on_next")
+        SUBCASE("subcject emits on_next")
         {
             test([](const auto& sub) { sub.on_next(true); });
-            SECTION("should see -1-2-|")
+            SUBCASE("should see -1-2-|")
             {
                 CHECK(mock.get_received_values() == std::vector<int>{1, 2});
                 CHECK(mock.get_on_completed_count() == 1);
                 CHECK(mock.get_on_error_count() == 0);
             }
         }
-        SECTION("subcject emits on_error")
+        SUBCASE("subcject emits on_error")
         {
             test([](const auto& sub) { sub.on_error({}); });
-            SECTION("should see -1-2-x")
+            SUBCASE("should see -1-2-x")
             {
                 CHECK(mock.get_received_values() == std::vector<int>{1, 2});
                 CHECK(mock.get_on_completed_count() == 0);
                 CHECK(mock.get_on_error_count() == 1);
             }
         }
-        SECTION("subcject emits on_completed")
+        SUBCASE("subcject emits on_completed")
         {
             test([](const auto& sub) { sub.on_completed(); });
-            SECTION("should see -1-2-|")
+            SUBCASE("should see -1-2-|")
             {
                 CHECK(mock.get_received_values() == std::vector<int>{1, 2});
                 CHECK(mock.get_on_completed_count() == 1);
@@ -82,13 +81,13 @@ TEST_CASE("take_until mirrors both source observable and trigger observable")
         }
     }
 
-    SECTION("observable of -1-2-3-| pairs with trigger observable of never")
+    SUBCASE("observable of -1-2-3-| pairs with trigger observable of never")
     {
         rpp::source::just(1, 2, 3)
             | rpp::ops::take_until(rpp::source::never<bool>())
             | rpp::ops::subscribe(mock);
 
-        SECTION("should see -1-2-3-|")
+        SUBCASE("should see -1-2-3-|")
         {
             CHECK(mock.get_received_values() == std::vector<int>{1, 2, 3});
             CHECK(mock.get_on_completed_count() == 1);
@@ -96,13 +95,13 @@ TEST_CASE("take_until mirrors both source observable and trigger observable")
         }
     }
 
-    SECTION("observable of -1-| pairs with trigger observable of -1-|")
+    SUBCASE("observable of -1-| pairs with trigger observable of -1-|")
     {
         rpp::source::just(1)
             | rpp::ops::take_until(rpp::source::just(1))
             | rpp::ops::subscribe(mock);
 
-        SECTION("should see -| because take_until is subscribed first and it also mirrors the trigger observable 's completed event")
+        SUBCASE("should see -| because take_until is subscribed first and it also mirrors the trigger observable 's completed event")
         {
             CHECK(mock.get_received_values().empty());
             CHECK(mock.get_on_completed_count() == 1);
@@ -110,13 +109,13 @@ TEST_CASE("take_until mirrors both source observable and trigger observable")
         }
     }
 
-    SECTION("observable of -1-| pairs with trigger observable of -x")
+    SUBCASE("observable of -1-| pairs with trigger observable of -x")
     {
         rpp::source::just(1)
             | rpp::ops::take_until(rpp::source::error<bool>(std::make_exception_ptr(std::runtime_error{""})))
             | rpp::ops::subscribe(mock);
 
-        SECTION("should see -x because take_until also mirrors the trigger observable 's error event")
+        SUBCASE("should see -x because take_until also mirrors the trigger observable 's error event")
         {
             CHECK(mock.get_received_values().empty());
             CHECK(mock.get_on_completed_count() == 0);
@@ -124,13 +123,13 @@ TEST_CASE("take_until mirrors both source observable and trigger observable")
         }
     }
 
-    SECTION("observable of -1-| pairs with trigger observable of -|")
+    SUBCASE("observable of -1-| pairs with trigger observable of -|")
     {
         rpp::source::just(1)
             | rpp::ops::take_until(rpp::source::empty<bool>())
             | rpp::ops::subscribe(mock);
 
-        SECTION("should see -| because take_until completes prior to the source")
+        SUBCASE("should see -| because take_until completes prior to the source")
         {
             CHECK(mock.get_received_values().empty());
             CHECK(mock.get_on_completed_count() == 1);
@@ -141,12 +140,12 @@ TEST_CASE("take_until mirrors both source observable and trigger observable")
 
 TEST_CASE("take_until can handle race condition")
 {
-    SECTION("observer consumes on_next slower than source sends on_next and on_completed events")
+    SUBCASE("observer consumes on_next slower than source sends on_next and on_completed events")
     {
         std::atomic_bool on_completed_called{false};
         auto             subject = rpp::subjects::publish_subject<int>{};
 
-        SECTION("on_completed shall not interleave with on_next")
+        SUBCASE("on_completed shall not interleave with on_next")
         {
             rpp::source::concat(rpp::source::just(1) | rpp::ops::take(1), rpp::source::never<int>())
                 | rpp::ops::take_until(subject.get_observable())
@@ -168,12 +167,12 @@ TEST_CASE("take_until can handle race condition")
         }
     }
 
-    SECTION("observer consumes on_next slower than source sends on_next and on_error events")
+    SUBCASE("observer consumes on_next slower than source sends on_next and on_error events")
     {
         std::atomic_bool on_error_called{false};
         auto             subject = rpp::subjects::publish_subject<int>{};
 
-        SECTION("on_error shall not interleave with on_next")
+        SUBCASE("on_error shall not interleave with on_next")
         {
             rpp::source::concat(rpp::source::just(1) | rpp::ops::take(1), rpp::source::never<int>())
                 | rpp::ops::take_until(subject.get_observable())
@@ -210,7 +209,7 @@ TEST_CASE("take_until handles current_thread scheduling")
 
 TEST_CASE("take_until doesn't produce extra copies")
 {
-    SECTION("take_until(other)")
+    SUBCASE("take_until(other)")
     {
         copy_count_tracker::test_operator(rpp::ops::take_until(rpp::source::never<int>()),
                                           {
@@ -224,9 +223,11 @@ TEST_CASE("take_until doesn't produce extra copies")
 
 TEST_CASE("take_until satisfies disposable contracts")
 {
+    SUBCASE("take_until(never)")
     test_operator_with_disposable<int>(rpp::ops::take_until(rpp::source::never<int>()));
-    test_operator_with_disposable<int>(rpp::ops::take_until(rpp::source::empty<int>()));
+    SUBCASE("take_until(empty)")
     test_operator_finish_before_dispose<int>(rpp::ops::take_until(rpp::source::empty<int>()));
+    SUBCASE("never | take_until(ob)")
     test_operator_over_observable_finish_before_dispose<int>([](const auto& ob) {
         return rpp::source::never<int>() | rpp::ops::take_until(ob);
     });

@@ -8,8 +8,7 @@
 // Project home: https://github.com/victimsnino/ReactivePlusPlus
 //
 
-#include <catch2/catch_template_test_macros.hpp>
-#include <catch2/catch_test_macros.hpp>
+#include <doctest/doctest.h>
 
 #include <rpp/operators/as_blocking.hpp>
 #include <rpp/operators/retry.hpp>
@@ -30,11 +29,11 @@ TEST_CASE("retry handles errors properly")
     mock_observer<int>    mock{};
     trompeloeil::sequence seq;
 
-    SECTION("observable 1-x-2")
+    SUBCASE("observable 1-x-2")
     {
         const auto observable = rpp::source::concat(rpp::source::just(1), rpp::source::error<int>({}), rpp::source::just(2));
 
-        SECTION("retry(0)")
+        SUBCASE("retry(0)")
         {
             REQUIRE_CALL(*mock, on_next_lvalue(1)).IN_SEQUENCE(seq);
             REQUIRE_CALL(*mock, on_error(trompeloeil::_)).IN_SEQUENCE(seq);
@@ -42,7 +41,7 @@ TEST_CASE("retry handles errors properly")
             observable | rpp::operators::retry(0) | rpp::operators::subscribe(mock);
         }
 
-        SECTION("retry(1)")
+        SUBCASE("retry(1)")
         {
             REQUIRE_CALL(*mock, on_next_lvalue(1)).IN_SEQUENCE(seq);
             REQUIRE_CALL(*mock, on_next_lvalue(1)).IN_SEQUENCE(seq);
@@ -51,7 +50,7 @@ TEST_CASE("retry handles errors properly")
             observable | rpp::operators::retry(1) | rpp::operators::subscribe(mock);
         }
 
-        SECTION("retry(2)")
+        SUBCASE("retry(2)")
         {
             REQUIRE_CALL(*mock, on_next_lvalue(1)).IN_SEQUENCE(seq);
             REQUIRE_CALL(*mock, on_next_lvalue(1)).IN_SEQUENCE(seq);
@@ -60,7 +59,7 @@ TEST_CASE("retry handles errors properly")
 
             observable | rpp::operators::retry(2) | rpp::operators::subscribe(mock);
         }
-        SECTION("retry(2) from another thread")
+        SUBCASE("retry(2) from another thread")
         {
             REQUIRE_CALL(*mock, on_next_lvalue(1)).IN_SEQUENCE(seq);
             REQUIRE_CALL(*mock, on_next_lvalue(1)).IN_SEQUENCE(seq);
@@ -70,7 +69,7 @@ TEST_CASE("retry handles errors properly")
             observable | rpp::ops::subscribe_on(rpp::schedulers::new_thread{}) | rpp::operators::retry(2) | rpp::ops::as_blocking() | rpp::operators::subscribe(mock);
         }
 
-        SECTION("retry()")
+        SUBCASE("retry()")
         {
             auto d = rpp::composite_disposable_wrapper::make();
 
@@ -84,11 +83,11 @@ TEST_CASE("retry handles errors properly")
             observable | rpp::operators::retry() | rpp::operators::subscribe(d, mock);
         }
     }
-    SECTION("observable 1-|")
+    SUBCASE("observable 1-|")
     {
         const auto observable = rpp::source::just(1);
 
-        SECTION("retry(0)")
+        SUBCASE("retry(0)")
         {
             REQUIRE_CALL(*mock, on_next_lvalue(1)).IN_SEQUENCE(seq);
             REQUIRE_CALL(*mock, on_completed()).IN_SEQUENCE(seq);
@@ -96,7 +95,7 @@ TEST_CASE("retry handles errors properly")
             observable | rpp::operators::retry(0) | rpp::operators::subscribe(mock);
         }
 
-        SECTION("retry(2)")
+        SUBCASE("retry(2)")
         {
             REQUIRE_CALL(*mock, on_next_lvalue(1)).IN_SEQUENCE(seq);
             REQUIRE_CALL(*mock, on_completed()).IN_SEQUENCE(seq);
@@ -104,7 +103,7 @@ TEST_CASE("retry handles errors properly")
             observable | rpp::operators::retry(2) | rpp::operators::subscribe(mock);
         }
 
-        SECTION("retry()")
+        SUBCASE("retry()")
         {
             REQUIRE_CALL(*mock, on_next_lvalue(1)).IN_SEQUENCE(seq);
             REQUIRE_CALL(*mock, on_completed()).IN_SEQUENCE(seq);
@@ -112,32 +111,32 @@ TEST_CASE("retry handles errors properly")
             observable | rpp::operators::retry() | rpp::operators::subscribe(mock);
         }
     }
-    SECTION("observable 1->")
+    SUBCASE("observable 1->")
     {
         const auto observable = rpp::source::concat(rpp::source::just(1), rpp::source::never<int>());
 
-        SECTION("retry(0)")
+        SUBCASE("retry(0)")
         {
             REQUIRE_CALL(*mock, on_next_lvalue(1)).IN_SEQUENCE(seq);
 
             observable | rpp::operators::retry(0) | rpp::operators::subscribe(mock);
         }
 
-        SECTION("retry(2)")
+        SUBCASE("retry(2)")
         {
             REQUIRE_CALL(*mock, on_next_lvalue(1)).IN_SEQUENCE(seq);
 
             observable | rpp::operators::retry(2) | rpp::operators::subscribe(mock);
         }
 
-        SECTION("retry()")
+        SUBCASE("retry()")
         {
             REQUIRE_CALL(*mock, on_next_lvalue(1)).IN_SEQUENCE(seq);
 
             observable | rpp::operators::retry() | rpp::operators::subscribe(mock);
         }
     }
-    SECTION("observable throws exception")
+    SUBCASE("observable throws exception")
     {
         size_t     i          = 0;
         const auto observable = rpp::source::create<int>([&i](const auto& sub) {
@@ -146,7 +145,7 @@ TEST_CASE("retry handles errors properly")
             sub.on_error({});
         });
 
-        SECTION("retry()")
+        SUBCASE("retry()")
         {
             REQUIRE_CALL(*mock, on_error(trompeloeil::_)).IN_SEQUENCE(seq);
 
@@ -191,7 +190,7 @@ TEST_CASE("retry disposes on looping")
 
 TEST_CASE("retry doesn't produce extra copies")
 {
-    SECTION("retry(2)")
+    SUBCASE("retry(2)")
     {
         copy_count_tracker::test_operator(rpp::ops::retry(2),
                                           {
@@ -201,7 +200,7 @@ TEST_CASE("retry doesn't produce extra copies")
                                                                .move_count = 1} // 1 move to final subscriber
                                           });
     }
-    SECTION("retry()")
+    SUBCASE("retry()")
     {
         copy_count_tracker::test_operator(rpp::ops::retry(),
                                           {

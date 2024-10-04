@@ -8,8 +8,7 @@
 // Project home: https://github.com/victimsnino/ReactivePlusPlus
 //
 
-#include <catch2/catch_template_test_macros.hpp>
-#include <catch2/catch_test_macros.hpp>
+#include <doctest/doctest.h>
 
 #include <rpp/observers/mock_observer.hpp>
 #include <rpp/operators/first.hpp>
@@ -26,7 +25,7 @@ TEST_CASE("first only emits once")
 {
     auto mock = mock_observer_strategy<int>{};
 
-    SECTION("observable of -1-| - shall see -1-|")
+    SUBCASE("observable of -1-| - shall see -1-|")
     {
         auto obs = rpp::source::just(1);
         obs | rpp::ops::first()
@@ -37,7 +36,7 @@ TEST_CASE("first only emits once")
         CHECK(mock.get_on_error_count() == 0);
     }
 
-    SECTION("observable of -1-2-3-| - shall see -1-|")
+    SUBCASE("observable of -1-2-3-| - shall see -1-|")
     {
         auto obs = rpp::source::just(1, 2, 3);
         obs | rpp::ops::first()
@@ -47,7 +46,7 @@ TEST_CASE("first only emits once")
         CHECK(mock.get_on_error_count() == 0);
     }
 
-    SECTION("observable of never - shall not see neither completed nor error event")
+    SUBCASE("observable of never - shall not see neither completed nor error event")
     {
         auto obs = rpp::source::never<int>();
         obs | rpp::ops::first()
@@ -57,7 +56,7 @@ TEST_CASE("first only emits once")
         CHECK(mock.get_on_error_count() == 0);
     }
 
-    SECTION("observable of x-| - shall see error and no-completed event")
+    SUBCASE("observable of x-| - shall see error and no-completed event")
     {
         auto obs = rpp::source::error<int>(std::make_exception_ptr(std::runtime_error{""}));
         obs | rpp::ops::first()
@@ -68,7 +67,7 @@ TEST_CASE("first only emits once")
         CHECK(mock.get_on_error_count() == 1);
     }
 
-    SECTION("observable of ---| - shall see -x")
+    SUBCASE("observable of ---| - shall see -x")
     {
         auto obs = rpp::source::empty<int>();
         obs | rpp::ops::first()
@@ -81,7 +80,7 @@ TEST_CASE("first only emits once")
 
 TEST_CASE("first doesn't produce extra copies")
 {
-    SECTION("first()")
+    SUBCASE("first()")
     {
         copy_count_tracker::test_operator(rpp::ops::first(),
                                           {
