@@ -34,9 +34,10 @@ rpp::source::from_callable(&::getchar)
 ```
 [Try it on godbolt!](https://godbolt.org/#g:!((g:!((g:!((h:codeEditor,i:(filename:'1',fontScale:14,fontUsePx:'0',j:1,lang:c%2B%2B,selection:(endColumn:65,endLineNumber:12,positionColumn:1,positionLineNumber:8,selectionStartColumn:65,selectionStartLineNumber:12,startColumn:1,startLineNumber:8),source:'%23include+%3Crpp/rpp.hpp%3E%0A%23include+%3Ciostream%3E%0A%23include+%3Cfunctional%3E%0A%0Aint+main()%0A%7B%0A++++rpp::source::from_callable(%26::getchar)%0A++++%7C+rpp::operators::repeat()%0A++++%7C+rpp::operators::take_while(%5B%5D(char+v)+%7B+return+v+!!%3D+!'0!'%3B+%7D)%0A++++%7C+rpp::operators::filter(std::not_fn(%26::isdigit))%0A++++%7C+rpp::operators::map(%26::toupper)%0A++++%7C+rpp::operators::subscribe(%5B%5D(char+v)+%7B+std::cout+%3C%3C+v%3B+%7D)%3B%0A++++return+0%3B%0A%7D'),l:'5',n:'1',o:'C%2B%2B+source+%231',t:'0')),k:60.849967804249836,l:'4',m:100,n:'0',o:'',s:0,t:'0'),(g:!((h:executor,i:(argsPanelShown:'1',compilationPanelShown:'0',compiler:g132,compilerName:'',compilerOutShown:'0',execArgs:'',execStdin:'He11lLo+%23@!!$+W%23oRl@123d+!!0001123W',fontScale:14,fontUsePx:'0',j:1,lang:c%2B%2B,libs:!((name:reactive_plus_plus,ver:v2)),options:'-std%3Dc%2B%2B20',overrides:!(),runtimeTools:!(),source:1,stdinPanelShown:'0',wrap:'1'),l:'5',n:'0',o:'Executor+x86-64+gcc+13.2+(C%2B%2B,+Editor+%231)',t:'0')),header:(),k:39.150032195750164,l:'4',n:'0',o:'',s:0,t:'0')),l:'2',n:'0',o:'',t:'0')),version:4)
 
-> [!NOTE]
->
-> There we are creating observable (soure of emissions/values/data) to emit value via invoking of `getchar` function, `repeat`-ing it infinite amount of time till termination event happening. It emits values while symbol is not equal to `0`, taking only **not** digits, maping them to upper case and then just printing to console.
+
+<details><summary>Explanation</summary>
+There we are creating observable (soure of emissions/values/data) to emit value via invoking of `getchar` function, `repeat`-ing it infinite amount of time till termination event happening. It emits values while symbol is not equal to `0`, taking only **not** digits, maping them to upper case and then just printing to console.
+</details>
 
 
 Also RPP supports QT out of box. Checkout [RPPQT reference](https://victimsnino.github.io/ReactivePlusPlus/v2/docs/html/group__rppqt.html). For example:
@@ -90,10 +91,10 @@ If you are going to know more details about developing for RPP check [HACKING](H
 
 ## Documentation:
 
-Check [User Guide/Tutorial](https://victimsnino.github.io/ReactivePlusPlus/v2/docs/html/md_docs_2readme.html) and [API Reference of RPP](https://victimsnino.github.io/ReactivePlusPlus/v2/docs/html/group__rpp.html).
+Check detailed [User Guide/Tutorial](https://victimsnino.github.io/ReactivePlusPlus/v2/docs/html/md_docs_2readme.html) and extensive [API Reference of RPP](https://victimsnino.github.io/ReactivePlusPlus/v2/docs/html/group__rpp.html).
 
 
-# Useful links
+## Useful links
 - [User Guide](https://victimsnino.github.io/ReactivePlusPlus/v2/docs/html/md_docs_2readme.html)
 - [API Reference](https://victimsnino.github.io/ReactivePlusPlus/v2/docs/html/group__rpp.html)
 - [Examples](https://github.com/victimsnino/ReactivePlusPlus/tree/v2/src/examples)
@@ -103,7 +104,7 @@ Check [User Guide/Tutorial](https://victimsnino.github.io/ReactivePlusPlus/v2/do
 - [BUILDING](BUILDING.md)
 - [CONTRIBUTING](CONTRIBUTING.md)
 
-# Licensing
+## Licensing
 
 Boost Software License - Version 1.0 - August 17th, 2003
 
