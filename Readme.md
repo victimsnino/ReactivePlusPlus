@@ -40,20 +40,10 @@ There we are creating observable (soure of emissions/values/data) to emit value 
 </details>
 
 
-Also RPP supports QT out of box. Checkout [RPPQT reference](https://victimsnino.github.io/ReactivePlusPlus/v2/docs/html/group__rppqt.html). For example:
-```cpp
-auto button = new QPushButton("Click me!");
-auto label  = new QLabel();
-rppqt::source::from_signal(*button, &QPushButton::clicked); // <------ react on signals
-   | rpp::operators::observe_on(rpp::schedulers::new_thread{})
-   // some heavy job
-   // .....
-   | rpp::operators::scan(0, [](int seed, auto) { return ++seed; })
-   | rpp::operators::observe_on(rppqt::schedulers::main_thread_scheduler{}) // <--- go back to main QT scheduler
-   | rpp::operators::subscribe([&clicks_count_label](int clicks)
-   {
-      clicks_count_label->setText(QString{"Clicked %1 times in total!"}.arg(clicks));
-   });
+Also RPP supports out of box:
+-  QT as rppqt module. Checkout [RPPQT reference](https://victimsnino.github.io/ReactivePlusPlus/v2/docs/html/group__rppqt.html). 
+-  GRPC as rppgrpc module. Checkout [RPPGRPC reference](https://victimsnino.github.io/ReactivePlusPlus/v2/docs/html/group__rppgrpc.html). 
+-  boost::asio as rppasio module. Checkout [RPPASIO reference](https://victimsnino.github.io/ReactivePlusPlus/v2/docs/html/group__rppasio.html). 
 ```
 
 ## What about existing Reactive Extension libraries for C++?

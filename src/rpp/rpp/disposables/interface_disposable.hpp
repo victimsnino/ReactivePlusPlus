@@ -25,13 +25,13 @@ namespace rpp
 
         /**
          * @brief Check if this disposable is just disposed
-         * @warning This function must be thread-safe
+         * @attention This function must be thread-safe
          */
         virtual bool is_disposed() const noexcept = 0;
 
         /**
          * @brief Dispose disposable and free any underlying resources and etc.
-         * @warning This function must be thread-safe
+         * @attention This function must be thread-safe
          */
         void dispose() noexcept { dispose_impl(Mode::Disposing); }
 

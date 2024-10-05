@@ -85,7 +85,7 @@ namespace rpp::operators
      * - Just simple `size_t` decrementing
      *
      * @param count amount of items to be emitted. 0 - instant complete
-     * @warning #include <rpp/operators/take.hpp>
+     * @note #include <rpp/operators/take.hpp>
      *
      * @par Example:
      * @snippet take.cpp take

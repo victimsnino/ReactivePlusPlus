@@ -30,7 +30,7 @@ But RPP is header-only library, so, without enabling any extra options is just c
 - `RPP_BUILD_GRPC_CODE` - (ON/OFF) build GRPC related code (examples/tests)(rppgrpc module doesn't require this one) (default OFF) - requires grpc++/protobuf to be installed
 - `RPP_BUILD_ASIO_CODE` - (ON/OFF) build RPPASIO related code (examples/tests)(rppasio module doesn't require this one) (default OFF) - requires asio to be installed
 
-By default, it provides rpp, rppqt, rppgrpc INTERFACE modules.
+By default, it provides rpp, rppqt, rppgrpc, rppasio INTERFACE modules.
 
 ## Install
 
@@ -78,6 +78,7 @@ command of CMake:
 * Target names:
  - `RPP::rpp` - main rpp INTERFACE target
  - `RPP::rppqt` - additional INTERFACE target to extend functionality for QT. rppqt doesn't include QT or even doesn't link with that itself.
+ - `RPP::rppasio` - additional INTERFACE target to extend functionality for ASIO. rppasio doesn't include boost::asio or even doesn't link with that itself.
  - `RPP::rppgrpc` - additional INTERFACE target to extend functionality for GRPC. rppgrpc doesn't include GRPC or even doesn't link with that itself.
 
 Example usage:
@@ -90,6 +91,7 @@ target_link_libraries(project_target
     PRIVATE
         RPP::rpp
         RPP::rppqt
+        RPP::rppasio
         RPP::rppgrpc
 )
 ```

@@ -82,7 +82,7 @@ namespace rpp::operators
     * - No any copies/moves of emissions, just passing by const& to predicate and then forwarding
     *
     * @param predicate is predicate used to check emitted items. true -> items satisfies condition, false -> not
-    * @warning #include <rpp/operators/filter.hpp>
+    * @note #include <rpp/operators/filter.hpp>
     *
     * @par Example:
     * @snippet filter.cpp Filter

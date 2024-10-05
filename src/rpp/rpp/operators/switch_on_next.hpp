@@ -171,7 +171,7 @@ namespace rpp::operators
      *
      * @details Actually this operator just unsubscribes from previous observable and subscribes on new observable when obtained in `on_next`
      *
-     * @warning #include <rpp/operators/switch_on_next.hpp>
+     * @note #include <rpp/operators/switch_on_next.hpp>
      *
      * @par Example:
      * @snippet switch_on_next.cpp switch_on_next

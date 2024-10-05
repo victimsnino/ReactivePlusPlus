@@ -87,7 +87,7 @@ namespace rpp::operators
      * - No any heap allocations
      * - No replace std::optional with each new emission and move value from optional on_completed
      *
-     * @warning #include <rpp/operators/last.hpp>
+     * @note #include <rpp/operators/last.hpp>
      *
      * @par Example:
      * @snippet last.cpp last

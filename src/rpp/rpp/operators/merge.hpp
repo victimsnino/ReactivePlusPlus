@@ -190,9 +190,9 @@ namespace rpp::operators
     /**
      * @brief Converts observable of observables of items into observable of items via merging emissions.
      *
-     * @warning According to observable contract (https://reactivex.io/documentation/contract.html) emissions from any observable should be serialized, so, resulting observable uses mutex to satisfy this requirement
+     * @invariant According to observable contract (https://reactivex.io/documentation/contract.html) emissions from any observable should be serialized, so, resulting observable uses mutex to satisfy this requirement
      *
-     * @warning During on subscribe operator takes ownership over rpp::schedulers::current_thread to allow mixing of underlying emissions
+     * @attention During on subscribe operator takes ownership over rpp::schedulers::current_thread to allow mixing of underlying emissions
      *
      * @marble merge
          {
@@ -210,7 +210,7 @@ namespace rpp::operators
      * - 2 heap allocation (1 for state, 1 to convert observer to dynamic_observer)
      * - Acquiring mutex during all observer's calls
      *
-     * @warning #include <rpp/operators/merge.hpp>
+     * @note #include <rpp/operators/merge.hpp>
      *
      * @par Example:
      * @snippet merge.cpp merge
@@ -244,7 +244,7 @@ namespace rpp::operators
      * - Acquiring mutex during all observer's calls
      *
      * @param observables are observables whose emissions would be merged with current observable
-     * @warning #include <rpp/operators/merge.hpp>
+     * @note #include <rpp/operators/merge.hpp>
      *
      * @par Example:
      * @snippet merge.cpp merge_with

@@ -180,7 +180,7 @@ namespace rpp::operators
      * a hot observable behind a replay subject can indefinitely yield an error on each re-subscription
      * and using retry_when on it would lead to an infinite execution.
      *
-     * @warning #include <rpp/operators/retry_when.hpp>
+     * @note #include <rpp/operators/retry_when.hpp>
      *
      * @par Examples:
      * @snippet retry_when.cpp retry_when delay

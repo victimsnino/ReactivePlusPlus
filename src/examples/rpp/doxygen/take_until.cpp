@@ -19,7 +19,7 @@ int main()
     // Output  : -0-1-2-3-|
     //! [take_until]
 
-    //! [take_until terminate]
+    //! [terminate]
     rpp::source::never<int>()
         | rpp::ops::take_until(rpp::source::error<bool>(std::make_exception_ptr(std::runtime_error{""})))
         | rpp::ops::subscribe([](int v) { std::cout << "-" << v; },
@@ -28,6 +28,6 @@ int main()
     // source 1: -
     // source 2: -x
     // Output  : -x
-    //! [take_until terminate]
+    //! [terminate]
     return 0;
 }

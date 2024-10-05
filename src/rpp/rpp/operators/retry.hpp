@@ -145,7 +145,7 @@ namespace rpp::operators
      *
      * @param count is the number of retries
      *
-     * @warning #include <rpp/operators/retry.hpp>
+     * @note #include <rpp/operators/retry.hpp>
      *
      * @par Examples:
      * @snippet retry.cpp retry
@@ -167,7 +167,7 @@ namespace rpp::operators
           operator "retry:()"  : +-1-1-1-1-1-1-1-1-1-1-1->
       }
     *
-    * @warning #include <rpp/operators/retry.hpp>
+    * @note #include <rpp/operators/retry.hpp>
     *
     * @par Examples:
     * @snippet retry.cpp retry_infinitely

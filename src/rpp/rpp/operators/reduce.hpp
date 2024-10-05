@@ -134,7 +134,7 @@ namespace rpp::operators
      * @param initial_value initial value for seed
      * @param accumulator function which accepts seed value and new value from observable and return new value of seed. Can accept seed by move-reference.
      *
-     * @warning #include <rpp/operators/reduce.hpp>
+     * @note #include <rpp/operators/reduce.hpp>
      *
      * @par Example
      * @snippet reduce.cpp reduce
@@ -163,7 +163,7 @@ namespace rpp::operators
      * @param initial_value initial value for seed
      * @param accumulator function which accepts seed value and new value from observable and return new value of seed. Can accept seed by move-reference.
      *
-     * @warning #include <rpp/operators/reduce.hpp>
+     * @note #include <rpp/operators/reduce.hpp>
      *
      * @par Example
      * @snippet reduce.cpp reduce_no_seed

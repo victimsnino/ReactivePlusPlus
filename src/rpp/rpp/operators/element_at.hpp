@@ -93,7 +93,7 @@ namespace rpp::operators
      * @details If source observable completes without emitting at least `index` + 1 items, observable emits an error
      *
      * @param index index of the item to return
-     * @warning #include <rpp/operators/element_at.hpp>
+     * @note #include <rpp/operators/element_at.hpp>
      *
      * @ingroup filtering_operators
      * @see https://reactivex.io/documentation/operators/elementat.html

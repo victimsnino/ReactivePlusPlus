@@ -23,8 +23,8 @@ namespace rpp
     /**
      * @brief Base class for any observable used in RPP. It handles core callbacks of observable.
      * @details Observable provides only one core function: subscribe - it accepts observer (or any way to construct it) and then invokes underlying Strategy to emit emissions somehow.
-     * @warning Actually observable "doesn't emit nothing", it only **invokes Strategy!** Strategy COULD emit emissions immediately OR place observer to some queue or something like this to obtain emissions later (for example subjects)
-     * @warning Expected that observable's strategy would work with observer in serialized way
+     * @attention Actually observable "doesn't emit nothing", it only **invokes Strategy!** Strategy COULD emit emissions immediately OR place observer to some queue or something like this to obtain emissions later (for example subjects)
+     * @attention Expected that observable's strategy would work with observer in serialized way
      *
      * @note In case of you are need to keep some "abstract" observable of `Type`, you can use type-erased version: `rpp::dynamic_observable`
      *
@@ -52,7 +52,7 @@ namespace rpp
         /**
          * @brief Subscribes passed observer to emissions from this observable.
          *
-         * @warning Observer must be moved in to subscribe method. (Not recommended) If you need to copy observer, convert it to dynamic_observer
+         * @attention Observer must be moved in to subscribe method. (Not recommended) If you need to copy observer, convert it to dynamic_observer
          */
         template<constraint::observer_strategy<Type> ObserverStrategy>
         void subscribe(observer<Type, ObserverStrategy>&& observer) const
@@ -138,7 +138,7 @@ namespace rpp
          * @warning This overloading has some performance penalties, use it only when you really need to use disposable
          * @return composite_disposable_wrapper is disposable to be able to dispose observer when it needed
          *
-         * @warning Observer must be moved in to subscribe method. (Not recommended) If you need to copy observer, convert it to dynamic_observer
+         * @attention Observer must be moved in to subscribe method. (Not recommended) If you need to copy observer, convert it to dynamic_observer
          */
         template<constraint::observer_strategy<Type> ObserverStrategy>
         [[nodiscard("Use returned disposable or use subscribe(observer) instead")]] composite_disposable_wrapper subscribe_with_disposable(observer<Type, ObserverStrategy>&& observer) const

@@ -114,7 +114,7 @@ namespace rpp::details
 
         /**
          * @brief Observable calls this method to notify observer about some error during generation next data.
-         * @warning Obtaining this of this call means no any further on_next/on_error or on_completed calls from this Observable
+         * @invariant Obtaining of this call means no any further on_next/on_error or on_completed calls from this Observable
          * @param err details of error
          */
         void on_error(const std::exception_ptr& err) const noexcept
@@ -130,7 +130,7 @@ namespace rpp::details
 
         /**
          * @brief Observable calls this method to notify observer about completion of emissions.
-         * @warning Obtaining this of this call means no any further on_next/on_error or on_completed calls from this Observable
+         * @invariant Obtaining of this call means no any further on_next/on_error or on_completed calls from this Observable
          */
         void on_completed() const noexcept
         {

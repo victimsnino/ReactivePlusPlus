@@ -231,7 +231,7 @@ namespace rpp::operators
      * @param openings is observable which emissions used to start new window
      * @param closings_selector is function which returns observable which emission/completion means closing of opened window
      *
-     * @warning #include <rpp/operators/window.hpp>
+     * @note #include <rpp/operators/window.hpp>
      *
      * @par Example
      * @snippet window_toggle.cpp window_toggle

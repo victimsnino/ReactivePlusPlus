@@ -185,7 +185,7 @@ namespace rpp::operators
      * @param period is duration of time should be passed since emission from original observable without any new emissions to emit this emission.
      * @param scheduler is scheduler used to run timer for debounce
 
-     * @warning #include <rpp/operators/debounce.hpp>
+     * @note #include <rpp/operators/debounce.hpp>
      *
      * @par Example
      * @snippet debounce.cpp debounce

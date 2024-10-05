@@ -21,7 +21,7 @@ int main() // NOLINT(bugprone-exception-escape)
     //    emit 2 duration since start 10ms
     //    emit 3 duration since start 20ms
     //    On complete
-    //! [defer from_iterable]
+    //! [interval period]
 
     //! [interval initial+period]
     rpp::source::interval(std::chrono::milliseconds(5), std::chrono::milliseconds(10), rpp::schedulers::immediate{})
@@ -35,5 +35,5 @@ int main() // NOLINT(bugprone-exception-escape)
     //    emit 2 duration since start 15ms
     //    emit 3 duration since start 25ms
     //    On complete
-    //! [defer from_iterable]
+    //! [interval initial+period]
 }

@@ -63,7 +63,7 @@ namespace rpp::operators
      * @details Actually this operator just schedules subscription on original observable to provided scheduler
      *
      * @param scheduler is scheduler used for scheduling of OnSubscribe
-     * @warning #include <rpp/operators/subscribe_on.hpp>
+     * @note #include <rpp/operators/subscribe_on.hpp>
      *
      * @par Example:
      * @snippet subscribe_on.cpp subscribe_on

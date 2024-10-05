@@ -189,7 +189,7 @@ namespace rpp::operators
      * @param period is maximum duration between emitted items before a timeout occurs
      * @param fallback_observable is observable to subscribe on when timeout reached
      * @param scheduler is scheduler used to run timer for timeout
-     * @warning #include <rpp/operators/timeout.hpp>
+     * @note #include <rpp/operators/timeout.hpp>
      *
      * @par Example
      * @snippet timeout.cpp fallback_observable
@@ -213,7 +213,7 @@ namespace rpp::operators
         }
      * @param period is maximum duration between emitted items before a timeout occurs
      * @param scheduler is scheduler used to run timer for timeout
-     * @warning #include <rpp/operators/timeout.hpp>
+     * @note #include <rpp/operators/timeout.hpp>
      *
      * @par Example
      * @snippet timeout.cpp default
