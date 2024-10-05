@@ -5,7 +5,7 @@
 ## Introduction to Reactive Programming
 
 > [!IMPORTANT]
-> I'm highly recommend to read this article beforehand: [The introduction to Reactive Programming you've been missing](https://gist.github.com/staltz/868e7e9bc2a7b8c1f754)
+> It's highly recommended to read this article beforehand: [The introduction to Reactive Programming you've been missing](https://gist.github.com/staltz/868e7e9bc2a7b8c1f754)
 
 ### What is Reactive Programming?
 

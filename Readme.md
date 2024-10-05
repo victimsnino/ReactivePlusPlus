@@ -52,7 +52,7 @@ Reactive programming is a powerful paradigm for creating multi-threaded and real
 
 While RxCpp is a great and powerful library, it has some disadvantages. It is written in C++11 and contains parts written in pre-C++11 style. This leads to a mess of old-style classes and wrappers. Additionally, the `rxcpp::observable` type has a long chain of template parameters, which can lead to slower IDE performance and larger binaries. Sometimes it has bad perfomance due to tremendous amount of usage of heap or just non-effective logic.
 
-Another implementation is [another-rxcpp](https://github.com/CODIANZ/another-rxcpp) which uses type erasure and `std::function`, but itt casues larger observer/observable size and potentially casues performance issues.
+Another implementation, [another-rxcpp](https://github.com/CODIANZ/another-rxcpp), uses type erasure and `std::function`, but this approach results in larger observer/observable sizes and potentially causes performance issues.
 
 ### Why ReactivePlusPlus?
 
@@ -61,11 +61,11 @@ Another implementation is [another-rxcpp](https://github.com/CODIANZ/another-rxc
    - Concepts provide more clear errors and checks: you will understand that pass something incorrect before compilation in IDE or during compilation with understandable errors instead of _"invalid template class map_invalid_t"_
    - Everywhere while possible used deduction of template arguments, for example, type of values of observable by type of subscriber used in on_subscribe and etc
 - **ReactivePlusPlus** keeps balance between performance and type-erasing mechanism
-- **ReactivePlusPlus** is fast: every part of code written with perfomance in mind. Starting from tests over amount of copies/move and finishing to Continous Benchmarking. Benchmarks prove that RPP faster than RxCPP in most cases: [Continous benchmarking results and comparison with RxCpp](https://victimsnino.github.io/ReactivePlusPlus/v2/benchmark)
+- **ReactivePlusPlus** is fast: every part of code written with perfomance in mind. Starting from tests over amount of copies/move and finishing to Continuous Benchmarking. Benchmarks prove that RPP faster than RxCPP in most cases: [Continuous benchmarking results and comparison with RxCpp](https://victimsnino.github.io/ReactivePlusPlus/v2/benchmark)
 
 Currently ReactivePlusPlus is still under development but it has a lot of implemented operators for now. List of implemented features can be found in [API Reference](https://victimsnino.github.io/ReactivePlusPlus/v2/docs/html/group__rpp.html) with very detailed documentation for each of them.
 
-Main advantages of ReactivePlusPlus are that it is written in Modern C++ with Performance and Usage in mind. v2 written to follow [**"zero-overhead principle"**](https://en.cppreference.com/w/cpp/language/Zero-overhead_principle) As a result it is fast, readable, easy to use and well-documented. And it is proven with [continous benchmarking results of v2 and comparison with RxCpp](https://victimsnino.github.io/ReactivePlusPlus/v2/benchmark)
+Main advantages of ReactivePlusPlus are that it is written in Modern C++ with Performance and Usage in mind. v2 is written to follow the [**"zero-overhead principle"**](https://en.cppreference.com/w/cpp/language/Zero-overhead_principle). As a result, it is fast, readable, easy to use, and well-documented. This is proven by [continuous benchmarking results of v2 and comparison with RxCpp](https://victimsnino.github.io/ReactivePlusPlus/v2/benchmark).
 
 ## Usage
 
@@ -90,7 +90,7 @@ Check detailed [User Guide/Tutorial](https://victimsnino.github.io/ReactivePlusP
 - [Examples](https://github.com/victimsnino/ReactivePlusPlus/tree/v2/src/examples)
 - [reactivex.io](https://reactivex.io) describes everything related to reactive programming.
 - [rxmarbles](https://rxmarbles.com/) interactive diagrams of observables/operators
-- [Continous benchmarking results and comparison with RxCpp](https://victimsnino.github.io/ReactivePlusPlus/v2/benchmark)
+- [Continuous benchmarking results and comparison with RxCpp](https://victimsnino.github.io/ReactivePlusPlus/v2/benchmark)
 - [BUILDING](BUILDING.md)
 - [CONTRIBUTING](CONTRIBUTING.md)
 
