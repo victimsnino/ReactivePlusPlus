@@ -107,7 +107,7 @@ additional `-t <target>` flag:
 #### `coverage`
 
 Available if `RPP_ENABLE_COVERAGE` is enabled. This target processes the output of
-the previously run tests when built with coverage configuration. 
+the previously run tests when built with coverage configuration.
 
 [1]: https://cmake.org/cmake/help/latest/manual/cmake-presets.7.html
 [2]: https://cmake.org/download/
