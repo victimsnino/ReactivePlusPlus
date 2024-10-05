@@ -50,7 +50,7 @@ Also RPP supports out of box:
 
 Reactive programming is a powerful paradigm for creating multi-threaded and real-time applications. Unfortunately, at the moment of creating ReactivePlusPlus, there is only one stable and fully-implemented library available - [RxCpp](https://github.com/ReactiveX/RxCpp).
 
-While RxCpp is a great and powerful library, it has some disadvantages. It is written in C++11 and contains parts written in pre-C++11 style. This leads to a mess of old-style classes and wrappers. Additionally, the `rxcpp::observable` type has a long chain of template parameters, which can lead to slower IDE performance and larger binaries. Sometimes it has bad perfomance due to tremendous amount of usage of heap or just non-effective logic.
+While RxCpp is a great and powerful library, it has some disadvantages. It is written in C++11 and contains parts written in pre-C++11 style. This leads to a mess of old-style classes and wrappers. Additionally, the `rxcpp::observable` type has a long chain of template parameters, which can lead to slower IDE performance and larger binaries. Sometimes it has bad performance due to tremendous amount of usage of heap or just non-effective logic.
 
 Another implementation, [another-rxcpp](https://github.com/CODIANZ/another-rxcpp), uses type erasure and `std::function`, but this approach results in larger observer/observable sizes and potentially causes performance issues.
 
@@ -61,7 +61,7 @@ Another implementation, [another-rxcpp](https://github.com/CODIANZ/another-rxcpp
    - Concepts provide more clear errors and checks: you will understand that pass something incorrect before compilation in IDE or during compilation with understandable errors instead of _"invalid template class map_invalid_t"_
    - Everywhere while possible used deduction of template arguments, for example, type of values of observable by type of subscriber used in on_subscribe and etc
 - **ReactivePlusPlus** keeps balance between performance and type-erasing mechanism
-- **ReactivePlusPlus** is fast: every part of code written with perfomance in mind. Starting from tests over amount of copies/move and finishing to Continuous Benchmarking. Benchmarks prove that RPP faster than RxCPP in most cases: [Continuous benchmarking results and comparison with RxCpp](https://victimsnino.github.io/ReactivePlusPlus/v2/benchmark)
+- **ReactivePlusPlus** is fast: every part of code written with performance in mind. Starting from tests over amount of copies/move and finishing to Continuous Benchmarking. Benchmarks prove that RPP faster than RxCPP in most cases: [Continuous benchmarking results and comparison with RxCpp](https://victimsnino.github.io/ReactivePlusPlus/v2/benchmark)
 
 Currently ReactivePlusPlus is still under development but it has a lot of implemented operators for now. List of implemented features can be found in [API Reference](https://victimsnino.github.io/ReactivePlusPlus/v2/docs/html/group__rpp.html) with very detailed documentation for each of them.
 
@@ -96,6 +96,7 @@ Check detailed [User Guide/Tutorial](https://victimsnino.github.io/ReactivePlusP
 
 ## Licensing
 
+```text
 Boost Software License - Version 1.0 - August 17th, 2003
 
 Permission is hereby granted, free of charge, to any person or organization
@@ -119,6 +120,7 @@ SHALL THE COPYRIGHT HOLDERS OR ANYONE DISTRIBUTING THE SOFTWARE BE LIABLE
 FOR ANY DAMAGES OR OTHER LIABILITY, WHETHER IN CONTRACT, TORT OR OTHERWISE,
 ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
+```
 
 # Credits:
 ReactivePlusPlus library uses:
