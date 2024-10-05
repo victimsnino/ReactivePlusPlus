@@ -91,7 +91,7 @@ If you are going to know more details about developing for RPP check [HACKING](H
 
 ## Documentation:
 
-Check detailed [User Guide/Tutorial](https://victimsnino.github.io/ReactivePlusPlus/v2/docs/html/md_docs_2readme.html) and extensive [API Reference of RPP](https://victimsnino.github.io/ReactivePlusPlus/v2/docs/html/group__rpp.html).
+Check detailed [User Guide/Tutorial](https://victimsnino.github.io/ReactivePlusPlus/v2/docs/html/md_docs_2readme.html) (to learn more details about ReactivePlusPlus or reactive programming paradigm itself) and extensive [API Reference of RPP](https://victimsnino.github.io/ReactivePlusPlus/v2/docs/html/group__rpp.html) (to know how to apply ReactivePlusPlus properly).
 
 
 ## Useful links
