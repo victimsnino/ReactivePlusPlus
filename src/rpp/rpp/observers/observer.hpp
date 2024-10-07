@@ -250,7 +250,7 @@ namespace rpp
             return dynamic_observer<Type>{std::move(*this)};
         }
 
-        const dynamic_observer<Type>& as_dynamic() &
+        dynamic_observer<Type> as_dynamic() &
         {
             return dynamic_observer<Type>{*this};
         }
