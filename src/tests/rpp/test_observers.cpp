@@ -305,7 +305,7 @@ TEST_CASE("on_error if exception during on_next")
         REQUIRE_CALL(*observer, on_next_rvalue(1)).SIDE_EFFECT({ throw std::runtime_error{""}; }).IN_SEQUENCE(s);
         REQUIRE_CALL(*observer, on_error(trompeloeil::_)).IN_SEQUENCE(s);
 
-        observer.on_next(1);
+        rpp::observer<int, mock_observer<int>>{observer}.on_next(1);
     }
     SUBCASE("as lvalue")
     {
@@ -313,6 +313,6 @@ TEST_CASE("on_error if exception during on_next")
         REQUIRE_CALL(*observer, on_error(trompeloeil::_)).IN_SEQUENCE(s);
 
         int v{1};
-        observer.on_next(v);
+        rpp::observer<int, mock_observer<int>>{observer}.on_next(v);
     }
 }
