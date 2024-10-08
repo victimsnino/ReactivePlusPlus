@@ -9,6 +9,7 @@ install(
        src/rpp
        src/extensions/rppqt
        src/extensions/rppgrpc
+       src/extensions/rppasio
     DESTINATION
         "${CMAKE_INSTALL_INCLUDEDIR}"
     COMPONENT
