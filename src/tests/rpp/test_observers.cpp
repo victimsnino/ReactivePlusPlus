@@ -12,8 +12,8 @@
 #include <rpp/observers.hpp>
 
 #include "rpp/disposables/fwd.hpp"
-
 #include "rpp_trompeloil.hpp"
+
 #include <memory>
 #include <vector>
 
