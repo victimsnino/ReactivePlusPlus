@@ -12,6 +12,7 @@
 #include <rpp/observers.hpp>
 
 #include "rpp/disposables/fwd.hpp"
+#include "rpp_trompeloil.hpp"
 
 #include <memory>
 #include <vector>
@@ -292,4 +293,26 @@ TEST_CASE("set_upstream disposing when empty base disposable")
 
     SUBCASE("dynamic observer")
     test_observer(std::move(original_observer).as_dynamic());
+}
+
+TEST_CASE("on_error if exception during on_next")
+{
+    auto observer = mock_observer<int>{};
+
+    trompeloeil::sequence s;
+    SUBCASE("as rvalue")
+    {
+        REQUIRE_CALL(*observer, on_next_rvalue(1)).SIDE_EFFECT({ throw std::runtime_error{""}; }).IN_SEQUENCE(s);
+        REQUIRE_CALL(*observer, on_error(trompeloeil::_)).IN_SEQUENCE(s);
+
+        rpp::observer<int, mock_observer<int>>{observer}.on_next(1);
+    }
+    SUBCASE("as lvalue")
+    {
+        REQUIRE_CALL(*observer, on_next_lvalue(1)).SIDE_EFFECT({ throw std::runtime_error{""}; }).IN_SEQUENCE(s);
+        REQUIRE_CALL(*observer, on_error(trompeloeil::_)).IN_SEQUENCE(s);
+
+        int v{1};
+        rpp::observer<int, mock_observer<int>>{observer}.on_next(v);
+    }
 }

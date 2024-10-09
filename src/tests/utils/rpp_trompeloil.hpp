@@ -28,12 +28,12 @@ public:
 
     impl_t& operator*() const noexcept { return *m_impl; }
 
-    void on_next(const T& v) const noexcept
+    void on_next(const T& v) const
     {
         m_impl->on_next_lvalue(v);
     }
 
-    void on_next(T&& v) const noexcept
+    void on_next(T&& v) const
     {
         m_impl->on_next_rvalue(std::move(v));
     }
