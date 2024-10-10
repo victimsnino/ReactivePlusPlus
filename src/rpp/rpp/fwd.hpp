@@ -13,6 +13,11 @@
 /**
  * @defgroup rpp rpp
  * @brief ReactivePlusPlus (rpp) is Reactive extension for C++20
+ *
+ * @details ReactivePlusPlus is reactive programming library for C++20 language inspired by "official implementation" ([RxCpp](https://github.com/ReactiveX/RxCpp)) and original idea ([ReactiveX](https://reactivex.io/)) that only depends on standard library and C++20 features (mostly on [concepts](https://en.cppreference.com/w/cpp/language/constraints)).
+ *
+ * @par Example:
+ * @snippet readme.cpp readme
  */
 
 #include <rpp/disposables/fwd.hpp>

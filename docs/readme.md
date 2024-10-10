@@ -403,6 +403,7 @@ As a a result, users can select preferable way of handling of their types.
 
 
 ## ReactivePlusPlus details
+
 ### Disposable
 
 Rpp has following disposables related classes:
