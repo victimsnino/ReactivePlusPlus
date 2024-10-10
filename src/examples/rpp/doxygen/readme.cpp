@@ -4,7 +4,7 @@
 #include <iostream>
 
 /**
- * @example readme.cpp 
+ * @example readme.cpp
  */
 
 int main() // NOLINT(bugprone-exception-escape)
