@@ -73,14 +73,14 @@
       "name": "cppcheck",
       "hidden": true,
       "cacheVariables": {
-        "CMAKE_CXX_CPPCHECK": "cppcheck;--inline-suppr;--std=c++20;--enable=all;--check-config;--suppress=missingIncludeSystem"
+        "CMAKE_CXX_CPPCHECK": "cppcheck;--inline-suppr;--std=c++20;--enable=all;--suppressions-list=${sourceDir}/cppcheck.supp"
       }
     },
     {
       "name": "clang-tidy",
       "hidden": true,
       "cacheVariables": {
-        "CMAKE_CXX_CLANG_TIDY": "clang-tidy;-header-filter=${sourceDir}/src/.*;-checks=-*,bugprone-*,concurrency-*,performance-*,-macro*,-bugprone-exception-escape;-warnings-as-errors=*"
+        "CMAKE_CXX_CLANG_TIDY": "clang-tidy;-header-filter=${sourceDir}/src/.*;-checks=-*,bugprone-*,concurrency-*,performance-*,-macro*,-bugprone-exception-escape;-warnings-as-errors=*;-extra-arg=-std=c++20"
       }
     },
     {
@@ -178,7 +178,7 @@
       "inherits": ["ci-build", "build-tests", "build-qt", "build-grpc", "build-asio", "ci-unix", "ci-clang"],
       "cacheVariables": {
         "RPP_ENABLE_COVERAGE": "ON",
-        "CMAKE_CXX_FLAGS": "-O0 -g -fprofile-instr-generate -fcoverage-mapping --coverage",
+        "CMAKE_CXX_FLAGS": "-O0 -g -fprofile-instr-generate -fcoverage-mapping",
         "RPP_BUILD_TESTS_TOGETHER" : true
       }
     },

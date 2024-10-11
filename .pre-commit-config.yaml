@@ -2,13 +2,13 @@
 # See https://pre-commit.com/hooks.html for more hooks
 repos:
 - repo: https://github.com/sirosen/check-jsonschema
-  rev: 0.29.2
+  rev: 0.29.3
   hooks:
     - id: check-github-actions
     - id: check-github-workflows
 
 -   repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.6.0
+    rev: v5.0.0
     hooks:
     -   id: check-added-large-files # prevents giant files from being committed.
     -   id: check-case-conflict # checks for files that would conflict in case-insensitive filesystems.
@@ -22,7 +22,7 @@ repos:
     -   id: trailing-whitespace # trims trailing whitespace.
 
 -   repo: https://github.com/pre-commit/mirrors-clang-format
-    rev: 'v18.1.8'
+    rev: 'v19.1.1'
     hooks:
     -   id: clang-format
         args: ["-style=file", "-i"]
