@@ -258,6 +258,20 @@ TEST_CASE("merge dispose inner_disposable immediately")
         | rpp::ops::subscribe([](int) {});
 }
 
+TEST_CASE("merge is not deadlocking is_disposed")
+{
+    std::optional<rpp::dynamic_observer<int>> observer{};
+    rpp::source::create<int>([&observer](auto&& obs){
+        observer = std::forward<decltype(obs)>(obs).as_dynamic();
+        observer->on_next(1);
+    })
+    | rpp::ops::merge_with(rpp::source::never<int>())
+    | rpp::ops::subscribe([&observer](int){
+        CHECK(observer);
+        CHECK(!observer->is_disposed());
+    });
+}
+
 TEST_CASE("merge doesn't produce extra copies")
 {
     SUBCASE("send value by copy")

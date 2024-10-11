@@ -69,7 +69,7 @@ namespace rpp::operators::details
 
         bool is_disposed() const
         {
-            return m_state->get_observer_under_lock()->is_disposed();
+            return m_state->get_disposable().is_disposed();
         }
 
         void on_error(const std::exception_ptr& err) const
