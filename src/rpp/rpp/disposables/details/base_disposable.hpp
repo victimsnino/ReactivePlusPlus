@@ -41,7 +41,7 @@ namespace rpp::details
         }
 
     protected:
-        virtual void base_dispose_impl(interface_disposable::Mode ) noexcept {};
+        virtual void base_dispose_impl(interface_disposable::Mode) noexcept {};
 
     private:
         std::atomic_bool m_disposed{};

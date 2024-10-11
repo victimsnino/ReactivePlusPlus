@@ -31,7 +31,8 @@ namespace rpp::operators::details
     };
 
     template<rpp::constraint::observer Observer, typename Worker>
-    class debounce_state final : public rpp::details::enable_wrapper_from_this<debounce_state<Observer, Worker>>, public rpp::details::base_disposable
+    class debounce_state final : public rpp::details::enable_wrapper_from_this<debounce_state<Observer, Worker>>
+        , public rpp::details::base_disposable
     {
         using T = rpp::utils::extract_observer_type_t<Observer>;
 
@@ -163,7 +164,7 @@ namespace rpp::operators::details
         {
             using worker_t = rpp::schedulers::utils::get_worker_t<Scheduler>;
 
-            auto d = rpp::disposable_wrapper_impl<debounce_state<std::decay_t<Observer>, worker_t>>::make(std::forward<Observer>(observer), scheduler.create_worker(), duration);
+            auto d   = rpp::disposable_wrapper_impl<debounce_state<std::decay_t<Observer>, worker_t>>::make(std::forward<Observer>(observer), scheduler.create_worker(), duration);
             auto ptr = d.lock();
             ptr->get_observer_under_lock()->set_upstream(d.as_weak());
             return rpp::observer<Type, debounce_observer_strategy<std::decay_t<Observer>, worker_t>>{std::move(ptr)};

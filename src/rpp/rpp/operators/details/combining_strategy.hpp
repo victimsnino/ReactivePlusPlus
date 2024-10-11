@@ -22,7 +22,8 @@
 namespace rpp::operators::details
 {
     template<rpp::constraint::observer Observer>
-    class combining_state : public rpp::details::enable_wrapper_from_this<combining_state<Observer>>, public rpp::details::base_disposable
+    class combining_state : public rpp::details::enable_wrapper_from_this<combining_state<Observer>>
+        , public rpp::details::base_disposable
     {
     public:
         explicit combining_state(Observer&& observer, size_t on_completed_needed)
@@ -103,8 +104,8 @@ namespace rpp::operators::details
         {
             using State = TState<Observer, TSelector, Type, rpp::utils::extract_observable_type_t<TObservables>...>;
 
-            const auto d = rpp::disposable_wrapper_impl<State>::make(std::forward<Observer>(observer), selector);
-            auto state = d.lock();
+            const auto d     = rpp::disposable_wrapper_impl<State>::make(std::forward<Observer>(observer), selector);
+            auto       state = d.lock();
             state->get_observer_under_lock()->set_upstream(d.as_weak());
 
             subscribe<std::decay_t<Type>>(state, std::index_sequence_for<TObservables...>{}, observables...);

@@ -179,15 +179,15 @@ TEST_CASE("zip is not deadlocking is_disposed")
 {
     std::optional<rpp::dynamic_observer<int>> observer{};
 
-    rpp::source::create<int>([&observer](auto&& obs){
+    rpp::source::create<int>([&observer](auto&& obs) {
         observer = std::forward<decltype(obs)>(obs).as_dynamic();
         observer->on_next(1);
     })
-    | rpp::operators::zip(rpp::source::just(1))
-    | rpp::ops::subscribe([&observer](auto){
-        CHECK(observer);
-        CHECK(!observer->is_disposed());
-    });
+        | rpp::operators::zip(rpp::source::just(1))
+        | rpp::ops::subscribe([&observer](auto) {
+              CHECK(observer);
+              CHECK(!observer->is_disposed());
+          });
 }
 
 TEST_CASE("zip satisfies disposable contracts")
