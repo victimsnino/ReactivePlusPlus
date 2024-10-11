@@ -138,6 +138,21 @@ TEST_CASE("combine_latest handles race condition")
     }
 }
 
+TEST_CASE("combine_latest is not deadlocking is_disposed")
+{
+    std::optional<rpp::dynamic_observer<int>> observer{};
+
+    rpp::source::create<int>([&observer](auto&& obs){
+        observer = std::forward<decltype(obs)>(obs).as_dynamic();
+        observer->on_next(1);
+    })
+    | rpp::operators::combine_latest(rpp::source::just(1))
+    | rpp::ops::subscribe([&observer](auto){
+        CHECK(observer);
+        CHECK(!observer->is_disposed());
+    });
+}
+
 TEST_CASE("combine_latest satisfies disposable contracts")
 {
     auto observable_disposable = rpp::composite_disposable_wrapper::make();
