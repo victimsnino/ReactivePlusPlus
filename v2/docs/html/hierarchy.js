@@ -29,7 +29,12 @@ var hierarchy =
     [ "BaseInterface", null, [
       [ "rpp::details::base_disposable_impl< BaseInterface >", "classrpp_1_1details_1_1base__disposable__impl.html", [
         [ "rpp::callback_disposable< Fn >", "classrpp_1_1callback__disposable.html", null ],
-        [ "rpp::details::observables::blocking_disposable", "classrpp_1_1details_1_1observables_1_1blocking__disposable.html", null ]
+        [ "rpp::details::observables::blocking_disposable", "classrpp_1_1details_1_1observables_1_1blocking__disposable.html", null ],
+        [ "rpp::operators::details::combining_state< Observer >", "classrpp_1_1operators_1_1details_1_1combining__state.html", [
+          [ "rpp::operators::details::combine_latest_state< Observer, TSelector, Args >", "classrpp_1_1operators_1_1details_1_1combine__latest__state.html", null ],
+          [ "rpp::operators::details::zip_state< Observer, TSelector, Args >", "classrpp_1_1operators_1_1details_1_1zip__state.html", null ]
+        ] ],
+        [ "rpp::operators::details::debounce_state< Observer, Worker >", "classrpp_1_1operators_1_1details_1_1debounce__state.html", null ]
       ] ]
     ] ],
     [ "rpp::subjects::details::behavior_subject_base< Type, Serialized >", "classrpp_1_1subjects_1_1details_1_1behavior__subject__base.html", null ],
@@ -68,10 +73,6 @@ var hierarchy =
     ] ],
     [ "rpp::operators::details::combining_operator_t< zip_state, zip_observer_strategy, TSelector, TObservables... >", "structrpp_1_1operators_1_1details_1_1combining__operator__t.html", [
       [ "rpp::operators::details::zip_t< TSelector, TObservables >", "structrpp_1_1operators_1_1details_1_1zip__t.html", null ]
-    ] ],
-    [ "rpp::operators::details::combining_state< Observer >", "classrpp_1_1operators_1_1details_1_1combining__state.html", [
-      [ "rpp::operators::details::combine_latest_state< Observer, TSelector, Args >", "classrpp_1_1operators_1_1details_1_1combine__latest__state.html", null ],
-      [ "rpp::operators::details::zip_state< Observer, TSelector, Args >", "classrpp_1_1operators_1_1details_1_1zip__state.html", null ]
     ] ],
     [ "rpp::subjects::details::completed", "structrpp_1_1subjects_1_1details_1_1completed.html", null ],
     [ "rpp::schedulers::computational", "classrpp_1_1schedulers_1_1computational.html", null ],
@@ -120,10 +121,15 @@ var hierarchy =
     [ "rpp::operators::details::emission< T >", "structrpp_1_1operators_1_1details_1_1emission.html", null ],
     [ "rpp::details::empty_strategy< Type >", "structrpp_1_1details_1_1empty__strategy.html", null ],
     [ "std::enable_shared_from_this", null, [
-      [ "rpp::operators::details::concat_state_t< TObservable, TObserver >", "classrpp_1_1operators_1_1details_1_1concat__state__t.html", null ],
-      [ "rpp::operators::details::debounce_state< Observer, Worker >", "classrpp_1_1operators_1_1details_1_1debounce__state.html", null ]
+      [ "rpp::operators::details::concat_state_t< TObservable, TObserver >", "classrpp_1_1operators_1_1details_1_1concat__state__t.html", null ]
     ] ],
     [ "rpp::details::enable_wrapper_from_this< TStrategy >", "classrpp_1_1details_1_1enable__wrapper__from__this.html", null ],
+    [ "rpp::details::enable_wrapper_from_this< combining_state< Observer > >", "classrpp_1_1details_1_1enable__wrapper__from__this.html", [
+      [ "rpp::operators::details::combining_state< Observer >", "classrpp_1_1operators_1_1details_1_1combining__state.html", null ]
+    ] ],
+    [ "rpp::details::enable_wrapper_from_this< debounce_state< Observer, Worker > >", "classrpp_1_1details_1_1enable__wrapper__from__this.html", [
+      [ "rpp::operators::details::debounce_state< Observer, Worker >", "classrpp_1_1operators_1_1details_1_1debounce__state.html", null ]
+    ] ],
     [ "rpp::details::enable_wrapper_from_this< refcount_disposable >", "classrpp_1_1details_1_1enable__wrapper__from__this.html", [
       [ "rpp::refcount_disposable", "classrpp_1_1refcount__disposable.html", [
         [ "rpp::operators::details::switch_on_next_state_t< TObserver >", "classrpp_1_1operators_1_1details_1_1switch__on__next__state__t.html", null ]
