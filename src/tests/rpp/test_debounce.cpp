@@ -120,6 +120,26 @@ TEST_CASE("debounce emit only items where timeout reached")
     }
 }
 
+
+TEST_CASE("debounce is not deadlocking is_disposed")
+{
+    std::optional<rpp::dynamic_observer<int>> observer{};
+
+    rpp::schedulers::test_scheduler scheduler{};
+
+    rpp::source::create<int>([&observer](auto&& obs) {
+        observer = std::forward<decltype(obs)>(obs).as_dynamic();
+        observer->on_next(1);
+    })
+        | rpp::operators::debounce(std::chrono::seconds{1}, scheduler)
+        | rpp::ops::subscribe([&observer](int) {
+              CHECK(observer);
+              CHECK(!observer->is_disposed());
+          });
+    scheduler.time_advance(std::chrono::seconds{1});
+}
+
+
 TEST_CASE("debounce forwards error")
 {
     auto mock = mock_observer_strategy<int>{};
