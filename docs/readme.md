@@ -128,6 +128,7 @@ See <https://reactivex.io/documentation/observable.html> for more details.
 
 In such an way it is not powerful enough, so Reactive Programming provides a list of **operators**.
 
+## Getting started
 ### Observable contract
 
 \copydoc observables
@@ -318,7 +319,7 @@ makes only 1 copy/move to shared_ptr and then uses it instead.
 As a a result, users can select preferable way of handling of their types.
 
 
-## ReactivePlusPlus details
+## Advanced details
 
 ### Disposable
 
