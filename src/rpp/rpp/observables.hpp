@@ -25,7 +25,7 @@
  *
  * 1. **All** RPP operators follow this contract.\n
  * All built-in RPP observables/operators emit emissions serially
- * 
+ *
  * 2. User-provided callbacks can be non-thread-safe due to the thread-safety of the observable.\n
  * For example: internal logic of `take` operator doesn't use mutexes or atomics due to underlying observable **MUST** emit items serially
  *

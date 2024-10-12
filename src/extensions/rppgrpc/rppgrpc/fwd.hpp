@@ -17,7 +17,7 @@
  * @brief RppGrpc is extension of RPP which enables support of grpc library.
  */
 
- /**
+/**
  * @defgroup rppgrpc_reactors gRPC reactors
  * @brief Reactors for gRPC to connect it to RPP properly
  * @ingroup rppgrpc
