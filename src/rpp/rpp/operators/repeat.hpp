@@ -58,7 +58,7 @@ namespace rpp::operators
      *  - `repeat(1)`  - behave like ordinal observable
      *  - `repeat(10)` - 1 normal subscription and 9 re-subscriptions during `on_completed`
      *
-     * @note #include <rpp/operators/repeat.hpp>
+     * @note `#include <rpp/operators/repeat.hpp>`
      *
      * @par Examples:
      * @snippet repeat.cpp repeat
@@ -83,7 +83,7 @@ namespace rpp::operators
      *
      * @details Actually this operator is kind of `concat(obs, obs...)`
      *
-     * @note #include <rpp/operators/repeat.hpp>
+     * @note `#include <rpp/operators/repeat.hpp>`
      *
      * @par Examples:
      * @snippet repeat.cpp repeat_infinitely

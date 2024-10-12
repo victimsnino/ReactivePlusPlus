@@ -1,4 +1,4 @@
-# Documentation
+# Getting started
 
 [TOC]
 
@@ -128,7 +128,7 @@ See <https://reactivex.io/documentation/observable.html> for more details.
 
 In such an way it is not powerful enough, so Reactive Programming provides a list of **operators**.
 
-## Getting started
+## Documentation
 ### Observable contract
 
 \copydoc observables

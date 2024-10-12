@@ -87,7 +87,7 @@ namespace rpp::operators
      * - passing last and emitted value to predicate
      *
      * @param equality_fn optional equality comparator function
-     * @note #include <rpp/operators/distinct_until_changed.hpp>
+     * @note `#include <rpp/operators/distinct_until_changed.hpp>`
      *
      * @par Example
      * @snippet distinct_until_changed.cpp distinct_until_changed

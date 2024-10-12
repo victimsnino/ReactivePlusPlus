@@ -53,7 +53,7 @@ namespace rpp::operators
      * @warning Same subject would be used to all observables lifted via this operator. To have fresh subject everytime use another overloading
      *
      * @param subject is subject used to create rpp::connectable_observable
-     * @note #include <rpp/operators/multicast.hpp>
+     * @note `#include <rpp/operators/multicast.hpp>`
      *
      * @par Example
      * @snippet multicast.cpp multicast
@@ -73,7 +73,7 @@ namespace rpp::operators
      * @warning This overloading creates fresh `Subject<Type>` everytime new observable passed to this operator
      *
      * @tparam Subject is template teamplate typename over Subject to be created to create corresponding connectable_observable for provided observable
-     * @note #include <rpp/operators/multicast.hpp>
+     * @note `#include <rpp/operators/multicast.hpp>`
      *
      * @par Example
      * @snippet multicast.cpp multicast_template

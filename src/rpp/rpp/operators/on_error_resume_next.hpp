@@ -130,7 +130,7 @@ namespace rpp::operators
      *
      * @param selector callable taking a std::exception_ptr and returning observable to continue on
      *
-     * @note #include <rpp/operators/on_error_resume_next.hpp>
+     * @note `#include <rpp/operators/on_error_resume_next.hpp>`
      *
      * @ingroup error_handling_operators
      * @see https://reactivex.io/documentation/operators/catch.html

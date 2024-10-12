@@ -131,10 +131,10 @@ namespace rpp::operators
          operator "reduce: s=10, (s,x)=>s+x" : +------16|
      }
      *
-     * @param initial_value initial value for seed
+     * @param seed initial value for seed
      * @param accumulator function which accepts seed value and new value from observable and return new value of seed. Can accept seed by move-reference.
      *
-     * @note #include <rpp/operators/reduce.hpp>
+     * @note `#include <rpp/operators/reduce.hpp>`
      *
      * @par Example
      * @snippet reduce.cpp reduce
@@ -160,10 +160,9 @@ namespace rpp::operators
      *
      * @details There is no initial value for seed, so, first value would be used as seed value and forwarded as is.
      *
-     * @param initial_value initial value for seed
      * @param accumulator function which accepts seed value and new value from observable and return new value of seed. Can accept seed by move-reference.
      *
-     * @note #include <rpp/operators/reduce.hpp>
+     * @note `#include <rpp/operators/reduce.hpp>`
      *
      * @par Example
      * @snippet reduce.cpp reduce_no_seed

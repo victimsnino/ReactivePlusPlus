@@ -11,7 +11,7 @@ namespace rpp::operators
      * @warning This overloading creates fresh `Subject<Type>` everytime new observable passed to this operator
      *
      * @tparam Subject is template teamplate typename over Subject to be created to create corresponding connectable_observable for provided observable
-     * @note #include <rpp/operators/publish.hpp>
+     * @note `#include <rpp/operators/publish.hpp>`
      *
      * @par Example
      * @snippet multicast.cpp publish

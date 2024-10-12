@@ -203,7 +203,7 @@ namespace rpp::operators
      * @param value_selector Function which determines value to be emitted to grouped observable
      * @param comparator Function to provide strict_weak_order between key types
      *
-     * @note #include <rpp/operators/group_by.hpp>
+     * @note `#include <rpp/operators/group_by.hpp>`
      *
      * @par Example:
      * @snippet group_by.cpp group_by

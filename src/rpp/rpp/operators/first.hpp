@@ -79,7 +79,7 @@ namespace rpp::operators
      * - No any heap allocations
      * - No any copies/moves just forwarding of emission
      *
-     * @note #include <rpp/operators/first.hpp>
+     * @note `#include <rpp/operators/first.hpp>`
      *
      * @par Example:
      * @snippet first.cpp first

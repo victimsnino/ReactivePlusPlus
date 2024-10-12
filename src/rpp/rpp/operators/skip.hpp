@@ -82,7 +82,7 @@ namespace rpp::operators
      * - Just simple `size_t` decrementing
      *
      * @param count amount of items to be skipped
-     * @note #include <rpp/operators/skip.hpp>
+     * @note `#include <rpp/operators/skip.hpp>`
      *
      * @par Example:
      * @snippet skip.cpp skip

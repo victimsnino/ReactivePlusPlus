@@ -210,7 +210,7 @@ namespace rpp::operators
      * - 2 heap allocation (1 for state, 1 to convert observer to dynamic_observer)
      * - Acquiring mutex during all observer's calls
      *
-     * @note #include <rpp/operators/merge.hpp>
+     * @note `#include <rpp/operators/merge.hpp>`
      *
      * @par Example:
      * @snippet merge.cpp merge
@@ -244,7 +244,7 @@ namespace rpp::operators
      * - Acquiring mutex during all observer's calls
      *
      * @param observables are observables whose emissions would be merged with current observable
-     * @note #include <rpp/operators/merge.hpp>
+     * @note `#include <rpp/operators/merge.hpp>`
      *
      * @par Example:
      * @snippet merge.cpp merge_with

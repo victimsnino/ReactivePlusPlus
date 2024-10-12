@@ -100,7 +100,7 @@ namespace rpp::operators
      * @details The resulting bundle is `std::vector<Type>` of requested size. Actually it is similar to `window()` operator, but it emits vectors instead of observables.
      *
      * @param count number of items being bundled.
-     * @note #include <rpp/operators/buffer.hpp>
+     * @note `#include <rpp/operators/buffer.hpp>`
      *
      * @par Example:
      * @snippet buffer.cpp buffer

@@ -46,7 +46,7 @@ namespace rpp::operators
      * @brief Register callback to be called when execution is done and disposable bound to observer is disposed
      *
      * @param last_fn action callback
-     * @note #include <rpp/operators/finally.hpp>
+     * @note `#include <rpp/operators/finally.hpp>`
      *
      * @details action callback needs to be noexcept as it is called on dispose, throwing during this time could potentially break internal disposable state.
      *
