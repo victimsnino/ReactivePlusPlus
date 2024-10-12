@@ -134,35 +134,9 @@ In such an way it is not powerful enough, so Reactive Programming provides a lis
 
 ### Operators
 
-**Operators** modify the **Observable**'s emissions to adapt values to the **Observer**.
+\copydoc operators
 
-For example, we can create observable to get chars from console input, do it till ‘0’ char, get only letters and send to observer this letters as UPPER. With operators it is pretty simple to do it in correct way:
-
-```cpp
-#include <rpp/rpp.hpp>
-#include <iostream>
-
-int main()
-{
-  rpp::source::from_callable(&::getchar)
-    | rpp::operators::repeat()
-    | rpp::operators::take_while([](char v) { return v != '0'; })
-    | rpp::operators::filter(std::not_fn(&::isdigit))
-    | rpp::operators::map(&::toupper)
-    | rpp::operators::subscribe([](char v) { std::cout << v; });
-
-  // input: 12345qwer5125ttqt0
-  // output: QWERTTQT
-
-  return 0;
-}
-```
-
-Check the [API Reference](https://victimsnino.github.io/ReactivePlusPlus/v2/docs/html/group__rpp.html) for more details about operators.
-
-See <https://reactivex.io/documentation/operators.html> for more details about operators.
-
-#### How Operator Works?
+#### How Operators Work?
 
 Example:
 
