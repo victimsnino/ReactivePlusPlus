@@ -11,66 +11,63 @@
 
 **Reactive programming** is a *design paradigm* that focuses on building applications that can efficiently respond to asynchronous **events**.
 
-Actually, any application or function has two core parts: input and output. Input/output can even be empty:
+Every application or function has two core parts: input and output. Input/output can even be empty:
 
 ```cpp
-int main()
-{
-  return 0;
-}
+void function() { }
 ```
 
-Input/output itself can be split into the following two types:
+Input/output can be categorized into two types:
 
-- **Static** - Your application or function just accepts such an input and handles it somehow. For example, arguments from the command line or arguments of your function:
+- **Static** - The application or function accepts input and handles it. For example, command line arguments or function arguments:
 
 ```cpp
 int sum(int a, int b) { return a + b; }
 ```
 
-- **Distributed in time** - Your application or function doesn't know exact length of input, **when** input (or any parts of it) would arrive, but knows **what** to do when it happens:
+- **Distributed in time** - The application or function doesn't know the exact length of input or when it will arrive but knows what to do when it happens:
 
 ```cpp
 #include <iostream>
 
 int main()
 {
-   while(true)
-   {
-       auto ch = ::getchar();
-       std::cout << "Obtained char " << ch << std::endl;
-   }
+  while(true)
+  {
+     auto ch = ::getchar();
+     std::cout << "Obtained char " << ch << std::endl;
+  }
 }
 ```
 
 When dealing with input that is **distributed in time**, there are two ways to handle it:
 
-- **Pulling** - You decide **when** you need extra data (e.g., to get something, request, iterate, etc.) and you are simply **checking/requesting** some data. In most cases, this is a blocking operation of requesting data and waitign to be available or periodically checking its current status. For example, if you like a blog with non-periodical posts, you may check it daily for new posts manually.
+- **Pulling** - You decide when you need extra data and request it. This is often a blocking operation. For example, manually checking a blog for new posts.
 
-- **Pushing** - You decide **once** that you are interested in a source of data, notify this source somehow (e.g., register, subscribe, etc.), and **react** when new data **becomes available** to you. For example, you might **subscribe** to a blog and **react** to new posts only after receiving a notification on your smartphone, rather than manually checking for updates.
+- **Pushing** - You register interest in a data source and react when new data becomes available. For example, subscribing to a blog and receiving notifications for new posts.
 
-Reactive programming is a powerful way to handle input that is **distributed in time**. Instead of constantly polling for updates or waiting for input to arrive, reactive programming allows you to **register** callbacks to be executed **when the input becomes available**.
+Reactive programming is a powerful way to handle input that is **distributed in time**. Instead of constantly polling for updates, reactive programming allows you to **register** callbacks to be executed **when the input becomes available**.
 
 See <https://reactivex.io/intro.html> for more details.
 
-### Core concepts of Reactive Programming
+### Core Concepts of Reactive Programming
 
-In short, Reactive Programming can be described as follows:
+Reactive Programming can be described as follows:
 
 - An **Observer** subscribes to an **Observable**.
-- The **Observable** automatically notifies its subscribed **Observers** about any new events/emissions. **Observable** could invoke next **observer**'s method:
-  - **on_next(T)** - notifies about new event/emission
-  - **on_error(std::exception_ptr)** - notified about error during work. It is termination event (no more calls from this observable should be expected)
-  - **on_completed()**  - notified about successful completion.It is termination event (no more calls from this observable should be expected)
-  - **set_upstream(disposable)** - observable could pass to observer it's own disposable to provide ability for observer to terminate observable's internal actions/state.
-  - **is_disposed()** - observable could check if observer is still interested in this source data (==false) or disposed and not listening anymore (==true)
-- During subscription, the **Observable** can return/provide a **Disposable** for **Observer** to provide ability to check if observable is still alive or make early termination (==dispose) if needed.
+- The **Observable** notifies its subscribed **Observers** about new events/emissions:
+  - **on_next(T)** - notifies about a new event/emission
+  - **on_error(std::exception_ptr)** - notifies about an error. This is a termination event. (no more calls from this observable should be expected)
+  - **on_completed()** - notifies about successful completion. This is a termination event. (no more calls from this observable should be expected)
+  - **set_upstream(disposable)** - observable could pass to observer it's own disposable to provide ability for observer to terminate observable's internal actions/state
+  - **is_disposed()** - checks if the observer is still interested in the source data.
+
+During subscription, the **Observable** can provide a **Disposable** for the **Observer** to check if the observable is still alive or to terminate early if needed.
 
 For example:
 
 ```cpp
 #include <rpp/rpp.hpp>
-
 #include <iostream>
 
 int main()
@@ -133,22 +130,24 @@ In such an way it is not powerful enough, so Reactive Programming provides a lis
 
 ### Observable contract
 
-Reactive programming has [Observable Contract](https://reactivex.io/documentation/contract.html). Please, read it.
+Reactive programming has an [Observable Contract](https://reactivex.io/documentation/contract.html). Please read it.
 
-This contact has next important part:
+This contract includes:
 
-> Observables must issue notifications to observers serially (not in parallel). They may issue these notifications from different threads, but there must be a formal happens-before relationship between the notifications
+> Observables must issue notifications to observers serially (not in parallel). They may issue these notifications from different threads, but there must be a formal happens-before relationship between the notifications.
 
-RPP follows this contract and especially this part. It means, that:
+RPP follows this contract, meaning:
 
-1. **All** implemented in **RPP operators** are **following this contract**:<br>
-    All built-in RPP observables/operators emit emissions serially
-2. Any user-provided callbacks (for operators or observers) can be not thread-safe due to thread-safety of observable is guaranteed. <br>
-   For example: internal logic of `take` operator doesn't use mutexes or atomics due to underlying observable **MUST** emit items serially
-3. When you implement your own operator via `create` be careful to **follow this contract**!
-4. It is true **EXCEPT FOR** subjects if they are used manually due to users can use subjects for its own purposes there is potentially place for breaking this concept. Be careful and use serialized_* instead if can't guarantee serial emissions!
+1. <details><summary>**All** RPP operators follow this contract.</summary>
+All built-in RPP observables/operators emit emissions serially
+</details>
+2. <details><summary>User-provided callbacks can be non-thread-safe due to the thread-safety of the observable.</summary>
+   For example: internal logic of `take` operator doesn't use mutexes or atomics due to underlying observable <b>MUST</b> emit items serially
+  </details>
+3. When implementing your own operator via `create`, **follow this contract**!
+4. This is true **EXCEPT FOR** subjects if used manually. Use serialized_* instead if you can't guarantee serial emissions.
 
-It means, that for example:
+For example:
 
 ```cpp
     auto s1 = rpp::source::just(1) | rpp::operators::repeat() | rpp::operators::subscribe_on(rpp::schedulers::new_thread{});
@@ -166,7 +165,7 @@ It means, that for example:
 
 ```
 
-will never produce something like
+This will never produce:
 
 ```log
 enter 1
@@ -175,7 +174,7 @@ exit 2
 exit 1
 ```
 
-only serially
+Only serially:
 
 ```log
 enter 1
@@ -190,13 +189,12 @@ exit 2
 
 ### Operators
 
-**Operators** are way to modify the **Observable**'s emissions to adapt values to the **Observer**.
+**Operators** modify the **Observable**'s emissions to adapt values to the **Observer**.
 
 For example, we can create observable to get chars from console input, do it till ‘0’ char, get only letters and send to observer this letters as UPPER. With operators it is pretty simple to do it in correct way:
 
 ```cpp
 #include <rpp/rpp.hpp>
-
 #include <iostream>
 
 int main()
@@ -215,14 +213,13 @@ int main()
 }
 ```
 
-You can check documentation for each operator on [API Reference](https://victimsnino.github.io/ReactivePlusPlus/v2/docs/html/group__rpp.html) page. Below you can find details about how operator works and how to create your own custom operator in RPP.
+Check the [API Reference](https://victimsnino.github.io/ReactivePlusPlus/v2/docs/html/group__rpp.html) for more details about operators.
 
-See <https://reactivex.io/documentation/operators.html> for more details about operators concept.
+See <https://reactivex.io/documentation/operators.html> for more details about operators.
 
+#### How Operator Works?
 
-#### How operator works?
-
-Let's check this example:
+Example:
 
 ```cpp
 rpp::source::create<int>([](const auto& observer){
@@ -355,9 +352,9 @@ rpp::source::create<int>([](const auto& observer)
 A **Scheduler** is responsible for controlling the type of multithreading behavior (or lack thereof) used in the observable. For example, a **scheduler** can utilize a new thread, a thread pool, or a raw queue to manage its processing.
 
 
-Checkout [API Reference](https://victimsnino.github.io/ReactivePlusPlus/v2/docs/html/group__rpp.html) to learn more about schedulers in RPP.
+Check the [API Reference](https://victimsnino.github.io/ReactivePlusPlus/v2/docs/html/group__rpp.html) for more details about schedulers.
 
-See <https://reactivex.io/documentation/scheduler.html> for more details about scheduler concept.
+See <https://reactivex.io/documentation/scheduler.html> for more details about schedulers.
 
 ### Disposable
 
@@ -371,7 +368,7 @@ In most cases disposables are placed in observers. RPP's observer can use two ty
 
 2. **External disposable** - This is a disposable that allows the observer to be disposed of from outside the observer itself. This can be useful in situations where you need to cancel an ongoing operation or release resources before the observable has completed its work.
 
-### Exception guarantee
+### Exception Guarantee
 
 In non-reactive programming functions/modules throws exception in case of something invalid. As a result, user can catch it and handle it somehow while internal state of objects can be in some state (invalid/untouched/partly valid) and etc.
 
@@ -460,7 +457,6 @@ But in some cases you want to keep observable or observer inside your classes or
 - they are type-erased wrappers over regular observable/observer with goal to hide all unnecessary stuff from user's code. For example, you can easily use it as:
 ```cpp
 #include <rpp/rpp.hpp>
-
 #include <iostream>
 
 struct some_data
