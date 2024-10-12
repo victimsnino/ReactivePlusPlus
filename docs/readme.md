@@ -1,4 +1,4 @@
-# Getting started
+# Manual documentation
 
 [TOC]
 
