@@ -30,8 +30,8 @@ namespace rppgrpc
      * @warning grpc server reactor have to finish manually, so it is expected that you call `on_completed()` on reactor->get_observer()
      *
      * @snippet server_reactor.cpp bidi_reactor
-     * @ingroup rppgrpc
      *
+     * @ingroup rppgrpc_reactors
      */
     template<rpp::constraint::decayed_type Request, rpp::constraint::decayed_type Response>
     class server_bidi_reactor final : public grpc::ServerBidiReactor<Request, Response>
@@ -108,8 +108,8 @@ namespace rppgrpc
      * - to pass values TO stream you can emit values to observer obtained via `reactor->get_observer()`
      *
      * @snippet server_reactor.cpp write_reactor
-     * @ingroup rppgrpc
      *
+     * @ingroup rppgrpc_reactors
      */
     template<rpp::constraint::decayed_type Response>
     class server_write_reactor final : public grpc::ServerWriteReactor<Response>
@@ -176,8 +176,8 @@ namespace rppgrpc
      * - to access values FROM stream you can subscribe to observable obtained via `reactor->get_observable()` (same observable WOULD emit on_completed in case of successful stream termination and on_error in case of some errors with grpc stream)
      *
      * @snippet server_reactor.cpp read_reactor
-     * @ingroup rppgrpc
      *
+     * @ingroup rppgrpc_reactors
      */
     template<rpp::constraint::decayed_type Request>
     class server_read_reactor final : public grpc::ServerReadReactor<Request>

@@ -17,6 +17,12 @@
  * @brief RppGrpc is extension of RPP which enables support of grpc library.
  */
 
+ /**
+ * @defgroup rppgrpc_reactors gRPC reactors
+ * @brief Reactors for gRPC to connect it to RPP properly
+ * @ingroup rppgrpc
+ */
+
 namespace rppgrpc
 {
     template<rpp::constraint::decayed_type Request, rpp::constraint::decayed_type Response>

@@ -130,62 +130,7 @@ In such an way it is not powerful enough, so Reactive Programming provides a lis
 
 ### Observable contract
 
-Reactive programming has an [Observable Contract](https://reactivex.io/documentation/contract.html). Please read it.
-
-This contract includes:
-
-> Observables must issue notifications to observers serially (not in parallel). They may issue these notifications from different threads, but there must be a formal happens-before relationship between the notifications.
-
-RPP follows this contract, meaning:
-
-1. <details><summary>**All** RPP operators follow this contract.</summary>
-All built-in RPP observables/operators emit emissions serially
-</details>
-2. <details><summary>User-provided callbacks can be non-thread-safe due to the thread-safety of the observable.</summary>
-   For example: internal logic of `take` operator doesn't use mutexes or atomics due to underlying observable <b>MUST</b> emit items serially
-  </details>
-3. When implementing your own operator via `create`, **follow this contract**!
-4. This is true **EXCEPT FOR** subjects if used manually. Use serialized_* instead if you can't guarantee serial emissions.
-
-For example:
-
-```cpp
-    auto s1 = rpp::source::just(1) | rpp::operators::repeat() | rpp::operators::subscribe_on(rpp::schedulers::new_thread{});
-    auto s2 = rpp::source::just(2) | rpp::operators::repeat() | rpp::operators::subscribe_on(rpp::schedulers::new_thread{});
-    s1 | rpp::operators::merge_with(s2)
-       | rpp::operators::map([](int v)
-      {
-        std::cout << "enter " << v << std::endl;
-        std::this_thread::sleep_for(std::chrono::seconds{1});
-        std::cout << "exit " << v << std::endl;
-        return v;
-      })
-      | rpp::operators::as_blocking()
-      | rpp::operators::subscribe([](int){});
-
-```
-
-This will never produce:
-
-```log
-enter 1
-enter 2
-exit 2
-exit 1
-```
-
-Only serially:
-
-```log
-enter 1
-exit 1
-enter 1
-exit 1
-enter 2
-exit 2
-enter 2
-exit 2
-```
+\copydoc observables
 
 ### Operators
 

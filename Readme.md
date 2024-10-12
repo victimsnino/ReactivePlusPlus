@@ -42,7 +42,7 @@ There we are creating observable (soure of emissions/values/data) to emit value 
 
 Also RPP supports out of box:
 -  QT as rppqt module. Checkout [RPPQT reference](https://victimsnino.github.io/ReactivePlusPlus/v2/docs/html/group__rppqt.html).
--  GRPC as rppgrpc module. Checkout [RPPGRPC reference](https://victimsnino.github.io/ReactivePlusPlus/v2/docs/html/group__rppgrpc.html).
+-  gRPC as rppgrpc module. Checkout [RPPgRPC reference](https://victimsnino.github.io/ReactivePlusPlus/v2/docs/html/group__rppgrpc.html).
 -  boost::asio as rppasio module. Checkout [RPPASIO reference](https://victimsnino.github.io/ReactivePlusPlus/v2/docs/html/group__rppasio.html).
 ```
 
