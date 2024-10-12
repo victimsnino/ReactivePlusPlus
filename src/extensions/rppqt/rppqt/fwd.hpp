@@ -16,6 +16,7 @@
  *
  * @par Example:
  * @snippet qt_readme.cpp readme
+ * @ingroup rpp_extensions
  */
 
 /**

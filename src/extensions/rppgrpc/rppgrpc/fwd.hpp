@@ -15,6 +15,7 @@
 /**
  * @defgroup rppgrpc rppgrpc
  * @brief RppGrpc is extension of RPP which enables support of grpc library.
+ * @ingroup rpp_extensions
  */
 
 /**

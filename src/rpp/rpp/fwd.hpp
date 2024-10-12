@@ -18,6 +18,11 @@
  * @snippet readme.cpp readme
  */
 
+ /**
+  * @defgroup rpp_extensions rpp exensions
+  * @brief Extensions for ReactivePlusPlus library for 3rd party libraries
+  */
+
 #include <rpp/disposables/fwd.hpp>
 #include <rpp/observables/fwd.hpp>
 #include <rpp/observers/fwd.hpp>
