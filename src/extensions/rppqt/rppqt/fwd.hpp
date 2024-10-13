@@ -13,15 +13,17 @@
 /**
  * @defgroup rppqt rppqt
  * @brief RppQt is extension of RPP which enables support of Qt library.
+ * @details RppQt is set of wrappers to connect QT world with RPP.
  *
  * @par Example:
  * @snippet qt_readme.cpp readme
+ *
  * @ingroup rpp_extensions
  */
 
 /**
  * @defgroup qt_operators QT Operators
- * @brief QT Operators is way to modify observables and extend with some extra custom logic but applied for QObjects
+ * @brief QT Operators is set of RPP operators but applied to QObjects.
  * @ingroup rppqt
  */
 

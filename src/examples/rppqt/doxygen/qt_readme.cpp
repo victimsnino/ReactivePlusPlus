@@ -27,7 +27,7 @@ int main(int argc, char** argv) // NOLINT(bugprone-exception-escape)
         | rpp::operators::observe_on(rppqt::schedulers::main_thread_scheduler{}) // <--- go back to main QT scheduler
         | rpp::operators::subscribe([&label](int clicks) {
               label->setText(QString{"Clicked %1 times in total!"}.arg(clicks));
-          });
+        });
     // ![readme]
 
     QMainWindow window{};
