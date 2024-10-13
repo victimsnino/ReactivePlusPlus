@@ -7,7 +7,6 @@
 > [!IMPORTANT]
 > It's highly recommended to read this article beforehand: [The introduction to Reactive Programming you've been missing](https://gist.github.com/staltz/868e7e9bc2a7b8c1f754)
 
-### What is Reactive Programming?
 
 **Reactive programming** is a *design paradigm* that focuses on building applications that can efficiently respond to asynchronous **events**.
 
@@ -50,7 +49,7 @@ Reactive programming is a powerful way to handle input that is **distributed in 
 
 See <https://reactivex.io/intro.html> for more details.
 
-### Core Concepts of Reactive Programming
+## Core Concepts
 
 Reactive Programming can be described as follows:
 
@@ -128,7 +127,6 @@ See <https://reactivex.io/documentation/observable.html> for more details.
 
 In such an way it is not powerful enough, so Reactive Programming provides a list of **operators**.
 
-## Documentation
 ### Observable contract
 
 \copydoc observables
