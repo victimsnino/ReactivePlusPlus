@@ -413,7 +413,7 @@ return observable | rpp::ops::filter([](int v){ return v % 2 == 0;});
 
 ## Extensions:
 
-RPP is library to build reactive streams. But in general applicaton uses some another framework/library to build core logic of application. With some of them RPP can be unified to build much more better software. 
+RPP is library to build reactive streams. But in general applicaton uses some another framework/library to build core logic of application. With some of them RPP can be unified to build much more better software.
 Below you can find list of extensions for RPP with adaption to external frameworks for much more easiser integeration with RPP. These extensions are part of RPP library:
 
 ### rppqt
