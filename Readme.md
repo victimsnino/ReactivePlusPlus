@@ -44,7 +44,6 @@ Also RPP supports out of box:
 -  QT as rppqt module. Checkout [RPPQT reference](https://victimsnino.github.io/ReactivePlusPlus/v2/docs/html/group__rppqt.html).
 -  gRPC as rppgrpc module. Checkout [RPPgRPC reference](https://victimsnino.github.io/ReactivePlusPlus/v2/docs/html/group__rppgrpc.html).
 -  boost::asio as rppasio module. Checkout [RPPASIO reference](https://victimsnino.github.io/ReactivePlusPlus/v2/docs/html/group__rppasio.html).
-```
 
 ## What about existing Reactive Extension libraries for C++?
 
