@@ -32,7 +32,7 @@
  *
  *   // input: 12345qwer5125ttqt0
  *   // output: QWERTTQT
- *  
+ *
  *   return 0;
  * }
  * @endcode
