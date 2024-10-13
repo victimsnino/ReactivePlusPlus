@@ -82,7 +82,7 @@ namespace rpp::operators
      * - No any copies/moves of emissions, just forwarding to callable
      *
      * @param callable is callable used to provide this transformation. Should accept `Type` of original observable and return type for new observable
-     * @warning #include <rpp/operators/map.hpp>
+     * @note `#include <rpp/operators/map.hpp>`
      *
      * @par Example with same type:
      * @snippet map.cpp Same type

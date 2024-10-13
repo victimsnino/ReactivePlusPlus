@@ -233,7 +233,7 @@ namespace rpp::operators
      * @details This overloading attaches passed disposable to observer and return it to provide ability to dispose observer early if needed.
      * @warning This overloading has some performance penalties, use it only when you really need to use disposable
      *
-     * @param d is disposable to be attached to observer. If disposable is nullptr or disposed -> no any subscription happens
+     * @param disposable is disposable to be attached to observer. If disposable is nullptr or disposed -> no any subscription happens
      *
      * @ingroup utility_operators
      */
@@ -271,7 +271,7 @@ namespace rpp::operators
      * @details This overloading attaches passed disposable to observer and return it to provide ability to dispose observer early if needed.
      * @warning This overloading has some performance penalties, use it only when you really need to use disposable
      *
-     * @param d is disposable to be attached to observer. If disposable is nullptr or disposed -> no any subscription happens
+     * @param disposable is disposable to be attached to observer. If disposable is nullptr or disposed -> no any subscription happens
      *
      * @ingroup utility_operators
      */
@@ -286,7 +286,7 @@ namespace rpp::operators
      * @details This overloading attaches passed disposable to observer and return it to provide ability to dispose observer early if needed.
      * @warning This overloading has some performance penalties, use it only when you really need to use disposable
      *
-     * @param d is disposable to be attached to observer. If disposable is nullptr or disposed -> no any subscription happens
+     * @param disposable is disposable to be attached to observer. If disposable is nullptr or disposed -> no any subscription happens
      *
      * @ingroup utility_operators
      */

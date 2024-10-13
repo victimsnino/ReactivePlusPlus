@@ -30,7 +30,7 @@ namespace rpp::operators
      *
      * @param scheduler provides the threading model for delay. e.g. With a new thread scheduler, the observer sees the values in a new thread after a delay duration to the subscription.
      * @param delay_duration is the delay duration for emitting items. Delay duration should be able to cast to rpp::schedulers::duration.
-     * @warning #include <rpp/operators/observe_on.hpp>
+     * @note `#include <rpp/operators/observe_on.hpp>`
      *
      * @par Examples
      * @snippet observe_on.cpp observe_on

@@ -90,7 +90,7 @@ namespace rpp::operators
     * @param period is period of time to skip subsequent emissions
     * @tparam Scheduler is type used to determine `now()`. Shouldn't be used in production code
     *
-    * @warning #include <rpp/operators/throttle.hpp>
+    * @note `#include <rpp/operators/throttle.hpp>`
     *
     * @par Example:
     * @snippet throttle.cpp throttle

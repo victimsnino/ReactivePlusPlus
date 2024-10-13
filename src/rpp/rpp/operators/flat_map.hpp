@@ -58,7 +58,7 @@ namespace rpp::operators
      * @details Note that flat_map merges the emissions of these Observables, so that they may interleave.
      *
      * @param callable function that returns an observable for each item emitted by the source observable.
-     * @warning #include <rpp/operators/flat_map.hpp>
+     * @note `#include <rpp/operators/flat_map.hpp>`
      *
      * @ingroup transforming_operators
      * @see https://reactivex.io/documentation/operators/flatmap.html

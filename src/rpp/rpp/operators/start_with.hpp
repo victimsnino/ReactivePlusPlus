@@ -75,7 +75,7 @@ namespace rpp::operators
      *
      * @param observables list of observables which should be used before current observable
      *
-     * @warning #include <rpp/operators/start_with.hpp>
+     * @note `#include <rpp/operators/start_with.hpp>`
      *
      * @par Example
      * @snippet start_with.cpp start_with_observable
@@ -106,7 +106,7 @@ namespace rpp::operators
      * @tparam memory_model memory_model strategy used to store provided values
      * @param vals list of values which should be emitted before current observable
      *
-     * @warning #include <rpp/operators/start_with.hpp>
+     * @note `#include <rpp/operators/start_with.hpp>`
      *
      * @par Example
      * @snippet start_with.cpp start_with_values
@@ -136,7 +136,7 @@ namespace rpp::operators
      * @tparam memory_model memory_model strategy used to store provided values
      * @param vals list of values which should be emitted before current observable
      *
-     * @warning #include <rpp/operators/start_with.hpp>
+     * @note `#include <rpp/operators/start_with.hpp>`
      *
      * @par Example
      * @snippet start_with.cpp start_with_values

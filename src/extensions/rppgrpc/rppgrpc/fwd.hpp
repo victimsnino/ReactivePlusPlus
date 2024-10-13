@@ -13,8 +13,23 @@
 #include <rpp/utils/constraints.hpp>
 
 /**
- * @defgroup rppgrpc RPPGRPC
+ * @defgroup rppgrpc rppgrpc
  * @brief RppGrpc is extension of RPP which enables support of grpc library.
+ * @details gRPC provides way to handle requests and responses with help of reactors. RppGrpc is set of reactors (for both: client and server side) with all possible stream modes (client, server or bidirectional stream) to pass such an reactors to gRPC and handle them via RPP.
+ *
+ * @par Server-side example:
+ * @snippet server_reactor.cpp bidi_reactor
+ *
+ * @par Client-side example:
+ * @snippet client_reactor.cpp bidi_reactor
+ *
+ * @ingroup rpp_extensions
+ */
+
+/**
+ * @defgroup rppgrpc_reactors gRPC reactors
+ * @brief Reactors for gRPC to connect it to RPP properly
+ * @ingroup rppgrpc
  */
 
 namespace rppgrpc

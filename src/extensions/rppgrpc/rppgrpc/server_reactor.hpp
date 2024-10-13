@@ -31,6 +31,7 @@ namespace rppgrpc
      *
      * @snippet server_reactor.cpp bidi_reactor
      *
+     * @ingroup rppgrpc_reactors
      */
     template<rpp::constraint::decayed_type Request, rpp::constraint::decayed_type Response>
     class server_bidi_reactor final : public grpc::ServerBidiReactor<Request, Response>
@@ -108,6 +109,7 @@ namespace rppgrpc
      *
      * @snippet server_reactor.cpp write_reactor
      *
+     * @ingroup rppgrpc_reactors
      */
     template<rpp::constraint::decayed_type Response>
     class server_write_reactor final : public grpc::ServerWriteReactor<Response>
@@ -175,6 +177,7 @@ namespace rppgrpc
      *
      * @snippet server_reactor.cpp read_reactor
      *
+     * @ingroup rppgrpc_reactors
      */
     template<rpp::constraint::decayed_type Request>
     class server_read_reactor final : public grpc::ServerReadReactor<Request>

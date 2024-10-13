@@ -141,7 +141,7 @@ namespace rpp::operators
      * @param initial_value initial value for seed which would be sent during subscription and applied for first value from observable. Then it will be replaced with result and etc.
      * @param accumulator function which accepts seed value and new value from observable and return new value of seed. Can accept seed by move-reference.
      *
-     * @warning #include <rpp/operators/scan.hpp>
+     * @note `#include <rpp/operators/scan.hpp>`
      *
      * @par Example
      * @snippet scan.cpp scan
@@ -175,7 +175,7 @@ namespace rpp::operators
      *
      * @param accumulator function which accepts seed value and new value from observable and return new value of seed. Can accept seed by move-reference.
      *
-     * @warning #include <rpp/operators/scan.hpp>
+     * @note `#include <rpp/operators/scan.hpp>`
      *
      * @par Example
      * @snippet scan.cpp scan_no_seed

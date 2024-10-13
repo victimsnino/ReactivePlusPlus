@@ -41,7 +41,7 @@ the project:
     {
       "name": "dev",
       "binaryDir": "${sourceDir}/build",
-      "inherits": ["ci-<os>"],
+      "inherits": ["<some_preset>"],
       "cacheVariables": {
         "CMAKE_BUILD_TYPE" : "Release",
         "RPP_BUILD_EXAMPLES" : "ON"
@@ -69,9 +69,8 @@ the project:
 }
 ```
 
-You should replace `<os>` in your newly created presets file with the name of
-the operating system you have, which may be `win64` or `unix`. You can see what
-these correspond to in the [`CMakePresets.json`](CMakePresets.json) file.
+You should replace `<some_preset>` in your newly created presets file with the name of
+some base preset from [`CMakePresets.json`](CMakePresets.json) file. It is highly recommended to use `user-*` presets.
 
 `CMakeUserPresets.json` is also the perfect place in which you can put all
 sorts of things that you would otherwise want to pass to the configure command
@@ -108,24 +107,7 @@ additional `-t <target>` flag:
 #### `coverage`
 
 Available if `RPP_ENABLE_COVERAGE` is enabled. This target processes the output of
-the previously run tests when built with coverage configuration. The commands
-this target runs can be found in the `COVERAGE_TRACE_COMMAND` and
-`COVERAGE_HTML_COMMAND` cache variables. The trace command produces an info
-file by default, which can be submitted to services with CI integration. The
-HTML command uses the trace command's output to generate a HTML document to
-`<binary-dir>/coverage_html` by default.
-<!--
-#### `format-check` and `format-fix`
-
-These targets run the clang-format tool on the codebase to check errors and to
-fix them respectively. Customization available using the `FORMAT_PATTERNS` and
-`FORMAT_COMMAND` cache variables.
-
-#### `spell-check` and `spell-fix`
-
-These targets run the codespell tool on the codebase to check errors and to fix
-them respectively. Customization available using the `SPELL_COMMAND` cache
-variable. -->
+the previously run tests when built with coverage configuration.
 
 [1]: https://cmake.org/cmake/help/latest/manual/cmake-presets.7.html
 [2]: https://cmake.org/download/

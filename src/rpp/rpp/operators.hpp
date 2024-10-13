@@ -12,11 +12,33 @@
 
 /**
  * @defgroup operators Operators
- * @brief Operators is way to modify observables and extend with some extra custom logic
- * @details By default observable emits some values with some underlying logic. For example, it iterates over vector and
- * emits values. But operators provide ability to make such an stream a bit more complex, for example, emit only SOME
- * values, transform to string and etc. As a result, it would be ANOTHER stream of ANOTHER values, but more suitable for
- * some specific case.
+ * @brief Operators provide a way to modify observables and extend them with custom logic.
+ * @details By default, an observable emits values based on some underlying logic. For example, it might iterate over a vector and emit values. Operators allow you to make such a stream more complex, for example, by emitting only certain values, transforming them to strings, etc. As a result, you get another stream of different values, but more suitable for a specific case.
+ *
+ * For example, you can create an observable to get characters from console input, continue until the '0' character is encountered, filter out non-letter characters, and send the remaining letters as uppercase to the observer. With operators, this is straightforward to implement correctly:
+ *
+ * @code{.cpp}
+ * #include <rpp/rpp.hpp>
+ * #include <iostream>
+ *
+ * int main()
+ * {
+ *   rpp::source::from_callable(&::getchar)
+ *     | rpp::operators::repeat()
+ *     | rpp::operators::take_while([](char v) { return v != '0'; })
+ *     | rpp::operators::filter(std::not_fn(&::isdigit))
+ *     | rpp::operators::map(&::toupper)
+ *     | rpp::operators::subscribe([](char v) { std::cout << v; });
+ *
+ *   // input: 12345qwer5125ttqt0
+ *   // output: QWERTTQT
+ *
+ *   return 0;
+ * }
+ * @endcode
+ *
+ * Check the [API Reference](https://victimsnino.github.io/ReactivePlusPlus/v2/docs/html/group__rpp.html) for more details about operators.
+ *
  * @see https://reactivex.io/documentation/operators.html
  * @ingroup rpp
  */

@@ -189,7 +189,7 @@ namespace rpp::operators
      *
      * @param selector is applied to current emission of current observable and latests emissions from observables
      * @param observables are observables whose emissions would be combined when current observable sends new value
-     * @warning #include <rpp/operators/with_latest_from.hpp>
+     * @note `#include <rpp/operators/with_latest_from.hpp>`
      *
      * @par Examples
      * @snippet with_latest_from.cpp with_latest_from custom selector
@@ -224,7 +224,7 @@ namespace rpp::operators
      * - mutex acquired every time value obtained
      *
      * @param observables are observables whose emissions would be combined when current observable sends new value
-     * @warning #include <rpp/operators/with_latest_from.hpp>
+     * @note `#include <rpp/operators/with_latest_from.hpp>`
      *
      * @par Examples
      * @snippet with_latest_from.cpp with_latest_from

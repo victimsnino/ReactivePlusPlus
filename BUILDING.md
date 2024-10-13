@@ -27,15 +27,10 @@ But RPP is header-only library, so, without enabling any extra options is just c
 - `RPP_BUILD_EXAMPLES` - (ON/OFF) build examples of usage of RPP (default OFF)
 - `RPP_BUILD_SFML_CODE` - (ON/OFF) build RPP code related to SFML or not (default OFF) - requires SFML to be installed
 - `RPP_BUILD_QT_CODE` - (ON/OFF) build QT related code (examples/tests)(rppqt module doesn't require this one) (default OFF) - requires QT5/6 to be installed
-- `RPP_BUILD_GRPC_CODE` - (ON/OFF) build GRPC related code (examples/tests)(rppgrpc module doesn't require this one) (default OFF) - requires grpc++/protobuf to be installed
+- `RPP_BUILD_GRPC_CODE` - (ON/OFF) build gRPC related code (examples/tests)(rppgrpc module doesn't require this one) (default OFF) - requires gRPC++/protobuf to be installed
 - `RPP_BUILD_ASIO_CODE` - (ON/OFF) build RPPASIO related code (examples/tests)(rppasio module doesn't require this one) (default OFF) - requires asio to be installed
 
-By default, it provides rpp and rppqt INTERFACE modules.
-
-<!-- ### Building on Apple Silicon
-
-CMake supports building on Apple Silicon properly since 3.20.1. Make sure you
-have the [latest version][1] installed. -->
+By default, it provides rpp, rppqt, rppgrpc, rppasio INTERFACE modules.
 
 ## Install
 
@@ -82,7 +77,9 @@ command of CMake:
 * Package name: `RPP`
 * Target names:
  - `RPP::rpp` - main rpp INTERFACE target
- - `RPP::rppqt` - additional INTERFACE target to extend functionality for QT. rppqt doesn't include QT or even doesn't link with that.
+ - `RPP::rppqt` - additional INTERFACE target to extend functionality for QT. rppqt doesn't include QT or even doesn't link with that itself.
+ - `RPP::rppasio` - additional INTERFACE target to extend functionality for ASIO. rppasio doesn't include boost::asio or even doesn't link with that itself.
+ - `RPP::rppgrpc` - additional INTERFACE target to extend functionality for gRPC. rppgrpc doesn't include gRPC or even doesn't link with that itself.
 
 Example usage:
 
@@ -90,10 +87,12 @@ Example usage:
 find_package(RPP REQUIRED)
 # Declare the imported target as a build requirement using PRIVATE, where
 # project_target is a target created in the consuming project
-target_link_libraries(
-    project_target PRIVATE
-    RPP::rpp
-    RPP::rppqt
+target_link_libraries(project_target
+    PRIVATE
+        RPP::rpp
+        RPP::rppqt
+        RPP::rppasio
+        RPP::rppgrpc
 )
 ```
 
@@ -103,7 +102,8 @@ To use ReactivePlusPlus in your code just do
 ```cpp
 #include <rpp/rpp.hpp>
 ```
-to include whole library functionality and don't worry about includes. Also you can include only forwardings for everyting
+to include whole library functionality and don't worry about includes. (same can be applied to rppgrpc or rppqt modules)
+Also you can include only forwardings for everyting
 ```cpp
 #include <rpp/fwd.hpp>
 ```

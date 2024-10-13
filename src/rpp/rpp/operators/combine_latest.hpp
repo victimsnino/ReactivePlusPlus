@@ -90,10 +90,10 @@ namespace rpp::operators
      *
      * @param selector is applied to current emission of current observable and latests emissions from observables
      * @param observables are observables whose emissions would be combined with current observable
-     * @warning #include <rpp/operators/combine_latest.hpp>
+     * @note `#include <rpp/operators/combine_latest.hpp>`
      *
      * @par Examples
-     * @snippet combine_latest.cpp combine_latest custom selector
+     * @snippet combine_latest.cpp combine_latest custom combiner
      *
      * @ingroup combining_operators
      * @see https://reactivex.io/documentation/operators/combinelatest.html
@@ -127,7 +127,7 @@ namespace rpp::operators
      * - mutex acquired every time value obtained
      *
      * @param observables are observables whose emissions would be combined when any observable sends new value
-     * @warning #include <rpp/operators/combine_latest.hpp>
+     * @note `#include <rpp/operators/combine_latest.hpp>`
      *
      * @par Examples
      * @snippet combine_latest.cpp combine_latest

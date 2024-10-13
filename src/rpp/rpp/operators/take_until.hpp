@@ -132,7 +132,7 @@ namespace rpp::operators
      * @details Actually this operator just subscribes on 2 observables and completes original when `until_observable` emits any value
      *
      * @param until_observable is the observables that stops the source observable from sending values when it emits one value or sends a on_error/on_completed event.
-     * @warning #include <rpp/operators/take_until.hpp>
+     * @note `#include <rpp/operators/take_until.hpp>`
      *
      * @par Examples
      * @snippet take_until.cpp take_until

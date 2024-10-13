@@ -162,7 +162,7 @@ namespace rpp::source
      * @param others rest list of observables to subscribe on
      * @tparam MemoryModel rpp::memory_model strategy used to handle provided observables
      *
-     * @warning #include <rpp/operators/concat.hpp>
+     * @note `#include <rpp/operators/concat.hpp>`
      *
      * @par Example
      * @snippet concat.cpp concat_as_source
@@ -205,7 +205,7 @@ namespace rpp::source
      * @param iterable is container with observables to subscribe on
      *
      * @tparam MemoryModel rpp::memory_model strategy used to handle provided observables
-     * @warning #include <rpp/operators/concat.hpp>
+     * @note `#include <rpp/operators/concat.hpp>`
      *
      * @par Example
      * @snippet concat.cpp concat_as_source_vector

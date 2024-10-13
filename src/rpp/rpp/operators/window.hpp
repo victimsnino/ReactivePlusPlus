@@ -147,9 +147,9 @@ namespace rpp::operators
      *
      * @details Actually it is similar to `buffer` but it emits observable instead of container.
      *
-     * @param window_size amount of items which every observable would have
+     * @param count amount of items which every observable would have
      *
-     * @warning #include <rpp/operators/window.hpp>
+     * @note `#include <rpp/operators/window.hpp>`
      *
      * @par Example
      * @snippet window.cpp window

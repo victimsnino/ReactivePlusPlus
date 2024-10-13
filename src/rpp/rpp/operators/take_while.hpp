@@ -82,7 +82,7 @@ namespace rpp::operators
      * - No any copies/moves of emissions, just passing to predicate by const& and then forwarding
      *
      * @param predicate is predicate used to check items. Accepts value from observable and returns `true` if value should be forwarded and `false` if emissions should be stopped and observable should be terminated.
-     * @warning #include <rpp/operators/take_while.hpp>
+     * @note `#include <rpp/operators/take_while.hpp>`
      *
      * @par Example:
      * @snippet take_while.cpp take_while

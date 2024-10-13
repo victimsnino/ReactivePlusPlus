@@ -93,7 +93,7 @@ namespace rpp::operators
      *
      * @param selector is applied to current emission of current observable and latests emissions from observables
      * @param observables are observables whose emissions would be zipped with current observable
-     * @warning #include <rpp/operators/zip.hpp>
+     * @note `#include <rpp/operators/zip.hpp>`
      *
      * @ingroup combining_operators
      * @see https://reactivex.io/documentation/operators/zip.html
@@ -124,7 +124,7 @@ namespace rpp::operators
      * - mutex acquired every time value obtained
      *
      * @param observables are observables whose emissions would be zipped with current observable
-     * @warning #include <rpp/operators/zip.hpp>
+     * @note `#include <rpp/operators/zip.hpp>`
      *
      * @ingroup combining_operators
      * @see https://reactivex.io/documentation/operators/zip.html
