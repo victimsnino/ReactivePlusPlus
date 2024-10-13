@@ -6,7 +6,7 @@
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=victimsnino_ReactivePlusPlus&metric=sqale_rating&branch=v2)](https://sonarcloud.io/summary/new_code?id=victimsnino_ReactivePlusPlus&branch=v2)
 ![GitHub commit activity (v2)](https://img.shields.io/github/commit-activity/m/victimsnino/ReactivePlusPlus/v2)
 
-[![User guide](https://img.shields.io/badge/link-User_guide-green)](https://victimsnino.github.io/ReactivePlusPlus/v2/docs/html/md_docs_2readme.html)
+[![User guide](https://img.shields.io/badge/link-User_guide-green)](https://victimsnino.github.io/ReactivePlusPlus/v2/docs/html/index.html)
 [![API Reference](https://img.shields.io/badge/link-API_Reference-green)](https://victimsnino.github.io/ReactivePlusPlus/v2/docs/html/group__rpp.html)
 [![Benchmarks](https://img.shields.io/badge/link-Benchmarks-green)](https://victimsnino.github.io/ReactivePlusPlus/v2/benchmark)
 
@@ -81,11 +81,11 @@ If you are going to know more details about developing for RPP check [HACKING](H
 
 ## Documentation:
 
-Check detailed [User Guide/Tutorial](https://victimsnino.github.io/ReactivePlusPlus/v2/docs/html/md_docs_2readme.html) (to learn more details about ReactivePlusPlus or reactive programming paradigm itself) and extensive [API Reference of RPP](https://victimsnino.github.io/ReactivePlusPlus/v2/docs/html/group__rpp.html) (to know how to apply ReactivePlusPlus properly).
+Check detailed [User Guide/Tutorial](https://victimsnino.github.io/ReactivePlusPlus/v2/docs/html/index.html) (to learn more details about ReactivePlusPlus or reactive programming paradigm itself) and extensive [API Reference of RPP](https://victimsnino.github.io/ReactivePlusPlus/v2/docs/html/group__rpp.html) (to know how to apply ReactivePlusPlus properly).
 
 
 ## Useful links
-- [User Guide](https://victimsnino.github.io/ReactivePlusPlus/v2/docs/html/md_docs_2readme.html)
+- [User Guide](https://victimsnino.github.io/ReactivePlusPlus/v2/docs/html/index.html)
 - [API Reference](https://victimsnino.github.io/ReactivePlusPlus/v2/docs/html/group__rpp.html)
 - [Examples](https://github.com/victimsnino/ReactivePlusPlus/tree/v2/src/examples)
 - [reactivex.io](https://reactivex.io) describes everything related to reactive programming.
