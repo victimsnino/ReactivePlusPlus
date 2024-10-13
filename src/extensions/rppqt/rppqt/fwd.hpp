@@ -12,7 +12,7 @@
 
 /**
  * @defgroup rppqt rppqt
- * @details RppQt is extension of RPP which enables support of Qt library.
+ * @brief RppQt is extension of RPP which enables support of Qt library.
  *
  * @par Example:
  * @snippet qt_readme.cpp readme

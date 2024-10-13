@@ -19,7 +19,7 @@
  */
 
 /**
- * @defgroup rpp_extensions rpp exensions
+ * @defgroup rpp_extensions Extensions
  * @brief Extensions for ReactivePlusPlus library for 3rd party libraries
  */
 
