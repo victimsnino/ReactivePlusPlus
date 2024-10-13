@@ -132,3 +132,4 @@ ReactivePlusPlus library uses:
 - [reactivex.io](https://reactivex.io) as source for insipration and definition of entities used in RPP. Some comments used in RPP source code taken from [reactivex.io](https://reactivex.io)
 - [rxmarbles python](https://pypi.org/project/rxmarbles/) as generator of marbles graphs in doxygen documentation
 - [cmake-init](https://github.com/friendlyanon/cmake-init) as generator for most part of initial CMakes
+- [doxygen-awesome-css](https://jothepro.github.io/doxygen-awesome-css/) as CSS theme for doxygen documentation
