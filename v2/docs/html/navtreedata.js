@@ -25,49 +25,33 @@
 var NAVTREE =
 [
   [ "ReactivePlusPlus", "index.html", [
-    [ "Documentation", "md_docs_2readme.html", [
-      [ "Introduction to Reactive Programming", "md_docs_2readme.html#autotoc_md1", [
-        [ "What is Reactive Programming?", "md_docs_2readme.html#autotoc_md2", null ],
-        [ "Core concepts of Reactive Programming", "md_docs_2readme.html#autotoc_md3", null ],
-        [ "Observable contract", "md_docs_2readme.html#autotoc_md4", null ],
-        [ "Operators", "md_docs_2readme.html#autotoc_md5", [
-          [ "How operator works?", "md_docs_2readme.html#autotoc_md6", null ]
-        ] ],
-        [ "Schedulers", "md_docs_2readme.html#autotoc_md7", null ],
-        [ "Disposable", "md_docs_2readme.html#autotoc_md8", null ],
-        [ "Exception guarantee", "md_docs_2readme.html#autotoc_md9", null ],
-        [ "Memory Model", "md_docs_2readme.html#autotoc_md10", [
-          [ "Examples", "md_docs_2readme.html#autotoc_md11", null ]
+    [ "Manual documentation", "index.html", "index" ],
+    [ "API Reference", "topics.html", "topics" ],
+    [ "Doxygen generated", null, [
+      [ "Concept List", "concepts.html", "concepts" ],
+      [ "Class List", "annotated.html", [
+        [ "Class List", "annotated.html", "annotated_dup" ],
+        [ "Class Index", "classes.html", null ],
+        [ "Class Hierarchy", "hierarchy.html", "hierarchy" ],
+        [ "Class Members", "functions.html", [
+          [ "All", "functions.html", null ],
+          [ "Functions", "functions_func.html", null ]
         ] ]
       ] ],
-      [ "ReactivePlusPlus details", "md_docs_2readme.html#autotoc_md12", [
-        [ "Disposable", "md_docs_2readme.html#autotoc_md13", null ],
-        [ "dynamic_* versions to keep classes as variables", "md_docs_2readme.html#autotoc_md14", null ]
-      ] ]
-    ] ],
-    [ "API reference", "topics.html", "topics" ],
-    [ "Concepts", "concepts.html", "concepts" ],
-    [ "Classes", "annotated.html", [
-      [ "Class List", "annotated.html", "annotated_dup" ],
-      [ "Class Index", "classes.html", null ],
-      [ "Class Hierarchy", "hierarchy.html", "hierarchy" ],
-      [ "Class Members", "functions.html", [
-        [ "All", "functions.html", null ],
-        [ "Functions", "functions_func.html", null ]
-      ] ]
-    ] ],
-    [ "Files", "files.html", [
-      [ "File List", "files.html", "files_dup" ]
-    ] ],
-    [ "Examples", "examples.html", "examples" ]
+      [ "File List", "files.html", [
+        [ "File List", "files.html", "files_dup" ]
+      ] ],
+      [ "Examples", "examples.html", "examples" ]
+    ] ]
   ] ]
 ];
 
 var NAVTREEINDEX =
 [
 "annotated.html",
-"from_8cpp-example.html",
-"structrpp_1_1interface__disposable.html#a5685eeaf07e2d4616cd1a0effa78069d"
+"distinct_8hpp_source.html",
+"skip_8cpp-example.html",
+"throttle_8cpp-example.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

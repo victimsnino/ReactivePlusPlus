@@ -7,6 +7,7 @@ var dir_0afe0b2d744d0bd4513ad200b3c712f0 =
     [ "schedulers", "dir_6a70c2f65c57d5847cbdf09a0eb560ea.html", "dir_6a70c2f65c57d5847cbdf09a0eb560ea" ],
     [ "sources", "dir_b74590698e221afff25b66eda0de4de6.html", "dir_b74590698e221afff25b66eda0de4de6" ],
     [ "subjects", "dir_67f63fdc2698966b0d1fbb08295790d9.html", "dir_67f63fdc2698966b0d1fbb08295790d9" ],
+    [ "utils", "dir_ca059c0bcf16fbe45e623603e8fbb945.html", "dir_ca059c0bcf16fbe45e623603e8fbb945" ],
     [ "defs.hpp", "defs_8hpp_source.html", null ],
     [ "disposables.hpp", "disposables_8hpp_source.html", null ],
     [ "fwd.hpp", "rpp_2rpp_2fwd_8hpp_source.html", null ],

@@ -1,7 +1,6 @@
 var searchData=
 [
-  ['rpp_0',['RPP',['../group__rpp.html',1,'']]],
-  ['rppasio_1',['RPPASIO',['../group__rppasio.html',1,'']]],
-  ['rppgrpc_2',['RPPGRPC',['../group__rppgrpc.html',1,'']]],
-  ['rppqt_3',['RPPQT',['../group__rppqt.html',1,'']]]
+  ['qt_20creational_20operators_0',['QT Creational Operators',['../group__qt__creational__operators.html',1,'']]],
+  ['qt_20operators_1',['QT Operators',['../group__qt__operators.html',1,'']]],
+  ['qt_20schedulers_2',['QT Schedulers',['../group__qt__schedulers.html',1,'']]]
 ];

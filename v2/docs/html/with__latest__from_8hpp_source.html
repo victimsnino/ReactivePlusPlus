@@ -1,5 +1,6 @@
+<!-- HTML header for doxygen 1.12.0-->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US" class="light-mode">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
@@ -9,7 +10,6 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
-<script type="text/javascript" src="clipboard.js"></script>
 <link href="navtree.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="navtreedata.js"></script>
 <script type="text/javascript" src="navtree.js"></script>
@@ -18,12 +18,20 @@
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
-<script type="text/javascript">
-/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-  $(function() { init_search(); });
-/* @license-end */
-</script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only-darkmode-toggle.css" rel="stylesheet" type="text/css"/>
+<link href="custom.css" rel="stylesheet" type="text/css"/>
+<!-- ... other metadata & script includes ... -->
+<script type="text/javascript" src="doxygen-awesome-darkmode-toggle.js"></script>
+<script type="text/javascript">
+    DoxygenAwesomeDarkModeToggle.init()
+</script>
+<script type="text/javascript" src="doxygen-awesome-fragment-copy-button.js"></script>
+        <script type="text/javascript">
+            DoxygenAwesomeFragmentCopyButton.init()
+        </script>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -34,20 +42,8 @@
   <td id="projectalign">
    <div id="projectname">ReactivePlusPlus
    </div>
-   <div id="projectbrief">One more implementation of ReactiveX approach in C++ with care about performance and templates in mind</div>
+   <div id="projectbrief">ReactiveX implementation for C++20</div>
   </td>
-    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
-        <span class="left">
-          <span id="MSearchSelect"                onmouseover="return searchBox.OnSearchSelectShow()"                onmouseout="return searchBox.OnSearchSelectHide()">&#160;</span>
-          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
-               onfocus="searchBox.OnSearchFieldFocus(true)" 
-               onblur="searchBox.OnSearchFieldFocus(false)" 
-               onkeyup="searchBox.OnSearchFieldChange(event)"/>
-          </span><span class="right">
-            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.svg" alt=""/></a>
-          </span>
-        </div>
-</td>
  </tr>
  </tbody>
 </table>
@@ -64,6 +60,17 @@ var searchBox = new SearchBox("searchBox", "search/",'.html');
 $(function() { codefold.init(0); });
 /* @license-end */
 </script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Search',true);
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
 </div><!-- top -->
 <div id="side-nav" class="ui-resizable side-nav-resizable">
   <div id="nav-tree">
@@ -130,7 +137,7 @@ $(function(){initNavTree('with__latest__from_8hpp_source.html',''); initResizabl
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="keyword">namespace </span>rpp::operators::details</div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>{</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    <span class="keyword">template</span>&lt;<a class="code hl_concept" href="conceptrpp_1_1constraint_1_1observer.html">rpp::constraint::observer</a> Observer, <span class="keyword">typename</span> TSelector, rpp::constraint::decayed_type... RestArgs&gt;</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    <span class="keyword">template</span>&lt;<a class="code hl_concept" href="conceptrpp_1_1constraint_1_1observer.html">rpp::constraint::observer</a> Observer, <span class="keyword">typename</span> TSelector, <a class="code hl_concept" href="conceptrpp_1_1constraint_1_1decayed__type.html">rpp::constraint::decayed_type</a>... RestArgs&gt;</div>
 <div class="foldopen" id="foldopen00026" data-start="{" data-end="};">
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="classrpp_1_1operators_1_1details_1_1with__latest__from__state.html">   26</a></span>    <span class="keyword">class </span><a class="code hl_class" href="classrpp_1_1operators_1_1details_1_1with__latest__from__state.html">with_latest_from_state</a> final</div>
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    {</div>
@@ -144,20 +151,20 @@ $(function(){initNavTree('with__latest__from_8hpp_source.html',''); initResizabl
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>        rpp::utils::pointer_under_lock&lt;Observer&gt; get_observer_under_lock() { <span class="keywordflow">return</span> m_observer_with_mutex; }</div>
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>        rpp::utils::tuple&lt;rpp::utils::value_with_mutex&lt;std::optional&lt;RestArgs&gt;&gt;...&gt;&amp; get_values() { <span class="keywordflow">return</span> m_values; }</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>        <a class="code hl_class" href="classrpp_1_1utils_1_1tuple.html">rpp::utils::tuple&lt;rpp::utils::value_with_mutex&lt;std::optional&lt;RestArgs&gt;</a>&gt;...&gt;&amp; get_values() { <span class="keywordflow">return</span> m_values; }</div>
 <div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>        <span class="keyword">const</span> TSelector&amp;                    get_selector()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> m_selector; }</div>
 <div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        <span class="keyword">const</span> <a class="code hl_class" href="classrpp_1_1disposable__wrapper__impl.html">composite_disposable_wrapper</a>&amp; get_disposable()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> m_disposable; }</div>
 <div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
 <div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    <span class="keyword">private</span>:</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        rpp::utils::value_with_mutex&lt;Observer&gt;                                      m_observer_with_mutex{};</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>        rpp::utils::tuple&lt;rpp::utils::value_with_mutex&lt;std::optional&lt;RestArgs&gt;&gt;...&gt; m_values{};</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        <a class="code hl_class" href="classrpp_1_1utils_1_1value__with__mutex.html">rpp::utils::value_with_mutex&lt;Observer&gt;</a>                                      m_observer_with_mutex{};</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>        <a class="code hl_class" href="classrpp_1_1utils_1_1tuple.html">rpp::utils::tuple&lt;rpp::utils::value_with_mutex&lt;std::optional&lt;RestArgs&gt;</a>&gt;...&gt; m_values{};</div>
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>        <a class="code hl_class" href="classrpp_1_1disposable__wrapper__impl.html">composite_disposable_wrapper</a>                                                m_disposable = <a class="code hl_function" href="classrpp_1_1disposable__wrapper__impl.html#a677053a7d4cc81ab26dc7f740a6595e6">composite_disposable_wrapper::make</a>();</div>
 <div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        RPP_NO_UNIQUE_ADDRESS TSelector                                             m_selector;</div>
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    };</div>
 </div>
 <div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    <span class="keyword">template</span>&lt;<span class="keywordtype">size_t</span> I, <a class="code hl_concept" href="conceptrpp_1_1constraint_1_1observer.html">rpp::constraint::observer</a> Observer, <span class="keyword">typename</span> TSelector, rpp::constraint::decayed_type... RestArgs&gt;</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    <span class="keyword">template</span>&lt;<span class="keywordtype">size_t</span> I, <a class="code hl_concept" href="conceptrpp_1_1constraint_1_1observer.html">rpp::constraint::observer</a> Observer, <span class="keyword">typename</span> TSelector, <a class="code hl_concept" href="conceptrpp_1_1constraint_1_1decayed__type.html">rpp::constraint::decayed_type</a>... RestArgs&gt;</div>
 <div class="foldopen" id="foldopen00051" data-start="{" data-end="};">
 <div class="line"><a id="l00051" name="l00051"></a><span class="lineno"><a class="line" href="structrpp_1_1operators_1_1details_1_1with__latest__from__inner__observer__strategy.html">   51</a></span>    <span class="keyword">struct </span><a class="code hl_struct" href="structrpp_1_1operators_1_1details_1_1with__latest__from__inner__observer__strategy.html">with_latest_from_inner_observer_strategy</a></div>
 <div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    {</div>
@@ -185,11 +192,11 @@ $(function(){initNavTree('with__latest__from_8hpp_source.html',''); initResizabl
 <div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>            state-&gt;get_observer_under_lock()-&gt;on_error(err);</div>
 <div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>        }</div>
 <div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span> </div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>        <span class="keyword">static</span> <span class="keyword">constexpr</span> rpp::utils::empty_function_t&lt;&gt; on_completed{};</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>        <span class="keyword">static</span> <span class="keyword">constexpr</span> <a class="code hl_struct" href="structrpp_1_1utils_1_1empty__function__t.html">rpp::utils::empty_function_t&lt;&gt;</a> on_completed{};</div>
 <div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    };</div>
 </div>
 <div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span> </div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    <span class="keyword">template</span>&lt;<a class="code hl_concept" href="conceptrpp_1_1constraint_1_1observer.html">rpp::constraint::observer</a> Observer, <span class="keyword">typename</span> TSelector, <span class="keyword">typename</span> OriginalValue, rpp::constraint::decayed_type... RestArgs&gt;</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    <span class="keyword">template</span>&lt;<a class="code hl_concept" href="conceptrpp_1_1constraint_1_1observer.html">rpp::constraint::observer</a> Observer, <span class="keyword">typename</span> TSelector, <span class="keyword">typename</span> OriginalValue, <a class="code hl_concept" href="conceptrpp_1_1constraint_1_1decayed__type.html">rpp::constraint::decayed_type</a>... RestArgs&gt;</div>
 <div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>        <span class="keyword">requires</span> std::invocable&lt;TSelector, OriginalValue, RestArgs...&gt;</div>
 <div class="foldopen" id="foldopen00082" data-start="{" data-end="};">
 <div class="line"><a id="l00082" name="l00082"></a><span class="lineno"><a class="line" href="structrpp_1_1operators_1_1details_1_1with__latest__from__observer__strategy.html">   82</a></span>    <span class="keyword">struct </span><a class="code hl_struct" href="structrpp_1_1operators_1_1details_1_1with__latest__from__observer__strategy.html">with_latest_from_observer_strategy</a></div>
@@ -213,7 +220,7 @@ $(function(){initNavTree('with__latest__from_8hpp_source.html',''); initResizabl
 <div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>        <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
 <div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>        <span class="keywordtype">void</span> on_next(T&amp;&amp; v)<span class="keyword"> const</span></div>
 <div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span><span class="keyword">        </span>{</div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>            <span class="keyword">auto</span> result = state-&gt;get_values().apply([&amp;d = this-&gt;state, &amp;v](rpp::utils::value_with_mutex&lt;std::optional&lt;RestArgs&gt;&gt;&amp;... vals) -&gt; std::optional&lt;Result&gt; {</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>            <span class="keyword">auto</span> result = state-&gt;get_values().apply([&amp;d = this-&gt;state, &amp;v](<a class="code hl_class" href="classrpp_1_1utils_1_1value__with__mutex.html">rpp::utils::value_with_mutex</a>&lt;std::optional&lt;RestArgs&gt;&gt;&amp;... vals) -&gt; std::optional&lt;Result&gt; {</div>
 <div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>                <span class="keyword">auto</span> lock = std::scoped_lock{vals.get_mutex()...};</div>
 <div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span> </div>
 <div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>                <span class="keywordflow">if</span> ((vals.get_value_unsafe().has_value() &amp;&amp; ...))</div>
@@ -241,7 +248,7 @@ $(function(){initNavTree('with__latest__from_8hpp_source.html',''); initResizabl
 <div class="foldopen" id="foldopen00127" data-start="{" data-end="};">
 <div class="line"><a id="l00127" name="l00127"></a><span class="lineno"><a class="line" href="structrpp_1_1operators_1_1details_1_1with__latest__from__t.html">  127</a></span>    <span class="keyword">struct </span><a class="code hl_struct" href="structrpp_1_1operators_1_1details_1_1with__latest__from__t.html">with_latest_from_t</a></div>
 <div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>    {</div>
-<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>        RPP_NO_UNIQUE_ADDRESS rpp::utils::tuple&lt;TObservables...&gt; observables;</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>        RPP_NO_UNIQUE_ADDRESS <a class="code hl_class" href="classrpp_1_1utils_1_1tuple.html">rpp::utils::tuple</a>&lt;TObservables...&gt; observables;</div>
 <div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>        RPP_NO_UNIQUE_ADDRESS TSelector                          selector;</div>
 <div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span> </div>
 <div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>        <span class="keyword">template</span>&lt;rpp::constra<span class="keywordtype">int</span>::decayed_type T&gt;</div>
@@ -293,20 +300,23 @@ $(function(){initNavTree('with__latest__from_8hpp_source.html',''); initResizabl
 <div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>    <span class="keyword">auto</span> <a class="code hl_function" href="group__combining__operators.html#ga9345ba5faac717ba85fc88f1c5fff58b">with_latest_from</a>(TSelector&amp;&amp; selector, TObservable&amp;&amp; observable, TObservables&amp;&amp;... observables)</div>
 <div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>    {</div>
 <div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span>        <span class="keywordflow">return</span> details::with_latest_from_t&lt;std::decay_t&lt;TSelector&gt;, std::decay_t&lt;TObservable&gt;, std::decay_t&lt;TObservables&gt;...&gt;{</div>
-<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>            rpp::utils::tuple{std::forward&lt;TObservable&gt;(observable), std::forward&lt;TObservables&gt;(observables)...},</div>
+<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>            <a class="code hl_class" href="classrpp_1_1utils_1_1tuple.html">rpp::utils::tuple</a>{std::forward&lt;TObservable&gt;(observable), std::forward&lt;TObservables&gt;(observables)...},</div>
 <div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span>            std::forward&lt;TSelector&gt;(selector)};</div>
 <div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span>    }</div>
 <div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span> </div>
 <div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span>    <span class="keyword">template</span>&lt;<a class="code hl_concept" href="conceptrpp_1_1constraint_1_1observable.html">rpp::constraint::observable</a> TObservable, <a class="code hl_concept" href="conceptrpp_1_1constraint_1_1observable.html">rpp::constraint::observable</a>... TObservables&gt;</div>
 <div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span>    <span class="keyword">auto</span> <a class="code hl_function" href="group__combining__operators.html#ga9345ba5faac717ba85fc88f1c5fff58b">with_latest_from</a>(TObservable&amp;&amp; observable, TObservables&amp;&amp;... observables)</div>
 <div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span>    {</div>
-<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="group__combining__operators.html#ga9345ba5faac717ba85fc88f1c5fff58b">with_latest_from</a>(rpp::utils::pack_to_tuple{}, std::forward&lt;TObservable&gt;(observable), std::forward&lt;TObservables&gt;(observables)...);</div>
+<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="group__combining__operators.html#ga9345ba5faac717ba85fc88f1c5fff58b">with_latest_from</a>(<a class="code hl_struct" href="structrpp_1_1utils_1_1pack__to__tuple.html">rpp::utils::pack_to_tuple</a>{}, std::forward&lt;TObservable&gt;(observable), std::forward&lt;TObservables&gt;(observables)...);</div>
 <div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span>    }</div>
 <div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span>} <span class="comment">// namespace rpp::operators</span></div>
 <div class="ttc" id="aclassrpp_1_1disposable__wrapper__impl_html"><div class="ttname"><a href="classrpp_1_1disposable__wrapper__impl.html">rpp::disposable_wrapper_impl&lt; interface_composite_disposable &gt;</a></div></div>
 <div class="ttc" id="aclassrpp_1_1disposable__wrapper__impl_html_a677053a7d4cc81ab26dc7f740a6595e6"><div class="ttname"><a href="classrpp_1_1disposable__wrapper__impl.html#a677053a7d4cc81ab26dc7f740a6595e6">rpp::disposable_wrapper_impl&lt; interface_composite_disposable &gt;::make</a></div><div class="ttdeci">static disposable_wrapper_impl make(TArgs &amp;&amp;... args)</div><div class="ttdef"><b>Definition</b> disposable_wrapper.hpp:133</div></div>
 <div class="ttc" id="aclassrpp_1_1observer_html"><div class="ttname"><a href="classrpp_1_1observer.html">rpp::observer</a></div><div class="ttdoc">Base class for any observer used in RPP. It handles core callbacks of observers. Objects of this clas...</div><div class="ttdef"><b>Definition</b> observer.hpp:172</div></div>
 <div class="ttc" id="aclassrpp_1_1operators_1_1details_1_1with__latest__from__state_html"><div class="ttname"><a href="classrpp_1_1operators_1_1details_1_1with__latest__from__state.html">rpp::operators::details::with_latest_from_state</a></div><div class="ttdef"><b>Definition</b> with_latest_from.hpp:27</div></div>
+<div class="ttc" id="aclassrpp_1_1utils_1_1tuple_html"><div class="ttname"><a href="classrpp_1_1utils_1_1tuple.html">rpp::utils::tuple</a></div><div class="ttdef"><b>Definition</b> tuple.hpp:105</div></div>
+<div class="ttc" id="aclassrpp_1_1utils_1_1value__with__mutex_html"><div class="ttname"><a href="classrpp_1_1utils_1_1value__with__mutex.html">rpp::utils::value_with_mutex</a></div><div class="ttdef"><b>Definition</b> utils.hpp:260</div></div>
+<div class="ttc" id="aconceptrpp_1_1constraint_1_1decayed__type_html"><div class="ttname"><a href="conceptrpp_1_1constraint_1_1decayed__type.html">rpp::constraint::decayed_type</a></div><div class="ttdef"><b>Definition</b> constraints.hpp:22</div></div>
 <div class="ttc" id="aconceptrpp_1_1constraint_1_1observable_html"><div class="ttname"><a href="conceptrpp_1_1constraint_1_1observable.html">rpp::constraint::observable</a></div><div class="ttdef"><b>Definition</b> fwd.hpp:62</div></div>
 <div class="ttc" id="aconceptrpp_1_1constraint_1_1observer_html"><div class="ttname"><a href="conceptrpp_1_1constraint_1_1observer.html">rpp::constraint::observer</a></div><div class="ttdef"><b>Definition</b> fwd.hpp:235</div></div>
 <div class="ttc" id="agroup__combining__operators_html_ga9345ba5faac717ba85fc88f1c5fff58b"><div class="ttname"><a href="group__combining__operators.html#ga9345ba5faac717ba85fc88f1c5fff58b">rpp::operators::with_latest_from</a></div><div class="ttdeci">auto with_latest_from(TSelector &amp;&amp;selector, TObservable &amp;&amp;observable, TObservables &amp;&amp;... observables)</div><div class="ttdoc">Combines latest emissions from observables with emission from current observable when it sends new va...</div><div class="ttdef"><b>Definition</b> with_latest_from.hpp:197</div></div>
@@ -316,6 +326,8 @@ $(function(){initNavTree('with__latest__from_8hpp_source.html',''); initResizabl
 <div class="ttc" id="astructrpp_1_1operators_1_1details_1_1with__latest__from__observer__strategy_html"><div class="ttname"><a href="structrpp_1_1operators_1_1details_1_1with__latest__from__observer__strategy.html">rpp::operators::details::with_latest_from_observer_strategy</a></div><div class="ttdef"><b>Definition</b> with_latest_from.hpp:83</div></div>
 <div class="ttc" id="astructrpp_1_1operators_1_1details_1_1with__latest__from__t_1_1operator__traits_html"><div class="ttname"><a href="structrpp_1_1operators_1_1details_1_1with__latest__from__t_1_1operator__traits.html">rpp::operators::details::with_latest_from_t::operator_traits</a></div><div class="ttdef"><b>Definition</b> with_latest_from.hpp:134</div></div>
 <div class="ttc" id="astructrpp_1_1operators_1_1details_1_1with__latest__from__t_html"><div class="ttname"><a href="structrpp_1_1operators_1_1details_1_1with__latest__from__t.html">rpp::operators::details::with_latest_from_t</a></div><div class="ttdef"><b>Definition</b> with_latest_from.hpp:128</div></div>
+<div class="ttc" id="astructrpp_1_1utils_1_1empty__function__t_html"><div class="ttname"><a href="structrpp_1_1utils_1_1empty__function__t.html">rpp::utils::empty_function_t</a></div><div class="ttdef"><b>Definition</b> functors.hpp:28</div></div>
+<div class="ttc" id="astructrpp_1_1utils_1_1pack__to__tuple_html"><div class="ttname"><a href="structrpp_1_1utils_1_1pack__to__tuple.html">rpp::utils::pack_to_tuple</a></div><div class="ttdef"><b>Definition</b> functors.hpp:82</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

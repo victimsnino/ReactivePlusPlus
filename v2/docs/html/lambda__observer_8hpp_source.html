@@ -1,5 +1,6 @@
+<!-- HTML header for doxygen 1.12.0-->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US" class="light-mode">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
@@ -9,7 +10,6 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
-<script type="text/javascript" src="clipboard.js"></script>
 <link href="navtree.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="navtreedata.js"></script>
 <script type="text/javascript" src="navtree.js"></script>
@@ -18,12 +18,20 @@
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
-<script type="text/javascript">
-/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-  $(function() { init_search(); });
-/* @license-end */
-</script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only-darkmode-toggle.css" rel="stylesheet" type="text/css"/>
+<link href="custom.css" rel="stylesheet" type="text/css"/>
+<!-- ... other metadata & script includes ... -->
+<script type="text/javascript" src="doxygen-awesome-darkmode-toggle.js"></script>
+<script type="text/javascript">
+    DoxygenAwesomeDarkModeToggle.init()
+</script>
+<script type="text/javascript" src="doxygen-awesome-fragment-copy-button.js"></script>
+        <script type="text/javascript">
+            DoxygenAwesomeFragmentCopyButton.init()
+        </script>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -34,20 +42,8 @@
   <td id="projectalign">
    <div id="projectname">ReactivePlusPlus
    </div>
-   <div id="projectbrief">One more implementation of ReactiveX approach in C++ with care about performance and templates in mind</div>
+   <div id="projectbrief">ReactiveX implementation for C++20</div>
   </td>
-    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
-        <span class="left">
-          <span id="MSearchSelect"                onmouseover="return searchBox.OnSearchSelectShow()"                onmouseout="return searchBox.OnSearchSelectHide()">&#160;</span>
-          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
-               onfocus="searchBox.OnSearchFieldFocus(true)" 
-               onblur="searchBox.OnSearchFieldFocus(false)" 
-               onkeyup="searchBox.OnSearchFieldChange(event)"/>
-          </span><span class="right">
-            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.svg" alt=""/></a>
-          </span>
-        </div>
-</td>
  </tr>
  </tbody>
 </table>
@@ -64,6 +60,17 @@ var searchBox = new SearchBox("searchBox", "search/",'.html');
 $(function() { codefold.init(0); });
 /* @license-end */
 </script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Search',true);
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
 </div><!-- top -->
 <div id="side-nav" class="ui-resizable side-nav-resizable">
   <div id="nav-tree">
@@ -124,7 +131,7 @@ $(function(){initNavTree('lambda__observer_8hpp_source.html',''); initResizable(
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="keyword">namespace </span>rpp::details::observers</div>
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>{</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    <span class="keyword">template</span>&lt;rpp::constraint::decayed_type             Type,</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    <span class="keyword">template</span>&lt;<a class="code hl_concept" href="conceptrpp_1_1constraint_1_1decayed__type.html">rpp::constraint::decayed_type</a>             Type,</div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>             std::invocable&lt;Type&gt;                      OnNext,</div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>             std::invocable&lt;const std::exception_ptr&amp;&gt; OnError,</div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>             std::invocable&lt;&gt;                          OnCompleted&gt;</div>
@@ -152,7 +159,7 @@ $(function(){initNavTree('lambda__observer_8hpp_source.html',''); initResizable(
 <div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
 <div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="keyword">namespace </span>rpp</div>
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>{</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    <span class="keyword">template</span>&lt;constraint::decayed_type                  Type,</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    <span class="keyword">template</span>&lt;<a class="code hl_concept" href="conceptrpp_1_1constraint_1_1decayed__type.html">constraint::decayed_type</a>                  Type,</div>
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>             std::invocable&lt;Type&gt;                      OnNext,</div>
 <div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>             std::invocable&lt;const std::exception_ptr&amp;&gt; OnError,</div>
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>             std::invocable&lt;&gt;                          OnCompleted&gt;</div>
@@ -200,6 +207,7 @@ $(function(){initNavTree('lambda__observer_8hpp_source.html',''); initResizable(
 <div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>} <span class="comment">// namespace rpp</span></div>
 <div class="ttc" id="aclassrpp_1_1disposable__wrapper__impl_html"><div class="ttname"><a href="classrpp_1_1disposable__wrapper__impl.html">rpp::disposable_wrapper_impl&lt; interface_disposable &gt;</a></div></div>
 <div class="ttc" id="aclassrpp_1_1observer_html"><div class="ttname"><a href="classrpp_1_1observer.html">rpp::observer</a></div><div class="ttdoc">Base class for any observer used in RPP. It handles core callbacks of observers. Objects of this clas...</div><div class="ttdef"><b>Definition</b> observer.hpp:172</div></div>
+<div class="ttc" id="aconceptrpp_1_1constraint_1_1decayed__type_html"><div class="ttname"><a href="conceptrpp_1_1constraint_1_1decayed__type.html">rpp::constraint::decayed_type</a></div><div class="ttdef"><b>Definition</b> constraints.hpp:22</div></div>
 <div class="ttc" id="agroup__observers_html_gae17f62f64102925f4cd2eb29c4c27028"><div class="ttname"><a href="group__observers.html#gae17f62f64102925f4cd2eb29c4c27028">rpp::make_lambda_observer</a></div><div class="ttdeci">auto make_lambda_observer(OnNext &amp;&amp;on_next, OnError &amp;&amp;on_error={}, OnCompleted &amp;&amp;on_completed={}) -&gt; lambda_observer&lt; Type, std::decay_t&lt; OnNext &gt;, std::decay_t&lt; OnError &gt;, std::decay_t&lt; OnCompleted &gt; &gt;</div><div class="ttdoc">Constructs observer specialized with passed callbacks. Most easiesest way to construct observer &quot;on t...</div><div class="ttdef"><b>Definition</b> lambda_observer.hpp:49</div></div>
 <div class="ttc" id="astructrpp_1_1details_1_1observers_1_1lambda__strategy_html"><div class="ttname"><a href="structrpp_1_1details_1_1observers_1_1lambda__strategy.html">rpp::details::observers::lambda_strategy</a></div><div class="ttdef"><b>Definition</b> lambda_observer.hpp:24</div></div>
 </div><!-- fragment --></div><!-- contents -->

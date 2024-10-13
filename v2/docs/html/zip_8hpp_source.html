@@ -1,5 +1,6 @@
+<!-- HTML header for doxygen 1.12.0-->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US" class="light-mode">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
@@ -9,7 +10,6 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
-<script type="text/javascript" src="clipboard.js"></script>
 <link href="navtree.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="navtreedata.js"></script>
 <script type="text/javascript" src="navtree.js"></script>
@@ -18,12 +18,20 @@
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
-<script type="text/javascript">
-/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-  $(function() { init_search(); });
-/* @license-end */
-</script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only-darkmode-toggle.css" rel="stylesheet" type="text/css"/>
+<link href="custom.css" rel="stylesheet" type="text/css"/>
+<!-- ... other metadata & script includes ... -->
+<script type="text/javascript" src="doxygen-awesome-darkmode-toggle.js"></script>
+<script type="text/javascript">
+    DoxygenAwesomeDarkModeToggle.init()
+</script>
+<script type="text/javascript" src="doxygen-awesome-fragment-copy-button.js"></script>
+        <script type="text/javascript">
+            DoxygenAwesomeFragmentCopyButton.init()
+        </script>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -34,20 +42,8 @@
   <td id="projectalign">
    <div id="projectname">ReactivePlusPlus
    </div>
-   <div id="projectbrief">One more implementation of ReactiveX approach in C++ with care about performance and templates in mind</div>
+   <div id="projectbrief">ReactiveX implementation for C++20</div>
   </td>
-    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
-        <span class="left">
-          <span id="MSearchSelect"                onmouseover="return searchBox.OnSearchSelectShow()"                onmouseout="return searchBox.OnSearchSelectHide()">&#160;</span>
-          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
-               onfocus="searchBox.OnSearchFieldFocus(true)" 
-               onblur="searchBox.OnSearchFieldFocus(false)" 
-               onkeyup="searchBox.OnSearchFieldChange(event)"/>
-          </span><span class="right">
-            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.svg" alt=""/></a>
-          </span>
-        </div>
-</td>
  </tr>
  </tbody>
 </table>
@@ -64,6 +60,17 @@ var searchBox = new SearchBox("searchBox", "search/",'.html');
 $(function() { codefold.init(0); });
 /* @license-end */
 </script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Search',true);
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
 </div><!-- top -->
 <div id="side-nav" class="ui-resizable side-nav-resizable">
   <div id="nav-tree">
@@ -128,7 +135,7 @@ $(function(){initNavTree('zip_8hpp_source.html',''); initResizable(true); });
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="keyword">namespace </span>rpp::operators::details</div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>{</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    <span class="keyword">template</span>&lt;<a class="code hl_concept" href="conceptrpp_1_1constraint_1_1observer.html">rpp::constraint::observer</a> Observer, <span class="keyword">typename</span> TSelector, rpp::constraint::decayed_type... Args&gt;</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    <span class="keyword">template</span>&lt;<a class="code hl_concept" href="conceptrpp_1_1constraint_1_1observer.html">rpp::constraint::observer</a> Observer, <span class="keyword">typename</span> TSelector, <a class="code hl_concept" href="conceptrpp_1_1constraint_1_1decayed__type.html">rpp::constraint::decayed_type</a>... Args&gt;</div>
 <div class="foldopen" id="foldopen00024" data-start="{" data-end="};">
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="classrpp_1_1operators_1_1details_1_1zip__state.html">   24</a></span>    <span class="keyword">class </span><a class="code hl_class" href="classrpp_1_1operators_1_1details_1_1zip__state.html">zip_state</a> final : <span class="keyword">public</span> <a class="code hl_class" href="classrpp_1_1operators_1_1details_1_1combining__state.html">combining_state</a>&lt;Observer&gt;</div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    {</div>
@@ -144,13 +151,13 @@ $(function(){initNavTree('zip_8hpp_source.html',''); initResizable(true); });
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>        <span class="keyword">auto</span>&amp; get_pendings() { <span class="keywordflow">return</span> m_pendings; }</div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <span class="keyword">private</span>:</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>        utils::tuple&lt;std::deque&lt;Args&gt;...&gt; m_pendings{};</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>        <a class="code hl_class" href="classrpp_1_1utils_1_1tuple.html">utils::tuple&lt;std::deque&lt;Args&gt;</a>...&gt; m_pendings{};</div>
 <div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>        RPP_NO_UNIQUE_ADDRESS TSelector m_selector;</div>
 <div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    };</div>
 </div>
 <div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    <span class="keyword">template</span>&lt;<span class="keywordtype">size_t</span> I, <a class="code hl_concept" href="conceptrpp_1_1constraint_1_1observer.html">rpp::constraint::observer</a> Observer, <span class="keyword">typename</span> TSelector, rpp::constraint::decayed_type... Args&gt;</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    <span class="keyword">template</span>&lt;<span class="keywordtype">size_t</span> I, <a class="code hl_concept" href="conceptrpp_1_1constraint_1_1observer.html">rpp::constraint::observer</a> Observer, <span class="keyword">typename</span> TSelector, <a class="code hl_concept" href="conceptrpp_1_1constraint_1_1decayed__type.html">rpp::constraint::decayed_type</a>... Args&gt;</div>
 <div class="foldopen" id="foldopen00044" data-start="{" data-end="};">
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno"><a class="line" href="structrpp_1_1operators_1_1details_1_1zip__observer__strategy.html">   44</a></span>    <span class="keyword">struct </span><a class="code hl_struct" href="structrpp_1_1operators_1_1details_1_1zip__observer__strategy.html">zip_observer_strategy</a> final</div>
 <div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>        : <span class="keyword">public</span> <a class="code hl_struct" href="structrpp_1_1operators_1_1details_1_1combining__observer__strategy.html">combining_observer_strategy</a>&lt;zip_state&lt;Observer, TSelector, Args...&gt;&gt;</div>
@@ -190,18 +197,18 @@ $(function(){initNavTree('zip_8hpp_source.html',''); initResizable(true); });
 <div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span><span class="keyword">namespace </span>rpp::operators</div>
 <div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>{</div>
 <div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> TSelector, <a class="code hl_concept" href="conceptrpp_1_1constraint_1_1observable.html">rpp::constraint::observable</a> TObservable, <a class="code hl_concept" href="conceptrpp_1_1constraint_1_1observable.html">rpp::constraint::observable</a>... TObservables&gt;</div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>        <span class="keyword">requires</span> (!<a class="code hl_concept" href="conceptrpp_1_1constraint_1_1observable.html">rpp::constraint::observable&lt;TSelector&gt;</a> &amp;&amp; (!utils::is_not_template_callable&lt;TSelector&gt; || std::invocable&lt;TSelector, rpp::utils::convertible_to_any, utils::extract_observable_type_t&lt;TObservable&gt;, utils::extract_observable_type_t&lt;TObservables&gt;...&gt;))</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>        <span class="keyword">requires</span> (!<a class="code hl_concept" href="conceptrpp_1_1constraint_1_1observable.html">rpp::constraint::observable&lt;TSelector&gt;</a> &amp;&amp; (!<a class="code hl_concept" href="conceptrpp_1_1utils_1_1is__not__template__callable.html">utils::is_not_template_callable&lt;TSelector&gt;</a> || std::invocable&lt;TSelector, rpp::utils::convertible_to_any, utils::extract_observable_type_t&lt;TObservable&gt;, utils::extract_observable_type_t&lt;TObservables&gt;...&gt;))</div>
 <div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>    <span class="keyword">auto</span> <a class="code hl_function" href="group__combining__operators.html#gae2e89ade7cae676333672b78db5f1a8b">zip</a>(TSelector&amp;&amp; selector, TObservable&amp;&amp; <a class="code hl_class" href="classrpp_1_1observable.html">observable</a>, TObservables&amp;&amp;... observables)</div>
 <div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>    {</div>
 <div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>        <span class="keywordflow">return</span> <a class="code hl_struct" href="structrpp_1_1operators_1_1details_1_1zip__t.html">details::zip_t&lt;std::decay_t&lt;TSelector&gt;</a>, std::decay_t&lt;TObservable&gt;, std::decay_t&lt;TObservables&gt;...&gt;{</div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>            rpp::utils::tuple{std::forward&lt;TObservable&gt;(<a class="code hl_class" href="classrpp_1_1observable.html">observable</a>), std::forward&lt;TObservables&gt;(observables)...},</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>            <a class="code hl_class" href="classrpp_1_1utils_1_1tuple.html">rpp::utils::tuple</a>{std::forward&lt;TObservable&gt;(<a class="code hl_class" href="classrpp_1_1observable.html">observable</a>), std::forward&lt;TObservables&gt;(observables)...},</div>
 <div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>            std::forward&lt;TSelector&gt;(selector)};</div>
 <div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>    }</div>
 <div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span> </div>
 <div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>    <span class="keyword">template</span>&lt;<a class="code hl_concept" href="conceptrpp_1_1constraint_1_1observable.html">rpp::constraint::observable</a> TObservable, <a class="code hl_concept" href="conceptrpp_1_1constraint_1_1observable.html">rpp::constraint::observable</a>... TObservables&gt;</div>
 <div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>    <span class="keyword">auto</span> <a class="code hl_function" href="group__combining__operators.html#gae2e89ade7cae676333672b78db5f1a8b">zip</a>(TObservable&amp;&amp; observable, TObservables&amp;&amp;... observables)</div>
 <div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>    {</div>
-<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="group__combining__operators.html#gae2e89ade7cae676333672b78db5f1a8b">zip</a>(rpp::utils::pack_to_tuple{}, std::forward&lt;TObservable&gt;(observable), std::forward&lt;TObservables&gt;(observables)...);</div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="group__combining__operators.html#gae2e89ade7cae676333672b78db5f1a8b">zip</a>(<a class="code hl_struct" href="structrpp_1_1utils_1_1pack__to__tuple.html">rpp::utils::pack_to_tuple</a>{}, std::forward&lt;TObservable&gt;(observable), std::forward&lt;TObservables&gt;(observables)...);</div>
 <div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>    }</div>
 <div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>} <span class="comment">// namespace rpp::operators</span></div>
 <div class="ttc" id="aclassrpp_1_1details_1_1observer__impl_html_a14747a5260ecc183a6d0f1adafee4f68"><div class="ttname"><a href="classrpp_1_1details_1_1observer__impl.html#a14747a5260ecc183a6d0f1adafee4f68">rpp::details::observer_impl::on_next</a></div><div class="ttdeci">void on_next(const Type &amp;v) const noexcept</div><div class="ttdoc">Observable calls this method to notify observer about new value.</div><div class="ttdef"><b>Definition</b> observer.hpp:84</div></div>
@@ -209,13 +216,17 @@ $(function(){initNavTree('zip_8hpp_source.html',''); initResizable(true); });
 <div class="ttc" id="aclassrpp_1_1observer_html"><div class="ttname"><a href="classrpp_1_1observer.html">rpp::observer</a></div><div class="ttdoc">Base class for any observer used in RPP. It handles core callbacks of observers. Objects of this clas...</div><div class="ttdef"><b>Definition</b> observer.hpp:172</div></div>
 <div class="ttc" id="aclassrpp_1_1operators_1_1details_1_1combining__state_html"><div class="ttname"><a href="classrpp_1_1operators_1_1details_1_1combining__state.html">rpp::operators::details::combining_state</a></div><div class="ttdef"><b>Definition</b> combining_strategy.hpp:27</div></div>
 <div class="ttc" id="aclassrpp_1_1operators_1_1details_1_1zip__state_html"><div class="ttname"><a href="classrpp_1_1operators_1_1details_1_1zip__state.html">rpp::operators::details::zip_state</a></div><div class="ttdef"><b>Definition</b> zip.hpp:25</div></div>
+<div class="ttc" id="aclassrpp_1_1utils_1_1tuple_html"><div class="ttname"><a href="classrpp_1_1utils_1_1tuple.html">rpp::utils::tuple</a></div><div class="ttdef"><b>Definition</b> tuple.hpp:105</div></div>
+<div class="ttc" id="aconceptrpp_1_1constraint_1_1decayed__type_html"><div class="ttname"><a href="conceptrpp_1_1constraint_1_1decayed__type.html">rpp::constraint::decayed_type</a></div><div class="ttdef"><b>Definition</b> constraints.hpp:22</div></div>
 <div class="ttc" id="aconceptrpp_1_1constraint_1_1observable_html"><div class="ttname"><a href="conceptrpp_1_1constraint_1_1observable.html">rpp::constraint::observable</a></div><div class="ttdef"><b>Definition</b> fwd.hpp:62</div></div>
 <div class="ttc" id="aconceptrpp_1_1constraint_1_1observer_html"><div class="ttname"><a href="conceptrpp_1_1constraint_1_1observer.html">rpp::constraint::observer</a></div><div class="ttdef"><b>Definition</b> fwd.hpp:235</div></div>
+<div class="ttc" id="aconceptrpp_1_1utils_1_1is__not__template__callable_html"><div class="ttname"><a href="conceptrpp_1_1utils_1_1is__not__template__callable.html">rpp::utils::is_not_template_callable</a></div><div class="ttdef"><b>Definition</b> function_traits.hpp:45</div></div>
 <div class="ttc" id="agroup__combining__operators_html_gae2e89ade7cae676333672b78db5f1a8b"><div class="ttname"><a href="group__combining__operators.html#gae2e89ade7cae676333672b78db5f1a8b">rpp::operators::zip</a></div><div class="ttdeci">auto zip(TSelector &amp;&amp;selector, TObservable &amp;&amp;observable, TObservables &amp;&amp;... observables)</div><div class="ttdoc">combines emissions from observables and emit single items for each combination based on the results o...</div><div class="ttdef"><b>Definition</b> zip.hpp:98</div></div>
 <div class="ttc" id="astructrpp_1_1operators_1_1details_1_1combining__observer__strategy_html"><div class="ttname"><a href="structrpp_1_1operators_1_1details_1_1combining__observer__strategy.html">rpp::operators::details::combining_observer_strategy</a></div><div class="ttdef"><b>Definition</b> combining_strategy.hpp:51</div></div>
 <div class="ttc" id="astructrpp_1_1operators_1_1details_1_1combining__operator__t_html"><div class="ttname"><a href="structrpp_1_1operators_1_1details_1_1combining__operator__t.html">rpp::operators::details::combining_operator_t</a></div><div class="ttdef"><b>Definition</b> combining_strategy.hpp:78</div></div>
 <div class="ttc" id="astructrpp_1_1operators_1_1details_1_1zip__observer__strategy_html"><div class="ttname"><a href="structrpp_1_1operators_1_1details_1_1zip__observer__strategy.html">rpp::operators::details::zip_observer_strategy</a></div><div class="ttdef"><b>Definition</b> zip.hpp:46</div></div>
 <div class="ttc" id="astructrpp_1_1operators_1_1details_1_1zip__t_html"><div class="ttname"><a href="structrpp_1_1operators_1_1details_1_1zip__t.html">rpp::operators::details::zip_t</a></div><div class="ttdef"><b>Definition</b> zip.hpp:72</div></div>
+<div class="ttc" id="astructrpp_1_1utils_1_1pack__to__tuple_html"><div class="ttname"><a href="structrpp_1_1utils_1_1pack__to__tuple.html">rpp::utils::pack_to_tuple</a></div><div class="ttdef"><b>Definition</b> functors.hpp:82</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

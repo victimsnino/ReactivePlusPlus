@@ -1,5 +1,6 @@
+<!-- HTML header for doxygen 1.12.0-->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US" class="light-mode">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
@@ -9,7 +10,6 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
-<script type="text/javascript" src="clipboard.js"></script>
 <link href="navtree.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="navtreedata.js"></script>
 <script type="text/javascript" src="navtree.js"></script>
@@ -18,12 +18,20 @@
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
-<script type="text/javascript">
-/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-  $(function() { init_search(); });
-/* @license-end */
-</script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only-darkmode-toggle.css" rel="stylesheet" type="text/css"/>
+<link href="custom.css" rel="stylesheet" type="text/css"/>
+<!-- ... other metadata & script includes ... -->
+<script type="text/javascript" src="doxygen-awesome-darkmode-toggle.js"></script>
+<script type="text/javascript">
+    DoxygenAwesomeDarkModeToggle.init()
+</script>
+<script type="text/javascript" src="doxygen-awesome-fragment-copy-button.js"></script>
+        <script type="text/javascript">
+            DoxygenAwesomeFragmentCopyButton.init()
+        </script>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -34,20 +42,8 @@
   <td id="projectalign">
    <div id="projectname">ReactivePlusPlus
    </div>
-   <div id="projectbrief">One more implementation of ReactiveX approach in C++ with care about performance and templates in mind</div>
+   <div id="projectbrief">ReactiveX implementation for C++20</div>
   </td>
-    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
-        <span class="left">
-          <span id="MSearchSelect"                onmouseover="return searchBox.OnSearchSelectShow()"                onmouseout="return searchBox.OnSearchSelectHide()">&#160;</span>
-          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
-               onfocus="searchBox.OnSearchFieldFocus(true)" 
-               onblur="searchBox.OnSearchFieldFocus(false)" 
-               onkeyup="searchBox.OnSearchFieldChange(event)"/>
-          </span><span class="right">
-            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.svg" alt=""/></a>
-          </span>
-        </div>
-</td>
  </tr>
  </tbody>
 </table>
@@ -64,6 +60,17 @@ var searchBox = new SearchBox("searchBox", "search/",'.html');
 $(function() { codefold.init(0); });
 /* @license-end */
 </script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Search',true);
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
 </div><!-- top -->
 <div id="side-nav" class="ui-resizable side-nav-resizable">
   <div id="nav-tree">
@@ -305,7 +312,7 @@ $(function(){initNavTree('group__by_8hpp_source.html',''); initResizable(true); 
 <div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span>             <span class="keyword">typename</span> ValueSelector,</div>
 <div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span>             <span class="keyword">typename</span> KeyComparator&gt;</div>
 <div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span>        <span class="keyword">requires</span> (</div>
-<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span>            (!utils::is_not_template_callable&lt;KeySelector&gt; || !std::same_as&lt;void, std::invoke_result_t&lt;KeySelector, rpp::utils::convertible_to_any&gt;&gt;) &amp;&amp; (!utils::is_not_template_callable&lt;ValueSelector&gt; || !std::same_as&lt;void, std::invoke_result_t&lt;ValueSelector, rpp::utils::convertible_to_any&gt;&gt;) &amp;&amp; (!utils::is_not_template_callable&lt;KeyComparator&gt; || std::strict_weak_order&lt;KeyComparator, rpp::utils::convertible_to_any, rpp::utils::convertible_to_any&gt;))</div>
+<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span>            (!<a class="code hl_concept" href="conceptrpp_1_1utils_1_1is__not__template__callable.html">utils::is_not_template_callable&lt;KeySelector&gt;</a> || !std::same_as&lt;void, std::invoke_result_t&lt;KeySelector, rpp::utils::convertible_to_any&gt;&gt;) &amp;&amp; (!<a class="code hl_concept" href="conceptrpp_1_1utils_1_1is__not__template__callable.html">utils::is_not_template_callable&lt;ValueSelector&gt;</a> || !std::same_as&lt;void, std::invoke_result_t&lt;ValueSelector, rpp::utils::convertible_to_any&gt;&gt;) &amp;&amp; (!<a class="code hl_concept" href="conceptrpp_1_1utils_1_1is__not__template__callable.html">utils::is_not_template_callable&lt;KeyComparator&gt;</a> || std::strict_weak_order&lt;KeyComparator, rpp::utils::convertible_to_any, rpp::utils::convertible_to_any&gt;))</div>
 <div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span>    <span class="keyword">auto</span> <a class="code hl_function" href="group__transforming__operators.html#ga2fa21790af1c065382cd37faa3462851">group_by</a>(KeySelector&amp;&amp; key_selector, ValueSelector&amp;&amp; value_selector, KeyComparator&amp;&amp; comparator)</div>
 <div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span>    {</div>
 <div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>        <span class="keywordflow">return</span> <a class="code hl_struct" href="structrpp_1_1operators_1_1details_1_1group__by__t.html">details::group_by_t&lt;std::decay_t&lt;KeySelector&gt;</a>, std::decay_t&lt;ValueSelector&gt;, std::decay_t&lt;KeyComparator&gt;&gt;{</div>
@@ -326,6 +333,7 @@ $(function(){initNavTree('group__by_8hpp_source.html',''); initResizable(true); 
 <div class="ttc" id="aclassrpp_1_1operators_1_1details_1_1lift__operator_html"><div class="ttname"><a href="classrpp_1_1operators_1_1details_1_1lift__operator.html">rpp::operators::details::lift_operator</a></div><div class="ttdef"><b>Definition</b> strategy.hpp:28</div></div>
 <div class="ttc" id="aclassrpp_1_1subjects_1_1publish__subject_html"><div class="ttname"><a href="classrpp_1_1subjects_1_1publish__subject.html">rpp::subjects::publish_subject</a></div><div class="ttdoc">Subject which just multicasts values to observers subscribed on it. It contains two parts: observer a...</div><div class="ttdef"><b>Definition</b> publish_subject.hpp:81</div></div>
 <div class="ttc" id="aconceptrpp_1_1constraint_1_1observer_html"><div class="ttname"><a href="conceptrpp_1_1constraint_1_1observer.html">rpp::constraint::observer</a></div><div class="ttdef"><b>Definition</b> fwd.hpp:235</div></div>
+<div class="ttc" id="aconceptrpp_1_1utils_1_1is__not__template__callable_html"><div class="ttname"><a href="conceptrpp_1_1utils_1_1is__not__template__callable.html">rpp::utils::is_not_template_callable</a></div><div class="ttdef"><b>Definition</b> function_traits.hpp:45</div></div>
 <div class="ttc" id="agroup__transforming__operators_html_ga2fa21790af1c065382cd37faa3462851"><div class="ttname"><a href="group__transforming__operators.html#ga2fa21790af1c065382cd37faa3462851">rpp::operators::group_by</a></div><div class="ttdeci">auto group_by(KeySelector &amp;&amp;key_selector, ValueSelector &amp;&amp;value_selector={}, KeyComparator &amp;&amp;comparator={})</div><div class="ttdoc">Divide original observable into multiple observables where each new observable emits some group of va...</div><div class="ttdef"><b>Definition</b> group_by.hpp:212</div></div>
 <div class="ttc" id="astructrpp_1_1details_1_1observables_1_1fixed__disposable__strategy__selector_html"><div class="ttname"><a href="structrpp_1_1details_1_1observables_1_1fixed__disposable__strategy__selector.html">rpp::details::observables::fixed_disposable_strategy_selector</a></div><div class="ttdef"><b>Definition</b> disposable_strategy.hpp:51</div></div>
 <div class="ttc" id="astructrpp_1_1details_1_1observers_1_1none__disposable__strategy_html"><div class="ttname"><a href="structrpp_1_1details_1_1observers_1_1none__disposable__strategy.html">rpp::details::observers::none_disposable_strategy</a></div><div class="ttdef"><b>Definition</b> disposable_strategy.hpp:99</div></div>

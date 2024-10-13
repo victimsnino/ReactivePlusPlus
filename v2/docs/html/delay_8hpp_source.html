@@ -1,5 +1,6 @@
+<!-- HTML header for doxygen 1.12.0-->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US" class="light-mode">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
@@ -9,7 +10,6 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
-<script type="text/javascript" src="clipboard.js"></script>
 <link href="navtree.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="navtreedata.js"></script>
 <script type="text/javascript" src="navtree.js"></script>
@@ -18,12 +18,20 @@
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
-<script type="text/javascript">
-/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-  $(function() { init_search(); });
-/* @license-end */
-</script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only-darkmode-toggle.css" rel="stylesheet" type="text/css"/>
+<link href="custom.css" rel="stylesheet" type="text/css"/>
+<!-- ... other metadata & script includes ... -->
+<script type="text/javascript" src="doxygen-awesome-darkmode-toggle.js"></script>
+<script type="text/javascript">
+    DoxygenAwesomeDarkModeToggle.init()
+</script>
+<script type="text/javascript" src="doxygen-awesome-fragment-copy-button.js"></script>
+        <script type="text/javascript">
+            DoxygenAwesomeFragmentCopyButton.init()
+        </script>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -34,20 +42,8 @@
   <td id="projectalign">
    <div id="projectname">ReactivePlusPlus
    </div>
-   <div id="projectbrief">One more implementation of ReactiveX approach in C++ with care about performance and templates in mind</div>
+   <div id="projectbrief">ReactiveX implementation for C++20</div>
   </td>
-    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
-        <span class="left">
-          <span id="MSearchSelect"                onmouseover="return searchBox.OnSearchSelectShow()"                onmouseout="return searchBox.OnSearchSelectHide()">&#160;</span>
-          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
-               onfocus="searchBox.OnSearchFieldFocus(true)" 
-               onblur="searchBox.OnSearchFieldFocus(false)" 
-               onkeyup="searchBox.OnSearchFieldChange(event)"/>
-          </span><span class="right">
-            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.svg" alt=""/></a>
-          </span>
-        </div>
-</td>
  </tr>
  </tbody>
 </table>
@@ -64,6 +60,17 @@ var searchBox = new SearchBox("searchBox", "search/",'.html');
 $(function() { codefold.init(0); });
 /* @license-end */
 </script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Search',true);
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
 </div><!-- top -->
 <div id="side-nav" class="ui-resizable side-nav-resizable">
   <div id="nav-tree">
@@ -208,7 +215,7 @@ $(function(){initNavTree('delay_8hpp_source.html',''); initResizable(true); });
 <div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span> </div>
 <div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>        <span class="keywordtype">void</span> on_completed() <span class="keyword">const</span> <span class="keyword">noexcept</span></div>
 <div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>        {</div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>            emplace(rpp::utils::none{});</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>            emplace(<a class="code hl_struct" href="structrpp_1_1utils_1_1none.html">rpp::utils::none</a>{});</div>
 <div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>        }</div>
 <div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span> </div>
 <div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    <span class="keyword">private</span>:</div>
@@ -228,7 +235,7 @@ $(function(){initNavTree('delay_8hpp_source.html',''); initResizable(true); });
 <div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>        std::optional&lt;rpp::schedulers::time_point&gt; emplace_safe(TT&amp;&amp; item)<span class="keyword"> const</span></div>
 <div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span><span class="keyword">        </span>{</div>
 <div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>            std::lock_guard lock{state-&gt;mutex};</div>
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>            <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (ClearOnError &amp;&amp; rpp::constraint::decayed_same_as&lt;std::exception_ptr, TT&gt;)</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>            <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (ClearOnError &amp;&amp; <a class="code hl_concept" href="conceptrpp_1_1constraint_1_1decayed__same__as.html">rpp::constraint::decayed_same_as&lt;std::exception_ptr, TT&gt;</a>)</div>
 <div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>            {</div>
 <div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>                state-&gt;queue = std::queue&lt;emission&lt;rpp::utils::extract_observer_type_t&lt;Observer&gt;&gt;&gt;{};</div>
 <div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>                state-&gt;observer.on_error(std::forward&lt;TT&gt;(item));</div>
@@ -266,9 +273,9 @@ $(function(){initNavTree('delay_8hpp_source.html',''); initResizable(true); });
 <div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>                state-&gt;queue.pop();</div>
 <div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>                lock.unlock();</div>
 <div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span> </div>
-<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>                std::visit(rpp::utils::overloaded{[&amp;](rpp::utils::extract_observer_type_t&lt;Observer&gt;&amp;&amp; v) { state-&gt;observer.on_next(std::move(v)); },</div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>                std::visit(<a class="code hl_struct" href="structrpp_1_1utils_1_1overloaded.html">rpp::utils::overloaded</a>{[&amp;](rpp::utils::extract_observer_type_t&lt;Observer&gt;&amp;&amp; v) { state-&gt;observer.on_next(std::move(v)); },</div>
 <div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>                                                  [&amp;](<span class="keyword">const</span> std::exception_ptr&amp; err) { state-&gt;observer.on_error(err); },</div>
-<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>                                                  [&amp;](rpp::utils::none) {</div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>                                                  [&amp;](<a class="code hl_struct" href="structrpp_1_1utils_1_1none.html">rpp::utils::none</a>) {</div>
 <div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>                                                      state-&gt;observer.on_completed();</div>
 <div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>                                                  }},</div>
 <div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>                           std::move(item));</div>
@@ -317,6 +324,7 @@ $(function(){initNavTree('delay_8hpp_source.html',''); initResizable(true); });
 <div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span>} <span class="comment">// namespace rpp::operators</span></div>
 <div class="ttc" id="aclassrpp_1_1disposable__wrapper__impl_html"><div class="ttname"><a href="classrpp_1_1disposable__wrapper__impl.html">rpp::disposable_wrapper_impl&lt; interface_disposable &gt;</a></div></div>
 <div class="ttc" id="aclassrpp_1_1observer_html"><div class="ttname"><a href="classrpp_1_1observer.html">rpp::observer</a></div><div class="ttdoc">Base class for any observer used in RPP. It handles core callbacks of observers. Objects of this clas...</div><div class="ttdef"><b>Definition</b> observer.hpp:172</div></div>
+<div class="ttc" id="aconceptrpp_1_1constraint_1_1decayed__same__as_html"><div class="ttname"><a href="conceptrpp_1_1constraint_1_1decayed__same__as.html">rpp::constraint::decayed_same_as</a></div><div class="ttdef"><b>Definition</b> constraints.hpp:19</div></div>
 <div class="ttc" id="agroup__utility__operators_html_gae38caa489cf43c0aca1aa1c8822aed60"><div class="ttname"><a href="group__utility__operators.html#gae38caa489cf43c0aca1aa1c8822aed60">rpp::operators::delay</a></div><div class="ttdeci">auto delay(rpp::schedulers::duration delay_duration, Scheduler &amp;&amp;scheduler)</div><div class="ttdoc">Shift the emissions from an Observable forward in time by a particular amount.</div><div class="ttdef"><b>Definition</b> delay.hpp:212</div></div>
 <div class="ttc" id="astructrpp_1_1operators_1_1details_1_1delay__observer__strategy_html"><div class="ttname"><a href="structrpp_1_1operators_1_1details_1_1delay__observer__strategy.html">rpp::operators::details::delay_observer_strategy</a></div><div class="ttdef"><b>Definition</b> delay.hpp:70</div></div>
 <div class="ttc" id="astructrpp_1_1operators_1_1details_1_1delay__state__wrapper_html"><div class="ttname"><a href="structrpp_1_1operators_1_1details_1_1delay__state__wrapper.html">rpp::operators::details::delay_state_wrapper</a></div><div class="ttdef"><b>Definition</b> delay.hpp:60</div></div>
@@ -324,6 +332,8 @@ $(function(){initNavTree('delay_8hpp_source.html',''); initResizable(true); });
 <div class="ttc" id="astructrpp_1_1operators_1_1details_1_1delay__t_1_1operator__traits_html"><div class="ttname"><a href="structrpp_1_1operators_1_1details_1_1delay__t_1_1operator__traits.html">rpp::operators::details::delay_t::operator_traits</a></div><div class="ttdef"><b>Definition</b> delay.hpp:169</div></div>
 <div class="ttc" id="astructrpp_1_1operators_1_1details_1_1delay__t_html"><div class="ttname"><a href="structrpp_1_1operators_1_1details_1_1delay__t.html">rpp::operators::details::delay_t</a></div><div class="ttdef"><b>Definition</b> delay.hpp:166</div></div>
 <div class="ttc" id="astructrpp_1_1operators_1_1details_1_1emission_html"><div class="ttname"><a href="structrpp_1_1operators_1_1details_1_1emission.html">rpp::operators::details::emission</a></div><div class="ttdef"><b>Definition</b> delay.hpp:25</div></div>
+<div class="ttc" id="astructrpp_1_1utils_1_1none_html"><div class="ttname"><a href="structrpp_1_1utils_1_1none.html">rpp::utils::none</a></div><div class="ttdef"><b>Definition</b> utils.hpp:25</div></div>
+<div class="ttc" id="astructrpp_1_1utils_1_1overloaded_html"><div class="ttname"><a href="structrpp_1_1utils_1_1overloaded.html">rpp::utils::overloaded</a></div><div class="ttdef"><b>Definition</b> functors.hpp:20</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

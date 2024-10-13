@@ -21,6 +21,7 @@ var examples =
     [ "merge.cpp", "merge_8cpp-example.html", null ],
     [ "multicast.cpp", "multicast_8cpp-example.html", null ],
     [ "observe_on.cpp", "observe_on_8cpp-example.html", null ],
+    [ "readme.cpp", "readme_8cpp-example.html", null ],
     [ "reduce.cpp", "reduce_8cpp-example.html", null ],
     [ "ref_count.cpp", "ref_count_8cpp-example.html", null ],
     [ "repeat.cpp", "repeat_8cpp-example.html", null ],
@@ -42,6 +43,7 @@ var examples =
     [ "window_toggle.cpp", "window_toggle_8cpp-example.html", null ],
     [ "with_latest_from.cpp", "with_latest_from_8cpp-example.html", null ],
     [ "from_signal.cpp", "from_signal_8cpp-example.html", null ],
+    [ "qt_readme.cpp", "qt_readme_8cpp-example.html", null ],
     [ "client_reactor.cpp", "client_reactor_8cpp-example.html", null ],
     [ "server_reactor.cpp", "server_reactor_8cpp-example.html", null ]
 ];

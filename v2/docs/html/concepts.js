@@ -16,7 +16,18 @@ var concepts =
         [ "observer", "conceptrpp_1_1constraint_1_1observer.html", null ],
         [ "observer_of_type", "conceptrpp_1_1constraint_1_1observer__of__type.html", null ],
         [ "on_subscribe", "conceptrpp_1_1constraint_1_1on__subscribe.html", null ],
-        [ "subject", "conceptrpp_1_1constraint_1_1subject.html", null ]
+        [ "subject", "conceptrpp_1_1constraint_1_1subject.html", null ],
+        [ "decayed_same_as", "conceptrpp_1_1constraint_1_1decayed__same__as.html", null ],
+        [ "decayed_type", "conceptrpp_1_1constraint_1_1decayed__type.html", null ],
+        [ "any_of", "conceptrpp_1_1constraint_1_1any__of.html", null ],
+        [ "decayed_any_of", "conceptrpp_1_1constraint_1_1decayed__any__of.html", null ],
+        [ "variadic_decayed_same_as", "conceptrpp_1_1constraint_1_1variadic__decayed__same__as.html", null ],
+        [ "static_pointer_convertible_to", "conceptrpp_1_1constraint_1_1static__pointer__convertible__to.html", null ],
+        [ "iterable", "conceptrpp_1_1constraint_1_1iterable.html", null ],
+        [ "is_constructible_from", "conceptrpp_1_1constraint_1_1is__constructible__from.html", null ],
+        [ "invocable_r_v", "conceptrpp_1_1constraint_1_1invocable__r__v.html", null ],
+        [ "is_nothrow_invocable", "conceptrpp_1_1constraint_1_1is__nothrow__invocable.html", null ],
+        [ "hashable", "conceptrpp_1_1constraint_1_1hashable.html", null ]
       ] ],
       [ "details", null, [
         [ "disposables", null, [
@@ -58,6 +69,10 @@ var concepts =
           [ "worker", "conceptrpp_1_1schedulers_1_1constraint_1_1worker.html", null ],
           [ "scheduler", "conceptrpp_1_1schedulers_1_1constraint_1_1scheduler.html", null ]
         ] ]
+      ] ],
+      [ "utils", null, [
+        [ "is_not_template_callable", "conceptrpp_1_1utils_1_1is__not__template__callable.html", null ],
+        [ "is_base_of_v", "conceptrpp_1_1utils_1_1is__base__of__v.html", null ]
       ] ]
     ] ]
 ];

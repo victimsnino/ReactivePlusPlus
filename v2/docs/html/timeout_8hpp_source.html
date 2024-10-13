@@ -1,5 +1,6 @@
+<!-- HTML header for doxygen 1.12.0-->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US" class="light-mode">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
@@ -9,7 +10,6 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
-<script type="text/javascript" src="clipboard.js"></script>
 <link href="navtree.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="navtreedata.js"></script>
 <script type="text/javascript" src="navtree.js"></script>
@@ -18,12 +18,20 @@
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
-<script type="text/javascript">
-/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-  $(function() { init_search(); });
-/* @license-end */
-</script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only-darkmode-toggle.css" rel="stylesheet" type="text/css"/>
+<link href="custom.css" rel="stylesheet" type="text/css"/>
+<!-- ... other metadata & script includes ... -->
+<script type="text/javascript" src="doxygen-awesome-darkmode-toggle.js"></script>
+<script type="text/javascript">
+    DoxygenAwesomeDarkModeToggle.init()
+</script>
+<script type="text/javascript" src="doxygen-awesome-fragment-copy-button.js"></script>
+        <script type="text/javascript">
+            DoxygenAwesomeFragmentCopyButton.init()
+        </script>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -34,20 +42,8 @@
   <td id="projectalign">
    <div id="projectname">ReactivePlusPlus
    </div>
-   <div id="projectbrief">One more implementation of ReactiveX approach in C++ with care about performance and templates in mind</div>
+   <div id="projectbrief">ReactiveX implementation for C++20</div>
   </td>
-    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
-        <span class="left">
-          <span id="MSearchSelect"                onmouseover="return searchBox.OnSearchSelectShow()"                onmouseout="return searchBox.OnSearchSelectHide()">&#160;</span>
-          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
-               onfocus="searchBox.OnSearchFieldFocus(true)" 
-               onblur="searchBox.OnSearchFieldFocus(false)" 
-               onkeyup="searchBox.OnSearchFieldChange(event)"/>
-          </span><span class="right">
-            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.svg" alt=""/></a>
-          </span>
-        </div>
-</td>
  </tr>
  </tbody>
 </table>
@@ -64,6 +60,17 @@ var searchBox = new SearchBox("searchBox", "search/",'.html');
 $(function() { codefold.init(0); });
 /* @license-end */
 </script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Search',true);
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
 </div><!-- top -->
 <div id="side-nav" class="ui-resizable side-nav-resizable">
   <div id="nav-tree">
@@ -153,7 +160,7 @@ $(function(){initNavTree('timeout_8hpp_source.html',''); initResizable(true); })
 <div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>        rpp::schedulers::duration get_period()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> m_period; }</div>
 <div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    <span class="keyword">private</span>:</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>        rpp::utils::value_with_mutex&lt;observer_with_timeout&gt; m_observer_with_timeout;</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>        <a class="code hl_class" href="classrpp_1_1utils_1_1value__with__mutex.html">rpp::utils::value_with_mutex&lt;observer_with_timeout&gt;</a> m_observer_with_timeout;</div>
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
 <div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        <span class="keyword">const</span> rpp::schedulers::duration                 m_period;</div>
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>        RPP_NO_UNIQUE_ADDRESS <span class="keyword">const</span> TFallbackObservable m_fallback;</div>
@@ -292,7 +299,7 @@ $(function(){initNavTree('timeout_8hpp_source.html',''); initResizable(true); })
 <div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>        <span class="keyword">template</span>&lt;rpp::constra<span class="keywordtype">int</span>::decayed_type Type, rpp::details::observables::constra<span class="keywordtype">int</span>::disposable_strategy DisposableStrategy, rpp::constra<span class="keywordtype">int</span>::observer Observer&gt;</div>
 <div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>        <span class="keyword">auto</span> lift_with_disposable_strategy(Observer&amp;&amp; <a class="code hl_class" href="classrpp_1_1observer.html">observer</a>)<span class="keyword"> const</span></div>
 <div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span><span class="keyword">        </span>{</div>
-<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>            <span class="keywordflow">return</span> <a class="code hl_struct" href="structrpp_1_1operators_1_1details_1_1timeout__t.html">timeout_t&lt;rpp::error_observable&lt;Type&gt;</a>, TScheduler&gt;{period, <a class="code hl_function" href="group__creational__operators.html#ga4fe060f48695cc3fadfbdb10f77f8acb">rpp::source::error&lt;rpp::utils::extract_observer_type_t&lt;Observer&gt;</a>&gt;(std::make_exception_ptr(rpp::utils::timeout_reached{<span class="stringliteral">&quot;Timeout reached&quot;</span>})), scheduler}</div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>            <span class="keywordflow">return</span> <a class="code hl_struct" href="structrpp_1_1operators_1_1details_1_1timeout__t.html">timeout_t&lt;rpp::error_observable&lt;Type&gt;</a>, TScheduler&gt;{period, <a class="code hl_function" href="group__creational__operators.html#ga4fe060f48695cc3fadfbdb10f77f8acb">rpp::source::error&lt;rpp::utils::extract_observer_type_t&lt;Observer&gt;</a>&gt;(std::make_exception_ptr(<a class="code hl_struct" href="structrpp_1_1utils_1_1timeout__reached.html">rpp::utils::timeout_reached</a>{<span class="stringliteral">&quot;Timeout reached&quot;</span>})), scheduler}</div>
 <div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>                .template lift_with_disposable_strategy&lt;Type, DisposableStrategy&gt;(std::forward&lt;Observer&gt;(<a class="code hl_class" href="classrpp_1_1observer.html">observer</a>));</div>
 <div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>        }</div>
 <div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>    };</div>
@@ -317,6 +324,7 @@ $(function(){initNavTree('timeout_8hpp_source.html',''); initResizable(true); })
 <div class="ttc" id="aclassrpp_1_1disposable__wrapper__impl_html"><div class="ttname"><a href="classrpp_1_1disposable__wrapper__impl.html">rpp::disposable_wrapper_impl&lt; interface_disposable &gt;</a></div></div>
 <div class="ttc" id="aclassrpp_1_1observer_html"><div class="ttname"><a href="classrpp_1_1observer.html">rpp::observer</a></div><div class="ttdoc">Base class for any observer used in RPP. It handles core callbacks of observers. Objects of this clas...</div><div class="ttdef"><b>Definition</b> observer.hpp:172</div></div>
 <div class="ttc" id="aclassrpp_1_1operators_1_1details_1_1timeout__disposable_html"><div class="ttname"><a href="classrpp_1_1operators_1_1details_1_1timeout__disposable.html">rpp::operators::details::timeout_disposable</a></div><div class="ttdef"><b>Definition</b> timeout.hpp:24</div></div>
+<div class="ttc" id="aclassrpp_1_1utils_1_1value__with__mutex_html"><div class="ttname"><a href="classrpp_1_1utils_1_1value__with__mutex.html">rpp::utils::value_with_mutex</a></div><div class="ttdef"><b>Definition</b> utils.hpp:260</div></div>
 <div class="ttc" id="aconceptrpp_1_1constraint_1_1observable__of__type_html"><div class="ttname"><a href="conceptrpp_1_1constraint_1_1observable__of__type.html">rpp::constraint::observable_of_type</a></div><div class="ttdef"><b>Definition</b> fwd.hpp:80</div></div>
 <div class="ttc" id="agroup__creational__operators_html_ga4fe060f48695cc3fadfbdb10f77f8acb"><div class="ttname"><a href="group__creational__operators.html#ga4fe060f48695cc3fadfbdb10f77f8acb">rpp::source::error</a></div><div class="ttdeci">auto error(std::exception_ptr err)</div><div class="ttdoc">Creates rpp::observable that emits no items and terminates with an error.</div><div class="ttdef"><b>Definition</b> error.hpp:49</div></div>
 <div class="ttc" id="agroup__utility__operators_html_gaa758f1ad38da6b37357232317fcdc9b5"><div class="ttname"><a href="group__utility__operators.html#gaa758f1ad38da6b37357232317fcdc9b5">rpp::operators::timeout</a></div><div class="ttdeci">auto timeout(rpp::schedulers::duration period, TFallbackObservable &amp;&amp;fallback_observable, const TScheduler &amp;scheduler)</div><div class="ttdoc">Forwards emissions from original observable, but subscribes on fallback observable if no any events d...</div><div class="ttdef"><b>Definition</b> timeout.hpp:197</div></div>
@@ -329,6 +337,7 @@ $(function(){initNavTree('timeout_8hpp_source.html',''); initResizable(true); })
 <div class="ttc" id="astructrpp_1_1operators_1_1details_1_1timeout__with__error__t_1_1operator__traits_html"><div class="ttname"><a href="structrpp_1_1operators_1_1details_1_1timeout__with__error__t_1_1operator__traits.html">rpp::operators::details::timeout_with_error_t::operator_traits</a></div><div class="ttdef"><b>Definition</b> timeout.hpp:160</div></div>
 <div class="ttc" id="astructrpp_1_1operators_1_1details_1_1timeout__with__error__t_html"><div class="ttname"><a href="structrpp_1_1operators_1_1details_1_1timeout__with__error__t.html">rpp::operators::details::timeout_with_error_t</a></div><div class="ttdef"><b>Definition</b> timeout.hpp:157</div></div>
 <div class="ttc" id="astructrpp_1_1schedulers_1_1delay__to_html"><div class="ttname"><a href="structrpp_1_1schedulers_1_1delay__to.html">rpp::schedulers::delay_to</a></div><div class="ttdoc">Provide timepoint of next execution explicitly.</div><div class="ttdef"><b>Definition</b> fwd.hpp:70</div></div>
+<div class="ttc" id="astructrpp_1_1utils_1_1timeout__reached_html"><div class="ttname"><a href="structrpp_1_1utils_1_1timeout__reached.html">rpp::utils::timeout_reached</a></div><div class="ttdef"><b>Definition</b> exceptions.hpp:28</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

@@ -1,5 +1,6 @@
+<!-- HTML header for doxygen 1.12.0-->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US" class="light-mode">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
@@ -9,7 +10,6 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
-<script type="text/javascript" src="clipboard.js"></script>
 <link href="navtree.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="navtreedata.js"></script>
 <script type="text/javascript" src="navtree.js"></script>
@@ -18,12 +18,20 @@
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
-<script type="text/javascript">
-/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-  $(function() { init_search(); });
-/* @license-end */
-</script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only-darkmode-toggle.css" rel="stylesheet" type="text/css"/>
+<link href="custom.css" rel="stylesheet" type="text/css"/>
+<!-- ... other metadata & script includes ... -->
+<script type="text/javascript" src="doxygen-awesome-darkmode-toggle.js"></script>
+<script type="text/javascript">
+    DoxygenAwesomeDarkModeToggle.init()
+</script>
+<script type="text/javascript" src="doxygen-awesome-fragment-copy-button.js"></script>
+        <script type="text/javascript">
+            DoxygenAwesomeFragmentCopyButton.init()
+        </script>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -34,20 +42,8 @@
   <td id="projectalign">
    <div id="projectname">ReactivePlusPlus
    </div>
-   <div id="projectbrief">One more implementation of ReactiveX approach in C++ with care about performance and templates in mind</div>
+   <div id="projectbrief">ReactiveX implementation for C++20</div>
   </td>
-    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
-        <span class="left">
-          <span id="MSearchSelect"                onmouseover="return searchBox.OnSearchSelectShow()"                onmouseout="return searchBox.OnSearchSelectHide()">&#160;</span>
-          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
-               onfocus="searchBox.OnSearchFieldFocus(true)" 
-               onblur="searchBox.OnSearchFieldFocus(false)" 
-               onkeyup="searchBox.OnSearchFieldChange(event)"/>
-          </span><span class="right">
-            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.svg" alt=""/></a>
-          </span>
-        </div>
-</td>
  </tr>
  </tbody>
 </table>
@@ -64,6 +60,17 @@ var searchBox = new SearchBox("searchBox", "search/",'.html');
 $(function() { codefold.init(0); });
 /* @license-end */
 </script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Search',true);
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
 </div><!-- top -->
 <div id="side-nav" class="ui-resizable side-nav-resizable">
   <div id="nav-tree">
@@ -109,7 +116,7 @@ $(function(){initNavTree('structrpp_1_1interface__disposable.html',''); initResi
 <a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="#friends">Friends</a> &#124;
 <a href="structrpp_1_1interface__disposable-members.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">rpp::interface_disposable Struct Reference<span class="mlabels"><span class="mlabel">abstract</span></span><div class="ingroups"><a class="el" href="group__rpp.html">RPP</a> &raquo; <a class="el" href="group__disposables.html">Disposables</a></div></div></div>
+  <div class="headertitle"><div class="title">rpp::interface_disposable Struct Reference<span class="mlabels"><span class="mlabel">abstract</span></span><div class="ingroups"><a class="el" href="group__rpp.html">rpp</a> &raquo; <a class="el" href="group__disposables.html">Disposables</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
@@ -117,23 +124,6 @@ $(function(){initNavTree('structrpp_1_1interface__disposable.html',''); initResi
  <a href="#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="interface__disposable_8hpp_source.html">interface_disposable.hpp</a>&gt;</code></p>
-<div class="dynheader">
-Inheritance diagram for rpp::interface_disposable:</div>
-<div class="dyncontent">
- <div class="center">
-  <img src="structrpp_1_1interface__disposable.png" usemap="#rpp::interface_5Fdisposable_map" alt=""/>
-  <map id="rpp::interface_5Fdisposable_map" name="rpp::interface_5Fdisposable_map">
-<area href="structrpp_1_1interface__composite__disposable.html" alt="rpp::interface_composite_disposable" shape="rect" coords="859,56,1422,80"/>
-<area href="classrpp_1_1composite__disposable__impl.html" alt="rpp::composite_disposable_impl&lt; rpp::details::disposables::dynamic_disposables_container&lt; 0 &gt; &gt;" shape="rect" coords="573,112,1136,136"/>
-<area href="classrpp_1_1composite__disposable__impl.html" title="Disposable which can keep some other sub-disposables. When this root disposable is disposed,..." alt="rpp::composite_disposable_impl&lt; Container &gt;" shape="rect" coords="1146,112,1709,136"/>
-<area href="classrpp_1_1composite__disposable.html" title="Disposable which can keep some other sub-disposables. When this root disposable is disposed,..." alt="rpp::composite_disposable" shape="rect" coords="573,168,1136,192"/>
-<area href="classrpp_1_1operators_1_1details_1_1timeout__disposable.html" alt="rpp::operators::details::timeout_disposable&lt; TObserver, TFallbackObservable, Container &gt;" shape="rect" coords="1146,168,1709,192"/>
-<area href="classrpp_1_1details_1_1refocunt__disposable__inner.html" alt="rpp::details::refocunt_disposable_inner" shape="rect" coords="0,224,563,248"/>
-<area href="classrpp_1_1refcount__disposable.html" alt="rpp::refcount_disposable" shape="rect" coords="573,224,1136,248"/>
-<area href="classrpp_1_1subjects_1_1details_1_1subject__state.html" alt="rpp::subjects::details::subject_state&lt; Type, Serialized &gt;" shape="rect" coords="1146,224,1709,248"/>
-<area href="classrpp_1_1operators_1_1details_1_1switch__on__next__state__t.html" alt="rpp::operators::details::switch_on_next_state_t&lt; TObserver &gt;" shape="rect" coords="573,280,1136,304"/>
-  </map>
-</div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -160,7 +150,7 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>dispose_impl<
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="friends" name="friends"></a>
 Friends</h2></td></tr>
 <tr class="memitem:ad32aa1a9a78d1d3a9035d0d2d87d6c95" id="r_ad32aa1a9a78d1d3a9035d0d2d87d6c95"><td class="memTemplParams" colspan="2"><a id="ad32aa1a9a78d1d3a9035d0d2d87d6c95" name="ad32aa1a9a78d1d3a9035d0d2d87d6c95"></a>
-template&lt;rpp::constraint::decayed_type TStrategy&gt; </td></tr>
+template&lt;<a class="el" href="conceptrpp_1_1constraint_1_1decayed__type.html">rpp::constraint::decayed_type</a> TStrategy&gt; </td></tr>
 <tr class="memitem:ad32aa1a9a78d1d3a9035d0d2d87d6c95"><td class="memTemplItemLeft" align="right" valign="top">class&#160;</td><td class="memTemplItemRight" valign="bottom"><b>rpp::details::auto_dispose_wrapper</b></td></tr>
 <tr class="separator:ad32aa1a9a78d1d3a9035d0d2d87d6c95"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -191,7 +181,7 @@ template&lt;rpp::constraint::decayed_type TStrategy&gt; </td></tr>
 </div><div class="memdoc">
 
 <p>Dispose disposable and free any underlying resources and etc. </p>
-<dl class="section warning"><dt>Warning</dt><dd>This function must be thread-safe </dd></dl>
+<dl class="section attention"><dt>Attention</dt><dd>This function must be thread-safe </dd></dl>
 
 </div>
 </div>
@@ -219,7 +209,7 @@ template&lt;rpp::constraint::decayed_type TStrategy&gt; </td></tr>
 </div><div class="memdoc">
 
 <p>Check if this disposable is just disposed. </p>
-<dl class="section warning"><dt>Warning</dt><dd>This function must be thread-safe </dd></dl>
+<dl class="section attention"><dt>Attention</dt><dd>This function must be thread-safe </dd></dl>
 
 <p>Implemented in <a class="el" href="classrpp_1_1composite__disposable__impl.html#a4d8dc7195e0594586a1583e7f5308d4c">rpp::composite_disposable_impl&lt; Container &gt;</a>, and <a class="el" href="classrpp_1_1composite__disposable__impl.html#a4d8dc7195e0594586a1583e7f5308d4c">rpp::composite_disposable_impl&lt; rpp::details::disposables::dynamic_disposables_container&lt; 0 &gt; &gt;</a>.</p>
 

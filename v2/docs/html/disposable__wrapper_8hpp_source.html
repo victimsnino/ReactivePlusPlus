@@ -1,5 +1,6 @@
+<!-- HTML header for doxygen 1.12.0-->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US" class="light-mode">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
@@ -9,7 +10,6 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
-<script type="text/javascript" src="clipboard.js"></script>
 <link href="navtree.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="navtreedata.js"></script>
 <script type="text/javascript" src="navtree.js"></script>
@@ -18,12 +18,20 @@
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
-<script type="text/javascript">
-/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-  $(function() { init_search(); });
-/* @license-end */
-</script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only-darkmode-toggle.css" rel="stylesheet" type="text/css"/>
+<link href="custom.css" rel="stylesheet" type="text/css"/>
+<!-- ... other metadata & script includes ... -->
+<script type="text/javascript" src="doxygen-awesome-darkmode-toggle.js"></script>
+<script type="text/javascript">
+    DoxygenAwesomeDarkModeToggle.init()
+</script>
+<script type="text/javascript" src="doxygen-awesome-fragment-copy-button.js"></script>
+        <script type="text/javascript">
+            DoxygenAwesomeFragmentCopyButton.init()
+        </script>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -34,20 +42,8 @@
   <td id="projectalign">
    <div id="projectname">ReactivePlusPlus
    </div>
-   <div id="projectbrief">One more implementation of ReactiveX approach in C++ with care about performance and templates in mind</div>
+   <div id="projectbrief">ReactiveX implementation for C++20</div>
   </td>
-    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
-        <span class="left">
-          <span id="MSearchSelect"                onmouseover="return searchBox.OnSearchSelectShow()"                onmouseout="return searchBox.OnSearchSelectHide()">&#160;</span>
-          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
-               onfocus="searchBox.OnSearchFieldFocus(true)" 
-               onblur="searchBox.OnSearchFieldFocus(false)" 
-               onkeyup="searchBox.OnSearchFieldChange(event)"/>
-          </span><span class="right">
-            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.svg" alt=""/></a>
-          </span>
-        </div>
-</td>
  </tr>
  </tbody>
 </table>
@@ -64,6 +60,17 @@ var searchBox = new SearchBox("searchBox", "search/",'.html');
 $(function() { codefold.init(0); });
 /* @license-end */
 </script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Search',true);
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
 </div><!-- top -->
 <div id="side-nav" class="ui-resizable side-nav-resizable">
   <div id="nav-tree">
@@ -139,7 +146,7 @@ $(function(){initNavTree('disposable__wrapper_8hpp_source.html',''); initResizab
 <div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>        <span class="keyword">static_assert</span>(std::derived_from&lt;TDisposable, interface_disposable&gt;);</div>
 <div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>        <span class="keyword">template</span>&lt;<span class="keyword">typename</span>... TArgs&gt;</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>            <span class="keyword">requires</span> (std::constructible_from&lt;TDisposable, TArgs &amp;&amp; ...&gt; &amp;&amp; !rpp::constraint::variadic_decayed_same_as&lt;auto_dispose_wrapper, TArgs...&gt;)</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>            <span class="keyword">requires</span> (std::constructible_from&lt;TDisposable, TArgs &amp;&amp; ...&gt; &amp;&amp; !<a class="code hl_concept" href="conceptrpp_1_1constraint_1_1variadic__decayed__same__as.html">rpp::constraint::variadic_decayed_same_as</a>&lt;auto_dispose_wrapper, TArgs...&gt;)</div>
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>        <span class="keyword">explicit</span> auto_dispose_wrapper(TArgs&amp;&amp;... args)</div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>            : m_data{std::forward&lt;TArgs&gt;(args)...}</div>
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>        {</div>
@@ -235,7 +242,7 @@ $(function(){initNavTree('disposable__wrapper_8hpp_source.html',''); initResizab
 <div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>        {</div>
 <div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>            <span class="keyword">const</span> <span class="keyword">auto</span> ptr      = std::make_shared&lt;details::auto_dispose_wrapper&lt;TTarget&gt;&gt;(std::forward&lt;TArgs&gt;(args)...);</div>
 <div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>            <span class="keyword">auto</span>       base_ptr = std::shared_ptr&lt;TDisposable&gt;{ptr, <span class="keyword">static_cast&lt;</span>TDisposable*<span class="keyword">&gt;</span>(ptr-&gt;get())};</div>
-<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>            <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (rpp::utils::is_base_of_v&lt;TDisposable, rpp::details::enable_wrapper_from_this&gt;)</div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>            <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (<a class="code hl_concept" href="conceptrpp_1_1utils_1_1is__base__of__v.html">rpp::utils::is_base_of_v&lt;TDisposable, rpp::details::enable_wrapper_from_this&gt;</a>)</div>
 <div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>            {</div>
 <div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>                base_ptr-&gt;set_weak_self(std::weak_ptr&lt;interface_disposable&gt;(base_ptr));</div>
 <div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>            }</div>
@@ -296,7 +303,7 @@ $(function(){initNavTree('disposable__wrapper_8hpp_source.html',''); initResizab
 <div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span>        }</div>
 <div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span> </div>
 <div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>        <span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::decayed_type TTarget&gt;</div>
-<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>            <span class="keyword">requires</span> rpp::constraint::static_pointer_convertible_to&lt;TDisposable, TTarget&gt;</div>
+<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>            <span class="keyword">requires</span> <a class="code hl_concept" href="conceptrpp_1_1constraint_1_1static__pointer__convertible__to.html">rpp::constraint::static_pointer_convertible_to&lt;TDisposable, TTarget&gt;</a></div>
 <div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>        <span class="keyword">operator</span> disposable_wrapper_impl&lt;TTarget&gt;()<span class="keyword"> const</span></div>
 <div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span><span class="keyword">        </span>{</div>
 <div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>            <span class="keyword">auto</span> [locked, is_shared] = get();</div>
@@ -350,6 +357,9 @@ $(function(){initNavTree('disposable__wrapper_8hpp_source.html',''); initResizab
 <div class="ttc" id="aclassrpp_1_1disposable__wrapper__impl_html"><div class="ttname"><a href="classrpp_1_1disposable__wrapper__impl.html">rpp::disposable_wrapper_impl</a></div><div class="ttdoc">Wrapper to keep disposable. Any disposable have to be created right from this wrapper with help of ma...</div><div class="ttdef"><b>Definition</b> fwd.hpp:27</div></div>
 <div class="ttc" id="aclassrpp_1_1disposable__wrapper__impl_html_a677053a7d4cc81ab26dc7f740a6595e6"><div class="ttname"><a href="classrpp_1_1disposable__wrapper__impl.html#a677053a7d4cc81ab26dc7f740a6595e6">rpp::disposable_wrapper_impl::make</a></div><div class="ttdeci">static disposable_wrapper_impl make(TArgs &amp;&amp;... args)</div><div class="ttdoc">Way to create disposable_wrapper. Passed TTarget type can be any type derived from TDisposable.</div><div class="ttdef"><b>Definition</b> disposable_wrapper.hpp:133</div></div>
 <div class="ttc" id="aclassrpp_1_1disposable__wrapper__impl_html_ac80a18753f28c349713dca275a23a085"><div class="ttname"><a href="classrpp_1_1disposable__wrapper__impl.html#ac80a18753f28c349713dca275a23a085">rpp::disposable_wrapper_impl::empty</a></div><div class="ttdeci">static disposable_wrapper_impl empty()</div><div class="ttdoc">Creates disposable_wrapper which behaves like disposed disposable.</div><div class="ttdef"><b>Definition</b> disposable_wrapper.hpp:147</div></div>
+<div class="ttc" id="aconceptrpp_1_1constraint_1_1static__pointer__convertible__to_html"><div class="ttname"><a href="conceptrpp_1_1constraint_1_1static__pointer__convertible__to.html">rpp::constraint::static_pointer_convertible_to</a></div><div class="ttdef"><b>Definition</b> constraints.hpp:34</div></div>
+<div class="ttc" id="aconceptrpp_1_1constraint_1_1variadic__decayed__same__as_html"><div class="ttname"><a href="conceptrpp_1_1constraint_1_1variadic__decayed__same__as.html">rpp::constraint::variadic_decayed_same_as</a></div><div class="ttdef"><b>Definition</b> constraints.hpp:31</div></div>
+<div class="ttc" id="aconceptrpp_1_1utils_1_1is__base__of__v_html"><div class="ttname"><a href="conceptrpp_1_1utils_1_1is__base__of__v.html">rpp::utils::is_base_of_v</a></div><div class="ttdef"><b>Definition</b> utils.hpp:48</div></div>
 <div class="ttc" id="agroup__disposables_html_ga9608d63c61b7da884b7f975dfa949d3c"><div class="ttname"><a href="group__disposables.html#ga9608d63c61b7da884b7f975dfa949d3c">rpp::disposable_wrapper</a></div><div class="ttdeci">disposable_wrapper_impl&lt; interface_disposable &gt; disposable_wrapper</div><div class="ttdoc">Wrapper to keep &quot;simple&quot; disposable. Specialization of rpp::disposable_wrapper_impl.</div><div class="ttdef"><b>Definition</b> fwd.hpp:34</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
