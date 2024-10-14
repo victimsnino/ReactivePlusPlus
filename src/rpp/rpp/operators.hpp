@@ -37,7 +37,7 @@
  * }
  * @endcode
  *
- * Check the [API Reference](https://victimsnino.github.io/ReactivePlusPlus/v2/docs/html/group__rpp.html) for more details about operators.
+ * Check the [API Reference](https://victimsnino.github.io/ReactivePlusPlus/v2/docs/html/group__operators.html) for more details about operators.
  *
  * @see https://reactivex.io/documentation/operators.html
  * @ingroup rpp
