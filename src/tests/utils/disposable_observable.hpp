@@ -115,23 +115,30 @@ void test_operator_over_observable_with_disposable(auto&& op)
 
     SUBCASE("operator disposes disposable on_error")
     {
-        op(rpp::source::create<T>([](auto&& obs) {
-            const auto d = rpp::composite_disposable_wrapper::make();
-            obs.set_upstream(d);
+        std::optional<rpp::composite_disposable_wrapper> d{}:
+        op(rpp::source::create<T>([&d](auto&& obs) {
+            d = rpp::composite_disposable_wrapper::make();
+            obs.set_upstream(d.value());
             obs.on_error({});
-            CHECK(d.is_disposed());
+            CHECK(obs.is_disposed());
         })).subscribe([](const auto&) {}, [](const std::exception_ptr&) {});
+
+        CHECK(d);
+        CHECK(d->is_disposed());
     }
 
     SUBCASE("operator disposes disposable on_completed")
     {
-        op(rpp::source::create<T>([](auto&& obs) {
-            const auto d = rpp::composite_disposable_wrapper::make();
-            obs.set_upstream(d);
+        std::optional<rpp::composite_disposable_wrapper> d{}:
+        op(rpp::source::create<T>([&d](auto&& obs) {
+            d = rpp::composite_disposable_wrapper::make();
+            obs.set_upstream(d.value());
             obs.on_completed();
             CHECK(obs.is_disposed());
-            CHECK(d.is_disposed());
         })).subscribe([](const auto&) {}, [](const std::exception_ptr&) {});
+
+        CHECK(d);
+        CHECK(d->is_disposed());
     }
 
     SUBCASE("set_upstream with fixed_disposable_strategy_selector<1>")
