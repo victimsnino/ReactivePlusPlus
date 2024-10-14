@@ -235,7 +235,7 @@ TEST_CASE("delay delays observable's emissions")
 
 TEST_CASE("delay is not disposing early")
 {
-    mock_observer<int> mock{};
+    mock_observer<int>    mock{};
     trompeloeil::sequence s{};
 
     rpp::schedulers::test_scheduler scheduler{};
@@ -246,8 +246,8 @@ TEST_CASE("delay is not disposing early")
         obs.set_upstream(d.value());
         obs.on_completed();
     })
-    | rpp::ops::delay(std::chrono::seconds{1}, scheduler)
-    | rpp::ops::subscribe(mock);
+        | rpp::ops::delay(std::chrono::seconds{1}, scheduler)
+        | rpp::ops::subscribe(mock);
 
     CHECK(!d->is_disposed());
     REQUIRE_CALL(*mock, on_completed()).LR_WITH(!d->is_disposed()).IN_SEQUENCE(s);
