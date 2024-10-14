@@ -49,6 +49,8 @@ namespace rpp::operators::details
     template<typename TState>
     struct combining_observer_strategy
     {
+        using preferred_disposable_strategy = rpp::details::observers::none_disposable_strategy;
+
         std::shared_ptr<TState> state{};
 
         void set_upstream(const rpp::disposable_wrapper& d) const

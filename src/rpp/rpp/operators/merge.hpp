@@ -51,6 +51,8 @@ namespace rpp::operators::details
     template<rpp::constraint::observer TObserver>
     struct merge_observer_base_strategy
     {
+        using preferred_disposable_strategy = rpp::details::observers::locally_disposable_strategy;
+
         merge_observer_base_strategy(std::shared_ptr<merge_state<TObserver>>&& state)
             : m_state{std::move(state)}
         {

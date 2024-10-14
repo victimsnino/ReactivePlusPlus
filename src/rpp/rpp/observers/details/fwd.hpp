@@ -30,6 +30,11 @@ namespace rpp::details::observers
     struct none_disposable_strategy;
 
     /**
+     * @brief Just bool over is_disposed/dispose logic with no any add logic
+     */
+    struct locally_disposable_strategy;
+
+    /**
      * @brief Dynamic disposable logic based on pre-allocated vector
      */
     template<size_t Count, rpp::constraint::any_of<atomic_bool, non_atomic_bool> Bool>

@@ -245,6 +245,7 @@ TEST_CASE("delay is not disposing early")
         d = rpp::composite_disposable_wrapper::make();
         obs.set_upstream(d.value());
         obs.on_completed();
+        CHECK(obs.is_disposed());
     })
         | rpp::ops::delay(std::chrono::seconds{1}, scheduler)
         | rpp::ops::subscribe(mock);

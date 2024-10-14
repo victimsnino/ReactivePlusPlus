@@ -111,6 +111,7 @@ namespace rpp::operators::details
     template<rpp::constraint::observable TObservable, rpp::constraint::observer TObserver>
     struct concat_observer_strategy_base
     {
+
         concat_observer_strategy_base(std::shared_ptr<concat_state_t<TObservable, TObserver>> state, rpp::composite_disposable_wrapper refcounted)
             : state{std::move(state)}
             , refcounted{std::move(refcounted)}
@@ -138,6 +139,8 @@ namespace rpp::operators::details
     template<rpp::constraint::observable TObservable, rpp::constraint::observer TObserver>
     struct concat_inner_observer_strategy : public concat_observer_strategy_base<TObservable, TObserver>
     {
+        using preferred_disposable_strategy = rpp::details::observers::locally_disposable_strategy;
+
         using base = concat_observer_strategy_base<TObservable, TObserver>;
 
         using base::concat_observer_strategy_base;

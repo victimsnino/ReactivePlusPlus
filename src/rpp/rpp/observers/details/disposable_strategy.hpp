@@ -103,4 +103,15 @@ namespace rpp::details::observers
 
         static void dispose() {}
     };
+
+    struct locally_disposable_strategy
+    {
+        static void add(const rpp::disposable_wrapper&) {}
+
+        bool is_disposed() const noexcept { return state; }
+
+        void dispose() const { state = true; }
+
+        mutable bool state{};
+    };
 } // namespace rpp::details::observers
