@@ -39,7 +39,7 @@ jobs:
           path: |
             ~/.conan2
             /Users/runner/.conan2/
-          key: deps-ci-ubuntu-clang-Release-${{ hashFiles('**/conanfile.py') }}
+          key: deps-ci-ubuntu-clang-Release-${{ hashFiles('**/conanfile.py') }}-${{ hashFiles('**/CMakePresets.json') }}
           restore-keys: deps-ci-ubuntu-clang-Release
 
     - name: conan detect profile
@@ -112,7 +112,7 @@ jobs:
           path: |
             ~/.conan2
             /Users/runner/.conan2/
-          key: deps-ci-ubuntu-clang-Release-${{ hashFiles('**/conanfile.py') }}
+          key: deps-ci-ubuntu-clang-Release-${{ hashFiles('**/conanfile.py') }}-${{ hashFiles('**/CMakePresets.json') }}
           restore-keys: deps-ci-ubuntu-clang-Release
 
     - name: conan detect profile
