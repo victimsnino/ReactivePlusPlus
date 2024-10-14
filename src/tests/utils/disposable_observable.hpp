@@ -115,7 +115,8 @@ void test_operator_over_observable_with_disposable(auto&& op)
 
     SUBCASE("operator disposes disposable on_error")
     {
-        std::optional<rpp::composite_disposable_wrapper> d{} : op(rpp::source::create<T>([&d](auto&& obs) {
+        std::optional<rpp::composite_disposable_wrapper> d{};
+        op(rpp::source::create<T>([&d](auto&& obs) {
             d = rpp::composite_disposable_wrapper::make();
             obs.set_upstream(d.value());
             obs.on_error({});
@@ -128,7 +129,8 @@ void test_operator_over_observable_with_disposable(auto&& op)
 
     SUBCASE("operator disposes disposable on_completed")
     {
-        std::optional<rpp::composite_disposable_wrapper> d{} : op(rpp::source::create<T>([&d](auto&& obs) {
+        std::optional<rpp::composite_disposable_wrapper> d{};
+        op(rpp::source::create<T>([&d](auto&& obs) {
             d = rpp::composite_disposable_wrapper::make();
             obs.set_upstream(d.value());
             obs.on_completed();
