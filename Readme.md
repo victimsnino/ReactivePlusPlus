@@ -7,7 +7,7 @@
 ![GitHub commit activity (v2)](https://img.shields.io/github/commit-activity/m/victimsnino/ReactivePlusPlus/v2)
 
 [![User guide](https://img.shields.io/badge/link-User_guide-green)](https://victimsnino.github.io/ReactivePlusPlus/v2/docs/html/index.html)
-[![API Reference](https://img.shields.io/badge/link-API_Reference-green)](https://victimsnino.github.io/ReactivePlusPlus/v2/docs/html/group__rpp.html)
+[![API Reference](https://img.shields.io/badge/link-API_Reference-green)](https://victimsnino.github.io/ReactivePlusPlus/v2/docs/html/topics.html)
 [![Benchmarks](https://img.shields.io/badge/link-Benchmarks-green)](https://victimsnino.github.io/ReactivePlusPlus/v2/benchmark)
 
 [![Join the chat in Discord: https://discord.gg/KWMR3RNkVz](https://img.shields.io/badge/Discord-Chat!-brightgreen.svg)](https://discord.gg/KWMR3RNkVz)
@@ -62,7 +62,7 @@ Another implementation, [another-rxcpp](https://github.com/CODIANZ/another-rxcpp
 - **ReactivePlusPlus** keeps balance between performance and type-erasing mechanism
 - **ReactivePlusPlus** is fast: every part of code written with performance in mind. Starting from tests over amount of copies/move and finishing to Continuous Benchmarking. Benchmarks prove that RPP faster than RxCPP in most cases: [Continuous benchmarking results and comparison with RxCpp](https://victimsnino.github.io/ReactivePlusPlus/v2/benchmark)
 
-Currently ReactivePlusPlus is still under development but it has a lot of implemented operators for now. List of implemented features can be found in [API Reference](https://victimsnino.github.io/ReactivePlusPlus/v2/docs/html/group__rpp.html) with very detailed documentation for each of them.
+Currently ReactivePlusPlus is still under development but it has a lot of implemented operators for now. List of implemented features can be found in [API Reference](https://victimsnino.github.io/ReactivePlusPlus/v2/docs/html/topics.html) with very detailed documentation for each of them.
 
 Main advantages of ReactivePlusPlus are that it is written in Modern C++ with Performance and Usage in mind. v2 is written to follow the [**"zero-overhead principle"**](https://en.cppreference.com/w/cpp/language/Zero-overhead_principle). As a result, it is fast, readable, easy to use, and well-documented. This is proven by [continuous benchmarking results of v2 and comparison with RxCpp](https://victimsnino.github.io/ReactivePlusPlus/v2/benchmark).
 
@@ -80,12 +80,12 @@ If you are going to know more details about developing for RPP check [HACKING](H
 
 ## Documentation:
 
-Check detailed [User Guide/Tutorial](https://victimsnino.github.io/ReactivePlusPlus/v2/docs/html/index.html) (to learn more details about ReactivePlusPlus or reactive programming paradigm itself) and extensive [API Reference of RPP](https://victimsnino.github.io/ReactivePlusPlus/v2/docs/html/group__rpp.html) (to know how to apply ReactivePlusPlus properly).
+Check detailed [User Guide/Tutorial](https://victimsnino.github.io/ReactivePlusPlus/v2/docs/html/index.html) (to learn more details about ReactivePlusPlus or reactive programming paradigm itself) and extensive [API Reference of RPP](https://victimsnino.github.io/ReactivePlusPlus/v2/docs/html/topics.html) (to know how to apply ReactivePlusPlus properly).
 
 
 ## Useful links
 - [User Guide](https://victimsnino.github.io/ReactivePlusPlus/v2/docs/html/index.html)
-- [API Reference](https://victimsnino.github.io/ReactivePlusPlus/v2/docs/html/group__rpp.html)
+- [API Reference](https://victimsnino.github.io/ReactivePlusPlus/v2/docs/html/topics.html)
 - [Examples](https://github.com/victimsnino/ReactivePlusPlus/tree/v2/src/examples)
 - [reactivex.io](https://reactivex.io) describes everything related to reactive programming.
 - [rxmarbles](https://rxmarbles.com/) interactive diagrams of observables/operators

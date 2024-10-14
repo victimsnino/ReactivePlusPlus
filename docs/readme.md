@@ -270,7 +270,7 @@ rpp::source::create<int>([](const auto& observer)
 A **Scheduler** is responsible for controlling the type of multithreading behavior (or lack thereof) used in the observable. For example, a **scheduler** can utilize a new thread, a thread pool, or a raw queue to manage its processing.
 
 
-Check the [API Reference](https://victimsnino.github.io/ReactivePlusPlus/v2/docs/html/group__rpp.html) for more details about schedulers.
+Check the [API Reference](https://victimsnino.github.io/ReactivePlusPlus/v2/docs/html/group__schedulers.html) for more details about schedulers.
 
 See <https://reactivex.io/documentation/scheduler.html> for more details about schedulers.
 
