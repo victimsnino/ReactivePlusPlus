@@ -53,20 +53,24 @@ jobs:
     - name: get conan
       uses: turtlebrowser/get-conan@main
 
-    - name: cache deps
+    - name: check cache
       uses: actions/cache@v4
+      id: check_cache
       with:
           path: |
             ~/.conan2
             /Users/runner/.conan2/
-          key: deps-${{ matrix.config.name }}-${{ matrix.build_type.config }}-${{ hashFiles('**/conanfile.py') }}
+          key: deps-${{ matrix.config.name }}-${{ matrix.build_type.config }}-${{ hashFiles('**/conanfile.py') }}-${{ hashFiles('**/CMakePresets.json') }}
           restore-keys: deps-${{ matrix.config.name }}-${{ matrix.build_type.config }}
+          lookup-only: true
 
     - name: conan detect profile
+      if: steps.check_cache.outputs.cache-hit != 'true' || github.event_name == 'schedule'
       run: |
         conan profile detect --force
 
     - name: Run CMake
+      if: steps.check_cache.outputs.cache-hit != 'true' || github.event_name == 'schedule'
       uses: lukka/run-cmake@v10
       with:
         configurePreset: ${{ matrix.config.name }}-tests
@@ -110,7 +114,7 @@ jobs:
           path: |
             ~/.conan2
             /Users/runner/.conan2/
-          key: deps-ci-ubuntu-clang-Release-${{ hashFiles('**/conanfile.py') }}
+          key: deps-ci-ubuntu-clang-Release-${{ hashFiles('**/conanfile.py') }}-${{ hashFiles('**/CMakePresets.json') }}
           restore-keys: deps-ci-ubuntu-clang-Release
 
     - name: conan detect profile
@@ -187,7 +191,7 @@ jobs:
           path: |
             ~/.conan2
             /Users/runner/.conan2/
-          key: deps-${{ matrix.config.name }}-${{ matrix.build_type.config }}-${{ hashFiles('**/conanfile.py') }}
+          key: deps-${{ matrix.config.name }}-${{ matrix.build_type.config }}-${{ hashFiles('**/conanfile.py') }}-${{ hashFiles('**/CMakePresets.json') }}
           restore-keys: deps-${{ matrix.config.name }}-${{ matrix.build_type.config }}
 
     - name: conan detect profile
