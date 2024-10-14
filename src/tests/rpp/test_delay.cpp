@@ -21,6 +21,7 @@
 #include <rpp/subjects/publish_subject.hpp>
 
 #include "disposable_observable.hpp"
+#include "rpp_trompeloil.hpp"
 
 namespace
 {
@@ -232,9 +233,31 @@ TEST_CASE("delay delays observable's emissions")
     }
 }
 
+TEST_CASE("delay is not disposing early")
+{
+    mock_observer<int> mock{};
+    trompeloeil::sequence s{};
+
+    rpp::schedulers::test_scheduler scheduler{};
+
+    std::optional<rpp::composite_disposable_wrapper> d{};
+    rpp::source::create<int>([&d](auto&& obs) {
+        d = rpp::composite_disposable_wrapper::make();
+        obs.set_upstream(d.value());
+        obs.on_completed();
+    })
+    | rpp::ops::delay(std::chrono::seconds{1}, scheduler)
+    | rpp::ops::subscribe(mock);
+
+    CHECK(!d->is_disposed());
+    REQUIRE_CALL(*mock, on_completed()).LR_WITH(!d->is_disposed()).IN_SEQUENCE(s);
+    scheduler.time_advance(std::chrono::seconds{1});
+    CHECK(d->is_disposed());
+}
+
 TEST_CASE("delay satisfies disposable contracts")
 {
-    test_operator_with_disposable<int>(rpp::ops::delay(std::chrono::seconds{0}, manual_scheduler{}));
+    test_operator_with_disposable<int>(rpp::ops::delay(std::chrono::seconds{0}, rpp::schedulers::immediate{}));
 }
 
 TEST_CASE("observe_on forward error immediately")
