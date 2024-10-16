@@ -128,6 +128,7 @@ void test_operator_over_observable_with_disposable(auto&& op)
         op(rpp::source::create<T>([](auto&& obs) {
             const auto d = rpp::composite_disposable_wrapper::make();
             obs.set_upstream(d);
+            CHECK(!d.is_disposed());
             obs.on_completed();
             CHECK(d.is_disposed());
         })).subscribe([](const auto&) {}, [](const std::exception_ptr&) {});
