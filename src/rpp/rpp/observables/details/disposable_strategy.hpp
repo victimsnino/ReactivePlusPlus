@@ -93,9 +93,11 @@ namespace rpp::details::observables
         template<typename T, typename Prev>
         consteval auto* deduce_updated_disposable_strategy()
         {
+        #ifndef RPP_DEBUG_DISABLE_DISPOSABLES_OPTIMIZATION
             if constexpr (has_updated_disposable_strategy<T, Prev>)
                 return static_cast<typename T::template updated_disposable_strategy<Prev>*>(nullptr);
             else
+        #endif
                 return static_cast<default_disposable_strategy_selector*>(nullptr);
         }
     } // namespace details

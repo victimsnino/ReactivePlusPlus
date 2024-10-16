@@ -72,9 +72,11 @@ namespace rpp::details::observers
         template<typename T>
         consteval auto* deduce_disposable_strategy()
         {
+        #ifndef RPP_DEBUG_DISABLE_DISPOSABLES_OPTIMIZATION
             if constexpr (has_disposable_strategy<T>)
                 return static_cast<typename T::preferred_disposable_strategy*>(nullptr);
             else
+        #endif
                 return static_cast<dynamic_local_disposable_strategy<0, atomic_bool>*>(nullptr);
         }
     } // namespace details
