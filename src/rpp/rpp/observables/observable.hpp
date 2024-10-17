@@ -77,7 +77,7 @@ namespace rpp
             requires (!constraint::observer<ObserverStrategy>)
         void subscribe(ObserverStrategy&& observer_strategy) const
         {
-            if constexpr (ObserverStrategy::preferred_disposable_mode == rpp::details::observers::disposable_mode::Auto)
+            if constexpr (std::decay_t<ObserverStrategy>::preferred_disposable_mode == rpp::details::observers::disposable_mode::Auto)
                 subscribe(rpp::observer<Type, rpp::details::observers::override_disposable_strategy<std::decay_t<ObserverStrategy>, typename optimal_disposable_strategy::observer_disposable_strategy>>{std::forward<ObserverStrategy>(observer_strategy)});
             else
                 subscribe(rpp::observer<Type, std::decay_t<ObserverStrategy>>{std::forward<ObserverStrategy>(observer_strategy)});

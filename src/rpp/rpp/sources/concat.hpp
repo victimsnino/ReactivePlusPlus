@@ -127,6 +127,9 @@ namespace rpp::details
 
         using value_type = rpp::utils::extract_observable_type_t<utils::iterable_value_t<PackedContainer>>;
 
+        using optimal_disposable_strategy = rpp::details::observables::default_disposable_strategy;
+
+
         template<constraint::observer_strategy<value_type> Strategy>
         void subscribe(observer<value_type, Strategy>&& obs) const
         {

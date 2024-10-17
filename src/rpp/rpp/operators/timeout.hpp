@@ -114,6 +114,9 @@ namespace rpp::operators::details
             constexpr static bool own_current_queue = true;
         };
 
+        template<rpp::details::observables::constraint::disposable_strategy Prev>
+        using updated_optimal_disposable_strategy = rpp::details::observables::fixed_disposable_strategy<1>;
+
         rpp::schedulers::duration                 period;
         RPP_NO_UNIQUE_ADDRESS TFallbackObservable fallback;
         RPP_NO_UNIQUE_ADDRESS TScheduler          scheduler;
@@ -162,6 +165,9 @@ namespace rpp::operators::details
 
             constexpr static bool own_current_queue = true;
         };
+
+        template<rpp::details::observables::constraint::disposable_strategy Prev>
+        using updated_optimal_disposable_strategy = typename timeout_t<rpp::error_observable<int>, TScheduler>::template updated_optimal_disposable_strategy<Prev>;
 
         rpp::schedulers::duration        period;
         RPP_NO_UNIQUE_ADDRESS TScheduler scheduler;

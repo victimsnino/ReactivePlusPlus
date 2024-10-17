@@ -140,7 +140,8 @@ namespace rpp::operators::details
     template<rpp::constraint::decayed_type T>
     struct group_by_observable_strategy
     {
-        using value_type = T;
+        using value_type                  = T;
+        using optimal_disposable_strategy = typename rpp::subjects::publish_subject<T>::optimal_disposable_strategy;
 
         rpp::subjects::publish_subject<T>  subj;
         std::weak_ptr<refcount_disposable> disposable;

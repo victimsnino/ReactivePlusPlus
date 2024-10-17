@@ -37,7 +37,7 @@ namespace rpp::constraint
         // strategy has to provide it's preferred disposable mode: minimal level of disposable logic it could work with.
         // if observer_strategy fully controls disposable logic or just forwards disposable to downstream observer: rpp::details::observers::disposable_mode::None
         // if you not sure about this field - just use rpp::details::observers::disposable_mode::Auto
-        { S::preferred_disposable_mode } -> rpp::constraint::decayed_same_as<rpp::details::observers::disposable_mode>; /* = rpp::details::observers::disposable_mode::Auto */
+        { std::decay_t<S>::preferred_disposable_mode } -> rpp::constraint::decayed_same_as<rpp::details::observers::disposable_mode>; /* = rpp::details::observers::disposable_mode::Auto */
     };
 
     /**

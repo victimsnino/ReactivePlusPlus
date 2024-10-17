@@ -48,7 +48,7 @@ namespace rpp::details::observables
     } // namespace details
 
     template<typename T>
-    using deduce_optimal_disposable_strategy_t = std::remove_pointer_t<decltype(details::deduce_optimal_disposable_strategy<T>())>;
+    using deduce_optimal_disposable_strategy_t = std::remove_pointer_t<decltype(details::deduce_optimal_disposable_strategy<std::decay_t<T>>())>;
 
     namespace constraint
     {

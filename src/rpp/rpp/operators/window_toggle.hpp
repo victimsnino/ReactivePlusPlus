@@ -112,6 +112,8 @@ namespace rpp::operators::details
     template<rpp::constraint::decayed_type TState>
     struct window_toggle_opening_observer_strategy
     {
+        static constexpr auto preferred_disposable_mode = rpp::details::observers::disposable_mode::Auto;
+
         std::shared_ptr<rpp::refcount_disposable> disposable;
         std::shared_ptr<TState>                   state;
 

@@ -111,6 +111,8 @@ namespace rpp::operators::details
     template<rpp::constraint::observable TObservable, rpp::constraint::observer TObserver>
     struct concat_observer_strategy_base
     {
+        static constexpr auto preferred_disposable_mode = rpp::details::observers::disposable_mode::Auto;
+
         concat_observer_strategy_base(std::shared_ptr<concat_state_t<TObservable, TObserver>> state, rpp::composite_disposable_wrapper refcounted)
             : state{std::move(state)}
             , refcounted{std::move(refcounted)}

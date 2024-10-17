@@ -50,6 +50,8 @@ namespace rpp::operators::details
     template<size_t I, rpp::constraint::observer Observer, typename TSelector, rpp::constraint::decayed_type... RestArgs>
     struct with_latest_from_inner_observer_strategy
     {
+        static constexpr auto preferred_disposable_mode = rpp::details::observers::disposable_mode::Auto;
+
         std::shared_ptr<with_latest_from_state<Observer, TSelector, RestArgs...>> state{};
 
         void set_upstream(const rpp::disposable_wrapper& d) const
