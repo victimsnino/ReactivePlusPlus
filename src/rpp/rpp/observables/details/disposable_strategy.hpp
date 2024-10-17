@@ -31,7 +31,7 @@ namespace rpp::details::observables
         using add = dynamic_disposable_strategy_selector<Mode>;
 
         using disposables_container = disposables::dynamic_disposables_container;
-        using disposable_strategy  = observers::dynamic_local_disposable_strategy<deduce_atomic_bool<Mode>>;
+        using disposable_strategy  = observers::dynamic_disposable_strategy<deduce_atomic_bool<Mode>>;
     };
 
     using default_disposable_strategy_selector = dynamic_disposable_strategy_selector<>;
@@ -43,7 +43,7 @@ namespace rpp::details::observables
         using add = fixed_disposable_strategy_selector<Count + AddCount, Mode>;
 
         using disposables_container = disposables::static_disposables_container<Count>;
-        using disposable_strategy  = observers::static_local_disposable_strategy<Count, deduce_atomic_bool<Mode>>;
+        using disposable_strategy  = observers::static_disposable_strategy<Count, deduce_atomic_bool<Mode>>;
     };
 
     template<size_t Count>

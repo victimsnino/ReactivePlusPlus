@@ -97,10 +97,10 @@ namespace rpp::details::observers
 
     struct none_disposable_strategy
     {
-        static void add(const rpp::disposable_wrapper&) {}
+        static constexpr void add(const rpp::disposable_wrapper&) {}
 
-        static bool is_disposed() noexcept { return false; }
+        static constexpr bool is_disposed() noexcept { return false; }
 
-        static void dispose() {}
+        static constexpr void dispose() {}
     };
 } // namespace rpp::details::observers

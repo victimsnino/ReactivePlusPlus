@@ -18,40 +18,6 @@
 
 namespace rpp::details::observers
 {
-    class atomic_bool;
-    class non_atomic_bool;
-
-    template<typename DisposableContainer, rpp::constraint::any_of<atomic_bool, non_atomic_bool> Bool>
-    class local_disposable_strategy;
-
-    /**
-     * @brief No any disposable logic at all. Used only inside proxy-forwarding operators where extra disposable logic not requires
-     */
-    struct none_disposable_strategy;
-
-    /**
-     * @brief Dynamic disposable logic based on pre-allocated vector
-     */
-    template<rpp::constraint::any_of<atomic_bool, non_atomic_bool> Bool>
-    using dynamic_local_disposable_strategy = local_disposable_strategy<disposables::dynamic_disposables_container, Bool>;
-
-    /**
-     * @brief Same as dynamic strategy, but based on array.
-     */
-    template<size_t Count, rpp::constraint::any_of<atomic_bool, non_atomic_bool> Bool>
-    using static_local_disposable_strategy = local_disposable_strategy<disposables::static_disposables_container<Count>, Bool>;
-
-    /**
-     * @brief Just an boolean with no any disposables
-     */
-    template<rpp::constraint::any_of<atomic_bool, non_atomic_bool> Bool>
-    using bool_local_disposable_strategy = local_disposable_strategy<disposables::none_disposables_container, Bool>;
-
-    /**
-     * @brief External disposable used as strategy
-     */
-    using external_disposable_strategy = composite_disposable_wrapper;
-
     namespace constraint
     {
         template<typename T>
@@ -64,6 +30,34 @@ namespace rpp::details::observers
         };
     } // namespace constraint
 
+    class atomic_bool;
+    class non_atomic_bool;
+    
+    template<typename DisposableContainer, rpp::constraint::any_of<atomic_bool, non_atomic_bool> Bool>
+    class local_disposable_strategy;
+
+    /**
+     * @brief No any disposable logic at all. Used only inside proxy-forwarding operators where extra disposable logic not requires
+     */
+    struct none_disposable_strategy;
+
+    /**
+     * @brief Keep disposables inside dynamic_disposables_container container (based on std::vector)
+     */
+    template<rpp::constraint::any_of<atomic_bool, non_atomic_bool> Bool>
+    using dynamic_disposable_strategy = local_disposable_strategy<disposables::dynamic_disposables_container, Bool>;
+
+    /**
+     * @brief Keep disposables inside static_disposables_container container (based on std::array)
+     */
+    template<size_t Count, rpp::constraint::any_of<atomic_bool, non_atomic_bool> Bool>
+    using static_disposable_strategy = local_disposable_strategy<disposables::static_disposables_container<Count>, Bool>;
+
+    /**
+     * @brief Use external (passed to constructor) composite_disposable_wrapper as disposable strategy
+     */
+    using external_disposable_strategy = composite_disposable_wrapper;
+
     template<typename T>
     concept has_disposable_strategy = requires { typename T::preferred_disposable_strategy; };
 
@@ -75,7 +69,7 @@ namespace rpp::details::observers
             if constexpr (has_disposable_strategy<T>)
                 return static_cast<typename T::preferred_disposable_strategy*>(nullptr);
             else
-                return static_cast<dynamic_local_disposable_strategy<atomic_bool>*>(nullptr);
+                return static_cast<dynamic_disposable_strategy<atomic_bool>*>(nullptr);
         }
     } // namespace details
 

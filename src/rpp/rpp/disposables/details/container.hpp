@@ -155,6 +155,7 @@ namespace rpp::details::disposables
     template<>
     class static_disposables_container<0>
     {
+    public:
         [[noreturn]] static void push_back(const rpp::disposable_wrapper&)
         {
             throw rpp::utils::more_disposables_than_expected{"static_disposables_container<0> expected none disposables but obtained at least one"};
