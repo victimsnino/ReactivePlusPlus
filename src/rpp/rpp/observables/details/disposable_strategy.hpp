@@ -15,42 +15,28 @@
 
 namespace rpp::details::observables
 {
-    enum class AtomicMode
-    {
-        NonAtomic = 0,
-        Atomic    = 1
-    };
-
-    template<AtomicMode Mode>
-    using deduce_atomic_bool = std::conditional_t<Mode == AtomicMode::Atomic, observers::atomic_bool, observers::non_atomic_bool>;
-
-    template<AtomicMode Mode = AtomicMode::NonAtomic>
     struct dynamic_disposable_strategy
     {
         template<size_t Count>
         using add = dynamic_disposable_strategy<Mode>;
 
         using disposables_container        = disposables::dynamic_disposables_container;
-        using observer_disposable_strategy = observers::dynamic_disposable_strategy<deduce_atomic_bool<Mode>>;
+        using observer_disposable_strategy = observers::dynamic_disposable_strategy<>;
     };
 
-    using default_disposable_strategy = dynamic_disposable_strategy<>;
+    using default_disposable_strategy = dynamic_disposable_strategy;
 
-    template<size_t Count, AtomicMode Mode = AtomicMode::NonAtomic>
+    template<size_t Count>
     struct fixed_disposable_strategy
     {
         template<size_t AddCount>
-        using add = fixed_disposable_strategy<Count + AddCount, Mode>;
+        using add = fixed_disposable_strategy<Count + AddCount>;
 
         using disposables_container        = disposables::static_disposables_container<Count>;
-        using observer_disposable_strategy = observers::static_disposable_strategy<Count, deduce_atomic_bool<Mode>>;
+        using observer_disposable_strategy = observers::static_disposable_strategy<Count>;
     };
 
-    template<size_t Count>
-    using atomic_fixed_disposable_strategy = fixed_disposable_strategy<Count, AtomicMode::Atomic>;
-
-    using bool_disposable_strategy        = fixed_disposable_strategy<0, AtomicMode::NonAtomic>;
-    using atomic_bool_disposable_strategy = fixed_disposable_strategy<0, AtomicMode::Atomic>;
+    using bool_disposable_strategy = fixed_disposable_strategy<0>;
 
     namespace details
     {

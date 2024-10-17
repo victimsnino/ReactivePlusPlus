@@ -40,10 +40,7 @@ namespace rpp::details::observers
         };
     } // namespace constraint
 
-    class atomic_bool;
-    class non_atomic_bool;
-
-    template<typename DisposableContainer, rpp::constraint::any_of<atomic_bool, non_atomic_bool> Bool>
+    template<typename DisposableContainer>
     class local_disposable_strategy;
 
     /**
@@ -54,14 +51,13 @@ namespace rpp::details::observers
     /**
      * @brief Keep disposables inside dynamic_disposables_container container (based on std::vector)
      */
-    template<rpp::constraint::any_of<atomic_bool, non_atomic_bool> Bool>
-    using dynamic_disposable_strategy = local_disposable_strategy<disposables::dynamic_disposables_container, Bool>;
+    using dynamic_disposable_strategy = local_disposable_strategy<disposables::dynamic_disposables_container>;
 
     /**
      * @brief Keep disposables inside static_disposables_container container (based on std::array)
      */
-    template<size_t Count, rpp::constraint::any_of<atomic_bool, non_atomic_bool> Bool>
-    using static_disposable_strategy = local_disposable_strategy<disposables::static_disposables_container<Count>, Bool>;
+    template<size_t Count>
+    using static_disposable_strategy = local_disposable_strategy<disposables::static_disposables_container<Count>>;
 
     namespace details
     {
@@ -71,7 +67,7 @@ namespace rpp::details::observers
             static_assert(mode == disposable_mode::Auto || mode == disposable_mode::None || mode == disposable_mode::External);
 
             if constexpr (mode == disposable_mode::Auto)
-                return static_cast<dynamic_disposable_strategy<atomic_bool>*>(nullptr);
+                return static_cast<dynamic_disposable_strategy*>(nullptr);
             else if constexpr (mode == disposable_mode::None)
                 return static_cast<none_disposable_strategy*>(nullptr);
             else if constexpr (mode == disposable_mode::External)

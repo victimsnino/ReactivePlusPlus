@@ -72,7 +72,7 @@ namespace rpp::subjects::details
         using state_t          = std::variant<shared_observers, std::exception_ptr, completed, disposed>;
 
     public:
-        using optimal_disposable_strategy = rpp::details::observables::atomic_fixed_disposable_strategy<1>;
+        using optimal_disposable_strategy = rpp::details::observables::fixed_disposable_strategy<1>;
 
         subject_state() = default;
 
@@ -165,7 +165,7 @@ namespace rpp::subjects::details
                              current_subs->cend(),
                              std::back_inserter(*subs),
                              [&to_delete](const observer& obs) {
-                                 return to_delete != obs.get() && !obs->is_disposed();
+                                 return to_delete != obs.get();
                              });
             }
             return subs;
