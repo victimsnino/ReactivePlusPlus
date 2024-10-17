@@ -189,8 +189,8 @@ namespace rpp
             using strategy = rpp::details::observers::lambda_strategy<Type, std::decay_t<OnNext>, std::decay_t<OnError>, std::decay_t<OnCompleted>>;
 
             subscribe(observer<Type, rpp::details::observers::override_disposable_strategy<strategy, typename expected_disposable_strategy::disposable_strategy>>{std::forward<OnNext>(on_next),
-                                                                                                                           std::forward<OnError>(on_error),
-                                                                                                                           std::forward<OnCompleted>(on_completed)});
+                                                                                                                                                                  std::forward<OnError>(on_error),
+                                                                                                                                                                  std::forward<OnCompleted>(on_completed)});
         }
 
         /**

@@ -72,14 +72,14 @@ namespace rpp
                               OnNext&&                                 on_next,
                               OnError&&                                on_error,
                               OnCompleted&&                            on_completed) -> lambda_observer_with_external_disposable<Type,
-                                                                                             std::decay_t<OnNext>,
-                                                                                             std::decay_t<OnError>,
-                                                                                             std::decay_t<OnCompleted>>
+                                                                                                      std::decay_t<OnNext>,
+                                                                                                      std::decay_t<OnError>,
+                                                                                                      std::decay_t<OnCompleted>>
     {
         return lambda_observer_with_external_disposable<Type,
-                                               std::decay_t<OnNext>,
-                                               std::decay_t<OnError>,
-                                               std::decay_t<OnCompleted>>{
+                                                        std::decay_t<OnNext>,
+                                                        std::decay_t<OnError>,
+                                                        std::decay_t<OnCompleted>>{
             d,
             std::forward<OnNext>(on_next),
             std::forward<OnError>(on_error),

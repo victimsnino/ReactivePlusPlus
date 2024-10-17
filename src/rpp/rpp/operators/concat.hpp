@@ -163,7 +163,7 @@ namespace rpp::operators::details
     template<rpp::constraint::observable TObservable, rpp::constraint::observer TObserver>
     struct concat_observer_strategy : public concat_observer_strategy_base<TObservable, TObserver>
     {
-        using base                          = concat_observer_strategy_base<TObservable, TObserver>;
+        using base                                      = concat_observer_strategy_base<TObservable, TObserver>;
         static constexpr auto preferred_disposable_mode = rpp::details::observers::disposable_mode::None;
 
         concat_observer_strategy(TObserver&& observer)

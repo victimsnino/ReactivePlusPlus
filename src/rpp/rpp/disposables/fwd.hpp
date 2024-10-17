@@ -57,7 +57,7 @@ namespace rpp::details::disposables
      * @brief Container with std::vector as underlying storage.
      */
     class dynamic_disposables_container;
-    
+
     /**
      * @brief Container with fixed std::array as underlying storage.
      */

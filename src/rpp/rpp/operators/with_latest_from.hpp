@@ -81,8 +81,8 @@ namespace rpp::operators::details
         requires std::invocable<TSelector, OriginalValue, RestArgs...>
     struct with_latest_from_observer_strategy
     {
-        using Disposable                    = with_latest_from_state<Observer, TSelector, RestArgs...>;
-        using Result                        = std::invoke_result_t<TSelector, OriginalValue, RestArgs...>;
+        using Disposable                                = with_latest_from_state<Observer, TSelector, RestArgs...>;
+        using Result                                    = std::invoke_result_t<TSelector, OriginalValue, RestArgs...>;
         static constexpr auto preferred_disposable_mode = rpp::details::observers::disposable_mode::None;
 
         std::shared_ptr<Disposable> state{};

@@ -21,7 +21,7 @@ namespace rpp::operators::details
     struct reduce_observer_strategy
     {
         static constexpr auto preferred_disposable_mode = rpp::details::observers::disposable_mode::None;
-        using Seed                          = rpp::utils::extract_observer_type_t<TObserver>;
+        using Seed                                      = rpp::utils::extract_observer_type_t<TObserver>;
 
         RPP_NO_UNIQUE_ADDRESS TObserver    observer;
         RPP_NO_UNIQUE_ADDRESS mutable Seed seed;
@@ -70,7 +70,7 @@ namespace rpp::operators::details
     struct reduce_no_seed_observer_strategy
     {
         static constexpr auto preferred_disposable_mode = rpp::details::observers::disposable_mode::None;
-        using Seed                          = rpp::utils::extract_observer_type_t<TObserver>;
+        using Seed                                      = rpp::utils::extract_observer_type_t<TObserver>;
 
         RPP_NO_UNIQUE_ADDRESS TObserver   observer;
         RPP_NO_UNIQUE_ADDRESS Accumulator accumulator;

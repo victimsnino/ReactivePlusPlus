@@ -22,8 +22,8 @@ namespace rpp::details::disposables
     public:
         explicit dynamic_disposables_container() = default;
 
-        dynamic_disposables_container(const dynamic_disposables_container&)                      = delete;
-        dynamic_disposables_container(dynamic_disposables_container&& other) noexcept            = default;
+        dynamic_disposables_container(const dynamic_disposables_container&)           = delete;
+        dynamic_disposables_container(dynamic_disposables_container&& other) noexcept = default;
 
         dynamic_disposables_container& operator=(const dynamic_disposables_container& other)     = delete;
         dynamic_disposables_container& operator=(dynamic_disposables_container&& other) noexcept = default;
