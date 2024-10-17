@@ -19,7 +19,7 @@
 
 namespace rpp::operators::details
 {
-    template<rpp::constraint::observer TObserver, rpp::constraint::observable TFallbackObservable, rpp::details::disposables::constraint::disposable_container Container>
+    template<rpp::constraint::observer TObserver, rpp::constraint::observable TFallbackObservable, rpp::details::disposables::constraint::disposables_container Container>
     class timeout_disposable final : public rpp::composite_disposable_impl<Container>
     {
     public:
@@ -48,7 +48,7 @@ namespace rpp::operators::details
         RPP_NO_UNIQUE_ADDRESS const TFallbackObservable m_fallback;
     };
 
-    template<rpp::constraint::observer TObserver, rpp::constraint::observable TFallbackObservable, rpp::details::disposables::constraint::disposable_container Container>
+    template<rpp::constraint::observer TObserver, rpp::constraint::observable TFallbackObservable, rpp::details::disposables::constraint::disposables_container Container>
     struct timeout_disposable_wrapper
     {
         std::shared_ptr<timeout_disposable<TObserver, TFallbackObservable, Container>> disposable;
@@ -61,7 +61,7 @@ namespace rpp::operators::details
         }
     };
 
-    template<rpp::constraint::observer TObserver, rpp::constraint::observable TFallbackObservable, rpp::details::disposables::constraint::disposable_container Container, rpp::schedulers::constraint::scheduler TScheduler>
+    template<rpp::constraint::observer TObserver, rpp::constraint::observable TFallbackObservable, rpp::details::disposables::constraint::disposables_container Container, rpp::schedulers::constraint::scheduler TScheduler>
     struct timeout_observer_strategy
     {
         using preferred_disposable_strategy = rpp::details::observers::none_disposable_strategy;
@@ -122,7 +122,7 @@ namespace rpp::operators::details
         auto lift_with_disposable_strategy(Observer&& observer) const
         {
             using worker_t  = rpp::schedulers::utils::get_worker_t<TScheduler>;
-            using container = typename DisposableStrategy::disposable_container;
+            using container = typename DisposableStrategy::disposables_container;
 
             const auto timeout = worker_t::now() + period;
 

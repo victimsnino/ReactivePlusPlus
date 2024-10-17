@@ -144,7 +144,7 @@ namespace rpp
         [[nodiscard("Use returned disposable or use subscribe(observer) instead")]] composite_disposable_wrapper subscribe_with_disposable(observer<Type, ObserverStrategy>&& observer) const
         {
             if (!observer.is_disposed())
-                return subscribe(rpp::composite_disposable_wrapper::make<rpp::composite_disposable_impl<typename expected_disposable_strategy::disposable_container>>(), std::move(observer));
+                return subscribe(rpp::composite_disposable_wrapper::make<rpp::composite_disposable_impl<typename expected_disposable_strategy::disposables_container>>(), std::move(observer));
             return composite_disposable_wrapper::empty();
         }
 
@@ -159,7 +159,7 @@ namespace rpp
             requires (!constraint::observer<ObserverStrategy>)
         [[nodiscard("Use returned disposable or use subscribe(observer) instead")]] composite_disposable_wrapper subscribe_with_disposable(ObserverStrategy&& observer_strategy) const
         {
-            return subscribe(rpp::composite_disposable_wrapper::make<rpp::composite_disposable_impl<typename expected_disposable_strategy::disposable_container>>(), std::forward<ObserverStrategy>(observer_strategy));
+            return subscribe(rpp::composite_disposable_wrapper::make<rpp::composite_disposable_impl<typename expected_disposable_strategy::disposables_container>>(), std::forward<ObserverStrategy>(observer_strategy));
         }
 
         /**
@@ -173,7 +173,7 @@ namespace rpp
          */
         [[nodiscard("Use returned disposable or use subscribe(observer) instead")]] composite_disposable_wrapper subscribe_with_disposable(dynamic_observer<Type> observer) const
         {
-            return subscribe<details::observers::dynamic_strategy<Type>>(rpp::composite_disposable_wrapper::make<rpp::composite_disposable_impl<typename expected_disposable_strategy::disposable_container>>(), std::move(observer));
+            return subscribe<details::observers::dynamic_strategy<Type>>(rpp::composite_disposable_wrapper::make<rpp::composite_disposable_impl<typename expected_disposable_strategy::disposables_container>>(), std::move(observer));
         }
 
         /**
@@ -216,7 +216,7 @@ namespace rpp
                  std::invocable<>                          OnCompleted = rpp::utils::empty_function_t<>>
         [[nodiscard("Use returned disposable or use subscribe(on_next, on_error, on_completed) instead")]] composite_disposable_wrapper subscribe_with_disposable(OnNext&& on_next, OnError&& on_error = {}, OnCompleted&& on_completed = {}) const
         {
-            auto res = rpp::composite_disposable_wrapper::make<rpp::composite_disposable_impl<typename expected_disposable_strategy::disposable_container>>();
+            auto res = rpp::composite_disposable_wrapper::make<rpp::composite_disposable_impl<typename expected_disposable_strategy::disposables_container>>();
             subscribe(make_lambda_observer<Type>(res,
                                                  std::forward<OnNext>(on_next),
                                                  std::forward<OnError>(on_error),

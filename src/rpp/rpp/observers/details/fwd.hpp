@@ -32,8 +32,8 @@ namespace rpp::details::observers
     /**
      * @brief Dynamic disposable logic based on pre-allocated vector
      */
-    template<size_t Count, rpp::constraint::any_of<atomic_bool, non_atomic_bool> Bool>
-    using dynamic_local_disposable_strategy = local_disposable_strategy<disposables::dynamic_disposables_container<Count>, Bool>;
+    template<rpp::constraint::any_of<atomic_bool, non_atomic_bool> Bool>
+    using dynamic_local_disposable_strategy = local_disposable_strategy<disposables::dynamic_disposables_container, Bool>;
 
     /**
      * @brief Same as dynamic strategy, but based on array.
@@ -75,7 +75,7 @@ namespace rpp::details::observers
             if constexpr (has_disposable_strategy<T>)
                 return static_cast<typename T::preferred_disposable_strategy*>(nullptr);
             else
-                return static_cast<dynamic_local_disposable_strategy<0, atomic_bool>*>(nullptr);
+                return static_cast<dynamic_local_disposable_strategy<atomic_bool>*>(nullptr);
         }
     } // namespace details
 

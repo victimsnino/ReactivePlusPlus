@@ -24,27 +24,17 @@ namespace rpp::details::observables
     template<AtomicMode Mode>
     using deduce_atomic_bool = std::conditional_t<Mode == AtomicMode::Atomic, observers::atomic_bool, observers::non_atomic_bool>;
 
-    template<size_t PreallocatedCount = 0, AtomicMode Mode = AtomicMode::NonAtomic>
+    template<AtomicMode Mode = AtomicMode::NonAtomic>
     struct dynamic_disposable_strategy_selector
     {
         template<size_t Count>
-        using add = dynamic_disposable_strategy_selector<PreallocatedCount + Count, Mode>;
+        using add = dynamic_disposable_strategy_selector<Mode>;
 
-        using disposable_container = disposables::dynamic_disposables_container<PreallocatedCount>;
-        using disposable_strategy  = observers::dynamic_local_disposable_strategy<PreallocatedCount, deduce_atomic_bool<Mode>>;
+        using disposables_container = disposables::dynamic_disposables_container;
+        using disposable_strategy  = observers::dynamic_local_disposable_strategy<deduce_atomic_bool<Mode>>;
     };
 
-    template<size_t Count>
-    using atomic_dynamic_disposable_strategy_selector = dynamic_disposable_strategy_selector<Count, AtomicMode::Atomic>;
-
-    struct default_disposable_strategy_selector
-    {
-        template<size_t Count>
-        using add = default_disposable_strategy_selector;
-
-        using disposable_container = dynamic_disposable_strategy_selector<0, AtomicMode::Atomic>::disposable_container;
-        using disposable_strategy  = dynamic_disposable_strategy_selector<0, AtomicMode::Atomic>::disposable_strategy;
-    };
+    using default_disposable_strategy_selector = dynamic_disposable_strategy_selector<>;
 
     template<size_t Count, AtomicMode Mode = AtomicMode::NonAtomic>
     struct fixed_disposable_strategy_selector
@@ -52,18 +42,8 @@ namespace rpp::details::observables
         template<size_t AddCount>
         using add = fixed_disposable_strategy_selector<Count + AddCount, Mode>;
 
-        using disposable_container = disposables::static_disposables_container<Count>;
+        using disposables_container = disposables::static_disposables_container<Count>;
         using disposable_strategy  = observers::static_local_disposable_strategy<Count, deduce_atomic_bool<Mode>>;
-    };
-
-    template<AtomicMode Mode>
-    struct fixed_disposable_strategy_selector<0, Mode>
-    {
-        template<size_t Count>
-        using add = fixed_disposable_strategy_selector<Count, Mode>;
-
-        using disposable_container = default_disposable_strategy_selector::disposable_container;
-        using disposable_strategy  = observers::bool_local_disposable_strategy<deduce_atomic_bool<Mode>>;
     };
 
     template<size_t Count>
@@ -112,7 +92,7 @@ namespace rpp::details::observables
         concept disposable_strategy = requires(const T&) {
             typename T::template add<size_t{}>;
             typename T::disposable_strategy;
-            typename T::disposable_container;
+            typename T::disposables_container;
             requires observers::constraint::disposable_strategy<typename T::disposable_strategy>;
         };
     } // namespace constraint
