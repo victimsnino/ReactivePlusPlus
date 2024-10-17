@@ -25,33 +25,32 @@ namespace rpp::details::observables
     using deduce_atomic_bool = std::conditional_t<Mode == AtomicMode::Atomic, observers::atomic_bool, observers::non_atomic_bool>;
 
     template<AtomicMode Mode = AtomicMode::NonAtomic>
-    struct dynamic_disposable_strategy_selector
+    struct dynamic_disposable_strategy
     {
         template<size_t Count>
-        using add = dynamic_disposable_strategy_selector<Mode>;
+        using add = dynamic_disposable_strategy<Mode>;
 
         using disposables_container = disposables::dynamic_disposables_container;
         using disposable_strategy   = observers::dynamic_disposable_strategy<deduce_atomic_bool<Mode>>;
     };
 
-    using default_disposable_strategy_selector = dynamic_disposable_strategy_selector<>;
+    using default_disposable_strategy = dynamic_disposable_strategy<>;
 
     template<size_t Count, AtomicMode Mode = AtomicMode::NonAtomic>
-    struct fixed_disposable_strategy_selector
+    struct fixed_disposable_strategy
     {
         template<size_t AddCount>
-        using add = fixed_disposable_strategy_selector<Count + AddCount, Mode>;
+        using add = fixed_disposable_strategy<Count + AddCount, Mode>;
 
         using disposables_container = disposables::static_disposables_container<Count>;
         using disposable_strategy   = observers::static_disposable_strategy<Count, deduce_atomic_bool<Mode>>;
     };
 
     template<size_t Count>
-    using atomic_fixed_disposable_strategy_selector = fixed_disposable_strategy_selector<Count, AtomicMode::Atomic>;
+    using atomic_fixed_disposable_strategy = fixed_disposable_strategy<Count, AtomicMode::Atomic>;
 
-    using bool_disposable_strategy_selector        = fixed_disposable_strategy_selector<0, AtomicMode::NonAtomic>;
-    using atomic_bool_disposable_strategy_selector = fixed_disposable_strategy_selector<0, AtomicMode::Atomic>;
-
+    using bool_disposable_strategy        = fixed_disposable_strategy<0, AtomicMode::NonAtomic>;
+    using atomic_bool_disposable_strategy = fixed_disposable_strategy<0, AtomicMode::Atomic>;
 
     namespace details
     {
@@ -64,7 +63,7 @@ namespace rpp::details::observables
             if constexpr (has_expected_disposable_strategy<T>)
                 return static_cast<typename T::optimal_disposable_strategy*>(nullptr);
             else
-                return static_cast<default_disposable_strategy_selector*>(nullptr);
+                return static_cast<default_disposable_strategy*>(nullptr);
         }
 
         template<typename T, typename Prev>
@@ -76,7 +75,7 @@ namespace rpp::details::observables
             if constexpr (has_optimal_disposable_strategy_after_operator<T, Prev>)
                 return static_cast<typename T::template optimal_disposable_strategy_after_operator<Prev>*>(nullptr);
             else
-                return static_cast<default_disposable_strategy_selector*>(nullptr);
+                return static_cast<default_disposable_strategy*>(nullptr);
         }
     } // namespace details
 

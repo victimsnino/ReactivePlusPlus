@@ -19,7 +19,7 @@ namespace rpp::details
     struct never_strategy
     {
         using value_type                  = Type;
-        using optimal_disposable_strategy = rpp::details::observables::bool_disposable_strategy_selector;
+        using optimal_disposable_strategy = rpp::details::observables::bool_disposable_strategy;
 
         static void subscribe(const auto&) {}
     };

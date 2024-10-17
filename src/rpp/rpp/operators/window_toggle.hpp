@@ -204,7 +204,7 @@ namespace rpp::operators::details
         };
 
         template<rpp::details::observables::constraint::disposable_strategy Prev>
-        using optimal_disposable_strategy_after_operator = rpp::details::observables::fixed_disposable_strategy_selector<1>;
+        using optimal_disposable_strategy_after_operator = rpp::details::observables::fixed_disposable_strategy<1>;
     };
 } // namespace rpp::operators::details
 
