@@ -59,6 +59,8 @@ namespace rpp::details::observers
     template<size_t Count>
     using static_disposable_strategy = local_disposable_strategy<disposables::static_disposables_container<Count>>;
 
+    using default_disposable_strategy = dynamic_disposable_strategy;
+
     namespace details
     {
         template<disposable_mode mode>
@@ -67,7 +69,7 @@ namespace rpp::details::observers
             static_assert(mode == disposable_mode::Auto || mode == disposable_mode::None || mode == disposable_mode::External);
 
             if constexpr (mode == disposable_mode::Auto)
-                return static_cast<dynamic_disposable_strategy*>(nullptr);
+                return static_cast<default_disposable_strategy*>(nullptr);
             else if constexpr (mode == disposable_mode::None)
                 return static_cast<none_disposable_strategy*>(nullptr);
             else if constexpr (mode == disposable_mode::External)

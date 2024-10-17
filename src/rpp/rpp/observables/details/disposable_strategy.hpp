@@ -21,10 +21,9 @@ namespace rpp::details::observables
         using add = dynamic_disposable_strategy<Mode>;
 
         using disposables_container        = disposables::dynamic_disposables_container;
-        using observer_disposable_strategy = observers::dynamic_disposable_strategy<>;
+        using observer_disposable_strategy = observers::dynamic_disposable_strategy;
     };
 
-    using default_disposable_strategy = dynamic_disposable_strategy;
 
     template<size_t Count>
     struct fixed_disposable_strategy
@@ -36,7 +35,7 @@ namespace rpp::details::observables
         using observer_disposable_strategy = observers::static_disposable_strategy<Count>;
     };
 
-    using bool_disposable_strategy = fixed_disposable_strategy<0>;
+    using default_disposable_strategy = dynamic_disposable_strategy;
 
     namespace details
     {
