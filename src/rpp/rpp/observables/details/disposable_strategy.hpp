@@ -35,29 +35,13 @@ namespace rpp::details::observables
     };
 
     using default_disposable_strategy = dynamic_disposable_strategy;
-
     namespace details
     {
         template<typename T>
-        concept has_expected_disposable_strategy = requires { typename T::optimal_disposable_strategy; };
-
-        template<typename T>
         consteval auto* deduce_optimal_disposable_strategy()
         {
-            if constexpr (has_expected_disposable_strategy<T>)
+            if constexpr (requires { typename T::optimal_disposable_strategy; })
                 return static_cast<typename T::optimal_disposable_strategy*>(nullptr);
-            else
-                return static_cast<default_disposable_strategy*>(nullptr);
-        }
-
-        template<typename T, typename Prev>
-        concept has_updated_optimal_disposable_strategy = requires { typename T::template updated_optimal_disposable_strategy<Prev>; };
-
-        template<typename T, typename Prev>
-        consteval auto* deduce_updated_optimal_disposable_strategy()
-        {
-            if constexpr (has_updated_optimal_disposable_strategy<T, Prev>)
-                return static_cast<typename T::template updated_optimal_disposable_strategy<Prev>*>(nullptr);
             else
                 return static_cast<default_disposable_strategy*>(nullptr);
         }
@@ -65,9 +49,6 @@ namespace rpp::details::observables
 
     template<typename T>
     using deduce_optimal_disposable_strategy_t = std::remove_pointer_t<decltype(details::deduce_optimal_disposable_strategy<T>())>;
-
-    template<typename T, typename Prev>
-    using deduce_updated_optimal_disposable_strategy_t = std::remove_pointer_t<decltype(details::deduce_updated_optimal_disposable_strategy<T, Prev>())>;
 
     namespace constraint
     {

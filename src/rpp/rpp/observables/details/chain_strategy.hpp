@@ -27,7 +27,7 @@ namespace rpp::details::observables
         static_assert(rpp::constraint::operator_chain<TStrategy, typename base::value_type, typename base::optimal_disposable_strategy>);
 
     public:
-        using optimal_disposable_strategy = deduce_updated_optimal_disposable_strategy_t<TStrategy, typename base::optimal_disposable_strategy>;
+        using optimal_disposable_strategy = typename TStrategy::template updated_optimal_disposable_strategy<typename base::optimal_disposable_strategy>;
         using value_type                  = typename operator_traits::result_type;
 
         chain(const TStrategy& strategy, const TStrategies&... strategies)
