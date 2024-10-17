@@ -18,7 +18,7 @@ namespace rpp::details::observables
     struct dynamic_disposable_strategy
     {
         template<size_t Count>
-        using add = dynamic_disposable_strategy<Mode>;
+        using add = dynamic_disposable_strategy;
 
         using disposables_container        = disposables::dynamic_disposables_container;
         using observer_disposable_strategy = observers::dynamic_disposable_strategy;

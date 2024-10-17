@@ -78,7 +78,7 @@ namespace rpp
         void subscribe(ObserverStrategy&& observer_strategy) const
         {
             if constexpr (ObserverStrategy::preferred_disposable_mode == rpp::details::observers::disposable_mode::Auto)
-                subscribe(rpp::observer<Type, rpp::details::observers::override_disposable_strategy<std::decay_t<ObserverStrategy>, typename optimal_disposable_strategy::disposable_strategy>>{std::forward<ObserverStrategy>(observer_strategy)});
+                subscribe(rpp::observer<Type, rpp::details::observers::override_disposable_strategy<std::decay_t<ObserverStrategy>, typename optimal_disposable_strategy::observer_disposable_strategy>>{std::forward<ObserverStrategy>(observer_strategy)});
             else
                 subscribe(rpp::observer<Type, std::decay_t<ObserverStrategy>>{std::forward<ObserverStrategy>(observer_strategy)});
         }
@@ -188,9 +188,9 @@ namespace rpp
         {
             using strategy = rpp::details::observers::lambda_strategy<Type, std::decay_t<OnNext>, std::decay_t<OnError>, std::decay_t<OnCompleted>>;
 
-            subscribe(observer<Type, rpp::details::observers::override_disposable_strategy<strategy, typename optimal_disposable_strategy::disposable_strategy>>{std::forward<OnNext>(on_next),
-                                                                                                                                                                 std::forward<OnError>(on_error),
-                                                                                                                                                                 std::forward<OnCompleted>(on_completed)});
+            subscribe(observer<Type, rpp::details::observers::override_disposable_strategy<strategy, typename optimal_disposable_strategy::observer_disposable_strategy>>{std::forward<OnNext>(on_next),
+                                                                                                                                                                          std::forward<OnError>(on_error),
+                                                                                                                                                                          std::forward<OnCompleted>(on_completed)});
         }
 
         /**
