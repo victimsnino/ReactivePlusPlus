@@ -141,7 +141,7 @@ void test_operator_over_observable_with_disposable(auto&& op)
 
     SUBCASE("set_upstream with dynamic_disposable_strategy")
     {
-        CHECK_NOTHROW(op(rpp::observable<T, wrapped_observable_strategy_set_upstream<T, rpp::details::observables::dynamic_disposable_strategy<>>>{})
+        CHECK_NOTHROW(op(rpp::observable<T, wrapped_observable_strategy_set_upstream<T, rpp::details::observables::dynamic_disposable_strategy>>{})
                           .subscribe([](const auto&) {}, rpp::utils::rethrow_error_t{}));
     }
 
@@ -159,7 +159,7 @@ void test_operator_over_observable_with_disposable(auto&& op)
 
     SUBCASE("dynamic_disposable_strategy")
     {
-        CHECK_NOTHROW(op(rpp::observable<T, wrapped_observable_strategy_no_set_upstream<T, rpp::details::observables::dynamic_disposable_strategy<>>>{})
+        CHECK_NOTHROW(op(rpp::observable<T, wrapped_observable_strategy_no_set_upstream<T, rpp::details::observables::dynamic_disposable_strategy>>{})
                           .subscribe([](const auto&) {}, rpp::utils::rethrow_error_t{}));
     }
 

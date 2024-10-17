@@ -22,7 +22,10 @@ namespace rpp::constraint
         {
             strategy.subscribe(std::move(observer))
         } -> std::same_as<void>;
+
         typename S::value_type;
+        typename S::optimal_disposable_strategy;
+        requires rpp::details::observables::constraint::disposable_strategy<typename S::optimal_disposable_strategy>;
     };
 } // namespace rpp::constraint
 

@@ -24,7 +24,6 @@ namespace rpp::details::observables
         using observer_disposable_strategy = observers::dynamic_disposable_strategy;
     };
 
-
     template<size_t Count>
     struct fixed_disposable_strategy
     {
