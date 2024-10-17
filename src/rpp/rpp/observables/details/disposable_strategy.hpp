@@ -30,8 +30,8 @@ namespace rpp::details::observables
         template<size_t Count>
         using add = dynamic_disposable_strategy<Mode>;
 
-        using disposables_container = disposables::dynamic_disposables_container;
-        using disposable_strategy   = observers::dynamic_disposable_strategy<deduce_atomic_bool<Mode>>;
+        using disposables_container        = disposables::dynamic_disposables_container;
+        using observer_disposable_strategy = observers::dynamic_disposable_strategy<deduce_atomic_bool<Mode>>;
     };
 
     using default_disposable_strategy = dynamic_disposable_strategy<>;
@@ -42,8 +42,8 @@ namespace rpp::details::observables
         template<size_t AddCount>
         using add = fixed_disposable_strategy<Count + AddCount, Mode>;
 
-        using disposables_container = disposables::static_disposables_container<Count>;
-        using disposable_strategy   = observers::static_disposable_strategy<Count, deduce_atomic_bool<Mode>>;
+        using disposables_container        = disposables::static_disposables_container<Count>;
+        using observer_disposable_strategy = observers::static_disposable_strategy<Count, deduce_atomic_bool<Mode>>;
     };
 
     template<size_t Count>
@@ -90,9 +90,9 @@ namespace rpp::details::observables
         template<typename T>
         concept disposable_strategy = requires(const T&) {
             typename T::template add<size_t{}>;
-            typename T::disposable_strategy;
+            typename T::observer_disposable_strategy;
             typename T::disposables_container;
-            requires observers::constraint::disposable_strategy<typename T::disposable_strategy>;
+            requires observers::constraint::disposable_strategy<typename T::observer_disposable_strategy>;
         };
     } // namespace constraint
 } // namespace rpp::details::observables
