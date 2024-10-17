@@ -44,7 +44,7 @@ namespace rpp::operators::details
     template<rpp::constraint::observer TObserver, typename TObservable>
     struct retry_observer_strategy
     {
-        using preferred_disposable_strategy = rpp::details::observers::none_disposable_strategy;
+        static constexpr auto preferred_disposable_mode = rpp::details::observers::disposable_mode::None;
 
         std::shared_ptr<retry_state_t<TObserver, TObservable>> state;
         mutable bool                                           locally_disposed{};

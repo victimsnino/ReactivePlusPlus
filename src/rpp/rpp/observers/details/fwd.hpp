@@ -18,6 +18,16 @@
 
 namespace rpp::details::observers
 {
+    enum class disposable_mode : uint8_t
+    {
+        // Let observer deduce disposable mode
+        Auto = 0,
+        // No any disposable logic for observer expected
+        None = 1,
+        // Use external (passed to constructor) composite_disposable_wrapper as disposable
+        External = 2
+    };
+
     namespace constraint
     {
         template<typename T>
@@ -53,26 +63,19 @@ namespace rpp::details::observers
     template<size_t Count, rpp::constraint::any_of<atomic_bool, non_atomic_bool> Bool>
     using static_disposable_strategy = local_disposable_strategy<disposables::static_disposables_container<Count>, Bool>;
 
-    /**
-     * @brief Use external (passed to constructor) composite_disposable_wrapper as disposable strategy
-     */
-    using external_disposable_strategy = composite_disposable_wrapper;
-
-    template<typename T>
-    concept has_disposable_strategy = requires { typename T::preferred_disposable_strategy; };
-
     namespace details
     {
-        template<typename T>
+        template<disposable_mode mode>
         consteval auto* deduce_disposable_strategy()
         {
-            if constexpr (has_disposable_strategy<T>)
-                return static_cast<typename T::preferred_disposable_strategy*>(nullptr);
-            else
-                return static_cast<dynamic_disposable_strategy<atomic_bool>*>(nullptr);
+            static_assert(mode == disposable_mode::Auto || mode == disposable_mode::None || mode == disposable_mode::External);
+
+            if constexpr (mode == disposable_mode::Auto) return static_cast<dynamic_disposable_strategy<atomic_bool>*>(nullptr);
+            else if constexpr (mode == disposable_mode::None) return static_cast<none_disposable_strategy*>(nullptr);
+            else if constexpr (mode == disposable_mode::External) return static_cast<composite_disposable_wrapper*>(nullptr);
         }
     } // namespace details
 
-    template<typename T>
-    using deduce_disposable_strategy_t = std::remove_pointer_t<decltype(details::deduce_disposable_strategy<T>())>;
+    template<rpp::details::observers::disposable_mode Mode>
+    using deduce_disposable_strategy_t = std::remove_pointer_t<decltype(details::deduce_disposable_strategy<Mode>())>;
 } // namespace rpp::details::observers

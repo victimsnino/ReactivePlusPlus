@@ -91,6 +91,8 @@ namespace rpp::details::observers
     class dynamic_strategy final
     {
     public:
+        static constexpr auto preferred_disposable_mode = rpp::details::observers::disposable_mode::None;
+
         template<rpp::constraint::observer_strategy<Type> Strategy>
             requires (!rpp::constraint::decayed_same_as<Strategy, dynamic_strategy<Type>>)
         explicit dynamic_strategy(observer<Type, Strategy>&& obs)

@@ -20,7 +20,7 @@ namespace rpp::operators::details
     template<rpp::constraint::observer TObserver, rpp::constraint::decayed_type Accumulator>
     struct reduce_observer_strategy
     {
-        using preferred_disposable_strategy = rpp::details::observers::none_disposable_strategy;
+        static constexpr auto preferred_disposable_mode = rpp::details::observers::disposable_mode::None;
         using Seed                          = rpp::utils::extract_observer_type_t<TObserver>;
 
         RPP_NO_UNIQUE_ADDRESS TObserver    observer;
@@ -69,7 +69,7 @@ namespace rpp::operators::details
     template<rpp::constraint::observer TObserver, rpp::constraint::decayed_type Accumulator>
     struct reduce_no_seed_observer_strategy
     {
-        using preferred_disposable_strategy = rpp::details::observers::none_disposable_strategy;
+        static constexpr auto preferred_disposable_mode = rpp::details::observers::disposable_mode::None;
         using Seed                          = rpp::utils::extract_observer_type_t<TObserver>;
 
         RPP_NO_UNIQUE_ADDRESS TObserver   observer;

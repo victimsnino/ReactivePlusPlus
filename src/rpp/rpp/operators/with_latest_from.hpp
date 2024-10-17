@@ -83,7 +83,7 @@ namespace rpp::operators::details
     {
         using Disposable                    = with_latest_from_state<Observer, TSelector, RestArgs...>;
         using Result                        = std::invoke_result_t<TSelector, OriginalValue, RestArgs...>;
-        using preferred_disposable_strategy = rpp::details::observers::none_disposable_strategy;
+        static constexpr auto preferred_disposable_mode = rpp::details::observers::disposable_mode::None;
 
         std::shared_ptr<Disposable> state{};
 

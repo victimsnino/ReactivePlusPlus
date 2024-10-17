@@ -20,7 +20,7 @@ namespace rpp::operators::details
     template<rpp::constraint::observer TObserver>
     struct on_error_resume_next_inner_observer_strategy
     {
-        using preferred_disposable_strategy = rpp::details::observers::none_disposable_strategy;
+        static constexpr auto preferred_disposable_mode = rpp::details::observers::disposable_mode::None;
 
         std::shared_ptr<TObserver> observer;
 
@@ -49,7 +49,7 @@ namespace rpp::operators::details
     template<rpp::constraint::observer TObserver, rpp::constraint::decayed_type Selector>
     struct on_error_resume_next_observer_strategy
     {
-        using preferred_disposable_strategy = rpp::details::observers::none_disposable_strategy;
+        static constexpr auto preferred_disposable_mode = rpp::details::observers::disposable_mode::None;
 
         on_error_resume_next_observer_strategy(TObserver&& observer, const Selector& selector)
             : state{std::make_shared<TObserver>(std::move(observer))}

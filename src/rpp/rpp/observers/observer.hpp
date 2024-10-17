@@ -37,7 +37,7 @@ namespace rpp::details
         }
 
     public:
-        using preferred_disposable_strategy = observers::none_disposable_strategy;
+        static constexpr auto preferred_disposable_mode = rpp::details::observers::disposable_mode::None;
 
         using on_next_lvalue = void (observer_impl::*)(const Type&) const noexcept;
         using on_next_rvalue = void (observer_impl::*)(Type&&) const noexcept;
@@ -168,11 +168,11 @@ namespace rpp
     class observer;
 
     template<constraint::decayed_type Type, constraint::observer_strategy<Type> Strategy>
-    class observer final : public details::observer_impl<Type, Strategy, details::observers::deduce_disposable_strategy_t<Strategy>>
+    class observer final : public details::observer_impl<Type, Strategy, details::observers::deduce_disposable_strategy_t<Strategy::preferred_disposable_mode>>
     {
     public:
-        using DisposableStrategy = details::observers::deduce_disposable_strategy_t<Strategy>;
-        using Base               = details::observer_impl<Type, Strategy, details::observers::deduce_disposable_strategy_t<Strategy>>;
+        using DisposableStrategy = details::observers::deduce_disposable_strategy_t<Strategy::preferred_disposable_mode>;
+        using Base               = details::observer_impl<Type, Strategy, DisposableStrategy>;
 
         template<typename... Args>
             requires constraint::is_constructible_from<Strategy, Args&&...>
@@ -201,8 +201,7 @@ namespace rpp
     };
 
     template<constraint::decayed_type Type, constraint::observer_strategy<Type> Strategy, rpp::details::observers::constraint::disposable_strategy DisposableStrategy>
-    class observer<Type, details::with_disposable_strategy<Strategy, DisposableStrategy>> final
-        : public details::observer_impl<Type, Strategy, DisposableStrategy>
+    class observer<Type, details::observers::override_disposable_strategy<Strategy, DisposableStrategy>> final : public details::observer_impl<Type, Strategy, DisposableStrategy>
     {
     public:
         using Base = details::observer_impl<Type, Strategy, DisposableStrategy>;

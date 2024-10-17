@@ -164,7 +164,7 @@ namespace rpp::operators::details
     struct concat_observer_strategy : public concat_observer_strategy_base<TObservable, TObserver>
     {
         using base                          = concat_observer_strategy_base<TObservable, TObserver>;
-        using preferred_disposable_strategy = rpp::details::observers::none_disposable_strategy;
+        static constexpr auto preferred_disposable_mode = rpp::details::observers::disposable_mode::None;
 
         concat_observer_strategy(TObserver&& observer)
             : base{std::make_shared<concat_state_t<TObservable, TObserver>>(std::move(observer))}

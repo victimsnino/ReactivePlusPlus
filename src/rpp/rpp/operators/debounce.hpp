@@ -110,7 +110,7 @@ namespace rpp::operators::details
     template<rpp::constraint::observer Observer, typename Worker>
     struct debounce_observer_strategy
     {
-        using preferred_disposable_strategy = rpp::details::observers::none_disposable_strategy;
+        static constexpr auto preferred_disposable_mode = rpp::details::observers::disposable_mode::None;
 
         std::shared_ptr<debounce_state<Observer, Worker>> state{};
 

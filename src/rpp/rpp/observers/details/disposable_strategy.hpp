@@ -79,13 +79,11 @@ namespace rpp::details::observers
 
         bool is_disposed() const noexcept
         {
-            // just need atomicity, not guarding anything
             return m_is_disposed.test();
         }
 
         void dispose() const
         {
-            // just need atomicity, not guarding anything
             m_is_disposed.set();
             m_upstreams.dispose();
         }

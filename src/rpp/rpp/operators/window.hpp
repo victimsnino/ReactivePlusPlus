@@ -36,7 +36,7 @@ namespace rpp::operators::details
         static_assert(std::same_as<Observable, decltype(std::declval<Subject>().get_observable())>);
 
     public:
-        using preferred_disposable_strategy = rpp::details::observers::none_disposable_strategy;
+        static constexpr auto preferred_disposable_mode = rpp::details::observers::disposable_mode::None;
 
         window_observer_strategy(TObserver&& observer, size_t count)
             : m_observer{std::move(observer)}

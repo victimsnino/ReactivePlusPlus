@@ -50,7 +50,7 @@ namespace rpp::operators::details
              typename TNotifier>
     struct retry_when_impl_inner_strategy
     {
-        using preferred_disposable_strategy = rpp::details::observers::none_disposable_strategy;
+        static constexpr auto preferred_disposable_mode = rpp::details::observers::disposable_mode::None;
 
         std::shared_ptr<retry_when_state<TObserver, TObservable, TNotifier>> state;
         mutable bool                                                         locally_disposed{};
@@ -89,7 +89,7 @@ namespace rpp::operators::details
              typename TNotifier>
     struct retry_when_impl_strategy
     {
-        using preferred_disposable_strategy = rpp::details::observers::none_disposable_strategy;
+        static constexpr auto preferred_disposable_mode = rpp::details::observers::disposable_mode::None;
 
         std::shared_ptr<retry_when_state<TObserver, TObservable, TNotifier>> state;
 

@@ -20,6 +20,8 @@ template<typename Type>
 class mock_observer_strategy final
 {
 public:
+    static constexpr auto preferred_disposable_mode = rpp::details::observers::disposable_mode::Auto;
+
     explicit mock_observer_strategy(bool copy_values = true)
         : m_state{std::make_shared<state>(copy_values)}
     {
@@ -54,7 +56,7 @@ public:
     std::vector<Type> get_received_values() const { return m_state->vals; }
 
     auto get_observer() const { return rpp::observer<Type, mock_observer_strategy<Type>>{*this}; }
-    auto get_observer(rpp::composite_disposable_wrapper d) const { return rpp::observer_with_disposable<Type, mock_observer_strategy<Type>>{std::move(d), *this}; }
+    auto get_observer(rpp::composite_disposable_wrapper d) const { return rpp::observer_with_external_disposable<Type, mock_observer_strategy<Type>>{std::move(d), *this}; }
 
 private:
     struct state

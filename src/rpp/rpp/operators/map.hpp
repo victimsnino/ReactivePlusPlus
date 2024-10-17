@@ -22,7 +22,7 @@ namespace rpp::operators::details
     template<rpp::constraint::observer TObserver, rpp::constraint::decayed_type Fn>
     struct map_observer_strategy
     {
-        using preferred_disposable_strategy = rpp::details::observers::none_disposable_strategy;
+        static constexpr auto preferred_disposable_mode = rpp::details::observers::disposable_mode::None;
 
         RPP_NO_UNIQUE_ADDRESS TObserver observer;
         RPP_NO_UNIQUE_ADDRESS Fn        fn;

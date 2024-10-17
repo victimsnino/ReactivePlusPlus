@@ -38,7 +38,7 @@ namespace rpp::operators::details
     template<rpp::constraint::observer TObserver>
     struct group_by_inner_observer_strategy
     {
-        using preferred_disposable_strategy = rpp::details::observers::none_disposable_strategy;
+        static constexpr auto preferred_disposable_mode = rpp::details::observers::disposable_mode::None;
 
         RPP_NO_UNIQUE_ADDRESS TObserver   observer;
         rpp::composite_disposable_wrapper disposable;
@@ -61,7 +61,7 @@ namespace rpp::operators::details
     template<rpp::constraint::decayed_type T, rpp::constraint::observer TObserver, rpp::constraint::decayed_type KeySelector, rpp::constraint::decayed_type ValueSelector, rpp::constraint::decayed_type KeyComparator>
     struct group_by_observer_strategy
     {
-        using preferred_disposable_strategy = rpp::details::observers::none_disposable_strategy;
+        static constexpr auto preferred_disposable_mode = rpp::details::observers::disposable_mode::None;
 
         using TKey = rpp::utils::decayed_invoke_result_t<KeySelector, T>;
         using Type = rpp::utils::decayed_invoke_result_t<ValueSelector, T>;
