@@ -154,7 +154,7 @@ namespace rpp::operators::details
         };
 
         template<rpp::details::observables::constraint::disposable_strategy Prev>
-        using optimal_disposable_strategy_after_operator = typename Prev::template add<1>;
+        using updated_optimal_disposable_strategy = typename Prev::template add<1>;
 
         rpp::schedulers::duration       duration;
         RPP_NO_UNIQUE_ADDRESS Scheduler scheduler;

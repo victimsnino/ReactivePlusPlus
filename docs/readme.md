@@ -222,7 +222,7 @@ struct map
 In this case you providing logic how to convert downstream observer to upstream observer. Actually this implementation is equal to previous one, but without handling of observable - you are expressing your operator in terms of observers
 
 **(Advanced)**
-In case of implementing operator via `lift` you can control disposable strategy via `optimal_disposable_strategy_after_operator` parameter. It accepts disposable strategy of upstream and returns disposable strategy for downstream. It needed only for optimization and reducing disposables handling cost and it is purely advanced thing. Not sure if anyone is going to use it by its own for now =)
+In case of implementing operator via `lift` you can control disposable strategy via `updated_optimal_disposable_strategy` parameter. It accepts disposable strategy of upstream and returns disposable strategy for downstream. It needed only for optimization and reducing disposables handling cost and it is purely advanced thing. Not sure if anyone is going to use it by its own for now =)
 
 ### Schedulers
 

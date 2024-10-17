@@ -65,7 +65,7 @@ namespace rpp::operators::details
         };
 
         template<rpp::details::observables::constraint::disposable_strategy Prev>
-        using optimal_disposable_strategy_after_operator = Prev;
+        using updated_optimal_disposable_strategy = Prev;
     };
 
     template<rpp::constraint::observer TObserver, rpp::constraint::decayed_type Fn>
@@ -116,7 +116,7 @@ namespace rpp::operators::details
         };
 
         template<rpp::details::observables::constraint::disposable_strategy Prev>
-        using optimal_disposable_strategy_after_operator = Prev;
+        using updated_optimal_disposable_strategy = Prev;
     };
 } // namespace rpp::operators::details
 

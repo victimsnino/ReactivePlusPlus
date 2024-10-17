@@ -90,7 +90,7 @@ namespace rpp::operators::details
         };
 
         template<rpp::details::observables::constraint::disposable_strategy Prev>
-        using optimal_disposable_strategy_after_operator = ::rpp::details::observables::default_disposable_strategy; // TODO: sum of Prev + TObservables
+        using updated_optimal_disposable_strategy = ::rpp::details::observables::default_disposable_strategy; // TODO: sum of Prev + TObservables
 
         template<rpp::constraint::decayed_type Type, rpp::constraint::observer Observer>
         auto lift(Observer&& observer) const

@@ -42,7 +42,7 @@ namespace rpp::operators::details
         };
 
         template<rpp::details::observables::constraint::disposable_strategy Prev>
-        using optimal_disposable_strategy_after_operator = Prev;
+        using updated_optimal_disposable_strategy = Prev;
 
         RPP_NO_UNIQUE_ADDRESS TScheduler scheduler;
 

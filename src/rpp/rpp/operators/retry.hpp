@@ -121,7 +121,7 @@ namespace rpp::operators::details
         };
 
         template<rpp::details::observables::constraint::disposable_strategy Prev>
-        using optimal_disposable_strategy_after_operator = rpp::details::observables::fixed_disposable_strategy<1>;
+        using updated_optimal_disposable_strategy = rpp::details::observables::fixed_disposable_strategy<1>;
 
         template<rpp::constraint::observer TObserver, typename TObservable>
         void subscribe(TObserver&& observer, TObservable&& observble) const
