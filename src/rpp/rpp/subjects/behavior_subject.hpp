@@ -64,7 +64,7 @@ namespace rpp::subjects::details
         };
 
     public:
-        using expected_disposable_strategy = rpp::details::observables::deduce_disposable_strategy_t<details::subject_state<Type, Serialized>>;
+        using optimal_disposable_strategy = rpp::details::observables::deduce_optimal_disposable_strategy_t<details::subject_state<Type, Serialized>>;
 
         explicit behavior_subject_base(const Type& value)
             : m_state{disposable_wrapper_impl<behavior_state>::make(value)}
@@ -83,7 +83,7 @@ namespace rpp::subjects::details
 
         auto get_observable() const
         {
-            return create_subject_on_subscribe_observable<Type, expected_disposable_strategy>([state = m_state]<rpp::constraint::observer_of_type<Type> TObs>(TObs&& observer) {
+            return create_subject_on_subscribe_observable<Type, optimal_disposable_strategy>([state = m_state]<rpp::constraint::observer_of_type<Type> TObs>(TObs&& observer) {
                 const auto locked = state.lock();
                 if (!locked->is_disposed())
                 {

@@ -168,10 +168,10 @@ namespace rpp
     class observer;
 
     template<constraint::decayed_type Type, constraint::observer_strategy<Type> Strategy>
-    class observer final : public details::observer_impl<Type, Strategy, details::observers::deduce_disposable_strategy_t<Strategy::preferred_disposable_mode>>
+    class observer final : public details::observer_impl<Type, Strategy, details::observers::deduce_optimal_disposable_strategy_t<Strategy::preferred_disposable_mode>>
     {
     public:
-        using DisposableStrategy = details::observers::deduce_disposable_strategy_t<Strategy::preferred_disposable_mode>;
+        using DisposableStrategy = details::observers::deduce_optimal_disposable_strategy_t<Strategy::preferred_disposable_mode>;
         using Base               = details::observer_impl<Type, Strategy, DisposableStrategy>;
 
         template<typename... Args>

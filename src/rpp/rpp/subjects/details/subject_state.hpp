@@ -72,7 +72,7 @@ namespace rpp::subjects::details
         using state_t          = std::variant<shared_observers, std::exception_ptr, completed, disposed>;
 
     public:
-        using expected_disposable_strategy = rpp::details::observables::atomic_fixed_disposable_strategy_selector<1>;
+        using optimal_disposable_strategy = rpp::details::observables::atomic_fixed_disposable_strategy_selector<1>;
 
         subject_state() = default;
 

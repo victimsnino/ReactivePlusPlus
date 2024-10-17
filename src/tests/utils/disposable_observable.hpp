@@ -27,8 +27,8 @@ auto observable_with_disposable(rpp::disposable_wrapper d)
 template<rpp::constraint::decayed_type Type, rpp::details::observables::constraint::disposable_strategy Strategy>
 struct wrapped_observable_strategy_set_upstream
 {
-    using value_type                   = Type;
-    using expected_disposable_strategy = Strategy;
+    using value_type                  = Type;
+    using optimal_disposable_strategy = Strategy;
 
     auto subscribe(auto&& observer) const
     {
@@ -39,8 +39,8 @@ struct wrapped_observable_strategy_set_upstream
 template<rpp::constraint::decayed_type Type, rpp::details::observables::constraint::disposable_strategy Strategy>
 struct wrapped_observable_strategy_no_set_upstream
 {
-    using value_type                   = Type;
-    using expected_disposable_strategy = Strategy;
+    using value_type                  = Type;
+    using optimal_disposable_strategy = Strategy;
 
     auto subscribe(auto&&) const {}
 };

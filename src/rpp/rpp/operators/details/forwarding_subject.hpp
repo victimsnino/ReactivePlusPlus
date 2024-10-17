@@ -42,7 +42,7 @@ namespace rpp::operators::details
         };
 
     public:
-        using expected_disposable_strategy = typename rpp::details::observables::deduce_disposable_strategy_t<subjects::details::subject_state<Type, false>>::template add<1>;
+        using optimal_disposable_strategy = typename rpp::details::observables::deduce_optimal_disposable_strategy_t<subjects::details::subject_state<Type, false>>::template add<1>;
 
         explicit forwarding_subject(disposable_wrapper_impl<rpp::refcount_disposable> refcount)
             : m_refcount{std::move(refcount)}
@@ -56,7 +56,7 @@ namespace rpp::operators::details
 
         auto get_observable() const
         {
-            return subjects::details::create_subject_on_subscribe_observable<Type, expected_disposable_strategy>([state = m_state.as_weak(), refcount = m_refcount]<rpp::constraint::observer_of_type<Type> TObs>(TObs&& observer) {
+            return subjects::details::create_subject_on_subscribe_observable<Type, optimal_disposable_strategy>([state = m_state.as_weak(), refcount = m_refcount]<rpp::constraint::observer_of_type<Type> TObs>(TObs&& observer) {
                 if (const auto locked_state = state.lock())
                 {
                     if (const auto locked = refcount.lock())

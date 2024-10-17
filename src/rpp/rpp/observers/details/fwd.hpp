@@ -66,7 +66,7 @@ namespace rpp::details::observers
     namespace details
     {
         template<disposable_mode mode>
-        consteval auto* deduce_disposable_strategy()
+        consteval auto* deduce_optimal_disposable_strategy()
         {
             static_assert(mode == disposable_mode::Auto || mode == disposable_mode::None || mode == disposable_mode::External);
 
@@ -80,5 +80,5 @@ namespace rpp::details::observers
     } // namespace details
 
     template<rpp::details::observers::disposable_mode Mode>
-    using deduce_disposable_strategy_t = std::remove_pointer_t<decltype(details::deduce_disposable_strategy<Mode>())>;
+    using deduce_optimal_disposable_strategy_t = std::remove_pointer_t<decltype(details::deduce_optimal_disposable_strategy<Mode>())>;
 } // namespace rpp::details::observers

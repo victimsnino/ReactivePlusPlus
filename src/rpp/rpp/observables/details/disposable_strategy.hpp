@@ -56,35 +56,35 @@ namespace rpp::details::observables
     namespace details
     {
         template<typename T>
-        concept has_expected_disposable_strategy = requires { typename T::expected_disposable_strategy; };
+        concept has_expected_disposable_strategy = requires { typename T::optimal_disposable_strategy; };
 
         template<typename T>
-        consteval auto* deduce_disposable_strategy()
+        consteval auto* deduce_optimal_disposable_strategy()
         {
             if constexpr (has_expected_disposable_strategy<T>)
-                return static_cast<typename T::expected_disposable_strategy*>(nullptr);
+                return static_cast<typename T::optimal_disposable_strategy*>(nullptr);
             else
                 return static_cast<default_disposable_strategy_selector*>(nullptr);
         }
 
         template<typename T, typename Prev>
-        concept has_updated_disposable_strategy = requires { typename T::template updated_disposable_strategy<Prev>; };
+        concept has_optimal_disposable_strategy_after_operator = requires { typename T::template optimal_disposable_strategy_after_operator<Prev>; };
 
         template<typename T, typename Prev>
-        consteval auto* deduce_updated_disposable_strategy()
+        consteval auto* deduce_optimal_disposable_strategy_after_operator()
         {
-            if constexpr (has_updated_disposable_strategy<T, Prev>)
-                return static_cast<typename T::template updated_disposable_strategy<Prev>*>(nullptr);
+            if constexpr (has_optimal_disposable_strategy_after_operator<T, Prev>)
+                return static_cast<typename T::template optimal_disposable_strategy_after_operator<Prev>*>(nullptr);
             else
                 return static_cast<default_disposable_strategy_selector*>(nullptr);
         }
     } // namespace details
 
     template<typename T>
-    using deduce_disposable_strategy_t = std::remove_pointer_t<decltype(details::deduce_disposable_strategy<T>())>;
+    using deduce_optimal_disposable_strategy_t = std::remove_pointer_t<decltype(details::deduce_optimal_disposable_strategy<T>())>;
 
     template<typename T, typename Prev>
-    using deduce_updated_disposable_strategy = std::remove_pointer_t<decltype(details::deduce_updated_disposable_strategy<T, Prev>())>;
+    using deduce_optimal_disposable_strategy_after_operator_t = std::remove_pointer_t<decltype(details::deduce_optimal_disposable_strategy_after_operator<T, Prev>())>;
 
     namespace constraint
     {

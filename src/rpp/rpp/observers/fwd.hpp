@@ -92,7 +92,7 @@ namespace rpp
      * @ingroup observers
      */
     template<constraint::decayed_type Type, constraint::observer_strategy<Type> Strategy>
-    using observer_with_external_disposable = observer<Type, rpp::details::observers::override_disposable_strategy<Strategy, rpp::details::observers::deduce_disposable_strategy_t<rpp::details::observers::disposable_mode::External>>>;
+    using observer_with_external_disposable = observer<Type, rpp::details::observers::override_disposable_strategy<Strategy, rpp::details::observers::deduce_optimal_disposable_strategy_t<rpp::details::observers::disposable_mode::External>>>;
 
     template<constraint::decayed_type Type>
     class dynamic_observer;
