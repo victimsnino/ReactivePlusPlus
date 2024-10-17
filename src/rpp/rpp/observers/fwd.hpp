@@ -37,7 +37,7 @@ namespace rpp::constraint
         // strategy has to provide it's preferred disposable mode: minimal level of disposable logic it could work with.
         // if observer_strategy fully controls disposable logic or just forwards disposable to downstream observer: rpp::details::observers::disposable_mode::None
         // if you not sure about this field - just use rpp::details::observers::disposable_mode::Auto
-        { S::preferred_disposable_mode} -> rpp::constraint::decayed_same_as<rpp::details::observers::disposable_mode>; /* = rpp::details::observers::disposable_mode::Auto */
+        { S::preferred_disposable_mode } -> rpp::constraint::decayed_same_as<rpp::details::observers::disposable_mode>; /* = rpp::details::observers::disposable_mode::Auto */
     };
 
     /**
@@ -74,12 +74,12 @@ namespace rpp::details::observers
 
         override_disposable_strategy() = delete;
 
-        consteval static void on_next(const auto&) noexcept{}
-        consteval static void on_error(const std::exception_ptr&) noexcept{}
-        consteval static void on_completed() noexcept{}
+        consteval static void on_next(const auto&) noexcept {}
+        consteval static void on_error(const std::exception_ptr&) noexcept {}
+        consteval static void on_completed() noexcept {}
 
-        consteval static void set_upstream(const disposable_wrapper&) noexcept{}
-        consteval static bool is_disposed() noexcept{return false;}
+        consteval static void set_upstream(const disposable_wrapper&) noexcept {}
+        consteval static bool is_disposed() noexcept { return false; }
     };
 } // namespace rpp::details::observers
 namespace rpp
@@ -88,10 +88,10 @@ namespace rpp
     class observer;
 
     /*
-    * @brief Same as rpp::observer, but with passed rpp::composite_disposable_wrapper to constructor instead (as a result, it's possible to dispose observer early outside)
-    * @ingroup observers
-    */
-    template<constraint::decayed_type                 Type, constraint::observer_strategy<Type>      Strategy>
+     * @brief Same as rpp::observer, but with passed rpp::composite_disposable_wrapper to constructor instead (as a result, it's possible to dispose observer early outside)
+     * @ingroup observers
+     */
+    template<constraint::decayed_type Type, constraint::observer_strategy<Type> Strategy>
     using observer_with_external_disposable = observer<Type, rpp::details::observers::override_disposable_strategy<Strategy, rpp::details::observers::deduce_disposable_strategy_t<rpp::details::observers::disposable_mode::External>>>;
 
     template<constraint::decayed_type Type>
@@ -111,9 +111,9 @@ namespace rpp
     using lambda_observer = observer<Type, details::observers::lambda_strategy<Type, OnNext, OnError, OnCompleted>>;
 
     /*
-    * @brief Same as rpp::lambda_observer, but with passed rpp::composite_disposable_wrapper to constructor instead (as a result, it's possible to dispose observer early outside)
-    * @ingroup observers
-    */
+     * @brief Same as rpp::lambda_observer, but with passed rpp::composite_disposable_wrapper to constructor instead (as a result, it's possible to dispose observer early outside)
+     * @ingroup observers
+     */
     template<constraint::decayed_type Type, std::invocable<Type> OnNext, std::invocable<const std::exception_ptr&> OnError, std::invocable<> OnCompleted>
     using lambda_observer_with_external_disposable = observer_with_external_disposable<Type, details::observers::lambda_strategy<Type, OnNext, OnError, OnCompleted>>;
 
@@ -157,9 +157,9 @@ namespace rpp
                               OnNext&&                                 on_next,
                               OnError&&                                on_error     = {},
                               OnCompleted&&                            on_completed = {}) -> lambda_observer_with_external_disposable<Type,
-                                                                                                  std::decay_t<OnNext>,
-                                                                                                  std::decay_t<OnError>,
-                                                                                                  std::decay_t<OnCompleted>>;
+                                                                                                           std::decay_t<OnNext>,
+                                                                                                           std::decay_t<OnError>,
+                                                                                                           std::decay_t<OnCompleted>>;
 
     /**
      * @brief Constructs observer specialized with passed callbacks. Most easiesest way to construct observer "on the fly" via lambdas and etc.

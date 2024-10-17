@@ -42,7 +42,7 @@ namespace rpp::details::observers
 
     class atomic_bool;
     class non_atomic_bool;
-    
+
     template<typename DisposableContainer, rpp::constraint::any_of<atomic_bool, non_atomic_bool> Bool>
     class local_disposable_strategy;
 
@@ -70,9 +70,12 @@ namespace rpp::details::observers
         {
             static_assert(mode == disposable_mode::Auto || mode == disposable_mode::None || mode == disposable_mode::External);
 
-            if constexpr (mode == disposable_mode::Auto) return static_cast<dynamic_disposable_strategy<atomic_bool>*>(nullptr);
-            else if constexpr (mode == disposable_mode::None) return static_cast<none_disposable_strategy*>(nullptr);
-            else if constexpr (mode == disposable_mode::External) return static_cast<composite_disposable_wrapper*>(nullptr);
+            if constexpr (mode == disposable_mode::Auto)
+                return static_cast<dynamic_disposable_strategy<atomic_bool>*>(nullptr);
+            else if constexpr (mode == disposable_mode::None)
+                return static_cast<none_disposable_strategy*>(nullptr);
+            else if constexpr (mode == disposable_mode::External)
+                return static_cast<composite_disposable_wrapper*>(nullptr);
         }
     } // namespace details
 
