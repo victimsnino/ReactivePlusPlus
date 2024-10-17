@@ -19,6 +19,8 @@ namespace rpp::details
     template<constraint::decayed_type Type, constraint::observable_of_type<Type>... Observables>
     struct variant_observable_strategy
     {
+        using optimal_disposable_strategy = rpp::details::observables::default_disposable_strategy;
+
         using value_type = Type;
         template<constraint::decayed_any_of<Observables...> TT>
             requires (!constraint::decayed_same_as<variant_observable_strategy, TT>)
@@ -26,7 +28,6 @@ namespace rpp::details
             : observables(std::forward<TT>(observable))
         {
         }
-
 
         variant_observable_strategy(const variant_observable_strategy& other)     = default;
         variant_observable_strategy(variant_observable_strategy&& other) noexcept = default;

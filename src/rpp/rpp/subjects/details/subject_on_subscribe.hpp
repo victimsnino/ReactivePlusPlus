@@ -18,8 +18,8 @@ namespace rpp::subjects::details
     template<constraint::decayed_type Type, ::rpp::constraint::on_subscribe<Type> OnSubscribe, typename DisposableStrategy>
     struct subject_on_subscribe_strategy
     {
-        using value_type                   = Type;
-        using expected_disposable_strategy = DisposableStrategy;
+        using value_type                  = Type;
+        using optimal_disposable_strategy = DisposableStrategy;
 
         RPP_NO_UNIQUE_ADDRESS OnSubscribe subscribe;
     };

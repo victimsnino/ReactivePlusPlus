@@ -49,6 +49,8 @@ namespace rpp::operators::details
     template<typename TState>
     struct combining_observer_strategy
     {
+        static constexpr auto preferred_disposable_mode = rpp::details::observers::disposable_mode::Auto;
+
         std::shared_ptr<TState> state{};
 
         void set_upstream(const rpp::disposable_wrapper& d) const
@@ -90,7 +92,7 @@ namespace rpp::operators::details
         };
 
         template<rpp::details::observables::constraint::disposable_strategy Prev>
-        using updated_disposable_strategy = ::rpp::details::observables::default_disposable_strategy_selector; // TODO: sum of Prev + TObservables
+        using updated_optimal_disposable_strategy = ::rpp::details::observables::default_disposable_strategy; // TODO: sum of Prev + TObservables
 
         template<rpp::constraint::decayed_type Type, rpp::constraint::observer Observer>
         auto lift(Observer&& observer) const

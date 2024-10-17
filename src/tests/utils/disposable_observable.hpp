@@ -27,8 +27,8 @@ auto observable_with_disposable(rpp::disposable_wrapper d)
 template<rpp::constraint::decayed_type Type, rpp::details::observables::constraint::disposable_strategy Strategy>
 struct wrapped_observable_strategy_set_upstream
 {
-    using value_type                   = Type;
-    using expected_disposable_strategy = Strategy;
+    using value_type                  = Type;
+    using optimal_disposable_strategy = Strategy;
 
     auto subscribe(auto&& observer) const
     {
@@ -39,8 +39,8 @@ struct wrapped_observable_strategy_set_upstream
 template<rpp::constraint::decayed_type Type, rpp::details::observables::constraint::disposable_strategy Strategy>
 struct wrapped_observable_strategy_no_set_upstream
 {
-    using value_type                   = Type;
-    using expected_disposable_strategy = Strategy;
+    using value_type                  = Type;
+    using optimal_disposable_strategy = Strategy;
 
     auto subscribe(auto&&) const {}
 };
@@ -133,45 +133,45 @@ void test_operator_over_observable_with_disposable(auto&& op)
         })).subscribe([](const auto&) {}, [](const std::exception_ptr&) {});
     }
 
-    SUBCASE("set_upstream with fixed_disposable_strategy_selector<1>")
+    SUBCASE("set_upstream with fixed_disposable_strategy<1>")
     {
-        CHECK_NOTHROW(op(rpp::observable<T, wrapped_observable_strategy_set_upstream<T, rpp::details::observables::fixed_disposable_strategy_selector<1>>>{})
+        CHECK_NOTHROW(op(rpp::observable<T, wrapped_observable_strategy_set_upstream<T, rpp::details::observables::fixed_disposable_strategy<1>>>{})
                           .subscribe([](const auto&) {}, rpp::utils::rethrow_error_t{}));
     }
 
-    SUBCASE("set_upstream with dynamic_disposable_strategy_selector<0>")
+    SUBCASE("set_upstream with dynamic_disposable_strategy")
     {
-        CHECK_NOTHROW(op(rpp::observable<T, wrapped_observable_strategy_set_upstream<T, rpp::details::observables::dynamic_disposable_strategy_selector<0>>>{})
+        CHECK_NOTHROW(op(rpp::observable<T, wrapped_observable_strategy_set_upstream<T, rpp::details::observables::dynamic_disposable_strategy>>{})
                           .subscribe([](const auto&) {}, rpp::utils::rethrow_error_t{}));
     }
 
     SUBCASE("none_disposable_strategy")
     {
-        CHECK_NOTHROW(op(rpp::observable<T, wrapped_observable_strategy_no_set_upstream<T, rpp::details::observables::bool_disposable_strategy_selector>>{})
+        CHECK_NOTHROW(op(rpp::observable<T, wrapped_observable_strategy_no_set_upstream<T, rpp::details::observables::fixed_disposable_strategy<0>>>{})
                           .subscribe([](const auto&) {}, rpp::utils::rethrow_error_t{}));
     }
 
-    SUBCASE("fixed_disposable_strategy_selector<0>")
+    SUBCASE("fixed_disposable_strategy<0>")
     {
-        CHECK_NOTHROW(op(rpp::observable<T, wrapped_observable_strategy_no_set_upstream<T, rpp::details::observables::fixed_disposable_strategy_selector<0>>>{})
+        CHECK_NOTHROW(op(rpp::observable<T, wrapped_observable_strategy_no_set_upstream<T, rpp::details::observables::fixed_disposable_strategy<0>>>{})
                           .subscribe([](const auto&) {}, rpp::utils::rethrow_error_t{}));
     }
 
-    SUBCASE("dynamic_disposable_strategy_selector<0>")
+    SUBCASE("dynamic_disposable_strategy")
     {
-        CHECK_NOTHROW(op(rpp::observable<T, wrapped_observable_strategy_no_set_upstream<T, rpp::details::observables::dynamic_disposable_strategy_selector<0>>>{})
+        CHECK_NOTHROW(op(rpp::observable<T, wrapped_observable_strategy_no_set_upstream<T, rpp::details::observables::dynamic_disposable_strategy>>{})
                           .subscribe([](const auto&) {}, rpp::utils::rethrow_error_t{}));
     }
 
     SUBCASE("set_upstream with none_disposable_strategy calls on_error")
     {
-        CHECK_NOTHROW(op(rpp::observable<T, wrapped_observable_strategy_set_upstream<T, rpp::details::observables::bool_disposable_strategy_selector>>{})
+        CHECK_NOTHROW(op(rpp::observable<T, wrapped_observable_strategy_set_upstream<T, rpp::details::observables::fixed_disposable_strategy<0>>>{})
                           .subscribe([](const auto&) {}, [](const std::exception_ptr& err) { CHECK_THROWS_AS(std::rethrow_exception(err), rpp::utils::more_disposables_than_expected); }));
     }
 
-    SUBCASE("set_upstream with fixed_disposable_strategy_selector<0> calls on_error")
+    SUBCASE("set_upstream with fixed_disposable_strategy<0> calls on_error")
     {
-        CHECK_NOTHROW(op(rpp::observable<T, wrapped_observable_strategy_set_upstream<T, rpp::details::observables::fixed_disposable_strategy_selector<0>>>{})
+        CHECK_NOTHROW(op(rpp::observable<T, wrapped_observable_strategy_set_upstream<T, rpp::details::observables::fixed_disposable_strategy<0>>>{})
                           .subscribe([](const auto&) {}, [](const std::exception_ptr& err) { CHECK_THROWS_AS(std::rethrow_exception(err), rpp::utils::more_disposables_than_expected); }));
     }
 }

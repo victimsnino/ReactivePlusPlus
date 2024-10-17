@@ -52,7 +52,7 @@ namespace rpp::details
     template<rpp::constraint::observer TObserver, constraint::decayed_type PackedContainer>
     struct concat_source_observer_strategy
     {
-        using preferred_disposable_strategy = rpp::details::observers::none_disposable_strategy;
+        static constexpr auto preferred_disposable_mode = rpp::details::observers::disposable_mode::None;
 
         std::shared_ptr<concat_state_t<TObserver, PackedContainer>> state{};
         mutable bool                                                locally_disposed{};
@@ -126,6 +126,9 @@ namespace rpp::details
         RPP_NO_UNIQUE_ADDRESS PackedContainer container;
 
         using value_type = rpp::utils::extract_observable_type_t<utils::iterable_value_t<PackedContainer>>;
+
+        using optimal_disposable_strategy = rpp::details::observables::default_disposable_strategy;
+
 
         template<constraint::observer_strategy<value_type> Strategy>
         void subscribe(observer<value_type, Strategy>&& obs) const

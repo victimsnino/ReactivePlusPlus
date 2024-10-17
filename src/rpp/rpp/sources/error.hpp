@@ -18,8 +18,8 @@ namespace rpp::details
     template<constraint::decayed_type Type>
     struct error_strategy
     {
-        using value_type                   = Type;
-        using expected_disposable_strategy = rpp::details::observables::bool_disposable_strategy_selector;
+        using value_type                  = Type;
+        using optimal_disposable_strategy = rpp::details::observables::fixed_disposable_strategy<0>;
 
         std::exception_ptr err{};
 

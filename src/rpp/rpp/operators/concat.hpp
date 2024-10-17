@@ -111,6 +111,8 @@ namespace rpp::operators::details
     template<rpp::constraint::observable TObservable, rpp::constraint::observer TObserver>
     struct concat_observer_strategy_base
     {
+        static constexpr auto preferred_disposable_mode = rpp::details::observers::disposable_mode::Auto;
+
         concat_observer_strategy_base(std::shared_ptr<concat_state_t<TObservable, TObserver>> state, rpp::composite_disposable_wrapper refcounted)
             : state{std::move(state)}
             , refcounted{std::move(refcounted)}
@@ -163,8 +165,8 @@ namespace rpp::operators::details
     template<rpp::constraint::observable TObservable, rpp::constraint::observer TObserver>
     struct concat_observer_strategy : public concat_observer_strategy_base<TObservable, TObserver>
     {
-        using base                          = concat_observer_strategy_base<TObservable, TObserver>;
-        using preferred_disposable_strategy = rpp::details::observers::none_disposable_strategy;
+        using base                                      = concat_observer_strategy_base<TObservable, TObserver>;
+        static constexpr auto preferred_disposable_mode = rpp::details::observers::disposable_mode::None;
 
         concat_observer_strategy(TObserver&& observer)
             : base{std::make_shared<concat_state_t<TObservable, TObserver>>(std::move(observer))}
@@ -205,7 +207,7 @@ namespace rpp::operators::details
         };
 
         template<rpp::details::observables::constraint::disposable_strategy Prev>
-        using updated_disposable_strategy = rpp::details::observables::fixed_disposable_strategy_selector<1>;
+        using updated_optimal_disposable_strategy = rpp::details::observables::fixed_disposable_strategy<1>;
     };
 } // namespace rpp::operators::details
 

@@ -29,7 +29,8 @@ namespace rpp::details::observables
     class dynamic_strategy final
     {
     public:
-        using value_type = Type;
+        using value_type                  = Type;
+        using optimal_disposable_strategy = rpp::details::observables::default_disposable_strategy;
 
         template<rpp::constraint::observable_strategy<Type> Strategy>
             requires (!rpp::constraint::decayed_same_as<Strategy, dynamic_strategy<Type>>)

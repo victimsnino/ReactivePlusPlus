@@ -33,6 +33,11 @@ namespace rpp::constraint
         {
             strategy.is_disposed()
         } -> std::same_as<bool>;
+
+        // strategy has to provide it's preferred disposable mode: minimal level of disposable logic it could work with.
+        // if observer_strategy fully controls disposable logic or just forwards disposable to downstream observer: rpp::details::observers::disposable_mode::None
+        // if you not sure about this field - just use rpp::details::observers::disposable_mode::Auto
+        { std::decay_t<S>::preferred_disposable_mode } -> rpp::constraint::decayed_same_as<rpp::details::observers::disposable_mode>; /* = rpp::details::observers::disposable_mode::Auto */
     };
 
     /**
@@ -61,35 +66,33 @@ namespace rpp::details::observers
              std::invocable<const std::exception_ptr&> OnError,
              std::invocable<>                          OnCompleted>
     struct lambda_strategy;
-} // namespace rpp::details::observers
 
-namespace rpp::details
-{
-    template<typename S, observers::constraint::disposable_strategy Strategy>
-    struct with_disposable_strategy
+    template<rpp::constraint::observer_strategy_base S, rpp::details::observers::constraint::disposable_strategy DisposableStrategy>
+    struct override_disposable_strategy
     {
-        using preferred_disposable_strategy = Strategy;
+        static constexpr auto preferred_disposable_mode = rpp::details::observers::disposable_mode::Auto;
 
-        with_disposable_strategy() = delete;
+        override_disposable_strategy() = delete;
 
-        static void on_next(const auto&) noexcept;
-        static void on_error(const std::exception_ptr&) noexcept;
-        static void on_completed() noexcept;
+        consteval static void on_next(const auto&) noexcept {}
+        consteval static void on_error(const std::exception_ptr&) noexcept {}
+        consteval static void on_completed() noexcept {}
 
-        static void set_upstream(const disposable_wrapper&) noexcept;
-        static bool is_disposed() noexcept;
+        consteval static void set_upstream(const disposable_wrapper&) noexcept {}
+        consteval static bool is_disposed() noexcept { return false; }
     };
-} // namespace rpp::details
-
+} // namespace rpp::details::observers
 namespace rpp
 {
     template<constraint::decayed_type Type, constraint::observer_strategy<Type> Strategy>
     class observer;
 
-    template<constraint::decayed_type                                 Type,
-             constraint::observer_strategy<Type>                      Strategy,
-             rpp::details::observers::constraint::disposable_strategy DisposableStrategy = rpp::details::observers::external_disposable_strategy>
-    using observer_with_disposable = observer<Type, rpp::details::with_disposable_strategy<Strategy, DisposableStrategy>>;
+    /*
+     * @brief Same as rpp::observer, but with passed rpp::composite_disposable_wrapper to constructor instead (as a result, it's possible to dispose observer early outside)
+     * @ingroup observers
+     */
+    template<constraint::decayed_type Type, constraint::observer_strategy<Type> Strategy>
+    using observer_with_external_disposable = observer<Type, rpp::details::observers::override_disposable_strategy<Strategy, rpp::details::observers::deduce_optimal_disposable_strategy_t<rpp::details::observers::disposable_mode::External>>>;
 
     template<constraint::decayed_type Type>
     class dynamic_observer;
@@ -107,8 +110,12 @@ namespace rpp
     template<constraint::decayed_type Type, std::invocable<Type> OnNext, std::invocable<const std::exception_ptr&> OnError, std::invocable<> OnCompleted>
     using lambda_observer = observer<Type, details::observers::lambda_strategy<Type, OnNext, OnError, OnCompleted>>;
 
+    /*
+     * @brief Same as rpp::lambda_observer, but with passed rpp::composite_disposable_wrapper to constructor instead (as a result, it's possible to dispose observer early outside)
+     * @ingroup observers
+     */
     template<constraint::decayed_type Type, std::invocable<Type> OnNext, std::invocable<const std::exception_ptr&> OnError, std::invocable<> OnCompleted>
-    using lambda_observer_with_disposable = observer_with_disposable<Type, details::observers::lambda_strategy<Type, OnNext, OnError, OnCompleted>>;
+    using lambda_observer_with_external_disposable = observer_with_external_disposable<Type, details::observers::lambda_strategy<Type, OnNext, OnError, OnCompleted>>;
 
     /**
      * @brief Constructs observer specialized with passed callbacks. Most easiesest way to construct observer "on the fly" via lambdas and etc.
@@ -149,10 +156,10 @@ namespace rpp
     auto make_lambda_observer(const rpp::composite_disposable_wrapper& d,
                               OnNext&&                                 on_next,
                               OnError&&                                on_error     = {},
-                              OnCompleted&&                            on_completed = {}) -> lambda_observer_with_disposable<Type,
-                                                                                                  std::decay_t<OnNext>,
-                                                                                                  std::decay_t<OnError>,
-                                                                                                  std::decay_t<OnCompleted>>;
+                              OnCompleted&&                            on_completed = {}) -> lambda_observer_with_external_disposable<Type,
+                                                                                                           std::decay_t<OnNext>,
+                                                                                                           std::decay_t<OnError>,
+                                                                                                           std::decay_t<OnCompleted>>;
 
     /**
      * @brief Constructs observer specialized with passed callbacks. Most easiesest way to construct observer "on the fly" via lambdas and etc.
@@ -206,7 +213,7 @@ namespace rpp::details::observers
 {
     struct fake_strategy
     {
-        using preferred_disposable_strategy = rpp::details::observers::none_disposable_strategy;
+        static constexpr auto preferred_disposable_mode = rpp::details::observers::disposable_mode::None;
 
         static void on_next(const auto&) noexcept {}
 

@@ -27,7 +27,7 @@ namespace
     };
 } // namespace
 
-TEST_CASE_TEMPLATE("disposable keeps state", TestType, rpp::details::disposables::dynamic_disposables_container<0>, rpp::details::disposables::static_disposables_container<1>)
+TEST_CASE_TEMPLATE("disposable keeps state", TestType, rpp::details::disposables::dynamic_disposables_container, rpp::details::disposables::static_disposables_container<1>)
 {
     auto d = rpp::composite_disposable_wrapper::make<rpp::composite_disposable_impl<TestType>>();
 
@@ -282,7 +282,7 @@ TEST_CASE("composite_disposable correctly handles exception")
     CHECK(!d2.is_disposed());
 }
 
-TEST_CASE("static_disposable_container works as expected")
+TEST_CASE("static_disposables_container works as expected")
 {
     rpp::details::disposables::static_disposables_container<2> container{};
 

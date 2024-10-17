@@ -23,7 +23,7 @@ namespace rpp::operators::details
     template<rpp::constraint::observer TObserver, rpp::constraint::decayed_type Seed, rpp::constraint::decayed_type Fn>
     struct scan_observer_strategy
     {
-        using preferred_disposable_strategy = rpp::details::observers::none_disposable_strategy;
+        static constexpr auto preferred_disposable_mode = rpp::details::observers::disposable_mode::None;
 
         RPP_NO_UNIQUE_ADDRESS TObserver    observer;
         RPP_NO_UNIQUE_ADDRESS mutable Seed seed;
@@ -65,13 +65,13 @@ namespace rpp::operators::details
         };
 
         template<rpp::details::observables::constraint::disposable_strategy Prev>
-        using updated_disposable_strategy = Prev;
+        using updated_optimal_disposable_strategy = Prev;
     };
 
     template<rpp::constraint::observer TObserver, rpp::constraint::decayed_type Fn>
     struct scan_no_seed_observer_strategy
     {
-        using preferred_disposable_strategy = rpp::details::observers::none_disposable_strategy;
+        static constexpr auto preferred_disposable_mode = rpp::details::observers::disposable_mode::None;
 
         using Seed = rpp::utils::extract_observer_type_t<TObserver>;
 
@@ -116,7 +116,7 @@ namespace rpp::operators::details
         };
 
         template<rpp::details::observables::constraint::disposable_strategy Prev>
-        using updated_disposable_strategy = Prev;
+        using updated_optimal_disposable_strategy = Prev;
     };
 } // namespace rpp::operators::details
 
