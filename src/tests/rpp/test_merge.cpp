@@ -234,9 +234,8 @@ TEST_CASE_TEMPLATE("merge handles race condition", TestType, rpp::memory_model::
                                             extracted_obs->on_error(std::exception_ptr{});
                                         }};
                                         std::this_thread::sleep_for(std::chrono::seconds{1});
-                                        CHECK(!on_error_called); 
-                                    }
-                        },
+                                        CHECK(!on_error_called);
+                                    } },
                                               [&](auto) { on_error_called = true; });
                     CHECK(t.has_value());
                     CHECK(t->join());
