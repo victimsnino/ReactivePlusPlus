@@ -90,7 +90,7 @@ namespace rpp::operators::details
         template<rpp::constraint::observable_strategy<Type> Strategy>
         rpp::composite_disposable_wrapper operator()(const rpp::observable<Type, Strategy>& observable) &&
         {
-            observable.subscribe(observer_with_disposable<Type, observer<Type, ObserverStrategy>>{m_disposable, std::move(m_observer)});
+            observable.subscribe(observer_with_external_disposable<Type, observer<Type, ObserverStrategy>>{m_disposable, std::move(m_observer)});
             return m_disposable;
         }
 

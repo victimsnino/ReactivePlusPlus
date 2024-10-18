@@ -83,8 +83,8 @@ namespace rpp::details
     struct from_iterable_strategy
     {
     public:
-        using value_type                   = rpp::utils::iterable_value_t<PackedContainer>;
-        using expected_disposable_strategy = rpp::details::observables::bool_disposable_strategy_selector;
+        using value_type                  = rpp::utils::iterable_value_t<PackedContainer>;
+        using optimal_disposable_strategy = rpp::details::observables::fixed_disposable_strategy<0>;
 
         template<typename... Args>
         from_iterable_strategy(const TScheduler& scheduler, Args&&... args)

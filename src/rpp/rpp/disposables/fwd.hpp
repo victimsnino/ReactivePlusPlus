@@ -43,23 +43,28 @@ namespace rpp
 
 namespace rpp::details::disposables
 {
-    template<size_t Count>
-    class dynamic_disposables_container;
-
-    template<size_t Count>
-    class static_disposables_container;
-
-    struct none_disposables_container;
-
     namespace constraint
     {
         template<typename T>
-        concept disposable_container = requires(T& c, const T& const_c, const rpp::disposable_wrapper& d) {
+        concept disposables_container = requires(T& c, const T& const_c, const rpp::disposable_wrapper& d) {
             c.push_back(d);
             const_c.dispose();
             c.clear();
         };
     } // namespace constraint
+
+    /**
+     * @brief Container with std::vector as underlying storage.
+     */
+    class dynamic_disposables_container;
+
+    /**
+     * @brief Container with fixed std::array as underlying storage.
+     */
+    template<size_t Count>
+    class static_disposables_container;
+
+    using default_disposables_container = dynamic_disposables_container;
 } // namespace rpp::details::disposables
 
 namespace rpp

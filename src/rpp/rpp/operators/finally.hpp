@@ -27,7 +27,7 @@ namespace rpp::operators::details
         };
 
         template<rpp::details::observables::constraint::disposable_strategy Prev>
-        using updated_disposable_strategy = typename Prev::template add<1>;
+        using updated_optimal_disposable_strategy = typename Prev::template add<1>;
 
         RPP_NO_UNIQUE_ADDRESS LastFn last_fn;
 

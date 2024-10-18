@@ -47,8 +47,8 @@ namespace rpp::details::observables
     class blocking_strategy
     {
     public:
-        using value_type                   = Type;
-        using expected_disposable_strategy = typename rpp::details::observables::deduce_disposable_strategy_t<Strategy>::template add<1>;
+        using value_type                  = Type;
+        using optimal_disposable_strategy = typename rpp::details::observables::deduce_optimal_disposable_strategy_t<Strategy>::template add<1>;
 
         blocking_strategy(observable<Type, Strategy>&& observable)
             : m_original{std::move(observable)}

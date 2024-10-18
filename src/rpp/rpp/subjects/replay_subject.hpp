@@ -84,7 +84,7 @@ namespace rpp::subjects::details
 
         struct observer_strategy
         {
-            using preferred_disposable_strategy = rpp::details::observers::none_disposable_strategy;
+            static constexpr auto preferred_disposable_mode = rpp::details::observers::disposable_mode::None;
 
             std::shared_ptr<replay_state> state;
 
@@ -104,7 +104,7 @@ namespace rpp::subjects::details
         };
 
     public:
-        using expected_disposable_strategy = rpp::details::observables::deduce_disposable_strategy_t<details::subject_state<Type, Serialized>>;
+        using optimal_disposable_strategy = rpp::details::observables::deduce_optimal_disposable_strategy_t<details::subject_state<Type, Serialized>>;
 
         replay_subject_base()
             : m_state{disposable_wrapper_impl<replay_state>::make()}
@@ -128,7 +128,7 @@ namespace rpp::subjects::details
 
         auto get_observable() const
         {
-            return create_subject_on_subscribe_observable<Type, expected_disposable_strategy>([state = m_state]<rpp::constraint::observer_of_type<Type> TObs>(TObs&& observer) {
+            return create_subject_on_subscribe_observable<Type, optimal_disposable_strategy>([state = m_state]<rpp::constraint::observer_of_type<Type> TObs>(TObs&& observer) {
                 const auto locked = state.lock();
                 for (auto&& value : locked->get_actual_values())
                     observer.on_next(std::move(value.value));

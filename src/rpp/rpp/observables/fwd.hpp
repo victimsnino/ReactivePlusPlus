@@ -22,7 +22,10 @@ namespace rpp::constraint
         {
             strategy.subscribe(std::move(observer))
         } -> std::same_as<void>;
+
         typename S::value_type;
+        typename S::optimal_disposable_strategy;
+        requires rpp::details::observables::constraint::disposable_strategy<typename S::optimal_disposable_strategy>;
     };
 } // namespace rpp::constraint
 
@@ -108,9 +111,9 @@ namespace rpp::constraint
         requires() {
             typename std::decay_t<Op>::template operator_traits<Type>;
             typename std::decay_t<Op>::template operator_traits<Type>::result_type;
+            typename std::decay_t<Op>::template updated_optimal_disposable_strategy<typename details::observables::chain<details::observables::fake_strategy<Type>>::optimal_disposable_strategy>;
         }
-        && details::observables::constraint::disposable_strategy<details::observables::deduce_updated_disposable_strategy<std::decay_t<Op>,
-                                                                                                                          typename details::observables::chain<details::observables::fake_strategy<Type>>::expected_disposable_strategy>>
+        && details::observables::constraint::disposable_strategy<typename std::decay_t<Op>::template updated_optimal_disposable_strategy<typename details::observables::chain<details::observables::fake_strategy<Type>>::optimal_disposable_strategy>>
         && (operator_subscribe<std::decay_t<Op>, Type> || operator_lift<std::decay_t<Op>, Type> || operator_lift_with_disposable_strategy<std::decay_t<Op>, Type, DisposableStrategy>);
 
 } // namespace rpp::constraint

@@ -26,7 +26,7 @@ namespace rpp
      *
      * @ingroup disposables
      */
-    template<details::disposables::constraint::disposable_container Container>
+    template<details::disposables::constraint::disposables_container Container>
     class composite_disposable_impl : public interface_composite_disposable
     {
     public:
@@ -171,7 +171,7 @@ namespace rpp
      *
      * @ingroup disposables
      */
-    class composite_disposable : public composite_disposable_impl<rpp::details::disposables::dynamic_disposables_container<0>>
+    class composite_disposable : public composite_disposable_impl<rpp::details::disposables::default_disposables_container>
     {
     };
 } // namespace rpp

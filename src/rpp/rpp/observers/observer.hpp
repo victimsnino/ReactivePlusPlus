@@ -37,7 +37,7 @@ namespace rpp::details
         }
 
     public:
-        using preferred_disposable_strategy = observers::none_disposable_strategy;
+        static constexpr auto preferred_disposable_mode = rpp::details::observers::disposable_mode::None;
 
         using on_next_lvalue = void (observer_impl::*)(const Type&) const noexcept;
         using on_next_rvalue = void (observer_impl::*)(Type&&) const noexcept;
@@ -157,7 +157,7 @@ namespace rpp
      * @warning By default observer is not copyable, only movable. If you need to COPY your observer, you need to convert it to rpp::dynamic_observer via rpp::observer::as_dynamic
      * @warning Expected that observer would be subscribed only to ONE observable ever. It can keep internal state and track it it was disposed or not. So, subscribing same observer multiple time follows unspecified behavior.
      * @warning If you are passing disposable to ctor, then state of this disposable would be used used (if empty disposable or disposed -> observer is disposed by default)
-     * @warning It is expected, that member of this observer would be called in SERIAL way. It means, no any parallel calls allowed, only serial ones from one observable.
+     * @warning It is expected that members of this observer are called in a SERIAL manner. This means no parallel or concurrent calls are allowed—only serial calls or those guarded under a lock.
      *
      * @tparam Type of value this observer can handle
      * @tparam Strategy used to provide logic over observer's callbacks
@@ -168,11 +168,11 @@ namespace rpp
     class observer;
 
     template<constraint::decayed_type Type, constraint::observer_strategy<Type> Strategy>
-    class observer final : public details::observer_impl<Type, Strategy, details::observers::deduce_disposable_strategy_t<Strategy>>
+    class observer final : public details::observer_impl<Type, Strategy, details::observers::deduce_optimal_disposable_strategy_t<Strategy::preferred_disposable_mode>>
     {
     public:
-        using DisposableStrategy = details::observers::deduce_disposable_strategy_t<Strategy>;
-        using Base               = details::observer_impl<Type, Strategy, details::observers::deduce_disposable_strategy_t<Strategy>>;
+        using DisposableStrategy = details::observers::deduce_optimal_disposable_strategy_t<Strategy::preferred_disposable_mode>;
+        using Base               = details::observer_impl<Type, Strategy, DisposableStrategy>;
 
         template<typename... Args>
             requires constraint::is_constructible_from<Strategy, Args&&...>
@@ -201,8 +201,7 @@ namespace rpp
     };
 
     template<constraint::decayed_type Type, constraint::observer_strategy<Type> Strategy, rpp::details::observers::constraint::disposable_strategy DisposableStrategy>
-    class observer<Type, details::with_disposable_strategy<Strategy, DisposableStrategy>> final
-        : public details::observer_impl<Type, Strategy, DisposableStrategy>
+    class observer<Type, details::observers::override_disposable_strategy<Strategy, DisposableStrategy>> final : public details::observer_impl<Type, Strategy, DisposableStrategy>
     {
     public:
         using Base = details::observer_impl<Type, Strategy, DisposableStrategy>;
