@@ -157,7 +157,7 @@ namespace rpp
      * @warning By default observer is not copyable, only movable. If you need to COPY your observer, you need to convert it to rpp::dynamic_observer via rpp::observer::as_dynamic
      * @warning Expected that observer would be subscribed only to ONE observable ever. It can keep internal state and track it it was disposed or not. So, subscribing same observer multiple time follows unspecified behavior.
      * @warning If you are passing disposable to ctor, then state of this disposable would be used used (if empty disposable or disposed -> observer is disposed by default)
-     * @warning It is expected, that member of this observer would be called in SERIAL way. It means, no any parallel calls allowed, only serial ones from one observable.
+     * @warning It is expected, that member of this observer would be called in SERIAL way. It means, no any parallel/concurrect calls allowed, only serial or guarded under lock.
      *
      * @tparam Type of value this observer can handle
      * @tparam Strategy used to provide logic over observer's callbacks
