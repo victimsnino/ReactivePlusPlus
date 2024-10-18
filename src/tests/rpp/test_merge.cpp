@@ -237,8 +237,8 @@ TEST_CASE_TEMPLATE("merge handles race condition", TestType, rpp::memory_model::
                                         CHECK(!on_error_called);
                                     } },
                                               [&](auto) { on_error_called = true; });
-                    CHECK(t.has_value());
-                    CHECK(t->join());
+                    REQUIRE(t.has_value());
+                    t->join();
                     CHECK(on_error_called);
                 }
             }
