@@ -221,19 +221,22 @@ TEST_CASE_TEMPLATE("merge handles race condition", TestType, rpp::memory_model::
             {
                 SUBCASE("on_error can't interleave with on_next")
                 {
+                    std::optional<std::thread> t{};
                     source
                         | rpp::ops::as_blocking()
                         | rpp::ops::subscribe([&](auto&&) {
                                     REQUIRE(extracted_obs.has_value());
                                     CHECK(!on_error_called);
-                                    std::thread{[extracted_obs]
-                                    {
-                                        extracted_obs->on_error(std::exception_ptr{});
-                                    }}.detach();
+                                    if (!t)
+                                        t = std::thread{[extracted_obs]
+                                        {
+                                            extracted_obs->on_error(std::exception_ptr{});
+                                        }};
                                     std::this_thread::sleep_for(std::chrono::seconds{1});
                                     CHECK(!on_error_called); },
                                               [&](auto) { on_error_called = true; });
-
+                    CHECK(t.has_value());
+                    CHECK(t->join());
                     CHECK(on_error_called);
                 }
             }
