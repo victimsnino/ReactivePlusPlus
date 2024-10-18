@@ -74,6 +74,8 @@ namespace rpp::details::observers
                 return static_cast<none_disposable_strategy*>(nullptr);
             else if constexpr (mode == disposable_mode::External)
                 return static_cast<composite_disposable_wrapper*>(nullptr);
+            else
+                return static_cast<void*>(nullptr);
         }
     } // namespace details
 
