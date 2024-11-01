@@ -36,11 +36,19 @@ namespace rpp::constraint
     };
 
     /**
-     * @brief Concept to define strategy to override observer behavior. Strategy must be able to handle all observer's
-     * callbacks: on_next/on_error/on_completed
+     * @concept observer_strategy
+     * @brief Concept defines requirements for an user-defined observer strategy.
      *
      * @tparam S is Strategy
      * @tparam Type is type of value observer would obtain
+     *
+     * @details Strategy should be able to handle:
+     * - on_next for both: const lvalue ref and rvalue ref of Type
+     * - on_error(exception_ptr) for unsuccessful termination event
+     * - on_completed() for successful termination event
+     * - set_upstream(disposable) for custom disposables related logic. In most cases you should OR do nothing OR just forward disposable to downstream observer (and set preferred_disposables_mode to None) OR fully handle disposales related logic properly
+     * - is_disposed() for extending custom disposables related logic with indicating current status.
+     * - `static constexpr rpp::details::observers::disposables_mode preferred_disposables_mode` with preferred disposables logic for observer over this strategy
      *
      * @ingroup observers
      */

@@ -131,6 +131,10 @@ In such an way it is not powerful enough, so Reactive Programming provides a lis
 
 \copydoc observables
 
+### Observers:
+
+\copydoc observers
+
 ### Operators
 
 \copydoc operators
