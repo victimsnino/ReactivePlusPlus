@@ -16,7 +16,7 @@ template<typename T>
 class mock_observer
 {
 public:
-    static constexpr auto preferred_disposable_mode = rpp::details::observers::disposable_mode::Auto;
+    static constexpr auto preferred_disposables_mode = rpp::details::observers::disposables_mode::Auto;
 
     struct impl_t
     {

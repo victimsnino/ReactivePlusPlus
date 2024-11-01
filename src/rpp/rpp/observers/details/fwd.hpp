@@ -18,11 +18,11 @@
 
 namespace rpp::details::observers
 {
-    enum class disposable_mode : uint8_t
+    enum class disposables_mode : uint8_t
     {
-        // Let observer deduce disposable mode
+        // Let observer deduce disposables mode
         Auto = 0,
-        // No any disposable logic for observer expected
+        // No any disposables logic for observer expected
         None = 1,
         // Use external (passed to constructor) composite_disposable_wrapper as disposable
         External = 2
@@ -31,7 +31,7 @@ namespace rpp::details::observers
     namespace constraint
     {
         template<typename T>
-        concept disposable_strategy = requires(T& v, const T& const_v, const disposable_wrapper& d) {
+        concept disposables_strategy = requires(T& v, const T& const_v, const disposable_wrapper& d) {
             v.add(d);
             {
                 const_v.is_disposed()
@@ -41,44 +41,44 @@ namespace rpp::details::observers
     } // namespace constraint
 
     template<typename DisposableContainer>
-    class local_disposable_strategy;
+    class local_disposables_strategy;
 
     /**
      * @brief No any disposable logic at all. Used only inside proxy-forwarding operators where extra disposable logic not requires
      */
-    struct none_disposable_strategy;
+    struct none_disposables_strategy;
 
     /**
      * @brief Keep disposables inside dynamic_disposables_container container (based on std::vector)
      */
-    using dynamic_disposable_strategy = local_disposable_strategy<disposables::dynamic_disposables_container>;
+    using dynamic_disposables_strategy = local_disposables_strategy<disposables::dynamic_disposables_container>;
 
     /**
      * @brief Keep disposables inside static_disposables_container container (based on std::array)
      */
     template<size_t Count>
-    using static_disposable_strategy = local_disposable_strategy<disposables::static_disposables_container<Count>>;
+    using static_disposables_strategy = local_disposables_strategy<disposables::static_disposables_container<Count>>;
 
-    using default_disposable_strategy = dynamic_disposable_strategy;
+    using default_disposables_strategy = dynamic_disposables_strategy;
 
     namespace details
     {
-        template<disposable_mode mode>
-        consteval auto* deduce_optimal_disposable_strategy()
+        template<disposables_mode mode>
+        consteval auto* deduce_optimal_disposables_strategy()
         {
-            static_assert(mode == disposable_mode::Auto || mode == disposable_mode::None || mode == disposable_mode::External);
+            static_assert(mode == disposables_mode::Auto || mode == disposables_mode::None || mode == disposables_mode::External);
 
-            if constexpr (mode == disposable_mode::Auto)
-                return static_cast<default_disposable_strategy*>(nullptr);
-            else if constexpr (mode == disposable_mode::None)
-                return static_cast<none_disposable_strategy*>(nullptr);
-            else if constexpr (mode == disposable_mode::External)
+            if constexpr (mode == disposables_mode::Auto)
+                return static_cast<default_disposables_strategy*>(nullptr);
+            else if constexpr (mode == disposables_mode::None)
+                return static_cast<none_disposables_strategy*>(nullptr);
+            else if constexpr (mode == disposables_mode::External)
                 return static_cast<composite_disposable_wrapper*>(nullptr);
             else
                 return static_cast<void*>(nullptr);
         }
     } // namespace details
 
-    template<rpp::details::observers::disposable_mode Mode>
-    using deduce_optimal_disposable_strategy_t = std::remove_pointer_t<decltype(details::deduce_optimal_disposable_strategy<Mode>())>;
+    template<rpp::details::observers::disposables_mode Mode>
+    using deduce_optimal_disposables_strategy_t = std::remove_pointer_t<decltype(details::deduce_optimal_disposables_strategy<Mode>())>;
 } // namespace rpp::details::observers

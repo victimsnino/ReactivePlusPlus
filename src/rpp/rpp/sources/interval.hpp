@@ -28,8 +28,8 @@ namespace rpp::details
     template<typename TScheduler, typename TimePointOrDuration>
     struct interval_strategy
     {
-        using value_type                  = size_t;
-        using optimal_disposable_strategy = rpp::details::observables::fixed_disposable_strategy<0>;
+        using value_type                   = size_t;
+        using optimal_disposables_strategy = rpp::details::observables::fixed_disposables_strategy<0>;
 
         RPP_NO_UNIQUE_ADDRESS TScheduler scheduler;
         TimePointOrDuration              initial;

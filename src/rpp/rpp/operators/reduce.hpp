@@ -20,8 +20,8 @@ namespace rpp::operators::details
     template<rpp::constraint::observer TObserver, rpp::constraint::decayed_type Accumulator>
     struct reduce_observer_strategy
     {
-        static constexpr auto preferred_disposable_mode = rpp::details::observers::disposable_mode::None;
-        using Seed                                      = rpp::utils::extract_observer_type_t<TObserver>;
+        static constexpr auto preferred_disposables_mode = rpp::details::observers::disposables_mode::None;
+        using Seed                                       = rpp::utils::extract_observer_type_t<TObserver>;
 
         RPP_NO_UNIQUE_ADDRESS TObserver    observer;
         RPP_NO_UNIQUE_ADDRESS mutable Seed seed;
@@ -62,15 +62,15 @@ namespace rpp::operators::details
             using observer_strategy = reduce_observer_strategy<TObserver, Accumulator>;
         };
 
-        template<rpp::details::observables::constraint::disposable_strategy Prev>
-        using updated_optimal_disposable_strategy = Prev;
+        template<rpp::details::observables::constraint::disposables_strategy Prev>
+        using updated_optimal_disposables_strategy = Prev;
     };
 
     template<rpp::constraint::observer TObserver, rpp::constraint::decayed_type Accumulator>
     struct reduce_no_seed_observer_strategy
     {
-        static constexpr auto preferred_disposable_mode = rpp::details::observers::disposable_mode::None;
-        using Seed                                      = rpp::utils::extract_observer_type_t<TObserver>;
+        static constexpr auto preferred_disposables_mode = rpp::details::observers::disposables_mode::None;
+        using Seed                                       = rpp::utils::extract_observer_type_t<TObserver>;
 
         RPP_NO_UNIQUE_ADDRESS TObserver   observer;
         RPP_NO_UNIQUE_ADDRESS Accumulator accumulator;
@@ -115,8 +115,8 @@ namespace rpp::operators::details
             using observer_strategy = reduce_no_seed_observer_strategy<TObserver, Accumulator>;
         };
 
-        template<rpp::details::observables::constraint::disposable_strategy Prev>
-        using updated_optimal_disposable_strategy = Prev;
+        template<rpp::details::observables::constraint::disposables_strategy Prev>
+        using updated_optimal_disposables_strategy = Prev;
     };
 } // namespace rpp::operators::details
 

@@ -20,7 +20,7 @@ namespace rpp::operators::details
     template<rpp::constraint::observer TObserver>
     struct on_error_resume_next_inner_observer_strategy
     {
-        static constexpr auto preferred_disposable_mode = rpp::details::observers::disposable_mode::None;
+        static constexpr auto preferred_disposables_mode = rpp::details::observers::disposables_mode::None;
 
         std::shared_ptr<TObserver> observer;
 
@@ -49,7 +49,7 @@ namespace rpp::operators::details
     template<rpp::constraint::observer TObserver, rpp::constraint::decayed_type Selector>
     struct on_error_resume_next_observer_strategy
     {
-        static constexpr auto preferred_disposable_mode = rpp::details::observers::disposable_mode::None;
+        static constexpr auto preferred_disposables_mode = rpp::details::observers::disposables_mode::None;
 
         on_error_resume_next_observer_strategy(TObserver&& observer, const Selector& selector)
             : state{std::make_shared<TObserver>(std::move(observer))}
@@ -112,8 +112,8 @@ namespace rpp::operators::details
             using observer_strategy = on_error_resume_next_observer_strategy<TObserver, Selector>;
         };
 
-        template<rpp::details::observables::constraint::disposable_strategy Prev>
-        using updated_optimal_disposable_strategy = rpp::details::observables::default_disposable_strategy;
+        template<rpp::details::observables::constraint::disposables_strategy Prev>
+        using updated_optimal_disposables_strategy = rpp::details::observables::default_disposables_strategy;
     };
 } // namespace rpp::operators::details
 

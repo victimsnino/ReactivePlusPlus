@@ -19,13 +19,12 @@
 
 namespace rpp::details::observers
 {
-
     template<typename DisposableContainer>
-    class local_disposable_strategy
+    class local_disposables_strategy
     {
     public:
-        local_disposable_strategy()                                           = default;
-        local_disposable_strategy(local_disposable_strategy&& other) noexcept = default;
+        local_disposables_strategy()                                            = default;
+        local_disposables_strategy(local_disposables_strategy&& other) noexcept = default;
 
         void add(const disposable_wrapper& d)
         {
@@ -48,7 +47,7 @@ namespace rpp::details::observers
         mutable bool                              m_is_disposed{};
     };
 
-    struct none_disposable_strategy
+    struct none_disposables_strategy
     {
         static constexpr void add(const rpp::disposable_wrapper&) {}
 

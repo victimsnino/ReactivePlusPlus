@@ -11,12 +11,26 @@
 
 #include <rpp/observers/fwd.hpp>
 
-#include <rpp/observables/details/disposable_strategy.hpp>
+#include <rpp/observables/details/disposables_strategy.hpp>
 #include <rpp/utils/constraints.hpp>
 #include <rpp/utils/utils.hpp>
 
 namespace rpp::constraint
 {
+    /**
+     * @concept observable_strategy
+     * @brief A concept that defines the requirements for an observable strategy.
+     *
+     * This concept ensures that a type `S` meets the following criteria:
+     * - It has a `subscribe` method that accepts observer of type `T` and returns `void`.
+     * - It defines a nested type `value_type` to represent the type of values emitted by the observable.
+     * - It defines a nested type `optimal_disposables_strategy` to define the optimal disposables strategy observer could/should use to handle current observable properly.
+     *
+     * @tparam S The type to be checked against the concept.
+     * @tparam T The type of the values emitted by the observable.
+     *
+     * @ingroup observables
+     */
     template<typename S, typename T>
     concept observable_strategy = requires(const S& strategy, rpp::details::observers::fake_observer<T>&& observer) {
         {
@@ -24,8 +38,8 @@ namespace rpp::constraint
         } -> std::same_as<void>;
 
         typename S::value_type;
-        typename S::optimal_disposable_strategy;
-        requires rpp::details::observables::constraint::disposable_strategy<typename S::optimal_disposable_strategy>;
+        typename S::optimal_disposables_strategy;
+        requires rpp::details::observables::constraint::disposables_strategy<typename S::optimal_disposables_strategy>;
     };
 } // namespace rpp::constraint
 
@@ -40,9 +54,10 @@ namespace rpp::details::observables
     template<rpp::constraint::decayed_type Type>
     struct fake_strategy
     {
-        using value_type = Type;
+        using value_type                   = Type;
+        using optimal_disposables_strategy = rpp::details::observables::fixed_disposables_strategy<0>;
 
-        static void subscribe(const auto&) {}
+        consteval static void subscribe(const auto&) {}
     };
 } // namespace rpp::details::observables
 
@@ -100,9 +115,9 @@ namespace rpp::constraint
     };
 
     template<typename Op, typename Type, typename DisposableStrategy>
-    concept operator_lift_with_disposable_strategy = requires(const Op& op, rpp::details::observers::fake_observer<typename std::decay_t<Op>::template operator_traits<Type>::result_type>&& observer) {
+    concept operator_lift_with_disposables_strategy = requires(const Op& op, rpp::details::observers::fake_observer<typename std::decay_t<Op>::template operator_traits<Type>::result_type>&& observer) {
         {
-            op.template lift_with_disposable_strategy<Type, DisposableStrategy>(std::move(observer))
+            op.template lift_with_disposables_strategy<Type, DisposableStrategy>(std::move(observer))
         } -> rpp::constraint::observer_of_type<Type>;
     };
 
@@ -111,10 +126,10 @@ namespace rpp::constraint
         requires() {
             typename std::decay_t<Op>::template operator_traits<Type>;
             typename std::decay_t<Op>::template operator_traits<Type>::result_type;
-            typename std::decay_t<Op>::template updated_optimal_disposable_strategy<typename details::observables::chain<details::observables::fake_strategy<Type>>::optimal_disposable_strategy>;
+            typename std::decay_t<Op>::template updated_optimal_disposables_strategy<typename details::observables::chain<details::observables::fake_strategy<Type>>::optimal_disposables_strategy>;
         }
-        && details::observables::constraint::disposable_strategy<typename std::decay_t<Op>::template updated_optimal_disposable_strategy<typename details::observables::chain<details::observables::fake_strategy<Type>>::optimal_disposable_strategy>>
-        && (operator_subscribe<std::decay_t<Op>, Type> || operator_lift<std::decay_t<Op>, Type> || operator_lift_with_disposable_strategy<std::decay_t<Op>, Type, DisposableStrategy>);
+        && details::observables::constraint::disposables_strategy<typename std::decay_t<Op>::template updated_optimal_disposables_strategy<typename details::observables::chain<details::observables::fake_strategy<Type>>::optimal_disposables_strategy>>
+        && (operator_subscribe<std::decay_t<Op>, Type> || operator_lift<std::decay_t<Op>, Type> || operator_lift_with_disposables_strategy<std::decay_t<Op>, Type, DisposableStrategy>);
 
 } // namespace rpp::constraint
 

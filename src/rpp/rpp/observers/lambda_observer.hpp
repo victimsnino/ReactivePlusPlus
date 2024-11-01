@@ -22,7 +22,7 @@ namespace rpp::details::observers
              std::invocable<>                          OnCompleted>
     struct lambda_strategy
     {
-        static constexpr auto preferred_disposable_mode = rpp::details::observers::disposable_mode::Auto;
+        static constexpr auto preferred_disposables_mode = rpp::details::observers::disposables_mode::Auto;
 
         template<rpp::constraint::decayed_same_as<OnNext> TOnNext, rpp::constraint::decayed_same_as<OnError> TOnError, rpp::constraint::decayed_same_as<OnCompleted> TOnCompleted>
         explicit lambda_strategy(TOnNext&& on_next, TOnError&& on_error, TOnCompleted&& on_completed)

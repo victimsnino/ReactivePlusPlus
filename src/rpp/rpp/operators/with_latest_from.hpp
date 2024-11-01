@@ -50,7 +50,7 @@ namespace rpp::operators::details
     template<size_t I, rpp::constraint::observer Observer, typename TSelector, rpp::constraint::decayed_type... RestArgs>
     struct with_latest_from_inner_observer_strategy
     {
-        static constexpr auto preferred_disposable_mode = rpp::details::observers::disposable_mode::Auto;
+        static constexpr auto preferred_disposables_mode = rpp::details::observers::disposables_mode::Auto;
 
         std::shared_ptr<with_latest_from_state<Observer, TSelector, RestArgs...>> state{};
 
@@ -83,9 +83,9 @@ namespace rpp::operators::details
         requires std::invocable<TSelector, OriginalValue, RestArgs...>
     struct with_latest_from_observer_strategy
     {
-        using Disposable                                = with_latest_from_state<Observer, TSelector, RestArgs...>;
-        using Result                                    = std::invoke_result_t<TSelector, OriginalValue, RestArgs...>;
-        static constexpr auto preferred_disposable_mode = rpp::details::observers::disposable_mode::None;
+        using Disposable                                 = with_latest_from_state<Observer, TSelector, RestArgs...>;
+        using Result                                     = std::invoke_result_t<TSelector, OriginalValue, RestArgs...>;
+        static constexpr auto preferred_disposables_mode = rpp::details::observers::disposables_mode::None;
 
         std::shared_ptr<Disposable> state{};
 
@@ -141,8 +141,8 @@ namespace rpp::operators::details
             constexpr static bool own_current_queue = true;
         };
 
-        template<rpp::details::observables::constraint::disposable_strategy Prev>
-        using updated_optimal_disposable_strategy = rpp::details::observables::default_disposable_strategy;
+        template<rpp::details::observables::constraint::disposables_strategy Prev>
+        using updated_optimal_disposables_strategy = rpp::details::observables::default_disposables_strategy;
 
         template<rpp::constraint::decayed_type Type, rpp::constraint::observer Observer>
         auto lift(Observer&& observer) const

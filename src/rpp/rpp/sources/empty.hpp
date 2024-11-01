@@ -19,8 +19,8 @@ namespace rpp::details
 
     struct empty_strategy
     {
-        using value_type                  = Type;
-        using optimal_disposable_strategy = rpp::details::observables::fixed_disposable_strategy<0>;
+        using value_type                   = Type;
+        using optimal_disposables_strategy = rpp::details::observables::fixed_disposables_strategy<0>;
 
         static void subscribe(const auto& obs) { obs.on_completed(); }
     };

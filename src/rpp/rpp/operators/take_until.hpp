@@ -46,7 +46,7 @@ namespace rpp::operators::details
     template<rpp::constraint::observer TObserver>
     struct take_until_observer_strategy_base
     {
-        static constexpr auto preferred_disposable_mode = rpp::details::observers::disposable_mode::None;
+        static constexpr auto preferred_disposables_mode = rpp::details::observers::disposables_mode::None;
 
         std::shared_ptr<take_until_state<TObserver>> state;
 
@@ -102,8 +102,8 @@ namespace rpp::operators::details
             constexpr static bool own_current_queue = true;
         };
 
-        template<rpp::details::observables::constraint::disposable_strategy Prev>
-        using updated_optimal_disposable_strategy = rpp::details::observables::default_disposable_strategy;
+        template<rpp::details::observables::constraint::disposables_strategy Prev>
+        using updated_optimal_disposables_strategy = rpp::details::observables::default_disposables_strategy;
 
         template<rpp::constraint::decayed_type Type, rpp::constraint::observer Observer>
         auto lift(Observer&& observer) const

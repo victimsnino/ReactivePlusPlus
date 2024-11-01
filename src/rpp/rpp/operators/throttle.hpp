@@ -24,7 +24,7 @@ namespace rpp::operators::details
     template<rpp::constraint::observer TObserver, rpp::schedulers::constraint::scheduler Scheduler>
     struct throttle_observer_strategy
     {
-        static constexpr auto preferred_disposable_mode = rpp::details::observers::disposable_mode::None;
+        static constexpr auto preferred_disposables_mode = rpp::details::observers::disposables_mode::None;
 
         RPP_NO_UNIQUE_ADDRESS TObserver                    observer;
         rpp::schedulers::duration                          duration{};
@@ -64,8 +64,8 @@ namespace rpp::operators::details
             using observer_strategy = throttle_observer_strategy<TObserver, Scheduler>;
         };
 
-        template<rpp::details::observables::constraint::disposable_strategy Prev>
-        using updated_optimal_disposable_strategy = Prev;
+        template<rpp::details::observables::constraint::disposables_strategy Prev>
+        using updated_optimal_disposables_strategy = Prev;
     };
 } // namespace rpp::operators::details
 

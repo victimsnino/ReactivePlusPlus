@@ -19,8 +19,8 @@ namespace rpp::details
     template<typename Factory>
     struct defer_strategy
     {
-        using value_type                  = rpp::utils::extract_observable_type_t<std::invoke_result_t<Factory>>;
-        using optimal_disposable_strategy = rpp::details::observables::deduce_optimal_disposable_strategy_t<std::invoke_result_t<Factory>>;
+        using value_type                   = rpp::utils::extract_observable_type_t<std::invoke_result_t<Factory>>;
+        using optimal_disposables_strategy = typename std::invoke_result_t<Factory>::optimal_disposables_strategy;
 
         RPP_NO_UNIQUE_ADDRESS Factory observable_factory;
 

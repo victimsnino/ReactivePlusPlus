@@ -46,7 +46,7 @@ namespace rpp::operators::details
     class switch_on_next_inner_observer_strategy
     {
     public:
-        static constexpr auto preferred_disposable_mode = rpp::details::observers::disposable_mode::None;
+        static constexpr auto preferred_disposables_mode = rpp::details::observers::disposables_mode::None;
 
         switch_on_next_inner_observer_strategy(const std::shared_ptr<switch_on_next_state_t<TObserver>>& state, const composite_disposable_wrapper& refcounted)
             : m_state{state}
@@ -85,7 +85,7 @@ namespace rpp::operators::details
     class switch_on_next_observer_strategy
     {
     public:
-        static constexpr auto preferred_disposable_mode = rpp::details::observers::disposable_mode::None;
+        static constexpr auto preferred_disposables_mode = rpp::details::observers::disposables_mode::None;
 
         switch_on_next_observer_strategy(TObserver&& obs)
             : m_state{init_state(std::move(obs))}
@@ -148,8 +148,8 @@ namespace rpp::operators::details
             using observer_strategy = switch_on_next_observer_strategy<TObserver>;
         };
 
-        template<rpp::details::observables::constraint::disposable_strategy Prev>
-        using updated_optimal_disposable_strategy = rpp::details::observables::fixed_disposable_strategy<1>;
+        template<rpp::details::observables::constraint::disposables_strategy Prev>
+        using updated_optimal_disposables_strategy = rpp::details::observables::fixed_disposables_strategy<1>;
     };
 } // namespace rpp::operators::details
 

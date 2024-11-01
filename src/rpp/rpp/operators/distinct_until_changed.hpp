@@ -22,7 +22,7 @@ namespace rpp::operators::details
     template<rpp::constraint::decayed_type Type, rpp::constraint::observer TObserver, rpp::constraint::decayed_type EqualityFn>
     struct distinct_until_changed_observer_strategy
     {
-        static constexpr auto preferred_disposable_mode = rpp::details::observers::disposable_mode::None;
+        static constexpr auto preferred_disposables_mode = rpp::details::observers::disposables_mode::None;
 
         RPP_NO_UNIQUE_ADDRESS TObserver  observer;
         RPP_NO_UNIQUE_ADDRESS EqualityFn comparator;
@@ -63,8 +63,8 @@ namespace rpp::operators::details
             using observer_strategy = distinct_until_changed_observer_strategy<T, TObserver, EqualityFn>;
         };
 
-        template<rpp::details::observables::constraint::disposable_strategy Prev>
-        using updated_optimal_disposable_strategy = Prev;
+        template<rpp::details::observables::constraint::disposables_strategy Prev>
+        using updated_optimal_disposables_strategy = Prev;
     };
 } // namespace rpp::operators::details
 

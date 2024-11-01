@@ -15,7 +15,7 @@
 #include <rpp/defs.hpp>
 #include <rpp/disposables/composite_disposable.hpp>
 #include <rpp/disposables/disposable_wrapper.hpp>
-#include <rpp/observers/details/disposable_strategy.hpp>
+#include <rpp/observers/details/disposables_strategy.hpp>
 #include <rpp/utils/exceptions.hpp>
 #include <rpp/utils/functors.hpp>
 #include <rpp/utils/utils.hpp>
@@ -24,7 +24,7 @@
 
 namespace rpp::details
 {
-    template<constraint::decayed_type Type, constraint::observer_strategy<Type> Strategy, observers::constraint::disposable_strategy DisposablesStrategy>
+    template<constraint::decayed_type Type, constraint::observer_strategy<Type> Strategy, observers::constraint::disposables_strategy DisposablesStrategy>
     class observer_impl
     {
     protected:
@@ -37,7 +37,7 @@ namespace rpp::details
         }
 
     public:
-        static constexpr auto preferred_disposable_mode = rpp::details::observers::disposable_mode::None;
+        static constexpr auto preferred_disposables_mode = rpp::details::observers::disposables_mode::None;
 
         using on_next_lvalue = void (observer_impl::*)(const Type&) const noexcept;
         using on_next_rvalue = void (observer_impl::*)(Type&&) const noexcept;
@@ -168,10 +168,10 @@ namespace rpp
     class observer;
 
     template<constraint::decayed_type Type, constraint::observer_strategy<Type> Strategy>
-    class observer final : public details::observer_impl<Type, Strategy, details::observers::deduce_optimal_disposable_strategy_t<Strategy::preferred_disposable_mode>>
+    class observer final : public details::observer_impl<Type, Strategy, details::observers::deduce_optimal_disposables_strategy_t<Strategy::preferred_disposables_mode>>
     {
     public:
-        using DisposableStrategy = details::observers::deduce_optimal_disposable_strategy_t<Strategy::preferred_disposable_mode>;
+        using DisposableStrategy = details::observers::deduce_optimal_disposables_strategy_t<Strategy::preferred_disposables_mode>;
         using Base               = details::observer_impl<Type, Strategy, DisposableStrategy>;
 
         template<typename... Args>
@@ -200,8 +200,8 @@ namespace rpp
         }
     };
 
-    template<constraint::decayed_type Type, constraint::observer_strategy<Type> Strategy, rpp::details::observers::constraint::disposable_strategy DisposableStrategy>
-    class observer<Type, details::observers::override_disposable_strategy<Strategy, DisposableStrategy>> final : public details::observer_impl<Type, Strategy, DisposableStrategy>
+    template<constraint::decayed_type Type, constraint::observer_strategy<Type> Strategy, rpp::details::observers::constraint::disposables_strategy DisposableStrategy>
+    class observer<Type, details::observers::override_disposables_strategy<Strategy, DisposableStrategy>> final : public details::observer_impl<Type, Strategy, DisposableStrategy>
     {
     public:
         using Base = details::observer_impl<Type, Strategy, DisposableStrategy>;
@@ -234,13 +234,13 @@ namespace rpp
 
     template<constraint::decayed_type Type>
     class observer<Type, rpp::details::observers::dynamic_strategy<Type>>
-        : public details::observer_impl<Type, rpp::details::observers::dynamic_strategy<Type>, details::observers::none_disposable_strategy>
+        : public details::observer_impl<Type, rpp::details::observers::dynamic_strategy<Type>, details::observers::none_disposables_strategy>
     {
     public:
         template<constraint::observer_strategy<Type> TStrategy>
             requires (!std::same_as<TStrategy, rpp::details::observers::dynamic_strategy<Type>>)
         observer(observer<Type, TStrategy>&& other)
-            : details::observer_impl<Type, rpp::details::observers::dynamic_strategy<Type>, details::observers::none_disposable_strategy>{details::observers::none_disposable_strategy{}, std::move(other)}
+            : details::observer_impl<Type, rpp::details::observers::dynamic_strategy<Type>, details::observers::none_disposables_strategy>{details::observers::none_disposables_strategy{}, std::move(other)}
         {
         }
 

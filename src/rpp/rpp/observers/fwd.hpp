@@ -33,11 +33,6 @@ namespace rpp::constraint
         {
             strategy.is_disposed()
         } -> std::same_as<bool>;
-
-        // strategy has to provide it's preferred disposable mode: minimal level of disposable logic it could work with.
-        // if observer_strategy fully controls disposable logic or just forwards disposable to downstream observer: rpp::details::observers::disposable_mode::None
-        // if you not sure about this field - just use rpp::details::observers::disposable_mode::Auto
-        { std::decay_t<S>::preferred_disposable_mode } -> rpp::constraint::decayed_same_as<rpp::details::observers::disposable_mode>; /* = rpp::details::observers::disposable_mode::Auto */
     };
 
     /**
@@ -53,6 +48,11 @@ namespace rpp::constraint
     concept observer_strategy = observer_strategy_base<S> && requires(const S& const_strategy, const Type& v, Type& mv) {
         const_strategy.on_next(v);
         const_strategy.on_next(std::move(mv));
+
+        // strategy has to provide it's preferred disposable mode: minimal level of disposable logic it could work with.
+        // if observer_strategy fully controls disposable logic or just forwards disposable to downstream observer: rpp::details::observers::disposables_mode::None
+        // if you not sure about this field - just use rpp::details::observers::disposables_mode::Auto
+        { std::decay_t<S>::preferred_disposables_mode } -> rpp::constraint::decayed_same_as<rpp::details::observers::disposables_mode>; /* = rpp::details::observers::disposables_mode::Auto */
     };
 } // namespace rpp::constraint
 
@@ -67,12 +67,12 @@ namespace rpp::details::observers
              std::invocable<>                          OnCompleted>
     struct lambda_strategy;
 
-    template<rpp::constraint::observer_strategy_base S, rpp::details::observers::constraint::disposable_strategy DisposableStrategy>
-    struct override_disposable_strategy
+    template<rpp::constraint::observer_strategy_base S, rpp::details::observers::constraint::disposables_strategy DisposableStrategy>
+    struct override_disposables_strategy
     {
-        static constexpr auto preferred_disposable_mode = rpp::details::observers::disposable_mode::Auto;
+        static constexpr auto preferred_disposables_mode = rpp::details::observers::disposables_mode::Auto;
 
-        override_disposable_strategy() = delete;
+        override_disposables_strategy() = delete;
 
         consteval static void on_next(const auto&) noexcept {}
         consteval static void on_error(const std::exception_ptr&) noexcept {}
@@ -92,7 +92,7 @@ namespace rpp
      * @ingroup observers
      */
     template<constraint::decayed_type Type, constraint::observer_strategy<Type> Strategy>
-    using observer_with_external_disposable = observer<Type, rpp::details::observers::override_disposable_strategy<Strategy, rpp::details::observers::deduce_optimal_disposable_strategy_t<rpp::details::observers::disposable_mode::External>>>;
+    using observer_with_external_disposable = observer<Type, rpp::details::observers::override_disposables_strategy<Strategy, rpp::details::observers::deduce_optimal_disposables_strategy_t<rpp::details::observers::disposables_mode::External>>>;
 
     template<constraint::decayed_type Type>
     class dynamic_observer;
@@ -213,7 +213,7 @@ namespace rpp::details::observers
 {
     struct fake_strategy
     {
-        static constexpr auto preferred_disposable_mode = rpp::details::observers::disposable_mode::None;
+        static constexpr auto preferred_disposables_mode = rpp::details::observers::disposables_mode::None;
 
         static void on_next(const auto&) noexcept {}
 

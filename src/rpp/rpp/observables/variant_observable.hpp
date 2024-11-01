@@ -19,7 +19,7 @@ namespace rpp::details
     template<constraint::decayed_type Type, constraint::observable_of_type<Type>... Observables>
     struct variant_observable_strategy
     {
-        using optimal_disposable_strategy = rpp::details::observables::default_disposable_strategy;
+        using optimal_disposables_strategy = rpp::details::observables::default_disposables_strategy;
 
         using value_type = Type;
         template<constraint::decayed_any_of<Observables...> TT>

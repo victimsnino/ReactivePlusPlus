@@ -20,7 +20,7 @@ template<typename Type>
 class mock_observer_strategy final
 {
 public:
-    static constexpr auto preferred_disposable_mode = rpp::details::observers::disposable_mode::Auto;
+    static constexpr auto preferred_disposables_mode = rpp::details::observers::disposables_mode::Auto;
 
     explicit mock_observer_strategy(bool copy_values = true)
         : m_state{std::make_shared<state>(copy_values)}
