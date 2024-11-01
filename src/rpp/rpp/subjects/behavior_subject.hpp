@@ -64,7 +64,7 @@ namespace rpp::subjects::details
         };
 
     public:
-        using optimal_disposables_strategy = details::subject_state<Type, Serialized>::optimal_disposables_strategy;
+        using optimal_disposables_strategy = typename details::subject_state<Type, Serialized>::optimal_disposables_strategy;
 
         explicit behavior_subject_base(const Type& value)
             : m_state{disposable_wrapper_impl<behavior_state>::make(value)}

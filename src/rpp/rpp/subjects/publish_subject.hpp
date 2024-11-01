@@ -39,7 +39,7 @@ namespace rpp::subjects::details
         };
 
     public:
-        using optimal_disposables_strategy = details::subject_state<Type, Serialized>::optimal_disposables_strategy;
+        using optimal_disposables_strategy = typename details::subject_state<Type, Serialized>::optimal_disposables_strategy;
 
         publish_subject_base() = default;
 

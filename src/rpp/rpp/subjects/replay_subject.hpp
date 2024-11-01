@@ -104,7 +104,7 @@ namespace rpp::subjects::details
         };
 
     public:
-        using optimal_disposables_strategy = details::subject_state<Type, Serialized>::optimal_disposables_strategy;
+        using optimal_disposables_strategy = typename details::subject_state<Type, Serialized>::optimal_disposables_strategy;
 
         replay_subject_base()
             : m_state{disposable_wrapper_impl<replay_state>::make()}
