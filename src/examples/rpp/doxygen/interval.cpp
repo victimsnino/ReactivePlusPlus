@@ -4,7 +4,7 @@
 #include <iostream>
 
 /**
- * \example interval.cpp
+ * @example interval.cpp
  **/
 
 int main() // NOLINT(bugprone-exception-escape)

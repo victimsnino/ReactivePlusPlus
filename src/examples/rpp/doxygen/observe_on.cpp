@@ -5,7 +5,7 @@
 #include <iostream>
 
 /**
- * \example observe_on.cpp
+ * @example observe_on.cpp
  **/
 int main() // NOLINT(bugprone-exception-escape)
 {

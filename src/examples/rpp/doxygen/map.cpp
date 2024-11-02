@@ -3,7 +3,7 @@
 #include <iostream>
 
 /**
- * \example map.cpp
+ * @example map.cpp
  **/
 
 int main() // NOLINT(bugprone-exception-escape)

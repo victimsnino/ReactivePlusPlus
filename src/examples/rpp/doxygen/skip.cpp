@@ -3,7 +3,7 @@
 #include <iostream>
 
 /**
- * \example skip.cpp
+ * @example skip.cpp
  **/
 int main()
 {

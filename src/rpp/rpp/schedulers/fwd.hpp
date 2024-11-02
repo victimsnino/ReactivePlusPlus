@@ -27,10 +27,10 @@ namespace rpp::schedulers
      * @brief Timepoint of next execution would be calculcated from NOW timpoint (time of returning from schedulable)
      *
      * @details Implementation looks like this
-     * \code{.cpp}
+     * @code{.cpp}
      * const auto duration_from_now = schedulable();
      * schedule(now() + duration_from_now, schedulable);
-     * \endcode
+     * @endcode
      */
     struct delay_from_now
     {
@@ -46,12 +46,12 @@ namespace rpp::schedulers
      * @brief Timepoint of next execution would be calculcated from timepoint of current scheduling
      *
      * @details Implementation looks like this
-     * \code{.cpp}
+     * @code{.cpp}
      * const auto timepoint_for_schedulable = schedulable->get_timepoint();
      * sleep_until(timepoint_for_schedulable);
      * const auto duration_from_this_timepoint = schedulable();
      * schedule(timepoint_for_schedulable + duration_from_this_timepoint, schedulable);
-     * \endcode
+     * @endcode
      */
     struct delay_from_this_timepoint
     {

@@ -3,7 +3,7 @@
 #include <iostream>
 
 /**
- * \example last.cpp
+ * @example last.cpp
  **/
 int main()
 {

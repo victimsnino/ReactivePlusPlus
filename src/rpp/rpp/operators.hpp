@@ -12,10 +12,10 @@
 
 /**
  * @defgroup operators Operators
- * @brief Operators provide a way to modify observables and extend them with custom logic.
- * @details By default, an observable emits values based on some underlying logic. For example, it might iterate over a vector and emit values. Operators allow you to make such a stream more complex, for example, by emitting only certain values, transforming them to strings, etc. As a result, you get another stream of different values, but more suitable for a specific case.
+ * @brief Operators modify observables and extend them with custom logic.
+ * @details Observables emit values based on underlying logic, such as iterating over a vector and etc. Operators allow you to enhance this stream, for example, by filtering values, transforming them, etc., resulting in a more suitable stream for specific cases.
  *
- * For example, you can create an observable to get characters from console input, continue until the '0' character is encountered, filter out non-letter characters, and send the remaining letters as uppercase to the observer. With operators, this is straightforward to implement correctly:
+ * Example: Create an observable to read characters from console input, continue until '0' is encountered, filter out non-letter characters, and send the remaining letters as uppercase to the observer:
  *
  * @code{.cpp}
  * #include <rpp/rpp.hpp>
@@ -37,7 +37,63 @@
  * }
  * @endcode
  *
- * Check the [API Reference](https://victimsnino.github.io/ReactivePlusPlus/v2/docs/html/group__operators.html) for more details about operators.
+ * @par How operators work and how to create your own?
+ * Example:
+ *
+ * @code{cpp}
+ *  rpp::source::create<int>([](const auto& observer){
+ *      observer.on_next(1);
+ *      observer.on_completed();
+ *  });
+ * @endcode
+ *
+ * This example creates an observable of `int` using the `create` operator, which emits the value `1` and then completes.
+ * The type of this observable is `rpp::observable<int, ...>`, where `...` is an implementation-defined type.
+ * To convert `int` to `std::string`, you can use the `map` operator:
+ *
+ * @code{cpp}
+ * rpp::source::create<int>([](const auto& observer){
+ *   observer.on_next(1);
+ *   observer.on_completed();
+ * })
+ * | rpp::operators::map([](int v){ return std::to_string(v); });
+ * @endcode
+ *
+ * Now it is an `observable of strings` (`rpp::observable<std::string, ...>`). The `map` operator is a functor-adaptor that accepts an observable and returns another observable.
+ * It transforms the original observable's type to the "final type" by invoking the passed function. In this case, the final type is `std::string`.
+ * The `map` operator can be implemented in multiple ways:
+ *
+ * 1) call-based (function/functor or others) - operator accepts (old) observable and returns new (modified) observable
+ * @code{cpp}
+ * template<typename Fn>
+ * struct map
+ * {
+ *   Fn fn{};
+ *
+ *   template<typename Type, typename Internal>
+ *   auto operator()(const rpp::observable<Type, Internal>& observable) const {
+ *     using FinalType = std::invoke_result_t<Fn, Type>;
+ *     return rpp::source::create<FinalType>([observable, fn](const rpp::dynamic_observer<FinalType>& observer)
+ *     {
+ *       observable.subscribe([observer, fn](const auto& v) { observer.on_next(fn(v)); },
+ *                            [observer](const std::exception_ptr& err) { observer.on_error(err); },
+ *                            [observer]() { observer.on_completed(); });
+ *     };);
+ *   }
+ * }
+ * @endcode
+ * It is template for such an functor-adaptor. It is also fully valid example of call-based operator:
+ * @code{cpp}
+ * rpp::source::just(1)
+ *   | [](const auto& observable) { return rpp::source::concat(observable, rpp::source::just(2)); };
+ * @endcode
+ * This converts the observable to a concatenation of the original observable and `just(2)`.
+ *
+ * 2) type-traits based - should satisfy @link rpp::constraint::operator_ @endlink concept.<br>
+ * For example, you can implement such an operator like this:
+ * @snippet readme.cpp simple_custom_map
+ * But in this case you are missing disposables-related functionality.
+ * So, it is better to implement it via providing custom observer's strategy with correct handling of disposables. Check real @link rpp::operators::map @endlink implementation for it =)
  *
  * @see https://reactivex.io/documentation/operators.html
  * @ingroup rpp

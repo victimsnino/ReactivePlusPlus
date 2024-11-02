@@ -6,7 +6,7 @@
 #include "protocol.grpc.pb.h"
 
 /**
- * \example server_reactor.cpp
+ * @example server_reactor.cpp
  **/
 
 class server : public TestService::CallbackService

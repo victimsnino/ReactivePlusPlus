@@ -7,7 +7,7 @@
 #include <iostream>
 
 /**
- * \example from_signal.cpp
+ * @example from_signal.cpp
  **/
 
 int main(int argc, char* argv[])

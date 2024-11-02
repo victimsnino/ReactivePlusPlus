@@ -5,7 +5,7 @@
 #include <iostream>
 
 /**
- * \example delay.cpp
+ * @example delay.cpp
  **/
 int main() // NOLINT(bugprone-exception-escape)
 {

@@ -3,7 +3,7 @@
 #include <iostream>
 
 /**
- * \example create.cpp
+ * @example create.cpp
  **/
 
 int main() // NOLINT(bugprone-exception-escape)

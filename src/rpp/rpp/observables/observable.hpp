@@ -93,7 +93,7 @@ namespace rpp
          * @return composite_disposable_wrapper is disposable to be able to dispose observer when it needed
          *
          * @par Example
-         * \code{.cpp}
+         * @code{.cpp}
          *  auto disposable = rpp::composite_disposable_wrapper::make();
          *  rpp::source::just(1)
          *  | rpp::operators::repeat()
@@ -103,7 +103,7 @@ namespace rpp
          *  std::this_thread::sleep_for(std::chrono::seconds(1));
          *  disposable.dispose();
          *  std::this_thread::sleep_for(std::chrono::seconds(1));
-         * \endcode
+         * @endcode
          *
          */
         template<constraint::observer_strategy<Type> ObserverStrategy>
@@ -250,7 +250,7 @@ namespace rpp
          * @return composite_disposable_wrapper is disposable to be able to dispose observer when it needed
          *
          * @par Example
-         * \code{.cpp}
+         * @code{.cpp}
          *  auto disposable = rpp::composite_disposable_wrapper::make();
          *  rpp::source::just(1)
          *  | rpp::operators::repeat()
@@ -260,7 +260,7 @@ namespace rpp
          *  std::this_thread::sleep_for(std::chrono::seconds(1));
          *  disposable.dispose();
          *  std::this_thread::sleep_for(std::chrono::seconds(1));
-         * \endcode
+         * @endcode
          *
          */
         template<std::invocable<Type>                      OnNext,
@@ -288,7 +288,7 @@ namespace rpp
          * @return composite_disposable_wrapper is disposable to be able to dispose observer when it needed
          *
          * @par Example
-         * \code{.cpp}
+         * @code{.cpp}
          *  auto disposable = rpp::composite_disposable_wrapper::make();
          *  rpp::source::just(1)
          *  | rpp::operators::repeat()
@@ -298,7 +298,7 @@ namespace rpp
          *  std::this_thread::sleep_for(std::chrono::seconds(1));
          *  disposable.dispose();
          *  std::this_thread::sleep_for(std::chrono::seconds(1));
-         * \endcode
+         * @endcode
          *
          */
         template<std::invocable<Type> OnNext,
@@ -332,7 +332,8 @@ namespace rpp
             if constexpr (requires { typename std::decay_t<Op>::template operator_traits<Type>; })
             {
                 using result_type = typename std::decay_t<Op>::template operator_traits<Type>::result_type;
-                return observable<result_type, details::observables::make_chain_t<std::decay_t<Op>, Strategy>>{std::forward<Op>(op), m_strategy};
+                if constexpr (requires { typename std::decay_t<Op>::template operator_traits<Type>::result_type; }) // narrow compilataion error a bit
+                    return observable<result_type, details::observables::make_chain_t<std::decay_t<Op>, Strategy>>{std::forward<Op>(op), m_strategy};
             }
             else
             {

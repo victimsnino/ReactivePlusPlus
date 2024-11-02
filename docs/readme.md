@@ -139,94 +139,7 @@ In such an way it is not powerful enough, so Reactive Programming provides a lis
 
 \copydoc operators
 
-#### How Operators Work?
-
-Example:
-
-```cpp
-rpp::source::create<int>([](const auto& observer){
-  observer.on_next(1);
-  observer.on_completed();
-});
-```
-
-This example shows next: we create observble of `int` via operator `create`. This observable just emits to observer value `1` and then completes. Type of this observable is `rpp::observable<int, ...>` where `...` implementation defined type. So, actually it is `observable of ints`. Let's say we want to convert `int` to `std::string`. We could subscribe and then convert it or use `map` operator (also known as `transform`) to transform some original value to some another value:
-
-```cpp
-rpp::source::create<int>([](const auto& observer){
-  observer.on_next(1);
-  observer.on_completed();
-})
-| rpp::operators::map([](int v){ return std::string{v}; });
-```
-
-For now it is `observable of strings` due to it is `rpp::observable<std::string, ...>`. But what is `rpp::operators::map` then? Actually it is functor-adaptor - just functor accepting observable and returning another observable. It accepts original observable and converts it to observable of "final type". "final type" is result of invocation of passed function against original observable's type. In our case it is `decltype([](int v){ return std::string{v}; }(int{}))` is it is `std::string`. So, `map` can be implemented in the following way:
-
-```cpp
-template<typename Fn>
-struct map
-{
-  Fn fn{};
-
-  template<typename Type, typename Internal>
-  auto operator()(const rpp::observable<Type, Internal>& observable) const {
-    using FinalType = std::invoke_result_t<Fn, Type>;
-    return rpp::source::create<FinalType>([observable, fn](const rpp::dynamic_observer<FinalType>& observer)
-    {
-      observable.subscribe([observer, fn](const auto& v) { observer.on_next(fn(v)); },
-                           [observer](const std::exception_ptr& err) { observer.on_error(err); },
-                           [observer]() { observer.on_completed(); });
-    };);
-  }
-}
-```
-
-It is template for such an functor-adaptor. Provided example - is simplest possible way to implement new operators - just provide function for transformation of observable. For example, it is fully valid example:
-```cpp
-rpp::source::just(1)
-    | [](const auto& observable) { return rpp::source::concat(observable, rpp::source::just(2)); };
-```
-
-There we convert observable to concatenation of original observable and `just(2)`.
-
-One more posible but a bit more advanced way to implement operators - is to lift observer. To do this, your functor-adapter must to satisfy `rpp::constraint::operator_lift` concept. Actually, your class must to have:
-- member function `lift` accepting downstream observer and returning new upstream observer
-- inner `template<rpp::constraint::decayed_type T> struct traits` struct accepting typename of upstream and providing:
-  - `using result_type =` with typename of new resulting type for new observable
-  - (optionally) `struct requirements` with static_asserts over passed type
-
-Example:
-```cpp
-template<typename Fn>
-struct map
-{
-  template<rpp::constraint::decayed_type T>
-  struct traits
-  {
-    struct requirements
-    {
-      static_assert(std::invocable<Fn, T>, "Fn is not invocable with T");
-    };
-
-    using result_type = std::invoke_result_t<Fn, T>;
-  };
-
-  Fn fn{};
-
-  template<typename Upstream, typename Downstream>
-  auto lift(const rpp::dynamic_observer<Downstream>& observer) const
-  {
-      return rpp::make_lambda_observer<Upstream>([observer, fn](const auto& v){ observer.on_next(fn(v)); },
-                                                 [observer](const std::exception_ptr& err) { observer.on_error(err); },
-                                                 [observer]() { observer.on_completed(); });
-  }
-}
-
-```
-In this case you providing logic how to convert downstream observer to upstream observer. Actually this implementation is equal to previous one, but without handling of observable - you are expressing your operator in terms of observers
-
-**(Advanced)**
-In case of implementing operator via `lift` you can control disposable strategy via `updated_optimal_disposables_strategy` parameter. It accepts disposable strategy of upstream and returns disposable strategy for downstream. It needed only for optimization and reducing disposables handling cost and it is purely advanced thing. Not sure if anyone is going to use it by its own for now =)
+Check the @link operators @endlink for more details about operators.
 
 ### Schedulers
 
@@ -423,14 +336,14 @@ Below you can find list of extensions for RPP with adaption to external framewor
 ### rppqt
 
 \copydoc rppqt
-Check API reference of \link rppqt \endlink for more details
+Check API reference of @link rppqt @endlink for more details
 
 ### rppgrpc
 
 \copydoc rppgrpc
-Check API reference of \link rppgrpc \endlink for more details
+Check API reference of @link rppgrpc @endlink for more details
 
 ### rppasio
 
 \copydoc rppasio
-Check API reference of \link rppasio \endlink for more details
+Check API reference of @link rppasio @endlink for more details

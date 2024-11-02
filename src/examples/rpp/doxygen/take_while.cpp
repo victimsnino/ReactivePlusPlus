@@ -3,7 +3,7 @@
 #include <iostream>
 
 /**
- * \example take_while.cpp
+ * @example take_while.cpp
  **/
 int main() // NOLINT(bugprone-exception-escape)
 {

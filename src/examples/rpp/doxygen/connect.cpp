@@ -5,7 +5,7 @@
 #include <iostream>
 
 /**
- * \example connect.cpp
+ * @example connect.cpp
  **/
 
 int main() // NOLINT(bugprone-exception-escape)

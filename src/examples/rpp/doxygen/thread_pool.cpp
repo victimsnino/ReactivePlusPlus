@@ -3,7 +3,7 @@
 #include <iostream>
 
 /**
- * \example thread_pool.cpp
+ * @example thread_pool.cpp
  **/
 
 int main() // NOLINT(bugprone-exception-escape)

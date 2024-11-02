@@ -3,7 +3,7 @@
 #include <iostream>
 
 /**
- * \example defer.cpp
+ * @example defer.cpp
  **/
 
 int main() // NOLINT(bugprone-exception-escape)

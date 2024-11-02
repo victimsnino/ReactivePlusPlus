@@ -3,7 +3,7 @@
 #include <iostream>
 
 /**
- * \example distinct_until_changed.cpp
+ * @example distinct_until_changed.cpp
  **/
 
 int main()

@@ -3,7 +3,7 @@
 #include <iostream>
 
 /**
- * \example group_by.cpp
+ * @example group_by.cpp
  **/
 int main()
 {

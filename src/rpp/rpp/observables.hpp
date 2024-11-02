@@ -34,7 +34,7 @@
  * 4. This is true **EXCEPT FOR** subjects if used manually. Use serialized_* instead if you can't guarantee serial emissions.
  *
  * For example:
- * \code{.cpp}
+ * @code{.cpp}
  * auto s1 = rpp::source::just(1) | rpp::operators::repeat() | rpp::operators::subscribe_on(rpp::schedulers::new_thread{});
  * auto s2 = rpp::source::just(2) | rpp::operators::repeat() | rpp::operators::subscribe_on(rpp::schedulers::new_thread{});
  * s1 | rpp::operators::merge_with(s2)
@@ -47,18 +47,18 @@
  *    })
  *    | rpp::operators::as_blocking()
  *    | rpp::operators::subscribe([](int){});
- * \endcode
+ * @endcode
  *
  * This will never produce:
- * \code{.log}
+ * @code{.log}
  * enter 1
  * enter 2
  * exit 2
  * exit 1
- * \endcode
+ * @endcode
  *
  * Only serially:
- * \code{.log}
+ * @code{.log}
  * enter 1
  * exit 1
  * enter 1
@@ -67,7 +67,7 @@
  * exit 2
  * enter 2
  * exit 2
- * \endcode
+ * @endcode
  * @see https://reactivex.io/documentation/observable.html
  * @ingroup rpp
  */

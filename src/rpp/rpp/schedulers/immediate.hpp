@@ -22,7 +22,7 @@ namespace rpp::schedulers
     /**
      * @brief immediately calls provided schedulable or waits for time_point (in the caller-thread)
      * @par Example
-     * \code{.cpp}
+     * @code{.cpp}
      * auto worker = rpp::schedulers::immediate::create_worker();
      * worker.schedule([&worker](const auto& handler)
      * {
@@ -49,7 +49,7 @@ namespace rpp::schedulers
      *     std::cout << "Task 1 ends" << std::endl;
      *     return rpp::schedulers::optional_delay_from_now{};
      * }, handler);
-     * \endcode
+     * @endcode
      *
      * Would lead to:
      * - "Task 1 starts"

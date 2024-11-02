@@ -3,7 +3,7 @@
 #include <iostream>
 
 /**
- * \example switch_on_next.cpp
+ * @example switch_on_next.cpp
  **/
 int main()
 {

@@ -5,7 +5,7 @@
 
 #include "protocol.grpc.pb.h"
 /**
- * \example client_reactor.cpp
+ * @example client_reactor.cpp
  **/
 
 int main() // NOLINT(bugprone-exception-escape)

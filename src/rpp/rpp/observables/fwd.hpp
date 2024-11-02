@@ -100,6 +100,11 @@ namespace rpp::constraint
     template<typename TObservable, typename... TObservables>
     concept observables_of_same_type = rpp::constraint::observable<TObservable> && (rpp::constraint::observable<TObservables> && ...) && (std::same_as<rpp::utils::extract_observable_type_t<TObservable>, rpp::utils::extract_observable_type_t<TObservables>> && ...);
 
+    /**
+     * @concept operator_subscribe
+     * @brief Simple operator defining logic how to subscribe passed observer to passed observable. In most cases it means operator have some custom logic over observable too, so, you need to have access to observable, for example, subscribe to observable multiple times.
+     * @ingroup operators
+     */
     template<typename Op, typename Type>
     concept operator_subscribe = requires(const Op& op, rpp::details::observers::fake_observer<typename std::decay_t<Op>::template operator_traits<Type>::result_type>&& observer, const details::observables::chain<details::observables::fake_strategy<Type>>& chain) {
         {
@@ -107,12 +112,23 @@ namespace rpp::constraint
         };
     };
 
+    /**
+     * @concept operator_lift
+     * @brief Accept downstream observer and return new upstream (of type Type) observer.
+     * @ingroup operators
+     */
     template<typename Op, typename Type>
     concept operator_lift = requires(const Op& op, rpp::details::observers::fake_observer<typename std::decay_t<Op>::template operator_traits<Type>::result_type>&& observer) {
         {
             op.template lift<Type>(std::move(observer))
         } -> rpp::constraint::observer_of_type<Type>;
     };
+
+    /**
+     * @concept operator_lift_with_disposables_strategy
+     * @brief Same as @link rpp::constraint::operator_lift @endlink but with custom disposables logic. For example, if you are manually create storage for disposables and want to do it optimal.
+     * @ingroup operators
+     */
 
     template<typename Op, typename Type, typename DisposableStrategy>
     concept operator_lift_with_disposables_strategy = requires(const Op& op, rpp::details::observers::fake_observer<typename std::decay_t<Op>::template operator_traits<Type>::result_type>&& observer) {
@@ -121,14 +137,32 @@ namespace rpp::constraint
         } -> rpp::constraint::observer_of_type<Type>;
     };
 
+    template<typename Op, typename Type>
+    concept has_operator_traits = requires() {
+        typename std::decay_t<Op>::template operator_traits<Type>;
+        typename std::decay_t<Op>::template operator_traits<Type>::result_type;
+    };
+
+    template<typename Op>
+    concept has_operator_disposables_strategy = requires() {
+        typename std::decay_t<Op>::template updated_optimal_disposables_strategy<typename details::observables::default_disposables_strategy>;
+    } && details::observables::constraint::disposables_strategy<typename std::decay_t<Op>::template updated_optimal_disposables_strategy<typename details::observables::default_disposables_strategy>>;
+
+    /**
+     * @concept operator_
+     * @details Concept for any RPP-related operator:
+     * - operator should have type-traits: template sub-struct `operator_traits` where template typename is type of upstream.
+     *   - Such and sub-struct should have `result_type` using to type of final observable/downstream observer
+     *   - You can place any static_asserts to this `operator_traits` if you have some specific requiremenets
+     * - operator should have template using `updated_optimal_disposables_strategy` accepting `rpp::details::observables::disposbles_strategy` and returning new (updated) strategy to provide optimal behavior. For example, your operator could add+1 disposables to the strategy
+     * - operator should satisfy `rpp::constraint::operator_subscribe`, `rpp::constraint::operator_lift` or `rpp::constraint::operator_lift_with_disposables_strategy`
+     *
+     * @ingroup operators
+     */
     template<typename Op, typename Type, typename DisposableStrategy>
-    concept operator_chain =
-        requires() {
-            typename std::decay_t<Op>::template operator_traits<Type>;
-            typename std::decay_t<Op>::template operator_traits<Type>::result_type;
-            typename std::decay_t<Op>::template updated_optimal_disposables_strategy<typename details::observables::chain<details::observables::fake_strategy<Type>>::optimal_disposables_strategy>;
-        }
-        && details::observables::constraint::disposables_strategy<typename std::decay_t<Op>::template updated_optimal_disposables_strategy<typename details::observables::chain<details::observables::fake_strategy<Type>>::optimal_disposables_strategy>>
+    concept operator_ =
+        has_operator_traits<Op, Type>
+        && has_operator_disposables_strategy<Op>
         && (operator_subscribe<std::decay_t<Op>, Type> || operator_lift<std::decay_t<Op>, Type> || operator_lift_with_disposables_strategy<std::decay_t<Op>, Type, DisposableStrategy>);
 
 } // namespace rpp::constraint

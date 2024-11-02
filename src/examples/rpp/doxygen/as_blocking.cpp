@@ -5,7 +5,7 @@
 #include <iostream>
 
 /**
- * \example as_blocking.cpp
+ * @example as_blocking.cpp
  **/
 
 int main() // NOLINT(bugprone-exception-escape)

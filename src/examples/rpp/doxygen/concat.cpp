@@ -5,7 +5,7 @@
 #include <iostream>
 
 /**
- * \example concat.cpp
+ * @example concat.cpp
  **/
 
 int main() // NOLINT(bugprone-exception-escape)
