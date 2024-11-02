@@ -12,6 +12,13 @@
 template<typename Fn>
 struct simple_map
 {
+    simple_map(const Fn& fn)
+        : fn(fn)
+    {
+    }
+
+    Fn fn{};
+
     // 1: define traits for the operator with upstream (previous type) type
     template<rpp::constraint::decayed_type T>
     struct operator_traits
@@ -27,7 +34,6 @@ struct simple_map
     template<rpp::details::observables::constraint::disposables_strategy Prev>
     using updated_optimal_disposables_strategy = Prev;
 
-    Fn fn{};
 
     // 3: implement core logic of operator: accept downstream observer (of result_type) and convert it to upstream observer (of T).
     template<typename Upstream, rpp::constraint::observer Observer>
@@ -41,7 +47,7 @@ struct simple_map
 };
 
 template<typename Fn>
-simple_map(Fn fn) -> simple_map<Fn>;
+simple_map(const Fn& fn) -> simple_map<Fn>;
 
 void test()
 {
