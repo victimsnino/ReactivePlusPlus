@@ -78,7 +78,7 @@
  *       observable.subscribe([observer, fn](const auto& v) { observer.on_next(fn(v)); },
  *                            [observer](const std::exception_ptr& err) { observer.on_error(err); },
  *                            [observer]() { observer.on_completed(); });
- *     };);
+ *     });
  *   }
  * }
  * @endcode
