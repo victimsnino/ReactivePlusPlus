@@ -30,5 +30,5 @@ var searchData=
   ['lift_5foperator_3c_20throttle_5ft_3c_20scheduler_20_3e_2c_20rpp_3a_3aschedulers_3a_3aduration_20_3e_27',['lift_operator&lt; throttle_t&lt; Scheduler &gt;, rpp::schedulers::duration &gt;',['../classrpp_1_1operators_1_1details_1_1lift__operator.html',1,'rpp::operators::details']]],
   ['lift_5foperator_3c_20window_5ft_2c_20size_5ft_20_3e_28',['lift_operator&lt; window_t, size_t &gt;',['../classrpp_1_1operators_1_1details_1_1lift__operator.html',1,'rpp::operators::details']]],
   ['lift_5foperator_3c_20window_5ftoggle_5ft_3c_20topeningsobservable_2c_20tclosingsselectorfn_20_3e_2c_20topeningsobservable_2c_20tclosingsselectorfn_20_3e_29',['lift_operator&lt; window_toggle_t&lt; TOpeningsObservable, TClosingsSelectorFn &gt;, TOpeningsObservable, TClosingsSelectorFn &gt;',['../classrpp_1_1operators_1_1details_1_1lift__operator.html',1,'rpp::operators::details']]],
-  ['local_5fdisposable_5fstrategy_30',['local_disposable_strategy',['../classrpp_1_1details_1_1observers_1_1local__disposable__strategy.html',1,'rpp::details::observers']]]
+  ['local_5fdisposables_5fstrategy_30',['local_disposables_strategy',['../classrpp_1_1details_1_1observers_1_1local__disposables__strategy.html',1,'rpp::details::observers']]]
 ];

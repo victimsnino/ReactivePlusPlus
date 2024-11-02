@@ -9,8 +9,10 @@ var concepts =
         [ "observables_of_same_type", "conceptrpp_1_1constraint_1_1observables__of__same__type.html", null ],
         [ "operator_subscribe", "conceptrpp_1_1constraint_1_1operator__subscribe.html", null ],
         [ "operator_lift", "conceptrpp_1_1constraint_1_1operator__lift.html", null ],
-        [ "operator_lift_with_disposable_strategy", "conceptrpp_1_1constraint_1_1operator__lift__with__disposable__strategy.html", null ],
-        [ "operator_chain", "conceptrpp_1_1constraint_1_1operator__chain.html", null ],
+        [ "operator_lift_with_disposables_strategy", "conceptrpp_1_1constraint_1_1operator__lift__with__disposables__strategy.html", null ],
+        [ "has_operator_traits", "conceptrpp_1_1constraint_1_1has__operator__traits.html", null ],
+        [ "has_operator_disposables_strategy", "conceptrpp_1_1constraint_1_1has__operator__disposables__strategy.html", null ],
+        [ "operator_", "conceptrpp_1_1constraint_1_1operator__.html", null ],
         [ "observer_strategy_base", "conceptrpp_1_1constraint_1_1observer__strategy__base.html", null ],
         [ "observer_strategy", "conceptrpp_1_1constraint_1_1observer__strategy.html", null ],
         [ "observer", "conceptrpp_1_1constraint_1_1observer.html", null ],
@@ -32,23 +34,18 @@ var concepts =
       [ "details", null, [
         [ "disposables", null, [
           [ "constraint", null, [
-            [ "disposable_container", "conceptrpp_1_1details_1_1disposables_1_1constraint_1_1disposable__container.html", null ]
+            [ "disposables_container", "conceptrpp_1_1details_1_1disposables_1_1constraint_1_1disposables__container.html", null ]
           ] ]
         ] ],
         [ "observables", null, [
           [ "constraint", null, [
-            [ "disposable_strategy", "conceptrpp_1_1details_1_1observables_1_1constraint_1_1disposable__strategy.html", null ]
-          ] ],
-          [ "details", null, [
-            [ "has_expected_disposable_strategy", "conceptrpp_1_1details_1_1observables_1_1details_1_1has__expected__disposable__strategy.html", null ],
-            [ "has_updated_disposable_strategy", "conceptrpp_1_1details_1_1observables_1_1details_1_1has__updated__disposable__strategy.html", null ]
+            [ "disposables_strategy", "conceptrpp_1_1details_1_1observables_1_1constraint_1_1disposables__strategy.html", null ]
           ] ]
         ] ],
         [ "observers", null, [
           [ "constraint", null, [
-            [ "disposable_strategy", "conceptrpp_1_1details_1_1observers_1_1constraint_1_1disposable__strategy.html", null ]
-          ] ],
-          [ "has_disposable_strategy", "conceptrpp_1_1details_1_1observers_1_1has__disposable__strategy.html", null ]
+            [ "disposables_strategy", "conceptrpp_1_1details_1_1observers_1_1constraint_1_1disposables__strategy.html", null ]
+          ] ]
         ] ]
       ] ],
       [ "operators", null, [

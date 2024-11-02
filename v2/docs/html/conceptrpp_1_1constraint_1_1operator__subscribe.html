@@ -110,9 +110,14 @@ $(function(){initNavTree('conceptrpp_1_1constraint_1_1operator__subscribe.html',
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">rpp::constraint::operator_subscribe Concept Reference</div></div>
+  <div class="headertitle"><div class="title">rpp::constraint::operator_subscribe Concept Reference<div class="ingroups"><a class="el" href="group__rpp.html">rpp</a> &raquo; <a class="el" href="group__operators.html">Operators</a></div></div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Simple operator defining logic how to subscribe passed observer to passed observable. In most cases it means operator have some custom logic over observable too, so, you need to have access to observable, for example, subscribe to observable multiple times.  
+<a href="#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="rpp_2rpp_2observables_2fwd_8hpp_source.html">fwd.hpp</a>&gt;</code></p>
 <h2 class="groupheader">Concept definition</h2>
 <div class="fragment"><div class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> Op, <span class="keyword">typename</span> Type&gt;</div>
 <div class="line"><span class="keyword">concept </span><a class="code hl_concept" href="conceptrpp_1_1constraint_1_1operator__subscribe.html">rpp::constraint::operator_subscribe</a> =  <span class="keyword">requires</span>(<span class="keyword">const</span> Op&amp; op, <a class="code hl_class" href="classrpp_1_1observer.html">rpp::details::observers::fake_observer&lt;typename std::decay_t&lt;Op&gt;::template</a> operator_traits&lt;Type&gt;::result_type&gt;&amp;&amp; <a class="code hl_concept" href="conceptrpp_1_1constraint_1_1observer.html">observer</a>, <span class="keyword">const</span> details::observables::chain&lt;details::observables::fake_strategy&lt;Type&gt;&gt;&amp; chain) {</div>
@@ -121,9 +126,11 @@ $(function(){initNavTree('conceptrpp_1_1constraint_1_1operator__subscribe.html',
 <div class="line">        };</div>
 <div class="line">    }</div>
 <div class="ttc" id="aclassrpp_1_1observer_html"><div class="ttname"><a href="classrpp_1_1observer.html">rpp::observer</a></div><div class="ttdoc">Base class for any observer used in RPP. It handles core callbacks of observers. Objects of this clas...</div><div class="ttdef"><b>Definition</b> observer.hpp:172</div></div>
-<div class="ttc" id="aconceptrpp_1_1constraint_1_1observer_html"><div class="ttname"><a href="conceptrpp_1_1constraint_1_1observer.html">rpp::constraint::observer</a></div><div class="ttdef"><b>Definition</b> fwd.hpp:235</div></div>
-<div class="ttc" id="aconceptrpp_1_1constraint_1_1operator__subscribe_html"><div class="ttname"><a href="conceptrpp_1_1constraint_1_1operator__subscribe.html">rpp::constraint::operator_subscribe</a></div><div class="ttdef"><b>Definition</b> fwd.hpp:86</div></div>
-</div><!-- fragment --></div><!-- contents -->
+<div class="ttc" id="aconceptrpp_1_1constraint_1_1observer_html"><div class="ttname"><a href="conceptrpp_1_1constraint_1_1observer.html">rpp::constraint::observer</a></div><div class="ttdef"><b>Definition</b> fwd.hpp:250</div></div>
+<div class="ttc" id="aconceptrpp_1_1constraint_1_1operator__subscribe_html"><div class="ttname"><a href="conceptrpp_1_1constraint_1_1operator__subscribe.html">rpp::constraint::operator_subscribe</a></div><div class="ttdoc">Simple operator defining logic how to subscribe passed observer to passed observable....</div><div class="ttdef"><b>Definition</b> fwd.hpp:109</div></div>
+</div><!-- fragment --><a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Simple operator defining logic how to subscribe passed observer to passed observable. In most cases it means operator have some custom logic over observable too, so, you need to have access to observable, for example, subscribe to observable multiple times. </p>
+</div></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

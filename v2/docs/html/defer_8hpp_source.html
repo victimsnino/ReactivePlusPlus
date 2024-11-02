@@ -136,7 +136,7 @@ $(function(){initNavTree('defer_8hpp_source.html',''); initResizable(true); });
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno"><a class="line" href="structrpp_1_1details_1_1defer__strategy.html">   20</a></span>    <span class="keyword">struct </span><a class="code hl_struct" href="structrpp_1_1details_1_1defer__strategy.html">defer_strategy</a></div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    {</div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>        <span class="keyword">using </span>value_type                   = rpp::utils::extract_observable_type_t&lt;std::invoke_result_t&lt;Factory&gt;&gt;;</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>        <span class="keyword">using </span>expected_disposable_strategy = rpp::details::observables::deduce_disposable_strategy_t&lt;std::invoke_result_t&lt;Factory&gt;&gt;;</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>        <span class="keyword">using </span>optimal_disposables_strategy = <span class="keyword">typename</span> std::invoke_result_t&lt;Factory&gt;::optimal_disposables_strategy;</div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>        RPP_NO_UNIQUE_ADDRESS Factory observable_factory;</div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
@@ -168,7 +168,7 @@ $(function(){initNavTree('defer_8hpp_source.html',''); initResizable(true); });
 </div>
 <div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>} <span class="comment">// namespace rpp::source</span></div>
 <div class="ttc" id="aclassrpp_1_1observable_html"><div class="ttname"><a href="classrpp_1_1observable.html">rpp::observable</a></div><div class="ttdoc">Base class for any observable used in RPP. It handles core callbacks of observable.</div><div class="ttdef"><b>Definition</b> observable.hpp:38</div></div>
-<div class="ttc" id="aconceptrpp_1_1constraint_1_1observable_html"><div class="ttname"><a href="conceptrpp_1_1constraint_1_1observable.html">rpp::constraint::observable</a></div><div class="ttdef"><b>Definition</b> fwd.hpp:62</div></div>
+<div class="ttc" id="aconceptrpp_1_1constraint_1_1observable_html"><div class="ttname"><a href="conceptrpp_1_1constraint_1_1observable.html">rpp::constraint::observable</a></div><div class="ttdef"><b>Definition</b> fwd.hpp:80</div></div>
 <div class="ttc" id="agroup__creational__operators_html_gad9a4bddea3780850a01b82b481951d18"><div class="ttname"><a href="group__creational__operators.html#gad9a4bddea3780850a01b82b481951d18">rpp::source::defer</a></div><div class="ttdeci">auto defer(Factory &amp;&amp;observable_factory)</div><div class="ttdoc">Creates rpp::observable that calls the specified observable factory to create an observable for each ...</div><div class="ttdef"><b>Definition</b> defer.hpp:57</div></div>
 <div class="ttc" id="astructrpp_1_1details_1_1defer__strategy_html"><div class="ttname"><a href="structrpp_1_1details_1_1defer__strategy.html">rpp::details::defer_strategy</a></div><div class="ttdef"><b>Definition</b> defer.hpp:21</div></div>
 </div><!-- fragment --></div><!-- contents -->

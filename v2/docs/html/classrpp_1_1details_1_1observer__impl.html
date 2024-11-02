@@ -113,6 +113,7 @@ $(function(){initNavTree('classrpp_1_1details_1_1observer__impl.html',''); initR
   <div class="summary">
 <a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-attribs">Static Public Attributes</a> &#124;
 <a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="classrpp_1_1details_1_1observer__impl-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">rpp::details::observer_impl&lt; Type, Strategy, DisposablesStrategy &gt; Class Template Reference</div></div>
@@ -121,9 +122,6 @@ $(function(){initNavTree('classrpp_1_1details_1_1observer__impl.html',''); initR
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:a1b348a38eb495c208eb6307ccb30a63a" id="r_a1b348a38eb495c208eb6307ccb30a63a"><td class="memItemLeft" align="right" valign="top"><a id="a1b348a38eb495c208eb6307ccb30a63a" name="a1b348a38eb495c208eb6307ccb30a63a"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><b>preferred_disposable_strategy</b> = <a class="el" href="structrpp_1_1details_1_1observers_1_1none__disposable__strategy.html">observers::none_disposable_strategy</a></td></tr>
-<tr class="separator:a1b348a38eb495c208eb6307ccb30a63a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab624148fb355dd36b31da497c0a44bc3" id="r_ab624148fb355dd36b31da497c0a44bc3"><td class="memItemLeft" align="right" valign="top"><a id="ab624148fb355dd36b31da497c0a44bc3" name="ab624148fb355dd36b31da497c0a44bc3"></a>
 using&#160;</td><td class="memItemRight" valign="bottom"><b>on_next_lvalue</b> = void (observer_impl::*)(const Type&amp;) const noexcept</td></tr>
 <tr class="separator:ab624148fb355dd36b31da497c0a44bc3"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -152,6 +150,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a7a73f13eae52effde01a2d3b2cf1d1b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Observable calls this method to notify observer about completion of emissions.  <br /></td></tr>
 <tr class="separator:a7a73f13eae52effde01a2d3b2cf1d1b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
+Static Public Attributes</h2></td></tr>
+<tr class="memitem:a488a30de7620eb1666f159bc3a4aae4b" id="r_a488a30de7620eb1666f159bc3a4aae4b"><td class="memItemLeft" align="right" valign="top"><a id="a488a30de7620eb1666f159bc3a4aae4b" name="a488a30de7620eb1666f159bc3a4aae4b"></a>
+static constexpr auto&#160;</td><td class="memItemRight" valign="bottom"><b>preferred_disposables_mode</b> = rpp::details::observers::disposables_mode::None</td></tr>
+<tr class="separator:a488a30de7620eb1666f159bc3a4aae4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
 <tr class="memitem:a14fbcaed2723edff9fb300a7d3da7f5a" id="r_a14fbcaed2723edff9fb300a7d3da7f5a"><td class="memTemplParams" colspan="2"><a id="a14fbcaed2723edff9fb300a7d3da7f5a" name="a14fbcaed2723edff9fb300a7d3da7f5a"></a>
@@ -167,7 +171,7 @@ requires constraint::is_constructible_from&lt;Strategy, Args&amp;&amp;...&gt;</t
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;constraint::decayed_type Type, constraint::observer_strategy&lt; Type &gt; Strategy, observers::constraint::disposable_strategy DisposablesStrategy&gt; </div>
+template&lt;constraint::decayed_type Type, constraint::observer_strategy&lt; Type &gt; Strategy, observers::constraint::disposables_strategy DisposablesStrategy&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -199,7 +203,7 @@ false if observer still interested in emissions </dd></dl>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;constraint::decayed_type Type, constraint::observer_strategy&lt; Type &gt; Strategy, observers::constraint::disposable_strategy DisposablesStrategy&gt; </div>
+template&lt;constraint::decayed_type Type, constraint::observer_strategy&lt; Type &gt; Strategy, observers::constraint::disposables_strategy DisposablesStrategy&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -229,7 +233,7 @@ template&lt;constraint::decayed_type Type, constraint::observer_strategy&lt; Typ
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;constraint::decayed_type Type, constraint::observer_strategy&lt; Type &gt; Strategy, observers::constraint::disposable_strategy DisposablesStrategy&gt; </div>
+template&lt;constraint::decayed_type Type, constraint::observer_strategy&lt; Type &gt; Strategy, observers::constraint::disposables_strategy DisposablesStrategy&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -265,7 +269,7 @@ template&lt;constraint::decayed_type Type, constraint::observer_strategy&lt; Typ
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;constraint::decayed_type Type, constraint::observer_strategy&lt; Type &gt; Strategy, observers::constraint::disposable_strategy DisposablesStrategy&gt; </div>
+template&lt;constraint::decayed_type Type, constraint::observer_strategy&lt; Type &gt; Strategy, observers::constraint::disposables_strategy DisposablesStrategy&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -295,7 +299,7 @@ template&lt;constraint::decayed_type Type, constraint::observer_strategy&lt; Typ
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;constraint::decayed_type Type, constraint::observer_strategy&lt; Type &gt; Strategy, observers::constraint::disposable_strategy DisposablesStrategy&gt; </div>
+template&lt;constraint::decayed_type Type, constraint::observer_strategy&lt; Type &gt; Strategy, observers::constraint::disposables_strategy DisposablesStrategy&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -325,7 +329,7 @@ template&lt;constraint::decayed_type Type, constraint::observer_strategy&lt; Typ
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;constraint::decayed_type Type, constraint::observer_strategy&lt; Type &gt; Strategy, observers::constraint::disposable_strategy DisposablesStrategy&gt; </div>
+template&lt;constraint::decayed_type Type, constraint::observer_strategy&lt; Type &gt; Strategy, observers::constraint::disposables_strategy DisposablesStrategy&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">

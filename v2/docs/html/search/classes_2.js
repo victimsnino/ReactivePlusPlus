@@ -19,7 +19,7 @@ var searchData=
   ['completed_16',['completed',['../structrpp_1_1subjects_1_1details_1_1completed.html',1,'rpp::subjects::details']]],
   ['composite_5fdisposable_17',['composite_disposable',['../classrpp_1_1composite__disposable.html',1,'rpp']]],
   ['composite_5fdisposable_5fimpl_18',['composite_disposable_impl',['../classrpp_1_1composite__disposable__impl.html',1,'rpp']]],
-  ['composite_5fdisposable_5fimpl_3c_20rpp_3a_3adetails_3a_3adisposables_3a_3adynamic_5fdisposables_5fcontainer_3c_200_20_3e_20_3e_19',['composite_disposable_impl&lt; rpp::details::disposables::dynamic_disposables_container&lt; 0 &gt; &gt;',['../classrpp_1_1composite__disposable__impl.html',1,'rpp']]],
+  ['composite_5fdisposable_5fimpl_3c_20rpp_3a_3adetails_3a_3adisposables_3a_3adefault_5fdisposables_5fcontainer_20_3e_19',['composite_disposable_impl&lt; rpp::details::disposables::default_disposables_container &gt;',['../classrpp_1_1composite__disposable__impl.html',1,'rpp']]],
   ['computational_20',['computational',['../classrpp_1_1schedulers_1_1computational.html',1,'rpp::schedulers']]],
   ['concat_5finner_5fobserver_5fstrategy_21',['concat_inner_observer_strategy',['../structrpp_1_1operators_1_1details_1_1concat__inner__observer__strategy.html',1,'rpp::operators::details']]],
   ['concat_5fobserver_5fstrategy_22',['concat_observer_strategy',['../structrpp_1_1operators_1_1details_1_1concat__observer__strategy.html',1,'rpp::operators::details']]],

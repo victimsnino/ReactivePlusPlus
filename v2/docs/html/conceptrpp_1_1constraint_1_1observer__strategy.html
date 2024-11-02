@@ -114,7 +114,7 @@ $(function(){initNavTree('conceptrpp_1_1constraint_1_1observer__strategy.html','
 </div><!--header-->
 <div class="contents">
 
-<p>Concept to define strategy to override observer behavior. Strategy must be able to handle all observer's callbacks: on_next/on_error/on_completed.  
+<p>Concept defines requirements for an user-defined observer strategy.  
 <a href="#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="rpp_2rpp_2observers_2fwd_8hpp_source.html">fwd.hpp</a>&gt;</code></p>
@@ -123,18 +123,32 @@ $(function(){initNavTree('conceptrpp_1_1constraint_1_1observer__strategy.html','
 <div class="line"><span class="keyword">concept </span><a class="code hl_concept" href="conceptrpp_1_1constraint_1_1observer__strategy.html">rpp::constraint::observer_strategy</a> =  <a class="code hl_concept" href="conceptrpp_1_1constraint_1_1observer__strategy__base.html">observer_strategy_base&lt;S&gt;</a> &amp;&amp; <span class="keyword">requires</span>(<span class="keyword">const</span> S&amp; const_strategy, <span class="keyword">const</span> Type&amp; v, Type&amp; mv) {</div>
 <div class="line">        const_strategy.on_next(v);</div>
 <div class="line">        const_strategy.on_next(std::move(mv));</div>
+<div class="line"> </div>
+<div class="line">        </div>
+<div class="line">        </div>
+<div class="line">        </div>
+<div class="line">        { std::decay_t&lt;S&gt;::preferred_disposables_mode } -&gt; <a class="code hl_concept" href="conceptrpp_1_1constraint_1_1decayed__same__as.html">rpp::constraint::decayed_same_as&lt;rpp::details::observers::disposables_mode&gt;</a>; </div>
 <div class="line">    }</div>
+<div class="ttc" id="aconceptrpp_1_1constraint_1_1decayed__same__as_html"><div class="ttname"><a href="conceptrpp_1_1constraint_1_1decayed__same__as.html">rpp::constraint::decayed_same_as</a></div><div class="ttdef"><b>Definition</b> constraints.hpp:19</div></div>
 <div class="ttc" id="aconceptrpp_1_1constraint_1_1observer__strategy__base_html"><div class="ttname"><a href="conceptrpp_1_1constraint_1_1observer__strategy__base.html">rpp::constraint::observer_strategy_base</a></div><div class="ttdef"><b>Definition</b> fwd.hpp:26</div></div>
-<div class="ttc" id="aconceptrpp_1_1constraint_1_1observer__strategy_html"><div class="ttname"><a href="conceptrpp_1_1constraint_1_1observer__strategy.html">rpp::constraint::observer_strategy</a></div><div class="ttdoc">Concept to define strategy to override observer behavior. Strategy must be able to handle all observe...</div><div class="ttdef"><b>Definition</b> fwd.hpp:48</div></div>
+<div class="ttc" id="aconceptrpp_1_1constraint_1_1observer__strategy_html"><div class="ttname"><a href="conceptrpp_1_1constraint_1_1observer__strategy.html">rpp::constraint::observer_strategy</a></div><div class="ttdoc">Concept defines requirements for an user-defined observer strategy.</div><div class="ttdef"><b>Definition</b> fwd.hpp:56</div></div>
 </div><!-- fragment --><a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Concept to define strategy to override observer behavior. Strategy must be able to handle all observer's callbacks: on_next/on_error/on_completed. </p>
+<div class="textblock"><p>Concept defines requirements for an user-defined observer strategy. </p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
     <tr><td class="paramname">S</td><td>is Strategy </td></tr>
-    <tr><td class="paramname">Type</td><td>is type of value observer would obtain </td></tr>
+    <tr><td class="paramname">Type</td><td>is type of value observer would obtain</td></tr>
   </table>
   </dd>
 </dl>
+<p>Strategy should be able to handle:</p><ul>
+<li>on_next for both: const lvalue ref and rvalue ref of Type</li>
+<li>on_error(exception_ptr) for unsuccessful termination event</li>
+<li>on_completed() for successful termination event</li>
+<li>set_upstream(disposable) for custom disposables related logic. In most cases you should OR do nothing OR just forward disposable to downstream observer (and set preferred_disposables_mode to None) OR fully handle disposales related logic properly</li>
+<li>is_disposed() for extending custom disposables related logic with indicating current status.</li>
+<li><code>static constexpr rpp::details::observers::disposables_mode preferred_disposables_mode</code> with preferred disposables logic for observer over this strategy </li>
+</ul>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

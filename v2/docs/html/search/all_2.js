@@ -22,7 +22,7 @@ var searchData=
   ['completed_19',['completed',['../structrpp_1_1subjects_1_1details_1_1completed.html',1,'rpp::subjects::details']]],
   ['composite_5fdisposable_20',['composite_disposable',['../classrpp_1_1composite__disposable.html',1,'rpp']]],
   ['composite_5fdisposable_5fimpl_21',['composite_disposable_impl',['../classrpp_1_1composite__disposable__impl.html',1,'rpp']]],
-  ['composite_5fdisposable_5fimpl_3c_20rpp_3a_3adetails_3a_3adisposables_3a_3adynamic_5fdisposables_5fcontainer_3c_200_20_3e_20_3e_22',['composite_disposable_impl&lt; rpp::details::disposables::dynamic_disposables_container&lt; 0 &gt; &gt;',['../classrpp_1_1composite__disposable__impl.html',1,'rpp']]],
+  ['composite_5fdisposable_5fimpl_3c_20rpp_3a_3adetails_3a_3adisposables_3a_3adefault_5fdisposables_5fcontainer_20_3e_22',['composite_disposable_impl&lt; rpp::details::disposables::default_disposables_container &gt;',['../classrpp_1_1composite__disposable__impl.html',1,'rpp']]],
   ['composite_5fdisposable_5fwrapper_23',['composite_disposable_wrapper',['../group__disposables.html#ga310f07bbdbf66ad978e748209bfea420',1,'rpp']]],
   ['computational_24',['computational',['../classrpp_1_1schedulers_1_1computational.html',1,'rpp::schedulers']]],
   ['concat_25',['concat',['../group__creational__operators.html#gab5cc2df8f7221b124d67d66de60a7bcd',1,'rpp::operators::concat()'],['../group__creational__operators.html#gab6cfd9da2e3590fd199c9972477e04df',1,'rpp::source::concat(TObservable &amp;&amp;obs, TObservables &amp;&amp;... others)'],['../group__creational__operators.html#ga4f9024c949765737e6a99a05f74d382e',1,'rpp::source::concat(Iterable &amp;&amp;iterable)']]],

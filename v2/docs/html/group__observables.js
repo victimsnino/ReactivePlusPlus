@@ -1,5 +1,6 @@
 var group__observables =
 [
+    [ "rpp::constraint::observable_strategy", "conceptrpp_1_1constraint_1_1observable__strategy.html", null ],
     [ "rpp::blocking_observable< Type, Strategy >", "classrpp_1_1blocking__observable.html", null ],
     [ "rpp::connectable_observable< OriginalObservable, Subject >", "classrpp_1_1connectable__observable.html", [
       [ "connect", "classrpp_1_1connectable__observable.html#a0f3b2053fc0dc9a2bf7e6fe1f040b2f4", null ],

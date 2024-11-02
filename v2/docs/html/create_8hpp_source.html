@@ -135,7 +135,7 @@ $(function(){initNavTree('create_8hpp_source.html',''); initResizable(true); });
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno"><a class="line" href="structrpp_1_1details_1_1create__strategy.html">   19</a></span>    <span class="keyword">struct </span><a class="code hl_struct" href="structrpp_1_1details_1_1create__strategy.html">create_strategy</a></div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    {</div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>        <span class="keyword">using </span>value_type                   = Type;</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>        <span class="keyword">using </span>expected_disposable_strategy = rpp::details::observables::deduce_disposable_strategy_t&lt;OnSubscribe&gt;;</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>        <span class="keyword">using </span><a class="code hl_struct" href="structrpp_1_1details_1_1observables_1_1dynamic__disposables__strategy.html">optimal_disposables_strategy</a> = <a class="code hl_struct" href="structrpp_1_1details_1_1observables_1_1dynamic__disposables__strategy.html">rpp::details::observables::default_disposables_strategy</a>;</div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>        RPP_NO_UNIQUE_ADDRESS OnSubscribe subscribe;</div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    };</div>
@@ -165,6 +165,7 @@ $(function(){initNavTree('create_8hpp_source.html',''); initResizable(true); });
 <div class="ttc" id="aclassrpp_1_1observable_html"><div class="ttname"><a href="classrpp_1_1observable.html">rpp::observable</a></div><div class="ttdoc">Base class for any observable used in RPP. It handles core callbacks of observable.</div><div class="ttdef"><b>Definition</b> observable.hpp:38</div></div>
 <div class="ttc" id="agroup__creational__operators_html_gae68c87e7ae3a505258b733082bf68513"><div class="ttname"><a href="group__creational__operators.html#gae68c87e7ae3a505258b733082bf68513">rpp::source::create</a></div><div class="ttdeci">auto create(OnSubscribe &amp;&amp;on_subscribe)</div><div class="ttdoc">Construct observable specialized with passed callback function. Most easiesest way to construct obser...</div><div class="ttdef"><b>Definition</b> create.hpp:57</div></div>
 <div class="ttc" id="astructrpp_1_1details_1_1create__strategy_html"><div class="ttname"><a href="structrpp_1_1details_1_1create__strategy.html">rpp::details::create_strategy</a></div><div class="ttdef"><b>Definition</b> create.hpp:20</div></div>
+<div class="ttc" id="astructrpp_1_1details_1_1observables_1_1dynamic__disposables__strategy_html"><div class="ttname"><a href="structrpp_1_1details_1_1observables_1_1dynamic__disposables__strategy.html">rpp::details::observables::dynamic_disposables_strategy</a></div><div class="ttdef"><b>Definition</b> disposables_strategy.hpp:19</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

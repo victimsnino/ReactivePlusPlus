@@ -3,9 +3,8 @@ var index =
     [ "Introduction to Reactive Programming", "index.html#autotoc_md1", null ],
     [ "Core Concepts", "index.html#autotoc_md2", [
       [ "Observable contract", "index.html#autotoc_md3", null ],
-      [ "Operators", "index.html#autotoc_md4", [
-        [ "How Operators Work?", "index.html#autotoc_md5", null ]
-      ] ],
+      [ "Observers:", "index.html#autotoc_md4", null ],
+      [ "Operators", "index.html#autotoc_md5", null ],
       [ "Schedulers", "index.html#autotoc_md6", null ],
       [ "Disposable", "index.html#autotoc_md7", null ],
       [ "Exception Guarantee", "index.html#autotoc_md8", null ],

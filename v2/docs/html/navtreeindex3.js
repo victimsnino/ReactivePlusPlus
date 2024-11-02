@@ -1,9 +1,5 @@
 var NAVTREEINDEX3 =
 {
-"throttle_8cpp-example.html":[2,3,37],
-"throttle_8hpp_source.html":[2,2,0,0,1,0,3,39],
-"timeout_8cpp-example.html":[2,3,38],
-"timeout_8hpp_source.html":[2,2,0,0,1,0,3,40],
 "timer_8hpp_source.html":[2,2,0,0,1,0,5,10],
 "topics.html":[1],
 "tuple_8hpp_source.html":[2,2,0,0,1,0,7,4],
