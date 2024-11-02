@@ -10,6 +10,7 @@
 #pragma once
 
 #include <rpp/observables/fwd.hpp>
+#include <rpp/subjects/fwd.hpp>
 
 #include <rpp/observables/observable.hpp>
 #include <rpp/observers/dynamic_observer.hpp>
@@ -101,4 +102,7 @@ namespace rpp
         {
         }
     };
+
+    template<typename Subject>
+    using dynamic_connectable_observable = connectable_observable<rpp::dynamic_observable<rpp::subjects::utils::extract_subject_type_t<Subject>>, Subject>;
 } // namespace rpp

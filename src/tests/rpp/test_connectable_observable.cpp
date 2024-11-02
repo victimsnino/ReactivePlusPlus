@@ -11,9 +11,11 @@
 #include <doctest/doctest.h>
 
 #include <rpp/observables/connectable_observable.hpp>
+#include <rpp/observables/dynamic_observable.hpp>
 #include <rpp/observers/mock_observer.hpp>
 #include <rpp/operators/map.hpp>
 #include <rpp/operators/multicast.hpp>
+#include <rpp/operators/publish.hpp>
 #include <rpp/sources/just.hpp>
 #include <rpp/subjects/publish_subject.hpp>
 
@@ -78,6 +80,8 @@ TEST_CASE("connectable observable")
         };
         SUBCASE("connectable created manually")
         test(rpp::connectable_observable{source, rpp::subjects::publish_subject<int>{}});
+        SUBCASE("dynamic_connectable created manually")
+        test(rpp::dynamic_connectable_observable<rpp::subjects::publish_subject<int>>{source, rpp::subjects::publish_subject<int>{}});
         SUBCASE("connectable created via multicast")
         test(source | rpp::ops::multicast(rpp::subjects::publish_subject<int>{}));
         SUBCASE("connectable created via templated multicast")
@@ -164,6 +168,8 @@ TEST_CASE("connectable observable")
         };
         SUBCASE("connectable created manually")
         test(rpp::connectable_observable{source.get_observable(), rpp::subjects::publish_subject<int>{}});
+        SUBCASE("dynamic_connectable created manually")
+        test(rpp::dynamic_connectable_observable<rpp::subjects::publish_subject<int>>{source.get_observable(), rpp::subjects::publish_subject<int>{}});
         SUBCASE("connectable created via multicast")
         test(source.get_observable() | rpp::ops::multicast(rpp::subjects::publish_subject<int>{}));
         SUBCASE("connectable created via templated multicast")
@@ -172,14 +178,14 @@ TEST_CASE("connectable observable")
     SUBCASE("observable")
     {
         auto source = rpp::source::just(1);
-        // SUBCASE("call publish on it")
-        // {
-        //     auto published = source.publish();
-        //     SUBCASE("published observable is same as Connectable with publish_subject")
-        //     {
-        //         static_assert(rpp::constraint::decayed_same_as<decltype(published), rpp::connectable_observable<int, rpp::subjects::publish_subject<int>, decltype(source)>>);
-        //     }
-        // }
+        SUBCASE("call publish on it")
+        {
+            auto published = source | rpp::ops::publish();
+            SUBCASE("published observable is same as Connectable with publish_subject")
+            {
+                static_assert(rpp::constraint::decayed_same_as<decltype(published), rpp::connectable_observable<decltype(source), rpp::subjects::publish_subject<int>>>);
+            }
+        }
         SUBCASE("call multicast on it with publish_subject")
         {
             auto published = source | rpp::ops::multicast(rpp::subjects::publish_subject<int>{});
