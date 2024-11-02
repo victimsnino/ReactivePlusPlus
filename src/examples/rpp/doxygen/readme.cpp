@@ -40,6 +40,9 @@ struct simple_map
     }
 };
 
+template<typename Fn>
+simple_map(Fn fn) -> simple_map<Fn>;
+
 void test()
 {
     rpp::source::just(1) | simple_map([](int v) { return std::to_string(v); }) | rpp::ops::subscribe();
