@@ -161,7 +161,7 @@ namespace rpp::operators::details
         RPP_NO_UNIQUE_ADDRESS Scheduler scheduler;
 
         template<rpp::constraint::decayed_type Type, rpp::details::observables::constraint::disposables_strategy DisposableStrategy, rpp::constraint::observer Observer>
-        auto lift_with_disposable_strategy(Observer&& observer) const
+        auto lift_with_disposables_strategy(Observer&& observer) const
         {
             using worker_t  = rpp::schedulers::utils::get_worker_t<Scheduler>;
             using container = typename DisposableStrategy::disposables_container;
