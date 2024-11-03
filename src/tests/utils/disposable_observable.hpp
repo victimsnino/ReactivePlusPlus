@@ -82,27 +82,13 @@ void test_operator_over_observable_finish_before_dispose(auto&& op)
 template<typename T>
 void test_operator_over_observable_with_disposable(auto&& op)
 {
-    SUBCASE("operator disposes disposable")
+    SUBCASE("operator disposes disposable but not too early")
     {
         auto                                    observable_disposable = rpp::composite_disposable_wrapper::make();
         std::optional<rpp::dynamic_observer<T>> saved_observer{};
         auto                                    observable = rpp::source::create<T>([&observable_disposable, &saved_observer](auto&& obs) {
             obs.set_upstream(observable_disposable);
             saved_observer.emplace(std::forward<decltype(obs)>(obs).as_dynamic());
-        });
-
-        auto observer_disposable = rpp::composite_disposable_wrapper::make();
-        op(observable) | rpp::ops::subscribe(observer_disposable, [](const auto&) {});
-
-        observer_disposable.dispose();
-        CHECK(observable_disposable.is_disposed());
-    }
-
-    SUBCASE("operator doesn't disposes disposable too early")
-    {
-        auto observable_disposable = rpp::composite_disposable_wrapper::make();
-        auto observable            = rpp::source::create<T>([&observable_disposable](auto&& obs) {
-            obs.set_upstream(observable_disposable);
         });
 
         auto observer_disposable = rpp::composite_disposable_wrapper::make();
