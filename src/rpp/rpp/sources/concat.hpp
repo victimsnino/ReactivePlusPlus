@@ -22,13 +22,12 @@
 namespace rpp::details
 {
     template<rpp::constraint::observer TObserver, constraint::decayed_type PackedContainer>
-    struct concat_state_t
+    struct concat_state_t : public rpp::composite_disposable
     {
         concat_state_t(TObserver&& in_observer, const PackedContainer& in_container)
             : observer(std::move(in_observer))
             , container(in_container)
         {
-            observer.set_upstream(disposable);
             try
             {
                 itr = std::cbegin(container);
@@ -41,7 +40,6 @@ namespace rpp::details
 
         RPP_NO_UNIQUE_ADDRESS TObserver                 observer;
         RPP_NO_UNIQUE_ADDRESS PackedContainer           container;
-        rpp::composite_disposable_wrapper               disposable = composite_disposable_wrapper::make();
         std::optional<decltype(std::cbegin(container))> itr{};
         std::atomic<bool>                               is_inside_drain{};
     };
@@ -69,14 +67,14 @@ namespace rpp::details
             state->observer.on_error(err);
         }
 
-        void set_upstream(const disposable_wrapper& d) { state->disposable.add(d); }
+        void set_upstream(const disposable_wrapper& d) { state->add(d); }
 
-        bool is_disposed() const { return locally_disposed || state->disposable.is_disposed(); }
+        bool is_disposed() const { return locally_disposed || state->is_disposed(); }
 
         void on_completed() const
         {
             locally_disposed = true;
-            state->disposable.clear();
+            state->clear();
 
             if (state->is_inside_drain.exchange(false, std::memory_order::seq_cst))
                 return;
@@ -88,7 +86,7 @@ namespace rpp::details
     template<rpp::constraint::observer TObserver, typename PackedContainer>
     void drain(const std::shared_ptr<concat_state_t<TObserver, PackedContainer>>& state)
     {
-        while (!state->disposable.is_disposed())
+        while (!state->is_disposed())
         {
             if (state->itr.value() == std::cend(state->container))
             {
@@ -133,7 +131,10 @@ namespace rpp::details
         template<constraint::observer_strategy<value_type> Strategy>
         void subscribe(observer<value_type, Strategy>&& obs) const
         {
-            drain(std::make_shared<concat_state_t<observer<value_type, Strategy>, PackedContainer>>(std::move(obs), container));
+            const auto d     = disposable_wrapper_impl<concat_state_t<observer<value_type, Strategy>, PackedContainer>>::make(std::move(obs), container);
+            const auto state = d.lock();
+            state->observer.set_upstream(d.as_weak());
+            drain(state);
         }
     };
 

@@ -18,7 +18,7 @@
 namespace rpp::operators::details
 {
     template<rpp::constraint::observer TObserver, constraint::decayed_type Observable>
-    struct retry_state_t final
+    struct retry_state_t final : public rpp::composite_disposable
     {
         retry_state_t(TObserver&& in_observer, const Observable& observable, std::optional<size_t> count)
             : count{count}
@@ -26,7 +26,6 @@ namespace rpp::operators::details
             , observable(observable)
 
         {
-            observer.set_upstream(disposable);
         }
 
         std::optional<size_t> count;
@@ -34,8 +33,6 @@ namespace rpp::operators::details
 
         RPP_NO_UNIQUE_ADDRESS TObserver  observer;
         RPP_NO_UNIQUE_ADDRESS Observable observable;
-
-        rpp::composite_disposable_wrapper disposable = composite_disposable_wrapper::make();
     };
 
     template<rpp::constraint::observer TObserver, typename TObservable>
@@ -64,7 +61,7 @@ namespace rpp::operators::details
                 return;
             }
 
-            state->disposable.clear();
+            state->clear();
 
             if (state->is_inside_drain.exchange(false, std::memory_order::seq_cst))
                 return;
@@ -80,16 +77,16 @@ namespace rpp::operators::details
 
         void set_upstream(const disposable_wrapper& d) const
         {
-            state->disposable.add(d);
+            state->add(d);
         }
 
-        bool is_disposed() const { return locally_disposed || state->disposable.is_disposed(); }
+        bool is_disposed() const { return locally_disposed || state->is_disposed(); }
     };
 
     template<rpp::constraint::observer TObserver, typename TObservable>
     void drain(const std::shared_ptr<retry_state_t<TObserver, TObservable>>& state)
     {
-        while (!state->disposable.is_disposed())
+        while (!state->is_disposed())
         {
             if (state->count)
                 --state->count.value();
@@ -126,7 +123,10 @@ namespace rpp::operators::details
         template<rpp::constraint::observer TObserver, typename TObservable>
         void subscribe(TObserver&& observer, TObservable&& observble) const
         {
-            const auto ptr = std::make_shared<retry_state_t<std::decay_t<TObserver>, std::decay_t<TObservable>>>(std::forward<TObserver>(observer), std::forward<TObservable>(observble), count ? count.value() + 1 : count);
+            const auto d   = disposable_wrapper_impl<retry_state_t<std::decay_t<TObserver>, std::decay_t<TObservable>>>::make(std::forward<TObserver>(observer), std::forward<TObservable>(observble), count ? count.value() + 1 : count);
+            auto       ptr = d.lock();
+
+            ptr->observer.set_upstream(d.as_weak());
             drain(ptr);
         }
     };

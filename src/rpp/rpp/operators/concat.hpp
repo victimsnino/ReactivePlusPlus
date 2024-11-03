@@ -34,33 +34,29 @@ namespace rpp::operators::details
     };
 
     template<rpp::constraint::observable TObservable, rpp::constraint::observer TObserver>
-    class concat_state_t final : public std::enable_shared_from_this<concat_state_t<TObservable, TObserver>>
+    class concat_disposable final : public rpp::refcount_disposable
     {
     public:
-        concat_state_t(TObserver&& observer)
+        concat_disposable(TObserver&& observer)
             : m_observer{std::move(observer)}
         {
-            const auto d = disposable_wrapper_impl<refcount_disposable>::make();
-            m_disposable = d.lock();
-            get_observer()->set_upstream(d);
         }
 
         rpp::utils::pointer_under_lock<TObserver>               get_observer() { return m_observer; }
         rpp::utils::pointer_under_lock<std::queue<TObservable>> get_queue() { return m_queue; }
-        const std::shared_ptr<refcount_disposable>&             get_disposable() const { return m_disposable; }
 
         std::atomic<ConcatStage>& stage() { return m_stage; }
 
         void drain(rpp::composite_disposable_wrapper refcounted)
         {
-            while (!m_disposable->is_disposed())
+            while (!is_disposed())
             {
                 const auto observable = get_observable();
                 if (!observable)
                 {
                     stage().store(ConcatStage::None, std::memory_order::relaxed);
                     refcounted.dispose();
-                    if (m_disposable->is_disposed())
+                    if (is_disposed())
                         get_observer()->on_completed();
                     return;
                 }
@@ -78,13 +74,12 @@ namespace rpp::operators::details
             drain(refcounted);
         }
 
-
     private:
         bool handle_observable_impl(const rpp::constraint::decayed_same_as<TObservable> auto& observable, rpp::composite_disposable_wrapper refcounted)
         {
             stage().store(ConcatStage::Draining, std::memory_order::relaxed);
             refcounted.clear();
-            observable.subscribe(concat_inner_observer_strategy<TObservable, TObserver>{this->shared_from_this(), std::move(refcounted)});
+            observable.subscribe(concat_inner_observer_strategy<TObservable, TObserver>{disposable_wrapper_impl<concat_disposable>{wrapper_from_this()}.lock(), std::move(refcounted)});
 
             ConcatStage current = ConcatStage::Draining;
             return stage().compare_exchange_strong(current, ConcatStage::Processing, std::memory_order::seq_cst);
@@ -102,7 +97,6 @@ namespace rpp::operators::details
         }
 
     private:
-        std::shared_ptr<refcount_disposable>                  m_disposable{};
         rpp::utils::value_with_mutex<TObserver>               m_observer;
         rpp::utils::value_with_mutex<std::queue<TObservable>> m_queue;
         std::atomic<ConcatStage>                              m_stage{};
@@ -111,23 +105,23 @@ namespace rpp::operators::details
     template<rpp::constraint::observable TObservable, rpp::constraint::observer TObserver>
     struct concat_observer_strategy_base
     {
-        concat_observer_strategy_base(std::shared_ptr<concat_state_t<TObservable, TObserver>> state, rpp::composite_disposable_wrapper refcounted)
-            : state{std::move(state)}
+        concat_observer_strategy_base(std::shared_ptr<concat_disposable<TObservable, TObserver>> disposable, rpp::composite_disposable_wrapper refcounted)
+            : disposable{std::move(disposable)}
             , refcounted{std::move(refcounted)}
         {
         }
 
-        concat_observer_strategy_base(std::shared_ptr<concat_state_t<TObservable, TObserver>> state)
-            : concat_observer_strategy_base{state, state->get_disposable()->add_ref(refcount_disposable::Mode::StrongRefRefSource)}
+        concat_observer_strategy_base(std::shared_ptr<concat_disposable<TObservable, TObserver>> disposable)
+            : concat_observer_strategy_base{disposable, disposable->add_ref()}
         {
         }
 
-        std::shared_ptr<concat_state_t<TObservable, TObserver>> state;
-        rpp::composite_disposable_wrapper                       refcounted;
+        std::shared_ptr<concat_disposable<TObservable, TObserver>> disposable;
+        rpp::composite_disposable_wrapper                          refcounted;
 
         void on_error(const std::exception_ptr& err) const
         {
-            state->get_observer()->on_error(err);
+            disposable->get_observer()->on_error(err);
         }
 
         void set_upstream(const disposable_wrapper& d) const { refcounted.add(d); }
@@ -146,18 +140,18 @@ namespace rpp::operators::details
         template<typename T>
         void on_next(T&& v) const
         {
-            base::state->get_observer()->on_next(std::forward<T>(v));
+            base::disposable->get_observer()->on_next(std::forward<T>(v));
         }
 
         void on_completed() const
         {
             ConcatStage current{ConcatStage::Draining};
-            if (base::state->stage().compare_exchange_strong(current, ConcatStage::CompletedWhileDraining, std::memory_order::seq_cst))
+            if (base::disposable->stage().compare_exchange_strong(current, ConcatStage::CompletedWhileDraining, std::memory_order::seq_cst))
                 return;
 
             assert(current == ConcatStage::Processing);
 
-            base::state->drain(base::refcounted);
+            base::disposable->drain(base::refcounted);
         }
     };
 
@@ -168,7 +162,7 @@ namespace rpp::operators::details
         static constexpr auto preferred_disposables_mode = rpp::details::observers::disposables_mode::None;
 
         concat_observer_strategy(TObserver&& observer)
-            : base{std::make_shared<concat_state_t<TObservable, TObserver>>(std::move(observer))}
+            : base{init_state(std::move(observer))}
         {
         }
 
@@ -176,17 +170,27 @@ namespace rpp::operators::details
         void on_next(T&& v) const
         {
             ConcatStage current = ConcatStage::None;
-            if (base::state->stage().compare_exchange_strong(current, ConcatStage::Draining, std::memory_order::seq_cst))
-                base::state->handle_observable(std::forward<T>(v), base::state->get_disposable()->add_ref(refcount_disposable::Mode::StrongRefRefSource));
+            if (base::disposable->stage().compare_exchange_strong(current, ConcatStage::Draining, std::memory_order::seq_cst))
+                base::disposable->handle_observable(std::forward<T>(v), base::disposable->add_ref());
             else
-                base::state->get_queue()->push(std::forward<T>(v));
+                base::disposable->get_queue()->push(std::forward<T>(v));
         }
 
         void on_completed() const
         {
             base::refcounted.dispose();
-            if (base::state->get_disposable()->is_disposed())
-                base::state->get_observer()->on_completed();
+            if (base::disposable->is_disposed())
+                base::disposable->get_observer()->on_completed();
+        }
+
+
+    private:
+        static std::shared_ptr<concat_disposable<TObservable, TObserver>> init_state(TObserver&& observer)
+        {
+            const auto d   = disposable_wrapper_impl<concat_disposable<TObservable, TObserver>>::make(std::move(observer));
+            auto       ptr = d.lock();
+            ptr->get_observer()->set_upstream(d.as_weak());
+            return ptr;
         }
     };
 

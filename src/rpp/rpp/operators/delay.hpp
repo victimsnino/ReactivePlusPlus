@@ -13,6 +13,7 @@
 #include <rpp/operators/fwd.hpp>
 
 #include <rpp/defs.hpp>
+#include <rpp/disposables/composite_disposable.hpp>
 #include <rpp/operators/details/strategy.hpp>
 
 #include <mutex>
@@ -34,12 +35,12 @@ namespace rpp::operators::details
         rpp::schedulers::time_point                           time_point{};
     };
 
-    template<rpp::constraint::observer Observer, typename Worker>
-    struct delay_state final
+    template<rpp::constraint::observer Observer, typename Worker, rpp::details::disposables::constraint::disposables_container Container>
+    struct delay_disposable final : public rpp::composite_disposable_impl<Container>
     {
         using T = rpp::utils::extract_observer_type_t<Observer>;
 
-        delay_state(Observer&& in_observer, Worker&& in_worker, rpp::schedulers::duration delay)
+        delay_disposable(Observer&& in_observer, Worker&& in_worker, rpp::schedulers::duration delay)
             : observer(std::move(in_observer))
             , worker{std::move(in_worker)}
             , delay{delay}
@@ -55,31 +56,30 @@ namespace rpp::operators::details
         bool                    is_active{};
     };
 
-    template<rpp::constraint::observer Observer, typename Worker>
-    struct delay_state_wrapper
+    template<rpp::constraint::observer Observer, typename Worker, rpp::details::disposables::constraint::disposables_container Container>
+    struct delay_disposable_wrapper
     {
-        std::shared_ptr<delay_state<Observer, Worker>> state{};
+        std::shared_ptr<delay_disposable<Observer, Worker, Container>> disposable{};
 
-        bool is_disposed() const { return state->observer.is_disposed(); }
+        bool is_disposed() const { return disposable->is_disposed(); }
 
-        void on_error(const std::exception_ptr& err) const { state->observer.on_error(err); }
+        void on_error(const std::exception_ptr& err) const { disposable->observer.on_error(err); }
     };
 
-    template<rpp::constraint::observer Observer, typename Worker, bool ClearOnError>
+    template<rpp::constraint::observer Observer, typename Worker, rpp::details::disposables::constraint::disposables_container Container, bool ClearOnError>
     struct delay_observer_strategy
     {
-        static constexpr auto preferred_disposables_mode = rpp::details::observers::disposables_mode::Auto;
-
-        std::shared_ptr<delay_state<Observer, Worker>> state{};
+        static constexpr auto                                          preferred_disposables_mode = rpp::details::observers::disposables_mode::Auto;
+        std::shared_ptr<delay_disposable<Observer, Worker, Container>> disposable{};
 
         void set_upstream(const rpp::disposable_wrapper& d) const
         {
-            state->observer.set_upstream(d);
+            disposable->add(d);
         }
 
         bool is_disposed() const
         {
-            return state->observer.is_disposed();
+            return disposable->is_disposed();
         }
 
         template<typename T>
@@ -104,59 +104,59 @@ namespace rpp::operators::details
         {
             if (const auto tp = emplace_safe(std::forward<TT>(value)))
             {
-                state->worker.schedule(
+                disposable->worker.schedule(
                     tp.value(),
-                    [](const delay_state_wrapper<Observer, Worker>& wrapper) { return drain_queue(wrapper.state); },
-                    delay_state_wrapper<Observer, Worker>{state});
+                    [](const delay_disposable_wrapper<Observer, Worker, Container>& wrapper) { return drain_queue(wrapper.disposable); },
+                    delay_disposable_wrapper<Observer, Worker, Container>{disposable});
             }
         }
 
         template<typename TT>
         std::optional<rpp::schedulers::time_point> emplace_safe(TT&& item) const
         {
-            std::lock_guard lock{state->mutex};
+            std::lock_guard lock{disposable->mutex};
             if constexpr (ClearOnError && rpp::constraint::decayed_same_as<std::exception_ptr, TT>)
             {
-                state->queue = std::queue<emission<rpp::utils::extract_observer_type_t<Observer>>>{};
-                state->observer.on_error(std::forward<TT>(item));
+                disposable->queue = std::queue<emission<rpp::utils::extract_observer_type_t<Observer>>>{};
+                disposable->observer.on_error(std::forward<TT>(item));
                 return std::nullopt;
             }
             else
             {
-                const auto tp = state->worker.now() + state->delay;
-                state->queue.emplace(std::forward<TT>(item), tp);
-                if (!state->is_active)
+                const auto tp = disposable->worker.now() + disposable->delay;
+                disposable->queue.emplace(std::forward<TT>(item), tp);
+                if (!disposable->is_active)
                 {
-                    state->is_active = true;
+                    disposable->is_active = true;
                     return tp;
                 }
                 return std::nullopt;
             }
         }
 
-        static schedulers::optional_delay_to drain_queue(const std::shared_ptr<delay_state<Observer, Worker>>& state)
+        static schedulers::optional_delay_to drain_queue(const std::shared_ptr<delay_disposable<Observer, Worker, Container>>& disposable)
         {
             while (true)
             {
-                std::unique_lock lock{state->mutex};
-                if (state->queue.empty())
+                std::unique_lock lock{disposable->mutex};
+                if (disposable->queue.empty())
                 {
-                    state->is_active = false;
+                    disposable->is_active = false;
                     return std::nullopt;
                 }
 
-                auto& top = state->queue.front();
-                if (top.time_point > state->worker.now())
+                auto& top = disposable->queue.front();
+                if (top.time_point > disposable->worker.now())
                     return schedulers::optional_delay_to{top.time_point};
 
                 auto item = std::move(top.value);
-                state->queue.pop();
+                disposable->queue.pop();
                 lock.unlock();
 
-                std::visit(rpp::utils::overloaded{[&](rpp::utils::extract_observer_type_t<Observer>&& v) { state->observer.on_next(std::move(v)); },
-                                                  [&](const std::exception_ptr& err) { state->observer.on_error(err); },
+                std::visit(rpp::utils::overloaded{[&](rpp::utils::extract_observer_type_t<Observer>&& v) { disposable->observer.on_next(std::move(v)); },
+                                                  [&](const std::exception_ptr& err) { disposable->observer.on_error(err); },
                                                   [&](rpp::utils::none) {
-                                                      state->observer.on_completed();
+                                                      disposable->observer.on_completed();
                                                   }},
                            std::move(item));
             }
@@ -173,18 +173,21 @@ namespace rpp::operators::details
         };
 
         template<rpp::details::observables::constraint::disposables_strategy Prev>
-        using updated_optimal_disposables_strategy = Prev;
+        using updated_optimal_disposables_strategy = rpp::details::observables::fixed_disposables_strategy<1>;
 
         rpp::schedulers::duration       duration;
         RPP_NO_UNIQUE_ADDRESS Scheduler scheduler;
 
-        template<rpp::constraint::decayed_type Type, rpp::constraint::observer Observer>
-        auto lift(Observer&& observer) const
+        template<rpp::constraint::decayed_type Type, rpp::details::observables::constraint::disposables_strategy DisposableStrategy, rpp::constraint::observer Observer>
+        auto lift_with_disposable_strategy(Observer&& observer) const
         {
-            using worker_t = rpp::schedulers::utils::get_worker_t<Scheduler>;
+            using worker_t  = rpp::schedulers::utils::get_worker_t<Scheduler>;
+            using container = typename DisposableStrategy::disposables_container;
 
-            auto state = std::make_shared<delay_state<std::decay_t<Observer>, worker_t>>(std::forward<Observer>(observer), scheduler.create_worker(), duration);
-            return rpp::observer<Type, delay_observer_strategy<std::decay_t<Observer>, worker_t, ClearOnError>>{std::move(state)};
+            const auto disposable = disposable_wrapper_impl<delay_disposable<std::decay_t<Observer>, worker_t, container>>::make(std::forward<Observer>(observer), scheduler.create_worker(), duration);
+            auto       ptr        = disposable.lock();
+            ptr->observer.set_upstream(disposable.as_weak());
+            return rpp::observer<Type, delay_observer_strategy<std::decay_t<Observer>, worker_t, container, ClearOnError>>{std::move(ptr)};
         }
     };
 } // namespace rpp::operators::details

@@ -13,6 +13,7 @@
 #include <rpp/operators/fwd.hpp>
 
 #include <rpp/defs.hpp>
+#include <rpp/disposables/composite_disposable.hpp>
 #include <rpp/operators/details/strategy.hpp>
 #include <rpp/schedulers/current_thread.hpp>
 #include <rpp/utils/tuple.hpp>
@@ -23,13 +24,12 @@
 namespace rpp::operators::details
 {
     template<rpp::constraint::observer TObserver>
-    class merge_state final
+    class merge_disposable final : public composite_disposable
     {
     public:
-        merge_state(TObserver&& observer)
+        merge_disposable(TObserver&& observer)
             : m_observer(std::move(observer))
         {
-            get_observer_under_lock()->set_upstream(m_disposable);
         }
 
         // just need atomicity, not guarding anything
@@ -40,11 +40,8 @@ namespace rpp::operators::details
 
         rpp::utils::pointer_under_lock<TObserver> get_observer_under_lock() { return m_observer; }
 
-        const rpp::composite_disposable_wrapper& get_disposable() const { return m_disposable; }
-
     private:
         rpp::utils::value_with_mutex<TObserver> m_observer{};
-        rpp::composite_disposable_wrapper       m_disposable = composite_disposable_wrapper::make();
         std::atomic_size_t                      m_on_completed_needed{1};
     };
 
@@ -52,50 +49,49 @@ namespace rpp::operators::details
     struct merge_observer_base_strategy
     {
         static constexpr auto preferred_disposables_mode = rpp::details::observers::disposables_mode::Auto;
-
-        merge_observer_base_strategy(std::shared_ptr<merge_state<TObserver>>&& state)
-            : m_state{std::move(state)}
+        merge_observer_base_strategy(std::shared_ptr<merge_disposable<TObserver>>&& disposable)
+            : m_disposable{std::move(disposable)}
         {
         }
 
-        merge_observer_base_strategy(const std::shared_ptr<merge_state<TObserver>>& state)
-            : m_state{state}
+        merge_observer_base_strategy(const std::shared_ptr<merge_disposable<TObserver>>& disposable)
+            : m_disposable{disposable}
         {
         }
 
         void set_upstream(const rpp::disposable_wrapper& d) const
         {
-            m_state->get_disposable().add(d);
+            m_disposable->add(d);
             m_disposables.push_back(d);
         }
 
         bool is_disposed() const
         {
-            return m_state->get_disposable().is_disposed();
+            return m_disposable->is_disposed();
         }
 
         void on_error(const std::exception_ptr& err) const
         {
-            m_state->get_observer_under_lock()->on_error(err);
+            m_disposable->get_observer_under_lock()->on_error(err);
         }
 
         void on_completed() const
         {
-            if (m_state->decrement_on_completed())
+            if (m_disposable->decrement_on_completed())
             {
-                m_state->get_observer_under_lock()->on_completed();
+                m_disposable->get_observer_under_lock()->on_completed();
             }
             else
             {
                 for (const auto& v : m_disposables)
                 {
-                    m_state->get_disposable().remove(v);
+                    m_disposable->remove(v);
                 }
             }
         }
 
     protected:
-        std::shared_ptr<merge_state<TObserver>>      m_state;
+        std::shared_ptr<merge_disposable<TObserver>> m_disposable;
         mutable std::vector<rpp::disposable_wrapper> m_disposables{};
     };
 
@@ -107,7 +103,7 @@ namespace rpp::operators::details
         template<typename T>
         void on_next(T&& v) const
         {
-            merge_observer_base_strategy<TObserver>::m_state->get_observer_under_lock()->on_next(std::forward<T>(v));
+            merge_observer_base_strategy<TObserver>::m_disposable->get_observer_under_lock()->on_next(std::forward<T>(v));
         }
     };
 
@@ -116,15 +112,24 @@ namespace rpp::operators::details
     {
     public:
         explicit merge_observer_strategy(TObserver&& observer)
-            : merge_observer_base_strategy<TObserver>{std::make_shared<merge_state<TObserver>>(std::move(observer))}
+            : merge_observer_base_strategy<TObserver>{init_state(std::move(observer))}
         {
         }
 
         template<typename T>
         void on_next(T&& v) const
         {
-            merge_observer_base_strategy<TObserver>::m_state->increment_on_completed();
-            std::forward<T>(v).subscribe(rpp::observer<rpp::utils::extract_observer_type_t<TObserver>, merge_observer_inner_strategy<TObserver>>{merge_observer_inner_strategy<TObserver>{merge_observer_base_strategy<TObserver>::m_state}});
+            merge_observer_base_strategy<TObserver>::m_disposable->increment_on_completed();
+            std::forward<T>(v).subscribe(rpp::observer<rpp::utils::extract_observer_type_t<TObserver>, merge_observer_inner_strategy<TObserver>>{merge_observer_inner_strategy<TObserver>{merge_observer_base_strategy<TObserver>::m_disposable}});
+        }
+
+    private:
+        static std::shared_ptr<merge_disposable<TObserver>> init_state(TObserver&& observer)
+        {
+            const auto d   = disposable_wrapper_impl<merge_disposable<TObserver>>::make(std::move(observer));
+            auto       ptr = d.lock();
+            ptr->get_observer_under_lock()->set_upstream(d.as_weak());
+            return ptr;
         }
     };
 
