@@ -92,7 +92,7 @@ namespace rpp::operators::details
         };
 
         template<rpp::details::observables::constraint::disposables_strategy Prev>
-        using updated_optimal_disposables_strategy = ::rpp::details::observables::fixed_disposables_strategy<0>;
+        using updated_optimal_disposables_strategy = ::rpp::details::observables::fixed_disposables_strategy<1>;
 
         template<rpp::constraint::decayed_type Type, rpp::constraint::observer Observer>
         auto lift(Observer&& observer) const
