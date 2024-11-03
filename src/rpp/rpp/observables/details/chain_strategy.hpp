@@ -52,7 +52,10 @@ namespace rpp::details::observables
             else if constexpr (rpp::constraint::operator_lift<TStrategy, typename base::value_type>)
                 m_strategies.subscribe(m_strategy.template lift<typename base::value_type>(std::forward<Observer>(observer)));
             else
+            {
+                static_assert(rpp::constraint::operator_subscribe<TStrategy, typename base::value_type>);
                 m_strategy.subscribe(std::forward<Observer>(observer), m_strategies);
+            }
         }
 
     private:
