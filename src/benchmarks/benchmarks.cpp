@@ -65,6 +65,7 @@ namespace rpp
     }
 } // namespace rpp
 
+#ifdef RPP_BUILD_RXCPP
 namespace rxcpp
 {
     template<typename... Ts>
@@ -73,16 +74,17 @@ namespace rxcpp
         return rxcpp::observable<>::from(rxcpp::identity_immediate(), std::forward<Ts>(vals)...);
     }
 } // namespace rxcpp
+#endif
 
 int main(int argc, char* argv[]) // NOLINT(bugprone-exception-escape)
 {
-    auto       bench         = ankerl::nanobench::Bench{}.output(nullptr).warmup(3);
-    const auto args          = std::span{argv, static_cast<size_t>(argc)};
-    const auto benchmark     = find_argument("--benchmark=", args);
-    const auto section       = find_argument("--section=", args);
-    const auto disable_rxcpp = find_argument("--disable_rxcpp", args).has_value();
-    const auto disable_rpp   = find_argument("--disable_rpp", args).has_value();
-    const auto dump          = find_argument("--dump=", args);
+    auto                        bench         = ankerl::nanobench::Bench{}.output(nullptr).warmup(3);
+    const auto                  args          = std::span{argv, static_cast<size_t>(argc)};
+    const auto                  benchmark     = find_argument("--benchmark=", args);
+    const auto                  section       = find_argument("--section=", args);
+    [[maybe_unused]] const auto disable_rxcpp = find_argument("--disable_rxcpp", args).has_value();
+    const auto                  disable_rpp   = find_argument("--disable_rpp", args).has_value();
+    const auto                  dump          = find_argument("--dump=", args);
 
     BENCHMARK("General")
     {
@@ -687,8 +689,10 @@ int main(int argc, char* argv[]) // NOLINT(bugprone-exception-escape)
                 });
             }
             {
+#ifdef RPP_BUILD_RXCPP
                 rxcpp::subjects::subject<int> rxcpp_subj{};
                 rxcpp_subj.get_observable().subscribe(rxcpp::make_subscriber<int>([](int v) { ankerl::nanobench::doNotOptimizeAway(v); }, [] {}));
+#endif
                 TEST_RXCPP([&]() {
                     rxcpp_subj.get_subscriber().on_next(1);
                 });
@@ -728,11 +732,13 @@ int main(int argc, char* argv[]) // NOLINT(bugprone-exception-escape)
             }
 
             {
+#ifdef RPP_BUILD_RXCPP
                 rxcpp::subjects::subject<int> rxcpp_subj{};
                 for (size_t i = 0; i < 100; ++i)
                 {
                     rxcpp_subj.get_observable().subscribe(rxcpp::make_subscriber<int>([](int v) { ankerl::nanobench::doNotOptimizeAway(v); }));
                 }
+#endif
                 TEST_RXCPP([&] {
                     for (size_t i = 0; i < 100; ++i)
                         rxcpp_subj.get_subscriber().on_next(i);

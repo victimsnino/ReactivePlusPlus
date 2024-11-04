@@ -78,7 +78,6 @@ namespace rpp::operators::details
         bool handle_observable_impl(const rpp::constraint::decayed_same_as<TObservable> auto& observable, rpp::composite_disposable_wrapper refcounted)
         {
             stage().store(ConcatStage::Draining, std::memory_order::relaxed);
-            refcounted.clear();
             observable.subscribe(concat_inner_observer_strategy<TObservable, TObserver>{disposable_wrapper_impl<concat_disposable>{wrapper_from_this()}.lock(), std::move(refcounted)});
 
             ConcatStage current = ConcatStage::Draining;
@@ -132,7 +131,7 @@ namespace rpp::operators::details
     template<rpp::constraint::observable TObservable, rpp::constraint::observer TObserver>
     struct concat_inner_observer_strategy : public concat_observer_strategy_base<TObservable, TObserver>
     {
-        static constexpr auto preferred_disposables_mode = rpp::details::observers::disposables_mode::Auto;
+        static constexpr auto preferred_disposables_mode = rpp::details::observers::disposables_mode::None;
 
         using base = concat_observer_strategy_base<TObservable, TObserver>;
         using base::concat_observer_strategy_base;
@@ -145,6 +144,8 @@ namespace rpp::operators::details
 
         void on_completed() const
         {
+            base::refcounted.clear();
+
             ConcatStage current{ConcatStage::Draining};
             if (base::disposable->stage().compare_exchange_strong(current, ConcatStage::CompletedWhileDraining, std::memory_order::seq_cst))
                 return;
@@ -158,7 +159,8 @@ namespace rpp::operators::details
     template<rpp::constraint::observable TObservable, rpp::constraint::observer TObserver>
     struct concat_observer_strategy : public concat_observer_strategy_base<TObservable, TObserver>
     {
-        using base                                       = concat_observer_strategy_base<TObservable, TObserver>;
+        using base = concat_observer_strategy_base<TObservable, TObserver>;
+
         static constexpr auto preferred_disposables_mode = rpp::details::observers::disposables_mode::None;
 
         concat_observer_strategy(TObserver&& observer)

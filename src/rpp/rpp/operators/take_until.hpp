@@ -33,7 +33,6 @@ namespace rpp::operators::details
         {
         }
 
-        void stop() { m_stopped = true; }
         bool is_stopped() const { return m_stopped; }
         bool stop_return_was_stopped() { return m_stopped.exchange(true); }
 
@@ -47,7 +46,7 @@ namespace rpp::operators::details
     template<rpp::constraint::observer TObserver>
     struct take_until_observer_strategy_base
     {
-        static constexpr auto preferred_disposables_mode = rpp::details::observers::disposables_mode::None;
+        static constexpr auto preferred_disposables_mode = rpp::details::observers::disposables_mode::Auto;
 
         std::shared_ptr<take_until_disposable<TObserver>> state;
 

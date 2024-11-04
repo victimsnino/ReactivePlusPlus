@@ -49,6 +49,7 @@ namespace rpp::operators::details
     template<typename TDisposable>
     struct combining_observer_strategy
     {
+        // `Auto` due to we have to dispose disposables during on_completed anyway
         static constexpr auto preferred_disposables_mode = rpp::details::observers::disposables_mode::Auto;
 
         std::shared_ptr<TDisposable> disposable{};

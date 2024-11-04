@@ -69,7 +69,7 @@ namespace rpp::operators::details
     template<rpp::constraint::observer Observer, typename Worker, rpp::details::disposables::constraint::disposables_container Container, bool ClearOnError>
     struct delay_observer_strategy
     {
-        static constexpr auto                                          preferred_disposables_mode = rpp::details::observers::disposables_mode::Auto;
+        static constexpr auto                                          preferred_disposables_mode = rpp::details::observers::disposables_mode::None;
         std::shared_ptr<delay_disposable<Observer, Worker, Container>> disposable{};
 
         void set_upstream(const rpp::disposable_wrapper& d) const
@@ -91,11 +91,13 @@ namespace rpp::operators::details
         void on_error(const std::exception_ptr& err) const noexcept
         {
             emplace(err);
+            disposable->clear();
         }
 
         void on_completed() const noexcept
         {
             emplace(rpp::utils::none{});
+            disposable->clear();
         }
 
     private:
