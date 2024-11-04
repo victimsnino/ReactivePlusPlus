@@ -116,13 +116,13 @@ endif()
 # ===================== Tests ===================
 if (RPP_BUILD_TESTS)
   rpp_fetch_library(doctest https://github.com/doctest/doctest.git v2.4.11)
-  rpp_fetch_library(trompeloeil https://github.com/rollbear/trompeloeil.git main)
+  rpp_fetch_library(trompeloeil https://github.com/rollbear/trompeloeil.git v48)
 endif()
 
 
 # ==================== Nanobench =================
 if (RPP_BUILD_BENCHMARKS)
-  rpp_fetch_library(nanobench https://github.com/martinus/nanobench.git master)
+  rpp_fetch_library(nanobench https://github.com/martinus/nanobench.git v4.3.11)
 endif()
 
 # ==================== ASIO =====================

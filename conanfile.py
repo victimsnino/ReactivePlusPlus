@@ -25,7 +25,7 @@ class RppConan(ConanFile):
 
     def requirements(self):
         if self.options.with_tests:
-            self.requires("trompeloeil/47")
+            self.requires("trompeloeil/48")
             self.requires("doctest/2.4.11")
 
         if self.options.with_benchmarks:
