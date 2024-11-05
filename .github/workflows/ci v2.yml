@@ -39,9 +39,9 @@ jobs:
     - name: Install deps
       if: matrix.config.os == 'ubuntu-latest'
       run: |
-        sudo pip3 install jinja2
-        sudo pip install jinja2
         sudo apt-get install python3-jinja2
+        sudo pip3 install jinja2 --upgrade
+        sudo pip install jinja2 --upgrade
 
     - name: get conan
       uses: turtlebrowser/get-conan@main
