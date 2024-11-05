@@ -360,7 +360,7 @@ TEST_CASE_TEMPLATE("queue_based scheduler", TestType, rpp::schedulers::current_t
 
     auto done = std::make_shared<std::atomic_bool>();
 
-    worker->schedule([&](const auto&) {
+    worker->schedule([done, &thread_of_schedule_promise](const auto&) {
         thread_of_schedule_promise.set_value(get_thread_id_as_string(std::this_thread::get_id()));
         if constexpr (!std::same_as<TestType, rpp::schedulers::current_thread>)
             thread_local rpp::utils::finally_action s_a{[done] {
