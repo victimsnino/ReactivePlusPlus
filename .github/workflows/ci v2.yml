@@ -39,8 +39,8 @@ jobs:
     - name: Install deps
       if: matrix.config.os == 'ubuntu-latest'
       run: |
-        pip3 install jinja2
-        pip install jinja2
+        sudo pip3 install jinja2
+        sudo pip install jinja2
         sudo apt-get install python3-jinja2
 
     - name: get conan
