@@ -36,10 +36,8 @@ jobs:
       with:
           fetch-depth: 0
 
-    - name: Update deps
-      if: matrix.config.os == 'ubuntu-latest'
-      run: |
-        sudo apt-get update
+    - name: Setup Python 
+      uses: actions/setup-python@v5
 
     - name: get conan
       uses: turtlebrowser/get-conan@main
