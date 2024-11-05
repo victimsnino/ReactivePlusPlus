@@ -40,6 +40,7 @@ jobs:
       if: matrix.config.os == 'ubuntu-latest'
       run: |
         pip3 install jinja2
+        sudo apt-get install python3-jinja2
 
     - name: get conan
       uses: turtlebrowser/get-conan@main
