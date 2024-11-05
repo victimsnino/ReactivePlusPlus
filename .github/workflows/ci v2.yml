@@ -36,6 +36,12 @@ jobs:
       with:
           fetch-depth: 0
 
+    - name: Install Qt
+     # if: steps.check_cache.outputs.cache-hit != 'true' || github.event_name == 'schedule'
+      uses: jurplel/install-qt-action@v4
+      with:
+        cache: true
+
     - name: Install deps
       if: matrix.config.os == 'ubuntu-latest'
       run: |
@@ -56,12 +62,6 @@ jobs:
           key: deps-${{ matrix.config.name }}-${{ matrix.build_type.config }}-${{ hashFiles('**/conanfile.py') }}-${{ hashFiles('**/CMakePresets.json') }}
           restore-keys: deps-${{ matrix.config.name }}-${{ matrix.build_type.config }}
           lookup-only: true
-
-    - name: Install Qt
-      if: steps.check_cache.outputs.cache-hit != 'true' || github.event_name == 'schedule'
-      uses: jurplel/install-qt-action@v4
-      with:
-        cache: true
 
     - name: conan detect profile
       if: steps.check_cache.outputs.cache-hit != 'true' || github.event_name == 'schedule'
