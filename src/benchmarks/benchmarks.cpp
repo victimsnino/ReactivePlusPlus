@@ -302,6 +302,24 @@ int main(int argc, char* argv[]) // NOLINT(bugprone-exception-escape)
                     | rxcpp::operators::subscribe<int>([](int v) { ankerl::nanobench::doNotOptimizeAway(v); });
             });
         }
+        SECTION("immediate_just(immediate_just(1), immediate_just(1)) + concat() + subscribe")
+        {
+            TEST_RPP([&]() {
+                auto inner_source = rpp::immediate_just(1);
+
+                rpp::immediate_just(inner_source, inner_source)
+                    | rpp::operators::concat()
+                    | rpp::operators::subscribe([](int v) { ankerl::nanobench::doNotOptimizeAway(v); });
+            });
+
+            TEST_RXCPP([&]() {
+                auto inner_source = rxcpp::immediate_just(1);
+
+                rxcpp::immediate_just(inner_source, inner_source)
+                    | rxcpp::operators::concat()
+                    | rxcpp::operators::subscribe<int>([](int v) { ankerl::nanobench::doNotOptimizeAway(v); });
+            });
+        }
 
         SECTION("immediate_just(1) + merge_with(immediate_just(2)) + subscribe")
         {
