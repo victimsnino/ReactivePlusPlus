@@ -51,7 +51,7 @@ var NAVTREEINDEX =
 "annotated.html",
 "dynamic__observable_8hpp_source.html",
 "start__with_8hpp_source.html",
-"timer_8hpp_source.html"
+"timeout_8hpp_source.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

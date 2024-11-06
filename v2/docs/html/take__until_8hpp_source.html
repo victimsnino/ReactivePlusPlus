@@ -128,27 +128,27 @@ $(function(){initNavTree('take__until_8hpp_source.html',''); initResizable(true)
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;rpp/operators/fwd.hpp&gt;</span></div>
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &lt;rpp/defs.hpp&gt;</span></div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &lt;rpp/schedulers/current_thread.hpp&gt;</span></div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#include &lt;rpp/utils/utils.hpp&gt;</span></div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="keyword">namespace </span>rpp::operators::details</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>{</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    <span class="keyword">template</span>&lt;rpp::constra<span class="keywordtype">int</span>::observer TObserver&gt;</div>
-<div class="foldopen" id="foldopen00022" data-start="{" data-end="};">
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="classrpp_1_1operators_1_1details_1_1take__until__state.html">   22</a></span>    <span class="keyword">class </span><a class="code hl_class" href="classrpp_1_1operators_1_1details_1_1take__until__state.html">take_until_state</a> final</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    {</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>        <a class="code hl_class" href="classrpp_1_1operators_1_1details_1_1take__until__state.html">take_until_state</a>(TObserver&amp;&amp; <a class="code hl_class" href="classrpp_1_1observer.html">observer</a>)</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>            : m_observer_with_mutex(std::move(<a class="code hl_class" href="classrpp_1_1observer.html">observer</a>))</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>        {</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>        }</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>        <a class="code hl_class" href="classrpp_1_1operators_1_1details_1_1take__until__state.html">take_until_state</a>(<span class="keyword">const</span> TObserver&amp; <a class="code hl_class" href="classrpp_1_1observer.html">observer</a>)</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>            : m_observer_with_mutex(<a class="code hl_class" href="classrpp_1_1observer.html">observer</a>)</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>        {</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>        }</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>        <span class="keywordtype">void</span> stop() { m_stopped = <span class="keyword">true</span>; }</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &lt;rpp/disposables/composite_disposable.hpp&gt;</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#include &lt;rpp/schedulers/current_thread.hpp&gt;</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">#include &lt;rpp/utils/utils.hpp&gt;</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="keyword">namespace </span>rpp::operators::details</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>{</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    <span class="keyword">template</span>&lt;rpp::constra<span class="keywordtype">int</span>::observer TObserver&gt;</div>
+<div class="foldopen" id="foldopen00023" data-start="{" data-end="};">
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="classrpp_1_1operators_1_1details_1_1take__until__disposable.html">   23</a></span>    <span class="keyword">class </span><a class="code hl_class" href="classrpp_1_1operators_1_1details_1_1take__until__disposable.html">take_until_disposable</a> final : <span class="keyword">public</span> <a class="code hl_class" href="classrpp_1_1composite__disposable.html">rpp::composite_disposable</a></div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    {</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>        <a class="code hl_class" href="classrpp_1_1operators_1_1details_1_1take__until__disposable.html">take_until_disposable</a>(TObserver&amp;&amp; <a class="code hl_class" href="classrpp_1_1observer.html">observer</a>)</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>            : m_observer_with_mutex(std::move(<a class="code hl_class" href="classrpp_1_1observer.html">observer</a>))</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>        {</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>        }</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>        <a class="code hl_class" href="classrpp_1_1operators_1_1details_1_1take__until__disposable.html">take_until_disposable</a>(<span class="keyword">const</span> TObserver&amp; <a class="code hl_class" href="classrpp_1_1observer.html">observer</a>)</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>            : m_observer_with_mutex(<a class="code hl_class" href="classrpp_1_1observer.html">observer</a>)</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>        {</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        }</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>        <span class="keywordtype">bool</span> is_stopped()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> m_stopped; }</div>
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>        <span class="keywordtype">bool</span> stop_return_was_stopped() { <span class="keywordflow">return</span> m_stopped.exchange(<span class="keyword">true</span>); }</div>
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
@@ -164,9 +164,9 @@ $(function(){initNavTree('take__until_8hpp_source.html',''); initResizable(true)
 <div class="foldopen" id="foldopen00047" data-start="{" data-end="};">
 <div class="line"><a id="l00047" name="l00047"></a><span class="lineno"><a class="line" href="structrpp_1_1operators_1_1details_1_1take__until__observer__strategy__base.html">   47</a></span>    <span class="keyword">struct </span><a class="code hl_struct" href="structrpp_1_1operators_1_1details_1_1take__until__observer__strategy__base.html">take_until_observer_strategy_base</a></div>
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    {</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>        <span class="keyword">static</span> <span class="keyword">constexpr</span> <span class="keyword">auto</span> preferred_disposables_mode = rpp::details::observers::disposables_mode::None;</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>        <span class="keyword">static</span> <span class="keyword">constexpr</span> <span class="keyword">auto</span> preferred_disposables_mode = rpp::details::observers::disposables_mode::Auto;</div>
 <div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>        std::shared_ptr&lt;take_until_state&lt;TObserver&gt;&gt; state;</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>        std::shared_ptr&lt;take_until_disposable&lt;TObserver&gt;&gt; state;</div>
 <div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
 <div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>        <span class="keywordtype">void</span> on_error(<span class="keyword">const</span> std::exception_ptr&amp; err)<span class="keyword"> const</span></div>
 <div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span><span class="keyword">        </span>{</div>
@@ -180,9 +180,9 @@ $(function(){initNavTree('take__until_8hpp_source.html',''); initResizable(true)
 <div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>                state-&gt;get_observer()-&gt;on_completed();</div>
 <div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>        }</div>
 <div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>        <span class="keywordtype">void</span> set_upstream(<span class="keyword">const</span> <a class="code hl_class" href="classrpp_1_1disposable__wrapper__impl.html">disposable_wrapper</a>&amp; d) { state-&gt;get_observer()-&gt;set_upstream(d); }</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>        <span class="keywordtype">void</span> set_upstream(<span class="keyword">const</span> <a class="code hl_class" href="classrpp_1_1disposable__wrapper__impl.html">disposable_wrapper</a>&amp; d) { state-&gt;add(d); }</div>
 <div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>        <span class="keywordtype">bool</span> is_disposed()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> state-&gt;get_observer()-&gt;is_disposed(); }</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>        <span class="keywordtype">bool</span> is_disposed()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> state-&gt;is_disposed(); }</div>
 <div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    };</div>
 </div>
 <div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span> </div>
@@ -229,36 +229,39 @@ $(function(){initNavTree('take__until_8hpp_source.html',''); initResizable(true)
 </div>
 <div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span> </div>
 <div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>        <span class="keyword">template</span>&lt;rpp::details::observables::constra<span class="keywordtype">int</span>::disposables_strategy Prev&gt;</div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>        <span class="keyword">using </span><a class="code hl_struct" href="structrpp_1_1details_1_1observables_1_1dynamic__disposables__strategy.html">updated_optimal_disposables_strategy</a> = <a class="code hl_struct" href="structrpp_1_1details_1_1observables_1_1dynamic__disposables__strategy.html">rpp::details::observables::default_disposables_strategy</a>;</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>        <span class="keyword">using </span><a class="code hl_struct" href="structrpp_1_1details_1_1observables_1_1fixed__disposables__strategy.html">updated_optimal_disposables_strategy</a> = <a class="code hl_struct" href="structrpp_1_1details_1_1observables_1_1fixed__disposables__strategy.html">rpp::details::observables::fixed_disposables_strategy&lt;1&gt;</a>;</div>
 <div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span> </div>
 <div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>        <span class="keyword">template</span>&lt;rpp::constra<span class="keywordtype">int</span>::decayed_type Type, rpp::constra<span class="keywordtype">int</span>::observer Observer&gt;</div>
 <div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>        <span class="keyword">auto</span> lift(Observer&amp;&amp; <a class="code hl_class" href="classrpp_1_1observer.html">observer</a>)<span class="keyword"> const</span></div>
 <div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span><span class="keyword">        </span>{</div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>            <span class="keyword">auto</span> ptr = std::make_shared&lt;take_until_state&lt;std::decay_t&lt;Observer&gt;&gt;&gt;(std::forward&lt;Observer&gt;(<a class="code hl_class" href="classrpp_1_1observer.html">observer</a>));</div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span> </div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>            <a class="code hl_class" href="classrpp_1_1observable.html">observable</a>.<a class="code hl_function" href="classrpp_1_1observable.html#a193b0e08c516912c04afd8379ec27182">subscribe</a>(<a class="code hl_struct" href="structrpp_1_1operators_1_1details_1_1take__until__throttle__observer__strategy.html">take_until_throttle_observer_strategy</a>&lt;std::decay_t&lt;Observer&gt;&gt;{ptr});</div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>            <span class="keywordflow">return</span> <a class="code hl_class" href="classrpp_1_1observer.html">rpp::observer&lt;Type, take_until_observer_strategy&lt;std::decay_t&lt;Observer&gt;</a>&gt;&gt;(std::move(ptr));</div>
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>        }</div>
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>    };</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>            <span class="keyword">const</span> <span class="keyword">auto</span> d   = <a class="code hl_class" href="classrpp_1_1disposable__wrapper__impl.html">disposable_wrapper_impl&lt;take_until_disposable&lt;std::decay_t&lt;Observer&gt;</a>&gt;&gt;::make(std::forward&lt;Observer&gt;(<a class="code hl_class" href="classrpp_1_1observer.html">observer</a>));</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>            <span class="keyword">auto</span>       ptr = d.lock();</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>            ptr-&gt;get_observer()-&gt;set_upstream(d.as_weak());</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span> </div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>            <a class="code hl_class" href="classrpp_1_1observable.html">observable</a>.<a class="code hl_function" href="classrpp_1_1observable.html#a193b0e08c516912c04afd8379ec27182">subscribe</a>(<a class="code hl_struct" href="structrpp_1_1operators_1_1details_1_1take__until__throttle__observer__strategy.html">take_until_throttle_observer_strategy</a>&lt;std::decay_t&lt;Observer&gt;&gt;{ptr});</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>            <span class="keywordflow">return</span> <a class="code hl_class" href="classrpp_1_1observer.html">rpp::observer&lt;Type, take_until_observer_strategy&lt;std::decay_t&lt;Observer&gt;</a>&gt;&gt;(std::move(ptr));</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>        }</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>    };</div>
 </div>
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>} <span class="comment">// namespace rpp::operators::details</span></div>
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span> </div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span><span class="keyword">namespace </span>rpp::operators</div>
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>{</div>
-<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>    <span class="keyword">template</span>&lt;rpp::constra<span class="keywordtype">int</span>::observable TObservable&gt;</div>
-<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>    <span class="keyword">auto</span> <a class="code hl_function" href="group__conditional__operators.html#gae40802b5608766bfcc1417e210f41707">take_until</a>(TObservable&amp;&amp; until_observable)</div>
-<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>    {</div>
-<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>        <span class="keywordflow">return</span> details::take_until_t&lt;std::decay_t&lt;TObservable&gt;&gt;{std::forward&lt;TObservable&gt;(until_observable)};</div>
-<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>    }</div>
-<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>} <span class="comment">// namespace rpp::operators</span></div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>} <span class="comment">// namespace rpp::operators::details</span></div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span> </div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span><span class="keyword">namespace </span>rpp::operators</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>{</div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>    <span class="keyword">template</span>&lt;rpp::constra<span class="keywordtype">int</span>::observable TObservable&gt;</div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>    <span class="keyword">auto</span> <a class="code hl_function" href="group__conditional__operators.html#gae40802b5608766bfcc1417e210f41707">take_until</a>(TObservable&amp;&amp; until_observable)</div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>    {</div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>        <span class="keywordflow">return</span> details::take_until_t&lt;std::decay_t&lt;TObservable&gt;&gt;{std::forward&lt;TObservable&gt;(until_observable)};</div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>    }</div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>} <span class="comment">// namespace rpp::operators</span></div>
+<div class="ttc" id="aclassrpp_1_1composite__disposable_html"><div class="ttname"><a href="classrpp_1_1composite__disposable.html">rpp::composite_disposable</a></div><div class="ttdoc">Disposable which can keep some other sub-disposables. When this root disposable is disposed,...</div><div class="ttdef"><b>Definition</b> composite_disposable.hpp:175</div></div>
 <div class="ttc" id="aclassrpp_1_1disposable__wrapper__impl_html"><div class="ttname"><a href="classrpp_1_1disposable__wrapper__impl.html">rpp::disposable_wrapper_impl&lt; interface_disposable &gt;</a></div></div>
 <div class="ttc" id="aclassrpp_1_1observable_html"><div class="ttname"><a href="classrpp_1_1observable.html">rpp::observable</a></div><div class="ttdoc">Base class for any observable used in RPP. It handles core callbacks of observable.</div><div class="ttdef"><b>Definition</b> observable.hpp:38</div></div>
 <div class="ttc" id="aclassrpp_1_1observable_html_a193b0e08c516912c04afd8379ec27182"><div class="ttname"><a href="classrpp_1_1observable.html#a193b0e08c516912c04afd8379ec27182">rpp::observable::subscribe</a></div><div class="ttdeci">void subscribe(observer&lt; Type, ObserverStrategy &gt; &amp;&amp;observer) const</div><div class="ttdoc">Subscribes passed observer to emissions from this observable.</div><div class="ttdef"><b>Definition</b> observable.hpp:58</div></div>
 <div class="ttc" id="aclassrpp_1_1observer_html"><div class="ttname"><a href="classrpp_1_1observer.html">rpp::observer</a></div><div class="ttdoc">Base class for any observer used in RPP. It handles core callbacks of observers. Objects of this clas...</div><div class="ttdef"><b>Definition</b> observer.hpp:172</div></div>
-<div class="ttc" id="aclassrpp_1_1operators_1_1details_1_1take__until__state_html"><div class="ttname"><a href="classrpp_1_1operators_1_1details_1_1take__until__state.html">rpp::operators::details::take_until_state</a></div><div class="ttdef"><b>Definition</b> take_until.hpp:23</div></div>
+<div class="ttc" id="aclassrpp_1_1operators_1_1details_1_1take__until__disposable_html"><div class="ttname"><a href="classrpp_1_1operators_1_1details_1_1take__until__disposable.html">rpp::operators::details::take_until_disposable</a></div><div class="ttdef"><b>Definition</b> take_until.hpp:24</div></div>
 <div class="ttc" id="aclassrpp_1_1utils_1_1value__with__mutex_html"><div class="ttname"><a href="classrpp_1_1utils_1_1value__with__mutex.html">rpp::utils::value_with_mutex</a></div><div class="ttdef"><b>Definition</b> utils.hpp:260</div></div>
-<div class="ttc" id="agroup__conditional__operators_html_gae40802b5608766bfcc1417e210f41707"><div class="ttname"><a href="group__conditional__operators.html#gae40802b5608766bfcc1417e210f41707">rpp::operators::take_until</a></div><div class="ttdeci">auto take_until(TObservable &amp;&amp;until_observable)</div><div class="ttdoc">Discard any items emitted by an Observable after a second Observable emits an item or terminates.</div><div class="ttdef"><b>Definition</b> take_until.hpp:140</div></div>
-<div class="ttc" id="astructrpp_1_1details_1_1observables_1_1dynamic__disposables__strategy_html"><div class="ttname"><a href="structrpp_1_1details_1_1observables_1_1dynamic__disposables__strategy.html">rpp::details::observables::dynamic_disposables_strategy</a></div><div class="ttdef"><b>Definition</b> disposables_strategy.hpp:19</div></div>
+<div class="ttc" id="agroup__conditional__operators_html_gae40802b5608766bfcc1417e210f41707"><div class="ttname"><a href="group__conditional__operators.html#gae40802b5608766bfcc1417e210f41707">rpp::operators::take_until</a></div><div class="ttdeci">auto take_until(TObservable &amp;&amp;until_observable)</div><div class="ttdoc">Discard any items emitted by an Observable after a second Observable emits an item or terminates.</div><div class="ttdef"><b>Definition</b> take_until.hpp:142</div></div>
+<div class="ttc" id="astructrpp_1_1details_1_1observables_1_1fixed__disposables__strategy_html"><div class="ttname"><a href="structrpp_1_1details_1_1observables_1_1fixed__disposables__strategy.html">rpp::details::observables::fixed_disposables_strategy</a></div><div class="ttdef"><b>Definition</b> disposables_strategy.hpp:29</div></div>
 <div class="ttc" id="astructrpp_1_1operators_1_1details_1_1take__until__observer__strategy__base_html"><div class="ttname"><a href="structrpp_1_1operators_1_1details_1_1take__until__observer__strategy__base.html">rpp::operators::details::take_until_observer_strategy_base</a></div><div class="ttdef"><b>Definition</b> take_until.hpp:48</div></div>
 <div class="ttc" id="astructrpp_1_1operators_1_1details_1_1take__until__observer__strategy_html"><div class="ttname"><a href="structrpp_1_1operators_1_1details_1_1take__until__observer__strategy.html">rpp::operators::details::take_until_observer_strategy</a></div><div class="ttdef"><b>Definition</b> take_until.hpp:83</div></div>
 <div class="ttc" id="astructrpp_1_1operators_1_1details_1_1take__until__t_1_1operator__traits_html"><div class="ttname"><a href="structrpp_1_1operators_1_1details_1_1take__until__t_1_1operator__traits.html">rpp::operators::details::take_until_t::operator_traits</a></div><div class="ttdef"><b>Definition</b> take_until.hpp:99</div></div>
