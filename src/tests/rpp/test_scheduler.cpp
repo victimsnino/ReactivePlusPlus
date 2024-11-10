@@ -220,6 +220,22 @@ TEST_CASE("Immediate scheduler")
         REQUIRE(executions[1] - executions[0] >= (diff - std::chrono::milliseconds(100)));
     }
 
+    SUBCASE("immediate scheduler re-schedules action at provided timepoint with duration from this")
+    {
+        std::vector<rpp::schedulers::time_point> executions{};
+        std::chrono::milliseconds                diff = std::chrono::milliseconds{500};
+        worker.schedule([&call_count, &executions, &diff](const auto&) -> rpp::schedulers::optional_delay_from_this_timepoint {
+            executions.push_back(rpp::schedulers::clock_type::now());
+            if (++call_count <= 1)
+                return rpp::schedulers::optional_delay_from_this_timepoint{diff};
+            return {};
+        },
+                        obs);
+
+        REQUIRE(call_count == 2);
+        REQUIRE(executions[1] - executions[0] >= (diff - std::chrono::milliseconds(100)));
+    }
+
     SUBCASE("immediate scheduler re-schedules action at provided timepoint")
     {
         std::vector<rpp::schedulers::time_point> executions{};
@@ -474,6 +490,42 @@ TEST_CASE_TEMPLATE("queue_based scheduler", TestType, rpp::schedulers::current_t
             executions.push_back(rpp::schedulers::clock_type::now());
             if (++call_count <= 1)
                 return rpp::schedulers::optional_delay_from_now{diff};
+            return {};
+        },
+                         obs.value());
+
+        wait_till_finished();
+
+        REQUIRE(call_count == 2);
+        REQUIRE(executions[1] - executions[0] >= (diff - std::chrono::milliseconds(100)));
+    }
+
+    SUBCASE("scheduler re-schedules action at provided timepoint via delay_from_this_timepoint")
+    {
+        std::vector<rpp::schedulers::time_point> executions{};
+        std::chrono::milliseconds                diff = std::chrono::milliseconds{500};
+        worker->schedule([&call_count, &executions, &diff](const auto&) -> rpp::schedulers::optional_delay_from_this_timepoint {
+            executions.push_back(rpp::schedulers::clock_type::now());
+            if (++call_count <= 1)
+                return rpp::schedulers::delay_from_this_timepoint{diff};
+            return {};
+        },
+                         obs.value());
+
+        wait_till_finished();
+
+        REQUIRE(call_count == 2);
+        REQUIRE(executions[1] - executions[0] >= (diff - std::chrono::milliseconds(100)));
+    }
+
+    SUBCASE("scheduler re-schedules action at provided timepoint via delay_to")
+    {
+        std::vector<rpp::schedulers::time_point> executions{};
+        std::chrono::milliseconds                diff = std::chrono::milliseconds{500};
+        worker->schedule([&call_count, &executions, &diff](const auto&) -> rpp::schedulers::optional_delay_to {
+            executions.push_back(rpp::schedulers::clock_type::now());
+            if (++call_count <= 1)
+                return rpp::schedulers::delay_to{executions[0] + diff};
             return {};
         },
                          obs.value());
