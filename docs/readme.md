@@ -247,38 +247,6 @@ All disposable in RPP should be created and used via `rpp::disposable_wrapper_im
 - `disposable_wrapper` - wrapper over `interface_disposable`
 - `composite_disposable_wrapper` - wrapper over `interface_composite_disposable`
 
-`disposable_wrapper` is kind of smart_pointer (like std::unique_ptr) but for disposables. So, default constructed wrapper is empty wrapper.
-```cpp
-auto d = rpp::disposable_wrapper{};
-```
-Comparing to unique_ptr wrapper's methods are safe to use for empty wrapper.
-To construct wrapper you have to use `make` method:
-```cpp
-auto d = rpp::disposable_wrapper::make<SomeSpecificDisposableType>(some_arguments, to_construct_it);
-```
-
-Wrapper has popluar methods to work with disposable: `dispose()`, `is_disposed()` and `add()`/`remove()`/`clear()` (for `interface_composite_disposable`).
-
-In case of you want to obtain original disposable, you can use `lock()` method returning shared_ptr.
-
-`disposable_wrapper` can be strong and weak:
-- strong (it is default behavior) is keeping disposable as shared_ptr, so, such an instance of wrapper is extending life-time is underlying disposable
-- weak (disposable_wrapper can be forced to weak via `as_weak()` method) is keeping disposable as weak_ptr, so, such an instance of wrapper is **NOT** extendning life-time is underlying disposable
-
-This wrapper is needed for 2 goals:
-- provide safe usage of disposables avoiding manual handling of empty/weak disposables
-- automatically call `dispose()` during destruction of any disposable
-
-To achieve desired performance RPP is avoiding to returning disposable by default. So, it is why `subscribe` method is not returning anything by default. If you want to attach disposable to observer you can use overloading method accepting disposable as first argument like this:
-```cpp
-auto d = rpp::composite_disposable_wrapper::make();
-observable.subscribe(d, [](int v){});
-```
-or use `subscribe_with_disposable` method instead
-```cpp
-auto d = observable.subscribe_with_disposable([](int){});
-```
-
 ### dynamic_* versions to keep classes as variables
 
 Most of the classes inside rpp library including `observable`, `observer` and others are heavy-templated classes. It means, it could has a lot of template params. In most cases you shouldn't worry about it due to it is purely internal problem.

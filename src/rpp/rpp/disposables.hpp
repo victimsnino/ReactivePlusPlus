@@ -31,6 +31,8 @@
  * This can be useful in situations where you need to cancel an ongoing operation or release resources before the observable has completed its work.
  * To achieve this in rpp you can pass disposable to `subscribe` method or use `subscribe_with_disposable` overload instead.
  *
+ * @note In rpp all disposables should be created via @link rpp::disposable_wrapper_impl @endlink instead of manually.
+ *
  * @ingroup rpp
  */
 

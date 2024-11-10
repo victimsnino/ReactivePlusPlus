@@ -105,9 +105,35 @@ namespace rpp::details
 namespace rpp
 {
     /**
-     * @brief Wrapper to keep disposable. Any disposable have to be created right from this wrapper with help of `make` function.
-     * @details Member functions is safe to call even if internal disposable is gone. Also  it provides access to "raw" shared_ptr and it can be nullptr in case of disposable empty/ptr gone.
-     * @details Can keep weak_ptr in case of not owning disposable
+     * @brief Main RPP wrapper over @link disposables @endlink.
+     * @details This wrapper invented to provide safe and easy-to-use access to disposables. It has next core points:
+     * - disposable_wrapper is kind of smart_pointer (like std::shared_ptr) but for disposables. So, default constructed wrapper is empty wrapper.
+     * - disposable_wrapper shares ownership like std::shared_ptr
+     * - disposable_wrapper's methods is safe to use over empty/gone/disposed/weak disposables.
+     * - as soon as disposable can be actually "any internal state" it provides access to "raw" shared_ptr and it can be nullptr in case of disposable empty/ptr gone.
+     * - disposable_wrapper can be strong or weak (same as std::shared_ptr). weak disposable is important, for example, when it keeps observer and this observer should keep this disposable at the same time.
+     * - disposable_wrapper has popluar methods to work with disposable: `dispose()`, `is_disposed()` and `add()`/`remove()`/`clear()` (for `interface_composite_disposable`).
+     * - any disposable created via disposable_wrapper would have call `dispose()` during it's destruction (during destruction of last disposable_wrapper owning it)
+     *
+     * To construct wrapper you have to use `make` method:
+     * @code{cpp}
+     * auto d = rpp::disposable_wrapper::make<SomeSpecificDisposableType>(some_arguments, to_construct_it);
+     * @endcode
+     *
+     * To achieve desired performance RPP is avoiding to returning disposable by default. So, it is why `subscribe` method is not returning anything by default. If you want to attach disposable to observer you can use overloading method accepting disposable as first argument like this:
+     * @code{cpp}
+     * auto d = rpp::composite_disposable_wrapper::make();
+     * observable.subscribe(d, [](int v){});
+     * @endcode
+
+     * or use `subscribe_with_disposable` method instead
+     * @code{cpp}
+     * auto d = observable.subscribe_with_disposable([](int){});
+     * @endcode
+     *
+     * @note rpp has 2 predefined disposable_wrappers for most popular cases:
+     * - @link rpp::disposable_wrapper @endlink is wrapper for simple @link rpp::interface_disposable @endlink
+     * - @link rpp::composite_disposable_wrapper @endlink is wrapper for @link rpp::composite_disposable @endlink
      *
      * @ingroup disposables
      */
@@ -126,7 +152,12 @@ namespace rpp
         bool operator==(const disposable_wrapper_impl&) const = default;
 
         /**
-         * @brief Way to create disposable_wrapper. Passed `TTarget` type can be any type derived from `TDisposable`.
+         * @brief Main way to create disposable_wrapper. Passed `TTarget` type can be any type derived from `TDisposable`.
+         * @par Example:
+         *
+         * \code{cpp}
+         * rpp::disposable_wrapper<rpp::interface_composite_disposable>::make<rpp::composite_disposable>();
+         * \endcode
          */
         template<std::derived_from<TDisposable> TTarget = TDefaultMake, typename... TArgs>
             requires (std::constructible_from<TTarget, TArgs && ...>)
