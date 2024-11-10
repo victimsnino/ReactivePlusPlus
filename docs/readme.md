@@ -193,15 +193,10 @@ See <https://reactivex.io/documentation/scheduler.html> for more details about s
 
 ### Disposable
 
-In reactive programming, a **disposable** is an object that represents a resource that needs to be released or disposed of when it is no longer needed. This can include things like file handles, network connections, or any other resource that needs to be cleaned up after use.
+\copydoc disposables
 
-The purpose of a disposable is to provide a way to manage resources in a safe and efficient manner. By using disposables, you can ensure that resources are released in a timely manner, preventing memory leaks and other issues that can arise from resource leaks.
+Check API reference of @link disposables @endlink for more details
 
-In most cases disposables are placed in observers. RPP's observer can use two types of disposables:
-
-1. **Upstream disposable** - This is a disposable that the observable puts into the observer. The upstream disposable keeps some state or callback that should be disposed of when the observer is disposed. This ensures that any resources used by the observable are properly cleaned up when the observer obtains on_error/on_completed or disposed in any other way.
-
-2. **External disposable** - This is a disposable that allows the observer to be disposed of from outside the observer itself. This can be useful in situations where you need to cancel an ongoing operation or release resources before the observable has completed its work.
 
 ### Exception Guarantee
 
