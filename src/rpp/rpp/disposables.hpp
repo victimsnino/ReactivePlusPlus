@@ -13,7 +13,7 @@
 /**
  * @defgroup disposables Disposables
  *
- * @brief Disposable is handle/resorce passed from observable to observer via `set_upstream` method. Observer disposes this disposable when it wants to unsubscribe from observable.
+ * @brief Disposable is handle/resource passed from observable to observer via the `set_upstream` method. Observer disposes this disposable when it wants to unsubscribe from observable.
  *
  * @details In reactive programming, a **disposable** is an object that represents a resource that needs to be released or disposed of when it is no longer needed.
  * This can include things like file handles, network connections, or any other resource that needs to be cleaned up after use.
