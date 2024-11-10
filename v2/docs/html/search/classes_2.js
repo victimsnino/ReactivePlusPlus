@@ -24,13 +24,12 @@ var searchData=
   ['concat_5fdisposable_21',['concat_disposable',['../classrpp_1_1operators_1_1details_1_1concat__disposable.html',1,'rpp::operators::details']]],
   ['concat_5finner_5fobserver_5fstrategy_22',['concat_inner_observer_strategy',['../structrpp_1_1operators_1_1details_1_1concat__inner__observer__strategy.html',1,'rpp::operators::details']]],
   ['concat_5fobserver_5fstrategy_23',['concat_observer_strategy',['../structrpp_1_1operators_1_1details_1_1concat__observer__strategy.html',1,'rpp::operators::details']]],
-  ['concat_5fobserver_5fstrategy_5fbase_24',['concat_observer_strategy_base',['../structrpp_1_1operators_1_1details_1_1concat__observer__strategy__base.html',1,'rpp::operators::details']]],
-  ['concat_5fsource_5fobserver_5fstrategy_25',['concat_source_observer_strategy',['../structrpp_1_1details_1_1concat__source__observer__strategy.html',1,'rpp::details']]],
-  ['concat_5fstate_5ft_26',['concat_state_t',['../structrpp_1_1details_1_1concat__state__t.html',1,'rpp::details']]],
-  ['concat_5fstrategy_27',['concat_strategy',['../structrpp_1_1details_1_1concat__strategy.html',1,'rpp::details']]],
-  ['concat_5ft_28',['concat_t',['../structrpp_1_1operators_1_1details_1_1concat__t.html',1,'rpp::operators::details']]],
-  ['connectable_5fobservable_29',['connectable_observable',['../classrpp_1_1connectable__observable.html',1,'rpp']]],
-  ['convertible_5fto_5fany_30',['convertible_to_any',['../structrpp_1_1utils_1_1convertible__to__any.html',1,'rpp::utils']]],
-  ['create_5fstrategy_31',['create_strategy',['../structrpp_1_1details_1_1create__strategy.html',1,'rpp::details']]],
-  ['current_5fthread_32',['current_thread',['../classrpp_1_1schedulers_1_1current__thread.html',1,'rpp::schedulers']]]
+  ['concat_5fsource_5fobserver_5fstrategy_24',['concat_source_observer_strategy',['../structrpp_1_1details_1_1concat__source__observer__strategy.html',1,'rpp::details']]],
+  ['concat_5fstate_5ft_25',['concat_state_t',['../structrpp_1_1details_1_1concat__state__t.html',1,'rpp::details']]],
+  ['concat_5fstrategy_26',['concat_strategy',['../structrpp_1_1details_1_1concat__strategy.html',1,'rpp::details']]],
+  ['concat_5ft_27',['concat_t',['../structrpp_1_1operators_1_1details_1_1concat__t.html',1,'rpp::operators::details']]],
+  ['connectable_5fobservable_28',['connectable_observable',['../classrpp_1_1connectable__observable.html',1,'rpp']]],
+  ['convertible_5fto_5fany_29',['convertible_to_any',['../structrpp_1_1utils_1_1convertible__to__any.html',1,'rpp::utils']]],
+  ['create_5fstrategy_30',['create_strategy',['../structrpp_1_1details_1_1create__strategy.html',1,'rpp::details']]],
+  ['current_5fthread_31',['current_thread',['../classrpp_1_1schedulers_1_1current__thread.html',1,'rpp::schedulers']]]
 ];

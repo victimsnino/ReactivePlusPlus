@@ -74,7 +74,6 @@ var annotated_dup =
           [ "concat_disposable", "classrpp_1_1operators_1_1details_1_1concat__disposable.html", null ],
           [ "concat_inner_observer_strategy", "structrpp_1_1operators_1_1details_1_1concat__inner__observer__strategy.html", null ],
           [ "concat_observer_strategy", "structrpp_1_1operators_1_1details_1_1concat__observer__strategy.html", null ],
-          [ "concat_observer_strategy_base", "structrpp_1_1operators_1_1details_1_1concat__observer__strategy__base.html", null ],
           [ "concat_t", "structrpp_1_1operators_1_1details_1_1concat__t.html", "structrpp_1_1operators_1_1details_1_1concat__t" ],
           [ "debounce_disposable", "classrpp_1_1operators_1_1details_1_1debounce__disposable.html", null ],
           [ "debounce_disposable_wrapper", "structrpp_1_1operators_1_1details_1_1debounce__disposable__wrapper.html", null ],

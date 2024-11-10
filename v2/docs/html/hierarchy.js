@@ -70,10 +70,8 @@ var hierarchy =
     ] ],
     [ "rpp::subjects::details::completed", "structrpp_1_1subjects_1_1details_1_1completed.html", null ],
     [ "rpp::schedulers::computational", "classrpp_1_1schedulers_1_1computational.html", null ],
-    [ "rpp::operators::details::concat_observer_strategy_base< TObservable, TObserver >", "structrpp_1_1operators_1_1details_1_1concat__observer__strategy__base.html", [
-      [ "rpp::operators::details::concat_inner_observer_strategy< TObservable, TObserver >", "structrpp_1_1operators_1_1details_1_1concat__inner__observer__strategy.html", null ],
-      [ "rpp::operators::details::concat_observer_strategy< TObservable, TObserver >", "structrpp_1_1operators_1_1details_1_1concat__observer__strategy.html", null ]
-    ] ],
+    [ "rpp::operators::details::concat_inner_observer_strategy< TObservable, TObserver >", "structrpp_1_1operators_1_1details_1_1concat__inner__observer__strategy.html", null ],
+    [ "rpp::operators::details::concat_observer_strategy< TObservable, TObserver >", "structrpp_1_1operators_1_1details_1_1concat__observer__strategy.html", null ],
     [ "rpp::details::concat_source_observer_strategy< TObserver, PackedContainer >", "structrpp_1_1details_1_1concat__source__observer__strategy.html", null ],
     [ "rpp::details::concat_strategy< PackedContainer >", "structrpp_1_1details_1_1concat__strategy.html", null ],
     [ "rpp::connectable_observable< OriginalObservable, Subject >", "classrpp_1_1connectable__observable.html", null ],
@@ -114,12 +112,14 @@ var hierarchy =
     [ "rpp::utils::empty_function_t< Types >", "structrpp_1_1utils_1_1empty__function__t.html", null ],
     [ "rpp::details::empty_strategy< Type >", "structrpp_1_1details_1_1empty__strategy.html", null ],
     [ "rpp::details::enable_wrapper_from_this< TStrategy >", "classrpp_1_1details_1_1enable__wrapper__from__this.html", null ],
+    [ "rpp::details::enable_wrapper_from_this< concat_disposable< TObservable, TObserver > >", "classrpp_1_1details_1_1enable__wrapper__from__this.html", [
+      [ "rpp::operators::details::concat_disposable< TObservable, TObserver >", "classrpp_1_1operators_1_1details_1_1concat__disposable.html", null ]
+    ] ],
     [ "rpp::details::enable_wrapper_from_this< debounce_disposable< Observer, Worker, Container > >", "classrpp_1_1details_1_1enable__wrapper__from__this.html", [
       [ "rpp::operators::details::debounce_disposable< Observer, Worker, Container >", "classrpp_1_1operators_1_1details_1_1debounce__disposable.html", null ]
     ] ],
     [ "rpp::details::enable_wrapper_from_this< refcount_disposable >", "classrpp_1_1details_1_1enable__wrapper__from__this.html", [
       [ "rpp::refcount_disposable", "classrpp_1_1refcount__disposable.html", [
-        [ "rpp::operators::details::concat_disposable< TObservable, TObserver >", "classrpp_1_1operators_1_1details_1_1concat__disposable.html", null ],
         [ "rpp::operators::details::switch_on_next_state_t< TObserver >", "classrpp_1_1operators_1_1details_1_1switch__on__next__state__t.html", null ]
       ] ]
     ] ],
@@ -173,6 +173,7 @@ var hierarchy =
               [ "rpp::operators::details::combine_latest_disposable< Observer, TSelector, Args >", "classrpp_1_1operators_1_1details_1_1combine__latest__disposable.html", null ],
               [ "rpp::operators::details::zip_disposable< Observer, TSelector, Args >", "classrpp_1_1operators_1_1details_1_1zip__disposable.html", null ]
             ] ],
+            [ "rpp::operators::details::concat_disposable< TObservable, TObserver >", "classrpp_1_1operators_1_1details_1_1concat__disposable.html", null ],
             [ "rpp::operators::details::merge_disposable< TObserver >", "classrpp_1_1operators_1_1details_1_1merge__disposable.html", null ],
             [ "rpp::operators::details::on_error_resume_next_disposable< TObserver >", "structrpp_1_1operators_1_1details_1_1on__error__resume__next__disposable.html", null ],
             [ "rpp::operators::details::retry_state_t< TObserver, Observable >", "structrpp_1_1operators_1_1details_1_1retry__state__t.html", null ],
