@@ -17,6 +17,7 @@
 #include <rpp/schedulers/immediate.hpp>
 #include <rpp/sources/concat.hpp>
 #include <rpp/sources/create.hpp>
+#include <rpp/sources/empty.hpp>
 #include <rpp/sources/just.hpp>
 #include <rpp/subjects/publish_subject.hpp>
 
@@ -226,6 +227,35 @@ TEST_CASE_TEMPLATE("concat", TestType, rpp::memory_model::use_stack, rpp::memory
         test([](auto&&... vals) {
             return rpp::source::just(std::forward<decltype(vals)>(vals).as_dynamic()...) | rpp::ops::concat();
         });
+        SUBCASE("concat completes right")
+        {
+            rpp::subjects::publish_subject<rpp::dynamic_observable<int>> subj{};
+
+            subj.get_observable() | rpp::ops::concat() | rpp::ops::subscribe(mock);
+            SUBCASE("on_completed from base")
+            {
+                REQUIRE_CALL(*mock, on_completed()).IN_SEQUENCE(s);
+                subj.get_observer().on_completed();
+            }
+
+            SUBCASE("on_completed from inner + then from base")
+            {
+                subj.get_observer().on_next(rpp::source::empty<int>());
+
+                REQUIRE_CALL(*mock, on_completed()).IN_SEQUENCE(s);
+                subj.get_observer().on_completed();
+            }
+
+            SUBCASE("on_completed from base + then from inner")
+            {
+                rpp::subjects::publish_subject<int> inner{};
+                subj.get_observer().on_next(inner.get_observable());
+                subj.get_observer().on_completed();
+
+                REQUIRE_CALL(*mock, on_completed()).IN_SEQUENCE(s);
+                inner.get_observer().on_completed();
+            }
+        }
     }
 }
 
