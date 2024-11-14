@@ -13,14 +13,16 @@
 #include <rpp/operators/fwd.hpp>
 
 #include <rpp/defs.hpp>
-#include <rpp/disposables/refcount_disposable.hpp>
+#include <rpp/disposables/composite_disposable.hpp>
 #include <rpp/operators/details/strategy.hpp>
 #include <rpp/utils/utils.hpp>
+
+#include <array>
 
 namespace rpp::operators::details
 {
     template<rpp::constraint::observer TObserver>
-    class switch_on_next_state_t final : public refcount_disposable
+    class switch_on_next_state_t final : public rpp::details::base_disposable
     {
     public:
         template<rpp::constraint::decayed_same_as<TObserver> TObs>
@@ -33,13 +35,21 @@ namespace rpp::operators::details
         switch_on_next_state_t(const switch_on_next_state_t&)     = delete;
         switch_on_next_state_t(switch_on_next_state_t&&) noexcept = delete;
 
-        rpp::utils::pointer_under_lock<TObserver> get_observer()
+        rpp::utils::pointer_under_lock<TObserver>                         get_observer() { return m_observer_with_mutex; }
+        rpp::composite_disposable&                                        get_base_child_disposable() { return m_base_child_disposable; }
+        rpp::utils::pointer_under_lock<rpp::composite_disposable_wrapper> get_inner_child_disposable() { return m_inner_child_disposable; }
+
+    private:
+        void base_dispose_impl(interface_disposable::Mode) noexcept override
         {
-            return m_observer_with_mutex;
+            get_base_child_disposable().dispose();
+            get_inner_child_disposable()->dispose();
         }
 
     private:
-        rpp::utils::value_with_mutex<TObserver> m_observer_with_mutex{};
+        rpp::utils::value_with_mutex<TObserver>                         m_observer_with_mutex{};
+        rpp::composite_disposable                                       m_base_child_disposable{};
+        rpp::utils::value_with_mutex<rpp::composite_disposable_wrapper> m_inner_child_disposable{composite_disposable_wrapper::empty()};
     };
 
     template<rpp::constraint::observer TObserver>
@@ -68,12 +78,11 @@ namespace rpp::operators::details
         void on_completed() const
         {
             m_refcounted.dispose();
-            if (m_state->is_disposed())
+            if (m_state->get_base_child_disposable().is_disposed())
                 m_state->get_observer()->on_completed();
         }
 
         void set_upstream(const disposable_wrapper& d) const { m_refcounted.add(d); }
-
         bool is_disposed() const { return m_refcounted.is_disposed(); }
 
     private:
@@ -98,9 +107,10 @@ namespace rpp::operators::details
         template<typename T>
         void on_next(T&& v) const
         {
-            m_last_refcount.dispose();
-            m_last_refcount = m_state->add_ref();
-            std::forward<T>(v).subscribe(switch_on_next_inner_observer_strategy<TObserver>{m_state, m_last_refcount});
+            const auto inner = m_state->get_inner_child_disposable();
+            inner->dispose();
+            inner = rpp::composite_disposable_wrapper::make();
+            std::forward<T>(v).subscribe(switch_on_next_inner_observer_strategy<TObserver>{m_state, *inner});
         }
 
         void on_error(const std::exception_ptr& err) const
@@ -110,13 +120,13 @@ namespace rpp::operators::details
 
         void on_completed() const
         {
-            m_this_refcount.dispose();
-            if (m_state->is_disposed())
+            m_state->get_base_child_disposable().dispose();
+            if (m_state->get_inner_child_disposable()->is_disposed())
                 m_state->get_observer()->on_completed();
         }
 
-        void set_upstream(const disposable_wrapper& d) const { m_this_refcount.add(d); }
-        bool is_disposed() const { return m_this_refcount.is_disposed(); }
+        void set_upstream(const disposable_wrapper& d) const { m_state->get_base_child_disposable().add(d); }
+        bool is_disposed() const { return m_state->get_base_child_disposable().is_disposed(); }
 
     private:
         static std::shared_ptr<switch_on_next_state_t<TObserver>> init_state(TObserver&& observer)
@@ -129,8 +139,6 @@ namespace rpp::operators::details
 
     private:
         std::shared_ptr<switch_on_next_state_t<TObserver>> m_state;
-        rpp::composite_disposable_wrapper                  m_this_refcount = m_state->add_ref();
-        mutable rpp::composite_disposable_wrapper          m_last_refcount = composite_disposable_wrapper::empty();
     };
 
     struct switch_on_next_t : lift_operator<switch_on_next_t>

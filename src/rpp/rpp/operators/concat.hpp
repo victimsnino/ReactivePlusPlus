@@ -12,6 +12,7 @@
 
 #include <rpp/operators/fwd.hpp>
 
+#include <rpp/disposables/composite_disposable.hpp>
 #include <rpp/operators/details/strategy.hpp>
 #include <rpp/utils/utils.hpp>
 
@@ -34,7 +35,7 @@ namespace rpp::operators::details
     };
 
     template<rpp::constraint::observable TObservable, rpp::constraint::observer TObserver>
-    class concat_disposable final : public rpp::composite_disposable
+    class concat_disposable final : public rpp::details::base_disposable
         , public rpp::details::enable_wrapper_from_this<concat_disposable<TObservable, TObserver>>
     {
     public:
@@ -87,7 +88,7 @@ namespace rpp::operators::details
             return stage().compare_exchange_strong(current, ConcatStage::Processing, std::memory_order::seq_cst);
         }
 
-        void composite_dispose_impl(interface_disposable::Mode) noexcept override
+        void base_dispose_impl(interface_disposable::Mode) noexcept override
         {
             for (auto& d : m_child_disposables)
                 d.dispose();
