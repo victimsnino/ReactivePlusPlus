@@ -58,9 +58,9 @@ namespace rpp::operators::details
     public:
         static constexpr auto preferred_disposables_mode = rpp::details::observers::disposables_mode::None;
 
-        switch_on_next_inner_observer_strategy(const std::shared_ptr<switch_on_next_state_t<TObserver>>& state, const composite_disposable_wrapper& refcounted)
+        switch_on_next_inner_observer_strategy(const std::shared_ptr<switch_on_next_state_t<TObserver>>& state, composite_disposable_wrapper&& refcounted)
             : m_state{state}
-            , m_refcounted{refcounted}
+            , m_refcounted{std::move(refcounted)}
         {
         }
 
@@ -107,10 +107,13 @@ namespace rpp::operators::details
         template<typename T>
         void on_next(T&& v) const
         {
-            const auto inner = m_state->get_inner_child_disposable();
-            inner->dispose();
-            inner = rpp::composite_disposable_wrapper::make();
-            std::forward<T>(v).subscribe(switch_on_next_inner_observer_strategy<TObserver>{m_state, *inner});
+            auto new_inner = rpp::composite_disposable_wrapper::make();
+            {
+                auto inner = m_state->get_inner_child_disposable();
+                inner->dispose();
+                *inner = new_inner;
+            }
+            std::forward<T>(v).subscribe(switch_on_next_inner_observer_strategy<TObserver>{m_state, std::move(new_inner)});
         }
 
         void on_error(const std::exception_ptr& err) const
