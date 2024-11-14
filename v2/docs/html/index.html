@@ -499,13 +499,17 @@ Schedulers</h2>
 <p>See <a href="https://reactivex.io/documentation/scheduler.html">https://reactivex.io/documentation/scheduler.html</a> for more details about schedulers.</p>
 <h2><a class="anchor" id="autotoc_md7"></a>
 Disposable</h2>
-<p>In reactive programming, a <b>disposable</b> is an object that represents a resource that needs to be released or disposed of when it is no longer needed. This can include things like file handles, network connections, or any other resource that needs to be cleaned up after use.</p>
-<p>The purpose of a disposable is to provide a way to manage resources in a safe and efficient manner. By using disposables, you can ensure that resources are released in a timely manner, preventing memory leaks and other issues that can arise from resource leaks.</p>
-<p>In most cases disposables are placed in observers. RPP's observer can use two types of disposables:</p>
-<ol type="1">
-<li><b>Upstream disposable</b> - This is a disposable that the observable puts into the observer. The upstream disposable keeps some state or callback that should be disposed of when the observer is disposed. This ensures that any resources used by the observable are properly cleaned up when the observer obtains on_error/on_completed or disposed in any other way.</li>
-<li><b>External disposable</b> - This is a disposable that allows the observer to be disposed of from outside the observer itself. This can be useful in situations where you need to cancel an ongoing operation or release resources before the observable has completed its work.</li>
+<p>Disposable is handle/resource passed from observable to observer via the <code>set_upstream</code> method. Observer disposes this disposable when it wants to unsubscribe from observable.   </p>
+<p>In reactive programming, a <b>disposable</b> is an object that represents a resource that needs to be released or disposed of when it is no longer needed. This can include things like file handles, network connections, or any other resource that needs to be cleaned up after use. The purpose of a disposable is to provide a way to manage resources in a safe and efficient manner. By using disposables, you can ensure that resources are released in a timely manner, preventing memory leaks and other issues that can arise from resource leaks.</p>
+<p>There are 2 main purposes of disposables:</p><ol type="1">
+<li><b>Upstream disposable</b> <br  />
+ This is a disposable that the observable puts into the observer. The upstream disposable keeps some state or callback that should be disposed of when the observer is disposed (== no longer wants to receive emissions, for example, was completed/errored or just unsubscribed) This ensures that any resources used by the observable are properly cleaned up when the observer obtains on_error/on_completed or disposed in any other way.</li>
+<li><b>External disposable</b> <br  />
+ This is a disposable that allows the observer to be disposed of from outside the observer itself. This can be useful in situations where you need to cancel an ongoing operation or release resources before the observable has completed its work. To achieve this in rpp you can pass disposable to <code>subscribe</code> method or use <code>subscribe_with_disposable</code> overload instead.</li>
 </ol>
+<dl class="section note"><dt>Note</dt><dd>In rpp all disposables should be created via <a class="el" href="classrpp_1_1disposable__wrapper__impl.html">rpp::disposable_wrapper_impl</a> instead of manually.</dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd>From user of rpp library it is not really expected to handle disposables manually somehow <b>except</b> of case where user want to control lifetime of observable-observer connection manually.   </dd></dl>
+<p>Check API reference of <a class="el" href="group__disposables.html">disposables</a> for more details</p>
 <h2><a class="anchor" id="autotoc_md8"></a>
 Exception Guarantee</h2>
 <p>In non-reactive programming functions/modules throws exception in case of something invalid. As a result, user can catch it and handle it somehow while internal state of objects can be in some state (invalid/untouched/partly valid) and etc.</p>
@@ -539,29 +543,11 @@ Disposable</h2>
 </ul>
 </li>
 </ul>
-<p>All disposable in RPP should be created and used via <code><a class="el" href="classrpp_1_1disposable__wrapper__impl.html" title="Wrapper to keep disposable. Any disposable have to be created right from this wrapper with help of ma...">rpp::disposable_wrapper_impl</a>&lt;T&gt;</code> wrapper. For simplicity usage it has 2 base aliases:</p><ul>
+<p>All disposable in RPP should be created and used via <code><a class="el" href="classrpp_1_1disposable__wrapper__impl.html" title="Main RPP wrapper over disposables.">rpp::disposable_wrapper_impl</a>&lt;T&gt;</code> wrapper. For simplicity usage it has 2 base aliases:</p><ul>
 <li><code>disposable_wrapper</code> - wrapper over <code>interface_disposable</code></li>
 <li><code>composite_disposable_wrapper</code> - wrapper over <code>interface_composite_disposable</code></li>
 </ul>
-<p><code>disposable_wrapper</code> is kind of smart_pointer (like std::unique_ptr) but for disposables. So, default constructed wrapper is empty wrapper. </p><div class="fragment"><div class="line"><span class="keyword">auto</span> d = <a class="code hl_class" href="classrpp_1_1disposable__wrapper__impl.html">rpp::disposable_wrapper</a>{};</div>
-<div class="ttc" id="aclassrpp_1_1disposable__wrapper__impl_html"><div class="ttname"><a href="classrpp_1_1disposable__wrapper__impl.html">rpp::disposable_wrapper_impl&lt; interface_disposable &gt;</a></div></div>
-</div><!-- fragment --><p> Comparing to unique_ptr wrapper's methods are safe to use for empty wrapper. To construct wrapper you have to use <code>make</code> method: </p><div class="fragment"><div class="line"><span class="keyword">auto</span> d = <a class="code hl_function" href="classrpp_1_1disposable__wrapper__impl.html#a677053a7d4cc81ab26dc7f740a6595e6">rpp::disposable_wrapper::make&lt;SomeSpecificDisposableType&gt;</a>(some_arguments, to_construct_it);</div>
-<div class="ttc" id="aclassrpp_1_1disposable__wrapper__impl_html_a677053a7d4cc81ab26dc7f740a6595e6"><div class="ttname"><a href="classrpp_1_1disposable__wrapper__impl.html#a677053a7d4cc81ab26dc7f740a6595e6">rpp::disposable_wrapper_impl&lt; interface_disposable &gt;::make</a></div><div class="ttdeci">static disposable_wrapper_impl make(TArgs &amp;&amp;... args)</div><div class="ttdef"><b>Definition</b> disposable_wrapper.hpp:133</div></div>
-</div><!-- fragment --><p>Wrapper has popluar methods to work with disposable: <code>dispose()</code>, <code>is_disposed()</code> and <code>add()</code>/<code>remove()</code>/<code>clear()</code> (for <code>interface_composite_disposable</code>).</p>
-<p>In case of you want to obtain original disposable, you can use <code>lock()</code> method returning shared_ptr.</p>
-<p><code>disposable_wrapper</code> can be strong and weak:</p><ul>
-<li>strong (it is default behavior) is keeping disposable as shared_ptr, so, such an instance of wrapper is extending life-time is underlying disposable</li>
-<li>weak (disposable_wrapper can be forced to weak via <code>as_weak()</code> method) is keeping disposable as weak_ptr, so, such an instance of wrapper is <b>NOT</b> extendning life-time is underlying disposable</li>
-</ul>
-<p>This wrapper is needed for 2 goals:</p><ul>
-<li>provide safe usage of disposables avoiding manual handling of empty/weak disposables</li>
-<li>automatically call <code>dispose()</code> during destruction of any disposable</li>
-</ul>
-<p>To achieve desired performance RPP is avoiding to returning disposable by default. So, it is why <code>subscribe</code> method is not returning anything by default. If you want to attach disposable to observer you can use overloading method accepting disposable as first argument like this: </p><div class="fragment"><div class="line"><span class="keyword">auto</span> d = <a class="code hl_function" href="classrpp_1_1disposable__wrapper__impl.html#a677053a7d4cc81ab26dc7f740a6595e6">rpp::composite_disposable_wrapper::make</a>();</div>
-<div class="line">observable.<a class="code hl_function" href="classrpp_1_1observable.html#a193b0e08c516912c04afd8379ec27182">subscribe</a>(d, [](<span class="keywordtype">int</span> v){});</div>
-</div><!-- fragment --><p> or use <code>subscribe_with_disposable</code> method instead </p><div class="fragment"><div class="line"><span class="keyword">auto</span> d = observable.<a class="code hl_function" href="classrpp_1_1observable.html#ac81ee3d805386d492ab54e40ccd6adc2">subscribe_with_disposable</a>([](<span class="keywordtype">int</span>){});</div>
-<div class="ttc" id="aclassrpp_1_1observable_html_ac81ee3d805386d492ab54e40ccd6adc2"><div class="ttname"><a href="classrpp_1_1observable.html#ac81ee3d805386d492ab54e40ccd6adc2">rpp::observable::subscribe_with_disposable</a></div><div class="ttdeci">composite_disposable_wrapper subscribe_with_disposable(observer&lt; Type, ObserverStrategy &gt; &amp;&amp;observer) const</div><div class="ttdoc">Subscribes passed observer to emissions from this observable.</div><div class="ttdef"><b>Definition</b> observable.hpp:144</div></div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md13"></a>
+<h2><a class="anchor" id="autotoc_md13"></a>
 dynamic_* versions to keep classes as variables</h2>
 <p>Most of the classes inside rpp library including <code>observable</code>, <code>observer</code> and others are heavy-templated classes. It means, it could has a lot of template params. In most cases you shouldn't worry about it due to it is purely internal problem.</p>
 <p>But in some cases you want to keep observable or observer inside your classes or return it from function. In most cases I strongly recommend you to use <code>auto</code> to deduce type automatically. But in some cases it is not possible (for example, to keep observable as member variable). For such an usage you could use <code>dynamic_observable</code> and <code>dynamic_observer</code>:</p><ul>

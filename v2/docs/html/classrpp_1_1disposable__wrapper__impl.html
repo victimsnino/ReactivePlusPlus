@@ -119,7 +119,7 @@ $(function(){initNavTree('classrpp_1_1disposable__wrapper__impl.html',''); initR
 </div><!--header-->
 <div class="contents">
 
-<p>Wrapper to keep disposable. Any disposable have to be created right from this wrapper with help of <code>make</code> function.  
+<p>Main RPP wrapper over <a class="el" href="group__disposables.html">disposables</a>.  
  <a href="#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="disposable__wrapper_8hpp_source.html">disposable_wrapper.hpp</a>&gt;</code></p>
@@ -167,11 +167,10 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>dispose</b> () const 
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a677053a7d4cc81ab26dc7f740a6595e6" id="r_a677053a7d4cc81ab26dc7f740a6595e6"><td class="memTemplParams" colspan="2"><a id="a677053a7d4cc81ab26dc7f740a6595e6" name="a677053a7d4cc81ab26dc7f740a6595e6"></a>
-template&lt;std::derived_from&lt; TDisposable &gt; TTarget = TDefaultMake, typename... TArgs&gt; <br />
+<tr class="memitem:a677053a7d4cc81ab26dc7f740a6595e6" id="r_a677053a7d4cc81ab26dc7f740a6595e6"><td class="memTemplParams" colspan="2">template&lt;std::derived_from&lt; TDisposable &gt; TTarget = TDefaultMake, typename... TArgs&gt; <br />
 requires (std::constructible_from&lt;TTarget, TArgs &amp;&amp; ...&gt;)</td></tr>
-<tr class="memitem:a677053a7d4cc81ab26dc7f740a6595e6"><td class="memTemplItemLeft" align="right" valign="top">static <a class="el" href="classrpp_1_1disposable__wrapper__impl.html">disposable_wrapper_impl</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><b>make</b> (TArgs &amp;&amp;... args)</td></tr>
-<tr class="memdesc:a677053a7d4cc81ab26dc7f740a6595e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Way to create disposable_wrapper. Passed <code>TTarget</code> type can be any type derived from <code>TDisposable</code>. <br /></td></tr>
+<tr class="memitem:a677053a7d4cc81ab26dc7f740a6595e6"><td class="memTemplItemLeft" align="right" valign="top">static <a class="el" href="classrpp_1_1disposable__wrapper__impl.html">disposable_wrapper_impl</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a677053a7d4cc81ab26dc7f740a6595e6">make</a> (TArgs &amp;&amp;... args)</td></tr>
+<tr class="memdesc:a677053a7d4cc81ab26dc7f740a6595e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Main way to create disposable_wrapper. Passed <code>TTarget</code> type can be any type derived from <code>TDisposable</code>.  <br /></td></tr>
 <tr class="separator:a677053a7d4cc81ab26dc7f740a6595e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac80a18753f28c349713dca275a23a085" id="r_ac80a18753f28c349713dca275a23a085"><td class="memItemLeft" align="right" valign="top"><a id="ac80a18753f28c349713dca275a23a085" name="ac80a18753f28c349713dca275a23a085"></a>
 static <a class="el" href="classrpp_1_1disposable__wrapper__impl.html">disposable_wrapper_impl</a>&#160;</td><td class="memItemRight" valign="bottom"><b>empty</b> ()</td></tr>
@@ -200,10 +199,65 @@ std::pair&lt; std::shared_ptr&lt; <a class="el" href="structrpp_1_1interface__di
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><div class="compoundTemplParams">template&lt;<a class="el" href="conceptrpp_1_1constraint_1_1decayed__type.html">rpp::constraint::decayed_type</a> TDisposable&gt;<br />
-class rpp::disposable_wrapper_impl&lt; TDisposable &gt;</div><p>Wrapper to keep disposable. Any disposable have to be created right from this wrapper with help of <code>make</code> function. </p>
-<p>Member functions is safe to call even if internal disposable is gone. Also it provides access to "raw" shared_ptr and it can be nullptr in case of disposable empty/ptr gone.</p>
-<p>Can keep weak_ptr in case of not owning disposable </p>
-</div><hr/>The documentation for this class was generated from the following files:<ul>
+class rpp::disposable_wrapper_impl&lt; TDisposable &gt;</div><p>Main RPP wrapper over <a class="el" href="group__disposables.html">disposables</a>. </p>
+<p>This wrapper invented to provide safe and easy-to-use access to disposables. It has next core points:</p><ul>
+<li>disposable_wrapper is kind of smart_pointer (like std::shared_ptr) but for disposables. So, default constructed wrapper is empty wrapper.</li>
+<li>disposable_wrapper shares ownership like std::shared_ptr</li>
+<li>any disposable created via disposable_wrapper would have call <code>dispose()</code> during it's destruction (during destruction of last disposable_wrapper owning it)</li>
+<li>disposable_wrapper's methods is safe to use over empty/gone/disposed/weak disposables.</li>
+<li>as soon as disposable can be actually "any internal state" it provides access to "raw" shared_ptr and it can be nullptr in case of disposable empty/ptr gone.</li>
+<li>disposable_wrapper can be strong or weak (same as std::shared_ptr). weak disposable is important, for example, when it keeps observer and this observer should keep this disposable at the same time.</li>
+<li>disposable_wrapper has popluar methods to work with disposable: <code>dispose()</code>, <code>is_disposed()</code> and <code>add()</code>/<code>remove()</code>/<code>clear()</code> (for <code><a class="el" href="structrpp_1_1interface__composite__disposable.html">interface_composite_disposable</a></code>).</li>
+</ul>
+<p>To construct wrapper you have to use <code>make</code> method: </p><div class="fragment"><div class="line"><span class="keyword">auto</span> d = <a class="code hl_function" href="#a677053a7d4cc81ab26dc7f740a6595e6">rpp::disposable_wrapper::make&lt;SomeSpecificDisposableType&gt;</a>(some_arguments, to_construct_it);</div>
+<div class="ttc" id="aclassrpp_1_1disposable__wrapper__impl_html_a677053a7d4cc81ab26dc7f740a6595e6"><div class="ttname"><a href="#a677053a7d4cc81ab26dc7f740a6595e6">rpp::disposable_wrapper_impl&lt; interface_disposable &gt;::make</a></div><div class="ttdeci">static disposable_wrapper_impl make(TArgs &amp;&amp;... args)</div><div class="ttdef"><b>Definition</b> disposable_wrapper.hpp:164</div></div>
+</div><!-- fragment --><p>To achieve desired performance RPP is avoiding to returning disposable by default. So, it is why <code>subscribe</code> method is not returning anything by default. If you want to attach disposable to observer you can use overloading method accepting disposable as first argument like this: </p><div class="fragment"><div class="line"><span class="keyword">auto</span> d = <a class="code hl_function" href="#a677053a7d4cc81ab26dc7f740a6595e6">rpp::composite_disposable_wrapper::make</a>();</div>
+<div class="line"><a class="code hl_class" href="classrpp_1_1observable.html">observable</a>.<a class="code hl_function" href="classrpp_1_1observable.html#a193b0e08c516912c04afd8379ec27182">subscribe</a>(d, [](<span class="keywordtype">int</span> v){});</div>
+<div class="ttc" id="aclassrpp_1_1observable_html"><div class="ttname"><a href="classrpp_1_1observable.html">rpp::observable</a></div><div class="ttdoc">Base class for any observable used in RPP. It handles core callbacks of observable.</div><div class="ttdef"><b>Definition</b> observable.hpp:38</div></div>
+<div class="ttc" id="aclassrpp_1_1observable_html_a193b0e08c516912c04afd8379ec27182"><div class="ttname"><a href="classrpp_1_1observable.html#a193b0e08c516912c04afd8379ec27182">rpp::observable::subscribe</a></div><div class="ttdeci">void subscribe(observer&lt; Type, ObserverStrategy &gt; &amp;&amp;observer) const</div><div class="ttdoc">Subscribes passed observer to emissions from this observable.</div><div class="ttdef"><b>Definition</b> observable.hpp:58</div></div>
+</div><!-- fragment --><p>or use <code>subscribe_with_disposable</code> method instead </p><div class="fragment"><div class="line"><span class="keyword">auto</span> d = <a class="code hl_class" href="classrpp_1_1observable.html">observable</a>.<a class="code hl_function" href="classrpp_1_1observable.html#ac81ee3d805386d492ab54e40ccd6adc2">subscribe_with_disposable</a>([](<span class="keywordtype">int</span>){});</div>
+<div class="ttc" id="aclassrpp_1_1observable_html_ac81ee3d805386d492ab54e40ccd6adc2"><div class="ttname"><a href="classrpp_1_1observable.html#ac81ee3d805386d492ab54e40ccd6adc2">rpp::observable::subscribe_with_disposable</a></div><div class="ttdeci">composite_disposable_wrapper subscribe_with_disposable(observer&lt; Type, ObserverStrategy &gt; &amp;&amp;observer) const</div><div class="ttdoc">Subscribes passed observer to emissions from this observable.</div><div class="ttdef"><b>Definition</b> observable.hpp:144</div></div>
+</div><!-- fragment --><dl class="section note"><dt>Note</dt><dd>rpp has 2 predefined disposable_wrappers for most popular cases:<ul>
+<li><a class="el" href="group__disposables.html#ga9608d63c61b7da884b7f975dfa949d3c">rpp::disposable_wrapper</a> is wrapper for simple <a class="el" href="structrpp_1_1interface__disposable.html">rpp::interface_disposable</a></li>
+<li><a class="el" href="group__disposables.html#ga310f07bbdbf66ad978e748209bfea420">rpp::composite_disposable_wrapper</a> is wrapper for <a class="el" href="classrpp_1_1composite__disposable.html">rpp::composite_disposable</a> </li>
+</ul>
+</dd></dl>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a677053a7d4cc81ab26dc7f740a6595e6" name="a677053a7d4cc81ab26dc7f740a6595e6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a677053a7d4cc81ab26dc7f740a6595e6">&#9670;&#160;</a></span>make()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;<a class="el" href="conceptrpp_1_1constraint_1_1decayed__type.html">rpp::constraint::decayed_type</a> TDisposable&gt; </div>
+<div class="memtemplate">
+template&lt;std::derived_from&lt; TDisposable &gt; TTarget = TDefaultMake, typename... TArgs&gt; <br />
+requires (std::constructible_from&lt;TTarget, TArgs &amp;&amp; ...&gt;)</div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static <a class="el" href="classrpp_1_1disposable__wrapper__impl.html">disposable_wrapper_impl</a> <a class="el" href="classrpp_1_1disposable__wrapper__impl.html">rpp::disposable_wrapper_impl</a>&lt; TDisposable &gt;::make </td>
+          <td>(</td>
+          <td class="paramtype">TArgs &amp;&amp;...</td>          <td class="paramname"><span class="paramname"><em>args</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span><span class="mlabel">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Main way to create disposable_wrapper. Passed <code>TTarget</code> type can be any type derived from <code>TDisposable</code>. </p>
+<dl class="section user"><dt>Example:</dt><dd></dd></dl>
+<div class="fragment"><div class="line"><a class="code hl_function" href="#a677053a7d4cc81ab26dc7f740a6595e6">rpp::disposable_wrapper&lt;rpp::interface_composite_disposable&gt;::make&lt;rpp::composite_disposable&gt;</a>();</div>
+</div><!-- fragment --> 
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
 <li>src/rpp/rpp/disposables/<a class="el" href="disposable__wrapper_8hpp_source.html">disposable_wrapper.hpp</a></li>
 <li>src/rpp/rpp/disposables/<a class="el" href="rpp_2rpp_2disposables_2fwd_8hpp_source.html">fwd.hpp</a></li>
 </ul>
