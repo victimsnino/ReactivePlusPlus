@@ -33,6 +33,8 @@
  *
  * @note In rpp all disposables should be created via @link rpp::disposable_wrapper_impl @endlink instead of manually.
  *
+ * @warning From user of rpp library it is not really expected to handle disposables manually somehow **except** of case where user want to control lifetime of observable-observer connection manually.
+ *
  * @ingroup rpp
  */
 

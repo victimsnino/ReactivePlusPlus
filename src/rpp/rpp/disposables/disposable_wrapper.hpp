@@ -109,11 +109,11 @@ namespace rpp
      * @details This wrapper invented to provide safe and easy-to-use access to disposables. It has next core points:
      * - disposable_wrapper is kind of smart_pointer (like std::shared_ptr) but for disposables. So, default constructed wrapper is empty wrapper.
      * - disposable_wrapper shares ownership like std::shared_ptr
+     * - any disposable created via disposable_wrapper would have call `dispose()` during it's destruction (during destruction of last disposable_wrapper owning it)
      * - disposable_wrapper's methods is safe to use over empty/gone/disposed/weak disposables.
      * - as soon as disposable can be actually "any internal state" it provides access to "raw" shared_ptr and it can be nullptr in case of disposable empty/ptr gone.
      * - disposable_wrapper can be strong or weak (same as std::shared_ptr). weak disposable is important, for example, when it keeps observer and this observer should keep this disposable at the same time.
      * - disposable_wrapper has popluar methods to work with disposable: `dispose()`, `is_disposed()` and `add()`/`remove()`/`clear()` (for `interface_composite_disposable`).
-     * - any disposable created via disposable_wrapper would have call `dispose()` during it's destruction (during destruction of last disposable_wrapper owning it)
      *
      * To construct wrapper you have to use `make` method:
      * @code{cpp}
