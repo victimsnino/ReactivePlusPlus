@@ -111,6 +111,9 @@ namespace rpp::operators::details
             {
                 auto inner = m_state->get_inner_child_disposable();
                 inner->dispose();
+                if (m_state->is_disposed())
+                    return;
+
                 *inner = new_inner;
             }
             std::forward<T>(v).subscribe(switch_on_next_inner_observer_strategy<TObserver>{m_state, std::move(new_inner)});

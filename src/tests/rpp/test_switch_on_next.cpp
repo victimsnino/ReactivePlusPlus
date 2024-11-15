@@ -21,6 +21,7 @@
 
 #include "copy_count_tracker.hpp"
 #include "disposable_observable.hpp"
+#include "rpp_trompeloil.hpp"
 
 TEST_CASE("switch_on_next switches observable after obtaining new one")
 {
@@ -162,6 +163,41 @@ TEST_CASE("switch_on_next switches observable after obtaining new one")
                     }
                 }
             }
+        }
+    }
+    SUBCASE("switch_on_next completes right")
+    {
+        mock_observer<int>    mock{};
+        trompeloeil::sequence s{};
+
+        rpp::subjects::publish_subject<rpp::dynamic_observable<int>> subj{};
+
+        subj.get_observable() | rpp::ops::switch_on_next() | rpp::ops::subscribe(mock);
+        SUBCASE("on_completed from base")
+        {
+            REQUIRE_CALL(*mock, on_completed()).IN_SEQUENCE(s);
+            subj.get_observer().on_completed();
+        }
+
+        SUBCASE("on_completed from inner + then from base")
+        {
+            subj.get_observer().on_next(rpp::source::empty<int>());
+
+            REQUIRE_CALL(*mock, on_completed()).IN_SEQUENCE(s);
+            subj.get_observer().on_completed();
+        }
+
+        SUBCASE("on_completed from base + then from inner")
+        {
+            subj.get_observer().on_next(rpp::source::empty<int>());
+            subj.get_observer().on_next(rpp::source::never<int>());
+
+            rpp::subjects::publish_subject<int> inner{};
+            subj.get_observer().on_next(inner.get_observable());
+            subj.get_observer().on_completed();
+
+            REQUIRE_CALL(*mock, on_completed()).IN_SEQUENCE(s);
+            inner.get_observer().on_completed();
         }
     }
 }
