@@ -28,7 +28,9 @@ var hierarchy =
     [ "BaseInterface", null, [
       [ "rpp::details::base_disposable_impl< BaseInterface >", "classrpp_1_1details_1_1base__disposable__impl.html", [
         [ "rpp::callback_disposable< Fn >", "classrpp_1_1callback__disposable.html", null ],
-        [ "rpp::details::observables::blocking_disposable", "classrpp_1_1details_1_1observables_1_1blocking__disposable.html", null ]
+        [ "rpp::details::observables::blocking_disposable", "classrpp_1_1details_1_1observables_1_1blocking__disposable.html", null ],
+        [ "rpp::operators::details::concat_disposable< TObservable, TObserver >", "classrpp_1_1operators_1_1details_1_1concat__disposable.html", null ],
+        [ "rpp::operators::details::switch_on_next_state_t< TObserver >", "classrpp_1_1operators_1_1details_1_1switch__on__next__state__t.html", null ]
       ] ]
     ] ],
     [ "rpp::subjects::details::behavior_subject_base< Type, Serialized >", "classrpp_1_1subjects_1_1details_1_1behavior__subject__base.html", null ],
@@ -119,9 +121,7 @@ var hierarchy =
       [ "rpp::operators::details::debounce_disposable< Observer, Worker, Container >", "classrpp_1_1operators_1_1details_1_1debounce__disposable.html", null ]
     ] ],
     [ "rpp::details::enable_wrapper_from_this< refcount_disposable >", "classrpp_1_1details_1_1enable__wrapper__from__this.html", [
-      [ "rpp::refcount_disposable", "classrpp_1_1refcount__disposable.html", [
-        [ "rpp::operators::details::switch_on_next_state_t< TObserver >", "classrpp_1_1operators_1_1details_1_1switch__on__next__state__t.html", null ]
-      ] ]
+      [ "rpp::refcount_disposable", "classrpp_1_1refcount__disposable.html", null ]
     ] ],
     [ "rpp::details::enable_wrapper_from_this< refocunt_disposable_inner >", "classrpp_1_1details_1_1enable__wrapper__from__this.html", [
       [ "rpp::details::refocunt_disposable_inner", "classrpp_1_1details_1_1refocunt__disposable__inner.html", null ]
@@ -173,7 +173,6 @@ var hierarchy =
               [ "rpp::operators::details::combine_latest_disposable< Observer, TSelector, Args >", "classrpp_1_1operators_1_1details_1_1combine__latest__disposable.html", null ],
               [ "rpp::operators::details::zip_disposable< Observer, TSelector, Args >", "classrpp_1_1operators_1_1details_1_1zip__disposable.html", null ]
             ] ],
-            [ "rpp::operators::details::concat_disposable< TObservable, TObserver >", "classrpp_1_1operators_1_1details_1_1concat__disposable.html", null ],
             [ "rpp::operators::details::merge_disposable< TObserver >", "classrpp_1_1operators_1_1details_1_1merge__disposable.html", null ],
             [ "rpp::operators::details::on_error_resume_next_disposable< TObserver >", "structrpp_1_1operators_1_1details_1_1on__error__resume__next__disposable.html", null ],
             [ "rpp::operators::details::retry_state_t< TObserver, Observable >", "structrpp_1_1operators_1_1details_1_1retry__state__t.html", null ],
@@ -509,6 +508,7 @@ var hierarchy =
     [ "rpp::memory_model::use_stack", "structrpp_1_1memory__model_1_1use__stack.html", null ],
     [ "rpp::utils::value_with_mutex< T >", "classrpp_1_1utils_1_1value__with__mutex.html", null ],
     [ "rpp::utils::value_with_mutex< Observer >", "classrpp_1_1utils_1_1value__with__mutex.html", null ],
+    [ "rpp::utils::value_with_mutex< rpp::disposable_wrapper_impl >", "classrpp_1_1utils_1_1value__with__mutex.html", null ],
     [ "rpp::utils::value_with_mutex< rpp::operators::details::timeout_disposable::observer_with_timeout >", "classrpp_1_1utils_1_1value__with__mutex.html", null ],
     [ "rpp::utils::value_with_mutex< rpp::operators::details::window_toggle_state::state_t >", "classrpp_1_1utils_1_1value__with__mutex.html", null ],
     [ "rpp::utils::value_with_mutex< std::queue< TObservable > >", "classrpp_1_1utils_1_1value__with__mutex.html", null ],
