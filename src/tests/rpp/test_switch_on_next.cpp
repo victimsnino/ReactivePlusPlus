@@ -11,7 +11,6 @@
 #include <doctest/doctest.h>
 
 #include <rpp/observables/dynamic_observable.hpp>
-#include <rpp/observers/mock_observer.hpp>
 #include <rpp/operators/switch_on_next.hpp>
 #include <rpp/sources/empty.hpp>
 #include <rpp/sources/error.hpp>
@@ -25,19 +24,19 @@
 
 TEST_CASE("switch_on_next switches observable after obtaining new one")
 {
-    auto mock = mock_observer_strategy<int>();
+    mock_observer<int>    mock{};
+    trompeloeil::sequence s{};
+
     SUBCASE("just observable of just observables")
     {
         auto observable = rpp::source::just(rpp::source::just(1), rpp::source::just(2), rpp::source::just(3));
-        SUBCASE("subscribe on it via switch_on_next")
+        SUBCASE("subscribe on it via switch_on_next - obtains values as from concat")
         {
+            REQUIRE_CALL(*mock, on_next_lvalue(1)).IN_SEQUENCE(s);
+            REQUIRE_CALL(*mock, on_next_lvalue(2)).IN_SEQUENCE(s);
+            REQUIRE_CALL(*mock, on_next_lvalue(3)).IN_SEQUENCE(s);
+            REQUIRE_CALL(*mock, on_completed()).IN_SEQUENCE(s);
             observable | rpp::ops::switch_on_next() | rpp::ops::subscribe(mock);
-            SUBCASE("obtains values as from concat")
-            {
-                CHECK(mock.get_received_values() == std::vector{1, 2, 3});
-                CHECK(mock.get_on_error_count() == 0);
-                CHECK(mock.get_on_completed_count() == 1);
-            }
         }
     }
     SUBCASE("just observable of just observables where second is error")
@@ -45,15 +44,12 @@ TEST_CASE("switch_on_next switches observable after obtaining new one")
         auto observable = rpp::source::just(rpp::source::just(1).as_dynamic(),
                                             rpp::source::error<int>(std::make_exception_ptr(std::runtime_error{""})).as_dynamic(),
                                             rpp::source::just(3).as_dynamic());
-        SUBCASE("subscribe on it via switch_on_next")
+        SUBCASE("subscribe on it via switch_on_next - obtains values as from concat but stops on error")
         {
+            REQUIRE_CALL(*mock, on_next_lvalue(1)).IN_SEQUENCE(s);
+            REQUIRE_CALL(*mock, on_error(trompeloeil::_)).IN_SEQUENCE(s);
+
             observable | rpp::ops::switch_on_next() | rpp::ops::subscribe(mock);
-            SUBCASE("obtains values as from concat but stops on error")
-            {
-                CHECK(mock.get_received_values() == std::vector{1});
-                CHECK(mock.get_on_error_count() == 1);
-                CHECK(mock.get_on_completed_count() == 0);
-            }
         }
     }
     SUBCASE("just observable of just observables where second is completed")
@@ -61,15 +57,13 @@ TEST_CASE("switch_on_next switches observable after obtaining new one")
         auto observable = rpp::source::just(rpp::source::just(1).as_dynamic(),
                                             rpp::source::empty<int>().as_dynamic(),
                                             rpp::source::just(3).as_dynamic());
-        SUBCASE("subscribe on it via switch_on_next")
+        SUBCASE("subscribe on it via switch_on_next - obtains values as from concat")
         {
+            REQUIRE_CALL(*mock, on_next_lvalue(1)).IN_SEQUENCE(s);
+            REQUIRE_CALL(*mock, on_next_lvalue(3)).IN_SEQUENCE(s);
+            REQUIRE_CALL(*mock, on_completed()).IN_SEQUENCE(s);
+
             observable | rpp::ops::switch_on_next() | rpp::ops::subscribe(mock);
-            SUBCASE("obtains values as from concat")
-            {
-                CHECK(mock.get_received_values() == std::vector{1, 3});
-                CHECK(mock.get_on_error_count() == 0);
-                CHECK(mock.get_on_completed_count() == 1);
-            }
         }
     }
     SUBCASE("just observable of just observables where second is never")
@@ -77,15 +71,12 @@ TEST_CASE("switch_on_next switches observable after obtaining new one")
         auto observable = rpp::source::just(rpp::source::just(1).as_dynamic(),
                                             rpp::source::never<int>().as_dynamic(),
                                             rpp::source::just(3).as_dynamic());
-        SUBCASE("subscribe on it via switch_on_next")
+        SUBCASE("subscribe on it via switch_on_next - obtains values as from concat")
         {
+            REQUIRE_CALL(*mock, on_next_lvalue(1)).IN_SEQUENCE(s);
+            REQUIRE_CALL(*mock, on_next_lvalue(3)).IN_SEQUENCE(s);
+            REQUIRE_CALL(*mock, on_completed()).IN_SEQUENCE(s);
             observable | rpp::ops::switch_on_next() | rpp::ops::subscribe(mock);
-            SUBCASE("obtains values as from concat")
-            {
-                CHECK(mock.get_received_values() == std::vector{1, 3});
-                CHECK(mock.get_on_error_count() == 0);
-                CHECK(mock.get_on_completed_count() == 1);
-            }
         }
     }
     SUBCASE("just observable of just observables where last is never")
@@ -93,15 +84,12 @@ TEST_CASE("switch_on_next switches observable after obtaining new one")
         auto observable = rpp::source::just(rpp::source::just(1).as_dynamic(),
                                             rpp::source::just(3).as_dynamic(),
                                             rpp::source::never<int>().as_dynamic());
-        SUBCASE("subscribe on it via switch_on_next")
+        SUBCASE("subscribe on it via switch_on_next - obtains values as from concat but no complete")
         {
+            REQUIRE_CALL(*mock, on_next_lvalue(1)).IN_SEQUENCE(s);
+            REQUIRE_CALL(*mock, on_next_lvalue(3)).IN_SEQUENCE(s);
+
             observable | rpp::ops::switch_on_next() | rpp::ops::subscribe(mock);
-            SUBCASE("obtains values as from concat but no complete")
-            {
-                CHECK(mock.get_received_values() == std::vector{1, 3});
-                CHECK(mock.get_on_error_count() == 0);
-                CHECK(mock.get_on_completed_count() == 0);
-            }
         }
     }
     SUBCASE("subject of just subjects")
@@ -121,12 +109,9 @@ TEST_CASE("switch_on_next switches observable after obtaining new one")
 
                 SUBCASE("Only value from first subject obtained")
                 {
+                    REQUIRE_CALL(*mock, on_next_lvalue(1)).IN_SEQUENCE(s);
                     subj_1.get_observer().on_next(1);
                     subj_2.get_observer().on_next(2);
-
-                    CHECK(mock.get_received_values() == std::vector{1});
-                    CHECK(mock.get_on_error_count() == 0);
-                    CHECK(mock.get_on_completed_count() == 0);
                 }
                 SUBCASE("send second subject and send values for all subjects")
                 {
@@ -135,31 +120,22 @@ TEST_CASE("switch_on_next switches observable after obtaining new one")
                     SUBCASE("Only value from second subject obtained")
                     {
                         subj_1.get_observer().on_next(1);
-                        subj_2.get_observer().on_next(2);
 
-                        CHECK(mock.get_received_values() == std::vector{2});
-                        CHECK(mock.get_on_error_count() == 0);
-                        CHECK(mock.get_on_completed_count() == 0);
+                        REQUIRE_CALL(*mock, on_next_lvalue(2)).IN_SEQUENCE(s);
+                        subj_2.get_observer().on_next(2);
                     }
                 }
                 SUBCASE("original subject completes but provided send value")
                 {
                     subj_of_subjects.get_observer().on_completed();
+
+                    REQUIRE_CALL(*mock, on_next_lvalue(1)).IN_SEQUENCE(s);
                     subj_1.get_observer().on_next(1);
                     subj_2.get_observer().on_next(2);
-                    SUBCASE("value obtained")
-                    {
-                        CHECK(mock.get_received_values() == std::vector{1});
-                        CHECK(mock.get_on_error_count() == 0);
-                        CHECK(mock.get_on_completed_count() == 0);
-                    }
                     SUBCASE("subject sends on_completed")
                     {
+                        REQUIRE_CALL(*mock, on_completed()).IN_SEQUENCE(s);
                         subj_1.get_observer().on_completed();
-                        SUBCASE("subsriber completed")
-                        {
-                            CHECK(mock.get_on_completed_count() == 1);
-                        }
                     }
                 }
             }
@@ -167,9 +143,6 @@ TEST_CASE("switch_on_next switches observable after obtaining new one")
     }
     SUBCASE("switch_on_next completes right")
     {
-        mock_observer<int>    mock{};
-        trompeloeil::sequence s{};
-
         rpp::subjects::publish_subject<rpp::dynamic_observable<int>> subj{};
 
         subj.get_observable() | rpp::ops::switch_on_next() | rpp::ops::subscribe(mock);
