@@ -172,6 +172,9 @@ namespace rpp
     template<constraint::decayed_type Type>
     class dynamic_observable;
 
+    template<typename Subject>
+    class dynamic_connectable_observable;
+
     template<constraint::decayed_type Type, constraint::observable_strategy<Type> Strategy>
     class blocking_observable;
 

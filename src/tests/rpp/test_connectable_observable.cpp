@@ -11,6 +11,7 @@
 #include <doctest/doctest.h>
 
 #include <rpp/observables/connectable_observable.hpp>
+#include <rpp/observables/dynamic_connectable_observable.hpp>
 #include <rpp/observables/dynamic_observable.hpp>
 #include <rpp/observers/mock_observer.hpp>
 #include <rpp/operators/map.hpp>
@@ -82,6 +83,8 @@ TEST_CASE("connectable observable")
         test(rpp::connectable_observable{source, rpp::subjects::publish_subject<int>{}});
         SUBCASE("dynamic_connectable created manually")
         test(rpp::dynamic_connectable_observable<rpp::subjects::publish_subject<int>>{source, rpp::subjects::publish_subject<int>{}});
+        SUBCASE("dynamic_connectable coneverted")
+        test(rpp::dynamic_connectable_observable<rpp::subjects::publish_subject<int>>{rpp::connectable_observable{source, rpp::subjects::publish_subject<int>{}}});
         SUBCASE("connectable created via multicast")
         test(source | rpp::ops::multicast(rpp::subjects::publish_subject<int>{}));
         SUBCASE("connectable created via templated multicast")
