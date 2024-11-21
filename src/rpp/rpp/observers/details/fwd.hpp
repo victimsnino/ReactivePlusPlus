@@ -74,7 +74,7 @@ namespace rpp::details::observers
         {
             static_assert(mode == disposables_mode::Auto || mode == disposables_mode::None || mode == disposables_mode::External || mode == disposables_mode::Boolean);
 
-#if defined(RPP_DISABLE_DISPOSABLES_OPTIMZIATION) and RPP_DISABLE_DISPOSABLES_OPTIMZIATION
+#if defined(RPP_DISABLE_DISPOSABLES_OPTIMIZATION) and RPP_DISABLE_DISPOSABLES_OPTIMIZATION
             return static_cast<default_disposables_strategy*>(nullptr);
 #else
             if constexpr (mode == disposables_mode::Auto)
