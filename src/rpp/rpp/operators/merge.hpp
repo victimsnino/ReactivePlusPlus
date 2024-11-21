@@ -48,7 +48,7 @@ namespace rpp::operators::details
     template<rpp::constraint::observer TObserver>
     struct merge_observer_base_strategy
     {
-        static constexpr auto preferred_disposables_mode = rpp::details::observers::disposables_mode::None;
+        static constexpr auto preferred_disposables_mode = rpp::details::observers::disposables_mode::Boolean;
         merge_observer_base_strategy(std::shared_ptr<merge_disposable<TObserver>>&& disposable)
             : m_disposable{std::move(disposable)}
         {

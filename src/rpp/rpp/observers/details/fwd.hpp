@@ -25,7 +25,9 @@ namespace rpp::details::observers
         // No any disposables logic for observer expected
         None = 1,
         // Use external (passed to constructor) composite_disposable_wrapper as disposable
-        External = 2
+        External = 2,
+        // Observer just controls is_disposed or not but upstreams handled via observer_strategy
+        Boolean = 3
     };
 
     namespace constraint
@@ -47,6 +49,10 @@ namespace rpp::details::observers
      * @brief No any disposable logic at all. Used only inside proxy-forwarding operators where extra disposable logic not requires
      */
     struct none_disposables_strategy;
+    /**
+     * @brief Just control is_disposed or not via boolean and ignore upstreams at all
+     */
+    class boolean_disposables_strategy;
 
     /**
      * @brief Keep disposables inside dynamic_disposables_container container (based on std::vector)
@@ -66,7 +72,7 @@ namespace rpp::details::observers
         template<disposables_mode mode>
         consteval auto* deduce_optimal_disposables_strategy()
         {
-            static_assert(mode == disposables_mode::Auto || mode == disposables_mode::None || mode == disposables_mode::External);
+            static_assert(mode == disposables_mode::Auto || mode == disposables_mode::None || mode == disposables_mode::External || mode == disposables_mode::Boolean);
 
             if constexpr (mode == disposables_mode::Auto)
                 return static_cast<default_disposables_strategy*>(nullptr);
@@ -74,6 +80,8 @@ namespace rpp::details::observers
                 return static_cast<none_disposables_strategy*>(nullptr);
             else if constexpr (mode == disposables_mode::External)
                 return static_cast<composite_disposable_wrapper*>(nullptr);
+            else if constexpr (mode == disposables_mode::Boolean)
+                return static_cast<boolean_disposables_strategy*>(nullptr);
             else
                 return static_cast<void*>(nullptr);
         }

@@ -55,4 +55,17 @@ namespace rpp::details::observers
 
         static constexpr void dispose() {}
     };
+
+    class boolean_disposables_strategy
+    {
+    public:
+        static constexpr void add(const rpp::disposable_wrapper&) {}
+
+        bool is_disposed() const noexcept { return m_is_disposed; }
+
+        void dispose() const { m_is_disposed = true; }
+
+    private:
+        mutable bool m_is_disposed{};
+    };
 } // namespace rpp::details::observers

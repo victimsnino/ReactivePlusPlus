@@ -41,10 +41,9 @@ namespace rpp::operators::details
     template<rpp::constraint::observer TObserver, typename TObservable>
     struct retry_observer_strategy
     {
-        static constexpr auto preferred_disposables_mode = rpp::details::observers::disposables_mode::None;
+        static constexpr auto preferred_disposables_mode = rpp::details::observers::disposables_mode::Boolean;
 
         std::shared_ptr<retry_state_t<TObserver, TObservable>> state;
-        mutable bool                                           locally_disposed{};
 
         template<typename T>
         void on_next(T&& v) const
@@ -54,7 +53,6 @@ namespace rpp::operators::details
 
         void on_error(const std::exception_ptr& err) const
         {
-            locally_disposed = true;
             if (state->count == 0)
             {
                 state->observer.on_error(err);
@@ -71,7 +69,6 @@ namespace rpp::operators::details
 
         void on_completed() const
         {
-            locally_disposed = true;
             state->observer.on_completed();
         }
 
@@ -80,7 +77,7 @@ namespace rpp::operators::details
             state->add(d);
         }
 
-        bool is_disposed() const { return locally_disposed || state->is_disposed(); }
+        bool is_disposed() const { return state->is_disposed(); }
     };
 
     template<rpp::constraint::observer TObserver, typename TObservable>
