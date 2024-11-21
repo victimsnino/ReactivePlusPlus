@@ -140,10 +140,11 @@ jobs:
                 {name: ci-macos,        os: macos-12}]
         type: [tests, benchmarks]
         build_type: [{config: Release, test_preset: ci-tests}, {config: Debug, test_preset: ci-tests-debug}]
+        optimization_disabled: [{mode: 1, postfix: ""}, {mode: 0, postfix: " (Optimizations disabled)"}]
 
     timeout-minutes: 20
     runs-on: ${{ matrix.config.os }}
-    name: ${{ matrix.type }} ${{ matrix.config.name }} ${{ matrix.build_type.config }}
+    name: ${{ matrix.type }} ${{ matrix.config.name }} ${{ matrix.build_type.config }}${{ matrix.optimization_disabled.postfix}}
 
     steps:
     - uses: actions/checkout@v4
@@ -198,7 +199,7 @@ jobs:
       uses: lukka/run-cmake@v10
       with:
         configurePreset: ${{ matrix.config.name }}-${{ matrix.type }}
-        configurePresetAdditionalArgs: "['-DCMAKE_BUILD_TYPE=${{ matrix.build_type.config }}', '-DCMAKE_CONFIGURATION_TYPES=${{ matrix.build_type.config }}']"
+        configurePresetAdditionalArgs: "['-DCMAKE_BUILD_TYPE=${{ matrix.build_type.config }}', '-DCMAKE_CONFIGURATION_TYPES=${{ matrix.build_type.config }}', '-DRPP_DISABLE_DISPOSABLES_OPTIMZIATION=${{matrix.optimization_disabled.mode}}']"
         buildPreset: ci-build
         buildPresetAdditionalArgs: "['--config ${{ matrix.build_type.config }}']"
         testPreset: ${{matrix.build_type.test_preset}}
@@ -208,7 +209,7 @@ jobs:
       uses: actions/upload-artifact@v4
       if: matrix.type == 'benchmarks' && matrix.build_type.config == 'Release'
       with:
-        name: ${{ matrix.config.name }}
+        name: ${{ matrix.config.name }}${{ matrix.optimization_disabled.postfix}}
         path: ${{github.workspace}}/build/test_results/benchmarks_results.json
 
   docs:

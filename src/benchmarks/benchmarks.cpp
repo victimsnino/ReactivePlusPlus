@@ -801,6 +801,26 @@ int main(int argc, char* argv[]) // NOLINT(bugprone-exception-escape)
                     | rxcpp::operators::subscribe<char>([](char v) { ankerl::nanobench::doNotOptimizeAway(v); });
             });
         }
+        SECTION("mix operators with disposables and without disposables")
+        {
+            TEST_RPP([&]() {
+                rpp::subjects::publish_subject<int> s{};
+                s.get_observable()
+                    | rpp::ops::filter([](int v) -> bool { return v; })
+                    | rpp::ops::finally([]() noexcept { ankerl::nanobench::doNotOptimizeAway(1); })
+
+                    | rpp::ops::map([](int v) { return rpp::source::just(v * 2, v * 3); })
+                    | rpp::ops::concat()
+
+                    | rpp::ops::filter([](int v) -> bool { return v; })
+                    | rpp::ops::delay(std::chrono::seconds{0}, rpp::schedulers::immediate{})
+
+                    | rpp::ops::filter([](int v) -> bool { return v; })
+                    | rpp::ops::subscribe([](int v) { ankerl::nanobench::doNotOptimizeAway(v); });
+                s.get_observer().on_next(1);
+                s.get_observer().on_completed();
+            });
+        }
     } // BENCHMARK("Scenarios")
 
     if (dump.has_value())

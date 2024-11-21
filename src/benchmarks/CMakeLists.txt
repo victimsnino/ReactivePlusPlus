@@ -20,6 +20,8 @@ if (RPP_BUILD_RXCPP)
     get_target_property(DEP_DIR rxcpp INTERFACE_INCLUDE_DIRECTORIES)
     target_include_directories(${TARGET} SYSTEM PRIVATE ${DEP_DIR})
 endif()
+target_compile_definitions(${TARGET} PRIVATE "RPP_DISABLE_DISPOSABLES_OPTIMZIATION=${RPP_DISABLE_DISPOSABLES_OPTIMZIATION}")
+
 
 set_target_properties(${TARGET} PROPERTIES FOLDER Tests)
 set_target_properties(${TARGET} PROPERTIES CXX_CLANG_TIDY "")
