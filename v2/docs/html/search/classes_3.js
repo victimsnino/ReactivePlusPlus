@@ -26,9 +26,10 @@ var searchData=
   ['distinct_5ft_23',['distinct_t',['../structrpp_1_1operators_1_1details_1_1distinct__t.html',1,'rpp::operators::details']]],
   ['distinct_5funtil_5fchanged_5fobserver_5fstrategy_24',['distinct_until_changed_observer_strategy',['../structrpp_1_1operators_1_1details_1_1distinct__until__changed__observer__strategy.html',1,'rpp::operators::details']]],
   ['distinct_5funtil_5fchanged_5ft_25',['distinct_until_changed_t',['../structrpp_1_1operators_1_1details_1_1distinct__until__changed__t.html',1,'rpp::operators::details']]],
-  ['dynamic_5fdisposables_5fcontainer_26',['dynamic_disposables_container',['../classrpp_1_1details_1_1disposables_1_1dynamic__disposables__container.html',1,'rpp::details::disposables']]],
-  ['dynamic_5fdisposables_5fstrategy_27',['dynamic_disposables_strategy',['../structrpp_1_1details_1_1observables_1_1dynamic__disposables__strategy.html',1,'rpp::details::observables']]],
-  ['dynamic_5fobservable_28',['dynamic_observable',['../classrpp_1_1dynamic__observable.html',1,'rpp']]],
-  ['dynamic_5fobserver_29',['dynamic_observer',['../classrpp_1_1dynamic__observer.html',1,'rpp']]],
-  ['dynamic_5fstrategy_30',['dynamic_strategy',['../classrpp_1_1details_1_1observables_1_1dynamic__strategy.html',1,'rpp::details::observables::dynamic_strategy&lt; Type &gt;'],['../classrpp_1_1details_1_1observers_1_1dynamic__strategy.html',1,'rpp::details::observers::dynamic_strategy&lt; Type &gt;']]]
+  ['dynamic_5fconnectable_5fobservable_26',['dynamic_connectable_observable',['../classrpp_1_1dynamic__connectable__observable.html',1,'rpp']]],
+  ['dynamic_5fdisposables_5fcontainer_27',['dynamic_disposables_container',['../classrpp_1_1details_1_1disposables_1_1dynamic__disposables__container.html',1,'rpp::details::disposables']]],
+  ['dynamic_5fdisposables_5fstrategy_28',['dynamic_disposables_strategy',['../structrpp_1_1details_1_1observables_1_1dynamic__disposables__strategy.html',1,'rpp::details::observables']]],
+  ['dynamic_5fobservable_29',['dynamic_observable',['../classrpp_1_1dynamic__observable.html',1,'rpp']]],
+  ['dynamic_5fobserver_30',['dynamic_observer',['../classrpp_1_1dynamic__observer.html',1,'rpp']]],
+  ['dynamic_5fstrategy_31',['dynamic_strategy',['../classrpp_1_1details_1_1observables_1_1dynamic__strategy.html',1,'rpp::details::observables::dynamic_strategy&lt; Type &gt;'],['../classrpp_1_1details_1_1observers_1_1dynamic__strategy.html',1,'rpp::details::observers::dynamic_strategy&lt; Type &gt;']]]
 ];

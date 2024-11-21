@@ -38,11 +38,12 @@ var searchData=
   ['connect_35',['connect',['../classrpp_1_1connectable__observable.html#a0f3b2053fc0dc9a2bf7e6fe1f040b2f4',1,'rpp::connectable_observable']]],
   ['connectable_20operators_36',['Connectable Operators',['../group__connectable__operators.html',1,'']]],
   ['connectable_5fobservable_37',['connectable_observable',['../classrpp_1_1connectable__observable.html',1,'rpp']]],
-  ['contract_38',['Observable contract',['../index.html#autotoc_md3',1,'']]],
-  ['convertible_5fto_5fany_39',['convertible_to_any',['../structrpp_1_1utils_1_1convertible__to__any.html',1,'rpp::utils']]],
-  ['core_20concepts_40',['Core Concepts',['../index.html#autotoc_md2',1,'']]],
-  ['create_41',['create',['../group__creational__operators.html#gae68c87e7ae3a505258b733082bf68513',1,'rpp::source']]],
-  ['create_5fstrategy_42',['create_strategy',['../structrpp_1_1details_1_1create__strategy.html',1,'rpp::details']]],
-  ['creational_20operators_43',['Creational Operators',['../group__creational__operators.html',1,'Creational Operators'],['../group__qt__creational__operators.html',1,'QT Creational Operators']]],
-  ['current_5fthread_44',['current_thread',['../classrpp_1_1schedulers_1_1current__thread.html',1,'rpp::schedulers']]]
+  ['connectable_5fobservable_3c_20rpp_3a_3adynamic_5fobservable_3c_20rpp_3a_3asubjects_3a_3autils_3a_3aextract_5fsubject_5ftype_5ft_3c_20subject_20_3e_20_3e_2c_20subject_20_3e_38',['connectable_observable&lt; rpp::dynamic_observable&lt; rpp::subjects::utils::extract_subject_type_t&lt; Subject &gt; &gt;, Subject &gt;',['../classrpp_1_1connectable__observable.html',1,'rpp']]],
+  ['contract_39',['Observable contract',['../index.html#autotoc_md3',1,'']]],
+  ['convertible_5fto_5fany_40',['convertible_to_any',['../structrpp_1_1utils_1_1convertible__to__any.html',1,'rpp::utils']]],
+  ['core_20concepts_41',['Core Concepts',['../index.html#autotoc_md2',1,'']]],
+  ['create_42',['create',['../group__creational__operators.html#gae68c87e7ae3a505258b733082bf68513',1,'rpp::source']]],
+  ['create_5fstrategy_43',['create_strategy',['../structrpp_1_1details_1_1create__strategy.html',1,'rpp::details']]],
+  ['creational_20operators_44',['Creational Operators',['../group__creational__operators.html',1,'Creational Operators'],['../group__qt__creational__operators.html',1,'QT Creational Operators']]],
+  ['current_5fthread_45',['current_thread',['../classrpp_1_1schedulers_1_1current__thread.html',1,'rpp::schedulers']]]
 ];

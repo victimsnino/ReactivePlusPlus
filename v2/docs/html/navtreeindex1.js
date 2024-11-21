@@ -1,6 +1,8 @@
 var NAVTREEINDEX1 =
 {
-"dynamic__observable_8hpp_source.html":[2,2,0,0,1,0,1,3],
+"distinct_until_changed_8cpp-example.html":[2,3,9],
+"dynamic__connectable__observable_8hpp_source.html":[2,2,0,0,1,0,1,3],
+"dynamic__observable_8hpp_source.html":[2,2,0,0,1,0,1,4],
 "dynamic__observer_8hpp_source.html":[2,2,0,0,1,0,2,1],
 "element__at_8hpp_source.html":[2,2,0,0,1,0,3,9],
 "empty_8hpp_source.html":[2,2,0,0,1,0,5,3],
@@ -154,7 +156,7 @@ var NAVTREEINDEX1 =
 "group__utility__operators.html#gae38caa489cf43c0aca1aa1c8822aed60":[1,0,3,4,2],
 "group__utility__operators.html#gaf47528e3e0556c51cfb24722be454179":[1,0,3,4,14],
 "group_by_8cpp-example.html":[2,3,13],
-"grouped__observable_8hpp_source.html":[2,2,0,0,1,0,1,5],
+"grouped__observable_8hpp_source.html":[2,2,0,0,1,0,1,6],
 "hierarchy.html":[2,1,2],
 "immediate_8hpp_source.html":[2,2,0,0,1,0,4,4],
 "index.html":[],
@@ -196,7 +198,7 @@ var NAVTREEINDEX1 =
 "multicast_8hpp_source.html":[2,2,0,0,1,0,3,19],
 "never_8hpp_source.html":[2,2,0,0,1,0,5,9],
 "new__thread_8hpp_source.html":[2,2,0,0,1,0,4,5],
-"observable_8hpp_source.html":[2,2,0,0,1,0,1,6],
+"observable_8hpp_source.html":[2,2,0,0,1,0,1,7],
 "observables_2details_2disposables__strategy_8hpp_source.html":[2,2,0,0,1,0,1,0,1],
 "observables_8hpp_source.html":[2,2,0,0,1,0,12],
 "observe__on_8hpp_source.html":[2,2,0,0,1,0,3,20],
@@ -227,7 +229,7 @@ var NAVTREEINDEX1 =
 "retry_when_8cpp-example.html":[2,3,26],
 "rpp_2rpp_2disposables_2fwd_8hpp_source.html":[2,2,0,0,1,0,0,4],
 "rpp_2rpp_2fwd_8hpp_source.html":[2,2,0,0,1,0,10],
-"rpp_2rpp_2observables_2fwd_8hpp_source.html":[2,2,0,0,1,0,1,4],
+"rpp_2rpp_2observables_2fwd_8hpp_source.html":[2,2,0,0,1,0,1,5],
 "rpp_2rpp_2observers_2details_2fwd_8hpp_source.html":[2,2,0,0,1,0,2,0,1],
 "rpp_2rpp_2observers_2fwd_8hpp_source.html":[2,2,0,0,1,0,2,2],
 "rpp_2rpp_2operators_2fwd_8hpp_source.html":[2,2,0,0,1,0,3,14],
@@ -247,7 +249,5 @@ var NAVTREEINDEX1 =
 "schedulers_2details_2utils_8hpp_source.html":[2,2,0,0,1,0,4,0,1],
 "server__reactor_8hpp_source.html":[2,2,0,0,0,1,0,5],
 "server_reactor_8cpp-example.html":[2,3,45],
-"skip_8cpp-example.html":[2,3,28],
-"skip_8hpp_source.html":[2,2,0,0,1,0,3,29],
-"sources_2concat_8hpp_source.html":[2,2,0,0,1,0,5,0]
+"skip_8cpp-example.html":[2,3,28]
 };

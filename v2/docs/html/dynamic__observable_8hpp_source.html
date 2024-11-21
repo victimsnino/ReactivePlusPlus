@@ -178,42 +178,38 @@ $(function(){initNavTree('dynamic__observable_8hpp_source.html',''); initResizab
 <div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>            <span class="keyword">template</span>&lt;rpp::constra<span class="keywordtype">int</span>::observable Observable&gt;</div>
 <div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>            <span class="keyword">static</span> <span class="keyword">const</span> vtable* create() noexcept</div>
 <div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>            {</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>                <span class="keyword">static</span> vtable s_res{</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>                    .subscribe = forwarding_subscribe&lt;Type, Observable&gt;};</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>                <span class="keywordflow">return</span> &amp;s_res;</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>            }</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>        };</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    <span class="keyword">private</span>:</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>        std::shared_ptr&lt;void&gt; m_forwarder;</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>        <span class="keyword">const</span> vtable*         m_vtable;</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    };</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>} <span class="comment">// namespace rpp::details::observables</span></div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span> </div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span><span class="keyword">namespace </span>rpp</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>{</div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    <span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::decayed_type Type&gt;</div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    <span class="keyword">class </span>dynamic_observable : <span class="keyword">public</span> observable&lt;Type, details::observables::dynamic_strategy&lt;Type&gt;&gt;</div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    {</div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>        <span class="keyword">using </span>base = observable&lt;Type, details::observables::dynamic_strategy&lt;Type&gt;&gt;;</div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span> </div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>        <span class="keyword">using </span>base::base;</div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span> </div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>        dynamic_observable(base&amp;&amp; b)</div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>            : base{std::move(b)}</div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>        {</div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>        }</div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span> </div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>        dynamic_observable(<span class="keyword">const</span> base&amp; b)</div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>            : base{b}</div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>        {</div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>        }</div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>    };</div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span> </div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> Subject&gt;</div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>    <span class="keyword">using </span>dynamic_connectable_observable = connectable_observable&lt;rpp::dynamic_observable&lt;rpp::subjects::utils::extract_subject_type_t&lt;Subject&gt;&gt;, Subject&gt;;</div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>} <span class="comment">// namespace rpp</span></div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>                <span class="keyword">static</span> vtable s_res{.subscribe = forwarding_subscribe&lt;Type, Observable&gt;};</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>                <span class="keywordflow">return</span> &amp;s_res;</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>            }</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>        };</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span> </div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    <span class="keyword">private</span>:</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>        std::shared_ptr&lt;void&gt; m_forwarder;</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>        <span class="keyword">const</span> vtable*         m_vtable;</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    };</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>} <span class="comment">// namespace rpp::details::observables</span></div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span> </div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span><span class="keyword">namespace </span>rpp</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>{</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    <span class="keyword">template</span>&lt;constra<span class="keywordtype">int</span>::decayed_type Type&gt;</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    <span class="keyword">class </span>dynamic_observable : <span class="keyword">public</span> observable&lt;Type, details::observables::dynamic_strategy&lt;Type&gt;&gt;</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    {</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>        <span class="keyword">using </span>base = observable&lt;Type, details::observables::dynamic_strategy&lt;Type&gt;&gt;;</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span> </div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>    <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>        <span class="keyword">using </span>base::base;</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span> </div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>        dynamic_observable(base&amp;&amp; b)</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>            : base{std::move(b)}</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>        {</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>        }</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span> </div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>        dynamic_observable(<span class="keyword">const</span> base&amp; b)</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>            : base{b}</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>        {</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>        }</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>    };</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>} <span class="comment">// namespace rpp</span></div>
 <div class="ttc" id="aconceptrpp_1_1constraint_1_1decayed__same__as_html"><div class="ttname"><a href="conceptrpp_1_1constraint_1_1decayed__same__as.html">rpp::constraint::decayed_same_as</a></div><div class="ttdef"><b>Definition</b> constraints.hpp:19</div></div>
 <div class="ttc" id="agroup__utility__operators_html_ga149309d4b2e0f1201f1ab42597ace8ac"><div class="ttname"><a href="group__utility__operators.html#ga149309d4b2e0f1201f1ab42597ace8ac">rpp::operators::subscribe</a></div><div class="ttdeci">auto subscribe(observer&lt; Type, ObserverStrategy &gt; &amp;&amp;observer)</div><div class="ttdoc">Subscribes passed observer to emissions from this observable.</div><div class="ttdef"><b>Definition</b> subscribe.hpp:226</div></div>
 <div class="ttc" id="astructrpp_1_1details_1_1observables_1_1dynamic__disposables__strategy_html"><div class="ttname"><a href="structrpp_1_1details_1_1observables_1_1dynamic__disposables__strategy.html">rpp::details::observables::dynamic_disposables_strategy</a></div><div class="ttdef"><b>Definition</b> disposables_strategy.hpp:19</div></div>

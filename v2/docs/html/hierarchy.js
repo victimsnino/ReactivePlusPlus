@@ -77,6 +77,9 @@ var hierarchy =
     [ "rpp::details::concat_source_observer_strategy< TObserver, PackedContainer >", "structrpp_1_1details_1_1concat__source__observer__strategy.html", null ],
     [ "rpp::details::concat_strategy< PackedContainer >", "structrpp_1_1details_1_1concat__strategy.html", null ],
     [ "rpp::connectable_observable< OriginalObservable, Subject >", "classrpp_1_1connectable__observable.html", null ],
+    [ "rpp::connectable_observable< rpp::dynamic_observable< rpp::subjects::utils::extract_subject_type_t< Subject > >, Subject >", "classrpp_1_1connectable__observable.html", [
+      [ "rpp::dynamic_connectable_observable< Subject >", "classrpp_1_1dynamic__connectable__observable.html", null ]
+    ] ],
     [ "rpp::utils::convertible_to_any", "structrpp_1_1utils_1_1convertible__to__any.html", null ],
     [ "rpp::details::create_strategy< Type, OnSubscribe >", "structrpp_1_1details_1_1create__strategy.html", null ],
     [ "rpp::schedulers::current_thread", "classrpp_1_1schedulers_1_1current__thread.html", null ],

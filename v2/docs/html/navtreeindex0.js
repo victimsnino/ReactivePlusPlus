@@ -49,6 +49,7 @@ var NAVTREEINDEX0 =
 "classrpp_1_1details_1_1tuple__impl_3_01std_1_1index__sequence_3_01_indices_8_8_8_01_4_00_01_args_8_8_8_01_4.html":[2,1,0,0,0,26],
 "classrpp_1_1details_1_1tuple__leaf.html":[2,1,0,0,0,27],
 "classrpp_1_1disposable__wrapper__impl.html":[1,0,0,3],
+"classrpp_1_1dynamic__connectable__observable.html":[2,1,0,0,12],
 "classrpp_1_1dynamic__observable.html":[1,0,1,3],
 "classrpp_1_1dynamic__observer.html":[1,0,2,1],
 "classrpp_1_1grouped__observable.html":[1,0,1,4],
@@ -71,9 +72,9 @@ var NAVTREEINDEX0 =
 "classrpp_1_1observable.html#afb9bea529786c85a6bc9b0647bde2ef5":[1,0,1,5,11],
 "classrpp_1_1observer.html":[1,0,2,2],
 "classrpp_1_1observer.html#ab008a79c1c7825554c91dbc6d130ece4":[1,0,2,2,0],
-"classrpp_1_1observer_3_01_type_00_01details_1_1observers_1_1override__disposables__strategy_3_018131050fb40d9407d82ea817f1f379db.html":[2,1,0,0,19],
-"classrpp_1_1observer_3_01_type_00_01details_1_1observers_1_1override__disposables__strategy_3_018131050fb40d9407d82ea817f1f379db.html#ac77a81dc86398ec68191a1ad5ed24561":[2,1,0,0,19,0],
-"classrpp_1_1observer_3_01_type_00_01rpp_1_1details_1_1observers_1_1dynamic__strategy_3_01_type_01_4_01_4.html":[2,1,0,0,20],
+"classrpp_1_1observer_3_01_type_00_01details_1_1observers_1_1override__disposables__strategy_3_018131050fb40d9407d82ea817f1f379db.html":[2,1,0,0,20],
+"classrpp_1_1observer_3_01_type_00_01details_1_1observers_1_1override__disposables__strategy_3_018131050fb40d9407d82ea817f1f379db.html#ac77a81dc86398ec68191a1ad5ed24561":[2,1,0,0,20,0],
+"classrpp_1_1observer_3_01_type_00_01rpp_1_1details_1_1observers_1_1dynamic__strategy_3_01_type_01_4_01_4.html":[2,1,0,0,21],
 "classrpp_1_1operators_1_1details_1_1buffer__observer__strategy.html":[2,1,0,0,2,0,1],
 "classrpp_1_1operators_1_1details_1_1combine__latest__disposable.html":[2,1,0,0,2,0,3],
 "classrpp_1_1operators_1_1details_1_1combining__disposable.html":[2,1,0,0,2,0,6],
@@ -100,7 +101,7 @@ var NAVTREEINDEX0 =
 "classrpp_1_1operators_1_1details_1_1window__toggle__observer__strategy.html":[2,1,0,0,2,0,114],
 "classrpp_1_1operators_1_1details_1_1with__latest__from__disposable.html":[2,1,0,0,2,0,118],
 "classrpp_1_1operators_1_1details_1_1zip__disposable.html":[2,1,0,0,2,0,122],
-"classrpp_1_1refcount__disposable.html":[2,1,0,0,21],
+"classrpp_1_1refcount__disposable.html":[2,1,0,0,22],
 "classrpp_1_1schedulers_1_1computational.html":[1,0,4,0],
 "classrpp_1_1schedulers_1_1current__thread.html":[1,0,4,1],
 "classrpp_1_1schedulers_1_1current__thread_1_1worker__strategy.html":[1,0,4,1,1],
@@ -248,6 +249,5 @@ var NAVTREEINDEX0 =
 "disposable__wrapper_8hpp_source.html":[2,2,0,0,1,0,0,3],
 "disposables_8hpp_source.html":[2,2,0,0,1,0,9],
 "distinct_8hpp_source.html":[2,2,0,0,1,0,3,7],
-"distinct__until__changed_8hpp_source.html":[2,2,0,0,1,0,3,8],
-"distinct_until_changed_8cpp-example.html":[2,3,9]
+"distinct__until__changed_8hpp_source.html":[2,2,0,0,1,0,3,8]
 };

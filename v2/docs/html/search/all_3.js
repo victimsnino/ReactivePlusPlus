@@ -38,9 +38,10 @@ var searchData=
   ['distinct_5funtil_5fchanged_5ft_35',['distinct_until_changed_t',['../structrpp_1_1operators_1_1details_1_1distinct__until__changed__t.html',1,'rpp::operators::details']]],
   ['documentation_36',['Manual documentation',['../index.html',1,'']]],
   ['dynamic_5f_20versions_20to_20keep_20classes_20as_20variables_37',['dynamic_* versions to keep classes as variables',['../index.html#autotoc_md13',1,'']]],
-  ['dynamic_5fdisposables_5fcontainer_38',['dynamic_disposables_container',['../classrpp_1_1details_1_1disposables_1_1dynamic__disposables__container.html',1,'rpp::details::disposables']]],
-  ['dynamic_5fdisposables_5fstrategy_39',['dynamic_disposables_strategy',['../structrpp_1_1details_1_1observables_1_1dynamic__disposables__strategy.html',1,'rpp::details::observables']]],
-  ['dynamic_5fobservable_40',['dynamic_observable',['../classrpp_1_1dynamic__observable.html',1,'rpp']]],
-  ['dynamic_5fobserver_41',['dynamic_observer',['../classrpp_1_1dynamic__observer.html',1,'rpp']]],
-  ['dynamic_5fstrategy_42',['dynamic_strategy',['../classrpp_1_1details_1_1observables_1_1dynamic__strategy.html',1,'rpp::details::observables::dynamic_strategy&lt; Type &gt;'],['../classrpp_1_1details_1_1observers_1_1dynamic__strategy.html',1,'rpp::details::observers::dynamic_strategy&lt; Type &gt;']]]
+  ['dynamic_5fconnectable_5fobservable_38',['dynamic_connectable_observable',['../classrpp_1_1dynamic__connectable__observable.html',1,'rpp']]],
+  ['dynamic_5fdisposables_5fcontainer_39',['dynamic_disposables_container',['../classrpp_1_1details_1_1disposables_1_1dynamic__disposables__container.html',1,'rpp::details::disposables']]],
+  ['dynamic_5fdisposables_5fstrategy_40',['dynamic_disposables_strategy',['../structrpp_1_1details_1_1observables_1_1dynamic__disposables__strategy.html',1,'rpp::details::observables']]],
+  ['dynamic_5fobservable_41',['dynamic_observable',['../classrpp_1_1dynamic__observable.html',1,'rpp']]],
+  ['dynamic_5fobserver_42',['dynamic_observer',['../classrpp_1_1dynamic__observer.html',1,'rpp']]],
+  ['dynamic_5fstrategy_43',['dynamic_strategy',['../classrpp_1_1details_1_1observables_1_1dynamic__strategy.html',1,'rpp::details::observables::dynamic_strategy&lt; Type &gt;'],['../classrpp_1_1details_1_1observers_1_1dynamic__strategy.html',1,'rpp::details::observers::dynamic_strategy&lt; Type &gt;']]]
 ];

@@ -29,7 +29,8 @@ var searchData=
   ['concat_5fstrategy_26',['concat_strategy',['../structrpp_1_1details_1_1concat__strategy.html',1,'rpp::details']]],
   ['concat_5ft_27',['concat_t',['../structrpp_1_1operators_1_1details_1_1concat__t.html',1,'rpp::operators::details']]],
   ['connectable_5fobservable_28',['connectable_observable',['../classrpp_1_1connectable__observable.html',1,'rpp']]],
-  ['convertible_5fto_5fany_29',['convertible_to_any',['../structrpp_1_1utils_1_1convertible__to__any.html',1,'rpp::utils']]],
-  ['create_5fstrategy_30',['create_strategy',['../structrpp_1_1details_1_1create__strategy.html',1,'rpp::details']]],
-  ['current_5fthread_31',['current_thread',['../classrpp_1_1schedulers_1_1current__thread.html',1,'rpp::schedulers']]]
+  ['connectable_5fobservable_3c_20rpp_3a_3adynamic_5fobservable_3c_20rpp_3a_3asubjects_3a_3autils_3a_3aextract_5fsubject_5ftype_5ft_3c_20subject_20_3e_20_3e_2c_20subject_20_3e_29',['connectable_observable&lt; rpp::dynamic_observable&lt; rpp::subjects::utils::extract_subject_type_t&lt; Subject &gt; &gt;, Subject &gt;',['../classrpp_1_1connectable__observable.html',1,'rpp']]],
+  ['convertible_5fto_5fany_30',['convertible_to_any',['../structrpp_1_1utils_1_1convertible__to__any.html',1,'rpp::utils']]],
+  ['create_5fstrategy_31',['create_strategy',['../structrpp_1_1details_1_1create__strategy.html',1,'rpp::details']]],
+  ['current_5fthread_32',['current_thread',['../classrpp_1_1schedulers_1_1current__thread.html',1,'rpp::schedulers']]]
 ];

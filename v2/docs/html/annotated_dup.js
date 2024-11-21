@@ -279,6 +279,7 @@ var annotated_dup =
       [ "composite_disposable_impl", "classrpp_1_1composite__disposable__impl.html", "classrpp_1_1composite__disposable__impl" ],
       [ "connectable_observable", "classrpp_1_1connectable__observable.html", "classrpp_1_1connectable__observable" ],
       [ "disposable_wrapper_impl", "classrpp_1_1disposable__wrapper__impl.html", null ],
+      [ "dynamic_connectable_observable", "classrpp_1_1dynamic__connectable__observable.html", null ],
       [ "dynamic_observable", "classrpp_1_1dynamic__observable.html", null ],
       [ "dynamic_observer", "classrpp_1_1dynamic__observer.html", null ],
       [ "grouped_observable", "classrpp_1_1grouped__observable.html", null ],
