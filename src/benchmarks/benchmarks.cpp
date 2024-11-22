@@ -809,7 +809,7 @@ int main(int argc, char* argv[]) // NOLINT(bugprone-exception-escape)
                     | rpp::ops::filter([](int v) -> bool { return v; })
                     | rpp::ops::finally([]() noexcept { ankerl::nanobench::doNotOptimizeAway(1); })
 
-                    | rpp::ops::map([](int v) { return rpp::source::just(v * 2, v * 3); })
+                    | rpp::ops::map([](int v) { return rpp::immediate_just(v * 2, v * 3); })
                     | rpp::ops::concat()
 
                     | rpp::ops::filter([](int v) -> bool { return v; })
@@ -817,10 +817,117 @@ int main(int argc, char* argv[]) // NOLINT(bugprone-exception-escape)
 
                     | rpp::ops::filter([](int v) -> bool { return v; })
                     | rpp::ops::subscribe([](int v) { ankerl::nanobench::doNotOptimizeAway(v); });
-                s.get_observer().on_next(1);
-                s.get_observer().on_completed();
+                const auto obs = s.get_observer();
+                obs.on_next(1);
+                obs.on_completed();
+            });
+
+            TEST_RXCPP([&]() {
+                rxcpp::subjects::subject<int> s{};
+                s.get_observable()
+                    | rxcpp::operators::filter([](int v) -> bool { return v; })
+                    | rxcpp::operators::finally([]() noexcept { ankerl::nanobench::doNotOptimizeAway(1); })
+
+                    | rxcpp::operators::map([](int v) { return rxcpp::immediate_just(v * 2, v * 3); })
+                    | rxcpp::operators::concat()
+
+                    | rxcpp::operators::filter([](int v) -> bool { return v; })
+                    | rxcpp::operators::delay(std::chrono::seconds{0}, rxcpp::identity_immediate())
+
+                    | rxcpp::operators::filter([](int v) -> bool { return v; })
+                    | rxcpp::operators::subscribe<int>([](int v) { ankerl::nanobench::doNotOptimizeAway(v); });
+                const auto obs = s.get_subscriber();
+                obs.on_next(1);
+                obs.on_completed();
             });
         }
+        SECTION("single disposable and looooooong chain")
+        {
+            TEST_RPP([&]() {
+                const auto d = rpp::composite_disposable_wrapper::make();
+                rpp::source::create<int>([&](auto&& obs) {
+                    obs.set_upstream(rpp::make_callback_disposable([]() noexcept { ankerl::nanobench::doNotOptimizeAway(1); }));
+                    obs.on_next(1);
+                    obs.on_completed();
+                })
+                    | rpp::operators::map([](int v) { return v * 2; })
+                    | rpp::operators::map([](int v) { return v * 2; })
+                    | rpp::operators::map([](int v) { return v * 2; })
+                    | rpp::operators::map([](int v) { return v * 2; })
+                    | rpp::operators::map([](int v) { return v * 2; })
+                    | rpp::operators::map([](int v) { return v * 2; })
+                    | rpp::operators::map([](int v) { return v * 2; })
+                    | rpp::operators::map([](int v) { return v * 2; })
+                    | rpp::operators::map([](int v) { return v * 2; })
+                    | rpp::operators::map([](int v) { return v * 2; })
+                    | rpp::operators::map([](int v) { return v * 2; })
+                    | rpp::operators::map([](int v) { return v * 2; })
+                    | rpp::operators::map([](int v) { return v * 2; })
+                    | rpp::operators::map([](int v) { return v * 2; })
+                    | rpp::operators::map([](int v) { return v * 2; })
+                    | rpp::operators::map([](int v) { return v * 2; })
+                    | rpp::operators::map([](int v) { return v * 2; })
+                    | rpp::operators::map([](int v) { return v * 2; })
+                    | rpp::operators::map([](int v) { return v * 2; })
+                    | rpp::operators::map([](int v) { return v * 2; })
+                    | rpp::operators::map([](int v) { return v * 2; })
+                    | rpp::operators::map([](int v) { return v * 2; })
+                    | rpp::operators::map([](int v) { return v * 2; })
+                    | rpp::operators::map([](int v) { return v * 2; })
+                    | rpp::operators::map([](int v) { return v * 2; })
+                    | rpp::operators::map([](int v) { return v * 2; })
+                    | rpp::operators::map([](int v) { return v * 2; })
+                    | rpp::operators::map([](int v) { return v * 2; })
+                    | rpp::operators::map([](int v) { return v * 2; })
+                    | rpp::operators::map([](int v) { return v * 2; })
+                    | rpp::operators::map([](int v) { return v * 2; })
+                    | rpp::operators::map([](int v) { return v * 2; })
+                    | rpp::ops::subscribe(d, [](int) {});
+            });
+
+            TEST_RXCPP([&]() {
+                const auto d = rxcpp::composite_subscription{};
+                rxcpp::observable<>::create<int>([&](auto&& obs) {
+                    obs.get_subscription().add([]() noexcept { ankerl::nanobench::doNotOptimizeAway(1); });
+                    obs.on_next(1);
+                    obs.on_completed();
+                })
+                    | rxcpp::operators::map([](int v) { return v * 2; })
+                    | rxcpp::operators::map([](int v) { return v * 2; })
+                    | rxcpp::operators::map([](int v) { return v * 2; })
+                    | rxcpp::operators::map([](int v) { return v * 2; })
+                    | rxcpp::operators::map([](int v) { return v * 2; })
+                    | rxcpp::operators::map([](int v) { return v * 2; })
+                    | rxcpp::operators::map([](int v) { return v * 2; })
+                    | rxcpp::operators::map([](int v) { return v * 2; })
+                    | rxcpp::operators::map([](int v) { return v * 2; })
+                    | rxcpp::operators::map([](int v) { return v * 2; })
+                    | rxcpp::operators::map([](int v) { return v * 2; })
+                    | rxcpp::operators::map([](int v) { return v * 2; })
+                    | rxcpp::operators::map([](int v) { return v * 2; })
+                    | rxcpp::operators::map([](int v) { return v * 2; })
+                    | rxcpp::operators::map([](int v) { return v * 2; })
+                    | rxcpp::operators::map([](int v) { return v * 2; })
+                    | rxcpp::operators::map([](int v) { return v * 2; })
+                    | rxcpp::operators::map([](int v) { return v * 2; })
+                    | rxcpp::operators::map([](int v) { return v * 2; })
+                    | rxcpp::operators::map([](int v) { return v * 2; })
+                    | rxcpp::operators::map([](int v) { return v * 2; })
+                    | rxcpp::operators::map([](int v) { return v * 2; })
+                    | rxcpp::operators::map([](int v) { return v * 2; })
+                    | rxcpp::operators::map([](int v) { return v * 2; })
+                    | rxcpp::operators::map([](int v) { return v * 2; })
+                    | rxcpp::operators::map([](int v) { return v * 2; })
+                    | rxcpp::operators::map([](int v) { return v * 2; })
+                    | rxcpp::operators::map([](int v) { return v * 2; })
+                    | rxcpp::operators::map([](int v) { return v * 2; })
+                    | rxcpp::operators::map([](int v) { return v * 2; })
+                    | rxcpp::operators::map([](int v) { return v * 2; })
+                    | rxcpp::operators::map([](int v) { return v * 2; })
+                    | rxcpp::operators::subscribe<int>(d, [](int) {});
+            });
+        }
+
     } // BENCHMARK("Scenarios")
 
     if (dump.has_value())
