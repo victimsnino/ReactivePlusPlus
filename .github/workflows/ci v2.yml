@@ -140,7 +140,7 @@ jobs:
                 {name: ci-macos,        os: macos-12}]
         type: [tests, benchmarks]
         build_type: [{config: Release, test_preset: ci-tests}, {config: Debug, test_preset: ci-tests-debug}]
-        optimization_disabled: [{mode: 1, postfix: ""}, {mode: 0, postfix: " (Optimizations disabled)"}]
+        optimization_disabled: [{mode: 0, postfix: ""}, {mode: 1, postfix: " (Optimizations disabled)"}]
 
     timeout-minutes: 20
     runs-on: ${{ matrix.config.os }}
