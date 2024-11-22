@@ -77,7 +77,8 @@ namespace rpp::details::observers
 #if defined(RPP_DISABLE_DISPOSABLES_OPTIMIZATION) and RPP_DISABLE_DISPOSABLES_OPTIMIZATION
             if constexpr (mode == disposables_mode::External)
                 return static_cast<composite_disposable_wrapper*>(nullptr);
-            return static_cast<default_disposables_strategy*>(nullptr);
+            else
+                return static_cast<default_disposables_strategy*>(nullptr);
 #else
             if constexpr (mode == disposables_mode::Auto)
                 return static_cast<default_disposables_strategy*>(nullptr);
