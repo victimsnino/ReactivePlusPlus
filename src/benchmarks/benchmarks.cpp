@@ -841,7 +841,7 @@ int main(int argc, char* argv[]) // NOLINT(bugprone-exception-escape)
                 obs.on_completed();
             });
         }
-        SECTION("single disposable and looooooong chain")
+        SECTION("single disposable and looooooong indentity chain")
         {
             TEST_RPP([&]() {
                 const auto d = rpp::composite_disposable_wrapper::make();
