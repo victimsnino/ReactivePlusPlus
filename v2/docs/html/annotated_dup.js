@@ -20,6 +20,7 @@ var annotated_dup =
           [ "make_chain< New, chain< Args... > >", "structrpp_1_1details_1_1observables_1_1make__chain_3_01_new_00_01chain_3_01_args_8_8_8_01_4_01_4.html", null ]
         ] ],
         [ "observers", null, [
+          [ "boolean_disposables_strategy", "classrpp_1_1details_1_1observers_1_1boolean__disposables__strategy.html", null ],
           [ "dynamic_strategy", "classrpp_1_1details_1_1observers_1_1dynamic__strategy.html", null ],
           [ "fake_strategy", "structrpp_1_1details_1_1observers_1_1fake__strategy.html", null ],
           [ "lambda_strategy", "structrpp_1_1details_1_1observers_1_1lambda__strategy.html", null ],

@@ -1,5 +1,6 @@
 var NAVTREEINDEX2 =
 {
+"skip_8cpp-example.html":[2,3,28],
 "skip_8hpp_source.html":[2,2,0,0,1,0,3,29],
 "sources_2concat_8hpp_source.html":[2,2,0,0,1,0,5,0],
 "start__with_8hpp_source.html":[2,2,0,0,1,0,3,30],
@@ -24,11 +25,11 @@ var NAVTREEINDEX2 =
 "structrpp_1_1details_1_1observables_1_1fixed__disposables__strategy.html":[2,1,0,0,0,1,7],
 "structrpp_1_1details_1_1observables_1_1make__chain.html":[2,1,0,0,0,1,8],
 "structrpp_1_1details_1_1observables_1_1make__chain_3_01_new_00_01chain_3_01_args_8_8_8_01_4_01_4.html":[2,1,0,0,0,1,9],
-"structrpp_1_1details_1_1observers_1_1fake__strategy.html":[2,1,0,0,0,2,1],
-"structrpp_1_1details_1_1observers_1_1lambda__strategy.html":[2,1,0,0,0,2,2],
-"structrpp_1_1details_1_1observers_1_1none__disposables__strategy.html":[2,1,0,0,0,2,4],
-"structrpp_1_1details_1_1observers_1_1observer__vtable_1_1vtable__t.html":[2,1,0,0,0,2,5,0],
-"structrpp_1_1details_1_1observers_1_1override__disposables__strategy.html":[2,1,0,0,0,2,6],
+"structrpp_1_1details_1_1observers_1_1fake__strategy.html":[2,1,0,0,0,2,2],
+"structrpp_1_1details_1_1observers_1_1lambda__strategy.html":[2,1,0,0,0,2,3],
+"structrpp_1_1details_1_1observers_1_1none__disposables__strategy.html":[2,1,0,0,0,2,5],
+"structrpp_1_1details_1_1observers_1_1observer__vtable_1_1vtable__t.html":[2,1,0,0,0,2,6,0],
+"structrpp_1_1details_1_1observers_1_1override__disposables__strategy.html":[2,1,0,0,0,2,7],
 "structrpp_1_1details_1_1ref__count__on__subscribe__t.html":[2,1,0,0,0,21],
 "structrpp_1_1details_1_1ref__count__on__subscribe__t_3_01rpp_1_1connectable__observable_3_01_ori08a6adc16d48deb4d454d582f87ab48e.html":[2,1,0,0,0,22,0],
 "structrpp_1_1details_1_1ref__count__on__subscribe__t_3_01rpp_1_1connectable__observable_3_01_oria02afbb30282d4727b872472b2af56d8.html":[2,1,0,0,0,22],
@@ -248,6 +249,5 @@ var NAVTREEINDEX2 =
 "test__scheduler_8hpp_source.html":[2,2,0,0,1,0,4,7],
 "thread__pool_8hpp_source.html":[2,2,0,0,1,0,4,8],
 "thread_pool_8cpp-example.html":[2,3,36],
-"throttle_8cpp-example.html":[2,3,37],
-"throttle_8hpp_source.html":[2,2,0,0,1,0,3,39]
+"throttle_8cpp-example.html":[2,3,37]
 };

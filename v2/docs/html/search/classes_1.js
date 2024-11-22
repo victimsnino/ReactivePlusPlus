@@ -15,6 +15,7 @@ var searchData=
   ['blocking_5fdisposable_12',['blocking_disposable',['../classrpp_1_1details_1_1observables_1_1blocking__disposable.html',1,'rpp::details::observables']]],
   ['blocking_5fobservable_13',['blocking_observable',['../classrpp_1_1blocking__observable.html',1,'rpp']]],
   ['blocking_5fstrategy_14',['blocking_strategy',['../classrpp_1_1details_1_1observables_1_1blocking__strategy.html',1,'rpp::details::observables']]],
-  ['buffer_5fobserver_5fstrategy_15',['buffer_observer_strategy',['../classrpp_1_1operators_1_1details_1_1buffer__observer__strategy.html',1,'rpp::operators::details']]],
-  ['buffer_5ft_16',['buffer_t',['../structrpp_1_1operators_1_1details_1_1buffer__t.html',1,'rpp::operators::details']]]
+  ['boolean_5fdisposables_5fstrategy_15',['boolean_disposables_strategy',['../classrpp_1_1details_1_1observers_1_1boolean__disposables__strategy.html',1,'rpp::details::observers']]],
+  ['buffer_5fobserver_5fstrategy_16',['buffer_observer_strategy',['../classrpp_1_1operators_1_1details_1_1buffer__observer__strategy.html',1,'rpp::operators::details']]],
+  ['buffer_5ft_17',['buffer_t',['../structrpp_1_1operators_1_1details_1_1buffer__t.html',1,'rpp::operators::details']]]
 ];

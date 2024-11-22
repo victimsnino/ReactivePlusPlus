@@ -39,10 +39,11 @@ var NAVTREEINDEX0 =
 "classrpp_1_1details_1_1observer__impl.html#a7a73f13eae52effde01a2d3b2cf1d1b4":[2,1,0,0,0,20,1],
 "classrpp_1_1details_1_1observer__impl.html#aa55c5a334bc39c92218f7b51e5126bbc":[2,1,0,0,0,20,2],
 "classrpp_1_1details_1_1observer__impl.html#ab4d6f3e513e55f94547c8fa4d042f0cb":[2,1,0,0,0,20,0],
-"classrpp_1_1details_1_1observers_1_1dynamic__strategy.html":[2,1,0,0,0,2,0],
-"classrpp_1_1details_1_1observers_1_1local__disposables__strategy.html":[2,1,0,0,0,2,3],
-"classrpp_1_1details_1_1observers_1_1observer__vtable.html":[2,1,0,0,0,2,5],
-"classrpp_1_1details_1_1observers_1_1type__erased__observer.html":[2,1,0,0,0,2,7],
+"classrpp_1_1details_1_1observers_1_1boolean__disposables__strategy.html":[2,1,0,0,0,2,0],
+"classrpp_1_1details_1_1observers_1_1dynamic__strategy.html":[2,1,0,0,0,2,1],
+"classrpp_1_1details_1_1observers_1_1local__disposables__strategy.html":[2,1,0,0,0,2,4],
+"classrpp_1_1details_1_1observers_1_1observer__vtable.html":[2,1,0,0,0,2,6],
+"classrpp_1_1details_1_1observers_1_1type__erased__observer.html":[2,1,0,0,0,2,8],
 "classrpp_1_1details_1_1refocunt__disposable__inner.html":[2,1,0,0,0,23],
 "classrpp_1_1details_1_1shared__container.html":[2,1,0,0,0,24],
 "classrpp_1_1details_1_1tuple__impl.html":[2,1,0,0,0,25],
@@ -248,6 +249,5 @@ var NAVTREEINDEX0 =
 "dir_ea096146ce396354a0f09a5632d726ce.html":[2,2,0,0,0,2,0,2],
 "disposable__wrapper_8hpp_source.html":[2,2,0,0,1,0,0,3],
 "disposables_8hpp_source.html":[2,2,0,0,1,0,9],
-"distinct_8hpp_source.html":[2,2,0,0,1,0,3,7],
-"distinct__until__changed_8hpp_source.html":[2,2,0,0,1,0,3,8]
+"distinct_8hpp_source.html":[2,2,0,0,1,0,3,7]
 };

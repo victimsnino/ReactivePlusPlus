@@ -41,6 +41,7 @@ var hierarchy =
       [ "rpp::subjects::serialized_behavior_subject< Type >", "classrpp_1_1subjects_1_1serialized__behavior__subject.html", null ]
     ] ],
     [ "rpp::details::observables::blocking_strategy< Type, Strategy >", "classrpp_1_1details_1_1observables_1_1blocking__strategy.html", null ],
+    [ "rpp::details::observers::boolean_disposables_strategy", "classrpp_1_1details_1_1observers_1_1boolean__disposables__strategy.html", null ],
     [ "rpp::operators::details::buffer_observer_strategy< TObserver >", "classrpp_1_1operators_1_1details_1_1buffer__observer__strategy.html", null ],
     [ "TestService::CallbackService", null, [
       [ "server", "classserver.html", null ]
