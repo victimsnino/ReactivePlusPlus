@@ -55,18 +55,18 @@ jobs:
           lookup-only: true
 
     - name: Install Qt
-      if: steps.check_cache.outputs.cache-hit != 'true' || github.event_name == 'schedule'
+      # if: steps.check_cache.outputs.cache-hit != 'true' || github.event_name == 'schedule' 
       uses: jurplel/install-qt-action@v4
       with:
         cache: true
 
     - name: conan detect profile
-      if: steps.check_cache.outputs.cache-hit != 'true' || github.event_name == 'schedule'
+      # if: steps.check_cache.outputs.cache-hit != 'true' || github.event_name == 'schedule'
       run: |
         conan profile detect --force
 
     - name: Run CMake
-      if: steps.check_cache.outputs.cache-hit != 'true' || github.event_name == 'schedule'
+      # if: steps.check_cache.outputs.cache-hit != 'true' || github.event_name == 'schedule'
       uses: lukka/run-cmake@v10
       with:
         configurePreset: ${{ matrix.config.name }}-tests
