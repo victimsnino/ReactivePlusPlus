@@ -16,6 +16,8 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
 
+env:
+  CACHE_INDEX: 1
 
 jobs:
   cache_deps:
@@ -50,8 +52,7 @@ jobs:
           path: |
             ~/.conan2
             /Users/runner/.conan2/
-          key: deps-${{ matrix.config.name }}-${{ matrix.build_type.config }}-${{ hashFiles('**/conanfile.py') }}-${{ hashFiles('**/CMakePresets.json') }}
-          restore-keys: deps-${{ matrix.config.name }}-${{ matrix.build_type.config }}
+          key: deps-${{ matrix.config.name }}-${{ matrix.build_type.config }}-${{ hashFiles('**/conanfile.py') }}-${{ hashFiles('**/CMakePresets.json') }}-${{CACHE_INDEX}}
           lookup-only: true
 
     - name: Install Qt
@@ -110,8 +111,7 @@ jobs:
           path: |
             ~/.conan2
             /Users/runner/.conan2/
-          key: deps-ci-ubuntu-clang-Release-${{ hashFiles('**/conanfile.py') }}-${{ hashFiles('**/CMakePresets.json') }}
-          restore-keys: deps-ci-ubuntu-clang-Release
+          restore-keys: deps-ci-ubuntu-clang-Release-${{ hashFiles('**/conanfile.py') }}-${{ hashFiles('**/CMakePresets.json') }}
 
     - name: conan detect profile
       run: |
@@ -188,8 +188,7 @@ jobs:
           path: |
             ~/.conan2
             /Users/runner/.conan2/
-          key: deps-${{ matrix.config.name }}-${{ matrix.build_type.config }}-${{ hashFiles('**/conanfile.py') }}-${{ hashFiles('**/CMakePresets.json') }}
-          restore-keys: deps-${{ matrix.config.name }}-${{ matrix.build_type.config }}
+          restore-keys: deps-${{ matrix.config.name }}-${{ matrix.build_type.config }}-${{ hashFiles('**/conanfile.py') }}-${{ hashFiles('**/CMakePresets.json') }}
 
     - name: conan detect profile
       run: |

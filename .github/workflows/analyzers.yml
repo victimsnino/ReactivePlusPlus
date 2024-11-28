@@ -7,7 +7,6 @@ on:
     types:
       - completed
 
-
 jobs:
   pvs:
     if: github.repository_owner == 'victimsnino' && github.event.workflow_run.conclusion == 'success'
@@ -39,8 +38,7 @@ jobs:
           path: |
             ~/.conan2
             /Users/runner/.conan2/
-          key: deps-ci-ubuntu-clang-Release-${{ hashFiles('**/conanfile.py') }}-${{ hashFiles('**/CMakePresets.json') }}
-          restore-keys: deps-ci-ubuntu-clang-Release
+          restore-keys: deps-ci-ubuntu-clang-Release-${{ hashFiles('**/conanfile.py') }}-${{ hashFiles('**/CMakePresets.json') }}
 
     - name: conan detect profile
       run: |
@@ -112,8 +110,8 @@ jobs:
           path: |
             ~/.conan2
             /Users/runner/.conan2/
-          key: deps-ci-ubuntu-clang-Release-${{ hashFiles('**/conanfile.py') }}-${{ hashFiles('**/CMakePresets.json') }}
-          restore-keys: deps-ci-ubuntu-clang-Release
+          restore-keys: |
+             deps-ci-ubuntu-clang-Release-${{ hashFiles('**/conanfile.py') }}-${{ hashFiles('**/CMakePresets.json') }}
 
     - name: conan detect profile
       run: |
