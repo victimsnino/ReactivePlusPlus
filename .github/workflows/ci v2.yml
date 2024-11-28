@@ -55,7 +55,7 @@ jobs:
           lookup-only: true
 
     - name: Install Qt
-      # if: steps.check_cache.outputs.cache-hit != 'true' || github.event_name == 'schedule' 
+      # if: steps.check_cache.outputs.cache-hit != 'true' || github.event_name == 'schedule'
       uses: jurplel/install-qt-action@v4
       with:
         cache: true
