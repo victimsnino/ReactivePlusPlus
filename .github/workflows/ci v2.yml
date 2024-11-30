@@ -52,7 +52,7 @@ jobs:
           path: |
             ~/.conan2
             /Users/runner/.conan2/
-          key: deps-${{ matrix.config.name }}-${{ matrix.build_type.config }}-${{ hashFiles('**/conanfile.py') }}-${{ hashFiles('**/CMakePresets.json') }}-${{CACHE_INDEX}}
+          key: deps-${{ matrix.config.name }}-${{ matrix.build_type.config }}-${{ hashFiles('**/conanfile.py') }}-${{ hashFiles('**/CMakePresets.json') }}-${{env.CACHE_INDEX}}
           lookup-only: true
 
     - name: Install Qt
