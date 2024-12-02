@@ -111,7 +111,7 @@ jobs:
           path: |
             ~/.conan2
             /Users/runner/.conan2/
-          restore-keys: deps-ci-ubuntu-clang-Release-${{ hashFiles('**/conanfile.py') }}-${{ hashFiles('**/CMakePresets.json') }}
+          key: deps-ci-ubuntu-clang-Release-${{ hashFiles('**/conanfile.py') }}-${{ hashFiles('**/CMakePresets.json') }}-${{env.CACHE_INDEX}}
 
     - name: conan detect profile
       run: |
@@ -188,7 +188,7 @@ jobs:
           path: |
             ~/.conan2
             /Users/runner/.conan2/
-          restore-keys: deps-${{ matrix.config.name }}-${{ matrix.build_type.config }}-${{ hashFiles('**/conanfile.py') }}-${{ hashFiles('**/CMakePresets.json') }}
+          key: deps-${{ matrix.config.name }}-${{ matrix.build_type.config }}-${{ hashFiles('**/conanfile.py') }}-${{ hashFiles('**/CMakePresets.json') }}-${{env.CACHE_INDEX}}
 
     - name: conan detect profile
       run: |
