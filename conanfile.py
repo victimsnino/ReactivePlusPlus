@@ -23,7 +23,7 @@ class RppConan(ConanFile):
         "with_benchmarks" : False,
         "with_asio" : False,
         "with_qt" : False,
-        "qt:shared": True,
+        "qt/*:shared": True,
     }
 
     def requirements(self):
