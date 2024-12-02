@@ -12,7 +12,8 @@ class RppConan(ConanFile):
         "with_tests" : [False, True],
         "with_cmake" : [False, True],
         "with_benchmarks" : [False, True],
-        "with_asio" : [False, True]
+        "with_asio" : [False, True],
+        "with_qt" : [False, True],
     }
     default_options = {
         "with_grpc" : False,
@@ -20,7 +21,9 @@ class RppConan(ConanFile):
         "with_tests": False,
         "with_cmake": False,
         "with_benchmarks" : False,
-        "with_asio" : False
+        "with_asio" : False,
+        "with_qt" : False,
+        "qt:shared": True,
     }
 
     def requirements(self):
@@ -44,3 +47,6 @@ class RppConan(ConanFile):
 
         if self.options.with_cmake:
             self.tool_requires("cmake/3.29.3")
+        
+        if self.options.with_qt:
+            self.requires("qt/5.15.14", transitive_libs=True)

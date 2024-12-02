@@ -27,12 +27,6 @@ jobs:
         repository: ${{ github.event.workflow_run.head_repository.full_name }}
         ref: ${{ github.event.workflow_run.head_branch }}
 
-    - name: Install Qt
-      uses: jurplel/install-qt-action@v4
-      with:
-        cache: true
-        cache-key-prefix: ${{env.CACHE_INDEX}}
-
     - name: get conan
       uses: turtlebrowser/get-conan@main
 
@@ -99,12 +93,6 @@ jobs:
 
     - name: Install llvm
       run: sudo apt-get update -q && sudo apt-get install llvm -q -y
-
-    - name: Install Qt
-      uses: jurplel/install-qt-action@v4
-      with:
-        cache: true
-        cache-key-prefix: ${{env.CACHE_INDEX}}
 
     - name: get conan
       uses: turtlebrowser/get-conan@main

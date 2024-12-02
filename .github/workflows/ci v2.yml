@@ -55,13 +55,6 @@ jobs:
           key: deps-${{ matrix.config.name }}-${{ matrix.build_type.config }}-${{ hashFiles('**/conanfile.py') }}-${{ hashFiles('**/CMakePresets.json') }}-${{env.CACHE_INDEX}}
           lookup-only: true
 
-    - name: Install Qt
-      if: steps.check_cache.outputs.cache-hit != 'true' || github.event_name == 'schedule'
-      uses: jurplel/install-qt-action@v4
-      with:
-        cache: true
-        cache-key-prefix: ${{env.CACHE_INDEX}}
-
     - name: conan detect profile
       if: steps.check_cache.outputs.cache-hit != 'true' || github.event_name == 'schedule'
       run: |
@@ -97,12 +90,6 @@ jobs:
     #       sudo apt-get update
     #       sudo apt-get purge -y g++-13 gcc-13 libstdc++-13-dev
     #       sudo apt-get install -y --allow-downgrades libstdc++-12-dev libstdc++6=12.* libgcc-s1=12.*
-
-    - name: Install Qt
-      uses: jurplel/install-qt-action@v4
-      with:
-        cache: true
-        cache-key-prefix: ${{env.CACHE_INDEX}}
 
     - name: get conan
       uses: turtlebrowser/get-conan@main
@@ -175,12 +162,6 @@ jobs:
 
     - name: Cmake version
       run: cmake --version
-
-    - name: Install Qt
-      uses: jurplel/install-qt-action@v4
-      with:
-        cache: true
-        cache-key-prefix: ${{env.CACHE_INDEX}}
 
     - name: get conan
       uses: turtlebrowser/get-conan@main
@@ -255,12 +236,6 @@ jobs:
     - uses: actions/checkout@v4
       with:
           fetch-depth: 0
-
-    - name: Install Qt
-      uses: jurplel/install-qt-action@v4
-      with:
-        cache: true
-        cache-key-prefix: ${{env.CACHE_INDEX}}
 
     - name: Install project and build
       env:
