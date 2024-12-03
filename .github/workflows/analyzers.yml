@@ -27,6 +27,10 @@ jobs:
         repository: ${{ github.event.workflow_run.head_repository.full_name }}
         ref: ${{ github.event.workflow_run.head_branch }}
 
+    - uses: actions/setup-python@v5
+      with:
+        python-version: '3.6.x - 3.11.x'
+
     - name: get conan
       uses: turtlebrowser/get-conan@main
 
@@ -93,6 +97,10 @@ jobs:
 
     - name: Install llvm
       run: sudo apt-get update -q && sudo apt-get install llvm -q -y
+
+    - uses: actions/setup-python@v5
+      with:
+        python-version: '3.6.x - 3.11.x'
 
     - name: get conan
       uses: turtlebrowser/get-conan@main

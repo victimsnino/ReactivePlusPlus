@@ -83,13 +83,9 @@ jobs:
       with:
         fetch-depth: 0
 
-    # Work around https://github.com/actions/runner-images/issues/8659
-    # - name: "Remove GCC 13 from runner image (workaround)"
-    #   shell: bash
-    #   run: |
-    #       sudo apt-get update
-    #       sudo apt-get purge -y g++-13 gcc-13 libstdc++-13-dev
-    #       sudo apt-get install -y --allow-downgrades libstdc++-12-dev libstdc++6=12.* libgcc-s1=12.*
+    - uses: actions/setup-python@v5
+      with:
+        python-version: '3.6.x - 3.11.x'
 
     - name: get conan
       uses: turtlebrowser/get-conan@main
@@ -162,6 +158,10 @@ jobs:
 
     - name: Cmake version
       run: cmake --version
+    
+    - uses: actions/setup-python@v5
+      with:
+        python-version: '3.6.x - 3.11.x'
 
     - name: get conan
       uses: turtlebrowser/get-conan@main
