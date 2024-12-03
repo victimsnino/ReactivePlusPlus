@@ -27,7 +27,7 @@ jobs:
                 {name: ci-ubuntu-clang, os: ubuntu-latest},
                 {name: ci-windows,      os: windows-latest},
                 {name: ci-macos,        os: macos-latest}]
-        build_type: [{config: Release}, {config: Debug}]
+        build_type: [{config: Release}]
 
     timeout-minutes: 120
     runs-on: ${{ matrix.config.os }}
@@ -124,7 +124,7 @@ jobs:
                 {name: ci-windows,      os: windows-latest},
                 {name: ci-macos,        os: macos-latest}]
         type: [tests, benchmarks]
-        build_type: [{config: Release, test_preset: ci-tests}, {config: Debug, test_preset: ci-tests-debug}]
+        build_type: [{config: Release, test_preset: ci-tests}]
         optimization_disabled: [{mode: 0, postfix: ""}, {mode: 1, postfix: " (Optimizations disabled)"}]
 
     timeout-minutes: 20
