@@ -24,7 +24,7 @@ jobs:
         config: [{name: ci-ubuntu-gcc,  os: ubuntu-latest},
                 {name: ci-ubuntu-clang, os: ubuntu-latest},
                 {name: ci-windows,      os: windows-latest},
-                {name: ci-macos,        os: macos-12}]
+                {name: ci-macos,        os: macos-latest}]
         build_type: [{config: Release}, {config: Debug}]
 
     timeout-minutes: 120
@@ -59,6 +59,7 @@ jobs:
       uses: jurplel/install-qt-action@v4
       with:
         cache: true
+        version: "6.2.*"
 
     - name: conan detect profile
       if: steps.check_cache.outputs.cache-hit != 'true' || github.event_name == 'schedule'
@@ -100,6 +101,7 @@ jobs:
       uses: jurplel/install-qt-action@v4
       with:
         cache: true
+        version: "6.2.*"
 
     - name: get conan
       uses: turtlebrowser/get-conan@main
@@ -137,7 +139,7 @@ jobs:
         config: [{name: ci-ubuntu-gcc,  os: ubuntu-latest},
                 {name: ci-ubuntu-clang, os: ubuntu-latest},
                 {name: ci-windows,      os: windows-latest},
-                {name: ci-macos,        os: macos-12}]
+                {name: ci-macos,        os: macos-latest}]
         type: [tests, benchmarks]
         build_type: [{config: Release, test_preset: ci-tests}, {config: Debug, test_preset: ci-tests-debug}]
         optimization_disabled: [{mode: 0, postfix: ""}, {mode: 1, postfix: " (Optimizations disabled)"}]
@@ -178,6 +180,7 @@ jobs:
       uses: jurplel/install-qt-action@v4
       with:
         cache: true
+        version: "6.2.*"
 
     - name: get conan
       uses: turtlebrowser/get-conan@main
@@ -258,6 +261,7 @@ jobs:
       uses: jurplel/install-qt-action@v4
       with:
         cache: true
+        version: "6.2.*"
 
     - name: Install project and build
       env:
