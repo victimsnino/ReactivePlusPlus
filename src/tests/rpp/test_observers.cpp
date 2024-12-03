@@ -187,7 +187,10 @@ TEST_CASE("set_upstream without base disposable makes it main disposalbe")
     test_observer(original_observer);
 
     SUBCASE("dynamic observer")
-    test_observer(std::move(original_observer).as_dynamic());
+    test_observer(std::move(original_observer).as_dynamic()); // NOLINT
+
+    SUBCASE("dynamic observer via cast")
+    test_observer(rpp::dynamic_observer<int>{std::move(original_observer)}); // NOLINT
 }
 
 TEST_CASE("set_upstream can be called multiple times")

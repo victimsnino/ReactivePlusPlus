@@ -63,8 +63,7 @@ namespace rpp::details::observables
             template<rpp::constraint::observable Observable>
             static const vtable* create() noexcept
             {
-                static vtable s_res{
-                    .subscribe = forwarding_subscribe<Type, Observable>};
+                static vtable s_res{.subscribe = forwarding_subscribe<Type, Observable>};
                 return &s_res;
             }
         };
@@ -103,7 +102,4 @@ namespace rpp
         {
         }
     };
-
-    template<typename Subject>
-    using dynamic_connectable_observable = connectable_observable<rpp::dynamic_observable<rpp::subjects::utils::extract_subject_type_t<Subject>>, Subject>;
 } // namespace rpp

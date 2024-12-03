@@ -99,9 +99,19 @@ TEST_CASE("create observable works properly as observable")
         test(observable.as_dynamic());
     }
 
+    SUBCASE("dynamic observable cast")
+    {
+        test(rpp::dynamic_observable<int>{observable});
+    }
+
     SUBCASE("dynamic observable via move")
     {
         test(std::move(observable).as_dynamic()); // NOLINT
+    }
+
+    SUBCASE("dynamic observable cast via move")
+    {
+        test(rpp::dynamic_observable<int>{std::move(observable)}); // NOLINT
     }
 }
 

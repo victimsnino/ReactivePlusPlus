@@ -115,10 +115,9 @@ namespace rpp::operators::details
     template<rpp::constraint::observable TObservable, rpp::constraint::observer TObserver>
     struct concat_inner_observer_strategy
     {
-        static constexpr auto preferred_disposables_mode = rpp::details::observers::disposables_mode::None;
+        static constexpr auto preferred_disposables_mode = rpp::details::observers::disposables_mode::Boolean;
 
         std::shared_ptr<concat_disposable<TObservable, TObserver>> disposable{};
-        mutable bool                                               locally_disposed{};
 
         template<typename T>
         void on_next(T&& v) const
@@ -128,13 +127,11 @@ namespace rpp::operators::details
 
         void on_error(const std::exception_ptr& err) const
         {
-            locally_disposed = true;
             disposable->get_observer()->on_error(err);
         }
 
         void on_completed() const
         {
-            locally_disposed = true;
             disposable->get_inner_child_disposable().clear();
 
             ConcatStage current{ConcatStage::Draining};
@@ -148,7 +145,7 @@ namespace rpp::operators::details
 
         void set_upstream(const disposable_wrapper& d) const { disposable->get_inner_child_disposable().add(d); }
 
-        bool is_disposed() const { return locally_disposed || disposable->get_inner_child_disposable().is_disposed(); }
+        bool is_disposed() const { return disposable->get_inner_child_disposable().is_disposed(); }
     };
 
     template<rpp::constraint::observable TObservable, rpp::constraint::observer TObserver>
