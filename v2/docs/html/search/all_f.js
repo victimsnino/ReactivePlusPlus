@@ -5,9 +5,12 @@ var searchData=
   ['programming_2',['Introduction to Reactive Programming',['../index.html#autotoc_md1',1,'']]],
   ['publish_3',['publish',['../group__connectable__operators.html#ga42498cc0bc565116e9deece3c3afa66f',1,'rpp::operators']]],
   ['publish_5fsubject_4',['publish_subject',['../classrpp_1_1subjects_1_1publish__subject.html',1,'rpp::subjects']]],
-  ['publish_5fsubject_3c_20t_20_3e_5',['publish_subject&lt; T &gt;',['../classrpp_1_1subjects_1_1publish__subject.html',1,'rpp::subjects']]],
-  ['publish_5fsubject_3c_20tdata_20_3e_6',['publish_subject&lt; TData &gt;',['../classrpp_1_1subjects_1_1publish__subject.html',1,'rpp::subjects']]],
-  ['publish_5fsubject_5fbase_7',['publish_subject_base',['../classrpp_1_1subjects_1_1details_1_1publish__subject__base.html',1,'rpp::subjects::details']]],
-  ['publish_5fsubject_5fbase_3c_20type_2c_20false_20_3e_8',['publish_subject_base&lt; Type, false &gt;',['../classrpp_1_1subjects_1_1details_1_1publish__subject__base.html',1,'rpp::subjects::details']]],
-  ['publish_5fsubject_5fbase_3c_20type_2c_20true_20_3e_9',['publish_subject_base&lt; Type, true &gt;',['../classrpp_1_1subjects_1_1details_1_1publish__subject__base.html',1,'rpp::subjects::details']]]
+  ['publish_5fsubject_3c_20rpp_3a_3autils_3a_3anone_20_3e_5',['publish_subject&lt; rpp::utils::none &gt;',['../classrpp_1_1subjects_1_1publish__subject.html',1,'rpp::subjects']]],
+  ['publish_5fsubject_3c_20std_3a_3adecay_5ft_3c_20arg_20_3e_20_3e_6',['publish_subject&lt; std::decay_t&lt; Arg &gt; &gt;',['../classrpp_1_1subjects_1_1publish__subject.html',1,'rpp::subjects']]],
+  ['publish_5fsubject_3c_20std_3a_3atuple_3c_20std_3a_3adecay_5ft_3c_20args_20_3e_2e_2e_2e_20_3e_20_3e_7',['publish_subject&lt; std::tuple&lt; std::decay_t&lt; Args &gt;... &gt; &gt;',['../classrpp_1_1subjects_1_1publish__subject.html',1,'rpp::subjects']]],
+  ['publish_5fsubject_3c_20t_20_3e_8',['publish_subject&lt; T &gt;',['../classrpp_1_1subjects_1_1publish__subject.html',1,'rpp::subjects']]],
+  ['publish_5fsubject_3c_20tdata_20_3e_9',['publish_subject&lt; TData &gt;',['../classrpp_1_1subjects_1_1publish__subject.html',1,'rpp::subjects']]],
+  ['publish_5fsubject_5fbase_10',['publish_subject_base',['../classrpp_1_1subjects_1_1details_1_1publish__subject__base.html',1,'rpp::subjects::details']]],
+  ['publish_5fsubject_5fbase_3c_20type_2c_20false_20_3e_11',['publish_subject_base&lt; Type, false &gt;',['../classrpp_1_1subjects_1_1details_1_1publish__subject__base.html',1,'rpp::subjects::details']]],
+  ['publish_5fsubject_5fbase_3c_20type_2c_20true_20_3e_12',['publish_subject_base&lt; Type, true &gt;',['../classrpp_1_1subjects_1_1details_1_1publish__subject__base.html',1,'rpp::subjects::details']]]
 ];

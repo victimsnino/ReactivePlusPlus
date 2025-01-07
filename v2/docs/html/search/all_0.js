@@ -3,10 +3,11 @@ var searchData=
   ['advanced_20details_0',['Advanced details',['../index.html#autotoc_md11',1,'']]],
   ['advanced_5fcall_1',['advanced_call',['../classrpp_1_1schedulers_1_1details_1_1schedulable__base_1_1advanced__call.html',1,'rpp::schedulers::details::schedulable_base']]],
   ['aggregate_20operators_2',['Aggregate Operators',['../group__aggregate__operators.html',1,'']]],
-  ['as_20variables_3',['dynamic_* versions to keep classes as variables',['../index.html#autotoc_md13',1,'']]],
-  ['as_5fblocking_4',['as_blocking',['../group__utility__operators.html#ga9df008c11eeff8c9383e56bf36e28ec2',1,'rpp::operators']]],
-  ['as_5fblocking_5ft_5',['as_blocking_t',['../structrpp_1_1operators_1_1details_1_1as__blocking__t.html',1,'rpp::operators::details']]],
-  ['as_5fdynamic_6',['as_dynamic',['../classrpp_1_1observable.html#ab820514612d4314b99528525db6afd4f',1,'rpp::observable::as_dynamic() const &amp;'],['../classrpp_1_1observable.html#a7f3a86ce4541938d7e4c7c73f883b30b',1,'rpp::observable::as_dynamic() &amp;&amp;'],['../classrpp_1_1observer.html#ab008a79c1c7825554c91dbc6d130ece4',1,'rpp::observer::as_dynamic()'],['../classrpp_1_1observer_3_01_type_00_01details_1_1observers_1_1override__disposables__strategy_3_018131050fb40d9407d82ea817f1f379db.html#ac77a81dc86398ec68191a1ad5ed24561',1,'rpp::observer&lt; Type, details::observers::override_disposables_strategy&lt; Strategy, DisposableStrategy &gt; &gt;::as_dynamic()']]],
-  ['asio_20schedulers_7',['Asio Schedulers',['../group__asio__schedulers.html',1,'']]],
-  ['auto_5fdispose_5fwrapper_8',['auto_dispose_wrapper',['../classrpp_1_1details_1_1auto__dispose__wrapper.html',1,'rpp::details']]]
+  ['any_5fof_3',['any_of',['../conceptrpp_1_1constraint_1_1any__of.html',1,'rpp::constraint']]],
+  ['as_20variables_4',['dynamic_* versions to keep classes as variables',['../index.html#autotoc_md13',1,'']]],
+  ['as_5fblocking_5',['as_blocking',['../group__utility__operators.html#ga9df008c11eeff8c9383e56bf36e28ec2',1,'rpp::operators']]],
+  ['as_5fblocking_5ft_6',['as_blocking_t',['../structrpp_1_1operators_1_1details_1_1as__blocking__t.html',1,'rpp::operators::details']]],
+  ['as_5fdynamic_7',['as_dynamic',['../classrpp_1_1observable.html#ab820514612d4314b99528525db6afd4f',1,'rpp::observable::as_dynamic() const &amp;'],['../classrpp_1_1observable.html#a7f3a86ce4541938d7e4c7c73f883b30b',1,'rpp::observable::as_dynamic() &amp;&amp;'],['../classrpp_1_1observer.html#ab008a79c1c7825554c91dbc6d130ece4',1,'rpp::observer::as_dynamic()']]],
+  ['asio_20schedulers_8',['Asio Schedulers',['../group__asio__schedulers.html',1,'']]],
+  ['auto_5fdispose_5fwrapper_9',['auto_dispose_wrapper',['../classrpp_1_1details_1_1auto__dispose__wrapper.html',1,'rpp::details']]]
 ];

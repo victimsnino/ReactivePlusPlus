@@ -2,7 +2,7 @@ var searchData=
 [
   ['value_5fwith_5fmutex_0',['value_with_mutex',['../classrpp_1_1utils_1_1value__with__mutex.html',1,'rpp::utils']]],
   ['value_5fwith_5fmutex_3c_20observer_20_3e_1',['value_with_mutex&lt; Observer &gt;',['../classrpp_1_1utils_1_1value__with__mutex.html',1,'rpp::utils']]],
-  ['value_5fwith_5fmutex_3c_20rpp_3a_3adisposable_5fwrapper_5fimpl_20_3e_2',['value_with_mutex&lt; rpp::disposable_wrapper_impl &gt;',['../classrpp_1_1utils_1_1value__with__mutex.html',1,'rpp::utils']]],
+  ['value_5fwith_5fmutex_3c_20rpp_3a_3adisposable_5fwrapper_5fimpl_3c_20interface_5fcomposite_5fdisposable_20_3e_20_3e_2',['value_with_mutex&lt; rpp::disposable_wrapper_impl&lt; interface_composite_disposable &gt; &gt;',['../classrpp_1_1utils_1_1value__with__mutex.html',1,'rpp::utils']]],
   ['value_5fwith_5fmutex_3c_20rpp_3a_3aoperators_3a_3adetails_3a_3atimeout_5fdisposable_3a_3aobserver_5fwith_5ftimeout_20_3e_3',['value_with_mutex&lt; rpp::operators::details::timeout_disposable::observer_with_timeout &gt;',['../classrpp_1_1utils_1_1value__with__mutex.html',1,'rpp::utils']]],
   ['value_5fwith_5fmutex_3c_20rpp_3a_3aoperators_3a_3adetails_3a_3awindow_5ftoggle_5fstate_3a_3astate_5ft_20_3e_4',['value_with_mutex&lt; rpp::operators::details::window_toggle_state::state_t &gt;',['../classrpp_1_1utils_1_1value__with__mutex.html',1,'rpp::utils']]],
   ['value_5fwith_5fmutex_3c_20std_3a_3aqueue_3c_20tobservable_20_3e_20_3e_5',['value_with_mutex&lt; std::queue&lt; TObservable &gt; &gt;',['../classrpp_1_1utils_1_1value__with__mutex.html',1,'rpp::utils']]],

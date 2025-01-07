@@ -5,19 +5,19 @@ var annotated_dup =
         [ "disposables", null, [
           [ "dynamic_disposables_container", "classrpp_1_1details_1_1disposables_1_1dynamic__disposables__container.html", null ],
           [ "static_disposables_container", "classrpp_1_1details_1_1disposables_1_1static__disposables__container.html", null ],
-          [ "static_disposables_container< 0 >", "classrpp_1_1details_1_1disposables_1_1static__disposables__container_3_010_01_4.html", null ]
+          [ "static_disposables_container< 0 >", "classrpp_1_1details_1_1disposables_1_1static__disposables__container.html", null ]
         ] ],
         [ "observables", null, [
           [ "blocking_disposable", "classrpp_1_1details_1_1observables_1_1blocking__disposable.html", null ],
           [ "blocking_strategy", "classrpp_1_1details_1_1observables_1_1blocking__strategy.html", null ],
           [ "chain", "classrpp_1_1details_1_1observables_1_1chain.html", null ],
-          [ "chain< TStrategy >", "classrpp_1_1details_1_1observables_1_1chain_3_01_t_strategy_01_4.html", null ],
+          [ "chain< TStrategy >", "classrpp_1_1details_1_1observables_1_1chain.html", null ],
           [ "dynamic_disposables_strategy", "structrpp_1_1details_1_1observables_1_1dynamic__disposables__strategy.html", null ],
           [ "dynamic_strategy", "classrpp_1_1details_1_1observables_1_1dynamic__strategy.html", null ],
           [ "fake_strategy", "structrpp_1_1details_1_1observables_1_1fake__strategy.html", null ],
           [ "fixed_disposables_strategy", "structrpp_1_1details_1_1observables_1_1fixed__disposables__strategy.html", null ],
           [ "make_chain", "structrpp_1_1details_1_1observables_1_1make__chain.html", null ],
-          [ "make_chain< New, chain< Args... > >", "structrpp_1_1details_1_1observables_1_1make__chain_3_01_new_00_01chain_3_01_args_8_8_8_01_4_01_4.html", null ]
+          [ "make_chain< New, chain< Args... > >", "structrpp_1_1details_1_1observables_1_1make__chain.html", null ]
         ] ],
         [ "observers", null, [
           [ "boolean_disposables_strategy", "classrpp_1_1details_1_1observers_1_1boolean__disposables__strategy.html", null ],
@@ -49,11 +49,11 @@ var annotated_dup =
         [ "never_strategy", "structrpp_1_1details_1_1never__strategy.html", null ],
         [ "observer_impl", "classrpp_1_1details_1_1observer__impl.html", "classrpp_1_1details_1_1observer__impl" ],
         [ "ref_count_on_subscribe_t", "structrpp_1_1details_1_1ref__count__on__subscribe__t.html", null ],
-        [ "ref_count_on_subscribe_t< rpp::connectable_observable< OriginalObservable, Subject > >", "structrpp_1_1details_1_1ref__count__on__subscribe__t_3_01rpp_1_1connectable__observable_3_01_oria02afbb30282d4727b872472b2af56d8.html", "structrpp_1_1details_1_1ref__count__on__subscribe__t_3_01rpp_1_1connectable__observable_3_01_oria02afbb30282d4727b872472b2af56d8" ],
+        [ "ref_count_on_subscribe_t< rpp::connectable_observable< OriginalObservable, Subject > >", "structrpp_1_1details_1_1ref__count__on__subscribe__t.html", "structrpp_1_1details_1_1ref__count__on__subscribe__t" ],
         [ "refocunt_disposable_inner", "classrpp_1_1details_1_1refocunt__disposable__inner.html", null ],
         [ "shared_container", "classrpp_1_1details_1_1shared__container.html", null ],
         [ "tuple_impl", "classrpp_1_1details_1_1tuple__impl.html", null ],
-        [ "tuple_impl< std::index_sequence< Indices... >, Args... >", "classrpp_1_1details_1_1tuple__impl_3_01std_1_1index__sequence_3_01_indices_8_8_8_01_4_00_01_args_8_8_8_01_4.html", null ],
+        [ "tuple_impl< std::index_sequence< Indices... >, Args... >", "classrpp_1_1details_1_1tuple__impl.html", null ],
         [ "tuple_leaf", "classrpp_1_1details_1_1tuple__leaf.html", null ],
         [ "variant_observable_strategy", "structrpp_1_1details_1_1variant__observable__strategy.html", null ]
       ] ],
@@ -143,12 +143,12 @@ var annotated_dup =
           [ "subscribe_on_schedulable", "structrpp_1_1operators_1_1details_1_1subscribe__on__schedulable.html", null ],
           [ "subscribe_on_t", "structrpp_1_1operators_1_1details_1_1subscribe__on__t.html", "structrpp_1_1operators_1_1details_1_1subscribe__on__t" ],
           [ "subscribe_t", "classrpp_1_1operators_1_1details_1_1subscribe__t.html", null ],
-          [ "subscribe_t< observer< Type, ObserverStrategy > >", "classrpp_1_1operators_1_1details_1_1subscribe__t_3_01observer_3_01_type_00_01_observer_strategy_01_4_01_4.html", null ],
-          [ "subscribe_t< ObserverStrategy >", "classrpp_1_1operators_1_1details_1_1subscribe__t_3_01_observer_strategy_01_4.html", null ],
-          [ "subscribe_t< OnNext, OnError, OnCompleted >", "classrpp_1_1operators_1_1details_1_1subscribe__t_3_01_on_next_00_01_on_error_00_01_on_completed_01_4.html", null ],
-          [ "subscribe_t< rpp::composite_disposable_wrapper, observer< Type, ObserverStrategy > >", "classrpp_1_1operators_1_1details_1_1subscribe__t_3_01rpp_1_1composite__disposable__wrapper_00_0176ebc9869815430b00b6be89aa2e2b76.html", null ],
-          [ "subscribe_t< rpp::composite_disposable_wrapper, ObserverStrategy >", "classrpp_1_1operators_1_1details_1_1subscribe__t_3_01rpp_1_1composite__disposable__wrapper_00_01_observer_strategy_01_4.html", null ],
-          [ "subscribe_t< rpp::composite_disposable_wrapper, OnNext, OnError, OnCompleted >", "classrpp_1_1operators_1_1details_1_1subscribe__t_3_01rpp_1_1composite__disposable__wrapper_00_015839511ef5aa7d547130d10313f4a820.html", null ],
+          [ "subscribe_t< observer< Type, ObserverStrategy > >", "classrpp_1_1operators_1_1details_1_1subscribe__t.html", null ],
+          [ "subscribe_t< ObserverStrategy >", "classrpp_1_1operators_1_1details_1_1subscribe__t.html", null ],
+          [ "subscribe_t< OnNext, OnError, OnCompleted >", "classrpp_1_1operators_1_1details_1_1subscribe__t.html", null ],
+          [ "subscribe_t< rpp::composite_disposable_wrapper, observer< Type, ObserverStrategy > >", "classrpp_1_1operators_1_1details_1_1subscribe__t.html", null ],
+          [ "subscribe_t< rpp::composite_disposable_wrapper, ObserverStrategy >", "classrpp_1_1operators_1_1details_1_1subscribe__t.html", null ],
+          [ "subscribe_t< rpp::composite_disposable_wrapper, OnNext, OnError, OnCompleted >", "classrpp_1_1operators_1_1details_1_1subscribe__t.html", null ],
           [ "switch_on_next_inner_observer_strategy", "classrpp_1_1operators_1_1details_1_1switch__on__next__inner__observer__strategy.html", null ],
           [ "switch_on_next_observer_strategy", "classrpp_1_1operators_1_1details_1_1switch__on__next__observer__strategy.html", null ],
           [ "switch_on_next_state_t", "classrpp_1_1operators_1_1details_1_1switch__on__next__state__t.html", null ],
@@ -194,7 +194,7 @@ var annotated_dup =
         [ "constraint", null, [
           [ "details", null, [
             [ "is_worker", "structrpp_1_1schedulers_1_1constraint_1_1details_1_1is__worker.html", null ],
-            [ "is_worker< rpp::schedulers::worker< Strategy > >", "structrpp_1_1schedulers_1_1constraint_1_1details_1_1is__worker_3_01rpp_1_1schedulers_1_1worker_3_01_strategy_01_4_01_4.html", null ]
+            [ "is_worker< rpp::schedulers::worker< Strategy > >", "structrpp_1_1schedulers_1_1constraint_1_1details_1_1is__worker.html", null ]
           ] ]
         ] ],
         [ "details", null, [
@@ -238,7 +238,7 @@ var annotated_dup =
         [ "details", null, [
           [ "traits", "structrpp_1_1utils_1_1details_1_1traits.html", null ],
           [ "unique_variant_t", "structrpp_1_1utils_1_1details_1_1unique__variant__t.html", null ],
-          [ "unique_variant_t< std::variant< Ts... >, U, Us... >", "structrpp_1_1utils_1_1details_1_1unique__variant__t_3_01std_1_1variant_3_01_ts_8_8_8_01_4_00_01_u_00_01_us_8_8_8_01_4.html", null ]
+          [ "unique_variant_t< std::variant< Ts... >, U, Us... >", "structrpp_1_1utils_1_1details_1_1unique__variant__t.html", null ]
         ] ],
         [ "convertible_to_any", "structrpp_1_1utils_1_1convertible__to__any.html", null ],
         [ "empty_function_any_by_lvalue_t", "structrpp_1_1utils_1_1empty__function__any__by__lvalue__t.html", null ],
@@ -247,16 +247,16 @@ var annotated_dup =
         [ "equal_to", "structrpp_1_1utils_1_1equal__to.html", null ],
         [ "finally_action", "classrpp_1_1utils_1_1finally__action.html", null ],
         [ "function_traits", "structrpp_1_1utils_1_1function__traits.html", null ],
-        [ "function_traits< R(*)()>", "structrpp_1_1utils_1_1function__traits_3_01_r_07_5_08_07_08_4.html", null ],
-        [ "function_traits< R(*)(Args...)>", "structrpp_1_1utils_1_1function__traits_3_01_r_07_5_08_07_args_8_8_8_08_4.html", null ],
-        [ "function_traits< R(T::*)(Args...) const >", "structrpp_1_1utils_1_1function__traits_3_01_r_07_t_1_1_5_08_07_args_8_8_8_08_01const_01_4.html", null ],
-        [ "function_traits< R(T::*)(Args...)>", "structrpp_1_1utils_1_1function__traits_3_01_r_07_t_1_1_5_08_07_args_8_8_8_08_4.html", null ],
+        [ "function_traits< R(*)()>", "structrpp_1_1utils_1_1function__traits.html", null ],
+        [ "function_traits< R(*)(Args...)>", "structrpp_1_1utils_1_1function__traits.html", null ],
+        [ "function_traits< R(T::*)(Args...) const >", "structrpp_1_1utils_1_1function__traits.html", null ],
+        [ "function_traits< R(T::*)(Args...)>", "structrpp_1_1utils_1_1function__traits.html", null ],
         [ "infinite_repeated_container", "classrpp_1_1utils_1_1infinite__repeated__container.html", "classrpp_1_1utils_1_1infinite__repeated__container" ],
         [ "is_not_template_callable_t", "structrpp_1_1utils_1_1is__not__template__callable__t.html", null ],
-        [ "is_not_template_callable_t< R(*)(Args...)>", "structrpp_1_1utils_1_1is__not__template__callable__t_3_01_r_07_5_08_07_args_8_8_8_08_4.html", null ],
-        [ "is_not_template_callable_t< R(T::*)(Args...) const >", "structrpp_1_1utils_1_1is__not__template__callable__t_3_01_r_07_t_1_1_5_08_07_args_8_8_8_08_01const_01_4.html", null ],
-        [ "is_not_template_callable_t< R(T::*)(Args...)>", "structrpp_1_1utils_1_1is__not__template__callable__t_3_01_r_07_t_1_1_5_08_07_args_8_8_8_08_4.html", null ],
-        [ "is_not_template_callable_t< T, std::void_t< decltype(&T::operator())> >", "structrpp_1_1utils_1_1is__not__template__callable__t_3_01_t_00_01std_1_1void__t_3_01decltype_07_6_t_1_1operator_07_08_08_4_01_4.html", null ],
+        [ "is_not_template_callable_t< R(*)(Args...)>", "structrpp_1_1utils_1_1is__not__template__callable__t.html", null ],
+        [ "is_not_template_callable_t< R(T::*)(Args...) const >", "structrpp_1_1utils_1_1is__not__template__callable__t.html", null ],
+        [ "is_not_template_callable_t< R(T::*)(Args...)>", "structrpp_1_1utils_1_1is__not__template__callable__t.html", null ],
+        [ "is_not_template_callable_t< T, std::void_t< decltype(&T::operator())> >", "structrpp_1_1utils_1_1is__not__template__callable__t.html", null ],
         [ "less", "structrpp_1_1utils_1_1less.html", null ],
         [ "more_disposables_than_expected", "structrpp_1_1utils_1_1more__disposables__than__expected.html", null ],
         [ "none", "structrpp_1_1utils_1_1none.html", null ],
@@ -288,8 +288,8 @@ var annotated_dup =
       [ "interface_disposable", "structrpp_1_1interface__disposable.html", "structrpp_1_1interface__disposable" ],
       [ "observable", "classrpp_1_1observable.html", "classrpp_1_1observable" ],
       [ "observer", "classrpp_1_1observer.html", "classrpp_1_1observer" ],
-      [ "observer< Type, details::observers::override_disposables_strategy< Strategy, DisposableStrategy > >", "classrpp_1_1observer_3_01_type_00_01details_1_1observers_1_1override__disposables__strategy_3_018131050fb40d9407d82ea817f1f379db.html", "classrpp_1_1observer_3_01_type_00_01details_1_1observers_1_1override__disposables__strategy_3_018131050fb40d9407d82ea817f1f379db" ],
-      [ "observer< Type, rpp::details::observers::dynamic_strategy< Type > >", "classrpp_1_1observer_3_01_type_00_01rpp_1_1details_1_1observers_1_1dynamic__strategy_3_01_type_01_4_01_4.html", null ],
+      [ "observer< Type, details::observers::override_disposables_strategy< Strategy, DisposableStrategy > >", "classrpp_1_1observer.html", "classrpp_1_1observer" ],
+      [ "observer< Type, rpp::details::observers::dynamic_strategy< Type > >", "classrpp_1_1observer.html", "classrpp_1_1observer" ],
       [ "refcount_disposable", "classrpp_1_1refcount__disposable.html", null ],
       [ "variant_observable", "classrpp_1_1variant__observable.html", null ]
     ] ],
@@ -316,8 +316,8 @@ var annotated_dup =
     [ "rppqt", null, [
       [ "details", null, [
         [ "from_signal_on_event", "structrppqt_1_1details_1_1from__signal__on__event.html", null ],
-        [ "from_signal_on_event< Arg >", "structrppqt_1_1details_1_1from__signal__on__event_3_01_arg_01_4.html", null ],
-        [ "from_signal_on_event<>", "structrppqt_1_1details_1_1from__signal__on__event_3_4.html", null ]
+        [ "from_signal_on_event< Arg >", "structrppqt_1_1details_1_1from__signal__on__event.html", null ],
+        [ "from_signal_on_event<>", "structrppqt_1_1details_1_1from__signal__on__event.html", null ]
       ] ],
       [ "schedulers", null, [
         [ "main_thread_scheduler", "classrppqt_1_1schedulers_1_1main__thread__scheduler.html", null ]

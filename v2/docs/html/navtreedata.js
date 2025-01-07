@@ -49,10 +49,10 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "annotated.html",
-"distinct__until__changed_8hpp_source.html",
-"skip_8cpp-example.html",
-"throttle_8hpp_source.html"
+"disposables_8hpp_source.html",
+"server__reactor_8hpp_source.html",
+"thread_pool_8cpp-example.html"
 ];
 
-var SYNCONMSG = 'click to disable panel synchronisation';
-var SYNCOFFMSG = 'click to enable panel synchronisation';
+var SYNCONMSG = 'click to disable panel synchronization';
+var SYNCOFFMSG = 'click to enable panel synchronization';

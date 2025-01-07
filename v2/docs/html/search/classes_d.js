@@ -6,7 +6,7 @@ var searchData=
   ['reduce_5fobserver_5fstrategy_3',['reduce_observer_strategy',['../structrpp_1_1operators_1_1details_1_1reduce__observer__strategy.html',1,'rpp::operators::details']]],
   ['reduce_5ft_4',['reduce_t',['../structrpp_1_1operators_1_1details_1_1reduce__t.html',1,'rpp::operators::details']]],
   ['ref_5fcount_5fon_5fsubscribe_5ft_5',['ref_count_on_subscribe_t',['../structrpp_1_1details_1_1ref__count__on__subscribe__t.html',1,'rpp::details']]],
-  ['ref_5fcount_5fon_5fsubscribe_5ft_3c_20rpp_3a_3aconnectable_5fobservable_3c_20originalobservable_2c_20subject_20_3e_20_3e_6',['ref_count_on_subscribe_t&lt; rpp::connectable_observable&lt; OriginalObservable, Subject &gt; &gt;',['../structrpp_1_1details_1_1ref__count__on__subscribe__t_3_01rpp_1_1connectable__observable_3_01_oria02afbb30282d4727b872472b2af56d8.html',1,'rpp::details']]],
+  ['ref_5fcount_5fon_5fsubscribe_5ft_3c_20rpp_3a_3aconnectable_5fobservable_3c_20originalobservable_2c_20subject_20_3e_20_3e_6',['ref_count_on_subscribe_t&lt; rpp::connectable_observable&lt; OriginalObservable, Subject &gt; &gt;',['../structrpp_1_1details_1_1ref__count__on__subscribe__t.html',1,'rpp::details']]],
   ['ref_5fcount_5ft_7',['ref_count_t',['../structrpp_1_1operators_1_1details_1_1ref__count__t.html',1,'rpp::operators::details']]],
   ['refcount_5fdisposable_8',['refcount_disposable',['../classrpp_1_1refcount__disposable.html',1,'rpp']]],
   ['refocunt_5fdisposable_5finner_9',['refocunt_disposable_inner',['../classrpp_1_1details_1_1refocunt__disposable__inner.html',1,'rpp::details']]],

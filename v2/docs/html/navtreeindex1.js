@@ -1,5 +1,7 @@
 var NAVTREEINDEX1 =
 {
+"disposables_8hpp_source.html":[2,2,0,0,1,0,9],
+"distinct_8hpp_source.html":[2,2,0,0,1,0,3,7],
 "distinct__until__changed_8hpp_source.html":[2,2,0,0,1,0,3,8],
 "distinct_until_changed_8cpp-example.html":[2,3,9],
 "dynamic__connectable__observable_8hpp_source.html":[2,2,0,0,1,0,1,3],
@@ -247,7 +249,5 @@ var NAVTREEINDEX1 =
 "run__loop_8hpp_source.html":[2,2,0,0,1,0,4,6],
 "scan_8cpp-example.html":[2,3,27],
 "scan_8hpp_source.html":[2,2,0,0,1,0,3,28],
-"schedulers_2details_2utils_8hpp_source.html":[2,2,0,0,1,0,4,0,1],
-"server__reactor_8hpp_source.html":[2,2,0,0,0,1,0,5],
-"server_reactor_8cpp-example.html":[2,3,45]
+"schedulers_2details_2utils_8hpp_source.html":[2,2,0,0,1,0,4,0,1]
 };
