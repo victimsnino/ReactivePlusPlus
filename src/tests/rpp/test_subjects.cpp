@@ -181,7 +181,7 @@ TEST_CASE("subject handles addition from inside on_next properly")
             value = v;
         });
 
-        for (size_t i = 0; i < 100; ++i)
+        for (int i = 0; i < 100; ++i)
             subject.get_observer().on_next(i);
 
         REQUIRE(value == 99);
