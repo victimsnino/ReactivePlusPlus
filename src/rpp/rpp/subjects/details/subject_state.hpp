@@ -129,7 +129,7 @@ namespace rpp::subjects::details
             std::lock_guard lock{m_serialized_mutex};
             for (size_t i = 0; i < size; ++i)
             {
-                (itr++)->on_next(v);
+                (*(itr++))->on_next(v);
             }
         }
 
