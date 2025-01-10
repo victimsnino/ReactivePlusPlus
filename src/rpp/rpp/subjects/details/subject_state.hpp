@@ -20,7 +20,7 @@
 #include <rpp/utils/utils.hpp>
 
 #include <algorithm>
-#include <deque>
+#include <list>
 #include <memory>
 #include <mutex>
 #include <variant>
@@ -67,7 +67,7 @@ namespace rpp::subjects::details
         };
 
         using observer         = std::shared_ptr<rpp::details::observers::observer_vtable<Type>>;
-        using observers        = std::deque<observer>;
+        using observers        = std::list<observer>;
         using shared_observers = std::shared_ptr<observers>;
         using state_t          = std::variant<shared_observers, std::exception_ptr, completed, disposed>;
 
