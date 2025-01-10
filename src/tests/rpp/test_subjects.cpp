@@ -169,6 +169,25 @@ TEST_CASE("subject can be modified from on_next call")
     }
 }
 
+TEST_CASE("subject handles addition from inside on_next properly")
+{
+    rpp::subjects::publish_subject<int> subject{};
+
+    SUBCASE("subscribe inside on_next")
+    {
+        int value = {};
+        subject.get_observable().subscribe([&subject, &value](int v) {
+            subject.get_observable().subscribe([](int){});
+            value = v;
+        });
+
+        for (size_t i =0; i < 100; ++i)
+            subject.get_observer().on_next(i);
+
+        REQUIRE(value == 100);
+    }
+}
+
 TEST_CASE("publish subject caches error/completed")
 {
     auto mock = mock_observer_strategy<int>{};
