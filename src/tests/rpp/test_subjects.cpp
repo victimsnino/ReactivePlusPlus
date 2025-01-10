@@ -177,7 +177,8 @@ TEST_CASE("subject handles addition from inside on_next properly")
     {
         int value = {};
         subject.get_observable().subscribe([&subject, &value](int v) {
-            subject.get_observable().subscribe([](int) {});
+            for (int i = 0; i < 100; ++i)
+                subject.get_observable().subscribe([](int) {});
             value = v;
         });
 
