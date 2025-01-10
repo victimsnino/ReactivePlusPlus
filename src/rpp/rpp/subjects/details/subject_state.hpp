@@ -121,13 +121,16 @@ namespace rpp::subjects::details
             if (!observers)
                 return;
 
-            const auto begin = observers->cbegin();
-            const auto end   = observers->cend();
+            auto       itr  = observers->cbegin();
+            const auto size = observers->size();
 
             observers_lock.unlock();
 
             std::lock_guard lock{m_serialized_mutex};
-            std::for_each(begin, end, [&](const observer& obs) { obs->on_next(v); });
+            for (size_t i = 0; i < size; ++i)
+            {
+                (itr++)->on_next(v);
+            }
         }
 
         void on_error(const std::exception_ptr& err)
