@@ -92,7 +92,7 @@ namespace rpp::subjects::details
             std::shared_ptr<observer[]> m_observers{};
             size_t                      m_size{};
         };
-        using state_t          = std::variant<shared_observers, std::exception_ptr, completed, disposed>;
+        using state_t = std::variant<shared_observers, std::exception_ptr, completed, disposed>;
 
     public:
         using optimal_disposables_strategy = rpp::details::observables::fixed_disposables_strategy<1>;
@@ -106,13 +106,13 @@ namespace rpp::subjects::details
             process_state_unsafe(
                 m_state,
                 [&](const shared_observers& observers) {
-                    auto d   = disposable_wrapper_impl<disposable_with_observer<std::decay_t<TObs>>>::make(std::forward<TObs>(observer), this->wrapper_from_this().lock());
-                    auto ptr = d.lock();
-                    const auto old_size = observers.span().size();
-                    auto new_observers = shared_observers{old_size + 1};
+                    auto       d             = disposable_wrapper_impl<disposable_with_observer<std::decay_t<TObs>>>::make(std::forward<TObs>(observer), this->wrapper_from_this().lock());
+                    auto       ptr           = d.lock();
+                    const auto old_size      = observers.span().size();
+                    auto       new_observers = shared_observers{old_size + 1};
                     std::copy(observers.span().begin(), observers.span().end(), new_observers.span().begin());
                     new_observers.span()[old_size] = ptr;
-                    m_state = std::move(new_observers);
+                    m_state                        = std::move(new_observers);
 
                     lock.unlock();
                     ptr->set_upstream(d.as_weak());
@@ -165,14 +165,15 @@ namespace rpp::subjects::details
 
         static shared_observers cleanup_observers(const shared_observers& current_subs, const rpp::details::observers::observer_vtable<Type>* to_delete)
         {
-            auto subs = shared_observers{current_subs.span().size()};
-            size_t i = 0;
-            for (const auto& obs : current_subs.span()) {
+            auto   subs = shared_observers{current_subs.span().size()};
+            size_t i    = 0;
+            for (const auto& obs : current_subs.span())
+            {
                 if (obs.get() != to_delete)
                     subs.span()[i++] = obs;
             }
             subs.shrink(i);
-            
+
             return subs;
         }
 
@@ -184,16 +185,9 @@ namespace rpp::subjects::details
         shared_observers exchange_observers_under_lock_if_there(state_t&& new_val)
         {
             std::lock_guard lock{m_mutex};
-            return process_state_unsafe(m_state, 
-            [&](shared_observers observers) 
-            {
+            return process_state_unsafe(m_state, [&](shared_observers observers) {
                 m_state = std::move(new_val);
-                return observers; 
-            }, 
-            [](auto) 
-            { 
-                return shared_observers{}; 
-            });
+                return observers; }, [](auto) { return shared_observers{}; });
         }
 
     private:
