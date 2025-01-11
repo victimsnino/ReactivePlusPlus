@@ -5,7 +5,7 @@ var searchData=
   ['chain_3c_20new_2c_20args_2e_2e_2e_20_3e_2',['chain&lt; New, Args... &gt;',['../classrpp_1_1details_1_1observables_1_1chain.html',1,'rpp::details::observables']]],
   ['chain_3c_20new_2c_20old_20_3e_3',['chain&lt; New, Old &gt;',['../classrpp_1_1details_1_1observables_1_1chain.html',1,'rpp::details::observables']]],
   ['chain_3c_20tstrategies_2e_2e_2e_20_3e_4',['chain&lt; TStrategies... &gt;',['../classrpp_1_1details_1_1observables_1_1chain.html',1,'rpp::details::observables']]],
-  ['chain_3c_20tstrategy_20_3e_5',['chain&lt; TStrategy &gt;',['../classrpp_1_1details_1_1observables_1_1chain.html',1,'rpp::details::observables']]],
+  ['chain_3c_20tstrategy_20_3e_5',['chain&lt; TStrategy &gt;',['../classrpp_1_1details_1_1observables_1_1chain_3_01_t_strategy_01_4.html',1,'rpp::details::observables']]],
   ['classes_20as_20variables_6',['dynamic_* versions to keep classes as variables',['../index.html#autotoc_md13',1,'']]],
   ['client_5fbidi_5freactor_7',['client_bidi_reactor',['../classrppgrpc_1_1client__bidi__reactor.html',1,'rppgrpc']]],
   ['client_5fread_5freactor_8',['client_read_reactor',['../classrppgrpc_1_1client__read__reactor.html',1,'rppgrpc']]],

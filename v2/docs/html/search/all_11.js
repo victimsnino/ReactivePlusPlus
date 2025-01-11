@@ -10,7 +10,7 @@ var searchData=
   ['reduce_5ft_7',['reduce_t',['../structrpp_1_1operators_1_1details_1_1reduce__t.html',1,'rpp::operators::details']]],
   ['ref_5fcount_8',['ref_count',['../group__connectable__operators.html#gadac4721de7506cc9a1c2a4453a6c28cf',1,'rpp::connectable_observable::ref_count()'],['../group__connectable__operators.html#ga7c5ba7b673ad2f41b767f4cea0b5af3e',1,'rpp::operators::ref_count()']]],
   ['ref_5fcount_5fon_5fsubscribe_5ft_9',['ref_count_on_subscribe_t',['../structrpp_1_1details_1_1ref__count__on__subscribe__t.html',1,'rpp::details']]],
-  ['ref_5fcount_5fon_5fsubscribe_5ft_3c_20rpp_3a_3aconnectable_5fobservable_3c_20originalobservable_2c_20subject_20_3e_20_3e_10',['ref_count_on_subscribe_t&lt; rpp::connectable_observable&lt; OriginalObservable, Subject &gt; &gt;',['../structrpp_1_1details_1_1ref__count__on__subscribe__t.html',1,'rpp::details']]],
+  ['ref_5fcount_5fon_5fsubscribe_5ft_3c_20rpp_3a_3aconnectable_5fobservable_3c_20originalobservable_2c_20subject_20_3e_20_3e_10',['ref_count_on_subscribe_t&lt; rpp::connectable_observable&lt; OriginalObservable, Subject &gt; &gt;',['../structrpp_1_1details_1_1ref__count__on__subscribe__t_3_01rpp_1_1connectable__observable_3_01_oria02afbb30282d4727b872472b2af56d8.html',1,'rpp::details']]],
   ['ref_5fcount_5ft_11',['ref_count_t',['../structrpp_1_1operators_1_1details_1_1ref__count__t.html',1,'rpp::operators::details']]],
   ['refcount_5fdisposable_12',['refcount_disposable',['../classrpp_1_1refcount__disposable.html',1,'rpp']]],
   ['refocunt_5fdisposable_5finner_13',['refocunt_disposable_inner',['../classrpp_1_1details_1_1refocunt__disposable__inner.html',1,'rpp::details']]],
