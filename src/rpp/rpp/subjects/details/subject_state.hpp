@@ -181,7 +181,7 @@ namespace rpp::subjects::details
 
             return process_state_unsafe(m_state, [&](shared_observers observers) {
                 m_state = std::move(new_val);
-                return std::move(observers); }, [](auto) { return shared_observers{}; });
+                return observers; }, [](auto) { return shared_observers{}; });
         }
 
     private:
