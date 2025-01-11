@@ -20,6 +20,7 @@
 #include <rpp/utils/utils.hpp>
 
 #include <algorithm>
+#include <cassert>
 #include <list>
 #include <memory>
 #include <mutex>
@@ -83,7 +84,7 @@ namespace rpp::subjects::details
 
             void shrink(size_t new_size)
             {
-                if (new_size > m_size) throw std::out_of_range{"shrink: new_size > m_size"};
+                assert(new_size < m_size);
                 m_size = new_size;
             }
 
