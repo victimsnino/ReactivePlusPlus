@@ -112,25 +112,21 @@ namespace rpp::subjects::details
         void on_next(const Type& v)
         {
             std::unique_lock observers_lock{m_mutex};
+            process_state_unsafe(m_state, [&](shared_observers observers) {
+                if (!observers)
+                    return;
 
-            if (!std::holds_alternative<shared_observers>(m_state))
-                return;
+                auto       itr  = observers->cbegin();
+                const auto size = observers->size();
 
-            // we are getting copy of curent deque and obtaining CURRENT begin/end of in case of some new observer would be added during on_next call
-            const auto observers = std::get<shared_observers>(m_state);
-            if (!observers)
-                return;
+                observers_lock.unlock();
 
-            auto       itr  = observers->cbegin();
-            const auto size = observers->size();
-
-            observers_lock.unlock();
-
-            std::lock_guard lock{m_serialized_mutex};
-            for (size_t i = 0; i < size; ++i)
-            {
-                (*(itr++))->on_next(v);
-            }
+                std::lock_guard lock{m_serialized_mutex};
+                for (size_t i = 0; i < size; ++i)
+                {
+                    (*(itr++))->on_next(v);
+                }
+            });
         }
 
         void on_error(const std::exception_ptr& err)
@@ -174,19 +170,18 @@ namespace rpp::subjects::details
             return subs;
         }
 
-        static void process_state_unsafe(const state_t& state, const auto&... actions)
+        static auto process_state_unsafe(const state_t& state, const auto&... actions)
         {
-            std::visit(rpp::utils::overloaded{actions..., rpp::utils::empty_function_any_t{}}, state);
+            return std::visit(rpp::utils::overloaded{actions..., rpp::utils::empty_function_any_t{}}, state);
         }
 
         shared_observers exchange_observers_under_lock_if_there(state_t&& new_val)
         {
             std::lock_guard lock{m_mutex};
 
-            if (!std::holds_alternative<shared_observers>(m_state))
-                return {};
-
-            return std::get<shared_observers>(std::exchange(m_state, std::move(new_val)));
+            return process_state_unsafe(m_state, [&](shared_observers observers) {
+                m_state = std::move(new_val);
+                return std::move(observers); }, [](auto) { return shared_observers{}; });
         }
 
     private:
