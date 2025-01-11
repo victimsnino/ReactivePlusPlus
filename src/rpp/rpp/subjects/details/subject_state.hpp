@@ -187,7 +187,7 @@ namespace rpp::subjects::details
             [&](shared_observers observers) 
             {
                 m_state = std::move(new_val);
-                return std::move(observers); 
+                return observers; 
             }, 
             [](auto) 
             { 
