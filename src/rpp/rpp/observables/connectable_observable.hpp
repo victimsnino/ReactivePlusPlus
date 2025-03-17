@@ -143,7 +143,7 @@ namespace rpp
         }
 
         template<typename Op>
-        auto operator|(Op&& op)&&
+        auto operator|(Op&& op) &&
         {
             if constexpr (std::invocable<std::decay_t<Op>, connectable_observable&&>)
             {
@@ -161,7 +161,7 @@ namespace rpp
         }
 
         template<typename Op>
-        auto pipe(Op && op)&&
+        auto pipe(Op && op) &&
         {
             return std::move(*this) | std::forward<Op>(op);
         }
@@ -170,7 +170,7 @@ namespace rpp
         {
             return rpp::dynamic_connectable_observable<Subject>{m_original_observable.as_dynamic(), m_subject};
         }
-        auto as_dynamic_connectable()&&
+        auto as_dynamic_connectable() &&
         {
             return rpp::dynamic_connectable_observable<Subject>{std::move(m_original_observable).as_dynamic(), std::move(m_subject)};
         }
