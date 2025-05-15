@@ -138,7 +138,7 @@ namespace rpp::operators::details
 
         static schedulers::optional_delay_to drain_queue(const std::shared_ptr<delay_disposable<Observer, Worker, Container>>& disposable)
         {
-            while (true)
+            for (bool just_schedule = false; ; just_schedule = true)
             {
                 std::unique_lock lock{disposable->mutex};
                 if (disposable->queue.empty())
@@ -148,7 +148,7 @@ namespace rpp::operators::details
                 }
 
                 auto& top = disposable->queue.front();
-                if (top.time_point > disposable->worker.now())
+                if (just_schedule || top.time_point > disposable->worker.now())
                     return schedulers::optional_delay_to{top.time_point};
 
                 auto item = std::move(top.value);

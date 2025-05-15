@@ -24,7 +24,6 @@
 
 namespace
 {
-
     class manual_scheduler final
     {
     public:
@@ -176,9 +175,11 @@ TEST_CASE("delay delays observable's emissions")
         }
     }
 
-    SUBCASE("observable of -1-| but with invoking schedulable after subscription")
+    SUBCASE("observable of -1-2-| but with invoking schedulable after subscription")
     {
-        rpp::source::just(1)
+        const auto now = rpp::schedulers::test_scheduler::worker_strategy::now();
+
+        rpp::source::just(1, 2)
             | rpp::ops::delay(delay_duration, scheduler)
             | subscribe_with_delay([]() { return rpp::schedulers::test_scheduler::worker_strategy::now(); });
 
@@ -197,12 +198,15 @@ TEST_CASE("delay delays observable's emissions")
         }
 
         scheduler.time_advance(delay_duration);
+        scheduler.time_advance(delay_duration);
 
-        SUBCASE("should see -1-|")
+        SUBCASE("should see -1-2-|")
         {
-            CHECK(mock.get_received_values() == std::vector<int>{1});
+            CHECK(mock.get_received_values() == std::vector<int>{1, 2});
             CHECK(mock.get_on_completed_count() == 1);
             CHECK(mock.get_on_error_count() == 0);
+            CHECK(scheduler.get_schedulings() == std::vector{now + delay_duration, now + delay_duration, now + delay_duration});
+            CHECK(scheduler.get_executions() == std::vector{now + delay_duration, now + delay_duration, now + delay_duration});
         }
     }
     SUBCASE("observable of -1-x but with invoking schedulable after subscription")
