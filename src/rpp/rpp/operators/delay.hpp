@@ -138,7 +138,7 @@ namespace rpp::operators::details
 
         static schedulers::optional_delay_to drain_queue(const std::shared_ptr<delay_disposable<Observer, Worker, Container>>& disposable)
         {
-            for (bool just_schedule = false; ; just_schedule = true)
+            for (bool just_schedule = false;; just_schedule = true)
             {
                 std::unique_lock lock{disposable->mutex};
                 if (disposable->queue.empty())
