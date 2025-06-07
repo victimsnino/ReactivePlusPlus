@@ -185,6 +185,10 @@ namespace rpp::operators
     auto on_error_resume_next(Selector&& selector);
 
     template<typename Notifier>
+        requires rpp::constraint::observable<std::invoke_result_t<Notifier>>
+    auto repeat_when(Notifier&& notifier);
+
+    template<typename Notifier>
         requires rpp::constraint::observable<std::invoke_result_t<Notifier, std::exception_ptr>>
     auto retry_when(Notifier&& notifier);
 

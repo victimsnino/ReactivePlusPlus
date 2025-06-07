@@ -97,7 +97,7 @@ namespace rpp::operators
      * @snippet retry_when.cpp retry_when delay
      * @snippet retry_when.cpp retry_when
      *
-     * @ingroup error_handling_operators
+     * @ingroup utility_operators
      * @see https://reactivex.io/documentation/operators/retry.html
      */
     template<typename TNotifier>

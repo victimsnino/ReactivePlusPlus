@@ -174,6 +174,7 @@
 #include <rpp/operators/finally.hpp>
 #include <rpp/operators/observe_on.hpp>
 #include <rpp/operators/repeat.hpp>
+#include <rpp/operators/repeat_when.hpp>
 #include <rpp/operators/subscribe_on.hpp>
 #include <rpp/operators/tap.hpp>
 #include <rpp/operators/timeout.hpp>
