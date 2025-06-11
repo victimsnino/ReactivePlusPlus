@@ -146,6 +146,11 @@ Functions</h2></td></tr>
 <tr class="memitem:ga41ef49dc75a3eadb0eb3fda7c3692c40" id="r_ga41ef49dc75a3eadb0eb3fda7c3692c40"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ga41ef49dc75a3eadb0eb3fda7c3692c40">rpp::operators::repeat</a> ()</td></tr>
 <tr class="memdesc:ga41ef49dc75a3eadb0eb3fda7c3692c40"><td class="mdescLeft">&#160;</td><td class="mdescRight">Repeats the Observabe's sequence of emissions infinite amount of times via re-subscribing on it during <code>on_completed</code>.  <br /></td></tr>
 <tr class="separator:ga41ef49dc75a3eadb0eb3fda7c3692c40"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5a88508cf0612b378bdca505434ff1b1" id="r_ga5a88508cf0612b378bdca505434ff1b1"><td class="memTemplParams" colspan="2">template&lt;typename TNotifier&gt; <br />
+requires <a class="el" href="conceptrpp_1_1constraint_1_1observable.html">rpp::constraint::observable</a>&lt;std::invoke_result_t&lt;TNotifier, std::exception_ptr&gt;&gt;</td></tr>
+<tr class="memitem:ga5a88508cf0612b378bdca505434ff1b1"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#ga5a88508cf0612b378bdca505434ff1b1">rpp::operators::retry_when</a> (TNotifier &amp;&amp;notifier)</td></tr>
+<tr class="memdesc:ga5a88508cf0612b378bdca505434ff1b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">If an error occurs, invoke <code class="param">notifier</code> and when returned observable emits a value resubscribe to the source observable. If the notifier throws or returns an error/empty observable, then error/completed emission is forwarded to original subscription.  <br /></td></tr>
+<tr class="separator:ga5a88508cf0612b378bdca505434ff1b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga149309d4b2e0f1201f1ab42597ace8ac" id="r_ga149309d4b2e0f1201f1ab42597ace8ac"><td class="memTemplParams" colspan="2">template&lt;<a class="el" href="conceptrpp_1_1constraint_1_1decayed__type.html">rpp::constraint::decayed_type</a> Type, <a class="el" href="conceptrpp_1_1constraint_1_1observer__strategy.html">rpp::constraint::observer_strategy</a>&lt; Type &gt; ObserverStrategy&gt; </td></tr>
 <tr class="memitem:ga149309d4b2e0f1201f1ab42597ace8ac"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#ga149309d4b2e0f1201f1ab42597ace8ac">rpp::operators::subscribe</a> (<a class="el" href="classrpp_1_1observer.html">observer</a>&lt; Type, ObserverStrategy &gt; &amp;&amp;<a class="el" href="classrpp_1_1observer.html">observer</a>)</td></tr>
 <tr class="memdesc:ga149309d4b2e0f1201f1ab42597ace8ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Subscribes passed observer to emissions from this observable.  <br /></td></tr>
@@ -619,6 +624,83 @@ template&lt;<a class="el" href="conceptrpp_1_1schedulers_1_1constraint_1_1schedu
 <div class="line">    <span class="comment">// Output: 1 2 3 1 2 3 completed</span></div>
 </div><!-- fragment --></dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/repeat.html">https://reactivex.io/documentation/operators/repeat.html</a> </dd></dl>
+
+</div>
+</div>
+<a id="ga5a88508cf0612b378bdca505434ff1b1" name="ga5a88508cf0612b378bdca505434ff1b1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga5a88508cf0612b378bdca505434ff1b1">&#9670;&#160;</a></span>retry_when()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename TNotifier&gt; <br />
+requires <a class="el" href="conceptrpp_1_1constraint_1_1observable.html">rpp::constraint::observable</a>&lt;std::invoke_result_t&lt;TNotifier, std::exception_ptr&gt;&gt;</div>
+      <table class="memname">
+        <tr>
+          <td class="memname">auto rpp::operators::retry_when </td>
+          <td>(</td>
+          <td class="paramtype">TNotifier &amp;&amp;</td>          <td class="paramname"><span class="paramname"><em>notifier</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>If an error occurs, invoke <code class="param">notifier</code> and when returned observable emits a value resubscribe to the source observable. If the notifier throws or returns an error/empty observable, then error/completed emission is forwarded to original subscription. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">notifier</td><td>callable taking a std::exception_ptr and returning observable notifying when to resubscribe</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section warning"><dt>Warning</dt><dd>retry_when along with other re-subscribing operators needs to be carefully used with hot observables, as re-subscribing to a hot observable can have unwanted behaviors. For example, a hot observable behind a replay subject can indefinitely yield an error on each re-subscription and using retry_when on it would lead to an infinite execution.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd><code>#include &lt;<a class="el" href="retry__when_8hpp_source.html">rpp/operators/retry_when.hpp</a>&gt;</code></dd></dl>
+<dl class="section user"><dt>Examples:</dt><dd><div class="fragment"><div class="line">    <span class="keywordtype">size_t</span> retry_count = 0;</div>
+<div class="line">    <a class="code hl_function" href="group__creational__operators.html#gae68c87e7ae3a505258b733082bf68513">rpp::source::create&lt;std::string&gt;</a>([&amp;retry_count](<span class="keyword">const</span> <span class="keyword">auto</span>&amp; sub) {</div>
+<div class="line">        <span class="keywordflow">if</span> (++retry_count != 4)</div>
+<div class="line">        {</div>
+<div class="line">            sub.on_error({});</div>
+<div class="line">        }</div>
+<div class="line">        <span class="keywordflow">else</span></div>
+<div class="line">        {</div>
+<div class="line">            sub.on_next(std::string{<span class="stringliteral">&quot;success&quot;</span>});</div>
+<div class="line">            sub.on_completed();</div>
+<div class="line">        }</div>
+<div class="line">    })</div>
+<div class="line">        | rpp::operators::retry_when([](<span class="keyword">const</span> std::exception_ptr&amp;) {</div>
+<div class="line">              <span class="keywordflow">return</span> <a class="code hl_function" href="group__creational__operators.html#gae7248892783797dda894e18b2b499586">rpp::source::timer</a>(std::chrono::seconds{5}, <a class="code hl_class" href="classrpp_1_1schedulers_1_1current__thread.html">rpp::schedulers::current_thread</a>{});</div>
+<div class="line">          })</div>
+<div class="line">        | <a class="code hl_function" href="#ga149309d4b2e0f1201f1ab42597ace8ac">rpp::operators::subscribe</a>([](<span class="keyword">const</span> std::string&amp; v) { std::cout &lt;&lt; v &lt;&lt; std::endl; });</div>
+<div class="line">    <span class="comment">// Source observable is resubscribed after 5 seconds on each error emission</span></div>
+</div><!-- fragment --> <div class="fragment"><div class="line">    retry_count = 0;</div>
+<div class="line">    <a class="code hl_function" href="group__creational__operators.html#gae68c87e7ae3a505258b733082bf68513">rpp::source::create&lt;std::string&gt;</a>([&amp;retry_count](<span class="keyword">const</span> <span class="keyword">auto</span>&amp; sub) {</div>
+<div class="line">        <span class="keywordflow">if</span> (++retry_count != 4)</div>
+<div class="line">        {</div>
+<div class="line">            sub.on_error({});</div>
+<div class="line">        }</div>
+<div class="line">        <span class="keywordflow">else</span></div>
+<div class="line">        {</div>
+<div class="line">            sub.on_next(std::string{<span class="stringliteral">&quot;success&quot;</span>});</div>
+<div class="line">            sub.on_completed();</div>
+<div class="line">        }</div>
+<div class="line">    })</div>
+<div class="line">        | rpp::operators::retry_when([](<span class="keyword">const</span> std::exception_ptr&amp; ep) {</div>
+<div class="line">              <span class="keywordflow">try</span></div>
+<div class="line">              {</div>
+<div class="line">                  std::rethrow_exception(ep);</div>
+<div class="line">              }</div>
+<div class="line">              <span class="keywordflow">catch</span> (<span class="keyword">const</span> std::runtime_error&amp;)</div>
+<div class="line">              {</div>
+<div class="line">                  <span class="keywordflow">return</span> <a class="code hl_function" href="group__creational__operators.html#gae7248892783797dda894e18b2b499586">rpp::source::timer</a>(std::chrono::seconds{5}, <a class="code hl_class" href="classrpp_1_1schedulers_1_1current__thread.html">rpp::schedulers::current_thread</a>{});</div>
+<div class="line">              }</div>
+<div class="line">              <span class="keywordflow">catch</span> (...)</div>
+<div class="line">              {</div>
+<div class="line">                  <span class="keywordflow">throw</span>;</div>
+<div class="line">              }</div>
+<div class="line">          })</div>
+<div class="line">        | <a class="code hl_function" href="#ga149309d4b2e0f1201f1ab42597ace8ac">rpp::operators::subscribe</a>([](<span class="keyword">const</span> std::string&amp; v) { std::cout &lt;&lt; v &lt;&lt; std::endl; });</div>
+<div class="line">    <span class="comment">// Source observable is resubscribed after 5 seconds only on particular error emissions</span></div>
+</div><!-- fragment --></dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/retry.html">https://reactivex.io/documentation/operators/retry.html</a> </dd></dl>
 
 </div>
 </div>

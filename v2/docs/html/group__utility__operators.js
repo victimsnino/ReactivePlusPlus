@@ -7,6 +7,7 @@ var group__utility__operators =
     [ "rpp::operators::observe_on", "group__utility__operators.html#ga3feb1b1258c7e3e72c151abf176c30c4", null ],
     [ "rpp::operators::repeat", "group__utility__operators.html#ga41ef49dc75a3eadb0eb3fda7c3692c40", null ],
     [ "rpp::operators::repeat", "group__utility__operators.html#ga96a3c17903a50c2f6dfd66d8b90a96f2", null ],
+    [ "rpp::operators::retry_when", "group__utility__operators.html#ga5a88508cf0612b378bdca505434ff1b1", null ],
     [ "rpp::operators::subscribe", "group__utility__operators.html#gac5f97d436e04e578406fc86af36cab79", null ],
     [ "rpp::operators::subscribe", "group__utility__operators.html#ga149309d4b2e0f1201f1ab42597ace8ac", null ],
     [ "rpp::operators::subscribe", "group__utility__operators.html#ga0feb478d994eb22d20dc4f66b340bddc", null ],

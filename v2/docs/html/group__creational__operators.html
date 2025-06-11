@@ -124,6 +124,11 @@ Functions</h2></td></tr>
 <tr class="memitem:gab5cc2df8f7221b124d67d66de60a7bcd" id="r_gab5cc2df8f7221b124d67d66de60a7bcd"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#gab5cc2df8f7221b124d67d66de60a7bcd">rpp::operators::concat</a> ()</td></tr>
 <tr class="memdesc:gab5cc2df8f7221b124d67d66de60a7bcd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Make observable which would merge emissions from underlying observables but without overlapping (current observable completes THEN next started to emit its values)  <br /></td></tr>
 <tr class="separator:gab5cc2df8f7221b124d67d66de60a7bcd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga074d316f5d69cc22699294204066662c" id="r_ga074d316f5d69cc22699294204066662c"><td class="memTemplParams" colspan="2">template&lt;typename TNotifier&gt; <br />
+requires <a class="el" href="conceptrpp_1_1constraint_1_1observable.html">rpp::constraint::observable</a>&lt;std::invoke_result_t&lt;TNotifier&gt;&gt;</td></tr>
+<tr class="memitem:ga074d316f5d69cc22699294204066662c"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#ga074d316f5d69cc22699294204066662c">rpp::operators::repeat_when</a> (TNotifier &amp;&amp;notifier)</td></tr>
+<tr class="memdesc:ga074d316f5d69cc22699294204066662c"><td class="mdescLeft">&#160;</td><td class="mdescRight">If observable completes, invoke <code class="param">notifier</code> and when returned observable emits a value resubscribe to the source observable. If the notifier throws or returns an error/empty observable, then error/completed emission is forwarded to original subscription.  <br /></td></tr>
+<tr class="separator:ga074d316f5d69cc22699294204066662c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gab6cfd9da2e3590fd199c9972477e04df" id="r_gab6cfd9da2e3590fd199c9972477e04df"><td class="memTemplParams" colspan="2">template&lt;constraint::memory_model MemoryModel, <a class="el" href="conceptrpp_1_1constraint_1_1observable.html">rpp::constraint::observable</a> TObservable, rpp::constraint::observable... TObservables&gt; <br />
 requires (std::same_as&lt;rpp::utils::extract_observable_type_t&lt;TObservable&gt;, rpp::utils::extract_observable_type_t&lt;TObservables&gt;&gt; &amp;&amp; ...)</td></tr>
 <tr class="memitem:gab6cfd9da2e3590fd199c9972477e04df"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#gab6cfd9da2e3590fd199c9972477e04df">rpp::source::concat</a> (TObservable &amp;&amp;obs, TObservables &amp;&amp;... others)</td></tr>
@@ -872,6 +877,36 @@ template&lt;constraint::decayed_type Type&gt; </div>
 <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/empty-never-throw.html">https://reactivex.io/documentation/operators/empty-never-throw.html</a> </dd></dl>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="take_until_8cpp-example.html#a2">take_until.cpp</a>.</dd>
 </dl>
+
+</div>
+</div>
+<a id="ga074d316f5d69cc22699294204066662c" name="ga074d316f5d69cc22699294204066662c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga074d316f5d69cc22699294204066662c">&#9670;&#160;</a></span>repeat_when()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename TNotifier&gt; <br />
+requires <a class="el" href="conceptrpp_1_1constraint_1_1observable.html">rpp::constraint::observable</a>&lt;std::invoke_result_t&lt;TNotifier&gt;&gt;</div>
+      <table class="memname">
+        <tr>
+          <td class="memname">auto rpp::operators::repeat_when </td>
+          <td>(</td>
+          <td class="paramtype">TNotifier &amp;&amp;</td>          <td class="paramname"><span class="paramname"><em>notifier</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>If observable completes, invoke <code class="param">notifier</code> and when returned observable emits a value resubscribe to the source observable. If the notifier throws or returns an error/empty observable, then error/completed emission is forwarded to original subscription. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">notifier</td><td>callable taking no arguments and returning observable notifying when to resubscribe</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd><code>#include &lt;<a class="el" href="repeat__when_8hpp_source.html">rpp/operators/repeat_when.hpp</a>&gt;</code></dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/repeat.html">https://reactivex.io/documentation/operators/repeat.html</a> </dd></dl>
 
 </div>
 </div>

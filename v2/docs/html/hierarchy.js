@@ -186,8 +186,8 @@ var hierarchy =
             ] ],
             [ "rpp::operators::details::merge_disposable< TObserver >", "classrpp_1_1operators_1_1details_1_1merge__disposable.html", null ],
             [ "rpp::operators::details::on_error_resume_next_disposable< TObserver >", "structrpp_1_1operators_1_1details_1_1on__error__resume__next__disposable.html", null ],
+            [ "rpp::operators::details::repeating_state< TObserver, TObservable, TNotifier >", "structrpp_1_1operators_1_1details_1_1repeating__state.html", null ],
             [ "rpp::operators::details::retry_state_t< TObserver, Observable >", "structrpp_1_1operators_1_1details_1_1retry__state__t.html", null ],
-            [ "rpp::operators::details::retry_when_state< TObserver, TObservable, TNotifier >", "structrpp_1_1operators_1_1details_1_1retry__when__state.html", null ],
             [ "rpp::operators::details::take_until_disposable< TObserver >", "classrpp_1_1operators_1_1details_1_1take__until__disposable.html", null ],
             [ "rpp::operators::details::with_latest_from_disposable< Observer, TSelector, RestArgs >", "classrpp_1_1operators_1_1details_1_1with__latest__from__disposable.html", null ],
             [ "rpp::refcount_disposable", "classrpp_1_1refcount__disposable.html", null ],
@@ -364,6 +364,7 @@ var hierarchy =
     [ "rpp::operators::details::on_error_resume_next_t< Selector >::operator_traits< T >", "structrpp_1_1operators_1_1details_1_1on__error__resume__next__t_1_1operator__traits.html", null ],
     [ "rpp::operators::details::reduce_no_seed_t< Accumulator >::operator_traits< T >", "structrpp_1_1operators_1_1details_1_1reduce__no__seed__t_1_1operator__traits.html", null ],
     [ "rpp::operators::details::reduce_t< Seed, Accumulator >::operator_traits< T >", "structrpp_1_1operators_1_1details_1_1reduce__t_1_1operator__traits.html", null ],
+    [ "rpp::operators::details::repeat_when_t< TNotifier >::operator_traits< T >", "structrpp_1_1operators_1_1details_1_1repeat__when__t_1_1operator__traits.html", null ],
     [ "rpp::operators::details::retry_t::operator_traits< T >", "structrpp_1_1operators_1_1details_1_1retry__t_1_1operator__traits.html", null ],
     [ "rpp::operators::details::retry_when_t< TNotifier >::operator_traits< T >", "structrpp_1_1operators_1_1details_1_1retry__when__t_1_1operator__traits.html", null ],
     [ "rpp::operators::details::scan_no_seed_t< Fn >::operator_traits< T >", "structrpp_1_1operators_1_1details_1_1scan__no__seed__t_1_1operator__traits.html", null ],
@@ -409,7 +410,13 @@ var hierarchy =
     [ "rpp::details::ref_count_on_subscribe_t< rpp::connectable_observable< OriginalObservable, Subject > >", "structrpp_1_1details_1_1ref__count__on__subscribe__t_3_01rpp_1_1connectable__observable_3_01_oria02afbb30282d4727b872472b2af56d8.html", null ],
     [ "rpp::operators::details::ref_count_t", "structrpp_1_1operators_1_1details_1_1ref__count__t.html", null ],
     [ "rpp::operators::details::repeat_t", "structrpp_1_1operators_1_1details_1_1repeat__t.html", null ],
+    [ "rpp::operators::details::repeat_when_t< TNotifier >", "structrpp_1_1operators_1_1details_1_1repeat__when__t.html", null ],
     [ "rpp::utils::repeated_container< T >", "classrpp_1_1utils_1_1repeated__container.html", null ],
+    [ "rpp::operators::details::repeating_inner_observer_strategy< TOuterStrategy, TObserver, TObservable, TNotifier >", "structrpp_1_1operators_1_1details_1_1repeating__inner__observer__strategy.html", null ],
+    [ "rpp::operators::details::repeating_observer_strategy< TObserver, TObservable, TNotifier >", "structrpp_1_1operators_1_1details_1_1repeating__observer__strategy.html", [
+      [ "rpp::operators::details::repeat_when_impl_strategy< TObserver, TObservable, TNotifier >", "structrpp_1_1operators_1_1details_1_1repeat__when__impl__strategy.html", null ],
+      [ "rpp::operators::details::retry_when_impl_strategy< TObserver, TObservable, TNotifier >", "structrpp_1_1operators_1_1details_1_1retry__when__impl__strategy.html", null ]
+    ] ],
     [ "rpp::subjects::details::replay_subject_base< Type, Serialized >", "classrpp_1_1subjects_1_1details_1_1replay__subject__base.html", null ],
     [ "rpp::subjects::details::replay_subject_base< Type, false >", "classrpp_1_1subjects_1_1details_1_1replay__subject__base.html", [
       [ "rpp::subjects::replay_subject< Type >", "classrpp_1_1subjects_1_1replay__subject.html", null ]
@@ -420,8 +427,6 @@ var hierarchy =
     [ "rpp::utils::rethrow_error_t", "structrpp_1_1utils_1_1rethrow__error__t.html", null ],
     [ "rpp::operators::details::retry_observer_strategy< TObserver, TObservable >", "structrpp_1_1operators_1_1details_1_1retry__observer__strategy.html", null ],
     [ "rpp::operators::details::retry_t", "structrpp_1_1operators_1_1details_1_1retry__t.html", null ],
-    [ "rpp::operators::details::retry_when_impl_inner_strategy< TObserver, TObservable, TNotifier >", "structrpp_1_1operators_1_1details_1_1retry__when__impl__inner__strategy.html", null ],
-    [ "rpp::operators::details::retry_when_impl_strategy< TObserver, TObservable, TNotifier >", "structrpp_1_1operators_1_1details_1_1retry__when__impl__strategy.html", null ],
     [ "rpp::operators::details::retry_when_t< TNotifier >", "structrpp_1_1operators_1_1details_1_1retry__when__t.html", null ],
     [ "rpp::utils::return_true", "structrpp_1_1utils_1_1return__true.html", null ],
     [ "rpp::schedulers::run_loop", "classrpp_1_1schedulers_1_1run__loop.html", null ],

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.13.2"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ReactivePlusPlus: src/rpp/rpp/operators/retry_when.hpp Source File</title>
+<title>ReactivePlusPlus: src/rpp/rpp/operators/repeat_when.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -84,7 +84,7 @@ $(function() {
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(function(){initNavTree('retry__when_8hpp_source.html',''); initResizable(true); });
+$(function(){initNavTree('repeat__when_8hpp_source.html',''); initResizable(true); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -110,7 +110,7 @@ $(function(){initNavTree('retry__when_8hpp_source.html',''); initResizable(true)
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">retry_when.hpp</div></div>
+  <div class="headertitle"><div class="title">repeat_when.hpp</div></div>
 </div><!--header-->
 <div class="contents">
 <div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">//                  ReactivePlusPlus library</span></div>
@@ -136,9 +136,9 @@ $(function(){initNavTree('retry__when_8hpp_source.html',''); initResizable(true)
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>             <span class="keyword">typename</span> TObservable,</div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>             <span class="keyword">typename</span> TNotifier&gt;</div>
 <div class="foldopen" id="foldopen00023" data-start="{" data-end="};">
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="structrpp_1_1operators_1_1details_1_1retry__when__impl__strategy.html">   23</a></span>    <span class="keyword">struct </span><a class="code hl_struct" href="structrpp_1_1operators_1_1details_1_1retry__when__impl__strategy.html">retry_when_impl_strategy</a> final : <span class="keyword">public</span> <a class="code hl_struct" href="structrpp_1_1operators_1_1details_1_1repeating__observer__strategy.html">repeating_observer_strategy</a>&lt;TObserver, TObservable, TNotifier&gt;</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="structrpp_1_1operators_1_1details_1_1repeat__when__impl__strategy.html">   23</a></span>    <span class="keyword">struct </span><a class="code hl_struct" href="structrpp_1_1operators_1_1details_1_1repeat__when__impl__strategy.html">repeat_when_impl_strategy</a> final : <span class="keyword">public</span> <a class="code hl_struct" href="structrpp_1_1operators_1_1details_1_1repeating__observer__strategy.html">repeating_observer_strategy</a>&lt;TObserver, TObservable, TNotifier&gt;</div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    {</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>        <span class="keyword">using </span>self_type = <a class="code hl_struct" href="structrpp_1_1operators_1_1details_1_1retry__when__impl__strategy.html">retry_when_impl_strategy&lt;TObserver, TObservable, TNotifier&gt;</a>;</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>        <span class="keyword">using </span>self_type = <a class="code hl_struct" href="structrpp_1_1operators_1_1details_1_1repeat__when__impl__strategy.html">repeat_when_impl_strategy&lt;TObserver, TObservable, TNotifier&gt;</a>;</div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>        <span class="keyword">using </span><a class="code hl_struct" href="structrpp_1_1operators_1_1details_1_1repeating__observer__strategy.html">repeating_observer_strategy</a>&lt;TObserver, TObservable, TNotifier&gt;::state;</div>
 <div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
@@ -150,32 +150,32 @@ $(function(){initNavTree('retry__when_8hpp_source.html',''); initResizable(true)
 <div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>        <span class="keywordtype">void</span> on_error(<span class="keyword">const</span> std::exception_ptr&amp; err)<span class="keyword"> const</span></div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="keyword">        </span>{</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>            <span class="keywordflow">try</span></div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>            {</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>                state-&gt;notifier(err).subscribe(<a class="code hl_struct" href="structrpp_1_1operators_1_1details_1_1repeating__inner__observer__strategy.html">repeating_inner_observer_strategy&lt;self_type, TObserver, TObservable, TNotifier&gt;</a>{this-&gt;state});</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>            }</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>            <span class="keywordflow">catch</span> (...)</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>            {</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>                state-&gt;observer.on_error(std::current_exception());</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>            }</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>        }</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        <span class="keywordtype">void</span> on_completed()<span class="keyword"> const</span></div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="keyword">        </span>{</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>            state-&gt;observer.on_completed();</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>            state-&gt;observer.on_error(err);</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>        }</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>        <span class="keywordtype">void</span> on_completed()<span class="keyword"> const</span></div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="keyword">        </span>{</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>            <span class="keywordflow">try</span></div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>            {</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>                state-&gt;notifier().subscribe(<a class="code hl_struct" href="structrpp_1_1operators_1_1details_1_1repeating__inner__observer__strategy.html">repeating_inner_observer_strategy&lt;self_type, TObserver, TObservable, TNotifier&gt;</a>{this-&gt;state});</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>            }</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>            <span class="keywordflow">catch</span> (...)</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>            {</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>                state-&gt;observer.on_error(std::current_exception());</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>            }</div>
 <div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>        }</div>
 <div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    };</div>
 </div>
 <div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
 <div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    <span class="keyword">template</span>&lt;rpp::constra<span class="keywordtype">int</span>::decayed_type TNotifier&gt;</div>
 <div class="foldopen" id="foldopen00054" data-start="{" data-end="};">
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno"><a class="line" href="structrpp_1_1operators_1_1details_1_1retry__when__t.html">   54</a></span>    <span class="keyword">struct </span><a class="code hl_struct" href="structrpp_1_1operators_1_1details_1_1retry__when__t.html">retry_when_t</a></div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno"><a class="line" href="structrpp_1_1operators_1_1details_1_1repeat__when__t.html">   54</a></span>    <span class="keyword">struct </span><a class="code hl_struct" href="structrpp_1_1operators_1_1details_1_1repeat__when__t.html">repeat_when_t</a></div>
 <div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    {</div>
 <div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>        RPP_NO_UNIQUE_ADDRESS TNotifier notifier;</div>
 <div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
 <div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>        <span class="keyword">template</span>&lt;rpp::constra<span class="keywordtype">int</span>::decayed_type T&gt;</div>
 <div class="foldopen" id="foldopen00059" data-start="{" data-end="};">
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno"><a class="line" href="structrpp_1_1operators_1_1details_1_1retry__when__t_1_1operator__traits.html">   59</a></span>        <span class="keyword">struct </span><a class="code hl_struct" href="structrpp_1_1operators_1_1details_1_1retry__when__t_1_1operator__traits.html">operator_traits</a></div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno"><a class="line" href="structrpp_1_1operators_1_1details_1_1repeat__when__t_1_1operator__traits.html">   59</a></span>        <span class="keyword">struct </span><a class="code hl_struct" href="structrpp_1_1operators_1_1details_1_1repeat__when__t_1_1operator__traits.html">operator_traits</a></div>
 <div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>        {</div>
 <div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>            <span class="keyword">using </span>result_type = T;</div>
 <div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>        };</div>
@@ -192,7 +192,7 @@ $(function(){initNavTree('retry__when_8hpp_source.html',''); initResizable(true)
 <div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span> </div>
 <div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>            ptr-&gt;observer.set_upstream(d.as_weak());</div>
 <div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span> </div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>            drain&lt;retry_when_impl_strategy&lt;std::decay_t&lt;TObserver&gt;, std::decay_t&lt;TObservable&gt;, std::decay_t&lt;TNotifier&gt;&gt;&gt;(ptr);</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>            drain&lt;repeat_when_impl_strategy&lt;std::decay_t&lt;TObserver&gt;, std::decay_t&lt;TObservable&gt;, std::decay_t&lt;TNotifier&gt;&gt;&gt;(ptr);</div>
 <div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>        }</div>
 <div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    };</div>
 </div>
@@ -200,31 +200,31 @@ $(function(){initNavTree('retry__when_8hpp_source.html',''); initResizable(true)
 <div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span> </div>
 <div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span><span class="keyword">namespace </span>rpp::operators</div>
 <div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>{</div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> TNotifier&gt;</div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>        <span class="keyword">requires</span> <a class="code hl_concept" href="conceptrpp_1_1constraint_1_1observable.html">rpp::constraint::observable&lt;std::invoke_result_t&lt;TNotifier, std::exception_ptr&gt;</a>&gt;</div>
-<div class="foldopen" id="foldopen00105" data-start="{" data-end="}">
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno"><a class="line" href="group__utility__operators.html#ga5a88508cf0612b378bdca505434ff1b1">  105</a></span>    <span class="keyword">auto</span> retry_when(TNotifier&amp;&amp; notifier)</div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>    {</div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>        <span class="keywordflow">return</span> <a class="code hl_struct" href="structrpp_1_1operators_1_1details_1_1retry__when__t.html">details::retry_when_t&lt;std::decay_t&lt;TNotifier&gt;</a>&gt;{std::forward&lt;TNotifier&gt;(notifier)};</div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>    }</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> TNotifier&gt;</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>        <span class="keyword">requires</span> <a class="code hl_concept" href="conceptrpp_1_1constraint_1_1observable.html">rpp::constraint::observable&lt;std::invoke_result_t&lt;TNotifier&gt;</a>&gt;</div>
+<div class="foldopen" id="foldopen00096" data-start="{" data-end="}">
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno"><a class="line" href="group__creational__operators.html#ga074d316f5d69cc22699294204066662c">   96</a></span>    <span class="keyword">auto</span> repeat_when(TNotifier&amp;&amp; notifier)</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    {</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>        <span class="keywordflow">return</span> <a class="code hl_struct" href="structrpp_1_1operators_1_1details_1_1repeat__when__t.html">details::repeat_when_t&lt;std::decay_t&lt;TNotifier&gt;</a>&gt;{std::forward&lt;TNotifier&gt;(notifier)};</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    }</div>
 </div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>} <span class="comment">// namespace rpp::operators</span></div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>} <span class="comment">// namespace rpp::operators</span></div>
 <div class="ttc" id="aclassrpp_1_1disposable__wrapper__impl_html"><div class="ttname"><a href="classrpp_1_1disposable__wrapper__impl.html">rpp::disposable_wrapper_impl</a></div><div class="ttdoc">Main RPP wrapper over disposables.</div><div class="ttdef"><b>Definition</b> disposable_wrapper.hpp:142</div></div>
 <div class="ttc" id="aclassrpp_1_1observable_html"><div class="ttname"><a href="classrpp_1_1observable.html">rpp::observable</a></div><div class="ttdoc">Base class for any observable used in RPP. It handles core callbacks of observable.</div><div class="ttdef"><b>Definition</b> observable.hpp:38</div></div>
 <div class="ttc" id="aclassrpp_1_1observer_html"><div class="ttname"><a href="classrpp_1_1observer.html">rpp::observer</a></div><div class="ttdoc">Base class for any observer used in RPP. It handles core callbacks of observers. Objects of this clas...</div><div class="ttdef"><b>Definition</b> observer.hpp:172</div></div>
 <div class="ttc" id="aconceptrpp_1_1constraint_1_1observable_html"><div class="ttname"><a href="conceptrpp_1_1constraint_1_1observable.html">rpp::constraint::observable</a></div><div class="ttdef"><b>Definition</b> fwd.hpp:80</div></div>
 <div class="ttc" id="astructrpp_1_1details_1_1observables_1_1fixed__disposables__strategy_html"><div class="ttname"><a href="structrpp_1_1details_1_1observables_1_1fixed__disposables__strategy.html">rpp::details::observables::fixed_disposables_strategy</a></div><div class="ttdef"><b>Definition</b> disposables_strategy.hpp:29</div></div>
+<div class="ttc" id="astructrpp_1_1operators_1_1details_1_1repeat__when__impl__strategy_html"><div class="ttname"><a href="structrpp_1_1operators_1_1details_1_1repeat__when__impl__strategy.html">rpp::operators::details::repeat_when_impl_strategy</a></div><div class="ttdef"><b>Definition</b> repeat_when.hpp:24</div></div>
+<div class="ttc" id="astructrpp_1_1operators_1_1details_1_1repeat__when__t_1_1operator__traits_html"><div class="ttname"><a href="structrpp_1_1operators_1_1details_1_1repeat__when__t_1_1operator__traits.html">rpp::operators::details::repeat_when_t::operator_traits</a></div><div class="ttdef"><b>Definition</b> repeat_when.hpp:60</div></div>
+<div class="ttc" id="astructrpp_1_1operators_1_1details_1_1repeat__when__t_html"><div class="ttname"><a href="structrpp_1_1operators_1_1details_1_1repeat__when__t.html">rpp::operators::details::repeat_when_t</a></div><div class="ttdef"><b>Definition</b> repeat_when.hpp:55</div></div>
 <div class="ttc" id="astructrpp_1_1operators_1_1details_1_1repeating__inner__observer__strategy_html"><div class="ttname"><a href="structrpp_1_1operators_1_1details_1_1repeating__inner__observer__strategy.html">rpp::operators::details::repeating_inner_observer_strategy</a></div><div class="ttdef"><b>Definition</b> repeating_strategy.hpp:52</div></div>
 <div class="ttc" id="astructrpp_1_1operators_1_1details_1_1repeating__observer__strategy_html"><div class="ttname"><a href="structrpp_1_1operators_1_1details_1_1repeating__observer__strategy.html">rpp::operators::details::repeating_observer_strategy</a></div><div class="ttdef"><b>Definition</b> repeating_strategy.hpp:91</div></div>
-<div class="ttc" id="astructrpp_1_1operators_1_1details_1_1retry__when__impl__strategy_html"><div class="ttname"><a href="structrpp_1_1operators_1_1details_1_1retry__when__impl__strategy.html">rpp::operators::details::retry_when_impl_strategy</a></div><div class="ttdef"><b>Definition</b> retry_when.hpp:24</div></div>
-<div class="ttc" id="astructrpp_1_1operators_1_1details_1_1retry__when__t_1_1operator__traits_html"><div class="ttname"><a href="structrpp_1_1operators_1_1details_1_1retry__when__t_1_1operator__traits.html">rpp::operators::details::retry_when_t::operator_traits</a></div><div class="ttdef"><b>Definition</b> retry_when.hpp:60</div></div>
-<div class="ttc" id="astructrpp_1_1operators_1_1details_1_1retry__when__t_html"><div class="ttname"><a href="structrpp_1_1operators_1_1details_1_1retry__when__t.html">rpp::operators::details::retry_when_t</a></div><div class="ttdef"><b>Definition</b> retry_when.hpp:55</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_adaf39b9fc4fffd972703658707b0113.html">rpp</a></li><li class="navelem"><a class="el" href="dir_0afe0b2d744d0bd4513ad200b3c712f0.html">rpp</a></li><li class="navelem"><a class="el" href="dir_3591f6ab25936dd3deeec05839e478ca.html">operators</a></li><li class="navelem"><b>retry_when.hpp</b></li>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_adaf39b9fc4fffd972703658707b0113.html">rpp</a></li><li class="navelem"><a class="el" href="dir_0afe0b2d744d0bd4513ad200b3c712f0.html">rpp</a></li><li class="navelem"><a class="el" href="dir_3591f6ab25936dd3deeec05839e478ca.html">operators</a></li><li class="navelem"><b>repeat_when.hpp</b></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2 </li>
   </ul>
 </div>

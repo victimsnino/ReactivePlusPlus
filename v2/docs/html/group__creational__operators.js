@@ -15,6 +15,7 @@ var group__creational__operators =
     [ "rpp::source::just", "group__creational__operators.html#ga1edf47f176050dd414e28a1c0616b7c0", null ],
     [ "rpp::source::just", "group__creational__operators.html#ga65fe5e58c0179835d702de99475c86b3", null ],
     [ "rpp::source::never", "group__creational__operators.html#ga16c57281cc1b24605ec23b09ec880416", null ],
+    [ "rpp::operators::repeat_when", "group__creational__operators.html#ga074d316f5d69cc22699294204066662c", null ],
     [ "rpp::source::timer", "group__creational__operators.html#gae7248892783797dda894e18b2b499586", null ],
     [ "rpp::source::timer", "group__creational__operators.html#gab41bcf939ae57be84287d8ae8926846c", null ]
 ];

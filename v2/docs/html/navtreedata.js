@@ -50,8 +50,8 @@ var NAVTREEINDEX =
 [
 "annotated.html",
 "disposables_8hpp_source.html",
-"server__reactor_8hpp_source.html",
-"thread_pool_8cpp-example.html"
+"scan_8cpp-example.html",
+"take__while_8hpp_source.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronization';
