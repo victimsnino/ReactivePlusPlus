@@ -46,11 +46,7 @@ jobs:
     - name: Ensure Jinja2 available to Conan
       shell: bash
       run: |
-        if command -v pipx >/dev/null 2>&1; then
-          pipx inject --install conan "Jinja2>=3.1.5,<3.2"
-        else
           python -m pip install --upgrade "Jinja2>=3.1.5,<3.2"
-        fi
 
     - name: check cache
       uses: actions/cache@v4
