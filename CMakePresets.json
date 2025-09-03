@@ -38,7 +38,7 @@
       "inherits" : ["ci-flags"],
       "hidden": true,
       "cacheVariables": {
-        "CMAKE_CXX_FLAGS": "-fno-rtti -Wall -Werror -Wextra -Wpedantic -Wcast-qual -Wformat=2 -Wundef -Werror=float-equal -Wno-gnu-zero-variadic-macro-arguments -Wno-error=maybe-uninitialized -Wno-error=uninitialized -Wno-unknown-warning-option -Wmissing-template-arg-list-after-template-kw"
+        "CMAKE_CXX_FLAGS": "-fno-rtti -Wall -Werror -Wextra -Wpedantic -Wcast-qual -Wformat=2 -Wundef -Werror=float-equal -Wno-gnu-zero-variadic-macro-arguments -Wno-error=maybe-uninitialized -Wno-error=uninitialized -Wno-unknown-warning-option"
       }
     },
     {
@@ -57,6 +57,14 @@
       "inherits": ["flags-unix"],
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Release"
+      }
+    },
+    {
+      "name": "ci-macos",
+      "hidden": true,
+      "inherits": ["ci-unix"],
+      "cacheVariables": {
+        "CMAKE_CXX_FLAGS": "-Wmissing-template-arg-list-after-template-kw"
       }
     },
     {
@@ -219,7 +227,7 @@
     },
     {
       "name": "ci-macos-tests",
-      "inherits": ["ci-build", "build-tests", "build-examples", "build-qt", "build-grpc", "build-asio", "build-sfml", "ci-unix"]
+      "inherits": ["ci-build", "build-tests", "build-examples", "build-qt", "build-grpc", "build-asio", "build-sfml", "ci-macos"]
     },
     {
       "name": "ci-ubuntu-clang-tests",
@@ -242,7 +250,7 @@
 
     {
       "name": "ci-macos-benchmarks",
-      "inherits": ["ci-build", "build-benchmarks", "ci-unix"]
+      "inherits": ["ci-build", "build-benchmarks", "ci-macos"]
     },
     {
       "name": "ci-ubuntu-clang-benchmarks",
@@ -264,7 +272,7 @@
           "build-dir",
           "build-tests",
           "build-examples",
-          "ci-unix"
+          "ci-macos"
       ]
     },
     {
@@ -301,7 +309,7 @@
         "inherits": [
             "build-dir",
             "build-benchmarks",
-            "ci-unix"
+            "ci-macos"
         ]
     },
     {
