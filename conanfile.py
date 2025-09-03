@@ -32,7 +32,7 @@ class RppConan(ConanFile):
             self.requires("nanobench/4.3.11")
 
         if self.options.with_sfml:
-            self.requires("sfml/2.6.1", options={"audio": False})
+            self.requires("sfml/2.6.2", options={"audio": False})
 
         if self.options.with_grpc:
             self.requires("grpc/1.54.3", transitive_libs=True, transitive_headers=True)
