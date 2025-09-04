@@ -43,7 +43,7 @@ jobs:
     - name: Install jinja2
       if: matrix.config.os == 'ubuntu-22.04'
       run: |
-        sudo apt-get update -q && sudo apt-get install python-jinja2 -y -q
+        sudo apt-get update -q && sudo apt-get install python3-jinja2 -y -q
 
     - name: get conan
       uses: turtlebrowser/get-conan@main
