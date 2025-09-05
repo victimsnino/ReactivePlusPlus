@@ -44,8 +44,8 @@ class RppConan(ConanFile):
             self.requires("sfml/2.6.1", options={"audio": False})
 
         if self.options.with_grpc:
-            self.requires("grpc/1.72.0", transitive_libs=True, transitive_headers=True)
-            self.requires("protobuf/5.27.0")
+            self.requires("grpc/1.54.3", transitive_libs=True, transitive_headers=True)
+            self.requires("protobuf/3.21.12")
             self.requires("libmount/2.39", override=True)
 
         if self.options.with_asio:
@@ -53,3 +53,12 @@ class RppConan(ConanFile):
 
         if self.options.with_cmake:
             self.tool_requires("cmake/3.29.3")
+            
+    def generate(self):
+        deps = CMakeDeps(self)
+        deps.generate()
+        tc = CMakeToolchain(self)
+
+        if self.settings.compiler == "clang":
+            tc.extra_cxxflags.extend(['-Wno-missing-template-arg-list-after-template-kw'])
+        tc.generate()
