@@ -21,8 +21,8 @@ jobs:
   cache_deps:
     strategy:
       matrix:
-        config: [{name: ci-ubuntu-gcc,  os: ubuntu-latest},
-                {name: ci-ubuntu-clang, os: ubuntu-latest},
+        config: [{name: ci-ubuntu-gcc,  os: ubuntu-22.04},
+                {name: ci-ubuntu-clang, os: ubuntu-22.04},
                 {name: ci-windows,      os: windows-latest},
                 {name: ci-macos,        os: macos-latest}]
         build_type: [{config: Release}, {config: Debug}]
@@ -41,13 +41,6 @@ jobs:
 
     - name: get conan
       uses: turtlebrowser/get-conan@main
-
-    - name: Install deps
-      if: matrix.config.os == 'ubuntu-22.04'
-      run: |
-        sudo apt-get update -q
-        pip3 install pyyaml jinja2
-        sudo apt-get install libsystemd-dev python3-jinja2
 
     - name: check cache
       uses: actions/cache@v4
