@@ -59,6 +59,6 @@ class RppConan(ConanFile):
         deps.generate()
         tc = CMakeToolchain(self)
 
-        if self.settings.compiler == "clang":
+        if self.settings.compiler == "apple-clang":
             tc.extra_cxxflags.extend(['-Wno-missing-template-arg-list-after-template-kw'])
         tc.generate()
