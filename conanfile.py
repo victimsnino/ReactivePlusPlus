@@ -25,6 +25,12 @@ class RppConan(ConanFile):
 
     def configure(self):
         self.options["grpc/*"].with_libsystemd = False
+        self.options["grpc/*"].csharp_plugin = False
+        self.options["grpc/*"].node_plugin = False
+        self.options["grpc/*"].objective_c_plugin = False
+        self.options["grpc/*"].php_plugin = False
+        self.options["grpc/*"].python_plugin = False
+        self.options["grpc/*"].ruby_plugin = False
 
     def requirements(self):
         if self.options.with_tests:
