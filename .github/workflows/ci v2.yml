@@ -21,8 +21,8 @@ jobs:
   cache_deps:
     strategy:
       matrix:
-        config: [{name: ci-ubuntu-gcc,  os: ubuntu-22.04},
-                {name: ci-ubuntu-clang, os: ubuntu-22.04},
+        config: [{name: ci-ubuntu-gcc,  os: ubuntu-latest},
+                {name: ci-ubuntu-clang, os: ubuntu-latest},
                 {name: ci-windows,      os: windows-latest},
                 {name: ci-macos,        os: macos-latest}]
         build_type: [{config: Release}, {config: Debug}]
