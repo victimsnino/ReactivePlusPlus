@@ -44,8 +44,8 @@ class RppConan(ConanFile):
             self.requires("sfml/2.6.1", options={"audio": False})
 
         if self.options.with_grpc:
-            self.requires("grpc/1.54.3", transitive_libs=True, transitive_headers=True)
-            self.requires("protobuf/3.21.12")
+            self.requires("grpc/1.65.5", transitive_libs=True, transitive_headers=True)
+            self.requires("protobuf/5.26.1")
             self.requires("libmount/2.39", override=True)
 
         if self.options.with_asio:
