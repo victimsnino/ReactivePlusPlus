@@ -46,9 +46,8 @@ jobs:
       if: matrix.config.os == 'ubuntu-22.04'
       run: |
         sudo apt-get update -q
-        pip install pyyaml jinja2
+        pip3 install pyyaml jinja2
         sudo apt-get install python3-jinja2
-        sudo pacman -S python-jinja
 
     - name: check cache
       uses: actions/cache@v4
