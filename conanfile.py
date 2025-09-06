@@ -53,4 +53,3 @@ class RppConan(ConanFile):
 
         if self.options.with_cmake:
             self.tool_requires("cmake/3.29.3")
-
