@@ -54,11 +54,3 @@ class RppConan(ConanFile):
         if self.options.with_cmake:
             self.tool_requires("cmake/3.29.3")
 
-    def generate(self):
-        deps = CMakeDeps(self)
-        deps.generate()
-        tc = CMakeToolchain(self)
-
-        if self.settings.compiler == "apple-clang":
-            tc.extra_cxxflags.extend(['-Wno-missing-template-arg-list-after-template-kw'])
-        tc.generate()
