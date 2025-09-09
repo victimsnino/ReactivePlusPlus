@@ -49,10 +49,11 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "annotated.html",
-"disposables_8hpp_source.html",
-"scan_8cpp-example.html",
-"take__while_8hpp_source.html"
+"distinct__until__changed_8hpp_source.html",
+"schedulers_2details_2utils_8hpp_source.html",
+"take_until_8cpp-example.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronization';
 var SYNCOFFMSG = 'click to enable panel synchronization';
+var LISTOFALLMEMBERS = 'List of all members';

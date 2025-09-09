@@ -46,7 +46,7 @@ var searchData=
   ['contract_43',['Observable contract',['../index.html#autotoc_md3',1,'']]],
   ['convertible_5fto_5fany_44',['convertible_to_any',['../structrpp_1_1utils_1_1convertible__to__any.html',1,'rpp::utils']]],
   ['core_20concepts_45',['Core Concepts',['../index.html#autotoc_md2',1,'']]],
-  ['create_46',['create',['../group__creational__operators.html#gae68c87e7ae3a505258b733082bf68513',1,'rpp::source']]],
+  ['create_46',['create',['../group__creational__operators.html#gae68c87e7ae3a505258b733082bf68513',1,'rpp::source::create(OnSubscribe &amp;&amp;on_subscribe)'],['../group__creational__operators.html#gae68c87e7ae3a505258b733082bf68513',1,'rpp::source::create(OnSubscribe &amp;&amp;on_subscribe)'],['../group__creational__operators.html#gae68c87e7ae3a505258b733082bf68513',1,'rpp::source::create(OnSubscribe &amp;&amp;on_subscribe)']]],
   ['create_5fstrategy_47',['create_strategy',['../structrpp_1_1details_1_1create__strategy.html',1,'rpp::details']]],
   ['creational_20operators_48',['Creational Operators',['../group__creational__operators.html',1,'Creational Operators'],['../group__qt__creational__operators.html',1,'QT Creational Operators']]],
   ['current_5fthread_49',['current_thread',['../classrpp_1_1schedulers_1_1current__thread.html',1,'rpp::schedulers']]]

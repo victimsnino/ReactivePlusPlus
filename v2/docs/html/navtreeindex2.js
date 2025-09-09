@@ -1,7 +1,5 @@
 var NAVTREEINDEX2 =
 {
-"scan_8cpp-example.html":[2,3,27],
-"scan_8hpp_source.html":[2,2,0,0,1,0,3,29],
 "schedulers_2details_2utils_8hpp_source.html":[2,2,0,0,1,0,4,0,1],
 "server__reactor_8hpp_source.html":[2,2,0,0,0,1,0,5],
 "server_reactor_8cpp-example.html":[2,3,45],
@@ -249,5 +247,7 @@ var NAVTREEINDEX2 =
 "take_8cpp-example.html":[2,3,32],
 "take_8hpp_source.html":[2,2,0,0,1,0,3,35],
 "take__last_8hpp_source.html":[2,2,0,0,1,0,3,36],
-"take__until_8hpp_source.html":[2,2,0,0,1,0,3,37]
+"take__until_8hpp_source.html":[2,2,0,0,1,0,3,37],
+"take__while_8hpp_source.html":[2,2,0,0,1,0,3,38],
+"take_last_8cpp-example.html":[2,3,33]
 };

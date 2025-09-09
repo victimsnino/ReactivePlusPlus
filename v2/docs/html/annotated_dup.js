@@ -292,7 +292,7 @@ var annotated_dup =
       [ "observable", "classrpp_1_1observable.html", "classrpp_1_1observable" ],
       [ "observer", "classrpp_1_1observer.html", "classrpp_1_1observer" ],
       [ "observer< Type, details::observers::override_disposables_strategy< Strategy, DisposableStrategy > >", "classrpp_1_1observer_3_01_type_00_01details_1_1observers_1_1override__disposables__strategy_3_018131050fb40d9407d82ea817f1f379db.html", "classrpp_1_1observer_3_01_type_00_01details_1_1observers_1_1override__disposables__strategy_3_018131050fb40d9407d82ea817f1f379db" ],
-      [ "observer< Type, rpp::details::observers::dynamic_strategy< Type > >", "classrpp_1_1observer_3_01_type_00_01rpp_1_1details_1_1observers_1_1dynamic__strategy_3_01_type_01_4_01_4.html", "classrpp_1_1observer_3_01_type_00_01rpp_1_1details_1_1observers_1_1dynamic__strategy_3_01_type_01_4_01_4" ],
+      [ "observer< Type, rpp::details::observers::dynamic_strategy< Type > >", "classrpp_1_1observer_3_01_type_00_01rpp_1_1details_1_1observers_1_1dynamic__strategy_3_01_type_01_4_01_4.html", null ],
       [ "refcount_disposable", "classrpp_1_1refcount__disposable.html", null ],
       [ "variant_observable", "classrpp_1_1variant__observable.html", null ]
     ] ],

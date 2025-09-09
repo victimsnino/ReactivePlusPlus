@@ -73,10 +73,8 @@ var NAVTREEINDEX0 =
 "classrpp_1_1observable.html#afb9bea529786c85a6bc9b0647bde2ef5":[1,0,1,5,11],
 "classrpp_1_1observer.html":[1,0,2,2],
 "classrpp_1_1observer.html#ab008a79c1c7825554c91dbc6d130ece4":[1,0,2,2,0],
-"classrpp_1_1observer.html#ab008a79c1c7825554c91dbc6d130ece4":[2,1,0,0,20,0],
-"classrpp_1_1observer.html#ab008a79c1c7825554c91dbc6d130ece4":[2,1,0,0,21,0],
 "classrpp_1_1observer_3_01_type_00_01details_1_1observers_1_1override__disposables__strategy_3_018131050fb40d9407d82ea817f1f379db.html":[2,1,0,0,20],
-"classrpp_1_1observer_3_01_type_00_01details_1_1observers_1_1override__disposables__strategy_3_018131050fb40d9407d82ea817f1f379db.html#ac77a81dc86398ec68191a1ad5ed24561":[2,1,0,0,20,1],
+"classrpp_1_1observer_3_01_type_00_01details_1_1observers_1_1override__disposables__strategy_3_018131050fb40d9407d82ea817f1f379db.html#ac77a81dc86398ec68191a1ad5ed24561":[2,1,0,0,20,0],
 "classrpp_1_1observer_3_01_type_00_01rpp_1_1details_1_1observers_1_1dynamic__strategy_3_01_type_01_4_01_4.html":[2,1,0,0,21],
 "classrpp_1_1operators_1_1details_1_1buffer__observer__strategy.html":[2,1,0,0,2,0,1],
 "classrpp_1_1operators_1_1details_1_1combine__latest__disposable.html":[2,1,0,0,2,0,3],
@@ -249,5 +247,7 @@ var NAVTREEINDEX0 =
 "dir_e6321a5c86a12f4de2d549beee5ddcfb.html":[2,2,0,0,0,0],
 "dir_e63f0449bda065f7452c9bd88dfaa92f.html":[2,2,0,0,1,0,2],
 "dir_ea096146ce396354a0f09a5632d726ce.html":[2,2,0,0,0,2,0,2],
-"disposable__wrapper_8hpp_source.html":[2,2,0,0,1,0,0,3]
+"disposable__wrapper_8hpp_source.html":[2,2,0,0,1,0,0,3],
+"disposables_8hpp_source.html":[2,2,0,0,1,0,9],
+"distinct_8hpp_source.html":[2,2,0,0,1,0,3,7]
 };
