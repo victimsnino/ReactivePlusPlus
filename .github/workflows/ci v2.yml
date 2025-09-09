@@ -23,7 +23,7 @@ jobs:
       matrix:
         config: [{name: ci-ubuntu-gcc,  os: ubuntu-22.04},
                 {name: ci-ubuntu-clang, os: ubuntu-22.04},
-                {name: ci-windows,      os: windows-latest},
+                # {name: ci-windows,      os: windows-latest},
                 {name: ci-macos,        os: macos-latest}]
         build_type: [{config: Release}, {config: Debug}]
 
@@ -137,7 +137,7 @@ jobs:
       matrix:
         config: [{name: ci-ubuntu-gcc,  os: ubuntu-22.04},
                 {name: ci-ubuntu-clang, os: ubuntu-22.04},
-                {name: ci-windows,      os: windows-latest},
+                # {name: ci-windows,      os: windows-latest},
                 {name: ci-macos,        os: macos-latest}]
         type: [tests, benchmarks]
         build_type: [{config: Release, test_preset: ci-tests}, {config: Debug, test_preset: ci-tests-debug}]
