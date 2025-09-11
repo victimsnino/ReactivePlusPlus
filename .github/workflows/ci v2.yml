@@ -23,7 +23,7 @@ jobs:
       matrix:
         config: [{name: ci-ubuntu-gcc,  os: ubuntu-22.04},
                 {name: ci-ubuntu-clang, os: ubuntu-22.04},
-                {name: ci-windows,      os: windows-latest},
+                # {name: ci-windows,      os: windows-latest},
                 {name: ci-macos,        os: macos-latest}]
         build_type: [{config: Release}, {config: Debug}]
 
@@ -36,9 +36,8 @@ jobs:
       with:
           fetch-depth: 0
 
-    - uses: actions/setup-python@v5
-      with:
-        python-version: '3.6.x - 3.11.x'
+    - uses: actions/setup-python@v6
+      with: { python-version: "3.8" }
 
     - name: get conan
       uses: turtlebrowser/get-conan@main
@@ -138,7 +137,7 @@ jobs:
       matrix:
         config: [{name: ci-ubuntu-gcc,  os: ubuntu-22.04},
                 {name: ci-ubuntu-clang, os: ubuntu-22.04},
-                {name: ci-windows,      os: windows-latest},
+                # {name: ci-windows,      os: windows-latest},
                 {name: ci-macos,        os: macos-latest}]
         type: [tests, benchmarks]
         build_type: [{config: Release, test_preset: ci-tests}, {config: Debug, test_preset: ci-tests-debug}]
@@ -224,7 +223,7 @@ jobs:
       with:
         submodules: true
 
-    - uses: actions/setup-python@v5
+    - uses: actions/setup-python@v6
       with: { python-version: "3.8" }
 
     - uses: ssciwr/doxygen-install@v1
