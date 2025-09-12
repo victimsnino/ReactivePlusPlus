@@ -109,7 +109,7 @@ $(function(){initNavTree('conceptrpp_1_1constraint_1_1is__constructible__from.ht
 <div class="fragment"><div class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span>... Args&gt;</div>
 <div class="line"><span class="keyword">concept </span><a class="code hl_concept" href="conceptrpp_1_1constraint_1_1is__constructible__from.html">rpp::constraint::is_constructible_from</a> =  <span class="keyword">requires</span>(Args... args) {</div>
 <div class="line">        {</div>
-<div class="line">            T{<span class="keyword">static_cast&lt;</span>Args &amp;&amp;<span class="keyword">&gt;</span>(args)...}</div>
+<div class="line">            T{<span class="keyword">static_cast&lt;</span>Args&amp;&amp;<span class="keyword">&gt;</span>(args)...}</div>
 <div class="line">        } -&gt; std::same_as&lt;T&gt;;</div>
 <div class="line">    }</div>
 <div class="ttc" id="aconceptrpp_1_1constraint_1_1is__constructible__from_html"><div class="ttname"><a href="conceptrpp_1_1constraint_1_1is__constructible__from.html">rpp::constraint::is_constructible_from</a></div><div class="ttdef"><b>Definition</b> constraints.hpp:43</div></div>

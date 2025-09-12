@@ -152,7 +152,7 @@ $(function(){initNavTree('constraints_8hpp_source.html','',''); });
 <div class="foldopen" id="foldopen00043" data-start="{" data-end="}">
 <div class="line"><a id="l00043" name="l00043"></a><span class="lineno"><a class="line" href="conceptrpp_1_1constraint_1_1is__constructible__from.html">   43</a></span>    <span class="keyword">concept </span><a class="code hl_concept" href="conceptrpp_1_1constraint_1_1is__constructible__from.html">is_constructible_from</a> = <span class="keyword">requires</span>(Args... args) {</div>
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        {</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>            T{<span class="keyword">static_cast&lt;</span>Args &amp;&amp;<span class="keyword">&gt;</span>(args)...}</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>            T{<span class="keyword">static_cast&lt;</span>Args&amp;&amp;<span class="keyword">&gt;</span>(args)...}</div>
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>        } -&gt; std::same_as&lt;T&gt;;</div>
 <div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    };</div>
 </div>
