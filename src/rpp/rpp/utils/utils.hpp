@@ -72,7 +72,7 @@ namespace rpp::utils
         operator T&() const;
 
         template<typename T>
-        operator const T &() const;
+        operator const T&() const;
 
         template<typename T>
         operator T&&() const;

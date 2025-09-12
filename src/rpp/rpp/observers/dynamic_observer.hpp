@@ -76,9 +76,7 @@ namespace rpp::details::observers
                   .on_error_ptr       = +[](const Base* b, const std::exception_ptr& err) { cast(b).on_error(err); },
                   .on_completed_ptr   = +[](const Base* b) { cast(b).on_completed(); },
                   .set_upstream_ptr   = +[](Base* b, const rpp::disposable_wrapper& d) { cast(b).set_upstream(d); },
-                  .is_disposed_ptr    = +[](const Base* b) {
-                      return cast(b).is_disposed();
-                  }}}
+                  .is_disposed_ptr    = +[](const Base* b) { return cast(b).is_disposed(); }}}
             , m_observer{std::move(observer)}
         {
         }
