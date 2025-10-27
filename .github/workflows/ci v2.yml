@@ -208,7 +208,7 @@ jobs:
 
 
     - name: Upload benchmark results
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v5
       if: matrix.type == 'benchmarks' && matrix.build_type.config == 'Release'
       with:
         name: ${{ matrix.config.name }}${{ matrix.optimization_disabled.postfix}}
