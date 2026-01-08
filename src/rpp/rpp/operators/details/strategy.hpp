@@ -27,7 +27,7 @@ namespace rpp::operators::details
     class lift_operator
     {
     public:
-        template<rpp::constraint::decayed_same_as<TArgs>... TTArgs>
+        template<rpp::constraint::decayed_same_as<TArgs...>... TTArgs>
         lift_operator(TTArgs&&... args)
             : m_vals{std::forward<TTArgs>(args)...}
         {
