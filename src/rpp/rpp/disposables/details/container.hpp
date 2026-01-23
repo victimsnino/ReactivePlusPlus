@@ -14,6 +14,7 @@
 
 #include <algorithm>
 #include <vector>
+#include <new>
 
 namespace rpp::details::disposables
 {
