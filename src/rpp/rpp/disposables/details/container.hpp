@@ -13,8 +13,8 @@
 #include <rpp/utils/exceptions.hpp>
 
 #include <algorithm>
-#include <vector>
 #include <new>
+#include <vector>
 
 namespace rpp::details::disposables
 {
