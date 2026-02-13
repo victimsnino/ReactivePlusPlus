@@ -17,8 +17,7 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  CONAN_USER_HOME: "${{ github.workspace }}/release/"
-  CONAN_USER_HOME_SHORT: "${{ github.workspace }}/release/short"
+  CONAN_HOME: "${{ github.workspace }}/release/"
 
 jobs:
   cache_deps:
@@ -49,7 +48,7 @@ jobs:
       uses: actions/cache@v4
       id: check_cache
       with:
-          path: ${{ env.CONAN_USER_HOME }}
+          path: ${{ env.CONAN_HOME }}
           key: deps-${{ matrix.config.name }}-${{ matrix.build_type.config }}-${{ hashFiles('**/conanfile.py') }}-${{ hashFiles('**/CMakePresets.json') }}
           restore-keys: deps-${{ matrix.config.name }}-${{ matrix.build_type.config }}
           lookup-only: true
@@ -109,7 +108,7 @@ jobs:
     - name: cache deps
       uses: actions/cache@v4
       with:
-          path: ${{ env.CONAN_USER_HOME }}
+          path: ${{ env.CONAN_HOME }}
           key: deps-ci-ubuntu-clang-Release-${{ hashFiles('**/conanfile.py') }}-${{ hashFiles('**/CMakePresets.json') }}
           restore-keys: deps-ci-ubuntu-clang-Release
 
@@ -186,7 +185,7 @@ jobs:
     - name: cache deps
       uses: actions/cache@v4
       with:
-          path: ${{ env.CONAN_USER_HOME }}
+          path: ${{ env.CONAN_HOME }}
           key: deps-${{ matrix.config.name }}-${{ matrix.build_type.config }}-${{ hashFiles('**/conanfile.py') }}-${{ hashFiles('**/CMakePresets.json') }}
           restore-keys: deps-${{ matrix.config.name }}-${{ matrix.build_type.config }}
 
