@@ -71,7 +71,7 @@ jobs:
       with:
         configurePreset: ${{ matrix.config.name }}-tests
         configurePresetAdditionalArgs: "['-DCMAKE_BUILD_TYPE=${{ matrix.build_type.config }}', '-DCMAKE_CONFIGURATION_TYPES=${{ matrix.build_type.config }}']"
-    
+
     - name: Force Save Cache
       if: steps.check_cache.outputs.cache-hit != 'true' || github.event_name == 'schedule'
       uses: actions/cache/save@v5
