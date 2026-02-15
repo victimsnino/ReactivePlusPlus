@@ -7,6 +7,8 @@ on:
     types:
       - completed
 
+env:
+  CONAN_HOME: "${{ github.workspace }}/release/"
 
 jobs:
   pvs:
@@ -37,9 +39,7 @@ jobs:
     - name: cache deps
       uses: actions/cache@v4
       with:
-          path: |
-            ~/.conan2
-            /Users/runner/.conan2/
+          path: ${{ env.CONAN_HOME }}
           key: deps-ci-ubuntu-clang-Release-${{ hashFiles('**/conanfile.py') }}-${{ hashFiles('**/CMakePresets.json') }}
           restore-keys: deps-ci-ubuntu-clang-Release
 
@@ -111,9 +111,7 @@ jobs:
     - name: cache deps
       uses: actions/cache@v4
       with:
-          path: |
-            ~/.conan2
-            /Users/runner/.conan2/
+          path: ${{ env.CONAN_HOME }}
           key: deps-ci-ubuntu-clang-Release-${{ hashFiles('**/conanfile.py') }}-${{ hashFiles('**/CMakePresets.json') }}
           restore-keys: deps-ci-ubuntu-clang-Release
 
