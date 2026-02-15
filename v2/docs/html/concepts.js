@@ -1,6 +1,23 @@
 var concepts =
 [
     [ "rpp", null, [
+      [ "details", null, [
+        [ "disposables", null, [
+          [ "constraint", null, [
+            [ "disposables_container", "conceptrpp_1_1details_1_1disposables_1_1constraint_1_1disposables__container.html", null ]
+          ] ]
+        ] ],
+        [ "observables", null, [
+          [ "constraint", null, [
+            [ "disposables_strategy", "conceptrpp_1_1details_1_1observables_1_1constraint_1_1disposables__strategy.html", null ]
+          ] ]
+        ] ],
+        [ "observers", null, [
+          [ "constraint", null, [
+            [ "disposables_strategy", "conceptrpp_1_1details_1_1observers_1_1constraint_1_1disposables__strategy.html", null ]
+          ] ]
+        ] ]
+      ] ],
       [ "constraint", null, [
         [ "memory_model", "conceptrpp_1_1constraint_1_1memory__model.html", null ],
         [ "observable_strategy", "conceptrpp_1_1constraint_1_1observable__strategy.html", null ],
@@ -31,22 +48,9 @@ var concepts =
         [ "is_nothrow_invocable", "conceptrpp_1_1constraint_1_1is__nothrow__invocable.html", null ],
         [ "hashable", "conceptrpp_1_1constraint_1_1hashable.html", null ]
       ] ],
-      [ "details", null, [
-        [ "disposables", null, [
-          [ "constraint", null, [
-            [ "disposables_container", "conceptrpp_1_1details_1_1disposables_1_1constraint_1_1disposables__container.html", null ]
-          ] ]
-        ] ],
-        [ "observables", null, [
-          [ "constraint", null, [
-            [ "disposables_strategy", "conceptrpp_1_1details_1_1observables_1_1constraint_1_1disposables__strategy.html", null ]
-          ] ]
-        ] ],
-        [ "observers", null, [
-          [ "constraint", null, [
-            [ "disposables_strategy", "conceptrpp_1_1details_1_1observers_1_1constraint_1_1disposables__strategy.html", null ]
-          ] ]
-        ] ]
+      [ "utils", null, [
+        [ "is_not_template_callable", "conceptrpp_1_1utils_1_1is__not__template__callable.html", null ],
+        [ "is_base_of_v", "conceptrpp_1_1utils_1_1is__base__of__v.html", null ]
       ] ],
       [ "operators", null, [
         [ "details", null, [
@@ -66,10 +70,6 @@ var concepts =
           [ "worker", "conceptrpp_1_1schedulers_1_1constraint_1_1worker.html", null ],
           [ "scheduler", "conceptrpp_1_1schedulers_1_1constraint_1_1scheduler.html", null ]
         ] ]
-      ] ],
-      [ "utils", null, [
-        [ "is_not_template_callable", "conceptrpp_1_1utils_1_1is__not__template__callable.html", null ],
-        [ "is_base_of_v", "conceptrpp_1_1utils_1_1is__base__of__v.html", null ]
       ] ]
     ] ]
 ];

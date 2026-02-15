@@ -1,5 +1,7 @@
 var NAVTREEINDEX3 =
 {
+"take__while_8hpp_source.html":[2,2,0,0,1,0,3,38],
+"take_last_8cpp-example.html":[2,3,33],
 "take_until_8cpp-example.html":[2,3,34],
 "take_while_8cpp-example.html":[2,3,35],
 "tap_8hpp_source.html":[2,2,0,0,1,0,3,39],

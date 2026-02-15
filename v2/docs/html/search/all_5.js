@@ -2,7 +2,7 @@ var searchData=
 [
   ['fake_5fschedulable_5fhandler_0',['fake_schedulable_handler',['../structrpp_1_1schedulers_1_1details_1_1fake__schedulable__handler.html',1,'rpp::schedulers::details']]],
   ['fake_5fstrategy_1',['fake_strategy',['../structrpp_1_1details_1_1observables_1_1fake__strategy.html',1,'rpp::details::observables::fake_strategy&lt; Type &gt;'],['../structrpp_1_1details_1_1observers_1_1fake__strategy.html',1,'rpp::details::observers::fake_strategy']]],
-  ['filter_2',['filter',['../group__filtering__operators.html#ga3ad579153e7975af6ae4b75f585fb873',1,'rpp::operators']]],
+  ['filter_2',['filter',['../group__filtering__operators.html#ga9030211235ba807586c6a61aed3288e3',1,'rpp::operators']]],
   ['filter_5fobserver_5fstrategy_3',['filter_observer_strategy',['../structrpp_1_1operators_1_1details_1_1filter__observer__strategy.html',1,'rpp::operators::details']]],
   ['filter_5ft_4',['filter_t',['../structrpp_1_1operators_1_1details_1_1filter__t.html',1,'rpp::operators::details']]],
   ['filtering_20operators_5',['Filtering Operators',['../group__filtering__operators.html',1,'']]],
@@ -16,7 +16,7 @@ var searchData=
   ['fixed_5fdisposables_5fstrategy_3c_200_20_3e_13',['fixed_disposables_strategy&lt; 0 &gt;',['../structrpp_1_1details_1_1observables_1_1fixed__disposables__strategy.html',1,'rpp::details::observables']]],
   ['fixed_5fdisposables_5fstrategy_3c_201_20_3e_14',['fixed_disposables_strategy&lt; 1 &gt;',['../structrpp_1_1details_1_1observables_1_1fixed__disposables__strategy.html',1,'rpp::details::observables']]],
   ['fixed_5fdisposables_5fstrategy_3c_20count_2baddcount_20_3e_15',['fixed_disposables_strategy&lt; Count+AddCount &gt;',['../structrpp_1_1details_1_1observables_1_1fixed__disposables__strategy.html',1,'rpp::details::observables']]],
-  ['flat_5fmap_16',['flat_map',['../group__transforming__operators.html#ga633883e796101ceeab821e2a4912bd5e',1,'rpp::operators']]],
+  ['flat_5fmap_16',['flat_map',['../group__transforming__operators.html#ga32ca95a159e0a6646911b2227df9e6a7',1,'rpp::operators']]],
   ['flat_5fmap_5ft_17',['flat_map_t',['../structrpp_1_1operators_1_1details_1_1flat__map__t.html',1,'rpp::operators::details']]],
   ['forwarding_5fsubject_18',['forwarding_subject',['../classrpp_1_1operators_1_1details_1_1forwarding__subject.html',1,'rpp::operators::details']]],
   ['forwarding_5fsubject_3c_20value_5ftype_20_3e_19',['forwarding_subject&lt; value_type &gt;',['../classrpp_1_1operators_1_1details_1_1forwarding__subject.html',1,'rpp::operators::details']]],
