@@ -168,7 +168,7 @@ $(function(){initNavTree('run__loop_8hpp_source.html','',''); });
 <div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>                    <span class="keywordflow">if</span> (!wait)</div>
 <div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>                        <span class="keywordflow">break</span>;</div>
 <div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span> </div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>                    m_cv.wait_for(lock, m_queue.top()-&gt;get_timepoint() - now, [&amp;]() { return is_disposed() || !m_queue.is_empty() || m_queue.top()-&gt;get_timepoint() &lt;= worker_strategy::now(); });</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>                    m_cv.wait_for(lock, m_queue.top()-&gt;get_timepoint() - now, [&amp;]() { return is_disposed() || (!m_queue.is_empty() &amp;&amp; m_queue.top()-&gt;get_timepoint() &lt;= worker_strategy::now()); });</div>
 <div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>                }</div>
 <div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>                <span class="keywordflow">return</span> {};</div>
 <div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>            }</div>
