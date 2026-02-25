@@ -16,6 +16,8 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
 
+env:
+  CONAN_HOME: "${{ github.workspace }}/release/"
 
 jobs:
   cache_deps:
@@ -43,12 +45,10 @@ jobs:
       uses: turtlebrowser/get-conan@main
 
     - name: check cache
-      uses: actions/cache@v4
+      uses: actions/cache/restore@v5
       id: check_cache
       with:
-          path: |
-            ~/.conan2
-            /Users/runner/.conan2/
+          path: ${{ env.CONAN_HOME }}
           key: deps-${{ matrix.config.name }}-${{ matrix.build_type.config }}-${{ hashFiles('**/conanfile.py') }}-${{ hashFiles('**/CMakePresets.json') }}
           restore-keys: deps-${{ matrix.config.name }}-${{ matrix.build_type.config }}
           lookup-only: true
@@ -71,6 +71,13 @@ jobs:
       with:
         configurePreset: ${{ matrix.config.name }}-tests
         configurePresetAdditionalArgs: "['-DCMAKE_BUILD_TYPE=${{ matrix.build_type.config }}', '-DCMAKE_CONFIGURATION_TYPES=${{ matrix.build_type.config }}']"
+
+    - name: Force Save Cache
+      if: steps.check_cache.outputs.cache-hit != 'true' || github.event_name == 'schedule'
+      uses: actions/cache/save@v5
+      with:
+        path: ${{ env.CONAN_HOME }}
+        key: deps-${{ matrix.config.name }}-${{ matrix.build_type.config }}-${{ hashFiles('**/conanfile.py') }}-${{ hashFiles('**/CMakePresets.json') }}
 
   sanitize:
     needs: ["cache_deps"]
@@ -106,11 +113,9 @@ jobs:
       uses: turtlebrowser/get-conan@main
 
     - name: cache deps
-      uses: actions/cache@v4
+      uses: actions/cache@v5
       with:
-          path: |
-            ~/.conan2
-            /Users/runner/.conan2/
+          path: ${{ env.CONAN_HOME }}
           key: deps-ci-ubuntu-clang-Release-${{ hashFiles('**/conanfile.py') }}-${{ hashFiles('**/CMakePresets.json') }}
           restore-keys: deps-ci-ubuntu-clang-Release
 
@@ -185,11 +190,9 @@ jobs:
       uses: turtlebrowser/get-conan@main
 
     - name: cache deps
-      uses: actions/cache@v4
+      uses: actions/cache@v5
       with:
-          path: |
-            ~/.conan2
-            /Users/runner/.conan2/
+          path: ${{ env.CONAN_HOME }}
           key: deps-${{ matrix.config.name }}-${{ matrix.build_type.config }}-${{ hashFiles('**/conanfile.py') }}-${{ hashFiles('**/CMakePresets.json') }}
           restore-keys: deps-${{ matrix.config.name }}-${{ matrix.build_type.config }}
 

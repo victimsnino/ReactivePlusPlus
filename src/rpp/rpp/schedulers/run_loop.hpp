@@ -66,7 +66,7 @@ namespace rpp::schedulers
                     if (!wait)
                         break;
 
-                    m_cv.wait_for(lock, m_queue.top()->get_timepoint() - now, [&]() { return is_disposed() || !m_queue.is_empty() || m_queue.top()->get_timepoint() <= worker_strategy::now(); });
+                    m_cv.wait_for(lock, m_queue.top()->get_timepoint() - now, [&]() { return is_disposed() || (!m_queue.is_empty() && m_queue.top()->get_timepoint() <= worker_strategy::now()); });
                 }
                 return {};
             }
