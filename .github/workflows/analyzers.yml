@@ -7,6 +7,8 @@ on:
     types:
       - completed
 
+env:
+  CONAN_HOME: "${{ github.workspace }}/release/"
 
 jobs:
   pvs:
@@ -35,11 +37,9 @@ jobs:
       uses: turtlebrowser/get-conan@main
 
     - name: cache deps
-      uses: actions/cache@v4
+      uses: actions/cache@v5
       with:
-          path: |
-            ~/.conan2
-            /Users/runner/.conan2/
+          path: ${{ env.CONAN_HOME }}
           key: deps-ci-ubuntu-clang-Release-${{ hashFiles('**/conanfile.py') }}-${{ hashFiles('**/CMakePresets.json') }}
           restore-keys: deps-ci-ubuntu-clang-Release
 
@@ -76,7 +76,7 @@ jobs:
 
     - name: Publish report
       if: steps.setup.outcome == 'success' && steps.setup.conclusion == 'success'
-      uses: github/codeql-action/upload-sarif@v3
+      uses: github/codeql-action/upload-sarif@v4
       with:
         sarif_file: pvs-report.sarif
         category: PVS-Studio
@@ -109,11 +109,9 @@ jobs:
       uses: turtlebrowser/get-conan@main
 
     - name: cache deps
-      uses: actions/cache@v4
+      uses: actions/cache@v5
       with:
-          path: |
-            ~/.conan2
-            /Users/runner/.conan2/
+          path: ${{ env.CONAN_HOME }}
           key: deps-ci-ubuntu-clang-Release-${{ hashFiles('**/conanfile.py') }}-${{ hashFiles('**/CMakePresets.json') }}
           restore-keys: deps-ci-ubuntu-clang-Release
 

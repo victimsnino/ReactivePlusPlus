@@ -45,7 +45,6 @@ class RppConan(ConanFile):
 
         if self.options.with_grpc:
             self.requires("grpc/1.65.0", transitive_libs=True, transitive_headers=True)
-            # self.requires("protobuf/5.26.1")
             self.requires("libmount/2.39", override=True)
 
         if self.options.with_asio:
