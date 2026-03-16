@@ -151,7 +151,7 @@ namespace rpp
         }
 
     protected:
-        virtual void composite_dispose_impl(interface_disposable::Mode) noexcept {}
+        virtual void composite_dispose_impl(interface_disposable::Mode) noexcept { }
 
     private:
         enum class State : uint8_t

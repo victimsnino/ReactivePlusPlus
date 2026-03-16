@@ -26,7 +26,7 @@ namespace rpp::utils
     template<typename... Types>
     struct empty_function_t
     {
-        constexpr void operator()(const Types&...) const noexcept {}
+        constexpr void operator()(const Types&...) const noexcept { }
     };
 
     template<typename... Types>

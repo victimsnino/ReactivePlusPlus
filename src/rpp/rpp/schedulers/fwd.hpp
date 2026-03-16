@@ -87,7 +87,7 @@ namespace rpp::schedulers::details
     {
         constexpr static bool is_disposed() { return true; }
 
-        static void on_error(const std::exception_ptr&) {}
+        static void on_error(const std::exception_ptr&) { }
     };
 } // namespace rpp::schedulers::details
 

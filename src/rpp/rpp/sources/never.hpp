@@ -21,7 +21,7 @@ namespace rpp::details
         using value_type                   = Type;
         using optimal_disposables_strategy = rpp::details::observables::fixed_disposables_strategy<0>;
 
-        static void subscribe(const auto&) {}
+        static void subscribe(const auto&) { }
     };
 } // namespace rpp::details
 

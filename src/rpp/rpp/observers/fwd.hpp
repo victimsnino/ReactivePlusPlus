@@ -82,11 +82,11 @@ namespace rpp::details::observers
 
         override_disposables_strategy() = delete;
 
-        consteval static void on_next(const auto&) noexcept {}
-        consteval static void on_error(const std::exception_ptr&) noexcept {}
-        consteval static void on_completed() noexcept {}
+        consteval static void on_next(const auto&) noexcept { }
+        consteval static void on_error(const std::exception_ptr&) noexcept { }
+        consteval static void on_completed() noexcept { }
 
-        consteval static void set_upstream(const disposable_wrapper&) noexcept {}
+        consteval static void set_upstream(const disposable_wrapper&) noexcept { }
         consteval static bool is_disposed() noexcept { return false; }
     };
 } // namespace rpp::details::observers
@@ -223,13 +223,13 @@ namespace rpp::details::observers
     {
         static constexpr auto preferred_disposables_mode = rpp::details::observers::disposables_mode::None;
 
-        static void on_next(const auto&) noexcept {}
+        static void on_next(const auto&) noexcept { }
 
-        static void on_error(const std::exception_ptr&) noexcept {}
+        static void on_error(const std::exception_ptr&) noexcept { }
 
-        static void on_completed() noexcept {}
+        static void on_completed() noexcept { }
 
-        static void set_upstream(const disposable_wrapper&) noexcept {}
+        static void set_upstream(const disposable_wrapper&) noexcept { }
 
         static bool is_disposed() noexcept { return true; }
     };

@@ -49,17 +49,17 @@ namespace rpp::details::observers
 
     struct none_disposables_strategy
     {
-        static constexpr void add(const rpp::disposable_wrapper&) {}
+        static constexpr void add(const rpp::disposable_wrapper&) { }
 
         static constexpr bool is_disposed() noexcept { return false; }
 
-        static constexpr void dispose() {}
+        static constexpr void dispose() { }
     };
 
     class boolean_disposables_strategy
     {
     public:
-        static constexpr void add(const rpp::disposable_wrapper&) {}
+        static constexpr void add(const rpp::disposable_wrapper&) { }
 
         bool is_disposed() const noexcept { return m_is_disposed; }
 

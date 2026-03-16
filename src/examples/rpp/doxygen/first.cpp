@@ -12,7 +12,7 @@ int main()
         | rpp::operators::first()
         | rpp::operators::subscribe(
             [](const auto& v) { std::cout << "-" << v; },
-            [](const std::exception_ptr&) {},
+            [](const std::exception_ptr&) { },
             []() { std::cout << "-|" << std::endl; });
     // Source: -1-2-3-4-5--|
     // Output: -1-|

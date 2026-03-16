@@ -131,7 +131,7 @@ TEST_CASE("group_by keeps subscription till anyone subscribed")
             auto d = rpp::composite_disposable_wrapper::make();
             observable.subscribe(
                 d,
-                [](auto) {},
+                [](auto) { },
                 on_error,
                 on_completed);
             disposables.push_back(d);
@@ -278,7 +278,7 @@ TEST_CASE("group_by's disposables tracks 1 dispose per call")
                   observable
                       | rpp::ops::take(1)
                       | rpp::ops::delay(std::chrono::seconds{0}, rpp::schedulers::immediate{})
-                      | rpp::ops::subscribe([](int) {});
+                      | rpp::ops::subscribe([](int) { });
               }
 
               observable.subscribe(mock_0);

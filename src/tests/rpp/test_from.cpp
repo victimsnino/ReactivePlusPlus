@@ -200,14 +200,14 @@ TEST_CASE_TEMPLATE("from iterable doesn't provides extra copies", TestType, rpp:
     SUBCASE("observable from copied iterable doesn't provide extra copies")
     {
         auto obs = rpp::source::from_iterable(vals, TestType{});
-        obs.subscribe([](const auto&) {}, [](const auto&) {}, []() {});
+        obs.subscribe([](const auto&) { }, [](const auto&) { }, []() { });
         CHECK(tracker.get_copy_count() - initial_copy == 1); // 1 copy to observable
         CHECK(tracker.get_move_count() - initial_move == 0);
     }
     SUBCASE("observable from moved iterable doesn't provide extra copies")
     {
         auto obs = rpp::source::from_iterable(std::move(vals), TestType{});
-        obs.subscribe([](const auto&) {}, [](const auto&) {}, []() {});
+        obs.subscribe([](const auto&) { }, [](const auto&) { }, []() { });
         CHECK(tracker.get_copy_count() - initial_copy == 0);
         CHECK(tracker.get_move_count() - initial_move == 1); // 1 move to observable
     }
@@ -215,14 +215,14 @@ TEST_CASE_TEMPLATE("from iterable doesn't provides extra copies", TestType, rpp:
     SUBCASE("observable from copied iterable with shared memory model doesn't provide extra copies")
     {
         auto obs = rpp::source::from_iterable<rpp::memory_model::use_shared>(vals, TestType{}); // NOLINT
-        obs.subscribe([](const auto&) {}, [](const auto&) {}, []() {});
+        obs.subscribe([](const auto&) { }, [](const auto&) { }, []() { });
         CHECK(tracker.get_copy_count() - initial_copy == 1); // 1 copy to shared_ptr
         CHECK(tracker.get_move_count() - initial_move == 0);
     }
     SUBCASE("observable from moved iterable doesn't provide extra copies")
     {
         auto obs = rpp::source::from_iterable<rpp::memory_model::use_shared>(std::move(vals), TestType{}); // NOLINT
-        obs.subscribe([](const auto&) {}, [](const auto&) {}, []() {});
+        obs.subscribe([](const auto&) { }, [](const auto&) { }, []() { });
         CHECK(tracker.get_copy_count() - initial_copy == 0);
         CHECK(tracker.get_move_count() - initial_move == 1); // 1 move to shared_ptr
     }

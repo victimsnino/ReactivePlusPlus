@@ -94,14 +94,14 @@ int main(int argc, char* argv[]) // NOLINT(bugprone-exception-escape)
                 rpp::source::create<int>([&](auto&& observer) {
                     ankerl::nanobench::doNotOptimizeAway(observer);
                 })
-                    .subscribe([](int) {});
+                    .subscribe([](int) { });
             });
 
             TEST_RXCPP([&]() {
                 rxcpp::observable<>::create<int>([&](auto&& observer) {
                     ankerl::nanobench::doNotOptimizeAway(observer);
                 })
-                    .subscribe([](int) {});
+                    .subscribe([](int) { });
             });
         }
 
@@ -111,14 +111,14 @@ int main(int argc, char* argv[]) // NOLINT(bugprone-exception-escape)
                 rpp::source::create<int>([&](auto&& observer) {
                     ankerl::nanobench::doNotOptimizeAway(observer);
                 })
-                    | rpp::operators::subscribe([](int) {});
+                    | rpp::operators::subscribe([](int) { });
             });
 
             TEST_RXCPP([&]() {
                 rxcpp::observable<>::create<int>([&](auto&& observer) {
                     ankerl::nanobench::doNotOptimizeAway(observer);
                 })
-                    | rxcpp::operators::subscribe<int>([](int) {});
+                    | rxcpp::operators::subscribe<int>([](int) { });
             });
         }
     }; // BENCHMARK("General")
@@ -235,7 +235,7 @@ int main(int argc, char* argv[]) // NOLINT(bugprone-exception-escape)
         SECTION("immediate scheduler create worker + schedule")
         {
             TEST_RPP([&]() {
-                rpp::schedulers::immediate::create_worker().schedule([](const auto& v) { ankerl::nanobench::doNotOptimizeAway(v); return rpp::schedulers::optional_delay_from_now{}; }, rpp::make_lambda_observer([](int) {}));
+                rpp::schedulers::immediate::create_worker().schedule([](const auto& v) { ankerl::nanobench::doNotOptimizeAway(v); return rpp::schedulers::optional_delay_from_now{}; }, rpp::make_lambda_observer([](int) { }));
             });
             TEST_RXCPP([&]() {
                 rxcpp::identity_immediate().create_coordinator().get_worker().schedule([](const auto& v) { ankerl::nanobench::doNotOptimizeAway(v); });
@@ -245,7 +245,7 @@ int main(int argc, char* argv[]) // NOLINT(bugprone-exception-escape)
         SECTION("current_thread scheduler create worker + schedule")
         {
             TEST_RPP([&]() {
-                rpp::schedulers::current_thread::create_worker().schedule([](const auto& v) { ankerl::nanobench::doNotOptimizeAway(v); return rpp::schedulers::optional_delay_from_now{}; }, rpp::make_lambda_observer([](int) {}));
+                rpp::schedulers::current_thread::create_worker().schedule([](const auto& v) { ankerl::nanobench::doNotOptimizeAway(v); return rpp::schedulers::optional_delay_from_now{}; }, rpp::make_lambda_observer([](int) { }));
             });
             TEST_RXCPP([&]() {
                 rxcpp::identity_current_thread().create_coordinator().get_worker().schedule([](const auto& v) { ankerl::nanobench::doNotOptimizeAway(v); });
@@ -267,7 +267,7 @@ int main(int argc, char* argv[]) // NOLINT(bugprone-exception-escape)
                                 std::move(v));
                             return rpp::schedulers::optional_delay_from_now{};
                         },
-                        rpp::make_lambda_observer([](int) {}));
+                        rpp::make_lambda_observer([](int) { }));
                 });
             TEST_RXCPP(
                 [&]() {
@@ -682,7 +682,7 @@ int main(int argc, char* argv[]) // NOLINT(bugprone-exception-escape)
                     observer.on_error({});
                 })
                     | rpp::operators::retry(1)
-                    | rpp::operators::subscribe([](int) {}, [](const std::exception_ptr& e) { ankerl::nanobench::doNotOptimizeAway(e); });
+                    | rpp::operators::subscribe([](int) { }, [](const std::exception_ptr& e) { ankerl::nanobench::doNotOptimizeAway(e); });
             });
 
             TEST_RXCPP([&]() {
@@ -690,7 +690,7 @@ int main(int argc, char* argv[]) // NOLINT(bugprone-exception-escape)
                     observer.on_error({});
                 })
                     | rxcpp::operators::retry(1)
-                    | rxcpp::operators::subscribe<int>([](int) {}, [](const std::exception_ptr& e) { ankerl::nanobench::doNotOptimizeAway(e); });
+                    | rxcpp::operators::subscribe<int>([](int) { }, [](const std::exception_ptr& e) { ankerl::nanobench::doNotOptimizeAway(e); });
             });
         }
     } // BENCHMARK("Error Handling Operators")
@@ -709,7 +709,7 @@ int main(int argc, char* argv[]) // NOLINT(bugprone-exception-escape)
             {
 #ifdef RPP_BUILD_RXCPP
                 rxcpp::subjects::subject<int> rxcpp_subj{};
-                rxcpp_subj.get_observable().subscribe(rxcpp::make_subscriber<int>([](int v) { ankerl::nanobench::doNotOptimizeAway(v); }, [] {}));
+                rxcpp_subj.get_observable().subscribe(rxcpp::make_subscriber<int>([](int v) { ankerl::nanobench::doNotOptimizeAway(v); }, [] { }));
 #endif
                 TEST_RXCPP([&]() {
                     rxcpp_subj.get_subscriber().on_next(1);
@@ -882,7 +882,7 @@ int main(int argc, char* argv[]) // NOLINT(bugprone-exception-escape)
                     | rpp::operators::map([](int v) { return v * 2; })
                     | rpp::operators::map([](int v) { return v * 2; })
                     | rpp::operators::map([](int v) { return v * 2; })
-                    | rpp::ops::subscribe(d, [](int) {});
+                    | rpp::ops::subscribe(d, [](int) { });
             });
 
             TEST_RXCPP([&]() {
@@ -924,7 +924,7 @@ int main(int argc, char* argv[]) // NOLINT(bugprone-exception-escape)
                     | rxcpp::operators::map([](int v) { return v * 2; })
                     | rxcpp::operators::map([](int v) { return v * 2; })
                     | rxcpp::operators::map([](int v) { return v * 2; })
-                    | rxcpp::operators::subscribe<int>(d, [](int) {});
+                    | rxcpp::operators::subscribe<int>(d, [](int) { });
             });
         }
 

@@ -183,7 +183,7 @@ TEST_CASE("switch_on_next doesn't produce extra copies")
         auto               obs = rpp::source::just(verifier.get_observable()) | rpp::ops::switch_on_next();
         SUBCASE("subscribe")
         {
-            obs | rpp::ops::subscribe([](copy_count_tracker) {}); // NOLINT
+            obs | rpp::ops::subscribe([](copy_count_tracker) { }); // NOLINT
             SUBCASE("no extra copies")
             {
                 REQUIRE(verifier.get_copy_count() == 1); // 1 copy to final lambda
@@ -201,7 +201,7 @@ TEST_CASE("switch_on_next doesn't produce extra copies for move")
         auto               obs = rpp::source::just(verifier.get_observable_for_move()) | rpp::ops::switch_on_next();
         SUBCASE("subscribe")
         {
-            obs | rpp::ops::subscribe([](copy_count_tracker) {}); // NOLINT
+            obs | rpp::ops::subscribe([](copy_count_tracker) { }); // NOLINT
             SUBCASE("no extra copies")
             {
                 REQUIRE(verifier.get_copy_count() == 0);

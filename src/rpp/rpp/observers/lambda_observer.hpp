@@ -36,7 +36,7 @@ namespace rpp::details::observers
         RPP_NO_UNIQUE_ADDRESS OnError     on_error{};
         RPP_NO_UNIQUE_ADDRESS OnCompleted on_completed{};
 
-        static void set_upstream(const disposable_wrapper&) noexcept {}
+        static void set_upstream(const disposable_wrapper&) noexcept { }
 
         static bool is_disposed() noexcept { return false; }
     };

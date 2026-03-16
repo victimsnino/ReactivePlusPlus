@@ -133,7 +133,7 @@ namespace rppgrpc
             Base::StartWrite(&v);
         }
 
-        void start_read(rpp::utils::none& data) override {}
+        void start_read(rpp::utils::none& data) override { }
 
         void finish_writes(const grpc::Status& status) override
         {
