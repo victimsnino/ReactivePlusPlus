@@ -44,7 +44,7 @@ public:
     void on_completed() const noexcept { m_impl->on_completed(); }
 
     static bool is_disposed() noexcept { return false; }
-    static void set_upstream(const rpp::disposable_wrapper&) noexcept {}
+    static void set_upstream(const rpp::disposable_wrapper&) noexcept { }
 
     auto get_observer() const { return rpp::observer<T, mock_observer<T>>{*this}; }
     auto get_observer(rpp::composite_disposable_wrapper d) const { return rpp::observer_with_external_disposable<T, mock_observer<T>>{std::move(d), *this}; }

@@ -137,7 +137,7 @@ TEST_CASE("scan doesn't produce extra copies")
         SUBCASE("send value by copy")
         {
             copy_count_tracker tracker{};
-            tracker.get_observable(2) | rpp::ops::scan([](copy_count_tracker&&, auto&& value) { return std::forward<decltype(value)>(value); }) | rpp::ops::subscribe([](copy_count_tracker) {}); // NOLINT
+            tracker.get_observable(2) | rpp::ops::scan([](copy_count_tracker&&, auto&& value) { return std::forward<decltype(value)>(value); }) | rpp::ops::subscribe([](copy_count_tracker) { }); // NOLINT
 
             // first emission: 1 copy to state + 1 copy to subscriber
             // second emision: 1 copy FROM scan lambda + 1 move to internal state + 1 copy to subscriber
@@ -149,7 +149,7 @@ TEST_CASE("scan doesn't produce extra copies")
         SUBCASE("send value by move")
         {
             copy_count_tracker tracker{};
-            tracker.get_observable_for_move(2) | rpp::ops::scan([](copy_count_tracker&&, auto&& value) { return std::forward<decltype(value)>(value); }) | rpp::ops::subscribe([](copy_count_tracker) {}); // NOLINT
+            tracker.get_observable_for_move(2) | rpp::ops::scan([](copy_count_tracker&&, auto&& value) { return std::forward<decltype(value)>(value); }) | rpp::ops::subscribe([](copy_count_tracker) { }); // NOLINT
 
             // first emission: 1 move to state + 1 copy to subscriber
             // second emision: 1 move FROM scan lambda + 1 move to internal state + 1 copy to subscriber

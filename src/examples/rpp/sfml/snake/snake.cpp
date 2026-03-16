@@ -91,26 +91,26 @@ rpp::dynamic_observable<sf::RectangleShape> get_shapes_to_draw(const rpp::dynami
     const auto initial_direction = s_key_to_direction.at(sf::Keyboard::Key::Right);
     auto       direction         = key_event | rpp::ops::filter([](const sf::Event::KeyEvent& key_event) {
                          return !key_event.alt && !key_event.control && !key_event.shift && !key_event.system;
-                     })
-                   | rpp::ops::map([](const sf::Event::KeyEvent& event) -> std::optional<Direction> {
+                                   })
+                                 | rpp::ops::map([](const sf::Event::KeyEvent& event) -> std::optional<Direction> {
                          const auto itr = s_key_to_direction.find(event.code);
                          if (itr != s_key_to_direction.cend())
                              return itr->second;
                          return std::nullopt;
-                     })
-                   | rpp::ops::filter([](const auto& optional) { return optional.has_value(); })
-                   | rpp::ops::map([](const auto& optional) { return optional.value(); })
-                   | rpp::ops::start_with(initial_direction);
+                                   })
+                                 | rpp::ops::filter([](const auto& optional) { return optional.has_value(); })
+                                 | rpp::ops::map([](const auto& optional) { return optional.value(); })
+                                 | rpp::ops::start_with(initial_direction);
 
     auto initial_snake_body = generate_initial_snake_body();
 
     const auto snake_earn_points       = rpp::subjects::publish_subject<size_t>{};
     auto       snake_length_observable = snake_earn_points
-                                       .get_observable()
-                                 | rpp::ops::scan(initial_snake_body.size(),
-                                                  [](size_t seed, size_t new_points) {
+                                             .get_observable()
+                                       | rpp::ops::scan(initial_snake_body.size(),
+                                                        [](size_t seed, size_t new_points) {
                                                       return seed + new_points;
-                                                  });
+                                                        });
 
     const auto snake_body = rpp::source::interval(std::chrono::milliseconds{200}, g_run_loop)
                           | rpp::ops::with_latest_from([](const auto&, const auto& second) { return second; }, std::move(direction))

@@ -96,7 +96,7 @@ namespace rppgrpc::details
             }
 
             static constexpr bool is_disposed() { return false; }
-            static constexpr void set_upstream(const rpp::disposable_wrapper&) {}
+            static constexpr void set_upstream(const rpp::disposable_wrapper&) { }
         };
 
     private:

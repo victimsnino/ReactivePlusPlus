@@ -16,7 +16,7 @@ class server : public TestService::CallbackService
     grpc::ServerReadReactor<Request>* ClientSide(grpc::CallbackServerContext* /*context*/, Response* /*response*/) override
     {
         const auto reactor = new rppgrpc::server_read_reactor<Request>();
-        reactor->get_observable().subscribe([](const Request&) {}, []() { std::cout << "DONE" << std::endl; });
+        reactor->get_observable().subscribe([](const Request&) { }, []() { std::cout << "DONE" << std::endl; });
         return reactor;
     }
     //! [read_reactor]
@@ -25,7 +25,7 @@ class server : public TestService::CallbackService
     grpc::ServerBidiReactor<Request, Response>* Bidirectional(grpc::CallbackServerContext* /*context*/) override
     {
         const auto reactor = new rppgrpc::server_bidi_reactor<Request, Response>();
-        reactor->get_observable().subscribe([](const Request&) {}, []() { std::cout << "DONE" << std::endl; });
+        reactor->get_observable().subscribe([](const Request&) { }, []() { std::cout << "DONE" << std::endl; });
 
         reactor->get_observer().on_next(Response{});
 
@@ -37,7 +37,7 @@ class server : public TestService::CallbackService
     grpc::ServerWriteReactor<Response>* ServerSide(grpc::CallbackServerContext* /*context*/, const Request* /*request*/) override
     {
         const auto reactor = new rppgrpc::server_write_reactor<Response>();
-        reactor->get_observable().subscribe([](rpp::utils::none) {}, []() { std::cout << "DONE" << std::endl; });
+        reactor->get_observable().subscribe([](rpp::utils::none) { }, []() { std::cout << "DONE" << std::endl; });
 
         reactor->get_observer().on_next(Response{});
 

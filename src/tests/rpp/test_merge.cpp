@@ -260,7 +260,7 @@ TEST_CASE("merge dispose inner_disposable immediately")
         CHECK(disposable.is_disposed());
     })
         | rpp::ops::merge_with(rpp::source::never<int>())
-        | rpp::ops::subscribe([](int) {});
+        | rpp::ops::subscribe([](int) { });
 }
 
 TEST_CASE("merge is not deadlocking is_disposed")
@@ -283,8 +283,8 @@ TEST_CASE("merge doesn't produce extra copies")
     {
         copy_count_tracker verifier{};
         auto               obs = rpp::source::just(verifier.get_observable()) | rpp::ops::merge();
-        obs.subscribe([](copy_count_tracker) {}); // NOLINT
-        REQUIRE(verifier.get_copy_count() == 1);  // 1 copy to final subscriber
+        obs.subscribe([](copy_count_tracker) { }); // NOLINT
+        REQUIRE(verifier.get_copy_count() == 1);   // 1 copy to final subscriber
         REQUIRE(verifier.get_move_count() == 0);
     }
 
@@ -292,7 +292,7 @@ TEST_CASE("merge doesn't produce extra copies")
     {
         copy_count_tracker verifier{};
         auto               obs = rpp::source::just(verifier.get_observable_for_move()) | rpp::ops::merge();
-        obs.subscribe([](copy_count_tracker) {}); // NOLINT
+        obs.subscribe([](copy_count_tracker) { }); // NOLINT
         REQUIRE(verifier.get_copy_count() == 0);
         REQUIRE(verifier.get_move_count() == 1); // 1 move to final subscriber
     }

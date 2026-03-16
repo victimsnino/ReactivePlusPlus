@@ -162,8 +162,8 @@ namespace rpp::details::disposables
             throw rpp::utils::more_disposables_than_expected{"static_disposables_container<0> expected no disposables but received at least one"};
         }
 
-        static void remove(const rpp::disposable_wrapper&) {}
-        static void dispose() {}
-        static void clear() {}
+        static void remove(const rpp::disposable_wrapper&) { }
+        static void dispose() { }
+        static void clear() { }
     };
 } // namespace rpp::details::disposables

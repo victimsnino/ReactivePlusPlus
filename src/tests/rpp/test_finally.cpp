@@ -108,7 +108,7 @@ TEST_CASE("finally satisfies disposable contracts")
         auto observable = observable_with_disposable<int>(observable_disposable);
 
         test_operator_with_disposable<int>(
-            rpp::ops::finally([]() noexcept {}));
+            rpp::ops::finally([]() noexcept { }));
     }
 
     CHECK((observable_disposable.is_disposed() || observable_disposable.lock().use_count() == 2));

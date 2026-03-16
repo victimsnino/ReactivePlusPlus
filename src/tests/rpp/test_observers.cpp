@@ -23,8 +23,8 @@ TEST_CASE("lambda observer works properly as base observer")
     size_t           on_error{};
     size_t           on_completed{};
     auto             observer = rpp::make_lambda_observer<int>([&](int v) { on_next_vals.push_back(v); },
-                                                   [&](const std::exception_ptr&) { ++on_error; },
-                                                   [&]() { ++on_completed; });
+                                                               [&](const std::exception_ptr&) { ++on_error; },
+                                                               [&]() { ++on_completed; });
 
     auto test_observer = [&](const auto& obs) {
         obs.on_next(1);
@@ -105,23 +105,23 @@ TEST_CASE("as_dynamic keeps disposing")
 
     SUBCASE("observer")
     {
-        check(rpp::make_lambda_observer<int>([](int) {}, [](const std::exception_ptr&) {}, []() {}));
+        check(rpp::make_lambda_observer<int>([](int) { }, [](const std::exception_ptr&) { }, []() { }));
     }
     SUBCASE("observer with disposable")
     {
         check(rpp::make_lambda_observer<int>(
             rpp::composite_disposable_wrapper::make(),
-            [](int) {},
-            [](const std::exception_ptr&) {},
-            []() {}));
+            [](int) { },
+            [](const std::exception_ptr&) { },
+            []() { }));
     }
     SUBCASE("observer with disposed disposable")
     {
         check(rpp::make_lambda_observer<int>(
             rpp::composite_disposable_wrapper::make(),
-            [](int) {},
-            [](const std::exception_ptr&) {},
-            []() {}));
+            [](int) { },
+            [](const std::exception_ptr&) { },
+            []() { }));
     }
 }
 
@@ -130,9 +130,9 @@ TEST_CASE("observer disposes disposable on termination callbacks")
     auto d        = rpp::composite_disposable_wrapper::make();
     auto observer = rpp::make_lambda_observer<int>(
         d,
-        [](int) {},
-        [](const std::exception_ptr&) {},
-        []() {});
+        [](int) { },
+        [](const std::exception_ptr&) { },
+        []() { });
 
     auto upstream = rpp::disposable_wrapper::make<rpp::composite_disposable>();
     observer.set_upstream(upstream);
@@ -160,7 +160,7 @@ TEST_CASE("observer disposes disposable on termination callbacks")
 
 TEST_CASE("set_upstream without base disposable makes it main disposalbe")
 {
-    auto original_observer = rpp::make_lambda_observer<int>([](int) {}, [](const std::exception_ptr&) {}, []() {});
+    auto original_observer = rpp::make_lambda_observer<int>([](int) { }, [](const std::exception_ptr&) { }, []() { });
 
     auto test_observer = [&](auto&& observer) {
         auto upstream = rpp::disposable_wrapper::make<rpp::composite_disposable>();
@@ -210,21 +210,21 @@ TEST_CASE("set_upstream can be called multiple times")
     };
 
     SUBCASE("observer")
-    check(rpp::make_lambda_observer<int>([](int) {}, [](const std::exception_ptr&) {}, []() {}));
+    check(rpp::make_lambda_observer<int>([](int) { }, [](const std::exception_ptr&) { }, []() { }));
 
     SUBCASE("observer with disposable")
     check(rpp::make_lambda_observer<int>(
         rpp::composite_disposable_wrapper::make(),
-        [](int) {},
-        [](const std::exception_ptr&) {},
-        []() {}));
+        [](int) { },
+        [](const std::exception_ptr&) { },
+        []() { }));
 
     SUBCASE("observer with empty disposable")
     check(rpp::make_lambda_observer<int>(
         rpp::composite_disposable_wrapper::empty(),
-        [](int) {},
-        [](const std::exception_ptr&) {},
-        []() {}));
+        [](int) { },
+        [](const std::exception_ptr&) { },
+        []() { }));
 }
 
 TEST_CASE("set_upstream depends on base disposable")
@@ -232,9 +232,9 @@ TEST_CASE("set_upstream depends on base disposable")
     auto d                 = rpp::composite_disposable_wrapper::make();
     auto original_observer = rpp::make_lambda_observer<int>(
         d,
-        [](int) {},
-        [](const std::exception_ptr&) {},
-        []() {});
+        [](int) { },
+        [](const std::exception_ptr&) { },
+        []() { });
 
     auto test_observer = [&](auto&& observer) {
         auto upstream = rpp::disposable_wrapper::make<rpp::composite_disposable>();
@@ -275,9 +275,9 @@ TEST_CASE("set_upstream disposing when empty base disposable")
 {
     auto original_observer = rpp::make_lambda_observer<int>(
         rpp::composite_disposable_wrapper::empty(),
-        [](int) {},
-        [](const std::exception_ptr&) {},
-        []() {});
+        [](int) { },
+        [](const std::exception_ptr&) { },
+        []() { });
 
     auto test_observer = [](auto&& observer) {
         auto upstream = rpp::disposable_wrapper::make<rpp::composite_disposable>();

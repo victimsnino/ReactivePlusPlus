@@ -30,7 +30,7 @@ int main()
         | rpp::ops::buffer(2)
         | rpp::ops::subscribe(
             [](const std::vector<int>& v) { std::cout << v << "-"; },
-            [](const std::exception_ptr&) {},
+            [](const std::exception_ptr&) { },
             []() { std::cout << "|" << std::endl; });
     // Source: -1-2-3-4-5--|
     // Output: {1,2}-{3,4}-{5}-|

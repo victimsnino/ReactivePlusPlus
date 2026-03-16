@@ -126,7 +126,7 @@ TEST_CASE("window subdivide observable into sub-observables")
             {
                 auto mock = mock_observer_strategy<int>{};
                 obs.subscribe([&](const auto& observable) { observable.subscribe(mock); },
-                              [](const std::exception_ptr&) {});
+                              [](const std::exception_ptr&) { });
 
                 subj.get_observer().on_next(1);
                 SUBCASE("inner subscriber see first value without complete")
@@ -189,7 +189,7 @@ TEST_CASE("window disposes original disposable only when everything is disposed"
     obs
         | rpp::ops::window(2)
         | rpp::ops::subscribe(rpp::composite_disposable_wrapper{observer_disposable}, [inner_observer_disposable](const rpp::window_observable<int>& new_obs) {
-              new_obs.subscribe(rpp::composite_disposable_wrapper{inner_observer_disposable}, [](int) {});
+              new_obs.subscribe(rpp::composite_disposable_wrapper{inner_observer_disposable}, [](int) { });
           });
 
     CHECK(!source_disposable.is_disposed());

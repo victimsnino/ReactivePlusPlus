@@ -135,8 +135,8 @@ namespace rpp::operators::details
             locked_state->observer.on_error(err);
         }
 
-        static void on_completed() {}
-        static void set_upstream(const disposable_wrapper&) {}
+        static void on_completed() { }
+        static void set_upstream(const disposable_wrapper&) { }
         static bool is_disposed() { return false; }
     };
 

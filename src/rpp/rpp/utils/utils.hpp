@@ -250,9 +250,9 @@ namespace rpp::utils
 
     struct none_mutex
     {
-        static constexpr void lock() {}
-        static constexpr void unlock() {}
-        static constexpr void try_lock() {}
+        static constexpr void lock() { }
+        static constexpr void unlock() { }
+        static constexpr void try_lock() { }
     };
 
     template<typename T>
