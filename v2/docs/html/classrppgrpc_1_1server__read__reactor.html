@@ -121,7 +121,7 @@ class rppgrpc::server_read_reactor&lt; Request &gt;</div><p>RPP's based implemen
 <div class="fragment"><div class="line">    grpc::ServerReadReactor&lt;Request&gt;* ClientSide(grpc::CallbackServerContext* <span class="comment">/*context*/</span>, Response* <span class="comment">/*response*/</span>)<span class="keyword"> override</span></div>
 <div class="line"><span class="keyword">    </span>{</div>
 <div class="line">        <span class="keyword">const</span> <span class="keyword">auto</span> reactor = <span class="keyword">new</span> rppgrpc::server_read_reactor&lt;Request&gt;();</div>
-<div class="line">        reactor-&gt;get_observable().subscribe([](<span class="keyword">const</span> Request&amp;) {}, []() { std::cout &lt;&lt; <span class="stringliteral">&quot;DONE&quot;</span> &lt;&lt; std::endl; });</div>
+<div class="line">        reactor-&gt;get_observable().subscribe([](<span class="keyword">const</span> Request&amp;) { }, []() { std::cout &lt;&lt; <span class="stringliteral">&quot;DONE&quot;</span> &lt;&lt; std::endl; });</div>
 <div class="line">        <span class="keywordflow">return</span> reactor;</div>
 <div class="line">    }</div>
 </div><!-- fragment --> <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="server_reactor_8cpp-example.html#_a1">server_reactor.cpp</a>.</dd>

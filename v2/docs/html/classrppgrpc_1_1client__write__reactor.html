@@ -133,7 +133,7 @@ class rppgrpc::client_write_reactor&lt; Request &gt;</div><p>RPP's based impleme
 <div class="line">        <span class="keyword">const</span> <span class="keyword">auto</span>          reactor = <span class="keyword">new</span> <a class="code hl_class" href="classrppgrpc_1_1client__write__reactor.html">rppgrpc::client_write_reactor&lt;Request&gt;</a>();</div>
 <div class="line">        Response            resp{};</div>
 <div class="line">        stub-&gt;async()-&gt;ClientSide(&amp;ctx, &amp;resp, reactor);</div>
-<div class="line">        reactor-&gt;get_observable().subscribe([](<span class="keyword">const</span> <a class="code hl_struct" href="structrpp_1_1utils_1_1none.html">rpp::utils::none</a>&amp;) {});</div>
+<div class="line">        reactor-&gt;get_observable().subscribe([](<span class="keyword">const</span> <a class="code hl_struct" href="structrpp_1_1utils_1_1none.html">rpp::utils::none</a>&amp;) { });</div>
 <div class="line"> </div>
 <div class="line">        reactor-&gt;init();</div>
 <div class="line"> </div>

@@ -122,7 +122,7 @@ $(function(){initNavTree('throttle_8cpp-example.html','',''); });
 <div class="line">          })</div>
 <div class="line">        | <a id="_a5" name="_a5"></a><a class="code hl_function" href="group__filtering__operators.html#gada7d22ff6ee83d4aca44411561f56f98">rpp::operators::throttle</a>(std::chrono::milliseconds{700})</div>
 <div class="line">        | <a id="_a6" name="_a6"></a><a class="code hl_function" href="group__utility__operators.html#ga149309d4b2e0f1201f1ab42597ace8ac">rpp::operators::subscribe</a>([&amp;](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; <span class="stringliteral">&quot;&gt;&gt;&gt; new value &quot;</span> &lt;&lt; v &lt;&lt; <span class="stringliteral">&quot; at &quot;</span> &lt;&lt; std::chrono::duration_cast&lt;std::chrono::milliseconds&gt;(rpp::schedulers::clock_type::now() - start).count() &lt;&lt; std::endl; },</div>
-<div class="line">                                    [](<span class="keyword">const</span> std::exception_ptr&amp;) {},</div>
+<div class="line">                                    [](<span class="keyword">const</span> std::exception_ptr&amp;) { },</div>
 <div class="line">                                    [&amp;]() { std::cout &lt;&lt; <span class="stringliteral">&quot;&gt;&gt;&gt; completed at &quot;</span> &lt;&lt; std::chrono::duration_cast&lt;std::chrono::milliseconds&gt;(rpp::schedulers::clock_type::now() - start).count() &lt;&lt; std::endl; });</div>
 <div class="line"> </div>
 <div class="line"> </div>

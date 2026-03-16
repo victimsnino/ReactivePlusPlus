@@ -119,14 +119,14 @@ $(function(){initNavTree('server_reactor_8cpp-example.html','',''); });
 <div class="line">    grpc::ServerReadReactor&lt;Request&gt;* ClientSide(grpc::CallbackServerContext* <span class="comment">/*context*/</span>, Response* <span class="comment">/*response*/</span>)<span class="keyword"> override</span></div>
 <div class="line"><span class="keyword">    </span>{</div>
 <div class="line">        <span class="keyword">const</span> <span class="keyword">auto</span> reactor = <span class="keyword">new</span> <a id="_a1" name="_a1"></a><a class="code hl_class" href="classrppgrpc_1_1server__read__reactor.html">rppgrpc::server_read_reactor&lt;Request&gt;</a>();</div>
-<div class="line">        reactor-&gt;get_observable().subscribe([](<span class="keyword">const</span> Request&amp;) {}, []() { std::cout &lt;&lt; <span class="stringliteral">&quot;DONE&quot;</span> &lt;&lt; std::endl; });</div>
+<div class="line">        reactor-&gt;get_observable().subscribe([](<span class="keyword">const</span> Request&amp;) { }, []() { std::cout &lt;&lt; <span class="stringliteral">&quot;DONE&quot;</span> &lt;&lt; std::endl; });</div>
 <div class="line">        <span class="keywordflow">return</span> reactor;</div>
 <div class="line">    }</div>
 <div class="line"></div>
 <div class="line">    grpc::ServerBidiReactor&lt;Request, Response&gt;* Bidirectional(grpc::CallbackServerContext* <span class="comment">/*context*/</span>)<span class="keyword"> override</span></div>
 <div class="line"><span class="keyword">    </span>{</div>
 <div class="line">        <span class="keyword">const</span> <span class="keyword">auto</span> reactor = <span class="keyword">new</span> <a id="_a2" name="_a2"></a><a class="code hl_class" href="classrppgrpc_1_1server__bidi__reactor.html">rppgrpc::server_bidi_reactor&lt;Request, Response&gt;</a>();</div>
-<div class="line">        reactor-&gt;get_observable().subscribe([](<span class="keyword">const</span> Request&amp;) {}, []() { std::cout &lt;&lt; <span class="stringliteral">&quot;DONE&quot;</span> &lt;&lt; std::endl; });</div>
+<div class="line">        reactor-&gt;get_observable().subscribe([](<span class="keyword">const</span> Request&amp;) { }, []() { std::cout &lt;&lt; <span class="stringliteral">&quot;DONE&quot;</span> &lt;&lt; std::endl; });</div>
 <div class="line"> </div>
 <div class="line">        reactor-&gt;get_observer().on_next(Response{});</div>
 <div class="line"> </div>
@@ -136,7 +136,7 @@ $(function(){initNavTree('server_reactor_8cpp-example.html','',''); });
 <div class="line">    grpc::ServerWriteReactor&lt;Response&gt;* ServerSide(grpc::CallbackServerContext* <span class="comment">/*context*/</span>, <span class="keyword">const</span> Request* <span class="comment">/*request*/</span>)<span class="keyword"> override</span></div>
 <div class="line"><span class="keyword">    </span>{</div>
 <div class="line">        <span class="keyword">const</span> <span class="keyword">auto</span> reactor = <span class="keyword">new</span> <a id="_a3" name="_a3"></a><a class="code hl_class" href="classrppgrpc_1_1server__write__reactor.html">rppgrpc::server_write_reactor&lt;Response&gt;</a>();</div>
-<div class="line">        reactor-&gt;get_observable().subscribe([](<a id="_a4" name="_a4"></a><a class="code hl_struct" href="structrpp_1_1utils_1_1none.html">rpp::utils::none</a>) {}, []() { std::cout &lt;&lt; <span class="stringliteral">&quot;DONE&quot;</span> &lt;&lt; std::endl; });</div>
+<div class="line">        reactor-&gt;get_observable().subscribe([](<a id="_a4" name="_a4"></a><a class="code hl_struct" href="structrpp_1_1utils_1_1none.html">rpp::utils::none</a>) { }, []() { std::cout &lt;&lt; <span class="stringliteral">&quot;DONE&quot;</span> &lt;&lt; std::endl; });</div>
 <div class="line"> </div>
 <div class="line">        reactor-&gt;get_observer().on_next(Response{});</div>
 <div class="line"> </div>

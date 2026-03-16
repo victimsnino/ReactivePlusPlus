@@ -122,7 +122,7 @@ class rppgrpc::server_write_reactor&lt; Response &gt;</div><p>RPP's based implem
 <div class="fragment"><div class="line">    grpc::ServerWriteReactor&lt;Response&gt;* ServerSide(grpc::CallbackServerContext* <span class="comment">/*context*/</span>, <span class="keyword">const</span> Request* <span class="comment">/*request*/</span>)<span class="keyword"> override</span></div>
 <div class="line"><span class="keyword">    </span>{</div>
 <div class="line">        <span class="keyword">const</span> <span class="keyword">auto</span> reactor = <span class="keyword">new</span> rppgrpc::server_write_reactor&lt;Response&gt;();</div>
-<div class="line">        reactor-&gt;get_observable().subscribe([](rpp::utils::none) {}, []() { std::cout &lt;&lt; <span class="stringliteral">&quot;DONE&quot;</span> &lt;&lt; std::endl; });</div>
+<div class="line">        reactor-&gt;get_observable().subscribe([](rpp::utils::none) { }, []() { std::cout &lt;&lt; <span class="stringliteral">&quot;DONE&quot;</span> &lt;&lt; std::endl; });</div>
 <div class="line"> </div>
 <div class="line">        reactor-&gt;get_observer().on_next(Response{});</div>
 <div class="line"> </div>

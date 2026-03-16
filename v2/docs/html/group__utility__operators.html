@@ -232,7 +232,7 @@ template&lt;details::on_next_like OnNext, std::invocable&lt;&gt; OnCompleted&gt;
 <dl class="section user"><dt>Example:</dt><dd><div class="fragment"><div class="line">    <a class="code hl_function" href="group__creational__operators.html#gaaafffb586cd6a4a677e2a3224bfbbe39">rpp::source::just</a>(1)</div>
 <div class="line">        | <a class="code hl_function" href="#gae38caa489cf43c0aca1aa1c8822aed60">rpp::operators::delay</a>(std::chrono::seconds{1}, <a class="code hl_class" href="classrpp_1_1schedulers_1_1new__thread.html">rpp::schedulers::new_thread</a>{}) <span class="comment">// &lt;-- emit from another thread with delay</span></div>
 <div class="line">        | <a class="code hl_function" href="#ga9df008c11eeff8c9383e56bf36e28ec2">rpp::operators::as_blocking</a>()</div>
-<div class="line">        | <a class="code hl_function" href="#ga149309d4b2e0f1201f1ab42597ace8ac">rpp::operators::subscribe</a>([](<span class="keywordtype">int</span>) {}, []() { std::cout &lt;&lt; <span class="stringliteral">&quot;COMPLETED&quot;</span> &lt;&lt; std::endl; });</div>
+<div class="line">        | <a class="code hl_function" href="#ga149309d4b2e0f1201f1ab42597ace8ac">rpp::operators::subscribe</a>([](<span class="keywordtype">int</span>) { }, []() { std::cout &lt;&lt; <span class="stringliteral">&quot;COMPLETED&quot;</span> &lt;&lt; std::endl; });</div>
 <div class="line">    std::cout &lt;&lt; <span class="stringliteral">&quot;done&quot;</span> &lt;&lt; std::endl;</div>
 <div class="line">    <span class="comment">// output: COMPLETED done</span></div>
 </div><!-- fragment --> </dd></dl>
@@ -286,7 +286,7 @@ template&lt;<a class="el" href="conceptrpp_1_1schedulers_1_1constraint_1_1schedu
 <div class="line">          })</div>
 <div class="line">        | <a class="code hl_function" href="#ga49e91c6114f62ac261303814c818face">rpp::operators::debounce</a>(std::chrono::milliseconds{700}, <a class="code hl_class" href="classrpp_1_1schedulers_1_1current__thread.html">rpp::schedulers::current_thread</a>{})</div>
 <div class="line">        | <a class="code hl_function" href="#ga149309d4b2e0f1201f1ab42597ace8ac">rpp::operators::subscribe</a>([&amp;](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; <span class="stringliteral">&quot;&gt;&gt;&gt; new value &quot;</span> &lt;&lt; v &lt;&lt; <span class="stringliteral">&quot; at &quot;</span> &lt;&lt; std::chrono::duration_cast&lt;std::chrono::milliseconds&gt;(rpp::schedulers::clock_type::now() - start).count() &lt;&lt; std::endl; },</div>
-<div class="line">                                    [](<span class="keyword">const</span> std::exception_ptr&amp;) {},</div>
+<div class="line">                                    [](<span class="keyword">const</span> std::exception_ptr&amp;) { },</div>
 <div class="line">                                    [&amp;]() { std::cout &lt;&lt; <span class="stringliteral">&quot;&gt;&gt;&gt; completed at &quot;</span> &lt;&lt; std::chrono::duration_cast&lt;std::chrono::milliseconds&gt;(rpp::schedulers::clock_type::now() - start).count() &lt;&lt; std::endl; });</div>
 <div class="line"> </div>
 <div class="line"> </div>
@@ -524,7 +524,7 @@ template&lt;<a class="el" href="conceptrpp_1_1schedulers_1_1constraint_1_1schedu
 <div class="line">        | <a class="code hl_function" href="#ga41ef49dc75a3eadb0eb3fda7c3692c40">rpp::operators::repeat</a>()</div>
 <div class="line">        | <a class="code hl_function" href="group__filtering__operators.html#gaf32161437c2c6cd7d5a0e5170a333cbb">rpp::operators::take</a>(10)</div>
 <div class="line">        | <a class="code hl_function" href="#ga149309d4b2e0f1201f1ab42597ace8ac">rpp::operators::subscribe</a>([](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; v &lt;&lt; <span class="stringliteral">&quot; &quot;</span>; },</div>
-<div class="line">                                    [](<span class="keyword">const</span> std::exception_ptr&amp;) {},</div>
+<div class="line">                                    [](<span class="keyword">const</span> std::exception_ptr&amp;) { },</div>
 <div class="line">                                    []() {</div>
 <div class="line">                                        std::cout &lt;&lt; <span class="stringliteral">&quot;completed&quot;</span> &lt;&lt; std::endl;</div>
 <div class="line">                                    });</div>
@@ -579,7 +579,7 @@ template&lt;<a class="el" href="conceptrpp_1_1schedulers_1_1constraint_1_1schedu
 <dl class="section user"><dt>Examples:</dt><dd><div class="fragment"><div class="line">    <a class="code hl_function" href="group__creational__operators.html#gaaafffb586cd6a4a677e2a3224bfbbe39">rpp::source::just</a>(1, 2, 3)</div>
 <div class="line">        | <a class="code hl_function" href="#ga41ef49dc75a3eadb0eb3fda7c3692c40">rpp::operators::repeat</a>(2)</div>
 <div class="line">        | <a class="code hl_function" href="#ga149309d4b2e0f1201f1ab42597ace8ac">rpp::operators::subscribe</a>([](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; v &lt;&lt; <span class="stringliteral">&quot; &quot;</span>; },</div>
-<div class="line">                                    [](<span class="keyword">const</span> std::exception_ptr&amp;) {},</div>
+<div class="line">                                    [](<span class="keyword">const</span> std::exception_ptr&amp;) { },</div>
 <div class="line">                                    []() { std::cout &lt;&lt; <span class="stringliteral">&quot;completed&quot;</span> &lt;&lt; std::endl; });</div>
 <div class="line">    <span class="comment">// Output: 1 2 3 1 2 3 completed</span></div>
 </div><!-- fragment --></dd></dl>

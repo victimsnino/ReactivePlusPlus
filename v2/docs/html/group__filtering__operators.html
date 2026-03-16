@@ -348,7 +348,7 @@ template&lt;typename Fn&gt; </div>
 <div class="line">        | <a class="code hl_function" href="#ga5b8f3bf549a8679d41941f7224f7faad">rpp::operators::first</a>()</div>
 <div class="line">        | <a class="code hl_function" href="group__utility__operators.html#ga149309d4b2e0f1201f1ab42597ace8ac">rpp::operators::subscribe</a>(</div>
 <div class="line">            [](<span class="keyword">const</span> <span class="keyword">auto</span>&amp; v) { std::cout &lt;&lt; <span class="stringliteral">&quot;-&quot;</span> &lt;&lt; v; },</div>
-<div class="line">            [](<span class="keyword">const</span> std::exception_ptr&amp;) {},</div>
+<div class="line">            [](<span class="keyword">const</span> std::exception_ptr&amp;) { },</div>
 <div class="line">            []() { std::cout &lt;&lt; <span class="stringliteral">&quot;-|&quot;</span> &lt;&lt; std::endl; });</div>
 <div class="line">    <span class="comment">// Source: -1-2-3-4-5--|</span></div>
 <div class="line">    <span class="comment">// Output: -1-|</span></div>
@@ -410,7 +410,7 @@ template&lt;typename Fn&gt; </div>
 <div class="line">        | <a class="code hl_function" href="#ga679e35f7895a5d7e22cd2b3c359b9457">rpp::operators::last</a>()</div>
 <div class="line">        | <a class="code hl_function" href="group__utility__operators.html#ga149309d4b2e0f1201f1ab42597ace8ac">rpp::operators::subscribe</a>(</div>
 <div class="line">            [](<span class="keyword">const</span> <span class="keyword">auto</span>&amp; v) { std::cout &lt;&lt; <span class="stringliteral">&quot;-&quot;</span> &lt;&lt; v; },</div>
-<div class="line">            [](<span class="keyword">const</span> std::exception_ptr&amp;) {},</div>
+<div class="line">            [](<span class="keyword">const</span> std::exception_ptr&amp;) { },</div>
 <div class="line">            []() { std::cout &lt;&lt; <span class="stringliteral">&quot;-|&quot;</span> &lt;&lt; std::endl; });</div>
 <div class="line">    <span class="comment">// Source: -1-2-3-4-5--|</span></div>
 <div class="line">    <span class="comment">// Output: -5-|</span></div>
@@ -631,7 +631,7 @@ template&lt;<a class="el" href="conceptrpp_1_1schedulers_1_1constraint_1_1schedu
 <div class="line">          })</div>
 <div class="line">        | <a class="code hl_function" href="#gada7d22ff6ee83d4aca44411561f56f98">rpp::operators::throttle</a>(std::chrono::milliseconds{700})</div>
 <div class="line">        | <a class="code hl_function" href="group__utility__operators.html#ga149309d4b2e0f1201f1ab42597ace8ac">rpp::operators::subscribe</a>([&amp;](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; <span class="stringliteral">&quot;&gt;&gt;&gt; new value &quot;</span> &lt;&lt; v &lt;&lt; <span class="stringliteral">&quot; at &quot;</span> &lt;&lt; std::chrono::duration_cast&lt;std::chrono::milliseconds&gt;(rpp::schedulers::clock_type::now() - start).count() &lt;&lt; std::endl; },</div>
-<div class="line">                                    [](<span class="keyword">const</span> std::exception_ptr&amp;) {},</div>
+<div class="line">                                    [](<span class="keyword">const</span> std::exception_ptr&amp;) { },</div>
 <div class="line">                                    [&amp;]() { std::cout &lt;&lt; <span class="stringliteral">&quot;&gt;&gt;&gt; completed at &quot;</span> &lt;&lt; std::chrono::duration_cast&lt;std::chrono::milliseconds&gt;(rpp::schedulers::clock_type::now() - start).count() &lt;&lt; std::endl; });</div>
 <div class="line"> </div>
 <div class="line"> </div>
