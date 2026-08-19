@@ -58,7 +58,7 @@ jobs:
       uses: jurplel/install-qt-action@v4
       with:
         cache: true
-        version: "6.2.*"
+        version: "6.10.*"
 
     - name: conan detect profile
       if: steps.check_cache.outputs.cache-hit != 'true' || github.event_name == 'schedule'
@@ -107,7 +107,7 @@ jobs:
       uses: jurplel/install-qt-action@v4
       with:
         cache: true
-        version: "6.2.*"
+        version: "6.10.*"
 
     - name: get conan
       uses: turtlebrowser/get-conan@main
@@ -184,7 +184,7 @@ jobs:
       uses: jurplel/install-qt-action@v4
       with:
         cache: true
-        version: "6.2.*"
+        version: "6.10.*"
 
     - name: get conan
       uses: turtlebrowser/get-conan@main
@@ -263,7 +263,7 @@ jobs:
       uses: jurplel/install-qt-action@v4
       with:
         cache: true
-        version: "6.2.*"
+        version: "6.10.*"
 
     - name: Install project and build
       env:
