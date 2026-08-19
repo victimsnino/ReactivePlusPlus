@@ -251,7 +251,8 @@ jobs:
         destination_dir: v2/docs
 
   use_rpp_as_package:
-    timeout-minutes: 20
+    timeout-minutes: 40
+    needs: ["cache_deps"]
 
     runs-on: ubuntu-22.04
     name: Test RPP as package - ubuntu-22.04
