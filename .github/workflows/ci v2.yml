@@ -218,6 +218,8 @@ jobs:
         path: ${{github.workspace}}/build/test_results/benchmarks_results.json
 
   docs:
+    timeout-minutes: 20
+  
     name: Build Doxygen Docs
     runs-on: ubuntu-22.04
 
