@@ -39,7 +39,7 @@ var searchData=
   ['observers_3a_36',['Observers:',['../index.html#autotoc_md4',1,'']]],
   ['on_5fcompleted_37',['on_completed',['../classrpp_1_1details_1_1observer__impl.html#a7a73f13eae52effde01a2d3b2cf1d1b4',1,'rpp::details::observer_impl']]],
   ['on_5ferror_38',['on_error',['../classrpp_1_1details_1_1observer__impl.html#aa55c5a334bc39c92218f7b51e5126bbc',1,'rpp::details::observer_impl']]],
-  ['on_5ferror_5fresume_5fnext_39',['on_error_resume_next',['../group__error__handling__operators.html#ga70818a8489758e4a51e51aa6d29796bc',1,'rpp::operators']]],
+  ['on_5ferror_5fresume_5fnext_39',['on_error_resume_next',['../group__error__handling__operators.html#ga40e9ae3bcae6914870f2cf9941f4bc50',1,'rpp::operators']]],
   ['on_5ferror_5fresume_5fnext_5fdisposable_40',['on_error_resume_next_disposable',['../structrpp_1_1operators_1_1details_1_1on__error__resume__next__disposable.html',1,'rpp::operators::details']]],
   ['on_5ferror_5fresume_5fnext_5finner_5fobserver_5fstrategy_41',['on_error_resume_next_inner_observer_strategy',['../structrpp_1_1operators_1_1details_1_1on__error__resume__next__inner__observer__strategy.html',1,'rpp::operators::details']]],
   ['on_5ferror_5fresume_5fnext_5fobserver_5fstrategy_42',['on_error_resume_next_observer_strategy',['../structrpp_1_1operators_1_1details_1_1on__error__resume__next__observer__strategy.html',1,'rpp::operators::details']]],

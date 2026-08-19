@@ -6,8 +6,8 @@ var group__observers =
       [ "as_dynamic", "classrpp_1_1observer.html#ab008a79c1c7825554c91dbc6d130ece4", null ]
     ] ],
     [ "rpp::lambda_observer", "group__observers.html#ga76d808086fac28fdb0b00fc7513c741a", null ],
-    [ "rpp::make_lambda_observer", "group__observers.html#ga0bbf333e7246548ef85df0c351f68cce", null ],
+    [ "rpp::make_lambda_observer", "group__observers.html#gafd5e6a4e4bb9adec8c5c1523fedffc73", null ],
     [ "rpp::make_lambda_observer", "group__observers.html#ga05af623240043eb1c29955b6a16f41a1", null ],
-    [ "rpp::make_lambda_observer", "group__observers.html#ga65dd8ff2f58b15ae331452b7643436bc", null ],
+    [ "rpp::make_lambda_observer", "group__observers.html#ga67be8a62b82293b892e0bf143af215fa", null ],
     [ "rpp::make_lambda_observer", "group__observers.html#gae17f62f64102925f4cd2eb29c4c27028", null ]
 ];
