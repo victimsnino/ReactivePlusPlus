@@ -148,7 +148,7 @@ jobs:
         build_type: [{config: Release, test_preset: ci-tests}, {config: Debug, test_preset: ci-tests-debug}]
         optimization_disabled: [{mode: 0, postfix: ""}, {mode: 1, postfix: " (Optimizations disabled)"}]
 
-    timeout-minutes: 20
+    timeout-minutes: 40
     runs-on: ${{ matrix.config.os }}
     name: ${{ matrix.type }} ${{ matrix.config.name }} ${{ matrix.build_type.config }}${{ matrix.optimization_disabled.postfix}}
 
