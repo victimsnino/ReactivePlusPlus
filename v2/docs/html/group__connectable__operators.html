@@ -146,6 +146,9 @@ Functions</h2></td></tr>
 <tr class="memdesc:ga42498cc0bc565116e9deece3c3afa66f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts ordinary observable to <a class="el" href="classrpp_1_1connectable__observable.html" title="Extension over raw observable with ability to be manually connected at any time or ref_counting (shar...">rpp::connectable_observable</a> with help of inline instsantiated publish subject.  <br /></td></tr>
 <tr class="memitem:ga7c5ba7b673ad2f41b767f4cea0b5af3e" id="r_ga7c5ba7b673ad2f41b767f4cea0b5af3e"><td class="memItemLeft">auto&#160;</td><td class="memItemRight"><a class="el" href="#ga7c5ba7b673ad2f41b767f4cea0b5af3e">rpp::operators::ref_count</a> ()</td></tr>
 <tr class="memdesc:ga7c5ba7b673ad2f41b767f4cea0b5af3e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Forces <a class="el" href="classrpp_1_1connectable__observable.html" title="Extension over raw observable with ability to be manually connected at any time or ref_counting (shar...">rpp::connectable_observable</a> to behave like common observable.  <br /></td></tr>
+<tr class="memitem:ga138dbb6cd4802c55ce46fcbaab0ff231" id="r_ga138dbb6cd4802c55ce46fcbaab0ff231"><td class="memTemplParams" colspan="2">template&lt;template&lt; typename &gt; typename Subject = rpp::subjects::publish_subject&gt; </td></tr>
+<tr class="memitem:ga138dbb6cd4802c55ce46fcbaab0ff231 template"><td class="memItemLeft">auto&#160;</td><td class="memItemRight"><a class="el" href="#ga138dbb6cd4802c55ce46fcbaab0ff231">rpp::operators::share</a> ()</td></tr>
+<tr class="memdesc:ga138dbb6cd4802c55ce46fcbaab0ff231"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shares single subscription to original observable between multiple observers.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Connectable operators are operators that provide extra functionality for multicasting of controlling of subscription. </p>
@@ -390,6 +393,60 @@ template&lt;<a class="el" href="conceptrpp_1_1constraint_1_1observable.html">rpp
 </div><!-- fragment --></dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/refcount.html">https://reactivex.io/documentation/operators/refcount.html</a> </dd></dl>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="ref_count_8cpp-example.html#a4">ref_count.cpp</a>, and <a class="el" href="window_toggle_8cpp-example.html#a3">window_toggle.cpp</a>.</dd>
+</dl>
+
+</div>
+</div>
+<a id="ga138dbb6cd4802c55ce46fcbaab0ff231" name="ga138dbb6cd4802c55ce46fcbaab0ff231"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga138dbb6cd4802c55ce46fcbaab0ff231">&#9670;&#160;</a></span>share()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;template&lt; typename &gt; typename Subject = rpp::subjects::publish_subject&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">auto rpp::operators::share </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Shares single subscription to original observable between multiple observers. </p>
+<p>This is a shortcut for <span class="tt"><a class="el" href="#gac99bc1fb7cbf8814e0eb2c9b843fc19a" title="Converts ordinary observable to rpp::connectable_observable with help of provided subject.">multicast</a>&lt;Subject&gt;() | <a class="el" href="#ga7c5ba7b673ad2f41b767f4cea0b5af3e" title="Forces rpp::connectable_observable to behave like common observable.">ref_count()</a></span>: observable is converted to <a class="el" href="classrpp_1_1connectable__observable.html" title="Extension over raw observable with ability to be manually connected at any time or ref_counting (shar...">rpp::connectable_observable</a> with help of inline instantiated subject and immediately forced to behave like common observable. As a result original observable is subscribed on the first subscription and disposed on the last unsubscription, while emissions are multicasted to all observers.</p>
+<dl class="section warning"><dt>Warning</dt><dd>This operator creates fresh <span class="tt">Subject&lt;Type&gt;</span> everytime new observable passed to it, but same subject is reused for all observers of that particular observable. In case of <a class="el" href="classrpp_1_1subjects_1_1publish__subject.html" title="Subject which just multicasts values to observers subscribed on it. It contains two parts: observer a...">rpp::subjects::publish_subject</a> observers subscribed after some emissions would obtain only upcoming ones</dd></dl>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">Subject</td><td>is template template typename over Subject to be created to multicast emissions, <a class="el" href="classrpp_1_1subjects_1_1publish__subject.html" title="Subject which just multicasts values to observers subscribed on it. It contains two parts: observer a...">rpp::subjects::publish_subject</a> by default </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd><span class="tt">#include &lt;<a class="el" href="share_8hpp_source.html">rpp/operators/share.hpp</a>&gt;</span></dd></dl>
+<dl class="section user"><dt>Example</dt><dd><div class="fragment"><div class="line">        <span class="keyword">auto</span> subject = <a class="code hl_class" href="classrpp_1_1subjects_1_1publish__subject.html">rpp::subjects::publish_subject&lt;int&gt;</a>{};</div>
+<div class="line"> </div>
+<div class="line">        <span class="keyword">auto</span> observable = <a class="code hl_function" href="group__creational__operators.html#gae68c87e7ae3a505258b733082bf68513">rpp::source::create&lt;int&gt;</a>([&amp;](<span class="keyword">auto</span>&amp;&amp; observer) {</div>
+<div class="line">                              std::cout &lt;&lt; <span class="stringliteral">&quot;SUBSCRIBE&quot;</span> &lt;&lt; std::endl;</div>
+<div class="line">                              subject.get_observable().subscribe(std::forward&lt;<span class="keyword">decltype</span>(observer)&gt;(observer));</div>
+<div class="line">                          })</div>
+<div class="line">                        | <a class="code hl_function" href="#ga138dbb6cd4802c55ce46fcbaab0ff231">rpp::ops::share</a>();</div>
+<div class="line"> </div>
+<div class="line">        std::cout &lt;&lt; <span class="stringliteral">&quot;before subscriptions&quot;</span> &lt;&lt; std::endl;</div>
+<div class="line">        observable.subscribe([](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; <span class="stringliteral">&quot;#1 &quot;</span> &lt;&lt; v &lt;&lt; std::endl; });</div>
+<div class="line">        observable.subscribe([](<span class="keywordtype">int</span> v) { std::cout &lt;&lt; <span class="stringliteral">&quot;#2 &quot;</span> &lt;&lt; v &lt;&lt; std::endl; });</div>
+<div class="line"> </div>
+<div class="line">        subject.get_observer().on_next(1);</div>
+<div class="line">        subject.get_observer().on_completed();</div>
+<div class="line">        <span class="comment">// Output:</span></div>
+<div class="line">        <span class="comment">// before subscriptions</span></div>
+<div class="line">        <span class="comment">// SUBSCRIBE</span></div>
+<div class="line">        <span class="comment">// #1 1</span></div>
+<div class="line">        <span class="comment">// #2 1</span></div>
+<div class="line"> </div>
+</div><!-- fragment --></dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a href="https://reactivex.io/documentation/operators/refcount.html">https://reactivex.io/documentation/operators/refcount.html</a> </dd></dl>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="share_8cpp-example.html#_a2">share.cpp</a>.</dd>
 </dl>
 
 </div>

@@ -452,6 +452,7 @@ var hierarchy =
     [ "grpc::ServerWriteReactor", null, [
       [ "rppgrpc::server_write_reactor< Response >", "classrppgrpc_1_1server__write__reactor.html", null ]
     ] ],
+    [ "rpp::operators::details::share_t&lt; Subject &gt;", "structrpp_1_1operators_1_1details_1_1share__t.html", null ],
     [ "rpp::details::shared_container&lt; Container &gt;", "classrpp_1_1details_1_1shared__container.html", null ],
     [ "rpp::schedulers::details::shared_queue_data", "structrpp_1_1schedulers_1_1details_1_1shared__queue__data.html", null ],
     [ "simple_map&lt; Fn &gt;", "structsimple__map.html", null ],

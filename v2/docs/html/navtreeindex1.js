@@ -31,7 +31,7 @@ var NAVTREEINDEX1 =
 "from_8cpp-example.html":[2,3,12],
 "from_8hpp_source.html":[2,2,0,0,1,0,5,5],
 "from__signal_8hpp_source.html":[2,2,0,0,0,2,0,1,0],
-"from_signal_8cpp-example.html":[2,3,42],
+"from_signal_8cpp-example.html":[2,3,43],
 "function__traits_8hpp_source.html":[2,2,0,0,1,0,7,2],
 "functions.html":[2,1,3,0],
 "functions_func.html":[2,1,3,1],
@@ -58,6 +58,7 @@ var NAVTREEINDEX1 =
 "group__conditional__operators.html#gac65952f7460d8f0e71a93d95810d2061":[1,0,3,2,1],
 "group__conditional__operators.html#gae40802b5608766bfcc1417e210f41707":[1,0,3,2,0],
 "group__connectable__operators.html":[1,0,3,5],
+"group__connectable__operators.html#ga138dbb6cd4802c55ce46fcbaab0ff231":[1,0,3,5,5],
 "group__connectable__operators.html#ga42498cc0bc565116e9deece3c3afa66f":[1,0,3,5,2],
 "group__connectable__operators.html#ga7c5ba7b673ad2f41b767f4cea0b5af3e":[1,0,3,5,4],
 "group__connectable__operators.html#gac7b150abbdae0a5084dd3784d9c7babf":[1,0,3,5,0],
@@ -216,7 +217,7 @@ var NAVTREEINDEX1 =
 "pages.html":[],
 "publish_8hpp_source.html":[2,2,0,0,1,0,3,22],
 "publish__subject_8hpp_source.html":[2,2,0,0,1,0,6,3],
-"qt_readme_8cpp-example.html":[2,3,43],
+"qt_readme_8cpp-example.html":[2,3,44],
 "queue_8hpp_source.html":[2,2,0,0,1,0,4,0,0],
 "readme_8cpp-example.html":[2,3,21],
 "reduce_8cpp-example.html":[2,3,22],
@@ -248,6 +249,5 @@ var NAVTREEINDEX1 =
 "rpp_8hpp_source.html":[2,2,0,0,1,0,15],
 "rppasio_8hpp_source.html":[2,2,0,0,0,0,0,2],
 "rppgrpc_8hpp_source.html":[2,2,0,0,0,1,0,4],
-"rppqt_8hpp_source.html":[2,2,0,0,0,2,0,4],
-"run__loop_8hpp_source.html":[2,2,0,0,1,0,4,6]
+"rppqt_8hpp_source.html":[2,2,0,0,0,2,0,4]
 };

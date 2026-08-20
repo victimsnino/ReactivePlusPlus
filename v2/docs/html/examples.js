@@ -28,6 +28,7 @@ var examples =
     [ "retry.cpp", "retry_8cpp-example.html", null ],
     [ "retry_when.cpp", "retry_when_8cpp-example.html", null ],
     [ "scan.cpp", "scan_8cpp-example.html", null ],
+    [ "share.cpp", "share_8cpp-example.html", null ],
     [ "skip.cpp", "skip_8cpp-example.html", null ],
     [ "start_with.cpp", "start_with_8cpp-example.html", null ],
     [ "subscribe_on.cpp", "subscribe_on_8cpp-example.html", null ],

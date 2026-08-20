@@ -139,6 +139,7 @@ var annotated_dup =
           [ "scan_no_seed_t", "structrpp_1_1operators_1_1details_1_1scan__no__seed__t.html", "structrpp_1_1operators_1_1details_1_1scan__no__seed__t" ],
           [ "scan_observer_strategy", "structrpp_1_1operators_1_1details_1_1scan__observer__strategy.html", null ],
           [ "scan_t", "structrpp_1_1operators_1_1details_1_1scan__t.html", "structrpp_1_1operators_1_1details_1_1scan__t" ],
+          [ "share_t", "structrpp_1_1operators_1_1details_1_1share__t.html", null ],
           [ "skip_observer_strategy", "structrpp_1_1operators_1_1details_1_1skip__observer__strategy.html", null ],
           [ "skip_t", "structrpp_1_1operators_1_1details_1_1skip__t.html", "structrpp_1_1operators_1_1details_1_1skip__t" ],
           [ "start_with_t", "structrpp_1_1operators_1_1details_1_1start__with__t.html", null ],

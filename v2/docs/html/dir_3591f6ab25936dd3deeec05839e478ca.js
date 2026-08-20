@@ -30,6 +30,7 @@ var dir_3591f6ab25936dd3deeec05839e478ca =
     [ "retry.hpp", "retry_8hpp_source.html", null ],
     [ "retry_when.hpp", "retry__when_8hpp_source.html", null ],
     [ "scan.hpp", "scan_8hpp_source.html", null ],
+    [ "share.hpp", "share_8hpp_source.html", null ],
     [ "skip.hpp", "skip_8hpp_source.html", null ],
     [ "start_with.hpp", "start__with_8hpp_source.html", null ],
     [ "subscribe.hpp", "subscribe_8hpp_source.html", null ],
