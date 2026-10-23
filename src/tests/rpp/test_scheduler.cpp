@@ -1080,7 +1080,9 @@ TEST_CASE("timer queued while the worker waits for a later one runs at its own t
 
     auto       d    = rpp::composite_disposable_wrapper::make();
     auto       obs  = mock_observer_strategy<int>{}.get_observer(d).as_dynamic();
-    const auto noop = [](const auto&) { return rpp::schedulers::optional_delay_from_now{}; };
+    const auto noop = [](const auto&) {
+        return rpp::schedulers::optional_delay_from_now{};
+    };
 
     SUBCASE("run_loop")
     {
