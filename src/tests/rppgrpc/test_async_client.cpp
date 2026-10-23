@@ -393,7 +393,7 @@ TEST_CASE("async client reactor: call that ends during init()")
         Request             request{};
         Response            response{};
         const auto          done = std::make_shared<std::promise<void>>();
-        reactor->get_observable().subscribe([](const auto&) {},
+        reactor->get_observable().subscribe([](const auto&) { },
                                             [done](const std::exception_ptr&) { done->set_value(); },
                                             [done] { done->set_value(); });
         bind(ctx, request, response, reactor);
