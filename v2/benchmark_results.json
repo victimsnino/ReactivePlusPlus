@@ -240425,6 +240425,1239 @@
             "medianAbsolutePercentError(elapsed)": 0.00135411801003138,
             "commit": "31634838",
             "commit_message": "share operator (#757)"
+        },
+        {
+            "title": "General",
+            "name": "Subscribe empty callbacks to empty observable",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 1.57766762091306,
+            "medianAbsolutePercentError(elapsed)": 0.0121875900099862,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "General",
+            "name": "Subscribe empty callbacks to empty observable via pipe operator",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 1.55537164449754,
+            "medianAbsolutePercentError(elapsed)": 0.000808569832108677,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Sources",
+            "name": "from array of 1 - create + subscribe + immediate",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 0.311020363517036,
+            "medianAbsolutePercentError(elapsed)": 0.000877501550265546,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Sources",
+            "name": "from array of 1 - create + subscribe + current_thread",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 3.450872724647,
+            "medianAbsolutePercentError(elapsed)": 0.00110237411857771,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Sources",
+            "name": "from array of 1 - create + as_blocking + subscribe + new_thread",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 35827.28125,
+            "medianAbsolutePercentError(elapsed)": 0.0292025132095923,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Sources",
+            "name": "from array of 1000 - create + as_blocking + subscribe + new_thread",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 58018.4666666667,
+            "medianAbsolutePercentError(elapsed)": 0.025838783577423,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Sources",
+            "name": "concat_as_source of just(1 immediate) create + subscribe",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 119.87963386727701,
+            "medianAbsolutePercentError(elapsed)": 0.00517088672884014,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Sources",
+            "name": "concat_as_source of just(1 immediate) and just(1,2 immediate)create + subscribe",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 149.067277892562,
+            "medianAbsolutePercentError(elapsed)": 0.00337982139408124,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Sources",
+            "name": "defer from array of 1 - defer + create + subscribe + immediate",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 0.310997040941289,
+            "medianAbsolutePercentError(elapsed)": 0.000836661078043931,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Sources",
+            "name": "interval - interval + take(3) + subscribe + immediate",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 59.9871525344546,
+            "medianAbsolutePercentError(elapsed)": 0.000661987372512551,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Sources",
+            "name": "interval - interval + take(3) + subscribe + current_thread",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 34.2253947998086,
+            "medianAbsolutePercentError(elapsed)": 0.000913185029477713,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "immediate scheduler create worker + schedule",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 0.622257092548047,
+            "medianAbsolutePercentError(elapsed)": 0.000628140518175421,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "current_thread scheduler create worker + schedule",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 4.9760708212748,
+            "medianAbsolutePercentError(elapsed)": 0.00047312500632291,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "current_thread scheduler create worker + schedule + recursive schedule",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 61.4656238439994,
+            "medianAbsolutePercentError(elapsed)": 0.0110241140795319,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "immediate_just(immediate_just(1), immediate_just(1)) + merge() + subscribe",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 182.83280141844,
+            "medianAbsolutePercentError(elapsed)": 0.0059716810289717,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "immediate_just(immediate_just(1), immediate_just(1)) + concat() + subscribe",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 256.48666666666696,
+            "medianAbsolutePercentError(elapsed)": 0.00689580623706293,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "immediate_just(1) + merge_with(immediate_just(2)) + subscribe",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 165.697670831405,
+            "medianAbsolutePercentError(elapsed)": 0.00242060197217185,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "immediate_just(1) + with_latest_from(immediate_just(2)) + subscribe",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 154.23457300275498,
+            "medianAbsolutePercentError(elapsed)": 0.00355639371638349,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "immediate_just(immediate_just(1),immediate_just(1)) + switch_on_next() + subscribe",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 546.1294896030249,
+            "medianAbsolutePercentError(elapsed)": 0.00339900574935945,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "immediate_just(1) + zip(immediate_just(2)) + subscribe",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 220.431222008957,
+            "medianAbsolutePercentError(elapsed)": 0.0488704759959327,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Conditional Operators",
+            "name": "immediate_just+take_while(false)+subscribe",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 0.0,
+            "medianAbsolutePercentError(elapsed)": 0,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Conditional Operators",
+            "name": "immediate_just+take_while(true)+subscribe",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 0.310763334784813,
+            "medianAbsolutePercentError(elapsed)": 0.000876723535642025,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "immediate_just+map(v*2)+subscribe",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 0.31096467103549,
+            "medianAbsolutePercentError(elapsed)": 0.00172582331615647,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "immediate_just+scan(10, std::plus)+subscribe",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 0.310997273246849,
+            "medianAbsolutePercentError(elapsed)": 0.000800006777914362,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "immediate_just+flat_map(immediate_just(v*2))+subscribe",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 174.230126136697,
+            "medianAbsolutePercentError(elapsed)": 0.00438595560187885,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "immediate_just+buffer(2)+subscribe",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 18.424702117272698,
+            "medianAbsolutePercentError(elapsed)": 0.00337773150718419,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "immediate_just+window(2)+subscribe + subscsribe inner",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 1370.8693333333301,
+            "medianAbsolutePercentError(elapsed)": 0.00374094177649567,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "immediate_just+take(1)+subscribe",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 0.311103754761207,
+            "medianAbsolutePercentError(elapsed)": 0.000797553949997188,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "immediate_just+take_last(1)+subscribe",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 19.597440605991,
+            "medianAbsolutePercentError(elapsed)": 0.0005354265903175,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "immediate_just+filter(true)+subscribe",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 0.310942356167571,
+            "medianAbsolutePercentError(elapsed)": 0.000655350746499767,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "immediate_just(1,2)+first()+subscribe",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 0.310766403543766,
+            "medianAbsolutePercentError(elapsed)": 0.00029409084303691,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "immediate_just(1,2)+last()+subscribe",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 0.310892614196578,
+            "medianAbsolutePercentError(elapsed)": 0.000557075499268574,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "immediate_just(1,2)+skip(1)+subscribe",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 0.310920265302776,
+            "medianAbsolutePercentError(elapsed)": 0.000658403593088667,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "immediate_just(1,1,2)+distinct_until_changed()+subscribe",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 0.310830664585924,
+            "medianAbsolutePercentError(elapsed)": 0.000375322534538554,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "immediate_just(1,2,3)+element_at(1)+subscribe",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 0.310887575365618,
+            "medianAbsolutePercentError(elapsed)": 0.000666742480511681,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Utility Operators",
+            "name": "immediate_just(1)+subscribe_on(immediate)+subscribe",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 0.310727099620376,
+            "medianAbsolutePercentError(elapsed)": 0.000693770718141691,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Aggregating Operators",
+            "name": "immediate_just+reduce(10, std::plus)+subscribe",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 0.310809136004228,
+            "medianAbsolutePercentError(elapsed)": 0.000447284386946968,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Error Handling Operators",
+            "name": "create(on_next(1), on_error())+on_error_resume_next(immediate_just(2)))+subscribe",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 1043.57302231237,
+            "medianAbsolutePercentError(elapsed)": 0.00202411855919157,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Error Handling Operators",
+            "name": "create(on_error())+retry(1)+subscribe",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 112.67462353597301,
+            "medianAbsolutePercentError(elapsed)": 0.00130900425785204,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Subjects",
+            "name": "publish_subject with 1 observer - on_next",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 15.2447861143226,
+            "medianAbsolutePercentError(elapsed)": 0.00102163322988789,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Subjects",
+            "name": "subscribe 100 observers to publish_subject",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 18071.28125,
+            "medianAbsolutePercentError(elapsed)": 0.00121589070091908,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Subjects",
+            "name": "100 on_next to 100 observers to publish_subject",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 16915.8852459016,
+            "medianAbsolutePercentError(elapsed)": 0.000785473443095211,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Scenarios",
+            "name": "basic sample",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 24.8840123863165,
+            "medianAbsolutePercentError(elapsed)": 0.00112906354569237,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Scenarios",
+            "name": "basic sample with immediate scheduler",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 16.1698052247761,
+            "medianAbsolutePercentError(elapsed)": 0.000488283609106383,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Scenarios",
+            "name": "mix operators with disposables and without disposables",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 1984.08777969019,
+            "medianAbsolutePercentError(elapsed)": 0.00370996136323452,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Scenarios",
+            "name": "single disposable and looooooong indentity chain",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 5164.97989949749,
+            "medianAbsolutePercentError(elapsed)": 0.00243700391877354,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "General",
+            "name": "Subscribe empty callbacks to empty observable",
+            "source": "rpp",
+            "median(elapsed)": 0.448200038886015,
+            "medianAbsolutePercentError(elapsed)": 0.0060058133676241,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "General",
+            "name": "Subscribe empty callbacks to empty observable",
+            "source": "rxcpp",
+            "median(elapsed)": 398.836162105992,
+            "medianAbsolutePercentError(elapsed)": 0.00115749855380793,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "General",
+            "name": "Subscribe empty callbacks to empty observable via pipe operator",
+            "source": "rpp",
+            "median(elapsed)": 0.443559703067271,
+            "medianAbsolutePercentError(elapsed)": 0.000674992582342085,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "General",
+            "name": "Subscribe empty callbacks to empty observable via pipe operator",
+            "source": "rxcpp",
+            "median(elapsed)": 399.37667112299505,
+            "medianAbsolutePercentError(elapsed)": 0.00114069668467798,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Sources",
+            "name": "from array of 1 - create + subscribe + immediate",
+            "source": "rpp",
+            "median(elapsed)": 0.22137686764234202,
+            "medianAbsolutePercentError(elapsed)": 0.000419147136644582,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Sources",
+            "name": "from array of 1 - create + subscribe + immediate",
+            "source": "rxcpp",
+            "median(elapsed)": 1025.93308199811,
+            "medianAbsolutePercentError(elapsed)": 0.0028388507914315,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Sources",
+            "name": "from array of 1 - create + subscribe + current_thread",
+            "source": "rpp",
+            "median(elapsed)": 1.6556349070787,
+            "medianAbsolutePercentError(elapsed)": 0.00399354475563565,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Sources",
+            "name": "from array of 1 - create + subscribe + current_thread",
+            "source": "rxcpp",
+            "median(elapsed)": 1559.41913746631,
+            "medianAbsolutePercentError(elapsed)": 0.00783003617596183,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Sources",
+            "name": "from array of 1 - create + as_blocking + subscribe + new_thread",
+            "source": "rpp",
+            "median(elapsed)": 13819.1948051948,
+            "medianAbsolutePercentError(elapsed)": 0.0167306781874057,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Sources",
+            "name": "from array of 1 - create + as_blocking + subscribe + new_thread",
+            "source": "rxcpp",
+            "median(elapsed)": 14045.4189189189,
+            "medianAbsolutePercentError(elapsed)": 0.0173090114728992,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Sources",
+            "name": "from array of 1000 - create + as_blocking + subscribe + new_thread",
+            "source": "rpp",
+            "median(elapsed)": 24486.1489361702,
+            "medianAbsolutePercentError(elapsed)": 0.00637283497310716,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Sources",
+            "name": "from array of 1000 - create + as_blocking + subscribe + new_thread",
+            "source": "rxcpp",
+            "median(elapsed)": 18348.086206896598,
+            "medianAbsolutePercentError(elapsed)": 0.00781144602758495,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Sources",
+            "name": "concat_as_source of just(1 immediate) create + subscribe",
+            "source": "rpp",
+            "median(elapsed)": 170.292784116165,
+            "medianAbsolutePercentError(elapsed)": 0.00261732253443574,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Sources",
+            "name": "concat_as_source of just(1 immediate) create + subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 3142.0490463215297,
+            "medianAbsolutePercentError(elapsed)": 0.00150096780123474,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Sources",
+            "name": "concat_as_source of just(1 immediate) and just(1,2 immediate)create + subscribe",
+            "source": "rpp",
+            "median(elapsed)": 205.307198716663,
+            "medianAbsolutePercentError(elapsed)": 0.00224881696172612,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Sources",
+            "name": "concat_as_source of just(1 immediate) and just(1,2 immediate)create + subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 4659.0303030303,
+            "medianAbsolutePercentError(elapsed)": 0.00202258993244886,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Sources",
+            "name": "defer from array of 1 - defer + create + subscribe + immediate",
+            "source": "rpp",
+            "median(elapsed)": 0.22278048286755,
+            "medianAbsolutePercentError(elapsed)": 0.00138656375653534,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Sources",
+            "name": "defer from array of 1 - defer + create + subscribe + immediate",
+            "source": "rxcpp",
+            "median(elapsed)": 1104.96551724138,
+            "medianAbsolutePercentError(elapsed)": 0.000773055847741294,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Sources",
+            "name": "interval - interval + take(3) + subscribe + immediate",
+            "source": "rpp",
+            "median(elapsed)": 41.2121526254934,
+            "medianAbsolutePercentError(elapsed)": 0.000451467725976789,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Sources",
+            "name": "interval - interval + take(3) + subscribe + immediate",
+            "source": "rxcpp",
+            "median(elapsed)": 3237.91147540984,
+            "medianAbsolutePercentError(elapsed)": 0.000842140978794628,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Sources",
+            "name": "interval - interval + take(3) + subscribe + current_thread",
+            "source": "rpp",
+            "median(elapsed)": 22.4319771759096,
+            "medianAbsolutePercentError(elapsed)": 0.00305986668901822,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Sources",
+            "name": "interval - interval + take(3) + subscribe + current_thread",
+            "source": "rxcpp",
+            "median(elapsed)": 4637.858870967741,
+            "medianAbsolutePercentError(elapsed)": 0.000286571747522495,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "immediate scheduler create worker + schedule",
+            "source": "rpp",
+            "median(elapsed)": 0.332559333333333,
+            "medianAbsolutePercentError(elapsed)": 0.00153920684305261,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "immediate scheduler create worker + schedule",
+            "source": "rxcpp",
+            "median(elapsed)": 419.64257173992,
+            "medianAbsolutePercentError(elapsed)": 0.00408261069192597,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "current_thread scheduler create worker + schedule",
+            "source": "rpp",
+            "median(elapsed)": 2.27465743291603,
+            "medianAbsolutePercentError(elapsed)": 0.0153116487753724,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "current_thread scheduler create worker + schedule",
+            "source": "rxcpp",
+            "median(elapsed)": 509.50022114108793,
+            "medianAbsolutePercentError(elapsed)": 0.00134451138786243,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "current_thread scheduler create worker + schedule + recursive schedule",
+            "source": "rpp",
+            "median(elapsed)": 49.0490621149194,
+            "medianAbsolutePercentError(elapsed)": 0.00121186693547803,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "current_thread scheduler create worker + schedule + recursive schedule",
+            "source": "rxcpp",
+            "median(elapsed)": 1167.12703583062,
+            "medianAbsolutePercentError(elapsed)": 0.000548038953501265,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "immediate_just(immediate_just(1), immediate_just(1)) + merge() + subscribe",
+            "source": "rpp",
+            "median(elapsed)": 238.906222611744,
+            "medianAbsolutePercentError(elapsed)": 0.00262714664457358,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "immediate_just(immediate_just(1), immediate_just(1)) + merge() + subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 5369.26,
+            "medianAbsolutePercentError(elapsed)": 0.00300732759659643,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "immediate_just(immediate_just(1), immediate_just(1)) + concat() + subscribe",
+            "source": "rpp",
+            "median(elapsed)": 340.918222222222,
+            "medianAbsolutePercentError(elapsed)": 0.000589223518972016,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "immediate_just(immediate_just(1), immediate_just(1)) + concat() + subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 4423.86290322581,
+            "medianAbsolutePercentError(elapsed)": 0.00259498385483192,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "immediate_just(1) + merge_with(immediate_just(2)) + subscribe",
+            "source": "rpp",
+            "median(elapsed)": 245.334081632653,
+            "medianAbsolutePercentError(elapsed)": 0.00158021329716341,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "immediate_just(1) + merge_with(immediate_just(2)) + subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 5246.08673469388,
+            "medianAbsolutePercentError(elapsed)": 0.00112760486544577,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "immediate_just(1) + with_latest_from(immediate_just(2)) + subscribe",
+            "source": "rpp",
+            "median(elapsed)": 192.98905109489098,
+            "medianAbsolutePercentError(elapsed)": 0.000410654992081526,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "immediate_just(immediate_just(1),immediate_just(1)) + switch_on_next() + subscribe",
+            "source": "rpp",
+            "median(elapsed)": 530.879853814527,
+            "medianAbsolutePercentError(elapsed)": 0.00877894566860234,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "immediate_just(immediate_just(1),immediate_just(1)) + switch_on_next() + subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 5504.57435897436,
+            "medianAbsolutePercentError(elapsed)": 0.000439046796027308,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "immediate_just(1) + zip(immediate_just(2)) + subscribe",
+            "source": "rpp",
+            "median(elapsed)": 236.000658327847,
+            "medianAbsolutePercentError(elapsed)": 0.00586055441537897,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "immediate_just(1) + zip(immediate_just(2)) + subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 2913.38243626062,
+            "medianAbsolutePercentError(elapsed)": 0.000611327651177064,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Conditional Operators",
+            "name": "immediate_just+take_while(false)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.0,
+            "medianAbsolutePercentError(elapsed)": 0,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Conditional Operators",
+            "name": "immediate_just+take_while(false)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 1201.06360792492,
+            "medianAbsolutePercentError(elapsed)": 0.000553211823685277,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Conditional Operators",
+            "name": "immediate_just+take_while(true)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.223116381773115,
+            "medianAbsolutePercentError(elapsed)": 0.00355990469471476,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Conditional Operators",
+            "name": "immediate_just+take_while(true)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 1247.64340239913,
+            "medianAbsolutePercentError(elapsed)": 0.00211313239662238,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "immediate_just+map(v*2)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.22458554340471,
+            "medianAbsolutePercentError(elapsed)": 0.00151539836974123,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "immediate_just+map(v*2)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 1222.51070663812,
+            "medianAbsolutePercentError(elapsed)": 0.00172014509943367,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "immediate_just+scan(10, std::plus)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.221413406681476,
+            "medianAbsolutePercentError(elapsed)": 0.00030378375304545,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "immediate_just+scan(10, std::plus)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 1347.71378091873,
+            "medianAbsolutePercentError(elapsed)": 0.00111702876286779,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "immediate_just+flat_map(immediate_just(v*2))+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 196.756326687117,
+            "medianAbsolutePercentError(elapsed)": 0.000894847659011492,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "immediate_just+flat_map(immediate_just(v*2))+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 3471.92307692308,
+            "medianAbsolutePercentError(elapsed)": 0.00103561814438026,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "immediate_just+buffer(2)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 6.43237763743362,
+            "medianAbsolutePercentError(elapsed)": 0.000633989946777495,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "immediate_just+buffer(2)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 1566.4789687924,
+            "medianAbsolutePercentError(elapsed)": 0.00226010608099225,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "immediate_just+window(2)+subscribe + subscsribe inner",
+            "source": "rpp",
+            "median(elapsed)": 1361.2227848101302,
+            "medianAbsolutePercentError(elapsed)": 0.00156239283090235,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "immediate_just+window(2)+subscribe + subscsribe inner",
+            "source": "rxcpp",
+            "median(elapsed)": 2738.30333333333,
+            "medianAbsolutePercentError(elapsed)": 0.00192122999555703,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "immediate_just+take(1)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.2215283127605,
+            "medianAbsolutePercentError(elapsed)": 0.000826226291621835,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "immediate_just+take(1)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 1586.21515151515,
+            "medianAbsolutePercentError(elapsed)": 0.00151689614627326,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "immediate_just+take_last(1)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 8.470643793792691,
+            "medianAbsolutePercentError(elapsed)": 0.00720457776769757,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "immediate_just+take_last(1)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 1613.88359046283,
+            "medianAbsolutePercentError(elapsed)": 0.00115187972323,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "immediate_just+filter(true)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.222476701276907,
+            "medianAbsolutePercentError(elapsed)": 0.00251754801277094,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "immediate_just+filter(true)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 1215.92535545024,
+            "medianAbsolutePercentError(elapsed)": 0.000643683623169369,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "immediate_just(1,2)+first()+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.221567313526873,
+            "medianAbsolutePercentError(elapsed)": 0.000590271106959261,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "immediate_just(1,2)+first()+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 1868.8709150326802,
+            "medianAbsolutePercentError(elapsed)": 0.00100557850503685,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "immediate_just(1,2)+last()+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.22155867299993398,
+            "medianAbsolutePercentError(elapsed)": 0.000286214265517464,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "immediate_just(1,2)+last()+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 1383.0236842105298,
+            "medianAbsolutePercentError(elapsed)": 0.000667816585139009,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "immediate_just(1,2)+skip(1)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.221579801453551,
+            "medianAbsolutePercentError(elapsed)": 0.000417520481326827,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "immediate_just(1,2)+skip(1)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 1490.63885088919,
+            "medianAbsolutePercentError(elapsed)": 0.0011608826241702,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "immediate_just(1,1,2)+distinct_until_changed()+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.221579455422633,
+            "medianAbsolutePercentError(elapsed)": 0.000365134335390759,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "immediate_just(1,1,2)+distinct_until_changed()+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 1234.5129411764701,
+            "medianAbsolutePercentError(elapsed)": 0.00591991193236277,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "immediate_just(1,2,3)+element_at(1)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.221555871953633,
+            "medianAbsolutePercentError(elapsed)": 0.000303110082890024,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "immediate_just(1,2,3)+element_at(1)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 1224.72834224599,
+            "medianAbsolutePercentError(elapsed)": 0.00151155996404139,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Utility Operators",
+            "name": "immediate_just(1)+subscribe_on(immediate)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.223811393942555,
+            "medianAbsolutePercentError(elapsed)": 0.00249928731462551,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Utility Operators",
+            "name": "immediate_just(1)+subscribe_on(immediate)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 2756.28418230563,
+            "medianAbsolutePercentError(elapsed)": 0.00232591104182853,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Aggregating Operators",
+            "name": "immediate_just+reduce(10, std::plus)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.221688979432011,
+            "medianAbsolutePercentError(elapsed)": 0.000454755227651709,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Aggregating Operators",
+            "name": "immediate_just+reduce(10, std::plus)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 1383.95148247978,
+            "medianAbsolutePercentError(elapsed)": 0.00212207150239316,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Error Handling Operators",
+            "name": "create(on_next(1), on_error())+on_error_resume_next(immediate_just(2)))+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 621.1421875,
+            "medianAbsolutePercentError(elapsed)": 0.00231237221556413,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Error Handling Operators",
+            "name": "create(on_next(1), on_error())+on_error_resume_next(immediate_just(2)))+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 1966.1835564053501,
+            "medianAbsolutePercentError(elapsed)": 0.00144424934580293,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Error Handling Operators",
+            "name": "create(on_error())+retry(1)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 181.011467508725,
+            "medianAbsolutePercentError(elapsed)": 0.00315852320733843,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Error Handling Operators",
+            "name": "create(on_error())+retry(1)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 835.7306889352819,
+            "medianAbsolutePercentError(elapsed)": 0.00280547743891066,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Subjects",
+            "name": "publish_subject with 1 observer - on_next",
+            "source": "rpp",
+            "median(elapsed)": 30.4565704529691,
+            "medianAbsolutePercentError(elapsed)": 0.00161994449459899,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Subjects",
+            "name": "publish_subject with 1 observer - on_next",
+            "source": "rxcpp",
+            "median(elapsed)": 64.8707856018242,
+            "medianAbsolutePercentError(elapsed)": 0.000451992311619716,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Subjects",
+            "name": "subscribe 100 observers to publish_subject",
+            "source": "rpp",
+            "median(elapsed)": 24387.4893617021,
+            "medianAbsolutePercentError(elapsed)": 0.0013559831950889,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Subjects",
+            "name": "subscribe 100 observers to publish_subject",
+            "source": "rxcpp",
+            "median(elapsed)": 237406.80000000002,
+            "medianAbsolutePercentError(elapsed)": 0.00242788341768305,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Subjects",
+            "name": "100 on_next to 100 observers to publish_subject",
+            "source": "rpp",
+            "median(elapsed)": 17194.2380952381,
+            "medianAbsolutePercentError(elapsed)": 0.00177042724378398,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Subjects",
+            "name": "100 on_next to 100 observers to publish_subject",
+            "source": "rxcpp",
+            "median(elapsed)": 16745.639344262298,
+            "medianAbsolutePercentError(elapsed)": 0.000653085666862858,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Scenarios",
+            "name": "basic sample",
+            "source": "rpp",
+            "median(elapsed)": 5.92054955816837,
+            "medianAbsolutePercentError(elapsed)": 0.00702280641608358,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Scenarios",
+            "name": "basic sample",
+            "source": "rxcpp",
+            "median(elapsed)": 1761.01344537815,
+            "medianAbsolutePercentError(elapsed)": 0.000680761284412936,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Scenarios",
+            "name": "basic sample with immediate scheduler",
+            "source": "rpp",
+            "median(elapsed)": 2.4382048242566303,
+            "medianAbsolutePercentError(elapsed)": 0.000479682519189112,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Scenarios",
+            "name": "basic sample with immediate scheduler",
+            "source": "rxcpp",
+            "median(elapsed)": 1769.823723229,
+            "medianAbsolutePercentError(elapsed)": 0.000471518027757866,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Scenarios",
+            "name": "mix operators with disposables and without disposables",
+            "source": "rpp",
+            "median(elapsed)": 1423.1053283766998,
+            "medianAbsolutePercentError(elapsed)": 0.0029496206956217,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Scenarios",
+            "name": "mix operators with disposables and without disposables",
+            "source": "rxcpp",
+            "median(elapsed)": 7520.56934306569,
+            "medianAbsolutePercentError(elapsed)": 0.00262234847095494,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Scenarios",
+            "name": "single disposable and looooooong indentity chain",
+            "source": "rpp",
+            "median(elapsed)": 1414.0110974105999,
+            "medianAbsolutePercentError(elapsed)": 0.00266999942333474,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Scenarios",
+            "name": "single disposable and looooooong indentity chain",
+            "source": "rxcpp",
+            "median(elapsed)": 20009.058823529398,
+            "medianAbsolutePercentError(elapsed)": 0.00179701884341902,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
         }
     ],
     "ci-macos": [
@@ -480853,6 +482086,1239 @@
             "medianAbsolutePercentError(elapsed)": 0.0246264819584947,
             "commit": "31634838",
             "commit_message": "share operator (#757)"
+        },
+        {
+            "title": "General",
+            "name": "Subscribe empty callbacks to empty observable",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 0.6338728795819589,
+            "medianAbsolutePercentError(elapsed)": 0.0572102766569113,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "General",
+            "name": "Subscribe empty callbacks to empty observable via pipe operator",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 0.66453661853314,
+            "medianAbsolutePercentError(elapsed)": 0.0535763194836497,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Sources",
+            "name": "from array of 1 - create + subscribe + immediate",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 0.405173141097586,
+            "medianAbsolutePercentError(elapsed)": 0.0933592096627347,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Sources",
+            "name": "from array of 1 - create + subscribe + current_thread",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 5.02698217889139,
+            "medianAbsolutePercentError(elapsed)": 0.0776907070516282,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Sources",
+            "name": "from array of 1 - create + as_blocking + subscribe + new_thread",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 57607.142857142906,
+            "medianAbsolutePercentError(elapsed)": 0.139951706943599,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Sources",
+            "name": "from array of 1000 - create + as_blocking + subscribe + new_thread",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 56298.263157894704,
+            "medianAbsolutePercentError(elapsed)": 0.013662165363658,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Sources",
+            "name": "concat_as_source of just(1 immediate) create + subscribe",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 261.01276245368496,
+            "medianAbsolutePercentError(elapsed)": 0.218045281484754,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Sources",
+            "name": "concat_as_source of just(1 immediate) and just(1,2 immediate)create + subscribe",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 250.772825825102,
+            "medianAbsolutePercentError(elapsed)": 0.0962918900818703,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Sources",
+            "name": "defer from array of 1 - defer + create + subscribe + immediate",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 0.417858666777886,
+            "medianAbsolutePercentError(elapsed)": 0.0376026780328335,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Sources",
+            "name": "interval - interval + take(3) + subscribe + immediate",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 66.5287070067981,
+            "medianAbsolutePercentError(elapsed)": 0.0713602283905771,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Sources",
+            "name": "interval - interval + take(3) + subscribe + current_thread",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 37.8056395134537,
+            "medianAbsolutePercentError(elapsed)": 0.0500647685742608,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "immediate scheduler create worker + schedule",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 0.6133038653503671,
+            "medianAbsolutePercentError(elapsed)": 0.104313438402045,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "current_thread scheduler create worker + schedule",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 4.89234440510189,
+            "medianAbsolutePercentError(elapsed)": 0.123145820606951,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "current_thread scheduler create worker + schedule + recursive schedule",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 77.721131252098,
+            "medianAbsolutePercentError(elapsed)": 0.0559241428246006,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "immediate_just(immediate_just(1), immediate_just(1)) + merge() + subscribe",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 245.68121781956597,
+            "medianAbsolutePercentError(elapsed)": 0.0386107556070897,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "immediate_just(immediate_just(1), immediate_just(1)) + concat() + subscribe",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 389.65635871666,
+            "medianAbsolutePercentError(elapsed)": 0.0217505282972268,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "immediate_just(1) + merge_with(immediate_just(2)) + subscribe",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 222.051986475063,
+            "medianAbsolutePercentError(elapsed)": 0.0195425643916102,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "immediate_just(1) + with_latest_from(immediate_just(2)) + subscribe",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 260.692328692329,
+            "medianAbsolutePercentError(elapsed)": 0.0647556443719718,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "immediate_just(immediate_just(1),immediate_just(1)) + switch_on_next() + subscribe",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 587.218649517685,
+            "medianAbsolutePercentError(elapsed)": 0.0476554078846148,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "immediate_just(1) + zip(immediate_just(2)) + subscribe",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 319.457886178862,
+            "medianAbsolutePercentError(elapsed)": 0.043460543313688,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Conditional Operators",
+            "name": "immediate_just+take_while(false)+subscribe",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 0.0,
+            "medianAbsolutePercentError(elapsed)": 0,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Conditional Operators",
+            "name": "immediate_just+take_while(true)+subscribe",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 0.37524555929603803,
+            "medianAbsolutePercentError(elapsed)": 0.0702616965631394,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "immediate_just+map(v*2)+subscribe",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 3.02549959125013,
+            "medianAbsolutePercentError(elapsed)": 0.0309552122885416,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "immediate_just+scan(10, std::plus)+subscribe",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 0.438438716342953,
+            "medianAbsolutePercentError(elapsed)": 0.178867606498328,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "immediate_just+flat_map(immediate_just(v*2))+subscribe",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 337.555666666667,
+            "medianAbsolutePercentError(elapsed)": 0.12211125486491,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "immediate_just+buffer(2)+subscribe",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 47.165820642978,
+            "medianAbsolutePercentError(elapsed)": 0.113860672330541,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "immediate_just+window(2)+subscribe + subscsribe inner",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 1270.00295420975,
+            "medianAbsolutePercentError(elapsed)": 0.071218247768211,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "immediate_just+take(1)+subscribe",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 0.384353572724425,
+            "medianAbsolutePercentError(elapsed)": 0.0587827054008115,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "immediate_just+take_last(1)+subscribe",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 0.395733603436269,
+            "medianAbsolutePercentError(elapsed)": 0.0742037906990046,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "immediate_just+filter(true)+subscribe",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 0.47091369459791804,
+            "medianAbsolutePercentError(elapsed)": 0.0611314332107103,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "immediate_just(1,2)+first()+subscribe",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 0.405184740244277,
+            "medianAbsolutePercentError(elapsed)": 0.11064414314351,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "immediate_just(1,2)+last()+subscribe",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 1.35247735572343,
+            "medianAbsolutePercentError(elapsed)": 0.0471727500470566,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "immediate_just(1,2)+skip(1)+subscribe",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 0.465003230077458,
+            "medianAbsolutePercentError(elapsed)": 0.0785088427780262,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "immediate_just(1,1,2)+distinct_until_changed()+subscribe",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 0.456323983970002,
+            "medianAbsolutePercentError(elapsed)": 0.141913048579466,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "immediate_just(1,2,3)+element_at(1)+subscribe",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 0.39371584677377,
+            "medianAbsolutePercentError(elapsed)": 0.087994175541494,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Utility Operators",
+            "name": "immediate_just(1)+subscribe_on(immediate)+subscribe",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 2.16834259070705,
+            "medianAbsolutePercentError(elapsed)": 0.111752959371127,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Aggregating Operators",
+            "name": "immediate_just+reduce(10, std::plus)+subscribe",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 0.37214666139273,
+            "medianAbsolutePercentError(elapsed)": 0.0565867005995855,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Error Handling Operators",
+            "name": "create(on_next(1), on_error())+on_error_resume_next(immediate_just(2)))+subscribe",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 4124.19871794872,
+            "medianAbsolutePercentError(elapsed)": 0.243726995762581,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Error Handling Operators",
+            "name": "create(on_error())+retry(1)+subscribe",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 210.440414507772,
+            "medianAbsolutePercentError(elapsed)": 0.0518261959667398,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Subjects",
+            "name": "publish_subject with 1 observer - on_next",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 25.3700530854141,
+            "medianAbsolutePercentError(elapsed)": 0.0632355889658034,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Subjects",
+            "name": "subscribe 100 observers to publish_subject",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 18811.859375,
+            "medianAbsolutePercentError(elapsed)": 0.014904929375287,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Subjects",
+            "name": "100 on_next to 100 observers to publish_subject",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 12154.083333333301,
+            "medianAbsolutePercentError(elapsed)": 0.00817347476858135,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Scenarios",
+            "name": "basic sample",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 30.447329622386004,
+            "medianAbsolutePercentError(elapsed)": 0.0127558070353489,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Scenarios",
+            "name": "basic sample with immediate scheduler",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 9.582965439218789,
+            "medianAbsolutePercentError(elapsed)": 0.0114968924485964,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Scenarios",
+            "name": "mix operators with disposables and without disposables",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 1942.6971428571399,
+            "medianAbsolutePercentError(elapsed)": 0.0595986935262113,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Scenarios",
+            "name": "single disposable and looooooong indentity chain",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 4205.729166666671,
+            "medianAbsolutePercentError(elapsed)": 0.0262387466334834,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "General",
+            "name": "Subscribe empty callbacks to empty observable",
+            "source": "rpp",
+            "median(elapsed)": 0.565636534586971,
+            "medianAbsolutePercentError(elapsed)": 0.0739306129957109,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "General",
+            "name": "Subscribe empty callbacks to empty observable",
+            "source": "rxcpp",
+            "median(elapsed)": 607.425355450237,
+            "medianAbsolutePercentError(elapsed)": 0.0858213071955607,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "General",
+            "name": "Subscribe empty callbacks to empty observable via pipe operator",
+            "source": "rpp",
+            "median(elapsed)": 0.560306184397921,
+            "medianAbsolutePercentError(elapsed)": 0.0567158501127905,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "General",
+            "name": "Subscribe empty callbacks to empty observable via pipe operator",
+            "source": "rxcpp",
+            "median(elapsed)": 426.974664679583,
+            "medianAbsolutePercentError(elapsed)": 0.0639220279315049,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Sources",
+            "name": "from array of 1 - create + subscribe + immediate",
+            "source": "rpp",
+            "median(elapsed)": 0.398426256335973,
+            "medianAbsolutePercentError(elapsed)": 0.121396315807741,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Sources",
+            "name": "from array of 1 - create + subscribe + immediate",
+            "source": "rxcpp",
+            "median(elapsed)": 928.425589836661,
+            "medianAbsolutePercentError(elapsed)": 0.0216807888282416,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Sources",
+            "name": "from array of 1 - create + subscribe + current_thread",
+            "source": "rpp",
+            "median(elapsed)": 4.2784013221033605,
+            "medianAbsolutePercentError(elapsed)": 0.0158839770199303,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Sources",
+            "name": "from array of 1 - create + subscribe + current_thread",
+            "source": "rxcpp",
+            "median(elapsed)": 1168.50496141125,
+            "medianAbsolutePercentError(elapsed)": 0.0153898815837649,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Sources",
+            "name": "from array of 1 - create + as_blocking + subscribe + new_thread",
+            "source": "rpp",
+            "median(elapsed)": 29177.358974359,
+            "medianAbsolutePercentError(elapsed)": 0.0401365191383541,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Sources",
+            "name": "from array of 1 - create + as_blocking + subscribe + new_thread",
+            "source": "rxcpp",
+            "median(elapsed)": 32152.7878787879,
+            "medianAbsolutePercentError(elapsed)": 0.0217879714989259,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Sources",
+            "name": "from array of 1000 - create + as_blocking + subscribe + new_thread",
+            "source": "rpp",
+            "median(elapsed)": 44271.7391304348,
+            "medianAbsolutePercentError(elapsed)": 0.151783646054209,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Sources",
+            "name": "from array of 1000 - create + as_blocking + subscribe + new_thread",
+            "source": "rxcpp",
+            "median(elapsed)": 55962.785714285696,
+            "medianAbsolutePercentError(elapsed)": 0.153831342693862,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Sources",
+            "name": "concat_as_source of just(1 immediate) create + subscribe",
+            "source": "rpp",
+            "median(elapsed)": 201.862908011869,
+            "medianAbsolutePercentError(elapsed)": 0.0603221156878759,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Sources",
+            "name": "concat_as_source of just(1 immediate) create + subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 2465.46007604563,
+            "medianAbsolutePercentError(elapsed)": 0.0444909552281773,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Sources",
+            "name": "concat_as_source of just(1 immediate) and just(1,2 immediate)create + subscribe",
+            "source": "rpp",
+            "median(elapsed)": 197.74957352439398,
+            "medianAbsolutePercentError(elapsed)": 0.0180973823289595,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Sources",
+            "name": "concat_as_source of just(1 immediate) and just(1,2 immediate)create + subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 3754.27756653992,
+            "medianAbsolutePercentError(elapsed)": 0.0388548882754309,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Sources",
+            "name": "defer from array of 1 - defer + create + subscribe + immediate",
+            "source": "rpp",
+            "median(elapsed)": 0.386881895014569,
+            "medianAbsolutePercentError(elapsed)": 0.0555783506187989,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Sources",
+            "name": "defer from array of 1 - defer + create + subscribe + immediate",
+            "source": "rxcpp",
+            "median(elapsed)": 920.529252925292,
+            "medianAbsolutePercentError(elapsed)": 0.0337764246152206,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Sources",
+            "name": "interval - interval + take(3) + subscribe + immediate",
+            "source": "rpp",
+            "median(elapsed)": 56.2032664305392,
+            "medianAbsolutePercentError(elapsed)": 0.0135953248175954,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Sources",
+            "name": "interval - interval + take(3) + subscribe + immediate",
+            "source": "rxcpp",
+            "median(elapsed)": 2347.91144708423,
+            "medianAbsolutePercentError(elapsed)": 0.0117260029136276,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Sources",
+            "name": "interval - interval + take(3) + subscribe + current_thread",
+            "source": "rpp",
+            "median(elapsed)": 33.0521697889495,
+            "medianAbsolutePercentError(elapsed)": 0.0183747640355014,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Sources",
+            "name": "interval - interval + take(3) + subscribe + current_thread",
+            "source": "rxcpp",
+            "median(elapsed)": 2616.3793103448297,
+            "medianAbsolutePercentError(elapsed)": 0.013538444831706,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "immediate scheduler create worker + schedule",
+            "source": "rpp",
+            "median(elapsed)": 0.48778050354631497,
+            "medianAbsolutePercentError(elapsed)": 0.00669971837180473,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "immediate scheduler create worker + schedule",
+            "source": "rxcpp",
+            "median(elapsed)": 302.30851347744897,
+            "medianAbsolutePercentError(elapsed)": 0.0361884869050845,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "current_thread scheduler create worker + schedule",
+            "source": "rpp",
+            "median(elapsed)": 3.91453291649424,
+            "medianAbsolutePercentError(elapsed)": 0.00792334446282507,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "current_thread scheduler create worker + schedule",
+            "source": "rxcpp",
+            "median(elapsed)": 436.257249378625,
+            "medianAbsolutePercentError(elapsed)": 0.0150070159972438,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "current_thread scheduler create worker + schedule + recursive schedule",
+            "source": "rpp",
+            "median(elapsed)": 62.5241739130435,
+            "medianAbsolutePercentError(elapsed)": 0.0071398444232644,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "current_thread scheduler create worker + schedule + recursive schedule",
+            "source": "rxcpp",
+            "median(elapsed)": 730.621917808219,
+            "medianAbsolutePercentError(elapsed)": 0.00414165882938427,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "immediate_just(immediate_just(1), immediate_just(1)) + merge() + subscribe",
+            "source": "rpp",
+            "median(elapsed)": 227.154886056392,
+            "medianAbsolutePercentError(elapsed)": 0.045024716297694,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "immediate_just(immediate_just(1), immediate_just(1)) + merge() + subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 3074.72861356932,
+            "medianAbsolutePercentError(elapsed)": 0.00670275330206829,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "immediate_just(immediate_just(1), immediate_just(1)) + concat() + subscribe",
+            "source": "rpp",
+            "median(elapsed)": 325.023595505618,
+            "medianAbsolutePercentError(elapsed)": 0.0123409491540763,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "immediate_just(immediate_just(1), immediate_just(1)) + concat() + subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 2963.15424164524,
+            "medianAbsolutePercentError(elapsed)": 0.00617627773593666,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "immediate_just(1) + merge_with(immediate_just(2)) + subscribe",
+            "source": "rpp",
+            "median(elapsed)": 209.123802223074,
+            "medianAbsolutePercentError(elapsed)": 0.0175468950646745,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "immediate_just(1) + merge_with(immediate_just(2)) + subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 3659.9264705882397,
+            "medianAbsolutePercentError(elapsed)": 0.0905573117054901,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "immediate_just(1) + with_latest_from(immediate_just(2)) + subscribe",
+            "source": "rpp",
+            "median(elapsed)": 252.166666666667,
+            "medianAbsolutePercentError(elapsed)": 0.0837944444444443,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "immediate_just(immediate_just(1),immediate_just(1)) + switch_on_next() + subscribe",
+            "source": "rpp",
+            "median(elapsed)": 583.887534626039,
+            "medianAbsolutePercentError(elapsed)": 0.0410910769756988,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "immediate_just(immediate_just(1),immediate_just(1)) + switch_on_next() + subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 3772.1119133573998,
+            "medianAbsolutePercentError(elapsed)": 0.0352510307989124,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "immediate_just(1) + zip(immediate_just(2)) + subscribe",
+            "source": "rpp",
+            "median(elapsed)": 320.99737704918,
+            "medianAbsolutePercentError(elapsed)": 0.0501087787085657,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "immediate_just(1) + zip(immediate_just(2)) + subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 2517.1046831955896,
+            "medianAbsolutePercentError(elapsed)": 0.141243644975866,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Conditional Operators",
+            "name": "immediate_just+take_while(false)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.0,
+            "medianAbsolutePercentError(elapsed)": 0,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Conditional Operators",
+            "name": "immediate_just+take_while(false)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 940.837937384899,
+            "medianAbsolutePercentError(elapsed)": 0.0398458770979271,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Conditional Operators",
+            "name": "immediate_just+take_while(true)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.352272723244622,
+            "medianAbsolutePercentError(elapsed)": 0.0392604878303811,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Conditional Operators",
+            "name": "immediate_just+take_while(true)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 968.194759825328,
+            "medianAbsolutePercentError(elapsed)": 0.0502563990330803,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "immediate_just+map(v*2)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 2.92451308989001,
+            "medianAbsolutePercentError(elapsed)": 0.035392766535661,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "immediate_just+map(v*2)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 977.392890551918,
+            "medianAbsolutePercentError(elapsed)": 0.037719754660751,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "immediate_just+scan(10, std::plus)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.35320232125190704,
+            "medianAbsolutePercentError(elapsed)": 0.0146826961121556,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "immediate_just+scan(10, std::plus)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 1143.3467078189299,
+            "medianAbsolutePercentError(elapsed)": 0.0424266902355015,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "immediate_just+flat_map(immediate_just(v*2))+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 218.185626512754,
+            "medianAbsolutePercentError(elapsed)": 0.0415576688392343,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "immediate_just+flat_map(immediate_just(v*2))+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 2375.5307855626297,
+            "medianAbsolutePercentError(elapsed)": 0.027791895177996,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "immediate_just+buffer(2)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 17.6996948742485,
+            "medianAbsolutePercentError(elapsed)": 0.0104713754296336,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "immediate_just+buffer(2)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 1169.12553648069,
+            "medianAbsolutePercentError(elapsed)": 0.00842030833383124,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "immediate_just+window(2)+subscribe + subscsribe inner",
+            "source": "rpp",
+            "median(elapsed)": 1149.28121827411,
+            "medianAbsolutePercentError(elapsed)": 0.0453898619304904,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "immediate_just+window(2)+subscribe + subscsribe inner",
+            "source": "rxcpp",
+            "median(elapsed)": 2435.94398340249,
+            "medianAbsolutePercentError(elapsed)": 0.0151334821021742,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "immediate_just+take(1)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.349931298744025,
+            "medianAbsolutePercentError(elapsed)": 0.014277045668207,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "immediate_just+take(1)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 1256.1554575523699,
+            "medianAbsolutePercentError(elapsed)": 0.0311175631224543,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "immediate_just+take_last(1)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.353379867018221,
+            "medianAbsolutePercentError(elapsed)": 0.00987348618302053,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "immediate_just+take_last(1)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 1342.17890520694,
+            "medianAbsolutePercentError(elapsed)": 0.0166560253593796,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "immediate_just+filter(true)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.351596018314861,
+            "medianAbsolutePercentError(elapsed)": 0.019090952245322,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "immediate_just+filter(true)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 914.898746383799,
+            "medianAbsolutePercentError(elapsed)": 0.0525508336575421,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "immediate_just(1,2)+first()+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.325052424292467,
+            "medianAbsolutePercentError(elapsed)": 0.00448326320045814,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "immediate_just(1,2)+first()+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 1388.5519568151099,
+            "medianAbsolutePercentError(elapsed)": 0.00800636677167752,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "immediate_just(1,2)+last()+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.548206307080228,
+            "medianAbsolutePercentError(elapsed)": 0.00364032788716392,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "immediate_just(1,2)+last()+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 1037.95004460303,
+            "medianAbsolutePercentError(elapsed)": 0.00557753431416867,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "immediate_just(1,2)+skip(1)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.325320864964431,
+            "medianAbsolutePercentError(elapsed)": 0.00709892536019365,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "immediate_just(1,2)+skip(1)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 1096.5835117773,
+            "medianAbsolutePercentError(elapsed)": 0.00456058432150824,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "immediate_just(1,1,2)+distinct_until_changed()+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.32531253291289897,
+            "medianAbsolutePercentError(elapsed)": 0.00709574491475016,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "immediate_just(1,1,2)+distinct_until_changed()+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 911.163120567376,
+            "medianAbsolutePercentError(elapsed)": 0.0100032551763661,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "immediate_just(1,2,3)+element_at(1)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.325056291354286,
+            "medianAbsolutePercentError(elapsed)": 0.00381020942516382,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "immediate_just(1,2,3)+element_at(1)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 866.482612383376,
+            "medianAbsolutePercentError(elapsed)": 0.00980067725407058,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Utility Operators",
+            "name": "immediate_just(1)+subscribe_on(immediate)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 1.95765706083692,
+            "medianAbsolutePercentError(elapsed)": 0.0584695492672053,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Utility Operators",
+            "name": "immediate_just(1)+subscribe_on(immediate)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 1924.83108108108,
+            "medianAbsolutePercentError(elapsed)": 0.0125419537184242,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Aggregating Operators",
+            "name": "immediate_just+reduce(10, std::plus)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.325047939516039,
+            "medianAbsolutePercentError(elapsed)": 0.00620881904095757,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Aggregating Operators",
+            "name": "immediate_just+reduce(10, std::plus)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 1022.3750000000001,
+            "medianAbsolutePercentError(elapsed)": 0.00518100913988158,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Error Handling Operators",
+            "name": "create(on_next(1), on_error())+on_error_resume_next(immediate_just(2)))+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 2940.5737704917997,
+            "medianAbsolutePercentError(elapsed)": 0.00342543010841762,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Error Handling Operators",
+            "name": "create(on_next(1), on_error())+on_error_resume_next(immediate_just(2)))+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 3790.89259259259,
+            "medianAbsolutePercentError(elapsed)": 0.00415494630173613,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Error Handling Operators",
+            "name": "create(on_error())+retry(1)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 179.76808286516902,
+            "medianAbsolutePercentError(elapsed)": 0.00417310965232181,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Error Handling Operators",
+            "name": "create(on_error())+retry(1)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 807.6681580909769,
+            "medianAbsolutePercentError(elapsed)": 0.0179468337583153,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Subjects",
+            "name": "publish_subject with 1 observer - on_next",
+            "source": "rpp",
+            "median(elapsed)": 21.280553664624502,
+            "medianAbsolutePercentError(elapsed)": 0.0136786131564376,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Subjects",
+            "name": "publish_subject with 1 observer - on_next",
+            "source": "rxcpp",
+            "median(elapsed)": 44.6083748675484,
+            "medianAbsolutePercentError(elapsed)": 0.00279036512854517,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Subjects",
+            "name": "subscribe 100 observers to publish_subject",
+            "source": "rpp",
+            "median(elapsed)": 16694.0,
+            "medianAbsolutePercentError(elapsed)": 0.0052254024870473,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Subjects",
+            "name": "subscribe 100 observers to publish_subject",
+            "source": "rxcpp",
+            "median(elapsed)": 132546.875,
+            "medianAbsolutePercentError(elapsed)": 0.00587194065894405,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Subjects",
+            "name": "100 on_next to 100 observers to publish_subject",
+            "source": "rpp",
+            "median(elapsed)": 11737.9032258065,
+            "medianAbsolutePercentError(elapsed)": 0.0351958054727722,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Subjects",
+            "name": "100 on_next to 100 observers to publish_subject",
+            "source": "rxcpp",
+            "median(elapsed)": 33590.3,
+            "medianAbsolutePercentError(elapsed)": 0.0853786997544268,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Scenarios",
+            "name": "basic sample",
+            "source": "rpp",
+            "median(elapsed)": 10.395406313847001,
+            "medianAbsolutePercentError(elapsed)": 0.00144864920609778,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Scenarios",
+            "name": "basic sample",
+            "source": "rxcpp",
+            "median(elapsed)": 1241.64685314685,
+            "medianAbsolutePercentError(elapsed)": 0.0201051588254236,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Scenarios",
+            "name": "basic sample with immediate scheduler",
+            "source": "rpp",
+            "median(elapsed)": 5.59711806003427,
+            "medianAbsolutePercentError(elapsed)": 0.0401687429708116,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Scenarios",
+            "name": "basic sample with immediate scheduler",
+            "source": "rxcpp",
+            "median(elapsed)": 1279.4319148936202,
+            "medianAbsolutePercentError(elapsed)": 0.0116073090134923,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Scenarios",
+            "name": "mix operators with disposables and without disposables",
+            "source": "rpp",
+            "median(elapsed)": 2045.6956521739098,
+            "medianAbsolutePercentError(elapsed)": 0.131950606195403,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Scenarios",
+            "name": "mix operators with disposables and without disposables",
+            "source": "rxcpp",
+            "median(elapsed)": 8865.53409090909,
+            "medianAbsolutePercentError(elapsed)": 0.124339951961569,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Scenarios",
+            "name": "single disposable and looooooong indentity chain",
+            "source": "rpp",
+            "median(elapsed)": 1716.80217785844,
+            "medianAbsolutePercentError(elapsed)": 0.0123035533772029,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Scenarios",
+            "name": "single disposable and looooooong indentity chain",
+            "source": "rxcpp",
+            "median(elapsed)": 18814.575,
+            "medianAbsolutePercentError(elapsed)": 0.154858823529412,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
         }
     ],
     "ci-ubuntu-clang": [
@@ -721281,6 +723747,1239 @@
             "medianAbsolutePercentError(elapsed)": 0.00186950618917869,
             "commit": "31634838",
             "commit_message": "share operator (#757)"
+        },
+        {
+            "title": "General",
+            "name": "Subscribe empty callbacks to empty observable",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 1.56757324819764,
+            "medianAbsolutePercentError(elapsed)": 0.00828441109740393,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "General",
+            "name": "Subscribe empty callbacks to empty observable via pipe operator",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 1.55535269531142,
+            "medianAbsolutePercentError(elapsed)": 0.00106559753912153,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Sources",
+            "name": "from array of 1 - create + subscribe + immediate",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 0.310815468540585,
+            "medianAbsolutePercentError(elapsed)": 0.000847751700634431,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Sources",
+            "name": "from array of 1 - create + subscribe + current_thread",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 4.0457850835075,
+            "medianAbsolutePercentError(elapsed)": 0.00100268586899164,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Sources",
+            "name": "from array of 1 - create + as_blocking + subscribe + new_thread",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 35032.6896551724,
+            "medianAbsolutePercentError(elapsed)": 0.0277345433833048,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Sources",
+            "name": "from array of 1000 - create + as_blocking + subscribe + new_thread",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 43330.230769230795,
+            "medianAbsolutePercentError(elapsed)": 0.0273638269454983,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Sources",
+            "name": "concat_as_source of just(1 immediate) create + subscribe",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 140.311967492463,
+            "medianAbsolutePercentError(elapsed)": 0.00546952705644141,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Sources",
+            "name": "concat_as_source of just(1 immediate) and just(1,2 immediate)create + subscribe",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 149.32768028314402,
+            "medianAbsolutePercentError(elapsed)": 0.00132768247731307,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Sources",
+            "name": "defer from array of 1 - defer + create + subscribe + immediate",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 0.31094177643885296,
+            "medianAbsolutePercentError(elapsed)": 0.00104941121546274,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Sources",
+            "name": "interval - interval + take(3) + subscribe + immediate",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 58.7441048534799,
+            "medianAbsolutePercentError(elapsed)": 0.00087870599414697,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Sources",
+            "name": "interval - interval + take(3) + subscribe + current_thread",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 31.728346090675302,
+            "medianAbsolutePercentError(elapsed)": 0.000570515037403215,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "immediate scheduler create worker + schedule",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 0.640597114375289,
+            "medianAbsolutePercentError(elapsed)": 0.00298966452321262,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "current_thread scheduler create worker + schedule",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 4.35471963219002,
+            "medianAbsolutePercentError(elapsed)": 0.000434331446257522,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "current_thread scheduler create worker + schedule + recursive schedule",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 56.010793990372896,
+            "medianAbsolutePercentError(elapsed)": 0.00171382846302924,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "immediate_just(immediate_just(1), immediate_just(1)) + merge() + subscribe",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 156.665820895522,
+            "medianAbsolutePercentError(elapsed)": 0.0018842655803072,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "immediate_just(immediate_just(1), immediate_just(1)) + concat() + subscribe",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 226.17556561086,
+            "medianAbsolutePercentError(elapsed)": 0.00485388302508394,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "immediate_just(1) + merge_with(immediate_just(2)) + subscribe",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 141.357540345019,
+            "medianAbsolutePercentError(elapsed)": 0.00227567400891192,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "immediate_just(1) + with_latest_from(immediate_just(2)) + subscribe",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 137.689447469014,
+            "medianAbsolutePercentError(elapsed)": 0.000848124053919587,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "immediate_just(immediate_just(1),immediate_just(1)) + switch_on_next() + subscribe",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 379.102537365311,
+            "medianAbsolutePercentError(elapsed)": 0.000770856531574943,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "immediate_just(1) + zip(immediate_just(2)) + subscribe",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 199.227865343452,
+            "medianAbsolutePercentError(elapsed)": 0.00601373008550617,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Conditional Operators",
+            "name": "immediate_just+take_while(false)+subscribe",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 0.0,
+            "medianAbsolutePercentError(elapsed)": 0,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Conditional Operators",
+            "name": "immediate_just+take_while(true)+subscribe",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 0.311004676942815,
+            "medianAbsolutePercentError(elapsed)": 0.000975072329649695,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "immediate_just+map(v*2)+subscribe",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 0.311744844654192,
+            "medianAbsolutePercentError(elapsed)": 0.00320246739528363,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "immediate_just+scan(10, std::plus)+subscribe",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 0.317762597898374,
+            "medianAbsolutePercentError(elapsed)": 0.0102608963500974,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "immediate_just+flat_map(immediate_just(v*2))+subscribe",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 136.50411710887502,
+            "medianAbsolutePercentError(elapsed)": 0.000810571291462281,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "immediate_just+buffer(2)+subscribe",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 14.633970186856999,
+            "medianAbsolutePercentError(elapsed)": 0.00128364759953568,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "immediate_just+window(2)+subscribe + subscsribe inner",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 911.170382165605,
+            "medianAbsolutePercentError(elapsed)": 0.00203357780322809,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "immediate_just+take(1)+subscribe",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 0.311144307090595,
+            "medianAbsolutePercentError(elapsed)": 0.00192761764002939,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "immediate_just+take_last(1)+subscribe",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 0.3108245012115,
+            "medianAbsolutePercentError(elapsed)": 0.000835003381446702,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "immediate_just+filter(true)+subscribe",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 0.310764433506009,
+            "medianAbsolutePercentError(elapsed)": 0.000647749001294095,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "immediate_just(1,2)+first()+subscribe",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 0.31081600026146,
+            "medianAbsolutePercentError(elapsed)": 0.000776353344601671,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "immediate_just(1,2)+last()+subscribe",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 0.310965306002904,
+            "medianAbsolutePercentError(elapsed)": 0.00137070773493268,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "immediate_just(1,2)+skip(1)+subscribe",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 0.31106757736519597,
+            "medianAbsolutePercentError(elapsed)": 0.00118832543742104,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "immediate_just(1,1,2)+distinct_until_changed()+subscribe",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 0.33710780244504196,
+            "medianAbsolutePercentError(elapsed)": 0.0254880787083173,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "immediate_just(1,2,3)+element_at(1)+subscribe",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 0.31085147762172,
+            "medianAbsolutePercentError(elapsed)": 0.00106452319674918,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Utility Operators",
+            "name": "immediate_just(1)+subscribe_on(immediate)+subscribe",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 0.310911282474216,
+            "medianAbsolutePercentError(elapsed)": 0.000660134459023459,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Aggregating Operators",
+            "name": "immediate_just+reduce(10, std::plus)+subscribe",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 0.311022277375239,
+            "medianAbsolutePercentError(elapsed)": 0.00147576164312026,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Error Handling Operators",
+            "name": "create(on_next(1), on_error())+on_error_resume_next(immediate_just(2)))+subscribe",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 1194.09355509356,
+            "medianAbsolutePercentError(elapsed)": 0.00497725020531054,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Error Handling Operators",
+            "name": "create(on_error())+retry(1)+subscribe",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 147.191839047889,
+            "medianAbsolutePercentError(elapsed)": 0.00412530445137321,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Subjects",
+            "name": "publish_subject with 1 observer - on_next",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 22.7473104056437,
+            "medianAbsolutePercentError(elapsed)": 0.00112808205269557,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Subjects",
+            "name": "subscribe 100 observers to publish_subject",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 17564.3620689655,
+            "medianAbsolutePercentError(elapsed)": 0.00123758679212507,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Subjects",
+            "name": "100 on_next to 100 observers to publish_subject",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 20276.7547169811,
+            "medianAbsolutePercentError(elapsed)": 0.000509847303668461,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Scenarios",
+            "name": "basic sample",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 21.4781917675934,
+            "medianAbsolutePercentError(elapsed)": 0.000765811473249421,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Scenarios",
+            "name": "basic sample with immediate scheduler",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 6.5275254397003,
+            "medianAbsolutePercentError(elapsed)": 0.00090530370916919,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Scenarios",
+            "name": "mix operators with disposables and without disposables",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 1498.80945757997,
+            "medianAbsolutePercentError(elapsed)": 0.00466550550202646,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Scenarios",
+            "name": "single disposable and looooooong indentity chain",
+            "source": "rpp (Optimizations disabled)",
+            "median(elapsed)": 4664.11061946903,
+            "medianAbsolutePercentError(elapsed)": 0.00367288801266803,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "General",
+            "name": "Subscribe empty callbacks to empty observable",
+            "source": "rpp",
+            "median(elapsed)": 1.55511287279243,
+            "medianAbsolutePercentError(elapsed)": 0.00156814975779167,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "General",
+            "name": "Subscribe empty callbacks to empty observable",
+            "source": "rxcpp",
+            "median(elapsed)": 268.882101893838,
+            "medianAbsolutePercentError(elapsed)": 0.00374164795146896,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "General",
+            "name": "Subscribe empty callbacks to empty observable via pipe operator",
+            "source": "rpp",
+            "median(elapsed)": 1.55394732651826,
+            "medianAbsolutePercentError(elapsed)": 0.000499923362493285,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "General",
+            "name": "Subscribe empty callbacks to empty observable via pipe operator",
+            "source": "rxcpp",
+            "median(elapsed)": 270.06540880503104,
+            "medianAbsolutePercentError(elapsed)": 0.00228682991092038,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Sources",
+            "name": "from array of 1 - create + subscribe + immediate",
+            "source": "rpp",
+            "median(elapsed)": 0.310988135651877,
+            "medianAbsolutePercentError(elapsed)": 0.0011932257732662,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Sources",
+            "name": "from array of 1 - create + subscribe + immediate",
+            "source": "rxcpp",
+            "median(elapsed)": 568.92158808933,
+            "medianAbsolutePercentError(elapsed)": 0.00219017744720522,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Sources",
+            "name": "from array of 1 - create + subscribe + current_thread",
+            "source": "rpp",
+            "median(elapsed)": 4.04206563347567,
+            "medianAbsolutePercentError(elapsed)": 0.000470704074184919,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Sources",
+            "name": "from array of 1 - create + subscribe + current_thread",
+            "source": "rxcpp",
+            "median(elapsed)": 797.0598469032709,
+            "medianAbsolutePercentError(elapsed)": 0.00258920959968951,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Sources",
+            "name": "from array of 1 - create + as_blocking + subscribe + new_thread",
+            "source": "rpp",
+            "median(elapsed)": 33403.147058823495,
+            "medianAbsolutePercentError(elapsed)": 0.00798109906117228,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Sources",
+            "name": "from array of 1 - create + as_blocking + subscribe + new_thread",
+            "source": "rxcpp",
+            "median(elapsed)": 37524.26666666671,
+            "medianAbsolutePercentError(elapsed)": 0.0169615115997263,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Sources",
+            "name": "from array of 1000 - create + as_blocking + subscribe + new_thread",
+            "source": "rpp",
+            "median(elapsed)": 40360.4,
+            "medianAbsolutePercentError(elapsed)": 0.0167518390026919,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Sources",
+            "name": "from array of 1000 - create + as_blocking + subscribe + new_thread",
+            "source": "rxcpp",
+            "median(elapsed)": 44627.2,
+            "medianAbsolutePercentError(elapsed)": 0.0220400262473724,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Sources",
+            "name": "concat_as_source of just(1 immediate) create + subscribe",
+            "source": "rpp",
+            "median(elapsed)": 132.044657097289,
+            "medianAbsolutePercentError(elapsed)": 0.00474173332903225,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Sources",
+            "name": "concat_as_source of just(1 immediate) create + subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 2359.48387096774,
+            "medianAbsolutePercentError(elapsed)": 0.00281973948900644,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Sources",
+            "name": "concat_as_source of just(1 immediate) and just(1,2 immediate)create + subscribe",
+            "source": "rpp",
+            "median(elapsed)": 150.154706430569,
+            "medianAbsolutePercentError(elapsed)": 0.00346339421837055,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Sources",
+            "name": "concat_as_source of just(1 immediate) and just(1,2 immediate)create + subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 3731.3768115942003,
+            "medianAbsolutePercentError(elapsed)": 0.00246760242667178,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Sources",
+            "name": "defer from array of 1 - defer + create + subscribe + immediate",
+            "source": "rpp",
+            "median(elapsed)": 0.310897187943099,
+            "medianAbsolutePercentError(elapsed)": 0.000564661993329541,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Sources",
+            "name": "defer from array of 1 - defer + create + subscribe + immediate",
+            "source": "rxcpp",
+            "median(elapsed)": 787.04347826087,
+            "medianAbsolutePercentError(elapsed)": 0.00334622405412763,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Sources",
+            "name": "interval - interval + take(3) + subscribe + immediate",
+            "source": "rpp",
+            "median(elapsed)": 58.7668411470187,
+            "medianAbsolutePercentError(elapsed)": 0.000616306426245108,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Sources",
+            "name": "interval - interval + take(3) + subscribe + immediate",
+            "source": "rxcpp",
+            "median(elapsed)": 2219.50192307692,
+            "medianAbsolutePercentError(elapsed)": 0.00211709078480707,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Sources",
+            "name": "interval - interval + take(3) + subscribe + current_thread",
+            "source": "rpp",
+            "median(elapsed)": 31.088727780137102,
+            "medianAbsolutePercentError(elapsed)": 0.000963953557476668,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Sources",
+            "name": "interval - interval + take(3) + subscribe + current_thread",
+            "source": "rxcpp",
+            "median(elapsed)": 3152.09009009009,
+            "medianAbsolutePercentError(elapsed)": 0.00157436220838622,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "immediate scheduler create worker + schedule",
+            "source": "rpp",
+            "median(elapsed)": 0.637928896615022,
+            "medianAbsolutePercentError(elapsed)": 0.000910701842703878,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "immediate scheduler create worker + schedule",
+            "source": "rxcpp",
+            "median(elapsed)": 284.140680790288,
+            "medianAbsolutePercentError(elapsed)": 0.00186660017986537,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "current_thread scheduler create worker + schedule",
+            "source": "rpp",
+            "median(elapsed)": 4.35110571423835,
+            "medianAbsolutePercentError(elapsed)": 0.000837254977389897,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "current_thread scheduler create worker + schedule",
+            "source": "rxcpp",
+            "median(elapsed)": 538.4788397527341,
+            "medianAbsolutePercentError(elapsed)": 0.00765099850971061,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "current_thread scheduler create worker + schedule + recursive schedule",
+            "source": "rpp",
+            "median(elapsed)": 59.2089975393174,
+            "medianAbsolutePercentError(elapsed)": 0.0134491825947239,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Schedulers",
+            "name": "current_thread scheduler create worker + schedule + recursive schedule",
+            "source": "rxcpp",
+            "median(elapsed)": 854.701793721973,
+            "medianAbsolutePercentError(elapsed)": 0.00217423832745377,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "immediate_just(immediate_just(1), immediate_just(1)) + merge() + subscribe",
+            "source": "rpp",
+            "median(elapsed)": 160.28690352311602,
+            "medianAbsolutePercentError(elapsed)": 0.00466719933050269,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "immediate_just(immediate_just(1), immediate_just(1)) + merge() + subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 3631.50156739812,
+            "medianAbsolutePercentError(elapsed)": 0.00497383949694655,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "immediate_just(immediate_just(1), immediate_just(1)) + concat() + subscribe",
+            "source": "rpp",
+            "median(elapsed)": 224.64023887973602,
+            "medianAbsolutePercentError(elapsed)": 0.00651223250041817,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "immediate_just(immediate_just(1), immediate_just(1)) + concat() + subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 3325.80844155844,
+            "medianAbsolutePercentError(elapsed)": 0.00151378981618139,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "immediate_just(1) + merge_with(immediate_just(2)) + subscribe",
+            "source": "rpp",
+            "median(elapsed)": 138.41756032171602,
+            "medianAbsolutePercentError(elapsed)": 0.00182255891467235,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "immediate_just(1) + merge_with(immediate_just(2)) + subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 3815.6545454545503,
+            "medianAbsolutePercentError(elapsed)": 0.00111325162422191,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "immediate_just(1) + with_latest_from(immediate_just(2)) + subscribe",
+            "source": "rpp",
+            "median(elapsed)": 143.255006675567,
+            "medianAbsolutePercentError(elapsed)": 0.00155875157893741,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "immediate_just(immediate_just(1),immediate_just(1)) + switch_on_next() + subscribe",
+            "source": "rpp",
+            "median(elapsed)": 381.372862859222,
+            "medianAbsolutePercentError(elapsed)": 0.000913202745002859,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "immediate_just(immediate_just(1),immediate_just(1)) + switch_on_next() + subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 3563.59692307692,
+            "medianAbsolutePercentError(elapsed)": 0.00643063373359359,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "immediate_just(1) + zip(immediate_just(2)) + subscribe",
+            "source": "rpp",
+            "median(elapsed)": 201.916029265048,
+            "medianAbsolutePercentError(elapsed)": 0.0179320264521974,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Combining Operators",
+            "name": "immediate_just(1) + zip(immediate_just(2)) + subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 2280.3922413793102,
+            "medianAbsolutePercentError(elapsed)": 0.00214381337548346,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Conditional Operators",
+            "name": "immediate_just+take_while(false)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.0,
+            "medianAbsolutePercentError(elapsed)": 0,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Conditional Operators",
+            "name": "immediate_just+take_while(false)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 856.544596912521,
+            "medianAbsolutePercentError(elapsed)": 0.00332414044971483,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Conditional Operators",
+            "name": "immediate_just+take_while(true)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.31096550747799,
+            "medianAbsolutePercentError(elapsed)": 0.000959075480019496,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Conditional Operators",
+            "name": "immediate_just+take_while(true)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 856.090641120118,
+            "medianAbsolutePercentError(elapsed)": 0.00311271414584113,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "immediate_just+map(v*2)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.311127779266006,
+            "medianAbsolutePercentError(elapsed)": 0.00119706774515449,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "immediate_just+map(v*2)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 851.516256938937,
+            "medianAbsolutePercentError(elapsed)": 0.00251710399911212,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "immediate_just+scan(10, std::plus)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.621632277327261,
+            "medianAbsolutePercentError(elapsed)": 0.000585437350385335,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "immediate_just+scan(10, std::plus)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 979.092228864218,
+            "medianAbsolutePercentError(elapsed)": 0.00157409583423792,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "immediate_just+flat_map(immediate_just(v*2))+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 137.433568225496,
+            "medianAbsolutePercentError(elapsed)": 0.00354410339013643,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "immediate_just+flat_map(immediate_just(v*2))+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 2273.2687747035598,
+            "medianAbsolutePercentError(elapsed)": 0.00130143198048415,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "immediate_just+buffer(2)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 14.646074497093199,
+            "medianAbsolutePercentError(elapsed)": 0.00285481790694858,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "immediate_just+buffer(2)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 1564.28951255539,
+            "medianAbsolutePercentError(elapsed)": 0.00288968503909135,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "immediate_just+window(2)+subscribe + subscsribe inner",
+            "source": "rpp",
+            "median(elapsed)": 906.698333333333,
+            "medianAbsolutePercentError(elapsed)": 0.00214100668936274,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Transforming Operators",
+            "name": "immediate_just+window(2)+subscribe + subscsribe inner",
+            "source": "rxcpp",
+            "median(elapsed)": 2485.0357142857097,
+            "medianAbsolutePercentError(elapsed)": 0.00250850724645378,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "immediate_just+take(1)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.311056208358974,
+            "medianAbsolutePercentError(elapsed)": 0.00165117696475185,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "immediate_just+take(1)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 1186.44138634047,
+            "medianAbsolutePercentError(elapsed)": 0.00263236284251611,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "immediate_just+take_last(1)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.311059283073591,
+            "medianAbsolutePercentError(elapsed)": 0.000925399916734085,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "immediate_just+take_last(1)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 1213.3360277136298,
+            "medianAbsolutePercentError(elapsed)": 0.0026124655374088,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "immediate_just+filter(true)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.31103088820748603,
+            "medianAbsolutePercentError(elapsed)": 0.000933643599571732,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "immediate_just+filter(true)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 854.849814126394,
+            "medianAbsolutePercentError(elapsed)": 0.00153608385012925,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "immediate_just(1,2)+first()+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.31090007821403604,
+            "medianAbsolutePercentError(elapsed)": 0.000744170471752839,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "immediate_just(1,2)+first()+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 1408.88797169811,
+            "medianAbsolutePercentError(elapsed)": 0.00122973967691842,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "immediate_just(1,2)+last()+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.310774140126039,
+            "medianAbsolutePercentError(elapsed)": 0.00059166398627129,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "immediate_just(1,2)+last()+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 1032.68444846293,
+            "medianAbsolutePercentError(elapsed)": 0.0025164839087493,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "immediate_just(1,2)+skip(1)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.311031056939237,
+            "medianAbsolutePercentError(elapsed)": 0.000458409705367189,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "immediate_just(1,2)+skip(1)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 1127.34182174339,
+            "medianAbsolutePercentError(elapsed)": 0.00126772334181638,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "immediate_just(1,1,2)+distinct_until_changed()+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.322280666666667,
+            "medianAbsolutePercentError(elapsed)": 0.0115537890789091,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "immediate_just(1,1,2)+distinct_until_changed()+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 884.144513137558,
+            "medianAbsolutePercentError(elapsed)": 0.00425778273052829,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "immediate_just(1,2,3)+element_at(1)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.310815200924583,
+            "medianAbsolutePercentError(elapsed)": 0.00079573972505075,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Filtering Operators",
+            "name": "immediate_just(1,2,3)+element_at(1)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 889.0842945874,
+            "medianAbsolutePercentError(elapsed)": 0.00804907873394475,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Utility Operators",
+            "name": "immediate_just(1)+subscribe_on(immediate)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.31115352404047497,
+            "medianAbsolutePercentError(elapsed)": 0.000728399544154129,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Utility Operators",
+            "name": "immediate_just(1)+subscribe_on(immediate)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 2112.01818181818,
+            "medianAbsolutePercentError(elapsed)": 0.001816301857198,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Aggregating Operators",
+            "name": "immediate_just+reduce(10, std::plus)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 0.310758103205375,
+            "medianAbsolutePercentError(elapsed)": 0.000751347173137665,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Aggregating Operators",
+            "name": "immediate_just+reduce(10, std::plus)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 1008.39670223084,
+            "medianAbsolutePercentError(elapsed)": 0.00512046322095256,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Error Handling Operators",
+            "name": "create(on_next(1), on_error())+on_error_resume_next(immediate_just(2)))+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 1190.0606361829,
+            "medianAbsolutePercentError(elapsed)": 0.004929420064574,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Error Handling Operators",
+            "name": "create(on_next(1), on_error())+on_error_resume_next(immediate_just(2)))+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 2223.14913957935,
+            "medianAbsolutePercentError(elapsed)": 0.00108188480811467,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Error Handling Operators",
+            "name": "create(on_error())+retry(1)+subscribe",
+            "source": "rpp",
+            "median(elapsed)": 138.661577951905,
+            "medianAbsolutePercentError(elapsed)": 0.000750033717848996,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Error Handling Operators",
+            "name": "create(on_error())+retry(1)+subscribe",
+            "source": "rxcpp",
+            "median(elapsed)": 670.194812680115,
+            "medianAbsolutePercentError(elapsed)": 0.0032292362403549,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Subjects",
+            "name": "publish_subject with 1 observer - on_next",
+            "source": "rpp",
+            "median(elapsed)": 19.9086106811146,
+            "medianAbsolutePercentError(elapsed)": 0.00320674059267986,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Subjects",
+            "name": "publish_subject with 1 observer - on_next",
+            "source": "rxcpp",
+            "median(elapsed)": 54.764089870525495,
+            "medianAbsolutePercentError(elapsed)": 0.000529678622521101,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Subjects",
+            "name": "subscribe 100 observers to publish_subject",
+            "source": "rpp",
+            "median(elapsed)": 17427.4838709677,
+            "medianAbsolutePercentError(elapsed)": 0.00133178464231189,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Subjects",
+            "name": "subscribe 100 observers to publish_subject",
+            "source": "rxcpp",
+            "median(elapsed)": 216561.6,
+            "medianAbsolutePercentError(elapsed)": 0.00277761405163265,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Subjects",
+            "name": "100 on_next to 100 observers to publish_subject",
+            "source": "rpp",
+            "median(elapsed)": 20257.927272727302,
+            "medianAbsolutePercentError(elapsed)": 0.000938598892014,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Subjects",
+            "name": "100 on_next to 100 observers to publish_subject",
+            "source": "rxcpp",
+            "median(elapsed)": 43022.5,
+            "medianAbsolutePercentError(elapsed)": 0.000700813408753057,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Scenarios",
+            "name": "basic sample",
+            "source": "rpp",
+            "median(elapsed)": 11.5157552266383,
+            "medianAbsolutePercentError(elapsed)": 0.000404945482445672,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Scenarios",
+            "name": "basic sample",
+            "source": "rxcpp",
+            "median(elapsed)": 1321.82038834951,
+            "medianAbsolutePercentError(elapsed)": 0.00370323207190346,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Scenarios",
+            "name": "basic sample with immediate scheduler",
+            "source": "rpp",
+            "median(elapsed)": 5.98122022380618,
+            "medianAbsolutePercentError(elapsed)": 0.00960149939843793,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Scenarios",
+            "name": "basic sample with immediate scheduler",
+            "source": "rxcpp",
+            "median(elapsed)": 1326.9104859335,
+            "medianAbsolutePercentError(elapsed)": 0.00245781624140887,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Scenarios",
+            "name": "mix operators with disposables and without disposables",
+            "source": "rpp",
+            "median(elapsed)": 1178.96555217832,
+            "medianAbsolutePercentError(elapsed)": 0.00153075833942385,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Scenarios",
+            "name": "mix operators with disposables and without disposables",
+            "source": "rxcpp",
+            "median(elapsed)": 6646.40804597701,
+            "medianAbsolutePercentError(elapsed)": 0.00277297382147025,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Scenarios",
+            "name": "single disposable and looooooong indentity chain",
+            "source": "rpp",
+            "median(elapsed)": 1255.88279301746,
+            "medianAbsolutePercentError(elapsed)": 0.00895897426673336,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
+        },
+        {
+            "title": "Scenarios",
+            "name": "single disposable and looooooong indentity chain",
+            "source": "rxcpp",
+            "median(elapsed)": 27881.184210526302,
+            "medianAbsolutePercentError(elapsed)": 0.00259043798678183,
+            "commit": "6037a515",
+            "commit_message": "schedulers: run_loop and new_thread re-arm the timer wait when an earlier schedulable is queued (#763)"
         }
     ],
     "ci-windows": [
